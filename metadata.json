@@ -1,0 +1,7 @@
+{
+  "name": "visit holy",
+  "description": "A premium guide for exploring Catholic holy sites and cathedrals across South Korea, featuring AI-powered pilgrimage planning and historical insights.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
