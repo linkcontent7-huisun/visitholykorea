@@ -5,6 +5,34 @@ import { EmotionTag, EMOTION_TAGS } from '../types';
 import { getRecommendedCourses, CourseCard } from '../services/courseMatchingService';
 import { useSettings } from '../contexts/SettingsContext';
 
+// 시/도 대략적 중심 좌표 — 출발지 기준 거리 정렬용 (행정구역 정밀 경계가 아닌 근사치)
+const REGIONS = [
+  '서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종',
+  '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주',
+] as const;
+type Region = (typeof REGIONS)[number];
+const REGION_COORDS: Record<Region, { lat: number; lng: number }> = {
+  서울: { lat: 37.5665, lng: 126.978 },
+  부산: { lat: 35.1796, lng: 129.0756 },
+  대구: { lat: 35.8714, lng: 128.6014 },
+  인천: { lat: 37.4563, lng: 126.7052 },
+  광주: { lat: 35.1595, lng: 126.8526 },
+  대전: { lat: 36.3504, lng: 127.3845 },
+  울산: { lat: 35.5384, lng: 129.3114 },
+  세종: { lat: 36.48, lng: 127.289 },
+  경기: { lat: 37.4138, lng: 127.5183 },
+  강원: { lat: 37.8228, lng: 128.1555 },
+  충북: { lat: 36.6357, lng: 127.4917 },
+  충남: { lat: 36.5184, lng: 126.8 },
+  전북: { lat: 35.7175, lng: 127.153 },
+  전남: { lat: 34.8161, lng: 126.463 },
+  경북: { lat: 36.4919, lng: 128.8889 },
+  경남: { lat: 35.4606, lng: 128.2132 },
+  제주: { lat: 33.4996, lng: 126.5312 },
+};
+
+type Gender = '여성' | '남성' | '응답 안 함';
+
 interface HealingQuizProps {
   isOpen: boolean;
   onClose: () => void;
@@ -63,14 +91,18 @@ const TIME_NOTE: Record<TimeBudget, string> = {
   '1박2일': '하룻밤 머물며 천천히 쉬어가세요.',
 };
 
-const TOTAL_QUESTIONS = 5;
+// 1=감정 2=관심사 3=출발지역 4=성별 5=참여방식 6=시간 7=자유텍스트
+const TOTAL_QUESTIONS = 7;
+const RESULT_STEP = TOTAL_QUESTIONS + 1;
 
 export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps) {
   const { wideView } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
-  const [step, setStep] = useState(0); // 0=intro, 1~5=질문, 6=결과
+  const [step, setStep] = useState(0); // 0=intro, 1~7=질문, 8=결과
   const [emotion, setEmotion] = useState<EmotionTag | null>(null);
   const [concern, setConcern] = useState<Concern | null>(null);
+  const [region, setRegion] = useState<Region | null>(null);
+  const [gender, setGender] = useState<Gender | null>(null);
   const [style, setStyle] = useState<Style | null>(null);
   const [timeBudget, setTimeBudget] = useState<TimeBudget | null>(null);
   const [note, setNote] = useState('');
@@ -83,6 +115,8 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
     setStep(0);
     setEmotion(null);
     setConcern(null);
+    setRegion(null);
+    setGender(null);
     setStyle(null);
     setTimeBudget(null);
     setNote('');
@@ -96,24 +130,27 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
 
   const goToResult = async () => {
     if (!emotion) return;
-    setStep(6);
+    setStep(RESULT_STEP);
     setResultLoading(true);
-    const courses = await getRecommendedCourses(emotion, undefined, 1);
+    const originCoords = region ? REGION_COORDS[region] : undefined;
+    const courses = await getRecommendedCourses(emotion, undefined, 1, originCoords);
     setResult(courses[0] ?? null);
     setResultLoading(false);
   };
 
-  const progress = step >= 1 && step <= TOTAL_QUESTIONS ? step / TOTAL_QUESTIONS : step === 6 ? 1 : 0;
+  const progress = step >= 1 && step <= TOTAL_QUESTIONS ? step / TOTAL_QUESTIONS : step === RESULT_STEP ? 1 : 0;
 
   const canProceed =
     step === 1 ? emotion != null :
     step === 2 ? concern != null :
-    step === 3 ? style != null :
-    step === 4 ? timeBudget != null :
-    true; // step 5(자유 텍스트)는 건너뛰어도 됨
+    step === 3 ? region != null :
+    step === 4 ? gender != null :
+    step === 5 ? style != null :
+    step === 6 ? timeBudget != null :
+    true; // step 7(자유 텍스트)는 건너뛰어도 됨
 
   const handleNext = () => {
-    if (step === 5) {
+    if (step === TOTAL_QUESTIONS) {
       goToResult();
     } else if (canProceed) {
       setStep(step + 1);
@@ -212,9 +249,54 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
             </motion.div>
           )}
 
-          {/* Q3: 참여 방식 */}
+          {/* Q3: 출발 지역 — 시간 맞춘 일정을 짜려면 출발지가 있어야 거리를 잴 수 있다 */}
           {step === 3 && (
-            <motion.div key="q3" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+            <motion.div key="q3-region" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+              <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">어디서<br />출발하세요?</h3>
+              <p className="text-xs text-app-text-muted mb-8">가까운 곳부터 안내해드릴게요</p>
+              <select
+                value={region ?? ''}
+                onChange={(e) => setRegion((e.target.value || null) as Region | null)}
+                className="w-full bg-app-bg rounded-[20px] p-5 text-sm font-bold text-app-text outline-none border border-app-border appearance-none"
+                id="quiz-region"
+              >
+                <option value="" disabled>
+                  지역을 선택해주세요
+                </option>
+                {REGIONS.map((r) => (
+                  <option key={r} value={r}>
+                    {r}
+                  </option>
+                ))}
+              </select>
+            </motion.div>
+          )}
+
+          {/* Q4: 성별 — 성별 특정 프로그램(피정 등) 안내 시 활용 */}
+          {step === 4 && (
+            <motion.div key="q4-gender" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+              <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">성별을<br />알려주시겠어요?</h3>
+              <p className="text-xs text-app-text-muted mb-8">일부 프로그램은 성별에 따라 참여 대상이 달라요</p>
+              <div className="space-y-3">
+                {(['여성', '남성', '응답 안 함'] as Gender[]).map((g) => (
+                  <button
+                    key={g}
+                    onClick={() => setGender(g)}
+                    className={`w-full p-5 rounded-[20px] border text-left font-bold text-sm transition-all ${
+                      gender === g ? 'border-brand-blue bg-brand-blue/5 text-brand-blue' : 'border-app-border bg-white text-app-text'
+                    }`}
+                    id={`quiz-gender-${g}`}
+                  >
+                    {g}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* Q5: 참여 방식 */}
+          {step === 5 && (
+            <motion.div key="q5-style" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
               <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">오늘은 어떤 게<br />더 필요하세요?</h3>
               <div className="grid grid-cols-2 gap-4">
                 {(
@@ -243,9 +325,9 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
             </motion.div>
           )}
 
-          {/* Q4: 시간 */}
-          {step === 4 && (
-            <motion.div key="q4" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+          {/* Q6: 시간 */}
+          {step === 6 && (
+            <motion.div key="q6-time" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
               <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">오늘 얼마나<br />시간을 낼 수 있으세요?</h3>
               <div className="space-y-3">
                 {TIME_BUDGETS.map((t) => (
@@ -264,9 +346,9 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
             </motion.div>
           )}
 
-          {/* Q5: 자유 텍스트 */}
-          {step === 5 && (
-            <motion.div key="q5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+          {/* Q7: 자유 텍스트 */}
+          {step === 7 && (
+            <motion.div key="q7-note" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
               <h3 className="text-xl font-extrabold text-app-text mb-4 tracking-tight">혹시 마음에 담아두고<br />싶은 말이 있다면 적어주세요</h3>
               <p className="text-xs text-app-text-muted mb-6">누구에게도 말 못했던 것도 괜찮아요. 건너뛰셔도 돼요.</p>
               <textarea
@@ -281,7 +363,7 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
           )}
 
           {/* 결과 */}
-          {step === 6 && (
+          {step === RESULT_STEP && (
             <motion.div key="result" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
               {resultLoading ? (
                 <div className="pt-20 flex flex-col items-center gap-4">

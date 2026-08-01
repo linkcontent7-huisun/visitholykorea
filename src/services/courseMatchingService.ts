@@ -124,7 +124,7 @@ function jitterShuffle<T>(items: T[], scoreFn: (item: T) => number): T[] {
 const EARTH_RADIUS_KM = 6371;
 const WALK_SPEED_KM_PER_MIN = 4 / 60; // 시속 4km 도보
 
-function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+export function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const toRad = (deg: number) => (deg * Math.PI) / 180;
   const dLat = toRad(lat2 - lat1);
   const dLng = toRad(lng2 - lng1);
@@ -201,11 +201,12 @@ function diversify(cards: CourseCard[]): CourseCard[] {
   return result;
 }
 
-/** 최상위 진입점: 감정(+선택적 지역)으로 추천 코스 카드 목록을 만든다. */
+/** 최상위 진입점: 감정(+선택적 지역, +선택적 출발지 좌표)으로 추천 코스 카드 목록을 만든다. */
 export async function getRecommendedCourses(
   emotion: EmotionTag,
   diocese?: string,
   limit = 5,
+  originCoords?: { lat: number; lng: number },
 ): Promise<CourseCard[]> {
   const sites = await fetchCandidateSites(emotion, diocese, limit * 2);
 
@@ -216,13 +217,25 @@ export async function getRecommendedCourses(
     }),
   );
 
-  // 관광지 페어링 성공 여부 + 콘텐츠 완성도로 정렬 (거리는 짧을수록 우선)
-  cards.sort((a, b) => {
-    const aHasPair = a.attraction ? 1 : 0;
-    const bHasPair = b.attraction ? 1 : 0;
-    if (aHasPair !== bHasPair) return bHasPair - aHasPair;
-    return (a.walkMinutes ?? 999) - (b.walkMinutes ?? 999);
-  });
+  if (originCoords) {
+    // 출발지가 있으면 "관광지 페어링 여부"보다 "출발지에서 가까운 순"을 우선한다 —
+    // 시간이 한정된 사용자가 실제로 갈 수 있는 곳을 먼저 보여주는 게 더 중요하기 때문.
+    cards.sort((a, b) => {
+      const { lat: aLat, lng: aLng } = a.site.coordinates;
+      const { lat: bLat, lng: bLng } = b.site.coordinates;
+      const aDist = aLat != null && aLng != null ? haversineKm(originCoords.lat, originCoords.lng, aLat, aLng) : Infinity;
+      const bDist = bLat != null && bLng != null ? haversineKm(originCoords.lat, originCoords.lng, bLat, bLng) : Infinity;
+      return aDist - bDist;
+    });
+  } else {
+    // 출발지가 없으면 기존처럼 관광지 페어링 성공 여부 + 도보 거리로 정렬
+    cards.sort((a, b) => {
+      const aHasPair = a.attraction ? 1 : 0;
+      const bHasPair = b.attraction ? 1 : 0;
+      if (aHasPair !== bHasPair) return bHasPair - aHasPair;
+      return (a.walkMinutes ?? 999) - (b.walkMinutes ?? 999);
+    });
+  }
 
   return diversify(cards).slice(0, limit);
 }
