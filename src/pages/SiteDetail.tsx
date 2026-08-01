@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, MapPin, Share2, Heart, Navigation, History, Stamp, Check, Compass, PartyPopper } from 'lucide-react';
+import { ChevronLeft, MapPin, Share2, Heart, Navigation, History, Stamp, Check, Compass, PartyPopper, Volume2, VolumeX as StopIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { HolySite } from '../types';
 import { supabase } from '../lib/supabase';
@@ -23,6 +23,7 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
   const [stamped, setStamped] = useState(false);
   const [stampLoading, setStampLoading] = useState(false);
   const [shareLoading, setShareLoading] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const [nearbySites, setNearbySites] = useState<HolySite[]>([]);
   const [nearbyAttractions, setNearbyAttractions] = useState<TourApiSpot[]>([]);
   const [attractionsLoading, setAttractionsLoading] = useState(false);
@@ -130,6 +131,29 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
       cancelled = true;
     };
   }, [site?.coordinates.lat, site?.coordinates.lng]);
+
+  // 다른 성지로 이동하거나 화면을 나가면 읽던 음성을 멈춘다
+  useEffect(() => {
+    return () => window.speechSynthesis?.cancel();
+  }, [siteId]);
+
+  const toggleSpeech = () => {
+    if (!site) return;
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+    const text = [site.name, site.description, site.history].filter(Boolean).join('. ');
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ko-KR';
+    utterance.rate = 0.95;
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    setIsSpeaking(true);
+  };
 
   const handleStamp = async () => {
     setStampLoading(true);
@@ -279,7 +303,17 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
         <section>
           <div className="flex items-center gap-3 mb-6">
             <div className="w-1.5 h-6 bg-brand-violet rounded-full" />
-            <h3 className="text-xl font-extrabold text-app-text tracking-tight">성지 이야기</h3>
+            <h3 className="text-xl font-extrabold text-app-text tracking-tight flex-1">성지 이야기</h3>
+            <button
+              onClick={toggleSpeech}
+              className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all ${
+                isSpeaking ? 'bg-brand-violet text-white border-brand-violet' : 'bg-app-bg text-app-text-muted border-app-border'
+              }`}
+              id="tts-toggle"
+              aria-label={isSpeaking ? '읽기 중지' : '성지 이야기 읽어주기'}
+            >
+              {isSpeaking ? <StopIcon size={18} /> : <Volume2 size={18} />}
+            </button>
           </div>
           <div className="space-y-10">
             <div className="p-8 bg-brand-blue/[0.03] rounded-[40px] border border-brand-blue/5 relative overflow-hidden">
