@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Globe, ChevronRight, Type, HeartHandshake, Sunrise, Wind, Sparkles, HandHeart, Footprints } from 'lucide-react';
+import { Search, Globe, ChevronRight, Type, HeartHandshake, Sunrise, Wind, Sparkles, HandHeart, Footprints, Compass } from 'lucide-react';
 import { motion } from 'motion/react';
 import { HolySite, EmotionTag, EMOTION_TAGS } from '../../types';
 import { supabase } from '../../lib/supabase';
@@ -10,6 +10,7 @@ interface HomeTabProps {
   onSelectSite: (id: string) => void;
   onOpenAIGuide: () => void;
   onOpenSearch: () => void;
+  onOpenHealingQuiz: () => void;
 }
 
 const EMOTION_ICON: Record<EmotionTag, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -20,7 +21,7 @@ const EMOTION_ICON: Record<EmotionTag, React.ComponentType<{ size?: number; clas
   감사: HandHeart,
 };
 
-export default function HomeTab({ onSelectSite, onOpenAIGuide, onOpenSearch }: HomeTabProps) {
+export default function HomeTab({ onSelectSite, onOpenAIGuide, onOpenSearch, onOpenHealingQuiz }: HomeTabProps) {
   const { language, setLanguage, largeText, setLargeText } = useSettings();
   const [heroIndex, setHeroIndex] = useState(0);
   const [sites, setSites] = useState<HolySite[]>([]);
@@ -209,6 +210,21 @@ export default function HomeTab({ onSelectSite, onOpenAIGuide, onOpenSearch }: H
             <h3 className="text-lg font-bold text-app-text mb-1">쉼표 순례길</h3>
             <p className="text-[12px] text-app-text-muted font-medium">지금 마음에 필요한 쉼표를 골라보세요</p>
           </div>
+
+          <button
+            onClick={onOpenHealingQuiz}
+            className="w-full mb-6 flex items-center gap-4 p-5 bg-white border border-app-border rounded-[20px] text-left shadow-sm"
+            id="healing-quiz-cta"
+          >
+            <div className="w-11 h-11 rounded-2xl bg-brand-violet/10 text-brand-violet flex items-center justify-center shrink-0">
+              <Compass size={20} />
+            </div>
+            <div className="flex-1">
+              <p className="font-extrabold text-app-text text-sm mb-0.5">몇 가지 질문으로 나에게 맞는 곳 찾기</p>
+              <p className="text-[11px] text-app-text-muted font-medium">마음 나침반이 당신의 쉼의 자리를 안내해드려요</p>
+            </div>
+            <ChevronRight size={18} className="text-app-text-muted shrink-0" />
+          </button>
 
           {/* 감정 선택 */}
           <div className="flex gap-3 overflow-x-auto pb-1 -mx-6 px-6 no-scrollbar mb-6">

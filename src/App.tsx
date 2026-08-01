@@ -15,6 +15,7 @@ import SiteDetail from './pages/SiteDetail';
 import AIGuide from './components/AIGuide';
 import AuthScreen from './components/AuthScreen';
 import SearchOverlay from './components/SearchOverlay';
+import HealingQuiz from './components/HealingQuiz';
 import { supabase } from './lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { motion, AnimatePresence } from 'motion/react';
@@ -26,6 +27,7 @@ export default function App() {
   const [selectedSiteId, setSelectedSiteId] = useState<string | null>(null);
   const [isAIGuideOpen, setIsAIGuideOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isHealingQuizOpen, setIsHealingQuizOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
   const { wideView, setWideView } = useSettings();
@@ -52,6 +54,7 @@ export default function App() {
             onSelectSite={setSelectedSiteId}
             onOpenAIGuide={() => setIsAIGuideOpen(true)}
             onOpenSearch={() => setIsSearchOpen(true)}
+            onOpenHealingQuiz={() => setIsHealingQuizOpen(true)}
           />
         );
       case 'map':
@@ -74,6 +77,7 @@ export default function App() {
             onSelectSite={setSelectedSiteId}
             onOpenAIGuide={() => setIsAIGuideOpen(true)}
             onOpenSearch={() => setIsSearchOpen(true)}
+            onOpenHealingQuiz={() => setIsHealingQuizOpen(true)}
           />
         );
     }
@@ -109,6 +113,12 @@ export default function App() {
         </AnimatePresence>
 
         <AIGuide isOpen={isAIGuideOpen} onClose={() => setIsAIGuideOpen(false)} />
+
+        <HealingQuiz
+          isOpen={isHealingQuizOpen}
+          onClose={() => setIsHealingQuizOpen(false)}
+          onSelectSite={(id) => setSelectedSiteId(id)}
+        />
 
         {isSearchOpen && (
           <SearchOverlay
