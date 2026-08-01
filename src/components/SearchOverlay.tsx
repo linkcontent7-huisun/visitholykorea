@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, X, ArrowRight, Loader2, BookOpen, MapPin, Church } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { supabase } from '../lib/supabase';
 import { HolySite } from '../types';
 import { askAIGuide } from '../services/geminiService';
@@ -154,10 +156,10 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ onClose, onSiteClick }) =
                     <div className="w-8 h-8 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
                       <BookOpen size={16} />
                     </div>
-                    <span className="text-sm font-bold text-slate-800">AI 순례 가이드 홀리</span>
+                    <span className="text-sm font-bold text-slate-800">AI 순례 가이드 미카엘</span>
                   </div>
-                  <div className="prose prose-sm text-slate-600 leading-relaxed font-light whitespace-pre-line">
-                    {aiResult}
+                  <div className="markdown-chat prose prose-sm text-slate-600 leading-relaxed font-light [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:px-2 [&_th]:py-1 [&_td]:border [&_td]:px-2 [&_td]:py-1 [&_ul]:list-disc [&_ul]:pl-4 [&_ol]:list-decimal [&_ol]:pl-4 [&_p]:mb-2 [&_strong]:font-bold">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{aiResult}</ReactMarkdown>
                   </div>
                 </div>
               )}
