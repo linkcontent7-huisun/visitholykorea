@@ -90,3 +90,29 @@ export async function getNearbyAttractions(
     arrange: 'E', // 거리순
   });
 }
+
+function todayYYYYMMDD(): string {
+  const d = new Date();
+  return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+}
+
+/**
+ * 좌표 기준 반경 내 "오늘부터 진행 중"인 축제·공연·행사를 실시간으로 조회한다.
+ * 매일 바뀌는 데이터라 캐싱이 원천적으로 불가능 — 실시간성을 가장 명확히 증명하는 호출.
+ */
+export async function getNearbyFestivals(
+  mapX: number,
+  mapY: number,
+  radiusMeters = 10000,
+  numOfRows = 10,
+): Promise<TourApiSpot[]> {
+  return callTourApi('searchFestival2', {
+    eventStartDate: todayYYYYMMDD(),
+    mapX,
+    mapY,
+    radius: radiusMeters,
+    numOfRows,
+    pageNo: 1,
+    arrange: 'E', // 거리순
+  });
+}

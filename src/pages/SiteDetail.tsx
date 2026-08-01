@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, MapPin, Share2, Heart, Navigation, History, Stamp, Check, Compass } from 'lucide-react';
+import { ChevronLeft, MapPin, Share2, Heart, Navigation, History, Stamp, Check, Compass, PartyPopper } from 'lucide-react';
 import { motion } from 'motion/react';
 import { HolySite } from '../types';
 import { supabase } from '../lib/supabase';
 import { addStamp, hasStamp } from '../services/pilgrimageService';
-import { getNearbyAttractions, TourApiSpot } from '../services/tourApiService';
+import { getNearbyAttractions, getNearbyFestivals, TourApiSpot } from '../services/tourApiService';
 import { useSettings } from '../contexts/SettingsContext';
 
 interface SiteDetailProps {
@@ -23,6 +23,8 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
   const [nearbySites, setNearbySites] = useState<HolySite[]>([]);
   const [nearbyAttractions, setNearbyAttractions] = useState<TourApiSpot[]>([]);
   const [attractionsLoading, setAttractionsLoading] = useState(false);
+  const [nearbyFestivals, setNearbyFestivals] = useState<TourApiSpot[]>([]);
+  const [festivalsLoading, setFestivalsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchSite() {
@@ -95,6 +97,30 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
       })
       .finally(() => {
         if (!cancelled) setAttractionsLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [site?.coordinates.lat, site?.coordinates.lng]);
+
+  useEffect(() => {
+    const { lat, lng } = site?.coordinates ?? {};
+    if (lat == null || lng == null) {
+      setNearbyFestivals([]);
+      return;
+    }
+    let cancelled = false;
+    setFestivalsLoading(true);
+    getNearbyFestivals(lng, lat, 10000, 6)
+      .then((spots) => {
+        if (!cancelled) setNearbyFestivals(spots);
+      })
+      .catch((err) => {
+        console.error('getNearbyFestivals error:', err);
+        if (!cancelled) setNearbyFestivals([]);
+      })
+      .finally(() => {
+        if (!cancelled) setFestivalsLoading(false);
       });
     return () => {
       cancelled = true;
@@ -278,6 +304,41 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
                     </div>
                     <div className="p-5">
                       <h4 className="font-extrabold text-sm text-app-text mb-1 truncate">{spot.title}</h4>
+                      <p className="text-[10px] text-app-text-muted font-bold truncate">{spot.addr1}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Nearby Festivals (TourAPI 실시간 — 오늘 진행 중인 행사만) */}
+        {(festivalsLoading || nearbyFestivals.length > 0) && (
+          <section>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-1.5 h-6 bg-brand-violet rounded-full" />
+              <h3 className="text-xl font-extrabold text-app-text tracking-tight">지금 근처에서 열리는 행사</h3>
+              <span className="text-[10px] font-bold text-app-text-muted">실시간 · 한국관광공사</span>
+            </div>
+            {festivalsLoading ? (
+              <div className="space-y-3">
+                {[1, 2].map((i) => (
+                  <div key={i} className="h-16 rounded-[20px] bg-app-bg animate-pulse" />
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {nearbyFestivals.map((spot) => (
+                  <div
+                    key={spot.contentid}
+                    className="flex items-center gap-4 p-4 bg-app-bg rounded-[20px] border border-app-border"
+                  >
+                    <div className="w-11 h-11 rounded-2xl bg-brand-violet/10 text-brand-violet flex items-center justify-center shrink-0">
+                      <PartyPopper size={18} />
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="font-extrabold text-sm text-app-text truncate">{spot.title}</h4>
                       <p className="text-[10px] text-app-text-muted font-bold truncate">{spot.addr1}</p>
                     </div>
                   </div>
