@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { PilgrimageLog } from '../../types';
 import { supabase } from '../../lib/supabase';
 import { getMyStamps, getCertificateLevel, CERTIFICATE_LEVELS, StampedSite } from '../../services/pilgrimageService';
+import { getLiturgicalEvent } from '../../services/liturgicalCalendar';
 
 interface RecordTabProps {
   onSelectSite: (id: string) => void;
@@ -147,21 +148,27 @@ export default function RecordTab({ onSelectSite }: RecordTabProps) {
               </div>
             ) : (
               <div className="grid grid-cols-3 gap-y-8 gap-x-6">
-                {stamps.map((stamp) => (
-                  <button
-                    key={stamp.stampId}
-                    onClick={() => onSelectSite(stamp.siteId)}
-                    className="flex flex-col items-center gap-3"
-                    id={`stamp-${stamp.stampId}`}
-                  >
-                    <div className="w-20 h-20 rounded-full flex items-center justify-center border-4 bg-brand-blue border-app-border shadow-2xl shadow-brand-blue/20 rotate-6 scale-110 transition-all duration-500">
-                      <StampIcon size={32} className="text-white" />
-                    </div>
-                    <span className="text-[10px] font-extrabold tracking-tight text-brand-blue text-center leading-tight">
-                      {stamp.siteName}
-                    </span>
-                  </button>
-                ))}
+                {stamps.map((stamp) => {
+                  const event = getLiturgicalEvent(new Date(stamp.visitedAt));
+                  return (
+                    <button
+                      key={stamp.stampId}
+                      onClick={() => onSelectSite(stamp.siteId)}
+                      className="flex flex-col items-center gap-3"
+                      id={`stamp-${stamp.stampId}`}
+                    >
+                      <div
+                        className={`w-20 h-20 rounded-full flex items-center justify-center border-4 border-white shadow-2xl rotate-6 scale-110 transition-all duration-500 ${event.colorClass.bg}`}
+                      >
+                        <span className="text-3xl leading-none">{event.emoji}</span>
+                      </div>
+                      <span className="text-[10px] font-extrabold tracking-tight text-brand-blue text-center leading-tight">
+                        {stamp.siteName}
+                      </span>
+                      <span className={`text-[9px] font-bold ${event.colorClass.text}`}>{event.label}</span>
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>

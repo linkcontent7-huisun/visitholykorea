@@ -5,6 +5,7 @@ import { HolySite } from '../types';
 import { supabase } from '../lib/supabase';
 import { addStamp, hasStamp } from '../services/pilgrimageService';
 import { getNearbyAttractions, getNearbyFestivals, TourApiSpot } from '../services/tourApiService';
+import { getLiturgicalEvent } from '../services/liturgicalCalendar';
 import { useSettings } from '../contexts/SettingsContext';
 
 interface SiteDetailProps {
@@ -25,6 +26,7 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
   const [attractionsLoading, setAttractionsLoading] = useState(false);
   const [nearbyFestivals, setNearbyFestivals] = useState<TourApiSpot[]>([]);
   const [festivalsLoading, setFestivalsLoading] = useState(false);
+  const todayLiturgical = getLiturgicalEvent();
 
   useEffect(() => {
     async function fetchSite() {
@@ -349,6 +351,11 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
         )}
 
         {/* Action Grid */}
+        {!stamped && (
+          <p className="text-center text-[11px] font-bold text-app-text-muted -mb-2">
+            오늘 찍으면 <span className={todayLiturgical.colorClass.text}>{todayLiturgical.emoji} {todayLiturgical.label}</span> 한정판 스탬프예요
+          </p>
+        )}
         <div className="flex gap-4">
           <button
             onClick={handleStamp}
