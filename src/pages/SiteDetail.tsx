@@ -6,6 +6,7 @@ import { supabase } from '../lib/supabase';
 import { addStamp, hasStamp } from '../services/pilgrimageService';
 import { getNearbyAttractions, getNearbyFestivals, TourApiSpot } from '../services/tourApiService';
 import { getLiturgicalEvent } from '../services/liturgicalCalendar';
+import { generateShareCard, shareOrDownloadCard } from '../utils/shareCard';
 import { useSettings } from '../contexts/SettingsContext';
 
 interface SiteDetailProps {
@@ -21,6 +22,7 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
   const [loading, setLoading] = useState(true);
   const [stamped, setStamped] = useState(false);
   const [stampLoading, setStampLoading] = useState(false);
+  const [shareLoading, setShareLoading] = useState(false);
   const [nearbySites, setNearbySites] = useState<HolySite[]>([]);
   const [nearbyAttractions, setNearbyAttractions] = useState<TourApiSpot[]>([]);
   const [attractionsLoading, setAttractionsLoading] = useState(false);
@@ -137,6 +139,27 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
       setStamped(true);
     } else {
       alert(result.error === '로그인이 필요합니다.' ? '스탬프를 찍으려면 로그인이 필요해요.' : '스탬프 저장에 실패했어요.');
+    }
+  };
+
+  const handleShareCard = async () => {
+    if (!site) return;
+    setShareLoading(true);
+    try {
+      const blob = await generateShareCard({
+        siteName: site.name,
+        location: site.location,
+        emotionTag: site.emotionTag,
+        imageUrl: site.imageUrl,
+        visitedAt: new Date(),
+        liturgical: todayLiturgical,
+      });
+      await shareOrDownloadCard(blob, `visitholy-${site.name}.png`);
+    } catch (e) {
+      console.error('공유 카드 생성 실패:', e);
+      alert('공유 카드를 만드는 데 실패했어요. 잠시 후 다시 시도해주세요.');
+    } finally {
+      setShareLoading(false);
     }
   };
 
@@ -374,6 +397,18 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
             <Navigation size={24} />
           </button>
         </div>
+
+        {stamped && (
+          <button
+            onClick={handleShareCard}
+            disabled={shareLoading}
+            className="w-full py-4 rounded-[20px] font-bold text-sm border-2 border-dashed border-brand-violet/30 text-brand-violet flex items-center justify-center gap-2 disabled:opacity-50"
+            id="share-card-button"
+          >
+            <Share2 size={18} />
+            {shareLoading ? '카드 만드는 중...' : '순례 스탬프 카드 공유하기'}
+          </button>
+        )}
 
         {/* Nearby Sites */}
         {nearbySites.length > 0 && (
