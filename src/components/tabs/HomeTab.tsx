@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Globe, ChevronRight, Type, HeartHandshake, Sunrise, Wind, Sparkles, HandHeart, Footprints, Compass } from 'lucide-react';
+import { Search, Globe, ChevronRight, ChevronLeft, Type, HeartHandshake, Sunrise, Wind, Sparkles, HandHeart, Footprints, Compass } from 'lucide-react';
 import { motion } from 'motion/react';
 import { HolySite, EmotionTag, EMOTION_TAGS } from '../../types';
 import { supabase } from '../../lib/supabase';
@@ -97,34 +97,50 @@ export default function HomeTab({ onSelectSite, onOpenAIGuide, onOpenSearch, onO
     };
   }, [selectedEmotion]);
 
+  const goToPrevHero = () => {
+    if (heroSites.length === 0) return;
+    setHeroIndex((prev) => (prev - 1 + heroSites.length) % heroSites.length);
+  };
+  const goToNextHero = () => {
+    if (heroSites.length === 0) return;
+    setHeroIndex((prev) => (prev + 1) % heroSites.length);
+  };
+
   return (
     <div className="pb-20 bg-app-bg">
-      {/* Header */}
-      <header className="flex justify-between items-center px-8 py-5 sticky top-0 bg-white/90 backdrop-blur-md z-40 border-b border-app-border">
-        <h1 className="text-xl font-extrabold tracking-tight text-brand-blue" id="logo">
-          VISIT <span className="text-brand-violet">HOLY</span>
-        </h1>
-        <div className="flex gap-5 items-center">
-          <button onClick={onOpenSearch} className="w-6 h-6 bg-app-border rounded-full flex items-center justify-center" id="search-icon">
-            <Search size={14} className="text-app-text-muted" />
-          </button>
-          <button
-            onClick={() => setLargeText(!largeText)}
-            className={`w-6 h-6 rounded-full flex items-center justify-center ${largeText ? 'bg-brand-blue text-white' : 'bg-app-border text-app-text-muted'}`}
-            id="large-text-toggle"
-            aria-label="큰 글자 모드"
-          >
-            <Type size={14} />
-          </button>
-          <button
-            onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
-            className="flex items-center gap-1 text-[13px] font-bold text-app-text-muted cursor-pointer"
-            id="language-toggle"
-          >
-            <Globe size={14} />
-            {language === 'ko' ? 'KO' : 'EN'}
-          </button>
+      {/* Header — 검색창(미카엘 AI 진입점)이 스크롤해도 항상 맨 위에 보인다 */}
+      <header className="sticky top-0 bg-white/90 backdrop-blur-md z-40 border-b border-app-border">
+        <div className="flex justify-between items-center px-8 pt-5 pb-3">
+          <h1 className="text-xl font-extrabold tracking-tight text-brand-blue" id="logo">
+            VISIT <span className="text-brand-violet">HOLY</span>
+          </h1>
+          <div className="flex gap-5 items-center">
+            <button
+              onClick={() => setLargeText(!largeText)}
+              className={`w-6 h-6 rounded-full flex items-center justify-center ${largeText ? 'bg-brand-blue text-white' : 'bg-app-border text-app-text-muted'}`}
+              id="large-text-toggle"
+              aria-label="큰 글자 모드"
+            >
+              <Type size={14} />
+            </button>
+            <button
+              onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
+              className="flex items-center gap-1 text-[13px] font-bold text-app-text-muted cursor-pointer"
+              id="language-toggle"
+            >
+              <Globe size={14} />
+              {language === 'ko' ? 'KO' : 'EN'}
+            </button>
+          </div>
         </div>
+        <button
+          onClick={onOpenSearch}
+          className="mx-6 mb-4 flex items-center gap-3 px-5 py-3 bg-app-bg border border-app-border rounded-2xl text-left"
+          id="search-bar"
+        >
+          <Search size={16} className="text-app-text-muted shrink-0" />
+          <span className="text-[13px] font-medium text-app-text-muted">성지 검색 또는 미카엘 AI에게 물어보기</span>
+        </button>
       </header>
 
       {/* Hero Carousel */}
@@ -175,12 +191,34 @@ export default function HomeTab({ onSelectSite, onOpenAIGuide, onOpenSearch, onO
         {/* Carousel Indicators */}
         <div className="absolute top-6 right-6 z-20 flex gap-1.5">
           {heroSites.map((_, i) => (
-            <div 
-              key={i} 
-              className={`h-1.5 rounded-full transition-all duration-300 ${i === heroIndex ? 'w-6 bg-white' : 'w-1.5 bg-white/40'}`} 
+            <div
+              key={i}
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === heroIndex ? 'w-6 bg-white' : 'w-1.5 bg-white/40'}`}
             />
           ))}
         </div>
+
+        {/* 좌우로 넘길 수 있음을 보여주는 화살표 버튼 */}
+        {heroSites.length > 1 && (
+          <>
+            <button
+              onClick={goToPrevHero}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/20 backdrop-blur-lg border border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-colors"
+              id="hero-prev"
+              aria-label="이전 성지"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={goToNextHero}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/20 backdrop-blur-lg border border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-colors"
+              id="hero-next"
+              aria-label="다음 성지"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </>
+        )}
       </section>
 
       {/* AI Guide Button */}

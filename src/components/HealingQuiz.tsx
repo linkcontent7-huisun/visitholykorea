@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ChevronLeft, VolumeX, MessageCircle, Footprints } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, VolumeX, MessageCircle, Footprints } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { EmotionTag, EMOTION_TAGS } from '../types';
 import { getRecommendedCourses, CourseCard } from '../services/courseMatchingService';
@@ -105,17 +105,28 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
 
   const progress = step >= 1 && step <= TOTAL_QUESTIONS ? step / TOTAL_QUESTIONS : step === 6 ? 1 : 0;
 
+  const canProceed =
+    step === 1 ? emotion != null :
+    step === 2 ? concern != null :
+    step === 3 ? style != null :
+    step === 4 ? timeBudget != null :
+    true; // step 5(자유 텍스트)는 건너뛰어도 됨
+
+  const handleNext = () => {
+    if (step === 5) {
+      goToResult();
+    } else if (canProceed) {
+      setStep(step + 1);
+    }
+  };
+
+  const isQuestionStep = step >= 1 && step <= TOTAL_QUESTIONS;
+
   return (
     <div className={`fixed inset-y-0 left-1/2 -translate-x-1/2 w-full ${widthClass} z-[310] bg-white flex flex-col`}>
       {/* Header */}
       <div className="h-16 flex items-center justify-between px-6 border-b border-app-border shrink-0">
-        {step > 0 && step < 6 ? (
-          <button onClick={() => setStep(step - 1)} className="p-2 text-app-text-muted" id="quiz-back">
-            <ChevronLeft size={22} />
-          </button>
-        ) : (
-          <div className="w-9" />
-        )}
+        <div className="w-9" />
         <span className="text-xs font-bold text-app-text-muted">마음 나침반</span>
         <button onClick={handleClose} className="p-2 text-app-text-muted" id="quiz-close">
           <X size={22} />
@@ -133,7 +144,7 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
         </div>
       )}
 
-      <div className="flex-1 overflow-y-auto p-8">
+      <div className={`flex-1 overflow-y-auto p-8 ${isQuestionStep ? 'pb-28' : ''}`}>
         <AnimatePresence mode="wait">
           {/* 인트로 */}
           {step === 0 && (
@@ -157,15 +168,12 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
           {step === 1 && (
             <motion.div key="q1" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
               <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">지금 마음에<br />가장 가까운 색을 골라주세요</h3>
-              <p className="text-xs text-app-text-muted mb-8">색을 누르면 다음으로 넘어가요</p>
+              <p className="text-xs text-app-text-muted mb-8">마음에 드는 색을 눌러주세요</p>
               <div className="grid grid-cols-3 gap-5">
                 {EMOTION_TAGS.map((tag) => (
                   <button
                     key={tag}
-                    onClick={() => {
-                      setEmotion(tag);
-                      setStep(2);
-                    }}
+                    onClick={() => setEmotion(tag)}
                     className="flex flex-col items-center gap-3"
                     id={`quiz-emotion-${tag}`}
                   >
@@ -191,10 +199,7 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
                 {CONCERNS.map((c) => (
                   <button
                     key={c}
-                    onClick={() => {
-                      setConcern(c);
-                      setStep(3);
-                    }}
+                    onClick={() => setConcern(c)}
                     className={`w-full p-5 rounded-[20px] border text-left font-bold text-sm transition-all ${
                       concern === c ? 'border-brand-blue bg-brand-blue/5 text-brand-blue' : 'border-app-border bg-white text-app-text'
                     }`}
@@ -220,10 +225,7 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
                 ).map(({ key, icon: Icon, label, bg, ring, iconColor }) => (
                   <button
                     key={key}
-                    onClick={() => {
-                      setStyle(key);
-                      setStep(4);
-                    }}
+                    onClick={() => setStyle(key)}
                     className="flex flex-col items-center gap-4"
                     id={`quiz-style-${key}`}
                   >
@@ -249,10 +251,7 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
                 {TIME_BUDGETS.map((t) => (
                   <button
                     key={t}
-                    onClick={() => {
-                      setTimeBudget(t);
-                      setStep(5);
-                    }}
+                    onClick={() => setTimeBudget(t)}
                     className={`w-full p-5 rounded-[20px] border text-left font-bold text-sm transition-all ${
                       timeBudget === t ? 'border-brand-blue bg-brand-blue/5 text-brand-blue' : 'border-app-border bg-white text-app-text'
                     }`}
@@ -269,31 +268,15 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
           {step === 5 && (
             <motion.div key="q5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
               <h3 className="text-xl font-extrabold text-app-text mb-4 tracking-tight">혹시 마음에 담아두고<br />싶은 말이 있다면 적어주세요</h3>
-              <p className="text-xs text-app-text-muted mb-6">누구에게도 말 못했던 것도 괜찮아요. (선택)</p>
+              <p className="text-xs text-app-text-muted mb-6">누구에게도 말 못했던 것도 괜찮아요. 건너뛰셔도 돼요.</p>
               <textarea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 rows={5}
-                placeholder="여기에 적어주세요..."
-                className="w-full bg-app-bg rounded-[20px] p-5 text-sm outline-none border border-app-border resize-none mb-6"
+                placeholder="여기에 적어주세요... (선택)"
+                className="w-full bg-app-bg rounded-[20px] p-5 text-sm outline-none border border-app-border resize-none"
                 id="quiz-note"
               />
-              <div className="flex gap-3">
-                <button
-                  onClick={goToResult}
-                  className="flex-1 py-2.5 text-app-text-muted font-bold text-xs"
-                  id="quiz-skip"
-                >
-                  괜찮아요, 건너뛸게요
-                </button>
-                <button
-                  onClick={goToResult}
-                  className="flex-1 bg-brand-blue text-white py-4 rounded-[20px] font-bold text-sm shadow-lg shadow-brand-blue/20"
-                  id="quiz-submit"
-                >
-                  다 됐어요
-                </button>
-              </div>
             </motion.div>
           )}
 
@@ -365,6 +348,29 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
           )}
         </AnimatePresence>
       </div>
+
+      {/* 화면 아래 고정된 이전/다음 버튼 — 스크롤해도 항상 보인다 */}
+      {isQuestionStep && (
+        <div className={`fixed bottom-0 left-1/2 -translate-x-1/2 w-full ${widthClass} p-6 pt-4 bg-white/95 backdrop-blur-md border-t border-app-border flex gap-3 z-[60]`}>
+          <button
+            onClick={() => setStep(step - 1)}
+            className="w-16 h-14 bg-app-bg text-app-text border border-app-border rounded-[18px] flex items-center justify-center shrink-0"
+            id="quiz-prev"
+            aria-label="좀 전으로"
+          >
+            <ChevronLeft size={22} />
+          </button>
+          <button
+            onClick={handleNext}
+            disabled={!canProceed}
+            className="flex-1 bg-brand-blue text-white rounded-[18px] font-bold text-sm shadow-lg shadow-brand-blue/20 flex items-center justify-center gap-2 disabled:opacity-30 disabled:shadow-none"
+            id="quiz-next"
+          >
+            {step === TOTAL_QUESTIONS ? '결과 보기' : '다음으로'}
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
