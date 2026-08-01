@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { X, Send, Sparkles, Loader2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { useSettings } from '../contexts/SettingsContext';
 import { askAIGuide } from '../services/geminiService';
 
@@ -41,7 +43,7 @@ export default function AIGuide({ isOpen, onClose }: AIGuideProps) {
       <div className="h-16 flex items-center justify-between px-6 border-b border-app-border shrink-0">
         <div className="flex items-center gap-2">
           <Sparkles size={18} className="text-brand-violet" />
-          <h2 className="font-extrabold text-app-text tracking-tight">AI 순례 가이드</h2>
+          <h2 className="font-extrabold text-app-text tracking-tight">미카엘 순례 가이드</h2>
         </div>
         <button onClick={onClose} className="p-2 text-app-text-muted" id="ai-guide-close">
           <X size={22} />
@@ -51,7 +53,7 @@ export default function AIGuide({ isOpen, onClose }: AIGuideProps) {
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
         {messages.length === 0 && (
           <div className="text-center text-app-text-muted text-sm py-16">
-            성지 순례에 대해 무엇이든 물어보세요.
+            천사 미카엘에게 성지 순례에 대해 무엇이든 물어보세요.
             <br />
             (예: "초보 순례자에게 좋은 코스 추천해줘")
           </div>
@@ -65,7 +67,13 @@ export default function AIGuide({ isOpen, onClose }: AIGuideProps) {
                   : 'bg-app-bg text-app-text rounded-bl-sm'
               }`}
             >
-              {m.text}
+              {m.role === 'assistant' ? (
+                <div className="markdown-chat space-y-2 [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:border-app-border [&_th]:px-2 [&_th]:py-1 [&_td]:border [&_td]:border-app-border [&_td]:px-2 [&_td]:py-1 [&_ul]:list-disc [&_ul]:pl-4 [&_ol]:list-decimal [&_ol]:pl-4 [&_p]:mb-1 [&_strong]:font-bold">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.text}</ReactMarkdown>
+                </div>
+              ) : (
+                m.text
+              )}
             </div>
           </div>
         ))}

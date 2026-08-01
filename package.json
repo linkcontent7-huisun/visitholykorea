@@ -9,12 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
     "@google/genai": "^1.34.0",
     "@supabase/supabase-js": "^2.45.0",
     "lucide-react": "^0.562.0",
-    "motion": "^11.0.0"
+    "motion": "^11.0.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
