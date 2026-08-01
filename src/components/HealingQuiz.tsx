@@ -27,6 +27,15 @@ const EMOTION_LABEL: Record<EmotionTag, string> = {
   감사: '감사한 마음을 나누고 싶어요',
 };
 
+// 색으로 직관적으로 고를 수 있도록 감정마다 고유한 색을 지정한다.
+const EMOTION_COLOR: Record<EmotionTag, { bg: string; ring: string }> = {
+  위로: { bg: 'bg-indigo-200', ring: 'ring-indigo-400' },
+  새출발: { bg: 'bg-emerald-200', ring: 'ring-emerald-400' },
+  평온: { bg: 'bg-cyan-200', ring: 'ring-cyan-400' },
+  치유: { bg: 'bg-rose-200', ring: 'ring-rose-400' },
+  감사: { bg: 'bg-amber-200', ring: 'ring-amber-400' },
+};
+
 const CONCERNS = ['일과 진로', '육아와 가족', '사람들과의 관계', '나 자신을 돌보는 일', '뚜렷한 이유는 없어요'] as const;
 type Concern = (typeof CONCERNS)[number];
 
@@ -144,11 +153,12 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
             </motion.div>
           )}
 
-          {/* Q1: 감정 */}
+          {/* Q1: 감정 — 색으로 직관적으로 고르기 */}
           {step === 1 && (
             <motion.div key="q1" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-              <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">지금 마음에<br />가장 가까운 걸 골라주세요</h3>
-              <div className="space-y-3">
+              <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">지금 마음에<br />가장 가까운 색을 골라주세요</h3>
+              <p className="text-xs text-app-text-muted mb-8">색을 누르면 다음으로 넘어가요</p>
+              <div className="grid grid-cols-3 gap-5">
                 {EMOTION_TAGS.map((tag) => (
                   <button
                     key={tag}
@@ -156,13 +166,17 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
                       setEmotion(tag);
                       setStep(2);
                     }}
-                    className={`w-full flex items-center gap-4 p-5 rounded-[20px] border text-left transition-all ${
-                      emotion === tag ? 'border-brand-blue bg-brand-blue/5' : 'border-app-border bg-white'
-                    }`}
+                    className="flex flex-col items-center gap-3"
                     id={`quiz-emotion-${tag}`}
                   >
-                    <span className="text-2xl">{EMOTION_EMOJI[tag]}</span>
-                    <span className="font-bold text-app-text text-sm">{EMOTION_LABEL[tag]}</span>
+                    <span
+                      className={`w-20 h-20 rounded-full flex items-center justify-center text-3xl shadow-sm transition-all ${EMOTION_COLOR[tag].bg} ${
+                        emotion === tag ? `ring-4 ${EMOTION_COLOR[tag].ring} scale-105` : ''
+                      }`}
+                    >
+                      {EMOTION_EMOJI[tag]}
+                    </span>
+                    <span className="text-[11px] font-bold text-app-text-muted text-center leading-tight">{EMOTION_LABEL[tag]}</span>
                   </button>
                 ))}
               </div>
@@ -200,23 +214,27 @@ export default function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQu
               <div className="grid grid-cols-2 gap-4">
                 {(
                   [
-                    { key: '침묵형' as Style, icon: VolumeX, label: '혼자 조용히 있고 싶어요' },
-                    { key: '나눔형' as Style, icon: MessageCircle, label: '누군가와 이야기 나누고 싶어요' },
+                    { key: '침묵형' as Style, icon: VolumeX, label: '혼자 조용히 있고 싶어요', bg: 'bg-slate-200', ring: 'ring-slate-400', iconColor: 'text-slate-600' },
+                    { key: '나눔형' as Style, icon: MessageCircle, label: '누군가와 이야기 나누고 싶어요', bg: 'bg-orange-200', ring: 'ring-orange-400', iconColor: 'text-orange-600' },
                   ]
-                ).map(({ key, icon: Icon, label }) => (
+                ).map(({ key, icon: Icon, label, bg, ring, iconColor }) => (
                   <button
                     key={key}
                     onClick={() => {
                       setStyle(key);
                       setStep(4);
                     }}
-                    className={`flex flex-col items-center gap-4 p-6 rounded-[24px] border transition-all ${
-                      style === key ? 'border-brand-blue bg-brand-blue/5' : 'border-app-border bg-white'
-                    }`}
+                    className="flex flex-col items-center gap-4"
                     id={`quiz-style-${key}`}
                   >
-                    <Icon size={28} className="text-brand-blue" />
-                    <span className="font-bold text-app-text text-xs leading-snug">{label}</span>
+                    <span
+                      className={`w-20 h-20 rounded-[28px] flex items-center justify-center shadow-sm transition-all ${bg} ${
+                        style === key ? `ring-4 ${ring} scale-105` : ''
+                      }`}
+                    >
+                      <Icon size={28} className={iconColor} />
+                    </span>
+                    <span className="font-bold text-app-text text-xs leading-snug text-center">{label}</span>
                   </button>
                 ))}
               </div>
