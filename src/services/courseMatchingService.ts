@@ -10,7 +10,6 @@
 
 import { supabase } from '../lib/supabase';
 import { getNearbyAttractions, TourApiSpot } from './tourApiService';
-import { generateCourseIntro } from './geminiService';
 import { EmotionTag, HolySite } from '../types';
 
 export interface CourseCard {
@@ -207,7 +206,6 @@ export async function getRecommendedCourses(
   emotion: EmotionTag,
   diocese?: string,
   limit = 5,
-  useAI = true,
 ): Promise<CourseCard[]> {
   const sites = await fetchCandidateSites(emotion, diocese, limit * 2);
 
@@ -226,28 +224,5 @@ export async function getRecommendedCourses(
     return (a.walkMinutes ?? 999) - (b.walkMinutes ?? 999);
   });
 
-  const finalCards = diversify(cards).slice(0, limit);
-
-  if (useAI) {
-    await enhanceWithAICopy(finalCards);
-  }
-
-  return finalCards;
-}
-
-/**
- * 최종 노출될 카드에 한해서만 Gemini로 개인화된 한 줄 카피를 붙인다
- * (API 호출 비용/지연을 아끼기 위해 필터링·정렬이 끝난 뒤 마지막에만 호출).
- * 실패하면 규칙 기반 subtitle을 그대로 둔다.
- */
-async function enhanceWithAICopy(cards: CourseCard[]): Promise<void> {
-  await Promise.all(
-    cards.map(async (card) => {
-      if (!card.attraction) return; // 페어링 없으면 AI 카피도 의미 없음
-      const aiSubtitle = await generateCourseIntro(card.site, card.attraction);
-      if (aiSubtitle) {
-        card.subtitle = aiSubtitle;
-      }
-    }),
-  );
+  return diversify(cards).slice(0, limit);
 }

@@ -85,7 +85,7 @@ export default function HomeTab({ onSelectSite, onOpenAIGuide, onOpenSearch }: H
   useEffect(() => {
     let cancelled = false;
     setCoursesLoading(true);
-    getRecommendedCourses(selectedEmotion, undefined, 4, false).then((result) => {
+    getRecommendedCourses(selectedEmotion, undefined, 4).then((result) => {
       if (!cancelled) {
         setCourses(result);
         setCoursesLoading(false);
