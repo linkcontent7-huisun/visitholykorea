@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, MapPin, Share2, Heart, Navigation, History, Stamp, Check } from 'lucide-react';
+import { ChevronLeft, MapPin, Share2, Heart, Navigation, History, Stamp, Check, Compass } from 'lucide-react';
 import { motion } from 'motion/react';
 import { HolySite } from '../types';
 import { supabase } from '../lib/supabase';
 import { addStamp, hasStamp } from '../services/pilgrimageService';
+import { getNearbyAttractions, TourApiSpot } from '../services/tourApiService';
 import { useSettings } from '../contexts/SettingsContext';
 
 interface SiteDetailProps {
@@ -20,6 +21,8 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
   const [stamped, setStamped] = useState(false);
   const [stampLoading, setStampLoading] = useState(false);
   const [nearbySites, setNearbySites] = useState<HolySite[]>([]);
+  const [nearbyAttractions, setNearbyAttractions] = useState<TourApiSpot[]>([]);
+  const [attractionsLoading, setAttractionsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchSite() {
@@ -73,6 +76,30 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
     fetchSite();
     hasStamp(siteId).then(setStamped);
   }, [siteId]);
+
+  useEffect(() => {
+    const { lat, lng } = site?.coordinates ?? {};
+    if (lat == null || lng == null) {
+      setNearbyAttractions([]);
+      return;
+    }
+    let cancelled = false;
+    setAttractionsLoading(true);
+    getNearbyAttractions(lng, lat, 3000, 8)
+      .then((spots) => {
+        if (!cancelled) setNearbyAttractions(spots);
+      })
+      .catch((err) => {
+        console.error('getNearbyAttractions error:', err);
+        if (!cancelled) setNearbyAttractions([]);
+      })
+      .finally(() => {
+        if (!cancelled) setAttractionsLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [site?.coordinates.lat, site?.coordinates.lng]);
 
   const handleStamp = async () => {
     setStampLoading(true);
@@ -215,6 +242,50 @@ export default function SiteDetail({ siteId, onBack, onSelectSite }: SiteDetailP
             </div>
           </div>
         </section>
+
+        {/* Nearby Attractions (TourAPI 실시간) */}
+        {(attractionsLoading || nearbyAttractions.length > 0) && (
+          <section>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-1.5 h-6 bg-brand-violet rounded-full" />
+              <h3 className="text-xl font-extrabold text-app-text tracking-tight">주변 정보</h3>
+              <span className="text-[10px] font-bold text-app-text-muted">실시간 · 한국관광공사</span>
+            </div>
+            {attractionsLoading ? (
+              <div className="flex gap-4 overflow-x-auto no-scrollbar -mx-8 px-8">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="flex-shrink-0 w-44 h-64 rounded-[32px] bg-app-bg animate-pulse" />
+                ))}
+              </div>
+            ) : (
+              <div className="flex gap-4 overflow-x-auto no-scrollbar -mx-8 px-8">
+                {nearbyAttractions.map((spot) => (
+                  <div
+                    key={spot.contentid}
+                    className="flex-shrink-0 w-44 rounded-[32px] overflow-hidden bg-white border border-app-border shadow-sm text-left"
+                  >
+                    <div className="h-40 overflow-hidden relative bg-app-bg flex items-center justify-center">
+                      {spot.firstimage ? (
+                        <img src={spot.firstimage} alt={spot.title} className="w-full h-full object-cover" />
+                      ) : (
+                        <Compass size={28} className="text-app-text-muted opacity-30" />
+                      )}
+                      {spot.dist && (
+                        <div className="absolute top-3 left-3 px-2 py-1 bg-white/90 backdrop-blur-md rounded-lg text-[9px] font-extrabold text-brand-violet">
+                          {Math.round(Number(spot.dist))}m
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-5">
+                      <h4 className="font-extrabold text-sm text-app-text mb-1 truncate">{spot.title}</h4>
+                      <p className="text-[10px] text-app-text-muted font-bold truncate">{spot.addr1}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
 
         {/* Action Grid */}
         <div className="flex gap-4">
