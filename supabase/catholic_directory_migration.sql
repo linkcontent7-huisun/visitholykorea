@@ -18,7 +18,14 @@ create table if not exists catholic_directory (
   lng double precision,
   target_gender text, -- '남'|'여'|null(전체/미상). CBCK 주소록엔 없는 정보라 아직 전부 비어있음, 수동 큐레이션 대상
   source_url text,
-  created_at timestamptz default now()
+  created_at timestamptz default now(),
+  -- 2026-08-02 추가: 피정의집(194)·성지사적지(192) 386건에 한해 배경 조사 에이전트가 채운 콘텐츠.
+  -- 나머지 카테고리(본당·공소·기관 등)는 description/image_url이 비어있는 게 정상 — 실제 추천에
+  -- 노출되는 두 카테고리만 우선 채웠다. 설명 340/386건, 라이선스 확인된 사진 81/386건.
+  description text,
+  image_url text,
+  image_source text, -- 'Wikimedia Commons' | 'TourAPI' 등
+  image_license text -- 'CC BY-SA 4.0' | '공공누리 제1유형' 등 — 반드시 확인된 라이선스만 기록
 );
 
 alter table catholic_directory enable row level security;
