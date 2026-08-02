@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Camera, PenLine, Heart, MapPin, Calendar, Stamp as StampIcon } from 'lucide-react';
+import { Camera, PenLine, Heart, MapPin, Calendar, Stamp as StampIcon, FileDown } from 'lucide-react';
 import { motion } from 'motion/react';
 import { PilgrimageLog } from '../../types';
 import { supabase } from '../../lib/supabase';
 import { getMyStamps, getCertificateLevel, CERTIFICATE_LEVELS, StampedSite } from '../../services/pilgrimageService';
 import { getLiturgicalEvent } from '../../services/liturgicalCalendar';
+import { downloadCertificatePDF } from '../../utils/certificate';
 
 interface RecordTabProps {
   onSelectSite: (id: string) => void;
@@ -15,6 +16,7 @@ export default function RecordTab({ onSelectSite }: RecordTabProps) {
   const [stamps, setStamps] = useState<StampedSite[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeSegment, setActiveSegment] = useState<'logs' | 'stamps'>('logs');
+  const [pilgrimName, setPilgrimName] = useState('순례자');
 
   useEffect(() => {
     async function fetchData() {
@@ -26,6 +28,7 @@ export default function RecordTab({ onSelectSite }: RecordTabProps) {
           .eq('user_id', userData.user.id)
           .order('visit_date', { ascending: false });
         if (data) setLogs(data);
+        if (userData.user.email) setPilgrimName(userData.user.email.split('@')[0]);
       }
       const myStamps = await getMyStamps();
       setStamps(myStamps);
@@ -33,6 +36,18 @@ export default function RecordTab({ onSelectSite }: RecordTabProps) {
     }
     fetchData();
   }, []);
+
+  const handleDownloadCertificate = () => {
+    if (!certLevel) return;
+    downloadCertificatePDF({
+      pilgrimName,
+      levelLabel: certLevel.label,
+      levelEmoji: certLevel.emoji,
+      stampCount: stamps.length,
+      siteNames: stamps.map((s) => s.siteName),
+      issuedAt: new Date(),
+    });
+  };
 
   const certLevel = getCertificateLevel(stamps.length);
   const nextLevel = CERTIFICATE_LEVELS.find((l) => l.minStamps > stamps.length);
@@ -133,6 +148,16 @@ export default function RecordTab({ onSelectSite }: RecordTabProps) {
                 <p className="text-xs opacity-70">
                   다음 등급 "{nextLevel.label}"까지 {nextLevel.minStamps - stamps.length}곳 남았어요
                 </p>
+              )}
+              {certLevel && (
+                <button
+                  onClick={handleDownloadCertificate}
+                  className="mt-5 w-full py-3 bg-white/15 backdrop-blur-md rounded-2xl text-xs font-bold flex items-center justify-center gap-2 hover:bg-white/25 transition-colors"
+                  id="download-certificate-btn"
+                >
+                  <FileDown size={16} />
+                  순례 인증서 다운로드
+                </button>
               )}
             </div>
 
