@@ -1,0 +1,426 @@
+import {
+  Check,
+  ChevronLeft,
+  Compass,
+  Heart,
+  History,
+  MapPin,
+  Navigation,
+  PartyPopper,
+  Share2,
+  Stamp,
+  Volume2,
+  VolumeX,
+} from 'lucide-react';
+import { motion } from 'motion/react';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { paths } from '@/app/routes/paths';
+import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
+import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/share-card';
+import { useAddStamp, useHasStamp } from '@/features/passport/hooks/use-stamps';
+import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
+import { useNearbyAttractions, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
+import { useSite, useSitesInSameDiocese } from '@/features/sites/hooks/use-sites';
+import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
+import { useSettings } from '@/shared/i18n/use-settings';
+import { kakaoDirectionsUrl } from '@/shared/lib/geo';
+
+export default function SiteDetailPage() {
+  const { siteId } = useParams<{ siteId: string }>();
+  const navigate = useNavigate();
+  const { wideView } = useSettings();
+  const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
+
+  const { data: site, isLoading } = useSite(siteId);
+  const { data: nearbySites = [] } = useSitesInSameDiocese(site?.region, siteId);
+  const { data: attractions = [], isFetching: attractionsLoading } = useNearbyAttractions(
+    site?.coordinates,
+  );
+  const { data: festivals = [], isFetching: festivalsLoading } = useNearbyFestivals(
+    site?.coordinates,
+  );
+  const { data: stamped = false } = useHasStamp(siteId);
+  const addStamp = useAddStamp(siteId ?? '');
+
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [shareLoading, setShareLoading] = useState(false);
+
+  // 오늘 찍으면 어떤 한정판 스탬프가 되는지 미리 보여준다.
+  const todayLiturgical = getLiturgicalEvent();
+
+  // 다른 성지로 이동하거나 화면을 나가면 읽던 음성을 멈춘다.
+  useEffect(() => {
+    return () => window.speechSynthesis?.cancel();
+  }, [siteId]);
+
+  const toggleSpeech = () => {
+    if (!site) return;
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+    const text = [site.name, site.description, site.history].filter(Boolean).join('. ');
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ko-KR';
+    utterance.rate = 0.95;
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    setIsSpeaking(true);
+  };
+
+  const handleStamp = () => {
+    addStamp.mutate(undefined, {
+      onSuccess: (result) => {
+        if (result.success) return;
+        if (result.error === 'UNAUTHENTICATED') {
+          navigate(paths.login);
+          return;
+        }
+        window.alert('스탬프 저장에 실패했어요.');
+      },
+    });
+  };
+
+  const handleShareCard = async () => {
+    if (!site) return;
+    setShareLoading(true);
+    try {
+      const blob = await generateShareCard({
+        siteName: site.name,
+        location: site.location,
+        emotionTag: site.emotionTag,
+        imageUrl: site.imageUrl,
+        visitedAt: new Date(),
+        liturgical: todayLiturgical,
+      });
+      await shareOrDownloadCard(blob, `visitholy-${site.name}.png`);
+    } catch (e) {
+      console.error('공유 카드 생성 실패:', e);
+      window.alert('공유 카드를 만드는 데 실패했어요. 잠시 후 다시 시도해주세요.');
+    } finally {
+      setShareLoading(false);
+    }
+  };
+
+  if (isLoading) return <LoadingSpinner />;
+
+  if (!site) {
+    return <p className="p-10 text-center font-bold">성지를 찾을 수 없습니다.</p>;
+  }
+
+  const { lat, lng } = site.coordinates;
+  const tags = [site.emotionTag, site.region, site.category].filter((t): t is string => Boolean(t));
+
+  return (
+    <div className={`mx-auto min-h-screen ${widthClass} bg-white pb-32`}>
+      <div className="relative flex h-[55vh] w-full items-center justify-center overflow-hidden bg-app-bg">
+        {site.imageUrl ? (
+          <motion.img
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 10 }}
+            src={site.imageUrl}
+            alt={site.name}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <span className="text-8xl opacity-30" aria-hidden>
+            ⛪
+          </span>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
+
+        <button
+          onClick={() => navigate(-1)}
+          className="absolute left-6 top-12 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
+          id="back-button"
+          aria-label="뒤로 가기"
+        >
+          <ChevronLeft size={22} />
+        </button>
+
+        <button
+          className="absolute right-6 top-12 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
+          aria-label="찜하기"
+        >
+          <Heart size={20} />
+        </button>
+
+        <div className="absolute bottom-12 left-8 right-8 text-white">
+          <span className="inline-block rounded-full bg-brand-violet px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-widest shadow-xl shadow-brand-violet/20">
+            {site.category}
+          </span>
+          <h1 className="mb-4 mt-3 text-4xl font-extrabold leading-tight tracking-tight">
+            {site.name}
+          </h1>
+          <p className="mb-4 flex items-center gap-2 text-sm font-medium opacity-90">
+            <MapPin size={16} className="text-brand-violet" />
+            {site.location}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-white/20 bg-white/15 px-3 py-1 text-[11px] font-bold backdrop-blur-md"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="relative z-10 -mt-8 space-y-12 rounded-t-[40px] bg-white p-8">
+        <section>
+          <div className="mb-6 flex items-center gap-3">
+            <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
+            <h2 className="text-xl font-extrabold tracking-tight text-app-text">기본 정보</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
+              <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
+                주소
+              </div>
+              <p className="text-xs font-bold leading-relaxed text-app-text">{site.location}</p>
+            </div>
+            <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
+              <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
+                교구 / 감성 태그
+              </div>
+              <p className="text-xs font-bold text-app-text">
+                {site.region} {site.emotionTag ? `· ${site.emotionTag}` : ''}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div className="mb-6 flex items-center gap-3">
+            <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
+            <h2 className="flex-1 text-xl font-extrabold tracking-tight text-app-text">
+              성지 이야기
+            </h2>
+            {/* 고령 순례자를 위한 음성 안내. 브라우저 내장 TTS라 별도 비용이 없다. */}
+            <button
+              onClick={toggleSpeech}
+              className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all ${
+                isSpeaking
+                  ? 'border-brand-violet bg-brand-violet text-white'
+                  : 'border-app-border bg-app-bg text-app-text-muted'
+              }`}
+              id="tts-toggle"
+              aria-label={isSpeaking ? '읽기 중지' : '성지 이야기 읽어주기'}
+            >
+              {isSpeaking ? <VolumeX size={18} /> : <Volume2 size={18} />}
+            </button>
+          </div>
+          <div className="relative overflow-hidden rounded-[40px] border border-brand-blue/5 bg-brand-blue/[0.03] p-8">
+            <History
+              size={100}
+              className="absolute -bottom-6 -right-6 rotate-12 text-brand-blue/5"
+            />
+            {site.description && (
+              <p className="relative z-10 mb-6 text-lg font-bold italic leading-snug tracking-tight text-brand-blue/90">
+                &ldquo;{site.description}&rdquo;
+              </p>
+            )}
+            {site.history && (
+              <p className="relative z-10 text-[15px] font-medium leading-relaxed text-app-text-muted">
+                {site.history}
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* 주변 관광지 — TourAPI 실시간 조회 (저장하지 않는다) */}
+        {(attractionsLoading || attractions.length > 0) && (
+          <section>
+            <div className="mb-6 flex items-center gap-3">
+              <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
+              <h2 className="text-xl font-extrabold tracking-tight text-app-text">주변 정보</h2>
+              <span className="text-[10px] font-bold text-app-text-muted">
+                실시간 · 한국관광공사
+              </span>
+            </div>
+            <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
+              {attractionsLoading
+                ? [1, 2, 3].map((i) => (
+                    <div
+                      key={i}
+                      className="h-64 w-44 flex-shrink-0 animate-pulse rounded-[32px] bg-app-bg"
+                    />
+                  ))
+                : attractions.map((spot) => (
+                    <div
+                      key={spot.contentid}
+                      className="w-44 flex-shrink-0 overflow-hidden rounded-[32px] border border-app-border bg-white text-left shadow-sm"
+                    >
+                      <div className="relative flex h-40 items-center justify-center overflow-hidden bg-app-bg">
+                        {spot.firstimage ? (
+                          <img
+                            src={spot.firstimage}
+                            alt={spot.title}
+                            className="h-full w-full object-cover"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <Compass size={28} className="text-app-text-muted opacity-30" />
+                        )}
+                        {spot.dist && (
+                          <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[9px] font-extrabold text-brand-violet backdrop-blur-md">
+                            {Math.round(Number(spot.dist))}m
+                          </div>
+                        )}
+                      </div>
+                      <div className="p-5">
+                        <h3 className="mb-1 truncate text-sm font-extrabold text-app-text">
+                          {spot.title}
+                        </h3>
+                        <p className="truncate text-[10px] font-bold text-app-text-muted">
+                          {spot.addr1}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+            </div>
+          </section>
+        )}
+
+        {/* 오늘 열리는 행사 — 매일 바뀌므로 캐싱이 원천적으로 불가능한 데이터 */}
+        {(festivalsLoading || festivals.length > 0) && (
+          <section>
+            <div className="mb-6 flex items-center gap-3">
+              <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
+              <h2 className="text-xl font-extrabold tracking-tight text-app-text">
+                지금 근처에서 열리는 행사
+              </h2>
+              <span className="text-[10px] font-bold text-app-text-muted">
+                실시간 · 한국관광공사
+              </span>
+            </div>
+            <div className="space-y-3">
+              {festivalsLoading
+                ? [1, 2].map((i) => (
+                    <div key={i} className="h-16 animate-pulse rounded-[20px] bg-app-bg" />
+                  ))
+                : festivals.map((spot) => (
+                    <div
+                      key={spot.contentid}
+                      className="flex items-center gap-4 rounded-[20px] border border-app-border bg-app-bg p-4"
+                    >
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-violet/10 text-brand-violet">
+                        <PartyPopper size={18} />
+                      </div>
+                      <div className="min-w-0">
+                        <h3 className="truncate text-sm font-extrabold text-app-text">
+                          {spot.title}
+                        </h3>
+                        <p className="truncate text-[10px] font-bold text-app-text-muted">
+                          {spot.addr1}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+            </div>
+          </section>
+        )}
+
+        {!stamped && (
+          <p className="-mb-2 text-center text-[11px] font-bold text-app-text-muted">
+            오늘 찍으면{' '}
+            <span className={todayLiturgical.colorClass.text}>
+              {todayLiturgical.emoji} {todayLiturgical.label}
+            </span>{' '}
+            한정판 스탬프예요
+          </p>
+        )}
+
+        <div className="flex gap-4">
+          <button
+            onClick={handleStamp}
+            disabled={stamped || addStamp.isPending}
+            className={`flex flex-1 items-center justify-center gap-2 rounded-[24px] py-5 text-sm font-extrabold shadow-2xl transition-all ${
+              stamped
+                ? 'border border-emerald-200 bg-emerald-50 text-emerald-600 shadow-none'
+                : 'bg-brand-blue text-white shadow-brand-blue/20 hover:bg-brand-blue/90'
+            }`}
+            id="stamp-button"
+          >
+            {stamped ? <Check size={20} /> : <Stamp size={20} />}
+            {addStamp.isPending
+              ? '기록하는 중...'
+              : stamped
+                ? '순례 스탬프 완료'
+                : '순례 스탬프 찍기'}
+          </button>
+          {lat != null && lng != null && (
+            <a
+              href={kakaoDirectionsUrl(site.name, lat, lng)}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="flex h-16 w-16 items-center justify-center rounded-[24px] border border-app-border bg-white text-app-text-muted shadow-sm transition-all hover:border-brand-violet hover:text-brand-violet"
+              aria-label="길찾기"
+            >
+              <Navigation size={24} />
+            </a>
+          )}
+        </div>
+
+        {stamped && (
+          <button
+            onClick={() => void handleShareCard()}
+            disabled={shareLoading}
+            className="flex w-full items-center justify-center gap-2 rounded-[20px] border-2 border-dashed border-brand-violet/30 py-4 text-sm font-bold text-brand-violet disabled:opacity-50"
+            id="share-card-button"
+          >
+            <Share2 size={18} />
+            {shareLoading ? '카드 만드는 중...' : '순례 스탬프 카드 공유하기'}
+          </button>
+        )}
+
+        {nearbySites.length > 0 && (
+          <section className="pb-10">
+            <h2 className="mb-8 flex items-center gap-3 text-xl font-extrabold tracking-tight text-app-text">
+              <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
+              {site.region} 교구의 다른 성지
+            </h2>
+            <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
+              {nearbySites.map((nearby) => (
+                <Link
+                  key={nearby.id}
+                  to={paths.siteDetail(nearby.id)}
+                  className="group w-44 flex-shrink-0 overflow-hidden rounded-[32px] border border-app-border bg-white text-left shadow-sm"
+                  id={`nearby-${nearby.id}`}
+                >
+                  <div className="relative flex h-40 items-center justify-center overflow-hidden bg-app-bg">
+                    <SiteThumbnail
+                      imageUrl={nearby.imageUrl}
+                      name={nearby.name}
+                      emojiSizeClass="text-4xl"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[9px] font-extrabold text-brand-violet backdrop-blur-md">
+                      {nearby.category}
+                    </div>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="mb-1 truncate text-sm font-extrabold text-app-text">
+                      {nearby.name}
+                    </h3>
+                    <p className="truncate text-[10px] font-bold text-app-text-muted">
+                      {nearby.location}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+    </div>
+  );
+}

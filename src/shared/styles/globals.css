@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+
+  --color-brand-blue: #1e3a8a;
+  --color-brand-violet: #7c3aed;
+  --color-app-bg: #f8f9fa;
+  --color-app-border: #f1f3f5;
+  --color-app-text: #1a1a1a;
+  --color-app-text-muted: #495057;
+}
+
+@layer base {
+  html {
+    /* iOS 노치·홈 인디케이터 대응 (Capacitor 네이티브 빌드) */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-app-bg text-app-text font-sans selection:bg-brand-violet/20;
+  }
+
+  /* 큰 글자 모드: rem 기반 Tailwind 크기 체계를 그대로 활용해 전체 화면을 비례 확대 */
+  html[data-text-size='lg'] {
+    font-size: 118%;
+  }
+
+  /* 접근성: 모션 최소화 설정을 존중한다 */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* 하단 내비게이션이 iOS 홈 인디케이터에 가리지 않도록 */
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .safe-area-inset-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}

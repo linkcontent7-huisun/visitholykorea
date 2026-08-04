@@ -1,0 +1,9 @@
+# 저장소에는 항상 LF 로 저장하고, 체크아웃할 때도 LF 로 둔다.
+# Windows·macOS를 오가며 작업해도 줄바꿈만 바뀐 가짜 diff 가 생기지 않게 하기 위함이다.
+* text=auto eol=lf
+
+# 바이너리는 손대지 않는다.
+*.png binary
+*.jpg binary
+*.pdf binary
+*.ico binary

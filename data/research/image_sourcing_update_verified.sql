@@ -1,0 +1,9 @@
+UPDATE holy_sites SET image_url = 'https://tong.visitkorea.or.kr/cms/resource/49/4054849_image2_1.jpg' WHERE id = 'a9d7452a-a271-4634-bbed-42e977532c69';
+UPDATE holy_sites SET image_url = 'https://tong.visitkorea.or.kr/cms/resource/04/3490504_image2_1.jpg' WHERE id = 'ed60c7d6-ee9f-4cd1-a5ff-28730e0dc42c';
+UPDATE holy_sites SET image_url = 'https://tong.visitkorea.or.kr/cms/resource/20/3490520_image2_1.jpg' WHERE id = '3c5c55a8-c994-4d95-882c-19ab96beb26c';
+UPDATE holy_sites SET image_url = 'http://tong.visitkorea.or.kr/cms/resource/84/3535184_image2_1.jpg' WHERE id = '7e9b0733-1c97-4d1c-beb0-fd7e9c6ab8c0';
+UPDATE holy_sites SET image_url = 'https://tong.visitkorea.or.kr/cms/resource/61/4064461_image2_1.jpg' WHERE id = '33e0cfff-5e24-44cd-980f-a69bfe09d4ff';
+UPDATE holy_sites SET image_url = 'http://tong.visitkorea.or.kr/cms/resource/39/3560639_image2_1.jpg' WHERE id = '4881746c-8074-4912-9420-4d211491bd58';
+UPDATE holy_sites SET image_url = 'http://tong.visitkorea.or.kr/cms/resource/19/3568219_image2_1.jpg' WHERE id = 'ba46ee91-7cc8-4517-a079-04ad83235365';
+UPDATE holy_sites SET image_url = 'http://tong.visitkorea.or.kr/cms/resource/76/3571776_image2_1.jpg' WHERE id = '3f20f0d4-e2df-4b33-9d9c-a8c77ac679cd';
+UPDATE holy_sites SET image_url = 'http://tong.visitkorea.or.kr/cms/resource/01/3541501_image2_1.jpg' WHERE id = 'dc218e5a-3218-4364-bc6d-4c5737122d53';
