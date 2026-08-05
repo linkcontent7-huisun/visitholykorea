@@ -5,7 +5,6 @@ import {
   Heart,
   History,
   MapPin,
-  Navigation,
   PartyPopper,
   Share2,
   Stamp,
@@ -19,12 +18,14 @@ import { paths } from '@/app/routes/paths';
 import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
 import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/share-card';
 import { useAddStamp, useHasStamp } from '@/features/passport/hooks/use-stamps';
+import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
+import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
 import { useNearbyAttractions, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
 import { useSite, useSitesInSameDiocese } from '@/features/sites/hooks/use-sites';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { kakaoDirectionsUrl } from '@/shared/lib/geo';
+import { kakaoPlaceUrl } from '@/shared/lib/geo';
 
 export default function SiteDetailPage() {
   const { siteId } = useParams<{ siteId: string }>();
@@ -112,7 +113,6 @@ export default function SiteDetailPage() {
     return <p className="p-10 text-center font-bold">성지를 찾을 수 없습니다.</p>;
   }
 
-  const { lat, lng } = site.coordinates;
   const tags = [site.emotionTag, site.region, site.category].filter((t): t is string => Boolean(t));
 
   return (
@@ -255,9 +255,13 @@ export default function SiteDetailPage() {
                     />
                   ))
                 : attractions.map((spot) => (
-                    <div
+                    <a
                       key={spot.contentid}
-                      className="w-44 flex-shrink-0 overflow-hidden rounded-[32px] border border-app-border bg-white text-left shadow-sm"
+                      href={kakaoPlaceUrl(spot.title, Number(spot.mapy), Number(spot.mapx))}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      aria-label={`${spot.title} 카카오맵에서 보기`}
+                      className="group w-44 flex-shrink-0 overflow-hidden rounded-[32px] border border-app-border bg-white text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-violet hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
                     >
                       <div className="relative flex h-40 items-center justify-center overflow-hidden bg-app-bg">
                         {spot.firstimage ? (
@@ -277,14 +281,14 @@ export default function SiteDetailPage() {
                         )}
                       </div>
                       <div className="p-5">
-                        <h3 className="mb-1 truncate text-sm font-extrabold text-app-text">
+                        <h3 className="mb-1 truncate text-sm font-extrabold text-app-text group-hover:text-brand-violet">
                           {spot.title}
                         </h3>
                         <p className="truncate text-[10px] font-bold text-app-text-muted">
                           {spot.addr1}
                         </p>
                       </div>
-                    </div>
+                    </a>
                   ))}
             </div>
           </section>
@@ -329,46 +333,46 @@ export default function SiteDetailPage() {
           </section>
         )}
 
-        {!stamped && (
-          <p className="-mb-2 text-center text-[11px] font-bold text-app-text-muted">
-            오늘 찍으면{' '}
-            <span className={todayLiturgical.colorClass.text}>
-              {todayLiturgical.emoji} {todayLiturgical.label}
-            </span>{' '}
-            한정판 스탬프예요
-          </p>
-        )}
-
-        <div className="flex gap-4">
-          <button
-            onClick={handleStamp}
-            disabled={stamped || addStamp.isPending}
-            className={`flex flex-1 items-center justify-center gap-2 rounded-[24px] py-5 text-sm font-extrabold shadow-2xl transition-all ${
-              stamped
-                ? 'border border-emerald-200 bg-emerald-50 text-emerald-600 shadow-none'
-                : 'bg-brand-blue text-white shadow-brand-blue/20 hover:bg-brand-blue/90'
-            }`}
-            id="stamp-button"
-          >
-            {stamped ? <Check size={20} /> : <Stamp size={20} />}
-            {addStamp.isPending
-              ? '기록하는 중...'
-              : stamped
-                ? '순례 스탬프 완료'
-                : '순례 스탬프 찍기'}
-          </button>
-          {lat != null && lng != null && (
-            <a
-              href={kakaoDirectionsUrl(site.name, lat, lng)}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="flex h-16 w-16 items-center justify-center rounded-[24px] border border-app-border bg-white text-app-text-muted shadow-sm transition-all hover:border-brand-violet hover:text-brand-violet"
-              aria-label="길찾기"
-            >
-              <Navigation size={24} />
-            </a>
+        {/* 안내 문구와 버튼은 한 덩어리로 묶는다. 예전에는 문구에 -mb-2 를 줘서
+            둘 사이 간격을 좁혔는데, 그 음수 여백이 버튼을 8px 끌어올려 문구를
+            가리고 있었다. 래퍼로 감싸 space-y 로 간격을 주면 겹치지 않는다. */}
+        <div className="space-y-3">
+          {!stamped && (
+            <p className="text-center text-[11px] font-bold text-app-text-muted">
+              오늘 찍으면{' '}
+              <span className={todayLiturgical.colorClass.text}>
+                {todayLiturgical.emoji} {todayLiturgical.label}
+              </span>{' '}
+              한정판 스탬프예요
+            </p>
           )}
+
+          <div className="flex gap-4">
+            <button
+              onClick={handleStamp}
+              disabled={stamped || addStamp.isPending}
+              className={`flex flex-1 items-center justify-center gap-2 rounded-[24px] py-5 text-sm font-extrabold shadow-2xl transition-all ${
+                stamped
+                  ? 'border border-emerald-200 bg-emerald-50 text-emerald-600 shadow-none'
+                  : 'bg-brand-blue text-white shadow-brand-blue/20 hover:bg-brand-blue/90'
+              }`}
+              id="stamp-button"
+            >
+              {stamped ? <Check size={20} /> : <Stamp size={20} />}
+              {addStamp.isPending
+                ? '기록하는 중...'
+                : stamped
+                  ? '순례 스탬프 완료'
+                  : '순례 스탬프 찍기'}
+            </button>
+          </div>
         </div>
+
+        {/* 들어가기 전 안내 — 비신자·외국인이 문 앞에서 멈추는 이유를 없앤다 */}
+        <VisitEtiquette />
+
+        {/* 찾아가는 길 — 외국인 방문자를 기준으로 만든 화면 */}
+        <DirectionsCard site={site} />
 
         {stamped && (
           <button

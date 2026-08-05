@@ -29,4 +29,9 @@ export const queryKeys = {
     nearby: (lat: number, lng: number) => ['tour', 'nearby', lat, lng] as const,
     festivals: (coords: string) => ['tour', 'festivals', coords] as const,
   },
+  quiet: {
+    /** 오늘 조용한 성지. 날짜가 바뀌면 키가 바뀌어 자동으로 다시 계산된다. */
+    today: (date: string, limit: number) => ['quiet', 'today', date, limit] as const,
+    site: (date: string, siteId: string) => ['quiet', 'site', date, siteId] as const,
+  },
 } as const;

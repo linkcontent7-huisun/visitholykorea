@@ -40,7 +40,7 @@ export default tseslint.config(
   },
   // scripts/ 는 브라우저가 아니라 Node 에서 도는 일회성 유틸이다.
   {
-    files: ['scripts/**/*.{js,mjs}'],
+    files: ['scripts/**/*.{js,mjs,ts}'],
     languageOptions: { globals: globals.node },
     rules: { 'no-console': 'off' },
   },

@@ -21,3 +21,13 @@ export function walkMinutes(distanceKm: number): number {
 export function kakaoDirectionsUrl(name: string, lat: number, lng: number): string {
   return `https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`;
 }
+
+/**
+ * 카카오맵에서 해당 장소를 지도 위에 띄우는 딥링크.
+ *
+ * 길찾기(`kakaoDirectionsUrl`)와 달리 경로를 잡지 않고 위치만 보여준다.
+ * 주변 관광지처럼 "여기가 어디쯤인지"만 궁금한 경우에 쓴다.
+ */
+export function kakaoPlaceUrl(name: string, lat: number, lng: number): string {
+  return `https://map.kakao.com/link/map/${encodeURIComponent(name)},${lat},${lng}`;
+}

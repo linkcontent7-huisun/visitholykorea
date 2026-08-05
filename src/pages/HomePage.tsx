@@ -1,5 +1,4 @@
 import {
-  ChevronLeft,
   ChevronRight,
   Compass,
   Globe,
@@ -11,19 +10,17 @@ import {
   Type,
   Wind,
 } from 'lucide-react';
-import { motion } from 'motion/react';
-import { useEffect, useState, type ComponentType } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, type ComponentType } from 'react';
+import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
 import { CourseCardItem } from '@/features/courses/components/CourseCardItem';
 import { useRecommendedCourses } from '@/features/courses/hooks/use-courses';
+import { TodayQuietSection } from '@/features/quiet/components/TodayQuietSection';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { useSites } from '@/features/sites/hooks/use-sites';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
-
-const HERO_ROTATE_MS = 5000;
 
 const EMOTION_ICON: Record<EmotionTag, ComponentType<{ size?: number; className?: string }>> = {
   위로: HeartHandshake,
@@ -34,26 +31,15 @@ const EMOTION_ICON: Record<EmotionTag, ComponentType<{ size?: number; className?
 };
 
 export default function HomePage() {
-  const navigate = useNavigate();
   const { language, setLanguage, largeText, setLargeText } = useSettings();
-  const [heroIndex, setHeroIndex] = useState(0);
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionTag>('치유');
   const [isAIGuideOpen, setIsAIGuideOpen] = useState(false);
 
   const { data: sites = [] } = useSites({ limit: 6 });
-  const { data: heroCandidates = [] } = useSites({ limit: 5, withImageOnly: true });
+  // 붐빔 지수는 좌표가 있는 성지 전체를 후보로 삼는다. 실제 API 호출은
+  // 상위 후보 몇 곳에만 일어나므로 목록을 넓게 가져와도 부담이 없다.
+  const { data: allSites = [] } = useSites({ limit: 300 });
   const { data: courses = [], isLoading: coursesLoading } = useRecommendedCourses(selectedEmotion);
-
-  // 사진이 있는 성지가 아직 없으면 일반 목록으로 대체한다(이모지로 표시됨).
-  const heroSites = heroCandidates.length > 0 ? heroCandidates : sites.slice(0, 3);
-
-  useEffect(() => {
-    if (heroSites.length <= 1) return;
-    const interval = setInterval(() => {
-      setHeroIndex((prev) => (prev + 1) % heroSites.length);
-    }, HERO_ROTATE_MS);
-    return () => clearInterval(interval);
-  }, [heroSites.length]);
 
   return (
     <div className="bg-app-bg pb-20">
@@ -97,75 +83,9 @@ export default function HomePage() {
         </Link>
       </header>
 
-      {/* 에디터 추천 성지 캐러셀 */}
-      <section className="relative mx-4 my-6 h-[60vh] overflow-hidden rounded-[24px] shadow-2xl shadow-gray-200">
-        {heroSites.map((site, index) => (
-          <motion.div
-            key={site.id}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: index === heroIndex ? 1 : 0 }}
-            className="absolute inset-0"
-            transition={{ duration: 1 }}
-            aria-hidden={index !== heroIndex}
-          >
-            <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-            {site.imageUrl ? (
-              <img src={site.imageUrl} alt={site.name} className="h-full w-full object-cover" />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center bg-app-border text-7xl opacity-40">
-                ⛪
-              </div>
-            )}
-            <div className="absolute bottom-10 left-8 right-8 z-20 text-white">
-              <p className="mb-2 text-sm font-light uppercase tracking-wide opacity-90">
-                에디터 추천 성지
-              </p>
-              <h2 className="mb-4 text-3xl font-semibold leading-tight">{site.name}</h2>
-              <button
-                onClick={() => navigate(paths.siteDetail(site.id))}
-                className="rounded-xl border border-white/30 bg-white/20 px-6 py-2.5 text-sm font-semibold backdrop-blur-lg transition-colors hover:bg-white/40"
-                id={`hero-cta-${site.id}`}
-              >
-                자세히 보기
-              </button>
-            </div>
-          </motion.div>
-        ))}
-        <div className="absolute right-6 top-6 z-20 flex gap-1.5">
-          {heroSites.map((site, i) => (
-            <div
-              key={site.id}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === heroIndex ? 'w-6 bg-white' : 'w-1.5 bg-white/40'
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* 자동으로 넘어가기만 하면 넘길 수 있다는 걸 모른다 — 화살표로 명시한다. */}
-        {heroSites.length > 1 && (
-          <>
-            <button
-              onClick={() =>
-                setHeroIndex((prev) => (prev - 1 + heroSites.length) % heroSites.length)
-              }
-              className="absolute left-4 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white backdrop-blur-lg transition-colors hover:bg-white/40"
-              id="hero-prev"
-              aria-label="이전 성지"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button
-              onClick={() => setHeroIndex((prev) => (prev + 1) % heroSites.length)}
-              className="absolute right-4 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white backdrop-blur-lg transition-colors hover:bg-white/40"
-              id="hero-next"
-              aria-label="다음 성지"
-            >
-              <ChevronRight size={20} />
-            </button>
-          </>
-        )}
-      </section>
+      {/* 오늘의 쉼표 — 이 화면의 주인공. 예전 히어로 캐러셀 자리다.
+          사진이 없으면 빈 껍데기였고, 있어도 누르지 않는 자리였다. */}
+      <TodayQuietSection sites={allSites} />
 
       <section className="relative z-30 px-6">
         <button

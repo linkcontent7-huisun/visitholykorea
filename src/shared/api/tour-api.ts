@@ -16,7 +16,10 @@ export const CONTENT_TYPE = {
   관광지: 12,
   문화시설: 14,
   축제공연행사: 15,
+  여행코스: 25,
+  레포츠: 28,
   숙박: 32,
+  쇼핑: 38,
   음식점: 39,
 } as const;
 
@@ -57,9 +60,10 @@ async function callTourApi(
   endpoint: string,
   params: Record<string, string | number>,
 ): Promise<TourApiSpot[]> {
+  // 빈 배열로 조용히 넘기면 붐빔 지수에서 "아무것도 없음 = 아주 조용"으로 읽혀
+  // 완전히 틀린 결과가 화면에 뜬다. 실패는 실패로 드러낸다.
   if (!env.tourApiServiceKey) {
-    console.error('VITE_TOUR_API_SERVICE_KEY 가 설정되지 않았습니다 (.env.local 확인).');
-    return [];
+    throw new Error('VITE_TOUR_API_SERVICE_KEY 가 설정되지 않았습니다 (.env.local 확인).');
   }
 
   const query = new URLSearchParams({
@@ -92,21 +96,28 @@ export function getAreaBasedAttractions(areaCode: string, numOfRows = 10): Promi
   });
 }
 
-/** 좌표 기준 반경 내 검색 — 성지와 "도보권 관광지" 짝짓기에 사용한다. */
+/**
+ * 좌표 기준 반경 내 검색.
+ *
+ * `contentTypeId` 를 넘기지 않으면 모든 유형(관광지·음식점·숙박 등)이 한 번에 온다.
+ * 붐빔 지수 계산은 유형별로 따로 호출하지 않고 이 방식으로 **1회만 호출한 뒤
+ * `contenttypeid` 로 나눈다** — 호출 수를 유형 수만큼 줄이기 위해서다.
+ */
 export function getNearbyByLocation(
   mapX: number,
   mapY: number,
-  options: { radiusMeters?: number; numOfRows?: number; contentTypeId?: number } = {},
+  options: { radiusMeters?: number; numOfRows?: number; contentTypeId?: number | null } = {},
 ): Promise<TourApiSpot[]> {
   const { radiusMeters = 3000, numOfRows = 10, contentTypeId = CONTENT_TYPE.관광지 } = options;
   return callTourApi('locationBasedList2', {
     mapX,
     mapY,
     radius: radiusMeters,
-    contentTypeId,
     numOfRows,
     pageNo: 1,
     arrange: 'E', // 거리순
+    // null 이면 파라미터 자체를 빼서 전체 유형을 받는다.
+    ...(contentTypeId == null ? {} : { contentTypeId }),
   });
 }
 
@@ -120,11 +131,15 @@ export function getNearbyAttractions(
   return getNearbyByLocation(mapX, mapY, { radiusMeters, numOfRows });
 }
 
+/** TourAPI 날짜 형식(YYYYMMDD). */
+export function toApiDate(date: Date): string {
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  return `${date.getFullYear()}${mm}${dd}`;
+}
+
 function todayYYYYMMDD(): string {
-  const now = new Date();
-  const mm = String(now.getMonth() + 1).padStart(2, '0');
-  const dd = String(now.getDate()).padStart(2, '0');
-  return `${now.getFullYear()}${mm}${dd}`;
+  return toApiDate(new Date());
 }
 
 /**
@@ -145,5 +160,47 @@ export function getNearbyFestivals(
     numOfRows,
     pageNo: 1,
     arrange: 'E', // 거리순
+  });
+}
+
+/**
+ * 오늘 진행 중인 전국 축제·행사 목록.
+ *
+ * 붐빔 지수의 핵심 입력이다. 성지마다 따로 묻지 않고 **전국을 한 번에 받아온 뒤
+ * 성지와의 거리는 우리가 직접 계산한다** — 이것 하나로 호출 수가 성지 수(208)에서 1로 줄어든다.
+ *
+ * `eventStartDate` 는 "그 날짜 이후 시작하는 행사"를 뜻하므로, 오늘 이미 진행 중인 행사까지
+ * 잡으려면 과거 날짜로 조회한 뒤 종료일을 보고 걸러야 한다.
+ */
+export async function getOngoingFestivals(
+  options: { daysBack?: number; numOfRows?: number; maxPages?: number } = {},
+): Promise<TourApiSpot[]> {
+  // 한 페이지에 많이 받을수록 호출 수가 줄어든다. 전국 축제는 하루 수십~수백 건이라
+  // 300건이면 대개 1회로 끝난다(실측 확인).
+  const { daysBack = 60, numOfRows = 300, maxPages = 3 } = options;
+
+  const from = new Date();
+  from.setDate(from.getDate() - daysBack);
+  const today = todayYYYYMMDD();
+
+  const collected: TourApiSpot[] = [];
+  for (let pageNo = 1; pageNo <= maxPages; pageNo += 1) {
+    const page = await callTourApi('searchFestival2', {
+      eventStartDate: toApiDate(from),
+      numOfRows,
+      pageNo,
+      arrange: 'A',
+    });
+    collected.push(...page);
+    // 마지막 페이지에 닿으면 요청한 수보다 적게 온다.
+    if (page.length < numOfRows) break;
+  }
+
+  // 오늘 진행 중인 것만 남긴다 (시작 ≤ 오늘 ≤ 종료).
+  return collected.filter((spot) => {
+    const start = spot.eventstartdate;
+    const end = spot.eventenddate;
+    if (!start || !end) return false;
+    return start <= today && today <= end;
   });
 }
