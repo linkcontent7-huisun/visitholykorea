@@ -131,6 +131,27 @@ export function getNearbyAttractions(
   return getNearbyByLocation(mapX, mapY, { radiusMeters, numOfRows });
 }
 
+/**
+ * 이름으로 관광지를 찾는다.
+ *
+ * "붐비는 곳 대신 조용한 성지" 추천의 출발점이다. 사용자는 좌표를 모르고
+ * "화성행궁"이라는 이름만 안다. 그 이름을 좌표로 바꿔야 붐빔을 계산할 수 있다.
+ *
+ * 관광지·문화시설만 받는다 — 음식점이나 숙소는 "대신 갈 곳"을 찾는 출발점이 되지 않는다.
+ */
+export function searchAttractionsByKeyword(
+  keyword: string,
+  numOfRows = 10,
+): Promise<TourApiSpot[]> {
+  return callTourApi('searchKeyword2', {
+    keyword,
+    numOfRows,
+    pageNo: 1,
+    arrange: 'O', // 제목순 — 인기순(P)은 동명이지 구분에 도움이 안 된다
+    contentTypeId: CONTENT_TYPE.관광지,
+  });
+}
+
 /** TourAPI 날짜 형식(YYYYMMDD). */
 export function toApiDate(date: Date): string {
   const mm = String(date.getMonth() + 1).padStart(2, '0');

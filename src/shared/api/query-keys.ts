@@ -28,10 +28,16 @@ export const queryKeys = {
   tour: {
     nearby: (lat: number, lng: number) => ['tour', 'nearby', lat, lng] as const,
     festivals: (coords: string) => ['tour', 'festivals', coords] as const,
+    searchKeyword: (keyword: string) => ['tour', 'search', keyword] as const,
   },
   quiet: {
     /** 오늘 조용한 성지. 날짜가 바뀌면 키가 바뀌어 자동으로 다시 계산된다. */
     today: (date: string, limit: number) => ['quiet', 'today', date, limit] as const,
     site: (date: string, siteId: string) => ['quiet', 'site', date, siteId] as const,
+  },
+  alternatives: {
+    /** 붐비는 관광지의 대체 성지. TourAPI contentid 기준. */
+    forAttraction: (contentId: string, date: string) =>
+      ['alternatives', contentId, date] as const,
   },
 } as const;
