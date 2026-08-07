@@ -23,7 +23,7 @@ export default function MapPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const { data: sites = [], isLoading } = useSites({ limit: 300 });
-  const { visitedIds, toggle } = useVisitedSites();
+  const { visits, visitedIds, toggle } = useVisitedSites();
 
   // 진행률은 필터와 무관하게 **전체 기준**으로 센다.
   // 교구를 하나 골랐다고 진행률이 100%가 되면 아무 의미가 없다.
@@ -70,6 +70,7 @@ export default function MapPage() {
           ) : (
             <NationalMap
               sites={sites}
+              visits={visits}
               visitedIds={visitedIds}
               almostIds={almostIds}
               selectedId={selectedId}

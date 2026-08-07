@@ -11,6 +11,8 @@
 
 import { useMemo } from 'react';
 import type { HolySite } from '@/shared/types/domain';
+import type { VisitRecord } from '../lib/journey';
+import { buildJourneySegments } from '../lib/journey';
 import { jitterFor, MAP_ASPECT, projectToMap } from '../lib/projection';
 import type { PinState } from '../lib/progress';
 import { pinStateOf } from '../lib/progress';
@@ -32,6 +34,7 @@ const PIN_STYLE: Record<PinState, { r: number; className: string }> = {
 
 interface NationalMapProps {
   sites: HolySite[];
+  visits: readonly VisitRecord[];
   visitedIds: ReadonlySet<string>;
   almostIds: ReadonlySet<string>;
   selectedId: string | null;
@@ -40,13 +43,15 @@ interface NationalMapProps {
 
 export function NationalMap({
   sites,
+  visits,
   visitedIds,
   almostIds,
   selectedId,
   onSelect,
 }: NationalMapProps) {
-  const { pins, offMap } = useMemo(() => {
+  const { pins, offMap, positions } = useMemo(() => {
     const placed: Array<{ site: HolySite; x: number; y: number; state: PinState }> = [];
+    const byId = new Map<string, { x: number; y: number }>();
     let missing = 0;
 
     for (const site of sites) {
@@ -56,10 +61,13 @@ export function NationalMap({
         continue;
       }
       const j = jitterFor(site.id, JITTER);
+      const x = point.x + j.x;
+      const y = point.y + j.y;
+      byId.set(site.id, { x, y });
       placed.push({
         site,
-        x: point.x + j.x,
-        y: point.y + j.y,
+        x,
+        y,
         state: pinStateOf(site.id, visitedIds, almostIds),
       });
     }
@@ -68,8 +76,18 @@ export function NationalMap({
     const order: Record<PinState, number> = { remaining: 0, visited: 1, almost: 2 };
     placed.sort((a, b) => order[a.state] - order[b.state]);
 
-    return { pins: placed, offMap: missing };
+    return { pins: placed, offMap: missing, positions: byId };
   }, [sites, visitedIds, almostIds]);
+
+  /** 여정선 — 좌표를 아는 성지끼리만 잇는다 */
+  const journey = useMemo(() => {
+    return buildJourneySegments(visits).flatMap((segment) => {
+      const from = positions.get(segment.fromId);
+      const to = positions.get(segment.toId);
+      if (!from || !to) return [];
+      return [{ ...segment, from, to }];
+    });
+  }, [visits, positions]);
 
   return (
     <div className="w-full">
@@ -81,6 +99,21 @@ export function NationalMap({
           pins.filter((p) => p.state === 'visited').length
         }곳을 다녀왔습니다.`}
       >
+        {/* 여정선을 핀보다 먼저 그려서 핀이 선 위에 오게 한다 */}
+        <g fill="none" strokeLinecap="round" className="stroke-brand-blue">
+          {journey.map((seg) => (
+            <line
+              key={`${seg.fromId}-${seg.toId}-${seg.order}`}
+              x1={seg.from.x}
+              y1={seg.from.y}
+              x2={seg.to.x}
+              y2={seg.to.y}
+              strokeWidth={3}
+              strokeOpacity={seg.opacity}
+            />
+          ))}
+        </g>
+
         {pins.map(({ site, x, y, state }) => {
           const style = PIN_STYLE[state];
           const isSelected = site.id === selectedId;
@@ -140,6 +173,13 @@ export function MapLegend() {
       <li className="flex items-center gap-1.5">
         <span className="inline-block size-3 rounded-full border-2 border-gray-300" aria-hidden />
         아직
+      </li>
+      <li className="flex items-center gap-1.5">
+        <span
+          className="inline-block h-[3px] w-6 rounded-full bg-gradient-to-r from-brand-blue/20 to-brand-blue"
+          aria-hidden
+        />
+        지나온 순서 (최근일수록 진하게)
       </li>
     </ul>
   );
