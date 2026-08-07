@@ -24,7 +24,10 @@
     "cap:ios": "npm run cap:sync && cap open ios",
     "icons": "node scripts/generate-icons.mjs",
     "crowding": "tsx scripts/crowding-report.ts",
-    "content": "tsx scripts/content-report.ts"
+    "content": "tsx scripts/content-report.ts",
+    "translate:export": "tsx scripts/translation-export.ts",
+    "translate:import": "tsx scripts/translation-import.ts",
+    "translate:status": "tsx scripts/translation-status.ts"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",

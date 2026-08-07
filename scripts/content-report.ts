@@ -7,28 +7,7 @@
  *   npm run content
  */
 
-import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-
-function loadEnvLocal(): void {
-  let raw: string;
-  try {
-    raw = readFileSync(join(ROOT, '.env.local'), 'utf-8');
-  } catch {
-    console.error('.env.local 이 없습니다.');
-    process.exit(1);
-  }
-  for (const line of raw.split('\n')) {
-    const match = /^\s*([A-Z0-9_]+)\s*=\s*(.*)$/.exec(line);
-    if (!match) continue;
-    const [, key, rawValue] = match;
-    if (!key || rawValue === undefined) continue;
-    process.env[key] ??= rawValue.trim().replace(/^["']|["']$/g, '');
-  }
-}
+import { loadEnvLocal } from './lib/env.ts';
 
 loadEnvLocal();
 

@@ -1,0 +1,282 @@
+{
+  "language": "en",
+  "diocese": "서울",
+  "generatedAt": "2026-08-07T00:00:00.000Z",
+  "items": [
+    {
+      "siteId": "fbf56b63-8140-4577-ad92-ce6bd3d78c76",
+      "diocese": "서울",
+      "source": { "name": "가톨릭 대학교 성신 교정" },
+      "target": {
+        "name": "Catholic University of Korea, Songsin Campus",
+        "description": "In Hyehwa-dong, just behind the Daehangno theatre district, the relics of St. Andrew Kim Taegon, Korea's first native priest, rest in the crypt of a chapel where future priests still pray. St. Joseph's Seminary, founded at Baeron in Jecheon in 1855, was closed by the Byeongin Persecution; it reopened in 1885 at Bueonggol in Yeoju as the Sacred Heart Seminary, moved to Yongsan in Seoul in 1887, and finally settled here in Hyehwa-dong. Known as the seedbed of priestly vocations, this campus has formed the priests who lead the Korean Church for more than a century.",
+        "history": "A chapel holding the concentrated history of priestly formation in Korea, traced back to Baeron Seminary in 1855. The relics of St. Andrew Kim Taegon are enshrined here.",
+        "addressRomanized": "296-12 Changgyeonggung-ro, Jongno-gu, Seoul"
+      }
+    },
+    {
+      "siteId": "69b7f3a2-cd0e-4d19-b31c-4ac6447d2b8b",
+      "diocese": "서울",
+      "source": { "name": "가회동 성당" },
+      "target": {
+        "name": "Gahoe-dong Catholic Church",
+        "description": "On the edge of the Bukchon hanok village stands a church that blends Korean and Western architecture, and hides the site where the first Mass in Korea was offered. On Easter Sunday of 1795, Fr. James Zhou Wenmo, the first foreign priest to enter Korea in secret, celebrated Mass at the house of Choe In-gil. He later continued his ministry in hiding from the house of Kang Wan-suk, one of the earliest women leaders of the Korean Church. The parish was established in 1949; the present church, completed in 2013 and consecrated at Easter 2014, presents that history in a ground-floor exhibition room.",
+        "history": "The site where Fr. Zhou Wenmo offered the first Mass in Korea in 1795. Parish established in 1949; the new church was dedicated in 2014.",
+        "addressRomanized": "30-3 Gahoe-dong, Jongno-gu, Seoul"
+      }
+    },
+    {
+      "siteId": "47d6a607-6c63-46e9-bef9-0b382f253889",
+      "diocese": "서울",
+      "source": { "name": "경기 감영 터" },
+      "target": {
+        "name": "Site of the Gyeonggi Provincial Office",
+        "description": "Near Seodaemun, on ground now occupied by a hospital, once stood the provincial office that governed Gyeonggi Province. Catholics arrested in the areas around the capital during the Joseon dynasty were brought here for interrogation and punishment. Together with the sites of the Ministry of Justice and the Right Police Bureau, this stop on the Way of Life course of the Seoul Pilgrimage Route marks where martyrs bore witness to their faith in the middle of the city.",
+        "history": "The administrative centre of Gyeonggi Province in the Joseon dynasty, where arrested Catholics were interrogated and punished. Part of the Way of Life course on the Seoul Pilgrimage Route.",
+        "addressRomanized": "Migeun-dong, Seodaemun-gu, Seoul (Kangbuk Samsung Hospital area)"
+      }
+    },
+    {
+      "siteId": "77197844-6e5d-4f22-a2f0-1a77dd999357",
+      "diocese": "서울",
+      "source": { "name": "광화문 124위 시복 터" },
+      "target": {
+        "name": "Gwanghwamun, Site of the Beatification of 124 Martyrs",
+        "description": "On this wide square facing Gyeongbokgung, the first royal palace of the Joseon dynasty, Pope Francis beatified 124 Korean martyrs on 16 August 2014. It was the third such ceremony, following the beatification of 79 martyrs in Rome in 1925 and of 24 more in 1968, and the first ever presided over by a pope on Korean soil. Holding it here, facing the former sites of the State Tribunal, the Police Bureaus and the Ministry of Justice where martyrs had been imprisoned and executed, was itself an act of restoring their honour. Some 200,000 faithful took part, and Korea was once again made known to the world as a land of martyrs.",
+        "history": "Site of the beatification of 124 martyrs presided over by Pope Francis on 16 August 2014, the first beatification celebrated by a pope during a visit to Korea.",
+        "addressRomanized": "Sejong-ro, Jongno-gu, Seoul (Gwanghwamun Square)"
+      }
+    },
+    {
+      "siteId": "3a06643c-a506-4940-aaf4-6e088f83a063",
+      "diocese": "서울",
+      "source": { "name": "광희문 성지" },
+      "target": {
+        "name": "Gwanghuimun Shrine",
+        "description": "On the boundary between Jung-gu and Seongdong-gu stands a small gate through which the dead were carried out of the walled city. During the persecutions, the bodies of martyrs taken through this gate were often abandoned outside without proper burial. Between 1801 and 1879, the remains of 794 martyrs were discarded or buried here, 740 of them after the Byeongin Persecution of 1866 alone. They came from across the country, 309 from Seoul, 213 from Chungcheong and 158 from Gyeonggi, and this place where the living and the dead lie together has come to be called a catacomb. St. Francis Choe Gyeong-hwan and Blessed Peter Song Baek-dol are among those closely connected with it.",
+        "history": "The corpse gate where the remains of 794 martyrs were abandoned or buried between 1801 and 1879, most of them after the Byeongin Persecution. Associated with St. Francis Choe Gyeong-hwan and others.",
+        "addressRomanized": "228-17 Sindang-dong, Jung-gu, Seoul"
+      }
+    },
+    {
+      "siteId": "e7e5ddc3-a087-44b6-9e58-4e2f49c7d304",
+      "diocese": "서울",
+      "source": { "name": "김범우의 집터" },
+      "target": {
+        "name": "Site of Thomas Kim Beom-u's House",
+        "description": "In the middle of the busy Myeongdong district, on ground that now bears no trace of it, stood the house where the first community of Korean Catholics gathered. Thomas Kim Beom-u, an official interpreter, opened his home to Yi Seung-hun, the brothers Jeong Yak-jeon and Jeong Yak-yong, Gwon Il-sin and others. In the spring of 1785, officials of the Ministry of Justice raiding the area for illegal gambling stumbled upon the gathering, an episode known as the Eulsa Incident. Kim Beom-u was sentenced to exile and died the following year. The neighbourhood where his house stood, Myeongnyebang, survives as the name of the first Catholic community in Korea.",
+        "history": "The house of Thomas Kim Beom-u and the heart of the Myeongnyebang community, where the Eulsa Incident took place in 1785.",
+        "addressRomanized": "Myeongdong 1-ga, Jung-gu, Seoul (former Myeongnyebang)"
+      }
+    },
+    {
+      "siteId": "c18f5a67-d517-4bfe-9dbf-a6b6f39f6d62",
+      "diocese": "서울",
+      "source": { "name": "노고산 성지" },
+      "target": {
+        "name": "Nogosan Shrine",
+        "description": "On a hillside in Mapo, in front of Gabriel Hall at Sogang University, martyrs once lay in hiding. After Bishop Laurent Imbert and Frs. Pierre Maubant and Jacques Chastan were martyred at Saenamteo during the Gihae Persecution of 1839, the faithful secretly recovered their bodies and buried them here on Nogosan. Over the following decades the remains of several martyrs were repeatedly found and moved within this area, until they were finally transferred to Jeoldusan Martyrs' Shrine in 1967. Sogang University, run by the Jesuits, now occupies the site, and a memorial stone honouring the three clergy was erected here in 2009.",
+        "history": "The place where the remains of Bishop Imbert and other martyrs of the 1839 Gihae Persecution lay hidden for four years. Sogang University erected a memorial stone in 2009.",
+        "addressRomanized": "1 Sinsu-dong, Mapo-gu, Seoul (in front of Gabriel Hall, Sogang University)"
+      }
+    },
+    {
+      "siteId": "ba46ee91-7cc8-4517-a079-04ad83235365",
+      "diocese": "서울",
+      "source": { "name": "당고개순교성지" },
+      "target": {
+        "name": "Danggogae Martyrdom Shrine",
+        "description": "In December 1839, as the Gihae Persecution was drawing to a close, the place of execution was moved here to Danggogae at the request of merchants at Seosomun who wanted the site cleared before the Lunar New Year market. Of the ten martyrs who died here, nine have been canonized, which gives this quiet place its particular weight.",
+        "history": "The last execution site of the 1839 Gihae Persecution. Nine of the ten martyrs who died here were canonized.",
+        "addressRomanized": "Wonhyo-ro 2-ga, Yongsan-gu, Seoul"
+      }
+    },
+    {
+      "siteId": "4b4199cf-2236-4842-8996-38ee9d36e542",
+      "diocese": "서울",
+      "source": { "name": "명동대성당" },
+      "target": {
+        "name": "Myeongdong Cathedral",
+        "description": "Completed in 1898, this was the first Gothic brick church built in Korea. Its 47-metre bell tower is a landmark of central Seoul and, since 1987, a symbol of the country's democracy movement. The crypt below holds the remains of the first bishops of the Korean Church. One street up from the crowds of the Myeongdong shopping district, the noise suddenly gives way to stillness. Inside, light falling through the stained glass carries the weight of the hundred and twenty years held in each grey brick.",
+        "history": "Completed in 1898, the first Gothic brick church in Korea. Historic Site No. 258, and a landmark of the 1987 democracy movement.",
+        "addressRomanized": "74 Myeongdong-gil, Jung-gu, Seoul"
+      }
+    },
+    {
+      "siteId": "b01a51e2-2c86-4458-b95b-7a742bc062cd",
+      "diocese": "서울",
+      "source": { "name": "삼성산 성지" },
+      "target": {
+        "name": "Samseongsan Shrine",
+        "description": "On a slope of Gwanaksan, this mountain takes its name, Three Saints Mountain, from the three saints once buried here. After Bishop Laurent Imbert and Frs. Pierre Maubant and Jacques Chastan were martyred at Saenamteo during the Gihae Persecution of 1839, a layman named Paul Bak secretly recovered their bodies and buried them on this hillside. His son Bak Sun-jip later testified to the location, and in 1901 the remains were moved to the crypt of Myeongdong Cathedral. Memorials were raised in 1970 and 1981 to the three men, who had increased the number of the faithful to nine thousand within barely a year of their arrival in Korea, and in 1984, on the 200th anniversary of the Korean Church, they were canonized.",
+        "history": "The mountain where the remains of Bishop Imbert and Frs. Maubant and Chastan, martyrs of the 1839 Gihae Persecution, were buried from 1843 to 1901. Canonized in 1984.",
+        "addressRomanized": "San 54-14 Sillim-dong, Gwanak-gu, Seoul"
+      }
+    },
+    {
+      "siteId": "7695ff82-aaa0-41c9-b5e7-a707a7b10c38",
+      "diocese": "서울",
+      "source": { "name": "새남터순교성지" },
+      "target": {
+        "name": "Saenamteo Martyrdom Shrine",
+        "description": "On the sandy flats by the Han River south of the old city wall, a place once called Nodeul, the Joseon dynasty held military drills and executed those convicted of the gravest crimes. Between 1801 and 1866, eleven clergy were martyred here, among them St. Andrew Kim Taegon, the first Korean priest. In contrast to Seosomun, where lay Catholics died, Saenamteo is known as the martyrdom site of the priests. The present church, built in 1967 as a memorial to them, greets visitors at its entrance with the words: life is martyrdom, and martyrdom is love.",
+        "history": "Between 1801 and 1866, eleven clergy were martyred here, including St. Andrew Kim Taegon, Korea's first priest. Known as the martyrdom site of the clergy.",
+        "addressRomanized": "80-1 Ichon-ro, Yongsan-gu, Seoul"
+      }
+    },
+    {
+      "siteId": "c3dab929-8628-4fcd-be56-032a8076f934",
+      "diocese": "서울",
+      "source": { "name": "서소문 밖 네거리 순교성지" },
+      "target": {
+        "name": "Seosomun Martyrdom Shrine",
+        "description": "Ten minutes on foot from Seoul Station, five from Chungjeongno Station, a quiet and deep story sits in the middle of a district full of office workers. This crossroads outside the Seosomun gate was an official execution ground in the Joseon dynasty. From the Sinyu Persecution of 1801 to the Byeongin Persecution of 1866, 44 saints, 27 blessed and countless unnamed martyrs bore witness to their faith here. At the Seosomun Shrine History Museum, opened in 2019, the descent underground is itself a pilgrimage. Beyond the exhibition halls lies the Sky Plaza, where the sky seen from below seems as far off as it must have looked to the martyrs on their last day.",
+        "history": "From the Sinyu Persecution of 1801 to the Byeongin Persecution of 1866, 44 saints and 27 blessed were martyred here, making it the largest single martyrdom site in the Korean Church. A core section of the Seoul Pilgrimage Route recognized by the Holy See in 2018.",
+        "addressRomanized": "5 Chilpae-ro, Jung-gu, Seoul (Jungnim-dong)"
+      }
+    },
+    {
+      "siteId": "a0cefc62-82a0-40e6-9bc1-8e0631f384e4",
+      "diocese": "서울",
+      "source": { "name": "석정 보름 우물" },
+      "target": {
+        "name": "Seokjeong Boreum Well",
+        "description": "In Gye-dong in Bukchon stands an old well known as Boreum, the fortnight well, because its water was said to run clear for fifteen days and cloudy for the next fifteen. Before Seoul had running water it was an important source of drinking water for the neighbourhood. Fr. James Zhou Wenmo, the first foreign priest to slip into Korea across the Yalu River in 1794, hid in the house of Choe In-gil nearby and used water from this well to baptize in secret. With the help of Kang Wan-suk he continued to administer the sacrament to the faithful, and St. Andrew Kim Taegon is also said to have used this water as holy water while hiding in Bukchon.",
+        "history": "The well from which Fr. Zhou Wenmo secretly baptized the faithful. St. Andrew Kim Taegon is also said to have used its water as holy water.",
+        "addressRomanized": "Gye-dong, Jongno-gu, Seoul (near Gahoe-dong Church)"
+      }
+    },
+    {
+      "siteId": "59613365-3ed5-47df-a65e-7fbac90156a4",
+      "diocese": "서울",
+      "source": { "name": "약현성당 (중림동성당)" },
+      "target": {
+        "name": "Yakhyeon Church (Jungnim-dong Church)",
+        "description": "Completed in 1892, Yakhyeon was the first Western-style brick church in Korea, built six years before Myeongdong Cathedral. It stands on a rise overlooking the Seosomun martyrdom site, which deepens its character as a place of remembrance. Its red-brick Romanesque design is plain and quietly beautiful.",
+        "history": "Completed in 1892, the first Western-style brick church in Korea, predating Myeongdong Cathedral by six years. Historic Site No. 252.",
+        "addressRomanized": "447-1 Cheongpa-ro, Jung-gu, Seoul (Jungnim-dong)"
+      }
+    },
+    {
+      "siteId": "d83c3808-9443-4a12-83b9-94217d28f34d",
+      "diocese": "서울",
+      "source": { "name": "용산 성직자 묘역" },
+      "target": {
+        "name": "Yongsan Clergy Cemetery",
+        "description": "Near the old Yongsan seminary lies the ground where foreign clergy who died for Korea once rested. The remains of Bishop Laurent Imbert and Frs. Pierre Maubant and Jacques Chastan, martyred at Saenamteo during the Gihae Persecution of 1839, were first buried on Samseongsan. After an investigation by Fr. Victor Poisnel between 1885 and 1887, they were moved in 1901 to the clergy cemetery of the Sacred Heart Seminary here at Yongsan. Until they were transferred again that November to the crypt of Myeongdong Cathedral, the seminary's professors and students are said to have come each year to tend the graves.",
+        "history": "The seminary cemetery at Yongsan where the remains of martyred clergy briefly rested after being moved from Samseongsan in 1901, before their transfer to the crypt of Myeongdong Cathedral the same year.",
+        "addressRomanized": "Wonhyo-ro 4-ga, Yongsan-gu, Seoul (near the former Yongsan Seminary)"
+      }
+    },
+    {
+      "siteId": "63ea8de1-e96a-43bf-b124-81f4f0b352f3",
+      "diocese": "서울",
+      "source": { "name": "용산 예수 성심 신학교" },
+      "target": {
+        "name": "Yongsan Sacred Heart Seminary",
+        "description": "In Wonhyo-ro in Yongsan stands the chapel of Korea's first modern seminary, which once held the relics of martyrs. St. Joseph's Seminary, founded at Baeron in Jecheon in 1855, was closed by the Byeongin Persecution; it reopened in 1885 at Bueonggol in Yeoju as the Sacred Heart Seminary, moved here to Yongsan in 1887, and completed this chapel in 1902. The remains of St. Andrew Kim Taegon, Korea's first priest, and of eight vicars apostolic of Korea were enshrined here for a time, and the seminary formed more than a hundred priests before the Japanese colonial authorities closed it in 1942. Designated Historic Site No. 255 in 1982, it was restored between 2010 and 2011.",
+        "history": "Korea's first modern seminary, moved here in 1887 with its chapel completed in 1902. The remains of St. Andrew Kim Taegon and successive bishops were once enshrined here. Historic Site No. 255.",
+        "addressRomanized": "1-1 Wonhyo-ro 4-ga, Yongsan-gu, Seoul"
+      }
+    },
+    {
+      "siteId": "219050d3-59e4-4871-b896-9b5fcb0c4c31",
+      "diocese": "서울",
+      "source": { "name": "우포도청 터" },
+      "target": {
+        "name": "Site of the Right Police Bureau",
+        "description": "In Cheongjin-dong, between the Gwanghwamun Post Office and the Ilmin Museum of Art, stood the Right Police Bureau, which governed the western and northern quarters of the capital. After the Catholic Church was founded in Korea in 1784, hunting down the faithful became a chief duty of the Left and Right Police Bureaus. Many martyrs were arrested, interrogated and tortured here, and the site now forms part of the Way of Life course on the Seoul Pilgrimage Route, together with the sites of the Ministry of Justice and the Gyeonggi Provincial Office.",
+        "history": "The Joseon-era police bureau governing the western and northern quarters of the capital, and a centre for the arrest, interrogation and torture of Catholics. Part of the Way of Life course on the Seoul Pilgrimage Route.",
+        "addressRomanized": "Cheongjin-dong, Jongno-gu, Seoul (between Gwanghwamun Post Office and Ilmin Museum of Art)"
+      }
+    },
+    {
+      "siteId": "82de5cf4-2519-48a2-a877-92b5bb65e304",
+      "diocese": "서울",
+      "source": { "name": "의금부 터" },
+      "target": {
+        "name": "Site of the Uigeumbu (State Tribunal)",
+        "description": "In front of Exit 1 of Jonggak Station stood the State Tribunal, the royal court that tried the gravest offenders under the direct authority of the king. It was here that the foreign clergy serving in Korea were sentenced to death: Bishop Laurent Imbert with Frs. Pierre Maubant and Jacques Chastan during the Gihae Persecution of 1839, and Bishop Simeon Berneux with Fr. Just de Bretenieres during the Byeongin Persecution of 1866. The moment when faith was condemned in the name of the crown is quietly inscribed in the middle of Jongno, where people now pass without noticing.",
+        "history": "The Joseon-era State Tribunal where Bishop Imbert and other martyred clergy of the Gihae and Byeongin Persecutions were sentenced to death.",
+        "addressRomanized": "Jongno 1-ga, Jongno-gu, Seoul (in front of Jonggak Station Exit 1)"
+      }
+    },
+    {
+      "siteId": "7812eec7-ea84-4572-99f9-c7d5daefbf92",
+      "diocese": "서울",
+      "source": { "name": "전옥서 터" },
+      "target": {
+        "name": "Site of the Jeonokseo (State Prison)",
+        "description": "In Seorin-dong, east of the Gwanghwamun intersection, stood the prison attached to the Ministry of Justice. Catholics interrogated by the ministry were held here until their sentences were carried out. Among the 103 saints, St. Peter Yi Ho-yeong and St. Barbara Kim died here after enduring brutal imprisonment, and Yu Hang-geom and Yun Ji-heon, brought under guard from Jeonju in 1801, were held here before being taken to the State Tribunal for questioning. This place marks the quiet martyrdom of those who died not on the execution ground but in a cell.",
+        "history": "The Joseon-era prison where St. Peter Yi Ho-yeong and St. Barbara Kim died after long imprisonment. Yu Hang-geom and Yun Ji-heon were also held here.",
+        "addressRomanized": "Seorin-dong, Jongno-gu, Seoul"
+      }
+    },
+    {
+      "siteId": "3f20f0d4-e2df-4b33-9d9c-a8c77ac679cd",
+      "diocese": "서울",
+      "source": { "name": "절두산 순교성지" },
+      "target": {
+        "name": "Jeoldusan Martyrs' Shrine",
+        "description": "Jamdubong Peak rises above the old Yanghwajin ferry landing. Long famous for its view over the Han River, it took the grim name Jeoldusan, Beheading Hill, after great numbers of Catholics were beheaded here during the Byeongin Persecution of 1866. The shrine holds a reliquary chapel with the remains of 28 saints, a museum of martyrdom artefacts, and an outdoor exhibition overlooking the river. It is five minutes on foot from Hapjeong Station and connects to the Han River cycle path. At dusk, the silhouettes of the martyr statues against the sunset over the river draw photographers throughout the year.",
+        "history": "Where many Catholics were beheaded during the Byeongin Persecution of 1866. The remains of 28 saints are enshrined here. Part of Course 3, the Way of Unity, on the Seoul Pilgrimage Route.",
+        "addressRomanized": "6 Tojeong-ro, Mapo-gu, Seoul (Hapjeong-dong)"
+      }
+    },
+    {
+      "siteId": "a8f9d7a8-a375-4bc5-8544-23f3eddbb08a",
+      "diocese": "서울",
+      "source": { "name": "종로 성당" },
+      "target": {
+        "name": "Jongno Catholic Church",
+        "description": "In the heart of Jongno, close to where the Left and Right Police Bureaus once stood, this church serves as the pilgrimage church of the Police Bureau sites. The Left Bureau, near the former Dansungsa cinema, governed the eastern, central and southern quarters of the capital; the Right Bureau, between the Gwanghwamun Post Office and the Ilmin Museum of Art, governed the west and north. Both guarded the king and patrolled the walled city. After the Catholic Church was founded in Korea in 1784, hunting down the faithful became one of their chief duties, and many were arrested and interrogated here. Jongno Church today receives pilgrims in memory of that painful history.",
+        "history": "The pilgrimage church built near the sites of the Left and Right Police Bureaus, which were principal instruments in the search for and arrest of Catholics during the Joseon dynasty.",
+        "addressRomanized": "167 Inui-dong, Jongno-gu, Seoul"
+      }
+    },
+    {
+      "siteId": "b5305b5c-a7d6-4dd2-bdfe-f7f6687819f5",
+      "diocese": "서울",
+      "source": { "name": "좌포도청 터" },
+      "target": {
+        "name": "Site of the Left Police Bureau",
+        "description": "In Myo-dong in Jongno, near the former Dansungsa cinema, stood the Left Police Bureau, which governed the eastern, central and southern quarters of the capital. With the Right Bureau it formed one of the two arms of the search for Catholics, and many of the faithful were arrested and interrogated here. Among the cinemas and shops of today's busy street, the fact that this is where men and women lost their freedom for holding to their faith lies quietly buried.",
+        "history": "The Joseon-era police bureau governing the eastern, central and southern quarters of the capital, and a centre for the arrest and interrogation of Catholics.",
+        "addressRomanized": "Myo-dong, Jongno-gu, Seoul (near the former Dansungsa cinema)"
+      }
+    },
+    {
+      "siteId": "8b266b66-1006-4a4c-a708-1aa554492548",
+      "diocese": "서울",
+      "source": { "name": "한국 순교자 103위 시성 터" },
+      "target": {
+        "name": "Site of the Canonization of the 103 Korean Martyrs",
+        "description": "On the lawn of Yeouido Park, Pope John Paul II celebrated the congress marking the 200th anniversary of the Korean Church and canonized 103 martyrs on 6 May 1984. More than ten thousand of the faithful had been martyred over a century of persecution; 79 were beatified in 1925 and 24 more in 1968, and on this day all 103 were finally declared saints. It was the largest canonization ever held outside Rome. In 2009, on the 25th anniversary, the Korean Martyrs Committee erected a memorial marker here.",
+        "history": "Where Pope John Paul II canonized 103 martyrs on 6 May 1984, the largest canonization ever celebrated outside Rome.",
+        "addressRomanized": "Yeouido-dong, Yeongdeungpo-gu, Seoul (Yeouido Park)"
+      }
+    },
+    {
+      "siteId": "f73bcec2-b2b6-4b5f-9acd-84720dedf53b",
+      "diocese": "서울",
+      "source": { "name": "한국 천주교회 창립 터" },
+      "target": {
+        "name": "Birthplace of the Catholic Church in Korea",
+        "description": "In the busy Myeongdong district, with no trace of it left today, lies the ground where the Catholic Church in Korea formally began. In the house of Kim Beom-u in the neighbourhood then called Myeongnyebang, Yi Byeok gathered the Jeong brothers, Yi Seung-hun, Gwon Il-sin and others from the winter of 1784 for regular meetings of prayer and study. That the laity began a community of faith on their own, without a priest, is why this Myeongnyebang gathering is counted as the official starting point of the Korean Church.",
+        "history": "The Myeongnyebang community site where regular gatherings of the faithful began in 1784 under Yi Byeok, marking the official beginning of the Catholic Church in Korea.",
+        "addressRomanized": "Myeongdong 1-ga, Jung-gu, Seoul"
+      }
+    },
+    {
+      "siteId": "6bd8fe39-8c35-48b2-a125-8a8b817c36a1",
+      "diocese": "서울",
+      "source": { "name": "형조 터" },
+      "target": {
+        "name": "Site of the Hyeongjo (Ministry of Justice)",
+        "description": "Near Sejong-daero stood the Ministry of Justice, which oversaw the administration of law in the Joseon dynasty. During the Eulsa Incident of 1785, members of the first community of Korean Catholics, among them Yi Byeok, Kim Beom-u, the brothers Jeong Yak-jeon and Jeong Yak-yong, Yi Seung-hun and Gwon Il-sin, were brought here for interrogation. Many Catholics were tortured on this ground and bore witness to their faith, and the site now joins those of the Right Police Bureau and the Gyeonggi Provincial Office on the Way of Life course of the Seoul Pilgrimage Route, where their traces can be followed through the modern city.",
+        "history": "The Joseon-era Ministry of Justice where Yi Byeok, Kim Beom-u and others were interrogated during the Eulsa Incident of 1785. Part of the Way of Life course on the Seoul Pilgrimage Route.",
+        "addressRomanized": "Sejong-daero, Jongno-gu, Seoul"
+      }
+    }
+  ]
+}

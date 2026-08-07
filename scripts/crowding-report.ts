@@ -11,37 +11,11 @@
  */
 
 import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
+import { loadEnvLocal, ROOT } from './lib/env.ts';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-
-// ---------------------------------------------------------------------------
-// .env.local 을 process.env 로 올린다 (shared/config/env.ts 가 이걸 읽는다)
-// ---------------------------------------------------------------------------
-function loadEnvLocal(): void {
-  let raw: string;
-  try {
-    raw = readFileSync(join(ROOT, '.env.local'), 'utf-8');
-  } catch {
-    console.error('.env.local 이 없습니다. .env.example 을 복사해 값을 채우세요.');
-    process.exit(1);
-  }
-
-  for (const line of raw.split('\n')) {
-    const match = /^\s*([A-Z0-9_]+)\s*=\s*(.*)$/.exec(line);
-    if (!match) continue;
-    const [, key, rawValue] = match;
-    if (!key || rawValue === undefined) continue;
-    process.env[key] ??= rawValue.trim().replace(/^["']|["']$/g, '');
-  }
-
-  // 이 스크립트는 Supabase 를 쓰지 않지만 env 모듈이 필수값으로 요구한다.
-  process.env.VITE_SUPABASE_URL ??= 'https://placeholder.supabase.co';
-  process.env.VITE_SUPABASE_ANON_KEY ??= 'placeholder';
-}
-
-loadEnvLocal();
+// 이 스크립트는 Supabase 를 쓰지 않지만 env 모듈이 URL·anon 키를 필수로 요구한다.
+loadEnvLocal({ supabasePlaceholder: true });
 
 // env 를 채운 뒤에 불러와야 한다.
 const { getNearbyByLocation, getOngoingFestivals } = await import('../src/shared/api/tour-api.ts');
