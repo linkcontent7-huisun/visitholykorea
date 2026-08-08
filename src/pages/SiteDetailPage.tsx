@@ -18,6 +18,7 @@ import { paths } from '@/app/routes/paths';
 import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
 import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/share-card';
 import { useAddStamp, useHasStamp } from '@/features/passport/hooks/use-stamps';
+import { ContactCard } from '@/features/sites/components/ContactCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
@@ -373,6 +374,9 @@ export default function SiteDetailPage() {
 
         {/* 찾아가는 길 — 외국인 방문자를 기준으로 만든 화면 */}
         <DirectionsCard site={site} />
+
+        {/* 문의 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
+        <ContactCard site={site} />
 
         {stamped && (
           <button

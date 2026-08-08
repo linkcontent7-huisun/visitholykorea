@@ -56,6 +56,17 @@ export interface HolySite {
   seoDescription: string | null;
   nearbyAttractions: string | null;
   nearbyLodging: string | null;
+  /**
+   * 성지 사무실 연락처.
+   *
+   * 순례자가 실제로 묻는 것은 "미사가 몇 시인가", "단체가 가도 되는가"이고
+   * 그 답은 우리 DB 가 아니라 성지 사무실에 있다. 전화번호를 못 주면
+   * 아무리 설명이 길어도 그 질문에 답하지 못한다.
+   */
+  phone: string | null;
+  homepageUrl: string | null;
+  /** 성지 사무실은 아직 팩스로 단체 순례 예약을 받는 곳이 있다. */
+  fax: string | null;
 }
 
 /** 사용자가 남긴 순례 여행기. */

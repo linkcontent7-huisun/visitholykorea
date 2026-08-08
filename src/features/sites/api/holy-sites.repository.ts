@@ -27,6 +27,9 @@ export function toHolySite(row: HolySiteRow): HolySite {
     seoDescription: row.seo_description,
     nearbyAttractions: row.nearby_attractions,
     nearbyLodging: row.nearby_lodging,
+    phone: row.phone ?? null,
+    homepageUrl: row.homepage_url ?? null,
+    fax: row.fax ?? null,
   };
 }
 

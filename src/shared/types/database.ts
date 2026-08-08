@@ -22,6 +22,10 @@ export interface HolySiteRow {
   emotion_tag: string | null;
   nearby_attractions: string | null;
   nearby_lodging: string | null;
+  /** 성지 사무실 연락처 (마이그레이션 20260808000000) */
+  phone: string | null;
+  homepage_url: string | null;
+  fax: string | null;
   created_at: string;
 }
 

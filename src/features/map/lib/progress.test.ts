@@ -25,6 +25,9 @@ function site(id: string, diocese: string): HolySite {
     seoDescription: null,
     nearbyAttractions: null,
     nearbyLodging: null,
+    phone: null,
+    homepageUrl: null,
+    fax: null,
   };
 }
 

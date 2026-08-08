@@ -34,6 +34,9 @@ function site(name: string, coordinates: Coordinates): HolySite {
     seoDescription: null,
     nearbyAttractions: null,
     nearbyLodging: null,
+    phone: null,
+    homepageUrl: null,
+    fax: null,
   };
 }
 
