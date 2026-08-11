@@ -1,5 +1,14 @@
 # Location-Retry Search Summary
 
+> ⚠️ **이 문서는 좌표 조사 기록이 아니다. 이미지(사진) 조사 기록이다.**
+>
+> 제목의 "Location"은 TourAPI 오퍼레이션 이름(`locationBasedList2`)에서 온 것이라,
+> "좌표가 없어서 찾는 중"으로 읽히기 쉽다. 실제로는 **성지 사진을 찾으려고**
+> 좌표 반경으로 TourAPI 를 조회한 기록이다.
+>
+> 2026-08-11 실제 DB 조회 결과 **좌표는 208곳 중 207곳이 이미 있다.**
+> 비어 있는 것은 **사진(194곳)**이다. 로드맵 1단계와 [ADR 0006](../../docs/20-architecture/adr/0006-db-migration-old-to-new.md) 참고.
+
 **Run cut short by execution issue (background wait-loop misuse); this reflects partial progress only.**
 
 

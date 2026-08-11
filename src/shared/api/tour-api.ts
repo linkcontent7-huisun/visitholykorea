@@ -7,6 +7,7 @@
  */
 
 import { env } from '@/shared/config/env';
+import { createConcurrencyGate } from '@/shared/lib/concurrency-gate';
 
 const BASE_URL = 'https://apis.data.go.kr/B551011/KorService2';
 const MOBILE_APP = 'VisitHolyKorea';
@@ -56,6 +57,21 @@ function normalizeItems(data: TourApiResponse): TourApiSpot[] {
   return Array.isArray(item) ? item : [item];
 }
 
+/**
+ * 동시 호출 수 제한 (에러코드 23 회피).
+ *
+ * 홈 화면 1회 로드는 축제 1 + 붐빔 후보 12 + 코스 8 = 21회를 부른다.
+ * 각 화면이 `Promise.all` 로 묶어 쏘기 때문에, 막지 않으면 20개가 거의 동시에 나간다.
+ * TourAPI 는 일일 한도(코드 22)와 별개로 **초당 한도(코드 23)** 가 있고,
+ * 그 수치는 공개 문서에 없다 — 확인되지 않은 벽에 스스로 부딪힐 이유가 없다.
+ *
+ * 4로 잡은 근거: 21회를 4개씩 흘리면 약 6묶음이라 체감 지연이 크지 않으면서,
+ * 초당 요청 수를 한 자릿수로 눌러 둔다. 수치가 확정되면(tourapi@knto.or.kr) 조정한다.
+ *
+ * 모든 호출이 `callTourApi` 를 지나므로 여기 한 곳만 막으면 전 화면에 적용된다.
+ */
+const gate = createConcurrencyGate(4);
+
 async function callTourApi(
   endpoint: string,
   params: Record<string, string | number>,
@@ -74,11 +90,18 @@ async function callTourApi(
     ...Object.fromEntries(Object.entries(params).map(([k, v]) => [k, String(v)])),
   });
 
-  const res = await fetch(`${BASE_URL}/${endpoint}?${query.toString()}`);
-  if (!res.ok) {
-    throw new Error(`TourAPI 호출 실패: ${endpoint} (HTTP ${res.status})`);
+  await gate.acquire();
+  let data: TourApiResponse;
+  try {
+    const res = await fetch(`${BASE_URL}/${endpoint}?${query.toString()}`);
+    if (!res.ok) {
+      throw new Error(`TourAPI 호출 실패: ${endpoint} (HTTP ${res.status})`);
+    }
+    data = (await res.json()) as TourApiResponse;
+  } finally {
+    gate.release();
   }
-  const data = (await res.json()) as TourApiResponse;
+
   if (data.response.header.resultCode !== '0000') {
     throw new Error(`TourAPI 오류: ${data.response.header.resultMsg}`);
   }
