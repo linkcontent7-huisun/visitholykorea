@@ -32,10 +32,10 @@ export function TodayQuietSection({ sites }: { sites: HolySite[] }) {
           {todayLabel()}
         </p>
         <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-app-text">
-          오늘, 조용한 자리
+          고요 속으로
         </h2>
         <p className="mt-1.5 text-[12px] leading-relaxed text-app-text-muted">
-          한국관광공사 실시간 축제·관광 정보로 오늘의 붐빔을 계산했어요
+          한국관광공사 실시간 축제·관광 정보로 일상의 소음을 한 발 물러났어요
         </p>
       </header>
 
