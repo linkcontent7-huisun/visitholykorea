@@ -172,6 +172,7 @@ export default function MapPage() {
                   <SiteThumbnail
                     imageUrl={site.imageUrl}
                     name={site.name}
+                    category={site.category}
                     className="h-full w-full object-cover"
                   />
                 ) : (

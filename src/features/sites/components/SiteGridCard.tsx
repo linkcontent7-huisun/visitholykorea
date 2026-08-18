@@ -15,6 +15,7 @@ export function SiteGridCard({ site }: { site: HolySite }) {
         <SiteThumbnail
           imageUrl={site.imageUrl}
           name={site.name}
+          category={site.category}
           className="h-full w-full transform object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[9px] font-bold uppercase tracking-tight text-brand-blue shadow-sm backdrop-blur-sm">

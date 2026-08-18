@@ -138,9 +138,12 @@ export default function SiteDetailPage() {
             )}
           </>
         ) : (
-          <span className="text-8xl opacity-30" aria-hidden>
-            ⛪
-          </span>
+          <SiteThumbnail
+            imageUrl={null}
+            name={site.name}
+            category={site.category}
+            className="h-full w-full"
+          />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
 

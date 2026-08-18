@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { getRecommendedCourses, type CourseCard } from '../api/course-matching';
+import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 
 // 시/도 대략적 중심 좌표 — 출발지 기준 거리 정렬용 (행정구역 정밀 경계가 아닌 근사치)
 const REGIONS = [
@@ -516,15 +517,12 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
 
                   <div className="rounded-[28px] overflow-hidden bg-white border border-app-border shadow-sm mb-6">
                     <div className="h-44 overflow-hidden bg-app-bg flex items-center justify-center">
-                      {result.site.imageUrl ? (
-                        <img
-                          src={result.site.imageUrl}
-                          alt={result.site.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <span className="text-5xl opacity-30">⛪</span>
-                      )}
+                      <SiteThumbnail
+                        imageUrl={result.site.imageUrl}
+                        name={result.site.name}
+                        category={result.site.category}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div className="p-6">
                       <h4 className="font-extrabold text-app-text text-lg mb-1">

@@ -17,6 +17,7 @@ export function SiteListItem({ site }: { site: HolySite }) {
           <SiteThumbnail
             imageUrl={site.imageUrl}
             name={site.name}
+            category={site.category}
             fallback="icon"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />

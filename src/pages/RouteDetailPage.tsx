@@ -75,6 +75,7 @@ export default function RouteDetailPage() {
                 <SiteThumbnail
                   imageUrl={stop.site.imageUrl}
                   name={stop.site.name}
+                  category={stop.site.category}
                   emojiSizeClass="text-5xl"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />

@@ -20,6 +20,7 @@ export function CourseCardItem({ course }: { course: CourseCard }) {
         <SiteThumbnail
           imageUrl={course.site.imageUrl}
           name={course.site.name}
+          category={course.site.category}
           emojiSizeClass="text-5xl"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
