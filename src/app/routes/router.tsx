@@ -16,6 +16,8 @@ const RoutesPage = lazy(() => import('@/pages/RoutesPage'));
 const RouteDetailPage = lazy(() => import('@/pages/RouteDetailPage'));
 const CompassPage = lazy(() => import('@/pages/CompassPage'));
 const LoginPage = lazy(() => import('@/pages/LoginPage'));
+const TermsPage = lazy(() => import('@/pages/TermsPage'));
+const FaqPage = lazy(() => import('@/pages/FaqPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 function withSuspense(node: ReactNode) {
@@ -41,5 +43,7 @@ export const router = createBrowserRouter([
   { path: paths.search, element: withSuspense(<SearchPage />) },
   { path: paths.compass, element: withSuspense(<CompassPage />) },
   { path: paths.login, element: withSuspense(<LoginPage />) },
+  { path: paths.terms, element: withSuspense(<TermsPage />) },
+  { path: paths.faq, element: withSuspense(<FaqPage />) },
   { path: '*', element: withSuspense(<NotFoundPage />) },
 ]);

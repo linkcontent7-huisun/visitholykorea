@@ -1,7 +1,12 @@
 import { ArrowRight, ChevronLeft, Lock, Mail, ShieldCheck, User as UserIcon } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmail, signUpWithEmail } from '@/features/auth/api/auth';
+import {
+  signInWithEmail,
+  signInWithNaver,
+  signInWithOAuth,
+  signUpWithEmail,
+} from '@/features/auth/api/auth';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 export default function LoginPage() {
@@ -40,6 +45,21 @@ export default function LoginPage() {
     }
     setMessage({ type: 'info', text: '가입 확인 메일을 보냈어요. 메일함을 확인해주세요.' });
     setIsLogin(true);
+  };
+
+  /** 소셜 로그인 — 성공하면 Supabase 콜백을 거쳐 이 앱으로 돌아온다. */
+  const handleOAuth = async (provider: 'google' | 'kakao' | 'facebook') => {
+    setMessage(null);
+    setLoading(true);
+    const { error } = await signInWithOAuth(provider);
+    if (error) {
+      setLoading(false);
+      setMessage({
+        type: 'error',
+        text: '소셜 로그인에 실패했어요. 잠시 후 다시 시도해주세요.',
+      });
+    }
+    // 성공 시에는 제공자 페이지로 이동하므로 여기서 할 일이 없다.
   };
 
   const inputClass =
@@ -143,6 +163,115 @@ export default function LoginPage() {
             )}
           </button>
         </form>
+
+        {/* 소셜 로그인 — 투어원패스처럼 안내 문구 + 원형 아이콘 가로 배열.
+            Supabase 공식 지원 제공자(카카오·구글)만 놓는다. 네이버는 미지원이라 뺐다. */}
+        <div className="mt-10 text-center">
+          <div className="mb-6 flex items-center gap-4" aria-hidden>
+            <span className="h-px flex-1 bg-slate-100" />
+            <span className="text-xs font-bold text-slate-300">SNS 간편 로그인</span>
+            <span className="h-px flex-1 bg-slate-100" />
+          </div>
+          <p className="mb-6 text-sm font-medium text-slate-400">
+            SNS 인증으로 간편하게 시작할 수 있어요.
+          </p>
+
+          <div className="flex items-center justify-center gap-5">
+            <button
+              type="button"
+              onClick={() => signInWithNaver()}
+              disabled={loading}
+              aria-label="네이버로 로그인"
+              title="네이버로 로그인"
+              className="flex h-14 w-14 items-center justify-center rounded-full bg-[#03C75A] shadow-md transition-all hover:brightness-95 active:scale-95 disabled:opacity-50"
+            >
+              {/* 네이버 N 심볼 */}
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden>
+                <path fill="#fff" d="M15.1 4v8.2L8.9 4H4v16h4.9v-8.2l6.2 8.2H20V4h-4.9Z" />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleOAuth('kakao')}
+              disabled={loading}
+              aria-label="카카오로 로그인"
+              title="카카오로 로그인"
+              className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FEE500] shadow-md transition-all hover:brightness-95 active:scale-95 disabled:opacity-50"
+            >
+              {/* 카카오 말풍선 심볼 */}
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  fill="#191919"
+                  d="M12 3C6.9 3 2.8 6.2 2.8 10.1c0 2.5 1.7 4.7 4.2 6l-1 3.8c-.1.3.3.6.6.4l4.4-2.9c.3 0 .7.1 1 .1 5.1 0 9.2-3.2 9.2-7.3S17.1 3 12 3Z"
+                />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleOAuth('google')}
+              disabled={loading}
+              aria-label="Google로 로그인"
+              title="Google로 로그인"
+              className="flex h-14 w-14 items-center justify-center rounded-full border border-slate-200 bg-white shadow-md transition-all hover:bg-slate-50 active:scale-95 disabled:opacity-50"
+            >
+              {/* 구글 G 심볼 */}
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden>
+                <path
+                  fill="#4285F4"
+                  d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.8Z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.2v3.1C3.2 21.3 7.3 24 12 24Z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M5.3 14.3c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3V6.6H1.2C.4 8.2 0 10 0 12s.4 3.8 1.2 5.4l4.1-3.1Z"
+                />
+                <path
+                  fill="#EA4335"
+                  d="M12 4.7c1.8 0 3.3.6 4.6 1.8L20 3C18 1.1 15.2 0 12 0 7.3 0 3.2 2.7 1.2 6.6l4.1 3.1c.9-2.9 3.6-5 6.7-5Z"
+                />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleOAuth('facebook')}
+              disabled={loading}
+              aria-label="페이스북으로 로그인"
+              title="페이스북으로 로그인"
+              className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1877F2] shadow-md transition-all hover:brightness-95 active:scale-95 disabled:opacity-50"
+            >
+              {/* 페이스북 f 심볼 */}
+              <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden>
+                <path
+                  fill="#fff"
+                  d="M13.5 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.3v3.2h2.8V21h3.4Z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div className="mt-8 flex items-center justify-center gap-6">
+            <button
+              type="button"
+              onClick={() => navigate('/terms')}
+              className="text-xs font-bold text-slate-400 underline underline-offset-2"
+            >
+              이용약관 보기
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate('/faq')}
+              className="text-xs font-bold text-slate-400 underline underline-offset-2"
+            >
+              자주 묻는 질문
+            </button>
+          </div>
+        </div>
 
         <div className="mt-10 text-center">
           <button onClick={() => setIsLogin(!isLogin)} className="text-sm font-bold text-slate-400">
