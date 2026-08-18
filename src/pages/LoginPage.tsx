@@ -30,7 +30,14 @@ export default function LoginPage() {
       const { error } = await signInWithEmail(email, password);
       setLoading(false);
       if (error) {
-        setMessage({ type: 'error', text: '이메일 또는 비밀번호가 올바르지 않습니다.' });
+        // 미확인 계정과 잘못된 비밀번호는 안내가 달라야 한다 — 실제로 이 둘을 혼동해 막힌 사례가 있다.
+        const 미확인 = `${error.message}`.toLowerCase().includes('not confirmed');
+        setMessage({
+          type: 'error',
+          text: 미확인
+            ? '가입 확인 메일의 링크를 아직 누르지 않으셨어요. 메일함(스팸함 포함)을 확인해주세요.'
+            : '이메일 또는 비밀번호가 올바르지 않습니다.',
+        });
         return;
       }
       navigate(-1);

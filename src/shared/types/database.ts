@@ -32,6 +32,19 @@ export interface HolySiteRow {
   created_at: string;
 }
 
+/**
+ * 회원 프로필 (마이그레이션 20260818020000).
+ * 자격 증명은 auth.users 가 관리하고, 여기에는 앱이 쓰는 표시용 정보만 담긴다.
+ * 가입 시 트리거가 자동 생성한다.
+ */
+export interface ProfileRow {
+  id: string;
+  email: string | null;
+  name: string | null;
+  provider: string | null;
+  created_at: string;
+}
+
 /** 순례 코스 (마이그레이션 20260818010000). 박해 사건·인물 축으로 성지를 순서대로 꿴다. */
 export interface PilgrimageRouteRow {
   id: string;
