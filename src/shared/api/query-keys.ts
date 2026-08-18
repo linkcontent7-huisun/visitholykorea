@@ -17,6 +17,10 @@ export const queryKeys = {
     byEmotion: (emotion: EmotionTag, diocese?: string) =>
       ['courses', emotion, diocese ?? 'all'] as const,
   },
+  routes: {
+    all: ['routes'] as const,
+    detail: (slug: string) => ['routes', 'detail', slug] as const,
+  },
   passport: {
     stamps: ['passport', 'stamps'] as const,
     hasStamp: (siteId: string) => ['passport', 'stamp', siteId] as const,

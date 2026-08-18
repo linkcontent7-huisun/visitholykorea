@@ -28,6 +28,8 @@ function site(name: string, coordinates: Coordinates): HolySite {
     description: null,
     history: null,
     imageUrl: null,
+    imageSource: null,
+    imageLicense: null,
     coordinates,
     emotionTag: null,
     seoTitle: null,

@@ -19,6 +19,8 @@ function site(id: string, diocese: string): HolySite {
     description: null,
     history: null,
     imageUrl: null,
+    imageSource: null,
+    imageLicense: null,
     coordinates: { lat: 37, lng: 127 },
     emotionTag: null,
     seoTitle: null,

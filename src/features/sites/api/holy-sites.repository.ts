@@ -21,6 +21,8 @@ export function toHolySite(row: HolySiteRow): HolySite {
     description: row.description,
     history: row.history,
     imageUrl: row.image_url,
+    imageSource: row.image_source ?? null,
+    imageLicense: row.image_license ?? null,
     coordinates: { lat: row.lat, lng: row.lng },
     emotionTag: (row.emotion_tag as EmotionTag | null) ?? null,
     seoTitle: row.seo_title,

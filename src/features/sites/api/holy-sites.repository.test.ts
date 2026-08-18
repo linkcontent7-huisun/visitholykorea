@@ -13,6 +13,8 @@ function makeRow(overrides: Partial<HolySiteRow> = {}): HolySiteRow {
     description: '한강이 내려다보이는 순교지',
     history: '1866년 병인박해',
     image_url: null,
+    image_source: null,
+    image_license: null,
     lat: 37.5497,
     lng: 126.9,
     seo_title: null,

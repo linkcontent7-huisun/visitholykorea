@@ -14,4 +14,8 @@ export const paths = {
   compass: '/compass',
   siteDetail: (id: string) => `/sites/${id}`,
   siteDetailPattern: '/sites/:siteId',
+  /** 순례 코스 — 박해 사건·인물 축으로 성지를 잇는 길 */
+  routes: '/routes',
+  routeDetail: (slug: string) => `/routes/${slug}`,
+  routeDetailPattern: '/routes/:routeSlug',
 } as const;

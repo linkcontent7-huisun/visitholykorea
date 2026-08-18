@@ -120,14 +120,23 @@ export default function SiteDetailPage() {
     <div className={`mx-auto min-h-screen ${widthClass} bg-white pb-32`}>
       <div className="relative flex h-[55vh] w-full items-center justify-center overflow-hidden bg-app-bg">
         {site.imageUrl ? (
-          <motion.img
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 10 }}
-            src={site.imageUrl}
-            alt={site.name}
-            className="h-full w-full object-cover"
-          />
+          <>
+            <motion.img
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 10 }}
+              src={site.imageUrl}
+              alt={site.name}
+              className="h-full w-full object-cover"
+            />
+            {/* CC 계열 라이선스는 출처 표기가 의무다 — 출처가 기록된 사진에만 붙는다 */}
+            {site.imageSource && (
+              <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[10px] text-white/80 backdrop-blur-sm">
+                {site.imageSource}
+                {site.imageLicense ? ` · ${site.imageLicense}` : ''}
+              </span>
+            )}
+          </>
         ) : (
           <span className="text-8xl opacity-30" aria-hidden>
             ⛪

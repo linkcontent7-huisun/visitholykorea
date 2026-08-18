@@ -15,6 +15,9 @@ export interface HolySiteRow {
   description: string | null;
   history: string | null;
   image_url: string | null;
+  /** 이미지 출처·라이선스 (마이그레이션 20260818000000). CC 라이선스는 출처 표기가 의무다. */
+  image_source: string | null;
+  image_license: string | null;
   lat: number | null;
   lng: number | null;
   seo_title: string | null;
@@ -27,6 +30,24 @@ export interface HolySiteRow {
   homepage_url: string | null;
   fax: string | null;
   created_at: string;
+}
+
+/** 순례 코스 (마이그레이션 20260818010000). 박해 사건·인물 축으로 성지를 순서대로 꿴다. */
+export interface PilgrimageRouteRow {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string | null;
+  description: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface PilgrimageRouteSiteRow {
+  route_id: string;
+  site_id: string;
+  position: number;
+  note: string | null;
 }
 
 export interface PilgrimageStampRow {

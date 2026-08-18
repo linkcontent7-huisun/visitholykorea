@@ -1,5 +1,7 @@
-import { Church, ChevronRight, MapPin } from 'lucide-react';
+import { Church, ChevronRight, Footprints, MapPin } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { paths } from '@/app/routes/paths';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { SiteListItem } from '@/features/sites/components/SiteListItem';
 import { useSitesByDiocese } from '@/features/sites/hooks/use-sites';
@@ -23,6 +25,20 @@ export default function ExplorePage() {
       <div className="px-8 py-4">
         {!selectedDiocese ? (
           <div>
+            {/* 순례 코스 진입점 — 낱개 성지가 아니라 이야기 순서로 걷고 싶은 사람을 위해 */}
+            <Link
+              to={paths.routes}
+              className="mb-8 flex items-center justify-between rounded-[16px] bg-brand-violet p-5 text-white transition-opacity hover:opacity-90"
+            >
+              <span className="flex items-center gap-3">
+                <Footprints size={22} aria-hidden />
+                <span>
+                  <span className="block text-base font-extrabold">순례 코스</span>
+                  <span className="block text-xs opacity-80">박해의 역사를 따라 걷는 길</span>
+                </span>
+              </span>
+              <ChevronRight size={20} aria-hidden />
+            </Link>
             <h2 className="mb-6 text-[11px] font-bold uppercase tracking-widest text-app-text-muted">
               교구별 탐색
             </h2>

@@ -50,6 +50,14 @@ export interface HolySite {
   description: string | null;
   history: string | null;
   imageUrl: string | null;
+  /**
+   * 이미지 출처·라이선스.
+   *
+   * Wikimedia Commons CC 계열 사진은 출처 표기가 라이선스 의무라서
+   * 화면에 함께 보여줘야 한다. TourAPI 유래 이미지는 저장하지 않는다(ADR 0002).
+   */
+  imageSource: string | null;
+  imageLicense: string | null;
   coordinates: Coordinates;
   emotionTag: EmotionTag | null;
   seoTitle: string | null;
@@ -79,4 +87,25 @@ export interface PilgrimageLog {
   visitDate: string;
   siteName?: string;
   siteImage?: string;
+}
+
+/**
+ * 순례 코스 — 박해 사건·인물의 이야기 순서로 성지를 꿴 것.
+ * Gronze(산티아고 가이드)의 "구간" 개념을 가져오되, 축은 지리가 아니라 이야기다.
+ */
+export interface PilgrimageRoute {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string | null;
+  description: string | null;
+  /** 경유지 수. 목록 화면에서만 채워진다. */
+  stopCount: number | null;
+}
+
+/** 코스의 경유지 한 곳. 이 코스에서 이 성지가 갖는 의미를 note 로 갖는다. */
+export interface PilgrimageRouteStop {
+  position: number;
+  note: string | null;
+  site: HolySite;
 }

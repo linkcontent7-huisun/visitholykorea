@@ -12,6 +12,8 @@ const RecordsPage = lazy(() => import('@/pages/RecordsPage'));
 const MenuPage = lazy(() => import('@/pages/MenuPage'));
 const SiteDetailPage = lazy(() => import('@/pages/SiteDetailPage'));
 const SearchPage = lazy(() => import('@/pages/SearchPage'));
+const RoutesPage = lazy(() => import('@/pages/RoutesPage'));
+const RouteDetailPage = lazy(() => import('@/pages/RouteDetailPage'));
 const CompassPage = lazy(() => import('@/pages/CompassPage'));
 const LoginPage = lazy(() => import('@/pages/LoginPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
@@ -34,6 +36,8 @@ export const router = createBrowserRouter([
   },
   // 하단 탭 없이 전체 화면으로 뜨는 화면들
   { path: paths.siteDetailPattern, element: withSuspense(<SiteDetailPage />) },
+  { path: paths.routes, element: withSuspense(<RoutesPage />) },
+  { path: paths.routeDetailPattern, element: withSuspense(<RouteDetailPage />) },
   { path: paths.search, element: withSuspense(<SearchPage />) },
   { path: paths.compass, element: withSuspense(<CompassPage />) },
   { path: paths.login, element: withSuspense(<LoginPage />) },
