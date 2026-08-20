@@ -1,0 +1,167 @@
+{
+  "language": "en",
+  "diocese": "안동",
+  "generatedAt": "2026-08-20T00:00:00.000Z",
+  "items": [
+    {
+      "siteId": "5cb4ca8c-f56b-42ad-88eb-9634b1cce497",
+      "diocese": "안동",
+      "source": {
+        "name": "농은 홍유한 선생 고택지",
+        "description": "영주 소백산 자락, 한국천주교회가 창립되기 30년도 전에 이미 스스로 신앙을 실천한 이가 살던 자리. 농은 홍유한은 성호 이익 문하에서 실학을 공부하다 1750년 무렵 천주교 서적을 접했고, 세례 없이도 매달 7·14·21·28일을 주일로 삼아 기도와 묵상, 단식으로 신앙을 살았다. 1775년 이곳 구고리로 옮겨와 마지막 십 년을 은수자처럼 지내다 세상을 떠났다. 그의 후손 13명이 순교자가 되었고 그중 홍병주 베드로, 홍영주 바오로 형제는 103위 성인 반열에 올랐다.",
+        "history": "세례 없이 스스로 신앙을 실천한 농은 홍유한(1726~1785)의 고택지. 후손 13명이 순교, 그중 2명은 103위 성인으로 시성.",
+        "location": "경상북도 영주시 단산면 구구리 322-5"
+      },
+      "target": {
+        "name": "House Site of Hong Yu-han",
+        "description": "On the slopes of Sobaeksan in Yeongju, the home of a man who lived the faith on his own, more than thirty years before the Catholic Church in Korea was founded. Hong Yu-han, styled Nong-eun, was studying practical learning under Yi Ik when he encountered Catholic books around 1750; without baptism, he kept the 7th, 14th, 21st, and 28th of each month as his Lord's days, living the faith through prayer, meditation, and fasting. In 1775 he moved here to Gugo-ri and spent his last ten years like a hermit. Thirteen of his descendants became martyrs, and two of them — the brothers Peter Hong Byeong-ju and Paul Hong Yeong-ju — were raised to the rank of the 103 Korean Martyr Saints.",
+        "history": "The house site of Hong Yu-han (1726–1785), who practiced the faith on his own without baptism. Thirteen descendants were martyred; two are among the 103 Saints.",
+        "addressRomanized": "322-5 Gugu-ri, Dansan-myeon, Yeongju-si, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "817db991-6662-4a31-b414-7b2327b632ae",
+      "diocese": "안동",
+      "source": {
+        "name": "마원 성지",
+        "description": "문경새재 인근 마원리, 1801년 이후 박해를 피해 온 신자들이 화전을 일구며 살던 산골 마을. 1866년 병인박해 때 이 지역 신자 40여 명이 체포되어 순교했다. 그중 서른 살의 지역 아전이었던 복자 박상근 마티아는 갈레 신부의 은신을 도왔는데, 신부가 안전을 위해 집으로 돌아가라 이르자 \"제가 신부님 곁을 떠나다니요\" 하며 눈물로 거절하고 끝내 함께 체포되어 1867년 옥에서 순교했다.",
+        "history": "복자 박상근 마티아(1837~1867)가 갈레 신부를 보호하다 순교한 자리. 1866년 병인박해 때 40여 명 체포·순교.",
+        "location": "경상북도 문경시 문경읍 마원리 600-1"
+      },
+      "target": {
+        "name": "Mawon Holy Site",
+        "description": "At Mawon-ri near Mungyeongsaejae pass, a mountain village where believers fleeing the persecutions after 1801 lived by clearing fire-fields. In the Byeongin Persecution of 1866, some forty believers of this district were arrested and martyred. Among them was Blessed Matthias Bak Sang-geun, a thirty-year-old local clerk who sheltered Fr. Calais; when the priest told him to return home for his own safety, he refused in tears — 'How could I leave your side, Father?' — was arrested with him, and died a martyr in prison in 1867.",
+        "history": "Where Blessed Matthias Bak Sang-geun (1837–1867) was martyred after protecting Fr. Calais. Some forty believers were arrested and martyred in the Byeongin Persecution of 1866.",
+        "addressRomanized": "600-1 Mawon-ri, Mungyeong-eup, Mungyeong-si, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "81af76c4-fa2d-4e19-b443-a8e271a40afe",
+      "diocese": "안동",
+      "source": {
+        "name": "머루산 교우촌",
+        "description": "영양 태백산맥 깊은 산자락, 포도산 정상 부근에 자리했던 산간 교우촌. 1801년 신유박해를 피해 충청 지역에서 넘어온 신자들이 산을 일구어 밭을 만들고 머루와 다래를 따 먹으며 신앙을 지켰다. 1815년 을해박해로 다시 발각되어 신자들이 체포되면서 교우촌은 완전히 흩어지고 말았다. 2014년 이곳과 인연이 깊은 김시우 알렉시오, 이시임 안나, 김강이 시몬이 나란히 시복되었다.",
+        "history": "신유박해 이후 형성된 산간 교우촌, 1815년 을해박해로 해체. 김시우 알렉시오 등 3위가 2014년 시복.",
+        "location": "경상북도 영양군 석보면 포산리 131 부근"
+      },
+      "target": {
+        "name": "Meorusan Catholic Village",
+        "description": "Deep in the Taebaek range in Yeongyang, a mountain Catholic village once stood near the summit of Podosan. Believers who crossed over from Chungcheong to escape the Sinyu Persecution of 1801 broke the mountainside into fields and kept the faith, living on wild grapes and hardy kiwi. Discovered again in the Eulhae Persecution of 1815, the believers were arrested and the village scattered for good. In 2014, three with deep ties to this place — Alexius Kim Si-u, Anna Yi Si-im, and Simon Kim Gang-i — were beatified together.",
+        "history": "A mountain Catholic village formed after the Sinyu Persecution and broken up by the Eulhae Persecution of 1815. Alexius Kim Si-u and two others were beatified in 2014.",
+        "addressRomanized": "Near 131 Posan-ri, Seokbo-myeon, Yeongyang-gun, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "4c36258e-cfcc-4c77-be5c-325b77513f58",
+      "diocese": "안동",
+      "source": {
+        "name": "상주 신앙 고백비",
+        "description": "상주 청리면, 화강암에 손수 자신의 신앙을 새겨넣은 한국 유일의 신앙고백비가 서 있다. 1866년 병인박해 이전부터 천주교를 믿어온 김복운의 넷째 아들 김삼록 도미니코는 형제들이 박해 속에 신앙을 버렸을 때도 끝까지 신앙을 지켰다. 1886년 한불조약으로 박해가 끝난 뒤에도 은근한 냉대가 이어지자, 1894년부터 1900년까지 그는 스스로 바위에 교황과 주교, 사제와 신자들을 위한 기도를 새겼다. 오랫동안 나무에 가려 잊혔던 이 비석은 1945년 광복 후 손자에 의해 다시 세상에 드러났고, 2009년 경상북도 문화재자료 제562호로 지정되었다.",
+        "history": "김삼록 도미니코가 1894~1900년 직접 새긴 한국 유일의 신앙고백비. 2009년 경북 문화재자료 제562호 지정.",
+        "location": "경상북도 상주시 청리면 삼괴리 361"
+      },
+      "target": {
+        "name": "Sangju Confession of Faith Stele",
+        "description": "In Cheongni-myeon, Sangju, stands the only stele in Korea on which a believer carved his own confession of faith into granite. Dominic Kim Sam-rok, fourth son of Kim Bok-un, whose family had held the faith since before the Byeongin Persecution of 1866, kept believing even when his brothers fell away under persecution. When quiet disdain lingered even after the Korea-France Treaty of 1886 ended the persecutions, he spent the years 1894 to 1900 carving into the rock, with his own hands, prayers for the pope, the bishops, the priests, and the faithful. Long hidden behind trees and forgotten, the stele was brought back to light by his grandson after Liberation in 1945, and was designated Gyeongsangbuk-do Cultural Heritage Material No. 562 in 2009.",
+        "history": "Korea's only confession-of-faith stele, carved by Dominic Kim Sam-rok himself between 1894 and 1900. Designated Gyeongsangbuk-do Cultural Heritage Material No. 562 in 2009.",
+        "addressRomanized": "361 Samgoe-ri, Cheongni-myeon, Sangju-si, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "2686f0fa-9cc0-4aac-a34c-8a8c22283e67",
+      "diocese": "안동",
+      "source": {
+        "name": "상주 옥 터",
+        "description": "상주 성동동 남문시장 자리, 조선말 상주진영의 옥이 있던 곳. 정해박해가 일어난 1827년, 순교자 박보록·박사의 부자가 살던 멍애목, 순교자 사건 안드레아가 살던 앵무동, 순교자 신태보 일가가 살던 잣골 등 상주 곳곳에서 붙잡힌 신자들이 이곳 옥에 갇혀 문초를 받았다. 지금은 시장통 골목으로 변한 이 자리에서, 안동교구 상주 지역에 뿌리내렸던 여러 순교자 가문의 마지막 발자취를 되짚어본다.",
+        "history": "1827년 정해박해 때 상주 지역 신자들이 갇혀 문초받은 상주진영 옥터.",
+        "location": "경상북도 상주시 성동동 (남문시장 옛 자리)"
+      },
+      "target": {
+        "name": "Sangju Prison Site",
+        "description": "At the old Nammun market in Seongdong-dong, Sangju, stood the prison of the Sangju garrison in late Joseon. In the Jeonghae Persecution of 1827, believers seized across the Sangju countryside — from Meongaemok, home of the martyred father and son Bak Bo-rok and Bak Sa-ui; from Aengmu-dong, home of the martyr Andrew Sa Geon; from Jatgol, home of the martyr Sin Tae-bo's family — were held and interrogated here. In what is now a market alley, you retrace the last steps of the martyr families who took root in the Sangju region.",
+        "history": "The prison site of the Sangju garrison, where believers of the region were held and interrogated in the Jeonghae Persecution of 1827.",
+        "addressRomanized": "Seongdong-dong, Sangju-si, Gyeongsangbuk-do (old Nammun market site)"
+      }
+    },
+    {
+      "siteId": "6be64b43-5284-4f8c-87d8-2b161e381863",
+      "diocese": "안동",
+      "source": {
+        "name": "여우목 성지",
+        "description": "문경 조령 관문 인근, 서울로 향하던 나그네들의 옛 고갯길에 자리한 교우촌 터. 1839년 기해박해 무렵 상주에서 피신해 온 이윤일 요한 일가와 청풍에서 넘어온 서치보 요셉 일가가 이곳에 정착했다. 이윤일은 전교회장으로 활동하며 서른 명 가까운 신자를 이끄는 공동체를 일구었으나, 서치보의 아들들과 이윤일 자신도 병인박해 때 순교했다. 이윤일 요한은 1867년 1월 대구 관덕정에서 참수형으로 순교, 103위 성인 중 영남 유일의 성인이 되었다. 1999년 유해를 이장하고 2002년 성지로 조성되었다.",
+        "history": "성 이윤일 요한(103위 성인)이 이끈 교우촌 터. 1867년 대구 관덕정에서 순교. 1999년 유해 이장, 2002년 성지 조성.",
+        "location": "경상북도 문경시 문경읍 중평리 96"
+      },
+      "target": {
+        "name": "Yeoumok Holy Site",
+        "description": "Near the Joryeong gate of Mungyeongsaejae, the site of a Catholic village on the old pass road that travelers took toward Seoul. Around the Gihae Persecution of 1839, the family of John Yi Yun-il, fleeing from Sangju, and the family of Joseph Seo Chi-bo, come over from Cheongpung, settled here. Yi Yun-il served as catechist leader and built a community of nearly thirty believers; Seo Chi-bo's sons, and Yi Yun-il himself, were martyred in the Byeongin Persecution. Beheaded at Gwandeokjeong in Daegu in January 1867, John Yi Yun-il became the only saint of the Yeongnam region among the 103 Korean Martyr Saints. His relics were moved in 1999 and the site consecrated as a shrine in 2002.",
+        "history": "The Catholic village led by St. John Yi Yun-il of the 103 Saints, martyred at Gwandeokjeong in Daegu in 1867. Consecrated as a shrine in 2002.",
+        "addressRomanized": "96 Jungpyeong-ri, Mungyeong-eup, Mungyeong-si, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "689b73b9-5fbe-4a66-9310-52acce5d8bc8",
+      "diocese": "안동",
+      "source": {
+        "name": "우곡 성지",
+        "description": "봉화 산골, 한국천주교 첫 은수자의 후손들이 잠들어 있는 안식처. 홍유한은 서울 명문가에서 태어나 어려서부터 학문에 재능을 보였으나 벼슬길 대신 성호 이익 문하에서 실학을 공부했다. 1750년 무렵 천주실의 등 서학서를 접하고 유교와 불교에서 찾지 못한 깊이를 발견한 그는, 1757년 예산으로, 1775년에는 영주 소백산 아래 구고리로 옮겨가 18년 넘게 금욕적인 신앙생활을 이어갔다. 그의 사후 후손 13명이 순교자가 되었고 그중 홍병주 베드로, 홍영주 바오로 두 사람은 103위 성인으로 시성되었다.",
+        "history": "한국 첫 은수자 홍유한(1726~1785)의 후손들이 안장된 곳. 후손 13명 순교, 그중 2명 성인 시성.",
+        "location": "경상북도 봉화군 봉성면 우곡리 151-2"
+      },
+      "target": {
+        "name": "Ugok Holy Site",
+        "description": "In the mountains of Bonghwa, the resting place of the descendants of Korea's first hermit of the faith. Hong Yu-han, born to a distinguished Seoul family and gifted in learning from childhood, chose the school of Yi Ik over an official career. Around 1750 he encountered Western books such as the True Meaning of the Lord of Heaven and found in them a depth he had not found in Confucianism or Buddhism; he moved to Yesan in 1757 and in 1775 to Gugo-ri under Sobaeksan in Yeongju, keeping an ascetic life of faith for more than eighteen years. After his death, thirteen of his descendants became martyrs, and two — Peter Hong Byeong-ju and Paul Hong Yeong-ju — were canonized among the 103 Saints.",
+        "history": "The burial ground of the descendants of Hong Yu-han (1726–1785), Korea's first hermit of the faith. Thirteen descendants were martyred; two were canonized.",
+        "addressRomanized": "151-2 Ugok-ri, Bonghwa-gun, Bongseong-myeon, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "c8d952ba-cd48-49f7-ac21-af7ed4a36890",
+      "diocese": "안동",
+      "source": {
+        "name": "진안리 성지",
+        "description": "문경새재 조령, 영남과 한양을 잇던 옛 관문 길목에 자리한 자리. 한국 두 번째 사제 최양업 토마스 신부가 사목 활동을 보고하러 가던 길에 병을 얻은 곳으로 전해진다. 충청도에서 순교자의 아들로 태어난 그는 1836년 한국 최초의 신학생이 되어 마카오에서 김대건 신부와 동문수학했고, 1849년 상해에서 사제품을 받아 12년 가까이 다섯 개 도를 돌며 사목했다. 1860년 경신박해 때는 죽림굴에 숨어 지내기도 했던 그는 1861년 6월 15일 과로와 장티푸스로 마흔의 나이에 눈을 감았다.",
+        "history": "한국 두 번째 사제 최양업 신부가 사목 중 병을 얻은 곳. 조령 관문 길목의 옛 선교 경로.",
+        "location": "경상북도 문경시 문경읍 진안리 92-6"
+      },
+      "target": {
+        "name": "Jinan-ri Holy Site",
+        "description": "At the Joryeong pass of Mungyeongsaejae, on the old gateway road between Yeongnam and the capital, is the place where Korea's second priest is held to have fallen ill on his way to report on his ministry. Fr. Thomas Choe Yang-eop, born in Chungcheong-do as the son of a martyr, became Korea's first seminarian in 1836 and studied in Macau alongside Kim Taegon; ordained in Shanghai in 1849, he served for nearly twelve years across five provinces. He hid in the Jungnimgul cave during the Gyeongsin Persecution of 1860, and died on 15 June 1861 of exhaustion and typhoid at the age of forty.",
+        "history": "Where Fr. Thomas Choe Yang-eop, Korea's second priest, fell ill during his ministry. On the old mission road through the Joryeong gate.",
+        "addressRomanized": "92-6 Jinan-ri, Mungyeong-eup, Mungyeong-si, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "f376f747-eaea-4f9b-80a2-cb61fbaac45e",
+      "diocese": "안동",
+      "source": {
+        "name": "퇴강 성당",
+        "description": "경북 상주시 사벌면에 위치한 100년이 넘은 근대 건축 성당으로, 경상북도 문화재자료로 지정되어 있다.",
+        "history": "퇴강 성당은 경상북도 상주시 사벌면에 위치한 근대 성당으로, 1900년대 초반에 건축되었다. 경상북도 문화재자료로 지정되어 있으며, 안동교구 내 대표적인 근대 성당 건축물로 꼽힌다.",
+        "location": "경상북도 상주시 사벌면"
+      },
+      "target": {
+        "name": "Toegang Catholic Church",
+        "description": "A modern-era church more than a century old in Sabeol-myeon, Sangju, designated as Gyeongsangbuk-do Cultural Heritage Material.",
+        "history": "Toegang Catholic Church is a modern-era church in Sabeol-myeon, Sangju, built in the early 1900s. Designated Gyeongsangbuk-do Cultural Heritage Material, it is counted among the representative modern church buildings of the Diocese of Andong.",
+        "addressRomanized": "Sabeol-myeon, Sangju-si, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "a92550dc-d09b-40b6-8737-55d796cb3691",
+      "diocese": "안동",
+      "source": {
+        "name": "한실 교우촌",
+        "description": "문경 산속 깊은 골짜기, 자연 요새와도 같은 지형 덕에 신자들의 은신처가 되었던 마을. 1801년 신유박해 때 서유도 일가가 이곳 한실 잣골로 피신해 온 것이 교우촌의 시작이다. 병인박해 무렵에는 갈레 신부가 여러 교우촌을 오가며 사목하는 거점이 되었으나, 1866년 박해 때 신자 15명가량이 체포되어 순교했다. 그중 김예기·김인기 회장 형제는 1867년 1월 21일 대구에서 함께 처형되었다.",
+        "history": "1801년 서유도 일가가 피신해 형성된 교우촌. 1866년 병인박해 때 15명가량 순교, 김예기·김인기 형제도 포함.",
+        "location": "경상북도 문경시 마성면 상내리 999"
+      },
+      "target": {
+        "name": "Hansil Catholic Village",
+        "description": "Deep in a mountain valley of Mungyeong, a village whose fortress-like terrain made it a refuge for believers. The Catholic village began when the family of Seo Yu-do fled here to Hansil Jatgol in the Sinyu Persecution of 1801. Around the time of the Byeongin Persecution it served as a base from which Fr. Calais ministered to the surrounding villages, until the persecution of 1866, when some fifteen believers were arrested and martyred — among them the catechist brothers Kim Ye-gi and Kim In-gi, executed together at Daegu on 21 January 1867.",
+        "history": "A Catholic village formed by the Seo Yu-do family fleeing the Sinyu Persecution of 1801. Some fifteen were martyred in 1866, including the brothers Kim Ye-gi and Kim In-gi.",
+        "addressRomanized": "999 Sangnae-ri, Maseong-myeon, Mungyeong-si, Gyeongsangbuk-do"
+      }
+    }
+  ]
+}
