@@ -23,7 +23,8 @@ export const queryKeys = {
   },
   passport: {
     stamps: ['passport', 'stamps'] as const,
-    hasStamp: (siteId: string) => ['passport', 'stamp', siteId] as const,
+    myStamp: (siteId: string) => ['passport', 'stamp', siteId] as const,
+    siteNotes: (siteId: string) => ['passport', 'site-notes', siteId] as const,
     dioceseProgress: ['passport', 'diocese-progress'] as const,
   },
   records: {
