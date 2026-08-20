@@ -1,4 +1,5 @@
 import {
+  ArrowRight,
   ChevronRight,
   Compass,
   Globe,
@@ -86,6 +87,24 @@ export default function HomePage() {
       {/* 오늘의 쉼표 — 이 화면의 주인공. 예전 히어로 캐러셀 자리다.
           사진이 없으면 빈 껍데기였고, 있어도 누르지 않는 자리였다. */}
       <TodayQuietSection sites={allSites} />
+
+      {/* 대안 제시 진입점 — "조용한 곳 목록"만으로는 발길이 나뉘지 않는다.
+          이미 가려는 붐비는 곳을 출발점으로 잡아야 한다 (alternatives.ts 상단). */}
+      <section className="px-6 pb-2">
+        <Link
+          to={paths.alternatives}
+          className="flex items-center gap-4 rounded-[20px] border border-app-border bg-white px-6 py-5"
+        >
+          <Wind size={22} className="shrink-0 text-brand-violet" aria-hidden />
+          <span className="flex-1">
+            <span className="block text-sm font-bold text-app-text">가려던 곳이 붐비나요?</span>
+            <span className="mt-0.5 block text-xs leading-relaxed text-app-text-muted">
+              관광지를 검색하면 오늘 붐빔과 근처의 조용한 성지를 알려드려요
+            </span>
+          </span>
+          <ArrowRight size={18} className="shrink-0 text-app-text-muted" aria-hidden />
+        </Link>
+      </section>
 
       <section className="relative z-30 px-6">
         <button

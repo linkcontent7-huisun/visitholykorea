@@ -18,6 +18,8 @@ export const paths = {
   terms: '/terms',
   /** 자주 묻는 질문 */
   faq: '/faq',
+  /** 붐빔 피하기 — 붐비는 관광지 대신 조용한 성지를 권하는 화면 */
+  alternatives: '/alternatives',
   /** 순례 코스 — 박해 사건·인물 축으로 성지를 잇는 길 */
   routes: '/routes',
   routeDetail: (slug: string) => `/routes/${slug}`,
