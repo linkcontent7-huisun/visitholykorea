@@ -8,6 +8,7 @@ import { CERTIFICATE_LEVELS, getCertificateLevel } from '@/features/passport/api
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { downloadCertificatePDF } from '@/features/passport/lib/certificate';
 import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
+import { LogComposer } from '@/features/records/components/LogComposer';
 import { useMyLogs } from '@/features/records/hooks/use-logs';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 
@@ -15,6 +16,7 @@ type Segment = 'logs' | 'stamps';
 
 export default function RecordsPage() {
   const [segment, setSegment] = useState<Segment>('logs');
+  const [isComposing, setIsComposing] = useState(false);
   const { session } = useSession();
   const { data: logs = [], isLoading: logsLoading } = useMyLogs();
   const { data: stamps = [] } = useMyStamps();
@@ -69,13 +71,18 @@ export default function RecordsPage() {
       <div className="p-8 pb-32">
         {segment === 'logs' ? (
           <div className="space-y-8">
-            <button
-              className="flex w-full items-center justify-center gap-3 rounded-[24px] border-2 border-dashed border-app-border py-5 text-sm font-bold text-app-text-muted transition-all hover:border-brand-violet/30 hover:bg-brand-violet/5 hover:text-brand-violet"
-              id="create-log-btn"
-            >
-              <PenLine size={20} />
-              여행기 작성하기
-            </button>
+            {isComposing ? (
+              <LogComposer onDone={() => setIsComposing(false)} />
+            ) : (
+              <button
+                onClick={() => setIsComposing(true)}
+                className="flex w-full items-center justify-center gap-3 rounded-[24px] border-2 border-dashed border-app-border py-5 text-sm font-bold text-app-text-muted transition-all hover:border-brand-violet/30 hover:bg-brand-violet/5 hover:text-brand-violet"
+                id="create-log-btn"
+              >
+                <PenLine size={20} />
+                여행기 작성하기
+              </button>
+            )}
 
             {logsLoading ? (
               [1, 2].map((i) => (
