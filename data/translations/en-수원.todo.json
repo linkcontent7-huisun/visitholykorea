@@ -1,0 +1,279 @@
+{
+  "language": "en",
+  "diocese": "수원",
+  "generatedAt": "2026-08-20T00:00:00.000Z",
+  "items": [
+    {
+      "siteId": "017d62a3-66c0-4267-9225-5c0b9bb6aa82",
+      "diocese": "수원",
+      "source": {
+        "name": "골배마실 성지",
+        "description": "은이성지 동쪽 갈미봉 아래, 계곡을 따라 들어앉은 작은 마을 골배마실이 있다. 김대건 신부의 조부 김택현은 가세가 기울고 신앙을 지키기 어려워지자 가족을 이끌고 이 산골 땅으로 이주해 왔고, 아버지 김제준도 1835년부터 이곳에 자리 잡았다. 소년 김대건이 뛰놀며 유년 시절을 보낸 곳도 바로 이 계곡이었다. 지금은 조용한 산길이 된 이 마을을 걸으며, 한국 최초의 사제가 자란 어린 시절의 풍경을 그려본다.",
+        "history": "김대건 신부의 조부 김택현과 부친 김제준이 신앙을 지키기 위해 이주해 정착한 교우촌. 김대건 신부가 유년 시절을 보낸 곳이다.",
+        "location": "경기도 용인시 처인구 (은이성지 인근)"
+      },
+      "target": {
+        "name": "Golbaemasil Holy Site",
+        "description": "Below Galmibong east of the Euni Holy Site, the little village of Golbaemasil sits tucked along a valley. When his family's fortunes fell and keeping the faith grew dangerous, Kim Taek-hyeon, grandfather of St. Andrew Kim Taegon, led his household into this mountain land; the saint's father Kim Je-jun settled here from 1835. It was in this valley that the boy Kim Taegon ran and played through his childhood. Walking the village, now a quiet mountain path, you can picture the boyhood landscape in which Korea's first priest grew up.",
+        "history": "The Catholic village where Kim Taek-hyeon and Kim Je-jun, grandfather and father of St. Andrew Kim Taegon, settled to keep the faith. St. Andrew Kim Taegon spent his childhood here.",
+        "addressRomanized": "Cheoin-gu, Yongin-si, Gyeonggi-do (near the Euni Holy Site)"
+      }
+    },
+    {
+      "siteId": "8c53e03c-1045-4a42-a1f7-8ad29a2f15c1",
+      "diocese": "수원",
+      "source": {
+        "name": "구산 성지",
+        "description": "하남 검단산 자락, 170년 넘게 이어온 신앙 공동체의 숨결이 남아있는 마을. 이곳은 순교성인 김성우 안토니오가 태어나고 자란 자리다. 그는 두 형제와 함께 온 마을을 신앙 공동체로 일으켰으나, 1839년 기해박해 때 체포되었다가 풀려난 뒤 이듬해 다시 붙잡혀 배교를 강요받았다. \"나는 천주교인이오. 살아도 죽어도 천주교인으로 살겠소\"라는 말을 남기고 1841년 마흔일곱의 나이로 순교했다. 2001년 하남시 향토유적 제4호로 지정되었고 1980년 로마 교황청으로부터 세계 성지로 선포되었다.",
+        "history": "103위 순교성인 김성우 안토니오(1795~1841)의 생가터이자 신앙공동체 발상지. 1841년 기해박해 순교, 1984년 시성. 하남시 향토유적 제4호.",
+        "location": "경기도 하남시 망월동 387-10"
+      },
+      "target": {
+        "name": "Gusan Holy Site",
+        "description": "On the slopes of Geomdansan in Hanam, a village keeps the breath of a community of faith more than 170 years old. This is where the martyr saint Anthony Kim Seong-u was born and raised. With his two brothers he brought the whole village into the faith; arrested in the Gihae Persecution of 1839 and released, he was seized again the next year and pressed to apostatize. He answered, 'I am a Catholic. Living or dying, I will live as a Catholic,' and was martyred in 1841 at the age of forty-seven. The site was designated Hanam Local Heritage No. 4 in 2001 and proclaimed a world shrine by the Holy See in 1980.",
+        "history": "The birthplace of St. Anthony Kim Seong-u (1795–1841), one of the 103 Korean Martyr Saints, and the cradle of the local faith community. Martyred in 1841 after the Gihae Persecution; canonized in 1984. Hanam Local Heritage No. 4.",
+        "addressRomanized": "387-10 Mangwol-dong, Hanam-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "b066e847-4e51-409e-b2d2-95e4ee8ca6ed",
+      "diocese": "수원",
+      "source": {
+        "name": "남양 성모 성지",
+        "description": "화성 남양리, 넓은 들판 한가운데 하늘에서 내려다보면 이콘화처럼 보인다는 로사리오 기도 경당이 자리한다. 1866년 병인박해 당시 신앙 공동체가 있던 이곳은 1991년 한국 최초의 마리아 성지로 봉헌되었다. 지름 70센티미터 돌구슬이 늘어선 20단 로사리오 기도길을 천천히 걸으면 어느새 기도가 된다. 2006년에는 자비의 예수님 동산이, 2023년에는 이탈리아 건축가 마리오 보타가 설계하고 남북통일을 기원하는 남양 성모 대성당이 봉헌되며 성지는 계속 자라나고 있다.",
+        "history": "1991년 봉헌된 한국 최초의 마리아 성지. 1866년 병인박해기 교우촌 터. 2023년 마리오 보타 설계의 남양 성모 대성당 봉헌.",
+        "location": "경기도 화성시 남양리 1704"
+      },
+      "target": {
+        "name": "Namyang Shrine of Our Lady",
+        "description": "At Namyang-ri in Hwaseong, in the middle of wide fields, stands a Rosary chapel said to look like an icon when seen from the sky. A community of faith at the time of the Byeongin Persecution of 1866, the place was dedicated in 1991 as Korea's first shrine of Mary. Walk slowly along the twenty-decade Rosary path lined with stone beads seventy centimeters across, and the walking itself becomes prayer. The Garden of the Merciful Jesus was added in 2006, and in 2023 the Namyang Basilica of Our Lady — designed by the Italian architect Mario Botta and offered for the reunification of Korea — was dedicated, and the shrine keeps on growing.",
+        "history": "Korea's first shrine of Mary, dedicated in 1991, on the site of a Catholic village of the Byeongin Persecution era (1866). The Namyang Basilica of Our Lady, designed by Mario Botta, was dedicated in 2023.",
+        "addressRomanized": "1704 Namyang-ri, Hwaseong-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "57ac0c3d-e94a-4f08-8c08-bc2edd3bc048",
+      "diocese": "수원",
+      "source": {
+        "name": "남한산성 순교성지",
+        "description": "조선의 오랜 역사를 간직한 유네스코 세계문화유산 남한산성, 그 성벽 안쪽에 순교의 기억이 조용히 스며 있다. 병인박해가 몰아치던 시절, 체포된 천주교 신자들이 이곳으로 압송되어 옥에 갇히고 처형당했다. 산성의 웅장한 성곽과 누각을 둘러보는 트레킹 코스를 걷다 보면, 화려한 역사 유산 이면에 새겨진 신앙의 아픔과 마주하게 된다. 세계유산 탐방과 순교 성지 순례가 하나로 이어지는 독특한 자리다.",
+        "history": "유네스코 세계문화유산 남한산성 내에서 병인박해 때 체포된 천주교 신자들이 옥사하거나 처형된 순교지.",
+        "location": "경기도 광주시 남한산성면"
+      },
+      "target": {
+        "name": "Namhansanseong Martyrs’ Shrine",
+        "description": "Inside the walls of Namhansanseong, a UNESCO World Heritage fortress steeped in Joseon history, the memory of martyrdom rests quietly. In the years of the Byeongin Persecution, arrested Catholics were brought here under escort, imprisoned, and executed. Walking the trekking course around the fortress's grand walls and pavilions, you come face to face with the pain of faith written into the underside of a celebrated heritage site — a rare place where a World Heritage visit and a martyrs' pilgrimage become one road.",
+        "history": "A martyrdom site within the UNESCO World Heritage fortress of Namhansanseong, where Catholics arrested in the Byeongin Persecution died in prison or were executed.",
+        "addressRomanized": "Namhansanseong-myeon, Gwangju-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "dc218e5a-3218-4364-bc6d-4c5737122d53",
+      "diocese": "수원",
+      "source": {
+        "name": "단내 성가정 성지",
+        "description": "이천 호법면, 남한산성에서 백지사형을 받은 두 친족의 이야기가 전해지는 자리. 예순셋의 정은 바오로는 박해를 피해 동굴에 숨어 지내다 결국 체포되었고, 재종손 정양묵 베드로는 병든 숙부를 홀로 둘 수 없다며 스스로 자원해 함께 붙잡혔다. 혹독한 고문에도 신앙을 버리지 않은 두 사람은 1866년 12월 8일 순교했다. 1784년 한국천주교회 창립보다도 앞서 신앙 공동체가 있었던 유서 깊은 땅으로, 103위 순교성인 중 다섯 명이 이천 지역과 인연이 있다.",
+        "history": "1866년 병인박해 때 정은 바오로·정양묵 베드로 등이 백지사형으로 순교. 한국 최초기 교우촌 중 하나로 103위 순교성인 5위와 연고.",
+        "location": "경기도 이천시 호법면 단천리 357"
+      },
+      "target": {
+        "name": "Dannae Holy Family Shrine",
+        "description": "In Hobeop-myeon, Icheon, a place that keeps the story of two kinsmen put to death by baekjisa at Namhansanseong. Paul Jeong Eun, sixty-three, hid in a cave from the persecution until he was finally captured; his grand-nephew Peter Jeong Yang-muk, refusing to leave his ailing elder alone, gave himself up to be taken with him. Unbroken by torture, the two were martyred on 8 December 1866. A community of faith existed on this storied ground even before the founding of the Catholic Church in Korea in 1784, and five of the 103 Korean Martyr Saints have ties to the Icheon area.",
+        "history": "Paul Jeong Eun, Peter Jeong Yang-muk, and others were martyred by baekjisa (death by wet paper) in the Byeongin Persecution of 1866. One of Korea's earliest Catholic villages, linked to five of the 103 Martyr Saints.",
+        "addressRomanized": "357 Dancheon-ri, Hobeop-myeon, Icheon-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "52482f70-1b20-4a95-9c3d-fee90ec046d3",
+      "diocese": "수원",
+      "source": {
+        "name": "던지실 성지",
+        "description": "안성시 금광면에 위치한 교우촌이자 순교 관련 사적지로, 박해기 신앙공동체의 흔적이 남아있는 곳이다.",
+        "history": "던지실은 안성시 금광면 일대에 형성되었던 천주교 교우촌으로, 박해 시기 순교와 관련된 사적지로 소개된다. 문서에는 구체적인 순교자 수나 연대는 기록되어 있지 않다.",
+        "location": "경기도 안성시 금광면"
+      },
+      "target": {
+        "name": "Deonjisil Holy Site",
+        "description": "A Catholic village and martyrdom-related historic site in Geumgwang-myeon, Anseong, where traces of a persecution-era community of faith remain.",
+        "history": "Deonjisil was a Catholic village in the Geumgwang-myeon area of Anseong, presented as a historic site connected with martyrdom in the persecution era. The documents record no specific number of martyrs or dates.",
+        "addressRomanized": "Geumgwang-myeon, Anseong-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "299f79c2-1572-4199-abdd-7b5979d5f14f",
+      "diocese": "수원",
+      "source": {
+        "name": "미리내 성지",
+        "description": "안성 깊은 산골, 밤하늘 은하수를 닮았다 하여 미리내라는 이름이 붙은 마을이 있다. 1846년 새남터에서 순교한 한국 최초의 사제 김대건 안드레아 신부의 시신을, 신자 이윤봉 루가가 위험을 무릅쓰고 이곳에 몰래 묻었다. 그날 이후 이 산골 마을은 한국 천주교에서 가장 성스러운 자리 중 하나가 되었다. 1906년 세워진 성 요셉 성당은 세계에서 가장 작은 성당으로 알려져 있고, 1991년 지어진 103위 시성 기념 성당에서는 오늘도 순례 미사가 드려진다. 가을 단풍이 절정에 이르는 10월, 미리내로 향하는 길 자체가 이미 순례의 시작이 된다.",
+        "history": "1846년 새남터에서 순교한 성 김대건 안드레아 신부의 시신이 이윤봉 루가에 의해 비밀리 안장된 곳(한국 최초 사제 유해 최초 안장지). 1906년 세워진 성 요셉 성당은 세계에서 가장 작은 성당으로 알려져 있다.",
+        "location": "경기도 안성시 양성면 미산리"
+      },
+      "target": {
+        "name": "Mirinae Holy Site",
+        "description": "Deep in the mountains of Anseong lies a village named Mirinae, 'the Milky Way,' for the river of stars over its night sky. When Korea's first priest, St. Andrew Kim Taegon, was martyred at Saenamteo in 1846, the layman Luke Yi Yun-bong carried his body here at the risk of his own life and buried it in secret. From that day this mountain village became one of the holiest places of the Catholic Church in Korea. The St. Joseph chapel of 1906 is known as the smallest church in the world, and pilgrim Masses are offered daily in the memorial church of the 103 Saints built in 1991. In October, when the autumn leaves reach their height, the road to Mirinae is itself the beginning of the pilgrimage.",
+        "history": "The secret first burial place of St. Andrew Kim Taegon, martyred at Saenamteo in 1846 and interred here by Luke Yi Yun-bong — the first resting place of Korea's first priest. The St. Joseph chapel of 1906 is known as the world's smallest church.",
+        "addressRomanized": "Misan-ri, Yangseong-myeon, Anseong-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "3703ae13-69fa-427e-aafe-ce32b340a1eb",
+      "diocese": "수원",
+      "source": {
+        "name": "손골 성지",
+        "description": "용인 광교산 자락, 열두 가구 남짓한 작은 교우촌이 있던 자리에 파리외방전교회 선교사들이 조선말을 익히며 사목을 준비하던 흔적이 남아있다. 다블뤼, 페레올, 오매트르 신부 등이 이곳을 거쳐 갔고, 특히 성 앙리 도리 신부는 1866년 2월 27일 이곳에서 체포되어 3월 7일 서울 새남터에서 순교했다. 1966년 도리 신부 순교 100주년을 맞아 프랑스 고향에 있던 그의 아버지 연자맷돌로 만든 십자가가 반으로 나뉘어, 하나는 프랑스에 하나는 이곳 손골에 세워졌다.",
+        "history": "파리외방전교회 선교사들의 조선어·사목 준비지. 성 앙리 도리 신부가 1866년 이곳에서 체포되어 새남터에서 순교.",
+        "location": "경기도 용인시 수지구 동천동 734"
+      },
+      "target": {
+        "name": "Songol Holy Site",
+        "description": "On the slopes of Gwanggyosan in Yongin, where a hamlet of barely a dozen Catholic households once stood, traces remain of the Paris Foreign Missions priests who learned Korean and prepared their ministry here. Frs. Daveluy, Ferréol, and Aumaître all passed through; St. Henri Dorie was arrested here on 27 February 1866 and martyred at Saenamteo in Seoul on 7 March. In 1966, on the centenary of his martyrdom, the millstone of his father's house in France was made into a cross and divided in two — one half raised in France, the other here at Songol.",
+        "history": "Where the Paris Foreign Missions Society priests prepared their ministry and learned Korean. St. Henri Dorie was arrested here in 1866 and martyred at Saenamteo.",
+        "addressRomanized": "734 Dongcheon-dong, Suji-gu, Yongin-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "6c4aa646-b1b9-49e8-a7bb-e6972e47cfb4",
+      "diocese": "수원",
+      "source": {
+        "name": "수리산 성지",
+        "description": "안양 수리산 자락, 예전에는 담배골 또는 병목골이라 불리던 산골 마을. 한국 두 번째 사제 최양업 토마스 신부의 아버지 최경환 프란치스코가 1837년 무렵 가족을 이끌고 정착해 교우촌을 이루었다. 그는 마을의 회장으로 신자들을 이끌다 1839년 기해박해 때 체포되었는데, 관헌을 태연히 맞아들이고 아침상까지 차려주었다는 일화가 전해진다. 고문 후유증으로 옥사한 뒤, 부인 이성례 마리아도 이듬해 순교해 2014년 프란치스코 교황 방한 때 함께 시복되었다.",
+        "history": "최양업 신부의 부친 최경환 프란치스코가 이끈 교우촌 터. 1839년 기해박해 순교, 부인 이성례 마리아도 순교, 2014년 시복.",
+        "location": "경기도 안양시 만안구 안양 9동 1151-2"
+      },
+      "target": {
+        "name": "Surisan Holy Site",
+        "description": "On the slopes of Surisan in Anyang, a mountain hamlet once called Dambaegol or Byeongmokgol. Around 1837 Francis Choe Gyeong-hwan — father of Korea's second priest, Fr. Thomas Choe Yang-eop — settled here with his family and formed a Catholic village. Leading the faithful as village catechist, he was arrested in the Gihae Persecution of 1839; the story is told that he calmly welcomed the constables and even set out breakfast for them. He died in prison of his tortures, and his wife Maria Yi Seong-rye was martyred the following year; the two were beatified together during Pope Francis's visit to Korea in 2014.",
+        "history": "The Catholic village led by Francis Choe Gyeong-hwan, father of Fr. Thomas Choe Yang-eop. He died a martyr after the Gihae Persecution of 1839, as did his wife Maria Yi Seong-rye; both were beatified in 2014.",
+        "addressRomanized": "1151-2 Anyang 9-dong, Manan-gu, Anyang-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "044b7fd0-bd98-4de1-98e8-0638b00b7fc2",
+      "diocese": "수원",
+      "source": {
+        "name": "양근 성지",
+        "description": "양평 남한강변, 홍수마다 마을을 지켜준 버드나무 뿌리에서 이름을 딴 양근 땅. 권철신·권일신 형제가 초기 신앙 공동체를 이끌었고, 1784년 북경에서 세례를 받고 돌아온 한국 첫 영세자 이승훈이 이곳에서 권철신에게 세례를 주며 신앙이 충청·전라로 퍼져나갔다. 가성직 제도가 시행되던 이 땅에서 동정부부 조숙 베드로와 권천례 데레사가 태어나 순교했고, 양근천이 한강과 만나는 오빈다리 인근에서는 윤유오·윤점혜·권상문 등이 참수되었다. 2014년 네 명이 프란치스코 교황에 의해 시복되었다.",
+        "history": "한국천주교회 초기 신앙 공동체의 요람. 이승훈이 권철신에게 세례를 준 자리, 오빈다리 순교터. 2014년 4위 시복.",
+        "location": "경기도 양평군 양평읍 오빈리 173-2"
+      },
+      "target": {
+        "name": "Yanggeun Holy Site",
+        "description": "By the Namhangang in Yangpyeong lies Yanggeun, named for the willow roots that held the village through every flood. The brothers Gwon Cheol-sin and Gwon Il-sin led one of the earliest communities of faith here, and in 1784 Yi Seung-hun — the first Korean baptized, returning from Beijing — baptized Gwon Cheol-sin on this ground, from which the faith spread into Chungcheong and Jeolla. Here, in the days of the provisional lay hierarchy, the virgin couple Peter Jo Suk and Teresa Gwon Cheon-rye were born and martyred; near the Obin bridge where the Yanggeun stream meets the Hangang, Yun Yu-o, Yun Jeom-hye, Gwon Sang-mun and others were beheaded. Four of them were beatified by Pope Francis in 2014.",
+        "history": "A cradle of the early Catholic Church in Korea. Where Yi Seung-hun baptized Gwon Cheol-sin; the Obin bridge execution ground. Four martyrs beatified in 2014.",
+        "addressRomanized": "173-2 Obin-ri, Yangpyeong-eup, Yangpyeong-gun, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "abce3890-fff0-4549-8eb3-7df5e43a6c9e",
+      "diocese": "수원",
+      "source": {
+        "name": "어농 성지",
+        "description": "이천 모가면, 죽음으로 신앙을 지킨 윤유일 바오로 일가의 안식처. 윤유일은 북경을 세 차례 오가며 조선에 첫 외국인 사제를 모셔오는 임무를 완수한 인물이다. 1794년 12월 주문모 야고보 신부를 조선 땅에 이끌어 이듬해 부활절 한국 최초의 미사가 봉헌되도록 했으나, 1795년 6월 28일 지황·최인길과 함께 순교했다. 1987년 성지로 조성되고 2002년 을묘·신유박해 순교자 현양성지로 지정되었으며, 2014년 17위가 시복되었다.",
+        "history": "조선에 첫 외국인 사제 주문모 신부를 모셔온 윤유일 바오로 등 3인이 1795년 순교한 자리. 2014년 17위 시복.",
+        "location": "경기도 이천시 모가면 어농리 322-4"
+      },
+      "target": {
+        "name": "Eonong Holy Site",
+        "description": "In Moga-myeon, Icheon, the resting place of Paul Yun Yu-il and his family, who kept the faith unto death. Yun Yu-il crossed to Beijing three times and accomplished the mission of bringing Joseon its first foreign priest: in December 1794 he led Fr. James Zhou Wenmo onto Joseon soil, so that the first Mass in Korea could be offered the following Easter. He was martyred on 28 June 1795 together with Ji Hwang and Choe In-gil. The site was laid out as a shrine in 1987, designated in 2002 as the memorial shrine of the martyrs of the Eulmyo and Sinyu Persecutions, and saw seventeen of its martyrs beatified in 2014.",
+        "history": "Where Paul Yun Yu-il, who brought Fr. James Zhou Wenmo to Joseon, was martyred with two companions in 1795. Seventeen martyrs beatified in 2014.",
+        "addressRomanized": "322-4 Eonong-ri, Moga-myeon, Icheon-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "4cae0947-f017-4e39-bd66-5c5ae2315f2c",
+      "diocese": "수원",
+      "source": {
+        "name": "요당리 성지",
+        "description": "화성 양감면, 밀물 때 물길이 닿는 지형 덕에 충청·경기 내륙과 서울을 잇는 은밀한 선교 거점이 되었던 마을. 1801년 신유박해 이후 서울과 내포 지방에서 피신해 온 신자들이 자리를 잡았다. 순교성인 장주기 요셉과 복자 장 토마스 형제가 이곳에서 나고 자랐으며, 다블뤼 주교의 피신을 도운 이들도 이 땅과 인연이 깊다. 수원교구는 2006년부터 경당과 로사리오 기도길, 십자가의 길을 조성했고 2010년 대성당이 봉헌되었다. 1998년 화재로 그을린 나무로 만든 십자가의 길 조각도 눈여겨볼 만하다.",
+        "history": "순교성인 장주기 요셉의 고향이자 신유박해 이후 형성된 교우촌. 2010년 대성당 봉헌.",
+        "location": "경기도 화성시 양감면 요당리 191-1"
+      },
+      "target": {
+        "name": "Yodang-ri Holy Site",
+        "description": "In Yanggam-myeon, Hwaseong, a village whose tidal waterways made it a hidden mission link between inland Chungcheong-Gyeonggi and Seoul. Believers fleeing Seoul and the Naepo region settled here after the Sinyu Persecution of 1801. The martyr saint Joseph Jang Ju-gi and his kinsman Blessed Thomas Jang were born and raised here, and those who helped Bishop Daveluy into hiding were also bound to this ground. From 2006 the Diocese of Suwon laid out a chapel, a Rosary path, and the Way of the Cross, and the great church was dedicated in 2010. The Stations carved from wood scorched in a 1998 fire reward a closer look.",
+        "history": "The home of the martyr saint Joseph Jang Ju-gi and a Catholic village formed after the Sinyu Persecution. The church was dedicated in 2010.",
+        "addressRomanized": "191-1 Yodang-ri, Yanggam-myeon, Hwaseong-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "db51e1aa-4101-48a8-94db-bc10f3723464",
+      "diocese": "수원",
+      "source": {
+        "name": "은이 성지",
+        "description": "용인 처인구 산자락, 숨겨진 동네라는 뜻의 은이마을이 있다. 이곳은 열다섯 살 소년 김대건이 1836년 모방 신부에게 세례와 첫 성체를 받은 자리이자, 신학생으로 선발되어 마카오 유학길에 오른 출발점이다. 사제가 되어 돌아온 김대건 안드레아는 이곳을 첫 사목지로 삼았고, 순교하기 전 마지막으로 공식 미사를 드린 곳도 바로 은이였다. 소년의 첫 세례부터 사제의 마지막 미사까지, 김대건 신부의 생애 전체가 이 작은 교우촌 하나에 고스란히 담겨 있다.",
+        "history": "숨겨진 동네라는 뜻의 교우촌. 김대건 안드레아가 1836년 모방 신부에게 세례와 첫 성체를 받았고, 15세에 신학생으로 선발되어 마카오로 떠난 곳. 사제 서품 후 첫 사목지이자 순교 전 마지막 공식 미사를 드린 곳이다.",
+        "location": "경기도 용인시 처인구"
+      },
+      "target": {
+        "name": "Euni Holy Site",
+        "description": "On a mountainside in Cheoin-gu, Yongin, lies Euni, 'the hidden village.' Here the fifteen-year-old Kim Taegon received baptism and first communion from Fr. Pierre Maubant in 1836, and from here he set out for Macau, chosen as a seminarian. Returning as a priest, Andrew Kim Taegon made this his first pastoral post, and it was at Euni that he offered his last public Mass before his martyrdom. From a boy's first baptism to a priest's last Mass, the whole arc of St. Andrew Kim Taegon's life is held in this one small village of the faith.",
+        "history": "A Catholic village whose name means 'hidden village.' Where Kim Taegon was baptized by Fr. Pierre Maubant in 1836 and left for Macau as a seminarian at fifteen; his first pastoral post after ordination and the place of his last public Mass before martyrdom.",
+        "addressRomanized": "Cheoin-gu, Yongin-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "8d87ca6f-f31d-40d4-b25e-9a425aed0954",
+      "diocese": "수원",
+      "source": {
+        "name": "죽산 순교성지",
+        "description": "충청·전라·경상으로 갈라지는 길목, 조선시대 죽산 도호부가 있던 자리에 잊혔던 순교의 역사가 남아 있다. 넓은 관할 구역 곳곳의 교우촌에서 체포된 신자들이 죽산 도호부의 옥에 갇혀 혹독한 고문을 받은 뒤, 지금의 성지 자리에서 처형되었다. 이름이 확인된 순교자만 24명에 이른다. 고려시대 몽골군이 진을 쳤던 이진터라는 이 자리에는, 박해가 남긴 아픔을 담아 잊은 터라는 이름이 붙었다. 오가는 이들의 발길 속에 잊혀갔던 순교자들의 이름을, 오늘 다시 불러본다.",
+        "history": "병인박해 때 체포된 신자들이 죽산 도호부 옥사에서 고문당한 뒤 처형된 자리. 이름이 밝혀진 순교자만 24명에 이른다. 예전 지명 이진터에 박해 시기 잊은 터라는 이름이 더해졌다.",
+        "location": "경기도 안성시 일죽면 죽림리"
+      },
+      "target": {
+        "name": "Juksan Martyrs’ Shrine",
+        "description": "At the crossroads where the ways part for Chungcheong, Jeolla, and Gyeongsang, on the site of the Joseon-era Juksan district office, a forgotten history of martyrdom survives. Believers arrested in the Catholic villages of its wide jurisdiction were held and brutally tortured in the Juksan office prison, then executed on the ground that is now the shrine. The martyrs identified by name alone number twenty-four. This place, called Ijinteo for the Mongol army that once camped here in Goryeo times, gained a second name from the persecutions: Ijeun-teo, 'the forgotten ground.' Today we call again the names of the martyrs the passing crowds had forgotten.",
+        "history": "Where believers arrested in the Byeongin Persecution were tortured in the Juksan district prison and executed — 24 martyrs are known by name. To the old place name Ijinteo the persecutions added 'the forgotten ground.'",
+        "addressRomanized": "Jungnim-ri, Iljuk-myeon, Anseong-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "feae6f3d-52b8-4e9a-b28a-617ebf1ed500",
+      "diocese": "수원",
+      "source": {
+        "name": "천진암 성지",
+        "description": "광주 앵자봉 자락, 폐허가 된 암자 터에 한국 천주교 신앙이 처음 싹텄다. 1779년 겨울, 권철신·이벽 등 젊은 학자들이 이곳에 모여 서학과 천주교 교리를 강학했고, 이벽의 권유로 이승훈이 북경에 파견되어 1784년 세례를 받고 돌아오며 한국천주교회가 정식으로 창립되었다. 정하상 바오로, 유진길 아우구스티노 등 순교자들의 넋도 함께 기려진다. 매년 세례자 요한 탄생 축일에 창립기념미사가 봉헌되며, 매월 첫째 토요일 저녁이면 촛불을 든 순례객들의 로사리오 기도 행렬이 산길을 밝힌다.",
+        "history": "1779년 강학회가 열려 한국천주교회 신앙이 싹튼 자리. 이벽·권철신 등이 참여, 이승훈의 북경 파견으로 이어짐.",
+        "location": "경기도 광주시 퇴촌면 천진암로 1203"
+      },
+      "target": {
+        "name": "Cheonjinam Holy Site",
+        "description": "On the slopes of Aengjabong in Gwangju, in the ruins of a hermitage, the faith of the Catholic Church in Korea first sprouted. In the winter of 1779 young scholars including Gwon Cheol-sin and Yi Byeok gathered here to study Western learning and Catholic doctrine; at Yi Byeok's urging, Yi Seung-hun was sent to Beijing, and his return with baptism in 1784 marked the founding of the Catholic Church in Korea. The martyrs Paul Jeong Ha-sang and Augustine Yu Jin-gil are honored here as well. A founding-anniversary Mass is offered each year on the feast of the birth of John the Baptist, and on the first Saturday evening of every month a candlelit Rosary procession of pilgrims lights the mountain path.",
+        "history": "Where the scholarly conference of 1779 planted the seed of the Catholic faith in Korea. Yi Byeok and Gwon Cheol-sin took part, leading to Yi Seung-hun's mission to Beijing.",
+        "addressRomanized": "1203 Cheonjinam-ro, Toechon-myeon, Gwangju-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "4b4813bf-9094-4ff2-becf-ba265c50642c",
+      "diocese": "수원",
+      "source": {
+        "name": "천호성지",
+        "description": "광주시 퇴촌면에 위치한 천주교 교우촌이자 순교자를 기리는 사적지로, 같은 이름을 가진 전주교구 천호성지와는 별개의 장소이다.",
+        "history": "천호성지는 경기도 광주시 퇴촌면 일대에 형성되었던 천주교 교우촌으로, 순교자와 관련된 사적지로 소개된다. 전주교구에도 동명의 '천호성지'가 존재하나 이는 별도의 장소이며, 이 곳은 수원교구 관할이다.",
+        "location": "경기도 광주시 퇴촌면"
+      },
+      "target": {
+        "name": "Cheonho Holy Site (Gwangju)",
+        "description": "A Catholic village and memorial site for martyrs in Toechon-myeon, Gwangju-si, Gyeonggi-do — a separate place from the shrine of the same name in the Diocese of Jeonju.",
+        "history": "Cheonho was a Catholic village in the Toechon-myeon area of Gwangju-si, presented as a historic site connected with its martyrs. A shrine of the same name exists in the Diocese of Jeonju, but this is a distinct place under the Diocese of Suwon.",
+        "addressRomanized": "Toechon-myeon, Gwangju-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "76126161-a293-47ca-a839-337467e2ca2c",
+      "diocese": "수원",
+      "source": {
+        "name": "한덕골 성지",
+        "description": "용인시 처인구에 자리한 교우촌 터로, 박해를 피해 산골로 숨어든 신앙 선조들의 공동체 삶을 전하는 곳이다.",
+        "history": "한덕골은 경기도 용인시 처인구 일대에 형성되었던 천주교 신자들의 교우촌으로 전해진다. 문서상 구체적인 조성 연대나 순교 관련 기록은 확인되지 않는다.",
+        "location": "경기도 용인시 처인구"
+      },
+      "target": {
+        "name": "Handeokgol Holy Site",
+        "description": "The site of a Catholic village in Cheoin-gu, Yongin, which passes down the communal life of the forebears of the faith who fled the persecutions into these hills.",
+        "history": "Handeokgol is remembered as a village of Catholic believers in the Cheoin-gu area of Yongin. The documents confirm no precise founding date or record of martyrdom.",
+        "addressRomanized": "Cheoin-gu, Yongin-si, Gyeonggi-do"
+      }
+    }
+  ]
+}
