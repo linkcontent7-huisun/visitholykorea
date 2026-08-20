@@ -79,6 +79,12 @@ export interface SiteVisitNoteRow {
   created_at: string;
 }
 
+export interface FavoriteRow {
+  user_id: string;
+  site_id: string;
+  created_at: string;
+}
+
 export interface PilgrimageLogRow {
   id: string;
   user_id: string;

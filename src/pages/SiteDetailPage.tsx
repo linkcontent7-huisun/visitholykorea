@@ -17,6 +17,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
 import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/share-card';
+import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use-favorites';
 import { useAddStamp, useMyStamp, useSiteNotes } from '@/features/passport/hooks/use-stamps';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
 import { ContactCard } from '@/features/sites/components/ContactCard';
@@ -43,6 +44,8 @@ export default function SiteDetailPage() {
   const { data: festivals = [], isFetching: festivalsLoading } = useNearbyFestivals(
     site?.coordinates,
   );
+  const { data: isFavorited = false } = useIsFavorite(siteId);
+  const toggleFavorite = useToggleFavorite(siteId ?? '');
   const { data: myStamp } = useMyStamp(siteId);
   const stamped = myStamp?.stamped ?? false;
   const { data: visitNotes = [] } = useSiteNotes(siteId);
@@ -86,6 +89,19 @@ export default function SiteDetailPage() {
     addStamp.mutate(note, {
       onSuccess: (result) => {
         if (!result.success) window.alert('한 줄 저장에 실패했어요.');
+      },
+    });
+  };
+
+  const handleToggleFavorite = () => {
+    toggleFavorite.mutate(!isFavorited, {
+      onSuccess: (result) => {
+        if (result.success) return;
+        if (result.error === 'UNAUTHENTICATED') {
+          navigate(paths.login);
+          return;
+        }
+        window.alert('찜 저장에 실패했어요.');
       },
     });
   };
@@ -173,10 +189,13 @@ export default function SiteDetailPage() {
         </button>
 
         <button
+          onClick={handleToggleFavorite}
+          disabled={toggleFavorite.isPending}
           className="absolute right-6 top-12 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
-          aria-label="찜하기"
+          aria-label={isFavorited ? '찜 해제하기' : '찜하기'}
+          aria-pressed={isFavorited}
         >
-          <Heart size={20} />
+          <Heart size={20} className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined} />
         </button>
 
         <div className="absolute bottom-12 left-8 right-8 text-white">
