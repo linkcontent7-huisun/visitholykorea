@@ -1,0 +1,135 @@
+{
+  "language": "en",
+  "diocese": "원주",
+  "generatedAt": "2026-08-20T00:00:00.000Z",
+  "items": [
+    {
+      "siteId": "5bc16668-2441-4f9d-a5c9-887ef00cde1e",
+      "diocese": "원주",
+      "source": {
+        "name": "강릉 임당동성당",
+        "description": "강릉 임당동, 높다란 종탑과 첨두형 아치 창문을 가진 성당이 오래된 동네를 지키고 있다. 1921년 금광리에서 시작된 강릉 본당은 여러 차례 자리를 이전한 끝에 1955년 지금의 성당을 신축하며 새 이름을 얻었다. 전쟁의 상처가 채 가시지 않은 시절 지어진 이 성당은 1950년대 강원도 성당 건축의 특징을 고스란히 간직해 국가등록문화재로 지정되었다. 정교한 몰딩과 아치 장식이 남아있는 성당 내부를 둘러보면, 전후 강원 신앙 공동체가 다시 일어서던 시간이 느껴진다.",
+        "history": "1921년 시작된 강릉 지역 첫 본당. 1955년 신축된 성당은 1950년대 강원도 성당 건축의 전형을 보여주는 건물로 국가등록문화재 제457호.",
+        "location": "강원특별자치도 강릉시 임영로 148"
+      },
+      "target": {
+        "name": "Gangneung Imdang-dong Catholic Church",
+        "description": "In Imdang-dong, Gangneung, a church with a tall bell tower and pointed-arch windows watches over an old neighborhood. The Gangneung parish, begun at Geumgwang-ri in 1921, moved several times before building the present church in 1955 and taking its new name. Raised while the wounds of war were still fresh, it preserves intact the character of 1950s church building in Gangwon-do and is listed as National Registered Cultural Heritage. In the fine moldings and arches of the interior you can feel the years when the postwar faith community of Gangwon rose to its feet again.",
+        "history": "The first parish of the Gangneung area, begun in 1921. The church of 1955 exemplifies 1950s Gangwon church architecture — National Registered Cultural Heritage No. 457.",
+        "addressRomanized": "148 Imyeong-ro, Gangneung-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "d50e6aaf-0e00-4083-8174-459f59910bd4",
+      "diocese": "원주",
+      "source": {
+        "name": "강원 감영",
+        "description": "원주 시내, 500년간 강원도 행정의 중심이었던 감영 자리. 조선시대 이곳 선화당에서는 강원도 각지에서 붙잡혀 온 천주교 신자들이 문초받고 처형되었다. 2014년 시성된 김강이 시몬, 최해성 요한, 최영이 브리지타 등이 이곳에서 순교했다. 감영의 정문 포정루와 선화당은 1971년 문화재 제3호로 지정되어 원형 일부가 남아있고, 2018년 복원 공사를 통해 옛 모습을 되찾았다.",
+        "history": "500년간 강원도 행정 중심이었던 감영, 조선시대 천주교 신자 문초·처형지. 2014년 시성된 김강이 시몬 등이 순교. 포정루·선화당은 문화재 제3호.",
+        "location": "강원도 원주시 일산동 54-1"
+      },
+      "target": {
+        "name": "Gangwon Gamyeong",
+        "description": "In central Wonju, the seat of Gangwon-do's administration for five hundred years. At the Seonhwadang hall here, Catholics seized across Gangwon-do were interrogated and executed in the Joseon era. Simon Kim Gang-i, John Choe Hae-seong, and Brigid Choe Yeong-i, beatified in 2014, were among those martyred here. The Pojeongnu gate and Seonhwadang, designated Cultural Heritage No. 3 in 1971, preserve part of their original form, regained through restoration completed in 2018.",
+        "history": "The administrative seat of Gangwon-do for 500 years and a place of interrogation and execution of Catholics. Simon Kim Gang-i and others beatified in 2014 were martyred here. The Pojeongnu and Seonhwadang are Cultural Heritage No. 3.",
+        "addressRomanized": "54-1 Ilsan-dong, Wonju-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "fa4e38db-2de8-45d0-ae64-84969e03ab47",
+      "diocese": "원주",
+      "source": {
+        "name": "대안리 공소",
+        "description": "원주 흥업면, 100년 넘은 한옥 목조 공소가 마을을 지키고 있다. 1886년 한불조약으로 신앙의 자유를 얻은 신자들이 모여든 이 교우촌은 1892년 무렵 공소로 시작되었는데, 이는 원주교구에서 풍수원본당 다음으로 오래된 신앙 공동체다. 1900년대 초 지어진 목조 한옥 건물은 1910년 뮈텔 주교의 일기에 축복식이 기록될 만큼 유서 깊다. 초가지붕이 1950년대 기와로 바뀌고 6·25전쟁 때는 병영과 구호물자 배급소로도 쓰였던 이 공소는 2004년 국가등록문화재 제140호로 지정되었다.",
+        "history": "1892년 무렵 설립된 원주교구에서 두 번째로 오래된 교우촌 공소. 국가등록문화재 제140호.",
+        "location": "강원도 원주시 흥업면 대안리 659"
+      },
+      "target": {
+        "name": "Daean-ri Mission Station",
+        "description": "In Heungeop-myeon, Wonju, a hanok mission station more than a century old keeps watch over its village. The Catholic village that gathered here after the Korea-France Treaty of 1886 brought freedom of belief became a mission station around 1892 — the second-oldest faith community in the Diocese of Wonju after Pungsuwon. The timber hanok building of the early 1900s is storied enough that Bishop Mutel's diary records its blessing in 1910. Its thatch was replaced with tile in the 1950s, and during the Korean War it served as barracks and relief-supply depot; it was designated National Registered Cultural Heritage No. 140 in 2004.",
+        "history": "A Catholic-village mission station founded around 1892, the second oldest in the Diocese of Wonju. National Registered Cultural Heritage No. 140.",
+        "addressRomanized": "659 Daean-ri, Heungeop-myeon, Wonju-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "993642a4-ac59-4e08-8a47-a28bd90e40c4",
+      "diocese": "원주",
+      "source": {
+        "name": "서지 마을",
+        "description": "원주 부론면, 최양업 신부의 자취를 좇는 희망의 순례길 위에 자리한 작은 마을. 박해를 피해 가족을 이끌고 이곳에 숨어든 최해성 요한은 가난 속에서도 굳은 신앙으로 가난한 이웃을 돌보며 \"천주를 위해 목숨을 바치는 것이 얼마나 큰 행복인가\"라는 말을 자주 남겼다고 전해진다. 그는 2014년 프란치스코 교황 방한 때 시복되었다. 오늘날 서지 교우촌은 춘천·원주교구에 걸쳐 있는 최양업 신부 연고지 30여 곳을 잇는 희망의 순례길의 한 구간으로, 땀의 순교자가 다니던 옛길을 따라 걷는 이들의 발길이 이어진다.",
+        "history": "복자 최해성 요한이 가족과 숨어 지내며 신앙을 지킨 교우촌. 2014년 시복. 최양업 신부 순례길의 한 구간.",
+        "location": "강원도 원주시 부론면 서지리"
+      },
+      "target": {
+        "name": "Seoji Village",
+        "description": "In Buron-myeon, Wonju, a small village on the Pilgrimage Way of Hope that follows the traces of Fr. Thomas Choe Yang-eop. John Choe Hae-seong, who led his family into hiding here from the persecutions, cared for his poor neighbors out of his own poverty and is remembered for often saying, 'What happiness it is to give one's life for the Lord.' He was beatified during Pope Francis's 2014 visit. Today the Seoji Catholic village is one stretch of the Way of Hope, which links some thirty places tied to Fr. Choe Yang-eop across the Chuncheon and Wonju dioceses, and walkers still follow the old roads of the 'martyr of sweat.'",
+        "history": "The Catholic village where Blessed John Choe Hae-seong hid with his family and kept the faith; beatified in 2014. A stretch of the Fr. Choe Yang-eop pilgrimage way.",
+        "addressRomanized": "Seoji-ri, Buron-myeon, Wonju-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "b61d59eb-f91d-4814-859f-754e7fa2f810",
+      "diocese": "원주",
+      "source": {
+        "name": "성내동 성당",
+        "description": "삼척 시내가 한눈에 내려다보이는 언덕, 6·25전쟁의 아픔을 딛고 세워진 성당이 자리한다. 1946년 강릉본당의 공소로 시작해 1949년 본당으로 승격했으나, 초대 주임이었던 콜롬반 외방선교회 소속 매긴 신부가 1950년 7월 4일 공산군에 의해 순교했다. 이후 코너스 신부가 성당 건립을 이끌어 1957년 3월 착공, 그해 11월 축성되었다. 133평 규모로 당시 춘천교구에서 가장 큰 건물이었던 이 성당은 1950년대 지방 건축 기법을 잘 보여주어 2004년 국가등록문화재 제141호로 지정되었으며, 1965년 신설된 원주교구로 이관되었다.",
+        "history": "매긴 신부가 1950년 순교한 성당. 1957년 완공된 당시 춘천교구 최대 규모 건물, 국가등록문화재 제141호.",
+        "location": "강원도 삼척시 성내동 3-1"
+      },
+      "target": {
+        "name": "Seongnae-dong Catholic Church",
+        "description": "On a hill with all of Samcheok at its feet stands a church raised out of the pain of the Korean War. Begun in 1946 as a station of the Gangneung parish and made a parish in 1949, it lost its first pastor, Fr. James Maginn of the Missionary Society of St. Columban, martyred by communist forces on 4 July 1950. Fr. Connors then led the building of the church, begun in March 1957 and consecrated that November. The largest building in the Diocese of Chuncheon at the time, it shows the provincial construction methods of the 1950s so well that it was designated National Registered Cultural Heritage No. 141 in 2004, and was transferred to the newly erected Diocese of Wonju in 1965.",
+        "history": "The church of Fr. James Maginn, martyred in 1950. Completed in 1957 as the largest building in the diocese — National Registered Cultural Heritage No. 141.",
+        "addressRomanized": "3-1 Seongnae-dong, Samcheok-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "73ecdbf7-9000-4f94-ac5e-002c73d94c69",
+      "diocese": "원주",
+      "source": {
+        "name": "용소막성당",
+        "description": "원주 신림면, 들판 사이로 서양식 붉은 벽돌 성당이 고요히 자리하고 있다. 1898년 신자 최석두의 초가집에서 작은 공소로 출발한 용소막성당은 풍수원·원주에 이어 강원도에서 세 번째로 세워진 성당이 되었다. 1915년 프랑스인 신부의 손으로 지금의 벽돌 성당이 완공되었고, 1986년 강원도 유형문화재로 지정되었다. 이 아름다운 근대 건축물은 원주의 자랑거리로 사랑받는다. 조용한 시골 마을에서 만나는 이 작은 성당은, 소박하지만 단단했던 초기 신앙 공동체의 시간을 보여준다.",
+        "history": "1898년 신자 최석두의 초가집에서 시작되어 1915년 현재 건물이 완공된 강원도 세 번째 성당(강원도 유형문화재). 풍수원성당, 원주성당에 이어 세워졌다.",
+        "location": "강원특별자치도 원주시 신림면"
+      },
+      "target": {
+        "name": "Yongsomak Catholic Church",
+        "description": "In Sillim-myeon, Wonju, a Western red-brick church rests quietly among the fields. Begun in 1898 as a little mission station in the thatched house of the believer Choe Seok-du, Yongsomak became the third church built in Gangwon-do, after Pungsuwon and Wonju. The present brick church was completed in 1915 by the hands of a French priest and designated Gangwon-do Tangible Cultural Heritage in 1986. This lovely piece of modern architecture is one of Wonju's treasures — a small country church that shows the plain, steadfast hours of the early community of faith.",
+        "history": "Begun in 1898 in the thatched house of Choe Seok-du; the present church of 1915 is the third church of Gangwon-do (Gangwon-do Tangible Cultural Heritage), after Pungsuwon and Wonju.",
+        "addressRomanized": "Sillim-myeon, Wonju-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "47f3c4c4-0153-454d-9052-70743a8a0d07",
+      "diocese": "원주",
+      "source": {
+        "name": "원동 주교좌성당",
+        "description": "원주 원동, 둥근 돔 모양의 종탑이 인상적인 원주교구 주교좌성당. 1896년 풍수원본당에서 분리되어 설립된 이 본당은 초대 주임 르메르 신부가 원주 관아 인근 땅을 사들여 터를 잡았다. 1913년 고딕 양식의 성당이 완공되어 뮈텔 주교의 축성을 받았으나, 6·25전쟁으로 크게 파괴되었다. 1954년 재건된 성당은 1970년대 민주화운동의 중심지가 되어, 1974년 지학순 주교가 구속되자 시국 관련 기도회가 이곳에서 이어졌다. 2004년 독특한 돔형 종탑을 인정받아 국가등록문화재 제139호로 지정되었다.",
+        "history": "1896년 설립된 원주교구 주교좌성당. 1970년대 민주화운동의 중심지, 지학순 주교 구속 관련 기도회 개최지. 국가등록문화재 제139호.",
+        "location": "강원도 원주시 원동 85"
+      },
+      "target": {
+        "name": "Wondong Cathedral",
+        "description": "At Wondong in Wonju stands the cathedral of the Diocese of Wonju, its domed bell tower unmistakable. Founded in 1896 from the Pungsuwon parish, it was sited by its first pastor, Fr. Le Merre, on land bought near the Wonju government office. The Gothic church of 1913, consecrated by Bishop Mutel, was largely destroyed in the Korean War; rebuilt in 1954, it became a center of the democracy movement in the 1970s — when Bishop Ji Hak-sun was imprisoned in 1974, the prayer meetings for justice were held here. Its singular domed tower earned designation as National Registered Cultural Heritage No. 139 in 2004.",
+        "history": "The cathedral of the Diocese of Wonju, founded in 1896. A center of the 1970s democracy movement and of the prayer meetings after Bishop Ji Hak-sun's imprisonment. National Registered Cultural Heritage No. 139.",
+        "addressRomanized": "85 Won-dong, Wonju-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "7bea824d-1d24-485f-a904-7a3c7beb52a3",
+      "diocese": "원주",
+      "source": {
+        "name": "풍수원성당",
+        "description": "횡성 깊은 산골, 220여 년 전 박해를 피해 신자들이 찾아든 자리에 고딕 첨탑이 서 있다. 1801년 신유박해 이후 경기도 용인에서 8일간 피난처를 찾아 고생하던 신태보 베드로와 40여 명의 신자들이 이 산골에 정착하며 한국 천주교 최초의 교우촌을 이루었다. 도기를 구우며 신앙을 지키던 이들의 후손들은 1896년 정규하 신부를 맞이해 성당을 짓기 시작했고, 1907년 완공된 이 성당은 한국인 신부가 직접 설계하고 지은 최초의 성당이자 강원도 첫 본당이 되었다. 고딕 양식의 붉은 벽돌 성당 앞에 서면, 산골 교우촌에서 이어져 온 220년 신앙의 시간을 느낀다.",
+        "history": "1801년 신유박해 이후 신태보 베드로를 중심으로 40여 명이 정착한 한국 천주교 최초의 교우촌. 1907년 완공된 성당은 한국인 신부가 설계·건립한 최초의 성당이자 강원도 첫 성당(강원도 유형문화재 제69호).",
+        "location": "강원특별자치도 횡성군 서원면 유현리"
+      },
+      "target": {
+        "name": "Pungsuwon Catholic Church",
+        "description": "Deep in the mountains of Hoengseong, a Gothic spire rises where believers sought refuge more than 220 years ago. After the Sinyu Persecution of 1801, Peter Sin Tae-bo and some forty believers — eight days wandering from Yongin in search of shelter — settled in this valley and formed the first Catholic village in Korea. Their descendants, who had kept the faith by firing earthenware, welcomed Fr. Jeong Gyu-ha in 1896 and began to build; completed in 1907, theirs was the first church designed and built by a Korean priest, and the first parish church of Gangwon-do. Standing before the red-brick Gothic church, you feel the two hundred and twenty years of faith handed down from a mountain village of believers.",
+        "history": "Korea's first Catholic village, settled by Peter Sin Tae-bo and some forty believers after the Sinyu Persecution of 1801. The church of 1907 was the first designed and built by a Korean priest and Gangwon-do's first church (Gangwon-do Tangible Cultural Heritage No. 69).",
+        "addressRomanized": "Yuhyeon-ri, Seowon-myeon, Hoengseong-gun, Gangwon-do"
+      }
+    }
+  ]
+}
