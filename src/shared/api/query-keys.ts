@@ -23,11 +23,16 @@ export const queryKeys = {
   },
   passport: {
     stamps: ['passport', 'stamps'] as const,
-    hasStamp: (siteId: string) => ['passport', 'stamp', siteId] as const,
+    myStamp: (siteId: string) => ['passport', 'stamp', siteId] as const,
+    siteNotes: (siteId: string) => ['passport', 'site-notes', siteId] as const,
     dioceseProgress: ['passport', 'diocese-progress'] as const,
   },
   records: {
     logs: ['records', 'logs'] as const,
+  },
+  favorites: {
+    ids: ['favorites', 'ids'] as const,
+    one: (siteId: string) => ['favorites', siteId] as const,
   },
   tour: {
     nearby: (lat: number, lng: number) => ['tour', 'nearby', lat, lng] as const,
@@ -41,7 +46,6 @@ export const queryKeys = {
   },
   alternatives: {
     /** 붐비는 관광지의 대체 성지. TourAPI contentid 기준. */
-    forAttraction: (contentId: string, date: string) =>
-      ['alternatives', contentId, date] as const,
+    forAttraction: (contentId: string, date: string) => ['alternatives', contentId, date] as const,
   },
 } as const;

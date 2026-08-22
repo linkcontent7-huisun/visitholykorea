@@ -1,0 +1,327 @@
+{
+  "language": "en",
+  "diocese": "대구",
+  "generatedAt": "2026-08-20T00:00:00.000Z",
+  "items": [
+    {
+      "siteId": "ed60c7d6-ee9f-4cd1-a5ff-28730e0dc42c",
+      "diocese": "대구",
+      "source": {
+        "name": "가실성당",
+        "description": "칠곡 왜관 들녘 한가운데, 붉은 벽돌 고딕 성당이 낮은 지붕들 사이로 홀로 우뚝하다. 1923년 독일 베네딕도회 선교사들의 손으로 지어진 가실성당은 경북 내륙에서 보기 드문 서양식 근대 건축으로, 경북 유형문화재로 지정되어 있다. 인근 왜관 수도원과 함께 독일 베네딕도회가 한국 땅에 뿌리내린 흔적을 고스란히 간직한 곳이다. 들판을 배경으로 한 고딕 첨탑의 실루엣은 계절마다 다른 빛을 담아, 사진을 찾는 이들의 발길이 끊이지 않는다.",
+        "history": "1923년 완공된 고딕 양식 성당(경북 유형문화재). 독일 베네딕도회 선교사들이 건축했으며 왜관 수도원 인근에 위치한 경북 내륙의 대표적 근대 건축 성당이다.",
+        "location": "경북 칠곡군 왜관읍"
+      },
+      "target": {
+        "name": "Gasil Catholic Church",
+        "description": "In the middle of the open fields of Waegwan in Chilgok, a red-brick Gothic church rises alone above the low rooftops. Built in 1923 by the hands of German Benedictine missionaries, Gasil Church is a rare example of Western modern architecture in inland Gyeongsangbuk-do and is designated a Provincial Tangible Cultural Heritage. Together with the nearby Waegwan Abbey, it preserves intact the traces of the German Benedictines who put down roots in Korea. The silhouette of its Gothic spire against the fields catches a different light in every season, and photographers keep finding their way here.",
+        "history": "A Gothic church completed in 1923 (Gyeongsangbuk-do Tangible Cultural Heritage). Built by German Benedictine missionaries, it stands near Waegwan Abbey as inland Gyeongsangbuk-do's representative modern church building.",
+        "addressRomanized": "Waegwan-eup, Chilgok-gun, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "5c865c51-6dc2-4d56-bc85-7b2b1875da4b",
+      "diocese": "대구",
+      "source": {
+        "name": "경상감영 옥터 순교지",
+        "description": "대구 도심 한복판, 지금은 시민들의 쉼터가 된 경상감영공원 자리에 한때 혹독한 감옥이 있었다. 박해 시대 경상도 각지에서 체포된 천주교 신자들이 이곳 옥에 갇혀 문초를 당했고, 최봉한 프란치스코와 김시우 알렉시오를 비롯한 7명이 끝내 옥사했다. 형이 확정된 이들은 인근 관덕정 형장으로 끌려가 처형당했으니, 경상감영과 관덕정은 한 이야기의 두 장면인 셈이다. 오늘날 대안성당이 자리한 이 일대를 걸으며, 도심 속에 스며 있는 순교의 기억을 찾아본다.",
+        "history": "박해시대 경상도 각지에서 체포된 천주교 신자들이 혹독한 문초를 받고 갇혀 있던 옥터. 최봉한 프란치스코, 김시우 알렉시오, 박경화 바오로, 안군심 리카르도 등 7위가 이곳에서 옥사했다.",
+        "location": "대구광역시 중구 대안동 31-11 (경상감영공원·대안성당 일대)"
+      },
+      "target": {
+        "name": "Gyeongsang Gamyeong Prison Site",
+        "description": "In the very center of Daegu, where Gyeongsang Gamyeong Park now offers citizens a place to rest, there once stood a brutal prison. During the persecutions, Catholics arrested across Gyeongsang-do were locked up and interrogated here, and seven of them — among them Francis Choe Bong-han and Alexius Kim Si-u — died in this prison. Those whose sentences were confirmed were dragged to the nearby Gwandeokjeong execution ground, so the Gamyeong and Gwandeokjeong are two scenes of a single story. Walking the area around today's Daean Catholic Church, you can trace the memory of martyrdom woven into the heart of the city.",
+        "history": "The prison of the Gyeongsang Gamyeong (Provincial Governor's Office), where Catholics arrested across Gyeongsang-do were harshly interrogated and held during the persecutions. Seven died here, including Francis Choe Bong-han, Alexius Kim Si-u, Paul Bak Gyeong-hwa, and Richard An Gun-sim.",
+        "addressRomanized": "31-11 Daean-dong, Jung-gu, Daegu (Gyeongsang Gamyeong Park and Daean Catholic Church area)"
+      }
+    },
+    {
+      "siteId": "27c44eb0-4bea-451d-ad62-994eba78d04b",
+      "diocese": "대구",
+      "source": {
+        "name": "경주 관아와 옥 터",
+        "description": "경주 시내, 아파트 단지 사이 작은 공원 한쪽에 옛 경주읍성 옥터였음을 알리는 표지석이 서 있다. 조선시대 이곳 관아 옥에는 병인박해 무렵 산속 동굴에 숨어 신앙을 지키던 허인백 야고보, 김종륜 루카, 이양등 베드로가 붙잡혀 온 뒤 혹독한 문초를 받았다. 세 사람은 이곳에서 고문당한 뒤 울산 병영으로 옮겨져 처형되었다. 도시화로 옛 관아 건물은 모두 사라졌지만, 표지석 하나가 이 자리에 있었던 신앙의 시련을 오늘도 전하고 있다.",
+        "history": "병인박해 때 허인백·김종륜·이양등이 문초받은 경주읍성 옥터. 현재는 아파트 단지 내 표지석만 남아있다.",
+        "location": "경상북도 경주시 동부동 일대 (옛 경주읍성 옥터)"
+      },
+      "target": {
+        "name": "Gyeongju Government Office and Prison Site",
+        "description": "In downtown Gyeongju, in a corner of a small park between apartment blocks, a marker stone announces that this was the prison site of the old Gyeongju town fortress. Around the time of the Byeongin Persecution, James Heo In-baek, Luke Kim Jong-nyun, and Peter Yi Yang-deung — who had kept the faith hidden in a mountain cave — were brought to the gwana (government office) prison here and harshly interrogated. After being tortured here, the three were moved to the military garrison at Ulsan and executed. Urbanization has erased the old office buildings, but a single marker stone still tells of the trial of faith that took place on this ground.",
+        "history": "The prison site of the old Gyeongju town fortress where Heo In-baek, Kim Jong-nyun, and Yi Yang-deung were interrogated during the Byeongin Persecution. Only a marker stone inside an apartment complex remains today.",
+        "addressRomanized": "Dongbu-dong area, Gyeongju-si, Gyeongsangbuk-do (old Gyeongju-eupseong prison site)"
+      }
+    },
+    {
+      "siteId": "b5c0ae5c-5913-4647-b917-2fd368518033",
+      "diocese": "대구",
+      "source": {
+        "name": "계산 주교좌대성당",
+        "description": "대구 근대골목 한복판, 붉은 벽돌 첨탑이 하늘을 찌르듯 솟아 있다. 1899년 목조 성당으로 출발해 1902년 로베르 신부의 설계로 완공된 계산성당은 대구 최초의 서양식 건축물이자 경상도 천주교의 상징이다. 1950년 박정희·육영수의 결혼식이, 1951년에는 훗날 추기경이 될 김수환 신부의 서품식이 이곳에서 거행되었다. 계산성당에서 관덕정 순교기념관, 성 유스티노관, 성모당까지 이어지는 약 1.5km의 도보 순례길은 대구 근대역사 골목 투어와 함께 걷기 좋은 반나절 코스다.",
+        "history": "1902년 완공된 대구 최초의 서양식 고딕 벽돌 성당(사적 제290호). 박정희·육영수 결혼식(1950년), 김수환 추기경 사제 서품식(1951년)이 거행된 장소로 경상도 천주교의 상징이다.",
+        "location": "대구광역시 중구 서성로 10 (계산동)"
+      },
+      "target": {
+        "name": "Gyesan Cathedral",
+        "description": "In the heart of Daegu's modern-history alleys, red-brick spires pierce the sky. Begun as a wooden church in 1899 and completed in 1902 to the design of Fr. Achille Paul Robert, Gyesan Cathedral is Daegu's first Western-style building and the symbol of Catholicism in Gyeongsang-do. The wedding of Park Chung-hee and Yuk Young-soo was held here in 1950, and in 1951 the priestly ordination of Fr. Kim Sou-hwan, the future cardinal. The 1.5-kilometer walking pilgrimage from Gyesan Cathedral past the Gwandeokjeong Martyrs' Memorial and St. Justin's to Seongmodang makes a fine half-day course alongside the Daegu modern-history alley tour.",
+        "history": "Daegu's first Western-style Gothic brick church, completed in 1902 (Historic Site No. 290). The site of Park Chung-hee and Yuk Young-soo's wedding (1950) and of Cardinal Kim Sou-hwan's priestly ordination (1951), it stands as the symbol of Catholicism in Gyeongsang-do.",
+        "addressRomanized": "10 Seoseong-ro, Jung-gu, Daegu (Gyesan-dong)"
+      }
+    },
+    {
+      "siteId": "90025fc0-dd69-461c-a5c2-3179d8886ff0",
+      "diocese": "대구",
+      "source": {
+        "name": "관덕정 순교성지",
+        "description": "대구역에서 걸어서 15분, 회색 빌딩숲 사이로 기와지붕 누각이 불쑥 솟아 있다. 조선시대 무과 시험장이자 처형장이었던 관덕정에서는 1815년부터 1868년까지 영남 천주교인 25명이 목숨을 바쳤다. 문경·상주에서 전교회장으로 활동하다 체포된 이윤일 요한은 1867년 이곳에서 군문효수형으로 순교, 1984년 한국 103위 순교성인 중 한 명으로 시성되었다. 지하 성당의 유해 봉안 제대, 1~3층 전시, 옥상 누각의 단청 아래 알파·오메가 문양까지 — 한국 전통과 신앙이 어우러진 독특한 순례지다.",
+        "history": "1815년 을해박해부터 1868년까지 영남 지역 천주교인 25명이 처형되고 옥사자를 합하면 50명 이상이 순교한 조선시대 형장. 한국 103위 순교성인 중 영남 유일의 성인 이윤일 요한이 1867년 이곳에서 순교, 1986년 유해를 미리내에서 이장해 봉안했다.",
+        "location": "대구광역시 중구 관덕정길 11 (남산2동)"
+      },
+      "target": {
+        "name": "Gwandeokjeong Martyrs’ Shrine",
+        "description": "A fifteen-minute walk from Daegu Station, a tiled-roof pavilion rises abruptly among the gray office towers. At Gwandeokjeong, a Joseon-era military examination ground and execution site, twenty-five Catholics of the Yeongnam region gave their lives between 1815 and 1868. John Yi Yun-il, arrested while serving as a lay catechist leader in Mungyeong and Sangju, was martyred here in 1867 by military beheading and was canonized in 1984 as one of the 103 Korean Martyr Saints. From the reliquary altar in the underground chapel, through three floors of exhibits, to the Alpha and Omega motif under the painted eaves of the rooftop pavilion — this is a pilgrimage site where Korean tradition and the faith are woven into one.",
+        "history": "A Joseon-era execution ground where 25 Catholics of the Yeongnam region were put to death between the Eulhae Persecution of 1815 and 1868 — more than 50 martyrs counting those who died in prison. St. John Yi Yun-il, the only canonized saint from Yeongnam among the 103 Korean Martyr Saints, was martyred here in 1867; his relics were moved from Mirinae and enshrined here in 1986.",
+        "addressRomanized": "11 Gwandeokjeong-gil, Jung-gu, Daegu (Namsan 2-dong)"
+      }
+    },
+    {
+      "siteId": "ce4882fd-cf65-4364-bf43-f43eedf18d1f",
+      "diocese": "대구",
+      "source": {
+        "name": "구룡 공소",
+        "description": "청도·영천·경산의 경계, 하늘 아래 첫 동네라 불릴 만큼 첩첩산중인 구룡산 자락에 자리한 공소. 병인박해 때 간월에서 체포되었다가 풀려난 살티의 김영제 베드로가 이곳 자인골로 옮겨와 신앙 공동체를 이루었다. 1887년 로베르 신부의 사목 보고서에는 이 공소에 60명의 신자가 있었다고 기록되어 있으며, 1921년에는 드망즈 주교가 성모 성당으로 축복했다. 200여 년 공소의 역사와 부속건물의 가치를 인정받아 2018년 대구대교구와 지역 성당이 함께 신앙유적지로 축복식을 가졌다.",
+        "history": "병인박해 피신 신자들이 세운 산중 공소. 1887년 신자 60명 기록, 2018년 신앙유적지로 선포.",
+        "location": "경상북도 청도군 운문면 방음리 (구룡산)"
+      },
+      "target": {
+        "name": "Guryong Mission Station",
+        "description": "A mission station on the slopes of Guryongsan, mountain country so remote it is called the first village under heaven, at the meeting point of Cheongdo, Yeongcheon, and Gyeongsan. Peter Kim Yeong-je of Salti, arrested at Ganwol during the Byeongin Persecution and later released, moved to Jaingol here and gathered a community of faith. Fr. Robert's pastoral report of 1887 records sixty believers at this station, and in 1921 Bishop Florian Demange blessed it as a church of Our Lady. In recognition of its two centuries of history and the value of its outbuildings, the Archdiocese of Daegu and the local parish held a blessing ceremony in 2018 declaring it a heritage site of the faith.",
+        "history": "A mountain mission station founded by believers who fled the Byeongin Persecution. A record of 1887 counts 60 faithful; it was proclaimed a heritage site of the faith in 2018.",
+        "addressRomanized": "Bangeum-ri, Unmun-myeon, Cheongdo-gun, Gyeongsangbuk-do (Guryongsan)"
+      }
+    },
+    {
+      "siteId": "3a79079e-5a81-420a-87a7-915abba1ba38",
+      "diocese": "대구",
+      "source": {
+        "name": "김수환 추기경 사랑과 나눔 공원",
+        "description": "군위 산골 마을, 한국 최초의 추기경이 태어난 생가 터에 사랑과 나눔의 정신을 기리는 공원이 조성되었다. 2012년부터 6년에 걸친 공사 끝에 2018년 문을 연 이곳은 김수환 추기경의 생애를 담은 기념관과 경당, 옛집과 옹기 가마, 추모정원, 십자가의 길을 갖추고 있다. 기념관 내부는 그의 아호인 옹기를 주제로 꾸며졌고 천장은 십자가 모양의 조명으로 장식되었다. 평생 낮은 자리에서 나눔을 실천한 추기경의 발자취를 따라 걷는 평화의 숲길이 인상적이다.",
+        "history": "故 김수환 추기경(1922~2009)의 생가 터에 조성된 기념공원. 2012~2018년 조성, 대구대교구 관리.",
+        "location": "대구광역시 군위군 군위읍 용대리 238-10"
+      },
+      "target": {
+        "name": "Cardinal Kim Sou-hwan Love and Sharing Park",
+        "description": "In a mountain village in Gunwi, a park honoring the spirit of love and sharing has been laid out on the site of the birthplace of Korea's first cardinal. Opened in 2018 after six years of work begun in 2012, it holds a memorial hall tracing Cardinal Kim Sou-hwan's life, a chapel, the old house and an onggi kiln, a memorial garden, and the Way of the Cross. The memorial hall is themed on onggi earthenware — his pen name — and its ceiling is lit in the shape of a cross. The peaceful forest path that follows the footsteps of a cardinal who spent his life sharing from the lowest place leaves a deep impression.",
+        "history": "A memorial park built on the birthplace site of Cardinal Kim Sou-hwan (1922–2009). Landscaped 2012–2018 and administered by the Archdiocese of Daegu.",
+        "addressRomanized": "238-10 Yongdae-ri, Gunwi-eup, Gunwi-gun, Daegu"
+      }
+    },
+    {
+      "siteId": "206a50d2-1b8b-41a7-bbba-6d41f3acd553",
+      "diocese": "대구",
+      "source": {
+        "name": "김천 황금성당",
+        "description": "김천 황금동 자라밭골, 병인박해 때 충청·전라 신자들이 소백산맥을 넘어 피난 온 산악 지대에 자리한 본당. 1901년 김성학 신부가 초가 한 채를 사들여 김천본당을 세운 것이 시작으로, 이 지역 순교자 유 시몬과 이름을 남기지 못한 동료 순교자 4명의 신앙을 이어받고자 했다. 계산성당, 가실성당에 이어 대구대교구에서 세 번째로 지어진 유서 깊은 본당으로, 2000년 새 성전을 지으면서도 70년 된 옛 성당 건물을 허물지 않고 나란히 남겨 고풍스러움과 현대미가 함께 어우러진다.",
+        "history": "1901년 설립된 김천 지역 첫 본당, 대구대교구에서 세 번째로 지어진 성당. 병인박해 순교자 유 시몬 등을 기림.",
+        "location": "경상북도 김천시 황금동"
+      },
+      "target": {
+        "name": "Gimcheon Hwanggeum Catholic Church",
+        "description": "A parish set in Jarabatgol in Hwanggeum-dong, Gimcheon, in the mountain country where believers from Chungcheong and Jeolla fled across the Sobaek range during the Byeongin Persecution. It began in 1901 when Fr. Kim Seong-hak bought a thatched house and founded the Gimcheon parish, seeking to carry on the faith of the local martyr Simon Yu and four companion martyrs whose names were never recorded. After Gyesan and Gasil, this is the third church built in the Archdiocese of Daegu; when a new sanctuary was raised in 2000, the seventy-year-old church was left standing beside it rather than demolished, so that old grace and modern lines now stand together.",
+        "history": "The first parish in the Gimcheon area, founded in 1901 — the third church built in the Archdiocese of Daegu. It honors the Byeongin Persecution martyr Simon Yu and his companions.",
+        "addressRomanized": "Hwanggeum-dong, Gimcheon-si, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "c52027a2-f320-4f54-95b3-e64856dddb4c",
+      "diocese": "대구",
+      "source": {
+        "name": "범어 주교좌대성당",
+        "description": "대구대교구의 두 주교좌성당 중 하나로, 2016년 완공된 현대적 건축 양식의 대성당이다.",
+        "history": "대구대교구는 1902년 완공된 계산 주교좌대성당에 이어 2016년 범어 주교좌대성당을 새로 완공하여, 현재 두 개의 주교좌성당을 함께 운영하고 있다. 대구광역시 수성구에 위치하며 현대 건축 양식의 웅장한 규모로 지어졌다. 계산성당이 대구 근대 역사를 상징하는 성당이라면, 범어성당은 대구대교구의 현대적 면모를 보여주는 공간이다.",
+        "location": "대구광역시 수성구"
+      },
+      "target": {
+        "name": "Beomeo Cathedral",
+        "description": "One of the two cathedrals of the Archdiocese of Daegu, a grand church in a contemporary architectural style completed in 2016.",
+        "history": "Following Gyesan Cathedral, completed in 1902, the Archdiocese of Daegu completed Beomeo Cathedral in 2016 and now maintains two cathedral churches together. It stands in Suseong-gu, Daegu, built to a grand scale in a modern architectural idiom. If Gyesan Cathedral embodies Daegu's modern history, Beomeo Cathedral shows the contemporary face of the archdiocese.",
+        "addressRomanized": "Suseong-gu, Daegu"
+      }
+    },
+    {
+      "siteId": "796e1f04-a8e6-4344-bb24-461802417f26",
+      "diocese": "대구",
+      "source": {
+        "name": "복자 성당",
+        "description": "대구 동구, 병인박해가 저물어가던 1868년 순교한 세 사람을 기리는 성당이 서 있다. 김해 출신 허인백 야고보, 공주 출신 김종륜 루카, 서울 출신 이양등 베드로는 각지에서 박해를 피해 경상도 교우촌으로 숨어들었다가 단석산 굴에 은신한 채로 붙잡혔다. 50리 길을 끌려가 울산에서 9월 14일 참수된 이들의 유해는 1973년 이 성당에 모셔졌다. 병인박해 100주년을 기려 1970년 세워진 이 성당은 순교 신심의 중심지가 되었고, 2014년 세 사람 모두 시복되었다.",
+        "history": "허인백·김종륜·이양등 3위의 유해가 1973년 봉안된 성당. 1970년 병인박해 100주년 기념 설립. 2014년 3위 시복.",
+        "location": "대구광역시 동구 송라로 22"
+      },
+      "target": {
+        "name": "Bokja Church of the Blessed Martyrs",
+        "description": "In Dong-gu, Daegu, stands a church honoring three men martyred in 1868, as the Byeongin Persecution was drawing to its close. James Heo In-baek of Gimhae, Luke Kim Jong-nyun of Gongju, and Peter Yi Yang-deung of Seoul had each fled the persecution into the Catholic villages of Gyeongsang-do, and were captured while hiding in a cave on Danseoksan. Marched fifty ri to Ulsan and beheaded on 14 September, they were enshrined in this church in 1973. Built in 1970 to mark the centenary of the Byeongin Persecution, the church became a center of devotion to the martyrs, and in 2014 all three were beatified.",
+        "history": "The church where the relics of Heo In-baek, Kim Jong-nyun, and Yi Yang-deung were enshrined in 1973. Founded in 1970 for the centenary of the Byeongin Persecution; the three were beatified in 2014.",
+        "addressRomanized": "22 Songna-ro, Dong-gu, Daegu"
+      }
+    },
+    {
+      "siteId": "e6ba760e-a5d7-40c0-8899-6f4a319ff2bc",
+      "diocese": "대구",
+      "source": {
+        "name": "비산 성당",
+        "description": "대구에서 가장 먼저 로마 가톨릭 신앙이 전해진 마을, 비산(날뫼)에 자리한 성당. 1829년 무렵부터 이미 신자들이 살고 있었다는 이 마을에는 1909년 신자 송기택이 자신의 집을 희사하고 신자들이 모은 성금으로 수리해 공소가 세워졌다. 대구대교구 설정 이후 신자가 늘면서 1927년 대구에서 세 번째 본당으로 승격했고, 1931년 남산본당의 명도회관 건물을 옮겨와 골격으로 삼아 1958년 지금의 성전을 축성했다. 벽화로도 유명한 이 성당은 대구 서구의 역사 명소로 꼽힌다.",
+        "history": "대구 최초 신앙 전파지 비산(날뫼) 마을에 1927년 승격된 대구 세 번째 본당. 1958년 현 성전 축성.",
+        "location": "대구광역시 서구 비산동"
+      },
+      "target": {
+        "name": "Bisan Catholic Church",
+        "description": "A church in Bisan (Nalmoe), the first village in Daegu to receive the Catholic faith. Believers are recorded as living here from around 1829; in 1909 the parishioner Song Gi-taek donated his own house, repaired with funds the faithful had gathered, and it became a mission station. As numbers grew after the Archdiocese of Daegu was erected, it was raised in 1927 to become Daegu's third parish, and in 1931 the Myeongdohoe hall of Namsan parish was moved here to serve as the frame of the present sanctuary, consecrated in 1958. Famous also for its murals, the church is counted among the historic landmarks of Daegu's Seo-gu.",
+        "history": "Daegu's third parish, raised in 1927 in Bisan (Nalmoe), the first village in Daegu where the faith took root. The present sanctuary was consecrated in 1958.",
+        "addressRomanized": "Bisan-dong, Seo-gu, Daegu"
+      }
+    },
+    {
+      "siteId": "cc80b055-37b9-4a96-8861-9822aaa336b5",
+      "diocese": "대구",
+      "source": {
+        "name": "비산동 날뫼 순교지",
+        "description": "대구 서구 비산동에 남아있는 조선시대 처형장 터로, 박해 시기 천주교 신자들이 순교한 것으로 전해지는 사적지이다.",
+        "history": "비산동 날뫼 순교지는 대구광역시 서구 비산동에 위치한 조선시대 처형장 터이다. 대구대교구 종합자료집에 박해시대 순교 사적지의 하나로 기록되어 있다. 구체적인 순교 연대나 순교자 수 등 세부 사실은 문서상 확인되지 않아 추가 조사가 필요하다.",
+        "location": "대구광역시 서구 비산동"
+      },
+      "target": {
+        "name": "Bisan-dong Nalmoe Martyrdom Site",
+        "description": "The site of a Joseon-era execution ground remaining in Bisan-dong, Seo-gu, Daegu — a historic site where Catholics are held to have been martyred during the persecutions.",
+        "history": "The Nalmoe martyrdom site in Bisan-dong is the site of a Joseon-era execution ground in Seo-gu, Daegu. It is recorded in the comprehensive archives of the Archdiocese of Daegu as one of the martyrdom sites of the persecution era. Details such as dates and the number of martyrs have not been confirmed in the documents, and further research is needed.",
+        "addressRomanized": "Bisan-dong, Seo-gu, Daegu"
+      }
+    },
+    {
+      "siteId": "b8e7e64b-77af-41bc-81b0-6f8cb8750ea1",
+      "diocese": "대구",
+      "source": {
+        "name": "새방골 성당",
+        "description": "대구 서구, 공단 개발로 철거 위기를 겪기도 한 영남 선교의 요람. 1886년 한불조약 체결 이후 경상도 전교를 맡게 된 김보록(로베르트) 신부가 1888년 겨울 이곳에 임시 성당을 꾸미고 은신하며 전교 활동을 펼쳤다. 계산성당의 전신이 되는 유서 깊은 자리로, 100여 년 전 신자들이 기도하던 14처가 지금도 보존되어 있어 옛 신앙 선조들의 자취를 더듬으려는 순례객의 발길이 이어진다.",
+        "history": "1888년 김보록 신부가 은신 전교를 펼친 계산성당의 전신. 100여 년 된 14처가 보존된 영남 선교의 요람.",
+        "location": "대구광역시 서구 새방동 일대"
+      },
+      "target": {
+        "name": "Saebanggol Church",
+        "description": "In Seo-gu, Daegu, a cradle of the Yeongnam mission that once faced demolition for industrial development. After the Korea-France Treaty of 1886 opened Gyeongsang-do to evangelization, Fr. Achille Paul Robert (known in Korean as Kim Bo-rok) fitted out a makeshift church here in the winter of 1888 and carried on his mission from hiding. It is the storied forerunner of Gyesan Cathedral, and the Stations of the Cross where believers prayed a century ago are still preserved, drawing pilgrims who come to trace the footsteps of the forebears of the faith.",
+        "history": "The forerunner of Gyesan Cathedral, where Fr. Robert evangelized from hiding in 1888. A cradle of the Yeongnam mission, its century-old Stations of the Cross are preserved.",
+        "addressRomanized": "Saebang-dong area, Seo-gu, Daegu"
+      }
+    },
+    {
+      "siteId": "23144148-89ae-4ce2-967f-99154caf1a8f",
+      "diocese": "대구",
+      "source": {
+        "name": "성 유스티노 신학교",
+        "description": "대구 남산동, 대구대교구 첫 신학교가 있던 자리. 1911년 대구 지목구가 설정되자 드망즈 주교는 신학교 설립을 다짐했고, 1912년 후원자의 조건부 기부로 성 유스티노라는 이름을 얻어 1913년 공사를 시작해 1914년 문을 열었다. 서울 용산신학교에서 옮겨온 17명을 포함해 57명의 학생으로 출발한 이 학교는 1918년 첫 사제 주재용 신부를 배출한 이래 67명의 사제를 길러냈다. 일제의 탄압으로 1945년 문을 닫았다가, 1982년 선목신학교로 다시 문을 열어 오늘날 대구가톨릭대학교 신학대학으로 이어지고 있다.",
+        "history": "1914년 개교한 대구 최초의 신학교, 67명의 사제를 배출. 1945년 폐교 후 1982년 재개교, 현 대구가톨릭대 신학대학의 전신.",
+        "location": "대구광역시 중구 남산동"
+      },
+      "target": {
+        "name": "St. Justin Seminary",
+        "description": "In Namsan-dong, Daegu, the site of the first seminary of the Archdiocese of Daegu. When the Apostolic Vicariate of Daegu was erected in 1911, Bishop Florian Demange resolved to found a seminary; a benefactor's conditional gift in 1912 gave it the name of St. Justin, construction began in 1913, and it opened in 1914. Starting with 57 students, including 17 transferred from the Yongsan seminary in Seoul, the school ordained its first priest, Fr. Ju Jae-yong, in 1918, and raised 67 priests in all. Closed in 1945 under Japanese oppression, it reopened in 1982 as Seonmok Seminary and lives on today as the theology faculty of Daegu Catholic University.",
+        "history": "Daegu's first seminary, opened in 1914; it produced 67 priests. Closed in 1945 and reopened in 1982, it is the forerunner of the present theology faculty of Daegu Catholic University.",
+        "addressRomanized": "Namsan-dong, Jung-gu, Daegu"
+      }
+    },
+    {
+      "siteId": "51bac093-0540-47c7-a9ed-e87929538527",
+      "diocese": "대구",
+      "source": {
+        "name": "성모당·성직자 묘지",
+        "description": "대구대교구청 경내, 프랑스 루르드 동굴을 그대로 옮겨온 듯한 성모동굴이 백 년 넘게 순례객을 맞고 있다. 대구대교구 초대 교구장 드망즈 주교는 교구 발전을 위한 세 가지 소원이 이뤄지면 루르드 성모동굴을 짓겠다고 서원했는데, 한 신부가 기적적으로 병을 회복하자 이를 계기로 공사를 서둘러 1918년 10월 13일 축성되었다. 동굴 안에는 전통 도상을 따른 성모상이 모셔져 있고, \"1911 EX VOTO IMMACULATAE CONCEPTIONI 1918\"이라는 문구가 교구 설정(1911년)과 서원 성취(1918년)를 함께 새기고 있다. 기도하는 이들의 발길이 사시사철 끊이지 않는 치유와 회복의 자리다.",
+        "history": "드망즈 주교의 서원으로 1918년 축성된 프랑스 루르드 성모동굴의 복제. 대구대교구청 내 대표 기도처.",
+        "location": "대구광역시 중구 남산동 (대구대교구청 내)"
+      },
+      "target": {
+        "name": "Seongmodang Grotto and Clergy Cemetery",
+        "description": "Within the grounds of the Archdiocese of Daegu chancery, a grotto of Our Lady that might have been carried straight from Lourdes has been receiving pilgrims for over a century. Bishop Florian Demange, first ordinary of Daegu, vowed to build a Lourdes grotto if three wishes for the growth of his diocese were granted; when a priest recovered from illness against all hope, he pressed the work forward, and the grotto was consecrated on 13 October 1918. Inside stands a statue of Our Lady in the traditional iconography, and the inscription “1911 EX VOTO IMMACULATAE CONCEPTIONI 1918” records both the erection of the diocese (1911) and the fulfillment of the vow (1918). It is a place of healing and restoration where those who come to pray never cease, in every season.",
+        "history": "A replica of the Lourdes grotto, consecrated in 1918 in fulfillment of Bishop Demange's vow. The principal place of prayer within the chancery of the Archdiocese of Daegu.",
+        "addressRomanized": "Namsan-dong, Jung-gu, Daegu (Archdiocese of Daegu chancery grounds)"
+      }
+    },
+    {
+      "siteId": "800a92cf-7894-484b-a1b8-ed426e8e3509",
+      "diocese": "대구",
+      "source": {
+        "name": "신나무골 성지",
+        "description": "칠곡, 영남 선교의 요람이라 불리는 이곳에 순교자 이선이 엘리사벳의 묘가 자리한다. 1815년 을해박해 무렵부터 신앙 공동체가 형성된 이 자리는 샤스탕, 다블뤼, 최양업, 로베르 신부 등이 거쳐 간 선교 거점이었다. 1882년부터 로베르(김보록) 신부가 본격적으로 전교 활동을 넓혀 1886년 대구 첫 본당을 세웠고 1898년에는 십자가 모양의 한옥 성당을 지었다. 1860년 경신박해 때 한티로 피신하던 중 붙잡힌 이선이 엘리사벳과 큰아들 배도령 스테파노는 죽어도 신앙을 지키겠다며 그 자리에서 참수당했다.",
+        "history": "을해박해(1815) 이후 형성된 영남 선교의 요람. 1860년 경신박해 때 이선이 엘리사벳 모자가 순교.",
+        "location": "경상북도 칠곡군 지천면 연화리 20"
+      },
+      "target": {
+        "name": "Sinnamugol Holy Site",
+        "description": "In Chilgok, at this place called the cradle of the Yeongnam mission, lies the grave of the martyr Elisabeth Yi Seon-i. A community of faith formed here around the Eulhae Persecution of 1815, and the site became a mission base through which Frs. Jacques Chastan, Marie-Nicolas-Antoine Daveluy, Thomas Choe Yang-eop, and Achille Paul Robert all passed. From 1882 Fr. Robert widened his mission in earnest, founding Daegu's first parish in 1886 and building a cross-shaped hanok church in 1898. During the Gyeongsin Persecution of 1860, Elisabeth Yi Seon-i and her eldest son Stephen Bae, captured while fleeing toward Hanti, declared they would keep the faith even unto death and were beheaded on the spot.",
+        "history": "A cradle of the Yeongnam mission, formed after the Eulhae Persecution (1815). Elisabeth Yi Seon-i and her son were martyred here during the Gyeongsin Persecution of 1860.",
+        "addressRomanized": "20 Yeonhwa-ri, Jicheon-myeon, Chilgok-gun, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "ad74fef5-1d7c-468e-a32c-03e551af7482",
+      "diocese": "대구",
+      "source": {
+        "name": "왜관 성 베네딕도 수도원",
+        "description": "낙동강 물줄기가 굽이도는 왜관, 나지막한 담장 너머로 유럽식 수도원 건물이 자리하고 있다. 원래 함경도 원산 덕원에 있던 이 수도원은 한국전쟁 중 북한을 탈출한 독일 베네딕도회 수사들이 1952년 칠곡 땅에 다시 세운 것이다. 이후 한국 베네딕도회의 중심으로 자리 잡아 기도와 노동을 함께하는 수도 공동체의 전통을 이어가고 있으며, 분도출판사를 통해 다양한 신앙 서적을 펴내고 있다. 조용한 회랑을 거닐다 보면, 분단의 아픔을 딛고 지켜낸 신앙 공동체의 시간이 느껴진다.",
+        "history": "북한 덕원자치수도원구의 후계 수도원으로, 한국전쟁 중 탈출한 독일 베네딕도회 수사들이 1952년 칠곡에 재건한 한국 베네딕도회의 중심 수도원.",
+        "location": "경북 칠곡군 왜관읍 왜관수도원길 67"
+      },
+      "target": {
+        "name": "St. Benedict Abbey of Waegwan",
+        "description": "At Waegwan, where the Nakdonggang bends, European monastery buildings stand behind a low wall. Originally located at Deokwon near Wonsan in Hamgyeong-do, the abbey was refounded on Chilgok soil in 1952 by German Benedictine monks who had escaped from North Korea during the Korean War. It has since become the center of the Benedictine Order in Korea, keeping the monastic tradition of prayer and labor together, and publishing a wide range of books of faith through Benedict Press. Walking its quiet cloister, you can feel the long life of a community of faith preserved through the pain of national division.",
+        "history": "Successor to the territorial abbey of Deokwon in North Korea, refounded in Chilgok in 1952 by German Benedictine monks who escaped during the Korean War — the central Benedictine abbey of Korea.",
+        "addressRomanized": "67 Waegwansudowon-gil, Waegwan-eup, Chilgok-gun, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "fd4bf5a1-2c5e-42b4-b876-899d586ae9c9",
+      "diocese": "대구",
+      "source": {
+        "name": "장대벌 순교지",
+        "description": "대구 남구 봉덕동에 위치한 조선시대 처형장 터로, 대구 지역의 3대 처형장 중 하나로 꼽히는 순교 사적지이다.",
+        "history": "장대벌 순교지는 대구광역시 남구 봉덕동에 있는 조선시대 처형장 터로, 대구 지역의 3대 처형장 중 하나로 전해진다. 박해시대 천주교 신자들의 순교와 관련된 사적지로 대구대교구 자료에 기록되어 있으나, 구체적인 순교 연대와 인원 등 세부 사실은 추가 확인이 필요하다.",
+        "location": "대구광역시 남구 봉덕동"
+      },
+      "target": {
+        "name": "Jangdaebeol Martyrdom Site",
+        "description": "The site of a Joseon-era execution ground in Bongdeok-dong, Nam-gu, Daegu — counted among the three great execution grounds of the Daegu area, and a historic site of martyrdom.",
+        "history": "The Jangdaebeol martyrdom site is the site of a Joseon-era execution ground in Bongdeok-dong, Nam-gu, Daegu, held to be one of the area's three principal execution grounds. It is recorded in the archives of the Archdiocese of Daegu as a site connected with the martyrdom of Catholics in the persecution era, but details such as dates and numbers await further confirmation.",
+        "addressRomanized": "Bongdeok-dong, Nam-gu, Daegu"
+      }
+    },
+    {
+      "siteId": "d8aabc95-992a-47f7-ae73-8df7124bf116",
+      "diocese": "대구",
+      "source": {
+        "name": "진목정",
+        "description": "경주 산내면, 바위굴에 몸을 숨긴 채 신앙을 지키던 세 신자의 이야기가 전해지는 산골. 김해 출신 허인백 야고보, 공주 출신 김종륜 루카, 서울 출신 이양등 베드로는 1868년 이 범굴에 숨어 지내다 발각되어 체포되었고, 혹독한 고문 끝에 그해 9월 14일 울산 병영에서 참수되었다. 오늘날 이곳에는 세 순교자가 숨어 지내던 범굴과 2017년 세워진 기념경당, 피정의 집, 십자가의 길, 진목 공소가 자리해 순교자들의 마지막 은신처를 기리고 있다.",
+        "history": "허인백·김종륜·이양등 3위가 은신하다 체포된 범굴이 있는 자리. 1868년 울산 병영에서 순교, 2014년 시복.",
+        "location": "경상북도 경주시 산내면 수의길 192"
+      },
+      "target": {
+        "name": "Jinmokjeong",
+        "description": "In Sannae-myeon, Gyeongju, a mountain hamlet keeps the story of three believers who guarded the faith while hiding in a rock cave. James Heo In-baek of Gimhae, Luke Kim Jong-nyun of Gongju, and Peter Yi Yang-deung of Seoul hid in the tiger cave here until they were discovered and arrested in 1868, and after brutal torture were beheaded at the military garrison in Ulsan on 14 September of that year. Today the site holds the cave where the three martyrs hid, a memorial chapel built in 2017, a retreat house, the Way of the Cross, and the Jinmok mission station, honoring the martyrs' last refuge.",
+        "history": "The site of the tiger cave where Heo In-baek, Kim Jong-nyun, and Yi Yang-deung hid until their arrest. Martyred at the Ulsan garrison in 1868; beatified in 2014.",
+        "addressRomanized": "192 Sui-gil, Sannae-myeon, Gyeongju-si, Gyeongsangbuk-do"
+      }
+    },
+    {
+      "siteId": "3c5c55a8-c994-4d95-882c-19ab96beb26c",
+      "diocese": "대구",
+      "source": {
+        "name": "한티 순교성지",
+        "description": "팔공산 깊은 산자락, 한티재를 넘어야 닿는 외진 계곡에 순교자들의 이야기가 잠들어 있다. 병인박해가 몰아치던 1866년, 관의 눈을 피해 이 산골로 숨어든 신자들은 옹기를 구우며 숨죽여 신앙을 이어갔지만 끝내 발각되어 11명이 순교했다. 오늘날 한티성지에는 십자가의 길과 피정의 집, 성당이 들어서 대구대교구를 대표하는 피정 장소로 자리 잡았다. 산으로 둘러싸인 고요함 속에서, 박해를 피해 살아간 이들의 절박했던 신앙을 마주하게 된다.",
+        "history": "병인박해(1866) 때 11명의 신자가 순교한 산골 교우촌 터. 박해를 피해 옹기를 구우며 신앙을 지킨 비밀 신앙 공동체의 흔적이 남아 있다.",
+        "location": "경북 칠곡군 동명면 한티로 1"
+      },
+      "target": {
+        "name": "Hanti Martyrs’ Shrine",
+        "description": "Deep on the slopes of Palgongsan, in a remote valley reached only over the Hanti pass, the stories of the martyrs lie at rest. When the Byeongin Persecution swept through in 1866, believers who had slipped into these mountains to escape the authorities fired onggi earthenware and kept the faith with held breath — until they were discovered, and eleven were martyred. Today Hanti holds the Way of the Cross, a retreat house, and a church, and has become the leading retreat center of the Archdiocese of Daegu. In the stillness ringed by mountains, you come face to face with the desperate faith of those who lived here in hiding.",
+        "history": "The site of a mountain Catholic village where 11 believers were martyred in the Byeongin Persecution (1866). Traces remain of the secret community that kept the faith by firing onggi earthenware in hiding.",
+        "addressRomanized": "1 Hanti-ro, Dongmyeong-myeon, Chilgok-gun, Gyeongsangbuk-do"
+      }
+    }
+  ]
+}

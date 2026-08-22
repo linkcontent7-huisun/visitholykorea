@@ -1,0 +1,135 @@
+{
+  "language": "en",
+  "diocese": "제주",
+  "generatedAt": "2026-08-20T00:00:00.000Z",
+  "items": [
+    {
+      "siteId": "0d53e4d6-fb1b-4fe1-82e6-c4da2b295248",
+      "diocese": "제주",
+      "source": {
+        "name": "김기량 순교 기념관",
+        "description": "제주 조천읍 함덕리, 김기량 펠릭스 베드로가 태어난 바닷가 마을. 뱃사람이었던 그는 1857년 풍랑을 만나 표류하다 영국 배에 구조되어 홍콩에서 조선인 신학생을 만나 교리를 배우고 제주 사람 최초로 세례를 받았다. 고향으로 돌아와 가족과 동료 뱃사람들에게 신앙을 전하던 그는 1866년 병인박해 때 통영에서 체포되었고, 혹독한 매질 속에서도 함께 잡힌 신자들에게 \"나는 순교하기로 결심했으니 흔들리지 마시오\"라고 격려한 뒤 1867년 순교했다.",
+        "history": "제주인 최초의 세례자 복자 김기량 펠릭스 베드로(1816~1867)의 고향. 1867년 통영에서 순교, 2014년 시복.",
+        "location": "제주도 제주시 조천읍 함덕리 940-2"
+      },
+      "target": {
+        "name": "Kim Gi-ryang Martyrdom Memorial Hall",
+        "description": "Hamdeok-ri in Jocheon-eup, the seaside village where Felix Peter Kim Gi-ryang was born. A seaman, he was cast adrift in a storm in 1857, rescued by a British ship, and in Hong Kong met a Korean seminarian, learned the catechism, and became the first person of Jeju to be baptized. He returned home and shared the faith with his family and fellow seamen until his arrest at Tongyeong in the Byeongin Persecution of 1866. Under savage beatings he encouraged the believers taken with him — 'I have resolved to die a martyr; do not waver' — and was martyred in 1867.",
+        "history": "The home of Blessed Felix Peter Kim Gi-ryang (1816–1867), the first person of Jeju baptized. Martyred at Tongyeong in 1867; beatified in 2014.",
+        "addressRomanized": "940-2 Hamdeok-ri, Jocheon-eup, Jeju-si, Jeju"
+      }
+    },
+    {
+      "siteId": "e6ea8590-c9fa-4894-9a96-e9bc8718c9e7",
+      "diocese": "제주",
+      "source": {
+        "name": "대정성지 (정난주 마리아 묘)",
+        "description": "서귀포 대정, 낮은 봉분 하나가 자리잡은 묘역에 파란만장한 삶이 잠들어 있다. 정약용의 조카이자 황사영의 아내였던 정난주 마리아는 1801년 남편의 백서 사건으로 관노 신분이 되어 대정현으로 귀양을 왔다. 어린 아들을 배 모는 사람에게 맡기고 추자도에 남겨둔 채 홀로 제주 땅을 밟은 그는, 신앙의 불모지에서도 학식과 믿음으로 주위의 존경을 받으며 37년을 살다 세상을 떠났다. 피를 흘리며 순교하지는 않았지만 유배지에서 끝까지 신앙을 지킨 그의 삶을 기려, 제주교구는 그를 백색 순교자로 공경하며 1994년 이곳을 대정성지로 조성했다. 조용한 묘역 앞에서, 낯선 섬에서 홀로 신앙을 지켜낸 한 여인의 생을 되새겨본다.",
+        "history": "정약용의 조카이자 황사영의 부인이었던 정난주 마리아(1773~1838)가 황사영 백서 사건으로 관노가 되어 유배 온 뒤 37년간 신앙을 지키며 살다 생을 마친 묘소. 피를 흘리지 않고 신앙을 지킨 삶으로 백색 순교자로 공경받는다.",
+        "location": "제주특별자치도 서귀포시 대정읍 동일리"
+      },
+      "target": {
+        "name": "Daejeong Holy Site (Tomb of Maria Jeong Nan-ju)",
+        "description": "At Daejeong in Seogwipo, a single low burial mound holds a life of extraordinary turns. Maria Jeong Nan-ju — niece of Jeong Yak-yong and wife of Hwang Sa-yeong — was reduced to government slavery by her husband's silk-letter affair in 1801 and exiled to Daejeong. Entrusting her infant son to a boatman and leaving him on Chujado, she set foot on Jeju alone, and in that barren ground of the faith lived thirty-seven years, earning the respect of all around her by her learning and belief. Though she shed no blood, she kept the faith to the end of her exile, and the Diocese of Jeju honors her as a white martyr, laying out this shrine in 1994. Before the quiet grave, the life of a woman who kept the faith alone on a strange island comes to mind.",
+        "history": "The tomb of Maria Jeong Nan-ju (1773–1838), exiled to Jeju as a government slave after the Hwang Sa-yeong silk-letter affair, who kept the faith for 37 years. Honored as a white martyr.",
+        "addressRomanized": "Dongil-ri, Daejeong-eup, Seogwipo-si, Jeju"
+      }
+    },
+    {
+      "siteId": "4b68e339-addd-4d13-9ca4-6adf9584ad56",
+      "diocese": "제주",
+      "source": {
+        "name": "산토비아조(Santo Viaggio) 순례길",
+        "description": "한라산 아래 오름과 바다, 돌담길과 올레길이 어우러진 제주 섬 전체를 잇는 도보 순례길로, 이탈리아어로 '거룩한 여행'을 뜻하는 산토비아조를 걸으며 제주에 숨어있는 천주교 성지와 자연을 함께 만난다.",
+        "history": "스페인의 산티아고 순례길에서 영감을 받아 조성된 제주교구의 도보 순례 코스로, 제주 곳곳에 흩어진 천주교 성지와 순례지를 잇는다. 순례자는 스탬프를 모아 완주 인증을 받을 수 있으며, 해설사와 동행하는 프로그램도 운영되고 있다. 제주 올레길과 일부 구간이 겹쳐 종교 순례이자 제주의 자연·문화를 걷는 여행으로도 소개된다.",
+        "location": "제주특별자치도 전역 (제주 일주 순례길, 여러 코스로 구성)"
+      },
+      "target": {
+        "name": "Santo Viaggio Pilgrimage Way",
+        "description": "A walking pilgrimage that joins the whole island of Jeju — oreum volcanic hills and sea under Hallasan, stone-walled lanes and olle trails. Walking the Santo Viaggio, Italian for 'holy journey,' you meet the Catholic holy sites hidden across Jeju together with the island's nature.",
+        "history": "A walking pilgrimage of the Diocese of Jeju inspired by the Camino de Santiago, linking the Catholic holy sites scattered across the island. Pilgrims collect stamps toward a completion certificate, guided programs are offered, and stretches overlap the Jeju Olle trails — a journey at once religious pilgrimage and a walk through Jeju's nature and culture.",
+        "addressRomanized": "Across Jeju Island (an island-wide pilgrimage route in several courses)"
+      }
+    },
+    {
+      "siteId": "9321e8ce-5d68-46e5-bd9f-e8fbde9ca2e4",
+      "diocese": "제주",
+      "source": {
+        "name": "새미 은총의 동산",
+        "description": "한림읍 금악리, 세 봉우리에 둘러싸인 연못이라는 뜻의 새미소 옆으로 은총의 동산이 펼쳐진다. 1992년 이 자리에 순례지를 조성하자는 사제들의 바람이 모여 시작되었고, 2009년 샘물처럼 끝없이 흐르는 은총을 뜻하는 지금의 이름을 얻었다. 연못을 도는 15단 로사리오 기도길과 켈트 십자가 모양의 삼위일체 대성당, 열두 장면으로 꾸며진 예수 생애 공원, 실물 크기 14처 십자가의 길까지 걸으며 하루를 온전히 기도로 채울 수 있는 곳이다.",
+        "history": "1992년 조성 시작, 2009년 새미 은총의 동산으로 명명된 제주교구 대표 순례지. 삼위일체 대성당과 로사리오 기도길.",
+        "location": "제주도 제주시 한림읍 금악리 365-1"
+      },
+      "target": {
+        "name": "Saemi Hill of Grace",
+        "description": "At Geumak-ri in Hallim-eup, beside the pond called Saemiso — 'the spring pool ringed by three peaks' — spreads the Hill of Grace. Begun in 1992 from the hopes of priests who wished for a pilgrimage place here, it received its present name in 2009: grace flowing without end, like a spring. With a fifteen-decade Rosary path circling the pond, the Trinity church in the form of a Celtic cross, a garden of twelve scenes from the life of Jesus, and a life-size fourteen-station Way of the Cross, it is a place where a whole day can be filled with prayer.",
+        "history": "A principal pilgrimage site of the Diocese of Jeju, begun in 1992 and named the Saemi Hill of Grace in 2009. Trinity church and Rosary path.",
+        "addressRomanized": "365-1 Geumak-ri, Hallim-eup, Jeju-si, Jeju"
+      }
+    },
+    {
+      "siteId": "933c7006-8bb5-4ff0-85d3-ac5146f47372",
+      "diocese": "제주",
+      "source": {
+        "name": "용수성지 (성 김대건 신부 제주 표착 기념관)",
+        "description": "제주 서쪽 끝 용수리 포구, 파도가 밀려오는 해안에 배 한 척이 놓여 있다. 1845년 한국인 최초로 사제품을 받은 김대건 안드레아 신부가 페레올 주교, 다블뤼 신부와 함께 라파엘호를 타고 귀국하던 중, 거센 풍랑에 떠밀려 이곳 용수리 해안에 닿았다. 일행은 고국 땅에서의 첫 미사를 이곳에서 올린 뒤 배를 수리해 다시 길을 떠났다. 1999년 제주교구는 이 자리를 성지로 선포하고 기념성당과 기념관을 지었으며, 고증을 거쳐 복원한 라파엘호도 함께 전시하고 있다. 다음 해 새남터에서 순교하게 될 사제가 고국 땅을 처음 밟은 그 순간을, 파도 소리와 함께 마주한다.",
+        "history": "1845년 중국 상해에서 사제품을 받은 한국 최초의 사제 김대건 안드레아 신부가 귀국길에 폭풍을 만나 표착한 해안. 1999년 성지로 선포되어 기념성당과 기념관, 복원된 라파엘호가 전시되어 있다.",
+        "location": "제주특별자치도 제주시 한경면 용수리"
+      },
+      "target": {
+        "name": "Yongsu Holy Site (St. Andrew Kim Taegon Landing Memorial)",
+        "description": "At the harbor of Yongsu-ri on Jeju's western tip, a boat rests on the wave-washed shore. In 1845, returning home aboard the Raphael with Bishop Ferréol and Fr. Daveluy after his ordination — the first Korean ever ordained — Fr. Andrew Kim Taegon was driven by fierce storms onto this coast. The company offered their first Mass on home soil here, repaired the boat, and set out again. In 1999 the Diocese of Jeju proclaimed the site a shrine and built a memorial church and hall, where a faithfully reconstructed Raphael is displayed. To the sound of the waves, you stand at the moment when the priest who would be martyred at Saenamteo the following year first touched his homeland.",
+        "history": "The shore where St. Andrew Kim Taegon, ordained in Shanghai in 1845, was driven by storm on his voyage home. Proclaimed a shrine in 1999, with a memorial church, hall, and the reconstructed Raphael.",
+        "addressRomanized": "Yongsu-ri, Hangyeong-myeon, Jeju-si, Jeju"
+      }
+    },
+    {
+      "siteId": "797a93a0-caff-4d46-9060-cecf7ea1e3fb",
+      "diocese": "제주",
+      "source": {
+        "name": "제주 관덕정",
+        "description": "제주 원도심 한복판, 우뚝한 누각 하나가 오백 년이 넘는 세월을 지키고 있다. 1448년 군사 훈련을 위해 지어진 관덕정은 제주에서 가장 오래된 건물이다. 1901년, 무거운 세금과 천주교회에 대한 반감이 쌓여가던 신축교안 당시, 민군을 이끌던 이재수가 이 광장에 모여 제주성으로 향했고, 이 과정에서 수백 명의 사상자가 나왔다. 사건이 수습된 뒤에는 관련자들이 이곳에서 처형되기도 했다. 오늘날 관광객으로 붐비는 관덕정 광장을 거니며, 신앙과 지역 공동체가 맞서서 싸우던 백여 년 전의 아픈 역사를 떠올려본다.",
+        "history": "1448년 군사 훈련을 위해 지어진 제주 최고(最古) 건물. 1901년 신축교안(이재수의 난) 당시 민군이 이 광장에 모였고, 충돌로 수백 명의 사상자가 발생한 사건 현장이다.",
+        "location": "제주특별자치도 제주시 관덕로 19"
+      },
+      "target": {
+        "name": "Jeju Gwandeokjeong",
+        "description": "In the old heart of Jeju City, a single high pavilion has kept watch for more than five hundred years. Built in 1448 for military training, Gwandeokjeong is the oldest building on Jeju. In 1901, in the Sinchuk Uprising — when heavy taxation and resentment toward the Catholic Church boiled over — Yi Jae-su gathered his militia in this square before marching on the Jeju fortress, a conflict that left hundreds dead; after order was restored, those held responsible were executed here in turn. Strolling today's crowded square, you recall the painful history of a century ago, when faith and local community were set against each other.",
+        "history": "Jeju's oldest building, raised in 1448 for military training. In the Sinchuk Uprising of 1901 (Yi Jae-su's revolt), the militia gathered in this square, and hundreds died in the clash.",
+        "addressRomanized": "19 Gwandeok-ro, Jeju-si, Jeju"
+      }
+    },
+    {
+      "siteId": "4e9dff3b-9aa6-492e-ad61-0b33d9a8ea1d",
+      "diocese": "제주",
+      "source": {
+        "name": "황경한 묘",
+        "description": "제주 추자도 예초리 바닷가, 황사영의 두 살배기 아들이 홀로 남겨졌던 자리. 1801년 신유박해로 아버지 황사영이 백서 사건으로 처형된 뒤, 어머니 정난주 마리아는 관비 신분으로 제주에 유배되던 뱃길에서 아들만이라도 평생 종의 신분을 면하게 하려고 갓난아기를 이 바위 해안에 남겨두었다. 오씨 성을 가진 늙은 어부가 아이를 발견해 거두어 키웠고, 아이는 자라 이곳에서 후손을 남겼다. 1999년 제주교구가 그의 묘가 있는 신양리 산자락을 성지로 지정했다.",
+        "history": "순교자 황사영의 아들 황경한이 어머니 정난주에 의해 남겨진 자리. 오씨 어부가 아이를 거두어 키운 사연이 전해짐. 1999년 성지 지정.",
+        "location": "제주도 제주시 추자면 신양리 산 20-1"
+      },
+      "target": {
+        "name": "Tomb of Hwang Gyeong-han",
+        "description": "On the shore at Yecho-ri on Chujado, the place where Hwang Sa-yeong's two-year-old son was left alone. After his father's execution in the silk-letter affair of the Sinyu Persecution of 1801, his mother Maria Jeong Nan-ju, on the sea passage into slavery and exile on Jeju, left her infant on this rocky shore so that he at least might escape a lifetime of servitude. An old fisherman named O found the child and raised him, and he grew to leave descendants here. In 1999 the Diocese of Jeju designated the hillside at Sinyang-ri where his grave lies as a holy site.",
+        "history": "Where Hwang Gyeong-han, son of the martyr Hwang Sa-yeong, was left by his mother Jeong Nan-ju and raised by a fisherman named O. Designated a holy site in 1999.",
+        "addressRomanized": "San 20-1 Sinyang-ri, Chuja-myeon, Jeju-si, Jeju"
+      }
+    },
+    {
+      "siteId": "8476c254-d130-4d16-bc22-26d520f35853",
+      "diocese": "제주",
+      "source": {
+        "name": "황사평 성지",
+        "description": "제주 시내를 벗어난 자리, 넓은 들판 사이로 십자가와 비석들이 조용히 늘어서 있다. 1901년 신축교안(이재수의 난)으로 수백 명의 천주교 신자가 희생된 뒤, 1903년 프랑스와의 합의에 따라 이곳이 공동묘지로 마련되었다. 이후 별도봉 아래에 묻혀 있던 무연고 순교자들의 유해도 이곳으로 이장되었고, 제주 선교 100주년을 맞아 지금의 공원묘지로 새롭게 단장되었다. 제주 첫 순교자 김기량 베드로의 현양비, 초대 교구장의 묘를 비롯해 외국 선교사들의 공덕비가 함께 자리한다. 1977년부터 해마다 열리는 순교자 현양대회를 통해, 이곳은 제주 천주교 신앙의 뿌리를 되새기는 자리로 이어지고 있다.",
+        "history": "1901년 신축교안(이재수의 난) 당시 희생된 수백 명의 천주교 신자를 위해 1903년 프랑스와의 합의로 조성된 공동묘지. 제주 첫 순교자 김기량 베드로와 초대 교구장의 묘가 있으며, 1977년부터 매년 순교자 현양대회가 열린다.",
+        "location": "제주특별자치도 제주시 기와 5길 117-22"
+      },
+      "target": {
+        "name": "Hwangsapyeong Holy Site",
+        "description": "Just outside Jeju City, crosses and gravestones stand in quiet rows amid wide fields. After hundreds of Catholics died in the Sinchuk Uprising of 1901, this ground was set aside as a cemetery in 1903 under the settlement with France. The remains of unclaimed martyrs buried under Byeoldobong were later moved here, and for the centenary of the Jeju mission the grounds were renewed as a memorial park. The monument to Kim Gi-ryang, Jeju's first martyr, the tomb of the first bishop of Jeju, and memorials to foreign missionaries stand together, and the annual martyrs' commemoration held here since 1977 keeps alive the roots of the faith on Jeju.",
+        "history": "A cemetery established in 1903 under the settlement with France for the hundreds of Catholics killed in the Sinchuk Uprising of 1901. The martyrs' commemoration has been held here yearly since 1977.",
+        "addressRomanized": "117-22 Giwa 5-gil, Jeju-si, Jeju"
+      }
+    }
+  ]
+}

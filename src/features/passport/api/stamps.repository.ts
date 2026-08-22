@@ -16,6 +16,8 @@ export interface StampedSite {
   siteName: string;
   diocese: string | null;
   visitedAt: string;
+  /** 내가 남긴 방문 한 줄. 없으면 null. */
+  note: string | null;
 }
 
 export interface CertificateLevel {
@@ -46,46 +48,100 @@ async function getCurrentUserId(): Promise<string | null> {
   return data.user?.id ?? null;
 }
 
-/** 성지에 스탬프를 찍는다. 이미 찍은 곳이면 성공으로 취급한다. */
-export async function addStamp(siteId: string): Promise<{ success: boolean; error?: string }> {
+/**
+ * 성지에 스탬프를 찍는다. 이미 찍은 곳이면 성공으로 취급하되,
+ * 한 줄이 딸려 왔다면 그 한 줄만 갱신한다 — 나중에 생각나서 남기는 경우다.
+ */
+export async function addStamp(
+  siteId: string,
+  note: string | null = null,
+): Promise<{ success: boolean; error?: string }> {
   const userId = await getCurrentUserId();
   if (!userId) {
     return { success: false, error: 'UNAUTHENTICATED' };
   }
 
-  const { error } = await supabase.from(TABLE).insert({ user_id: userId, site_id: siteId });
+  const { error } = await supabase.from(TABLE).insert({ user_id: userId, site_id: siteId, note });
 
   if (error) {
-    // 23505 = unique 제약 위반(중복 스탬프). 이미 찍은 곳이므로 성공으로 본다.
-    if (error.code === '23505') return { success: true };
+    // 23505 = unique 제약 위반(중복 스탬프). 이미 찍은 곳이다.
+    if (error.code === '23505') {
+      if (note === null) return { success: true };
+      const { error: updateError } = await supabase
+        .from(TABLE)
+        .update({ note })
+        .eq('user_id', userId)
+        .eq('site_id', siteId);
+      if (updateError) {
+        console.error('addStamp note update error:', updateError);
+        return { success: false, error: updateError.message };
+      }
+      return { success: true };
+    }
     console.error('addStamp error:', error);
     return { success: false, error: error.message };
   }
   return { success: true };
 }
 
-export async function hasStamp(siteId: string): Promise<boolean> {
+export interface MyStamp {
+  stamped: boolean;
+  /** 내가 남긴 한 줄. 안 찍었거나 안 남겼으면 null. */
+  note: string | null;
+}
+
+export async function getMyStamp(siteId: string): Promise<MyStamp> {
   const userId = await getCurrentUserId();
-  if (!userId) return false;
+  if (!userId) return { stamped: false, note: null };
 
   const { data, error } = await supabase
     .from(TABLE)
-    .select('id')
+    .select('id, note')
     .eq('user_id', userId)
     .eq('site_id', siteId)
     .maybeSingle();
 
   if (error) {
-    console.error('hasStamp error:', error);
-    return false;
+    console.error('getMyStamp error:', error);
+    return { stamped: false, note: null };
   }
-  return Boolean(data);
+  return { stamped: Boolean(data), note: data?.note ?? null };
+}
+
+export interface SiteVisitNote {
+  note: string;
+  visitedAt: string;
+}
+
+/**
+ * 이 성지에 다녀간 사람들의 한 줄 (익명, 최신순).
+ *
+ * site_visit_notes 뷰를 읽는다 — user_id 가 아예 뷰에 없어서
+ * "누가"는 클라이언트까지 오지 않는다.
+ */
+export async function getSiteNotes(siteId: string, limit = 3): Promise<SiteVisitNote[]> {
+  const { data, error } = await supabase
+    .from('site_visit_notes')
+    .select('note, created_at')
+    .eq('site_id', siteId)
+    .order('created_at', { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    console.error('getSiteNotes error:', error);
+    return [];
+  }
+  return (data ?? []).map((row) => ({
+    note: row.note as string,
+    visitedAt: row.created_at as string,
+  }));
 }
 
 interface StampJoinRow {
   id: string;
   created_at: string;
   site_id: string;
+  note: string | null;
   holy_sites: { name: string; diocese: string | null } | null;
 }
 
@@ -96,7 +152,7 @@ export async function getMyStamps(): Promise<StampedSite[]> {
 
   const { data, error } = await supabase
     .from(TABLE)
-    .select('id, created_at, site_id, holy_sites(name, diocese)')
+    .select('id, created_at, site_id, note, holy_sites(name, diocese)')
     .eq('user_id', userId)
     .order('created_at', { ascending: false });
 
@@ -111,6 +167,7 @@ export async function getMyStamps(): Promise<StampedSite[]> {
     siteName: row.holy_sites?.name ?? '알 수 없는 성지',
     diocese: row.holy_sites?.diocese ?? null,
     visitedAt: row.created_at,
+    note: row.note,
   }));
 }
 

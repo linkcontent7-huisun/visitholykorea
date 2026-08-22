@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run verify)",
+      "Bash(npm run typecheck)",
+      "Bash(npm run lint)",
+      "Bash(npm run test)",
+      "Bash(npm run format:check)",
+      "Bash(npm run translate:status)",
+      "Bash(npm run db:status)",
+      "Bash(npm ci)",
+      "Bash(npx prettier --check *)",
+      "Bash(npx tsc --noEmit)"
+    ]
+  }
+}
