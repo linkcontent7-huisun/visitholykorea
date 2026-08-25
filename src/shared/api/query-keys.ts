@@ -32,7 +32,7 @@ export const queryKeys = {
     logs: ['records', 'logs'] as const,
   },
   compass: {
-    latest: ['compass', 'latest'] as const,
+    latest: (userId: string) => ['compass', 'latest', userId] as const,
   },
   directory: {
     nearby: (lat: number, lng: number) => ['directory', 'nearby', lat, lng] as const,

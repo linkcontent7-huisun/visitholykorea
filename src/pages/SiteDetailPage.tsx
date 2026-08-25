@@ -35,7 +35,7 @@ import { kakaoPlaceUrl } from '@/shared/lib/geo';
 export default function SiteDetailPage() {
   const { siteId } = useParams<{ siteId: string }>();
   const navigate = useNavigate();
-  const { wideView } = useSettings();
+  const { wideView, language } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
   const { data: site, isLoading } = useSite(siteId);
@@ -83,7 +83,8 @@ export default function SiteDetailPage() {
       .filter(Boolean)
       .join('. ');
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'ko-KR';
+    // 번역 본문을 읽을 때는 음성도 그 언어여야 한다 — 한국어 음성이 영어를 읽으면 알아들을 수 없다
+    utterance.lang = language === 'en' ? 'en-US' : 'ko-KR';
     utterance.rate = 0.95;
     utterance.onend = () => setIsSpeaking(false);
     utterance.onerror = () => setIsSpeaking(false);
@@ -216,10 +217,12 @@ export default function SiteDetailPage() {
           </h1>
           <p className="mb-4 flex items-center gap-2 text-sm font-medium opacity-90">
             <MapPin size={16} className="text-brand-violet" />
-            {site.location}
-            {view?.addressRomanized && (
-              <span className="mt-0.5 block text-xs opacity-80">{view.addressRomanized}</span>
-            )}
+            <span className="flex flex-col">
+              <span>{site.location}</span>
+              {view?.addressRomanized && (
+                <span className="mt-0.5 text-xs opacity-80">{view.addressRomanized}</span>
+              )}
+            </span>
           </p>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (

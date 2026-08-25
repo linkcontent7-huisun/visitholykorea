@@ -11,6 +11,7 @@ import type { CompassResponseRow } from '@/shared/types/database';
 export interface CompassAnswers {
   emotion: string;
   concern: string | null;
+  gender: string | null;
   region: string | null;
   style: string | null;
   timeBudget: string | null;

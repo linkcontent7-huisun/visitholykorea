@@ -167,6 +167,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
       answers: {
         emotion,
         concern,
+        gender,
         region,
         style,
         timeBudget,
