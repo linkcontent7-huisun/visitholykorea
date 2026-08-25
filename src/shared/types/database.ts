@@ -79,6 +79,15 @@ export interface SiteVisitNoteRow {
   created_at: string;
 }
 
+export interface CompassResponseRow {
+  id: string;
+  user_id: string;
+  answers: Record<string, unknown>;
+  matched_site_id: string | null;
+  matched_site_name: string | null;
+  created_at: string;
+}
+
 export interface CatholicDirectoryRow {
   id: string;
   name: string;

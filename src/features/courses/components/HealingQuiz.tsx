@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { getRecommendedCourses, type CourseCard } from '../api/course-matching';
+import { useCompassMemory, useSaveCompassResponse } from '../hooks/use-compass-memory';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 
 // 시/도 대략적 중심 좌표 — 출발지 기준 거리 정렬용 (행정구역 정밀 경계가 아닌 근사치)
@@ -130,6 +131,8 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   const [note, setNote] = useState('');
   const [result, setResult] = useState<CourseCard | null>(null);
   const [resultLoading, setResultLoading] = useState(false);
+  const saveResponse = useSaveCompassResponse();
+  const { data: memory } = useCompassMemory();
 
   if (!isOpen) return null;
 
@@ -156,8 +159,22 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     setResultLoading(true);
     const originCoords = region ? REGION_COORDS[region] : undefined;
     const courses = await getRecommendedCourses(emotion, undefined, 1, originCoords);
-    setResult(courses[0] ?? null);
+    const top = courses[0] ?? null;
+    setResult(top);
     setResultLoading(false);
+    // 결과에 도달한 시점의 답을 남긴다. 비로그인·실패 시 조용히 넘어간다 (repository 참조).
+    saveResponse.mutate({
+      answers: {
+        emotion,
+        concern,
+        region,
+        style,
+        timeBudget,
+        note: note.trim() || null,
+      },
+      matchedSiteId: top?.site.id ?? null,
+      matchedSiteName: top?.site.name ?? null,
+    });
   };
 
   const progress =
@@ -241,6 +258,21 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               >
                 시작하기
               </button>
+
+              {/* 지난번 결과 — 응답 저장(로드맵 3단계)이 처음으로 화면에 돌아오는 자리 */}
+              {memory?.matchedSiteId && memory.matchedSiteName && (
+                <button
+                  onClick={() => onSelectSite(memory.matchedSiteId!)}
+                  className="mt-4 w-full rounded-[20px] border border-app-border bg-white px-5 py-3 text-left"
+                >
+                  <span className="block text-xs text-app-text-muted">
+                    지난번엔 이곳을 권해드렸어요
+                  </span>
+                  <span className="mt-0.5 block text-sm font-bold text-brand-violet">
+                    {memory.matchedSiteName} →
+                  </span>
+                </button>
+              )}
             </motion.div>
           )}
 
