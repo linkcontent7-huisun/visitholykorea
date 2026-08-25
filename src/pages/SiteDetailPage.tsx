@@ -21,6 +21,7 @@ import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use
 import { useAddStamp, useMyStamp, useSiteNotes } from '@/features/passport/hooks/use-stamps';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
 import { ContactCard } from '@/features/sites/components/ContactCard';
+import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
@@ -492,6 +493,9 @@ export default function SiteDetailPage() {
 
         {/* 문의 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
         <ContactCard site={site} />
+
+        {/* 주변 본당 — 순례 후 미사를 드리고 싶은 이들을 위해 (교구 주소록 기반) */}
+        <NearbyParishesCard site={site} />
 
         {stamped && (
           <button
