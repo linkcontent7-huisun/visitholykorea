@@ -120,3 +120,34 @@ export async function fetchSiteDioceseIndex(): Promise<{ id: string; diocese: st
   const { data, error } = await supabase.from(TABLE).select('id, diocese');
   return unwrap(data, error, 'fetchSiteDioceseIndex');
 }
+
+// ---------------------------------------------------------------------------
+// 성지 콘텐츠 번역 (holy_site_translations)
+// ---------------------------------------------------------------------------
+
+import type { SiteTranslation } from '../lib/translated-site';
+
+/** 한 성지의 특정 언어 번역. 없으면 null — 호출부는 원문으로 폴백한다. */
+export async function fetchSiteTranslation(
+  siteId: string,
+  language: string,
+): Promise<SiteTranslation | null> {
+  const { data, error } = await supabase
+    .from('holy_site_translations')
+    .select('name, description, history, address_romanized')
+    .eq('site_id', siteId)
+    .eq('language', language)
+    .maybeSingle();
+
+  if (error) {
+    console.error('fetchSiteTranslation error:', error);
+    return null;
+  }
+  if (!data) return null;
+  return {
+    name: data.name as string | null,
+    description: data.description as string | null,
+    history: data.history as string | null,
+    addressRomanized: data.address_romanized as string | null,
+  };
+}
