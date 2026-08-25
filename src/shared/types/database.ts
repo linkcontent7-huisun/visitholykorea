@@ -67,6 +67,21 @@ export interface PilgrimageStampRow {
   id: string;
   user_id: string;
   site_id: string;
+  /** 방문 한 줄 기록. 다음 방문자에게 익명으로 공개된다 (site_visit_notes 뷰). */
+  note: string | null;
+  created_at: string;
+}
+
+/** site_visit_notes 뷰 — 사생활 보호를 위해 user_id 를 뺀 공개 형태. */
+export interface SiteVisitNoteRow {
+  site_id: string;
+  note: string;
+  created_at: string;
+}
+
+export interface FavoriteRow {
+  user_id: string;
+  site_id: string;
   created_at: string;
 }
 

@@ -1,0 +1,28 @@
+{
+  "siteId": null,
+  "siteName": "성지 이름 (DB 의 name 과 정확히 일치)",
+  "slug": "romanized-slug",
+  "surveyedAt": "YYYY-MM-DD",
+  "surveyedBy": "현장: 사용자 / 원고: Claude",
+  "status": "draft",
+  "intro": {
+    "narration": "성지 입구에서 듣는 여는 말. 2~4문장. 이곳이 어떤 곳이고 오늘 무엇을 보게 될지.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "포인트 이름 (예: 입구 — 순교탑)",
+      "location": "찾아가는 위치 설명 (예: 주차장에서 성당으로 오르는 길 오른쪽)",
+      "narration": "도슨트 원고 3~6문장. TTS 로 읽히므로 문어체보다 구어체 존댓말로.",
+      "lookFor": "눈여겨볼 디테일 한 가지 (예: 제대 뒤 스테인드글라스의 조개 문양)",
+      "forEveryone": "비신앙인·외국인을 위한 보편적 맥락 한 줄 (선택, 없으면 null)",
+      "photos": ["photos/01-예시.jpg"],
+      "sourceNote": "근거 (예: 현장 안내판, 사용자 구술, 교구 홈페이지)"
+    }
+  ],
+  "outro": {
+    "narration": "나가는 길에 듣는 맺음말. 1~3문장.",
+    "photos": []
+  }
+}

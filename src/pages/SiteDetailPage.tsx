@@ -17,7 +17,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
 import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/share-card';
-import { useAddStamp, useHasStamp } from '@/features/passport/hooks/use-stamps';
+import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use-favorites';
+import { useAddStamp, useMyStamp, useSiteNotes } from '@/features/passport/hooks/use-stamps';
+import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
 import { ContactCard } from '@/features/sites/components/ContactCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
@@ -42,11 +44,18 @@ export default function SiteDetailPage() {
   const { data: festivals = [], isFetching: festivalsLoading } = useNearbyFestivals(
     site?.coordinates,
   );
-  const { data: stamped = false } = useHasStamp(siteId);
+  const { data: isFavorited = false } = useIsFavorite(siteId);
+  const toggleFavorite = useToggleFavorite(siteId ?? '');
+  const { data: myStamp } = useMyStamp(siteId);
+  const stamped = myStamp?.stamped ?? false;
+  const { data: visitNotes = [] } = useSiteNotes(siteId);
   const addStamp = useAddStamp(siteId ?? '');
 
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [shareLoading, setShareLoading] = useState(false);
+  const [noteDraft, setNoteDraft] = useState('');
+  // "남길게요"를 누르기 전까지는 입력창을 강요하지 않는다
+  const [noteDismissed, setNoteDismissed] = useState(false);
 
   // 오늘 찍으면 어떤 한정판 스탬프가 되는지 미리 보여준다.
   const todayLiturgical = getLiturgicalEvent();
@@ -74,8 +83,31 @@ export default function SiteDetailPage() {
     setIsSpeaking(true);
   };
 
+  const handleSaveNote = () => {
+    const note = normalizeNote(noteDraft);
+    if (!note) return;
+    addStamp.mutate(note, {
+      onSuccess: (result) => {
+        if (!result.success) window.alert('한 줄 저장에 실패했어요.');
+      },
+    });
+  };
+
+  const handleToggleFavorite = () => {
+    toggleFavorite.mutate(!isFavorited, {
+      onSuccess: (result) => {
+        if (result.success) return;
+        if (result.error === 'UNAUTHENTICATED') {
+          navigate(paths.login);
+          return;
+        }
+        window.alert('찜 저장에 실패했어요.');
+      },
+    });
+  };
+
   const handleStamp = () => {
-    addStamp.mutate(undefined, {
+    addStamp.mutate(null, {
       onSuccess: (result) => {
         if (result.success) return;
         if (result.error === 'UNAUTHENTICATED') {
@@ -157,10 +189,13 @@ export default function SiteDetailPage() {
         </button>
 
         <button
+          onClick={handleToggleFavorite}
+          disabled={toggleFavorite.isPending}
           className="absolute right-6 top-12 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
-          aria-label="찜하기"
+          aria-label={isFavorited ? '찜 해제하기' : '찜하기'}
+          aria-pressed={isFavorited}
         >
-          <Heart size={20} />
+          <Heart size={20} className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined} />
         </button>
 
         <div className="absolute bottom-12 left-8 right-8 text-white">
@@ -380,6 +415,74 @@ export default function SiteDetailPage() {
             </button>
           </div>
         </div>
+
+        {/* 한 줄 남기기 — 붐빔 지수는 추정이고, 실제로 조용했는지는 다녀온
+            사람만 안다. 이 한 줄이 다음 방문자의 판단 근거가 된다 (컨셉 축 3). */}
+        {stamped && !myStamp?.note && !noteDismissed && (
+          <div className="rounded-[20px] border border-app-border bg-white p-5">
+            <p className="text-sm font-bold text-app-text">오늘 그곳은 어땠나요?</p>
+            <p className="mt-1 text-xs leading-relaxed text-app-text-muted">
+              한 줄만 남겨주세요. 다음 순례자가 조용한 때를 고르는 데 도움이 됩니다.
+            </p>
+            <input
+              type="text"
+              maxLength={NOTE_MAX_LENGTH}
+              placeholder="평일 오후, 저 말고 아무도 없었어요"
+              aria-label="방문 한 줄 기록"
+              className="mt-3 w-full rounded-2xl border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
+              value={noteDraft}
+              onChange={(e) => setNoteDraft(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleSaveNote();
+              }}
+            />
+            <div className="mt-3 flex justify-end gap-2">
+              <button
+                onClick={() => setNoteDismissed(true)}
+                className="rounded-xl px-4 py-2 text-xs font-bold text-app-text-muted"
+              >
+                다음에요
+              </button>
+              <button
+                onClick={handleSaveNote}
+                disabled={normalizeNote(noteDraft) === null || addStamp.isPending}
+                className="rounded-xl bg-brand-violet px-4 py-2 text-xs font-bold text-white disabled:opacity-40"
+              >
+                {addStamp.isPending ? '남기는 중…' : '한 줄 남기기'}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {myStamp?.note && (
+          <div className="rounded-[20px] border border-app-border bg-white p-5">
+            <p className="text-xs font-bold text-app-text-muted">내가 남긴 한 줄</p>
+            <p className="mt-2 text-sm leading-relaxed text-app-text">
+              &ldquo;{myStamp.note}&rdquo;
+            </p>
+          </div>
+        )}
+
+        {/* 다녀온 사람의 한 줄 — 추정 지수를 사람의 증언이 보정한다 */}
+        {visitNotes.length > 0 && (
+          <div className="rounded-[20px] border border-app-border bg-white p-5">
+            <p className="text-sm font-bold text-app-text">다녀온 사람의 한 줄</p>
+            <ul className="mt-3 space-y-3">
+              {visitNotes.map((n, i) => (
+                <li key={`${n.visitedAt}-${i}`} className="border-l-2 border-brand-violet/30 pl-3">
+                  <p className="text-sm leading-relaxed text-app-text">&ldquo;{n.note}&rdquo;</p>
+                  <p className="mt-1 text-xs text-app-text-muted">
+                    {new Date(n.visitedAt).toLocaleDateString('ko-KR', {
+                      month: 'long',
+                      day: 'numeric',
+                    })}{' '}
+                    방문
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* 들어가기 전 안내 — 비신자·외국인이 문 앞에서 멈추는 이유를 없앤다 */}
         <VisitEtiquette />

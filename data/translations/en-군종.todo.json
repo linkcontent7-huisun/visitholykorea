@@ -1,0 +1,23 @@
+{
+  "language": "en",
+  "diocese": "군종",
+  "generatedAt": "2026-08-20T00:00:00.000Z",
+  "items": [
+    {
+      "siteId": "7e1d46c2-486b-4b56-8f02-cb0f7703edcd",
+      "diocese": "군종",
+      "source": {
+        "name": "왜고개 성지",
+        "description": "용산 군종교구청과 국군중앙성당이 자리한 이 언덕은 예전에 기와와 벽돌을 굽던 가마터라 왜고개라 불렸다. 1839년 기해박해 때 새남터에서 순교한 앵베르 주교, 모방·샤스탕 신부의 유해가 이곳에 임시로 묻혔고, 1866년 병인박해 순교자 7위는 33년, 서소문 순교자 2위는 43년간 이 땅에 잠들어 있었다. 김대건 안드레아 신부의 유해도 1846년 순교 직후 잠시 이곳에 모셔졌다. 열 분의 순교자 중 여덟 분이 1984년 성인으로 선포되었으며, 2013년 군종교구가 현양비와 대형 십자가, 십자가의 길을 조성했다.",
+        "history": "1839·1866년 순교자들의 유해가 임시로 묻혔던 곳. 김대건 신부 유해도 순교 직후 잠시 안장. 8위 성인의 인연이 깃든 땅.",
+        "location": "서울시 용산구 용산동 5가 2-65"
+      },
+      "target": {
+        "name": "Waegogae Holy Site",
+        "description": "This hill in Yongsan, now home to the Military Ordinariate and the Armed Forces Central Church, was once a kiln ground for tiles and bricks — hence the name Waegogae. The bodies of Bishop Laurent Imbert and Frs. Pierre Maubant and Jacques Chastan, martyred at Saenamteo in the Gihae Persecution of 1839, were buried here for a time; seven martyrs of the Byeongin Persecution of 1866 rested in this ground for 33 years, and two martyrs of Seosomun for 43. The body of St. Andrew Kim Taegon, too, was laid here briefly after his martyrdom in 1846. Eight of the ten martyrs of this hill were canonized in 1984, and in 2013 the Military Ordinariate added a memorial, a great cross, and the Way of the Cross.",
+        "history": "The temporary burial ground of the martyrs of 1839 and 1866, and briefly of St. Andrew Kim Taegon. Eight of its ten martyrs were canonized in 1984.",
+        "addressRomanized": "2-65 Yongsan-dong 5-ga, Yongsan-gu, Seoul"
+      }
+    }
+  ]
+}

@@ -15,6 +15,7 @@ const SearchPage = lazy(() => import('@/pages/SearchPage'));
 const RoutesPage = lazy(() => import('@/pages/RoutesPage'));
 const RouteDetailPage = lazy(() => import('@/pages/RouteDetailPage'));
 const CompassPage = lazy(() => import('@/pages/CompassPage'));
+const AlternativesPage = lazy(() => import('@/pages/AlternativesPage'));
 const LoginPage = lazy(() => import('@/pages/LoginPage'));
 const TermsPage = lazy(() => import('@/pages/TermsPage'));
 const FaqPage = lazy(() => import('@/pages/FaqPage'));
@@ -42,6 +43,7 @@ export const router = createBrowserRouter([
   { path: paths.routeDetailPattern, element: withSuspense(<RouteDetailPage />) },
   { path: paths.search, element: withSuspense(<SearchPage />) },
   { path: paths.compass, element: withSuspense(<CompassPage />) },
+  { path: paths.alternatives, element: withSuspense(<AlternativesPage />) },
   { path: paths.login, element: withSuspense(<LoginPage />) },
   { path: paths.terms, element: withSuspense(<TermsPage />) },
   { path: paths.faq, element: withSuspense(<FaqPage />) },

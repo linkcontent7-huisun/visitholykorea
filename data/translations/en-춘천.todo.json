@@ -1,0 +1,263 @@
+{
+  "language": "en",
+  "diocese": "춘천",
+  "generatedAt": "2026-08-20T00:00:00.000Z",
+  "items": [
+    {
+      "siteId": "98e959e5-4ace-4752-87bd-2fd3276a474c",
+      "diocese": "춘천",
+      "source": {
+        "name": "강릉 대도호부 관아",
+        "description": "강릉 원도심, 고려·조선시대 지방관이 머물던 관아 건물이 오늘도 옛 모습을 지키고 있다. 1868년 병인박해 때 심능석 스테파노와 이유일 안토니오 등 신자들이 이곳으로 끌려와 제대로 된 심문조차 없이 혹독한 고문 끝에 참수되었다. 세금과 재판 등 지방 행정의 일곱 가지 업무를 처리하던 칠사당은 강원도 유형문화재 제7호로 지정되어 있고, 고려시대 양식을 간직한 임영관 삼문은 국보 제51호로 그 정교한 조각이 남아있다.",
+        "history": "1868년 병인박해 때 심능석 스테파노 등이 순교한 옛 강릉 관아. 칠사당은 강원도 유형문화재 제7호, 임영관 삼문은 국보 제51호.",
+        "location": "강원도 강릉시 용강동 58-1"
+      },
+      "target": {
+        "name": "Gangneung Daedohobu Government Office",
+        "description": "In the old heart of Gangneung, the government office where Goryeo and Joseon magistrates once presided still keeps its old form. In the Byeongin Persecution, in 1868, believers including Stephen Sim Neung-seok and Anthony Yi Yu-il were dragged here and beheaded after brutal torture, without even a proper trial. The Chilsadang hall, which handled the seven duties of local administration from taxes to trials, is Gangwon-do Tangible Cultural Heritage No. 7, and the Imyeonggwan Sammun gate, preserving its Goryeo-era style and fine carving, is National Treasure No. 51.",
+        "history": "The old Gangneung government office where Stephen Sim Neung-seok and others were martyred in 1868 during the Byeongin Persecution. The Chilsadang is Gangwon-do Tangible Cultural Heritage No. 7; the Imyeonggwan Sammun gate is National Treasure No. 51.",
+        "addressRomanized": "58-1 Yonggang-dong, Gangneung-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "5a3dd1fc-5e82-4423-b580-6372e69b41cd",
+      "diocese": "춘천",
+      "source": {
+        "name": "거두리 성당",
+        "description": "춘천 동내면에 자리한 초기 교우촌의 흔적을 간직한 성당으로, 춘천 지역 천주교 신앙의 뿌리를 보여준다.",
+        "history": "거두리성당은 자료상 '초기 교우촌'으로 소개되어 있으며, 춘천시 동내면 일대 신자 공동체의 초기 역사와 관련된 곳으로 꼽힌다. 구체적인 형성 시기와 관련 인물에 대한 기록은 추가 확인이 필요하다.",
+        "location": "강원특별자치도 춘천시 동내면 동내로 220"
+      },
+      "target": {
+        "name": "Geodu-ri Catholic Church",
+        "description": "A church in Dongnae-myeon, Chuncheon, that keeps the traces of an early Catholic village, showing the roots of the faith in the Chuncheon region.",
+        "history": "Geodu-ri church is presented in the records as an 'early Catholic village,' connected with the beginnings of the believers' community in the Dongnae-myeon area of Chuncheon. Its precise origins and the people involved await further confirmation.",
+        "addressRomanized": "220 Dongnae-ro, Dongnae-myeon, Chuncheon-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "1d5c3163-e82c-4375-a634-423e125f9224",
+      "diocese": "춘천",
+      "source": {
+        "name": "겟세마니 피정의 집",
+        "description": "인제 깊은 산골, 조용히 묵상하며 기도할 수 있는 춘천교구의 피정의 집. 세상의 소음을 벗어나 하루쯤 침묵 속에 머물고 싶은 이들이 찾는 이곳은, 예수님이 마지막 밤을 홀로 기도하신 겟세마니 동산의 이름을 따랐다. 화려한 볼거리는 없지만, 강원도 산자락의 고요함 속에서 자신을 돌아보는 묵상과 쉼의 시간을 마련해준다.",
+        "history": "춘천교구가 운영하는 피정의 집. 인제 산골에 자리해 묵상과 쉼을 위한 공간으로 이용된다.",
+        "location": "강원도 인제군 남면 부평리"
+      },
+      "target": {
+        "name": "Gethsemane Retreat House",
+        "description": "Deep in the mountains of Inje, a retreat house of the Diocese of Chuncheon for quiet meditation and prayer. Sought out by those who want a day of silence away from the noise of the world, it takes its name from the garden of Gethsemane where Jesus prayed alone on his last night. There is nothing showy here — only the stillness of the Gangwon mountainsides, and time set apart for reflection and rest.",
+        "history": "A retreat house run by the Diocese of Chuncheon, set in the mountains of Inje as a place of meditation and rest.",
+        "addressRomanized": "Bupyeong-ri, Nam-myeon, Inje-gun, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "448c9d31-159d-476b-aacc-7c43f01dc48f",
+      "diocese": "춘천",
+      "source": {
+        "name": "곰실 공소",
+        "description": "춘천 동내면, 상주 신부 없이도 홀로 신앙을 키워간 한 평신도의 헌신이 낳은 공동체. 엄주언 마르티노는 천주교 서적을 접한 뒤 가족과 함께 이곳으로 옮겨와 신앙을 공부했고, 고향으로 돌아와 이웃에게 복음을 전했다. 그의 선행에 감화된 마을 사람들이 하나둘 신자가 되었고, 물구비·춘천·화천·양구를 돌던 정규하 신부는 이곳에서만 해마다 마흔에서 쉰 명씩 세례를 줄 정도였다. 1920년 본당이 되었던 이 공소는 오늘날 춘천 주교좌 죽림동성당의 모태가 되었다.",
+        "history": "평신도 엄주언 마르티노의 헌신으로 형성된 교우촌. 1920년 본당 승격, 죽림동 주교좌성당의 모태.",
+        "location": "강원도 춘천시 동내면 고은리 439-1"
+      },
+      "target": {
+        "name": "Gomsil Mission Station",
+        "description": "In Dongnae-myeon, Chuncheon, a community born of one layman's devotion, grown without any resident priest. Martin Eom Ju-eon, after encountering Catholic books, moved here with his family to study the faith, then returned home to share the Gospel with his neighbors. Moved by his goodness, the villagers became believers one by one — so many that Fr. Jeong Gyu-ha, on his rounds of Mulgubi, Chuncheon, Hwacheon, and Yanggu, baptized forty to fifty people here every year. Raised to a parish in 1920, this station became the mother community of today's Jungnim-dong Cathedral of Chuncheon.",
+        "history": "A Catholic village formed through the devotion of the layman Martin Eom Ju-eon. Raised to a parish in 1920; the mother community of Jungnim-dong Cathedral.",
+        "addressRomanized": "439-1 Goeun-ri, Dongnae-myeon, Chuncheon-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "a2f90f8e-e627-4659-b5bb-5be6a75c526c",
+      "diocese": "춘천",
+      "source": {
+        "name": "금광리 공소",
+        "description": "강릉 구정면, 영동 지방 천주교 신앙의 모태가 된 산골 공소. 1866년 병인박해 이후 이곳과 내곡동 일대로 옮겨온 신자들은 옹기를 굽고 농사를 지으며 신앙을 이어갔다. 배를 타고 원산과 안변에서 사제들이 찾아와 성사를 주었고, 1887년 공소로 자리 잡았다. 1921년 잠시 본당이 되었다가 1923년 접근이 좋은 주문진으로 옮겨가며 다시 공소로 남았다. 오늘날에는 노암동성당 관할 공소로 신앙의 자리를 지키고 있다.",
+        "history": "1887년 설립된 영동 지방 천주교의 모태 공소. 병인박해 이후 형성된 신앙 공동체.",
+        "location": "강원도 강릉시 구정면 어단리 417-5"
+      },
+      "target": {
+        "name": "Geumgwang-ri Mission Station",
+        "description": "In Gujeong-myeon, Gangneung, a mountain mission station that became the mother community of the faith in the Yeongdong region. After the Byeongin Persecution of 1866, believers who moved into this area and Naegok-dong kept the faith alive by firing onggi and farming. Priests came by boat from Wonsan and Anbyeon to give the sacraments, and the station was established in 1887. It became a parish briefly in 1921, then a station again in 1923 when the parish moved to more accessible Jumunjin. Today it keeps its place of faith as a station of the Noam-dong parish.",
+        "history": "The mother mission station of Catholicism in the Yeongdong region, established in 1887 by a community formed after the Byeongin Persecution.",
+        "addressRomanized": "417-5 Eodan-ri, Gujeong-myeon, Gangneung-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "63a02178-cd4e-4801-a9d1-4b392668f396",
+      "diocese": "춘천",
+      "source": {
+        "name": "라 파트리치오 신부 순교 터",
+        "description": "강릉 금광리 공소 인근, 아일랜드 출신 선교사가 이 땅에서 순교한 자리. 성 골롬반 외방선교회 소속 라 파트리치오(패트릭 라일리) 신부는 6·25전쟁이 터지던 해 이 지역에서 사목하다 공산군에게 붙잡혀 세상을 떠났다. 그의 유해는 춘천교구 죽림동 순교성지에 안장되어 있으며, 현재 홍용호 프란치스코 보르지아 주교와 동료 80위 시복 안건의 일부로 시복 절차가 진행되고 있다. 전쟁의 혼란 속에서도 사목지를 지킨 외국인 선교사의 헌신이 이 자리에 깃들어 있다.",
+        "history": "성 골롬반 외방선교회 라 파트리치오(패트릭 라일리) 신부가 1950년 한국전쟁 때 순교한 자리. 홍용호 주교와 동료 80위 시복 추진 중.",
+        "location": "강원도 강릉시 구정면 어단리 (금광리 공소 인근)"
+      },
+      "target": {
+        "name": "Martyrdom Site of Fr. Patrick Reilly",
+        "description": "Near the Geumgwang-ri mission station in Gangneung, the place where an Irish missionary was martyred on this soil. Fr. Patrick Reilly of the Missionary Society of St. Columban was serving this area when the Korean War broke out; he was seized by communist forces and killed. His remains rest in the martyrs' cemetery at Jungnim-dong in Chuncheon, and his cause for beatification is under way as part of the cause of Bishop Francis Borgia Hong Yong-ho and 80 companions. The devotion of a foreign missionary who held to his post through the chaos of war dwells in this place.",
+        "history": "Where Fr. Patrick Reilly of the Missionary Society of St. Columban was martyred in 1950 during the Korean War. His beatification is being pursued in the cause of Bishop Hong Yong-ho and 80 companions.",
+        "addressRomanized": "Eodan-ri, Gujeong-myeon, Gangneung-si, Gangwon-do (near the Geumgwang-ri mission station)"
+      }
+    },
+    {
+      "siteId": "5671a051-b259-49d8-a404-7bcfcd1f0eb1",
+      "diocese": "춘천",
+      "source": {
+        "name": "묵호 성당",
+        "description": "동해 묵호항, 바다의 별 마리아를 주보로 삼은 옛 항구의 성당. 1948년 6월 춘천교구 첫 본당으로 승격된 이곳에 이듬해 성 골롬반 외방선교회 소속 패트릭 라일리 신부가 2대 주임으로 부임했다. 사목을 시작한 지 채 일 년도 되지 않아 6·25전쟁이 터졌지만, 신자들이 피난을 권했음에도 라일리 신부는 양 떼를 두고 목자만 떠날 수 없다며 묵호에 남았다가 공산군에게 순교했다. 1954년 삼척본당 관할 공소로 격하되었다가 7년 만에 다시 본당으로 복귀했고, 1974년 성당 마당에 라 파트리치오 신부 순교비가 세워졌다.",
+        "history": "1948년 승격된 춘천교구 첫 본당. 2대 주임 라 파트리치오(패트릭 라일리) 신부가 1950년 한국전쟁 때 순교. 1974년 순교비 건립.",
+        "location": "강원도 동해시 묵호진동 일대"
+      },
+      "target": {
+        "name": "Mukho Catholic Church",
+        "description": "At the harbor of Mukho in Donghae, an old port church under the patronage of Mary, Star of the Sea. Raised in June 1948 as the first parish of the Diocese of Chuncheon, it received Fr. Patrick Reilly of the Missionary Society of St. Columban as its second pastor the following year. The Korean War broke out before he had served a year; though his people urged him to flee, he answered that a shepherd could not leave his flock, stayed in Mukho, and was martyred by communist forces. Reduced to a station under the Samcheok parish in 1954, it was restored as a parish seven years later, and in 1974 a monument to Fr. Reilly's martyrdom was raised in the churchyard.",
+        "history": "The first parish of the Diocese of Chuncheon, raised in 1948. Its second pastor, Fr. Patrick Reilly, was martyred in 1950 during the Korean War; his monument was raised in 1974.",
+        "addressRomanized": "Mukhojin-dong area, Donghae-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "976e14c9-3957-4682-beb4-c9491bfa9cf9",
+      "diocese": "춘천",
+      "source": {
+        "name": "소양로 성당",
+        "description": "춘천 소양로, 부채꼴로 둘러앉아 제대를 가까이서 바라볼 수 있는 독특한 구조의 성당. 1950년 1월 5일 중림동본당에서 분리되어 설립된 이 본당의 초대 주임 콜리어 안토니오 신부는 6·25전쟁이 터지자 성체를 안전한 곳으로 옮기고 신자들에게 피난을 권한 뒤, 정작 자신은 주교좌성당으로 이동하던 중 6월 27일 복사 김가브리엘과 함께 공산군에게 붙잡혀 순교했다. 성 골롬반 외방선교회 소속으로는 한국전쟁 최초의 순교자였다. 전쟁으로 지연되었던 성당 건축은 1956년 90평 규모로 완공되어 2005년 국가등록문화재 제161호로 지정되었다.",
+        "history": "콜리어 안토니오 신부가 1950년 한국전쟁 때 순교한 성당. 성 골롬반 외방선교회 한국전쟁 첫 순교자. 국가등록문화재 제161호.",
+        "location": "강원도 춘천시 소양로 2가 78-1"
+      },
+      "target": {
+        "name": "Soyang-ro Catholic Church",
+        "description": "On Soyang-ro in Chuncheon, a church of rare design whose fan-shaped seating gathers the congregation close around the altar. Founded on 5 January 1950 from the Jungnim-dong parish, its first pastor, Fr. Anthony Collier, moved the Blessed Sacrament to safety when the Korean War broke out and urged his people to flee — then, making his own way toward the cathedral, was captured with his server Gabriel Kim on 27 June and martyred. He was the first martyr of the Missionary Society of St. Columban in the Korean War. The church building, delayed by the war, was completed in 1956 and designated National Registered Cultural Heritage No. 161 in 2005.",
+        "history": "The church where Fr. Anthony Collier was martyred in 1950 — the first Columban martyr of the Korean War. National Registered Cultural Heritage No. 161.",
+        "addressRomanized": "78-1 Soyang-ro 2-ga, Chuncheon-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "79fbe12c-795d-4dda-b12e-4173225d96ca",
+      "diocese": "춘천",
+      "source": {
+        "name": "소양로 순교성지",
+        "description": "춘천 도심에서 소양강 쪽으로 발걸음을 옮기면 조용한 순교의 언덕이 나타난다. 병인박해가 몰아치던 1866년, 강원도 곳곳에서 붙잡힌 천주교 신자들이 이곳에서 처형되었다. 소양강의 맑은 물소리를 배경으로 순교자 현양비가 고요히 서 있어, 낭만적인 호반 도시 춘천의 이면에 새겨진 신앙의 역사를 마주하게 된다. 춘천역에서 멀지 않은 거리라 도심 산책 삼아 들르기 좋은 조용한 성지다.",
+        "history": "병인박해(1866) 때 강원도 지역 천주교인들이 처형된 춘천 지역 순교터.",
+        "location": "강원특별자치도 춘천시 서면 모수물길 22번길 26"
+      },
+      "target": {
+        "name": "Soyang-ro Martyrdom Shrine",
+        "description": "Walk from central Chuncheon toward the Soyanggang and a quiet hill of martyrdom appears. In 1866, as the Byeongin Persecution swept the country, Catholics arrested across Gangwon-do were executed here. A memorial to the martyrs stands still against the clear sound of the river, setting before you the history of faith written into the other face of Chuncheon, the romantic lakeside city. Not far from Chuncheon Station, it is a quiet shrine worth reaching on a walk through town.",
+        "history": "The Chuncheon-area execution ground where Catholics of Gangwon-do were put to death in the Byeongin Persecution (1866).",
+        "addressRomanized": "26 Mosumul-gil 22beon-gil, Seo-myeon, Chuncheon-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "cb885f54-2117-4e01-94b7-6fc93576e12f",
+      "diocese": "춘천",
+      "source": {
+        "name": "양양 성지",
+        "description": "양양읍, 1921년 공소에서 본당으로 승격된 이 성당은 병인박해 때 피신해 온 신자들의 정착에서 신앙이 시작되었다. 6·25전쟁 때 이광재 티모테오 신부는 수많은 성직자와 수도자, 신자들이 남쪽으로 안전하게 피신하도록 도왔으나, 정작 자신은 1950년 6월 24일 공산군에게 붙잡혀 그해 10월 9일 순교했다. 양떼를 위해 목숨을 내놓은 선한 목자의 삶이었다. 1983년 순교 기념비가 세워졌고 2017년 성지로 선포되었으며, 그는 홍용호 주교와 동료 80위 시복 안건에 포함되어 있다.",
+        "history": "이광재 티모테오 신부가 1950년 한국전쟁 때 순교한 성당. 2017년 성지 선포, 홍용호 주교와 동료 80위 시복 추진 중.",
+        "location": "강원도 양양군 양양읍 성내리 8-1"
+      },
+      "target": {
+        "name": "Yangyang Holy Site",
+        "description": "In Yangyang-eup, this church — raised from station to parish in 1921 — traces its faith to believers who fled here during the Byeongin Persecution. In the Korean War, Fr. Timothy Yi Gwang-jae helped countless clergy, religious, and faithful escape safely to the South; he himself was captured by communist forces on 24 June 1950 and martyred on 9 October of that year — the life of a good shepherd who laid down his life for his flock. A martyrdom memorial was raised in 1983, the site was proclaimed a shrine in 2017, and his cause is included among Bishop Hong Yong-ho and 80 companions.",
+        "history": "The church where Fr. Timothy Yi Gwang-jae was martyred in 1950 during the Korean War. Proclaimed a shrine in 2017; his beatification is being pursued with Bishop Hong Yong-ho and 80 companions.",
+        "addressRomanized": "8-1 Seongnae-ri, Yangyang-eup, Yangyang-gun, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "9edab3f9-51b6-4094-9dfb-5c606e237e9f",
+      "diocese": "춘천",
+      "source": {
+        "name": "인제 소양로 성당(내면)",
+        "description": "강원도 인제군 산간지역에 자리한 교우촌 계열의 성당으로, 소양강 상류 깊은 산골에 이어져 온 신앙 공동체의 자취를 보여준다.",
+        "history": "이 성당은 자료상 '교우촌'으로 분류되어 있어, 박해 시대 신자들이 산간 오지에 숨어 신앙 공동체를 이루었던 지역과 연관된 곳으로 소개된다. 인제군 남면 산골에 위치하며, 강원 내륙 지역 천주교 신앙의 흔적을 보여준다. 구체적인 형성 시기와 관련 인물에 대한 기록은 추가 확인이 필요하다.",
+        "location": "강원특별자치도 인제군 남면 빙어마을길 196"
+      },
+      "target": {
+        "name": "Inje Soyang-ro Church (Naemyeon)",
+        "description": "A church of the Catholic-village tradition in the mountain country of Inje-gun, Gangwon-do, showing the traces of a community of faith carried on deep in the hills of the upper Soyanggang.",
+        "history": "This church is classed in the records as a 'Catholic village,' linked to the districts where persecution-era believers hid in the remote mountains and formed communities of faith. It stands in the hills of Nam-myeon, Inje-gun, a trace of Catholic life in inland Gangwon. Its precise origins await further confirmation.",
+        "addressRomanized": "196 Bingeomaeul-gil, Nam-myeon, Inje-gun, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "3c763a79-530c-422d-ba10-3e6aeda82324",
+      "diocese": "춘천",
+      "source": {
+        "name": "죽림동 순교 성지",
+        "description": "춘천 죽림동, 춘천교구 주교좌성당이자 순교자들의 안식처. 1920년 곰실 공소가 본당으로 승격되며 시작된 이 성당은 1949년 퀸란 주교 재임 때 착공되었으나 한국전쟁으로 공사가 중단되고 유엔군 반격 작전 중 건물이 훼손되는 아픔을 겪었다. 미군과 교황청의 지원으로 1953년 대부분의 공사를 마쳤다. 1998~1999년 대대적으로 개보수했고, 2013~2014년 성역화 사업을 거쳐 2017년 한국전쟁 때 희생된 이들이 잠든 교구 순교자 묘역이 성지로 선포되었다.",
+        "history": "1920년 곰실 공소가 승격된 춘천교구 주교좌성당. 한국전쟁으로 훼손·재건. 2017년 교구 순교자 묘역이 성지로 선포.",
+        "location": "강원도 춘천시 죽림동 38"
+      },
+      "target": {
+        "name": "Jungnim-dong Martyrs’ Shrine",
+        "description": "In Jungnim-dong, Chuncheon — the cathedral of the Diocese of Chuncheon, and the resting place of its martyrs. Begun when the Gomsil mission station was raised to a parish in 1920, the church was started in 1949 under Bishop Quinlan, only to have construction halted by the Korean War and the building damaged during the UN counteroffensive. With help from the U.S. military and the Holy See, most of the work was finished in 1953. After major renovations in 1998–1999 and a consecration project in 2013–2014, the diocesan martyrs' cemetery — where those who perished in the Korean War lie — was proclaimed a shrine in 2017.",
+        "history": "The cathedral parish of Chuncheon, raised from the Gomsil station in 1920, damaged and rebuilt through the Korean War. Its martyrs' cemetery was proclaimed a shrine in 2017.",
+        "addressRomanized": "38 Jungnim-dong, Chuncheon-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "03e0eae0-66ae-4647-9410-f23bb1d408b3",
+      "diocese": "춘천",
+      "source": {
+        "name": "죽림동 주교좌 성당",
+        "description": "춘천교구의 중심에 자리한 주교좌성당으로, 강원 지역 천주교 신앙 공동체의 구심점 역할을 하고 있다.",
+        "history": "죽림동주교좌성당은 천주교 춘천교구의 주교좌성당으로, 춘천시 약사고개길에 위치한다. 춘천교구는 1939년 경성대목구에서 분리되어 설정되었고 1962년 정식 교구로 승격되었으며, 이후 죽림동성당이 교구청 소재지의 주교좌성당 역할을 맡아왔다.",
+        "location": "강원특별자치도 춘천시 약사고개길 23"
+      },
+      "target": {
+        "name": "Jungnim-dong Cathedral",
+        "description": "The cathedral at the center of the Diocese of Chuncheon, serving as the focal point of the Catholic community of the Gangwon region.",
+        "history": "Jungnim-dong Cathedral is the cathedral church of the Diocese of Chuncheon, on Yaksagogae-gil in Chuncheon. The diocese was separated from the Vicariate of Seoul in 1939 and raised to a full diocese in 1962, with Jungnim-dong serving since as the cathedral at the diocesan seat.",
+        "addressRomanized": "23 Yaksagogae-gil, Chuncheon-si, Gangwon-do"
+      }
+    },
+    {
+      "siteId": "c4784db9-f32b-433e-b40c-6935a1c6cfd2",
+      "diocese": "춘천",
+      "source": {
+        "name": "춘천교구 주교관과 교육원",
+        "description": "춘천 원도심, 아일랜드풍 건축이 이국적인 정취를 자아내는 두 건물. 강원도 선교를 담당하던 성 골롬반 외방선교회가 1958년 세운 주교관은 햇빛이 아쉬운 아일랜드의 풍습대로 유별나게 서향으로 지어졌다. 이듬해 완공된 교육원 건물은 본래 영원한 도움의 성모수도회 수련소로 지어져 강원 지역 선교를 도울 수녀들을 길러냈고, 이후 여대생 기숙사를 거쳐 1977년부터 춘천교구 신앙교육의 산실인 가톨릭교육원으로 이름을 바꾸었다. 두 건물 모두 2019년 국가등록문화재로 등록되어 그 건축사적 가치를 인정받았다.",
+        "history": "성 골롬반 외방선교회가 1958~1959년 세운 아일랜드풍 건물. 주교 거처와 수녀 양성소로 쓰이다 2019년 국가등록문화재 등록.",
+        "location": "강원도 춘천시 죽림동 (주교좌성당 인근)"
+      },
+      "target": {
+        "name": "Chuncheon Bishop’s House and Education Center",
+        "description": "In the old center of Chuncheon, two buildings whose Irish manner lends the streets an unexpected air. The bishop's house, built in 1958 by the Missionary Society of St. Columban, then responsible for the Gangwon mission, faces unusually west — after the habit of sun-starved Ireland. The education center, finished the following year, was built as the novitiate of the Sisters of Our Lady of Perpetual Help, training the sisters who would serve the Gangwon mission; after a spell as a women's dormitory it became, from 1977, the Catholic Education Center, the seedbed of faith formation in the diocese. Both buildings were listed as National Registered Cultural Heritage in 2019.",
+        "history": "Irish-style buildings raised by the Missionary Society of St. Columban in 1958–1959, serving as bishop's residence and sisters' novitiate. Listed as National Registered Cultural Heritage in 2019.",
+        "addressRomanized": "Jungnim-dong, Chuncheon-si, Gangwon-do (near the cathedral)"
+      }
+    },
+    {
+      "siteId": "49b8f28e-09d0-46b5-af3b-7e26ecf02844",
+      "diocese": "춘천",
+      "source": {
+        "name": "포천 순교 성지",
+        "description": "포천, 1801년 신유박해 때 순교한 복자 홍교만 프란치스코 하비에르와 그 아들 홍인 레오의 신앙이 이어진 자리. 아들이라는 이유로 죽음을 면하고 포천으로 옮겨졌던 홍인 레오는 결국 1802년 1월 30일 포천 장터에서 순교했다. 1900년 해룡마을에 첫 공소가 세워졌고, 6·25전쟁 참전 장군이자 독실한 신자였던 이한림 가브리엘 장군의 뜻으로 1955년 화강암 석조 성당이 지어져 퀸란 주교의 축성을 받았다. 1990년 방화로 불탄 옛 성당은 2006년 국가등록문화재 제271호로 지정되었고, 2014년 부자가 함께 시복되며 그해 9월 순교터가 성지로 선포되었다.",
+        "history": "복자 홍교만·홍인 레오 부자의 순교 연고지. 1955년 이한림 장군 뜻으로 지어진 석조 성당(국가등록문화재 제271호). 2014년 성지 선포.",
+        "location": "경기도 포천시 군내면 구읍리 723-3"
+      },
+      "target": {
+        "name": "Pocheon Martyrdom Shrine",
+        "description": "In Pocheon, ground joined to the faith of Blessed Francis Xavier Hong Gyo-man, martyred in the Sinyu Persecution of 1801, and his son Leo Hong In. Spared at first because he was the son and moved to Pocheon, Leo Hong In was martyred at the Pocheon marketplace on 30 January 1802. The area's first mission station was founded at Haeryong village in 1900, and in 1955 a granite church was built at the wish of General Gabriel Yi Han-lim, a Korean War commander and devout believer, and consecrated by Bishop Quinlan. The old church, burned by arson in 1990, was designated National Registered Cultural Heritage No. 271 in 2006; father and son were beatified together in 2014, and that September the site of their martyrdom was proclaimed a shrine.",
+        "history": "Ground tied to the martyrdom of Blessed Hong Gyo-man and his son Leo Hong In. The stone church of 1955, built at General Yi Han-lim's wish, is National Registered Cultural Heritage No. 271. Proclaimed a shrine in 2014.",
+        "addressRomanized": "723-3 Gueup-ri, Gunnae-myeon, Pocheon-si, Gyeonggi-do"
+      }
+    },
+    {
+      "siteId": "2adae09e-5177-44b3-898c-0b130373bb40",
+      "diocese": "춘천",
+      "source": {
+        "name": "홍천 성당",
+        "description": "홍천, 돌과 돌 사이 홈을 깎아 맞물리게 짠 독특한 공법으로 지어진 1950년대 석조 성당. 1902~1903년 무렵 송정 공소로 처음 기록에 등장한 이 지역 신앙은 1923년 정식 본당으로 출발해 1936년 지금 자리로 옮겨왔다. 한국전쟁으로 목조 성당이 무너지자 최동오 신부가 1953년 재건을 시작했고, 억류와 송환을 겪은 크로스비 필립 신부가 1954년 부임해 이듬해 미군 공병대와 신자들의 도움으로 석조 성당과 사제관을 완성했다. 마루 밑에 습기를 막는 새끼줄 뭉치를 깔아두는 등 세심한 설계로 오늘날까지 원형이 잘 보존되어 2005년 국가등록문화재 제162호로 지정되었다.",
+        "history": "1923년 설립, 1955년 완공된 석조 성당. 크로스비 필립 신부가 재건을 주도. 국가등록문화재 제162호.",
+        "location": "강원도 홍천군 홍천읍 희망리 105"
+      },
+      "target": {
+        "name": "Hongcheon Catholic Church",
+        "description": "In Hongcheon, a 1950s stone church built by a rare method: grooves cut stone to stone so each block locks into the next. The faith of this region first appears in the records around 1902–1903 as the Songjeong mission station; it became a full parish in 1923 and moved to the present site in 1936. When the wooden church collapsed in the Korean War, Fr. Choe Dong-o began rebuilding in 1953, and Fr. Philip Crosbie — who had endured captivity and repatriation — arrived in 1954, completing the stone church and rectory the next year with the help of U.S. Army engineers and the faithful. Careful touches like bundles of straw rope laid beneath the floor against damp have kept the building remarkably intact, and it was designated National Registered Cultural Heritage No. 162 in 2005.",
+        "history": "A parish from 1923; the stone church was completed in 1955 under Fr. Philip Crosbie's rebuilding. National Registered Cultural Heritage No. 162.",
+        "addressRomanized": "105 Huimang-ri, Hongcheon-eup, Hongcheon-gun, Gangwon-do"
+      }
+    }
+  ]
+}

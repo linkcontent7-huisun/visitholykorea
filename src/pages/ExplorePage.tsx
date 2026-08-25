@@ -1,10 +1,11 @@
-import { Church, ChevronRight, Footprints, MapPin } from 'lucide-react';
-import { useState } from 'react';
+import { Church, ChevronRight, Footprints, Heart, MapPin } from 'lucide-react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
+import { useMyFavoriteIds } from '@/features/favorites/hooks/use-favorites';
 import { SiteListItem } from '@/features/sites/components/SiteListItem';
-import { useSitesByDiocese } from '@/features/sites/hooks/use-sites';
+import { useSites, useSitesByDiocese } from '@/features/sites/hooks/use-sites';
 import { DIOCESES } from '@/shared/types/domain';
 
 const CATEGORIES = ['전체', '순교성지', '역사사적지', '주교좌성당', '순례길'] as const;
@@ -14,6 +15,17 @@ export default function ExplorePage() {
   const [category, setCategory] = useState<string>('전체');
 
   const { data: sites = [], isLoading } = useSitesByDiocese(selectedDiocese, category);
+
+  // 즐겨찾기 — 찜해 둔 성지를 교구를 고르기 전 화면 맨 위에 모아 보여준다
+  const { data: favoriteIds = [] } = useMyFavoriteIds();
+  const { data: allSites = [] } = useSites({ limit: 300 });
+  const favoriteSites = useMemo(() => {
+    if (favoriteIds.length === 0) return [];
+    const order = new Map(favoriteIds.map((id, i) => [id, i]));
+    return allSites
+      .filter((s) => order.has(s.id))
+      .sort((a, b) => order.get(a.id)! - order.get(b.id)!);
+  }, [favoriteIds, allSites]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -25,6 +37,22 @@ export default function ExplorePage() {
       <div className="px-8 py-4">
         {!selectedDiocese ? (
           <div>
+            {favoriteSites.length > 0 && (
+              <section className="mb-8">
+                <div className="mb-4 flex items-center gap-2">
+                  <Heart size={16} className="fill-pink-500 text-pink-500" aria-hidden />
+                  <h2 className="text-sm font-extrabold uppercase tracking-widest text-app-text">
+                    즐겨찾는 성지
+                  </h2>
+                </div>
+                <div className="space-y-5">
+                  {favoriteSites.map((site) => (
+                    <SiteListItem key={site.id} site={site} />
+                  ))}
+                </div>
+              </section>
+            )}
+
             {/* 순례 코스 진입점 — 낱개 성지가 아니라 이야기 순서로 걷고 싶은 사람을 위해 */}
             <Link
               to={paths.routes}
