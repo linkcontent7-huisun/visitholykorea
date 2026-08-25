@@ -30,6 +30,9 @@ export const queryKeys = {
   records: {
     logs: ['records', 'logs'] as const,
   },
+  directory: {
+    nearby: (lat: number, lng: number) => ['directory', 'nearby', lat, lng] as const,
+  },
   favorites: {
     ids: ['favorites', 'ids'] as const,
     one: (siteId: string) => ['favorites', siteId] as const,

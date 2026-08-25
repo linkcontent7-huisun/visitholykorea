@@ -79,6 +79,17 @@ export interface SiteVisitNoteRow {
   created_at: string;
 }
 
+export interface CatholicDirectoryRow {
+  id: string;
+  name: string;
+  category: string;
+  diocese: string | null;
+  phone: string | null;
+  address: string | null;
+  lat: number | null;
+  lng: number | null;
+}
+
 export interface FavoriteRow {
   user_id: string;
   site_id: string;

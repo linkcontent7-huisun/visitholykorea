@@ -52,7 +52,16 @@ export function SiteThumbnail({ imageUrl, name, category, className = '' }: Site
       {/* 상징은 은은하게 — 사진 흉내가 아니라 자리를 지키는 문양이다 */}
       <Icon
         aria-hidden
-        style={{ color: tone, opacity: 0.28, width: '34%', height: '34%', maxWidth: 72, maxHeight: 72, minWidth: 20, minHeight: 20 }}
+        style={{
+          color: tone,
+          opacity: 0.28,
+          width: '34%',
+          height: '34%',
+          maxWidth: 72,
+          maxHeight: 72,
+          minWidth: 20,
+          minHeight: 20,
+        }}
         strokeWidth={1.5}
       />
     </div>
