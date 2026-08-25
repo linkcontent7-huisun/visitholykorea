@@ -27,6 +27,7 @@ import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
 import { useNearbyAttractions, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
 import { useSite, useSitesInSameDiocese } from '@/features/sites/hooks/use-sites';
+import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { kakaoPlaceUrl } from '@/shared/lib/geo';
@@ -38,6 +39,7 @@ export default function SiteDetailPage() {
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
   const { data: site, isLoading } = useSite(siteId);
+  const view = useTranslatedSite(site);
   const { data: nearbySites = [] } = useSitesInSameDiocese(site?.region, siteId);
   const { data: attractions = [], isFetching: attractionsLoading } = useNearbyAttractions(
     site?.coordinates,
@@ -73,7 +75,13 @@ export default function SiteDetailPage() {
       setIsSpeaking(false);
       return;
     }
-    const text = [site.name, site.description, site.history].filter(Boolean).join('. ');
+    const text = [
+      view?.name ?? site.name,
+      view?.description ?? site.description,
+      view?.history ?? site.history,
+    ]
+      .filter(Boolean)
+      .join('. ');
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'ko-KR';
     utterance.rate = 0.95;
@@ -204,11 +212,14 @@ export default function SiteDetailPage() {
             {site.category}
           </span>
           <h1 className="mb-4 mt-3 text-4xl font-extrabold leading-tight tracking-tight">
-            {site.name}
+            {view?.name ?? site.name}
           </h1>
           <p className="mb-4 flex items-center gap-2 text-sm font-medium opacity-90">
             <MapPin size={16} className="text-brand-violet" />
             {site.location}
+            {view?.addressRomanized && (
+              <span className="mt-0.5 block text-xs opacity-80">{view.addressRomanized}</span>
+            )}
           </p>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
@@ -272,14 +283,14 @@ export default function SiteDetailPage() {
               size={100}
               className="absolute -bottom-6 -right-6 rotate-12 text-brand-blue/5"
             />
-            {site.description && (
+            {(view?.description ?? site.description) && (
               <p className="relative z-10 mb-6 text-lg font-bold italic leading-snug tracking-tight text-brand-blue/90">
-                &ldquo;{site.description}&rdquo;
+                &ldquo;{view?.description ?? site.description}&rdquo;
               </p>
             )}
-            {site.history && (
+            {(view?.history ?? site.history) && (
               <p className="relative z-10 text-[15px] font-medium leading-relaxed text-app-text-muted">
-                {site.history}
+                {view?.history ?? site.history}
               </p>
             )}
           </div>

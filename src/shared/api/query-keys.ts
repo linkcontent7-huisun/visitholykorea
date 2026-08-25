@@ -6,6 +6,7 @@ import type { EmotionTag } from '@/shared/types/domain';
  */
 export const queryKeys = {
   sites: {
+    translation: (siteId: string, lang: string) => ['sites', 'translation', siteId, lang] as const,
     all: ['sites'] as const,
     list: (filters: Record<string, unknown> = {}) => ['sites', 'list', filters] as const,
     detail: (id: string) => ['sites', 'detail', id] as const,
