@@ -130,6 +130,54 @@
         "history": "The grave of the brothers Jo Seok-bin and Jo Seok-jeung, martyred in 1868. Denied burial in the ancestral ground, they were interred secretly nearby.",
         "addressRomanized": "272 Saenggok-dong, Gangseo-gu, Busan"
       }
+    },
+    {
+      "siteId": "0d108f88-ba9a-456b-be67-41eb28b99d7e",
+      "diocese": "부산",
+      "source": {
+        "name": "기장 성지",
+        "description": "박해 시대 신자들이 관의 눈을 피해 모여 살던 교우촌 터. 구체적인 순교 기록은 추가 확인이 필요하지만, 부산 지역 천주교 박해사의 흔적을 보여주는 장소다.",
+        "history": "박해시대 교우촌 터, 신자들의 은신처.",
+        "location": "부산광역시 기장군"
+      },
+      "target": {
+        "name": "Gijang Holy Site",
+        "description": "The site of a Catholic village where believers lived together out of the sight of the authorities during the years of persecution. The specific record of martyrdom here still needs confirming, but the place shows the traces of the history of Catholic persecution in the Busan region.",
+        "history": "The site of a Catholic village of the persecution era, a hiding place for believers.",
+        "addressRomanized": "Gijang-gun, Busan"
+      }
+    },
+    {
+      "siteId": "83fa7ec0-8694-4a20-9dd9-31c19020bbcb",
+      "diocese": "부산",
+      "source": {
+        "name": "언양 죽림굴(대재공소)",
+        "description": "간월산 정상 가까운 비탈, 억새밭을 지나 바위 아래로 몸을 낮춰야 겨우 들어갈 수 있는 굴이 하나 있다. 폭 7미터, 높이 1.2미터. 어른이 허리를 펴고 설 수 없는 이 좁은 공간이 한때 수십 명의 신앙 공동체였다. 1839년 기해박해가 휩쓸고 지나간 뒤, 충청도와 영남 곳곳에서 쫓겨온 교우들이 언양 간월공소를 거쳐 더 깊은 산으로 숨어들며 찾아낸 자리다. 최양업 신부는 1860년 경신박해 때 이곳에서 석 달을 지냈다. 훗날 울산 장대에서 순교하게 될 허인백과 이양등, 김종륜도 이 굴을 거쳐 갔다. 지금도 굴 앞에 서면 아래로 영남알프스의 능선이 끝없이 펼쳐진다. 숨기 위해 오른 산이 이토록 아름다웠다는 사실이 오래 마음에 남는다.",
+        "history": "1839년 기해박해 이후 충청도와 영남 각처에서 피난해 온 교우들이 간월공소에 이어 찾아든 두 번째 공소. 최양업 신부가 1860년 경신박해 때 3개월간 은신했고, 울산 장대에서 순교한 허인백·이양등·김종륜도 한때 머물렀다.",
+        "location": "울산광역시 울주군 상북면 간월산"
+      },
+      "target": {
+        "name": "Eonyang Jungnimgul Cave (Daejae Mission Station)",
+        "description": "On the slope near the summit of Mount Ganwol, past a field of silver grass, there is a cave you can enter only by lowering yourself beneath the rock. Seven metres across, one metre twenty high — a grown adult cannot straighten up inside it. This narrow space was once a community of several dozen believers. After the Gihae Persecution of 1839 had swept through, Catholics driven from Chungcheong-do and from all over the Yeongnam region passed by way of the Ganwol mission station at Eonyang, hid deeper in the mountains, and found this. Father Choe Yang-eop spent three months here during the Gyeongsin Persecution of 1860. Heo In-baek, Yi Yang-deung and Kim Jong-nyun, who would later be martyred at Jangdae in Ulsan, came through this cave as well. Stand at its mouth today and the ridges of the Yeongnam Alps open out below without end. That the mountain they climbed in order to hide should be this beautiful is what stays with you.",
+        "history": "The second mission station, after Ganwol, that Catholics fleeing from Chungcheong-do and the Yeongnam region reached following the Gihae Persecution of 1839. Father Choe Yang-eop hid here for three months during the Gyeongsin Persecution of 1860, and Heo In-baek, Yi Yang-deung and Kim Jong-nyun, martyred at Jangdae in Ulsan, stayed here for a time.",
+        "addressRomanized": "Mount Ganwol, Sangbuk-myeon, Ulju-gun, Ulsan"
+      }
+    },
+    {
+      "siteId": "cc1b6629-8de5-4abf-bdde-2bd951f1afd6",
+      "diocese": "부산",
+      "source": {
+        "name": "울산 장대 순교지",
+        "description": "병인박해가 한창이던 시기, 울산 장대에서 신앙을 지키던 신자 세 명이 처형되었다. 이들은 2014년 프란치스코 교황 방한 시 시복되며 복자 반열에 한 걸음 다가섰다.",
+        "history": "병인박해(1866) 때 울산 장대에서 3위가 순교, 2014년 시복되었다.",
+        "location": "울산광역시"
+      },
+      "target": {
+        "name": "Ulsan Jangdae Martyrdom Site",
+        "description": "At the height of the Byeongin Persecution, three believers who had held to their faith were executed at Jangdae in Ulsan. They came a step closer to the altars when they were beatified during Pope Francis's visit to Korea in 2014.",
+        "history": "Three were martyred at Jangdae in Ulsan during the Byeongin Persecution of 1866 and beatified in 2014.",
+        "addressRomanized": "Ulsan"
+      }
     }
   ]
 }
