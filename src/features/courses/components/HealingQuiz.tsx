@@ -6,47 +6,7 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import { getRecommendedCourses, type CourseCard } from '../api/course-matching';
 import { useCompassMemory, useSaveCompassResponse } from '../hooks/use-compass-memory';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
-
-// 시/도 대략적 중심 좌표 — 출발지 기준 거리 정렬용 (행정구역 정밀 경계가 아닌 근사치)
-const REGIONS = [
-  '서울',
-  '부산',
-  '대구',
-  '인천',
-  '광주',
-  '대전',
-  '울산',
-  '세종',
-  '경기',
-  '강원',
-  '충북',
-  '충남',
-  '전북',
-  '전남',
-  '경북',
-  '경남',
-  '제주',
-] as const;
-type Region = (typeof REGIONS)[number];
-const REGION_COORDS: Record<Region, { lat: number; lng: number }> = {
-  서울: { lat: 37.5665, lng: 126.978 },
-  부산: { lat: 35.1796, lng: 129.0756 },
-  대구: { lat: 35.8714, lng: 128.6014 },
-  인천: { lat: 37.4563, lng: 126.7052 },
-  광주: { lat: 35.1595, lng: 126.8526 },
-  대전: { lat: 36.3504, lng: 127.3845 },
-  울산: { lat: 35.5384, lng: 129.3114 },
-  세종: { lat: 36.48, lng: 127.289 },
-  경기: { lat: 37.4138, lng: 127.5183 },
-  강원: { lat: 37.8228, lng: 128.1555 },
-  충북: { lat: 36.6357, lng: 127.4917 },
-  충남: { lat: 36.5184, lng: 126.8 },
-  전북: { lat: 35.7175, lng: 127.153 },
-  전남: { lat: 34.8161, lng: 126.463 },
-  경북: { lat: 36.4919, lng: 128.8889 },
-  경남: { lat: 35.4606, lng: 128.2132 },
-  제주: { lat: 33.4996, lng: 126.5312 },
-};
+import { REGIONS, regionCoords, type Region } from '@/shared/lib/regions';
 
 type Gender = '여성' | '남성' | '응답 안 함';
 
@@ -119,12 +79,13 @@ const TOTAL_QUESTIONS = 7;
 const RESULT_STEP = TOTAL_QUESTIONS + 1;
 
 export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps) {
-  const { wideView } = useSettings();
+  const { wideView, origin, setOrigin } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
   const [step, setStep] = useState(0); // 0=intro, 1~7=질문, 8=결과
   const [emotion, setEmotion] = useState<EmotionTag | null>(null);
   const [concern, setConcern] = useState<Concern | null>(null);
-  const [region, setRegion] = useState<Region | null>(null);
+  // 이미 출발지를 정해 둔 사람에게 같은 질문을 또 하지 않는다. 바꾸고 싶으면 이 자리에서 바꾼다.
+  const [region, setRegion] = useState<Region | null>(origin);
   const [gender, setGender] = useState<Gender | null>(null);
   const [style, setStyle] = useState<Style | null>(null);
   const [timeBudget, setTimeBudget] = useState<TimeBudget | null>(null);
@@ -157,7 +118,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     if (!emotion) return;
     setStep(RESULT_STEP);
     setResultLoading(true);
-    const originCoords = region ? REGION_COORDS[region] : undefined;
+    const originCoords = regionCoords(region) ?? undefined;
     const courses = await getRecommendedCourses(emotion, undefined, 1, originCoords);
     const top = courses[0] ?? null;
     setResult(top);
@@ -363,7 +324,12 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               <p className="text-xs text-app-text-muted mb-8">가까운 곳부터 안내해드릴게요</p>
               <select
                 value={region ?? ''}
-                onChange={(e) => setRegion((e.target.value || null) as Region | null)}
+                onChange={(e) => {
+                  const next = (e.target.value || null) as Region | null;
+                  setRegion(next);
+                  // 여기서 고른 출발지를 앱 전체가 쓴다 — 홈·탐색도 이 기준으로 가까운 순이 된다
+                  setOrigin(next);
+                }}
                 className="w-full bg-app-bg rounded-[20px] p-5 text-sm font-bold text-app-text outline-none border border-app-border appearance-none"
                 id="quiz-region"
               >

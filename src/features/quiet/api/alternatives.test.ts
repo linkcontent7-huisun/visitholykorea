@@ -142,6 +142,32 @@ describe('rankAlternatives — 대체지 순위', () => {
     expect(picks).toHaveLength(1);
   });
 
+  it('개선폭이 커도 등급이 그대로면 정식 추천에서 뺀다', () => {
+    // 실제로 화면에 나갔던 값 — 경복궁 95.4 → 행주 성당 76.5.
+    // 19점이나 내려가지만 70점 위는 전부 「매우 붐빔」이라 등급이 그대로다.
+    // 붐빔을 피하러 온 사람에게 권할 곳이 아니다.
+    const { picks, relaxed } = rankAlternatives(HWASEONG, 95.4, [
+      scored('여전히 매우 붐빔', 3, 76.5),
+      scored('보통까지 내려감', 16, 33),
+    ]);
+
+    expect(picks[0]?.site.name).toBe('보통까지 내려감');
+    expect(picks.map((p) => p.site.name)).not.toContain('여전히 매우 붐빔');
+    expect(relaxed).toBe(false);
+  });
+
+  it('등급이 내려가는 곳이 하나도 없으면 기준을 풀어 보여준다', () => {
+    // 개선폭은 minRelief 를 넘지만 둘 다 「매우 붐빔」에 머문다.
+    const { picks, relaxed } = rankAlternatives(HWASEONG, 95, [
+      scored('가깝고 조금 나음', 2, 78),
+      scored('멀고 더 나음', 10, 72),
+    ]);
+
+    expect(relaxed).toBe(true);
+    // 기준을 푼 경로에서는 조용한 순이다
+    expect(picks[0]?.site.name).toBe('멀고 더 나음');
+  });
+
   it('좌표가 없는 출발지에서는 빈 결과를 준다', () => {
     const { picks } = rankAlternatives({ lat: null, lng: null }, ORIGIN_SCORE, [
       scored('아무데나', 1, 10),

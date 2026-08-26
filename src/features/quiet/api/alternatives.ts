@@ -19,9 +19,11 @@ import type { HolySite, Coordinates } from '@/shared/types/domain';
 import { getNearbyByLocation, getOngoingFestivals, type TourApiSpot } from '@/shared/api/tour-api';
 import {
   combineCrowdingScore,
+  CROWDING_LEVELS,
   festivalPressure,
   infraDensity,
   RADIUS_KM,
+  toCrowdingLevel,
   type CrowdingScore,
 } from './crowding-score';
 
@@ -114,6 +116,11 @@ export interface RankResult {
   relaxed: boolean;
 }
 
+/** 붐빔 등급의 순번. 클수록 붐빈다. 점수가 아니라 등급으로 비교할 때 쓴다. */
+function levelRank(score: number): number {
+  return CROWDING_LEVELS.indexOf(toCrowdingLevel(score));
+}
+
 export interface RankOptions {
   limit?: number;
   searchRadiusKm?: number;
@@ -161,7 +168,16 @@ export function rankAlternatives(
   }
 
   // ① 충분히 조용해지는 곳 → 가까운 순
-  const meaningful = withinRadius.filter((a) => a.relief >= minRelief);
+  //
+  // "충분히"의 조건이 둘이다. 개선폭(점)만 보면 최상위 등급에서 새는데,
+  // 「매우 붐빔」은 70점 위가 전부 한 등급이라 95→77 처럼 18점이 내려가도
+  // 여전히 「매우 붐빔」이다. 붐빔을 피하러 온 사람에게 붐비는 곳을 권하게 된다.
+  // (실제로 경복궁 95.4 → 행주 성당 76.5 가 1위로 나왔다.)
+  // 그래서 minRelief 주석이 원래 말한 대로 **등급이 실제로 내려가는지**를 함께 본다.
+  const originLevel = levelRank(originScore);
+  const meaningful = withinRadius.filter(
+    (a) => a.relief >= minRelief && levelRank(a.crowding.score) < originLevel,
+  );
   if (meaningful.length > 0) {
     return {
       picks: meaningful.sort((a, b) => a.distanceKm - b.distanceKm).slice(0, limit),

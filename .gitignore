@@ -44,3 +44,10 @@ coverage/
 # supabase local
 supabase/.branches/
 supabase/.temp/
+
+# 구버전 앱 사본·학습자료 — 저장소 밖 자료다. 코드는 GitHub 저장소가 기준이다 (ADR 0005).
+supabase/visitholykorea_버전보관/
+visitholykorea-학습자료/
+
+# 일회성 진단 스크립트 — 한 번 돌려 보고 버리는 것이라 저장소에 남기지 않는다.
+scripts/tmp-*.ts

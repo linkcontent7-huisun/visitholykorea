@@ -8,7 +8,20 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
   // supabase/functions 는 Deno 런타임 코드라 이 설정(브라우저/Node)의 검사 대상이 아니다.
   {
-    ignores: ['dist', 'dev-dist', 'android', 'ios', 'node_modules', 'coverage', 'supabase/functions'],
+    ignores: [
+      'dist',
+      'dev-dist',
+      'android',
+      'ios',
+      'node_modules',
+      'coverage',
+      'supabase/functions',
+      // 저장소에 섞여 들어온 구버전 앱 사본·학습자료. 우리 코드가 아니다 (ADR 0005).
+      'supabase/visitholykorea_버전보관',
+      'visitholykorea-학습자료',
+      // 일회성 진단 스크립트. 한 번 돌려 보고 버린다.
+      'scripts/tmp-*.ts',
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
