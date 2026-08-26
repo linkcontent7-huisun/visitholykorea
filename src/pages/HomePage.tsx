@@ -11,7 +11,7 @@ import {
   Type,
   Wind,
 } from 'lucide-react';
-import { useState, type ComponentType } from 'react';
+import { useState, type ComponentType, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
@@ -21,6 +21,8 @@ import { TodayQuietSection } from '@/features/quiet/components/TodayQuietSection
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { useSites } from '@/features/sites/hooks/use-sites';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { regionCoords } from '@/shared/lib/regions';
+import { haversineKm } from '@/shared/lib/geo';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
 
 const EMOTION_ICON: Record<EmotionTag, ComponentType<{ size?: number; className?: string }>> = {
@@ -32,7 +34,7 @@ const EMOTION_ICON: Record<EmotionTag, ComponentType<{ size?: number; className?
 };
 
 export default function HomePage() {
-  const { language, setLanguage, largeText, setLargeText } = useSettings();
+  const { language, setLanguage, largeText, setLargeText, origin } = useSettings();
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionTag>('치유');
   const [isAIGuideOpen, setIsAIGuideOpen] = useState(false);
 
@@ -40,6 +42,26 @@ export default function HomePage() {
   // 붐빔 지수는 좌표가 있는 성지 전체를 후보로 삼는다. 실제 API 호출은
   // 상위 후보 몇 곳에만 일어나므로 목록을 넓게 가져와도 부담이 없다.
   const { data: allSites = [] } = useSites({ limit: 300 });
+
+  /**
+   * 출발지를 정해 둔 사람에게는 "전국 아무 데나"가 아니라 **갈 수 있는 곳**을 먼저 보여준다.
+   * 성지는 전국에 흩어져 있어서, 출발지를 모르면 목록의 앞자리가 사실상 무작위다.
+   * 출발지가 없으면 지금까지처럼 기본 목록을 그대로 쓴다.
+   */
+  const nearbyFirst = useMemo(() => {
+    const from = regionCoords(origin);
+    if (!from || allSites.length === 0) return sites;
+
+    return [...allSites]
+      .filter((s) => s.coordinates.lat != null && s.coordinates.lng != null)
+      .map((s) => ({
+        site: s,
+        km: haversineKm(from.lat, from.lng, s.coordinates.lat!, s.coordinates.lng!),
+      }))
+      .sort((a, b) => a.km - b.km)
+      .slice(0, 6)
+      .map((x) => x.site);
+  }, [origin, allSites, sites]);
   const { data: courses = [], isLoading: coursesLoading } = useRecommendedCourses(selectedEmotion);
 
   return (
@@ -204,10 +226,12 @@ export default function HomePage() {
         </section>
 
         <section>
-          <h3 className="mb-5 text-lg font-bold text-app-text">전국 성지 탐방</h3>
+          <h3 className="mb-5 text-lg font-bold text-app-text">
+            {origin ? `${origin}에서 가까운 성지` : '전국 성지 탐방'}
+          </h3>
           <div className="grid grid-cols-2 gap-4">
-            {sites.length > 0
-              ? sites.map((site) => <SiteGridCard key={site.id} site={site} />)
+            {nearbyFirst.length > 0
+              ? nearbyFirst.map((site) => <SiteGridCard key={site.id} site={site} />)
               : [1, 2, 3, 4].map((i) => (
                   <div key={i} className="aspect-square animate-pulse rounded-[20px] bg-gray-100" />
                 ))}

@@ -1,7 +1,9 @@
+import type { ReactNode } from 'react';
 import {
   ChevronRight,
   Globe,
   Info,
+  MapPin,
   LogIn,
   LogOut,
   Settings,
@@ -18,6 +20,7 @@ import { useSession } from '@/features/auth/hooks/use-session';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useMyLogs } from '@/features/records/hooks/use-logs';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { REGIONS, type Region } from '@/shared/lib/regions';
 
 interface MenuItem {
   id: string;
@@ -26,12 +29,18 @@ interface MenuItem {
   sub?: string;
   requiresAuth?: boolean;
   onClick?: () => void;
+  /**
+   * 오른쪽에 놓을 직접 조작 요소(예: 출발지 고르기).
+   * 이게 있으면 행 전체를 버튼으로 만들지 않는다 — 버튼 안에 버튼·셀렉트를 넣으면
+   * 마크업이 깨지고 키보드 조작도 어긋난다.
+   */
+  control?: ReactNode;
 }
 
 export default function MenuPage() {
   const navigate = useNavigate();
   const { session } = useSession();
-  const { language, setLanguage, largeText, setLargeText } = useSettings();
+  const { language, setLanguage, largeText, setLargeText, origin, setOrigin } = useSettings();
   const { data: stamps = [] } = useMyStamps();
   const { data: logs = [] } = useMyLogs();
 
@@ -70,6 +79,27 @@ export default function MenuPage() {
           label: '큰 글자 모드',
           sub: largeText ? '켜짐' : '꺼짐',
           onClick: () => setLargeText(!largeText),
+        },
+        {
+          id: 'origin',
+          icon: MapPin,
+          label: '출발지',
+          sub: origin ? `${origin}에서 가까운 순으로 봅니다` : '정하면 가까운 성지부터 보여드려요',
+          control: (
+            <select
+              value={origin ?? ''}
+              onChange={(e) => setOrigin((e.target.value || null) as Region | null)}
+              aria-label="출발지 선택"
+              className="rounded-2xl border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20"
+            >
+              <option value="">전국</option>
+              {REGIONS.map((r) => (
+                <option key={r} value={r}>
+                  {r}
+                </option>
+              ))}
+            </select>
+          ),
         },
         { id: 'settings', icon: Settings, label: '알림 및 일반 설정' },
       ],
@@ -133,35 +163,53 @@ export default function MenuPage() {
               {section.title}
             </h3>
             <div className="overflow-hidden rounded-[32px] border border-app-border bg-white shadow-xl shadow-gray-200/40">
-              {section.items.map((item, idx) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    if (item.requiresAuth && !isLoggedIn) {
-                      requireAuth();
-                      return;
-                    }
-                    item.onClick?.();
-                  }}
-                  className={`flex w-full items-center gap-5 p-6 transition-colors hover:bg-app-bg ${
-                    idx !== section.items.length - 1 ? 'border-b border-app-border' : ''
-                  }`}
-                  id={`menu-item-${item.id}`}
-                >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-app-border bg-app-bg text-app-text-muted">
-                    <item.icon size={20} />
-                  </div>
-                  <div className="flex-1 text-left">
-                    <h4 className="font-bold tracking-tight text-app-text">{item.label}</h4>
-                    {item.sub && (
-                      <p className="mt-0.5 text-[11px] font-medium text-app-text-muted">
-                        {item.sub}
-                      </p>
-                    )}
-                  </div>
-                  <ChevronRight size={18} className="text-gray-300" />
-                </button>
-              ))}
+              {section.items.map((item, idx) => {
+                const rowClass = `flex w-full items-center gap-5 p-6 ${
+                  idx !== section.items.length - 1 ? 'border-b border-app-border' : ''
+                }`;
+                const body = (
+                  <>
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-app-border bg-app-bg text-app-text-muted">
+                      <item.icon size={20} />
+                    </div>
+                    <div className="flex-1 text-left">
+                      <h4 className="font-bold tracking-tight text-app-text">{item.label}</h4>
+                      {item.sub && (
+                        <p className="mt-0.5 text-[11px] font-medium text-app-text-muted">
+                          {item.sub}
+                        </p>
+                      )}
+                    </div>
+                  </>
+                );
+
+                if (item.control) {
+                  return (
+                    <div key={item.id} className={rowClass} id={`menu-item-${item.id}`}>
+                      {body}
+                      {item.control}
+                    </div>
+                  );
+                }
+
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      if (item.requiresAuth && !isLoggedIn) {
+                        requireAuth();
+                        return;
+                      }
+                      item.onClick?.();
+                    }}
+                    className={`${rowClass} transition-colors hover:bg-app-bg`}
+                    id={`menu-item-${item.id}`}
+                  >
+                    {body}
+                    <ChevronRight size={18} className="text-gray-300" />
+                  </button>
+                );
+              })}
             </div>
           </section>
         ))}

@@ -1,4 +1,6 @@
-import { Wind } from 'lucide-react';
+import { ChevronRight, Wind } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { paths } from '@/app/routes/paths';
 import type { HolySite } from '@/shared/types/domain';
 import { useQuietSites } from '../hooks/use-quiet-sites';
 import { QuietSiteCard } from './QuietSiteCard';
@@ -81,6 +83,18 @@ export function TodayQuietSection({ sites }: { sites: HolySite[] }) {
               <QuietSiteCard key={quiet.site.id} {...quiet} />
             ))}
           </div>
+          {/* 이 섹션은 "오늘 조용한 곳"을 보여준다. 반대 방향 — 가려던 곳이 붐빌 때
+              대신 갈 성지를 찾는 것 — 은 별도 화면에서 한다. */}
+          <Link
+            to={paths.alternatives}
+            className="mt-4 flex items-center justify-between rounded-[16px] border border-app-border bg-app-bg px-5 py-4 transition-all hover:border-brand-violet hover:bg-[#F3F0FF]"
+          >
+            <span className="text-sm font-extrabold text-app-text">
+              가려던 곳이 붐빈다면? <span className="text-brand-violet">대신 여기</span>
+            </span>
+            <ChevronRight size={18} className="text-app-text-muted" aria-hidden />
+          </Link>
+
           {/* 추정값이라는 사실을 화면에서 밝힌다 */}
           <p className="mt-4 text-[11px] leading-relaxed text-app-text-muted opacity-70">
             공사 데이터에는 실시간 혼잡도가 없어, 오늘 열리는 행사와 주변 관광 시설 밀도로 추정한

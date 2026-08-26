@@ -20,6 +20,12 @@ export const paths = {
   faq: '/faq',
   /** 붐빔 피하기 — 붐비는 관광지 대신 조용한 성지를 권하는 화면 */
   alternatives: '/alternatives',
+  /**
+   * 시·도 랜딩 — 지자체·지역 기관에 건네는 링크(예: `/region/대전`).
+   * 17개 시·도 전부에 같은 화면이 뜬다. 한 지역만 따로 만들지 않는다.
+   */
+  region: (region: string) => `/region/${encodeURIComponent(region)}`,
+  regionPattern: '/region/:region',
   /** 순례 코스 — 박해 사건·인물 축으로 성지를 잇는 길 */
   routes: '/routes',
   routeDetail: (slug: string) => `/routes/${slug}`,

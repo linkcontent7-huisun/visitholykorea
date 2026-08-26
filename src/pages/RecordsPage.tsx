@@ -41,6 +41,58 @@ export default function RecordsPage() {
     });
   };
 
+  /**
+   * 로그인하지 않은 사람에게 "순례 여권 0곳 · 다음 등급까지 1곳 남았어요"를 보여주면
+   * 자기 기록이 있는 것처럼 읽힌다. 게다가 빈 상태가 시키는 대로 스탬프를 찍으러 가면
+   * 로그인 화면으로 튕긴다 — 하라는 대로 했는데 안 되는 셈이다.
+   * 그래서 로그인 전에는 **무엇을 할 수 있는 곳인지**만 보여주고 로그인으로 안내한다.
+   */
+  if (!session) {
+    return (
+      <div className="min-h-screen bg-app-bg">
+        <header className="sticky top-0 z-40 border-b border-app-border bg-white/90 p-8 pb-6 backdrop-blur-md">
+          <h1 className="text-3xl font-extrabold tracking-tight text-app-text">기록</h1>
+        </header>
+
+        <div className="px-8 pb-32 pt-4">
+          <EmptyState
+            icon={StampIcon}
+            title="순례 기록은 로그인 후에 남아요"
+            description={
+              '다녀온 성지에 스탬프를 찍고 여행기를 남기면\n나만의 순례 여권이 채워집니다.'
+            }
+          />
+
+          <Link
+            to={paths.login}
+            className="mt-2 block rounded-[24px] bg-brand-blue px-6 py-5 text-center text-sm font-extrabold text-white shadow-xl shadow-brand-blue/20"
+            id="records-login-cta"
+          >
+            로그인하고 순례 기록 시작하기
+          </Link>
+
+          <p className="mt-6 text-center text-[12px] font-medium leading-relaxed text-app-text-muted">
+            로그인하지 않아도 성지 정보와 지도는 모두 보실 수 있어요.
+          </p>
+          <div className="mt-4 flex justify-center gap-3">
+            <Link
+              to={paths.map}
+              className="rounded-2xl border border-app-border bg-white px-5 py-3 text-[13px] font-bold text-app-text"
+            >
+              지도 보기
+            </Link>
+            <Link
+              to={paths.explore}
+              className="rounded-2xl border border-app-border bg-white px-5 py-3 text-[13px] font-bold text-app-text"
+            >
+              성지 둘러보기
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-app-bg">
       <header className="sticky top-0 z-40 border-b border-app-border bg-white/90 p-8 pb-4 backdrop-blur-md">
