@@ -30,7 +30,8 @@
     "import:contacts": "tsx scripts/import-contacts.ts",
     "translate:export": "tsx scripts/translation-export.ts",
     "translate:import": "tsx scripts/translation-import.ts",
-    "translate:status": "tsx scripts/translation-status.ts"
+    "translate:status": "tsx scripts/translation-status.ts",
+    "seed:rest": "tsx scripts/seed-rest-places.ts"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",

@@ -11,6 +11,7 @@
 import { fetchSitesByEmotion } from '@/features/sites/api/holy-sites.repository';
 import { getNearbyAttractions, type TourApiSpot } from '@/shared/api/tour-api';
 import { haversineKm, walkMinutes } from '@/shared/lib/geo';
+import { withDirection } from '@/shared/lib/korean';
 import type { EmotionTag, HolySite } from '@/shared/types/domain';
 
 export interface CourseCard {
@@ -80,6 +81,19 @@ export async function fetchCandidateSites(
   return jitterShuffle(sites, contentQualityScore).slice(0, limit);
 }
 
+/**
+ * 페어링에서 제외할 관광지.
+ *
+ * 이 코스의 문장은 "붐비는 관광지를 뒤로하고 조용한 성지로"다. 그런데 TourAPI 주변
+ * 검색에는 가톨릭 시설 자체가 자주 잡혀서, 예전에 "나주 순교성지 인파를 뒤로하고
+ * 나주 순교자 기념성당으로", "남산동 가톨릭타운 인파를 뒤로하고 관덕정 순교성지로"
+ * 같은 카드가 실제로 화면에 나갔다 — 성지를 피해 성지로 가라는 말이 된다.
+ *
+ * **가톨릭 시설만 거른다.** 사찰·향교 같은 다른 종교 시설은 실제로 붐비는 관광지이므로
+ * 페어링 상대로 정상이다(예: "심향사(나주) 인파를 뒤로하고").
+ */
+export const CATHOLIC_TITLE = /성지|성당|순교|수도원|성모|천주교|가톨릭|공소/;
+
 /** 좌표가 있는 성지에 한해 도보권 관광지를 실시간으로 페어링한다. */
 async function pairWithAttraction(site: HolySite): Promise<TourApiSpot | null> {
   const { lat, lng } = site.coordinates;
@@ -87,8 +101,9 @@ async function pairWithAttraction(site: HolySite): Promise<TourApiSpot | null> {
 
   try {
     const spots = await getNearbyAttractions(lng, lat, 3000, 5);
+    const secular = spots.filter((s) => !CATHOLIC_TITLE.test(s.title));
     // 대표 이미지가 있는 곳을 우선한다(콘텐츠가 풍부한 = 상대적으로 알려진 관광지).
-    return spots.find((s) => Boolean(s.firstimage)) ?? spots[0] ?? null;
+    return secular.find((s) => Boolean(s.firstimage)) ?? secular[0] ?? null;
   } catch (e) {
     console.error(`TourAPI 페어링 실패 (${site.name}):`, e);
     return null;
@@ -110,7 +125,7 @@ function buildCard(site: HolySite, attraction: TourApiSpot | null): CourseCard {
       Number(attraction.mapx),
     );
     minutes = walkMinutes(distKm);
-    subtitle = `${attraction.title} 인파를 뒤로하고, 도보 ${minutes}분 ${site.name}로`;
+    subtitle = `${attraction.title} 인파를 뒤로하고, 도보 ${minutes}분 ${withDirection(site.name)}`;
   }
 
   return { site, attraction, title, subtitle, walkMinutes: minutes };
