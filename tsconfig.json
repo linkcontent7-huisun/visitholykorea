@@ -28,5 +28,9 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src", "tests", "scripts", "vite.config.ts", "eslint.config.js"]
+  "include": ["src", "tests", "scripts", "vite.config.ts", "eslint.config.js"],
+  // scripts/tmp-*.ts 는 일회용 조사 스크립트다. .gitignore 대상이라 저장소에
+  // 들어오지도 않는데, 타입 검사에는 잡혀서 `npm run verify` 를 통째로 막았다.
+  // 남의 노트북에만 있는 임시 파일 때문에 커밋 게이트가 닫히면 안 된다.
+  "exclude": ["scripts/tmp-*.ts"]
 }

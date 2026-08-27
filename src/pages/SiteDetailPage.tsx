@@ -25,7 +25,8 @@ import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCa
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
-import { useNearbyAttractions, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
+import { useNearbyFacilities, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
+import { GROUP_HINT } from '@/features/sites/lib/nearby-facilities';
 import { useSite, useSitesInSameDiocese } from '@/features/sites/hooks/use-sites';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
@@ -41,7 +42,7 @@ export default function SiteDetailPage() {
   const { data: site, isLoading } = useSite(siteId);
   const view = useTranslatedSite(site);
   const { data: nearbySites = [] } = useSitesInSameDiocese(site?.region, siteId);
-  const { data: attractions = [], isFetching: attractionsLoading } = useNearbyAttractions(
+  const { data: facilityGroups = [], isFetching: facilitiesLoading } = useNearbyFacilities(
     site?.coordinates,
   );
   const { data: festivals = [], isFetching: festivalsLoading } = useNearbyFestivals(
@@ -299,61 +300,84 @@ export default function SiteDetailPage() {
           </div>
         </section>
 
-        {/* 주변 관광지 — TourAPI 실시간 조회 (저장하지 않는다) */}
-        {(attractionsLoading || attractions.length > 0) && (
+        {/*
+          주변 편의시설 — 맛집·숙박·볼거리·쉼터를 한 화면에서 본다.
+          TourAPI 를 한 번만 부르고 유형으로 나눈다(저장하지 않는다).
+          빈 유형은 아예 그리지 않는다 — 시골 성지의 빈 탭은 정보가 없는 앱으로 보인다.
+        */}
+        {(facilitiesLoading || facilityGroups.length > 0) && (
           <section>
             <div className="mb-6 flex items-center gap-3">
               <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-              <h2 className="text-xl font-extrabold tracking-tight text-app-text">주변 정보</h2>
+              <h2 className="text-xl font-extrabold tracking-tight text-app-text">
+                가는 김에 둘러볼 곳
+              </h2>
               <span className="text-[10px] font-bold text-app-text-muted">
-                실시간 · 한국관광공사
+                반경 5km · 실시간 · 한국관광공사
               </span>
             </div>
-            <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
-              {attractionsLoading
-                ? [1, 2, 3].map((i) => (
-                    <div
-                      key={i}
-                      className="h-64 w-44 flex-shrink-0 animate-pulse rounded-[32px] bg-app-bg"
-                    />
-                  ))
-                : attractions.map((spot) => (
-                    <a
-                      key={spot.contentid}
-                      href={kakaoPlaceUrl(spot.title, Number(spot.mapy), Number(spot.mapx))}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      aria-label={`${spot.title} 카카오맵에서 보기`}
-                      className="group w-44 flex-shrink-0 overflow-hidden rounded-[32px] border border-app-border bg-white text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-violet hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
-                    >
-                      <div className="relative flex h-40 items-center justify-center overflow-hidden bg-app-bg">
-                        {spot.firstimage ? (
-                          <img
-                            src={spot.firstimage}
-                            alt={spot.title}
-                            className="h-full w-full object-cover"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <Compass size={28} className="text-app-text-muted opacity-30" />
-                        )}
-                        {spot.dist && (
-                          <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[9px] font-extrabold text-brand-violet backdrop-blur-md">
-                            {Math.round(Number(spot.dist))}m
+
+            {facilitiesLoading ? (
+              <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="h-64 w-44 flex-shrink-0 animate-pulse rounded-[32px] bg-app-bg"
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-8">
+                {facilityGroups.map(({ group, spots }) => (
+                  <div key={group}>
+                    <div className="mb-3 flex items-baseline gap-2">
+                      <h3 className="text-sm font-extrabold text-app-text">{group}</h3>
+                      <span className="text-[11px] font-bold text-app-text-muted">
+                        {GROUP_HINT[group]}
+                      </span>
+                    </div>
+                    <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
+                      {spots.map((spot) => (
+                        <a
+                          key={spot.contentid}
+                          href={kakaoPlaceUrl(spot.title, Number(spot.mapy), Number(spot.mapx))}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          aria-label={`${spot.title} 카카오맵에서 보기`}
+                          className="group w-44 flex-shrink-0 overflow-hidden rounded-[32px] border border-app-border bg-white text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-violet hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
+                        >
+                          <div className="relative flex h-40 items-center justify-center overflow-hidden bg-app-bg">
+                            {spot.firstimage ? (
+                              <img
+                                src={spot.firstimage}
+                                alt={spot.title}
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <Compass size={28} className="text-app-text-muted opacity-30" />
+                            )}
+                            {spot.dist && (
+                              <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[9px] font-extrabold text-brand-violet backdrop-blur-md">
+                                {Math.round(Number(spot.dist))}m
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
-                      <div className="p-5">
-                        <h3 className="mb-1 truncate text-sm font-extrabold text-app-text group-hover:text-brand-violet">
-                          {spot.title}
-                        </h3>
-                        <p className="truncate text-[10px] font-bold text-app-text-muted">
-                          {spot.addr1}
-                        </p>
-                      </div>
-                    </a>
-                  ))}
-            </div>
+                          <div className="p-5">
+                            <h3 className="mb-1 truncate text-sm font-extrabold text-app-text group-hover:text-brand-violet">
+                              {spot.title}
+                            </h3>
+                            <p className="truncate text-[10px] font-bold text-app-text-muted">
+                              {spot.addr1}
+                            </p>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
         )}
 
