@@ -50,4 +50,4 @@ supabase/visitholykorea_버전보관/
 visitholykorea-학습자료/
 
 # 일회성 진단 스크립트 — 한 번 돌려 보고 버리는 것이라 저장소에 남기지 않는다.
-scripts/tmp-*.ts
+scripts/tmp-*
