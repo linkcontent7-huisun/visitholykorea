@@ -8,11 +8,9 @@ import {
   PartyPopper,
   Share2,
   Stamp,
-  Volume2,
-  VolumeX,
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
@@ -20,6 +18,9 @@ import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/
 import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use-favorites';
 import { useAddStamp, useMyStamp, useSiteNotes } from '@/features/passport/hooks/use-stamps';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
+import { DocentPlayer } from '@/features/docent/components/DocentPlayer';
+import { buildChapters } from '@/features/docent/lib/chapters';
+import { getDocentScript } from '@/features/docent/data/scripts';
 import { ContactCard } from '@/features/sites/components/ContactCard';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
@@ -55,7 +56,6 @@ export default function SiteDetailPage() {
   const { data: visitNotes = [] } = useSiteNotes(siteId);
   const addStamp = useAddStamp(siteId ?? '');
 
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const [shareLoading, setShareLoading] = useState(false);
   const [noteDraft, setNoteDraft] = useState('');
   // "남길게요"를 누르기 전까지는 입력창을 강요하지 않는다
@@ -63,36 +63,6 @@ export default function SiteDetailPage() {
 
   // 오늘 찍으면 어떤 한정판 스탬프가 되는지 미리 보여준다.
   const todayLiturgical = getLiturgicalEvent();
-
-  // 다른 성지로 이동하거나 화면을 나가면 읽던 음성을 멈춘다.
-  useEffect(() => {
-    return () => window.speechSynthesis?.cancel();
-  }, [siteId]);
-
-  const toggleSpeech = () => {
-    if (!site) return;
-    if (isSpeaking) {
-      window.speechSynthesis.cancel();
-      setIsSpeaking(false);
-      return;
-    }
-    const text = [
-      view?.name ?? site.name,
-      view?.description ?? site.description,
-      view?.history ?? site.history,
-    ]
-      .filter(Boolean)
-      .join('. ');
-    const utterance = new SpeechSynthesisUtterance(text);
-    // 번역 본문을 읽을 때는 음성도 그 언어여야 한다 — 한국어 음성이 영어를 읽으면 알아들을 수 없다
-    utterance.lang = language === 'en' ? 'en-US' : 'ko-KR';
-    utterance.rate = 0.95;
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utterance);
-    setIsSpeaking(true);
-  };
 
   const handleSaveNote = () => {
     const note = normalizeNote(noteDraft);
@@ -158,6 +128,18 @@ export default function SiteDetailPage() {
   }
 
   const tags = [site.emotionTag, site.region, site.category].filter((t): t is string => Boolean(t));
+
+  // 오디오 도슨트 — 현장조사 원고가 있으면 포인트별 투어, 없으면 소개·역사 챕터
+  const docentScript = getDocentScript(site.id);
+  const docentChapters = buildChapters(
+    {
+      name: view?.name ?? site.name,
+      description: view?.description ?? site.description,
+      history: view?.history ?? site.history,
+    },
+    docentScript,
+    language,
+  );
 
   return (
     <div className={`mx-auto min-h-screen ${widthClass} bg-white pb-32`}>
@@ -268,20 +250,13 @@ export default function SiteDetailPage() {
             <h2 className="flex-1 text-xl font-extrabold tracking-tight text-app-text">
               성지 이야기
             </h2>
-            {/* 고령 순례자를 위한 음성 안내. 브라우저 내장 TTS라 별도 비용이 없다. */}
-            <button
-              onClick={toggleSpeech}
-              className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all ${
-                isSpeaking
-                  ? 'border-brand-violet bg-brand-violet text-white'
-                  : 'border-app-border bg-app-bg text-app-text-muted'
-              }`}
-              id="tts-toggle"
-              aria-label={isSpeaking ? '읽기 중지' : '성지 이야기 읽어주기'}
-            >
-              {isSpeaking ? <VolumeX size={18} /> : <Volume2 size={18} />}
-            </button>
           </div>
+          {/* 오디오 도슨트 — 박물관 오디오 가이드처럼 챕터를 골라 듣는다 */}
+          <DocentPlayer
+            chapters={docentChapters}
+            isDraft={docentScript?.status === 'draft'}
+            language={language}
+          />
           <div className="relative overflow-hidden rounded-[40px] border border-brand-blue/5 bg-brand-blue/[0.03] p-8">
             <History
               size={100}
