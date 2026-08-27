@@ -61,7 +61,9 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <Headphones size={14} className="shrink-0 text-brand-violet" />
-            <h3 className="text-sm font-extrabold text-app-text">{copy.title}</h3>
+            <h3 className="whitespace-nowrap text-sm font-extrabold text-app-text">
+              {copy.title}
+            </h3>
             <span className="text-[11px] font-bold text-app-text-muted">
               {currentIndex + 1}/{chapters.length}
             </span>
@@ -69,13 +71,14 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
           <p className="mt-0.5 truncate text-[11px] font-medium text-app-text-muted">
             {copy.hint}
           </p>
+          {/* 문헌으로만 쓴 원고임을 정직하게 표시한다 — 더미 금지 원칙.
+              좁은 화면에서 제목을 밀어내지 않도록 배지는 제목 아래 줄에 둔다 */}
+          {isDraft && (
+            <span className="mt-1 inline-block rounded-full bg-amber-100 px-2.5 py-0.5 text-[10px] font-extrabold text-amber-700">
+              {copy.draft}
+            </span>
+          )}
         </div>
-        {/* 문헌으로만 쓴 원고임을 정직하게 표시한다 — 더미 금지 원칙 */}
-        {isDraft && (
-          <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-extrabold text-amber-700">
-            {copy.draft}
-          </span>
-        )}
         {/* 고령 사용자를 위한 속도 조절 — 느리게·보통·빠르게 순환 */}
         <button
           onClick={cycleRate}
