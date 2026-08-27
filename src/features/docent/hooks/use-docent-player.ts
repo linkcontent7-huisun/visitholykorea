@@ -9,9 +9,20 @@ import type { DocentChapter } from '../lib/chapters';
  * 구현했다. iOS 사파리에서 pause() 가 자주 먹통이 되는데, 챕터가 3~6문장이라
  * 처음부터 다시 들어도 잃는 것이 적다.
  */
+/** 고령 순례자는 느리게, 익숙한 사용자는 빠르게 — 세 단계면 충분하다. */
+export const SPEECH_RATES = [
+  { key: 'slow', rate: 0.8 },
+  { key: 'normal', rate: 0.95 },
+  { key: 'fast', rate: 1.15 },
+] as const;
+
+export type SpeechRateKey = (typeof SPEECH_RATES)[number]['key'];
+
 export function useDocentPlayer(chapters: DocentChapter[], language: 'ko' | 'en') {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [rateIndex, setRateIndex] = useState(1); // 보통에서 시작
+  const rateRef = useRef(SPEECH_RATES[1]!.rate);
 
   // cancel() 도 onend 를 부르는 브라우저가 있다 — 의도한 정지 뒤에 낡은
   // onend 가 다음 챕터를 재생하지 못하게, 재생 세션 번호로 구분한다.
@@ -39,7 +50,7 @@ export function useDocentPlayer(chapters: DocentChapter[], language: 'ko' | 'en'
     const utterance = new SpeechSynthesisUtterance(chapter.narration);
     // 영어 본문을 한국어 음성이 읽으면 알아들을 수 없다 — 언어를 맞춘다.
     utterance.lang = language === 'en' ? 'en-US' : 'ko-KR';
-    utterance.rate = 0.95;
+    utterance.rate = rateRef.current;
     utterance.onend = () => {
       if (sessionRef.current !== session) return;
       const next = index + 1;
@@ -66,5 +77,21 @@ export function useDocentPlayer(chapters: DocentChapter[], language: 'ko' | 'en'
     else playFrom(currentIndex);
   };
 
-  return { currentIndex, isPlaying, playFrom, toggle, stop };
+  /** 느리게 → 보통 → 빠르게 순환. 재생 중이면 현재 챕터를 새 속도로 다시 읽는다. */
+  const cycleRate = () => {
+    const next = (rateIndex + 1) % SPEECH_RATES.length;
+    setRateIndex(next);
+    rateRef.current = SPEECH_RATES[next]!.rate;
+    if (isPlaying) playFrom(currentIndex);
+  };
+
+  return {
+    currentIndex,
+    isPlaying,
+    playFrom,
+    toggle,
+    stop,
+    cycleRate,
+    rateKey: SPEECH_RATES[rateIndex]!.key,
+  };
 }
