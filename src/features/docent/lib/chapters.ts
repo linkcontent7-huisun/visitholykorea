@@ -9,9 +9,13 @@
 export interface DocentPoint {
   seq: number;
   title: string;
+  titleEn?: string | null;
   location: string | null;
+  locationEn?: string | null;
   narration: string;
+  narrationEn?: string | null;
   lookFor: string | null;
+  lookForEn?: string | null;
   forEveryone: string | null;
 }
 
@@ -19,9 +23,21 @@ export interface DocentScript {
   siteId: string;
   siteName: string;
   status: 'draft' | 'verified';
-  intro: { narration: string };
+  intro: { narration: string; narrationEn?: string | null };
   points: DocentPoint[];
-  outro: { narration: string };
+  outro: { narration: string; narrationEn?: string | null };
+}
+
+/**
+ * 영어 포인트 투어는 전부 번역됐을 때만 낸다.
+ * 챕터 중간에 갑자기 한국어가 나오는 반쪽 투어보다 소개·역사 폴백이 낫다.
+ */
+function hasFullEnglish(script: DocentScript): boolean {
+  return Boolean(
+    script.intro.narrationEn &&
+      script.outro.narrationEn &&
+      script.points.every((p) => p.narrationEn && p.titleEn),
+  );
 }
 
 export interface DocentChapter {
@@ -48,7 +64,6 @@ export function buildChapters(
   script: DocentScript | null,
   language: 'ko' | 'en',
 ): DocentChapter[] {
-  // 포인트 원고는 아직 한국어뿐이다 — 영어 모드는 번역 본문 챕터로 폴백한다.
   if (script && language === 'ko') {
     return [
       { id: 'intro', title: TITLES.ko.intro, narration: script.intro.narration, location: null, lookFor: null },
@@ -60,6 +75,21 @@ export function buildChapters(
         lookFor: p.lookFor,
       })),
       { id: 'outro', title: TITLES.ko.outro, narration: script.outro.narration, location: null, lookFor: null },
+    ];
+  }
+
+  // 영어 모드 — 원고가 끝까지 번역된 성지만 영어 포인트 투어를 낸다.
+  if (script && language === 'en' && hasFullEnglish(script)) {
+    return [
+      { id: 'intro', title: TITLES.en.intro, narration: script.intro.narrationEn!, location: null, lookFor: null },
+      ...script.points.map((p) => ({
+        id: `point-${p.seq}`,
+        title: p.titleEn!,
+        narration: p.narrationEn!,
+        location: p.locationEn ?? null,
+        lookFor: p.lookForEn ?? null,
+      })),
+      { id: 'outro', title: TITLES.en.outro, narration: script.outro.narrationEn!, location: null, lookFor: null },
     ];
   }
 

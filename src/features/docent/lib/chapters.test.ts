@@ -43,9 +43,47 @@ describe('buildChapters', () => {
     expect(result[1]?.lookFor).toBe('십자가');
   });
 
-  it('영어 모드에서는 한국어 원고 대신 번역 본문 챕터를 쓴다', () => {
+  it('영어 번역이 없는 원고는 영어 모드에서 번역 본문 챕터로 폴백한다', () => {
     const result = buildChapters(basic, script, 'en');
     expect(result.map((c) => c.id)).toEqual(['intro', 'history', 'outro']);
     expect(result[0]?.title).toBe('Welcome');
+  });
+
+  it('영어 번역이 전부 있는 원고는 영어 모드에서도 포인트 투어로 나온다', () => {
+    const enScript: DocentScript = {
+      ...script,
+      intro: { narration: '여는 말입니다', narrationEn: 'Welcome to this shrine.' },
+      points: [
+        {
+          seq: 1,
+          title: '순교자 기념상',
+          titleEn: 'Martyrs Memorial Statue',
+          location: '입구 왼쪽',
+          locationEn: 'Left of the entrance',
+          narration: '설명',
+          narrationEn: 'An English narration.',
+          lookFor: '십자가',
+          lookForEn: 'The cross',
+          forEveryone: null,
+        },
+      ],
+      outro: { narration: '맺음말입니다', narrationEn: 'Thank you for visiting.' },
+    };
+    const result = buildChapters(basic, enScript, 'en');
+    expect(result.map((c) => c.id)).toEqual(['intro', 'point-1', 'outro']);
+    expect(result[0]?.narration).toBe('Welcome to this shrine.');
+    expect(result[1]?.title).toBe('Martyrs Memorial Statue');
+    expect(result[1]?.location).toBe('Left of the entrance');
+  });
+
+  it('포인트 하나라도 영어가 빠지면 통째로 폴백한다 — 반쪽 영어 투어는 안 낸다', () => {
+    const partial: DocentScript = {
+      ...script,
+      intro: { narration: '여는 말입니다', narrationEn: 'Welcome.' },
+      outro: { narration: '맺음말입니다', narrationEn: 'Farewell.' },
+      // points 의 narrationEn 이 없다
+    };
+    const result = buildChapters(basic, partial, 'en');
+    expect(result.map((c) => c.id)).toEqual(['intro', 'history', 'outro']);
   });
 });
