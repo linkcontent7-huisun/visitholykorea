@@ -71,7 +71,7 @@ export function buildChapters(
   en `'Thank you for walking with us. May your pilgrimage be peaceful.'`
 - 챕터 제목: ko `여는 말`/`역사`/`맺음말`, en `Welcome`/`History`/`Farewell`. 포인트는 원고의 title.
 
-- [ ] **Step 1: 실패하는 테스트 작성** — `chapters.test.ts`
+- [x] **Step 1: 실패하는 테스트 작성** — `chapters.test.ts`
 
 ```ts
 import { describe, expect, it } from 'vitest';
@@ -115,10 +115,10 @@ describe('buildChapters', () => {
 });
 ```
 
-- [ ] **Step 2: 실패 확인** — Run: `npx vitest run src/features/docent` → FAIL (chapters 모듈 없음)
-- [ ] **Step 3: `chapters.ts` 구현** — 위 인터페이스와 동작 규칙 그대로. 순수 함수, import 없음(타입 제외)
-- [ ] **Step 4: 통과 확인** — `npx vitest run src/features/docent` → PASS
-- [ ] **Step 5: 커밋** — `git add src/features/docent && git commit -m "feat: 도슨트 챕터 빌더 — 원고 유무·언어에 따라 챕터 구성"`
+- [x] **Step 2: 실패 확인** — Run: `npx vitest run src/features/docent` → FAIL (chapters 모듈 없음)
+- [x] **Step 3: `chapters.ts` 구현** — 위 인터페이스와 동작 규칙 그대로. 순수 함수, import 없음(타입 제외)
+- [x] **Step 4: 통과 확인** — `npx vitest run src/features/docent` → PASS
+- [x] **Step 5: 커밋** — `git add src/features/docent && git commit -m "feat: 도슨트 챕터 빌더 — 원고 유무·언어에 따라 챕터 구성"`
 
 ### Task 2: 원고 로더
 
@@ -138,11 +138,11 @@ export function getDocentScript(siteId: string | undefined): DocentScript | null
 
 검증 규칙: `siteId` 가 문자열이고, `intro.narration` 이 비어 있지 않고, `points` 가 1개 이상인 것만 채택. `_템플릿.json`(siteId: null)과 형식이 깨진 파일은 조용히 제외 — 원고 파일 하나가 깨졌다고 앱이 죽으면 안 된다.
 
-- [ ] **Step 1: 실패하는 테스트 작성** — 템플릿 모양 객체(siteId null)와 정상 원고를 넣어, 정상 원고만 Map 에 남는지. JSON 모듈은 `{ default: ... }` 로 감싸일 수 있으므로 두 형태 모두 처리하는지도 확인
-- [ ] **Step 2: 실패 확인** — `npx vitest run src/features/docent` → FAIL
-- [ ] **Step 3: 구현** — `getDocentScript` 는 `import.meta.glob('/data/docent/*.json', { eager: true })` 결과를 모듈 로드 시 한 번 `indexDocentScripts` 로 색인
-- [ ] **Step 4: 통과 확인** — PASS
-- [ ] **Step 5: 커밋** — `git commit -m "feat: 도슨트 원고 로더 — data/docent/*.json 을 빌드 시 색인"`
+- [x] **Step 1: 실패하는 테스트 작성** — 템플릿 모양 객체(siteId null)와 정상 원고를 넣어, 정상 원고만 Map 에 남는지. JSON 모듈은 `{ default: ... }` 로 감싸일 수 있으므로 두 형태 모두 처리하는지도 확인
+- [x] **Step 2: 실패 확인** — `npx vitest run src/features/docent` → FAIL
+- [x] **Step 3: 구현** — `getDocentScript` 는 `import.meta.glob('/data/docent/*.json', { eager: true })` 결과를 모듈 로드 시 한 번 `indexDocentScripts` 로 색인
+- [x] **Step 4: 통과 확인** — PASS
+- [x] **Step 5: 커밋** — `git commit -m "feat: 도슨트 원고 로더 — data/docent/*.json 을 빌드 시 색인"`
 
 ### Task 3: 플레이어 훅 + UI
 
@@ -171,11 +171,11 @@ export function useDocentPlayer(chapters: DocentChapter[], language: 'ko' | 'en'
 
 UI: 챕터 목록(번호·제목·현재 챕터 강조), 챕터 행을 누르면 `playFrom`, 상단에 재생/일시정지 버튼과 `현재/전체` 표시. 포인트 챕터는 `location`("찾아가는 위치")과 `lookFor`("눈여겨볼 것")를 작은 글씨로 병기. `isDraft` 면 상단에 "초안 — 현장 확인 전" 배지(amber 계열). `chapters.length === 0` 이면 null 반환.
 
-- [ ] **Step 1: 실패하는 테스트 작성** — jsdom 에는 speechSynthesis 가 없으므로 `vi.stubGlobal('speechSynthesis', { speak: vi.fn(), cancel: vi.fn(), pause: vi.fn(), resume: vi.fn() })` + `vi.stubGlobal('SpeechSynthesisUtterance', class { ... })`. 검증: 챕터 3개 렌더 → 목록에 제목 3개, 초안 배지 표시, 챕터 클릭 시 `speechSynthesis.speak` 호출
-- [ ] **Step 2: 실패 확인** — FAIL
-- [ ] **Step 3: 구현**
-- [ ] **Step 4: 통과 확인** — PASS
-- [ ] **Step 5: 커밋** — `git commit -m "feat: 오디오 도슨트 플레이어 — 챕터 재생·자동 이어듣기"`
+- [x] **Step 1: 실패하는 테스트 작성** — jsdom 에는 speechSynthesis 가 없으므로 `vi.stubGlobal('speechSynthesis', { speak: vi.fn(), cancel: vi.fn(), pause: vi.fn(), resume: vi.fn() })` + `vi.stubGlobal('SpeechSynthesisUtterance', class { ... })`. 검증: 챕터 3개 렌더 → 목록에 제목 3개, 초안 배지 표시, 챕터 클릭 시 `speechSynthesis.speak` 호출
+- [x] **Step 2: 실패 확인** — FAIL
+- [x] **Step 3: 구현**
+- [x] **Step 4: 통과 확인** — PASS
+- [x] **Step 5: 커밋** — `git commit -m "feat: 오디오 도슨트 플레이어 — 챕터 재생·자동 이어듣기"`
 
 ### Task 4: 성지 상세에 연결
 
@@ -185,7 +185,7 @@ UI: 챕터 목록(번호·제목·현재 챕터 강조), 챕터 행을 누르면
 **Interfaces:**
 - Consumes: `buildChapters`, `getDocentScript`, `DocentPlayer`
 
-- [ ] **Step 1: 교체** — "성지 이야기" 섹션 헤더의 Volume2 버튼과 관련 상태·effect 를 지우고, 본문 카드 위에:
+- [x] **Step 1: 교체** — "성지 이야기" 섹션 헤더의 Volume2 버튼과 관련 상태·effect 를 지우고, 본문 카드 위에:
 
 ```tsx
 const script = getDocentScript(site.id);
@@ -198,8 +198,8 @@ const chapters = buildChapters(
 <DocentPlayer chapters={chapters} isDraft={script?.status === 'draft'} language={language} />
 ```
 
-- [ ] **Step 2: 전체 검증** — `npm run verify` → PASS (기존 테스트 188개 + 신규)
-- [ ] **Step 3: 커밋** — `git commit -m "feat: 성지 상세의 읽어주기 버튼을 오디오 도슨트 플레이어로 교체"`
+- [x] **Step 2: 전체 검증** — `npm run verify` → PASS (기존 테스트 188개 + 신규)
+- [x] **Step 3: 커밋** — `git commit -m "feat: 성지 상세의 읽어주기 버튼을 오디오 도슨트 플레이어로 교체"`
 
 ### Task 5: 초안 원고 3곳 (절두산·명동·약현)
 
@@ -221,10 +221,10 @@ const chapters = buildChapters(
   명동 = 언덕길 진입 → 성당 외관(고딕·종탑 47m) → 내부·스테인드글라스 → 지하 성당(유해 안장) → 1987년 민주화 운동
   약현 = 언덕과 서소문 조망 → 성당 외관(로마네스크·1892) → 내부 → 서소문 순교지와의 관계
 
-- [ ] **Step 1: 공식 홈페이지 확인** — WebFetch/검색으로 각 성지 공식 안내문을 읽고 사실 목록을 만든다
-- [ ] **Step 2: JSON 3개 작성** — 템플릿 형식·위 규칙 준수. `photos` 는 빈 배열(사진 없음을 지어내지 않는다)
-- [ ] **Step 3: 로더 통과 확인** — `npx vitest run src/features/docent` PASS + `npm run build` 로 glob 이 실제 파일을 집는지 확인
-- [ ] **Step 4: 커밋** — `git commit -m "content: 절두산·명동·약현 도슨트 초안 원고 (문헌 기반, draft)"`
+- [x] **Step 1: 공식 홈페이지 확인** — WebFetch/검색으로 각 성지 공식 안내문을 읽고 사실 목록을 만든다
+- [x] **Step 2: JSON 3개 작성** — 템플릿 형식·위 규칙 준수. `photos` 는 빈 배열(사진 없음을 지어내지 않는다)
+- [x] **Step 3: 로더 통과 확인** — `npx vitest run src/features/docent` PASS + `npm run build` 로 glob 이 실제 파일을 집는지 확인
+- [x] **Step 4: 커밋** — `git commit -m "content: 절두산·명동·약현 도슨트 초안 원고 (문헌 기반, draft)"`
 
 ### Task 6: 화면 확인·문서 정리
 
@@ -232,7 +232,7 @@ const chapters = buildChapters(
 - Modify: `docs/이어서-할-일.md` (3.8 항목 갱신)
 - Delete: `scripts/tmp-fetch-docent.ts`, `scripts/tmp-docent-sources.json` (gitignore 대상 임시 파일)
 
-- [ ] **Step 1: dev 서버에서 확인** — 절두산 상세를 열어 챕터 목록·재생·다음 챕터 이동·초안 배지를 실제로 누르고 스크린샷
-- [ ] **Step 2: `npm run verify`** — PASS
-- [ ] **Step 3: 문서 갱신** — 3.8 에 "플레이어 구현 완료(2026-08-27), 초안 3곳, 현장 검증 대기" 반영. 임시 파일 삭제
-- [ ] **Step 4: 커밋** — `git commit -m "docs: 도슨트 진행 상태 갱신 — 플레이어·초안 3곳"`
+- [x] **Step 1: dev 서버에서 확인** — 절두산 상세를 열어 챕터 목록·재생·다음 챕터 이동·초안 배지를 실제로 누르고 스크린샷
+- [x] **Step 2: `npm run verify`** — PASS
+- [x] **Step 3: 문서 갱신** — 3.8 에 "플레이어 구현 완료(2026-08-27), 초안 3곳, 현장 검증 대기" 반영. 임시 파일 삭제
+- [x] **Step 4: 커밋** — `git commit -m "docs: 도슨트 진행 상태 갱신 — 플레이어·초안 3곳"`
