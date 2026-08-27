@@ -22,7 +22,7 @@ export function useDocentPlayer(chapters: DocentChapter[], language: 'ko' | 'en'
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [rateIndex, setRateIndex] = useState(1); // 보통에서 시작
-  const rateRef = useRef(SPEECH_RATES[1]!.rate);
+  const rateRef = useRef<number>(SPEECH_RATES[1]!.rate);
 
   // cancel() 도 onend 를 부르는 브라우저가 있다 — 의도한 정지 뒤에 낡은
   // onend 가 다음 챕터를 재생하지 못하게, 재생 세션 번호로 구분한다.

@@ -7,15 +7,20 @@
   "status": "draft",
   "intro": {
     "narration": "제천 봉양읍, 배 밑바닥을 닮은 골짜기라 하여 배론입니다. 박해를 피해 숨어든 신자들이 옹기를 구우며 살던 교우촌이었던 이 좁은 골짜기에, 한국 교회사의 세 장면이 겹쳐 있습니다. 황사영이 백서를 쓴 토굴, 한국 최초의 신학교인 성 요셉 신학당, 그리고 한국인 두 번째 사제 최양업 신부의 묘. 골짜기를 따라 차례로 안내해 드리겠습니다.",
+    "narrationEn": "This is Baeron in Jecheon — a valley named for its shape, like the hull of a boat. In this narrow valley, once a hidden village where believers fleeing persecution lived by firing pottery, three scenes of Korean church history overlap: the earthen cave where Hwang Sa-yong wrote his silk letter, St. Joseph Seminary — Korea's first — and the tomb of Fr. Thomas Choe Yang-eop, Korea's second priest. Let me guide you through the valley, one scene at a time.",
     "photos": []
   },
   "points": [
     {
       "seq": 1,
       "title": "골짜기와 교우촌 — 옹기 굽던 사람들",
+      "titleEn": "The Valley Village of Potters",
       "location": "성지 입구, 골짜기가 한눈에 보이는 자리",
+      "locationEn": "At the entrance, where the valley comes into view",
       "narration": "성지에 들어서며 골짜기의 생김새를 먼저 봐 주세요. 배 밑바닥처럼 좁고 긴 이 지형이 배론이라는 이름의 유래입니다. 1800년대 초 박해를 피한 신자들은 이런 산골로 숨어들어 옹기를 구워 팔며 살았습니다. 옹기 가마는 생계 수단이면서 숨을 곳이기도 했습니다. 지금의 고요한 성지는 그 숨어 살던 이들의 마을 위에 세워져 있습니다.",
+      "narrationEn": "As you enter, look first at the shape of the valley — long and narrow like a boat's hull, which is how Baeron got its name. In the early 1800s, believers fleeing persecution hid in mountain hollows like this, living by firing and selling onggi pottery. The kilns were both a livelihood and a hiding place. Today's quiet shrine stands upon the village of those who lived in hiding.",
       "lookFor": "골짜기의 좁고 긴 지형",
+      "lookForEn": "The long, narrow shape of the valley",
       "forEveryone": "박해 시대의 교우촌은 옹기·화전 같은 생업과 신앙 공동체가 결합된, 조선 후기 사회사의 독특한 마을 형태입니다.",
       "photos": [],
       "sourceNote": "성지 DB 원문 — 지명 유래·옹기굴, 배론성지 공식(baeron.or.kr) 검색 확인 — 박해를 피해 형성된 교우촌"
@@ -23,9 +28,13 @@
     {
       "seq": 2,
       "title": "황사영 백서 토굴",
+      "titleEn": "The Cave of Hwang Sa-yong's Silk Letter",
       "location": "성 요셉 신학당 뒤편",
+      "locationEn": "Behind St. Joseph Seminary",
       "narration": "옹기 가마로 위장한 이 작은 토굴에서, 1801년 신유박해가 터지자 황사영 알렉시오는 여덟 달을 숨어 지냈습니다. 그리고 가로 62센티미터, 세로 40센티미터의 명주천에 만 삼천삼백여든네 자를 깨알같이 적었습니다. 박해의 실상과 교회를 다시 세울 방안을 북경의 주교에게 알리려던 편지, 백서입니다. 편지는 전달자가 붙잡히며 끝내 닿지 못했고, 황사영은 그해 서소문 밖에서 처형되었습니다. 토굴 앞에 서면, 이 좁은 어둠 속에서 여덟 달을 버티게 한 것이 무엇이었을지 묻게 됩니다.",
+      "narrationEn": "In this small earthen cave, disguised as a pottery kiln, Alexius Hwang Sa-yong hid for eight months when the persecution of 1801 broke out. On a piece of silk sixty-two by forty centimeters, he wrote 13,384 tiny characters — a letter to the bishop in Beijing, reporting the persecution and proposing how the Church might be rebuilt. The letter never arrived; its bearer was caught, and Hwang was executed at Seosomun that same year. Standing before the cave, you find yourself asking what sustained a man through eight months in that narrow dark.",
       "lookFor": "토굴 입구의 크기 — 몸을 굽혀야 들어갈 수 있는 좁은 문",
+      "lookForEn": "The cave mouth — so low you must stoop to enter",
       "forEveryone": "황사영 백서 원본은 현재 로마 바티칸 박물관에 보관되어 있는 것으로 알려져 있으며, 조선 후기사의 중요한 사료입니다.",
       "photos": [],
       "sourceNote": "성지 DB 원문 + 배론성지 공식(baeron.or.kr) 검색 확인 — 8개월·명주천 62×40cm·122행 13,384자·서소문 처형. 백서 원본 소재는 일반에 알려진 사실이나 현재 상태는 확인 필요"
@@ -33,9 +42,13 @@
     {
       "seq": 3,
       "title": "성 요셉 신학당 — 한국 최초의 신학교",
+      "titleEn": "St. Joseph Seminary — Korea's First",
       "location": "성지 내 복원된 신학당 초가",
+      "locationEn": "The restored thatched seminary on the grounds",
       "narration": "1855년, 신자 장주기 요셉이 자기 집을 내놓아 이곳에 한국 최초의 신학교인 성 요셉 신학당이 세워졌습니다. 프랑스 선교사 푸르티에 신부와 프티니콜라 신부가 조선의 젊은이들에게 라틴어와 신학을 가르쳤습니다. 초가집 신학교 — 서양의 근대 학문이 조선의 산골 초가에서 가르쳐졌다는 사실이 이 공간의 반전입니다. 1866년 병인박해로 두 신부는 새남터에서, 집주인 장주기는 갈매못에서 순교하며 신학당은 11년 만에 문을 닫았습니다.",
+      "narrationEn": "In 1855, a believer named Joseph Chang Chu-gi gave his own house, and St. Joseph Seminary — Korea's first — was founded here. The French missionaries Fr. Pourthié and Fr. Petitnicolas taught Latin and theology to young Koreans. A seminary in a thatched cottage: that Western modern learning was taught in a mountain hamlet of Joseon is the quiet astonishment of this place. In the persecution of 1866 the two priests were martyred at Saenamteo, Chang Chu-gi at Galmaemot, and after eleven years the seminary closed.",
       "lookFor": "복원된 초가의 소박한 규모",
+      "lookForEn": "The modest scale of the restored thatched house",
       "forEveryone": "이곳은 조선 최초의 근대식 교육 기관 중 하나로 평가받습니다. 교육사의 현장이기도 합니다.",
       "photos": [],
       "sourceNote": "성지 DB 원문 — 장주기 제공·푸르티에·프티니콜라·1866 순교, 배론성지 공식(baeron.or.kr) 검색 확인 — 1855 설립·최초 신학교·근대 교육기관. 설립 주도(메스트르 신부)와 건물 복원 상태는 현장 확인 필요"
@@ -43,9 +56,13 @@
     {
       "seq": 4,
       "title": "최양업 신부의 묘",
+      "titleEn": "The Tomb of Fr. Thomas Choe Yang-eop",
       "location": "성지 내 묘역",
+      "locationEn": "The burial ground within the shrine",
       "narration": "이 묘에 잠든 최양업 토마스 신부는 김대건에 이은 한국인 두 번째 사제입니다. 김대건이 피의 순교자라면, 최양업은 땀의 순교자라 불립니다. 순교로 생을 마치는 대신, 12년 동안 해마다 수천 리를 걸어 전국에 흩어진 교우촌을 찾아다니다 길 위에서 과로로 선종했기 때문입니다. 교회는 그를 가경자로 선포하고 시복을 준비하고 있습니다. 화려한 죽음이 아니라 꾸준한 걸음으로 완성된 삶 앞에서, 순례라는 말의 뜻을 다시 생각하게 됩니다.",
+      "narrationEn": "Here rests Fr. Thomas Choe Yang-eop, Korea's second priest after Kim Taegon. If Kim Taegon is the martyr of blood, Choe is called the martyr of sweat: instead of dying at the executioner's hand, he walked thousands of miles a year for twelve years to reach believers scattered in hidden villages, until he died of exhaustion on the road. The Church has declared him Venerable and is preparing his beatification. Before a life completed not by a dramatic death but by steadfast walking, you come to rethink what pilgrimage means.",
       "lookFor": "묘역의 위치 — 골짜기를 내려다보는 자리",
+      "lookForEn": "The tomb's position, looking down over the valley",
       "forEveryone": "가경자는 가톨릭에서 성인으로 선포되기 전 단계 중 하나로, 영웅적 덕행이 공식 인정되었다는 뜻입니다.",
       "photos": [],
       "sourceNote": "성지 DB 원문 — 최양업 묘, 배론성지 공식(baeron.or.kr) 검색 확인 — 가경자·기념 대성당. '땀의 순교자' 표현은 교회 안팎에서 통용되는 공식 별칭. 12년 사목 여정은 널리 알려진 사실이나 세부 수치는 현장 안내판과 대조 필요"
@@ -53,9 +70,13 @@
     {
       "seq": 5,
       "title": "최양업 신부 기념 대성당",
+      "titleEn": "The Memorial Basilica of Fr. Choe Yang-eop",
       "location": "성지 내 대성당",
+      "locationEn": "The great church on the grounds",
       "narration": "골짜기 안쪽의 대성당은 최양업 신부를 기념하는 성당으로, 순례자들의 미사가 이곳에서 봉헌됩니다. 토굴의 어둠에서 시작해 신학당의 배움을 지나 이 성당의 빛으로 이어지는 동선이, 배론이라는 골짜기가 품은 이야기의 순서 그대로입니다. 미사 시간이 맞는다면 순례자 미사에 함께해 보시고, 아니라면 성당에 앉아 골짜기의 고요를 한 번 더 느껴 보시기 바랍니다.",
+      "narrationEn": "Deeper in the valley stands the great memorial church of Fr. Choe Yang-eop, where pilgrims' Masses are offered. The way you have walked — from the darkness of the cave, through the learning of the seminary, into the light of this church — follows the very order of the story this valley holds. Join the pilgrims' Mass if the hour is right; if not, sit inside and feel the valley's stillness once more.",
       "lookFor": "성당 안에서 돌아보는 골짜기의 풍경",
+      "lookForEn": "The valley seen from inside the church",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "배론성지 공식(baeron.or.kr) 검색 확인 — 최양업 토마스 신부 기념 대성당·순례자 미사. 성당 건축 세부는 현장 확인 필요"
@@ -63,9 +84,13 @@
     {
       "seq": 6,
       "title": "성지 밖으로 — 봉양의 솔숲과 의림지",
+      "titleEn": "Beyond the Shrine — Pine Pavilions and Uirimji",
       "location": "배론에서 제천 시내 방향",
+      "locationEn": "From Baeron toward downtown Jecheon",
       "narration": "배론이 자리한 봉양읍 일대는 물과 숲의 고장입니다. 가까운 탁사정은 강가 절벽 위 솔숲에 안긴 정자로, 주차장에서 오 분이면 오를 수 있습니다. 제천 시내 쪽으로 나가면 제천 십경의 첫째로 꼽히는 의림지가 있습니다. 삼한 시대에 만들어졌다고 전해지는 우리나라에서 가장 오래된 저수지 가운데 하나로, 나라가 지정한 명승입니다. 골짜기의 고요를 안고 나와, 오래된 물가를 걸으며 하루를 마무리해 보셔도 좋겠습니다.",
+      "narrationEn": "The Bongyang country around Baeron is a land of water and woods. Nearby Taksajeong is a pavilion cradled in pines atop a riverside cliff, a five-minute climb from the parking lot. Toward downtown Jecheon lies Uirimji, first of Jecheon's ten scenic sights — one of Korea's oldest reservoirs, said to date from the Samhan era and designated a national scenic site. Carry the valley's stillness out with you, and end the day walking those ancient waters.",
       "lookFor": "의림지 둘레의 노송과 용추폭포",
+      "lookForEn": "The old pines around Uirimji and the Yongchu waterfall",
       "forEveryone": "의림지는 김제 벽골제와 함께 한국 고대 수리 시설을 대표하는 유적입니다.",
       "photos": [],
       "sourceNote": "제천시 문화관광 공식(tour.jecheon.go.kr) — 탁사정(솔숲 정자·5분 오름길)·의림지(제천10경 1경, 삼한시대 축조 전승, 국가명승, 용추폭포)"
@@ -73,6 +98,7 @@
   ],
   "outro": {
     "narration": "배론 순례에 함께해 주셔서 감사합니다. 이 골짜기에서 쓰인 백서는 서소문으로, 이곳에서 가르치던 신부들은 새남터로 이어집니다. 좁은 골짜기 하나가 이렇게 넓은 이야기를 품고 있습니다. 돌아가는 길, 골짜기를 한 번 돌아봐 주시기 바랍니다. 평화를 빕니다.",
+    "narrationEn": "Thank you for walking Baeron with us. The silk letter written in this valley leads to Seosomun; the priests who taught here lead to Saenamteo. One narrow valley holds a story this wide. As you leave, turn and look back at the valley once more. Peace be with you.",
     "photos": []
   }
 }

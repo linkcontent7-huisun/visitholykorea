@@ -7,15 +7,20 @@
   "status": "draft",
   "intro": {
     "narration": "소나무가 우거진 나지막한 산이라 하여 솔뫼입니다. 1821년 이 마을에서 한국 최초의 사제 김대건 안드레아 신부가 태어났습니다. 솔뫼는 김대건 한 사람의 고향이 아니라, 증조할아버지부터 4대에 걸쳐 순교자를 낸 한 가문의 신앙이 자란 못자리입니다. 2014년에는 프란치스코 교황이 이곳을 찾았고, 2027년 서울 세계청년대회의 공식 일정지이기도 합니다. 솔숲 사이로 함께 걸어보겠습니다.",
+    "narrationEn": "Solmoe means a low hill thick with pines. In this village, in 1821, St. Andrew Kim Taegon — Korea's first Catholic priest — was born. But Solmoe is more than one man's hometown: it is the seedbed of a family whose faith bore martyrs across four generations, from his great-grandfather onward. Pope Francis visited in 2014, and Solmoe is an official site of World Youth Day Seoul 2027. Let us walk together beneath the pines.",
     "photos": []
   },
   "points": [
     {
       "seq": 1,
       "title": "솔숲 — 이름이 된 소나무 숲",
+      "titleEn": "The Pine Grove That Named the Place",
       "location": "성지 입구에서 생가로 이어지는 솔숲 길",
+      "locationEn": "The pine path from the entrance to the birth home",
       "narration": "먼저 소나무 숲길을 천천히 걸어보세요. 솔뫼라는 이름은 1836년 김대건의 신학생 추천서에도 적혀 있을 만큼 오래된 지명입니다. 어린 김대건이 뛰어놀았을 이 숲은 이제 순례자들이 묵상하며 걷는 길이 되었습니다. 소나무 사이로 바람이 지나는 소리에 잠시 귀를 기울여 보시기 바랍니다.",
+      "narrationEn": "Begin by walking slowly through the pines. The name Solmoe is old enough to appear in Kim Taegon's seminary recommendation of 1836. The grove where the boy once played is now a path where pilgrims walk in meditation. Listen, for a moment, to the wind passing between the pines.",
       "lookFor": "수령이 오래된 소나무들의 굽은 줄기",
+      "lookForEn": "The bent trunks of the old pines",
       "forEveryone": "솔뫼는 순우리말 지명으로, 소나무 산이라는 뜻입니다.",
       "photos": [],
       "sourceNote": "성지 DB 원문 — 지명 유래·1836년 추천서 기록"
@@ -23,9 +28,13 @@
     {
       "seq": 2,
       "title": "복원된 생가 — 김대건 신부가 태어난 집",
+      "titleEn": "The Restored Birth Home of St. Andrew Kim Taegon",
       "location": "솔숲 안쪽의 기와집",
+      "locationEn": "The tile-roofed house within the grove",
       "narration": "이 기와집이 2004년에 복원된 김대건 신부의 생가입니다. 1821년 이 집에서 태어난 김대건은 열다섯에 신학생으로 뽑혀 마카오로 떠났고, 스물넷에 사제가 되어 돌아왔으며, 스물다섯에 새남터에서 순교했습니다. 2014년 8월 15일, 프란치스코 교황은 바로 이 생가 앞에 앉아 조용히 기도했습니다. 교황이 앉았던 그 자리에서 여러분도 잠시 머물러 보시기 바랍니다.",
+      "narrationEn": "This tile-roofed house, restored in 2004, is the birthplace of St. Andrew Kim Taegon. Born here in 1821, he was chosen as a seminarian at fifteen and sent to Macau, returned a priest at twenty-four, and was martyred at Saenamteo at twenty-five. On August 15, 2014, Pope Francis sat before this very house in quiet prayer. Stay a while where the Pope once sat.",
       "lookFor": "생가 마루와 교황 방문 기념 표지",
+      "lookForEn": "The wooden floor of the house and the marker of the papal visit",
       "forEveryone": "이 일대는 국내 천주교 유적 중 최초로 국가 사적 제529호로 지정되었습니다.",
       "photos": [],
       "sourceNote": "검색 확인 — 2004년 생가 복원, 2014-08-15 프란치스코 교황 생가 앞 기도, 사적 제529호(천주교 유적 최초). 기념 표지의 형태는 현장 확인 필요"
@@ -33,9 +42,13 @@
     {
       "seq": 3,
       "title": "4대에 걸친 순교 — 한 가문의 이야기",
+      "titleEn": "Four Generations of Martyrs — One Family's Story",
       "location": "생가 주변",
+      "locationEn": "Around the birth home",
       "narration": "이 집안의 이야기는 김대건 한 사람으로 끝나지 않습니다. 증조할아버지 김진후 비오는 해미에서, 작은할아버지 김종한 안드레아는 대구에서, 아버지 김제준 이냐시오는 서소문 밖에서 순교했고, 김대건 자신은 새남터에서 순교해 4대째 순교자가 되었습니다. 할아버지가 걸어간 길을 알면서도 아들을 신학생으로 내어준 부모의 마음을, 이 마당에서 한번 헤아려 보시기 바랍니다.",
+      "narrationEn": "This family's story does not end with one man. His great-grandfather Pius Kim Chin-hu was martyred at Haemi; his great-uncle Andrew Kim Chong-han at Daegu; his father Ignatius Kim Che-jun at Seosomun; and Kim Taegon himself at Saenamteo — the fourth generation of martyrs. Standing in this yard, consider the heart of parents who knew the road the grandfather had walked, and still gave their son to the seminary.",
       "lookFor": null,
+      "lookForEn": null,
       "forEveryone": "김진후 비오는 2014년 시복된 124위 복자에 포함되어 있으며, 그가 순교한 해미도 이 앱에서 찾아볼 수 있습니다.",
       "photos": [],
       "sourceNote": "성지 DB 원문 — 4대 순교(김진후·김종한·김제준·김대건). 해미 관련은 해미순교성지 DB 원문과 교차 확인"
@@ -43,9 +56,13 @@
     {
       "seq": 4,
       "title": "김대건 신부 동상과 기념관",
+      "titleEn": "The Statue and Memorial Hall",
       "location": "솔숲 가운데 동상, 성지 내 기념관",
+      "locationEn": "The statue amid the pines; the memorial hall on the grounds",
       "narration": "솔숲 한가운데에는 김대건 신부의 동상이 서 있고, 성지에는 그의 생애를 담은 기념관과 성당, 야외의 아레나 광장이 함께 있습니다. 2014년 아시아 청년대회가 이 숲에서 열렸을 때 아시아 각국의 젊은이들이 이 광장을 가득 채웠습니다. 2027년 서울 세계청년대회의 수호성인이 바로 성 김대건 안드레아이니, 이 자리는 다시 한 번 세계의 젊은이들을 맞이하게 될 것입니다.",
+      "narrationEn": "At the heart of the grove stands the statue of St. Andrew Kim Taegon, and the grounds hold a memorial hall of his life, a church, and the open-air Arena plaza. When Asian Youth Day came to this grove in 2014, young people from across Asia filled the plaza. And since St. Andrew Kim Taegon is a patron saint of World Youth Day Seoul 2027, this place will welcome the world's youth once again.",
       "lookFor": "동상이 들고 있는 것과 시선의 방향",
+      "lookForEn": "What the statue holds, and where its gaze falls",
       "forEveryone": "김대건 신부는 2021년 유네스코 세계기념인물로 선정되었습니다.",
       "photos": [],
       "sourceNote": "검색 확인 — 동상·기념관·성당·아레나 광장, 2014 아시아청년대회. WYD 2027 수호성인은 docs/30-content-ops/SNS-레퍼런스-조사.md 확정 사실. 동상 세부는 현장 확인 필요"
@@ -53,9 +70,13 @@
     {
       "seq": 5,
       "title": "성지 밖으로 — 버그내순례길",
+      "titleEn": "Beyond the Shrine — The Beogunae Pilgrimage Trail",
       "location": "솔뫼에서 합덕 방향으로 이어지는 순례길",
+      "locationEn": "The trail from Solmoe toward Hapdeok",
       "narration": "시간과 다리가 허락한다면, 솔뫼에서 시작하는 버그내순례길을 걸어보세요. 합덕성당과 합덕제를 지나 신리성지까지 십삼 킬로미터 남짓 이어지는 평탄한 들길입니다. 충청남도 기념물인 합덕성당은 병인박해 때 선교사들이 피신했던 곳이고, 조선의 삼대 방죽으로 꼽히는 합덕제는 세계관개시설물유산에 올라 여름이면 연꽃이 가득합니다. 내포 들판의 신앙과 농경의 풍경이 한 길 위에 놓여 있습니다.",
+      "narrationEn": "If your time and legs allow, walk the Beogunae Pilgrimage Trail from Solmoe — a level country path of about thirteen kilometers past Hapdeok Church and the Hapdeok Reservoir to the Sinri shrine. Hapdeok Church, a Chungcheongnam-do monument, sheltered missionaries during the Byeongin Persecution; the reservoir, one of Joseon's three great embankments and a World Heritage Irrigation Structure, fills with lotus blossoms in summer. Faith and farmland share one road across the Naepo plains.",
       "lookFor": "들판 너머로 보이는 합덕성당의 쌍탑",
+      "lookForEn": "The twin towers of Hapdeok Church across the fields",
       "forEveryone": "버그내순례길은 한국관광공사 추천길로도 선정된 도보 여행길로, 종교와 무관하게 걷기 좋은 코스입니다.",
       "photos": [],
       "sourceNote": "당진시 문화관광 공식(dangjin.go.kr) — 버그내순례길 13.3km·솔뫼→합덕성당→신리성지·합덕제(세계관개시설물유산)·합덕성당(충남 기념물 145호, 병인박해 피신처). 합덕성당 쌍탑 외관은 널리 알려진 특징이나 현장 확인 필요"
@@ -63,6 +84,7 @@
   ],
   "outro": {
     "narration": "솔뫼 순례에 함께해 주셔서 감사합니다. 이 숲에서 태어난 소년이 조선 최초의 사제가 되어 새남터에서 생을 마치기까지의 길은, 서울의 새남터순교성지와 이 앱의 순례 코스로 이어집니다. 소나무 향을 기억하며, 평화로운 걸음 되시기 바랍니다.",
+    "narrationEn": "Thank you for walking Solmoe with us. The road of the boy born in this grove — who became Korea's first priest and gave his life at Saenamteo — continues at the Saenamteo shrine in Seoul and in this app's pilgrimage routes. Carry the scent of the pines with you, and may your steps be peaceful.",
     "photos": []
   }
 }

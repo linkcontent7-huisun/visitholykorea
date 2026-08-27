@@ -7,15 +7,20 @@
   "status": "draft",
   "intro": {
     "narration": "언덕 위에 붉은 벽돌로 소박하게 서 있는 이 성당이, 한국 최초의 서양식 성당인 약현성당입니다. 명동대성당보다 6년 앞선 1892년에 세워졌습니다. 크고 화려하지는 않지만, 이 성당이 왜 하필 이 언덕에 세워졌는지를 알고 나면 걸음이 달라집니다. 천천히 함께 둘러보겠습니다.",
+    "narrationEn": "This modest red-brick church on the hill is Yakhyeon Church, the first Western-style church in Korea, built in 1892 — six years before Myeongdong Cathedral. It is neither large nor grand, but once you know why it stands on this particular hill, you will walk it differently. Let us look around slowly.",
     "photos": []
   },
   "points": [
     {
       "seq": 1,
       "title": "언덕 위의 자리 — 서소문이 내려다보이는 곳",
+      "titleEn": "The Hilltop — Overlooking Seosomun",
       "location": "성당 마당, 시내 방향이 트인 자리",
+      "locationEn": "The churchyard, where the view opens toward the city",
       "narration": "성당 마당에서 시내 쪽을 내려다보세요. 이 언덕 아래가 조선 시대 공식 처형장이었던 서소문 밖 네거리입니다. 1801년 신유박해, 1839년 기해박해, 1866년 병인박해를 거치며 마흔네 명의 천주교 신자가 저 아래에서 순교했습니다. 약현성당이 바로 이 언덕에 세워진 것은, 순교의 자리를 늘 내려다보며 기억하기 위해서였습니다. 성당의 위치 자체가 하나의 기념비인 셈입니다.",
+      "narrationEn": "Look down toward the city from the churchyard. Below this hill lies Seosomun, the official execution ground of the Joseon dynasty. Through the persecutions of 1801, 1839, and 1866, forty-four Catholics were martyred down there. Yakhyeon Church was built on this hill precisely so it would forever look down upon, and remember, that place of martyrdom. Its very location is a monument.",
       "lookFor": "성당 마당에서 서소문 방향으로 트인 시야",
+      "lookForEn": "The open view from the churchyard toward Seosomun",
       "forEveryone": "서소문 밖 네거리는 조선의 공식 처형장이었고, 지금은 서소문역사공원으로 조성되어 있습니다.",
       "photos": [],
       "sourceNote": "국가문화유산포털(문화재청, 사적 제252호 해설) — 서소문 밖 순교 44명, 성당 입지의 이유. 현재 조망은 현장 확인 필요"
@@ -23,9 +28,13 @@
     {
       "seq": 2,
       "title": "성당 외관 — 한국 최초의 서양식 성당",
+      "titleEn": "The Facade — Korea's First Western-Style Church",
       "location": "성당 정면",
+      "locationEn": "In front of the church",
       "narration": "이 성당은 1891년 두세 신부가 터를 마련하고, 명동대성당을 설계한 코스트 신부가 설계와 시공 감독을 맡아 1892년에 완공되었습니다. 한국 최초의 서양식 교회 건축으로, 사적 제252호로 지정되어 있습니다. 순수한 고딕이라기보다는 로마네스크 풍이 섞인 벽돌 성당인데, 이 소박한 건물이 이후 한국 성당 건축의 본보기가 되었습니다. 웅장한 명동대성당의 형이라기보다, 조용한 맏이 같은 성당입니다.",
+      "narrationEn": "Fr. Doucet secured this ground in 1891, and Fr. Eugène Coste — the architect of Myeongdong Cathedral — designed and supervised the building, completed in 1892. It is Korea's first Western-style church architecture, designated Historic Site No. 252. A brick church blending Gothic and Romanesque touches, this modest building became the model for Korean church architecture that followed. Think of it as the quiet elder sibling of the grand Myeongdong Cathedral.",
       "lookFor": "붉은 벽돌 벽과 아치 창의 곡선",
+      "lookForEn": "The red-brick walls and the curves of the arched windows",
       "forEveryone": "로마네스크 양식은 고딕보다 앞선 유럽 건축 양식으로, 둥근 아치와 두꺼운 벽이 특징입니다.",
       "photos": [],
       "sourceNote": "국가문화유산포털(문화재청) — 1891 대지 마련(두세 신부)·1892 완공·코스트 신부 설계·사적 제252호·한국 교회건축의 모범. 양식 표현은 문화재청('순수 고딕은 아닌 벽돌 고딕')과 DB 원문('로마네스크')을 함께 반영"
@@ -33,9 +42,13 @@
     {
       "seq": 3,
       "title": "성당 내부 — 작은 십자가 평면",
+      "titleEn": "The Interior — A Small Cross-Shaped Plan",
       "location": "본당 안 (미사 중에는 입장을 삼가주세요)",
+      "locationEn": "Inside the nave (please do not enter during Mass)",
       "narration": "내부는 길이 약 32미터, 폭 12미터의 아담한 십자형 평면입니다. 하늘에서 내려다보면 건물 자체가 십자가 모양인 셈인데, 이는 성당 건축의 오랜 전통입니다. 규모는 작아도 백삼십 년 넘게 미사가 이어져 온 살아 있는 성당이니, 기도하는 분들을 위해 조용히 둘러봐 주시기 바랍니다.",
+      "narrationEn": "The interior is an intimate cross-shaped plan, about thirty-two meters long and twelve meters wide — seen from above, the building itself forms a cross, in the long tradition of church architecture. Small as it is, Mass has been celebrated here for over a hundred and thirty years. Please look around quietly, for those in prayer.",
       "lookFor": "제대를 향해 모이는 십자형 공간의 구조",
+      "lookForEn": "How the cross-shaped space gathers toward the altar",
       "forEveryone": "성당을 십자가 평면으로 짓는 전통은 중세 유럽부터 이어져 왔습니다.",
       "photos": [],
       "sourceNote": "국가문화유산포털(문화재청) — 길이 약 32m·너비 12m 십자형 평면. 내부 세부는 현장 확인 필요"
@@ -43,9 +56,13 @@
     {
       "seq": 4,
       "title": "서소문 순교지로 가는 길",
+      "titleEn": "The Walk Down to Seosomun",
       "location": "성당에서 서소문역사공원 방향",
+      "locationEn": "From the church toward Seosomun History Park",
       "narration": "약현성당까지 오셨다면, 언덕 아래 서소문 순교지까지 함께 걷는 것을 권합니다. 성당이 백삼십 년 동안 내려다보며 기억해 온 바로 그 자리입니다. 순교자들이 걸어간 길을 반대로 거슬러 올라와 성당에 닿는 이 짧은 동선이, 약현성당 순례의 가장 깊은 대목입니다.",
+      "narrationEn": "Having come this far, walk down the hill to the Seosomun martyrdom site — the very ground this church has watched over and remembered for a hundred and thirty years. Retracing in reverse the road the martyrs once walked, and arriving back at the church, is the most moving part of a Yakhyeon pilgrimage.",
       "lookFor": "언덕을 내려가며 돌아본 성당의 모습",
+      "lookForEn": "The church seen over your shoulder as you descend the hill",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "국가문화유산포털(문화재청) — 서소문 순교지와의 관계. 도보 경로·소요 시간은 현장 확인 필요"
@@ -53,6 +70,7 @@
   ],
   "outro": {
     "narration": "약현성당 순례에 함께해 주셔서 감사합니다. 가장 오래된 성당은 가장 화려한 성당이 아니라, 가장 오래 기억해 온 성당이라는 것을 이 언덕이 보여줍니다. 평화로운 하루 되시기 바랍니다.",
+    "narrationEn": "Thank you for visiting Yakhyeon Church with us. This hill shows that the oldest church is not the grandest one, but the one that has remembered the longest. May your day be peaceful.",
     "photos": []
   }
 }
