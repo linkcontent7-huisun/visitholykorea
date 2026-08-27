@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { CONTENT_TYPE, type TourApiSpot } from '@/shared/api/tour-api';
 import {
   FACILITY_GROUPS,
+  buildItineraryStops,
   groupNearbyFacilities,
   type FacilityGroup,
   type GroupedFacilities,
@@ -102,5 +103,24 @@ describe('groupNearbyFacilities', () => {
 
     expect(result.map((g) => g.group)).toEqual(['맛집', '숙박', '볼거리']);
     expect(FACILITY_GROUPS.indexOf('맛집')).toBeLessThan(FACILITY_GROUPS.indexOf('숙박'));
+  });
+});
+
+describe('buildItineraryStops', () => {
+  const groups = groupNearbyFacilities([
+    spot('먼집', CONTENT_TYPE.음식점, 900),
+    spot('가까운집', CONTENT_TYPE.음식점, 100),
+    spot('수목원', CONTENT_TYPE.관광지, 300),
+  ]);
+
+  it('원하는 순서대로 각 그룹의 가장 가까운 한 곳을 뽑는다', () => {
+    const stops = buildItineraryStops(groups, ['맛집', '볼거리']);
+    expect(stops.map((s) => s.spot.title)).toEqual(['가까운집', '수목원']);
+  });
+
+  it('근처에 없는 유형은 조용히 빠진다 — 없는 것을 있는 척하지 않는다', () => {
+    // 시골 성지의 1박2일: 숙박이 안 잡히면 그 줄만 빠지고 일정은 계속된다.
+    const stops = buildItineraryStops(groups, ['맛집', '볼거리', '숙박']);
+    expect(stops.map((s) => s.group)).toEqual(['맛집', '볼거리']);
   });
 });

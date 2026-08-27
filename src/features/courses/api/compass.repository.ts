@@ -15,6 +15,8 @@ export interface CompassAnswers {
   region: string | null;
   style: string | null;
   timeBudget: string | null;
+  /** 몇 명이 가는가. 웰니스 실측 동반자 95.5% — 혼자만 전제하지 않는다. */
+  party: string | null;
   note: string | null;
 }
 

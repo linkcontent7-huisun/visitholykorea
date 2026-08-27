@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { X, ChevronLeft, ChevronRight, VolumeX, MessageCircle, Footprints } from 'lucide-react';
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  VolumeX,
+  MessageCircle,
+  Footprints,
+  MapPin,
+  ExternalLink,
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -7,6 +16,12 @@ import { getRecommendedCourses, type CourseCard } from '../api/course-matching';
 import { useCompassMemory, useSaveCompassResponse } from '../hooks/use-compass-memory';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { REGIONS, regionCoords, type Region } from '@/shared/lib/regions';
+import { useNearbyFacilities } from '@/features/sites/hooks/use-nearby-tour';
+import {
+  buildItineraryStops,
+  type FacilityGroup,
+} from '@/features/sites/lib/nearby-facilities';
+import { kakaoPlaceUrl } from '@/shared/lib/geo';
 
 type Gender = '여성' | '남성' | '응답 안 함';
 
@@ -74,14 +89,57 @@ const TIME_NOTE: Record<TimeBudget, string> = {
   '1박2일': '하룻밤 머물며 천천히 쉬어가세요.',
 };
 
-// 1=감정 2=관심사 3=출발지역 4=성별 5=참여방식 6=시간 7=자유텍스트
-const TOTAL_QUESTIONS = 7;
+/** 몇 명이 가는가 — 웰니스 실측 동반자 95.5%. 혼자만 전제하지 않는다. */
+const PARTY_SIZES = ['혼자', '둘이서', '3~4명', '5명 이상'] as const;
+type PartySize = (typeof PARTY_SIZES)[number];
+
+const PARTY_EMOJI: Record<PartySize, string> = {
+  혼자: '🚶',
+  둘이서: '👥',
+  '3~4명': '👨‍👩‍👧',
+  '5명 이상': '🚌',
+};
+
+const PARTY_NOTE: Record<PartySize, string> = {
+  혼자: '혼자만의 걸음도 충분한 순례예요.',
+  둘이서: '나란히 걷다 보면 말없이도 나눠져요.',
+  '3~4명': '함께 걷되 말하지 않는 구간을 하나 두어보세요.',
+  '5명 이상': '단체는 방문 전 성지에 전화로 알려주시면 서로 편해요.',
+};
+
+/**
+ * 시간 예산에 따라 일정에 넣을 편의시설 묶음.
+ * 반나절엔 숙박을 권하지 않는다 — 시간을 물어놓고 답을 안 쓰면 묻지 않은 것과 같다.
+ */
+const ITINERARY_GROUPS: Record<TimeBudget, FacilityGroup[]> = {
+  반나절: ['맛집'],
+  하루: ['맛집', '볼거리'],
+  '1박2일': ['맛집', '볼거리', '숙박'],
+};
+
+/** 일정 항목에 붙는 한 줄 — 왜 이 순서인지가 문구에 담긴다. */
+const ITINERARY_STEP_LABEL: Record<FacilityGroup, string> = {
+  맛집: '따뜻한 한 끼',
+  볼거리: '함께 둘러볼 곳',
+  숙박: '하룻밤 머물 곳',
+  쉼터: '오가는 길에',
+};
+
+/** 거리를 사람이 읽는 형태로. */
+function formatDistance(dist: string | undefined): string | null {
+  const m = Number(dist);
+  if (!Number.isFinite(m) || m <= 0) return null;
+  return m < 1000 ? `${Math.round(m)}m` : `${(m / 1000).toFixed(1)}km`;
+}
+
+// 1=감정 2=관심사 3=출발지역 4=성별 5=참여방식 6=시간 7=인원 8=자유텍스트
+const TOTAL_QUESTIONS = 8;
 const RESULT_STEP = TOTAL_QUESTIONS + 1;
 
 export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps) {
   const { wideView, origin, setOrigin } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
-  const [step, setStep] = useState(0); // 0=intro, 1~7=질문, 8=결과
+  const [step, setStep] = useState(0); // 0=intro, 1~8=질문, 9=결과
   const [emotion, setEmotion] = useState<EmotionTag | null>(null);
   const [concern, setConcern] = useState<Concern | null>(null);
   // 이미 출발지를 정해 둔 사람에게 같은 질문을 또 하지 않는다. 바꾸고 싶으면 이 자리에서 바꾼다.
@@ -89,11 +147,17 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   const [gender, setGender] = useState<Gender | null>(null);
   const [style, setStyle] = useState<Style | null>(null);
   const [timeBudget, setTimeBudget] = useState<TimeBudget | null>(null);
+  const [party, setParty] = useState<PartySize | null>(null);
   const [note, setNote] = useState('');
   const [result, setResult] = useState<CourseCard | null>(null);
   const [resultLoading, setResultLoading] = useState(false);
   const saveResponse = useSaveCompassResponse();
   const { data: memory } = useCompassMemory();
+  // 결과 성지 주변 편의시설 — 답한 시간 예산에 맞춰 하루 일정을 조립한다.
+  // 결과 화면에 도달했을 때만 좌표가 넘어가므로 그전에는 호출되지 않는다.
+  const { data: facilityGroups = [] } = useNearbyFacilities(
+    step === RESULT_STEP ? result?.site.coordinates : undefined,
+  );
 
   if (!isOpen) return null;
 
@@ -105,6 +169,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     setGender(null);
     setStyle(null);
     setTimeBudget(null);
+    setParty(null);
     setNote('');
     setResult(null);
   };
@@ -132,6 +197,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
         region,
         style,
         timeBudget,
+        party,
         note: note.trim() || null,
       },
       matchedSiteId: top?.site.id ?? null,
@@ -155,7 +221,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               ? style != null
               : step === 6
                 ? timeBudget != null
-                : true; // step 7(자유 텍스트)는 건너뛰어도 됨
+                : step === 7
+                  ? party != null
+                  : true; // step 8(자유 텍스트)는 건너뛰어도 됨
 
   const handleNext = () => {
     if (step === TOTAL_QUESTIONS) {
@@ -464,10 +532,48 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             </motion.div>
           )}
 
-          {/* Q7: 자유 텍스트 */}
+          {/* Q7: 인원 — 동반자 95.5%(웰니스 실측). 일정과 안내 문구가 여기 따라 달라진다 */}
           {step === 7 && (
             <motion.div
-              key="q7-note"
+              key="q7-party"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+            >
+              <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
+                이번 길은
+                <br />몇 분이 함께하세요?
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {PARTY_SIZES.map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => setParty(p)}
+                    className={`p-5 rounded-[20px] border text-center transition-all ${
+                      party === p
+                        ? 'border-brand-blue bg-brand-blue/5'
+                        : 'border-app-border bg-white'
+                    }`}
+                    id={`quiz-party-${p}`}
+                  >
+                    <span className="block text-3xl mb-2">{PARTY_EMOJI[p]}</span>
+                    <span
+                      className={`block font-bold text-sm ${
+                        party === p ? 'text-brand-blue' : 'text-app-text'
+                      }`}
+                    >
+                      {p}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* Q8: 자유 텍스트 */}
+          {step === 8 && (
+            <motion.div
+              key="q8-note"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
@@ -533,12 +639,88 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                       <div className="space-y-2 text-sm text-app-text-muted leading-relaxed">
                         {concern && <p>{CONCERN_OPENER[concern]}</p>}
                         {timeBudget && <p>{TIME_NOTE[timeBudget]}</p>}
+                        {party && <p>{PARTY_NOTE[party]}</p>}
                         {style && (
                           <p className="text-brand-blue font-bold">{STYLE_ACTIVITY[style]}</p>
                         )}
                       </div>
                     </div>
                   </div>
+
+                  {/*
+                    답한 시간에 맞춘 하루 일정 — 성지에서 시작해 맛집·볼거리·숙박을 잇는다.
+                    편의시설은 TourAPI 실시간 조회(저장하지 않는다). 해당 유형이 근처에
+                    없으면 그 줄은 조용히 빠진다 — 없는 것을 있는 척하지 않는다.
+                  */}
+                  {timeBudget &&
+                    (() => {
+                      const stops = buildItineraryStops(
+                        facilityGroups,
+                        ITINERARY_GROUPS[timeBudget],
+                      );
+                      if (stops.length === 0) return null;
+                      return (
+                        <div className="mb-6 rounded-[28px] border border-app-border bg-white p-6 shadow-sm">
+                          <div className="mb-4 flex items-baseline justify-between">
+                            <h4 className="font-extrabold text-app-text text-sm">
+                              이대로 다녀오세요 — {timeBudget} 일정
+                            </h4>
+                            <span className="text-[9px] font-bold text-app-text-muted">
+                              실시간 · 한국관광공사
+                            </span>
+                          </div>
+                          <ol className="space-y-3">
+                            <li className="flex items-start gap-3">
+                              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-blue text-[11px] font-extrabold text-white">
+                                1
+                              </span>
+                              <div className="min-w-0">
+                                <p className="truncate text-sm font-extrabold text-app-text">
+                                  {result.site.name}
+                                </p>
+                                <p className="text-[11px] font-bold text-app-text-muted">
+                                  고요히 머무는 시간
+                                </p>
+                              </div>
+                            </li>
+                            {stops.map(({ group: groupName, spot }, i) => {
+                              const dist = formatDistance(spot.dist);
+                              return (
+                                <li key={spot.contentid} className="flex items-start gap-3">
+                                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-app-bg text-[11px] font-extrabold text-app-text">
+                                    {i + 2}
+                                  </span>
+                                  <a
+                                    href={kakaoPlaceUrl(
+                                      spot.title,
+                                      Number(spot.mapy),
+                                      Number(spot.mapx),
+                                    )}
+                                    target="_blank"
+                                    rel="noreferrer noopener"
+                                    className="group min-w-0 flex-1"
+                                    aria-label={`${spot.title} 카카오맵에서 보기`}
+                                  >
+                                    <p className="flex items-center gap-1 truncate text-sm font-extrabold text-app-text group-hover:text-brand-blue">
+                                      <span className="truncate">{spot.title}</span>
+                                      <ExternalLink
+                                        size={11}
+                                        className="shrink-0 text-app-text-muted"
+                                      />
+                                    </p>
+                                    <p className="flex items-center gap-1 text-[11px] font-bold text-app-text-muted">
+                                      <MapPin size={10} className="shrink-0" />
+                                      {ITINERARY_STEP_LABEL[groupName]}
+                                      {dist && <span>· {dist}</span>}
+                                    </p>
+                                  </a>
+                                </li>
+                              );
+                            })}
+                          </ol>
+                        </div>
+                      );
+                    })()}
 
                   <div className="flex gap-3">
                     <button

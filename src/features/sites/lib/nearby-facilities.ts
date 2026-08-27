@@ -72,6 +72,22 @@ export function groupNearbyFacilities(
   });
 }
 
+/**
+ * 원하는 그룹 순서대로, 각 그룹에서 가장 가까운 한 곳씩 뽑아 일정 정거장을 만든다.
+ * 마음 나침반 결과의 "이대로 다녀오세요" 가 쓴다.
+ *
+ * 근처에 없는 유형은 조용히 빠진다 — 없는 것을 있는 척하지 않는다.
+ */
+export function buildItineraryStops(
+  groups: GroupedFacilities[],
+  wanted: readonly FacilityGroup[],
+): { group: FacilityGroup; spot: TourApiSpot }[] {
+  return wanted.flatMap((group) => {
+    const nearest = groups.find((g) => g.group === group)?.spots[0];
+    return nearest ? [{ group, spot: nearest }] : [];
+  });
+}
+
 /** 그룹별 안내 문구. 빈손으로 보이지 않게 무엇을 보고 있는지 알려준다. */
 export const GROUP_HINT: Record<FacilityGroup, string> = {
   맛집: '식사하고 가실 곳',
