@@ -1,4 +1,5 @@
 import { Gauge, Headphones, MapPin, Pause, Play } from 'lucide-react';
+import type { Language } from '@/shared/i18n/dictionary';
 import type { DocentChapter } from '../lib/chapters';
 import { useDocentPlayer, type SpeechRateKey } from '../hooks/use-docent-player';
 
@@ -36,14 +37,15 @@ const COPY = {
 interface DocentPlayerProps {
   chapters: DocentChapter[];
   isDraft: boolean;
-  language: 'ko' | 'en';
+  language: Language;
 }
 
 /** 성지 상세의 챕터형 오디오 가이드. 챕터를 누르면 거기부터 이어 읽는다. */
 export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps) {
   const { currentIndex, isPlaying, playFrom, toggle, cycleRate, rateKey, isSupported, hasError } =
     useDocentPlayer(chapters, language);
-  const copy = COPY[language];
+  // 플레이어 문구는 아직 한/영만 있다 — 다른 언어는 영어로 보여준다
+  const copy = language === 'ko' ? COPY.ko : COPY.en;
   const current = chapters[currentIndex];
 
   if (chapters.length === 0 || !current) return null;

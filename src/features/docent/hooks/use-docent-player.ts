@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { SPEECH_LOCALE, type Language } from '@/shared/i18n/dictionary';
 import type { DocentChapter } from '../lib/chapters';
 
 /**
@@ -34,7 +35,7 @@ function detectSupport(): boolean {
   );
 }
 
-export function useDocentPlayer(chapters: DocentChapter[], language: 'ko' | 'en') {
+export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -83,7 +84,7 @@ export function useDocentPlayer(chapters: DocentChapter[], language: 'ko' | 'en'
     const utterance = new SpeechSynthesisUtterance(chapter.narration);
     utteranceRef.current = utterance;
     // 영어 본문을 한국어 음성이 읽으면 알아들을 수 없다 — 언어를 맞춘다.
-    utterance.lang = language === 'en' ? 'en-US' : 'ko-KR';
+    utterance.lang = SPEECH_LOCALE[language];
     utterance.rate = rateRef.current;
     utterance.onend = () => {
       if (sessionRef.current !== session) return;

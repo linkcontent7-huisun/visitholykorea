@@ -1,3 +1,5 @@
+import type { Language } from '@/shared/i18n/dictionary';
+
 /**
  * 오디오 도슨트의 챕터 구성.
  *
@@ -48,6 +50,15 @@ export interface DocentChapter {
   lookFor: string | null;
 }
 
+/**
+ * 도슨트 원고가 아직 한국어·영어만 있어 언어를 둘로 접는다.
+ * 스페인어 등으로 보는 사람은 영어 원고를 받는다 — 한국어보다는 읽을 수 있다.
+ * (본문 챕터는 DB 번역이 폴백 사슬로 이미 그 언어를 시도한 뒤 넘어온다.)
+ */
+function scriptLanguage(language: Language): 'ko' | 'en' {
+  return language === 'ko' ? 'ko' : 'en';
+}
+
 /** 성지 데이터가 아니라 앱의 고정 문구다 — 원고 없는 성지의 맺음말. */
 const CLOSING = {
   ko: '함께 걸어주셔서 감사합니다. 평화로운 순례 되시길 바랍니다.',
@@ -62,8 +73,9 @@ const TITLES = {
 export function buildChapters(
   basic: { name: string; description: string | null; history: string | null },
   script: DocentScript | null,
-  language: 'ko' | 'en',
+  requestedLanguage: Language,
 ): DocentChapter[] {
+  const language = scriptLanguage(requestedLanguage);
   if (script && language === 'ko') {
     return [
       { id: 'intro', title: TITLES.ko.intro, narration: script.intro.narration, location: null, lookFor: null },
