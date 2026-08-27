@@ -167,6 +167,7 @@ export default function SiteDetailPage() {
             imageUrl={null}
             name={site.name}
             category={site.category}
+            intensity="deep"
             className="h-full w-full"
           />
         )}
