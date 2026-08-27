@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { DocentChapter } from '../lib/chapters';
 import { DocentPlayer } from './DocentPlayer';
@@ -89,5 +89,39 @@ describe('DocentPlayer', () => {
     expect(utterance.rate).toBeGreaterThan(1);
     fireEvent.click(speedButton); // 빠르게 → 느리게
     expect(speedButton).toHaveTextContent('느리게');
+  });
+
+  it('speak 가 무시되면(안드로이드 크롬 cancel 직후 버그) 잠시 후 한 번 재시도한다', () => {
+    vi.useFakeTimers();
+    // speaking/pending 이 계속 false → 시작되지 않은 것으로 판정되어야 한다
+    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    fireEvent.click(screen.getByText('순교자 기념상'));
+    expect(speech.speak).toHaveBeenCalledTimes(1);
+    vi.advanceTimersByTime(400);
+    expect(speech.speak).toHaveBeenCalledTimes(2);
+    vi.useRealTimers();
+  });
+
+  it('음성 재생이 실패하면(onerror) 침묵하지 않고 안내 문구를 보여준다', () => {
+    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    fireEvent.click(screen.getByText('순교자 기념상'));
+    const utterance = speech.speak.mock.calls[0]?.[0] as FakeUtterance;
+    act(() => utterance.onerror?.());
+    expect(screen.getByText(/음성을 재생하지 못했/)).toBeInTheDocument();
+  });
+});
+
+describe('DocentPlayer — 음성 미지원 브라우저(카카오톡 인앱 등)', () => {
+  // 바깥 describe 의 beforeEach 가 stub 을 깔기 전 상태를 만들기 위해 여기서 걷어낸다
+  beforeEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('죽지 않고 안내 문구를 보여주며, 챕터를 누르면 글로는 읽을 수 있다', () => {
+    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    expect(screen.getByText(/음성이 지원되지 않/)).toBeInTheDocument();
+    // 재생은 못 해도 챕터 본문 읽기는 되어야 한다
+    fireEvent.click(screen.getByText('순교자 기념상'));
+    expect(screen.getByText('설명')).toBeInTheDocument();
   });
 });

@@ -13,6 +13,9 @@ const COPY = {
     pause: '멈춤',
     rateLabel: '읽는 속도',
     rates: { slow: '느리게', normal: '보통', fast: '빠르게' } satisfies Record<SpeechRateKey, string>,
+    unsupported:
+      '지금 브라우저에서는 음성이 지원되지 않아요 (카카오톡 안에서 열면 그럴 수 있어요). Chrome·Safari 로 열면 들을 수 있고, 여기서는 아래 글로 읽으실 수 있습니다.',
+    error: '음성을 재생하지 못했어요. 기기 음량과 무음 모드를 확인하시고 다시 눌러주세요.',
   },
   en: {
     title: 'Audio Guide',
@@ -24,6 +27,9 @@ const COPY = {
     pause: 'Pause',
     rateLabel: 'Speed',
     rates: { slow: 'Slow', normal: 'Normal', fast: 'Fast' } satisfies Record<SpeechRateKey, string>,
+    unsupported:
+      'Voice is not supported in this browser (in-app browsers often block it). Open in Chrome or Safari to listen — or read along below.',
+    error: 'Could not play the audio. Please check your volume and silent mode, then try again.',
   },
 } as const;
 
@@ -35,10 +41,8 @@ interface DocentPlayerProps {
 
 /** 성지 상세의 챕터형 오디오 가이드. 챕터를 누르면 거기부터 이어 읽는다. */
 export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps) {
-  const { currentIndex, isPlaying, playFrom, toggle, cycleRate, rateKey } = useDocentPlayer(
-    chapters,
-    language,
-  );
+  const { currentIndex, isPlaying, playFrom, toggle, cycleRate, rateKey, isSupported, hasError } =
+    useDocentPlayer(chapters, language);
   const copy = COPY[language];
   const current = chapters[currentIndex];
 
@@ -47,17 +51,19 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
   return (
     <div className="mb-6 overflow-hidden rounded-[28px] border border-app-border bg-app-bg">
       <div className="flex items-center gap-3 border-b border-app-border p-5">
-        <button
-          onClick={toggle}
-          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl transition-all ${
-            isPlaying
-              ? 'bg-brand-violet text-white'
-              : 'border border-app-border bg-white text-brand-violet'
-          }`}
-          aria-label={isPlaying ? copy.pause : copy.play}
-        >
-          {isPlaying ? <Pause size={20} /> : <Play size={20} className="ml-0.5" />}
-        </button>
+        {isSupported && (
+          <button
+            onClick={toggle}
+            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl transition-all ${
+              isPlaying
+                ? 'bg-brand-violet text-white'
+                : 'border border-app-border bg-white text-brand-violet'
+            }`}
+            aria-label={isPlaying ? copy.pause : copy.play}
+          >
+            {isPlaying ? <Pause size={20} /> : <Play size={20} className="ml-0.5" />}
+          </button>
+        )}
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <Headphones size={14} className="shrink-0 text-brand-violet" />
@@ -80,15 +86,31 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
           )}
         </div>
         {/* 고령 사용자를 위한 속도 조절 — 느리게·보통·빠르게 순환 */}
-        <button
-          onClick={cycleRate}
-          className="flex shrink-0 items-center gap-1 rounded-full border border-app-border bg-white px-2.5 py-1 text-[10px] font-extrabold text-app-text-muted"
-          aria-label={`${copy.rateLabel}: ${copy.rates[rateKey]}`}
-        >
-          <Gauge size={12} />
-          {copy.rates[rateKey]}
-        </button>
+        {isSupported && (
+          <button
+            onClick={cycleRate}
+            className="flex shrink-0 items-center gap-1 rounded-full border border-app-border bg-white px-2.5 py-1 text-[10px] font-extrabold text-app-text-muted"
+            aria-label={`${copy.rateLabel}: ${copy.rates[rateKey]}`}
+          >
+            <Gauge size={12} />
+            {copy.rates[rateKey]}
+          </button>
+        )}
       </div>
+
+      {/* 소리를 못 내는 환경을 조용히 지나치지 않는다 — 이유와 대안을 알려준다 */}
+      {!isSupported && (
+        <div className="border-b border-app-border bg-sky-50 px-5 py-3">
+          <p className="text-[11px] font-medium leading-relaxed text-sky-800">
+            {copy.unsupported}
+          </p>
+        </div>
+      )}
+      {hasError && (
+        <div className="border-b border-app-border bg-amber-50 px-5 py-3">
+          <p className="text-[11px] font-medium leading-relaxed text-amber-800">{copy.error}</p>
+        </div>
+      )}
 
       {/* 지금 읽는 챕터의 전문 — 소리를 켤 수 없는 곳, 잘 들리지 않는 이들을 위해 */}
       <div className="border-b border-app-border bg-white/60 px-5 py-4">
