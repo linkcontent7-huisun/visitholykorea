@@ -8,6 +8,12 @@
       "port": 3000
     },
     {
+      "name": "dev-alt",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "3100", "--strictPort"],
+      "port": 3100
+    },
+    {
       "name": "preview",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "preview", "--", "--port", "4173"],
