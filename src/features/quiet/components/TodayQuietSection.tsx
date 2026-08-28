@@ -1,6 +1,7 @@
 import { ChevronRight, Wind } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
+import { isQuotaExceededError } from '@/shared/api/tour-api';
 import type { HolySite } from '@/shared/types/domain';
 import { useQuietSites } from '../hooks/use-quiet-sites';
 import { QuietSiteCard } from './QuietSiteCard';
@@ -52,7 +53,18 @@ export function TodayQuietSection({ sites }: { sites: HolySite[] }) {
         </div>
       )}
 
-      {isError && (
+      {isError && isQuotaExceededError(error) && (
+        <div className="rounded-[20px] border border-app-border bg-white p-6 text-center">
+          <p className="text-sm font-bold text-app-text">오늘 조회 한도에 도달했어요</p>
+          <p className="mt-2 text-[12px] leading-relaxed text-app-text-muted">
+            많은 분이 함께 보고 계셔서 오늘의 관광 정보 조회가 잠시 멈췄어요.
+            <br />
+            내일 다시 열어보시면 정상적으로 보여요.
+          </p>
+        </div>
+      )}
+
+      {isError && !isQuotaExceededError(error) && (
         <div className="rounded-[20px] border border-app-border bg-white p-6 text-center">
           <p className="text-sm font-bold text-app-text">오늘의 붐빔을 계산하지 못했어요</p>
           <p className="mt-2 text-[12px] leading-relaxed text-app-text-muted">

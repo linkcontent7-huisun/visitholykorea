@@ -9,7 +9,7 @@
  *           이것만으로 208곳 전부의 축제 압력이 나온다. (호출 1회)
  *   2단계 — 1단계에서 조용해 보이는 상위 후보에만 주변 인프라를 묻는다. (후보 수만큼)
  *
- * 결과: 1 + N회(기본 12회). 정확도는 거의 그대로 두면서 호출을 50분의 1로 줄인다.
+ * 결과: 1 + N회(기본 6회, 2026-08-28 12→6). 정확도는 거의 그대로 두면서 호출을 100분의 1로 줄인다.
  *
  * TourAPI 응답은 이 과정 어디에도 저장하지 않는다. 매번 실시간으로 받아 계산하고 버린다.
  */
@@ -73,7 +73,9 @@ export async function findQuietSites(
   sites: HolySite[],
   options: FindQuietSitesOptions = {},
 ): Promise<QuietSite[]> {
-  const { limit = 3, candidateCount = 12 } = options;
+  // 12 → 6 (2026-08-28). 최종 노출은 limit(기본 3)곳뿐이라 2배 여유면 충분하고,
+  // TourAPI 일일 호출 한도(개발계정 1,000건)를 홈 화면 1회 로드가 덜 쓰게 한다.
+  const { limit = 3, candidateCount = 6 } = options;
 
   const located = sites.filter(hasCoordinates);
   if (located.length === 0) return [];
