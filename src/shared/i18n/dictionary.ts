@@ -349,6 +349,98 @@ export const DICTIONARY = {
     it: 'Molte persone stanno consultando insieme, quindi le ricerche sono in pausa oggi. Domani tornerà a funzionare.',
   },
 
+  // 탐색 화면
+  exploreTitle: {
+    ko: '탐색',
+    en: 'Explore',
+    es: 'Explorar',
+    fr: 'Explorer',
+    pt: 'Explorar',
+    it: 'Esplora',
+  },
+  exploreSubtitle: {
+    ko: '전국의 성스러운 자취를 찾아서',
+    en: 'Tracing sacred footsteps across Korea',
+    es: 'Tras las huellas sagradas de toda Corea',
+    fr: 'Sur les traces sacrées à travers la Corée',
+    pt: 'Seguindo os passos sagrados por toda a Coreia',
+    it: 'Sulle tracce sacre in tutta la Corea',
+  },
+  routesTitle: {
+    ko: '순례 코스',
+    en: 'Pilgrimage Routes',
+    es: 'Rutas de peregrinación',
+    fr: 'Itinéraires de pèlerinage',
+    pt: 'Rotas de peregrinação',
+    it: 'Itinerari di pellegrinaggio',
+  },
+  routesSubtitle: {
+    ko: '박해의 역사를 따라 걷는 길',
+    en: 'Walking the history of persecution',
+    es: 'Caminos que siguen la historia de la persecución',
+    fr: 'Marcher sur l’histoire des persécutions',
+    pt: 'Caminhos que seguem a história da perseguição',
+    it: 'Camminare lungo la storia delle persecuzioni',
+  },
+  byDiocese: {
+    ko: '교구별 탐색',
+    en: 'Browse by diocese',
+    es: 'Explorar por diócesis',
+    fr: 'Parcourir par diocèse',
+    pt: 'Explorar por diocese',
+    it: 'Sfoglia per diocesi',
+  },
+  noSites: {
+    ko: '아직 등록된 성지가 없습니다.',
+    en: 'No shrines registered yet.',
+    es: 'Aún no hay santuarios registrados.',
+    fr: 'Aucun sanctuaire enregistré pour l’instant.',
+    pt: 'Ainda não há santuários cadastrados.',
+    it: 'Nessun santuario registrato finora.',
+  },
+
+  // 검색 화면
+  searchInputPlaceholder: {
+    ko: '성지명, 지역, 성인 검색...',
+    en: 'Search by shrine, region, or saint…',
+    es: 'Busca por santuario, región o santo…',
+    fr: 'Chercher par sanctuaire, région ou saint…',
+    pt: 'Busque por santuário, região ou santo…',
+    it: 'Cerca per santuario, regione o santo…',
+  },
+  searchPromptTitle: {
+    ko: '무엇을 찾고 싶으신가요?',
+    en: 'What are you looking for?',
+    es: '¿Qué estás buscando?',
+    fr: 'Que cherchez-vous ?',
+    pt: 'O que você procura?',
+    it: 'Che cosa stai cercando?',
+  },
+  searchPromptBody: {
+    ko: '성지명, 지역, 소재지로 검색해보세요.',
+    en: 'Try a shrine name, a region, or an address.',
+    es: 'Prueba con el nombre de un santuario, una región o una dirección.',
+    fr: 'Essayez un nom de sanctuaire, une région ou une adresse.',
+    pt: 'Tente o nome de um santuário, uma região ou um endereço.',
+    it: 'Prova con il nome di un santuario, una regione o un indirizzo.',
+  },
+  searchResults: {
+    ko: '검색 결과',
+    en: 'Results',
+    es: 'Resultados',
+    fr: 'Résultats',
+    pt: 'Resultados',
+    it: 'Risultati',
+  },
+  aiGuideName: {
+    ko: 'AI 순례 가이드 미카엘',
+    en: 'Michael, the AI pilgrimage guide',
+    es: 'Michael, la guía de peregrinación con IA',
+    fr: 'Michael, le guide de pèlerinage IA',
+    pt: 'Michael, o guia de peregrinação com IA',
+    it: 'Michael, la guida al pellegrinaggio con IA',
+  },
+
   // 찾아가는 길 — 외국인에게 가장 중요한 화면
   directions: { ko: '찾아가는 길', en: 'Getting there', es: 'Cómo llegar', fr: 'S’y rendre', pt: 'Como chegar', it: 'Come arrivare' },
   addressKorean: {

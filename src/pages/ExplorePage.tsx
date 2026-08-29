@@ -6,11 +6,13 @@ import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { useMyFavoriteIds } from '@/features/favorites/hooks/use-favorites';
 import { SiteListItem } from '@/features/sites/components/SiteListItem';
 import { useSites, useSitesByDiocese } from '@/features/sites/hooks/use-sites';
+import { useSettings } from '@/shared/i18n/use-settings';
 import { DIOCESES } from '@/shared/types/domain';
 
 const CATEGORIES = ['전체', '순교성지', '역사사적지', '주교좌성당', '순례길'] as const;
 
 export default function ExplorePage() {
+  const { t } = useSettings();
   const [selectedDiocese, setSelectedDiocese] = useState<string | null>(null);
   const [category, setCategory] = useState<string>('전체');
 
@@ -30,8 +32,8 @@ export default function ExplorePage() {
   return (
     <div className="min-h-screen bg-white">
       <header className="p-8 pb-4">
-        <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-app-text">탐색</h1>
-        <p className="text-sm font-medium text-app-text-muted">전국의 성스러운 자취를 찾아서</p>
+        <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-app-text">{t('exploreTitle')}</h1>
+        <p className="text-sm font-medium text-app-text-muted">{t('exploreSubtitle')}</p>
       </header>
 
       <div className="px-8 py-4">
@@ -61,14 +63,14 @@ export default function ExplorePage() {
               <span className="flex items-center gap-3">
                 <Footprints size={22} aria-hidden />
                 <span>
-                  <span className="block text-base font-extrabold">순례 코스</span>
-                  <span className="block text-xs opacity-80">박해의 역사를 따라 걷는 길</span>
+                  <span className="block text-base font-extrabold">{t('routesTitle')}</span>
+                  <span className="block text-xs opacity-80">{t('routesSubtitle')}</span>
                 </span>
               </span>
               <ChevronRight size={20} aria-hidden />
             </Link>
             <h2 className="mb-6 text-[11px] font-bold uppercase tracking-widest text-app-text-muted">
-              교구별 탐색
+              {t('byDiocese')}
             </h2>
             <div className="grid grid-cols-3 gap-3">
               {DIOCESES.map((diocese) => (
@@ -128,7 +130,7 @@ export default function ExplorePage() {
               ) : sites.length > 0 ? (
                 sites.map((site) => <SiteListItem key={site.id} site={site} />)
               ) : (
-                <EmptyState icon={Church} title="아직 등록된 성지가 없습니다." />
+                <EmptyState icon={Church} title={t('noSites')} />
               )}
             </div>
           </div>
