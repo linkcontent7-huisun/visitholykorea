@@ -11,10 +11,12 @@ import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar'
 import { LogComposer } from '@/features/records/components/LogComposer';
 import { useMyLogs } from '@/features/records/hooks/use-logs';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
+import { useSettings } from '@/shared/i18n/use-settings';
 
 type Segment = 'logs' | 'stamps';
 
 export default function RecordsPage() {
+  const { t } = useSettings();
   const [segment, setSegment] = useState<Segment>('logs');
   const [isComposing, setIsComposing] = useState(false);
   const { session } = useSession();
@@ -51,15 +53,15 @@ export default function RecordsPage() {
     return (
       <div className="min-h-screen bg-app-bg">
         <header className="sticky top-0 z-40 border-b border-app-border bg-white/90 p-8 pb-6 backdrop-blur-md">
-          <h1 className="text-3xl font-extrabold tracking-tight text-app-text">기록</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight text-app-text">{t('recordsTitle')}</h1>
         </header>
 
         <div className="px-8 pb-32 pt-4">
           <EmptyState
             icon={StampIcon}
-            title="순례 기록은 로그인 후에 남아요"
+            title={t('recordsLoginTitle')}
             description={
-              '다녀온 성지에 스탬프를 찍고 여행기를 남기면\n나만의 순례 여권이 채워집니다.'
+              t('recordsLoginBody')
             }
           />
 
@@ -68,7 +70,7 @@ export default function RecordsPage() {
             className="mt-2 block rounded-[24px] bg-brand-blue px-6 py-5 text-center text-sm font-extrabold text-white shadow-xl shadow-brand-blue/20"
             id="records-login-cta"
           >
-            로그인하고 순례 기록 시작하기
+            {t('recordsLoginCta')}
           </Link>
 
           <p className="mt-6 text-center text-[12px] font-medium leading-relaxed text-app-text-muted">
@@ -96,7 +98,7 @@ export default function RecordsPage() {
   return (
     <div className="min-h-screen bg-app-bg">
       <header className="sticky top-0 z-40 border-b border-app-border bg-white/90 p-8 pb-4 backdrop-blur-md">
-        <h1 className="mb-4 text-3xl font-extrabold tracking-tight text-app-text">기록</h1>
+        <h1 className="mb-4 text-3xl font-extrabold tracking-tight text-app-text">{t('recordsTitle')}</h1>
         <div className="flex rounded-[16px] border border-app-border bg-app-bg p-1" role="tablist">
           {(
             [
@@ -180,9 +182,9 @@ export default function RecordsPage() {
             ) : (
               <EmptyState
                 icon={PenLine}
-                title="다녀온 성지를 기록해보세요"
+                title={t('logsEmptyTitle')}
                 description={
-                  '내 순례의 감동과 기도를 기록으로 남기고\n다른 순례자들과 마음을 나누어보세요.'
+                  t('logsEmptyBody')
                 }
               />
             )}
@@ -191,11 +193,11 @@ export default function RecordsPage() {
           <div className="space-y-10">
             <div className="rounded-[32px] bg-gradient-to-br from-brand-blue to-brand-violet p-8 text-white shadow-xl shadow-brand-blue/20">
               <p className="mb-2 text-[10px] font-extrabold uppercase tracking-widest opacity-70">
-                순례 여권
+                {t('pilgrimPassport')}
               </p>
               <div className="mb-3 flex items-end gap-2">
                 <span className="text-4xl font-black">{stamps.length}</span>
-                <span className="mb-1 text-sm font-bold opacity-80">곳 순례</span>
+                <span className="mb-1 text-sm font-bold opacity-80">{t('sitesVisitedSuffix')}</span>
               </div>
               {certLevel && (
                 <p className="mb-1 text-sm font-bold">
@@ -223,7 +225,7 @@ export default function RecordsPage() {
             {stamps.length === 0 ? (
               <EmptyState
                 icon={StampIcon}
-                title="아직 스탬프가 없어요"
+                title={t('stampsEmptyTitle')}
                 description={
                   '성지 상세 페이지에서 "순례 스탬프 찍기"를 눌러\n나만의 순례 여권을 채워보세요.'
                 }

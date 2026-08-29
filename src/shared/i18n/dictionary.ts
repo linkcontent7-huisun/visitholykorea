@@ -16,6 +16,21 @@ export function isLanguage(value: unknown): value is Language {
   return typeof value === 'string' && (LANGUAGES as string[]).includes(value);
 }
 
+/**
+ `* 문구 안의 {n} 같은 자리표시자를 값으로 바꾼다.
+ *
+ * 숫자가 섞인 문장은 언어마다 어순이 달라서("{n} of {total}" vs "{total}곳 가운데 {n}곳")
+ * 조각을 이어 붙이면 번역이 불가능해진다. 문장 전체를 사전에 두고 값만 끼워 넣는다.
+ * 값이 없는 자리표시자는 그대로 남긴다 — 몰래 빈칸이 되면 원인을 찾기 어렵다.
+ */
+export function fillPlaceholders(
+  text: string,
+  values: Record<string, string | number>,
+): string {
+  return text.replace(/\{(\w+)\}/g, (whole, key: string) =>
+    key in values ? String(values[key]) : whole,
+  );
+}
 /** 언어 전환 버튼에 쓸 이름. 자기 언어로 적는다 — 못 읽는 언어로 쓰면 고를 수가 없다. */
 export const LANGUAGE_LABEL: Record<Language, string> = {
   ko: '한국어',
@@ -439,6 +454,172 @@ export const DICTIONARY = {
     fr: 'Michael, le guide de pèlerinage IA',
     pt: 'Michael, o guia de peregrinação com IA',
     it: 'Michael, la guida al pellegrinaggio con IA',
+  },
+
+  // 지도 화면
+  mapTitle: {
+    ko: '순례 지도',
+    en: 'Pilgrimage Map',
+    es: 'Mapa de peregrinación',
+    fr: 'Carte du pèlerinage',
+    pt: 'Mapa da peregrinação',
+    it: 'Mappa del pellegrinaggio',
+  },
+  mapSearchSite: {
+    ko: '성지 이름 검색',
+    en: 'Search shrine name',
+    es: 'Buscar nombre del santuario',
+    fr: 'Rechercher un sanctuaire',
+    pt: 'Buscar nome do santuário',
+    it: 'Cerca il nome del santuario',
+  },
+  dioceseProgress: {
+    ko: '교구별 진행',
+    en: 'Progress by diocese',
+    es: 'Progreso por diócesis',
+    fr: 'Progression par diocèse',
+    pt: 'Progresso por diocese',
+    it: 'Progressi per diocesi',
+  },
+  visited: {
+    ko: '다녀옴',
+    en: 'Visited',
+    es: 'Visitado',
+    fr: 'Visité',
+    pt: 'Visitado',
+    it: 'Visitato',
+  },
+  markVisited: {
+    ko: '다녀왔어요',
+    en: 'I’ve been here',
+    es: 'Ya he estado aquí',
+    fr: 'J’y suis allé',
+    pt: 'Já estive aqui',
+    it: 'Ci sono stato',
+  },
+
+  // 기록 화면
+  recordsTitle: {
+    ko: '기록',
+    en: 'My Record',
+    es: 'Mi registro',
+    fr: 'Mon carnet',
+    pt: 'Meu registro',
+    it: 'Il mio diario',
+  },
+  recordsLoginTitle: {
+    ko: '순례 기록은 로그인 후에 남아요',
+    en: 'Your pilgrimage record is saved once you log in',
+    es: 'Tu registro de peregrinación se guarda al iniciar sesión',
+    fr: 'Votre carnet est conservé une fois connecté',
+    pt: 'Seu registro é salvo depois de entrar',
+    it: 'Il tuo diario viene salvato dopo l’accesso',
+  },
+  recordsLoginBody: {
+    ko: '다녀온 성지에 스탬프를 찍고 여행기를 남기면\n나만의 순례 여권이 채워집니다.',
+    en: 'Collect stamps and write journals at the shrines you visit,\nand your own pilgrim passport fills up.',
+    es: 'Consigue sellos y escribe diarios en los santuarios que visites,\ny tu pasaporte de peregrino se irá llenando.',
+    fr: 'Collectez des tampons et écrivez vos récits dans les sanctuaires visités,\net votre passeport de pèlerin se remplira.',
+    pt: 'Colete selos e escreva relatos nos santuários que visitar,\ne seu passaporte de peregrino vai se preenchendo.',
+    it: 'Raccogli timbri e scrivi i tuoi racconti nei santuari che visiti,\ne il tuo passaporto del pellegrino si riempirà.',
+  },
+  recordsLoginCta: {
+    ko: '로그인하고 순례 기록 시작하기',
+    en: 'Log in and start your record',
+    es: 'Inicia sesión y comienza tu registro',
+    fr: 'Connectez-vous et commencez votre carnet',
+    pt: 'Entre e comece seu registro',
+    it: 'Accedi e inizia il tuo diario',
+  },
+  logsEmptyTitle: {
+    ko: '다녀온 성지를 기록해보세요',
+    en: 'Write about the shrines you’ve visited',
+    es: 'Escribe sobre los santuarios que has visitado',
+    fr: 'Écrivez sur les sanctuaires que vous avez visités',
+    pt: 'Escreva sobre os santuários que visitou',
+    it: 'Scrivi dei santuari che hai visitato',
+  },
+  logsEmptyBody: {
+    ko: '내 순례의 감동과 기도를 기록으로 남기고\n다른 순례자들과 마음을 나누어보세요.',
+    en: 'Record the moments and prayers of your pilgrimage,\nand share them with fellow pilgrims.',
+    es: 'Registra los momentos y oraciones de tu peregrinación\ny compártelos con otros peregrinos.',
+    fr: 'Consignez les moments et les prières de votre pèlerinage,\net partagez-les avec d’autres pèlerins.',
+    pt: 'Registre os momentos e orações da sua peregrinação\ne compartilhe com outros peregrinos.',
+    it: 'Annota i momenti e le preghiere del tuo pellegrinaggio\ne condividili con altri pellegrini.',
+  },
+  stampsEmptyTitle: {
+    ko: '아직 스탬프가 없어요',
+    en: 'No stamps yet',
+    es: 'Aún no hay sellos',
+    fr: 'Pas encore de tampons',
+    pt: 'Ainda não há selos',
+    it: 'Nessun timbro finora',
+  },
+  sitesVisitedSuffix: {
+    ko: '곳 순례',
+    en: 'shrines visited',
+    es: 'santuarios visitados',
+    fr: 'sanctuaires visités',
+    pt: 'santuários visitados',
+    it: 'santuari visitati',
+  },
+
+  // 지도 범례·진행 — {n}·{total} 은 화면에서 숫자로 바뀐다
+  loading: {
+    ko: '불러오는 중…',
+    en: 'Loading…',
+    es: 'Cargando…',
+    fr: 'Chargement…',
+    pt: 'Carregando…',
+    it: 'Caricamento…',
+  },
+  mapProgress: {
+    ko: '{total}곳 가운데 {n}곳을 다녀오셨습니다',
+    en: 'You’ve visited {n} of {total} shrines',
+    es: 'Has visitado {n} de {total} santuarios',
+    fr: 'Vous avez visité {n} sanctuaires sur {total}',
+    pt: 'Você visitou {n} de {total} santuários',
+    it: 'Hai visitato {n} santuari su {total}',
+  },
+  mapOffMap: {
+    ko: '좌표가 없어 지도에 표시하지 못한 곳 {n}곳',
+    en: '{n} shrines have no coordinates and are not on the map',
+    es: '{n} santuarios no tienen coordenadas y no aparecen en el mapa',
+    fr: '{n} sanctuaires sans coordonnées ne figurent pas sur la carte',
+    pt: '{n} santuários não têm coordenadas e não aparecem no mapa',
+    it: '{n} santuari non hanno coordinate e non sono sulla mappa',
+  },
+  legendVisited: {
+    ko: '다녀온 곳',
+    en: 'Visited',
+    es: 'Visitados',
+    fr: 'Visités',
+    pt: 'Visitados',
+    it: 'Visitati',
+  },
+  legendAlmost: {
+    ko: '조금 남은 교구',
+    en: 'Almost complete',
+    es: 'Casi completas',
+    fr: 'Presque terminés',
+    pt: 'Quase completas',
+    it: 'Quasi completate',
+  },
+  legendNotYet: {
+    ko: '아직',
+    en: 'Not yet',
+    es: 'Todavía no',
+    fr: 'Pas encore',
+    pt: 'Ainda não',
+    it: 'Non ancora',
+  },
+  legendOrder: {
+    ko: '지나온 순서 (최근일수록 진하게)',
+    en: 'Order visited (darker is more recent)',
+    es: 'Orden de visita (más oscuro es más reciente)',
+    fr: 'Ordre des visites (plus foncé = plus récent)',
+    pt: 'Ordem das visitas (mais escuro é mais recente)',
+    it: 'Ordine delle visite (più scuro = più recente)',
   },
 
   // 찾아가는 길 — 외국인에게 가장 중요한 화면
