@@ -41,36 +41,37 @@ interface MenuItem {
 export default function MenuPage() {
   const navigate = useNavigate();
   const { session } = useSession();
-  const { language, setLanguage, largeText, setLargeText, origin, setOrigin } = useSettings();
+  const { language, setLanguage, largeText, setLargeText, origin, setOrigin, t } =
+    useSettings();
   const { data: stamps = [] } = useMyStamps();
   const { data: logs = [] } = useMyLogs();
 
   const isLoggedIn = Boolean(session);
   const displayName =
-    (session?.user.user_metadata?.name as string | undefined) || session?.user.email || '순례자';
+    (session?.user.user_metadata?.name as string | undefined) || session?.user.email || t('pilgrimDefaultName');
 
   const requireAuth = () => navigate(paths.login);
 
   const sections: { title: string; items: MenuItem[] }[] = [
     {
-      title: '계정 설정',
+      title: t('accountSettings'),
       items: [
         {
           id: 'profile',
           icon: User,
-          label: '내 프로필',
-          sub: '회원정보 수정 및 관리',
+          label: t('myProfile'),
+          sub: t('profileSub'),
           requiresAuth: true,
         },
       ],
     },
     {
-      title: '앱 설정',
+      title: t('appSettings'),
       items: [
         {
           id: 'lang',
           icon: Globe,
-          label: '언어 설정 / Language',
+          label: t('languageSetting'),
           // WYD 2027 공식 언어 6개. 목록은 각자의 언어로 적어야 자기 언어를 찾을 수 있다.
           sub: LANGUAGE_LABEL[language],
           control: (
@@ -91,15 +92,15 @@ export default function MenuPage() {
         {
           id: 'largeText',
           icon: Type,
-          label: '큰 글자 모드',
-          sub: largeText ? '켜짐' : '꺼짐',
+          label: t('largeTextSetting'),
+          sub: largeText ? t('toggleOn') : t('toggleOff'),
           onClick: () => setLargeText(!largeText),
         },
         {
           id: 'origin',
           icon: MapPin,
-          label: '출발지',
-          sub: origin ? `${origin}에서 가까운 순으로 봅니다` : '정하면 가까운 성지부터 보여드려요',
+          label: t('originSetting'),
+          sub: origin ? `${origin}에서 가까운 순으로 봅니다` : t('originSub'),
           control: (
             <select
               value={origin ?? ''}
@@ -107,7 +108,7 @@ export default function MenuPage() {
               aria-label="출발지 선택"
               className="rounded-2xl border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20"
             >
-              <option value="">전국</option>
+              <option value="">{t('originAll')}</option>
               {REGIONS.map((r) => (
                 <option key={r} value={r}>
                   {r}
@@ -116,15 +117,15 @@ export default function MenuPage() {
             </select>
           ),
         },
-        { id: 'settings', icon: Settings, label: '알림 및 일반 설정' },
+        { id: 'settings', icon: Settings, label: t('generalSettings') },
       ],
     },
     {
-      title: '지원 및 정보',
+      title: t('supportInfo'),
       items: [
-        { id: 'intro', icon: Info, label: '서비스 소개', sub: 'Visit Holy Korea에 대하여' },
-        { id: 'help', icon: ShieldQuestion, label: '고객지원', sub: '자주 묻는 질문 / 문의하기' },
-        { id: 'share', icon: Share2, label: '친구에게 추천하기' },
+        { id: 'intro', icon: Info, label: t('aboutService'), sub: t('aboutServiceSub') },
+        { id: 'help', icon: ShieldQuestion, label: t('customerSupport'), sub: t('customerSupportSub') },
+        { id: 'share', icon: Share2, label: t('shareApp') },
       ],
     },
   ];
@@ -142,14 +143,14 @@ export default function MenuPage() {
               {isLoggedIn ? ' 님' : ''}
             </h2>
             {isLoggedIn ? (
-              <p className="text-sm font-bold text-brand-violet">오늘 하루도 평안하신가요?</p>
+              <p className="text-sm font-bold text-brand-violet">{t('menuGreeting')}</p>
             ) : (
               <button
                 onClick={requireAuth}
                 className="flex items-center gap-1.5 text-sm font-bold text-brand-blue"
                 id="menu-login-prompt"
               >
-                <LogIn size={14} /> 로그인하고 순례 기록 시작하기
+                <LogIn size={14} /> {t('recordsLoginCta')}
               </button>
             )}
           </div>
@@ -158,13 +159,13 @@ export default function MenuPage() {
         <div className="mt-10 grid grid-cols-2 gap-6 border-t border-app-border pt-10">
           <div className="border-r border-app-border text-center">
             <p className="mb-1.5 text-[9px] font-extrabold uppercase tracking-widest text-app-text-muted">
-              순례지
+              {t('countShrines')}
             </p>
             <p className="text-xl font-extrabold text-app-text">{stamps.length}</p>
           </div>
           <div className="text-center">
             <p className="mb-1.5 text-[9px] font-extrabold uppercase tracking-widest text-app-text-muted">
-              여행기
+              {t('countJournals')}
             </p>
             <p className="text-xl font-extrabold text-app-text">{logs.length}</p>
           </div>
@@ -238,7 +239,7 @@ export default function MenuPage() {
           id="logout-btn"
         >
           {isLoggedIn ? <LogOut size={16} /> : <LogIn size={16} />}
-          {isLoggedIn ? '로그아웃' : '로그인'}
+          {isLoggedIn ? t('logout') : t('login')}
         </button>
       </div>
     </div>

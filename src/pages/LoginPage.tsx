@@ -11,7 +11,7 @@ import { useSettings } from '@/shared/i18n/use-settings';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { wideView } = useSettings();
+  const { wideView, t } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
   const [isLogin, setIsLogin] = useState(true);
@@ -35,8 +35,8 @@ export default function LoginPage() {
         setMessage({
           type: 'error',
           text: 미확인
-            ? '가입 확인 메일의 링크를 아직 누르지 않으셨어요. 메일함(스팸함 포함)을 확인해주세요.'
-            : '이메일 또는 비밀번호가 올바르지 않습니다.',
+            ? t('signupMailPending')
+            : t('loginBadCredentials'),
         });
         return;
       }
@@ -50,7 +50,7 @@ export default function LoginPage() {
       setMessage({ type: 'error', text: error.message });
       return;
     }
-    setMessage({ type: 'info', text: '가입 확인 메일을 보냈어요. 메일함을 확인해주세요.' });
+    setMessage({ type: 'info', text: t('signupMailSent') });
     setIsLogin(true);
   };
 
@@ -63,7 +63,7 @@ export default function LoginPage() {
       setLoading(false);
       setMessage({
         type: 'error',
-        text: '소셜 로그인에 실패했어요. 잠시 후 다시 시도해주세요.',
+        text: t('socialLoginFailed'),
       });
     }
     // 성공 시에는 제공자 페이지로 이동하므로 여기서 할 일이 없다.
@@ -86,12 +86,12 @@ export default function LoginPage() {
             <ShieldCheck size={32} />
           </div>
           <h1 className="mb-2 whitespace-pre-line text-3xl font-black tracking-tight text-slate-900">
-            {isLogin ? '다시 오신 것을\n환영합니다' : '거룩한 여정의\n시작'}
+            {isLogin ? t('loginWelcomeBack') : t('signupTitle')}
           </h1>
           <p className="whitespace-pre-line font-medium text-slate-400">
             {isLogin
-              ? '순례의 기록을 계속 이어가세요.'
-              : '회원가입을 통해 본인만의\n순례 일정을 관리해보세요.'}
+              ? t('loginWelcomeBackSub')
+              : t('signupSub')}
           </p>
         </div>
 
@@ -164,7 +164,7 @@ export default function LoginPage() {
             disabled={loading}
             className="group mt-8 flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 py-5 font-black text-white shadow-xl shadow-blue-100 transition-all hover:bg-blue-700 active:scale-95 disabled:opacity-50"
           >
-            {loading ? '처리 중...' : isLogin ? '로그인' : '회원가입'}
+            {loading ? t('processing') : isLogin ? t('login') : t('signup')}
             {!loading && (
               <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
             )}
@@ -176,11 +176,11 @@ export default function LoginPage() {
         <div className="mt-10 text-center">
           <div className="mb-6 flex items-center gap-4" aria-hidden>
             <span className="h-px flex-1 bg-slate-100" />
-            <span className="text-xs font-bold text-slate-300">SNS 간편 로그인</span>
+            <span className="text-xs font-bold text-slate-300">{t('socialLogin')}</span>
             <span className="h-px flex-1 bg-slate-100" />
           </div>
           <p className="mb-6 text-sm font-medium text-slate-400">
-            SNS 인증으로 간편하게 시작할 수 있어요.
+            {t('socialLoginHint')}
           </p>
 
           <div className="flex items-center justify-center gap-5">
@@ -268,22 +268,22 @@ export default function LoginPage() {
               onClick={() => navigate('/terms')}
               className="text-xs font-bold text-slate-400 underline underline-offset-2"
             >
-              이용약관 보기
+              {t('viewTerms')}
             </button>
             <button
               type="button"
               onClick={() => navigate('/faq')}
               className="text-xs font-bold text-slate-400 underline underline-offset-2"
             >
-              자주 묻는 질문
+              {t('viewFaq')}
             </button>
           </div>
         </div>
 
         <div className="mt-10 text-center">
           <button onClick={() => setIsLogin(!isLogin)} className="text-sm font-bold text-slate-400">
-            {isLogin ? '계정이 없으신가요? ' : '이미 계정이 있으신가요? '}
-            <span className="text-blue-600">{isLogin ? '회원가입' : '로그인'}</span>
+            {isLogin ? t('noAccountYet') : t('alreadyHaveAccount')}
+            <span className="text-blue-600">{isLogin ? t('signup') : t('login')}</span>
           </button>
         </div>
       </div>
