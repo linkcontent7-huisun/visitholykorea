@@ -6,6 +6,16 @@ export type Language = 'ko' | 'en' | 'es' | 'fr' | 'pt' | 'it';
 
 export const LANGUAGES: Language[] = ['ko', 'en', 'es', 'fr', 'pt', 'it'];
 
+/**
+ * 저장된 값이 지금 지원하는 언어인지 본다.
+ *
+ * localStorage 에는 예전 버전이 넣은 값이나 사람이 손댄 값이 남아 있을 수 있다.
+ * 그대로 믿고 쓰면 사전에 없는 키를 찾다가 화면이 빈다.
+ */
+export function isLanguage(value: unknown): value is Language {
+  return typeof value === 'string' && (LANGUAGES as string[]).includes(value);
+}
+
 /** 언어 전환 버튼에 쓸 이름. 자기 언어로 적는다 — 못 읽는 언어로 쓰면 고를 수가 없다. */
 export const LANGUAGE_LABEL: Record<Language, string> = {
   ko: '한국어',

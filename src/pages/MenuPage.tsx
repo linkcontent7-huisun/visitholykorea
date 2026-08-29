@@ -19,6 +19,7 @@ import { signOut } from '@/features/auth/api/auth';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useMyLogs } from '@/features/records/hooks/use-logs';
+import { LANGUAGES, LANGUAGE_LABEL, type Language } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { REGIONS, type Region } from '@/shared/lib/regions';
 
@@ -70,8 +71,22 @@ export default function MenuPage() {
           id: 'lang',
           icon: Globe,
           label: '언어 설정 / Language',
-          sub: language === 'ko' ? '한국어(KR)' : 'English(EN)',
-          onClick: () => setLanguage(language === 'ko' ? 'en' : 'ko'),
+          // WYD 2027 공식 언어 6개. 목록은 각자의 언어로 적어야 자기 언어를 찾을 수 있다.
+          sub: LANGUAGE_LABEL[language],
+          control: (
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value as Language)}
+              aria-label="언어 선택 / Select language"
+              className="rounded-2xl border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20"
+            >
+              {LANGUAGES.map((lang) => (
+                <option key={lang} value={lang}>
+                  {LANGUAGE_LABEL[lang]}
+                </option>
+              ))}
+            </select>
+          ),
         },
         {
           id: 'largeText',

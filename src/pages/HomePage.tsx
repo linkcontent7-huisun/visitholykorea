@@ -2,7 +2,6 @@ import {
   ArrowRight,
   ChevronRight,
   Compass,
-  Globe,
   HandHeart,
   HeartHandshake,
   Search,
@@ -20,6 +19,7 @@ import { useRecommendedCourses } from '@/features/courses/hooks/use-courses';
 import { TodayQuietSection } from '@/features/quiet/components/TodayQuietSection';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { useSites } from '@/features/sites/hooks/use-sites';
+import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { regionCoords } from '@/shared/lib/regions';
 import { haversineKm } from '@/shared/lib/geo';
@@ -34,7 +34,7 @@ const EMOTION_ICON: Record<EmotionTag, ComponentType<{ size?: number; className?
 };
 
 export default function HomePage() {
-  const { language, setLanguage, largeText, setLargeText, origin } = useSettings();
+  const { largeText, setLargeText, origin } = useSettings();
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionTag>('치유');
   const [isAIGuideOpen, setIsAIGuideOpen] = useState(false);
 
@@ -84,14 +84,7 @@ export default function HomePage() {
             >
               <Type size={14} />
             </button>
-            <button
-              onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
-              className="flex cursor-pointer items-center gap-1 text-[13px] font-bold text-app-text-muted"
-              id="language-toggle"
-            >
-              <Globe size={14} />
-              {language === 'ko' ? 'KO' : 'EN'}
-            </button>
+            <LanguagePicker />
           </div>
         </div>
         <Link

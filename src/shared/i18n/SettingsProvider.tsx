@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { isRegion, type Region } from '@/shared/lib/regions';
-import { DICTIONARY, type Language } from './dictionary';
+import { DICTIONARY, isLanguage, type Language } from './dictionary';
 import { SettingsContext, type SettingsContextValue } from './settings-context';
 
 const STORAGE_KEY_LANG = 'vhk_language';
@@ -8,7 +8,8 @@ const STORAGE_KEY_TEXT = 'vhk_large_text';
 const STORAGE_KEY_ORIGIN = 'vhk_origin';
 
 function readStoredLanguage(): Language {
-  return localStorage.getItem(STORAGE_KEY_LANG) === 'en' ? 'en' : 'ko';
+  const raw = localStorage.getItem(STORAGE_KEY_LANG);
+  return isLanguage(raw) ? raw : 'ko';
 }
 
 /** 저장된 출발지. 값이 시·도 목록에 없으면(이전 버전·손댄 값) 안 고른 것으로 본다. */
