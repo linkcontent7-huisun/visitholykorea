@@ -1,10 +1,26 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { TourApiError } from '@/shared/api/tour-api';
+import { DICTIONARY } from '@/shared/i18n/dictionary';
+import * as useSettingsModule from '@/shared/i18n/use-settings';
 import * as useQuietSitesModule from '../hooks/use-quiet-sites';
 import { TodayQuietSection } from './TodayQuietSection';
 
 vi.mock('../hooks/use-quiet-sites');
+vi.mock('@/shared/i18n/use-settings');
+
+// 문구는 사전을 거치므로, 테스트도 실제 사전 값을 그대로 쓴다
+vi.mocked(useSettingsModule.useSettings).mockReturnValue({
+  language: 'ko',
+  setLanguage: vi.fn(),
+  largeText: false,
+  setLargeText: vi.fn(),
+  origin: null,
+  setOrigin: vi.fn(),
+  t: ((key: keyof typeof DICTIONARY) => DICTIONARY[key].ko) as never,
+  wideView: false,
+  setWideView: vi.fn(),
+});
 
 function mockQuietSites(overrides: Partial<ReturnType<typeof useQuietSitesModule.useQuietSites>>) {
   vi.mocked(useQuietSitesModule.useQuietSites).mockReturnValue({
