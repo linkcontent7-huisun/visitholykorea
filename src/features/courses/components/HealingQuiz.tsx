@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
+import type { TranslationKey } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { getRecommendedCourses, type CourseCard } from '../api/course-matching';
 import { useCompassMemory, useSaveCompassResponse } from '../hooks/use-compass-memory';
@@ -39,12 +40,13 @@ const EMOTION_EMOJI: Record<EmotionTag, string> = {
   감사: '🙏',
 };
 
-const EMOTION_LABEL: Record<EmotionTag, string> = {
-  위로: '위로가 필요해요',
-  새출발: '새로 시작하고 싶어요',
-  평온: '그저 평온하고 싶어요',
-  치유: '마음을 어루만지고 싶어요',
-  감사: '감사한 마음을 나누고 싶어요',
+/** 표시 문구는 사전에서 온다. 여기 값은 사전 키다 — 내부 감정 코드(위로·치유…)는 그대로 쓴다. */
+const EMOTION_LABEL: Record<EmotionTag, TranslationKey> = {
+  위로: 'compassWishComfort',
+  새출발: 'compassWishFreshStart',
+  평온: 'compassWishCalm',
+  치유: 'compassWishHealing',
+  감사: 'compassWishGratitude',
 };
 
 // 색으로 직관적으로 고를 수 있도록 감정마다 고유한 색을 지정한다.
@@ -70,23 +72,37 @@ type Style = '침묵형' | '나눔형';
 const TIME_BUDGETS = ['반나절', '하루', '1박2일'] as const;
 type TimeBudget = (typeof TIME_BUDGETS)[number];
 
-const CONCERN_OPENER: Record<Concern, string> = {
-  '일과 진로': '일과 진로로 마음이 분주하셨죠.',
-  '육아와 가족': '아이를 돌보느라 정작 나를 돌볼 틈이 없으셨겠어요.',
-  '사람들과의 관계': '사람 사이에서 마음을 많이 쓰셨겠어요.',
-  '나 자신을 돌보는 일': '나 자신을 돌보고 싶으셨군요.',
-  '뚜렷한 이유는 없어요': '뚜렷한 이유가 없어도, 지친 마음은 그 자체로 소중해요.',
+const CONCERN_LABEL: Record<Concern, TranslationKey> = {
+  '일과 진로': 'compassReasonWork',
+  '육아와 가족': 'compassReasonFamily',
+  '사람들과의 관계': 'compassReasonPeople',
+  '나 자신을 돌보는 일': 'compassReasonSelf',
+  '뚜렷한 이유는 없어요': 'compassReasonNone',
 };
 
-const STYLE_ACTIVITY: Record<Style, string> = {
-  침묵형: '이곳에서는 혼자 조용히 걸으며 침묵의 시간을 가져보세요.',
-  나눔형: '이곳에서는 수도자·사제와 편하게 이야기 나누는 차담 시간을 가져보세요.',
+const CONCERN_OPENER: Record<Concern, TranslationKey> = {
+  '일과 진로': 'compassReasonWorkReply',
+  '육아와 가족': 'compassReasonFamilyReply',
+  '사람들과의 관계': 'compassReasonPeopleReply',
+  '나 자신을 돌보는 일': 'compassReasonSelfReply',
+  '뚜렷한 이유는 없어요': 'compassReasonNoneReply',
 };
 
-const TIME_NOTE: Record<TimeBudget, string> = {
-  반나절: '짧은 시간이라도 충분해요.',
-  하루: '하루를 온전히 이곳에 내어주세요.',
-  '1박2일': '하룻밤 머물며 천천히 쉬어가세요.',
+const STYLE_ACTIVITY: Record<Style, TranslationKey> = {
+  침묵형: 'compassSilentAdvice',
+  나눔형: 'compassSharingAdvice',
+};
+
+const TIME_LABEL: Record<TimeBudget, TranslationKey> = {
+  반나절: 'compassStayHalfDay',
+  하루: 'compassStayDay',
+  '1박2일': 'compassStayOvernight',
+};
+
+const TIME_NOTE: Record<TimeBudget, TranslationKey> = {
+  반나절: 'compassStayHalfDayNote',
+  하루: 'compassStayDayNote',
+  '1박2일': 'compassStayOvernightNote',
 };
 
 /** 몇 명이 가는가 — 웰니스 실측 동반자 95.5%. 혼자만 전제하지 않는다. */
@@ -100,11 +116,24 @@ const PARTY_EMOJI: Record<PartySize, string> = {
   '5명 이상': '🚌',
 };
 
-const PARTY_NOTE: Record<PartySize, string> = {
-  혼자: '혼자만의 걸음도 충분한 순례예요.',
-  둘이서: '나란히 걷다 보면 말없이도 나눠져요.',
-  '3~4명': '함께 걷되 말하지 않는 구간을 하나 두어보세요.',
-  '5명 이상': '단체는 방문 전 성지에 전화로 알려주시면 서로 편해요.',
+const GENDER_LABEL: Record<Gender, TranslationKey> = {
+  여성: 'compassFemale',
+  남성: 'compassMale',
+  '응답 안 함': 'compassNoAnswer',
+};
+
+const PARTY_LABEL: Record<PartySize, TranslationKey> = {
+  혼자: 'compassAlone',
+  둘이서: 'compassGroupTwo',
+  '3~4명': 'compassGroupFew',
+  '5명 이상': 'compassGroupMany',
+};
+
+const PARTY_NOTE: Record<PartySize, TranslationKey> = {
+  혼자: 'compassSilentAdvice',
+  둘이서: 'compassWalkTogetherAdvice',
+  '3~4명': 'compassSilentStretchAdvice',
+  '5명 이상': 'compassGroupNote',
 };
 
 /**
@@ -118,11 +147,11 @@ const ITINERARY_GROUPS: Record<TimeBudget, FacilityGroup[]> = {
 };
 
 /** 일정 항목에 붙는 한 줄 — 왜 이 순서인지가 문구에 담긴다. */
-const ITINERARY_STEP_LABEL: Record<FacilityGroup, string> = {
-  맛집: '따뜻한 한 끼',
-  볼거리: '함께 둘러볼 곳',
-  숙박: '하룻밤 머물 곳',
-  쉼터: '오가는 길에',
+const ITINERARY_STEP_LABEL: Record<FacilityGroup, TranslationKey> = {
+  맛집: 'nearbyMeal',
+  볼거리: 'nearbyTogether',
+  숙박: 'nearbyOvernight',
+  쉼터: 'nearbyAlong',
 };
 
 /** 거리를 사람이 읽는 형태로. */
@@ -137,7 +166,7 @@ const TOTAL_QUESTIONS = 8;
 const RESULT_STEP = TOTAL_QUESTIONS + 1;
 
 export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps) {
-  const { wideView, origin, setOrigin } = useSettings();
+  const { wideView, origin, setOrigin, t } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
   const [step, setStep] = useState(0); // 0=intro, 1~8=질문, 9=결과
   const [emotion, setEmotion] = useState<EmotionTag | null>(null);
@@ -242,7 +271,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
       {/* Header */}
       <div className="h-16 flex items-center justify-between px-6 border-b border-app-border shrink-0">
         <div className="w-9" />
-        <span className="text-xs font-bold text-app-text-muted">마음 나침반</span>
+        <span className="text-xs font-bold text-app-text-muted">{t('compassTitle')}</span>
         <button onClick={handleClose} className="p-2 text-app-text-muted" id="quiz-close">
           <X size={22} />
         </button>
@@ -272,21 +301,20 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             >
               <div className="text-5xl mb-6">🧭</div>
               <h2 className="text-2xl font-extrabold text-app-text mb-4 tracking-tight">
-                지금, 어떤 마음으로
+                {t('compassIntroLine1')}
                 <br />
-                여기 오셨나요?
+                {t('compassIntroLine2')}
               </h2>
               <p className="text-app-text-muted text-sm leading-relaxed mb-10">
-                몇 가지만 여쭤볼게요.
+                {t('compassIntroBody')}
                 <br />
-                당신에게 꼭 맞는 쉼의 자리를 찾아드릴게요.
               </p>
               <button
                 onClick={() => setStep(1)}
                 className="w-full bg-brand-blue text-white py-4 rounded-[20px] font-bold text-sm shadow-lg shadow-brand-blue/20"
                 id="quiz-start"
               >
-                시작하기
+                {t('compassStart')}
               </button>
 
               {/* 지난번 결과 — 응답 저장(로드맵 3단계)이 처음으로 화면에 돌아오는 자리 */}
@@ -319,7 +347,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 <br />
                 가장 가까운 색을 골라주세요
               </h3>
-              <p className="text-xs text-app-text-muted mb-8">마음에 드는 색을 눌러주세요</p>
+              <p className="text-xs text-app-text-muted mb-8">{t('compassPickColor')}</p>
               <div className="grid grid-cols-3 gap-5">
                 {EMOTION_TAGS.map((tag) => (
                   <button
@@ -336,7 +364,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                       {EMOTION_EMOJI[tag]}
                     </span>
                     <span className="text-[11px] font-bold text-app-text-muted text-center leading-tight">
-                      {EMOTION_LABEL[tag]}
+                      {t(EMOTION_LABEL[tag])}
                     </span>
                   </button>
                 ))}
@@ -369,7 +397,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                     }`}
                     id={`quiz-concern-${c}`}
                   >
-                    {c}
+                    {t(CONCERN_LABEL[c])}
                   </button>
                 ))}
               </div>
@@ -389,7 +417,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 <br />
                 출발하세요?
               </h3>
-              <p className="text-xs text-app-text-muted mb-8">가까운 곳부터 안내해드릴게요</p>
+              <p className="text-xs text-app-text-muted mb-8">{t('compassNearbyNote')}</p>
               <select
                 value={region ?? ''}
                 onChange={(e) => {
@@ -441,7 +469,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                     }`}
                     id={`quiz-gender-${g}`}
                   >
-                    {g}
+                    {t(GENDER_LABEL[g])}
                   </button>
                 ))}
               </div>
@@ -464,7 +492,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   {
                     key: '침묵형' as Style,
                     icon: VolumeX,
-                    label: '혼자 조용히 있고 싶어요',
+                    label: t('compassAlone'),
                     bg: 'bg-slate-200',
                     ring: 'ring-slate-400',
                     iconColor: 'text-slate-600',
@@ -472,7 +500,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   {
                     key: '나눔형' as Style,
                     icon: MessageCircle,
-                    label: '누군가와 이야기 나누고 싶어요',
+                    label: t('compassTogether'),
                     bg: 'bg-orange-200',
                     ring: 'ring-orange-400',
                     iconColor: 'text-orange-600',
@@ -514,18 +542,18 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 시간을 낼 수 있으세요?
               </h3>
               <div className="space-y-3">
-                {TIME_BUDGETS.map((t) => (
+                {TIME_BUDGETS.map((tb) => (
                   <button
-                    key={t}
-                    onClick={() => setTimeBudget(t)}
+                    key={tb}
+                    onClick={() => setTimeBudget(tb)}
                     className={`w-full p-5 rounded-[20px] border text-left font-bold text-sm transition-all ${
-                      timeBudget === t
+                      timeBudget === tb
                         ? 'border-brand-blue bg-brand-blue/5 text-brand-blue'
                         : 'border-app-border bg-white text-app-text'
                     }`}
-                    id={`quiz-time-${t}`}
+                    id={`quiz-time-${tb}`}
                   >
-                    {t}
+                    {t(TIME_LABEL[tb])}
                   </button>
                 ))}
               </div>
@@ -562,7 +590,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                         party === p ? 'text-brand-blue' : 'text-app-text'
                       }`}
                     >
-                      {p}
+                      {t(PARTY_LABEL[p])}
                     </span>
                   </button>
                 ))}
@@ -590,7 +618,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 rows={5}
-                placeholder="여기에 적어주세요... (선택)"
+                placeholder={t('compassFreeText')}
                 className="w-full bg-app-bg rounded-[20px] p-5 text-sm outline-none border border-app-border resize-none"
                 id="quiz-note"
               />
@@ -637,11 +665,11 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                         {result.site.location}
                       </p>
                       <div className="space-y-2 text-sm text-app-text-muted leading-relaxed">
-                        {concern && <p>{CONCERN_OPENER[concern]}</p>}
-                        {timeBudget && <p>{TIME_NOTE[timeBudget]}</p>}
-                        {party && <p>{PARTY_NOTE[party]}</p>}
+                        {concern && <p>{t(CONCERN_OPENER[concern])}</p>}
+                        {timeBudget && <p>{t(TIME_NOTE[timeBudget])}</p>}
+                        {party && <p>{t(PARTY_NOTE[party])}</p>}
                         {style && (
-                          <p className="text-brand-blue font-bold">{STYLE_ACTIVITY[style]}</p>
+                          <p className="text-brand-blue font-bold">{t(STYLE_ACTIVITY[style])}</p>
                         )}
                       </div>
                     </div>
@@ -710,7 +738,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                                     </p>
                                     <p className="flex items-center gap-1 text-[11px] font-bold text-app-text-muted">
                                       <MapPin size={10} className="shrink-0" />
-                                      {ITINERARY_STEP_LABEL[groupName]}
+                                      {t(ITINERARY_STEP_LABEL[groupName])}
                                       {dist && <span>· {dist}</span>}
                                     </p>
                                   </a>
@@ -771,7 +799,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             onClick={() => setStep(step - 1)}
             className="w-16 h-14 bg-app-bg text-app-text border border-app-border rounded-[18px] flex items-center justify-center shrink-0"
             id="quiz-prev"
-            aria-label="좀 전으로"
+            aria-label={t('compassBack')}
           >
             <ChevronLeft size={22} />
           </button>
@@ -781,7 +809,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             className="flex-1 bg-brand-blue text-white rounded-[18px] font-bold text-sm shadow-lg shadow-brand-blue/20 flex items-center justify-center gap-2 disabled:opacity-30 disabled:shadow-none"
             id="quiz-next"
           >
-            {step === TOTAL_QUESTIONS ? '결과 보기' : '다음으로'}
+            {step === TOTAL_QUESTIONS ? t('compassSeeResult') : t('compassNext')}
             <ChevronRight size={18} />
           </button>
         </div>
