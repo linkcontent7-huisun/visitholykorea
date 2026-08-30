@@ -1,10 +1,14 @@
 import { Church, ChevronRight, Footprints, Heart, MapPin } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { useMyFavoriteIds } from '@/features/favorites/hooks/use-favorites';
 import { SiteListItem } from '@/features/sites/components/SiteListItem';
+import { fetchSiteDioceseIndex } from '@/features/sites/api/holy-sites.repository';
+import { countByDiocese } from '@/features/sites/lib/diocese-count';
+import { queryKeys } from '@/shared/api/query-keys';
 import { useSites, useSitesByDiocese } from '@/features/sites/hooks/use-sites';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { DIOCESES } from '@/shared/types/domain';
@@ -13,6 +17,14 @@ const CATEGORIES = ['전체', '순교성지', '역사사적지', '주교좌성�
 
 export default function ExplorePage() {
   const { t } = useSettings();
+
+  // 교구 카드에 성지 수를 붙인다. 목록 전체가 아니라 id·교구만 받아 가볍다.
+  const { data: dioceseIndex = [] } = useQuery({
+    queryKey: queryKeys.sites.dioceseIndex(),
+    queryFn: fetchSiteDioceseIndex,
+    staleTime: 1000 * 60 * 60,
+  });
+  const dioceseCounts = useMemo(() => countByDiocese(dioceseIndex), [dioceseIndex]);
   const [selectedDiocese, setSelectedDiocese] = useState<string | null>(null);
   const [category, setCategory] = useState<string>('전체');
 
@@ -87,6 +99,12 @@ export default function ExplorePage() {
                   <span className="text-xs font-bold text-app-text-muted group-hover:text-brand-violet">
                     {diocese}
                   </span>
+                  {/* 숫자가 없으면 어느 교구를 눌러야 할지 판단할 근거가 없다 */}
+                  {dioceseCounts[diocese] != null && (
+                    <span className="text-[10px] font-bold text-gray-300 group-hover:text-brand-violet/60">
+                      {dioceseCounts[diocese]}곳
+                    </span>
+                  )}
                 </button>
               ))}
             </div>

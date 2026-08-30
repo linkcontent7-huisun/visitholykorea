@@ -11,6 +11,7 @@ export const queryKeys = {
     list: (filters: Record<string, unknown> = {}) => ['sites', 'list', filters] as const,
     detail: (id: string) => ['sites', 'detail', id] as const,
     search: (term: string) => ['sites', 'search', term] as const,
+    dioceseIndex: () => ['sites', 'diocese-index'] as const,
     byDiocese: (diocese: string, category?: string) =>
       ['sites', 'diocese', diocese, category ?? 'all'] as const,
   },
