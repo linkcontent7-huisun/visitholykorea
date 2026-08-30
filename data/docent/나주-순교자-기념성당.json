@@ -1,0 +1,90 @@
+{
+  "siteId": "b1073093-aeff-4e91-b642-0f8ab69207ad",
+  "siteName": "나주 순교자 기념성당",
+  "slug": "naju",
+  "surveyedAt": "2026-08-30",
+  "surveyedBy": "현장: 미조사 / 원고: Claude (문헌 기반 초안)",
+  "status": "draft",
+  "intro": {
+    "narration": "나주 순교자 기념성당에 오신 것을 환영합니다. 광주대교구에서 유일한 순교터를 품은 성당입니다. 오늘 보실 것은 웅장한 건물이 아니라 마당 한켠에 놓인 오래된 받침돌 몇 개입니다. 그 돌들이 백오십 년 전 이 고장에서 있었던 일을 기억하는 거의 유일한 물증입니다. 작은 것에서 시작하겠습니다.",
+    "narrationEn": "Welcome to the Martyrs' Memorial Church of Naju, the church that holds the only martyrdom site in the Archdiocese of Gwangju. What you will see today is not a grand building but a few old foundation stones set in a corner of the yard. Those stones are almost the only physical witness to what happened in this town a hundred and fifty years ago. We begin with small things.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "무학당 초석 — 형장에서 온 돌",
+      "titleEn": "The Muhakdang Stones — Stones from an Execution Ground",
+      "location": "성당 마당의 기념 구조물",
+      "locationEn": "The memorial structure in the churchyard",
+      "narration": "마당의 받침돌들부터 보세요. 무학당이라는 건물의 초석입니다. 무학당은 나주 진영, 그러니까 조선군 지방 부대의 사열대였습니다. 높은 기단 위에 대청과 방을 갖춘 건물로, 군사를 점검하던 곳이자 죄인을 다루던 형장이기도 했습니다. 건물은 사라지고 1907년 그 자리에 학교가 들어서면서 흔적이 희미해졌지만, 주춧돌 몇 개가 학교 정원에 백삼십 년을 버텼습니다. 2001년 11월, 남은 열두 개 가운데 열 개가 이 성당으로 옮겨졌습니다. 여덟 개는 지금 보시는 기념 조형물이 되었고 두 개는 십자가의 길 입구에 놓였습니다.",
+      "narrationEn": "Begin with the foundation stones in the yard. They belonged to a building called Muhakdang — the review stand of the Naju garrison, a raised hall where troops were inspected and, at times, prisoners were dealt with. The building vanished, and when a school was built on the site in 1907 the traces all but disappeared. Yet a handful of foundation stones endured a hundred and thirty years in the school garden. In November 2001, ten of the remaining twelve were moved here: eight form the memorial structure before you, and two stand at the entrance to the Stations of the Cross.",
+      "lookFor": "받침돌 여덟 개가 이루는 구조물의 배치",
+      "lookForEn": "How the eight stones are arranged into the memorial",
+      "forEveryone": "조선 후기 지방 군영 건축의 초석이 원형 그대로 남은 드문 사례입니다.",
+      "photos": [],
+      "sourceNote": "주교회의 성지 안내(cbck.or.kr) — 무학당은 나주 진영 사열대, 1907 나주초등학교 개교, 2001.11.7 주춧돌 10개 이전(8개 조형물·2개 십자가의 길 입구)"
+    },
+    {
+      "seq": 2,
+      "title": "1872년 봄 — 박해의 마지막 순교자들",
+      "titleEn": "Spring 1872 — Martyrs at the Persecution's End",
+      "location": "기념 구조물 앞",
+      "locationEn": "Before the memorial structure",
+      "narration": "이 돌들 위에서 무슨 일이 있었는지 말씀드리겠습니다. 1871년, 병인박해의 여파가 아직 남아 있던 때 세 사람이 나주로 잡혀 왔습니다. 유문보 바오로는 1872년 3월 옥에서 숨졌습니다. 강영원 바오로와 유치성 안드레아는 그해 4월 무학당 앞에서 처형되었습니다. 처형 방식은 백지사형이었습니다. 얼굴에 물 적신 종이를 한 겹씩 붙여 숨을 막는 형벌입니다. 칼도 밧줄도 쓰지 않는, 조용하고 잔인한 죽음이었습니다. 대박해가 저물어 가던 끝자락에서, 이들은 놓아주면 그만이었을 사람들이었습니다. 그런데도 신앙을 버리지 않아 죽었습니다.",
+      "narrationEn": "Let me tell you what happened on these stones. In 1871, with the great persecution winding down, three men were brought captive to Naju. Paul Yu Mun-bo died in prison in March 1872. Paul Kang Yeong-won and Andrew Yu Chi-seong were executed before Muhakdang that April. The method was baekjisa: sheets of wet paper laid one by one over the face until breath stopped — a death without blade or rope, quiet and cruel. At the fading edge of the persecution these were men who could simply have been released. They died because they would not give up the faith.",
+      "lookFor": "돌 위에 서 보면 느껴지는 기단의 높이",
+      "lookForEn": "The height of the platform, felt when you stand by the stones",
+      "forEveryone": "유치성의 최후에 대해서는 태형 뒤 백지사형이라는 기록과 돌에 맞아 숨졌다는 기록이 함께 전해집니다.",
+      "photos": [],
+      "sourceNote": "주교회의 안내 — 1871 체포, 1872.3 유문보 옥사, 1872.4 강영원·유치성 백지사형. 성지순례후원회 해설 — 유치성 최후는 기록이 갈린다"
+    },
+    {
+      "seq": 3,
+      "title": "네 번째 이름 — 이춘화 베드로",
+      "titleEn": "The Fourth Name — Peter Yi Chun-hwa",
+      "location": "순교자 기념 경당",
+      "locationEn": "The martyrs' memorial chapel",
+      "narration": "이 성당이 기리는 순교자는 네 분입니다. 방금 만난 세 분보다 한 세대 앞서, 1839년 기해박해 때 이춘화 베드로가 나주에서 순교했습니다. 삼십여 년의 시차를 두고 같은 고장에서 네 사람이 같은 이유로 죽은 것입니다. 경당에는 이분들을 기리는 기념 가묘가 마련되어 있습니다. 유해가 어디 묻혔는지 끝내 찾지 못했기에, 시신 없는 무덤으로 그 자리를 대신하고 있습니다.",
+      "narrationEn": "This church honours four martyrs. A generation before the three you have just met, Peter Yi Chun-hwa was martyred in Naju during the persecution of 1839. Four people of one town, thirty years apart, died for the same reason. In the chapel a memorial tomb is kept for them — their actual graves were never found, so an empty tomb stands in their place.",
+      "lookFor": "기념 가묘 — 시신 없이 이름만 모신 무덤",
+      "lookForEn": "The memorial tomb — a grave holding names, not remains",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "성지 DB 원문 — 이춘화 베드로 포함 네 순교자. 주교회의 안내 — 기해박해 때 나주 순교, 경내 순교자 기념 경당·기념 가묘"
+    },
+    {
+      "seq": 4,
+      "title": "아직 끝나지 않은 절차 — 시복을 기다리는 이름들",
+      "titleEn": "An Unfinished Process — Names Awaiting Beatification",
+      "location": "경당 안",
+      "locationEn": "Inside the chapel",
+      "narration": "한 가지 흥미로운 사실이 있습니다. 이곳 순교자 세 분, 유문보·유치성·강영원은 아직 성인도 복자도 아닙니다. 조선 왕조 치하 순교자 133위 시복 대상자에 올라 로마에서 절차가 진행 중입니다. 1984년의 103위 시성, 2014년의 124위 시복에 이은 세 번째 명단입니다. 교회가 한 사람을 성인으로 선포하기까지는 기록을 모으고 검증하는 데 수십 년, 때로는 백 년이 넘게 걸립니다. 이 성지는 말하자면 아직 심사가 진행 중인 법정이기도 합니다.",
+      "narrationEn": "Here is something worth knowing: the three martyrs of this place — Yu Mun-bo, Yu Chi-seong and Kang Yeong-won — are not yet saints or blesseds. They are among the 133 martyrs of the Joseon dynasty whose cause for beatification is under way in Rome, the third list after the 103 saints canonised in 1984 and the 124 beatified in 2014. Declaring one person a saint takes decades of gathered and verified records, sometimes more than a century. This shrine is, in a sense, a courtroom where the case is still open.",
+      "lookFor": "경당에 적힌 순교자들의 세례명",
+      "lookForEn": "The baptismal names inscribed in the chapel",
+      "forEveryone": "시복·시성은 가톨릭교회가 모범적 신앙인을 공적으로 공경 대상으로 선포하는 절차로, 역사 기록 검증이 핵심입니다.",
+      "photos": [],
+      "sourceNote": "주교회의 안내 — 유문보·유치성·강영원은 '조선 왕조 치하 순교 133위' 시복 대상자로 등재. 133위 시복은 2026-08 현재 진행 중(완료 여부는 추후 확인 필요)"
+    },
+    {
+      "seq": 5,
+      "title": "십자가의 길 — 형장의 돌이 놓인 입구",
+      "titleEn": "Stations of the Cross — Gated by Execution Stones",
+      "location": "십자가의 길 입구",
+      "locationEn": "The entrance to the Stations of the Cross",
+      "narration": "마지막으로 십자가의 길입니다. 입구에 아까 말씀드린 무학당 주춧돌 두 개가 놓여 있습니다. 예수의 수난을 묵상하며 걷는 길이 순교자들이 실제로 밟았던 돌에서 시작되는 셈입니다. 이천 년 전 예루살렘의 길과 백오십 년 전 나주의 길이 이 입구에서 겹쳐집니다. 천천히 걸으시고, 다 걸으신 뒤 마당의 여덟 개 돌을 한 번 더 돌아봐 주시기 바랍니다.",
+      "narrationEn": "Last comes the Stations of the Cross. At its entrance rest the two remaining Muhakdang stones. The path walked in meditation on the Passion thus begins on stones the martyrs actually trod — the road of Jerusalem two thousand years ago and the road of Naju a hundred and fifty years ago overlap at this gate. Walk slowly, and when you finish, look back once more at the eight stones in the yard.",
+      "lookFor": "입구 양쪽의 주춧돌 두 개",
+      "lookForEn": "The two foundation stones flanking the entrance",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "주교회의 안내 — 주춧돌 10개 중 2개는 십자가의 길 입구 배치"
+    }
+  ],
+  "outro": {
+    "narration": "나주 순례에 함께해 주셔서 감사합니다. 광주와 전남 지역의 신앙은 순교의 피가 아니라 이 작은 돌 몇 개와 네 개의 이름 위에서 자라났습니다. 목포 산정동 순교자기념성당도 이 앱에서 찾아보실 수 있습니다. 전남 천주교의 뿌리가 궁금하시다면 다음 걸음으로 좋겠습니다. 평화를 빕니다.",
+    "narrationEn": "Thank you for walking Naju with us. The faith of Gwangju and Jeonnam grew not from rivers of blood but from these few stones and four names. You can also find the Sanjeong-dong Martyrs' Memorial Church of Mokpo in this app — a good next step if you wish to trace the roots of Catholicism in Jeonnam. Peace be with you.",
+    "photos": []
+  }
+}
