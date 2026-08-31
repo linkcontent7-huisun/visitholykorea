@@ -2,6 +2,7 @@ import { Gauge, Headphones, MapPin, Pause, Play } from 'lucide-react';
 import type { Language } from '@/shared/i18n/dictionary';
 import type { DocentChapter } from '../lib/chapters';
 import { useDocentPlayer, type SpeechRateKey } from '../hooks/use-docent-player';
+import { isAndroid } from '../lib/headphones';
 
 const COPY = {
   ko: {
@@ -22,6 +23,9 @@ const COPY = {
     earphoneAsk:
       '성당은 미사와 기도가 이어지는 공간입니다. 다른 순례자분들께 소리가 들리지 않도록 이어폰을 연결해 주세요. 이어폰이 연결되지 않은 경우에는 오디오 도슨트를 들으실 수 없습니다.',
     earphoneConfirm: '이어폰을 연결했어요',
+    earphoneVerifying: '연결 확인 중…',
+    earphoneMicNote:
+      '연결 확인을 위해 마이크 권한 창이 뜰 수 있어요. 이어폰이 있는지만 확인하며, 녹음은 하지 않습니다.',
     earphoneBlocked:
       '이어폰이 연결되어 있지 않아 재생할 수 없습니다. 이어폰을 연결하신 뒤 다시 눌러 주세요. 조용한 성당을 함께 지켜주셔서 감사합니다.',
   },
@@ -43,6 +47,9 @@ const COPY = {
     earphoneAsk:
       'Churches are places of Mass and prayer. Please connect earphones so the sound does not reach other pilgrims — without earphones, the audio docent cannot be played.',
     earphoneConfirm: 'My earphones are connected',
+    earphoneVerifying: 'Checking connection…',
+    earphoneMicNote:
+      'A microphone permission prompt may appear to verify the connection. We only check for earphones — nothing is recorded.',
     earphoneBlocked:
       'No earphones are connected, so playback is unavailable. Please connect earphones and press play again. Thank you for keeping the church quiet with us.',
   },
@@ -68,6 +75,7 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
     hasError,
     headphoneGate,
     confirmHeadphones,
+    isVerifying,
   } = useDocentPlayer(chapters, language);
   // 플레이어 문구는 아직 한/영만 있다 — 다른 언어는 영어로 보여준다
   const copy = language === 'ko' ? COPY.ko : COPY.en;
@@ -141,13 +149,22 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
             {headphoneGate === 'blocked' ? copy.earphoneBlocked : copy.earphoneAsk}
           </p>
           {headphoneGate === 'confirm' && (
-            <button
-              onClick={confirmHeadphones}
-              className="mt-3 w-full rounded-xl bg-brand-violet py-2.5 text-xs font-extrabold text-white"
-              id="docent-earphone-confirm"
-            >
-              {copy.earphoneConfirm}
-            </button>
+            <>
+              <button
+                onClick={confirmHeadphones}
+                disabled={isVerifying}
+                className="mt-3 w-full rounded-xl bg-brand-violet py-2.5 text-xs font-extrabold text-white disabled:opacity-50"
+                id="docent-earphone-confirm"
+              >
+                {isVerifying ? copy.earphoneVerifying : copy.earphoneConfirm}
+              </button>
+              {/* 안드로이드는 버튼을 누르면 실제로 확인한다 — 권한 창이 왜 뜨는지 미리 알린다 */}
+              {isAndroid() && (
+                <p className="mt-2 text-[10px] font-medium leading-relaxed text-violet-700/70">
+                  {copy.earphoneMicNote}
+                </p>
+              )}
+            </>
           )}
         </div>
       )}

@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { SPEECH_LOCALE, type Language } from '@/shared/i18n/dictionary';
 import type { DocentChapter } from '../lib/chapters';
-import { detectHeadphones, isCoarsePointer, type HeadphoneState } from '../lib/headphones';
+import {
+  detectHeadphones,
+  isAndroid,
+  isCoarsePointer,
+  verifyWithMicPermission,
+  type HeadphoneState,
+} from '../lib/headphones';
 
 /** 확인을 한 번 받으면 같은 방문(세션) 동안은 다시 묻지 않는다. */
 const EARPHONE_OK_KEY = 'vhk_docent_earphone_ok';
@@ -273,8 +279,9 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
     setIsPlaying(false);
   };
 
-  /** "이어폰을 연결했어요" — 사용자의 확인을 받고 재생을 이어간다. */
-  const confirmHeadphones = () => {
+  const [isVerifying, setIsVerifying] = useState(false);
+
+  const unlockAndPlay = () => {
     try {
       sessionStorage.setItem(EARPHONE_OK_KEY, '1');
     } catch {
@@ -283,6 +290,31 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
     headphonesRef.current = 'connected';
     setHeadphoneGate(null);
     playFrom(currentIndex);
+  };
+
+  /**
+   * "이어폰을 연결했어요" — 사용자의 확인을 받고 재생을 이어간다.
+   *
+   * 안드로이드(갤럭시 등)에서는 말로만 믿지 않는다. 마이크 권한으로 장치
+   * 목록을 읽어 이어폰이 정말 있는지 확인하고, 내장 마이크뿐이면 차단한다.
+   * 안내문을 읽지 않고 버튼만 누르는 경우를 잡기 위해서다. 확인이 불가능한
+   * 기기(권한 거부·마이크 없는 유선 이어폰)는 확인을 믿고 재생한다 —
+   * 검증 한계로 정직한 사용자를 잠그지 않는다.
+   */
+  const confirmHeadphones = async () => {
+    if (!isAndroid()) {
+      unlockAndPlay();
+      return;
+    }
+    setIsVerifying(true);
+    const state = await verifyWithMicPermission();
+    setIsVerifying(false);
+    if (state === 'none') {
+      headphonesRef.current = 'none';
+      setHeadphoneGate('blocked');
+      return;
+    }
+    unlockAndPlay();
   };
 
   const toggle = () => {
@@ -311,5 +343,6 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
     hasError,
     headphoneGate,
     confirmHeadphones,
+    isVerifying,
   };
 }
