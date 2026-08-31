@@ -125,3 +125,49 @@ describe('DocentPlayer — 음성 미지원 브라우저(카카오톡 인앱 등
     expect(screen.getByText('설명')).toBeInTheDocument();
   });
 });
+
+describe('DocentPlayer — 성당 예절 가드 (휴대폰·태블릿)', () => {
+  beforeEach(() => {
+    // 손가락 기기 흉내 — pointer: coarse
+    vi.stubGlobal('matchMedia', (q: string) => ({
+      matches: q.includes('coarse'),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }));
+    sessionStorage.clear();
+  });
+
+  it('이어폰을 알 수 없으면 재생 대신 정중한 안내와 확인 버튼을 보여준다', () => {
+    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    fireEvent.click(screen.getByLabelText('재생'));
+    expect(speech.speak).not.toHaveBeenCalled();
+    expect(screen.getByText(/이어폰을 연결해 주세요/)).toBeInTheDocument();
+    expect(screen.getByText(/들으실 수 없습니다/)).toBeInTheDocument();
+  });
+
+  it('"이어폰을 연결했어요"를 누르면 그때 재생이 시작된다', () => {
+    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    fireEvent.click(screen.getByLabelText('재생'));
+    fireEvent.click(screen.getByText('이어폰을 연결했어요'));
+    expect(speech.speak).toHaveBeenCalled();
+  });
+
+  it('한 번 확인하면 같은 세션에서는 다시 묻지 않는다', () => {
+    sessionStorage.setItem('vhk_docent_earphone_ok', '1');
+    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    fireEvent.click(screen.getByLabelText('재생'));
+    expect(speech.speak).toHaveBeenCalled();
+    expect(screen.queryByText(/이어폰을 연결해 주세요/)).not.toBeInTheDocument();
+  });
+
+  it('PC(마우스 기기)에서는 가드 없이 바로 재생된다', () => {
+    vi.stubGlobal('matchMedia', () => ({
+      matches: false,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }));
+    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    fireEvent.click(screen.getByLabelText('재생'));
+    expect(speech.speak).toHaveBeenCalled();
+  });
+});

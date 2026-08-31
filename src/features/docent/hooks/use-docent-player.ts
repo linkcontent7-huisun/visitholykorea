@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { SPEECH_LOCALE, type Language } from '@/shared/i18n/dictionary';
 import type { DocentChapter } from '../lib/chapters';
+import { detectHeadphones, isCoarsePointer, type HeadphoneState } from '../lib/headphones';
+
+/** 확인을 한 번 받으면 같은 방문(세션) 동안은 다시 묻지 않는다. */
+const EARPHONE_OK_KEY = 'vhk_docent_earphone_ok';
 
 /**
  * 챕터를 순서대로 읽어주는 재생기.
@@ -123,6 +127,46 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
   /** 목록을 받았는데도 그 언어 음성이 없으면, 눌러도 소리가 안 날 것을 미리 안다. */
   const isVoiceMissing = isSupported && voices.length > 0 && voice === null;
 
+  /**
+   * 성당 예절 가드 — 휴대폰·태블릿에서는 이어폰 없이 재생하지 않는다.
+   * 'confirm': 감지가 안 되는 기기 → 이어폰 연결을 정중히 확인받는다
+   * 'blocked': 장치 목록에서 이어폰이 없다고 확인됨 → 재생을 막는다
+   */
+  const [headphoneGate, setHeadphoneGate] = useState<'confirm' | 'blocked' | null>(null);
+  const headphonesRef = useRef<HeadphoneState>('unknown');
+
+  useEffect(() => {
+    if (!isSupported || !isCoarsePointer()) return;
+    let alive = true;
+    const check = async () => {
+      const state = await detectHeadphones();
+      if (!alive) return;
+      headphonesRef.current = state;
+      // 재생 중에 이어폰이 뽑히면 즉시 멈춘다 — 스피커로 새어 나가기 전에
+      if (state === 'none') {
+        window.speechSynthesis?.cancel();
+        setIsPlaying(false);
+        setHeadphoneGate('blocked');
+      } else if (state === 'connected') {
+        setHeadphoneGate(null);
+      }
+    };
+    check();
+    navigator.mediaDevices?.addEventListener?.('devicechange', check);
+    return () => {
+      alive = false;
+      navigator.mediaDevices?.removeEventListener?.('devicechange', check);
+    };
+  }, [isSupported]);
+
+  const earphoneConfirmed = () => {
+    try {
+      return sessionStorage.getItem(EARPHONE_OK_KEY) === '1';
+    } catch {
+      return false;
+    }
+  };
+
   // cancel() 도 onend 를 부르는 브라우저가 있다 — 의도한 정지 뒤에 낡은
   // onend 가 다음 챕터를 재생하지 못하게, 재생 세션 번호로 구분한다.
   const sessionRef = useRef(0);
@@ -158,6 +202,12 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
     // 음성이 없는 브라우저(카카오톡 인앱 등)에서도 챕터 본문 읽기는 되게 한다
     if (!isSupported) {
       setCurrentIndex(index);
+      return;
+    }
+    // 성당 예절 가드: 휴대폰·태블릿은 이어폰이 확인되기 전에는 소리를 내지 않는다
+    if (isCoarsePointer() && headphonesRef.current !== 'connected' && !earphoneConfirmed()) {
+      setCurrentIndex(index);
+      setHeadphoneGate(headphonesRef.current === 'none' ? 'blocked' : 'confirm');
       return;
     }
     sessionRef.current += 1;
@@ -223,6 +273,18 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
     setIsPlaying(false);
   };
 
+  /** "이어폰을 연결했어요" — 사용자의 확인을 받고 재생을 이어간다. */
+  const confirmHeadphones = () => {
+    try {
+      sessionStorage.setItem(EARPHONE_OK_KEY, '1');
+    } catch {
+      /* 시크릿 모드 등에서 실패해도 이번 화면에서는 재생되게 둔다 */
+    }
+    headphonesRef.current = 'connected';
+    setHeadphoneGate(null);
+    playFrom(currentIndex);
+  };
+
   const toggle = () => {
     if (isPlaying) stop();
     else playFrom(currentIndex);
@@ -247,5 +309,7 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
     isSupported,
     isVoiceMissing,
     hasError,
+    headphoneGate,
+    confirmHeadphones,
   };
 }

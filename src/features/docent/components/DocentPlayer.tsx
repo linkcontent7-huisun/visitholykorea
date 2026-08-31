@@ -19,6 +19,11 @@ const COPY = {
     error: '음성을 재생하지 못했어요. 기기 음량과 무음 모드를 확인하시고 다시 눌러주세요.',
     voiceMissing:
       '이 기기에 한국어 음성이 없어 소리가 나지 않을 수 있어요. 휴대폰 설정에서 한국어 음성을 내려받으시거나, 아래 글로 읽어주세요.',
+    earphoneAsk:
+      '성당은 미사와 기도가 이어지는 공간입니다. 다른 순례자분들께 소리가 들리지 않도록 이어폰을 연결해 주세요. 이어폰이 연결되지 않은 경우에는 오디오 도슨트를 들으실 수 없습니다.',
+    earphoneConfirm: '이어폰을 연결했어요',
+    earphoneBlocked:
+      '이어폰이 연결되어 있지 않아 재생할 수 없습니다. 이어폰을 연결하신 뒤 다시 눌러 주세요. 조용한 성당을 함께 지켜주셔서 감사합니다.',
   },
   en: {
     title: 'Audio Guide',
@@ -35,6 +40,11 @@ const COPY = {
     error: 'Could not play the audio. Please check your volume and silent mode, then try again.',
     voiceMissing:
       'This device has no voice for this language, so playback may be silent. Add one in your system settings, or read along below.',
+    earphoneAsk:
+      'Churches are places of Mass and prayer. Please connect earphones so the sound does not reach other pilgrims — without earphones, the audio docent cannot be played.',
+    earphoneConfirm: 'My earphones are connected',
+    earphoneBlocked:
+      'No earphones are connected, so playback is unavailable. Please connect earphones and press play again. Thank you for keeping the church quiet with us.',
   },
 } as const;
 
@@ -46,8 +56,19 @@ interface DocentPlayerProps {
 
 /** 성지 상세의 챕터형 오디오 가이드. 챕터를 누르면 거기부터 이어 읽는다. */
 export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps) {
-  const { currentIndex, isPlaying, playFrom, toggle, cycleRate, rateKey, isSupported, isVoiceMissing, hasError } =
-    useDocentPlayer(chapters, language);
+  const {
+    currentIndex,
+    isPlaying,
+    playFrom,
+    toggle,
+    cycleRate,
+    rateKey,
+    isSupported,
+    isVoiceMissing,
+    hasError,
+    headphoneGate,
+    confirmHeadphones,
+  } = useDocentPlayer(chapters, language);
   // 플레이어 문구는 아직 한/영만 있다 — 다른 언어는 영어로 보여준다
   const copy = language === 'ko' ? COPY.ko : COPY.en;
   const current = chapters[currentIndex];
@@ -110,6 +131,24 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
           <p className="text-[11px] font-medium leading-relaxed text-sky-800">
             {copy.unsupported}
           </p>
+        </div>
+      )}
+      {/* 성당 예절 가드 — 이어폰 없이 스피커로 틀면 미사와 기도에 방해가 된다 */}
+      {headphoneGate && (
+        <div className="border-b border-app-border bg-violet-50 px-5 py-4">
+          <p className="flex items-start gap-2 text-[12px] font-medium leading-relaxed text-violet-900">
+            <Headphones size={14} className="mt-0.5 shrink-0" aria-hidden />
+            {headphoneGate === 'blocked' ? copy.earphoneBlocked : copy.earphoneAsk}
+          </p>
+          {headphoneGate === 'confirm' && (
+            <button
+              onClick={confirmHeadphones}
+              className="mt-3 w-full rounded-xl bg-brand-violet py-2.5 text-xs font-extrabold text-white"
+              id="docent-earphone-confirm"
+            >
+              {copy.earphoneConfirm}
+            </button>
+          )}
         </div>
       )}
       {/* 기기에 그 언어 음성이 아예 없으면 눌러도 소리가 안 난다 — 원인을 짚어준다 */}
