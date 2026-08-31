@@ -1,6 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@/shared/api/query-keys';
-import { addStamp, getMyStamp, getMyStamps, getSiteNotes } from '../api/stamps.repository';
+import {
+  addStamp,
+  attachStampPhoto,
+  getMyStamp,
+  getMyStamps,
+  getSiteNotes,
+  reportVisitNote,
+} from '../api/stamps.repository';
 
 export function useMyStamps() {
   return useQuery({
@@ -38,6 +45,30 @@ export function useAddStamp(siteId: string) {
       if (!result.success) return;
       void queryClient.invalidateQueries({ queryKey: queryKeys.passport.stamps });
       void queryClient.invalidateQueries({ queryKey: queryKeys.passport.myStamp(siteId) });
+      void queryClient.invalidateQueries({ queryKey: queryKeys.passport.siteNotes(siteId) });
+    },
+  });
+}
+
+/** 스탬프에 순례 사진을 붙인다. 성지 상세의 순례자 이야기가 곧바로 갱신된다. */
+export function useAttachPhoto(siteId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (photo: Blob) => attachStampPhoto(siteId, photo),
+    onSuccess: (result) => {
+      if (!result.success) return;
+      void queryClient.invalidateQueries({ queryKey: queryKeys.passport.myStamp(siteId) });
+      void queryClient.invalidateQueries({ queryKey: queryKeys.passport.siteNotes(siteId) });
+    },
+  });
+}
+
+/** 부적절한 글·사진 신고. 성공하면 목록만 다시 읽는다(숨김은 서버 판단). */
+export function useReportNote(siteId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (stampId: string) => reportVisitNote(stampId),
+    onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: queryKeys.passport.siteNotes(siteId) });
     },
   });

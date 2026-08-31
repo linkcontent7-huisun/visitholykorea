@@ -69,13 +69,20 @@ export interface PilgrimageStampRow {
   site_id: string;
   /** 방문 한 줄 기록. 다음 방문자에게 익명으로 공개된다 (site_visit_notes 뷰). */
   note: string | null;
+  /** 순례자가 남긴 사진 (pilgrim-photos 버킷 공개 URL). */
+  photo_url: string | null;
+  /** 신고 누적으로 숨겨진 글 — 뷰에서 걸러진다. */
+  hidden: boolean;
   created_at: string;
 }
 
 /** site_visit_notes 뷰 — 사생활 보호를 위해 user_id 를 뺀 공개 형태. */
 export interface SiteVisitNoteRow {
+  /** 스탬프 id — 신고할 때 필요하다. uuid 라 사람을 특정하지 못한다. */
+  id: string;
   site_id: string;
-  note: string;
+  note: string | null;
+  photo_url: string | null;
   created_at: string;
 }
 

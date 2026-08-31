@@ -88,28 +88,34 @@ export interface MyStamp {
   stamped: boolean;
   /** 내가 남긴 한 줄. 안 찍었거나 안 남겼으면 null. */
   note: string | null;
+  /** 내가 올린 순례 사진. */
+  photoUrl: string | null;
 }
 
 export async function getMyStamp(siteId: string): Promise<MyStamp> {
   const userId = await getCurrentUserId();
-  if (!userId) return { stamped: false, note: null };
+  if (!userId) return { stamped: false, note: null, photoUrl: null };
 
   const { data, error } = await supabase
     .from(TABLE)
-    .select('id, note')
+    .select('id, note, photo_url')
     .eq('user_id', userId)
     .eq('site_id', siteId)
     .maybeSingle();
 
   if (error) {
     console.error('getMyStamp error:', error);
-    return { stamped: false, note: null };
+    return { stamped: false, note: null, photoUrl: null };
   }
-  return { stamped: Boolean(data), note: data?.note ?? null };
+  return { stamped: Boolean(data), note: data?.note ?? null, photoUrl: data?.photo_url ?? null };
 }
 
 export interface SiteVisitNote {
-  note: string;
+  /** 스탬프 id — 신고에 쓴다. 사람을 특정할 수 없는 uuid 다. */
+  id: string;
+  note: string | null;
+  /** 순례자가 남긴 사진. 없으면 null. */
+  photoUrl: string | null;
   visitedAt: string;
 }
 
@@ -119,10 +125,10 @@ export interface SiteVisitNote {
  * site_visit_notes 뷰를 읽는다 — user_id 가 아예 뷰에 없어서
  * "누가"는 클라이언트까지 오지 않는다.
  */
-export async function getSiteNotes(siteId: string, limit = 3): Promise<SiteVisitNote[]> {
+export async function getSiteNotes(siteId: string, limit = 6): Promise<SiteVisitNote[]> {
   const { data, error } = await supabase
     .from('site_visit_notes')
-    .select('note, created_at')
+    .select('id, note, photo_url, created_at')
     .eq('site_id', siteId)
     .order('created_at', { ascending: false })
     .limit(limit);
@@ -132,9 +138,57 @@ export async function getSiteNotes(siteId: string, limit = 3): Promise<SiteVisit
     return [];
   }
   return (data ?? []).map((row) => ({
-    note: row.note as string,
+    id: row.id as string,
+    note: (row.note as string | null) ?? null,
+    photoUrl: (row.photo_url as string | null) ?? null,
     visitedAt: row.created_at as string,
   }));
+}
+
+/**
+ * 스탬프에 순례 사진을 붙인다. 파일은 본인 uid 폴더에 넣는다(스토리지 정책).
+ * 같은 성지에 다시 올리면 덮어쓴다 — 더 나은 사진으로 바꾸는 경우다.
+ */
+export async function attachStampPhoto(
+  siteId: string,
+  photo: Blob,
+): Promise<{ success: boolean; error?: string }> {
+  const userId = await getCurrentUserId();
+  if (!userId) return { success: false, error: '로그인이 필요합니다' };
+
+  const path = `${userId}/${siteId}.jpg`;
+  const { error: uploadError } = await supabase.storage
+    .from('pilgrim-photos')
+    .upload(path, photo, { upsert: true, contentType: 'image/jpeg' });
+  if (uploadError) {
+    console.error('attachStampPhoto upload error:', uploadError);
+    return { success: false, error: '사진을 올리지 못했어요. 잠시 후 다시 시도해주세요.' };
+  }
+
+  const { data: pub } = supabase.storage.from('pilgrim-photos').getPublicUrl(path);
+  // 덮어써도 URL 이 같아 브라우저가 옛 사진을 보여준다 — 버전 파라미터로 깨뜨린다
+  const url = `${pub.publicUrl}?v=${Date.now()}`;
+
+  const { error } = await supabase
+    .from(TABLE)
+    .update({ photo_url: url })
+    .eq('user_id', userId)
+    .eq('site_id', siteId);
+  if (error) {
+    console.error('attachStampPhoto update error:', error);
+    return { success: false, error: '사진 기록에 실패했어요.' };
+  }
+  return { success: true };
+}
+
+/** 부적절한 글·사진 신고. 3명이 신고하면 서버가 자동으로 숨긴다. */
+export async function reportVisitNote(stampId: string): Promise<{ success: boolean }> {
+  const { error } = await supabase.rpc('report_visit_note', { p_stamp_id: stampId });
+  if (error) {
+    console.error('reportVisitNote error:', error);
+    return { success: false };
+  }
+  return { success: true };
 }
 
 interface StampJoinRow {

@@ -1,4 +1,5 @@
 import {
+  Camera,
   Check,
   ChevronLeft,
   Compass,
@@ -8,6 +9,7 @@ import {
   PartyPopper,
   Share2,
   Stamp,
+  Flag,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
@@ -16,7 +18,14 @@ import { paths } from '@/app/routes/paths';
 import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
 import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/share-card';
 import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use-favorites';
-import { useAddStamp, useMyStamp, useSiteNotes } from '@/features/passport/hooks/use-stamps';
+import {
+  useAddStamp,
+  useAttachPhoto,
+  useMyStamp,
+  useReportNote,
+  useSiteNotes,
+} from '@/features/passport/hooks/use-stamps';
+import { shrinkPhoto } from '@/features/passport/lib/photo';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
 import { DocentPlayer } from '@/features/docent/components/DocentPlayer';
 import { buildChapters } from '@/features/docent/lib/chapters';
@@ -60,6 +69,21 @@ export default function SiteDetailPage() {
   const [noteDraft, setNoteDraft] = useState('');
   // "남길게요"를 누르기 전까지는 입력창을 강요하지 않는다
   const [noteDismissed, setNoteDismissed] = useState(false);
+
+  // 순례 사진 — 스탬프를 찍은 사람만 남길 수 있다 (실방문 인증)
+  const attachPhoto = useAttachPhoto(siteId ?? '');
+  const reportNote = useReportNote(siteId ?? '');
+  const [reportedIds, setReportedIds] = useState<Set<string>>(new Set());
+  const handlePhotoPick = async (file: File | undefined) => {
+    if (!file) return;
+    const small = await shrinkPhoto(file);
+    attachPhoto.mutate(small);
+  };
+  const handleReport = (stampId: string) => {
+    if (!window.confirm('이 글·사진을 신고할까요? 여러 사람이 신고하면 가려집니다.')) return;
+    setReportedIds((prev) => new Set(prev).add(stampId));
+    reportNote.mutate(stampId);
+  };
 
   // 오늘 찍으면 어떤 한정판 스탬프가 되는지 미리 보여준다.
   const todayLiturgical = getLiturgicalEvent();
@@ -469,11 +493,51 @@ export default function SiteDetailPage() {
           </div>
         )}
 
-        {myStamp?.note && (
+        {stamped && (
           <div className="rounded-[20px] border border-app-border bg-white p-5">
-            <p className="text-xs font-bold text-app-text-muted">내가 남긴 한 줄</p>
-            <p className="mt-2 text-sm leading-relaxed text-app-text">
-              &ldquo;{myStamp.note}&rdquo;
+            {myStamp?.note && (
+              <>
+                <p className="text-xs font-bold text-app-text-muted">내가 남긴 한 줄</p>
+                <p className="mt-2 text-sm leading-relaxed text-app-text">
+                  &ldquo;{myStamp.note}&rdquo;
+                </p>
+              </>
+            )}
+            {/* 순례 사진 — 모두가 함께 만드는 앱: 다녀온 사람의 사진이
+                다음 순례자의 안내가 된다. 올리기 전에 1600px 로 줄인다. */}
+            {myStamp?.photoUrl && (
+              <img
+                src={myStamp.photoUrl}
+                alt="내가 남긴 순례 사진"
+                className="mt-3 max-h-48 w-full rounded-2xl object-cover"
+              />
+            )}
+            <label
+              className={`mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-brand-violet/40 py-3 text-xs font-bold text-brand-violet ${
+                attachPhoto.isPending ? 'opacity-50' : ''
+              }`}
+            >
+              <Camera size={14} aria-hidden />
+              {attachPhoto.isPending
+                ? '사진 올리는 중…'
+                : myStamp?.photoUrl
+                  ? '사진 바꾸기'
+                  : '순례 사진 남기기'}
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                disabled={attachPhoto.isPending}
+                onChange={(e) => {
+                  void handlePhotoPick(e.target.files?.[0]);
+                  e.target.value = '';
+                }}
+                data-testid="photo-input"
+              />
+            </label>
+            <p className="mt-2 text-[10px] leading-relaxed text-app-text-muted">
+              올린 사진과 한 줄은 다른 순례자에게 익명으로 공개돼요. 얼굴이 나온 사진은
+              피해주세요.
             </p>
           </div>
         )}
@@ -481,18 +545,43 @@ export default function SiteDetailPage() {
         {/* 다녀온 사람의 한 줄 — 추정 지수를 사람의 증언이 보정한다 */}
         {visitNotes.length > 0 && (
           <div className="rounded-[20px] border border-app-border bg-white p-5">
-            <p className="text-sm font-bold text-app-text">다녀온 사람의 한 줄</p>
-            <ul className="mt-3 space-y-3">
-              {visitNotes.map((n, i) => (
-                <li key={`${n.visitedAt}-${i}`} className="border-l-2 border-brand-violet/30 pl-3">
-                  <p className="text-sm leading-relaxed text-app-text">&ldquo;{n.note}&rdquo;</p>
-                  <p className="mt-1 text-xs text-app-text-muted">
-                    {new Date(n.visitedAt).toLocaleDateString('ko-KR', {
-                      month: 'long',
-                      day: 'numeric',
-                    })}{' '}
-                    방문
-                  </p>
+            <p className="text-sm font-bold text-app-text">순례자 이야기</p>
+            <p className="mt-1 text-xs text-app-text-muted">
+              다녀온 사람들이 남긴 한 줄과 사진 — 함께 만드는 순례 안내예요
+            </p>
+            <ul className="mt-3 space-y-4">
+              {visitNotes.map((n) => (
+                <li key={n.id} className="border-l-2 border-brand-violet/30 pl-3">
+                  {n.photoUrl && (
+                    <img
+                      src={n.photoUrl}
+                      alt="순례자가 남긴 사진"
+                      loading="lazy"
+                      className="mb-2 max-h-56 w-full rounded-2xl object-cover"
+                    />
+                  )}
+                  {n.note && (
+                    <p className="text-sm leading-relaxed text-app-text">&ldquo;{n.note}&rdquo;</p>
+                  )}
+                  <div className="mt-1 flex items-center justify-between">
+                    <p className="text-xs text-app-text-muted">
+                      {new Date(n.visitedAt).toLocaleDateString('ko-KR', {
+                        month: 'long',
+                        day: 'numeric',
+                      })}{' '}
+                      방문
+                    </p>
+                    {/* 운영자가 한 명뿐이라 신고 3건이면 자동으로 가려진다 */}
+                    <button
+                      onClick={() => handleReport(n.id)}
+                      disabled={reportedIds.has(n.id)}
+                      className="flex items-center gap-1 text-[10px] font-bold text-app-text-muted/60 disabled:opacity-40"
+                      aria-label="신고"
+                    >
+                      <Flag size={10} aria-hidden />
+                      {reportedIds.has(n.id) ? '신고됨' : '신고'}
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>
