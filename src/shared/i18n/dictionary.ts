@@ -381,6 +381,31 @@ export const DICTIONARY = {
     pt: 'Seguindo os passos sagrados por toda a Coreia',
     it: 'Sulle tracce sacre in tutta la Corea',
   },
+  // 수요조사 자유의견 1호("내 위치부터 소요시간별로 정리")를 반영한 정렬
+  sortNearest: {
+    ko: '가까운 순',
+    en: 'Nearest first',
+    es: 'Más cercanos primero',
+    fr: 'Les plus proches d’abord',
+    pt: 'Mais próximos primeiro',
+    it: 'Prima i più vicini',
+  },
+  sortDefault: {
+    ko: '기본 순',
+    en: 'Default order',
+    es: 'Orden predeterminado',
+    fr: 'Ordre par défaut',
+    pt: 'Ordem padrão',
+    it: 'Ordine predefinito',
+  },
+  byCarAbout: {
+    ko: '차로 약 {duration}',
+    en: 'about {duration} by car',
+    es: 'unos {duration} en coche',
+    fr: 'environ {duration} en voiture',
+    pt: 'cerca de {duration} de carro',
+    it: 'circa {duration} in auto',
+  },
   routesTitle: {
     ko: '순례 코스',
     en: 'Pilgrimage Routes',

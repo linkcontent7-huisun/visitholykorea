@@ -6,8 +6,8 @@ import { getDocentScript } from '@/features/docent/data/scripts';
 import type { HolySite } from '@/shared/types/domain';
 import { SiteThumbnail } from './SiteThumbnail';
 
-/** 탐색(교구별) 화면의 가로형 목록 항목. */
-export function SiteListItem({ site }: { site: HolySite }) {
+/** 탐색(교구별) 화면의 가로형 목록 항목. meta 는 거리·소요시간 같은 한 줄 부가 정보. */
+export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) {
   // 포인트별 오디오 도슨트가 준비된 성지를 목록에서 알아볼 수 있게 한다
   const hasDocent = getDocentScript(site.id) !== null;
   return (
@@ -42,6 +42,8 @@ export function SiteListItem({ site }: { site: HolySite }) {
             {site.name}
           </h4>
           <p className="w-48 truncate text-xs font-medium text-app-text-muted">{site.location}</p>
+          {/* 가까운 순 정렬일 때 — 여기가 얼마나 먼 곳인지 목록에서 바로 보인다 */}
+          {meta && <p className="mt-0.5 text-[11px] font-bold text-brand-blue">{meta}</p>}
         </div>
       </Link>
     </motion.div>
