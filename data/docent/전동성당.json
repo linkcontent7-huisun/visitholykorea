@@ -1,0 +1,90 @@
+{
+  "siteId": "532db2a2-6b71-425c-98f5-e233eeab088a",
+  "siteName": "전동성당",
+  "slug": "jeondong",
+  "surveyedAt": "2026-08-31",
+  "surveyedBy": "현장: 미조사 / 원고: Claude (문헌 기반 초안)",
+  "status": "draft",
+  "intro": {
+    "narration": "전주 전동성당에 오신 것을 환영합니다. 한옥마을 입구, 경기전 맞은편에 선 이 성당은 한국에서 가장 아름다운 성당 중 하나로 꼽힙니다. 그러나 오늘 이야기는 아름다움에서 시작하지 않습니다. 이 성당이 서 있는 땅은 1791년, 한국 천주교 최초의 순교자 두 사람이 처형된 자리입니다. 왜 하필 여기에 성당을 세웠는지가 오늘의 이야기입니다.",
+    "narrationEn": "Welcome to Jeondong Cathedral in Jeonju. Standing at the entrance to the Hanok Village, opposite the royal shrine of Gyeonggijeon, it is often called one of the most beautiful churches in Korea. But today's story does not begin with beauty. The ground beneath this cathedral is where, in 1791, Korea's first two Catholic martyrs were executed. Why the church was built precisely here — that is today's story.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "1791년 풍남문 밖 — 최초의 순교",
+      "titleEn": "Outside Pungnam Gate, 1791 — The First Martyrdom",
+      "location": "성당 앞마당, 풍남문이 보이는 자리",
+      "locationEn": "The forecourt, with Pungnam Gate in view",
+      "narration": "성당 앞에서 풍남문 쪽을 바라봐 주세요. 1791년 12월, 바로 이 문 밖 형장에서 윤지충 바오로와 그의 외사촌 권상연 야고보가 참수되었습니다. 죄목은 어머니 상을 당한 윤지충이 신주를 불사르고 유교식 제사를 지내지 않았다는 것이었습니다. 조선의 근간인 효를 부정했다는 죄, 사실상 사상범이었습니다. 한국 천주교가 세워진 지 채 십 년이 되지 않았을 때의 일로, 이 땅 최초의 순교였습니다. 성당은 그 형장 자리를 일부러 골라 세워졌습니다. 죽음의 자리 위에 세운 집인 셈입니다.",
+      "narrationEn": "Face toward Pungnam Gate. In December 1791, on the execution ground just outside that gate, Paul Yun Ji-chung and his cousin James Kwon Sang-yeon were beheaded. The charge: after his mother's death, Yun had burned the ancestral tablets and refused the Confucian rites — a denial of filial piety, the very foundation of Joseon. He was, in effect, a prisoner of conscience. Korean Catholicism was not yet ten years old; this was the first martyrdom on this soil. The cathedral was built deliberately on that execution ground — a house raised upon the place of death.",
+      "lookFor": "성당과 풍남문 사이의 거리 — 형장은 문밖 백 걸음이었다",
+      "lookForEn": "The distance between cathedral and gate — the execution ground was a hundred paces out",
+      "forEveryone": "신주와 제사를 둘러싼 이 사건(진산사건)은 조선 사상사에서 유교와 서학이 정면으로 충돌한 첫 장면으로 다뤄집니다.",
+      "photos": [],
+      "sourceNote": "성지 DB 원문·가톨릭정보(maria.catholic.or.kr) — 1791 신해박해, 윤지충(1759-1791)·권상연(1751-1791) 참수, 신주 소각·제사 거부"
+    },
+    {
+      "seq": 2,
+      "title": "유항검 — 호남의 사도, 가장 무거운 형벌",
+      "titleEn": "Yu Hang-geom — Apostle of Honam",
+      "location": "성당 마당의 순교자 기념물",
+      "locationEn": "The martyrs' memorial in the yard",
+      "narration": "십 년 뒤인 1801년 신유박해 때, 이 근처에서 또 한 사람이 처형되었습니다. 호남의 사도라 불리는 유항검 아우구스티노입니다. 전라도에 처음 복음을 전한 부유한 양반으로, 그가 받은 형벌은 참수가 아니라 능지처참이었습니다. 조선이 대역죄인에게만 내리던 가장 무거운 형벌입니다. 국가가 이 신앙을 얼마나 위험하게 보았는지를 형벌의 무게가 말해 줍니다. 그의 가족도 대부분 순교하거나 유배되었고, 재산은 몰수되어 집터는 파헤쳐졌습니다.",
+      "narrationEn": "Ten years later, in the persecution of 1801, another man was executed near here: Augustine Yu Hang-geom, called the Apostle of Honam. A wealthy nobleman who first brought the Gospel to Jeolla province, he was condemned not to beheading but to neungji-cheocham — dismemberment, the heaviest penalty Joseon reserved for high treason. The weight of the sentence tells you how dangerous the state judged this faith to be. Most of his family were martyred or exiled, his property confiscated, his homesite dug up and razed.",
+      "lookFor": "기념물에 새겨진 순교자들의 이름",
+      "lookForEn": "The martyrs' names carved on the memorial",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "성지 DB 원문 — 1801 유항검 능지처참·호남의 사도. 기념물의 정확한 형태·위치는 현장 확인 필요"
+    },
+    {
+      "seq": 3,
+      "title": "헐린 성벽의 돌로 쌓은 성당",
+      "titleEn": "A Cathedral Built of the City Wall's Stones",
+      "location": "성당 외벽과 기단",
+      "locationEn": "The outer walls and foundation",
+      "narration": "이제 건물을 보겠습니다. 1889년 보두네 신부가 이 땅을 사들였고, 명동성당 내부 공사를 마무리했던 프와넬 신부가 설계해 1908년 공사를 시작했습니다. 겉모습이 완성된 것이 1914년, 내부까지 다 끝난 것은 1931년 — 스물세 해가 걸린 공사였습니다. 기단에는 특별한 돌이 들어 있습니다. 일제가 전주부성을 헐 때 나온 풍남문 성벽의 돌입니다. 순교자들이 처형당하던 그 성문의 돌이, 순교자를 기리는 성당의 주춧돌이 된 것입니다. 회색과 붉은 벽돌을 섞어 쌓은 로마네스크 양식으로, 호남에 세워진 첫 서양식 건물이며 1981년 사적으로 지정되었습니다.",
+      "narrationEn": "Now look at the building itself. Fr. Baudounet bought this land in 1889; Fr. Poisnel, who had finished the interior of Myeongdong Cathedral in Seoul, drew the design, and construction began in 1908. The exterior was completed in 1914, the interior only in 1931 — twenty-three years of work. In the foundation lie special stones: stones from the walls of Pungnam Gate, taken when the Japanese colonial government tore down Jeonju's fortress. Stones of the very gate outside which the martyrs died became the footing of the church that honours them. Built of grey and red brick in the Romanesque style, it was the first Western building in the Honam region and was designated a Historic Site in 1981.",
+      "lookFor": "회색 벽돌과 붉은 벽돌이 교차하는 무늬, 비잔틴풍 종탑 돔",
+      "lookForEn": "The alternating grey and red brickwork, and the Byzantine domes of the towers",
+      "forEveryone": "명동성당과 같은 계보의 설계자가 지어 두 성당의 인상이 닮았습니다. 벽돌 조적 건축의 대표작으로 건축 답사지로도 이름난 곳입니다.",
+      "photos": [],
+      "sourceNote": "가톨릭정보 — 1889 보두네 부지 매입·프와넬 설계·1908 착공·1914 외형 완공·1931 내부 완공·풍남문 성벽 돌 사용·호남 첫 로마네스크·1981 사적 지정(288호)"
+    },
+    {
+      "seq": 4,
+      "title": "색유리창 속의 순교자들",
+      "titleEn": "The Martyrs in the Stained Glass",
+      "location": "성당 내부",
+      "locationEn": "Inside the cathedral",
+      "narration": "안으로 들어가시면 색유리창을 보세요. 열여덟 개의 창이 빛을 들이는데, 여느 유럽 성당처럼 성경 장면만 담은 것이 아닙니다. 한복을 입은 윤지충과 권상연, 이 지역 순교자들이 채색 유리에 그려져 있습니다. 서양에서 온 건축 양식 안에 조선 사람의 얼굴이 들어 있는 것입니다. 미사 시간이 아니라면 천천히 한 바퀴 돌며 창마다 누가 그려져 있는지 찾아보시기 바랍니다.",
+      "narrationEn": "Step inside and look at the stained glass. Eighteen windows let in the light, and they do not hold only biblical scenes as in a European church. Yun Ji-chung and Kwon Sang-yeon are pictured there in Korean hanbok, together with other martyrs of this region — Joseon faces set within an architecture that came from the West. If Mass is not in progress, walk the aisle slowly and find who is portrayed in each window.",
+      "lookFor": "한복 차림으로 그려진 순교자들의 색유리창",
+      "lookForEn": "The windows showing martyrs in traditional Korean dress",
+      "forEveryone": "성당 내부는 미사 중 출입이 제한될 수 있습니다. 조용히 관람해 주세요.",
+      "photos": [],
+      "sourceNote": "성지 DB 원문 — 색유리창 18개. 가톨릭타임즈 — 권상연·윤지충 등 순교자 채색 스테인드글라스. 각 창의 배치는 현장 확인 필요"
+    },
+    {
+      "seq": 5,
+      "title": "230년 만에 돌아온 유해",
+      "titleEn": "Remains Returned After 230 Years",
+      "location": "성당 내부 또는 기념물 앞",
+      "locationEn": "Inside, or before the memorial",
+      "narration": "이 이야기의 마지막 장은 아주 최근에 쓰였습니다. 2021년 3월, 완주 초남이성지 바우배기에서 무덤이 발굴되었는데, 과학 검증 결과 윤지충과 권상연의 유해로 확인되었습니다. 목뼈에 날카로운 도구로 잘린 흔적이 남아 있어 참수 기록과 일치했습니다. 처형되고 이백삼십 년 만에 이름을 되찾은 것입니다. 두 사람은 2014년 프란치스코 교황에 의해 시복되었습니다. 그때 시복된 124위의 명단이 '윤지충 바오로와 동료 순교자들'로 불립니다. 이 자리에서 죽은 사람이 그 명단의 첫 이름입니다.",
+      "narrationEn": "The last chapter of this story is very recent. In March 2021, graves were excavated at Baubaegi in the Chonami shrine in Wanju, and scientific analysis confirmed the remains as those of Yun Ji-chung and Kwon Sang-yeon — cut marks on the neck bones matching the records of their beheading. Two hundred and thirty years after their execution, the bodies regained their names. Both men were beatified by Pope Francis in 2014, in the group of 124 known as 'Paul Yun Ji-chung and companions.' The man who died on this spot is the first name on that list.",
+      "lookFor": "유해 확인 소식을 전하는 안내문이 있는지",
+      "lookForEn": "Any notice recounting the identification of the remains",
+      "forEveryone": "유해 확인에는 방사성탄소연대측정 등 법의학·고고학 검증이 동원되었습니다. 과학이 역사 기록을 확인한 드문 사례입니다.",
+      "photos": [],
+      "sourceNote": "검색 확인 — 2021.3 초남이성지 바우배기 발굴·과학 검증·목뼈 절단흔. 2014 프란치스코 교황 시복(124위, '윤지충 바오로와 동료 순교자들'). 유해의 현재 안치 장소는 현장 확인 필요"
+    }
+  ],
+  "outro": {
+    "narration": "전동성당 순례에 함께해 주셔서 감사합니다. 여기서 걸어서 갈 수 있는 거리에 순교의 길이 이어집니다. 유해가 발견된 초남이 성지, 유항검 가족이 묻힌 치명자산 성지, 그리고 전주 숲정이 성지가 모두 이 앱에 있습니다. 한옥마을의 번화함 속에서 이 성당이 왜 여기 서 있는지를 기억하며 걸으시면, 같은 거리가 다르게 보일 것입니다. 평화를 빕니다.",
+    "narrationEn": "Thank you for walking Jeondong Cathedral with us. Within walking or short driving distance the road of the martyrs continues — the Chonami shrine where the remains were found, Chimyeongjasan where Yu Hang-geom's family lies, and the Supjeongi shrine of Jeonju, all in this app. Walk the busy Hanok Village streets remembering why this cathedral stands here, and the same streets will look different. Peace be with you.",
+    "photos": []
+  }
+}
