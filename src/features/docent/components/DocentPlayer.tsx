@@ -17,6 +17,8 @@ const COPY = {
     unsupported:
       '지금 브라우저에서는 음성이 지원되지 않아요 (카카오톡 안에서 열면 그럴 수 있어요). Chrome·Safari 로 열면 들을 수 있고, 여기서는 아래 글로 읽으실 수 있습니다.',
     error: '음성을 재생하지 못했어요. 기기 음량과 무음 모드를 확인하시고 다시 눌러주세요.',
+    voiceMissing:
+      '이 기기에 한국어 음성이 없어 소리가 나지 않을 수 있어요. 휴대폰 설정에서 한국어 음성을 내려받으시거나, 아래 글로 읽어주세요.',
   },
   en: {
     title: 'Audio Guide',
@@ -31,6 +33,8 @@ const COPY = {
     unsupported:
       'Voice is not supported in this browser (in-app browsers often block it). Open in Chrome or Safari to listen — or read along below.',
     error: 'Could not play the audio. Please check your volume and silent mode, then try again.',
+    voiceMissing:
+      'This device has no voice for this language, so playback may be silent. Add one in your system settings, or read along below.',
   },
 } as const;
 
@@ -42,7 +46,7 @@ interface DocentPlayerProps {
 
 /** 성지 상세의 챕터형 오디오 가이드. 챕터를 누르면 거기부터 이어 읽는다. */
 export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps) {
-  const { currentIndex, isPlaying, playFrom, toggle, cycleRate, rateKey, isSupported, hasError } =
+  const { currentIndex, isPlaying, playFrom, toggle, cycleRate, rateKey, isSupported, isVoiceMissing, hasError } =
     useDocentPlayer(chapters, language);
   // 플레이어 문구는 아직 한/영만 있다 — 다른 언어는 영어로 보여준다
   const copy = language === 'ko' ? COPY.ko : COPY.en;
@@ -108,7 +112,15 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
           </p>
         </div>
       )}
-      {hasError && (
+      {/* 기기에 그 언어 음성이 아예 없으면 눌러도 소리가 안 난다 — 원인을 짚어준다 */}
+      {isSupported && isVoiceMissing && (
+        <div className="border-b border-app-border bg-amber-50 px-5 py-3">
+          <p className="text-[11px] font-medium leading-relaxed text-amber-800">
+            {copy.voiceMissing}
+          </p>
+        </div>
+      )}
+      {hasError && !isVoiceMissing && (
         <div className="border-b border-app-border bg-amber-50 px-5 py-3">
           <p className="text-[11px] font-medium leading-relaxed text-amber-800">{copy.error}</p>
         </div>
