@@ -89,10 +89,10 @@ export function pickVoice(
  * 문장마다 따로 발화하면 사이에 자연스러운 호흡이 생기고, 중간에 멈추기도 쉽다.
  */
 export function splitSentences(text: string): string[] {
-  return text
-    .split(/(?<=[.!?。？！])\s+/)
-    .map((s) => s.trim())
-    .filter(Boolean);
+  // (?<=…) lookbehind 는 iOS 16.3 이하 사파리에서 SyntaxError 다.
+  // 번들이 하나라서 이 한 줄이 앱 전체를 흰 화면으로 만든다 — 절대 되돌리지 말 것.
+  const matched = text.match(/[^.!?。？！]*[.!?。？！]+|[^.!?。？！]+$/g);
+  return (matched ?? [text]).map((s) => s.trim()).filter(Boolean);
 }
 
 /** 음성 목록은 비동기로 채워진다. 준비될 때까지 구독한다. */
@@ -301,8 +301,11 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
    * 기기(권한 거부·마이크 없는 유선 이어폰)는 확인을 믿고 재생한다 —
    * 검증 한계로 정직한 사용자를 잠그지 않는다.
    */
+  /** 차단 경고는 한 번만 — 두 번째 확인은 사람의 말을 믿는다. 영구 잠금은 버그다. */
+  const warnedRef = useRef(false);
+
   const confirmHeadphones = async () => {
-    if (!isAndroid()) {
+    if (!isAndroid() || warnedRef.current) {
       unlockAndPlay();
       return;
     }
@@ -310,7 +313,7 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
     const state = await verifyWithMicPermission();
     setIsVerifying(false);
     if (state === 'none') {
-      headphonesRef.current = 'none';
+      warnedRef.current = true;
       setHeadphoneGate('blocked');
       return;
     }

@@ -148,8 +148,9 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
             <Headphones size={14} className="mt-0.5 shrink-0" aria-hidden />
             {headphoneGate === 'blocked' ? copy.earphoneBlocked : copy.earphoneAsk}
           </p>
-          {headphoneGate === 'confirm' && (
-            <>
+          {/* 차단 안내 뒤에도 확인 버튼은 남긴다 — 마이크 없는 유선 이어폰은
+              감지가 불가능해서, 출구가 없으면 정직한 사용자가 영구히 잠긴다 */}
+          <>
               <button
                 onClick={confirmHeadphones}
                 disabled={isVerifying}
@@ -164,8 +165,7 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
                   {copy.earphoneMicNote}
                 </p>
               )}
-            </>
-          )}
+          </>
         </div>
       )}
       {/* 기기에 그 언어 음성이 아예 없으면 눌러도 소리가 안 난다 — 원인을 짚어준다 */}

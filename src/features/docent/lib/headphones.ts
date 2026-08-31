@@ -50,10 +50,6 @@ export function isAndroid(): boolean {
   return /android/i.test(navigator.userAgent);
 }
 
-/** 휴대폰에 내장된 마이크 이름 — 이런 것만 있으면 이어폰이 없는 것이다. */
-// 'phone' 단독은 안 된다 — 'microPHONE' 에도 걸린다
-const BUILTIN_MIC = /내장|기본|휴대전화|built.?in|default|internal|speakerphone|handset/i;
-
 /**
  * 입력 장치(마이크) 이름으로 이어폰을 가늠한다.
  *
@@ -68,8 +64,13 @@ export function judgeInputs(devices: Pick<MediaDeviceInfo, 'kind' | 'label'>[]):
   if (named.some((d) => HEADPHONE_NAME.test(d.label) || /headset|헤드셋/i.test(d.label))) {
     return 'connected';
   }
-  // 이름이 보이는 마이크가 전부 내장뿐이면 이어폰이 없는 것
-  return named.every((d) => BUILTIN_MIC.test(d.label)) ? 'none' : 'unknown';
+  /**
+   * 내장 마이크뿐이어도 'none' 이라고 단정하지 않는다 — 마이크 없는 3극 유선
+   * 이어폰(어르신들이 많이 쓰는 저가 이어폰)은 입력 장치에 아예 안 잡힌다.
+   * 실기기에서 이 오판이 재생을 영구히 잠갔다 (2026-09-01 사용자 제보).
+   * 입력 장치는 **있음을 증명**할 수 있을 뿐, 없음을 증명하지 못한다.
+   */
+  return 'unknown';
 }
 
 /**

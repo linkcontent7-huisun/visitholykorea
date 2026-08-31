@@ -171,3 +171,23 @@ describe('DocentPlayer — 성당 예절 가드 (휴대폰·태블릿)', () => {
     expect(speech.speak).toHaveBeenCalled();
   });
 });
+
+describe('DocentPlayer — 차단 상태에도 출구가 있다', () => {
+  beforeEach(() => {
+    vi.stubGlobal('matchMedia', () => ({
+      matches: true,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }));
+    sessionStorage.clear();
+  });
+
+  it('안내가 떠 있는 동안에도 확인 버튼이 항상 남는다 — 영구 잠금 방지', () => {
+    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    fireEvent.click(screen.getByLabelText('재생'));
+    // 어떤 가드 상태든 확인 버튼으로 빠져나갈 수 있어야 한다
+    expect(screen.getByText('이어폰을 연결했어요')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('이어폰을 연결했어요'));
+    expect(speech.speak).toHaveBeenCalled();
+  });
+});

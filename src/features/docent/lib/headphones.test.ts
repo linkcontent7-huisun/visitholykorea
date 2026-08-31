@@ -40,9 +40,9 @@ describe('judgeInputs — 안드로이드용 마이크 이름 판정', () => {
     expect(judgeInputs([dev('audioinput', 'Galaxy Buds2 Pro')])).toBe('connected');
   });
 
-  it('내장 마이크뿐이면 none — 이어폰 없이 확인 버튼만 누른 경우를 잡는다', () => {
-    expect(judgeInputs([dev('audioinput', '내장 마이크')])).toBe('none');
-    expect(judgeInputs([dev('audioinput', 'Default - Built-in Microphone')])).toBe('none');
+  it('내장 마이크뿐이어도 none 이 아니라 unknown — 마이크 없는 유선 이어폰은 안 잡힌다', () => {
+    expect(judgeInputs([dev('audioinput', '내장 마이크')])).toBe('unknown');
+    expect(judgeInputs([dev('audioinput', 'Default - Built-in Microphone')])).toBe('unknown');
   });
 
   it('이름이 안 보이거나 애매하면 unknown — 정직한 사용자를 잠그지 않는다', () => {
@@ -71,9 +71,9 @@ describe('verifyWithMicPermission — 녹음 없이 장치 목록만 확인', ()
     expect(stop).toHaveBeenCalled();
   });
 
-  it('내장 마이크뿐이면 none — 재생을 막을 근거', async () => {
+  it('내장 마이크뿐이면 unknown — 3극 유선 이어폰 사용자를 잠그지 않는다', async () => {
     const { media } = fakeMedia([dev('audioinput', '내장 마이크')]);
-    await expect(verifyWithMicPermission(media)).resolves.toBe('none');
+    await expect(verifyWithMicPermission(media)).resolves.toBe('unknown');
   });
 
   it('권한을 거부하면 unknown — 사용자 확인을 믿는 쪽으로 물러난다', async () => {
