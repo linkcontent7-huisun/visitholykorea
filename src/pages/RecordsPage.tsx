@@ -16,7 +16,7 @@ import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar'
 import { generateChronicleCard, generateDioceseCard } from '@/features/passport/lib/recap-card';
 import { shareOrDownloadCard } from '@/features/passport/lib/share-card';
 import { resolveStampMotif } from '@/features/passport/lib/stamp-motifs';
-import { isWydVenue } from '@/features/passport/lib/wyd';
+import { isWydPeriod, isWydVenue } from '@/features/passport/lib/wyd';
 import { fetchSiteCoordsIndex } from '@/features/sites/api/holy-sites.repository';
 import { LogComposer } from '@/features/records/components/LogComposer';
 import { useMyLogs } from '@/features/records/hooks/use-logs';
@@ -369,6 +369,9 @@ export default function RecordsPage() {
                   const event = getLiturgicalEvent(new Date(stamp.visitedAt));
                   const motif = resolveStampMotif(stamp.siteName, stamp.category);
                   const reads = stamp.note ? (noteReads[stamp.stampId] ?? 0) : 0;
+                  // WYD 대회 기간(2027.7.29~8.8)에 찍은 스탬프는 금테를 두른다 —
+                  // "그때 거기 있었다"는 증명은 시간이 지날수록 값이 오른다.
+                  const wydLimited = isWydPeriod(new Date(stamp.visitedAt));
                   return (
                     <Link
                       key={stamp.stampId}
@@ -377,7 +380,9 @@ export default function RecordsPage() {
                       id={`stamp-${stamp.stampId}`}
                     >
                       <div
-                        className={`relative flex h-20 w-20 rotate-6 scale-110 items-center justify-center rounded-full border-4 border-white text-white shadow-2xl transition-all duration-500 ${event.colorClass.bg}`}
+                        className={`relative flex h-20 w-20 rotate-6 scale-110 items-center justify-center rounded-full border-4 text-white shadow-2xl transition-all duration-500 ${event.colorClass.bg} ${
+                          wydLimited ? 'border-amber-400 ring-2 ring-amber-300/60' : 'border-white'
+                        }`}
                       >
                         <StampMotifIcon motif={motif} className="h-12 w-12" />
                         {isWydVenue(stamp.siteName) && (
@@ -395,6 +400,11 @@ export default function RecordsPage() {
                       <span className={`text-[9px] font-bold ${event.colorClass.text}`}>
                         {motif.label} · {event.label}
                       </span>
+                      {wydLimited && (
+                        <span className="-mt-2 text-[9px] font-black text-amber-600">
+                          ✦ WYD 2027 한정
+                        </span>
+                      )}
                       {reads > 0 && (
                         <span className="-mt-2 text-[9px] font-bold text-app-text-muted">
                           내 한 줄을 {reads}명이 읽었어요

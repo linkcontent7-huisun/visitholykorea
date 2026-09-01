@@ -23,6 +23,8 @@ interface ShareCardOptions {
   motif?: StampMotif | null;
   /** WYD 2027 공식 일정지 — 한·영 병기 배지가 붙는다. */
   wyd?: boolean;
+  /** WYD 2027 대회 기간(7/29~8/8)에 찍은 한정판 — 금빛 한 줄이 새겨진다. */
+  wydLimited?: boolean;
 }
 
 /** 잉크 도장: 이중 원 테두리 + 건축 모티프. 살짝 기울여 "찍힌" 느낌을 낸다. */
@@ -183,6 +185,13 @@ export async function generateShareCard(options: ShareCardOptions): Promise<Blob
     ctx.font = '800 38px "Pretendard", "Apple SD Gothic Neo", sans-serif';
     ctx.fillStyle = '#fbbf24';
     ctx.fillText(`나의 ${options.visitOrder}번째 성지`, 64, CARD_HEIGHT - 108);
+  }
+
+  // WYD 대회 기간 한정판 — "그때 거기 있었다"는 증명. 카드 상단에 금빛으로.
+  if (options.wydLimited) {
+    ctx.font = '800 34px "Pretendard", "Apple SD Gothic Neo", sans-serif';
+    ctx.fillStyle = '#fbbf24';
+    ctx.fillText('✦ WYD Seoul 2027 · Limited Edition', 64, 128);
   }
 
   // WYD 2027 공식 일정지 — 해외 청년을 위한 한·영 병기 배지
