@@ -1,12 +1,28 @@
 import { useState } from 'react';
-import { X, ChevronLeft, ChevronRight, VolumeX, MessageCircle, Footprints } from 'lucide-react';
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  VolumeX,
+  MessageCircle,
+  Footprints,
+  MapPin,
+  ExternalLink,
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
+import type { TranslationKey } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { getRecommendedCourses, type CourseCard } from '../api/course-matching';
 import { useCompassMemory, useSaveCompassResponse } from '../hooks/use-compass-memory';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { REGIONS, regionCoords, type Region } from '@/shared/lib/regions';
+import { useNearbyFacilities } from '@/features/sites/hooks/use-nearby-tour';
+import {
+  buildItineraryStops,
+  type FacilityGroup,
+} from '@/features/sites/lib/nearby-facilities';
+import { kakaoPlaceUrl } from '@/shared/lib/geo';
 
 type Gender = '여성' | '남성' | '응답 안 함';
 
@@ -24,12 +40,13 @@ const EMOTION_EMOJI: Record<EmotionTag, string> = {
   감사: '🙏',
 };
 
-const EMOTION_LABEL: Record<EmotionTag, string> = {
-  위로: '위로가 필요해요',
-  새출발: '새로 시작하고 싶어요',
-  평온: '그저 평온하고 싶어요',
-  치유: '마음을 어루만지고 싶어요',
-  감사: '감사한 마음을 나누고 싶어요',
+/** 표시 문구는 사전에서 온다. 여기 값은 사전 키다 — 내부 감정 코드(위로·치유…)는 그대로 쓴다. */
+const EMOTION_LABEL: Record<EmotionTag, TranslationKey> = {
+  위로: 'compassWishComfort',
+  새출발: 'compassWishFreshStart',
+  평온: 'compassWishCalm',
+  치유: 'compassWishHealing',
+  감사: 'compassWishGratitude',
 };
 
 // 색으로 직관적으로 고를 수 있도록 감정마다 고유한 색을 지정한다.
@@ -55,33 +72,103 @@ type Style = '침묵형' | '나눔형';
 const TIME_BUDGETS = ['반나절', '하루', '1박2일'] as const;
 type TimeBudget = (typeof TIME_BUDGETS)[number];
 
-const CONCERN_OPENER: Record<Concern, string> = {
-  '일과 진로': '일과 진로로 마음이 분주하셨죠.',
-  '육아와 가족': '아이를 돌보느라 정작 나를 돌볼 틈이 없으셨겠어요.',
-  '사람들과의 관계': '사람 사이에서 마음을 많이 쓰셨겠어요.',
-  '나 자신을 돌보는 일': '나 자신을 돌보고 싶으셨군요.',
-  '뚜렷한 이유는 없어요': '뚜렷한 이유가 없어도, 지친 마음은 그 자체로 소중해요.',
+const CONCERN_LABEL: Record<Concern, TranslationKey> = {
+  '일과 진로': 'compassReasonWork',
+  '육아와 가족': 'compassReasonFamily',
+  '사람들과의 관계': 'compassReasonPeople',
+  '나 자신을 돌보는 일': 'compassReasonSelf',
+  '뚜렷한 이유는 없어요': 'compassReasonNone',
 };
 
-const STYLE_ACTIVITY: Record<Style, string> = {
-  침묵형: '이곳에서는 혼자 조용히 걸으며 침묵의 시간을 가져보세요.',
-  나눔형: '이곳에서는 수도자·사제와 편하게 이야기 나누는 차담 시간을 가져보세요.',
+const CONCERN_OPENER: Record<Concern, TranslationKey> = {
+  '일과 진로': 'compassReasonWorkReply',
+  '육아와 가족': 'compassReasonFamilyReply',
+  '사람들과의 관계': 'compassReasonPeopleReply',
+  '나 자신을 돌보는 일': 'compassReasonSelfReply',
+  '뚜렷한 이유는 없어요': 'compassReasonNoneReply',
 };
 
-const TIME_NOTE: Record<TimeBudget, string> = {
-  반나절: '짧은 시간이라도 충분해요.',
-  하루: '하루를 온전히 이곳에 내어주세요.',
-  '1박2일': '하룻밤 머물며 천천히 쉬어가세요.',
+const STYLE_ACTIVITY: Record<Style, TranslationKey> = {
+  침묵형: 'compassSilentAdvice',
+  나눔형: 'compassSharingAdvice',
 };
 
-// 1=감정 2=관심사 3=출발지역 4=성별 5=참여방식 6=시간 7=자유텍스트
-const TOTAL_QUESTIONS = 7;
+const TIME_LABEL: Record<TimeBudget, TranslationKey> = {
+  반나절: 'compassStayHalfDay',
+  하루: 'compassStayDay',
+  '1박2일': 'compassStayOvernight',
+};
+
+const TIME_NOTE: Record<TimeBudget, TranslationKey> = {
+  반나절: 'compassStayHalfDayNote',
+  하루: 'compassStayDayNote',
+  '1박2일': 'compassStayOvernightNote',
+};
+
+/** 몇 명이 가는가 — 웰니스 실측 동반자 95.5%. 혼자만 전제하지 않는다. */
+const PARTY_SIZES = ['혼자', '둘이서', '3~4명', '5명 이상'] as const;
+type PartySize = (typeof PARTY_SIZES)[number];
+
+const PARTY_EMOJI: Record<PartySize, string> = {
+  혼자: '🚶',
+  둘이서: '👥',
+  '3~4명': '👨‍👩‍👧',
+  '5명 이상': '🚌',
+};
+
+const GENDER_LABEL: Record<Gender, TranslationKey> = {
+  여성: 'compassFemale',
+  남성: 'compassMale',
+  '응답 안 함': 'compassNoAnswer',
+};
+
+const PARTY_LABEL: Record<PartySize, TranslationKey> = {
+  혼자: 'compassAlone',
+  둘이서: 'compassGroupTwo',
+  '3~4명': 'compassGroupFew',
+  '5명 이상': 'compassGroupMany',
+};
+
+const PARTY_NOTE: Record<PartySize, TranslationKey> = {
+  혼자: 'compassSilentAdvice',
+  둘이서: 'compassWalkTogetherAdvice',
+  '3~4명': 'compassSilentStretchAdvice',
+  '5명 이상': 'compassGroupNote',
+};
+
+/**
+ * 시간 예산에 따라 일정에 넣을 편의시설 묶음.
+ * 반나절엔 숙박을 권하지 않는다 — 시간을 물어놓고 답을 안 쓰면 묻지 않은 것과 같다.
+ */
+const ITINERARY_GROUPS: Record<TimeBudget, FacilityGroup[]> = {
+  반나절: ['맛집'],
+  하루: ['맛집', '볼거리'],
+  '1박2일': ['맛집', '볼거리', '숙박'],
+};
+
+/** 일정 항목에 붙는 한 줄 — 왜 이 순서인지가 문구에 담긴다. */
+const ITINERARY_STEP_LABEL: Record<FacilityGroup, TranslationKey> = {
+  맛집: 'nearbyMeal',
+  볼거리: 'nearbyTogether',
+  숙박: 'nearbyOvernight',
+  쉼터: 'nearbyAlong',
+};
+
+/** 거리를 사람이 읽는 형태로. */
+function formatDistance(dist: string | undefined): string | null {
+  const m = Number(dist);
+  if (!Number.isFinite(m) || m <= 0) return null;
+  return m < 1000 ? `${Math.round(m)}m` : `${(m / 1000).toFixed(1)}km`;
+}
+
+// 1=감정 2=관심사 3=출발지역 4=성별 5=참여방식 6=시간 7=인원 8=자유텍스트
+const TOTAL_QUESTIONS = 8;
 const RESULT_STEP = TOTAL_QUESTIONS + 1;
 
 export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps) {
-  const { wideView, origin, setOrigin } = useSettings();
+  const { wideView, origin, setOrigin, t } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
-  const [step, setStep] = useState(0); // 0=intro, 1~7=질문, 8=결과
+  const [step, setStep] = useState(0); // 0=intro, 1~8=질문, 9=결과
   const [emotion, setEmotion] = useState<EmotionTag | null>(null);
   const [concern, setConcern] = useState<Concern | null>(null);
   // 이미 출발지를 정해 둔 사람에게 같은 질문을 또 하지 않는다. 바꾸고 싶으면 이 자리에서 바꾼다.
@@ -89,11 +176,17 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   const [gender, setGender] = useState<Gender | null>(null);
   const [style, setStyle] = useState<Style | null>(null);
   const [timeBudget, setTimeBudget] = useState<TimeBudget | null>(null);
+  const [party, setParty] = useState<PartySize | null>(null);
   const [note, setNote] = useState('');
   const [result, setResult] = useState<CourseCard | null>(null);
   const [resultLoading, setResultLoading] = useState(false);
   const saveResponse = useSaveCompassResponse();
   const { data: memory } = useCompassMemory();
+  // 결과 성지 주변 편의시설 — 답한 시간 예산에 맞춰 하루 일정을 조립한다.
+  // 결과 화면에 도달했을 때만 좌표가 넘어가므로 그전에는 호출되지 않는다.
+  const { data: facilityGroups = [] } = useNearbyFacilities(
+    step === RESULT_STEP ? result?.site.coordinates : undefined,
+  );
 
   if (!isOpen) return null;
 
@@ -105,6 +198,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     setGender(null);
     setStyle(null);
     setTimeBudget(null);
+    setParty(null);
     setNote('');
     setResult(null);
   };
@@ -132,6 +226,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
         region,
         style,
         timeBudget,
+        party,
         note: note.trim() || null,
       },
       matchedSiteId: top?.site.id ?? null,
@@ -155,7 +250,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               ? style != null
               : step === 6
                 ? timeBudget != null
-                : true; // step 7(자유 텍스트)는 건너뛰어도 됨
+                : step === 7
+                  ? party != null
+                  : true; // step 8(자유 텍스트)는 건너뛰어도 됨
 
   const handleNext = () => {
     if (step === TOTAL_QUESTIONS) {
@@ -174,7 +271,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
       {/* Header */}
       <div className="h-16 flex items-center justify-between px-6 border-b border-app-border shrink-0">
         <div className="w-9" />
-        <span className="text-xs font-bold text-app-text-muted">마음 나침반</span>
+        <span className="text-xs font-bold text-app-text-muted">{t('compassTitle')}</span>
         <button onClick={handleClose} className="p-2 text-app-text-muted" id="quiz-close">
           <X size={22} />
         </button>
@@ -204,21 +301,20 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             >
               <div className="text-5xl mb-6">🧭</div>
               <h2 className="text-2xl font-extrabold text-app-text mb-4 tracking-tight">
-                지금, 어떤 마음으로
+                {t('compassIntroLine1')}
                 <br />
-                여기 오셨나요?
+                {t('compassIntroLine2')}
               </h2>
               <p className="text-app-text-muted text-sm leading-relaxed mb-10">
-                몇 가지만 여쭤볼게요.
+                {t('compassIntroBody')}
                 <br />
-                당신에게 꼭 맞는 쉼의 자리를 찾아드릴게요.
               </p>
               <button
                 onClick={() => setStep(1)}
                 className="w-full bg-brand-blue text-white py-4 rounded-[20px] font-bold text-sm shadow-lg shadow-brand-blue/20"
                 id="quiz-start"
               >
-                시작하기
+                {t('compassStart')}
               </button>
 
               {/* 지난번 결과 — 응답 저장(로드맵 3단계)이 처음으로 화면에 돌아오는 자리 */}
@@ -251,7 +347,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 <br />
                 가장 가까운 색을 골라주세요
               </h3>
-              <p className="text-xs text-app-text-muted mb-8">마음에 드는 색을 눌러주세요</p>
+              <p className="text-xs text-app-text-muted mb-8">{t('compassPickColor')}</p>
               <div className="grid grid-cols-3 gap-5">
                 {EMOTION_TAGS.map((tag) => (
                   <button
@@ -268,7 +364,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                       {EMOTION_EMOJI[tag]}
                     </span>
                     <span className="text-[11px] font-bold text-app-text-muted text-center leading-tight">
-                      {EMOTION_LABEL[tag]}
+                      {t(EMOTION_LABEL[tag])}
                     </span>
                   </button>
                 ))}
@@ -301,7 +397,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                     }`}
                     id={`quiz-concern-${c}`}
                   >
-                    {c}
+                    {t(CONCERN_LABEL[c])}
                   </button>
                 ))}
               </div>
@@ -321,7 +417,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 <br />
                 출발하세요?
               </h3>
-              <p className="text-xs text-app-text-muted mb-8">가까운 곳부터 안내해드릴게요</p>
+              <p className="text-xs text-app-text-muted mb-8">{t('compassNearbyNote')}</p>
               <select
                 value={region ?? ''}
                 onChange={(e) => {
@@ -373,7 +469,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                     }`}
                     id={`quiz-gender-${g}`}
                   >
-                    {g}
+                    {t(GENDER_LABEL[g])}
                   </button>
                 ))}
               </div>
@@ -396,7 +492,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   {
                     key: '침묵형' as Style,
                     icon: VolumeX,
-                    label: '혼자 조용히 있고 싶어요',
+                    label: t('compassAlone'),
                     bg: 'bg-slate-200',
                     ring: 'ring-slate-400',
                     iconColor: 'text-slate-600',
@@ -404,7 +500,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   {
                     key: '나눔형' as Style,
                     icon: MessageCircle,
-                    label: '누군가와 이야기 나누고 싶어요',
+                    label: t('compassTogether'),
                     bg: 'bg-orange-200',
                     ring: 'ring-orange-400',
                     iconColor: 'text-orange-600',
@@ -446,28 +542,66 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 시간을 낼 수 있으세요?
               </h3>
               <div className="space-y-3">
-                {TIME_BUDGETS.map((t) => (
+                {TIME_BUDGETS.map((tb) => (
                   <button
-                    key={t}
-                    onClick={() => setTimeBudget(t)}
+                    key={tb}
+                    onClick={() => setTimeBudget(tb)}
                     className={`w-full p-5 rounded-[20px] border text-left font-bold text-sm transition-all ${
-                      timeBudget === t
+                      timeBudget === tb
                         ? 'border-brand-blue bg-brand-blue/5 text-brand-blue'
                         : 'border-app-border bg-white text-app-text'
                     }`}
-                    id={`quiz-time-${t}`}
+                    id={`quiz-time-${tb}`}
                   >
-                    {t}
+                    {t(TIME_LABEL[tb])}
                   </button>
                 ))}
               </div>
             </motion.div>
           )}
 
-          {/* Q7: 자유 텍스트 */}
+          {/* Q7: 인원 — 동반자 95.5%(웰니스 실측). 일정과 안내 문구가 여기 따라 달라진다 */}
           {step === 7 && (
             <motion.div
-              key="q7-note"
+              key="q7-party"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+            >
+              <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
+                이번 길은
+                <br />몇 분이 함께하세요?
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {PARTY_SIZES.map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => setParty(p)}
+                    className={`p-5 rounded-[20px] border text-center transition-all ${
+                      party === p
+                        ? 'border-brand-blue bg-brand-blue/5'
+                        : 'border-app-border bg-white'
+                    }`}
+                    id={`quiz-party-${p}`}
+                  >
+                    <span className="block text-3xl mb-2">{PARTY_EMOJI[p]}</span>
+                    <span
+                      className={`block font-bold text-sm ${
+                        party === p ? 'text-brand-blue' : 'text-app-text'
+                      }`}
+                    >
+                      {t(PARTY_LABEL[p])}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* Q8: 자유 텍스트 */}
+          {step === 8 && (
+            <motion.div
+              key="q8-note"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
@@ -484,7 +618,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 rows={5}
-                placeholder="여기에 적어주세요... (선택)"
+                placeholder={t('compassFreeText')}
                 className="w-full bg-app-bg rounded-[20px] p-5 text-sm outline-none border border-app-border resize-none"
                 id="quiz-note"
               />
@@ -531,14 +665,90 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                         {result.site.location}
                       </p>
                       <div className="space-y-2 text-sm text-app-text-muted leading-relaxed">
-                        {concern && <p>{CONCERN_OPENER[concern]}</p>}
-                        {timeBudget && <p>{TIME_NOTE[timeBudget]}</p>}
+                        {concern && <p>{t(CONCERN_OPENER[concern])}</p>}
+                        {timeBudget && <p>{t(TIME_NOTE[timeBudget])}</p>}
+                        {party && <p>{t(PARTY_NOTE[party])}</p>}
                         {style && (
-                          <p className="text-brand-blue font-bold">{STYLE_ACTIVITY[style]}</p>
+                          <p className="text-brand-blue font-bold">{t(STYLE_ACTIVITY[style])}</p>
                         )}
                       </div>
                     </div>
                   </div>
+
+                  {/*
+                    답한 시간에 맞춘 하루 일정 — 성지에서 시작해 맛집·볼거리·숙박을 잇는다.
+                    편의시설은 TourAPI 실시간 조회(저장하지 않는다). 해당 유형이 근처에
+                    없으면 그 줄은 조용히 빠진다 — 없는 것을 있는 척하지 않는다.
+                  */}
+                  {timeBudget &&
+                    (() => {
+                      const stops = buildItineraryStops(
+                        facilityGroups,
+                        ITINERARY_GROUPS[timeBudget],
+                      );
+                      if (stops.length === 0) return null;
+                      return (
+                        <div className="mb-6 rounded-[28px] border border-app-border bg-white p-6 shadow-sm">
+                          <div className="mb-4 flex items-baseline justify-between">
+                            <h4 className="font-extrabold text-app-text text-sm">
+                              이대로 다녀오세요 — {timeBudget} 일정
+                            </h4>
+                            <span className="text-[9px] font-bold text-app-text-muted">
+                              실시간 · 한국관광공사
+                            </span>
+                          </div>
+                          <ol className="space-y-3">
+                            <li className="flex items-start gap-3">
+                              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-blue text-[11px] font-extrabold text-white">
+                                1
+                              </span>
+                              <div className="min-w-0">
+                                <p className="truncate text-sm font-extrabold text-app-text">
+                                  {result.site.name}
+                                </p>
+                                <p className="text-[11px] font-bold text-app-text-muted">
+                                  고요히 머무는 시간
+                                </p>
+                              </div>
+                            </li>
+                            {stops.map(({ group: groupName, spot }, i) => {
+                              const dist = formatDistance(spot.dist);
+                              return (
+                                <li key={spot.contentid} className="flex items-start gap-3">
+                                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-app-bg text-[11px] font-extrabold text-app-text">
+                                    {i + 2}
+                                  </span>
+                                  <a
+                                    href={kakaoPlaceUrl(
+                                      spot.title,
+                                      Number(spot.mapy),
+                                      Number(spot.mapx),
+                                    )}
+                                    target="_blank"
+                                    rel="noreferrer noopener"
+                                    className="group min-w-0 flex-1"
+                                    aria-label={`${spot.title} 카카오맵에서 보기`}
+                                  >
+                                    <p className="flex items-center gap-1 truncate text-sm font-extrabold text-app-text group-hover:text-brand-blue">
+                                      <span className="truncate">{spot.title}</span>
+                                      <ExternalLink
+                                        size={11}
+                                        className="shrink-0 text-app-text-muted"
+                                      />
+                                    </p>
+                                    <p className="flex items-center gap-1 text-[11px] font-bold text-app-text-muted">
+                                      <MapPin size={10} className="shrink-0" />
+                                      {t(ITINERARY_STEP_LABEL[groupName])}
+                                      {dist && <span>· {dist}</span>}
+                                    </p>
+                                  </a>
+                                </li>
+                              );
+                            })}
+                          </ol>
+                        </div>
+                      );
+                    })()}
 
                   <div className="flex gap-3">
                     <button
@@ -589,7 +799,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             onClick={() => setStep(step - 1)}
             className="w-16 h-14 bg-app-bg text-app-text border border-app-border rounded-[18px] flex items-center justify-center shrink-0"
             id="quiz-prev"
-            aria-label="좀 전으로"
+            aria-label={t('compassBack')}
           >
             <ChevronLeft size={22} />
           </button>
@@ -599,7 +809,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             className="flex-1 bg-brand-blue text-white rounded-[18px] font-bold text-sm shadow-lg shadow-brand-blue/20 flex items-center justify-center gap-2 disabled:opacity-30 disabled:shadow-none"
             id="quiz-next"
           >
-            {step === TOTAL_QUESTIONS ? '결과 보기' : '다음으로'}
+            {step === TOTAL_QUESTIONS ? t('compassSeeResult') : t('compassNext')}
             <ChevronRight size={18} />
           </button>
         </div>

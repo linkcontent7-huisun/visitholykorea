@@ -1,0 +1,90 @@
+{
+  "siteId": "6be64b43-5284-4f8c-87d8-2b161e381863",
+  "siteName": "여우목 성지",
+  "slug": "yeoumok",
+  "surveyedAt": "2026-08-30",
+  "surveyedBy": "현장: 미조사 / 원고: Claude (문헌 기반 초안)",
+  "status": "draft",
+  "intro": {
+    "narration": "문경 여우목 성지에 오신 것을 환영합니다. 문경읍과 동로면 사이, 소백산 자락을 넘는 고갯길입니다. 이 산골에 박해를 피해 온 사람들이 삼십여 명의 마을을 이루었고, 1866년 어느 날 그 마을 전체가 한꺼번에 끌려갔습니다. 미리 한 가지 말씀드립니다. 여기서 나온 성인의 유해는 이곳에 없습니다. 왜 없는지가 오늘 순례의 이야기입니다.",
+    "narrationEn": "Welcome to the Yeoumok shrine in Mungyeong. This is a pass over the flank of Sobaeksan, between Mungyeong town and Dongno-myeon. In these hills people fleeing persecution built a village of some thirty souls, and one day in 1866 the whole village was taken away at once. One thing first: the relics of the saint who came from here are not kept here. Why they are not is the story of today's walk.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "여우목고개 — 왜 하필 이 산길이었나",
+      "titleEn": "Yeoumok Pass — Why This Mountain Road",
+      "location": "성지 입구, 고갯길이 보이는 자리",
+      "locationEn": "At the entrance, where the pass comes into view",
+      "narration": "고갯길을 한번 올려다보세요. 서울로 향하던 나그네들이 넘던 옛길입니다. 1839년 기해박해 무렵, 상주에 살던 이윤일 요한 일가와 충청도 청풍에서 넘어온 서치보 요셉 일가가 이 고개 안쪽에 자리를 잡았습니다. 농사지을 땅이 좋아서가 아닙니다. 관아에서 멀고, 길이 험하고, 사람들이 잘 들어오지 않아서였습니다. 살기 좋은 곳을 고른 것이 아니라 죽지 않을 곳을 고른 것입니다.",
+      "narrationEn": "Look up at the pass. This was an old road travellers took toward Seoul. Around the persecution of 1839, the family of John Yi Yun-il from Sangju and the family of Joseph Seo Chi-bo from Cheongpung in Chungcheong settled just inside this ridge. Not because the farmland was good. Because it was far from the magistrate, hard to reach, and seldom visited. They did not choose a good place to live; they chose a place where they might not die.",
+      "lookFor": "고개가 얼마나 가파른지 — 이 험함이 곧 안전이었다",
+      "lookForEn": "How steep the pass is — this hardship was their safety",
+      "forEveryone": "조선 후기 산간 교우촌은 화전과 옹기로 생계를 잇던 독특한 마을 형태였습니다.",
+      "photos": [],
+      "sourceNote": "성지 DB 원문 — 1839 기해박해 무렵 이윤일 일가·서치보 일가 이주. 위키백과 여우목고개 — 문경읍과 동로면 사이 고갯길"
+    },
+    {
+      "seq": 2,
+      "title": "회장 이윤일 요한 — 태중 교우로 태어나",
+      "titleEn": "John Yi Yun-il, the Village Leader",
+      "location": "교우촌 터",
+      "locationEn": "The site of the hidden village",
+      "narration": "이 마을을 이끈 사람이 이윤일 요한입니다. 1823년 충청도 홍주에서, 이미 신자인 부모에게서 태어났습니다. 이런 사람을 태중 교우라 부릅니다. 믿음을 고른 것이 아니라 믿음 안에서 태어난 것입니다. 그는 여기서 농사를 지으며 회장을 맡았습니다. 회장은 사제가 없는 마을에서 신자들을 모아 기도를 이끌고 교리를 가르치는 평신도 지도자입니다. 조선에는 사제가 열 명도 되지 않았으니, 신앙을 실제로 지탱한 것은 이런 사람들이었습니다.",
+      "narrationEn": "The man who led this village was John Yi Yun-il, born in 1823 in Hongju, Chungcheong, to parents already Catholic — what Koreans call a believer from the womb. He did not choose the faith; he was born inside it. Here he farmed and served as hoejang, the lay leader who gathered a priestless village for prayer and taught the catechism. Korea had fewer than ten priests in those years. It was people like him who actually held the faith up.",
+      "lookFor": "마을이 있었을 만한 평평한 땅의 크기",
+      "lookForEn": "The size of the flat ground where a village could have stood",
+      "forEveryone": "회장 제도는 성직자가 절대적으로 부족했던 조선 교회의 특징적인 조직 방식입니다.",
+      "photos": [],
+      "sourceNote": "위키백과 이윤일 — 1823 홍주 출생·태중 교우·문경 여호목골 거주·회장 활동"
+    },
+    {
+      "seq": 3,
+      "title": "마을이 통째로 끌려간 날",
+      "titleEn": "The Day the Village Was Taken",
+      "location": "교우촌 터에서 고갯길 쪽",
+      "locationEn": "Facing the pass from the village site",
+      "narration": "1866년 늦가을, 포졸들이 이 고개를 넘어 들어왔습니다. 회장 이윤일과 함께 마을 사람 서른 명 남짓이 한꺼번에 붙잡혔습니다. 한두 사람이 아니라 마을 전체였습니다. 그들은 상주로 끌려가 아홉 차례 문초를 받았습니다. 아홉 번 매를 맞고 아홉 번 배교하라는 요구를 들었다는 뜻입니다. 관은 붙잡힌 이들을 나누었습니다. 지도자급은 사형, 나머지는 유배와 석방. 이윤일은 1867년 1월 4일 사형을 선고받았습니다.",
+      "narrationEn": "In the late autumn of 1866 the constables came over this pass. The leader Yi Yun-il and some thirty villagers were seized at once — not one or two, but the whole village. They were taken to Sangju and interrogated nine times: nine beatings, nine demands to renounce. The authorities then sorted the prisoners — death for the leaders, exile or release for the rest. On 4 January 1867 Yi Yun-il was sentenced to die.",
+      "lookFor": "포졸들이 넘어왔을 고갯길 방향",
+      "lookForEn": "The direction of the pass the constables came over",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "위키백과 이윤일 — 30여 명 체포·상주 9차례 문초·1867.1.4 사형 선고. 체포 시점은 자료마다 1866년 10월과 11월로 갈려 '늦가을'로 적었다"
+    },
+    {
+      "seq": 4,
+      "title": "여기 남은 무덤 — 서치보 요셉과 서인순 시몬",
+      "titleEn": "The Graves That Remain — Joseph Seo and Simon Seo",
+      "location": "성지 내 묘역",
+      "locationEn": "The burial ground within the shrine",
+      "narration": "성지 안에 무덤이 있습니다. 청풍에서 함께 넘어왔던 서치보 요셉과 그의 맏아들 서인순 시몬의 묘입니다. 이윤일의 이웃이자 같은 마을 사람이었습니다. 성인의 무덤을 보러 왔다가 이름이 덜 알려진 두 사람의 무덤 앞에 서게 되는 셈인데, 저는 이 편이 이 성지에 어울린다고 생각합니다. 여기서 있었던 일은 한 위인의 이야기가 아니라 한 마을의 이야기였기 때문입니다.",
+      "narrationEn": "Inside the shrine there are graves — those of Joseph Seo Chi-bo, who had come over from Cheongpung, and his eldest son Simon Seo In-sun. They were Yi Yun-il's neighbours, men of the same village. You may have come looking for a saint's tomb and find yourself before two lesser-known names instead. I think that suits this place. What happened here was not the story of one great man but of one village.",
+      "lookFor": "묘비에 적힌 두 사람의 관계 — 아버지와 아들",
+      "lookForEn": "The relation carved on the stones — father and son",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "검색 확인 — 안동교구가 여우목 교우촌 부근에 터를 마련해 2002년 조성, 서치보와 장남 서인순의 묘 안치"
+    },
+    {
+      "seq": 5,
+      "title": "성인의 유해가 여기 없는 이유",
+      "titleEn": "Why the Saint's Relics Are Not Here",
+      "location": "성지 중심부",
+      "locationEn": "The centre of the shrine",
+      "narration": "이윤일 요한은 1867년 1월 21일 대구 관덕정에서 참수되었습니다. 마흔넷이었습니다. 죽기 전 자식들에게 이렇게 말했다고 전합니다. 나는 이제 순교하러 간다, 너희는 집으로 돌아가 열심히 천주를 공경하고 자라서 나를 따르라. 그의 유해는 그 뒤로도 계속 옮겨 다녔습니다. 날뫼와 묵리를 거쳐 1976년 미리내 무명 순교자 묘역으로, 1984년 시성 뒤에는 대구대교구청 경당으로, 1987년 순교일에 맞춰 성모당으로, 그리고 1991년 관덕정 순교기념관 성당 제대에 봉안되었습니다. 살아서도 쫓겨 다녔고 죽어서도 백이십 년을 옮겨 다닌 셈입니다. 이 성지에 유해가 없는 것은 빠뜨려서가 아니라, 그것이 이 사람의 삶이었기 때문입니다.",
+      "narrationEn": "John Yi Yun-il was beheaded on 21 January 1867 at Gwandeokjeong in Daegu. He was forty-four. Before dying he is said to have told his children: I go now to be a martyr; go home, worship God faithfully, and when you are grown, follow me. His remains kept moving afterwards — through Nalmoe and Mungni, to the graves of the nameless martyrs at Mirinae in 1976, then after his canonisation in 1984 to the chapel of the Daegu archdiocesan office, to Seongmodang on his martyrdom day in 1987, and finally in 1991 to the altar of the Gwandeokjeong Martyrs' Memorial. Hunted in life, he was moved for a hundred and twenty years in death. The relics are absent from this shrine not by oversight — that absence is the shape of his life.",
+      "lookFor": "이 마을에서 대구까지의 거리 — 걸어서 끌려간 길",
+      "lookForEn": "The distance from this village to Daegu — a road walked in chains",
+      "forEveryone": "이윤일 요한은 1968년 24위 시복, 1984년 103위 시성으로 성인이 되었으며 축일은 9월 20일입니다.",
+      "photos": [],
+      "sourceNote": "위키백과 이윤일 — 1867.1.21 대구 참수·향년 44세·유언·1968 시복·1984 시성·축일 9.20. 검색 확인(대구대교구 자료) — 날뫼·묵리·1976 미리내·1986.12.21 교구청 경당·1987.1.21 성모당·1991.1.20 관덕정 봉안"
+    }
+  ],
+  "outro": {
+    "narration": "여우목 순례에 함께해 주셔서 감사합니다. 이 마을에서 시작된 길은 상주의 옥과 대구 관덕정으로 이어집니다. 관덕정 순교성지와 상주 옥 터도 이 앱에 있으니, 잡혀간 자리와 죽은 자리와 지금 누워 있는 자리를 차례로 걸어보셔도 좋겠습니다. 돌아가는 길에 고개를 한 번 올려다봐 주십시오. 평화를 빕니다.",
+    "narrationEn": "Thank you for walking Yeoumok with us. The road that began in this village runs on to the prison at Sangju and to Gwandeokjeong in Daegu. The Gwandeokjeong Martyrs' Memorial is in this app too, so you may wish to walk in turn the place of arrest, the place of death, and the place of rest. As you leave, look up once at the pass. Peace be with you.",
+    "photos": []
+  }
+}

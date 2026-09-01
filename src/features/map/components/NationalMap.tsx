@@ -11,6 +11,8 @@
 
 import { useMemo } from 'react';
 import type { HolySite } from '@/shared/types/domain';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { useSettings } from '@/shared/i18n/use-settings';
 import type { VisitRecord } from '../lib/journey';
 import { buildJourneySegments } from '../lib/journey';
 import { jitterFor, MAP_ASPECT, projectToMap } from '../lib/projection';
@@ -49,6 +51,7 @@ export function NationalMap({
   selectedId,
   onSelect,
 }: NationalMapProps) {
+  const { t } = useSettings();
   const { pins, offMap, positions } = useMemo(() => {
     const placed: Array<{ site: HolySite; x: number; y: number; state: PinState }> = [];
     const byId = new Map<string, { x: number; y: number }>();
@@ -148,7 +151,7 @@ export function NationalMap({
 
       {offMap > 0 && (
         <p className="mt-2 text-center text-xs text-app-text-muted">
-          좌표가 없어 지도에 표시하지 못한 곳 {offMap}곳
+          {fillPlaceholders(t('mapOffMap'), { n: offMap })}
         </p>
       )}
     </div>
@@ -157,29 +160,30 @@ export function NationalMap({
 
 /** 지도 옆에 두는 범례. 색만 보고 뜻을 알 수 없으면 지도가 무용지물이다. */
 export function MapLegend() {
+  const { t } = useSettings();
   return (
     <ul className="flex flex-wrap items-center justify-center gap-4 text-xs text-app-text-muted">
       <li className="flex items-center gap-1.5">
         <span className="inline-block size-3 rounded-full bg-brand-blue" aria-hidden />
-        다녀온 곳
+        {t('legendVisited')}
       </li>
       <li className="flex items-center gap-1.5">
         <span
           className="inline-block size-3 rounded-full border-[3px] border-brand-violet bg-white"
           aria-hidden
         />
-        조금 남은 교구
+        {t('legendAlmost')}
       </li>
       <li className="flex items-center gap-1.5">
         <span className="inline-block size-3 rounded-full border-2 border-gray-300" aria-hidden />
-        아직
+        {t('legendNotYet')}
       </li>
       <li className="flex items-center gap-1.5">
         <span
           className="inline-block h-[3px] w-6 rounded-full bg-gradient-to-r from-brand-blue/20 to-brand-blue"
           aria-hidden
         />
-        지나온 순서 (최근일수록 진하게)
+        {t('legendOrder')}
       </li>
     </ul>
   );

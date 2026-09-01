@@ -1,4 +1,5 @@
 import {
+  Camera,
   Check,
   ChevronLeft,
   Compass,
@@ -8,8 +9,7 @@ import {
   PartyPopper,
   Share2,
   Stamp,
-  Volume2,
-  VolumeX,
+  Flag,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
@@ -20,20 +20,27 @@ import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/
 import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use-favorites';
 import {
   useAddStamp,
+  useAttachPhoto,
   useMyStamp,
   useMyStamps,
+  useReportNote,
   useSiteNotes,
 } from '@/features/passport/hooks/use-stamps';
 import { recordNoteReads } from '@/features/passport/api/stamps.repository';
+import { shrinkPhoto } from '@/features/passport/lib/photo';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
 import { resolveStampMotif } from '@/features/passport/lib/stamp-motifs';
 import { isWydVenue, WYD_LABEL_EN, WYD_LABEL_KO } from '@/features/passport/lib/wyd';
+import { DocentPlayer } from '@/features/docent/components/DocentPlayer';
+import { buildChapters } from '@/features/docent/lib/chapters';
+import { getDocentScript } from '@/features/docent/data/scripts';
 import { ContactCard } from '@/features/sites/components/ContactCard';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
-import { useNearbyAttractions, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
+import { useNearbyFacilities, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
+import { GROUP_HINT } from '@/features/sites/lib/nearby-facilities';
 import { useSite, useSitesInSameDiocese } from '@/features/sites/hooks/use-sites';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
@@ -49,7 +56,7 @@ export default function SiteDetailPage() {
   const { data: site, isLoading } = useSite(siteId);
   const view = useTranslatedSite(site);
   const { data: nearbySites = [] } = useSitesInSameDiocese(site?.region, siteId);
-  const { data: attractions = [], isFetching: attractionsLoading } = useNearbyAttractions(
+  const { data: facilityGroups = [], isFetching: facilitiesLoading } = useNearbyFacilities(
     site?.coordinates,
   );
   const { data: festivals = [], isFetching: festivalsLoading } = useNearbyFestivals(
@@ -72,19 +79,28 @@ export default function SiteDetailPage() {
     return idx === -1 ? null : idx + 1;
   })();
 
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const [shareLoading, setShareLoading] = useState(false);
   const [noteDraft, setNoteDraft] = useState('');
   // "남길게요"를 누르기 전까지는 입력창을 강요하지 않는다
   const [noteDismissed, setNoteDismissed] = useState(false);
 
+  // 순례 사진 — 스탬프를 찍은 사람만 남길 수 있다 (실방문 인증)
+  const attachPhoto = useAttachPhoto(siteId ?? '');
+  const reportNote = useReportNote(siteId ?? '');
+  const [reportedIds, setReportedIds] = useState<Set<string>>(new Set());
+  const handlePhotoPick = async (file: File | undefined) => {
+    if (!file) return;
+    const small = await shrinkPhoto(file);
+    attachPhoto.mutate(small);
+  };
+  const handleReport = (stampId: string) => {
+    if (!window.confirm('이 글·사진을 신고할까요? 여러 사람이 신고하면 가려집니다.')) return;
+    setReportedIds((prev) => new Set(prev).add(stampId));
+    reportNote.mutate(stampId);
+  };
+
   // 오늘 찍으면 어떤 한정판 스탬프가 되는지 미리 보여준다.
   const todayLiturgical = getLiturgicalEvent();
-
-  // 다른 성지로 이동하거나 화면을 나가면 읽던 음성을 멈춘다.
-  useEffect(() => {
-    return () => window.speechSynthesis?.cancel();
-  }, [siteId]);
 
   // "다녀온 사람의 한 줄"이 실제로 화면에 보였을 때만 읽힘 수를 올린다.
   // 성지당 한 번 — 리렌더마다 세면 조회수가 아니라 렌더 횟수가 된다.
@@ -96,30 +112,6 @@ export default function SiteDetailPage() {
     void recordNoteReads(siteId, visitNotes.length);
   }, [siteId, visitNotes.length]);
 
-  const toggleSpeech = () => {
-    if (!site) return;
-    if (isSpeaking) {
-      window.speechSynthesis.cancel();
-      setIsSpeaking(false);
-      return;
-    }
-    const text = [
-      view?.name ?? site.name,
-      view?.description ?? site.description,
-      view?.history ?? site.history,
-    ]
-      .filter(Boolean)
-      .join('. ');
-    const utterance = new SpeechSynthesisUtterance(text);
-    // 번역 본문을 읽을 때는 음성도 그 언어여야 한다 — 한국어 음성이 영어를 읽으면 알아들을 수 없다
-    utterance.lang = language === 'en' ? 'en-US' : 'ko-KR';
-    utterance.rate = 0.95;
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utterance);
-    setIsSpeaking(true);
-  };
 
   const handleSaveNote = () => {
     const note = normalizeNote(noteDraft);
@@ -189,6 +181,18 @@ export default function SiteDetailPage() {
 
   const tags = [site.emotionTag, site.region, site.category].filter((t): t is string => Boolean(t));
 
+  // 오디오 도슨트 — 현장조사 원고가 있으면 포인트별 투어, 없으면 소개·역사 챕터
+  const docentScript = getDocentScript(site.id);
+  const docentChapters = buildChapters(
+    {
+      name: view?.name ?? site.name,
+      description: view?.description ?? site.description,
+      history: view?.history ?? site.history,
+    },
+    docentScript,
+    language,
+  );
+
   return (
     <div className={`mx-auto min-h-screen ${widthClass} bg-white pb-32`}>
       <div className="relative flex h-[55vh] w-full items-center justify-center overflow-hidden bg-app-bg">
@@ -215,6 +219,7 @@ export default function SiteDetailPage() {
             imageUrl={null}
             name={site.name}
             category={site.category}
+            intensity="deep"
             className="h-full w-full"
           />
         )}
@@ -304,20 +309,13 @@ export default function SiteDetailPage() {
             <h2 className="flex-1 text-xl font-extrabold tracking-tight text-app-text">
               성지 이야기
             </h2>
-            {/* 고령 순례자를 위한 음성 안내. 브라우저 내장 TTS라 별도 비용이 없다. */}
-            <button
-              onClick={toggleSpeech}
-              className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all ${
-                isSpeaking
-                  ? 'border-brand-violet bg-brand-violet text-white'
-                  : 'border-app-border bg-app-bg text-app-text-muted'
-              }`}
-              id="tts-toggle"
-              aria-label={isSpeaking ? '읽기 중지' : '성지 이야기 읽어주기'}
-            >
-              {isSpeaking ? <VolumeX size={18} /> : <Volume2 size={18} />}
-            </button>
           </div>
+          {/* 오디오 도슨트 — 박물관 오디오 가이드처럼 챕터를 골라 듣는다 */}
+          <DocentPlayer
+            chapters={docentChapters}
+            isDraft={docentScript?.status === 'draft'}
+            language={language}
+          />
           <div className="relative overflow-hidden rounded-[40px] border border-brand-blue/5 bg-brand-blue/[0.03] p-8">
             <History
               size={100}
@@ -336,61 +334,84 @@ export default function SiteDetailPage() {
           </div>
         </section>
 
-        {/* 주변 관광지 — TourAPI 실시간 조회 (저장하지 않는다) */}
-        {(attractionsLoading || attractions.length > 0) && (
+        {/*
+          주변 편의시설 — 맛집·숙박·볼거리·쉼터를 한 화면에서 본다.
+          TourAPI 를 한 번만 부르고 유형으로 나눈다(저장하지 않는다).
+          빈 유형은 아예 그리지 않는다 — 시골 성지의 빈 탭은 정보가 없는 앱으로 보인다.
+        */}
+        {(facilitiesLoading || facilityGroups.length > 0) && (
           <section>
             <div className="mb-6 flex items-center gap-3">
               <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-              <h2 className="text-xl font-extrabold tracking-tight text-app-text">주변 정보</h2>
+              <h2 className="text-xl font-extrabold tracking-tight text-app-text">
+                가는 김에 둘러볼 곳
+              </h2>
               <span className="text-[10px] font-bold text-app-text-muted">
-                실시간 · 한국관광공사
+                반경 5km · 실시간 · 한국관광공사
               </span>
             </div>
-            <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
-              {attractionsLoading
-                ? [1, 2, 3].map((i) => (
-                    <div
-                      key={i}
-                      className="h-64 w-44 flex-shrink-0 animate-pulse rounded-[32px] bg-app-bg"
-                    />
-                  ))
-                : attractions.map((spot) => (
-                    <a
-                      key={spot.contentid}
-                      href={kakaoPlaceUrl(spot.title, Number(spot.mapy), Number(spot.mapx))}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      aria-label={`${spot.title} 카카오맵에서 보기`}
-                      className="group w-44 flex-shrink-0 overflow-hidden rounded-[32px] border border-app-border bg-white text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-violet hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
-                    >
-                      <div className="relative flex h-40 items-center justify-center overflow-hidden bg-app-bg">
-                        {spot.firstimage ? (
-                          <img
-                            src={spot.firstimage}
-                            alt={spot.title}
-                            className="h-full w-full object-cover"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <Compass size={28} className="text-app-text-muted opacity-30" />
-                        )}
-                        {spot.dist && (
-                          <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[9px] font-extrabold text-brand-violet backdrop-blur-md">
-                            {Math.round(Number(spot.dist))}m
+
+            {facilitiesLoading ? (
+              <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="h-64 w-44 flex-shrink-0 animate-pulse rounded-[32px] bg-app-bg"
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-8">
+                {facilityGroups.map(({ group, spots }) => (
+                  <div key={group}>
+                    <div className="mb-3 flex items-baseline gap-2">
+                      <h3 className="text-sm font-extrabold text-app-text">{group}</h3>
+                      <span className="text-[11px] font-bold text-app-text-muted">
+                        {GROUP_HINT[group]}
+                      </span>
+                    </div>
+                    <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
+                      {spots.map((spot) => (
+                        <a
+                          key={spot.contentid}
+                          href={kakaoPlaceUrl(spot.title, Number(spot.mapy), Number(spot.mapx))}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          aria-label={`${spot.title} 카카오맵에서 보기`}
+                          className="group w-44 flex-shrink-0 overflow-hidden rounded-[32px] border border-app-border bg-white text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-violet hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
+                        >
+                          <div className="relative flex h-40 items-center justify-center overflow-hidden bg-app-bg">
+                            {spot.firstimage ? (
+                              <img
+                                src={spot.firstimage}
+                                alt={spot.title}
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <Compass size={28} className="text-app-text-muted opacity-30" />
+                            )}
+                            {spot.dist && (
+                              <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[9px] font-extrabold text-brand-violet backdrop-blur-md">
+                                {Math.round(Number(spot.dist))}m
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
-                      <div className="p-5">
-                        <h3 className="mb-1 truncate text-sm font-extrabold text-app-text group-hover:text-brand-violet">
-                          {spot.title}
-                        </h3>
-                        <p className="truncate text-[10px] font-bold text-app-text-muted">
-                          {spot.addr1}
-                        </p>
-                      </div>
-                    </a>
-                  ))}
-            </div>
+                          <div className="p-5">
+                            <h3 className="mb-1 truncate text-sm font-extrabold text-app-text group-hover:text-brand-violet">
+                              {spot.title}
+                            </h3>
+                            <p className="truncate text-[10px] font-bold text-app-text-muted">
+                              {spot.addr1}
+                            </p>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
         )}
 
@@ -506,11 +527,51 @@ export default function SiteDetailPage() {
           </div>
         )}
 
-        {myStamp?.note && (
+        {stamped && (
           <div className="rounded-[20px] border border-app-border bg-white p-5">
-            <p className="text-xs font-bold text-app-text-muted">내가 남긴 한 줄</p>
-            <p className="mt-2 text-sm leading-relaxed text-app-text">
-              &ldquo;{myStamp.note}&rdquo;
+            {myStamp?.note && (
+              <>
+                <p className="text-xs font-bold text-app-text-muted">내가 남긴 한 줄</p>
+                <p className="mt-2 text-sm leading-relaxed text-app-text">
+                  &ldquo;{myStamp.note}&rdquo;
+                </p>
+              </>
+            )}
+            {/* 순례 사진 — 모두가 함께 만드는 앱: 다녀온 사람의 사진이
+                다음 순례자의 안내가 된다. 올리기 전에 1600px 로 줄인다. */}
+            {myStamp?.photoUrl && (
+              <img
+                src={myStamp.photoUrl}
+                alt="내가 남긴 순례 사진"
+                className="mt-3 max-h-48 w-full rounded-2xl object-cover"
+              />
+            )}
+            <label
+              className={`mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-brand-violet/40 py-3 text-xs font-bold text-brand-violet ${
+                attachPhoto.isPending ? 'opacity-50' : ''
+              }`}
+            >
+              <Camera size={14} aria-hidden />
+              {attachPhoto.isPending
+                ? '사진 올리는 중…'
+                : myStamp?.photoUrl
+                  ? '사진 바꾸기'
+                  : '순례 사진 남기기'}
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                disabled={attachPhoto.isPending}
+                onChange={(e) => {
+                  void handlePhotoPick(e.target.files?.[0]);
+                  e.target.value = '';
+                }}
+                data-testid="photo-input"
+              />
+            </label>
+            <p className="mt-2 text-[10px] leading-relaxed text-app-text-muted">
+              올린 사진과 한 줄은 다른 순례자에게 익명으로 공개돼요. 얼굴이 나온 사진은
+              피해주세요.
             </p>
           </div>
         )}
@@ -518,18 +579,43 @@ export default function SiteDetailPage() {
         {/* 다녀온 사람의 한 줄 — 추정 지수를 사람의 증언이 보정한다 */}
         {visitNotes.length > 0 && (
           <div className="rounded-[20px] border border-app-border bg-white p-5">
-            <p className="text-sm font-bold text-app-text">다녀온 사람의 한 줄</p>
-            <ul className="mt-3 space-y-3">
-              {visitNotes.map((n, i) => (
-                <li key={`${n.visitedAt}-${i}`} className="border-l-2 border-brand-violet/30 pl-3">
-                  <p className="text-sm leading-relaxed text-app-text">&ldquo;{n.note}&rdquo;</p>
-                  <p className="mt-1 text-xs text-app-text-muted">
-                    {new Date(n.visitedAt).toLocaleDateString('ko-KR', {
-                      month: 'long',
-                      day: 'numeric',
-                    })}{' '}
-                    방문
-                  </p>
+            <p className="text-sm font-bold text-app-text">순례자 이야기</p>
+            <p className="mt-1 text-xs text-app-text-muted">
+              다녀온 사람들이 남긴 한 줄과 사진 — 함께 만드는 순례 안내예요
+            </p>
+            <ul className="mt-3 space-y-4">
+              {visitNotes.map((n) => (
+                <li key={n.id} className="border-l-2 border-brand-violet/30 pl-3">
+                  {n.photoUrl && (
+                    <img
+                      src={n.photoUrl}
+                      alt="순례자가 남긴 사진"
+                      loading="lazy"
+                      className="mb-2 max-h-56 w-full rounded-2xl object-cover"
+                    />
+                  )}
+                  {n.note && (
+                    <p className="text-sm leading-relaxed text-app-text">&ldquo;{n.note}&rdquo;</p>
+                  )}
+                  <div className="mt-1 flex items-center justify-between">
+                    <p className="text-xs text-app-text-muted">
+                      {new Date(n.visitedAt).toLocaleDateString('ko-KR', {
+                        month: 'long',
+                        day: 'numeric',
+                      })}{' '}
+                      방문
+                    </p>
+                    {/* 운영자가 한 명뿐이라 신고 3건이면 자동으로 가려진다 */}
+                    <button
+                      onClick={() => handleReport(n.id)}
+                      disabled={reportedIds.has(n.id)}
+                      className="flex items-center gap-1 text-[10px] font-bold text-app-text-muted/60 disabled:opacity-40"
+                      aria-label="신고"
+                    >
+                      <Flag size={10} aria-hidden />
+                      {reportedIds.has(n.id) ? '신고됨' : '신고'}
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>

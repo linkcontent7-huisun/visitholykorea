@@ -40,6 +40,28 @@ export interface TourApiSpot {
   eventenddate?: string;
 }
 
+/** resultCode 를 들고 있는 에러. 어떤 종류의 실패인지 화면이 구분할 수 있게 한다. */
+export class TourApiError extends Error {
+  constructor(
+    message: string,
+    public readonly code: string,
+  ) {
+    super(message);
+    this.name = 'TourApiError';
+  }
+}
+
+/**
+ * 일일 호출 한도 초과(코드 22)인지 본다.
+ *
+ * 서비스키 발급 상태(개발계정 1,000건/일)에 따라 실제로 부딪힐 수 있는 에러다.
+ * 이때는 "고장"이 아니라 "오늘 그만 물어봐야 한다"는 뜻이므로, 화면에서
+ * 다른 에러와 다른 문구(다시 시도 대신 "잠시 후")로 안내해야 한다.
+ */
+export function isQuotaExceededError(error: unknown): boolean {
+  return error instanceof TourApiError && error.code === '22';
+}
+
 interface TourApiResponse {
   response: {
     header: { resultCode: string; resultMsg: string };
@@ -60,7 +82,7 @@ function normalizeItems(data: TourApiResponse): TourApiSpot[] {
 /**
  * 동시 호출 수 제한 (에러코드 23 회피).
  *
- * 홈 화면 1회 로드는 축제 1 + 붐빔 후보 12 + 코스 8 = 21회를 부른다.
+ * 홈 화면 1회 로드는 축제 1 + 붐빔 후보 6 + 코스 8 = 15회를 부른다(2026-08-28: 붐빔 후보 12→6).
  * 각 화면이 `Promise.all` 로 묶어 쏘기 때문에, 막지 않으면 20개가 거의 동시에 나간다.
  * TourAPI 는 일일 한도(코드 22)와 별개로 **초당 한도(코드 23)** 가 있고,
  * 그 수치는 공개 문서에 없다 — 확인되지 않은 벽에 스스로 부딪힐 이유가 없다.
@@ -103,7 +125,10 @@ async function callTourApi(
   }
 
   if (data.response.header.resultCode !== '0000') {
-    throw new Error(`TourAPI 오류: ${data.response.header.resultMsg}`);
+    throw new TourApiError(
+      `TourAPI 오류: ${data.response.header.resultMsg}`,
+      data.response.header.resultCode,
+    );
   }
   return normalizeItems(data);
 }

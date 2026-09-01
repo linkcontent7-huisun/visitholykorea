@@ -1,13 +1,16 @@
 import { ChevronRight, Wind } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
+import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
+import { useSettings } from '@/shared/i18n/use-settings';
+import { isQuotaExceededError } from '@/shared/api/tour-api';
 import type { HolySite } from '@/shared/types/domain';
 import { useQuietSites } from '../hooks/use-quiet-sites';
 import { QuietSiteCard } from './QuietSiteCard';
 
-/** 오늘 날짜를 "8월 5일 화요일" 형태로 */
-function todayLabel(): string {
-  return new Date().toLocaleDateString('ko-KR', {
+/** 오늘 날짜. 보는 사람의 언어로 적는다 — 한국어 날짜를 외국인이 읽을 수 없다. */
+function todayLabel(locale: string): string {
+  return new Date().toLocaleDateString(locale, {
     month: 'long',
     day: 'numeric',
     weekday: 'long',
@@ -21,6 +24,7 @@ function todayLabel(): string {
  * 한 번 틀렸을 때 서비스 전체의 신뢰가 무너진다.
  */
 export function TodayQuietSection({ sites }: { sites: HolySite[] }) {
+  const { t, language } = useSettings();
   const { data: quietSites = [], isLoading, isError, error } = useQuietSites(sites, 3);
 
   const locatedCount = sites.filter(
@@ -31,20 +35,20 @@ export function TodayQuietSection({ sites }: { sites: HolySite[] }) {
     <section className="px-6 py-6">
       <header className="mb-5">
         <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-brand-violet">
-          {todayLabel()}
+          {todayLabel(SPEECH_LOCALE[language])}
         </p>
         <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-app-text">
-          고요 속으로
+          {t('quietHeroTitle')}
         </h2>
         <p className="mt-1.5 text-[12px] leading-relaxed text-app-text-muted">
-          한국관광공사 실시간 축제·관광 정보로 일상의 소음을 한 발 물러났어요
+          {t('quietHeroSubtitle')}
         </p>
       </header>
 
       {isLoading && (
         <div className="space-y-3" role="status" aria-live="polite">
           <p className="text-[12px] font-medium text-app-text-muted">
-            오늘 열리는 행사를 확인하는 중…
+            {t('quietLoading')}
           </p>
           {[1, 2, 3].map((i) => (
             <div key={i} className="h-28 animate-pulse rounded-[20px] bg-white" />
@@ -52,11 +56,20 @@ export function TodayQuietSection({ sites }: { sites: HolySite[] }) {
         </div>
       )}
 
-      {isError && (
+      {isError && isQuotaExceededError(error) && (
         <div className="rounded-[20px] border border-app-border bg-white p-6 text-center">
-          <p className="text-sm font-bold text-app-text">오늘의 붐빔을 계산하지 못했어요</p>
+          <p className="text-sm font-bold text-app-text">{t('quietQuotaTitle')}</p>
           <p className="mt-2 text-[12px] leading-relaxed text-app-text-muted">
-            관광 정보를 불러오는 중 문제가 생겼습니다. 잠시 후 다시 열어주세요.
+            {t('quietQuotaBody')}
+          </p>
+        </div>
+      )}
+
+      {isError && !isQuotaExceededError(error) && (
+        <div className="rounded-[20px] border border-app-border bg-white p-6 text-center">
+          <p className="text-sm font-bold text-app-text">{t('quietErrorTitle')}</p>
+          <p className="mt-2 text-[12px] leading-relaxed text-app-text-muted">
+            {t('quietErrorBody')}
           </p>
           {error instanceof Error && (
             <p className="mt-3 text-[11px] text-app-text-muted opacity-60">{error.message}</p>
@@ -90,15 +103,15 @@ export function TodayQuietSection({ sites }: { sites: HolySite[] }) {
             className="mt-4 flex items-center justify-between rounded-[16px] border border-app-border bg-app-bg px-5 py-4 transition-all hover:border-brand-violet hover:bg-[#F3F0FF]"
           >
             <span className="text-sm font-extrabold text-app-text">
-              가려던 곳이 붐빈다면? <span className="text-brand-violet">대신 여기</span>
+              {t('alternativesCta')}{' '}
+              <span className="text-brand-violet">{t('alternativesCtaAccent')}</span>
             </span>
             <ChevronRight size={18} className="text-app-text-muted" aria-hidden />
           </Link>
 
           {/* 추정값이라는 사실을 화면에서 밝힌다 */}
           <p className="mt-4 text-[11px] leading-relaxed text-app-text-muted opacity-70">
-            공사 데이터에는 실시간 혼잡도가 없어, 오늘 열리는 행사와 주변 관광 시설 밀도로 추정한
-            값입니다. 실제와 다를 수 있어요.
+            {t('quietDisclaimer')}
           </p>
         </>
       )}

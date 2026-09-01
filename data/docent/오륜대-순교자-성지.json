@@ -1,0 +1,90 @@
+{
+  "siteId": "faf763c3-0ee9-4289-8c55-0225b4e9f3c0",
+  "siteName": "오륜대 순교자 성지",
+  "slug": "oryundae",
+  "surveyedAt": "2026-08-29",
+  "surveyedBy": "현장: 미조사 / 원고: Claude (문헌 기반 초안)",
+  "status": "draft",
+  "intro": {
+    "narration": "부산 금정구 오륜대에 오신 것을 환영합니다. 이곳은 부산·울산 지역 신앙사를 한 자리에서 만날 수 있는 성지입니다. 1868년 부산 수영 장대에서 순교한 여덟 분이 이 언덕에 잠들어 있고, 한국 최초의 순교자 전문 박물관이 함께 있습니다. 오늘은 박물관에서 묘역, 순교자 성당까지 차례로 걸어보겠습니다.",
+    "narrationEn": "Welcome to Oryundae in Geumjeong-gu, Busan. Here the faith history of Busan and Ulsan gathers in one place. Eight martyrs executed in 1868 at the Suyeong drill ground rest on this hill, alongside Korea's first museum devoted to the martyrs. Today we will walk from the museum to the graves and on to the martyrs' church.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "한국순교자박물관 — 1982년 문을 연 첫 순교자 박물관",
+      "titleEn": "The Korean Martyrs' Museum — Opened 1982",
+      "location": "성지 입구의 박물관 건물",
+      "locationEn": "The museum building at the shrine entrance",
+      "narration": "먼저 박물관부터 보시기를 권합니다. 1982년에 문을 연 한국 최초의 순교자 전문 박물관으로, 2009년 부산광역시 1종 전문박물관으로 등록되었습니다. 박해 시기 신자들이 쓰던 물건과 문서, 형구들이 전시돼 있습니다. 교과서에서 한 줄로 지나가는 박해가 실제로는 어떤 물건들 사이에서 벌어진 일이었는지, 여기서 눈으로 확인하게 됩니다.",
+      "narrationEn": "Begin with the museum. Opened in 1982, it was Korea's first museum devoted to the martyrs, and in 2009 it was registered by the City of Busan as a specialised museum. It holds the belongings, documents and instruments of punishment from the persecution era. Here you see with your own eyes what the single textbook line about persecution actually meant, object by object.",
+      "lookFor": "박해 시기의 형구와 신자들의 생활 유물",
+      "lookForEn": "Instruments of punishment and everyday belongings of believers",
+      "forEveryone": "조선 후기 생활사·사회사 자료로도 가치가 큰 전시입니다.",
+      "photos": [],
+      "sourceNote": "검색 확인(위키백과·부산시 소개) — 1982 개관, 2009 부산광역시 1종 전문박물관 등록. 개별 전시 구성은 현장 확인 필요"
+    },
+    {
+      "seq": 2,
+      "title": "척화비 — 박해를 명령한 돌",
+      "titleEn": "The Anti-Foreign Stele — Stone That Ordered the Persecution",
+      "location": "박물관 주변 야외 전시",
+      "locationEn": "The outdoor display near the museum",
+      "narration": "야외에 척화비가 서 있습니다. 병인양요 이후 흥선대원군이 전국에 세운 비석으로, 서양과 화친하는 것은 나라를 파는 일이라는 문장이 새겨져 있습니다. 이 성지에 잠든 이들을 죽인 명령이 어떤 논리 위에 서 있었는지를 보여주는 물건입니다. 순교자의 무덤과 그들을 죽인 명령의 비석이 한 자리에 있는 셈입니다.",
+      "narrationEn": "An anti-foreign stele stands outdoors here. Erected across the country by the Regent Heungseon Daewongun after the French campaign of 1866, its inscription declares that making peace with the West is to sell the nation. It shows the logic on which the order that killed those buried here rested. The martyrs' graves and the stone that condemned them share one ground.",
+      "lookFor": "비석에 새겨진 문장",
+      "lookForEn": "The inscription carved into the stone",
+      "forEveryone": "척화비는 조선 후기 대외 정책을 보여주는 대표적 유물로, 여러 지역에 남아 있습니다.",
+      "photos": [],
+      "sourceNote": "검색 확인 — 박물관 주변에 척화비·라파엘호 모형·십자가의 길·묵주기도의 길·성모동굴·대나무 숲. 척화비 문안의 정확한 내용은 현장 안내판 확인 필요"
+    },
+    {
+      "seq": 3,
+      "title": "순교자 여덟 분의 묘역",
+      "titleEn": "The Graves of the Eight Martyrs",
+      "location": "언덕 위 묘역",
+      "locationEn": "The burial ground up the hill",
+      "narration": "언덕에 오르면 순교자 여덟 분의 묘역이 있습니다. 1868년 무진박해 때 부산 수영 장대에서 군문효수형으로 순교한 분들입니다. 이정식 요한과 그의 아들 이월주 프란치스코, 아내 박조이 마리아, 조카 이삼근 베드로 — 한 집안이 함께 죽었습니다. 이정식 요한과 양재현 마르티노는 2014년 8월 16일 광화문 광장에서 프란치스코 교황에 의해 복자품에 올랐습니다. 가족이 함께 걸어간 길 앞에서 잠시 머물러 주시기 바랍니다.",
+      "narrationEn": "Up the hill lie the graves of eight martyrs, executed in 1868 at the Suyeong drill ground in Busan. Among them John Yi Jeong-sik, his son Francis Yi Wol-ju, his wife Maria Bak, and his nephew Peter Yi Sam-geun — one household died together. John Yi Jeong-sik and Martin Yang Jae-hyeon were beatified by Pope Francis at Gwanghwamun Square on 16 August 2014. Stay a while before a road that a family walked together.",
+      "lookFor": "같은 성씨가 나란히 새겨진 묘비",
+      "lookForEn": "The gravestones bearing the same family name side by side",
+      "forEveryone": "2014년 시복식은 서울 광화문 광장에서 프란치스코 교황이 직접 집전했습니다.",
+      "photos": [],
+      "sourceNote": "검색 확인 — 1868년 수영장대 순교 8명(이정식·이월주·박조이·이삼근 등), 2014-08-16 이정식·양재현 시복. 성지 DB 원문 — 순교자 8위 묘역"
+    },
+    {
+      "seq": 4,
+      "title": "순교자 성당 — 라파엘호와 26위의 유해",
+      "titleEn": "The Martyrs' Church — The Raphael and the Relics of Twenty-Six",
+      "location": "경내 순교자 성당",
+      "locationEn": "The martyrs' church on the grounds",
+      "narration": "경내 순교자 성당에는 두 가지가 있습니다. 하나는 라파엘호의 복원 모형입니다. 성 김대건 안드레아 신부가 사제가 되어 조선으로 돌아올 때 탔던 작은 배로, 폭풍에 밀려 표류하다 겨우 닿았습니다. 다른 하나는 한국 103위 순교성인 가운데 스물여섯 분의 유해입니다. 이 성당 안에서 배 한 척과 스물여섯 분의 유해가 같은 이야기의 시작과 끝을 이룹니다.",
+      "narrationEn": "Two things wait inside the martyrs' church. One is a reconstruction of the Raphael, the small boat in which St. Andrew Kim Taegon returned to Korea as a priest — driven off course by storms, it barely made land. The other is the relics of twenty-six of Korea's 103 martyr saints. Within these walls, one boat and twenty-six sets of relics form the beginning and the end of a single story.",
+      "lookFor": "라파엘호 모형의 크기 — 이 배로 바다를 건넜다",
+      "lookForEn": "The size of the Raphael — this is the boat that crossed the sea",
+      "forEveryone": "라파엘호는 1845년 김대건 신부 일행이 상해에서 조선으로 항해할 때 쓴 목선입니다.",
+      "photos": [],
+      "sourceNote": "성지 DB 원문 — 라파엘호 복원 모형·103위 중 26위 유해 봉안. 검색 확인 — 박물관 주변에 라파엘호 모형"
+    },
+    {
+      "seq": 5,
+      "title": "십자가의 길과 대나무 숲",
+      "titleEn": "Stations of the Cross and the Bamboo Grove",
+      "location": "묘역에서 이어지는 산책로",
+      "locationEn": "The path continuing from the burial ground",
+      "narration": "묘역에서 이어지는 길에 십자가의 길과 묵주기도의 길, 성모동굴, 그리고 대나무 숲이 있습니다. 도심 한복판인데도 이 언덕에 올라서면 소리가 달라집니다. 급히 내려가지 마시고, 대숲 사이를 한 바퀴 걸으며 방금 본 것들을 정리해 보시기 바랍니다.",
+      "narrationEn": "From the graves the path continues past the Stations of the Cross, a rosary walk, a Marian grotto and a bamboo grove. Though the city lies all around, the sound changes once you climb this hill. Don't hurry down — walk once through the bamboo and let what you have just seen settle.",
+      "lookFor": "대숲에 들어섰을 때 달라지는 소리",
+      "lookForEn": "How the sound changes as you enter the bamboo",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "검색 확인 — 십자가의 길·묵주기도의 길·성모동굴·대나무 숲"
+    }
+  ],
+  "outro": {
+    "narration": "오륜대 순례에 함께해 주셔서 감사합니다. 이곳에 잠든 여덟 분이 순교한 자리는 부산 수영 장대이고, 그 터도 이 앱에서 찾아보실 수 있습니다. 죽은 자리와 잠든 자리를 함께 걸으면 부산의 신앙사가 한 줄로 이어집니다. 평화를 빕니다.",
+    "narrationEn": "Thank you for walking Oryundae with us. The place where these eight died is the Suyeong drill ground in Busan, and you can find that site in this app as well. Walk both the place of death and the place of rest, and the faith history of Busan joins into a single line. Peace be with you.",
+    "photos": []
+  }
+}

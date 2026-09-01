@@ -130,6 +130,54 @@
         "history": "Korea's first Catholic village, settled by Peter Sin Tae-bo and some forty believers after the Sinyu Persecution of 1801. The church of 1907 was the first designed and built by a Korean priest and Gangwon-do's first church (Gangwon-do Tangible Cultural Heritage No. 69).",
         "addressRomanized": "Yuhyeon-ri, Seowon-myeon, Hoengseong-gun, Gangwon-do"
       }
+    },
+    {
+      "siteId": "6c252828-b347-4a95-babf-d1b58520d465",
+      "diocese": "원주",
+      "source": {
+        "name": "단양 김범우 순교 성지",
+        "description": "단양 단성면, 남한강가 옛 단양성당 터 일원이다. 한국 천주교 최초의 희생자 김범우 토마스가 유배 와서 숨진 땅이다. 역관 집안의 중인이었던 김범우는 1784년 세례를 받고 명례방 자기 집을 신앙 집회 장소로 내놓았다. 이듬해 봄 형조의 관원들이 집회를 적발했다. 함께 있던 이벽과 이승훈, 정약전 삼형제는 양반이라 훈방됐지만 중인인 김범우만 옥에 갇혀 형벌을 받고 유배형에 처해졌다. 다블뤼 주교는 그 유배지가 「충청도 동쪽 끝의 단양」이라고 기록했다. 김범우는 고문의 후유증이 깊어져 1787년 유배지에서 숨졌다. 신앙 집회로 처벌받아 죽은 첫 사람이었다. 원주교구는 2021년 상방리·하방리 일대를 순교 성지로 선포했다. 지금은 남한강을 내려다보는 조용한 터에 기념 공간이 조성되어 있다.",
+        "history": "한국천주교회 최초의 증거자 김범우 토마스(1751~1787)가 유배되어 선종한 자리. 2026년 원주교구가 순교성지로 선포.",
+        "location": "충청북도 단양군 단성면 상방리·하방리 일대"
+      },
+      "target": {
+        "name": "Danyang Kim Beom-u Martyrdom Site",
+        "description": "In Danseong-myeon, Danyang, on the ground of the old Danyang church beside the Namhan River. This is where Thomas Kim Beom-u, the first to die for the Catholic Church in Korea, was sent into exile and died. A jungin of a family of court interpreters, Kim Beom-u was baptised in 1784 and gave over his own house at Myeongnyebang as a place for the gatherings of the faith. In the spring of the following year officers of the Board of Punishments broke in on one of those meetings. Yi Byeok, Yi Seung-hun and the three Jeong brothers, who were there with him, were yangban and were let go with a warning; Kim Beom-u alone, a jungin, was imprisoned, punished and sentenced to exile. Bishop Daveluy recorded the place of exile as “Danyang, at the eastern edge of Chungcheong-do.” The effects of the torture ran deep, and Kim Beom-u died there in 1787 — the first person punished for a gathering of the faith and dead of it. The Diocese of Wonju declared the area of Sangbang-ri and Habang-ri a martyrdom site in 2021, and a quiet memorial ground now looks down over the Namhan River.",
+        "history": "The place where Thomas Kim Beom-u (1751–1787), the first confessor of the Korean Catholic Church, was exiled and died. Declared a martyrdom site by the Diocese of Wonju in 2026.",
+        "addressRomanized": "Sangbang-ri and Habang-ri area, Danseong-myeon, Danyang-gun, Chungcheongbuk-do"
+      }
+    },
+    {
+      "siteId": "33947974-af5f-4a8c-8d73-287cefc7bfe0",
+      "diocese": "원주",
+      "source": {
+        "name": "배론성지",
+        "description": "제천 봉양읍, 배 밑바닥을 닮은 골짜기라 하여 배론(舟論)이다. 이 좁은 골짜기에 한국 교회사의 세 장면이 겹쳐 있다. 1801년 신유박해가 터지자 황사영은 옹기굴로 위장한 토굴에 여덟 달을 숨어 명주천에 13,384자의 백서를 썼다. 박해의 실상과 교회 재건 방안을 북경 주교에게 알리려던 편지였다. 전달자 황심 토마스가 먼저 붙잡히고 황사영도 체포되어 그해 서소문 밖에서 능지처사됐다. 아내 정난주는 제주로, 어린 아들은 추자도로 유배됐다. 1855년에는 장주기 요셉이 자기 집을 내놓아 한국 최초의 신학교인 성 요셉 신학당이 섰다. 푸르티에·프티니콜라 신부가 라틴어와 신학을 가르치다 1866년 붙잡혀 새남터에서, 장주기는 갈매못에서 순교했다. 최양업 신부의 묘도 이 골짜기에 있다.",
+        "history": "1801년 신유박해 때 황사영이 8개월간 숨어 지내며 백서를 쓴 토굴이 있는 곳. 1855년 한국 최초의 신학교 성 요셉 신학당이 세워졌고, 한국인 두 번째 사제 최양업 토마스 신부의 묘가 있다.",
+        "location": "충북 제천시 봉양읍 배론성지길"
+      },
+      "target": {
+        "name": "Baeron Holy Site",
+        "description": "In Bongyang-eup, Jecheon, the valley has the shape of the bottom of a boat, and from that comes the name Baeron. Three scenes from the history of the Korean Church lie one over another in this narrow hollow. When the Sinyu Persecution broke out in 1801, Hwang Sa-yeong hid for eight months in an earthen pit disguised as a potter's kiln and wrote on silk a letter of 13,384 characters — meant to tell the Bishop of Beijing what the persecution truly was and how the Church might be rebuilt. Thomas Hwang Sim, who was to carry it, was caught first; Hwang Sa-yeong was arrested as well and put to death by dismemberment outside Seosomun that same year. His wife Jeong Nan-ju was exiled to Jeju and their small son to Chujado. In 1855 Joseph Jang Ju-gi gave up his own house, and Korea's first seminary, St. Joseph's Seminary, was founded on it. Fathers Pourthié and Petitnicolas taught Latin and theology there until they were seized in 1866 and martyred at Saenamteo; Jang Ju-gi was martyred at Galmaemot. The grave of Father Choe Yang-eop is in this valley too.",
+        "history": "The site of the earthen pit where Hwang Sa-yeong hid for eight months during the Sinyu Persecution of 1801 and wrote his silk letter. Korea's first seminary, St. Joseph's Seminary, was founded here in 1855, and the grave of Thomas Choe Yang-eop, the second Korean priest, is here.",
+        "addressRomanized": "Baeronseongji-gil, Bongyang-eup, Jecheon-si, Chungcheongbuk-do"
+      }
+    },
+    {
+      "siteId": "518ad5ed-455a-4924-8ca0-1b3e10a09e76",
+      "diocese": "원주",
+      "source": {
+        "name": "성 남종삼 요한·순교자 남상교 아우구스티노 유택지",
+        "description": "제천 봉양읍 학산리, 묘재라 불리는 산마을이다. 충주 목사를 지낸 학자 남상교 아우구스티노가 관직을 내려놓고 신앙에 전념하려 은거한 집터다. 아들 남종삼 요한은 승지에 오른 인물로, 103위 성인 가운데 가장 높은 벼슬을 지냈다. 아버지를 찾아올 때마다 가르침을 받았다. 1866년 초 남종삼은 러시아의 남하를 막기 위해 프랑스 선교사를 통한 조불 교섭을 대원군에게 건의했다 실패했고, 병인박해가 터지자 가장 먼저 붙잡혀 3월 7일 서소문 밖에서 참수됐다. 아버지 남상교는 공주 진영에서, 장남 남명희는 전주에서 순교했고 부인 이조이 필로메나는 유배지 창녕에서 숨졌다. 남은 자녀들은 노비가 되었다. 한 집안이 통째로 스러진 자리에 1938년 공소가 서고, 지금의 학산 공소가 그 신앙을 잇고 있다.",
+        "history": "성 남종삼 요한이 상경 전 마지막으로 머문 자리. 부친 남상교 아우구스티노 등 3대 4명이 순교한 가문의 유택지.",
+        "location": "충청북도 제천시 봉양읍 학산리 326-1"
+      },
+      "target": {
+        "name": "Ancestral Home of St. John Nam Jong-sam and the Martyr Augustine Nam Sang-gyo",
+        "description": "Haksan-ri in Bongyang-eup, Jecheon, is a mountain village called Myojae. Here stood the house where Augustine Nam Sang-gyo, a scholar who had served as magistrate of Chungju, laid down office and withdrew to give himself to the faith. His son John Nam Jong-sam rose to be a royal secretary — the highest office held by any of the 103 saints — and took instruction from his father each time he came to visit. Early in 1866 Nam Jong-sam urged the Daewongun to open negotiations with France through the missionaries in order to check the Russian advance southward. The attempt failed, and when the Byeongin Persecution broke out he was the first to be seized, beheaded outside Seosomun on 7 March. His father Nam Sang-gyo was martyred at the Gongju garrison and his eldest son Nam Myeong-hui at Jeonju, while his wife Philomena Yi Jo-i died at Changnyeong, her place of exile. The children who were left became slaves. On the ground where a whole household was undone, a mission station was raised in 1938, and the Haksan mission station of today carries that faith on.",
+        "history": "The last place St. John Nam Jong-sam stayed before going up to the capital. The ancestral home of a family that gave four martyrs over three generations, among them his father Augustine Nam Sang-gyo.",
+        "addressRomanized": "326-1 Haksan-ri, Bongyang-eup, Jecheon-si, Chungcheongbuk-do"
+      }
     }
   ]
 }

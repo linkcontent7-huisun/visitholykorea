@@ -10,12 +10,15 @@
  * `--reviewed` 를 주면 `translation_status` 를 'reviewed' 로 넣는다.
  * 기본값은 'machine' 이다. 종교 용어는 오역이 곧 신뢰 문제라, 사람이 봤는지를
  * 숨기지 않고 표에 남긴다.
+ *
+ * 붙는 방법은 `SUPABASE_DB_URL` 직결이다(`lib/db.ts` 참고). service_role JWT 로
+ * 붙던 것을 2026-08-26 에 바꿨다 — 키 하나가 상해서 122곳이 발이 묶였었다.
  */
 
 import { readFileSync } from 'node:fs';
 import { isAbsolute, join } from 'node:path';
 import { loadEnvLocal, ROOT } from './lib/env.ts';
-import { createAdminClient } from './lib/admin.ts';
+import { connectAdminDb } from './lib/db.ts';
 import { hasContent, parseTranslationFile } from './lib/translation-file.ts';
 
 loadEnvLocal();
@@ -53,7 +56,7 @@ if (filled.length === 0) {
   process.exit(1);
 }
 
-const supabase = createAdminClient();
+const db = await connectAdminDb();
 
 /** DB 의 기존 번역 행. 부분 갱신할 때 기존 값을 지우지 않으려고 먼저 읽는다. */
 interface ExistingRow {
@@ -64,23 +67,14 @@ interface ExistingRow {
   address_romanized: string | null;
 }
 
-const { data: existingData, error: existingError } = await supabase
-  .from('holy_site_translations')
-  .select('site_id, name, description, history, address_romanized')
-  .eq('language', file.language)
-  .in(
-    'site_id',
-    filled.map((i) => i.siteId),
-  );
-
-if (existingError) {
-  console.error('기존 번역 조회 실패:', existingError.message);
-  process.exit(1);
-}
-
-const existing = new Map(
-  ((existingData ?? []) as ExistingRow[]).map((r) => [r.site_id, r] as const),
+const { rows: existingData } = await db.query<ExistingRow>(
+  `select site_id, name, description, history, address_romanized
+     from public.holy_site_translations
+    where language = $1 and site_id = any($2::uuid[])`,
+  [file.language, filled.map((i) => i.siteId)],
 );
+
+const existing = new Map(existingData.map((r) => [r.site_id, r] as const));
 
 /** 채워진 값만 쓰고, 빈 값은 기존 값을 남긴다. */
 function pick(next: string | null, prev: string | null | undefined): string | null {
@@ -102,13 +96,42 @@ const rows = filled.map((item) => {
   };
 });
 
-const { error: upsertError } = await supabase
-  .from('holy_site_translations')
-  .upsert(rows, { onConflict: 'site_id,language' });
-
-if (upsertError) {
-  console.error('넣기 실패:', upsertError.message);
+// 한 파일은 통째로 들어가거나 통째로 안 들어간다. 절반만 반영되면 다음 세션이
+// "어디까지 됐는지"를 또 재야 한다 — 그 혼란이 이 프로젝트에서 이미 한 번 났다.
+try {
+  await db.query('begin');
+  for (const r of rows) {
+    await db.query(
+      `insert into public.holy_site_translations
+         (site_id, language, name, description, history, address_romanized,
+          translation_status, updated_at)
+       values ($1, $2, $3, $4, $5, $6, $7, $8)
+       on conflict (site_id, language) do update set
+         name              = excluded.name,
+         description       = excluded.description,
+         history           = excluded.history,
+         address_romanized = excluded.address_romanized,
+         translation_status = excluded.translation_status,
+         updated_at        = excluded.updated_at`,
+      [
+        r.site_id,
+        r.language,
+        r.name,
+        r.description,
+        r.history,
+        r.address_romanized,
+        r.translation_status,
+        r.updated_at,
+      ],
+    );
+  }
+  await db.query('commit');
+} catch (e) {
+  await db.query('rollback');
+  console.error('넣기 실패 — 아무것도 반영하지 않았습니다:', e instanceof Error ? e.message : e);
   process.exit(1);
+} finally {
+  await db.end();
 }
 
 const updated = rows.filter((r) => existing.has(r.site_id)).length;

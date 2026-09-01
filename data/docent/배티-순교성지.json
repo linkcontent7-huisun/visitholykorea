@@ -1,0 +1,90 @@
+{
+  "siteId": "031a928d-7313-4460-a340-0dd276ea02db",
+  "siteName": "배티 순교성지",
+  "slug": "baetti",
+  "surveyedAt": "2026-08-29",
+  "surveyedBy": "현장: 미조사 / 원고: Claude (문헌 기반 초안)",
+  "status": "draft",
+  "intro": {
+    "narration": "진천 백곡면, 배티고개에 오신 것을 환영합니다. 돌배나무가 많아 배나무 고개, 배티라 불린 곳입니다. 박해를 피해 온 신자들이 이 골짜기마다 숨어 살아 사람들은 이 일대를 한국의 카타콤바라 부릅니다. 오늘은 한국인 두 번째 사제 최양업 토마스 신부가 사목의 근거지로 삼았던 이 땅을, 신학교 터와 순교자 묘역을 따라 함께 걷겠습니다.",
+    "narrationEn": "Welcome to Baetti Pass in Baekgok-myeon, Jincheon. Its name means 'pear tree pass,' for the wild pear trees that once filled these hills. Believers fleeing persecution hid in every valley here, and people came to call this land the catacombs of Korea. Today we will walk the ground that Fr. Thomas Choe Yang-eop, Korea's second priest, made the base of his ministry — past the seminary site and the martyrs' graves.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "배티고개 — 열다섯 교우촌의 골짜기",
+      "titleEn": "Baetti Pass — Valley of Fifteen Hidden Villages",
+      "location": "성지 입구, 골짜기가 내려다보이는 자리",
+      "locationEn": "At the entrance, where the valley opens below",
+      "narration": "먼저 골짜기를 둘러보세요. 삼박골, 절골, 용진골, 발래기, 새울… 기록에 남은 것만 열다섯 곳의 교우촌이 이 산자락에 흩어져 있었습니다. 1830년 무렵부터 형성되기 시작했고, 기해박해와 병오박해가 거듭되자 내포에서 쫓겨온 신자들이 이 산골로 더 모여들었습니다. 숨어 사는 마을이었으니 지도에도 없고 관아도 몰랐습니다. 지금 보이는 조용한 산이 그때는 사람들의 마지막 피난처였습니다.",
+      "narrationEn": "Look out over the valley first. Sambakgol, Jeolgol, Yongjingol, Ballaegi, Saeul — at least fifteen hidden Catholic villages were scattered across these slopes. They began forming around 1830, and as persecution struck again and again, believers driven from the Naepo region gathered here in greater numbers. These were villages meant not to be found: absent from maps, unknown to the magistrates. The quiet hills you see now were once the last refuge of a people.",
+      "lookFor": "골짜기가 여러 갈래로 갈라지는 지형 — 숨어 살기 좋았던 이유",
+      "lookForEn": "How the valley branches in many directions — the reason it was good for hiding",
+      "forEveryone": "교우촌은 조선 후기 사회사의 독특한 마을 형태입니다. 옹기·화전 같은 생업과 신앙 공동체가 결합돼 있었습니다.",
+      "photos": [],
+      "sourceNote": "성지 DB 원문 — 교우촌 이름·형성 시기. 주교회의 성지 안내(cbck.or.kr) — 기록상 15곳·삼박골. 개별 교우촌의 현재 위치는 현장 확인 필요"
+    },
+    {
+      "seq": 2,
+      "title": "조선교구 신학교 터 — 넉 달 만에 닫힌 학교",
+      "titleEn": "The Seminary That Closed After Four Months",
+      "location": "복원된 초가 신학교 건물",
+      "locationEn": "The restored thatched seminary building",
+      "narration": "이 초가가 조선교구 신학교입니다. 1850년 다블뤼 신부가 배티에 신학교 건물을 마련했고, 1853년부터는 최양업 신부가 지도를 맡았습니다. 그런데 이 학교의 수명은 짧았습니다. 1854년 3월, 학생 세 명을 뽑아 말레이시아 페낭으로 유학 보내고는 문을 닫았습니다. 조선 안에서는 신학교를 유지할 수 없었던 것입니다. 배우려는 이도, 가르치려는 이도 있었지만 나라가 그것을 허락하지 않았던 시대의 흔적입니다.",
+      "narrationEn": "This thatched house is the seminary of the Korean vicariate. Fr. Daveluy prepared the building here in 1850, and from 1853 Fr. Choe Yang-eop directed it. Its life was short. In March 1854 three students were chosen and sent to study in Penang, Malaysia, and the school closed. A seminary simply could not be sustained inside Joseon. There were those willing to learn and those willing to teach — but not a country that would allow it.",
+      "lookFor": "초가의 규모 — 신학교라기엔 너무 작은 두 칸 집",
+      "lookForEn": "The size of the thatched house — just two rooms, small for a seminary",
+      "forEveryone": "이곳은 조선 최초의 근대식 신학 교육 기관 중 하나로 평가받습니다.",
+      "photos": [],
+      "sourceNote": "주교회의 성지 안내(cbck.or.kr) — 1850 다블뤼 신부 건물 마련, 1853 최양업 지도, 1854.3 페낭 유학 후 폐교. 복원 건물의 형태·규모는 현장 확인 필요"
+    },
+    {
+      "seq": 3,
+      "title": "최양업 신부 — 길 위에서 죽은 목자",
+      "titleEn": "Fr. Choe Yang-eop — The Shepherd Who Died on the Road",
+      "location": "최양업 신부 동상 앞",
+      "locationEn": "Before the statue of Fr. Choe Yang-eop",
+      "narration": "최양업 토마스 신부의 동상 앞입니다. 김대건에 이은 한국인 두 번째 사제로, 1849년 상해에서 서품을 받고 돌아왔습니다. 그는 배티를 근거지로 삼아 전국 다섯 개 도를 걸어서 순방했습니다. 열두 해 동안 해마다 수천 리를 걸었고, 여름이면 배티에 머물며 한글 기도서와 교리서를 편찬했습니다. 그리고 1861년, 순방길에서 과로로 숨졌습니다. 형장에서 피 흘려 죽은 것이 아니라 길 위에서 지쳐 죽었기에 백색 순교자라 부릅니다. 화려한 죽음이 아니라 꾸준한 걸음으로 완성된 삶입니다.",
+      "narrationEn": "Here stands the statue of Fr. Thomas Choe Yang-eop, Korea's second priest after Kim Taegon, ordained in Shanghai in 1849. Making Baetti his base, he travelled on foot through five provinces, walking thousands of miles a year for twelve years. In summers he stayed here and compiled prayer books and catechisms in Korean. Then in 1861 he died of exhaustion on the road. He did not bleed on an execution ground; he wore out walking — and so he is called a white martyr. His was a life completed not by a dramatic death but by steadfast steps.",
+      "lookFor": "동상이 든 것과 걸어가는 자세",
+      "lookForEn": "What the statue holds, and its walking posture",
+      "forEveryone": "그가 한글로 남긴 기도서와 교리서는 국어사 자료로도 가치가 있습니다.",
+      "photos": [],
+      "sourceNote": "성지 DB 원문 — 1849 서품·12년 순방·1861 선종·백색 순교자. 주교회의 안내 — 다섯 개 도 순방, 여름에 한글 기도서·교리서 편찬"
+    },
+    {
+      "seq": 4,
+      "title": "순교자 묘역 — 이름이 남은 이와 남지 않은 이",
+      "titleEn": "The Martyrs' Graves — Named and Nameless",
+      "location": "순교자 묘역과 무명 순교자 묘소",
+      "locationEn": "The martyrs' burial ground and the graves of the unnamed",
+      "narration": "1866년 병인박해와 1868년 무진박해로 이 일대에서 순교자 쉰다섯 명이 나왔습니다. 그중 이름이 기록에 남은 이는 스물아홉 명이고, 나머지 스물여섯 기는 이름 없는 무덤으로 남았습니다. 배티 출신 순교자들은 2014년 복자품에 올랐습니다 — 1866년 청주에서 참수된 복자 장 토마스, 1867년 서울에서 순교한 송 베네딕토·송 베드로·이 안나 삼대 가족입니다. 한 집안이 삼대에 걸쳐 같은 길을 갔다는 뜻입니다. 이름이 남지 않은 스물여섯 기 앞에서 잠시 걸음을 멈춰 주시기 바랍니다.",
+      "narrationEn": "The persecutions of 1866 and 1868 produced fifty-five martyrs in this area. Twenty-nine left their names in the records; the remaining twenty-six lie in nameless graves. The martyrs of Baetti were beatified in 2014 — Blessed Thomas Jang, beheaded at Cheongju in 1866, and the three generations of one family martyred in Seoul in 1867: Benedict Song, Peter Song and Anna Yi. One household walked the same road across three generations. Pause a moment before the twenty-six graves that carry no name.",
+      "lookFor": "이름 있는 묘와 무명 묘의 배치",
+      "lookForEn": "How the named and unnamed graves are laid out together",
+      "forEveryone": "역사에 이름을 남기지 못한 보통 사람들의 자리라는 점에서, 신앙과 무관하게 울림이 있는 공간입니다.",
+      "photos": [],
+      "sourceNote": "성지 DB 원문 — 순교자 55명·기록 29명·무명 26기. 주교회의 안내 — 2014 시복(장 토마스·송 베네딕토·송 베드로·이 안나)"
+    },
+    {
+      "seq": 5,
+      "title": "최양업 신부 기념 성당과 십자가의 길",
+      "titleEn": "Memorial Church and the Stations of the Cross",
+      "location": "기념 성당 · 십자가의 길 · 103위 성인 계단",
+      "locationEn": "The memorial church, Stations of the Cross, and the 103 Saints steps",
+      "narration": "1977년부터 청주교구가 성지 개발을 시작해 1978년 순교자 묘를 단장하고, 1997년 최양업 신부 기념 성당을 세웠습니다. 성지에는 십자가의 길과 성모 동산, 야외 제대, 그리고 한국 103위 성인의 이름을 새긴 계단이 있습니다. 계단을 하나씩 밟아 오르며 이름을 읽어보시면, 숫자로만 알던 103위가 각각 한 사람이었다는 것이 실감됩니다.",
+      "narrationEn": "The Diocese of Cheongju began developing the shrine in 1977, restoring the martyrs' graves in 1978 and building the memorial church of Fr. Choe Yang-eop in 1997. The grounds hold the Stations of the Cross, a Marian garden, an outdoor altar, and a stairway inscribed with the names of Korea's 103 saints. Climb it step by step, reading the names, and the number 103 becomes what it always was — one hundred and three people.",
+      "lookFor": "103위 성인 계단에 새겨진 이름들",
+      "lookForEn": "The names carved into the 103 Saints steps",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "검색 확인 — 1977 개발 착수·1978 순교자묘 단장·1997 기념성당·2001 신학교 재현. 주교회의 안내 — 십자가의 길·성모 동산·야외 제대·103위 성인 계단·무명 순교자 묘소"
+    }
+  ],
+  "outro": {
+    "narration": "배티 순례에 함께해 주셔서 감사합니다. 이 골짜기에서 시작한 최양업 신부의 길은 제천 배론성지의 그의 묘소로 이어지고, 그가 편찬한 한글 교리서는 이 땅의 말로 신앙을 옮긴 첫 시도로 남았습니다. 돌아가는 길, 배나무 고개를 한 번 돌아봐 주시기 바랍니다. 평화를 빕니다.",
+    "narrationEn": "Thank you for walking Baetti with us. The road Fr. Choe Yang-eop began in this valley leads on to his grave at the Baeron shrine in Jecheon, and the Korean-language catechisms he compiled remain the first attempt to carry this faith in the language of this land. As you leave, turn once more toward the pear tree pass. Peace be with you.",
+    "photos": []
+  }
+}

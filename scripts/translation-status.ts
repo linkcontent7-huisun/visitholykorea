@@ -9,14 +9,14 @@
  */
 
 import { loadEnvLocal } from './lib/env.ts';
-import { createAdminClient } from './lib/admin.ts';
+import { connectAdminDb } from './lib/db.ts';
 
 loadEnvLocal();
 
 const langIndex = process.argv.indexOf('--lang');
 const language = (langIndex === -1 ? null : process.argv[langIndex + 1]) ?? 'en';
 
-const supabase = createAdminClient();
+const db = await connectAdminDb();
 
 interface SiteRow {
   id: string;
@@ -31,22 +31,16 @@ interface TransRow {
   translation_status: string;
 }
 
-const [{ data: siteData, error: siteError }, { data: transData, error: transError }] =
-  await Promise.all([
-    supabase.from('holy_sites').select('id, diocese, description, history'),
-    supabase
-      .from('holy_site_translations')
-      .select('site_id, description, translation_status')
-      .eq('language', language),
-  ]);
+const [{ rows: sites }, { rows: translations }] = await Promise.all([
+  db.query<SiteRow>('select id, diocese, description, history from public.holy_sites'),
+  db.query<TransRow>(
+    `select site_id, description, translation_status
+       from public.holy_site_translations where language = $1`,
+    [language],
+  ),
+]);
 
-if (siteError || transError) {
-  console.error('조회 실패:', (siteError ?? transError)?.message);
-  process.exit(1);
-}
-
-const sites = (siteData ?? []) as SiteRow[];
-const translations = (transData ?? []) as TransRow[];
+await db.end();
 
 // 소개글이 실제로 채워진 것만 "완료"로 센다. 빈 행이 있어도 완료로 세지 않는다.
 const doneIds = new Set(

@@ -274,6 +274,22 @@
         "history": "Handeokgol is remembered as a village of Catholic believers in the Cheoin-gu area of Yongin. The documents confirm no precise founding date or record of martyrdom.",
         "addressRomanized": "Cheoin-gu, Yongin-si, Gyeonggi-do"
       }
+    },
+    {
+      "siteId": "8645eda9-5e06-4465-a193-aaaa0cff05ff",
+      "diocese": "수원",
+      "source": {
+        "name": "수원 화성 순교성지",
+        "description": "유네스코 세계문화유산 수원화성 한복판, 장안문과 팔달문 사이에 성당 하나가 서 있다. 북수동성당. 1923년 신자들이 이 자리에 터를 잡을 때 고른 곳은 다름 아닌 토포청(중영) 자리였다. 조선 후기 이곳은 포도청처럼 치안을 맡아 천주교인을 붙잡고 심문하던 관아였다. 1801년 신유박해부터 병인박해에 이르기까지, 중영과 옥터에서, 장안문과 팔달문 밖에서 80여 명이 참수와 교수, 장살과 백지사와 옥사로 목숨을 잃었다. 이름이 확인된 순교자는 조선 후기 원 프란치스코 등 17위와 근현대 심뽈리 신부 등 3위, 모두 20위뿐이다. 나머지는 이름조차 남기지 못했다. 관광객이 성곽길을 걷는 그 아래, 자신들을 붙잡아 가두었던 바로 그 자리 위에 신자들은 성당을 세웠다.",
+        "history": "조선시대 천주교 신자들이 순교한 역사적 장소로 신앙의 증거지입니다.",
+        "location": "경기도 수원시 팔달구 정조로 780"
+      },
+      "target": {
+        "name": "Suwon Hwaseong Martyrs' Shrine",
+        "description": "In the middle of Hwaseong Fortress in Suwon, a UNESCO World Heritage site, between Janganmun and Paldalmun, a church stands: Buksu-dong Church. When believers took ground here in 1923, the plot they chose was none other than the site of the Topocheong (the Central Garrison). In the late Joseon period this was a government office that kept public order much as the Podocheong did — and that seized and interrogated Catholics. From the Sinyu Persecution of 1801 through to the Byeongin Persecution, in the garrison and the prison yard and outside Janganmun and Paldalmun, more than eighty people lost their lives: beheaded, strangled, beaten to death, suffocated under wet paper, or dead in their cells. Only twenty martyrs are known by name — seventeen from the late Joseon period, among them Francis Won, and three of modern times, among them Father Sim Ppol-li. The rest left not even a name behind. Below the wall where visitors now walk the fortress path, on the very ground where they had been seized and shut away, the believers built their church.",
+        "history": "A historic place where Catholics were martyred in the Joseon period, a site of witness to the faith.",
+        "addressRomanized": "780 Jeongjo-ro, Paldal-gu, Suwon-si, Gyeonggi-do"
+      }
     }
   ]
 }

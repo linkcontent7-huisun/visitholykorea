@@ -8,6 +8,8 @@ import { useVisitedSites } from '@/features/map/hooks/use-visited';
 import { almostSiteIds, buildNudge, computeDioceseProgress } from '@/features/map/lib/progress';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { useSites } from '@/features/sites/hooks/use-sites';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { useSettings } from '@/shared/i18n/use-settings';
 
 /**
  * 지도 화면 — "내가 어디까지 왔고 어디가 남았나".
@@ -18,6 +20,7 @@ import { useSites } from '@/features/sites/hooks/use-sites';
  * 문구로 재촉하지 않아도 되는 이유다.
  */
 export default function MapPage() {
+  const { t } = useSettings();
   const [selectedDiocese, setSelectedDiocese] = useState('전체');
   const [keyword, setKeyword] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -50,9 +53,11 @@ export default function MapPage() {
   return (
     <div className="flex min-h-screen flex-col bg-app-bg">
       <div className="p-6 pb-2">
-        <h1 className="mb-1 text-xl font-extrabold tracking-tight text-app-text">순례 지도</h1>
+        <h1 className="mb-1 text-xl font-extrabold tracking-tight text-app-text">{t('mapTitle')}</h1>
         <p className="text-sm text-app-text-muted">
-          {isLoading ? '불러오는 중…' : `${sites.length}곳 가운데 ${totalVisited}곳을 다녀오셨습니다`}
+          {isLoading
+            ? t('loading')
+            : fillPlaceholders(t('mapProgress'), { n: totalVisited, total: sites.length })}
         </p>
 
         {nudge && (
@@ -104,7 +109,7 @@ export default function MapPage() {
                 }`}
               >
                 <Check size={16} />
-                {visitedIds.has(selectedSite.id) ? '다녀옴' : '다녀왔어요'}
+                {visitedIds.has(selectedSite.id) ? t('visited') : t('markVisited')}
               </button>
               <Link
                 to={paths.siteDetail(selectedSite.id)}
@@ -119,7 +124,7 @@ export default function MapPage() {
 
       {/* 교구별 진행 */}
       <div className="mt-6 px-6">
-        <h2 className="mb-3 text-sm font-extrabold text-app-text">교구별 진행</h2>
+        <h2 className="mb-3 text-sm font-extrabold text-app-text">{t('dioceseProgress')}</h2>
         <DioceseProgressList
           progress={progress}
           selectedDiocese={selectedDiocese}
@@ -135,8 +140,8 @@ export default function MapPage() {
             type="search"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            placeholder="성지 이름 검색"
-            aria-label="성지 이름 검색"
+            placeholder={t('mapSearchSite')}
+            aria-label={t('mapSearchSite')}
             className="w-full rounded-[20px] border border-app-border bg-white py-3.5 pl-12 pr-4 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-brand-violet/50"
           />
         </div>
@@ -181,7 +186,7 @@ export default function MapPage() {
                 {visitedIds.has(site.id) && (
                   <span
                     className="absolute -right-0.5 -top-0.5 flex size-5 items-center justify-center rounded-full bg-brand-blue text-white"
-                    aria-label="다녀옴"
+                    aria-label={t('visited')}
                   >
                     <Check size={12} />
                   </span>

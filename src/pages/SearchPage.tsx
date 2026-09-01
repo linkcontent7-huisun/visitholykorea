@@ -11,7 +11,7 @@ import { useSettings } from '@/shared/i18n/use-settings';
 
 export default function SearchPage() {
   const navigate = useNavigate();
-  const { wideView } = useSettings();
+  const { wideView, t } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
   const [query, setQuery] = useState('');
@@ -37,7 +37,7 @@ export default function SearchPage() {
         <input
           autoFocus
           type="search"
-          placeholder="성지명, 지역, 성인 검색..."
+          placeholder={t('searchInputPlaceholder')}
           aria-label="성지 검색"
           className="flex-1 border-none bg-transparent text-xl font-bold text-slate-900 focus:outline-none"
           value={query}
@@ -59,15 +59,15 @@ export default function SearchPage() {
         {query.length === 0 ? (
           <div className="py-20 text-center text-slate-300">
             <Search size={48} className="mx-auto mb-4 opacity-10" />
-            <p className="font-bold">무엇을 찾고 싶으신가요?</p>
-            <p className="mt-2 text-xs">성지명, 지역, 소재지로 검색해보세요.</p>
+            <p className="font-bold">{t('searchPromptTitle')}</p>
+            <p className="mt-2 text-xs">{t('searchPromptBody')}</p>
           </div>
         ) : (
           <div className="mx-auto max-w-prose space-y-10">
             {(results.length > 0 || isFetching) && (
               <section className="space-y-4">
                 <h2 className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                  검색 결과
+                  {t('searchResults')}
                 </h2>
                 <div className="space-y-3">
                   {isFetching && results.length === 0 && (
@@ -132,7 +132,7 @@ export default function SearchPage() {
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600">
                       <BookOpen size={16} />
                     </div>
-                    <span className="text-sm font-bold text-slate-800">AI 순례 가이드 미카엘</span>
+                    <span className="text-sm font-bold text-slate-800">{t('aiGuideName')}</span>
                   </div>
                   {/* 미카엘의 답변은 마크다운(표·불릿)으로 온다 */}
                   <div className="prose prose-sm text-sm font-light leading-relaxed text-slate-600 [&_ol]:list-decimal [&_ol]:pl-4 [&_p]:mb-2 [&_strong]:font-bold [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:px-2 [&_td]:py-1 [&_th]:border [&_th]:px-2 [&_th]:py-1 [&_ul]:list-disc [&_ul]:pl-4">

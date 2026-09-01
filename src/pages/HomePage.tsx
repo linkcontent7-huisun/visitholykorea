@@ -2,7 +2,6 @@ import {
   ArrowRight,
   ChevronRight,
   Compass,
-  Globe,
   HandHeart,
   HeartHandshake,
   Search,
@@ -20,6 +19,7 @@ import { useRecommendedCourses } from '@/features/courses/hooks/use-courses';
 import { TodayQuietSection } from '@/features/quiet/components/TodayQuietSection';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { useSites } from '@/features/sites/hooks/use-sites';
+import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { regionCoords } from '@/shared/lib/regions';
 import { haversineKm } from '@/shared/lib/geo';
@@ -34,7 +34,7 @@ const EMOTION_ICON: Record<EmotionTag, ComponentType<{ size?: number; className?
 };
 
 export default function HomePage() {
-  const { language, setLanguage, largeText, setLargeText, origin } = useSettings();
+  const { largeText, setLargeText, origin, t } = useSettings();
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionTag>('치유');
   const [isAIGuideOpen, setIsAIGuideOpen] = useState(false);
 
@@ -84,14 +84,7 @@ export default function HomePage() {
             >
               <Type size={14} />
             </button>
-            <button
-              onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
-              className="flex cursor-pointer items-center gap-1 text-[13px] font-bold text-app-text-muted"
-              id="language-toggle"
-            >
-              <Globe size={14} />
-              {language === 'ko' ? 'KO' : 'EN'}
-            </button>
+            <LanguagePicker />
           </div>
         </div>
         <Link
@@ -101,7 +94,7 @@ export default function HomePage() {
         >
           <Search size={16} className="shrink-0 text-app-text-muted" />
           <span className="text-[13px] font-medium text-app-text-muted">
-            성지 검색 또는 미카엘 AI에게 물어보기
+            {t('searchPlaceholder')}
           </span>
         </Link>
       </header>
@@ -119,9 +112,9 @@ export default function HomePage() {
         >
           <Wind size={22} className="shrink-0 text-brand-violet" aria-hidden />
           <span className="flex-1">
-            <span className="block text-sm font-bold text-app-text">가려던 곳이 붐비나요?</span>
+            <span className="block text-sm font-bold text-app-text">{t('alternativesTitle')}</span>
             <span className="mt-0.5 block text-xs leading-relaxed text-app-text-muted">
-              관광지를 검색하면 오늘 붐빔과 근처의 조용한 성지를 알려드려요
+              {t('alternativesSubtitle')}
             </span>
           </span>
           <ArrowRight size={18} className="shrink-0 text-app-text-muted" aria-hidden />
@@ -135,15 +128,11 @@ export default function HomePage() {
           id="ai-guide-btn"
         >
           <div className="relative z-10">
-            <h3 className="mb-1 text-lg font-semibold">AI 순례 가이드</h3>
-            <p className="text-[13px] leading-relaxed opacity-80">
-              성지 순례에 대한 모든 것!
-              <br />
-              무엇이든 물어보세요.
-            </p>
+            <h3 className="mb-1 text-lg font-semibold">{t('aiGuideTitle')}</h3>
+            <p className="text-[13px] leading-relaxed opacity-80">{t('aiGuideBody')}</p>
           </div>
           <div className="relative z-10 rounded-xl bg-white/20 px-4 py-2 text-[13px] font-semibold backdrop-blur-md">
-            질문하기
+            {t('aiGuideAsk')}
           </div>
           <div className="absolute right-0 top-0 -mr-16 -mt-16 h-32 w-32 rounded-full bg-white/10 blur-2xl transition-transform group-hover:scale-125" />
         </button>
@@ -153,9 +142,9 @@ export default function HomePage() {
         {/* 쉼표 순례길: 감정 기반 코스 추천 */}
         <section>
           <div className="mb-5">
-            <h3 className="mb-1 text-lg font-bold text-app-text">쉼표 순례길</h3>
+            <h3 className="mb-1 text-lg font-bold text-app-text">{t('coursesTitle')}</h3>
             <p className="text-[12px] font-medium text-app-text-muted">
-              지금 마음에 필요한 쉼표를 골라보세요
+              {t('coursesSubtitle')}
             </p>
           </div>
 
@@ -170,10 +159,10 @@ export default function HomePage() {
             </div>
             <div className="flex-1">
               <p className="mb-0.5 text-sm font-extrabold text-app-text">
-                몇 가지 질문으로 나에게 맞는 곳 찾기
+                {t('compassCtaTitle')}
               </p>
               <p className="text-[11px] font-medium text-app-text-muted">
-                마음 나침반이 당신의 쉼의 자리를 안내해드려요
+                {t('compassCtaSubtitle')}
               </p>
             </div>
             <ChevronRight size={18} className="shrink-0 text-app-text-muted" />
@@ -219,7 +208,7 @@ export default function HomePage() {
               courses.map((course) => <CourseCardItem key={course.site.id} course={course} />)
             ) : (
               <p className="py-10 text-center text-sm text-app-text-muted">
-                이 감정에 맞는 코스를 아직 준비 중이에요.
+                {t('coursesEmpty')}
               </p>
             )}
           </div>
@@ -227,7 +216,7 @@ export default function HomePage() {
 
         <section>
           <h3 className="mb-5 text-lg font-bold text-app-text">
-            {origin ? `${origin}에서 가까운 성지` : '전국 성지 탐방'}
+            {origin ? `${origin}에서 가까운 성지` : t('exploreAllTitle')}
           </h3>
           <div className="grid grid-cols-2 gap-4">
             {nearbyFirst.length > 0

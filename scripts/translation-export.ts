@@ -14,7 +14,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { loadEnvLocal, ROOT } from './lib/env.ts';
-import { createAdminClient } from './lib/admin.ts';
+import { connectAdminDb } from './lib/db.ts';
 import type { TranslationFile, TranslationItem } from './lib/translation-file.ts';
 
 loadEnvLocal();
@@ -43,37 +43,32 @@ interface SiteRow {
   location: string | null;
 }
 
-const supabase = createAdminClient();
+const db = await connectAdminDb();
 
-let query = supabase
-  .from('holy_sites')
-  .select('id, name, diocese, description, history, location')
-  .order('name');
-
-if (diocese) query = query.eq('diocese', diocese);
-
-const { data: siteData, error: siteError } = await query;
-if (siteError) {
-  console.error('성지 조회 실패:', siteError.message);
-  process.exit(1);
-}
-const sites = (siteData ?? []) as SiteRow[];
+const { rows: sites } = await db.query<SiteRow>(
+  `select id, name, diocese, description, history, location
+     from public.holy_sites
+    where ($1::text is null or diocese = $1)
+    order by name`,
+  [diocese ?? null],
+);
 
 // 이미 번역된 곳은 뺀다.
 //
 // 표가 아직 없어도 내보내기는 되어야 한다 — 번역해 둔 파일이 있어야
 // 표가 생겼을 때 바로 넣을 수 있고, 표를 만드는 일과 번역하는 일은 순서가 자유롭다.
 // 다만 조용히 넘어가면 "번역이 하나도 없다"로 오해하므로 크게 알린다.
-const { data: doneData, error: doneError } = await supabase
-  .from('holy_site_translations')
-  .select('site_id')
-  .eq('language', language);
-
 let done = new Set<string>();
-if (doneError) {
-  const missingTable = /schema cache|does not exist/i.test(doneError.message);
-  if (!missingTable) {
-    console.error('기존 번역 조회 실패:', doneError.message);
+try {
+  const { rows } = await db.query<{ site_id: string }>(
+    'select site_id from public.holy_site_translations where language = $1',
+    [language],
+  );
+  done = new Set(rows.map((r) => r.site_id));
+} catch (e) {
+  const message = e instanceof Error ? e.message : String(e);
+  if (!/does not exist/i.test(message)) {
+    console.error('기존 번역 조회 실패:', message);
     process.exit(1);
   }
   console.warn(
@@ -81,8 +76,8 @@ if (doneError) {
       '  전부 미번역으로 보고 내보냅니다. 넣기 전에 마이그레이션을 적용하세요.\n' +
       '  (supabase/migrations/20260805110000_create_holy_site_translations.sql)\n',
   );
-} else {
-  done = new Set((doneData ?? []).map((r) => (r as { site_id: string }).site_id));
+} finally {
+  await db.end();
 }
 
 const pending = sites.filter((s) => !done.has(s.id));

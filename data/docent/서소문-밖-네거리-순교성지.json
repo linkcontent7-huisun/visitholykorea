@@ -1,0 +1,90 @@
+{
+  "siteId": "c3dab929-8628-4fcd-be56-032a8076f934",
+  "siteName": "서소문 밖 네거리 순교성지",
+  "slug": "seosomun",
+  "surveyedAt": "2026-08-27",
+  "surveyedBy": "현장: 미조사 / 원고: Claude (문헌 기반 초안)",
+  "status": "draft",
+  "intro": {
+    "narration": "서울역에서 걸어서 십 분, 직장인들이 바쁘게 오가는 도심 한복판에 이 공원이 있습니다. 서소문 밖 네거리 — 조선 시대의 공식 처형장이었고, 1801년 신유박해부터 1866년 병인박해까지 마흔네 분의 성인과 스물일곱 분의 복자, 그리고 수많은 무명 순교자가 신앙을 증거한, 한 장소로는 한국 천주교 최대의 순교지입니다. 지상의 공원에서 지하의 박물관으로, 내려가는 길 자체가 순례가 되는 곳입니다.",
+    "narrationEn": "Ten minutes on foot from Seoul Station, in the middle of the rushing city, lies this park. Seosomun — the official execution ground of the Joseon dynasty, where from the persecution of 1801 to that of 1866, forty-four saints, twenty-seven blesseds, and countless unnamed martyrs bore witness to their faith. It is the largest single site of Catholic martyrdom in Korea. Here, the descent from the park above to the museum below becomes a pilgrimage in itself.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "서소문역사공원 — 처형장 위의 공원",
+      "titleEn": "Seosomun History Park — A Park Above the Execution Ground",
+      "location": "공원 지상부",
+      "locationEn": "The ground-level park",
+      "narration": "지금 걷고 계신 이 평범한 공원이 조선의 공식 처형장이 있던 자리입니다. 서소문 밖은 도성의 서쪽 작은 문 바깥이라는 뜻으로, 시장이 가깝고 사람이 많아 본보기 처형의 장소로 쓰였습니다. 도심의 소음 속에서 잠시 걸음을 늦추고, 이 땅의 표고가 품고 있는 시간을 떠올려 보시기 바랍니다.",
+      "narrationEn": "This ordinary-looking park is where the official execution ground of Joseon once stood. Seosomun means outside the small west gate; close to the markets and the crowds, it was chosen for public executions meant to be seen. Slow your steps amid the city noise, and let yourself feel the time this ground holds.",
+      "lookFor": "공원 곳곳의 안내판과 도심 빌딩 사이의 대비",
+      "lookForEn": "The contrast between the memorial markers and the office towers around them",
+      "forEveryone": "이곳은 천주교 순교자만이 아니라 조선의 여러 죄수가 처형된 자리로, 서울의 역사 그 자체이기도 합니다.",
+      "photos": [],
+      "sourceNote": "성지 DB 원문 — 공식 처형장·도심 속 위치. 서소문성지 역사박물관 공식(seosomun.org) 검색 확인"
+    },
+    {
+      "seq": 2,
+      "title": "순교자 현양탑",
+      "titleEn": "The Martyrs' Monument",
+      "location": "공원 내 현양탑 앞",
+      "locationEn": "Before the monument in the park",
+      "narration": "공원에 서 있는 현양탑은 이 자리에서 순교한 이들을 기리는 탑입니다. 이곳 순교자 가운데 정하상 바오로를 포함한 마흔네 분은 1984년, 한국 천주교회 200주년에 요한 바오로 2세 교황에 의해 성인품에 올랐습니다. 한국의 103위 성인 가운데 사할이 넘는 분들이 바로 이 네거리에서 순교하셨으니, 이 탑 앞이 한국 교회의 가장 깊은 뿌리 중 하나인 셈입니다.",
+      "narrationEn": "The tall monument in the park honors those martyred on this ground. Forty-four of them, including St. Paul Chong Ha-sang, were canonized by Pope John Paul II in 1984, on the bicentennial of the Korean Church. More than four in ten of Korea's one hundred and three saints died at this crossroads — before this monument, you stand at one of the deepest roots of the Korean Church.",
+      "lookFor": "탑에 새겨진 순교자들의 이름",
+      "lookForEn": "The martyrs' names engraved on the monument",
+      "forEveryone": "1984년 시성식은 로마 밖에서 열린 최초 사례 중 하나로, 서울 여의도에서 거행되었습니다.",
+      "photos": [],
+      "sourceNote": "가톨릭정보(maria.catholic.or.kr)·검색 확인 — 현양탑, 44위 성인(정하상 바오로 포함, 1984 시성), 103위 중 비중. 탑의 세부 형태는 현장 확인 필요"
+    },
+    {
+      "seq": 3,
+      "title": "박물관 — 지하로 내려가는 순례",
+      "titleEn": "The Museum — A Pilgrimage Downward",
+      "location": "서소문성지 역사박물관 입구",
+      "locationEn": "At the museum entrance",
+      "narration": "2019년 6월에 문을 연 서소문성지 역사박물관은 지상 1층, 지하 3층으로 되어 있습니다. 전시를 보러 아래로, 더 아래로 내려가는 구조 자체가 설계의 핵심입니다. 낮아지고 어두워지는 길을 따라 내려가며, 순교자들이 통과한 시간을 몸으로 따라 걷게 됩니다. 붉은 벽돌의 건축이 아름다워 건축 답사지로도 이름난 곳입니다.",
+      "narrationEn": "The Seosomun Shrine History Museum, opened in June 2019, has one floor above ground and three below. Its design turns on descent: you go down, and further down, along a path that grows lower and darker, walking with your own body through the time the martyrs passed through. Its red-brick architecture has made it a destination for architecture lovers as well.",
+      "lookFor": "내려갈수록 달라지는 빛과 벽돌의 질감",
+      "lookForEn": "How the light and the texture of the brick change as you descend",
+      "forEveryone": "종교와 무관하게 서울에서 손꼽히는 현대 건축 공간으로, 조용히 사색하기 좋은 곳입니다.",
+      "photos": [],
+      "sourceNote": "서소문성지 역사박물관 공식(seosomun.org)·검색 확인 — 2019-06-01 개관, 지상 1층·지하 3층 구조"
+    },
+    {
+      "seq": 4,
+      "title": "콘솔레이션 홀",
+      "titleEn": "Consolation Hall",
+      "location": "박물관 지하 3층",
+      "locationEn": "On the third basement level",
+      "narration": "지하 삼 층의 콘솔레이션 홀은 위로라는 이름을 가진 추모 공간입니다. 낮은 조도의 어두운 홀 가운데 서면, 전시가 전하던 이야기가 침묵으로 바뀝니다. 이곳에서는 설명을 잠시 멈추겠습니다. 각자의 방식으로 머무르시다가, 마지막 공간인 하늘광장으로 이동하시기 바랍니다.",
+      "narrationEn": "On the third basement level is Consolation Hall, a memorial space whose very name means comfort. Standing in its dim light, the stories the exhibits have told give way to silence. Here, I will stop explaining. Stay in whatever way is yours, then move on to the final space — the Sky Plaza.",
+      "lookFor": "홀 중앙의 빛과 유해 안치 공간",
+      "lookForEn": "The light at the center of the hall and the resting place of the relics",
+      "forEveryone": "위로가 필요한 누구에게나 열린 추모 공간입니다.",
+      "photos": [],
+      "sourceNote": "서소문성지 역사박물관 공식(seosomun.org)·검색 확인 — 지하 3층 콘솔레이션 홀. 내부 구성 세부는 현장 확인 필요"
+    },
+    {
+      "seq": 5,
+      "title": "하늘광장 — 지하에서 올려다보는 하늘",
+      "titleEn": "Sky Plaza — Looking Up from Below",
+      "location": "박물관 지하 3층에서 이어지는 광장",
+      "locationEn": "The open plaza off the third basement level",
+      "narration": "순례의 마지막은 하늘광장입니다. 지하 삼 층에서 지상까지 뻥 뚫린 이 광장에 서서 고개를 들면, 네모나게 잘린 하늘이 아득히 높이 떠 있습니다. 순교자들이 마지막으로 바라보았을 하늘이 저런 높이가 아니었을까 — 이 공간이 던지는 질문입니다. 광장에는 예술 작품들이 함께 놓여 있어, 침묵의 여운을 이어 줍니다.",
+      "narrationEn": "The pilgrimage ends at the Sky Plaza. Open from the third basement all the way to the sky, this space lifts your gaze to a square of sky impossibly high above. Was the sky the martyrs last saw this high, this far? — that is the question the space asks. Works of art placed around the plaza carry the silence a little further.",
+      "lookFor": "지하에서 올려다보는 네모난 하늘",
+      "lookForEn": "The square of sky seen from three floors below",
+      "forEveryone": "서울에서 가장 사진이 많이 찍히는 공간 중 하나이지만, 그 의미를 알고 서면 전혀 다른 곳이 됩니다.",
+      "photos": [],
+      "sourceNote": "성지 DB 원문 — 하늘광장·지하에서 올려다보는 하늘, 검색 확인 — 지하 3층~지상 개방 구조·설치 작품"
+    }
+  ],
+  "outro": {
+    "narration": "서소문 순례에 함께해 주셔서 감사합니다. 박물관을 나서면 언덕 위로 약현성당이 보입니다. 백삼십 년 동안 이 처형장을 내려다보며 기억해 온 한국 최초의 서양식 성당입니다. 걸어서 오 분 남짓이니, 순교자들의 자리에서 그들을 기억해 온 자리로, 순례를 이어가 보시기를 권합니다.",
+    "narrationEn": "Thank you for walking Seosomun with us. As you leave the museum, look up the hill: there stands Yakhyeon Church, Korea's first Western-style church, which has watched over and remembered this execution ground for a hundred and thirty years. It is barely five minutes on foot — go on, from the place where the martyrs stood to the place that has remembered them.",
+    "photos": []
+  }
+}

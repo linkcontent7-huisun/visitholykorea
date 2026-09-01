@@ -135,6 +135,42 @@ export async function fetchSiteCoordsIndex(): Promise<
 
 import type { SiteTranslation } from '../lib/translated-site';
 
+/**
+ * 한 성지를 여러 언어로 한 번에 받아 온다.
+ *
+ * 스페인어 사용자에게 스페인어 번역이 없다고 한국어를 보여주면 아무것도 못 읽는다.
+ * 요청 언어와 폴백 언어(영어)를 **한 번의 조회로** 같이 받아, 칸 단위로 겹친다
+ * (`resolveTranslation`). 언어마다 따로 부르면 왕복이 늘어난다.
+ */
+export async function fetchSiteTranslations(
+  siteId: string,
+  languages: string[],
+): Promise<Partial<Record<string, SiteTranslation>>> {
+  if (languages.length === 0) return {};
+
+  const { data, error } = await supabase
+    .from('holy_site_translations')
+    .select('language, name, description, history, address_romanized')
+    .eq('site_id', siteId)
+    .in('language', languages);
+
+  if (error) {
+    console.error('fetchSiteTranslations error:', error);
+    return {};
+  }
+
+  const byLanguage: Partial<Record<string, SiteTranslation>> = {};
+  for (const row of data ?? []) {
+    byLanguage[row.language as string] = {
+      name: row.name as string | null,
+      description: row.description as string | null,
+      history: row.history as string | null,
+      addressRomanized: row.address_romanized as string | null,
+    };
+  }
+  return byLanguage;
+}
+
 /** 한 성지의 특정 언어 번역. 없으면 null — 호출부는 원문으로 폴백한다. */
 export async function fetchSiteTranslation(
   siteId: string,
