@@ -13,6 +13,8 @@ export const queryKeys = {
     search: (term: string) => ['sites', 'search', term] as const,
     byDiocese: (diocese: string, category?: string) =>
       ['sites', 'diocese', diocese, category ?? 'all'] as const,
+    /** 순례 별자리 카드용 좌표 인덱스. 성지 좌표는 거의 안 바뀐다. */
+    coordsIndex: ['sites', 'coords-index'] as const,
   },
   courses: {
     byEmotion: (emotion: EmotionTag, diocese?: string) =>
@@ -27,6 +29,8 @@ export const queryKeys = {
     myStamp: (siteId: string) => ['passport', 'stamp', siteId] as const,
     siteNotes: (siteId: string) => ['passport', 'site-notes', siteId] as const,
     dioceseProgress: ['passport', 'diocese-progress'] as const,
+    /** 내 한 줄들이 읽힌 횟수 (stampId → count). */
+    noteReads: ['passport', 'note-reads'] as const,
   },
   records: {
     logs: ['records', 'logs'] as const,

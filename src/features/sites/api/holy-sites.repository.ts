@@ -121,6 +121,14 @@ export async function fetchSiteDioceseIndex(): Promise<{ id: string; diocese: st
   return unwrap(data, error, 'fetchSiteDioceseIndex');
 }
 
+/** 성지 좌표 인덱스 — 순례 별자리 카드가 방문지를 실제 위치에 찍을 때 쓴다. */
+export async function fetchSiteCoordsIndex(): Promise<
+  { id: string; lat: number | null; lng: number | null }[]
+> {
+  const { data, error } = await supabase.from(TABLE).select('id, lat, lng');
+  return unwrap(data, error, 'fetchSiteCoordsIndex');
+}
+
 // ---------------------------------------------------------------------------
 // 성지 콘텐츠 번역 (holy_site_translations)
 // ---------------------------------------------------------------------------

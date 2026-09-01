@@ -4,6 +4,8 @@
  */
 
 import type { LiturgicalEvent } from './liturgical-calendar';
+import { drawStampMotif, type StampMotif } from './stamp-motifs';
+import { WYD_LABEL_EN, WYD_LABEL_KO } from './wyd';
 
 const CARD_WIDTH = 1080;
 const CARD_HEIGHT = 1920;
@@ -15,6 +17,42 @@ interface ShareCardOptions {
   imageUrl: string | null;
   visitedAt: Date;
   liturgical: LiturgicalEvent;
+  /** 이 성지가 나의 몇 번째 순례인지. 로그인 전이거나 모르면 생략. */
+  visitOrder?: number | null;
+  /** 성지 건축 모티프 도장. 있으면 카드 우상단에 잉크 도장처럼 찍힌다. */
+  motif?: StampMotif | null;
+  /** WYD 2027 공식 일정지 — 한·영 병기 배지가 붙는다. */
+  wyd?: boolean;
+}
+
+/** 잉크 도장: 이중 원 테두리 + 건축 모티프. 살짝 기울여 "찍힌" 느낌을 낸다. */
+function drawInkStamp(
+  ctx: CanvasRenderingContext2D,
+  motif: StampMotif,
+  centerX: number,
+  centerY: number,
+  radius: number,
+) {
+  ctx.save();
+  ctx.translate(centerX, centerY);
+  ctx.rotate((12 * Math.PI) / 180);
+  ctx.globalAlpha = 0.92;
+
+  const ink = '#ffffff';
+  ctx.strokeStyle = ink;
+  ctx.lineWidth = 6;
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.arc(0, 0, radius - 14, 0, Math.PI * 2);
+  ctx.stroke();
+
+  const inner = (radius - 14) * 1.16; // 모티프가 안쪽 원을 살짝 채우도록
+  drawStampMotif(ctx, motif, -inner / 2, -inner / 2, inner, ink);
+
+  ctx.restore();
 }
 
 function loadImage(src: string): Promise<HTMLImageElement> {
@@ -94,6 +132,11 @@ export async function generateShareCard(options: ShareCardOptions): Promise<Blob
   ctx.fillStyle = '#c4b5fd';
   ctx.fillText('HOLY', 64 + visitWidth, 64);
 
+  // 우상단 잉크 도장 — 이 성지의 건축 모티프. 카드의 얼굴이다.
+  if (options.motif) {
+    drawInkStamp(ctx, options.motif, CARD_WIDTH - 200, 240, 130);
+  }
+
   // 전례 시기 배지
   const badgeLabel = `${options.liturgical.emoji} ${options.liturgical.label}`;
   ctx.font = '700 32px "Pretendard", "Apple SD Gothic Neo", sans-serif';
@@ -134,6 +177,25 @@ export async function generateShareCard(options: ShareCardOptions): Promise<Blob
   ctx.font = '600 32px "Pretendard", "Apple SD Gothic Neo", sans-serif';
   ctx.fillStyle = '#a5b4fc';
   ctx.fillText(`${dateStr}에 다녀왔어요`, 64, CARD_HEIGHT - 160);
+
+  // "나의 N번째 성지" — 수집의 즐거움을 숫자로. 순번을 모르면 조용히 생략.
+  if (options.visitOrder && options.visitOrder > 0) {
+    ctx.font = '800 38px "Pretendard", "Apple SD Gothic Neo", sans-serif';
+    ctx.fillStyle = '#fbbf24';
+    ctx.fillText(`나의 ${options.visitOrder}번째 성지`, 64, CARD_HEIGHT - 108);
+  }
+
+  // WYD 2027 공식 일정지 — 해외 청년을 위한 한·영 병기 배지
+  if (options.wyd) {
+    ctx.textAlign = 'right';
+    ctx.font = '700 28px "Pretendard", "Apple SD Gothic Neo", sans-serif';
+    ctx.fillStyle = '#fde68a';
+    ctx.fillText(WYD_LABEL_KO, CARD_WIDTH - 64, CARD_HEIGHT - 148);
+    ctx.font = '600 24px "Pretendard", "Apple SD Gothic Neo", sans-serif';
+    ctx.fillStyle = '#e5e7eb';
+    ctx.fillText(WYD_LABEL_EN, CARD_WIDTH - 64, CARD_HEIGHT - 108);
+    ctx.textAlign = 'left';
+  }
 
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {

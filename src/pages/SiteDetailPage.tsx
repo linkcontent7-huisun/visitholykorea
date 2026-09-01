@@ -12,14 +12,22 @@ import {
   VolumeX,
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
 import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/share-card';
 import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use-favorites';
-import { useAddStamp, useMyStamp, useSiteNotes } from '@/features/passport/hooks/use-stamps';
+import {
+  useAddStamp,
+  useMyStamp,
+  useMyStamps,
+  useSiteNotes,
+} from '@/features/passport/hooks/use-stamps';
+import { recordNoteReads } from '@/features/passport/api/stamps.repository';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
+import { resolveStampMotif } from '@/features/passport/lib/stamp-motifs';
+import { isWydVenue, WYD_LABEL_EN, WYD_LABEL_KO } from '@/features/passport/lib/wyd';
 import { ContactCard } from '@/features/sites/components/ContactCard';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
@@ -51,8 +59,18 @@ export default function SiteDetailPage() {
   const toggleFavorite = useToggleFavorite(siteId ?? '');
   const { data: myStamp } = useMyStamp(siteId);
   const stamped = myStamp?.stamped ?? false;
+  const { data: myStamps = [] } = useMyStamps();
   const { data: visitNotes = [] } = useSiteNotes(siteId);
   const addStamp = useAddStamp(siteId ?? '');
+
+  // 이 성지가 나의 몇 번째 순례인가 (오래된 순으로 센다). 안 찍었으면 null.
+  const visitOrder = (() => {
+    const asc = [...myStamps].sort(
+      (a, b) => new Date(a.visitedAt).getTime() - new Date(b.visitedAt).getTime(),
+    );
+    const idx = asc.findIndex((s) => s.siteId === siteId);
+    return idx === -1 ? null : idx + 1;
+  })();
 
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [shareLoading, setShareLoading] = useState(false);
@@ -67,6 +85,16 @@ export default function SiteDetailPage() {
   useEffect(() => {
     return () => window.speechSynthesis?.cancel();
   }, [siteId]);
+
+  // "다녀온 사람의 한 줄"이 실제로 화면에 보였을 때만 읽힘 수를 올린다.
+  // 성지당 한 번 — 리렌더마다 세면 조회수가 아니라 렌더 횟수가 된다.
+  const readRecordedRef = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (!siteId || visitNotes.length === 0) return;
+    if (readRecordedRef.current.has(siteId)) return;
+    readRecordedRef.current.add(siteId);
+    void recordNoteReads(siteId, visitNotes.length);
+  }, [siteId, visitNotes.length]);
 
   const toggleSpeech = () => {
     if (!site) return;
@@ -140,6 +168,9 @@ export default function SiteDetailPage() {
         imageUrl: site.imageUrl,
         visitedAt: new Date(),
         liturgical: todayLiturgical,
+        visitOrder,
+        motif: resolveStampMotif(site.name, site.category),
+        wyd: isWydVenue(site.name),
       });
       await shareOrDownloadCard(blob, `visitholy-${site.name}.png`);
     } catch (e) {
@@ -212,6 +243,12 @@ export default function SiteDetailPage() {
           <span className="inline-block rounded-full bg-brand-violet px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-widest shadow-xl shadow-brand-violet/20">
             {site.category}
           </span>
+          {/* WYD 2027 공식 일정지 — 해외 청년 20~30만 명이 오는 확정 행사다 */}
+          {isWydVenue(site.name) && (
+            <span className="ml-2 inline-block rounded-full bg-amber-400/90 px-3 py-1.5 text-[10px] font-extrabold tracking-wide text-amber-950 shadow-xl">
+              {language === 'en' ? WYD_LABEL_EN : WYD_LABEL_KO}
+            </span>
+          )}
           <h1 className="mb-4 mt-3 text-4xl font-extrabold leading-tight tracking-tight">
             {view?.name ?? site.name}
           </h1>
