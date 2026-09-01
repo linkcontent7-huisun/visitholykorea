@@ -86,6 +86,15 @@ export interface SiteVisitNoteRow {
   created_at: string;
 }
 
+/**
+ * 한 줄 기록의 읽힘 수 (마이그레이션 20260902000000).
+ * 글쓴이 본인만 조회할 수 있고, 증가는 increment_note_reads RPC 로만 한다.
+ */
+export interface NoteReadCountRow {
+  stamp_id: string;
+  read_count: number;
+}
+
 export interface CompassResponseRow {
   id: string;
   user_id: string;

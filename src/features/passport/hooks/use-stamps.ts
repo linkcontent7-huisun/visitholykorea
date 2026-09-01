@@ -3,6 +3,8 @@ import { queryKeys } from '@/shared/api/query-keys';
 import {
   addStamp,
   attachStampPhoto,
+  getDioceseProgress,
+  getMyNoteReadCounts,
   getMyStamp,
   getMyStamps,
   getSiteNotes,
@@ -32,6 +34,26 @@ export function useSiteNotes(siteId: string | undefined) {
     queryFn: () => getSiteNotes(siteId!),
     enabled: Boolean(siteId),
     staleTime: 1000 * 60 * 5,
+  });
+}
+
+/** 교구별 완주 현황 (모은 스탬프 수 / 교구 전체 성지 수). */
+export function useDioceseProgress(enabled = true) {
+  return useQuery({
+    queryKey: queryKeys.passport.dioceseProgress,
+    queryFn: getDioceseProgress,
+    enabled,
+    staleTime: 1000 * 60 * 5,
+  });
+}
+
+/** 내 한 줄들이 읽힌 횟수. 마이그레이션 미적용 환경에서는 빈 맵이 온다. */
+export function useMyNoteReadCounts(enabled = true) {
+  return useQuery({
+    queryKey: queryKeys.passport.noteReads,
+    queryFn: getMyNoteReadCounts,
+    enabled,
+    staleTime: 1000 * 60,
   });
 }
 

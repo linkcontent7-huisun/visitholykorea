@@ -1,13 +1,23 @@
-import { Calendar, FileDown, Heart, MapPin, PenLine, Stamp as StampIcon } from 'lucide-react';
+import { Calendar, FileDown, Heart, MapPin, PenLine, Sparkles, Stamp as StampIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { CERTIFICATE_LEVELS, getCertificateLevel } from '@/features/passport/api/stamps.repository';
-import { useMyStamps } from '@/features/passport/hooks/use-stamps';
+import { StampMotifIcon } from '@/features/passport/components/StampMotifIcon';
+import {
+  useDioceseProgress,
+  useMyNoteReadCounts,
+  useMyStamps,
+} from '@/features/passport/hooks/use-stamps';
 import { downloadCertificatePDF } from '@/features/passport/lib/certificate';
 import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
+import { generateChronicleCard, generateDioceseCard } from '@/features/passport/lib/recap-card';
+import { shareOrDownloadCard } from '@/features/passport/lib/share-card';
+import { resolveStampMotif } from '@/features/passport/lib/stamp-motifs';
+import { isWydVenue } from '@/features/passport/lib/wyd';
+import { fetchSiteCoordsIndex } from '@/features/sites/api/holy-sites.repository';
 import { LogComposer } from '@/features/records/components/LogComposer';
 import { useMyLogs } from '@/features/records/hooks/use-logs';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
@@ -22,9 +32,60 @@ export default function RecordsPage() {
   const { session } = useSession();
   const { data: logs = [], isLoading: logsLoading } = useMyLogs();
   const { data: stamps = [] } = useMyStamps();
+  const { data: dioceseProgress = {} } = useDioceseProgress(Boolean(session));
+  const { data: noteReads = {} } = useMyNoteReadCounts(Boolean(session));
+  const [chronicleLoading, setChronicleLoading] = useState(false);
 
   const certLevel = getCertificateLevel(stamps.length);
   const nextLevel = CERTIFICATE_LEVELS.find((l) => l.minStamps > stamps.length);
+
+  /** 전국 성지 수 — DB 실측(교구별 합). 로딩 전엔 0이라 화면에서 숨긴다. */
+  const totalSites = Object.values(dioceseProgress).reduce((n, d) => n + d.total, 0);
+  /** 방문한 성지가 하나라도 있는 교구만 진행 바를 보여준다 — 빈 바 나열은 소음이다. */
+  const dioceseRows = Object.entries(dioceseProgress)
+    .filter(([, v]) => v.visited > 0)
+    .sort((a, b) => b[1].visited / b[1].total - a[1].visited / a[1].total);
+
+  const handleChronicleCard = async () => {
+    setChronicleLoading(true);
+    try {
+      const coords = await fetchSiteCoordsIndex();
+      const coordMap = new Map(coords.map((c) => [c.id, c]));
+      const asc = [...stamps].sort(
+        (a, b) => new Date(a.visitedAt).getTime() - new Date(b.visitedAt).getTime(),
+      );
+      const blob = await generateChronicleCard({
+        stars: asc.map((s) => ({
+          siteName: s.siteName,
+          lat: coordMap.get(s.siteId)?.lat ?? null,
+          lng: coordMap.get(s.siteId)?.lng ?? null,
+          visitedAt: new Date(s.visitedAt),
+        })),
+        dioceseCount: new Set(stamps.map((s) => s.diocese).filter(Boolean)).size,
+        totalSites,
+      });
+      await shareOrDownloadCard(blob, 'visitholy-순례별자리.png');
+    } catch (e) {
+      console.error('연대기 카드 생성 실패:', e);
+      window.alert('카드를 만드는 데 실패했어요. 잠시 후 다시 시도해주세요.');
+    } finally {
+      setChronicleLoading(false);
+    }
+  };
+
+  const handleDioceseCard = async (diocese: string) => {
+    try {
+      const blob = await generateDioceseCard({
+        diocese,
+        siteNames: stamps.filter((s) => s.diocese === diocese).map((s) => s.siteName),
+        completedAt: new Date(),
+      });
+      await shareOrDownloadCard(blob, `visitholy-${diocese}-완주.png`);
+    } catch (e) {
+      console.error('완주 카드 생성 실패:', e);
+      window.alert('카드를 만드는 데 실패했어요. 잠시 후 다시 시도해주세요.');
+    }
+  };
 
   const pilgrimName =
     (session?.user.user_metadata?.name as string | undefined) ||
@@ -197,8 +258,26 @@ export default function RecordsPage() {
               </p>
               <div className="mb-3 flex items-end gap-2">
                 <span className="text-4xl font-black">{stamps.length}</span>
-                <span className="mb-1 text-sm font-bold opacity-80">{t('sitesVisitedSuffix')}</span>
+                {/* 진행 분모는 숫자로만 붙인다 — 6개 언어 어디서나 그대로 읽힌다 */}
+                <span className="mb-1 text-sm font-bold opacity-80">
+                  {t('sitesVisitedSuffix')}
+                  {totalSites > 0 ? ` · ${stamps.length}/${totalSites}` : ''}
+                </span>
               </div>
+              {totalSites > 0 && (
+                <div
+                  className="mb-4 h-2 overflow-hidden rounded-full bg-white/20"
+                  role="progressbar"
+                  aria-valuenow={stamps.length}
+                  aria-valuemax={totalSites}
+                  aria-label="전국 순례 진행"
+                >
+                  <div
+                    className="h-full rounded-full bg-amber-300"
+                    style={{ width: `${Math.min(100, (stamps.length / totalSites) * 100)}%` }}
+                  />
+                </div>
+              )}
               {certLevel && (
                 <p className="mb-1 text-sm font-bold">
                   {certLevel.emoji} 현재 등급: {certLevel.label}
@@ -220,7 +299,58 @@ export default function RecordsPage() {
                   순례 인증서 다운로드
                 </button>
               )}
+              {stamps.length > 0 && (
+                <button
+                  onClick={() => void handleChronicleCard()}
+                  disabled={chronicleLoading}
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl bg-white/15 py-3 text-xs font-bold backdrop-blur-md transition-colors hover:bg-white/25 disabled:opacity-50"
+                  id="chronicle-card-btn"
+                >
+                  <Sparkles size={16} />
+                  {chronicleLoading ? '별자리 그리는 중...' : '나의 순례 별자리 카드 만들기'}
+                </button>
+              )}
             </div>
+
+            {/* 교구별 진행 — 208곳 전부는 멀어도 교구 하나는 손에 잡힌다 */}
+            {dioceseRows.length > 0 && (
+              <div className="rounded-[32px] border border-app-border bg-white p-7">
+                <p className="mb-5 text-sm font-extrabold text-app-text">교구별 순례 진행</p>
+                <ul className="space-y-4">
+                  {dioceseRows.map(([diocese, v]) => {
+                    const done = v.visited === v.total;
+                    return (
+                      <li key={diocese}>
+                        <div className="mb-1.5 flex items-center justify-between text-xs font-bold">
+                          <span className="text-app-text">
+                            {diocese}
+                            {done && <span className="ml-1.5 text-amber-500">완주 🎉</span>}
+                          </span>
+                          <span className="text-app-text-muted">
+                            {v.visited} / {v.total}
+                          </span>
+                        </div>
+                        <div className="h-1.5 overflow-hidden rounded-full bg-app-bg">
+                          <div
+                            className={`h-full rounded-full ${done ? 'bg-amber-400' : 'bg-brand-violet'}`}
+                            style={{ width: `${(v.visited / v.total) * 100}%` }}
+                          />
+                        </div>
+                        {done && (
+                          <button
+                            onClick={() => void handleDioceseCard(diocese)}
+                            className="mt-2 text-[11px] font-extrabold text-brand-violet underline-offset-2 hover:underline"
+                            id={`diocese-card-${diocese}`}
+                          >
+                            {diocese} 완주 카드 만들기
+                          </button>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
 
             {stamps.length === 0 ? (
               <EmptyState
@@ -233,9 +363,12 @@ export default function RecordsPage() {
             ) : (
               <div className="grid grid-cols-3 gap-x-6 gap-y-8">
                 {stamps.map((stamp) => {
-                  // 스탬프를 찍은 그날의 전례 시기로 디자인이 갈린다 — 같은 성지라도
-                  // 사순에 간 스탬프와 성모성월에 간 스탬프가 다르게 남는다.
+                  // 스탬프를 찍은 그날의 전례 시기로 잉크 색이 갈리고, 도장의 그림은
+                  // 그 성지의 건축(명동=고딕 쌍탑, 해미읍성=성곽…)이 정한다 —
+                  // 같은 여권 안에서 어느 하나 같은 도장이 없다.
                   const event = getLiturgicalEvent(new Date(stamp.visitedAt));
+                  const motif = resolveStampMotif(stamp.siteName, stamp.category);
+                  const reads = stamp.note ? (noteReads[stamp.stampId] ?? 0) : 0;
                   return (
                     <Link
                       key={stamp.stampId}
@@ -244,18 +377,29 @@ export default function RecordsPage() {
                       id={`stamp-${stamp.stampId}`}
                     >
                       <div
-                        className={`flex h-20 w-20 rotate-6 scale-110 items-center justify-center rounded-full border-4 border-white shadow-2xl transition-all duration-500 ${event.colorClass.bg}`}
+                        className={`relative flex h-20 w-20 rotate-6 scale-110 items-center justify-center rounded-full border-4 border-white text-white shadow-2xl transition-all duration-500 ${event.colorClass.bg}`}
                       >
-                        <span className="text-3xl leading-none" aria-hidden>
-                          {event.emoji}
-                        </span>
+                        <StampMotifIcon motif={motif} className="h-12 w-12" />
+                        {isWydVenue(stamp.siteName) && (
+                          <span
+                            className="absolute -right-1 -top-1 rounded-full bg-amber-400 px-1.5 py-0.5 text-[8px] font-black text-amber-950"
+                            title="WYD 2027 공식 일정지"
+                          >
+                            WYD
+                          </span>
+                        )}
                       </div>
                       <span className="text-center text-[10px] font-extrabold leading-tight tracking-tight text-brand-blue">
                         {stamp.siteName}
                       </span>
                       <span className={`text-[9px] font-bold ${event.colorClass.text}`}>
-                        {event.label}
+                        {motif.label} · {event.label}
                       </span>
+                      {reads > 0 && (
+                        <span className="-mt-2 text-[9px] font-bold text-app-text-muted">
+                          내 한 줄을 {reads}명이 읽었어요
+                        </span>
+                      )}
                     </Link>
                   );
                 })}

@@ -15,6 +15,8 @@ export interface StampedSite {
   siteId: string;
   siteName: string;
   diocese: string | null;
+  /** 성지 분류 — 스탬프 모티프(건축 도장) 폴백에 쓴다. */
+  category: string | null;
   visitedAt: string;
   /** 내가 남긴 방문 한 줄. 없으면 null. */
   note: string | null;
@@ -196,7 +198,7 @@ interface StampJoinRow {
   created_at: string;
   site_id: string;
   note: string | null;
-  holy_sites: { name: string; diocese: string | null } | null;
+  holy_sites: { name: string; diocese: string | null; category: string | null } | null;
 }
 
 /** 로그인한 사용자의 모든 스탬프(성지 정보 포함)를 최신순으로. */
@@ -206,7 +208,7 @@ export async function getMyStamps(): Promise<StampedSite[]> {
 
   const { data, error } = await supabase
     .from(TABLE)
-    .select('id, created_at, site_id, note, holy_sites(name, diocese)')
+    .select('id, created_at, site_id, note, holy_sites(name, diocese, category)')
     .eq('user_id', userId)
     .order('created_at', { ascending: false });
 
@@ -220,9 +222,45 @@ export async function getMyStamps(): Promise<StampedSite[]> {
     siteId: row.site_id,
     siteName: row.holy_sites?.name ?? '알 수 없는 성지',
     diocese: row.holy_sites?.diocese ?? null,
+    category: row.holy_sites?.category ?? null,
     visitedAt: row.created_at,
     note: row.note,
   }));
+}
+
+/**
+ * 성지 상세에서 한 줄들이 화면에 실제로 보였을 때 읽힘 수를 올린다.
+ * 로컬에 마이그레이션(20260901000000)이 아직 안 걸려 있으면 조용히 무시한다 —
+ * 카운트는 부가 기능이라 본 화면을 깨뜨리면 안 된다.
+ */
+export async function recordNoteReads(siteId: string, shownCount: number): Promise<void> {
+  if (shownCount <= 0) return;
+  const { error } = await supabase.rpc('increment_note_reads', {
+    p_site_id: siteId,
+    p_limit: shownCount,
+  });
+  if (error) console.warn('recordNoteReads skipped:', error.message);
+}
+
+/**
+ * 내 한 줄들의 읽힘 수 (stampId → 읽힌 횟수).
+ * RLS 가 본인 것만 통과시키므로 조건 없이 조회해도 안전하다.
+ * 테이블이 아직 없으면(마이그레이션 미적용) 빈 맵 — 화면은 그냥 숫자를 숨긴다.
+ */
+export async function getMyNoteReadCounts(): Promise<Record<string, number>> {
+  const userId = await getCurrentUserId();
+  if (!userId) return {};
+
+  const { data, error } = await supabase.from('note_read_counts').select('stamp_id, read_count');
+  if (error) {
+    console.warn('getMyNoteReadCounts skipped:', error.message);
+    return {};
+  }
+  const counts: Record<string, number> = {};
+  for (const row of data ?? []) {
+    counts[row.stamp_id as string] = row.read_count as number;
+  }
+  return counts;
 }
 
 export type DioceseProgress = Record<string, { visited: number; total: number }>;
