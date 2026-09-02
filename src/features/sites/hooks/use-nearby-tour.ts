@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/shared/api/query-keys';
 import {
+  getBarrierFreeNearby,
   getNearbyAttractions,
   getNearbyByLocation,
   getNearbyFestivals,
@@ -70,6 +71,34 @@ export function useNearbyFestivals(coordinates: Coordinates | undefined) {
   return useQuery({
     queryKey: queryKeys.tour.festivals(`${lat},${lng}`),
     queryFn: () => getNearbyFestivals(lng!, lat!, 10000, 6),
+    enabled: lat != null && lng != null,
+    ...REALTIME_QUERY_OPTIONS,
+  });
+}
+
+/**
+ * 성지 주변 무장애 여행 정보 (반경 5km).
+ *
+ * 신자 65세 이상 28.9% — 성지는 계단·언덕이 많아 "갈 수 있는가"가 먼저
+ * 걸리는 곳이다. 한국관광공사의 무장애 정보를 성지 좌표에 붙인다.
+ *
+ * ⚠️ 호출 경로가 아직 실호출로 확인되지 않았다(`npm run tourapi:check`).
+ * 그래서 **실패를 빈 배열로 흡수한다** — 화면은 결과가 있을 때만 섹션을
+ * 그리므로, 경로가 틀렸다면 아무 일도 일어나지 않는다. 다른 TourAPI
+ * 호출과 달리 이렇게 하는 이유는, 이 정보가 없다고 해서 잘못된 화면이
+ * 만들어지지는 않기 때문이다(붐빔 지수는 반대라서 실패를 드러낸다).
+ */
+export function useBarrierFreeNearby(coordinates: Coordinates | undefined) {
+  const lat = coordinates?.lat ?? null;
+  const lng = coordinates?.lng ?? null;
+
+  return useQuery({
+    queryKey: queryKeys.tour.barrierFree(lat ?? 0, lng ?? 0),
+    queryFn: () =>
+      getBarrierFreeNearby(lng!, lat!, 5000, 8).catch((e) => {
+        console.warn('무장애 정보 조회 건너뜀:', e);
+        return [];
+      }),
     enabled: lat != null && lng != null,
     ...REALTIME_QUERY_OPTIONS,
   });

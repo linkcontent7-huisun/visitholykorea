@@ -3,6 +3,15 @@ import { Church, Cross, Footprints, Home, Landmark, type LucideIcon } from 'luci
 interface SiteThumbnailProps {
   imageUrl: string | null;
   name: string;
+  /**
+   * 순례자가 올린 승인 사진. 공식 사진이 없을 때 이 사진이 자리를 채우고,
+   * "순례자가 보내온 사진"임을 대체 텍스트에 밝힌다.
+   *
+   * 이 컴포넌트는 데이터를 직접 조회하지 않는다 — 목록·상세 어디서나
+   * 프로바이더 없이 렌더할 수 있어야 하기 때문이다. 조회는 화면이 한다
+   * (`useFeaturedPhotos`).
+   */
+  pilgrimUrl?: string | null;
   /** 분류에 따라 대체 화면의 색·상징이 달라진다. 없으면 성당 취급. */
   category?: string | null;
   className?: string;
@@ -97,12 +106,24 @@ const 분류별: Record<string, 대체표시> = {
 export function SiteThumbnail({
   imageUrl,
   name,
+  pilgrimUrl = null,
   category,
   className = '',
   intensity = 'light',
 }: SiteThumbnailProps) {
-  if (imageUrl) {
-    return <img src={imageUrl} alt={name} className={className} loading="lazy" />;
+  const usingPilgrim = !imageUrl && Boolean(pilgrimUrl);
+  const url = imageUrl ?? pilgrimUrl;
+
+  if (url) {
+    return (
+      <img
+        src={url}
+        // 순례자 사진임을 스크린리더에도 알린다 — 공식 사진과 같은 것으로 읽히면 안 된다
+        alt={usingPilgrim ? `${name} — 순례자가 보내온 사진` : name}
+        className={className}
+        loading="lazy"
+      />
+    );
   }
 
   const 표시 = 분류별[category ?? ''] ?? 기본표시;

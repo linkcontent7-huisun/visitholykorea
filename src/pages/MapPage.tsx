@@ -10,6 +10,7 @@ import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { useSites } from '@/features/sites/hooks/use-sites';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
 
 /**
  * 지도 화면 — "내가 어디까지 왔고 어디가 남았나".
@@ -20,6 +21,8 @@ import { useSettings } from '@/shared/i18n/use-settings';
  * 문구로 재촉하지 않아도 되는 이유다.
  */
 export default function MapPage() {
+  // 공식 사진이 없는 성지는 순례자가 보내준(승인된) 사진으로 채운다
+  const { data: featured = {} } = useFeaturedPhotos();
   const { t } = useSettings();
   const [selectedDiocese, setSelectedDiocese] = useState('전체');
   const [keyword, setKeyword] = useState('');
@@ -176,6 +179,7 @@ export default function MapPage() {
                 {site.imageUrl ? (
                   <SiteThumbnail
                     imageUrl={site.imageUrl}
+                    pilgrimUrl={featured[site.id] ?? null}
                     name={site.name}
                     category={site.category}
                     className="h-full w-full object-cover"

@@ -10,6 +10,15 @@ import { env } from '@/shared/config/env';
 import { createConcurrencyGate } from '@/shared/lib/concurrency-gate';
 
 const BASE_URL = 'https://apis.data.go.kr/B551011/KorService2';
+/**
+ * 무장애 여행 정보 서비스.
+ *
+ * ⚠️ **이 경로는 아직 실호출로 확인되지 않았다.** 웹 세션에서는 data.go.kr 이
+ * 막혀 있어 검증할 수 없었다(2026-09-02). 로컬에서 `npm run tourapi:check` 로
+ * 확인한 뒤 이 주석을 지운다. 확인 전까지는 실패해도 화면이 조용히 접히도록
+ * 호출부가 설계돼 있다 — 빈 껍데기를 보여주느니 섹션을 통째로 감춘다.
+ */
+const BARRIER_FREE_BASE_URL = 'https://apis.data.go.kr/B551011/KorWithService2';
 const MOBILE_APP = 'VisitHolyKorea';
 
 /** TourAPI 콘텐츠 타입 코드 (자주 쓰는 것만) */
@@ -97,6 +106,7 @@ const gate = createConcurrencyGate(4);
 async function callTourApi(
   endpoint: string,
   params: Record<string, string | number>,
+  baseUrl: string = BASE_URL,
 ): Promise<TourApiSpot[]> {
   // 빈 배열로 조용히 넘기면 붐빔 지수에서 "아무것도 없음 = 아주 조용"으로 읽혀
   // 완전히 틀린 결과가 화면에 뜬다. 실패는 실패로 드러낸다.
@@ -115,7 +125,7 @@ async function callTourApi(
   await gate.acquire();
   let data: TourApiResponse;
   try {
-    const res = await fetch(`${BASE_URL}/${endpoint}?${query.toString()}`);
+    const res = await fetch(`${baseUrl}/${endpoint}?${query.toString()}`);
     if (!res.ok) {
       throw new Error(`TourAPI 호출 실패: ${endpoint} (HTTP ${res.status})`);
     }
@@ -198,6 +208,38 @@ export function searchAttractionsByKeyword(
     arrange: 'O', // 제목순 — 인기순(P)은 동명이지 구분에 도움이 안 된다
     contentTypeId: CONTENT_TYPE.관광지,
   });
+}
+
+/**
+ * 성지 주변의 **무장애 여행 정보** — 휠체어·경사로·장애인 화장실이 갖춰진 곳.
+ *
+ * 왜 이 앱에 필요한가: 신자 65세 이상이 28.9%다(한국 천주교회 통계 2025).
+ * 성지는 계단·언덕이 많아 "갈 수 있는가"가 먼저 걸리는 곳인데, 그 정보를
+ * 지금 아무도 안내하지 않는다. 한국관광공사의 무장애 정보를 성지 좌표에
+ * 붙이면 그 공백이 메워진다.
+ *
+ * ⚠️ 호출 경로가 아직 실호출로 확인되지 않았다(`BARRIER_FREE_BASE_URL` 주석).
+ * 확인 전까지 실패는 호출부에서 조용히 흡수되어 섹션 자체가 뜨지 않는다 —
+ * 빈 껍데기를 보여주지 않는다는 원칙 그대로다.
+ */
+export function getBarrierFreeNearby(
+  mapX: number,
+  mapY: number,
+  radiusMeters = 5000,
+  numOfRows = 10,
+): Promise<TourApiSpot[]> {
+  return callTourApi(
+    'locationBasedList2',
+    {
+      mapX,
+      mapY,
+      radius: radiusMeters,
+      numOfRows,
+      pageNo: 1,
+      arrange: 'E', // 거리순
+    },
+    BARRIER_FREE_BASE_URL,
+  );
 }
 
 /** TourAPI 날짜 형식(YYYYMMDD). */

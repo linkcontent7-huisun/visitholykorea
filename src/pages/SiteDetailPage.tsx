@@ -15,7 +15,8 @@ import { motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
-import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
+import { getInkDaysLeft, getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
+import { resolveReflectionQuestion } from '@/features/passport/lib/reflection-questions';
 import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/share-card';
 import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use-favorites';
 import {
@@ -30,11 +31,19 @@ import { recordNoteReads } from '@/features/passport/api/stamps.repository';
 import { shrinkPhoto } from '@/features/passport/lib/photo';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
 import { resolveStampMotif } from '@/features/passport/lib/stamp-motifs';
-import { isWydVenue, WYD_LABEL_EN, WYD_LABEL_KO } from '@/features/passport/lib/wyd';
+import {
+  isWydPeriod,
+  isWydVenue,
+  WYD_LABEL_EN,
+  WYD_LABEL_KO,
+  WYD_LIMITED_LABEL_EN,
+  WYD_LIMITED_LABEL_KO,
+} from '@/features/passport/lib/wyd';
 import { DocentPlayer } from '@/features/docent/components/DocentPlayer';
 import { buildChapters } from '@/features/docent/lib/chapters';
 import { getDocentScript } from '@/features/docent/data/scripts';
 import { ContactCard } from '@/features/sites/components/ContactCard';
+import { BarrierFreeCard } from '@/features/sites/components/BarrierFreeCard';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
@@ -42,6 +51,7 @@ import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
 import { useNearbyFacilities, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
 import { GROUP_HINT } from '@/features/sites/lib/nearby-facilities';
 import { useSite, useSitesInSameDiocese } from '@/features/sites/hooks/use-sites';
+import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -62,6 +72,9 @@ export default function SiteDetailPage() {
   const { data: festivals = [], isFetching: festivalsLoading } = useNearbyFestivals(
     site?.coordinates,
   );
+  // 공식 사진이 없으면 순례자가 보내준(운영자 승인) 사진이 대표 자리를 채운다.
+  // 훅이므로 이른 return 위에서 부른다.
+  const sitePhoto = useSitePhoto(siteId, site?.imageUrl ?? null);
   const { data: isFavorited = false } = useIsFavorite(siteId);
   const toggleFavorite = useToggleFavorite(siteId ?? '');
   const { data: myStamp } = useMyStamp(siteId);
@@ -99,8 +112,10 @@ export default function SiteDetailPage() {
     reportNote.mutate(stampId);
   };
 
-  // 오늘 찍으면 어떤 한정판 스탬프가 되는지 미리 보여준다.
+  // 오늘 찍으면 어떤 한정판 스탬프가 되는지, 그 잉크가 며칠 남았는지 미리 보여준다.
   const todayLiturgical = getLiturgicalEvent();
+  const inkWindow = getInkDaysLeft();
+  const wydNow = isWydPeriod();
 
   // "다녀온 사람의 한 줄"이 실제로 화면에 보였을 때만 읽힘 수를 올린다.
   // 성지당 한 번 — 리렌더마다 세면 조회수가 아니라 렌더 횟수가 된다.
@@ -157,12 +172,14 @@ export default function SiteDetailPage() {
         siteName: site.name,
         location: site.location,
         emotionTag: site.emotionTag,
-        imageUrl: site.imageUrl,
+        // 순례자 사진이 대표가 된 성지는 카드 배경도 그 사진을 쓴다
+        imageUrl: heroPhoto.url,
         visitedAt: new Date(),
         liturgical: todayLiturgical,
         visitOrder,
         motif: resolveStampMotif(site.name, site.category),
         wyd: isWydVenue(site.name),
+        wydLimited: wydNow,
       });
       await shareOrDownloadCard(blob, `visitholy-${site.name}.png`);
     } catch (e) {
@@ -180,6 +197,7 @@ export default function SiteDetailPage() {
   }
 
   const tags = [site.emotionTag, site.region, site.category].filter((t): t is string => Boolean(t));
+  const heroPhoto = sitePhoto;
 
   // 오디오 도슨트 — 현장조사 원고가 있으면 포인트별 투어, 없으면 소개·역사 챕터
   const docentScript = getDocentScript(site.id);
@@ -196,18 +214,24 @@ export default function SiteDetailPage() {
   return (
     <div className={`mx-auto min-h-screen ${widthClass} bg-white pb-32`}>
       <div className="relative flex h-[55vh] w-full items-center justify-center overflow-hidden bg-app-bg">
-        {site.imageUrl ? (
+        {heroPhoto.url ? (
           <>
             <motion.img
               initial={{ scale: 1.1 }}
               animate={{ scale: 1 }}
               transition={{ duration: 10 }}
-              src={site.imageUrl}
-              alt={site.name}
+              src={heroPhoto.url}
+              alt={heroPhoto.fromPilgrim ? `${site.name} — 순례자가 보내온 사진` : site.name}
               className="h-full w-full object-cover"
             />
+            {/* 순례자 사진은 누가 보내준 것인지 밝힌다 — 공식 사진과 같아 보이면 안 된다 */}
+            {heroPhoto.fromPilgrim && (
+              <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[10px] text-white/80 backdrop-blur-sm">
+                순례자가 보내온 사진
+              </span>
+            )}
             {/* CC 계열 라이선스는 출처 표기가 의무다 — 출처가 기록된 사진에만 붙는다 */}
-            {site.imageSource && (
+            {!heroPhoto.fromPilgrim && site.imageSource && (
               <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[10px] text-white/80 backdrop-blur-sm">
                 {site.imageSource}
                 {site.imageLicense ? ` · ${site.imageLicense}` : ''}
@@ -458,15 +482,29 @@ export default function SiteDetailPage() {
             둘 사이 간격을 좁혔는데, 그 음수 여백이 버튼을 8px 끌어올려 문구를
             가리고 있었다. 래퍼로 감싸 space-y 로 간격을 주면 겹치지 않는다. */}
         <div className="space-y-3">
-          {!stamped && (
-            <p className="text-center text-[11px] font-bold text-app-text-muted">
-              오늘 찍으면{' '}
-              <span className={todayLiturgical.colorClass.text}>
-                {todayLiturgical.emoji} {todayLiturgical.label}
-              </span>{' '}
-              한정판 스탬프예요
-            </p>
-          )}
+          {!stamped &&
+            (wydNow ? (
+              // WYD 대회 기간 — 다시 오지 않는 날짜. 이 기간의 스탬프는 그 자체로 참가 증명이다.
+              <p className="text-center text-[11px] font-bold text-amber-600">
+                ✨ 지금 찍으면 <span className="font-extrabold">{WYD_LIMITED_LABEL_KO}</span> —
+                대회 기간에만 새겨지는 금빛 기록이에요
+                <span className="mt-0.5 block text-[10px] font-semibold text-app-text-muted">
+                  {WYD_LIMITED_LABEL_EN}
+                </span>
+              </p>
+            ) : (
+              <p className="text-center text-[11px] font-bold text-app-text-muted">
+                오늘 찍으면{' '}
+                <span className={todayLiturgical.colorClass.text}>
+                  {todayLiturgical.emoji} {todayLiturgical.label}
+                </span>{' '}
+                한정판 스탬프예요
+                {/* 기한이 보여야 한정판이 한정판이 된다 — 재방문의 이유 */}
+                <span className="mt-0.5 block text-[10px] font-semibold">
+                  이 잉크는 {inkWindow.daysLeft}일 뒤 {inkWindow.nextLabel}(으)로 바뀌어요
+                </span>
+              </p>
+            ))}
 
           <div className="flex gap-4">
             <button
@@ -494,8 +532,15 @@ export default function SiteDetailPage() {
         {stamped && !myStamp?.note && !noteDismissed && (
           <div className="rounded-[20px] border border-app-border bg-white p-5">
             <p className="text-sm font-bold text-app-text">오늘 그곳은 어땠나요?</p>
-            <p className="mt-1 text-xs leading-relaxed text-app-text-muted">
-              한 줄만 남겨주세요. 다음 순례자가 조용한 때를 고르는 데 도움이 됩니다.
+            {/* 오늘의 질문 — 빈 입력창은 쓰기 어렵지만 질문에는 답하게 된다.
+                이 성지의 역사에서 나온 질문이라, 답이 곧 이곳과 나의 기록이 된다. */}
+            <blockquote className="mt-2 border-l-2 border-brand-violet/40 pl-3 text-xs font-semibold leading-relaxed text-brand-violet">
+              {language === 'ko'
+                ? resolveReflectionQuestion(site.name, site.category).ko
+                : resolveReflectionQuestion(site.name, site.category).en}
+            </blockquote>
+            <p className="mt-2 text-xs leading-relaxed text-app-text-muted">
+              떠오르는 한 줄이면 충분해요. 다음 순례자에게도 힘이 됩니다.
             </p>
             <input
               type="text"
@@ -630,6 +675,9 @@ export default function SiteDetailPage() {
 
         {/* 문의 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
         <ContactCard site={site} />
+
+        {/* 무장애 여행 정보 — 결과가 있을 때만 그려진다 (한국관광공사 실시간) */}
+        <BarrierFreeCard site={site} />
 
         {/* 주변 본당 — 순례 후 미사를 드리고 싶은 이들을 위해 (교구 주소록 기반) */}
         <NearbyParishesCard site={site} />

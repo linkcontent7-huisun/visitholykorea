@@ -131,6 +131,26 @@ function getSpecialMonth(date: Date): SpecialMonthKey {
   return null;
 }
 
+/**
+ * 지금 잉크(전례 시기·성월 디자인)가 며칠 더 유지되는지 계산한다.
+ *
+ * "이 잉크는 N일 남음"이 한정판을 한정판으로 만든다 — 기한이 보여야
+ * 재방문 이유가 생긴다. 경계 규칙을 또 하드코딩하면 getSeason 과 어긋날 수
+ * 있으므로, 라벨이 실제로 바뀌는 날을 하루씩 짚어서 찾는다(최대 1년).
+ */
+export function getInkDaysLeft(date: Date = new Date()): { daysLeft: number; nextLabel: string } {
+  const currentLabel = getLiturgicalEvent(date).label;
+  for (let i = 1; i <= 366; i++) {
+    const probe = addDays(startOfDay(date), i);
+    const label = getLiturgicalEvent(probe).label;
+    if (label !== currentLabel) {
+      return { daysLeft: i, nextLabel: label };
+    }
+  }
+  // 이 지점에 오면 계산 로직이 깨진 것이다 — 라벨은 1년 안에 반드시 바뀐다.
+  return { daysLeft: 366, nextLabel: currentLabel };
+}
+
 /** 주어진 날짜(기본값: 오늘)의 전례력 이벤트를 반환한다 — 스탬프 디자인 분기에 사용. */
 export function getLiturgicalEvent(date: Date = new Date()): LiturgicalEvent {
   const season = getSeason(date);
