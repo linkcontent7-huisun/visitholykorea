@@ -34,6 +34,7 @@
     "photo:pending": "tsx scripts/feature-photo.ts pending",
     "photo:feature": "tsx scripts/feature-photo.ts feature",
     "photo:unfeature": "tsx scripts/feature-photo.ts unfeature",
+    "tourapi:check": "tsx scripts/check-tourapi.ts",
     "seed:rest": "tsx scripts/seed-rest-places.ts"
   },
   "dependencies": {

@@ -52,6 +52,8 @@ export const queryKeys = {
     nearby: (lat: number, lng: number) => ['tour', 'nearby', lat, lng] as const,
     /** 맛집·숙박·볼거리를 한 번에 받는 조회. 유형별로 나눠 부르지 않는다. */
     facilities: (lat: number, lng: number) => ['tour', 'facilities', lat, lng] as const,
+    /** 성지 주변 무장애 여행 정보 (열린관광 축). */
+    barrierFree: (lat: number, lng: number) => ['tour', 'barrier-free', lat, lng] as const,
     festivals: (coords: string) => ['tour', 'festivals', coords] as const,
     searchKeyword: (keyword: string) => ['tour', 'search', keyword] as const,
   },

@@ -43,6 +43,7 @@ import { DocentPlayer } from '@/features/docent/components/DocentPlayer';
 import { buildChapters } from '@/features/docent/lib/chapters';
 import { getDocentScript } from '@/features/docent/data/scripts';
 import { ContactCard } from '@/features/sites/components/ContactCard';
+import { BarrierFreeCard } from '@/features/sites/components/BarrierFreeCard';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
@@ -171,7 +172,8 @@ export default function SiteDetailPage() {
         siteName: site.name,
         location: site.location,
         emotionTag: site.emotionTag,
-        imageUrl: site.imageUrl,
+        // 순례자 사진이 대표가 된 성지는 카드 배경도 그 사진을 쓴다
+        imageUrl: heroPhoto.url,
         visitedAt: new Date(),
         liturgical: todayLiturgical,
         visitOrder,
@@ -673,6 +675,9 @@ export default function SiteDetailPage() {
 
         {/* 문의 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
         <ContactCard site={site} />
+
+        {/* 무장애 여행 정보 — 결과가 있을 때만 그려진다 (한국관광공사 실시간) */}
+        <BarrierFreeCard site={site} />
 
         {/* 주변 본당 — 순례 후 미사를 드리고 싶은 이들을 위해 (교구 주소록 기반) */}
         <NearbyParishesCard site={site} />
