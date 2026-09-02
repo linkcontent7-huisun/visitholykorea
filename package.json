@@ -31,6 +31,9 @@
     "translate:export": "tsx scripts/translation-export.ts",
     "translate:import": "tsx scripts/translation-import.ts",
     "translate:status": "tsx scripts/translation-status.ts",
+    "photo:pending": "tsx scripts/feature-photo.ts pending",
+    "photo:feature": "tsx scripts/feature-photo.ts feature",
+    "photo:unfeature": "tsx scripts/feature-photo.ts unfeature",
     "seed:rest": "tsx scripts/seed-rest-places.ts"
   },
   "dependencies": {

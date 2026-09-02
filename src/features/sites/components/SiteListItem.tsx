@@ -5,9 +5,12 @@ import { paths } from '@/app/routes/paths';
 import { getDocentScript } from '@/features/docent/data/scripts';
 import type { HolySite } from '@/shared/types/domain';
 import { SiteThumbnail } from './SiteThumbnail';
+import { useFeaturedPhotos } from '../hooks/use-featured-photos';
 
 /** 탐색(교구별) 화면의 가로형 목록 항목. meta 는 거리·소요시간 같은 한 줄 부가 정보. */
 export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) {
+  // 공식 사진이 없는 성지는 순례자가 보내준(승인된) 사진으로 채운다
+  const { data: featured = {} } = useFeaturedPhotos();
   // 포인트별 오디오 도슨트가 준비된 성지를 목록에서 알아볼 수 있게 한다
   const hasDocent = getDocentScript(site.id) !== null;
   return (
@@ -20,6 +23,7 @@ export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) 
         <div className="flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded-[20px] bg-app-bg shadow-lg shadow-gray-100">
           <SiteThumbnail
             imageUrl={site.imageUrl}
+            pilgrimUrl={featured[site.id] ?? null}
             name={site.name}
             category={site.category}
             fallback="icon"

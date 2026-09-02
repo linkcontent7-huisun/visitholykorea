@@ -50,6 +50,7 @@ import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
 import { useNearbyFacilities, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
 import { GROUP_HINT } from '@/features/sites/lib/nearby-facilities';
 import { useSite, useSitesInSameDiocese } from '@/features/sites/hooks/use-sites';
+import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -70,6 +71,9 @@ export default function SiteDetailPage() {
   const { data: festivals = [], isFetching: festivalsLoading } = useNearbyFestivals(
     site?.coordinates,
   );
+  // 공식 사진이 없으면 순례자가 보내준(운영자 승인) 사진이 대표 자리를 채운다.
+  // 훅이므로 이른 return 위에서 부른다.
+  const sitePhoto = useSitePhoto(siteId, site?.imageUrl ?? null);
   const { data: isFavorited = false } = useIsFavorite(siteId);
   const toggleFavorite = useToggleFavorite(siteId ?? '');
   const { data: myStamp } = useMyStamp(siteId);
@@ -191,6 +195,7 @@ export default function SiteDetailPage() {
   }
 
   const tags = [site.emotionTag, site.region, site.category].filter((t): t is string => Boolean(t));
+  const heroPhoto = sitePhoto;
 
   // 오디오 도슨트 — 현장조사 원고가 있으면 포인트별 투어, 없으면 소개·역사 챕터
   const docentScript = getDocentScript(site.id);
@@ -207,18 +212,24 @@ export default function SiteDetailPage() {
   return (
     <div className={`mx-auto min-h-screen ${widthClass} bg-white pb-32`}>
       <div className="relative flex h-[55vh] w-full items-center justify-center overflow-hidden bg-app-bg">
-        {site.imageUrl ? (
+        {heroPhoto.url ? (
           <>
             <motion.img
               initial={{ scale: 1.1 }}
               animate={{ scale: 1 }}
               transition={{ duration: 10 }}
-              src={site.imageUrl}
-              alt={site.name}
+              src={heroPhoto.url}
+              alt={heroPhoto.fromPilgrim ? `${site.name} — 순례자가 보내온 사진` : site.name}
               className="h-full w-full object-cover"
             />
+            {/* 순례자 사진은 누가 보내준 것인지 밝힌다 — 공식 사진과 같아 보이면 안 된다 */}
+            {heroPhoto.fromPilgrim && (
+              <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[10px] text-white/80 backdrop-blur-sm">
+                순례자가 보내온 사진
+              </span>
+            )}
             {/* CC 계열 라이선스는 출처 표기가 의무다 — 출처가 기록된 사진에만 붙는다 */}
-            {site.imageSource && (
+            {!heroPhoto.fromPilgrim && site.imageSource && (
               <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[10px] text-white/80 backdrop-blur-sm">
                 {site.imageSource}
                 {site.imageLicense ? ` · ${site.imageLicense}` : ''}

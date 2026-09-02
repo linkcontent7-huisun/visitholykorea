@@ -5,6 +5,7 @@ import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { usePilgrimageRoute } from '@/features/routes/hooks/use-pilgrimage-routes';
+import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
 
 /**
  * 코스 상세 — 경유지를 이야기 순서대로 보여준다.
@@ -13,6 +14,8 @@ import { usePilgrimageRoute } from '@/features/routes/hooks/use-pilgrimage-route
  * 드러내고, 각 경유지에는 이 코스에서의 의미(note) 한 줄을 붙인다.
  */
 export default function RouteDetailPage() {
+  // 공식 사진이 없는 성지는 순례자가 보내준(승인된) 사진으로 채운다
+  const { data: featured = {} } = useFeaturedPhotos();
   const { routeSlug = '' } = useParams();
   const navigate = useNavigate();
   const { data, isLoading } = usePilgrimageRoute(routeSlug);
@@ -74,6 +77,7 @@ export default function RouteDetailPage() {
               <div className="relative flex h-36 items-center justify-center overflow-hidden bg-white">
                 <SiteThumbnail
                   imageUrl={stop.site.imageUrl}
+                  pilgrimUrl={featured[stop.site.id] ?? null}
                   name={stop.site.name}
                   category={stop.site.category}
                   emojiSizeClass="text-5xl"

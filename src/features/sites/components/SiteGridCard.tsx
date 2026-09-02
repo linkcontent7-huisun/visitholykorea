@@ -2,9 +2,12 @@ import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import type { HolySite } from '@/shared/types/domain';
 import { SiteThumbnail } from './SiteThumbnail';
+import { useFeaturedPhotos } from '../hooks/use-featured-photos';
 
 /** 홈 화면 "전국 성지 탐방" 그리드에 쓰는 정사각형 카드. */
 export function SiteGridCard({ site }: { site: HolySite }) {
+  // 공식 사진이 없는 성지는 순례자가 보내준(승인된) 사진으로 채운다
+  const { data: featured = {} } = useFeaturedPhotos();
   return (
     <Link
       to={paths.siteDetail(site.id)}
@@ -14,6 +17,7 @@ export function SiteGridCard({ site }: { site: HolySite }) {
       <div className="relative flex aspect-square items-center justify-center overflow-hidden bg-app-bg">
         <SiteThumbnail
           imageUrl={site.imageUrl}
+          pilgrimUrl={featured[site.id] ?? null}
           name={site.name}
           category={site.category}
           className="h-full w-full transform object-cover transition-transform duration-500 group-hover:scale-110"

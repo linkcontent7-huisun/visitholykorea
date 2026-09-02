@@ -16,6 +16,8 @@ export const queryKeys = {
       ['sites', 'diocese', diocese, category ?? 'all'] as const,
     /** 순례 별자리 카드용 좌표 인덱스. 성지 좌표는 거의 안 바뀐다. */
     coordsIndex: ['sites', 'coords-index'] as const,
+    /** 순례자가 올린 승인된 대표 사진 (site_id → url). 목록·상세가 공유한다. */
+    featuredPhotos: ['sites', 'featured-photos'] as const,
   },
   courses: {
     byEmotion: (emotion: EmotionTag, diocese?: string) =>

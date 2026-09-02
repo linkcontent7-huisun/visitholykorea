@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { CERTIFICATE_LEVELS, getCertificateLevel } from '@/features/passport/api/stamps.repository';
+import { EmptyPassportPreview } from '@/features/passport/components/EmptyPassportPreview';
 import { StampMotifIcon } from '@/features/passport/components/StampMotifIcon';
 import {
   useDioceseProgress,
@@ -353,13 +354,8 @@ export default function RecordsPage() {
             )}
 
             {stamps.length === 0 ? (
-              <EmptyState
-                icon={StampIcon}
-                title={t('stampsEmptyTitle')}
-                description={
-                  '성지 상세 페이지에서 "순례 스탬프 찍기"를 눌러\n나만의 순례 여권을 채워보세요.'
-                }
-              />
+              // 빈 화면 대신 "무엇을 모으는 여권인지" 보여준다 (미리보기임을 명시)
+              <EmptyPassportPreview />
             ) : (
               <div className="grid grid-cols-3 gap-x-6 gap-y-8">
                 {stamps.map((stamp) => {
