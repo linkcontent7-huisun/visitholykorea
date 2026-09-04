@@ -1,7 +1,20 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { DocentChapter } from '../lib/chapters';
+import { DICTIONARY } from '@/shared/i18n/dictionary';
 import { DocentPlayer } from './DocentPlayer';
+
+/**
+ * 플레이어는 공용 사전에서 문구를 가져온다(6개 국어). 테스트는 Provider 없이
+ * 컴포넌트만 렌더하므로 훅을 흉내 내되, **실제 사전값**을 쓴다 —
+ * 가짜 문구를 쓰면 사전이 비어도 테스트가 통과해 버린다.
+ */
+vi.mock('@/shared/i18n/use-settings', () => ({
+  useSettings: () => ({
+    language: 'ko' as const,
+    t: (key: keyof typeof DICTIONARY) => DICTIONARY[key].ko,
+  }),
+}));
 
 /** jsdom 에는 음성 합성이 없다 — 호출 여부만 확인할 수 있게 흉내 낸다. */
 class FakeUtterance {
