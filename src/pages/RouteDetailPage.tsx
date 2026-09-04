@@ -1,10 +1,12 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Footprints, MapPin } from 'lucide-react';
+import { ArrowLeft, Check, Footprints, MapPin } from 'lucide-react';
 import { paths } from '@/app/routes/paths';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { usePilgrimageRoute } from '@/features/routes/hooks/use-pilgrimage-routes';
+import { countVisitedEpisodes, toEpisodes } from '@/features/routes/lib/episodes';
+import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
 
 /**
@@ -19,6 +21,8 @@ export default function RouteDetailPage() {
   const { routeSlug = '' } = useParams();
   const navigate = useNavigate();
   const { data, isLoading } = usePilgrimageRoute(routeSlug);
+  // 이 코스에서 내가 몇 화까지 다녀왔는지 — 여권의 스탬프가 곧 진행도다
+  const { data: myStamps = [] } = useMyStamps();
 
   if (isLoading) {
     return (
@@ -31,12 +35,19 @@ export default function RouteDetailPage() {
   if (!data) {
     return (
       <div className="mx-auto min-h-screen max-w-2xl bg-white p-8">
-        <EmptyState icon={Footprints} title="코스를 찾을 수 없어요" description="주소를 다시 확인해 주세요." />
+        <EmptyState
+          icon={Footprints}
+          title="코스를 찾을 수 없어요"
+          description="주소를 다시 확인해 주세요."
+        />
       </div>
     );
   }
 
   const { route, stops } = data;
+  const episodes = toEpisodes(stops);
+  const visitedIds = new Set(myStamps.map((s) => s.siteId));
+  const visitedCount = countVisitedEpisodes(stops, visitedIds);
 
   return (
     <div className="mx-auto min-h-screen max-w-2xl bg-white pb-16">
@@ -55,49 +66,90 @@ export default function RouteDetailPage() {
         {route.description && (
           <p className="text-[15px] leading-relaxed text-app-text-muted">{route.description}</p>
         )}
+
+        {/* 연재 진행도 — 스탬프가 곧 "몇 화까지 봤는가"다 */}
+        <div className="mt-5 rounded-[20px] border border-app-border bg-app-bg p-4">
+          <div className="mb-2 flex items-center justify-between text-xs font-extrabold">
+            <span className="text-app-text">
+              전 {stops.length}화 ·{' '}
+              {visitedCount > 0 ? `${visitedCount}화까지 다녀오셨어요` : '아직 시작 전'}
+            </span>
+            <span className="text-app-text-muted">
+              {visitedCount} / {stops.length}
+            </span>
+          </div>
+          <div className="h-1.5 overflow-hidden rounded-full bg-white">
+            <div
+              className="h-full rounded-full bg-brand-violet transition-all duration-500"
+              style={{ width: `${stops.length > 0 ? (visitedCount / stops.length) * 100 : 0}%` }}
+            />
+          </div>
+        </div>
       </header>
 
       <ol className="px-8 py-6">
-        {stops.map((stop, i) => (
-          <li key={stop.position} className="relative flex gap-4 pb-8 last:pb-0">
-            {/* 세로 연결선 — 마지막 경유지에는 그리지 않는다 */}
-            {i < stops.length - 1 && (
+        {stops.map((stop, i) => {
+          const ep = episodes[i]!;
+          const visited = visitedIds.has(stop.site.id);
+          return (
+            <li key={stop.position} className="relative flex gap-4 pb-8 last:pb-0">
+              {/* 세로 연결선 — 마지막 경유지에는 그리지 않는다 */}
+              {i < stops.length - 1 && (
+                <span className="absolute left-[15px] top-10 h-full w-px bg-gray-200" aria-hidden />
+              )}
               <span
-                className="absolute left-[15px] top-10 h-full w-px bg-gray-200"
-                aria-hidden
-              />
-            )}
-            <span className="z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-violet text-sm font-extrabold text-white">
-              {stop.position}
-            </span>
-            <Link
-              to={paths.siteDetail(stop.site.id)}
-              className="group flex-1 overflow-hidden rounded-[16px] border border-gray-100 bg-app-bg transition-all hover:border-brand-violet"
-            >
-              <div className="relative flex h-36 items-center justify-center overflow-hidden bg-white">
-                <SiteThumbnail
-                  imageUrl={stop.site.imageUrl}
-                  pilgrimUrl={featured[stop.site.id] ?? null}
-                  name={stop.site.name}
-                  category={stop.site.category}
-                  emojiSizeClass="text-5xl"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-4">
-                <h2 className="mb-1 text-lg font-extrabold text-app-text group-hover:text-brand-violet">
-                  {stop.site.name}
-                </h2>
-                {stop.note && (
-                  <p className="mb-2 text-sm font-medium text-brand-violet">{stop.note}</p>
+                className={`z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-extrabold text-white ${
+                  visited ? 'bg-emerald-500' : 'bg-brand-violet'
+                }`}
+                aria-label={visited ? `${ep.episode}화 · 다녀옴` : `${ep.episode}화`}
+              >
+                {visited ? <Check size={16} aria-hidden /> : ep.episode}
+              </span>
+              <div className="flex-1">
+                <Link
+                  to={paths.siteDetail(stop.site.id)}
+                  className="group block overflow-hidden rounded-[16px] border border-gray-100 bg-app-bg transition-all hover:border-brand-violet"
+                >
+                  <div className="relative flex h-36 items-center justify-center overflow-hidden bg-white">
+                    <SiteThumbnail
+                      imageUrl={stop.site.imageUrl}
+                      pilgrimUrl={featured[stop.site.id] ?? null}
+                      name={stop.site.name}
+                      category={stop.site.category}
+                      emojiSizeClass="text-5xl"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <p className="mb-1 text-[10px] font-extrabold uppercase tracking-widest text-brand-violet">
+                      {ep.isFinale ? `${ep.episode}화 · 마지막 이야기` : `${ep.episode}화`}
+                    </p>
+                    <h2 className="mb-1 text-lg font-extrabold text-app-text group-hover:text-brand-violet">
+                      {stop.site.name}
+                    </h2>
+                    {stop.note && (
+                      <p className="mb-2 text-sm font-medium text-brand-violet">{stop.note}</p>
+                    )}
+                    <p className="flex items-center gap-1 text-xs text-app-text-muted">
+                      <MapPin size={12} aria-hidden /> {stop.site.location}
+                    </p>
+                  </div>
+                </Link>
+
+                {/* 다음 화 예고 — 연재물이 다음 편을 보게 만드는 장치.
+                  예고 문구는 다음 경유지의 note 를 그대로 쓴다(없는 사연을 짓지 않는다). */}
+                {ep.next && (
+                  <p className="mt-3 border-l-2 border-brand-violet/30 pl-3 text-xs leading-relaxed text-app-text-muted">
+                    <span className="font-extrabold text-brand-violet">
+                      다음 {ep.episode + 1}화 · {ep.next.siteName}
+                    </span>
+                    {ep.next.teaser && <span className="block mt-0.5">{ep.next.teaser}</span>}
+                  </p>
                 )}
-                <p className="flex items-center gap-1 text-xs text-app-text-muted">
-                  <MapPin size={12} aria-hidden /> {stop.site.location}
-                </p>
               </div>
-            </Link>
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ol>
     </div>
   );

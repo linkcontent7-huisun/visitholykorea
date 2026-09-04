@@ -8,11 +8,13 @@
  *
  * 확인하는 것:
  *   1) 기존 KorService2 — 지금도 정상인가 (한도 초과·키 만료 조기 감지)
- *   2) KorWithService2 무장애 여행 정보 — **경로가 실재하는가** (2026-09-02 미검증)
+ *   2) KorWithService2 무장애 여행 정보 — 활용신청이 승인됐는가
  *
- * 2번이 실패하면 앱은 그 섹션을 아예 그리지 않으므로 화면은 멀쩡하다.
- * 실패가 확인되면 `src/shared/api/tour-api.ts` 의 무장애 함수를 지우거나
- * 올바른 경로로 고친다.
+ * 2번의 판정법(2026-09-02 실측으로 확인된 것):
+ *   - `403 등록되지 않은 서비스키` → 경로는 맞고 **활용신청만 남았다**
+ *   - `404` 또는 JSON 이 아닌 응답 → 경로가 틀렸다. tour-api.ts 를 고친다
+ *
+ * 어느 쪽이든 앱은 그 섹션을 그리지 않으므로 화면은 멀쩡하다.
  */
 
 import { loadEnvLocal } from './lib/env';
@@ -83,7 +85,7 @@ async function main() {
       required: true,
     },
     {
-      label: '② KorWithService2 무장애 여행 (신규·미검증)',
+      label: '② KorWithService2 무장애 여행 (경로 확인됨 · 활용신청 대기)',
       baseUrl: 'https://apis.data.go.kr/B551011/KorWithService2',
       endpoint: 'locationBasedList2',
       params: { ...TEST_POINT, radius: 5000, numOfRows: 3, pageNo: 1, arrange: 'E' },
@@ -102,8 +104,9 @@ async function main() {
 
     if (!result.ok && c.required) requiredFailed = true;
     if (!result.ok && !c.required) {
-      console.log('   → 이 경로는 앱에서 실패해도 섹션이 조용히 접힙니다.');
-      console.log('     계속 실패하면 tour-api.ts 의 무장애 함수를 정리하세요.');
+      console.log('   → 앱에서는 이 실패가 빈 배열로 흡수되어 섹션이 조용히 접힙니다.');
+      console.log('     403(등록되지 않은 서비스키)이면 data.go.kr 에서 무장애');
+      console.log('     여행정보 서비스에 활용신청하세요 — 승인되면 저절로 나타납니다.');
     }
   }
 
