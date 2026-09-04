@@ -7,6 +7,7 @@ import {
   signInWithOAuth,
   signUpWithEmail,
 } from '@/features/auth/api/auth';
+import { HAS_ANY_SOCIAL } from '@/features/auth/lib/providers';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 export default function LoginPage() {
@@ -174,6 +175,13 @@ export default function LoginPage() {
         {/* 소셜 로그인 — 투어원패스처럼 안내 문구 + 원형 아이콘 가로 배열.
             Supabase 공식 지원 제공자(카카오·구글)만 놓는다. 네이버는 미지원이라 뺐다. */}
         <div className="mt-10 text-center">
+          {/* 켜진 제공자가 있을 때만 그린다. 2026-09-04 실측에서 카카오·구글·
+              페이스북·네이버 넷 다 죽어 있었고, 누르면 앱을 떠나 오류 JSON
+              화면으로 갔다 — 사용자 눈에는 "앱이 멈췄다"로 보인다.
+              작동하지 않는 버튼은 더미 UI 다. 제공자를 켠 뒤
+              features/auth/lib/providers.ts 목록에 추가하면 되살아난다. */}
+          {HAS_ANY_SOCIAL && (
+            <>
           <div className="mb-6 flex items-center gap-4" aria-hidden>
             <span className="h-px flex-1 bg-slate-100" />
             <span className="text-xs font-bold text-slate-300">{t('socialLogin')}</span>
@@ -261,6 +269,8 @@ export default function LoginPage() {
               </svg>
             </button>
           </div>
+            </>
+          )}
 
           <div className="mt-8 flex items-center justify-center gap-6">
             <button
