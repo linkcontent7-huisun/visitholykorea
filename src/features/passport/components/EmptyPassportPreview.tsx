@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { fetchSiteLocationIndex } from '@/features/sites/api/holy-sites.repository';
 import { queryKeys } from '@/shared/api/query-keys';
+import { distanceLabel } from '../lib/distance-label';
 import { haversineKm } from '@/shared/lib/geo';
 import { regionCoords } from '@/shared/lib/regions';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -72,7 +73,8 @@ export function EmptyPassportPreview() {
         </p>
       </div>
 
-      {nearest && (
+      {/* 출발지가 있어야 거리를 말할 수 있다 — nearest 는 origin 에서 계산된 값이다 */}
+      {nearest && origin && (
         <Link
           to={paths.siteDetail(nearest.id)}
           className="flex items-center gap-4 rounded-[24px] border border-brand-violet/20 bg-brand-violet/[0.04] p-6"
@@ -87,7 +89,7 @@ export function EmptyPassportPreview() {
             </p>
             <p className="truncate text-sm font-extrabold text-app-text">{nearest.name}</p>
             <p className="text-xs font-bold text-app-text-muted">
-              {origin}에서 약 {Math.round(nearest.km)}km
+              {distanceLabel(origin, nearest.km)}
             </p>
           </div>
         </Link>
