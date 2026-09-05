@@ -57,8 +57,8 @@ export function TravelProfileSheet({ isOpen, onClose }: TravelProfileSheetProps)
   const optionButtonClass = (active: boolean) =>
     `rounded-2xl border px-4 py-3 text-sm font-bold transition-colors ${
       active
-        ? 'border-blue-600 bg-blue-600 text-white'
-        : 'border-slate-200 bg-white text-slate-600 hover:border-blue-300'
+        ? 'border-brand-blue bg-brand-blue text-white'
+        : 'border-slate-200 bg-white text-slate-600 hover:border-brand-violet/40'
     }`;
 
   return (
@@ -84,7 +84,7 @@ export function TravelProfileSheet({ isOpen, onClose }: TravelProfileSheetProps)
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             className="relative flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-t-[40px] bg-white shadow-2xl sm:max-h-[85vh] sm:rounded-[40px]"
           >
-            <header className="relative shrink-0 bg-blue-600 px-8 pb-8 pt-10 text-white">
+            <header className="relative shrink-0 bg-gradient-to-br from-brand-blue to-brand-violet px-8 pb-8 pt-10 text-white">
               <button
                 onClick={() => void finish(true)}
                 disabled={saving}
@@ -96,7 +96,7 @@ export function TravelProfileSheet({ isOpen, onClose }: TravelProfileSheetProps)
               <h2 className="whitespace-pre-line text-2xl font-black leading-tight">
                 {t('travelProfileTitle')}
               </h2>
-              <p className="mt-2 text-sm font-medium text-blue-100">{t('travelProfileSub')}</p>
+              <p className="mt-2 text-sm font-medium text-white/80">{t('travelProfileSub')}</p>
             </header>
 
             <div className="flex-1 space-y-8 overflow-y-auto px-8 py-8">
@@ -173,7 +173,7 @@ export function TravelProfileSheet({ isOpen, onClose }: TravelProfileSheetProps)
                           onClick={() => setCompanionCount(n)}
                           className={`h-11 w-11 rounded-full border text-sm font-bold transition-colors ${
                             companionCount === n
-                              ? 'border-blue-600 bg-blue-600 text-white'
+                              ? 'border-brand-blue bg-brand-blue text-white'
                               : 'border-slate-200 bg-white text-slate-600'
                           }`}
                         >
@@ -210,7 +210,7 @@ export function TravelProfileSheet({ isOpen, onClose }: TravelProfileSheetProps)
               <button
                 onClick={() => void finish(false)}
                 disabled={saving}
-                className="w-full rounded-2xl bg-blue-600 py-4 font-black text-white shadow-xl shadow-blue-100 transition-all hover:bg-blue-700 active:scale-95 disabled:opacity-50"
+                className="w-full rounded-2xl bg-brand-blue py-4 font-black text-white shadow-xl shadow-brand-blue/20 transition-all hover:opacity-90 active:scale-95 disabled:opacity-50"
               >
                 {t('travelProfileDone')}
               </button>
