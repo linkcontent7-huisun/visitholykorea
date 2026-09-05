@@ -1,9 +1,10 @@
 import {
-  ArrowRight,
   ChevronRight,
   Compass,
   HandHeart,
+  Headphones,
   HeartHandshake,
+  MessageCircle,
   Search,
   Sparkles,
   Sunrise,
@@ -16,10 +17,16 @@ import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
 import { CourseCardItem } from '@/features/courses/components/CourseCardItem';
 import { useRecommendedCourses } from '@/features/courses/hooks/use-courses';
+import { useSession } from '@/features/auth/hooks/use-session';
+import { getDocentScript } from '@/features/docent/data/scripts';
+import { EmptyPassportPreview } from '@/features/passport/components/EmptyPassportPreview';
+import { useSiteNotes } from '@/features/passport/hooks/use-stamps';
 import { TodayQuietSection } from '@/features/quiet/components/TodayQuietSection';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
+import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { useSites } from '@/features/sites/hooks/use-sites';
 import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
+import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { regionCoords } from '@/shared/lib/regions';
 import { haversineKm } from '@/shared/lib/geo';
@@ -33,15 +40,34 @@ const EMOTION_ICON: Record<EmotionTag, ComponentType<{ size?: number; className?
   감사: HandHeart,
 };
 
+/** 하루 단위로 바뀌는 값. 날짜가 바뀌면 히어로에 뜨는 성지도 바뀐다. */
+function dayIndex(): number {
+  return Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+}
+
 export default function HomePage() {
-  const { largeText, setLargeText, origin, t } = useSettings();
+  const { largeText, setLargeText, origin, language, t } = useSettings();
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionTag>('치유');
   const [isAIGuideOpen, setIsAIGuideOpen] = useState(false);
+  const { session } = useSession();
 
   const { data: sites = [] } = useSites({ limit: 6 });
   // 붐빔 지수는 좌표가 있는 성지 전체를 후보로 삼는다. 실제 API 호출은
   // 상위 후보 몇 곳에만 일어나므로 목록을 넓게 가져와도 부담이 없다.
   const { data: allSites = [] } = useSites({ limit: 300 });
+  // 히어로 사진은 "사진이 있는 성지"만 후보가 된다 — 사진 없는 곳이 뽑히면 안 된다.
+  const { data: imagedSites = [] } = useSites({ limit: 100, withImageOnly: true });
+
+  /** 오늘 소개하는 성지. 사진이 있는 곳 중에서 날짜로 순서를 매겨 매일 바뀐다. */
+  const heroSite = useMemo(
+    () => (imagedSites.length > 0 ? imagedSites[dayIndex() % imagedSites.length] : null),
+    [imagedSites],
+  );
+  const heroDocent = heroSite ? getDocentScript(heroSite.id) : null;
+
+  /** 히어로 성지에 다녀간 사람의 한 줄 — 실제 데이터가 있을 때만 보여준다(더미 금지). */
+  const { data: heroNotes = [] } = useSiteNotes(heroSite?.id);
+  const storyNote = heroNotes.find((n) => n.note);
 
   /**
    * 출발지를 정해 둔 사람에게는 "전국 아무 데나"가 아니라 **갈 수 있는 곳**을 먼저 보여준다.
@@ -99,29 +125,143 @@ export default function HomePage() {
         </Link>
       </header>
 
-      {/* 오늘의 쉼표 — 이 화면의 주인공. 예전 히어로 캐러셀 자리다.
-          사진이 없으면 빈 껍데기였고, 있어도 누르지 않는 자리였다. */}
-      <TodayQuietSection sites={allSites} />
+      {/* 히어로 — 오늘 소개하는 성지 사진 한 장. 이 화면에서 "무엇을 먼저 볼지"를
+          목록이 아니라 사진 하나로 명확히 한다 (사진 히어로형, T-001). */}
+      {heroSite ? (
+        <section className="px-6 pt-4">
+          <Link
+            to={paths.siteDetail(heroSite.id)}
+            className="group relative block h-80 overflow-hidden rounded-3xl"
+            id="home-hero"
+          >
+            <SiteThumbnail
+              imageUrl={heroSite.imageUrl}
+              name={heroSite.name}
+              category={heroSite.category}
+              intensity="deep"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div
+              className="absolute inset-0"
+              aria-hidden
+              style={{
+                background: 'linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0) 65%)',
+              }}
+            />
+            <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+              <p className="text-[11px] font-bold uppercase tracking-widest opacity-90">
+                {heroSite.region} · {heroSite.category}
+              </p>
+              <h2 className="mt-1 text-[26px] font-extrabold leading-tight tracking-tight">
+                {heroSite.name}
+              </h2>
+              {/* 도슨트 원고가 없는 성지에 있는 척하는 CTA 를 붙이지 않는다(더미 금지). */}
+              {heroDocent && (
+                <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-[13px] font-semibold backdrop-blur-md">
+                  <Headphones size={16} aria-hidden />
+                  {t('heroDocentCta')}
+                </span>
+              )}
+            </div>
+          </Link>
+        </section>
+      ) : (
+        <section className="px-6 pt-4">
+          <div className="h-80 animate-pulse rounded-3xl bg-gray-100" />
+        </section>
+      )}
 
-      {/* 대안 제시 진입점 — "조용한 곳 목록"만으로는 발길이 나뉘지 않는다.
-          이미 가려는 붐비는 곳을 출발점으로 잡아야 한다 (alternatives.ts 상단). */}
-      <section className="px-6 pb-2">
+      {/* 오늘의 쉼표 — 히어로 아래로는 한 줄 요약 리스트로 축소한다 */}
+      <TodayQuietSection sites={allSites} variant="compact" />
+
+      {/* 순례 여권 미리보기 — 로그인 전 상태에만. 가입 유도 장치다. */}
+      {!session && (
+        <section className="px-6 pb-2">
+          <div className="rounded-[24px] border border-app-border bg-white p-6">
+            <div className="mb-5 flex items-center justify-between gap-4">
+              <div className="min-w-0">
+                <h3 className="text-base font-extrabold text-app-text">
+                  {t('pilgrimPassport')}
+                </h3>
+                <p className="mt-1 text-[12px] text-app-text-muted">
+                  {t('passportPreviewSubtitle')}
+                </p>
+              </div>
+              <Link
+                to={paths.login}
+                className="shrink-0 rounded-full bg-brand-blue px-4 py-2 text-[12px] font-bold text-white"
+                id="passport-signup-cta"
+              >
+                {t('passportSignupCta')}
+              </Link>
+            </div>
+            {/* 실제 전체 성지 수(자체 큐레이션 데이터) — 값을 지어내지 않는다 */}
+            {allSites.length > 0 && (
+              <p className="mb-4 text-xs font-bold text-app-text-muted">0 / {allSites.length}</p>
+            )}
+            <EmptyPassportPreview />
+          </div>
+        </section>
+      )}
+
+      {/* 순례자 이야기 미리보기 — 실제 방문자 한 줄이 있을 때만 조용히 노출한다 */}
+      {heroSite && storyNote && (
+        <section className="px-6 pb-2">
+          <div className="flex items-center gap-4 rounded-[24px] border border-app-border bg-white p-5">
+            <div className="h-[72px] w-[72px] shrink-0 overflow-hidden rounded-2xl bg-app-bg">
+              {storyNote.photoUrl ? (
+                <img
+                  src={storyNote.photoUrl}
+                  alt="순례자가 남긴 사진"
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center text-brand-violet/40">
+                  <MessageCircle size={26} aria-hidden />
+                </div>
+              )}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] font-extrabold uppercase tracking-widest text-brand-violet">
+                {t('pilgrimStoriesTitle')}
+              </p>
+              <p className="mt-1 truncate text-sm font-medium text-app-text">
+                &ldquo;{storyNote.note}&rdquo;
+              </p>
+              <p className="mt-1 text-[11px] text-app-text-muted">
+                {new Date(storyNote.visitedAt).toLocaleDateString(SPEECH_LOCALE[language])}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 보조 진입 칩 2개 — 큰 배너 대신 작은 칩으로. 기능은 그대로 유지한다. */}
+      <section className="grid grid-cols-2 gap-3 px-6 pb-2">
         <Link
           to={paths.alternatives}
-          className="flex items-center gap-4 rounded-[20px] border border-app-border bg-white px-6 py-5"
+          className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-6 text-center"
+          id="chip-alternatives"
         >
-          <Wind size={22} className="shrink-0 text-brand-violet" aria-hidden />
-          <span className="flex-1">
-            <span className="block text-sm font-bold text-app-text">{t('alternativesTitle')}</span>
-            <span className="mt-0.5 block text-xs leading-relaxed text-app-text-muted">
-              {t('alternativesSubtitle')}
-            </span>
+          <Wind size={22} className="text-brand-violet" aria-hidden />
+          <span className="text-[12px] font-bold leading-tight text-app-text">
+            {t('crowdAvoidChip')}
           </span>
-          <ArrowRight size={18} className="shrink-0 text-app-text-muted" aria-hidden />
+        </Link>
+        <Link
+          to={paths.compass}
+          className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-6 text-center"
+          id="chip-compass"
+        >
+          <Compass size={22} className="text-brand-violet" aria-hidden />
+          <span className="text-[12px] font-bold leading-tight text-app-text">
+            {t('compassTitle')}
+          </span>
         </Link>
       </section>
 
-      <section className="relative z-30 px-6">
+      <section className="relative z-30 px-6 pt-2">
         <button
           onClick={() => setIsAIGuideOpen(true)}
           className="group relative flex w-full flex-col items-start gap-4 overflow-hidden rounded-[20px] bg-gradient-to-br from-brand-blue to-brand-violet p-7 text-left text-white shadow-xl shadow-brand-blue/10"

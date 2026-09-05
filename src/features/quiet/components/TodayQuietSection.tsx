@@ -22,36 +22,64 @@ function todayLabel(locale: string): string {
  *
  * 계산 근거와 한계를 화면에서 숨기지 않는다 — 추정값을 사실처럼 보여주면
  * 한 번 틀렸을 때 서비스 전체의 신뢰가 무너진다.
+ *
+ * `variant="compact"` 는 사진 히어로형 홈(T-001)에서 쓴다. 히어로 사진이 이미
+ * "오늘"을 대표하므로, 날짜 라벨·부제·근거 문장·대안 배너를 다시 반복하지 않고
+ * 제목 + "더보기" 링크 + 이름/배지만 남긴 목록으로 축소한다.
  */
-export function TodayQuietSection({ sites }: { sites: HolySite[] }) {
+export function TodayQuietSection({
+  sites,
+  variant = 'full',
+}: {
+  sites: HolySite[];
+  variant?: 'full' | 'compact';
+}) {
   const { t, language } = useSettings();
   const { data: quietSites = [], isLoading, isError, error } = useQuietSites(sites, 3);
+  const compact = variant === 'compact';
 
   const locatedCount = sites.filter(
     (s) => s.coordinates.lat != null && s.coordinates.lng != null,
   ).length;
 
   return (
-    <section className="px-6 py-6">
-      <header className="mb-5">
-        <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-brand-violet">
-          {todayLabel(SPEECH_LOCALE[language])}
-        </p>
-        <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-app-text">
-          {t('quietHeroTitle')}
-        </h2>
-        <p className="mt-1.5 text-[12px] leading-relaxed text-app-text-muted">
-          {t('quietHeroSubtitle')}
-        </p>
+    <section className={compact ? 'px-6 py-2' : 'px-6 py-6'}>
+      <header className={compact ? 'mb-3 flex items-center justify-between gap-3' : 'mb-5'}>
+        {compact ? (
+          <>
+            <h2 className="text-lg font-bold text-app-text">{t('quietHeroTitle')}</h2>
+            <Link
+              to={paths.alternatives}
+              className="shrink-0 text-[12px] font-bold text-brand-violet"
+            >
+              {t('quietSeeMore')}
+            </Link>
+          </>
+        ) : (
+          <>
+            <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-brand-violet">
+              {todayLabel(SPEECH_LOCALE[language])}
+            </p>
+            <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-app-text">
+              {t('quietHeroTitle')}
+            </h2>
+            <p className="mt-1.5 text-[12px] leading-relaxed text-app-text-muted">
+              {t('quietHeroSubtitle')}
+            </p>
+          </>
+        )}
       </header>
 
       {isLoading && (
         <div className="space-y-3" role="status" aria-live="polite">
-          <p className="text-[12px] font-medium text-app-text-muted">
-            {t('quietLoading')}
-          </p>
+          {!compact && (
+            <p className="text-[12px] font-medium text-app-text-muted">{t('quietLoading')}</p>
+          )}
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-28 animate-pulse rounded-[20px] bg-white" />
+            <div
+              key={i}
+              className={compact ? 'h-14 animate-pulse rounded-[16px] bg-app-bg' : 'h-28 animate-pulse rounded-[20px] bg-white'}
+            />
           ))}
         </div>
       )}
@@ -91,26 +119,27 @@ export function TodayQuietSection({ sites }: { sites: HolySite[] }) {
 
       {quietSites.length > 0 && (
         <>
-          <div className="space-y-3">
+          <div className={compact ? 'space-y-2' : 'space-y-3'}>
             {quietSites.map((quiet) => (
-              <QuietSiteCard key={quiet.site.id} {...quiet} />
+              <QuietSiteCard key={quiet.site.id} {...quiet} compact={compact} />
             ))}
           </div>
-          {/* 이 섹션은 "오늘 조용한 곳"을 보여준다. 반대 방향 — 가려던 곳이 붐빌 때
-              대신 갈 성지를 찾는 것 — 은 별도 화면에서 한다. */}
-          <Link
-            to={paths.alternatives}
-            className="mt-4 flex items-center justify-between rounded-[16px] border border-app-border bg-app-bg px-5 py-4 transition-all hover:border-brand-violet hover:bg-[#F3F0FF]"
-          >
-            <span className="text-sm font-extrabold text-app-text">
-              {t('alternativesCta')}{' '}
-              <span className="text-brand-violet">{t('alternativesCtaAccent')}</span>
-            </span>
-            <ChevronRight size={18} className="text-app-text-muted" aria-hidden />
-          </Link>
+          {/* compact(히어로형 홈)에서는 이 배너가 "붐빔피하기" 칩으로 옮겨가므로 반복하지 않는다. */}
+          {!compact && (
+            <Link
+              to={paths.alternatives}
+              className="mt-4 flex items-center justify-between rounded-[16px] border border-app-border bg-app-bg px-5 py-4 transition-all hover:border-brand-violet hover:bg-[#F3F0FF]"
+            >
+              <span className="text-sm font-extrabold text-app-text">
+                {t('alternativesCta')}{' '}
+                <span className="text-brand-violet">{t('alternativesCtaAccent')}</span>
+              </span>
+              <ChevronRight size={18} className="text-app-text-muted" aria-hidden />
+            </Link>
+          )}
 
-          {/* 추정값이라는 사실을 화면에서 밝힌다 */}
-          <p className="mt-4 text-[11px] leading-relaxed text-app-text-muted opacity-70">
+          {/* 추정값이라는 사실을 화면에서 밝힌다 — 목록이 축소돼도 이 문장은 남긴다 */}
+          <p className={`text-[11px] leading-relaxed text-app-text-muted opacity-70 ${compact ? 'mt-2' : 'mt-4'}`}>
             {t('quietDisclaimer')}
           </p>
         </>

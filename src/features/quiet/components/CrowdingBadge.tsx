@@ -25,7 +25,7 @@ interface CrowdingBadgeProps {
 export function CrowdingBadge({ level, score, isPartial = false }: CrowdingBadgeProps) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-bold ${LEVEL_STYLE[level]}`}
+      className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1 text-[11px] font-bold ${LEVEL_STYLE[level]}`}
     >
       {level}
       <span className="font-medium opacity-60">{score}</span>

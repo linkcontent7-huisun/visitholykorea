@@ -11,7 +11,35 @@ import { CrowdingBadge } from './CrowdingBadge';
  * 더 큰 이유는 이 카드가 파는 것이 **풍경이 아니라 오늘의 상태**이기 때문이다.
  * 그래서 이름과 근거 문장이 화면을 차지한다.
  */
-export function QuietSiteCard({ site, crowding }: QuietSite) {
+interface QuietSiteCardProps extends QuietSite {
+  /**
+   * 홈 화면 히어로형 레이아웃에서 쓰는 축소 표시.
+   * 이름 + 위치 한 줄 + 붐빔 배지만 남기고, 근거 문장(reasons)은 뺀다 — T-001.
+   */
+  compact?: boolean;
+}
+
+export function QuietSiteCard({ site, crowding, compact = false }: QuietSiteCardProps) {
+  if (compact) {
+    return (
+      <Link
+        to={paths.siteDetail(site.id)}
+        className="flex items-center justify-between gap-3 rounded-[16px] border border-app-border bg-white px-4 py-3 transition-colors hover:border-brand-blue/30"
+        id={`quiet-${site.id}`}
+      >
+        <div className="min-w-0">
+          <h3 className="truncate text-sm font-bold text-app-text">{site.name}</h3>
+          <p className="mt-0.5 truncate text-[11px] text-app-text-muted">{site.location}</p>
+        </div>
+        <CrowdingBadge
+          level={crowding.level}
+          score={crowding.score}
+          isPartial={crowding.isPartial}
+        />
+      </Link>
+    );
+  }
+
   return (
     <Link
       to={paths.siteDetail(site.id)}
