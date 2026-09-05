@@ -1,6 +1,7 @@
 import {
   Camera,
   Check,
+  ChevronDown,
   ChevronLeft,
   Compass,
   Heart,
@@ -12,7 +13,7 @@ import {
   Flag,
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { getInkDaysLeft, getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
@@ -48,7 +49,12 @@ import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCa
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
-import { useNearbyFacilities, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
+import {
+  useBarrierFreeNearby,
+  useNearbyFacilities,
+  useNearbyFestivals,
+} from '@/features/sites/hooks/use-nearby-tour';
+import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
 import { GROUP_HINT } from '@/features/sites/lib/nearby-facilities';
 import { useSite, useSitesInSameDiocese } from '@/features/sites/hooks/use-sites';
 import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
@@ -60,7 +66,7 @@ import { kakaoPlaceUrl } from '@/shared/lib/geo';
 export default function SiteDetailPage() {
   const { siteId } = useParams<{ siteId: string }>();
   const navigate = useNavigate();
-  const { wideView, language } = useSettings();
+  const { wideView, language, t } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
   const { data: site, isLoading } = useSite(siteId);
@@ -72,6 +78,12 @@ export default function SiteDetailPage() {
   const { data: festivals = [], isFetching: festivalsLoading } = useNearbyFestivals(
     site?.coordinates,
   );
+  // "방문 정보" 접이식 그룹의 미리보기 이름을 만들기 위해 여기서도 조회한다.
+  // BarrierFreeCard·NearbyParishesCard 내부에서도 같은 쿼리 키로 부르므로
+  // TanStack Query 가 요청을 하나로 합친다 — TourAPI 추가 호출이 아니다.
+  const { data: barrierFreePlaces = [] } = useBarrierFreeNearby(site?.coordinates);
+  const { data: nearbyParishes = [] } = useNearbyDirectory(site?.coordinates);
+  const [visitInfoOpen, setVisitInfoOpen] = useState(false);
   // 공식 사진이 없으면 순례자가 보내준(운영자 승인) 사진이 대표 자리를 채운다.
   // 훅이므로 이른 return 위에서 부른다.
   const sitePhoto = useSitePhoto(siteId, site?.imageUrl ?? null);
@@ -96,6 +108,38 @@ export default function SiteDetailPage() {
   const [noteDraft, setNoteDraft] = useState('');
   // "남길게요"를 누르기 전까지는 입력창을 강요하지 않는다
   const [noteDismissed, setNoteDismissed] = useState(false);
+
+  // 오디오 도슨트 — 현장조사 원고가 있으면 포인트별 투어, 없으면 소개·역사 챕터.
+  // 훅(useMemo)이라 이른 return 위에서 부른다 — site 는 아직 없을 수 있어 옵셔널로 다룬다.
+  //
+  // useDocentPlayer 는 chapters 배열의 참조가 바뀌면 재생을 멈추고 처음으로 되감는다
+  // (화면을 나가거나 성지가 바뀔 때 멈추기 위한 장치). buildChapters 를 매 렌더마다
+  // 새로 부르면 이 페이지의 다른 상태(예: 방문 정보 아코디언)가 바뀔 때마다
+  // 도슨트가 끊긴다 — T-004 완료 조건("아코디언을 펼치거나 접어도 재생이 끊기지
+  // 않는다")을 만족하려면 여기서 참조를 고정해야 한다.
+  const docentScript = getDocentScript(site?.id);
+  const docentChapters = useMemo(
+    () =>
+      buildChapters(
+        {
+          name: view?.name ?? site?.name ?? '',
+          description: view?.description ?? site?.description ?? null,
+          history: view?.history ?? site?.history ?? null,
+        },
+        docentScript,
+        language,
+      ),
+    [
+      view?.name,
+      view?.description,
+      view?.history,
+      site?.name,
+      site?.description,
+      site?.history,
+      docentScript,
+      language,
+    ],
+  );
 
   // 순례 사진 — 스탬프를 찍은 사람만 남길 수 있다 (실방문 인증)
   const attachPhoto = useAttachPhoto(siteId ?? '');
@@ -199,17 +243,21 @@ export default function SiteDetailPage() {
   const tags = [site.emotionTag, site.region, site.category].filter((t): t is string => Boolean(t));
   const heroPhoto = sitePhoto;
 
-  // 오디오 도슨트 — 현장조사 원고가 있으면 포인트별 투어, 없으면 소개·역사 챕터
-  const docentScript = getDocentScript(site.id);
-  const docentChapters = buildChapters(
-    {
-      name: view?.name ?? site.name,
-      description: view?.description ?? site.description,
-      history: view?.history ?? site.history,
-    },
-    docentScript,
-    language,
-  );
+  // "방문 정보" 그룹을 접었을 때 무엇이 안에 있는지 미리 보여줄 이름 목록.
+  // 성지마다 있는 항목이 다르므로(문의·무장애 정보·주변 본당은 조건부),
+  // 실제로 그 성지에 존재하는 항목만 나열한다 — 없는 걸 있는 것처럼 보이면 안 된다.
+  const hasContact = Boolean(site.phone || site.homepageUrl || site.fax);
+  const hasBarrierFree = barrierFreePlaces.length > 0;
+  const hasNearbyParishes = nearbyParishes.length > 0;
+  const visitInfoPreview = [
+    t('visitInfoEtiquette'),
+    t('directions'),
+    hasContact ? t('visitInfoContact') : null,
+    hasBarrierFree ? t('visitInfoBarrierFree') : null,
+    hasNearbyParishes ? t('visitInfoNearbyParishes') : null,
+  ]
+    .filter((label): label is string => Boolean(label))
+    .join(' · ');
 
   return (
     <div className={`mx-auto min-h-screen ${widthClass} bg-white pb-32`}>
@@ -309,21 +357,14 @@ export default function SiteDetailPage() {
             <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
             <h2 className="text-xl font-extrabold tracking-tight text-app-text">기본 정보</h2>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
-              <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
-                주소
-              </div>
-              <p className="text-xs font-bold leading-relaxed text-app-text">{site.location}</p>
+          {/* 주소는 히어로 부제와 "찾아가는 길"에 이미 나오므로 여기서는 뺀다 (T-004) */}
+          <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
+            <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
+              교구 / 감성 태그
             </div>
-            <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
-              <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
-                교구 / 감성 태그
-              </div>
-              <p className="text-xs font-bold text-app-text">
-                {site.region} {site.emotionTag ? `· ${site.emotionTag}` : ''}
-              </p>
-            </div>
+            <p className="text-xs font-bold text-app-text">
+              {site.region} {site.emotionTag ? `· ${site.emotionTag}` : ''}
+            </p>
           </div>
         </section>
 
@@ -478,10 +519,12 @@ export default function SiteDetailPage() {
           </section>
         )}
 
-        {/* 안내 문구와 버튼은 한 덩어리로 묶는다. 예전에는 문구에 -mb-2 를 줘서
-            둘 사이 간격을 좁혔는데, 그 음수 여백이 버튼을 8px 끌어올려 문구를
-            가리고 있었다. 래퍼로 감싸 space-y 로 간격을 주면 겹치지 않는다. */}
-        <div className="space-y-3">
+        {/* 순례 스탬프 찍기 — 이 화면의 진짜 주인공(T-004). 다른 섹션과 같은
+            "보라 세로줄 + h2" 제목 스타일을 쓰지 않고, 굵은 테두리와 배경색만으로
+            가장 먼저 눈에 띄게 만든다. 안내 문구와 버튼 사이는 예전에 -mb-2 로
+            좁혔다가 버튼을 8px 끌어올려 문구를 가리는 문제가 있었다 — 여기서도
+            래퍼 안에서 space-y 로만 간격을 준다. */}
+        <section className="space-y-3 rounded-[32px] border-2 border-brand-blue bg-brand-blue/[0.06] p-6 shadow-lg shadow-brand-blue/10">
           {!stamped &&
             (wydNow ? (
               // WYD 대회 기간 — 다시 오지 않는 날짜. 이 기간의 스탬프는 그 자체로 참가 증명이다.
@@ -525,7 +568,21 @@ export default function SiteDetailPage() {
                   : '순례 스탬프 찍기'}
             </button>
           </div>
-        </div>
+
+          {/* 공유 버튼 — 방문정보 섹션들 뒤에 있으면 스탬프를 막 찍은 사람이
+              다시 스크롤해야 했다(T-004). 스탬프 버튼 바로 아래로 옮긴다. */}
+          {stamped && (
+            <button
+              onClick={() => void handleShareCard()}
+              disabled={shareLoading}
+              className="flex w-full items-center justify-center gap-2 rounded-[20px] border-2 border-dashed border-brand-violet/40 bg-white py-4 text-sm font-bold text-brand-violet disabled:opacity-50"
+              id="share-card-button"
+            >
+              <Share2 size={18} />
+              {shareLoading ? '카드 만드는 중...' : '순례 스탬프 카드 공유하기'}
+            </button>
+          )}
+        </section>
 
         {/* 한 줄 남기기 — 붐빔 지수는 추정이고, 실제로 조용했는지는 다녀온
             사람만 안다. 이 한 줄이 다음 방문자의 판단 근거가 된다 (컨셉 축 3). */}
@@ -667,32 +724,56 @@ export default function SiteDetailPage() {
           </div>
         )}
 
-        {/* 들어가기 전 안내 — 비신자·외국인이 문 앞에서 멈추는 이유를 없앤다 */}
-        <VisitEtiquette />
-
-        {/* 찾아가는 길 — 외국인 방문자를 기준으로 만든 화면 */}
-        <DirectionsCard site={site} />
-
-        {/* 문의 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
-        <ContactCard site={site} />
-
-        {/* 무장애 여행 정보 — 결과가 있을 때만 그려진다 (한국관광공사 실시간) */}
-        <BarrierFreeCard site={site} />
-
-        {/* 주변 본당 — 순례 후 미사를 드리고 싶은 이들을 위해 (교구 주소록 기반) */}
-        <NearbyParishesCard site={site} />
-
-        {stamped && (
+        {/* 방문 정보 — 들어가기 전 안내·찾아가는 길·문의·무장애 정보·주변 본당을
+            한 그룹으로 묶는다(T-004). 각 컴포넌트 내부는 그대로 두고 바깥만
+            접이식으로 감싼다. 기본은 접힘 — 대신 접힌 채로도 안에 뭐가 있는지
+            미리 보이게 해서(50대 이상 주 사용자에게는 이 쪽이 더 안심된다),
+            "눌러봐야 아는" 부담을 없앤다. */}
+        <section aria-labelledby="visit-info-heading">
           <button
-            onClick={() => void handleShareCard()}
-            disabled={shareLoading}
-            className="flex w-full items-center justify-center gap-2 rounded-[20px] border-2 border-dashed border-brand-violet/30 py-4 text-sm font-bold text-brand-violet disabled:opacity-50"
-            id="share-card-button"
+            type="button"
+            onClick={() => setVisitInfoOpen((open) => !open)}
+            aria-expanded={visitInfoOpen}
+            aria-controls="visit-info-panel"
+            className="flex w-full items-center gap-3 rounded-[28px] border border-app-border bg-app-bg p-5 text-left"
           >
-            <Share2 size={18} />
-            {shareLoading ? '카드 만드는 중...' : '순례 스탬프 카드 공유하기'}
+            <div className="h-6 w-1.5 shrink-0 rounded-full bg-brand-violet" />
+            <div className="min-w-0 flex-1">
+              <h2 id="visit-info-heading" className="text-base font-extrabold tracking-tight text-app-text">
+                {t('visitInfo')}
+              </h2>
+              {!visitInfoOpen && visitInfoPreview && (
+                <p className="mt-1 truncate text-xs font-semibold text-app-text-muted">
+                  {visitInfoPreview}
+                </p>
+              )}
+            </div>
+            <ChevronDown
+              size={18}
+              className={`shrink-0 text-app-text-muted transition-transform ${visitInfoOpen ? 'rotate-180' : ''}`}
+              aria-hidden
+            />
           </button>
-        )}
+
+          {visitInfoOpen && (
+            <div id="visit-info-panel" className="mt-8 space-y-12">
+              {/* 들어가기 전 안내 — 비신자·외국인이 문 앞에서 멈추는 이유를 없앤다 */}
+              <VisitEtiquette />
+
+              {/* 찾아가는 길 — 외국인 방문자를 기준으로 만든 화면 */}
+              <DirectionsCard site={site} />
+
+              {/* 문의 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
+              <ContactCard site={site} />
+
+              {/* 무장애 여행 정보 — 결과가 있을 때만 그려진다 (한국관광공사 실시간) */}
+              <BarrierFreeCard site={site} />
+
+              {/* 주변 본당 — 순례 후 미사를 드리고 싶은 이들을 위해 (교구 주소록 기반) */}
+              <NearbyParishesCard site={site} />
+            </div>
+          )}
+        </section>
 
         {nearbySites.length > 0 && (
           <section className="pb-10">

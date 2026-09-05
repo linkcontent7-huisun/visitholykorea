@@ -1787,6 +1787,48 @@ export const DICTIONARY = {
     pt: 'Por favor, não tire fotos durante a missa',
     it: 'Per favore non fotografare durante la Messa',
   },
+
+  // 방문 정보 접이식 그룹 (T-004) — 5개 카드를 하나로 묶는 제목과 미리보기 이름
+  visitInfo: {
+    ko: '방문 정보',
+    en: 'Visit information',
+    es: 'Información de la visita',
+    fr: 'Informations pratiques',
+    pt: 'Informações da visita',
+    it: 'Informazioni per la visita',
+  },
+  visitInfoEtiquette: {
+    ko: '들어가기 전 안내',
+    en: 'Etiquette guide',
+    es: 'Guía de etiqueta',
+    fr: 'Guide de savoir-vivre',
+    pt: 'Guia de etiqueta',
+    it: 'Guida al galateo',
+  },
+  visitInfoContact: {
+    ko: '문의',
+    en: 'Contact',
+    es: 'Contacto',
+    fr: 'Contact',
+    pt: 'Contato',
+    it: 'Contatti',
+  },
+  visitInfoBarrierFree: {
+    ko: '무장애 정보',
+    en: 'Accessibility info',
+    es: 'Información de accesibilidad',
+    fr: 'Infos accessibilité',
+    pt: 'Informações de acessibilidade',
+    it: 'Informazioni sull’accessibilità',
+  },
+  visitInfoNearbyParishes: {
+    ko: '주변 본당',
+    en: 'Nearby parishes',
+    es: 'Parroquias cercanas',
+    fr: 'Paroisses proches',
+    pt: 'Paróquias próximas',
+    it: 'Parrocchie vicine',
+  },
 } as const satisfies Record<string, Record<Language, string>>;
 
 export type TranslationKey = keyof typeof DICTIONARY;
