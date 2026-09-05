@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useState } from 'react';
 import {
   ChevronRight,
   Globe,
@@ -6,7 +7,6 @@ import {
   MapPin,
   LogIn,
   LogOut,
-  Settings,
   Share2,
   ShieldQuestion,
   Type,
@@ -21,6 +21,7 @@ import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useMyLogs } from '@/features/records/hooks/use-logs';
 import { LANGUAGES, LANGUAGE_LABEL, type Language } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { copyText } from '@/shared/lib/map-links';
 import { REGIONS, type Region } from '@/shared/lib/regions';
 
 interface MenuItem {
@@ -51,6 +52,25 @@ export default function MenuPage() {
     (session?.user.user_metadata?.name as string | undefined) || session?.user.email || t('pilgrimDefaultName');
 
   const requireAuth = () => navigate(paths.login);
+
+  // 공유 시트가 없는 환경(데스크톱 크롬 등)에서는 링크 복사 결과를
+  // "앱 공유하기" 항목의 부제로 잠깐 보여준다 — alert 을 쓰지 않기 위해서다.
+  const [shareStatus, setShareStatus] = useState<'idle' | 'copied' | 'error'>('idle');
+
+  const handleShare = async () => {
+    const shareData = { title: document.title, url: window.location.origin };
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch {
+        // 사용자가 공유를 취소한 경우 등 — 조용히 무시
+      }
+      return;
+    }
+    const ok = await copyText(shareData.url);
+    setShareStatus(ok ? 'copied' : 'error');
+    setTimeout(() => setShareStatus('idle'), 2000);
+  };
 
   const sections: { title: string; items: MenuItem[] }[] = [
     {
@@ -117,15 +137,33 @@ export default function MenuPage() {
             </select>
           ),
         },
-        { id: 'settings', icon: Settings, label: t('generalSettings') },
       ],
     },
     {
       title: t('supportInfo'),
       items: [
-        { id: 'intro', icon: Info, label: t('aboutService'), sub: t('aboutServiceSub') },
-        { id: 'help', icon: ShieldQuestion, label: t('customerSupport'), sub: t('customerSupportSub') },
-        { id: 'share', icon: Share2, label: t('shareApp') },
+        {
+          id: 'intro',
+          icon: Info,
+          label: t('aboutService'),
+          sub: t('aboutServiceSub'),
+          onClick: () => navigate(paths.faq),
+        },
+        {
+          id: 'help',
+          icon: ShieldQuestion,
+          label: t('customerSupport'),
+          sub: t('customerSupportSub'),
+          onClick: () => navigate(paths.faq),
+        },
+        {
+          id: 'share',
+          icon: Share2,
+          label: t('shareApp'),
+          sub:
+            shareStatus === 'copied' ? t('copied') : shareStatus === 'error' ? t('copyFailed') : undefined,
+          onClick: () => void handleShare(),
+        },
       ],
     },
   ];
