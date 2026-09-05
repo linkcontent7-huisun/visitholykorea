@@ -17,6 +17,8 @@ export interface TravelProfile {
   companionCount: number | null;
   /** 여행사·순례 전문 여행사의 가이드 동반 단체인지. */
   isGuidedTour: boolean | null;
+  /** 온보딩 시트를 이미 보여준 적 있는지. null 이면 아직 한 번도 안 물어봤다. */
+  promptedAt: string | null;
 }
 
 async function getCurrentUserId(): Promise<string | null> {
@@ -30,7 +32,7 @@ export async function getTravelProfile(): Promise<TravelProfile | null> {
 
   const { data, error } = await supabase
     .from(TABLE)
-    .select('country_code, companion_count, is_guided_tour')
+    .select('country_code, companion_count, is_guided_tour, travel_profile_prompted_at')
     .eq('id', userId)
     .maybeSingle();
 
@@ -44,7 +46,23 @@ export async function getTravelProfile(): Promise<TravelProfile | null> {
     countryCode: data.country_code as string | null,
     companionCount: data.companion_count as number | null,
     isGuidedTour: data.is_guided_tour as boolean | null,
+    promptedAt: data.travel_profile_prompted_at as string | null,
   };
+}
+
+/**
+ * 온보딩 시트를 보여줬다고 표시한다 — 답을 했든 "나중에"를 눌렀든 호출한다.
+ * 이걸 안 부르면 다음 로그인 때 또 뜬다.
+ */
+export async function markTravelProfilePrompted(): Promise<void> {
+  const userId = await getCurrentUserId();
+  if (!userId) return;
+
+  const { error } = await supabase
+    .from(TABLE)
+    .update({ travel_profile_prompted_at: new Date().toISOString() })
+    .eq('id', userId);
+  if (error) console.warn('markTravelProfilePrompted skipped:', error.message);
 }
 
 /**
