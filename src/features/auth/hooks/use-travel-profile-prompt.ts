@@ -8,8 +8,10 @@ import { useSession } from './use-session';
  * 이메일 가입은 메일 인증을 거쳐야 세션이 생기고, 소셜 로그인은 콜백을 거쳐
  * 홈으로 돌아온다 — 그래서 "가입 버튼 누른 직후"에 딱 붙일 화면이 없다.
  * 대신 로그인 세션이 잡힐 때마다 "물어본 적 있는지"를 서버에 물어서 판단한다.
- * (2026-09-05: 첫 배치는 이 자리로 정했지만, 응답률을 보고 다른 시점으로
- *  옮길 수 있다 — travel-profile-onboarding-placement 메모리 참고)
+ *
+ * TODO(2026-09-05, 재검토 예정): "가입 직후"는 사용자가 셋 중 골라본 첫 선택지일
+ * 뿐, 검증된 최적 시점이 아니다. 완료율/스킵율이 쌓이면 "첫 스탬프 찍을 때"
+ * 등 다른 시점으로 옮기는 걸 다시 검토하기로 사용자와 합의했다.
  */
 export function useTravelProfilePrompt(): boolean {
   const { session, isLoading } = useSession();
