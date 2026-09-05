@@ -19,7 +19,6 @@ vi.mocked(useSettingsModule.useSettings).mockReturnValue({
   setOrigin: vi.fn(),
   t: ((key: keyof typeof DICTIONARY) => DICTIONARY[key].ko) as never,
   wideView: false,
-  setWideView: vi.fn(),
 });
 
 function mockQuietSites(overrides: Partial<ReturnType<typeof useQuietSitesModule.useQuietSites>>) {

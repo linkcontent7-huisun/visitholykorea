@@ -1,4 +1,3 @@
-import { Monitor, Smartphone } from 'lucide-react';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { TravelProfileSheet } from '@/features/auth/components/TravelProfileSheet';
@@ -9,9 +8,13 @@ import { BottomNav } from './BottomNav';
 /**
  * 모바일 폭을 기준으로 한 앱 셸.
  * 데스크톱 브라우저에서도 실제 앱과 같은 비율로 보이도록 가운데 정렬한다.
+ *
+ * 폭 전환 버튼이 화면 오른쪽 아래에 떠 있었는데, 휴대폰에서 하단 탭의 `더보기` 를
+ * 가려 누를 수 없게 만들었다(2026-09-05 실기기 확인). 개발·검수용 도구였을 뿐
+ * 사용자가 고를 일이 아니므로 지웠다 — 이제 화면 폭으로 자동 판단한다.
  */
 export function AppLayout() {
-  const { wideView, setWideView } = useSettings();
+  const { wideView } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
   // 서버가 "물어본 적 없다"고 답한 세션에서만 뜬다. 시트를 닫으면(답했든 건너뛰었든)
@@ -28,17 +31,6 @@ export function AppLayout() {
         <BottomNav widthClass={widthClass} />
         <TravelProfileSheet isOpen={shouldPrompt && !dismissed} onClose={() => setDismissed(true)} />
       </div>
-
-      {/* 개발·검수용 미리보기 폭 전환. 실제 서비스 기능이 아니다. */}
-      <button
-        onClick={() => setWideView(!wideView)}
-        className="fixed bottom-4 right-4 z-[999] flex h-12 w-12 items-center justify-center rounded-full bg-gray-900 text-white shadow-xl transition-colors hover:bg-gray-700"
-        id="preview-width-toggle"
-        title={wideView ? '모바일 화면으로 보기' : '넓은 화면으로 보기'}
-        aria-label={wideView ? '모바일 화면으로 보기' : '넓은 화면으로 보기'}
-      >
-        {wideView ? <Smartphone size={20} /> : <Monitor size={20} />}
-      </button>
     </div>
   );
 }

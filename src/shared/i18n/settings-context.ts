@@ -16,9 +16,12 @@ export interface SettingsContextValue {
   largeText: boolean;
   setLargeText: (v: boolean) => void;
   t: (key: TranslationKey) => string;
-  /** 개발·검수용 미리보기 폭 전환(모바일 ↔ 데스크톱). 새로고침하면 초기화된다. */
+  /**
+   * 데스크톱 폭으로 보고 있는지. **사용자가 고르는 값이 아니라 화면 폭으로 자동 판단한다.**
+   * 예전에는 화면에 떠 있는 버튼으로 직접 바꿨는데, 그 버튼이 휴대폰에서 하단 탭의
+   * `더보기` 를 가려서 지웠다(2026-09-05).
+   */
   wideView: boolean;
-  setWideView: (v: boolean) => void;
 }
 
 /**

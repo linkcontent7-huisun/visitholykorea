@@ -16,7 +16,6 @@ function mockSettings(language: SettingsContextValue['language'], setLanguage = 
     setOrigin: vi.fn(),
     t: ((k: string) => k) as SettingsContextValue['t'],
     wideView: false,
-    setWideView: vi.fn(),
   });
   return setLanguage;
 }
