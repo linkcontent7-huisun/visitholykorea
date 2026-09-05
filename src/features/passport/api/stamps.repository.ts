@@ -50,20 +50,28 @@ async function getCurrentUserId(): Promise<string | null> {
   return data.user?.id ?? null;
 }
 
+export type TransportMode = 'walk' | 'public_transit' | 'car' | 'tour_bus' | 'other';
+
 /**
  * 성지에 스탬프를 찍는다. 이미 찍은 곳이면 성공으로 취급하되,
  * 한 줄이 딸려 왔다면 그 한 줄만 갱신한다 — 나중에 생각나서 남기는 경우다.
+ *
+ * transportMode: "오늘 여기 어떻게 오셨어요?" — 국가 통계에 없는, 성지별
+ * 이동수단 데이터를 여기서 직접 쌓는다. 안 물어봐도(null) 스탬프는 찍힌다.
  */
 export async function addStamp(
   siteId: string,
   note: string | null = null,
+  transportMode: TransportMode | null = null,
 ): Promise<{ success: boolean; error?: string }> {
   const userId = await getCurrentUserId();
   if (!userId) {
     return { success: false, error: 'UNAUTHENTICATED' };
   }
 
-  const { error } = await supabase.from(TABLE).insert({ user_id: userId, site_id: siteId, note });
+  const { error } = await supabase
+    .from(TABLE)
+    .insert({ user_id: userId, site_id: siteId, note, transport_mode: transportMode });
 
   if (error) {
     // 23505 = unique 제약 위반(중복 스탬프). 이미 찍은 곳이다.
