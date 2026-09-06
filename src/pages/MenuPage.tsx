@@ -9,12 +9,14 @@ import {
   LogOut,
   Share2,
   ShieldQuestion,
+  SlidersHorizontal,
   Type,
   User,
   type LucideIcon,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
+import { useAdminAccess } from '@/features/admin/hooks/use-admin';
 import { signOut } from '@/features/auth/api/auth';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
@@ -42,6 +44,8 @@ interface MenuItem {
 export default function MenuPage() {
   const navigate = useNavigate();
   const { session } = useSession();
+  // 관리자 콘솔 입구. 권한이 없는 사람에게는 아예 그리지 않는다.
+  const { canEnter: canEnterAdmin } = useAdminAccess();
   const { language, setLanguage, largeText, setLargeText, origin, setOrigin, t } =
     useSettings();
   const { data: stamps = [] } = useMyStamps();
@@ -267,6 +271,18 @@ export default function MenuPage() {
             </div>
           </section>
         ))}
+
+        {canEnterAdmin && (
+          // 운영자 전용 입구라 다국어로 만들지 않는다 — 이 줄을 보는 사람은 한국인 운영자뿐이다.
+          <button
+            onClick={() => navigate(paths.admin)}
+            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-app-border bg-white p-5 text-sm font-bold text-app-text"
+            id="admin-console-btn"
+          >
+            <SlidersHorizontal size={16} />
+            관리자 콘솔
+          </button>
+        )}
 
         <button
           onClick={() => {

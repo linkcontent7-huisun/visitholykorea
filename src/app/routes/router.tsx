@@ -22,6 +22,9 @@ const LoginPage = lazy(() => import('@/pages/LoginPage'));
 const TermsPage = lazy(() => import('@/pages/TermsPage'));
 const FaqPage = lazy(() => import('@/pages/FaqPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
+// 관리자 콘솔 — 순례자 화면과 함께 내려받지 않도록 여기서도 lazy 로 둔다.
+const AdminPage = lazy(() => import('@/pages/AdminPage'));
+const AdminSitePage = lazy(() => import('@/pages/AdminSitePage'));
 
 function withSuspense(node: ReactNode) {
   return <Suspense fallback={<LoadingSpinner />}>{node}</Suspense>;
@@ -85,6 +88,8 @@ export const router = createBrowserRouter([
       { path: paths.login, element: withSuspense(<LoginPage />) },
       { path: paths.terms, element: withSuspense(<TermsPage />) },
       { path: paths.faq, element: withSuspense(<FaqPage />) },
+      { path: paths.admin, element: withSuspense(<AdminPage />) },
+      { path: paths.adminSitePattern, element: withSuspense(<AdminSitePage />) },
       { path: '*', element: withSuspense(<NotFoundPage />) },
     ],
   },

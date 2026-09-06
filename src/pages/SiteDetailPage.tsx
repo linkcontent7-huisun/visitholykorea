@@ -29,7 +29,7 @@ import {
   useSiteNotes,
 } from '@/features/passport/hooks/use-stamps';
 import { recordNoteReads } from '@/features/passport/api/stamps.repository';
-import { shrinkPhoto } from '@/features/passport/lib/photo';
+import { shrinkPhoto } from '@/shared/lib/photo';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
 import { resolveStampMotif } from '@/features/passport/lib/stamp-motifs';
 import {

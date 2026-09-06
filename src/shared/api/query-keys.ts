@@ -73,4 +73,19 @@ export const queryKeys = {
      */
     ongoing: (date: string) => ['festivals', 'ongoing', date] as const,
   },
+  admin: {
+    /** 내 권한 등급. 로그인이 바뀌면 무효화한다. */
+    role: ['admin', 'role'] as const,
+    /** 「오늘 채울 곳」 대기열 — 무엇이 비었는지. */
+    queue: ['admin', 'queue'] as const,
+    /** 순례자 사진 승인함. */
+    pendingPhotos: ['admin', 'pending-photos'] as const,
+    /**
+     * 편집 화면이 쓰는 성지 1곳. 공개 상세(`sites.detail`)와 담는 모양이 달라
+     * 키를 따로 둔다 — 같은 키를 쓰면 두 화면이 서로의 캐시를 덮어쓴다.
+     */
+    siteDraft: (siteId: string) => ['admin', 'site-draft', siteId] as const,
+    /** 성지 1곳 수정 이력. */
+    revisions: (siteId: string) => ['admin', 'revisions', siteId] as const,
+  },
 } as const;

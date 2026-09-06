@@ -42,6 +42,41 @@ export interface ProfileRow {
   email: string | null;
   name: string | null;
   provider: string | null;
+  /** 관리자 권한 (마이그레이션 20260906000000). member | editor | admin */
+  role: AdminRole;
+  /** editor 가 맡은 교구. 비어 있으면 전 교구를 맡는다. */
+  diocese: string | null;
+  created_at: string;
+}
+
+/** 관리자 권한 등급. DB 의 profiles_role_check 제약과 같은 값이어야 한다. */
+export type AdminRole = 'member' | 'editor' | 'admin';
+
+/**
+ * 성지 수정 이력 (마이그레이션 20260906000000).
+ * `before` 에 고치기 직전 행 전체가 들어 있어, 잘못 고쳤을 때 되돌릴 수 있다.
+ */
+export interface SiteRevisionRow {
+  id: string;
+  site_id: string;
+  editor: string | null;
+  changed_at: string;
+  before: Record<string, unknown>;
+  fields: string[];
+}
+
+/**
+ * admin_pending_photos 뷰 — 순례자 사진 승인함.
+ * 회원을 특정할 수 있는 정보(user_id·이메일)는 일부러 빠져 있다.
+ */
+export interface AdminPendingPhotoRow {
+  stamp_id: string;
+  site_id: string;
+  site_name: string;
+  diocese: string | null;
+  photo_url: string;
+  note: string | null;
+  photo_featured: boolean;
   created_at: string;
 }
 

@@ -32,4 +32,11 @@ export const paths = {
   routes: '/routes',
   routeDetail: (slug: string) => `/routes/${slug}`,
   routeDetailPattern: '/routes/:routeSlug',
+  /**
+   * 관리자 콘솔 — 어디에도 링크하지 않는다(권한 있는 사람만 「더보기」에 뜬다).
+   * 주소를 안다고 들어와지지도 않는다. 권한 판단은 DB 가 한다.
+   */
+  admin: '/admin',
+  adminSite: (id: string) => `/admin/sites/${id}`,
+  adminSitePattern: '/admin/sites/:siteId',
 } as const;
