@@ -26,13 +26,19 @@ function todayLabel(locale: string): string {
  * `variant="compact"` 는 사진 히어로형 홈(T-001)에서 쓴다. 히어로 사진이 이미
  * "오늘"을 대표하므로, 날짜 라벨·부제·근거 문장·대안 배너를 다시 반복하지 않고
  * 제목 + "더보기" 링크 + 이름/배지만 남긴 목록으로 축소한다.
+ *
+ * `padded={false}` 는 좌우 여백을 부모가 이미 잡고 있을 때 쓴다(반응형 셸의
+ * `PageContainer` 안에 들어가는 경우). 기본값은 예전과 같은 `px-6` 이므로
+ * 다른 화면의 호출부는 고치지 않아도 된다.
  */
 export function TodayQuietSection({
   sites,
   variant = 'full',
+  padded = true,
 }: {
   sites: HolySite[];
   variant?: 'full' | 'compact';
+  padded?: boolean;
 }) {
   const { t, language } = useSettings();
   const { data: quietSites = [], isLoading, isError, error } = useQuietSites(sites, 3);
@@ -43,7 +49,9 @@ export function TodayQuietSection({
   ).length;
 
   return (
-    <section className={compact ? 'px-6 py-2' : 'px-6 py-6'}>
+    <section
+      className={`${padded ? 'px-6' : ''} ${compact ? 'py-2' : 'py-6'}`}
+    >
       <header className={compact ? 'mb-3 flex items-center justify-between gap-3' : 'mb-5'}>
         {compact ? (
           <>
