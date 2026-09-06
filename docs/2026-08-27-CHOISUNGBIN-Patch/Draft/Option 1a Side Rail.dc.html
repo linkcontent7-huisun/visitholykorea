@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.451.0/dist/umd/lucide.min.js"></script>
+<style>
+body { margin:0; background:#e9ecef; font-family:'Inter',-apple-system,'Malgun Gothic',sans-serif; color:#1a1a1a; }
+a { color:#1e3a8a; text-decoration:none; }
+a:hover { color:#7c3aed; }
+</style>
+</helmet>
+
+<section style="display:flex; flex-direction:column; gap:28px; padding:48px 56px 96px;">
+  <div style="display:flex; flex-direction:column; gap:8px; max-width:900px;">
+    <span style="font:700 11px/1 'Inter',sans-serif; letter-spacing:.18em; text-transform:uppercase; color:#7c3aed;">Visit Holy Korea · 반응형 시안 1a</span>
+    <h1 style="margin:0; font:800 32px/1.15 'Inter',sans-serif; letter-spacing:-.02em;">사이드 레일 / Side rail</h1>
+    <p style="margin:0; font:400 14px/1.65 'Inter',sans-serif; color:#495057; text-wrap:pretty;">데스크톱 1280 + 모바일 390 한 쌍. 색·서체·컴포넌트는 저장소의 <code style="font:600 13px ui-monospace,monospace;">globals.css</code> 토큰을 그대로 씁니다 — brand-blue #1e3a8a · brand-violet #7c3aed · app-bg #f8f9fa · app-border #f1f3f5 · Inter.</p>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:64px; align-items:flex-start;">
+
+<!-- ══════════════ 1a ══════════════ -->
+    <div id="1a" style="display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; align-items:baseline; gap:12px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:34px; height:26px; border-radius:7px; background:#1e3a8a; color:#fff; font:800 13px 'Inter',sans-serif;">1a</span>
+        <h2 style="margin:0; font:800 22px/1.2 'Inter',sans-serif;">사이드 레일 <span style="color:#495057; font-weight:600;">/ Side rail</span></h2>
+      </div>
+      <p style="margin:0; max-width:820px; font:400 14px/1.6 'Inter',sans-serif; color:#495057;">하단 탭 5개를 왼쪽 고정 레일로 옮기고, 본문을 피드 + 우측 스티키 열로 나눕니다. 모바일 정보 구조를 하나도 바꾸지 않고 넓이만 활용하는 가장 안전한 안 — 여권·미카엘이 스크롤 내내 보입니다.</p>
+
+      <div style="display:flex; gap:24px; align-items:flex-start;">
+        <!-- desktop -->
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <span style="font:700 11px/1 ui-monospace,monospace; letter-spacing:.1em; color:#495057;">DESKTOP 1280 × 900</span>
+          <div style="width:1280px; height:900px; overflow:hidden; display:flex; border:1px solid #dee2e6; border-radius:14px; background:#f8f9fa; box-shadow:0 24px 60px rgba(26,26,26,.13);">
+            <aside style="width:236px; flex:0 0 236px; background:#fff; border-right:1px solid #f1f3f5; padding:26px 18px; display:flex; flex-direction:column; gap:26px;">
+              <div style="padding:0 8px;">
+                <p style="margin:0; font:800 19px/1 'Inter',sans-serif; letter-spacing:-.02em; color:#1e3a8a;">VISIT <span style="color:#7c3aed;">HOLY</span></p>
+                <p style="margin:6px 0 0; font:600 10px/1 ui-monospace,monospace; letter-spacing:.08em; color:#495057;">성지 208곳 · KOREA</p>
+              </div>
+              <nav style="display:flex; flex-direction:column; gap:4px;">
+                <div style="display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:12px; background:#1e3a8a;">
+                  <i data-lucide="home" width="18" height="18" style="color:#fff;"></i>
+                  <span style="font:700 13px 'Inter',sans-serif; color:#fff;">홈 <span style="opacity:.6; font-weight:600;">Home</span></span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:12px;" style-hover="background:#f8f9fa;">
+                  <i data-lucide="map" width="18" height="18" style="color:#adb5bd;"></i>
+                  <span style="font:700 13px 'Inter',sans-serif; color:#495057;">지도 <span style="color:#adb5bd; font-weight:600;">Map</span></span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:12px;" style-hover="background:#f8f9fa;">
+                  <i data-lucide="compass" width="18" height="18" style="color:#adb5bd;"></i>
+                  <span style="font:700 13px 'Inter',sans-serif; color:#495057;">탐색 <span style="color:#adb5bd; font-weight:600;">Explore</span></span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:12px;" style-hover="background:#f8f9fa;">
+                  <i data-lucide="book-open" width="18" height="18" style="color:#adb5bd;"></i>
+                  <span style="font:700 13px 'Inter',sans-serif; color:#495057;">기록 <span style="color:#adb5bd; font-weight:600;">Records</span></span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:12px;" style-hover="background:#f8f9fa;">
+                  <i data-lucide="menu" width="18" height="18" style="color:#adb5bd;"></i>
+                  <span style="font:700 13px 'Inter',sans-serif; color:#495057;">더보기 <span style="color:#adb5bd; font-weight:600;">Menu</span></span>
+                </div>
+              </nav>
+              <div style="margin-top:auto; display:flex; flex-direction:column; gap:10px; padding:16px; border-radius:16px; background:#f8f9fa;">
+                <p style="margin:0; font:800 12px 'Inter',sans-serif; color:#1a1a1a;">순례 여권 <span style="color:#495057; font-weight:600;">Passport</span></p>
+                <p style="margin:0; font:700 22px/1 'Inter',sans-serif; color:#1e3a8a;">0 <span style="font:600 13px 'Inter',sans-serif; color:#495057;">/ 208</span></p>
+                <div style="height:6px; border-radius:99px; background:#e9ecef; overflow:hidden;"><div style="width:4%; height:100%; background:#7c3aed;"></div></div>
+                <span style="font:700 11px 'Inter',sans-serif; color:#7c3aed;">스탬프 시작하기 →</span>
+              </div>
+            </aside>
+
+            <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+              <header style="display:flex; align-items:center; gap:20px; padding:18px 32px; background:rgba(255,255,255,.92); border-bottom:1px solid #f1f3f5;">
+                <div style="flex:1; display:flex; align-items:center; gap:10px; max-width:520px; padding:11px 16px; border:1px solid #f1f3f5; border-radius:14px; background:#f8f9fa;">
+                  <i data-lucide="search" width="15" height="15" style="color:#495057;"></i>
+                  <span style="font:500 13px 'Inter',sans-serif; color:#495057;">성지 이름, 지역, 순교자로 검색</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span style="padding:7px 12px; border-radius:99px; border:1px solid #f1f3f5; background:#fff; font:700 11px 'Inter',sans-serif; color:#495057;">가 큰 글자</span>
+                  <span style="padding:7px 12px; border-radius:99px; border:1px solid #f1f3f5; background:#fff; font:700 11px 'Inter',sans-serif; color:#495057;">KO / EN</span>
+                  <span style="padding:9px 16px; border-radius:99px; background:#1e3a8a; font:700 12px 'Inter',sans-serif; color:#fff;">로그인</span>
+                </div>
+              </header>
+
+              <div style="flex:1; overflow:hidden; display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:24px; padding:24px 32px;">
+                <div style="display:flex; flex-direction:column; gap:24px; min-width:0;">
+                  <div style="position:relative; height:300px; border-radius:22px; overflow:hidden;">
+                    <img src="public/images/sites/ganggyeong.jpg" alt="강경 성지" style="width:100%; height:100%; object-fit:cover;">
+                    <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0) 62%);"></div>
+                    <div style="position:absolute; left:0; right:0; bottom:0; padding:28px; color:#fff;">
+                      <p style="margin:0; font:700 11px 'Inter',sans-serif; letter-spacing:.16em; text-transform:uppercase; opacity:.9;">오늘의 성지 · 전주교구 · 순교성지</p>
+                      <h3 style="margin:8px 0 0; font:800 30px/1.15 'Inter',sans-serif; letter-spacing:-.02em;">강경 성지</h3>
+                      <p style="margin:6px 0 0; font:600 13px 'Inter',sans-serif; opacity:.85;">Ganggyeong Holy Site · Jeonju</p>
+                      <span style="display:inline-flex; align-items:center; gap:8px; margin-top:16px; padding:9px 16px; border-radius:99px; background:rgba(255,255,255,.22); backdrop-filter:blur(8px); font:700 13px 'Inter',sans-serif;"><i data-lucide="headphones" width="15" height="15"></i> 도슨트 듣기</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:14px;">
+                      <div>
+                        <h4 style="margin:0; font:800 17px 'Inter',sans-serif;">쉼표 순례길 <span style="color:#495057; font-weight:600; font-size:14px;">/ Comma pilgrimage</span></h4>
+                        <p style="margin:4px 0 0; font:500 12px 'Inter',sans-serif; color:#495057;">지금 마음에 맞는 성지와 도보권 관광지를 이어 붙인 코스</p>
+                      </div>
+                      <div style="display:flex; gap:7px;">
+                        <span style="padding:8px 14px; border-radius:99px; background:#1e3a8a; font:700 12px 'Inter',sans-serif; color:#fff;">치유</span>
+                        <span style="padding:8px 14px; border-radius:99px; border:1px solid #f1f3f5; background:#fff; font:700 12px 'Inter',sans-serif; color:#495057;">위로</span>
+                        <span style="padding:8px 14px; border-radius:99px; border:1px solid #f1f3f5; background:#fff; font:700 12px 'Inter',sans-serif; color:#495057;">평온</span>
+                        <span style="padding:8px 14px; border-radius:99px; border:1px solid #f1f3f5; background:#fff; font:700 12px 'Inter',sans-serif; color:#495057;">새출발</span>
+                        <span style="padding:8px 14px; border-radius:99px; border:1px solid #f1f3f5; background:#fff; font:700 12px 'Inter',sans-serif; color:#495057;">감사</span>
+                      </div>
+                    </div>
+                    <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px;">
+                      <div style="border:1px solid #f1f3f5; border-radius:20px; background:#fff; overflow:hidden;">
+                        <div style="position:relative; height:132px;"><img src="public/images/sites/haengju.jpg" alt="행주 성지" style="width:100%; height:100%; object-fit:cover;"><span style="position:absolute; right:10px; top:10px; display:inline-flex; align-items:center; gap:5px; padding:5px 9px; border-radius:99px; background:rgba(255,255,255,.92); font:700 10px 'Inter',sans-serif; color:#1e3a8a;"><i data-lucide="footprints" width="11" height="11"></i> 도보 12분</span></div>
+                        <div style="padding:14px;">
+                          <p style="margin:0; font:800 13px/1.4 'Inter',sans-serif;">행주 성지에서 한강까지 한 시간</p>
+                          <p style="margin:6px 0 10px; font:400 11px/1.5 'Inter',sans-serif; color:#495057;">치유 · 물길을 따라 걷는 짧은 순례</p>
+                          <div style="display:flex; gap:5px;"><span style="padding:4px 8px; border-radius:99px; background:#f8f9fa; font:700 10px 'Inter',sans-serif; color:#495057;">#치유</span><span style="padding:4px 8px; border-radius:99px; background:#f8f9fa; font:700 10px 'Inter',sans-serif; color:#495057;">#서울</span></div>
+                        </div>
+                      </div>
+                      <div style="border:1px solid #f1f3f5; border-radius:20px; background:#fff; overflow:hidden;">
+                        <div style="position:relative; height:132px;"><img src="public/images/sites/justino.jpg" alt="성 유스티노 신학교" style="width:100%; height:100%; object-fit:cover;"><span style="position:absolute; right:10px; top:10px; display:inline-flex; align-items:center; gap:5px; padding:5px 9px; border-radius:99px; background:rgba(255,255,255,.92); font:700 10px 'Inter',sans-serif; color:#1e3a8a;"><i data-lucide="footprints" width="11" height="11"></i> 도보 8분</span></div>
+                        <div style="padding:14px;">
+                          <p style="margin:0; font:800 13px/1.4 'Inter',sans-serif;">대전 도심에서 찾은 쉼표 하나</p>
+                          <p style="margin:6px 0 10px; font:400 11px/1.5 'Inter',sans-serif; color:#495057;">치유 · 성 유스티노 신학교와 소제동</p>
+                          <div style="display:flex; gap:5px;"><span style="padding:4px 8px; border-radius:99px; background:#f8f9fa; font:700 10px 'Inter',sans-serif; color:#495057;">#치유</span><span style="padding:4px 8px; border-radius:99px; background:#f8f9fa; font:700 10px 'Inter',sans-serif; color:#495057;">#대전</span></div>
+                        </div>
+                      </div>
+                      <div style="border:1px solid #f1f3f5; border-radius:20px; background:#fff; overflow:hidden;">
+                        <div style="position:relative; height:132px;"><img src="public/images/sites/seongmodang.jpg" alt="성모당" style="width:100%; height:100%; object-fit:cover;"><span style="position:absolute; right:10px; top:10px; display:inline-flex; align-items:center; gap:5px; padding:5px 9px; border-radius:99px; background:rgba(255,255,255,.92); font:700 10px 'Inter',sans-serif; color:#1e3a8a;"><i data-lucide="footprints" width="11" height="11"></i> 도보 15분</span></div>
+                        <div style="padding:14px;">
+                          <p style="margin:0; font:800 13px/1.4 'Inter',sans-serif;">성모당에서 천천히 걷는 오후</p>
+                          <p style="margin:6px 0 10px; font:400 11px/1.5 'Inter',sans-serif; color:#495057;">치유 · 대구 남산동 일대</p>
+                          <div style="display:flex; gap:5px;"><span style="padding:4px 8px; border-radius:99px; background:#f8f9fa; font:700 10px 'Inter',sans-serif; color:#495057;">#치유</span><span style="padding:4px 8px; border-radius:99px; background:#f8f9fa; font:700 10px 'Inter',sans-serif; color:#495057;">#대구</span></div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:16px; min-width:0;">
+                  <div style="padding:20px; border-radius:20px; background:linear-gradient(135deg,#1e3a8a,#7c3aed); color:#fff;">
+                    <p style="margin:0; font:700 15px 'Inter',sans-serif;">AI 순례 가이드 미카엘</p>
+                    <p style="margin:8px 0 14px; font:400 12px/1.6 'Inter',sans-serif; opacity:.85;">성지 DB만 근거로 답합니다. 어디로 갈지 물어보세요.</p>
+                    <span style="display:inline-block; padding:8px 14px; border-radius:12px; background:rgba(255,255,255,.22); font:700 12px 'Inter',sans-serif;">질문하기</span>
+                  </div>
+                  <div style="padding:18px; border:1px solid #f1f3f5; border-radius:20px; background:#fff;">
+                    <p style="margin:0 0 12px; font:800 11px 'Inter',sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#7c3aed;">오늘의 쉼표</p>
+                    <div style="display:flex; flex-direction:column; gap:11px;">
+                      <p style="margin:0; font:600 12px/1.5 'Inter',sans-serif; color:#1a1a1a;">배론성지 · 원주 <span style="color:#495057; font-weight:400;">한산함</span></p>
+                      <p style="margin:0; font:600 12px/1.5 'Inter',sans-serif; color:#1a1a1a;">여우목 성지 · 안동 <span style="color:#495057; font-weight:400;">한산함</span></p>
+                      <p style="margin:0; font:600 12px/1.5 'Inter',sans-serif; color:#1a1a1a;">나주 순교자 기념성당 <span style="color:#495057; font-weight:400;">보통</span></p>
+                    </div>
+                  </div>
+                  <div style="padding:18px; border:1px solid #f1f3f5; border-radius:20px; background:#fff; display:flex; flex-direction:column; gap:12px;">
+                    <p style="margin:0; font:800 13px 'Inter',sans-serif;">바로 가기</p>
+                    <div style="display:flex; align-items:center; gap:10px;"><i data-lucide="wind" width="17" height="17" style="color:#7c3aed;"></i><span style="font:700 12px 'Inter',sans-serif; color:#495057;">붐빔 피하기</span></div>
+                    <div style="display:flex; align-items:center; gap:10px;"><i data-lucide="party-popper" width="17" height="17" style="color:#7c3aed;"></i><span style="font:700 12px 'Inter',sans-serif; color:#495057;">축제 가는 김에</span></div>
+                    <div style="display:flex; align-items:center; gap:10px;"><i data-lucide="compass" width="17" height="17" style="color:#7c3aed;"></i><span style="font:700 12px 'Inter',sans-serif; color:#495057;">마음 나침반</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- mobile -->
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <span style="font:700 11px/1 ui-monospace,monospace; letter-spacing:.1em; color:#495057;">MOBILE 390 — 변경 없음</span>
+          <div style="position:relative; width:390px; height:900px; overflow:hidden; border:1px solid #dee2e6; border-radius:26px; background:#f8f9fa; box-shadow:0 24px 60px rgba(26,26,26,.13);">
+            <div style="padding:18px 24px 12px; background:rgba(255,255,255,.92); border-bottom:1px solid #f1f3f5;">
+              <div style="display:flex; align-items:center; justify-content:space-between;">
+                <p style="margin:0; font:800 18px/1 'Inter',sans-serif; color:#1e3a8a;">VISIT <span style="color:#7c3aed;">HOLY</span></p>
+                <div style="display:flex; align-items:center; gap:12px;"><span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:99px; background:#f1f3f5; font:800 11px 'Inter',sans-serif; color:#495057;">가</span><span style="font:700 11px 'Inter',sans-serif; color:#495057;">KO</span></div>
+              </div>
+              <div style="margin-top:14px; display:flex; align-items:center; gap:10px; padding:11px 16px; border:1px solid #f1f3f5; border-radius:16px; background:#f8f9fa;">
+                <i data-lucide="search" width="15" height="15" style="color:#495057;"></i>
+                <span style="font:500 12px 'Inter',sans-serif; color:#495057;">성지 이름, 지역, 순교자로 검색</span>
+              </div>
+            </div>
+            <div style="padding:16px 24px; display:flex; flex-direction:column; gap:16px;">
+              <div style="position:relative; height:300px; border-radius:22px; overflow:hidden;">
+                <img src="public/images/sites/ganggyeong.jpg" alt="강경 성지" style="width:100%; height:100%; object-fit:cover;">
+                <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0) 62%);"></div>
+                <div style="position:absolute; left:0; right:0; bottom:0; padding:22px; color:#fff;">
+                  <p style="margin:0; font:700 10px 'Inter',sans-serif; letter-spacing:.16em; text-transform:uppercase; opacity:.9;">전주교구 · 순교성지</p>
+                  <h3 style="margin:6px 0 0; font:800 25px/1.15 'Inter',sans-serif;">강경 성지</h3>
+                  <span style="display:inline-flex; align-items:center; gap:7px; margin-top:14px; padding:8px 14px; border-radius:99px; background:rgba(255,255,255,.22); font:700 12px 'Inter',sans-serif;"><i data-lucide="headphones" width="14" height="14"></i> 도슨트 듣기</span>
+                </div>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
+                <div style="display:flex; flex-direction:column; align-items:center; gap:7px; padding:18px 6px; border:1px solid #f1f3f5; border-radius:18px; background:#fff;"><i data-lucide="wind" width="20" height="20" style="color:#7c3aed;"></i><span style="font:700 11px 'Inter',sans-serif;">붐빔 피하기</span></div>
+                <div style="display:flex; flex-direction:column; align-items:center; gap:7px; padding:18px 6px; border:1px solid #f1f3f5; border-radius:18px; background:#fff;"><i data-lucide="party-popper" width="20" height="20" style="color:#7c3aed;"></i><span style="font:700 11px 'Inter',sans-serif;">축제 가는 김에</span></div>
+                <div style="display:flex; flex-direction:column; align-items:center; gap:7px; padding:18px 6px; border:1px solid #f1f3f5; border-radius:18px; background:#fff;"><i data-lucide="compass" width="20" height="20" style="color:#7c3aed;"></i><span style="font:700 11px 'Inter',sans-serif;">마음 나침반</span></div>
+              </div>
+              <div style="padding:22px; border-radius:20px; background:linear-gradient(135deg,#1e3a8a,#7c3aed); color:#fff;">
+                <p style="margin:0; font:700 16px 'Inter',sans-serif;">AI 순례 가이드 미카엘</p>
+                <p style="margin:6px 0 12px; font:400 12px/1.6 'Inter',sans-serif; opacity:.85;">성지 DB만 근거로 답합니다.</p>
+                <span style="display:inline-block; padding:8px 14px; border-radius:12px; background:rgba(255,255,255,.22); font:700 12px 'Inter',sans-serif;">질문하기</span>
+              </div>
+              <div style="display:flex; gap:12px;">
+                <div style="display:flex; flex-direction:column; align-items:center; gap:7px;"><div style="display:flex; align-items:center; justify-content:center; width:54px; height:54px; border-radius:17px; background:#1e3a8a;"><i data-lucide="sparkles" width="21" height="21" style="color:#fff;"></i></div><span style="font:700 11px 'Inter',sans-serif; color:#1e3a8a;">치유</span></div>
+                <div style="display:flex; flex-direction:column; align-items:center; gap:7px;"><div style="display:flex; align-items:center; justify-content:center; width:54px; height:54px; border-radius:17px; border:1px solid #f1f3f5; background:#fff;"><i data-lucide="heart-handshake" width="21" height="21" style="color:#495057;"></i></div><span style="font:700 11px 'Inter',sans-serif; color:#495057;">위로</span></div>
+                <div style="display:flex; flex-direction:column; align-items:center; gap:7px;"><div style="display:flex; align-items:center; justify-content:center; width:54px; height:54px; border-radius:17px; border:1px solid #f1f3f5; background:#fff;"><i data-lucide="wind" width="21" height="21" style="color:#495057;"></i></div><span style="font:700 11px 'Inter',sans-serif; color:#495057;">평온</span></div>
+                <div style="display:flex; flex-direction:column; align-items:center; gap:7px;"><div style="display:flex; align-items:center; justify-content:center; width:54px; height:54px; border-radius:17px; border:1px solid #f1f3f5; background:#fff;"><i data-lucide="sunrise" width="21" height="21" style="color:#495057;"></i></div><span style="font:700 11px 'Inter',sans-serif; color:#495057;">새출발</span></div>
+                <div style="display:flex; flex-direction:column; align-items:center; gap:7px;"><div style="display:flex; align-items:center; justify-content:center; width:54px; height:54px; border-radius:17px; border:1px solid #f1f3f5; background:#fff;"><i data-lucide="hand-heart" width="21" height="21" style="color:#495057;"></i></div><span style="font:700 11px 'Inter',sans-serif; color:#495057;">감사</span></div>
+              </div>
+              <div style="border:1px solid #f1f3f5; border-radius:22px; background:#fff; overflow:hidden;">
+                <div style="position:relative; height:150px;"><img src="public/images/sites/haengju.jpg" alt="행주 성지" style="width:100%; height:100%; object-fit:cover;"><span style="position:absolute; right:12px; top:12px; display:inline-flex; align-items:center; gap:5px; padding:5px 10px; border-radius:99px; background:rgba(255,255,255,.92); font:700 10px 'Inter',sans-serif; color:#1e3a8a;"><i data-lucide="footprints" width="11" height="11"></i> 도보 12분</span></div>
+                <div style="padding:18px;"><p style="margin:0; font:800 14px 'Inter',sans-serif;">행주 성지에서 한강까지 한 시간</p><p style="margin:7px 0 0; font:400 12px/1.6 'Inter',sans-serif; color:#495057;">치유 · 물길을 따라 걷는 짧은 순례</p></div>
+              </div>
+            </div>
+            <nav style="position:absolute; left:0; right:0; bottom:0; height:70px; display:flex; align-items:center; justify-content:space-around; background:#fff; border-top:1px solid #f1f3f5;">
+              <div style="display:flex; flex-direction:column; align-items:center; gap:4px;"><div style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:9px; background:#1e3a8a;"><i data-lucide="home" width="18" height="18" style="color:#fff;"></i></div><span style="font:700 10px 'Inter',sans-serif; color:#1e3a8a;">홈</span></div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:4px;"><div style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:9px; background:#f1f3f5;"><i data-lucide="map" width="18" height="18" style="color:#adb5bd;"></i></div><span style="font:700 10px 'Inter',sans-serif; color:#adb5bd;">지도</span></div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:4px;"><div style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:9px; background:#f1f3f5;"><i data-lucide="compass" width="18" height="18" style="color:#adb5bd;"></i></div><span style="font:700 10px 'Inter',sans-serif; color:#adb5bd;">탐색</span></div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:4px;"><div style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:9px; background:#f1f3f5;"><i data-lucide="book-open" width="18" height="18" style="color:#adb5bd;"></i></div><span style="font:700 10px 'Inter',sans-serif; color:#adb5bd;">기록</span></div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:4px;"><div style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:9px; background:#f1f3f5;"><i data-lucide="menu" width="18" height="18" style="color:#adb5bd;"></i></div><span style="font:700 10px 'Inter',sans-serif; color:#adb5bd;">더보기</span></div>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <div style="max-width:1100px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; padding:18px 20px; border:1px solid #dee2e6; border-radius:16px; background:#fff;">
+        <div><p style="margin:0 0 6px; font:800 11px ui-monospace,monospace; letter-spacing:.1em; color:#7c3aed;">BREAKPOINT</p><p style="margin:0; font:500 12px/1.6 'Inter',sans-serif; color:#495057;">&lt; 1024px 하단 탭 유지 · ≥ 1024px 레일 노출, 본문 2열 · ≥ 1440px 본문 최대 1200px 유지</p></div>
+        <div><p style="margin:0 0 6px; font:800 11px ui-monospace,monospace; letter-spacing:.1em; color:#7c3aed;">구현 비용</p><p style="margin:0; font:500 12px/1.6 'Inter',sans-serif; color:#495057;">낮음. AppLayout·BottomNav 두 파일과 홈 그리드만 손대면 됩니다. 페이지 내부 컴포넌트는 그대로.</p></div>
+        <div><p style="margin:0 0 6px; font:800 11px ui-monospace,monospace; letter-spacing:.1em; color:#7c3aed;">트레이드오프</p><p style="margin:0; font:500 12px/1.6 'Inter',sans-serif; color:#495057;">앱 느낌이 강해 공모전 심사에선 안전하지만, 웹 서비스 첫인상은 가장 평범합니다.</p></div>
+      </div>
+    </div>
+
+    <div style="max-width:1100px; padding:22px 26px; border:1px solid #dee2e6; border-radius:16px; background:#fff;">
+      <p style="margin:0 0 6px; font:800 14px 'Inter',sans-serif;">적용 방법 <span style="color:#495057; font-weight:600;">/ How to apply</span></p>
+      <div>
+        <div style="display:grid; grid-template-columns:110px minmax(0,1fr); gap:16px; padding:12px 0; border-top:1px solid #f1f3f5;">
+          <span style="font:800 11px/1.5 ui-monospace,monospace; letter-spacing:.06em; color:#7c3aed;">수정 파일</span>
+          <span style="font:500 13px/1.7 'Inter',sans-serif; color:#495057;">src/app/layouts/AppLayout.tsx · src/app/layouts/BottomNav.tsx · src/pages/HomePage.tsx</span>
+        </div>
+        <div style="display:grid; grid-template-columns:110px minmax(0,1fr); gap:16px; padding:12px 0; border-top:1px solid #f1f3f5;">
+          <span style="font:800 11px/1.5 ui-monospace,monospace; letter-spacing:.06em; color:#7c3aed;">셸</span>
+          <span style="font:500 13px/1.7 'Inter',sans-serif; color:#495057;">AppLayout 의 <code>max-w-lg</code> 고정 폭을 없애고 <code>lg:grid lg:grid-cols-[236px_minmax(0,1fr)]</code> 로. 레일은 <code>hidden lg:flex</code>, BottomNav 는 <code>lg:hidden</code></span>
+        </div>
+        <div style="display:grid; grid-template-columns:110px minmax(0,1fr); gap:16px; padding:12px 0; border-top:1px solid #f1f3f5;">
+          <span style="font:800 11px/1.5 ui-monospace,monospace; letter-spacing:.06em; color:#7c3aed;">본문</span>
+          <span style="font:500 13px/1.7 'Inter',sans-serif; color:#495057;">HomePage 최상위를 <code>xl:grid xl:grid-cols-[minmax(0,1fr)_300px] xl:gap-6</code>. 여권·미카엘·오늘의 쉼표를 우측 열로 이동(<code>xl:sticky xl:top-24</code>)</span>
+        </div>
+        <div style="display:grid; grid-template-columns:110px minmax(0,1fr); gap:16px; padding:12px 0; border-top:1px solid #f1f3f5;">
+          <span style="font:800 11px/1.5 ui-monospace,monospace; letter-spacing:.06em; color:#7c3aed;">그리드</span>
+          <span style="font:500 13px/1.7 'Inter',sans-serif; color:#495057;">코스 카드 <code>grid-cols-1 md:grid-cols-2 xl:grid-cols-3</code>, 성지 그리드 <code>grid-cols-2 lg:grid-cols-3 xl:grid-cols-4</code></span>
+        </div>
+        <div style="display:grid; grid-template-columns:110px minmax(0,1fr); gap:16px; padding:12px 0; border-top:1px solid #f1f3f5;">
+          <span style="font:800 11px/1.5 ui-monospace,monospace; letter-spacing:.06em; color:#7c3aed;">건드리지 않는 것</span>
+          <span style="font:500 13px/1.7 'Inter',sans-serif; color:#495057;">CourseCardItem · SiteGridCard · SiteListItem 등 카드 컴포넌트, 라우터, i18n</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() { this.icons(); }
+  componentDidUpdate() { this.icons(); }
+  icons() {
+    const run = () => { if (window.lucide) window.lucide.createIcons(); };
+    run();
+    if (!window.lucide) setTimeout(run, 400), setTimeout(run, 1200);
+  }
+}
+</script>
+</body>
+</html>
