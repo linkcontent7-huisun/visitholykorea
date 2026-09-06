@@ -348,6 +348,9 @@ export const DICTIONARY = {
     pt: 'Escolha o descanso que seu coração precisa hoje',
     it: 'Scegli il riposo di cui il tuo cuore ha bisogno',
   },
+  // 2026-09-06 부터 화면에서 쓰이지 않는다 — 홈에 있던 「몇 가지 질문…」 카드를
+  // 「마음 나침반」 칩과 중복이라 뺐다. 나침반 화면 안에 같은 안내를 넣게 되면
+  // 다시 쓰므로 지우지 않고 남겨 둔다.
   compassCtaTitle: {
     ko: '몇 가지 질문으로 나에게 맞는 곳 찾기',
     en: 'A few questions to find your place',

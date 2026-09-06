@@ -1,5 +1,4 @@
 import {
-  ChevronRight,
   Compass,
   HandHeart,
   Headphones,
@@ -300,26 +299,12 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* 감정 태그를 직접 고르기 어려운 사용자를 위한 안내형 진입점 */}
-          <Link
-            to={paths.compass}
-            className="mb-6 flex w-full items-center gap-4 rounded-[20px] border border-app-border bg-white p-5 text-left shadow-sm"
-            id="healing-quiz-cta"
-          >
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-violet/10 text-brand-violet">
-              <Compass size={20} />
-            </div>
-            <div className="flex-1">
-              <p className="mb-0.5 text-sm font-extrabold text-app-text">
-                {t('compassCtaTitle')}
-              </p>
-              <p className="text-[11px] font-medium text-app-text-muted">
-                {t('compassCtaSubtitle')}
-              </p>
-            </div>
-            <ChevronRight size={18} className="shrink-0 text-app-text-muted" />
-          </Link>
-
+          {/*
+            여기 있던 「몇 가지 질문으로 나에게 맞는 곳 찾기」 카드를 뺐다 (2026-09-06).
+            바로 위 칩줄의 「마음 나침반」과 가는 곳이 같아서, 한 화면 안에 같은
+            목적지가 두 번 있었다. 질문으로 찾는 길은 나침반 타일이 맡고,
+            여기서는 감정을 한 번에 고르는 빠른 길만 남긴다.
+          */}
           <div className="no-scrollbar -mx-6 mb-6 flex gap-3 overflow-x-auto px-6 pb-1">
             {EMOTION_TAGS.map((emotion) => {
               const Icon = EMOTION_ICON[emotion];
