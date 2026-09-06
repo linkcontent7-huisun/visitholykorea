@@ -5,6 +5,7 @@ import {
   Headphones,
   HeartHandshake,
   MessageCircle,
+  PartyPopper,
   Search,
   Sparkles,
   Sunrise,
@@ -237,8 +238,9 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* 보조 진입 칩 2개 — 큰 배너 대신 작은 칩으로. 기능은 그대로 유지한다. */}
-      <section className="grid grid-cols-2 gap-3 px-6 pb-2">
+      {/* 보조 진입 칩 3개 — 큰 배너 대신 작은 칩으로. 기능은 그대로 유지한다.
+          「붐빔 피하기」와 「축제 가는 김에」는 방향이 반대인 한 쌍이라 나란히 둔다. */}
+      <section className="grid grid-cols-3 gap-3 px-6 pb-2">
         <Link
           to={paths.alternatives}
           className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-6 text-center"
@@ -247,6 +249,16 @@ export default function HomePage() {
           <Wind size={22} className="text-brand-violet" aria-hidden />
           <span className="text-[12px] font-bold leading-tight text-app-text">
             {t('crowdAvoidChip')}
+          </span>
+        </Link>
+        <Link
+          to={paths.festivals}
+          className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-6 text-center"
+          id="chip-festivals"
+        >
+          <PartyPopper size={22} className="text-brand-violet" aria-hidden />
+          <span className="text-[12px] font-bold leading-tight text-app-text">
+            {t('festivalsTitle')}
           </span>
         </Link>
         <Link

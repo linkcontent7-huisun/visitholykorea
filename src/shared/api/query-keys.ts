@@ -66,4 +66,11 @@ export const queryKeys = {
     /** 붐비는 관광지의 대체 성지. TourAPI contentid 기준. */
     forAttraction: (contentId: string, date: string) => ['alternatives', contentId, date] as const,
   },
+  festivals: {
+    /**
+     * 「축제 가는 김에」 — 오늘 진행 중인 전국 축제.
+     * 날짜를 키에 넣어 자정이 지나면 자동으로 다시 받는다(캐시에 눌러앉지 않게).
+     */
+    ongoing: (date: string) => ['festivals', 'ongoing', date] as const,
+  },
 } as const;
