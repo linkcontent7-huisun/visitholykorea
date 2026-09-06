@@ -237,12 +237,20 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* 보조 진입 칩 3개 — 큰 배너 대신 작은 칩으로. 기능은 그대로 유지한다.
-          「붐빔 피하기」와 「축제 가는 김에」는 방향이 반대인 한 쌍이라 나란히 둔다. */}
-      <section className="grid grid-cols-3 gap-3 px-6 pb-2">
+      {/*
+        바로가기 넷 — 「무엇을 하러 왔는가」를 한 덩어리로 모은다 (2026-09-07 정리).
+
+        전에는 칩 3개 줄 아래에 AI 가이드가 화면 4분의 1을 먹는 보라색 배너로
+        따로 있었다. 넷 다 "여기서 시작한다"는 같은 성격인데 하나만 크게 있으니
+        화면이 어수선하고, 정작 그 아래의 「쉼표 순례길」이 한참 밀려 있었다.
+        AI 가이드는 보라색 바탕을 남겨 여전히 눈에 먼저 들어온다.
+
+        「붐빔 피하기」와 「축제 가는 김에」는 방향이 반대인 한 쌍이라 나란히 둔다.
+      */}
+      <section className="grid grid-cols-2 gap-3 px-6 pb-2">
         <Link
           to={paths.alternatives}
-          className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-6 text-center"
+          className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-5 text-center"
           id="chip-alternatives"
         >
           <Wind size={22} className="text-brand-violet" aria-hidden />
@@ -252,7 +260,7 @@ export default function HomePage() {
         </Link>
         <Link
           to={paths.festivals}
-          className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-6 text-center"
+          className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-5 text-center"
           id="chip-festivals"
         >
           <PartyPopper size={22} className="text-brand-violet" aria-hidden />
@@ -262,7 +270,7 @@ export default function HomePage() {
         </Link>
         <Link
           to={paths.compass}
-          className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-6 text-center"
+          className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-5 text-center"
           id="chip-compass"
         >
           <Compass size={22} className="text-brand-violet" aria-hidden />
@@ -270,22 +278,13 @@ export default function HomePage() {
             {t('compassTitle')}
           </span>
         </Link>
-      </section>
-
-      <section className="relative z-30 px-6 pt-2">
         <button
           onClick={() => setIsAIGuideOpen(true)}
-          className="group relative flex w-full flex-col items-start gap-4 overflow-hidden rounded-[20px] bg-gradient-to-br from-brand-blue to-brand-violet p-7 text-left text-white shadow-xl shadow-brand-blue/10"
+          className="flex flex-col items-center justify-center gap-2 rounded-[20px] bg-gradient-to-br from-brand-blue to-brand-violet py-5 text-center text-white shadow-lg shadow-brand-blue/10"
           id="ai-guide-btn"
         >
-          <div className="relative z-10">
-            <h3 className="mb-1 text-lg font-semibold">{t('aiGuideTitle')}</h3>
-            <p className="text-[13px] leading-relaxed opacity-80">{t('aiGuideBody')}</p>
-          </div>
-          <div className="relative z-10 rounded-xl bg-white/20 px-4 py-2 text-[13px] font-semibold backdrop-blur-md">
-            {t('aiGuideAsk')}
-          </div>
-          <div className="absolute right-0 top-0 -mr-16 -mt-16 h-32 w-32 rounded-full bg-white/10 blur-2xl transition-transform group-hover:scale-125" />
+          <Sparkles size={22} aria-hidden />
+          <span className="text-[12px] font-bold leading-tight">{t('aiGuideTitle')}</span>
         </button>
       </section>
 

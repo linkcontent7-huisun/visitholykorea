@@ -301,6 +301,14 @@ export default function SiteDetailPage() {
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
+        {/*
+          글자가 놓이는 아래쪽만 한 겹 더 어둡게 깐다.
+          위 그라디언트는 가운데가 투명해서, 명동대성당처럼 하늘·나무·계단이
+          밝게 나온 사진에서는 흰 글씨가 배경에 묻혔다 — 주소 두 줄이 서로
+          겹쳐 보인다는 신고가 여기서 나왔다(2026-09-07 영어 모드 실측).
+          사진을 통째로 어둡게 하지 않고 글자 자리만 덮는다.
+        */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/45 to-transparent" />
 
         <button
           onClick={() => navigate(-1)}
@@ -321,7 +329,7 @@ export default function SiteDetailPage() {
           <Heart size={20} className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined} />
         </button>
 
-        <div className="absolute bottom-12 left-8 right-8 text-white">
+        <div className="absolute bottom-12 left-8 right-8 text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.55)]">
           <span className="inline-block rounded-full bg-brand-violet px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-widest shadow-xl shadow-brand-violet/20">
             {site.category}
           </span>
@@ -334,12 +342,18 @@ export default function SiteDetailPage() {
           <h1 className="mb-4 mt-3 text-4xl font-extrabold leading-tight tracking-tight">
             {view?.name ?? site.name}
           </h1>
-          <p className="mb-4 flex items-center gap-2 text-sm font-medium opacity-90">
-            <MapPin size={16} className="text-brand-violet" />
-            <span className="flex flex-col">
-              <span>{site.location}</span>
+          {/*
+            핀을 두 줄의 가운데가 아니라 첫 줄에 맞춘다(items-start).
+            가운데 정렬이면 핀이 두 줄 사이에 끼어 겹침이 더 심해 보였다.
+            로마자 주소는 opacity 대신 흰색 농도로 낮춘다 — opacity 는 글자와
+            그림자를 함께 흐리게 만들어 오히려 안 읽혔다.
+          */}
+          <p className="mb-4 flex items-start gap-2 text-sm font-medium">
+            <MapPin size={16} className="mt-1 shrink-0 text-brand-violet" />
+            <span className="flex flex-col gap-1">
+              <span className="leading-snug">{site.location}</span>
               {view?.addressRomanized && (
-                <span className="mt-0.5 text-xs opacity-80">{view.addressRomanized}</span>
+                <span className="text-xs leading-snug text-white/75">{view.addressRomanized}</span>
               )}
             </span>
           </p>
