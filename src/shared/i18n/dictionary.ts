@@ -259,6 +259,8 @@ export const DICTIONARY = {
     pt: 'Guia de peregrinação com IA',
     it: 'Guida al pellegrinaggio con IA',
   },
+  // 2026-09-07 부터 화면에서 쓰이지 않는다 — 홈의 큰 AI 배너를 바로가기 칩으로
+  // 줄이면서 본문·버튼 문구가 빠졌다. 시트 안에 안내를 넣게 되면 다시 쓴다.
   aiGuideBody: {
     ko: '성지 순례에 대한 모든 것! 무엇이든 물어보세요.',
     en: 'Everything about pilgrimage — ask anything.',

@@ -8,6 +8,7 @@
   "intro": {
     "narration": "한강변 노들이라 불리던 이 모래 벌판, 새남터에 오신 것을 환영합니다. 조선 시대 이곳은 군사 훈련장이자 나라의 중죄인을 처형하던 자리였습니다. 그리고 1801년부터 1866년까지, 한국 최초의 사제 김대건 안드레아 신부를 비롯한 열한 명의 성직자가 바로 이 땅에서 순교했습니다. 사제들의 순교지라 불리는 이곳을 함께 걸어보겠습니다.",
     "narrationEn": "Welcome to Saenamteo, once a sandy riverside plain known as Nodeul. In the Joseon era this was a military training ground, and also where the state executed its gravest offenders. Between 1801 and 1866, eleven priests — including St. Andrew Kim Taegon, Korea's first Catholic priest — were martyred on this ground. It is remembered as the martyrdom site of the pastors. Let us walk it together.",
+    "narrationEs": "Bienvenido a Saenamteo, una llanura arenosa junto al río que antes se llamaba Nodeul. En la época de Joseon fue un campo de entrenamiento militar y también el lugar donde el Estado ejecutaba a sus criminales más graves. Entre 1801 y 1866, once sacerdotes, incluido San Andrés Kim Taegon, el primer sacerdote católico coreano, fueron martirizados en esta tierra. Se recuerda como el lugar de martirio de los pastores. Recorrámoslo juntos.",
     "photos": []
   },
   "points": [
@@ -15,12 +16,16 @@
       "seq": 1,
       "title": "입구 — 두 문장의 글귀",
       "titleEn": "The Entrance — Two Sentences",
+      "titleEs": "La entrada, dos frases",
       "location": "성당 입구",
       "locationEn": "At the church entrance",
+      "locationEs": "En la entrada de la iglesia",
       "narration": "성당 입구에는 이런 글귀가 새겨져 있습니다. 삶은 순교입니다. 순교는 사랑입니다. 이 두 문장이 새남터가 하고 싶은 이야기의 전부라고 해도 좋겠습니다. 잠시 멈추어 소리 내어 읽어 보시고, 안으로 들어가시기 바랍니다.",
       "narrationEn": "At the entrance, an inscription reads: Life is martyrdom. Martyrdom is love. Those two sentences are, in a way, everything Saenamteo wants to say. Pause, read them aloud, and then step inside.",
+      "narrationEs": "En la entrada hay una inscripción que dice: La vida es martirio. El martirio es amor. De algún modo, estas dos frases contienen todo lo que Saenamteo quiere decir. Deténgase, léalas en voz alta y entre después.",
       "lookFor": "입구의 글귀 — 삶은 순교입니다, 순교는 사랑입니다",
       "lookForEn": "The inscription at the entrance — Life is martyrdom, martyrdom is love",
+      "lookForEs": "La inscripción de la entrada: La vida es martirio, el martirio es amor",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "성지 DB 원문 — 입구 글귀. 글귀의 정확한 위치는 현장 확인 필요"
@@ -29,12 +34,16 @@
       "seq": 2,
       "title": "노들 벌판 — 연무장이 처형장이 된 자리",
       "titleEn": "The Nodeul Plain — Training Ground Turned Execution Ground",
+      "titleEs": "La llanura de Nodeul, del campo de entrenamiento al lugar de ejecuciones",
       "location": "성당 주변, 한강 방향",
       "locationEn": "Around the church, toward the Han River",
+      "locationEs": "Alrededor de la iglesia, en dirección al río Han",
       "narration": "지금은 철길과 아파트에 둘러싸여 있지만, 이곳은 본래 한양성 밖 남쪽의 너른 모래 벌판이었습니다. 군사들이 훈련하던 연무장이었기에 나라의 큰 죄인을 군문효수, 곧 군영 앞에서 처형하는 자리로도 쓰였습니다. 나라가 가장 무겁게 다스리고자 한 이들을 이곳으로 보냈다는 사실이, 역설적으로 이 자리에서 순교한 이들이 감당한 것의 무게를 말해 줍니다.",
       "narrationEn": "Hemmed in today by rail lines and apartments, this was once a wide sandy plain south of the city walls. Because soldiers drilled here, it also served as the ground for military executions of the state's gravest offenders. That the state sent here those it judged most severely tells us, in its own way, the weight of what the martyrs of this place carried.",
+      "narrationEs": "Hoy está rodeado de vías de tren y apartamentos, pero este lugar fue una amplia llanura arenosa al sur de las murallas de Hanyang. Como los soldados se entrenaban aquí, también se usaba para ejecutar ante el campamento militar a los grandes criminales del Estado. Que el Estado enviara aquí a quienes quería castigar con mayor severidad revela, paradójicamente, el peso de lo que cargaron los mártires de este lugar.",
       "lookFor": "성지 너머 한강 방향의 지형 — 벌판이었던 흔적",
       "lookForEn": "The lay of the land toward the river — traces of the old plain",
+      "lookForEs": "El terreno hacia el río, donde quedan rastros de la antigua llanura",
       "forEveryone": "새남터는 사육신이 처형된 곳으로도 알려진, 조선의 대표적 처형장이었습니다.",
       "photos": [],
       "sourceNote": "성지 DB 원문 — 노들 벌판·연무장·처형장. 한국민족문화대백과 검색 결과와 부합"
@@ -43,12 +52,16 @@
       "seq": 3,
       "title": "기념성당 — 한옥으로 지은 성전",
       "titleEn": "The Memorial Church — A Sanctuary Built as a Hanok",
+      "titleEs": "La iglesia conmemorativa, un santuario construido como hanok",
       "location": "성당 외관이 잘 보이는 자리",
       "locationEn": "Where the church facade is in full view",
+      "locationEs": "Donde se ve completa la fachada de la iglesia",
       "narration": "눈앞의 성당을 올려다보세요. 서양식 첨탑 대신 한옥의 기와지붕과 처마가 하늘로 이어집니다. 한국 천주교회 창립 200주년을 기념해 1984년에 짓기 시작해 1987년에 봉헌된 이 성전은, 서양식 교회 건축을 벗어나 순 한국식으로 설계되었습니다. 조선 땅에서 조선 사람으로 순교한 이들을 기억하는 집이라면 이 땅의 모습을 하는 것이 마땅하다는 마음이 담긴 건물입니다.",
       "narrationEn": "Look up at the church. Instead of a Western spire, the tiled roof and eaves of a traditional hanok reach toward the sky. Begun in 1984 for the bicentennial of the Korean Catholic Church and consecrated in 1987, this sanctuary was deliberately designed in pure Korean style. A house remembering those who died as Koreans, on Korean soil, ought to wear the shape of this land — that conviction is built into these walls.",
+      "narrationEs": "Mire hacia la iglesia. En vez de una aguja occidental, el tejado de tejas y los aleros de un hanok tradicional se elevan hacia el cielo. Este santuario comenzó a construirse en 1984, para el bicentenario de la Iglesia católica coreana, y fue consagrado en 1987. Fue diseñado deliberadamente en un estilo puramente coreano. Estas paredes expresan la convicción de que una casa que recuerda a quienes murieron como coreanos, en tierra coreana, debe tener la forma de esta tierra.",
       "lookFor": "기와지붕의 처마 곡선과 단청",
       "lookForEn": "The curve of the tiled eaves and the painted dancheong patterns",
+      "lookForEs": "La curva de los aleros de teja y los dibujos pintados de dancheong",
       "forEveryone": "교회 건축이 그 지역의 전통 양식을 입는 것을 토착화라고 합니다. 새남터 성당은 그 대표적인 예입니다.",
       "photos": [],
       "sourceNote": "새남터 기념성당 공식(saenamteo.or.kr)·검색 확인 — 1984 기공·1987 봉헌·순 한국식 설계. DB 원문의 '1967년 건립'은 공식 자료와 달라 공식 자료를 따름"
@@ -57,12 +70,16 @@
       "seq": 4,
       "title": "열한 분의 사제",
       "titleEn": "The Eleven Pastors",
+      "titleEs": "Los once sacerdotes",
       "location": "성당 안 또는 야외 기념 조형물 앞",
       "locationEn": "Inside the church, or before the outdoor memorial",
+      "locationEs": "Dentro de la iglesia o ante el memorial exterior",
       "narration": "한국 교회사에서 순교한 성직자 열네 명 가운데 열한 명이 이곳 새남터에서 순교했습니다. 1801년 중국인 주문모 신부가 처음이었고, 1846년에는 한국인 최초의 사제 김대건 안드레아 신부가 스물다섯의 나이로 이곳에서 군문효수형을 받았습니다. 1866년 병인박해 때는 베르뇌 주교를 비롯한 선교사들이 뒤를 이었습니다. 평신도들의 순교지인 서소문과 나란히, 이곳은 목자들의 순교지로 기억됩니다.",
       "narrationEn": "Of the fourteen clergy martyred in Korean church history, eleven died here at Saenamteo. The first was Fr. James Zhou Wenmo of China in 1801; in 1846, St. Andrew Kim Taegon, Korea's first priest, was executed here at twenty-five; and in the Byeongin Persecution of 1866, Bishop Simeon Berneux and fellow missionaries followed. Alongside Seosomun, where the lay faithful died, this place is remembered as the martyrdom ground of the shepherds.",
+      "narrationEs": "De los catorce clérigos martirizados en la historia de la Iglesia coreana, once murieron aquí, en Saenamteo. El primero fue el sacerdote chino Santiago Zhou Wenmo en 1801. En 1846, San Andrés Kim Taegon, el primer sacerdote coreano, fue ejecutado aquí a los veinticinco años. En la persecución de Byeongin de 1866 lo siguieron el obispo Simeón Berneux y otros misioneros. Junto a Seosomun, lugar del martirio de los laicos, este sitio se recuerda como el lugar de martirio de los pastores.",
       "lookFor": "순교자들의 이름이 새겨진 기념물",
       "lookForEn": "The memorial bearing the martyrs' names",
+      "lookForEs": "El monumento donde están grabados los nombres de los mártires",
       "forEveryone": "김대건 신부는 2021년 유네스코 세계기념인물로 선정되었을 만큼, 종교를 넘어 한국 근대사의 인물입니다.",
       "photos": [],
       "sourceNote": "성지 DB 원문 — 11명 성직자·사제들의 순교지, 검색 확인 — 성직자 14명 중 11명·주문모(1801)·김대건(1846). 기념물의 형태·위치는 현장 확인 필요"
@@ -71,6 +88,7 @@
   "outro": {
     "narration": "새남터 순례에 함께해 주셔서 감사합니다. 이곳에서 순교한 김대건 신부의 유해는 훗날 절두산과 여러 성당에 나뉘어 모셔졌고, 그가 태어난 솔뫼성지는 당진에 남아 있습니다. 사제들이 걸어간 길의 시작과 끝을 잇는 순례를 이어가 보셔도 좋겠습니다. 평화를 빕니다.",
     "narrationEn": "Thank you for walking Saenamteo with us. The relics of St. Andrew Kim Taegon, martyred here, were later enshrined at Jeoldusan and other churches, and Solmoe, his birthplace, still stands in Dangjin. May your pilgrimage go on, joining the beginning and the end of the road the pastors walked. Peace be with you.",
+    "narrationEs": "Gracias por acompañarnos en esta peregrinación por Saenamteo. Las reliquias de San Andrés Kim Taegon, martirizado aquí, fueron repartidas más tarde entre Jeoldusan y varias iglesias. Solmoe, su lugar de nacimiento, permanece en Dangjin. Puede continuar la peregrinación que une el comienzo y el final del camino recorrido por los sacerdotes. Que la paz esté con usted.",
     "photos": []
   }
 }
