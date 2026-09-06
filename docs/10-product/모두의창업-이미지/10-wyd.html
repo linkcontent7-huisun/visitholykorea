@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<style>
+  :root{--blue:#1e3a8a;--violet:#7c3aed;--ink:#111827;--ink2:#4b5563;--ink3:#6b7280;
+        --rule:#e5e7eb;--surface:#fff;--bg:#f3f4f6;--gold:#a16207}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);font-family:"Pretendard","Malgun Gothic","맑은 고딕",system-ui,sans-serif;color:var(--ink)}
+  .sheet{width:1264px;background:var(--surface);padding:36px 52px 30px;margin:0 auto}
+  .eyebrow{font-size:15px;font-weight:700;color:var(--violet)}
+  h1{font-size:31px;font-weight:800;letter-spacing:-.02em;margin-top:8px;line-height:1.3}
+  .sub{font-size:14px;color:var(--ink3);margin-top:8px}
+
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+  .fact{border:1px solid var(--rule);border-radius:12px;padding:16px 18px}
+  .fact .n{font-size:29px;font-weight:800;color:var(--blue);letter-spacing:-.02em;line-height:1.15}
+  .fact .k{font-size:14px;color:var(--ink2);margin-top:8px;line-height:1.55}
+
+  .tl{margin-top:22px;position:relative;padding-top:8px}
+  .tl .line{position:absolute;left:0;right:0;top:34px;height:3px;background:var(--rule);border-radius:2px}
+  .tl .fill{position:absolute;left:0;top:34px;height:3px;width:15%;background:var(--violet);border-radius:2px}
+  .tl .marks{display:grid;grid-template-columns:15% 28% 29% 28%;position:relative}
+  .mk{position:relative;padding-top:44px}
+  .mk::before{content:"";position:absolute;top:28px;left:0;width:15px;height:15px;border-radius:50%;
+              background:#fff;border:3px solid var(--rule)}
+  .mk.now::before{border-color:var(--violet);background:var(--violet)}
+  .mk.big::before{border-color:var(--blue);background:var(--blue);width:19px;height:19px;top:26px}
+  .mk .d{font-size:14px;font-weight:800;color:var(--ink)}
+  .mk .t{font-size:13px;color:var(--ink3);margin-top:3px;line-height:1.5}
+  .mk.big .d{color:var(--blue);font-size:15px}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px}
+  .box{border-radius:12px;padding:18px 20px}
+  .gap{background:#fef7ec;border-left:4px solid var(--gold)}
+  .have{background:#f5f2ff;border-left:4px solid var(--violet)}
+  .box h3{font-size:15px;font-weight:800;color:var(--ink)}
+  .gap p{font-size:19px;font-weight:700;margin-top:10px;line-height:1.45}
+  .have ul{list-style:none;margin-top:10px}
+  .have li{font-size:15px;font-weight:600;padding:5px 0;display:flex;gap:9px;align-items:baseline}
+  .have li b{color:var(--violet);font-size:17px;font-weight:800;min-width:74px}
+  .have li span{color:var(--ink2);font-weight:500;font-size:14px}
+
+  .note{margin-top:18px;padding-top:12px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--ink3);line-height:1.7}
+</style></head><body>
+<div class="sheet">
+  <div class="eyebrow">시의성 — 왜 지금인가</div>
+  <h1>2027년 8월, 세계 청년 수십만 명이 한국 성지로 온다</h1>
+  <div class="sub">제19차 세계청년대회(WYD) 서울 · 날짜가 확정된 수요다</div>
+
+  <div class="facts">
+    <div class="fact"><div class="n">20~30만 명</div>
+      <div class="k">방한하는 해외 청년 규모<br><span style="font-size:12.5px;color:#9ca3af">WYD 조직위 발표</span></div></div>
+    <div class="fact"><div class="n">비그리스도교 국가 최초</div>
+      <div class="k">아시아에서 필리핀 이후, 한국은 첫 사례다</div></div>
+    <div class="fact"><div class="n">수호성인 = 한국 순교자</div>
+      <div class="k">대회의 상징이 곧 우리가 다루는 208곳이다</div></div>
+  </div>
+
+  <div class="tl">
+    <div class="line"></div><div class="fill"></div>
+    <div class="marks">
+      <div class="mk now"><div class="d">2026.9</div><div class="t">지금<br>관광공모전 제출</div></div>
+      <div class="mk"><div class="d">2026.12 ~ 2027.2</div><div class="t">콘텐츠 확충<br>사진·도슨트·다국어 원고</div></div>
+      <div class="mk"><div class="d">2027.7.29</div><div class="t">교구대회<br>청년들이 전국 교구로 흩어진다</div></div>
+      <div class="mk big"><div class="d">2027.8.3 ~ 8.8</div><div class="t">본대회 · 서울<br>교황 참석</div></div>
+    </div>
+  </div>
+
+  <div class="split">
+    <div class="box gap">
+      <h3>비어 있는 자리</h3>
+      <p>성지 208곳을<br>외국어로 안내하는 서비스가 없다</p>
+    </div>
+    <div class="box have">
+      <h3>Visit Holy Korea 가 이미 갖춘 것</h3>
+      <ul>
+        <li><b>6개 국어</b><span>한 · 영 · 스페인 · 프랑스 · 포르투갈 · 이탈리아</span></li>
+        <li><b>208곳</b><span>전국 성지 전수 — 영어 완역</span></li>
+        <li><b>13곳</b><span>현장조사 기반 오디오 도슨트</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">
+    일정·규모는 2027 서울 세계청년대회 조직위 발표를 따랐습니다(참가 규모는 대회 전 변동될 수 있습니다). 도슨트 원고 13곳은 한국어·영어로 완성, 스페인어 확대 진행 중 — 2026-09-05 기준.
+  </div>
+</div>
+</body></html>

@@ -13,6 +13,11 @@
  */
 
 import { connectAdminDb } from './lib/db';
+import { loadEnvLocal } from './lib/env.ts';
+
+// `.env.local` 을 먼저 올린다 — 이게 없으면 SUPABASE_DB_URL 을 못 찾아
+// "SUPABASE_DB_URL 이 없습니다"만 찍고 끝난다(2026-09-06 발견).
+loadEnvLocal({ supabasePlaceholder: true });
 
 type Mode = 'pending' | 'feature' | 'unfeature';
 

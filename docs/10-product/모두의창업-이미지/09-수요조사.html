@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<style>
+  :root{
+    --brand-blue:#1e3a8a; --brand-violet:#7c3aed;
+    --ink:#111827; --ink-2:#4b5563; --ink-3:#6b7280;
+    --surface:#ffffff; --bg:#f3f4f6; --rule:#e5e7eb; --muted-bar:#c7cbd3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);font-family:"Pretendard","Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+       color:var(--ink);-webkit-font-smoothing:antialiased}
+  .sheet{width:1160px;background:var(--surface);padding:38px 56px 30px;margin:0 auto}
+  .eyebrow{font-size:15px;font-weight:700;color:var(--brand-violet);letter-spacing:.02em}
+  h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin-top:8px}
+  .sub{font-size:15px;color:var(--ink-3);margin-top:8px}
+
+  .hero{margin-top:24px;padding:20px 26px;border-left:5px solid var(--brand-violet);background:#faf7ff;
+        display:flex;align-items:baseline;gap:22px}
+  .hero .num{font-size:54px;font-weight:800;color:var(--brand-violet);line-height:1;letter-spacing:-.03em}
+  .hero .txt{font-size:19px;font-weight:600;color:var(--ink)}
+  .hero .txt small{display:block;font-size:14px;font-weight:500;color:var(--ink-2);margin-top:6px}
+
+  h2{font-size:19px;font-weight:700;margin-top:28px}
+  h2 span{font-size:14px;font-weight:500;color:var(--ink-3);margin-left:10px}
+
+  .bars{margin-top:12px}
+  .row{display:grid;grid-template-columns:250px 1fr 96px;align-items:center;gap:18px;padding:7px 0}
+  .row .label{font-size:16px;font-weight:600;color:var(--ink);text-align:right}
+  .row.dim .label{font-weight:500;color:var(--ink-2)}
+  .track{height:26px;position:relative}
+  .bar{height:26px;border-radius:0 4px 4px 0;background:var(--muted-bar)}
+  .row.lead .bar{background:var(--brand-violet)}
+  .row .val{font-size:16px;font-weight:700;color:var(--ink);white-space:nowrap}
+  .row.dim .val{font-weight:600;color:var(--ink-2)}
+
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .tile{border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
+  .tile .n{font-size:38px;font-weight:800;color:var(--brand-blue);letter-spacing:-.02em;line-height:1}
+  .tile .k{font-size:15px;font-weight:600;margin-top:10px}
+  .tile .d{font-size:13px;color:var(--ink-3);margin-top:4px}
+
+  .note{margin-top:24px;padding-top:14px;border-top:1px solid var(--rule);
+        font-size:13px;color:var(--ink-3);line-height:1.75}
+  .note b{color:var(--ink-2)}
+</style></head><body>
+<div class="sheet">
+  <div class="eyebrow">비지트홀리코리아 · 교인 대상 수요조사</div>
+  <h1>“설명이 없어서 아쉬웠다” — 20명 중 20명</h1>
+  <div class="sub">2026. 8. 27. ~ 8. 31. · 온라인 설문 · 응답 20명 · 성지·성당 방문 경험자</div>
+
+  <div class="hero">
+    <div class="num">100%</div>
+    <div class="txt">성지 현장에서 설명이 부족하다고 느낀 적이 있다
+      <small>자주 있다 7명 · 가끔 있다 13명 · <b>“거의 없다” 0명</b></small>
+    </div>
+  </div>
+
+  <h2>가장 필요한 기능<span>앱을 열어본 뒤 하나만 선택 · n=20</span></h2>
+  <div class="bars">
+    <div class="row lead">
+      <div class="label">성지 해설<br><span style="font-size:13px;font-weight:500;color:var(--ink-3)">건축·성상·역사</span></div>
+      <div class="track"><div class="bar" style="width:60%"></div></div>
+      <div class="val">12명 · 60%</div>
+    </div>
+    <div class="row dim">
+      <div class="label">주변 본당·피정의집 안내</div>
+      <div class="track"><div class="bar" style="width:25%"></div></div>
+      <div class="val">5명 · 25%</div>
+    </div>
+    <div class="row dim">
+      <div class="label">그 밖의 선택지 합계</div>
+      <div class="track"><div class="bar" style="width:15%"></div></div>
+      <div class="val">3명 · 15%</div>
+    </div>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><div class="n">85%</div><div class="k">50대 이상</div>
+      <div class="d">17명 — 큰 글자·느린 낭독이 기본인 이유</div></div>
+    <div class="tile"><div class="n">90%</div><div class="k">하루 안에 다녀오고 싶다</div>
+      <div class="d">당일 14명 · 반나절 4명</div></div>
+    <div class="tile"><div class="n">55%</div><div class="k">베타 사용자로 참여하겠다</div>
+      <div class="d">11명 — 그중 9명이 연락처를 남김</div></div>
+  </div>
+
+  <div class="note">
+    <b>조사 방법</b> · 성지·성당 방문 경험이 있는 교인 대상 온라인 설문(익명, 이름 미수집).
+    표본 20명으로 경향을 읽는 용도이며 모집단을 대표하지 않습니다. 같은 문항에서 “영어 안내”는 0표였고,
+    다국어 기능의 근거로는 이 조사를 쓰지 않았습니다.
+  </div>
+</div>
+</body></html>
