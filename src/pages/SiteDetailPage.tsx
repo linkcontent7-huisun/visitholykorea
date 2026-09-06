@@ -55,11 +55,16 @@ import {
   useNearbyFestivals,
 } from '@/features/sites/hooks/use-nearby-tour';
 import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
-import { GROUP_HINT } from '@/features/sites/lib/nearby-facilities';
+import {
+  GROUP_HINT_KEY,
+  GROUP_LABEL_KEY,
+} from '@/features/sites/lib/nearby-facilities';
 import { useSite, useSitesInSameDiocese } from '@/features/sites/hooks/use-sites';
 import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { kakaoPlaceUrl } from '@/shared/lib/geo';
 
@@ -151,7 +156,7 @@ export default function SiteDetailPage() {
     attachPhoto.mutate(small);
   };
   const handleReport = (stampId: string) => {
-    if (!window.confirm('이 글·사진을 신고할까요? 여러 사람이 신고하면 가려집니다.')) return;
+    if (!window.confirm(t('reportConfirm'))) return;
     setReportedIds((prev) => new Set(prev).add(stampId));
     reportNote.mutate(stampId);
   };
@@ -177,7 +182,7 @@ export default function SiteDetailPage() {
     if (!note) return;
     addStamp.mutate(note, {
       onSuccess: (result) => {
-        if (!result.success) window.alert('한 줄 저장에 실패했어요.');
+        if (!result.success) window.alert(t('saveFailedNote'));
       },
     });
   };
@@ -190,7 +195,7 @@ export default function SiteDetailPage() {
           navigate(paths.login);
           return;
         }
-        window.alert('찜 저장에 실패했어요.');
+        window.alert(t('saveFailedFavorite'));
       },
     });
   };
@@ -203,7 +208,7 @@ export default function SiteDetailPage() {
           navigate(paths.login);
           return;
         }
-        window.alert('스탬프 저장에 실패했어요.');
+        window.alert(t('saveFailedStamp'));
       },
     });
   };
@@ -228,7 +233,7 @@ export default function SiteDetailPage() {
       await shareOrDownloadCard(blob, `visitholy-${site.name}.png`);
     } catch (e) {
       console.error('공유 카드 생성 실패:', e);
-      window.alert('공유 카드를 만드는 데 실패했어요. 잠시 후 다시 시도해주세요.');
+      window.alert(t('shareCardFailed'));
     } finally {
       setShareLoading(false);
     }
@@ -237,7 +242,7 @@ export default function SiteDetailPage() {
   if (isLoading) return <LoadingSpinner />;
 
   if (!site) {
-    return <p className="p-10 text-center font-bold">성지를 찾을 수 없습니다.</p>;
+    return <p className="p-10 text-center font-bold">{t('siteNotFound')}</p>;
   }
 
   const tags = [site.emotionTag, site.region, site.category].filter((t): t is string => Boolean(t));
@@ -269,13 +274,13 @@ export default function SiteDetailPage() {
               animate={{ scale: 1 }}
               transition={{ duration: 10 }}
               src={heroPhoto.url}
-              alt={heroPhoto.fromPilgrim ? `${site.name} — 순례자가 보내온 사진` : site.name}
+              alt={heroPhoto.fromPilgrim ? `${site.name} — ${t('photoFromPilgrim')}` : site.name}
               className="h-full w-full object-cover"
             />
             {/* 순례자 사진은 누가 보내준 것인지 밝힌다 — 공식 사진과 같아 보이면 안 된다 */}
             {heroPhoto.fromPilgrim && (
               <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[10px] text-white/80 backdrop-blur-sm">
-                순례자가 보내온 사진
+                {t('photoFromPilgrim')}
               </span>
             )}
             {/* CC 계열 라이선스는 출처 표기가 의무다 — 출처가 기록된 사진에만 붙는다 */}
@@ -301,7 +306,7 @@ export default function SiteDetailPage() {
           onClick={() => navigate(-1)}
           className="absolute left-6 top-12 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
           id="back-button"
-          aria-label="뒤로 가기"
+          aria-label={t('back')}
         >
           <ChevronLeft size={22} />
         </button>
@@ -310,7 +315,7 @@ export default function SiteDetailPage() {
           onClick={handleToggleFavorite}
           disabled={toggleFavorite.isPending}
           className="absolute right-6 top-12 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
-          aria-label={isFavorited ? '찜 해제하기' : '찜하기'}
+          aria-label={isFavorited ? t('favoriteRemove') : t('favoriteAdd')}
           aria-pressed={isFavorited}
         >
           <Heart size={20} className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined} />
@@ -323,7 +328,7 @@ export default function SiteDetailPage() {
           {/* WYD 2027 공식 일정지 — 해외 청년 20~30만 명이 오는 확정 행사다 */}
           {isWydVenue(site.name) && (
             <span className="ml-2 inline-block rounded-full bg-amber-400/90 px-3 py-1.5 text-[10px] font-extrabold tracking-wide text-amber-950 shadow-xl">
-              {language === 'en' ? WYD_LABEL_EN : WYD_LABEL_KO}
+              {language === 'ko' ? WYD_LABEL_KO : WYD_LABEL_EN}
             </span>
           )}
           <h1 className="mb-4 mt-3 text-4xl font-extrabold leading-tight tracking-tight">
@@ -344,7 +349,7 @@ export default function SiteDetailPage() {
                 key={tag}
                 className="rounded-full border border-white/20 bg-white/15 px-3 py-1 text-[11px] font-bold backdrop-blur-md"
               >
-                #{tag}
+                #{localizeDomainValue(tag, t)}
               </span>
             ))}
           </div>
@@ -355,15 +360,18 @@ export default function SiteDetailPage() {
         <section>
           <div className="mb-6 flex items-center gap-3">
             <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-            <h2 className="text-xl font-extrabold tracking-tight text-app-text">기본 정보</h2>
+            <h2 className="text-xl font-extrabold tracking-tight text-app-text">
+              {t('siteBasicInfo')}
+            </h2>
           </div>
           {/* 주소는 히어로 부제와 "찾아가는 길"에 이미 나오므로 여기서는 뺀다 (T-004) */}
           <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
             <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
-              교구 / 감성 태그
+              {t('siteDioceseEmotion')}
             </div>
             <p className="text-xs font-bold text-app-text">
-              {site.region} {site.emotionTag ? `· ${site.emotionTag}` : ''}
+              {site.region}{' '}
+              {site.emotionTag ? `· ${localizeDomainValue(site.emotionTag, t)}` : ''}
             </p>
           </div>
         </section>
@@ -372,7 +380,7 @@ export default function SiteDetailPage() {
           <div className="mb-6 flex items-center gap-3">
             <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
             <h2 className="flex-1 text-xl font-extrabold tracking-tight text-app-text">
-              성지 이야기
+              {t('siteStory')}
             </h2>
           </div>
           {/* 오디오 도슨트 — 박물관 오디오 가이드처럼 챕터를 골라 듣는다 */}
@@ -409,10 +417,10 @@ export default function SiteDetailPage() {
             <div className="mb-6 flex items-center gap-3">
               <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
               <h2 className="text-xl font-extrabold tracking-tight text-app-text">
-                가는 김에 둘러볼 곳
+                {t('siteNearbyTitle')}
               </h2>
               <span className="text-[10px] font-bold text-app-text-muted">
-                반경 5km · 실시간 · 한국관광공사
+                {t('siteNearbyMeta')}
               </span>
             </div>
 
@@ -430,9 +438,11 @@ export default function SiteDetailPage() {
                 {facilityGroups.map(({ group, spots }) => (
                   <div key={group}>
                     <div className="mb-3 flex items-baseline gap-2">
-                      <h3 className="text-sm font-extrabold text-app-text">{group}</h3>
+                      <h3 className="text-sm font-extrabold text-app-text">
+                        {t(GROUP_LABEL_KEY[group])}
+                      </h3>
                       <span className="text-[11px] font-bold text-app-text-muted">
-                        {GROUP_HINT[group]}
+                        {t(GROUP_HINT_KEY[group])}
                       </span>
                     </div>
                     <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
@@ -486,10 +496,10 @@ export default function SiteDetailPage() {
             <div className="mb-6 flex items-center gap-3">
               <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
               <h2 className="text-xl font-extrabold tracking-tight text-app-text">
-                지금 근처에서 열리는 행사
+                {t('siteFestivalsTitle')}
               </h2>
               <span className="text-[10px] font-bold text-app-text-muted">
-                실시간 · 한국관광공사
+                {t('siteLiveSource')}
               </span>
             </div>
             <div className="space-y-3">
@@ -529,22 +539,25 @@ export default function SiteDetailPage() {
             (wydNow ? (
               // WYD 대회 기간 — 다시 오지 않는 날짜. 이 기간의 스탬프는 그 자체로 참가 증명이다.
               <p className="text-center text-[11px] font-bold text-amber-600">
-                ✨ 지금 찍으면 <span className="font-extrabold">{WYD_LIMITED_LABEL_KO}</span> —
-                대회 기간에만 새겨지는 금빛 기록이에요
+                ✨ <span className="font-extrabold">
+                  {language === 'ko' ? WYD_LIMITED_LABEL_KO : WYD_LIMITED_LABEL_EN}
+                </span>
                 <span className="mt-0.5 block text-[10px] font-semibold text-app-text-muted">
-                  {WYD_LIMITED_LABEL_EN}
+                  {t('stampWydNote')}
                 </span>
               </p>
             ) : (
               <p className="text-center text-[11px] font-bold text-app-text-muted">
-                오늘 찍으면{' '}
+                {t('stampLimitedTitle')}{' '}
                 <span className={todayLiturgical.colorClass.text}>
-                  {todayLiturgical.emoji} {todayLiturgical.label}
-                </span>{' '}
-                한정판 스탬프예요
+                  {todayLiturgical.emoji} {t(todayLiturgical.labelKey)}
+                </span>
                 {/* 기한이 보여야 한정판이 한정판이 된다 — 재방문의 이유 */}
                 <span className="mt-0.5 block text-[10px] font-semibold">
-                  이 잉크는 {inkWindow.daysLeft}일 뒤 {inkWindow.nextLabel}(으)로 바뀌어요
+                  {fillPlaceholders(t('stampInkChanges'), {
+                    days: inkWindow.daysLeft,
+                    next: t(inkWindow.nextLabelKey),
+                  })}
                 </span>
               </p>
             ))}
@@ -562,10 +575,10 @@ export default function SiteDetailPage() {
             >
               {stamped ? <Check size={20} /> : <Stamp size={20} />}
               {addStamp.isPending
-                ? '기록하는 중...'
+                ? t('stampRecording')
                 : stamped
-                  ? '순례 스탬프 완료'
-                  : '순례 스탬프 찍기'}
+                  ? t('stampDone')
+                  : t('stampButton')}
             </button>
           </div>
 
@@ -579,7 +592,7 @@ export default function SiteDetailPage() {
               id="share-card-button"
             >
               <Share2 size={18} />
-              {shareLoading ? '카드 만드는 중...' : '순례 스탬프 카드 공유하기'}
+              {shareLoading ? t('shareCardMaking') : t('shareStampCard')}
             </button>
           )}
         </section>
@@ -588,7 +601,7 @@ export default function SiteDetailPage() {
             사람만 안다. 이 한 줄이 다음 방문자의 판단 근거가 된다 (컨셉 축 3). */}
         {stamped && !myStamp?.note && !noteDismissed && (
           <div className="rounded-[20px] border border-app-border bg-white p-5">
-            <p className="text-sm font-bold text-app-text">오늘 그곳은 어땠나요?</p>
+            <p className="text-sm font-bold text-app-text">{t('noteAskTitle')}</p>
             {/* 오늘의 질문 — 빈 입력창은 쓰기 어렵지만 질문에는 답하게 된다.
                 이 성지의 역사에서 나온 질문이라, 답이 곧 이곳과 나의 기록이 된다. */}
             <blockquote className="mt-2 border-l-2 border-brand-violet/40 pl-3 text-xs font-semibold leading-relaxed text-brand-violet">
@@ -597,13 +610,13 @@ export default function SiteDetailPage() {
                 : resolveReflectionQuestion(site.name, site.category).en}
             </blockquote>
             <p className="mt-2 text-xs leading-relaxed text-app-text-muted">
-              떠오르는 한 줄이면 충분해요. 다음 순례자에게도 힘이 됩니다.
+              {t('noteHint')}
             </p>
             <input
               type="text"
               maxLength={NOTE_MAX_LENGTH}
-              placeholder="평일 오후, 저 말고 아무도 없었어요"
-              aria-label="방문 한 줄 기록"
+              placeholder={t('notePlaceholder')}
+              aria-label={t('noteAriaLabel')}
               className="mt-3 w-full rounded-2xl border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
               value={noteDraft}
               onChange={(e) => setNoteDraft(e.target.value)}
@@ -616,14 +629,14 @@ export default function SiteDetailPage() {
                 onClick={() => setNoteDismissed(true)}
                 className="rounded-xl px-4 py-2 text-xs font-bold text-app-text-muted"
               >
-                다음에요
+                {t('noteLater')}
               </button>
               <button
                 onClick={handleSaveNote}
                 disabled={normalizeNote(noteDraft) === null || addStamp.isPending}
                 className="rounded-xl bg-brand-violet px-4 py-2 text-xs font-bold text-white disabled:opacity-40"
               >
-                {addStamp.isPending ? '남기는 중…' : '한 줄 남기기'}
+                {addStamp.isPending ? t('noteSubmitting') : t('noteSubmit')}
               </button>
             </div>
           </div>
@@ -633,7 +646,7 @@ export default function SiteDetailPage() {
           <div className="rounded-[20px] border border-app-border bg-white p-5">
             {myStamp?.note && (
               <>
-                <p className="text-xs font-bold text-app-text-muted">내가 남긴 한 줄</p>
+                <p className="text-xs font-bold text-app-text-muted">{t('noteMine')}</p>
                 <p className="mt-2 text-sm leading-relaxed text-app-text">
                   &ldquo;{myStamp.note}&rdquo;
                 </p>
@@ -644,7 +657,7 @@ export default function SiteDetailPage() {
             {myStamp?.photoUrl && (
               <img
                 src={myStamp.photoUrl}
-                alt="내가 남긴 순례 사진"
+                alt={t('photoMineAlt')}
                 className="mt-3 max-h-48 w-full rounded-2xl object-cover"
               />
             )}
@@ -655,10 +668,10 @@ export default function SiteDetailPage() {
             >
               <Camera size={14} aria-hidden />
               {attachPhoto.isPending
-                ? '사진 올리는 중…'
+                ? t('photoUploading')
                 : myStamp?.photoUrl
-                  ? '사진 바꾸기'
-                  : '순례 사진 남기기'}
+                  ? t('photoReplace')
+                  : t('photoAdd')}
               <input
                 type="file"
                 accept="image/*"
@@ -672,8 +685,7 @@ export default function SiteDetailPage() {
               />
             </label>
             <p className="mt-2 text-[10px] leading-relaxed text-app-text-muted">
-              올린 사진과 한 줄은 다른 순례자에게 익명으로 공개돼요. 얼굴이 나온 사진은
-              피해주세요.
+              {t('photoPrivacyNote')}
             </p>
           </div>
         )}
@@ -681,9 +693,9 @@ export default function SiteDetailPage() {
         {/* 다녀온 사람의 한 줄 — 추정 지수를 사람의 증언이 보정한다 */}
         {visitNotes.length > 0 && (
           <div className="rounded-[20px] border border-app-border bg-white p-5">
-            <p className="text-sm font-bold text-app-text">순례자 이야기</p>
+            <p className="text-sm font-bold text-app-text">{t('pilgrimStories')}</p>
             <p className="mt-1 text-xs text-app-text-muted">
-              다녀온 사람들이 남긴 한 줄과 사진 — 함께 만드는 순례 안내예요
+              {t('pilgrimStoriesHint')}
             </p>
             <ul className="mt-3 space-y-4">
               {visitNotes.map((n) => (
@@ -691,7 +703,7 @@ export default function SiteDetailPage() {
                   {n.photoUrl && (
                     <img
                       src={n.photoUrl}
-                      alt="순례자가 남긴 사진"
+                      alt={t('pilgrimPhotoAlt')}
                       loading="lazy"
                       className="mb-2 max-h-56 w-full rounded-2xl object-cover"
                     />
@@ -705,17 +717,17 @@ export default function SiteDetailPage() {
                         month: 'long',
                         day: 'numeric',
                       })}{' '}
-                      방문
+                      {t('visitedLabel')}
                     </p>
                     {/* 운영자가 한 명뿐이라 신고 3건이면 자동으로 가려진다 */}
                     <button
                       onClick={() => handleReport(n.id)}
                       disabled={reportedIds.has(n.id)}
                       className="flex items-center gap-1 text-[10px] font-bold text-app-text-muted/60 disabled:opacity-40"
-                      aria-label="신고"
+                      aria-label={t('reportAction')}
                     >
                       <Flag size={10} aria-hidden />
-                      {reportedIds.has(n.id) ? '신고됨' : '신고'}
+                      {reportedIds.has(n.id) ? t('reportedAction') : t('reportAction')}
                     </button>
                   </div>
                 </li>
@@ -779,7 +791,7 @@ export default function SiteDetailPage() {
           <section className="pb-10">
             <h2 className="mb-8 flex items-center gap-3 text-xl font-extrabold tracking-tight text-app-text">
               <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-              {site.region} 교구의 다른 성지
+              {fillPlaceholders(t('siteOtherInDiocese'), { diocese: site.region })}
             </h2>
             <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
               {nearbySites.map((nearby) => (
@@ -797,7 +809,7 @@ export default function SiteDetailPage() {
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[9px] font-extrabold text-brand-violet backdrop-blur-md">
-                      {nearby.category}
+                      {localizeDomainValue(nearby.category, t)}
                     </div>
                   </div>
                   <div className="p-5">

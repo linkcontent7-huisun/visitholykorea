@@ -10,6 +10,7 @@
  */
 
 import { CONTENT_TYPE, type TourApiSpot } from '@/shared/api/tour-api';
+import type { TranslationKey } from '@/shared/i18n/dictionary';
 
 /** 순례자가 실제로 찾는 순서대로 둔다. 화면의 탭 순서가 이 순서다. */
 export const FACILITY_GROUPS = ['맛집', '숙박', '볼거리', '쉼터'] as const;
@@ -94,4 +95,25 @@ export const GROUP_HINT: Record<FacilityGroup, string> = {
   숙박: '하룻밤 묵어가실 곳',
   볼거리: '함께 둘러볼 곳',
   쉼터: '오가는 길에 들를 곳',
+};
+
+/**
+ * 화면에 그릴 때 쓰는 사전 키.
+ *
+ * 위의 `FACILITY_GROUPS` 와 `GROUP_HINT` 는 **분류 자체의 이름**이라 코드
+ * 안에서는 한국어 그대로 둔다(테스트·집계가 이 값을 쓴다). 다만 그대로
+ * 그리면 영어 모드에 한국어가 남으므로, 그릴 때는 이 표를 거친다.
+ */
+export const GROUP_LABEL_KEY: Record<FacilityGroup, TranslationKey> = {
+  맛집: 'nearbyFood',
+  숙박: 'nearbyStay',
+  볼거리: 'nearbySights',
+  쉼터: 'facilityRest',
+};
+
+export const GROUP_HINT_KEY: Record<FacilityGroup, TranslationKey> = {
+  맛집: 'facilityHintFood',
+  숙박: 'facilityHintStay',
+  볼거리: 'facilityHintSights',
+  쉼터: 'facilityHintRest',
 };

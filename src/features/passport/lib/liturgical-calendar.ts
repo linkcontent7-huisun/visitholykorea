@@ -12,14 +12,39 @@
  * 전례 안내 자체가 아니라 "그 시기 분위기를 담은 기념 스탬프"이기 때문이다.
  */
 
+import type { TranslationKey } from '@/shared/i18n/dictionary';
+
 export type LiturgicalSeasonKey = '대림' | '성탄' | '사순' | '부활' | '연중';
 export type SpecialMonthKey = '성모성월' | '성심성월' | '순교자성월' | '위령성월' | null;
+
+/** 전례 시기·성월 이름의 사전 키. 잉크 이름은 6개 국어로 나가야 한다(T-007). */
+const SEASON_LABEL_KEY: Record<LiturgicalSeasonKey, TranslationKey> = {
+  대림: 'liturgicalAdvent',
+  성탄: 'liturgicalChristmas',
+  사순: 'liturgicalLent',
+  부활: 'liturgicalEaster',
+  연중: 'liturgicalOrdinary',
+};
+
+const SPECIAL_MONTH_LABEL_KEY: Record<NonNullable<SpecialMonthKey>, TranslationKey> = {
+  성모성월: 'liturgicalMonthMary',
+  성심성월: 'liturgicalMonthSacredHeart',
+  순교자성월: 'liturgicalMonthMartyrs',
+  위령성월: 'liturgicalMonthSouls',
+};
 
 export interface LiturgicalEvent {
   season: LiturgicalSeasonKey;
   specialMonth: SpecialMonthKey;
   /** 스탬프에 실제로 표시할 이름 (특별 성월이 있으면 그걸 우선) */
   label: string;
+  /**
+   * 화면에 그릴 때 쓰는 사전 키.
+   *
+   * `label` 은 한국어 그대로 남긴다 — 공유 카드·인증서를 캔버스로 그리는
+   * 코드가 이 값을 쓰고, 그쪽은 한국어 기록물이다. 화면 문구만 여기서 옮긴다.
+   */
+  labelKey: TranslationKey;
   emoji: string;
   colorClass: { bg: string; ring: string; text: string };
 }
@@ -138,17 +163,21 @@ function getSpecialMonth(date: Date): SpecialMonthKey {
  * 재방문 이유가 생긴다. 경계 규칙을 또 하드코딩하면 getSeason 과 어긋날 수
  * 있으므로, 라벨이 실제로 바뀌는 날을 하루씩 짚어서 찾는다(최대 1년).
  */
-export function getInkDaysLeft(date: Date = new Date()): { daysLeft: number; nextLabel: string } {
-  const currentLabel = getLiturgicalEvent(date).label;
+export function getInkDaysLeft(date: Date = new Date()): {
+  daysLeft: number;
+  nextLabel: string;
+  nextLabelKey: TranslationKey;
+} {
+  const current = getLiturgicalEvent(date);
   for (let i = 1; i <= 366; i++) {
     const probe = addDays(startOfDay(date), i);
-    const label = getLiturgicalEvent(probe).label;
-    if (label !== currentLabel) {
-      return { daysLeft: i, nextLabel: label };
+    const next = getLiturgicalEvent(probe);
+    if (next.label !== current.label) {
+      return { daysLeft: i, nextLabel: next.label, nextLabelKey: next.labelKey };
     }
   }
   // 이 지점에 오면 계산 로직이 깨진 것이다 — 라벨은 1년 안에 반드시 바뀐다.
-  return { daysLeft: 366, nextLabel: currentLabel };
+  return { daysLeft: 366, nextLabel: current.label, nextLabelKey: current.labelKey };
 }
 
 /** 주어진 날짜(기본값: 오늘)의 전례력 이벤트를 반환한다 — 스탬프 디자인 분기에 사용. */
@@ -162,6 +191,7 @@ export function getLiturgicalEvent(date: Date = new Date()): LiturgicalEvent {
       season,
       specialMonth,
       label: specialMonth,
+      labelKey: SPECIAL_MONTH_LABEL_KEY[specialMonth],
       emoji: style.emoji,
       colorClass: style.colorClass,
     };
@@ -172,6 +202,7 @@ export function getLiturgicalEvent(date: Date = new Date()): LiturgicalEvent {
     season,
     specialMonth: null,
     label: `${season} 시기`,
+    labelKey: SEASON_LABEL_KEY[season],
     emoji: style.emoji,
     colorClass: style.colorClass,
   };
