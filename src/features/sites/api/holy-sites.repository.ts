@@ -89,16 +89,63 @@ export async function fetchSitesInSameDiocese(
   return unwrap(data, error, 'fetchSitesInSameDiocese').map(toHolySite);
 }
 
-/** 이름·주소 부분 일치 검색. */
+/**
+ * 이름·주소 부분 일치 검색.
+ *
+ * `holy_sites.name`/`location` 은 한국어 원문이라 "Myeongdong Cathedral" 같은
+ * 영문(또는 다른 언어) 입력은 매칭되지 않는다 — 해외 순례자 피드백(2026-09-07)으로
+ * 확인됨. 번역 테이블(`holy_site_translations`)의 이름·로마자 주소도 함께 훑어
+ * 매칭된 site_id 를 원문 성지에 합친다. 번역 조회가 실패해도 한국어 검색 결과는
+ * 그대로 돌려준다 — 보조 경로가 주 경로를 막으면 안 된다.
+ */
 export async function searchSites(term: string, limit = 8): Promise<HolySite[]> {
   const trimmed = term.trim();
   if (!trimmed) return [];
-  const { data, error } = await supabase
+
+  const nativeQuery = supabase
     .from(TABLE)
     .select('*')
     .or(`name.ilike.%${trimmed}%,location.ilike.%${trimmed}%`)
     .limit(limit);
-  return unwrap(data, error, 'searchSites').map(toHolySite);
+
+  const translationQuery = supabase
+    .from('holy_site_translations')
+    .select('site_id')
+    .or(`name.ilike.%${trimmed}%,address_romanized.ilike.%${trimmed}%`)
+    .limit(limit);
+
+  const [nativeResult, translationResult] = await Promise.all([nativeQuery, translationQuery]);
+
+  const nativeSites = unwrap(nativeResult.data, nativeResult.error, 'searchSites').map(toHolySite);
+
+  if (translationResult.error) {
+    console.warn('searchSites 번역 검색 건너뜀:', translationResult.error.message);
+    return nativeSites;
+  }
+
+  const alreadyFound = new Set(nativeSites.map((s) => s.id));
+  const translatedIds = [
+    ...new Set(
+      (translationResult.data ?? [])
+        .map((row) => row.site_id as string)
+        .filter((id) => !alreadyFound.has(id)),
+    ),
+  ];
+
+  if (translatedIds.length === 0) return nativeSites;
+
+  const { data: extraRows, error: extraError } = await supabase
+    .from(TABLE)
+    .select('*')
+    .in('id', translatedIds)
+    .limit(limit);
+
+  if (extraError) {
+    console.warn('searchSites 번역 매칭 성지 조회 실패:', extraError.message);
+    return nativeSites;
+  }
+
+  return [...nativeSites, ...(extraRows ?? []).map(toHolySite)].slice(0, limit);
 }
 
 /** 감정 태그(+선택적 교구)에 해당하는 후보 성지. 코스 추천 엔진의 입력. */

@@ -310,6 +310,16 @@ export const DICTIONARY = {
     pt: 'Evitar multidões',
     it: 'Evitare la folla',
   },
+  // 「고요 속으로」 섹션과 「붐빔 피하기」 칩이 같은 화면으로 가는데 이름이 달라
+  // 혼란스럽다는 피드백(2026-09-07)에 대한 답 — 관계를 짧게 밝힌다.
+  quietHeroCaption: {
+    ko: '붐빔 피하기 미리보기',
+    en: 'A preview of Avoid Crowds',
+    es: 'Vista previa de Evitar aglomeraciones',
+    fr: 'Aperçu de Éviter la foule',
+    pt: 'Prévia de Evitar multidões',
+    it: 'Anteprima di Evitare la folla',
+  },
   passportSignupCta: {
     ko: '가입하고 첫 도장 찍기',
     en: 'Sign up for your first stamp',
@@ -688,6 +698,71 @@ export const DICTIONARY = {
     pt: 'Michael, o guia de peregrinação com IA',
     it: 'Michael, la guida al pellegrinaggio con IA',
   },
+  // 검색과 AI 가이드의 역할이 헷갈린다는 피드백(2026-09-07) — 한 줄로 구분한다.
+  searchRoleHint: {
+    ko: '검색은 성지를 빠르게 찾는 도구, 미카엘은 일정·마음 상태에 맞춰 안내하는 가이드예요.',
+    en: 'Search finds a shrine quickly. Michael guides you based on your schedule and mood.',
+    es: 'La búsqueda encuentra un santuario rápido. Michael te guía según tu horario y tu ánimo.',
+    fr: 'La recherche trouve vite un sanctuaire. Michael vous guide selon votre emploi du temps et votre humeur.',
+    pt: 'A busca encontra um santuário rápido. Michael guia você conforme sua agenda e seu estado de espírito.',
+    it: 'La ricerca trova subito un santuario. Michael ti guida in base al tuo tempo e al tuo stato d’animo.',
+  },
+  aiAnswerDisclaimer: {
+    ko: 'AI 답변은 저희 성지 데이터베이스 안의 내용으로만 작성됩니다. 미사 시간·교리 등 중요한 내용은 해당 성지 사무실이나 교구 공식 자료로 다시 확인해 주세요.',
+    en: 'This answer is drawn only from our shrine database. Please double-check important details (Mass times, doctrine) with the shrine office or official diocesan sources.',
+    es: 'Esta respuesta se basa solo en nuestra base de datos de santuarios. Verifica los datos importantes (horarios de misa, doctrina) con la oficina del santuario o fuentes oficiales de la diócesis.',
+    fr: 'Cette réponse s’appuie uniquement sur notre base de données des sanctuaires. Vérifiez les informations importantes (horaires de messe, doctrine) auprès du sanctuaire ou du diocèse.',
+    pt: 'Esta resposta usa apenas nossa base de dados de santuários. Confirme informações importantes (horários de missa, doutrina) com a administração do santuário ou fontes oficiais da diocese.',
+    it: 'Questa risposta usa solo il nostro database dei santuari. Verifica i dettagli importanti (orari delle messe, dottrina) con l’ufficio del santuario o fonti diocesane ufficiali.',
+  },
+  aiUnavailableCta: {
+    ko: '지금은 AI 가이드를 쓸 수 없어요. 성지 검색으로 계속 찾아보세요.',
+    en: 'The AI guide is unavailable right now. Keep looking with shrine search instead.',
+    es: 'La guía de IA no está disponible ahora. Sigue buscando con la búsqueda de santuarios.',
+    fr: 'Le guide IA est indisponible pour le moment. Continuez avec la recherche de sanctuaires.',
+    pt: 'O guia de IA está indisponível agora. Continue procurando pela busca de santuários.',
+    it: 'La guida IA non è disponibile ora. Continua a cercare con la ricerca dei santuari.',
+  },
+  searchRecommendTitle: {
+    ko: '처음이라면 여기부터',
+    en: 'New here? Start with these',
+    es: '¿Primera vez? Empieza por aquí',
+    fr: 'Nouveau ici ? Commencez par là',
+    pt: 'Primeira vez? Comece por aqui',
+    it: 'Prima volta? Inizia da qui',
+  },
+  searchRecommendSeoul: {
+    ko: '서울 근교 성지',
+    en: 'Shrines near Seoul',
+    es: 'Santuarios cerca de Seúl',
+    fr: 'Sanctuaires près de Séoul',
+    pt: 'Santuários perto de Seul',
+    it: 'Santuari vicino a Seoul',
+  },
+  searchRecommendQuiet: {
+    ko: '고요한 곳 찾기',
+    en: 'Find somewhere quiet',
+    es: 'Buscar un lugar tranquilo',
+    fr: 'Trouver un lieu paisible',
+    pt: 'Encontrar um lugar tranquilo',
+    it: 'Trova un luogo tranquillo',
+  },
+  searchRecommendAlternatives: {
+    ko: '지금 붐비지 않는 곳',
+    en: 'Not crowded right now',
+    es: 'Sin aglomeraciones ahora',
+    fr: 'Peu fréquenté en ce moment',
+    pt: 'Sem multidão agora',
+    it: 'Poco affollato ora',
+  },
+  searchRecommendFestival: {
+    ko: '오늘 열리는 축제 곁 성지',
+    en: 'Shrines near today’s festivals',
+    es: 'Santuarios junto a festivales de hoy',
+    fr: 'Sanctuaires près des fêtes du jour',
+    pt: 'Santuários perto dos festivais de hoje',
+    it: 'Santuari vicino ai festival di oggi',
+  },
 
   // 지도 화면
   mapTitle: {
@@ -705,6 +780,39 @@ export const DICTIONARY = {
     fr: 'Rechercher un sanctuaire',
     pt: 'Buscar nome do santuário',
     it: 'Cerca il nome del santuario',
+  },
+  // 실제 지도(도로·지명)로 착각했다는 피드백(2026-09-07) — 무엇을 보여주는 지도인지 밝힌다.
+  mapScopeNote: {
+    ko: '실제 도로 지도가 아닌, 208곳의 방문 현황을 한눈에 보는 조망도예요. 길찾기는 성지 상세의 「찾아가는 길」을 이용하세요.',
+    en: 'This is not a road map — it’s an overview of your progress across 208 shrines. For directions, use “Getting there” on each shrine’s page.',
+    es: 'No es un mapa de carreteras: es una vista general de tu progreso en los 208 santuarios. Para direcciones, usa "Cómo llegar" en la página de cada santuario.',
+    fr: 'Ce n’est pas une carte routière : c’est un aperçu de votre progression sur les 208 sanctuaires. Pour l’itinéraire, utilisez « S’y rendre » sur la fiche du sanctuaire.',
+    pt: 'Não é um mapa de estradas: é uma visão geral do seu progresso nos 208 santuários. Para rotas, use "Como chegar" na página de cada santuário.',
+    it: 'Non è una mappa stradale: è una panoramica dei tuoi progressi tra i 208 santuari. Per le indicazioni, usa "Come arrivare" nella pagina del santuario.',
+  },
+  mapSitesErrorTitle: {
+    ko: '성지 목록을 불러오지 못했어요',
+    en: 'Couldn’t load the shrine list',
+    es: 'No se pudo cargar la lista de santuarios',
+    fr: 'Impossible de charger la liste des sanctuaires',
+    pt: 'Não foi possível carregar a lista de santuários',
+    it: 'Impossibile caricare l’elenco dei santuari',
+  },
+  mapSitesErrorBody: {
+    ko: '잠시 후 다시 시도해 주세요. 인터넷 연결을 확인하면 도움이 될 수 있어요.',
+    en: 'Please try again in a moment. Checking your internet connection may help.',
+    es: 'Inténtalo de nuevo en un momento. Revisar tu conexión a internet puede ayudar.',
+    fr: 'Réessayez dans un instant. Vérifier votre connexion internet peut aider.',
+    pt: 'Tente novamente em instantes. Verificar sua conexão com a internet pode ajudar.',
+    it: 'Riprova tra poco. Controllare la connessione a internet potrebbe aiutare.',
+  },
+  retry: {
+    ko: '다시 시도',
+    en: 'Retry',
+    es: 'Reintentar',
+    fr: 'Réessayer',
+    pt: 'Tentar novamente',
+    it: 'Riprova',
   },
   dioceseProgress: {
     ko: '교구별 진행',
@@ -1402,6 +1510,31 @@ export const DICTIONARY = {
     pt: 'Perguntas frequentes / Contato',
     it: 'Domande frequenti / Contatti',
   },
+  // 번역·정보 오류를 신고할 창구가 없다는 피드백(2026-09-07) — FAQ 하단에 이메일 문의를 둔다.
+  contactSectionTitle: {
+    ko: '더 궁금한 점이 있으신가요?',
+    en: 'Still have a question?',
+    es: '¿Aún tienes dudas?',
+    fr: 'Une autre question ?',
+    pt: 'Ainda tem dúvidas?',
+    it: 'Hai ancora domande?',
+  },
+  contactSectionBody: {
+    ko: '번역 오류, 성지 정보 오류, 그 밖의 의견을 이메일로 알려주세요.',
+    en: 'Let us know translation errors, incorrect shrine information, or any other feedback by email.',
+    es: 'Cuéntanos por correo errores de traducción, información incorrecta de un santuario u otro comentario.',
+    fr: 'Signalez-nous par e-mail les erreurs de traduction, les informations erronées ou tout autre avis.',
+    pt: 'Conte-nos por e-mail erros de tradução, informações incorretas do santuário ou outro comentário.',
+    it: 'Segnalaci via email errori di traduzione, informazioni errate sul santuario o altri commenti.',
+  },
+  contactEmailCta: {
+    ko: '이메일로 문의하기',
+    en: 'Contact us by email',
+    es: 'Contactar por correo',
+    fr: 'Nous contacter par e-mail',
+    pt: 'Contatar por e-mail',
+    it: 'Contattaci via email',
+  },
   shareApp: {
     ko: '친구에게 추천하기',
     en: 'Share with a friend',
@@ -1673,6 +1806,15 @@ export const DICTIONARY = {
     fr: 'Questions fréquentes',
     pt: 'Perguntas frequentes',
     it: 'Domande frequenti',
+  },
+  // 가입 전 명시적 동의 절차가 없다는 피드백(2026-09-07) — 체크해야 가입 버튼이 열린다.
+  signupConsentLabel: {
+    ko: '이용약관 및 개인정보 수집·이용에 동의합니다.',
+    en: 'I agree to the Terms of Service and the collection/use of my personal data.',
+    es: 'Acepto los Términos del servicio y la recopilación/uso de mis datos personales.',
+    fr: 'J’accepte les Conditions d’utilisation et la collecte/l’utilisation de mes données personnelles.',
+    pt: 'Concordo com os Termos de Serviço e a coleta/uso dos meus dados pessoais.',
+    it: 'Accetto i Termini di servizio e la raccolta/l’uso dei miei dati personali.',
   },
 
   // 찾아가는 길 — 외국인에게 가장 중요한 화면

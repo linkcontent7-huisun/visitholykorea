@@ -26,6 +26,7 @@ export function LogComposer({ onDone }: { onDone: () => void }) {
   const createLog = useCreateLog();
 
   const [siteId, setSiteId] = useState('');
+  const [siteQuery, setSiteQuery] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [visitDate, setVisitDate] = useState(todayISO());
@@ -83,30 +84,35 @@ export function LogComposer({ onDone }: { onDone: () => void }) {
           <label htmlFor="log-site" className="mb-1.5 block text-xs font-bold text-app-text-muted">
             다녀온 성지
           </label>
-          <select
+          {/* 208곳까지 늘어난 긴 드롭다운 대신, 이름을 치면 걸러지는 검색형 입력으로 바꿨다
+              (2026-09-07 피드백 — "기록할 성지가 많아질수록 긴 드롭다운은 찾기 어렵다"). */}
+          <input
             id="log-site"
-            value={siteId}
-            onChange={(e) => setSiteId(e.target.value)}
+            type="text"
+            list="log-site-options"
+            placeholder="성지 이름을 검색하세요"
+            value={siteQuery}
+            onChange={(e) => {
+              const value = e.target.value;
+              setSiteQuery(value);
+              const matched = sites.find((s) => s.name === value);
+              setSiteId(matched ? matched.id : '');
+            }}
             className="w-full rounded-2xl border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
-          >
-            <option value="">성지를 선택하세요</option>
-            {stampedSites.length > 0 && (
-              <optgroup label="스탬프 찍은 곳">
-                {stampedSites.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.name}
-                  </option>
-                ))}
-              </optgroup>
-            )}
-            <optgroup label={stampedSites.length > 0 ? '다른 성지' : '전체 성지'}>
-              {otherSites.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.name}
-                </option>
-              ))}
-            </optgroup>
-          </select>
+          />
+          <datalist id="log-site-options">
+            {stampedSites.map((s) => (
+              <option key={s.id} value={s.name} label="스탬프 찍은 곳" />
+            ))}
+            {otherSites.map((s) => (
+              <option key={s.id} value={s.name} />
+            ))}
+          </datalist>
+          {siteQuery !== '' && siteId === '' && (
+            <p className="mt-1.5 text-xs text-app-text-muted">
+              목록에서 정확한 이름을 골라주세요.
+            </p>
+          )}
         </div>
 
         <div>

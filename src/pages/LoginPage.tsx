@@ -19,6 +19,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'error' | 'info'; text: string } | null>(null);
 
@@ -42,6 +43,11 @@ export default function LoginPage() {
         return;
       }
       navigate(-1);
+      return;
+    }
+
+    if (!agreed) {
+      setLoading(false);
       return;
     }
 
@@ -149,6 +155,18 @@ export default function LoginPage() {
             />
           </div>
 
+          {!isLogin && (
+            <label className="flex cursor-pointer items-start gap-2.5 px-1 text-xs font-medium text-slate-500">
+              <input
+                type="checkbox"
+                checked={agreed}
+                onChange={(e) => setAgreed(e.target.checked)}
+                className="mt-0.5 size-4 shrink-0 accent-blue-600"
+              />
+              <span>{t('signupConsentLabel')}</span>
+            </label>
+          )}
+
           {message && (
             <p
               className={`px-1 text-sm font-bold ${
@@ -162,7 +180,7 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || (!isLogin && !agreed)}
             className="group mt-8 flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 py-5 font-black text-white shadow-xl shadow-blue-100 transition-all hover:bg-blue-700 active:scale-95 disabled:opacity-50"
           >
             {loading ? t('processing') : isLogin ? t('login') : t('signup')}

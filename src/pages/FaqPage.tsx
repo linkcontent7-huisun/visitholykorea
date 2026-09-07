@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronLeft } from 'lucide-react';
+import { ChevronDown, ChevronLeft, Mail } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -70,9 +70,12 @@ SNS 간편 로그인은 별도 회원가입 절차 없이 첫 로그인과 동�
   ],
 };
 
+/** 번역 오류·성지 정보 오류를 신고할 창구가 없다는 피드백(2026-09-07)에 대한 답. */
+const CONTACT_EMAIL = 'visitholykorea@gmail.com';
+
 export default function FaqPage() {
   const navigate = useNavigate();
-  const { wideView } = useSettings();
+  const { wideView, t } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
   const [탭선택, set탭선택] = useState<탭>('회원가입 및 로그인');
@@ -143,6 +146,21 @@ export default function FaqPage() {
               </div>
             );
           })}
+        </div>
+
+        <div className="mt-10 rounded-2xl border border-slate-100 bg-slate-50 p-6 text-center">
+          <p className="text-sm font-bold text-slate-800">{t('contactSectionTitle')}</p>
+          <p className="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-slate-500">
+            {t('contactSectionBody')}
+          </p>
+          <a
+            href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('[Visit Holy Korea] ')}`}
+            className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white"
+          >
+            <Mail size={16} />
+            {t('contactEmailCta')}
+          </a>
+          <p className="mt-2 text-xs font-medium text-slate-400">{CONTACT_EMAIL}</p>
         </div>
       </div>
     </div>

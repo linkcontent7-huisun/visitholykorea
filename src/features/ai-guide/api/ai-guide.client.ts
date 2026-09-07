@@ -8,7 +8,8 @@
 
 import { supabase } from '@/shared/api/supabase';
 
-const FALLBACK_ANSWER =
+/** 호출부가 이 값과 비교해 "정말 실패했는지"를 판단할 수 있도록 export 한다. */
+export const FALLBACK_ANSWER =
   '죄송합니다. 현재 가이드 서비스를 이용할 수 없습니다. 잠시 후 다시 시도해주세요.';
 
 /**

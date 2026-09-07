@@ -55,7 +55,11 @@ export function TodayQuietSection({
       <header className={compact ? 'mb-3 flex items-center justify-between gap-3' : 'mb-5'}>
         {compact ? (
           <>
-            <h2 className="text-lg font-bold text-app-text">{t('quietHeroTitle')}</h2>
+            <div className="min-w-0">
+              <h2 className="text-lg font-bold text-app-text">{t('quietHeroTitle')}</h2>
+              {/* 위 칩줄의 「붐빔 피하기」와 같은 화면으로 간다는 것을 밝힌다(2026-09-07 피드백) */}
+              <p className="mt-0.5 text-[11px] text-app-text-muted">{t('quietHeroCaption')}</p>
+            </div>
             <Link
               to={paths.alternatives}
               className="shrink-0 text-[12px] font-bold text-brand-violet"

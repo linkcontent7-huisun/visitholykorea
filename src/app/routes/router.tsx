@@ -1,5 +1,5 @@
 import { lazy, Suspense, type ReactNode } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Outlet, ScrollRestoration } from 'react-router-dom';
 import { AppLayout } from '@/app/layouts/AppLayout';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { paths } from './paths';
@@ -60,9 +60,26 @@ function RouteErrorPage() {
   );
 }
 
+/**
+ * 경로 없는 최상위 껍데기.
+ *
+ * `ScrollRestoration` 을 여기 한 곳에 둬서 모든 라우트(하단 탭 있는 화면 +
+ * 전체 화면 화면)에 똑같이 적용한다 — 페이지를 옮기면 맨 위에서 시작하고,
+ * 뒤로가기로 돌아오면 있던 위치를 복원한다. 화면마다 따로 넣지 않는다.
+ */
+function RootRoute() {
+  return (
+    <>
+      <ScrollRestoration />
+      <Outlet />
+    </>
+  );
+}
+
 export const router = createBrowserRouter([
   {
     // 경로 없는 최상위 — 모든 화면의 오류가 여기 errorElement 로 모인다
+    element: <RootRoute />,
     errorElement: <RouteErrorPage />,
     children: [
       {

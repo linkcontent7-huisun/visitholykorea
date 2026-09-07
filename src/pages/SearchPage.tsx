@@ -1,10 +1,21 @@
-import { ArrowRight, BookOpen, Church, Loader2, MapPin, Search, X } from 'lucide-react';
+import {
+  ArrowRight,
+  BookOpen,
+  Church,
+  Compass,
+  Loader2,
+  MapPin,
+  PartyPopper,
+  Search,
+  Wind,
+  X,
+} from 'lucide-react';
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
-import { askAIGuide } from '@/features/ai-guide/api/ai-guide.client';
+import { askAIGuide, FALLBACK_ANSWER } from '@/features/ai-guide/api/ai-guide.client';
 import { useSiteSearch } from '@/features/sites/hooks/use-sites';
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -57,13 +68,64 @@ export default function SearchPage() {
 
       <div className="flex-1 overflow-y-auto bg-slate-50/30 p-6">
         {query.length === 0 ? (
-          <div className="py-20 text-center text-slate-300">
-            <Search size={48} className="mx-auto mb-4 opacity-10" />
-            <p className="font-bold">{t('searchPromptTitle')}</p>
-            <p className="mt-2 text-xs">{t('searchPromptBody')}</p>
+          <div className="mx-auto max-w-prose">
+            <div className="py-14 text-center text-slate-300">
+              <Search size={48} className="mx-auto mb-4 opacity-10" />
+              <p className="font-bold">{t('searchPromptTitle')}</p>
+              <p className="mt-2 text-xs">{t('searchPromptBody')}</p>
+            </div>
+
+            {/* 처음 온 사람에게 막막하지 않도록, 이미 있는 화면들로 가는 지름길을 준다
+                (2026-09-07 피드백 — 새로 지어낸 추천 목록이 아니라 실제 기능으로 연결한다). */}
+            <div className="pb-10">
+              <h2 className="mb-3 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                {t('searchRecommendTitle')}
+              </h2>
+              <div className="grid grid-cols-2 gap-3">
+                <Link
+                  to={paths.region('서울')}
+                  className="flex flex-col items-start gap-2 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm hover:shadow-md"
+                >
+                  <MapPin size={18} className="text-blue-500" />
+                  <span className="text-sm font-bold text-slate-800">
+                    {t('searchRecommendSeoul')}
+                  </span>
+                </Link>
+                <Link
+                  to={paths.compass}
+                  className="flex flex-col items-start gap-2 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm hover:shadow-md"
+                >
+                  <Compass size={18} className="text-blue-500" />
+                  <span className="text-sm font-bold text-slate-800">
+                    {t('searchRecommendQuiet')}
+                  </span>
+                </Link>
+                <Link
+                  to={paths.alternatives}
+                  className="flex flex-col items-start gap-2 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm hover:shadow-md"
+                >
+                  <Wind size={18} className="text-blue-500" />
+                  <span className="text-sm font-bold text-slate-800">
+                    {t('searchRecommendAlternatives')}
+                  </span>
+                </Link>
+                <Link
+                  to={paths.festivals}
+                  className="flex flex-col items-start gap-2 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm hover:shadow-md"
+                >
+                  <PartyPopper size={18} className="text-blue-500" />
+                  <span className="text-sm font-bold text-slate-800">
+                    {t('searchRecommendFestival')}
+                  </span>
+                </Link>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="mx-auto max-w-prose space-y-10">
+            {/* 검색과 AI 가이드가 뭐가 다른지 헷갈린다는 피드백(2026-09-07) — 한 줄로 구분한다 */}
+            <p className="text-xs leading-relaxed text-slate-400">{t('searchRoleHint')}</p>
+
             {(results.length > 0 || isFetching) && (
               <section className="space-y-4">
                 <h2 className="text-[10px] font-black uppercase tracking-widest text-slate-400">
@@ -126,7 +188,19 @@ export default function SearchPage() {
                 </button>
               )}
 
-              {aiResult && (
+              {/* 서버 함수 호출이 실패하면 askAIGuide 가 고정 안내문을 돌려준다 —
+                  이때는 정상 답변처럼 보이지 않도록, 검색으로 이어지는 대안을 보여준다
+                  (2026-09-07 피드백: "AI 가 작동하지 않을 때 대안을 제공하면 좋겠다"). */}
+              {aiResult === FALLBACK_ANSWER && (
+                <div className="rounded-[2rem] border border-amber-100 bg-amber-50 p-6 text-center">
+                  <p className="text-sm font-bold text-amber-800">{aiResult}</p>
+                  <p className="mt-3 text-xs font-semibold text-amber-700">
+                    {t('aiUnavailableCta')}
+                  </p>
+                </div>
+              )}
+
+              {aiResult && aiResult !== FALLBACK_ANSWER && (
                 <div className="rounded-[2rem] border border-slate-100 bg-white p-8 shadow-sm">
                   <div className="mb-6 flex items-center gap-2">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600">
@@ -138,6 +212,11 @@ export default function SearchPage() {
                   <div className="prose prose-sm text-sm font-light leading-relaxed text-slate-600 [&_ol]:list-decimal [&_ol]:pl-4 [&_p]:mb-2 [&_strong]:font-bold [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:px-2 [&_td]:py-1 [&_th]:border [&_th]:px-2 [&_th]:py-1 [&_ul]:list-disc [&_ul]:pl-4">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{aiResult}</ReactMarkdown>
                   </div>
+                  {/* 성지 DB 밖 내용은 답하지 않도록 서버가 막고 있지만, 미사 시간처럼
+                      현지 사정에 따라 바뀌는 정보는 화면에서도 다시 한 번 못 박는다. */}
+                  <p className="mt-6 border-t border-slate-100 pt-4 text-[11px] leading-relaxed text-slate-400">
+                    {t('aiAnswerDisclaimer')}
+                  </p>
                 </div>
               )}
             </section>

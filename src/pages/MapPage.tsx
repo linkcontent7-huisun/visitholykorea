@@ -1,4 +1,4 @@
-import { Check, MapPin, Search } from 'lucide-react';
+import { AlertTriangle, Check, MapPin, Navigation, Search } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -8,6 +8,7 @@ import { useVisitedSites } from '@/features/map/hooks/use-visited';
 import { almostSiteIds, buildNudge, computeDioceseProgress } from '@/features/map/lib/progress';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { useSites } from '@/features/sites/hooks/use-sites';
+import { buildMapLinks } from '@/shared/lib/map-links';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
@@ -33,12 +34,12 @@ import type { HolySite } from '@/shared/types/domain';
 export default function MapPage() {
   // 공식 사진이 없는 성지는 순례자가 보내준(승인된) 사진으로 채운다
   const { data: featured = {} } = useFeaturedPhotos();
-  const { t, wideView } = useSettings();
+  const { t, wideView, language } = useSettings();
   const [selectedDiocese, setSelectedDiocese] = useState('전체');
   const [keyword, setKeyword] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const { data: sites = [], isLoading } = useSites({ limit: 300 });
+  const { data: sites = [], isLoading, isError, refetch } = useSites({ limit: 300 });
   const { visits, visitedIds, toggle } = useVisitedSites();
 
   // 진행률은 필터와 무관하게 **전체 기준**으로 센다.
@@ -91,6 +92,15 @@ export default function MapPage() {
     />
   );
 
+  /** 선택한 성지의 실제 길찾기 링크 — 좌표를 아는 경우에만 있다. */
+  const selectedDirectionsUrl =
+    selectedSite && selectedSite.coordinates.lat != null && selectedSite.coordinates.lng != null
+      ? buildMapLinks(
+          { name: selectedSite.name, lat: selectedSite.coordinates.lat, lng: selectedSite.coordinates.lng },
+          language === 'ko',
+        )[0]?.url
+      : undefined;
+
   /** 핀·목록에서 고른 성지 카드. 구글맵처럼 정보보다 행동이 먼저 온다. */
   const selectedCard = selectedSite && (
     <div className="rounded-[24px] border border-brand-blue/30 bg-white p-5 shadow-sm">
@@ -120,6 +130,19 @@ export default function MapPage() {
           자세히
         </Link>
       </div>
+
+      {/* 이 지도는 조망용이라 실제 길찾기가 없다는 피드백(2026-09-07) — 여기서 바로 연결한다 */}
+      {selectedDirectionsUrl && (
+        <a
+          href={selectedDirectionsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 flex items-center justify-center gap-1.5 rounded-2xl px-4 py-2.5 text-xs font-bold text-brand-violet hover:underline"
+        >
+          <Navigation size={14} />
+          {t('directions')}
+        </a>
+      )}
     </div>
   );
 
@@ -139,11 +162,32 @@ export default function MapPage() {
               ? t('loading')
               : fillPlaceholders(t('mapProgress'), { n: totalVisited, total: sites.length })}
           </p>
+          {/* 실제 도로 지도로 착각했다는 피드백(2026-09-07) — 무엇을 보여주는 지도인지 밝힌다 */}
+          <p className="mt-1.5 text-xs leading-relaxed text-app-text-muted opacity-80">
+            {t('mapScopeNote')}
+          </p>
 
           {nudge && (
             <p className="mt-3 rounded-2xl bg-brand-violet/10 px-4 py-3 text-sm font-semibold text-brand-violet">
               {nudge}
             </p>
+          )}
+
+          {isError && (
+            <div className="mt-3 flex items-start gap-3 rounded-2xl border border-red-100 bg-red-50 px-4 py-3">
+              <AlertTriangle size={18} className="mt-0.5 shrink-0 text-red-500" aria-hidden />
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-bold text-red-700">{t('mapSitesErrorTitle')}</p>
+                <p className="mt-1 text-xs leading-relaxed text-red-600">{t('mapSitesErrorBody')}</p>
+                <button
+                  type="button"
+                  onClick={() => void refetch()}
+                  className="mt-2 rounded-full bg-red-600 px-4 py-1.5 text-xs font-bold text-white"
+                >
+                  {t('retry')}
+                </button>
+              </div>
+            </div>
           )}
         </div>
 
