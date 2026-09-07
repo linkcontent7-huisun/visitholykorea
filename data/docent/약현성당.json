@@ -6,6 +6,7 @@
   "surveyedBy": "현장: 미조사 / 원고: Claude (문헌 기반 초안)",
   "status": "draft",
   "intro": {
+    "narrationEs": "Esta modesta iglesia de ladrillo rojo en la colina es la iglesia de Yakhyeon, la primera iglesia de estilo occidental de Corea, construida en 1892, seis años antes que la catedral de Myeongdong. No es grande ni suntuosa, pero cuando se sabe por qué se alza en esta colina concreta, se la recorre de otra manera. Miremos alrededor despacio.",
     "narration": "언덕 위에 붉은 벽돌로 소박하게 서 있는 이 성당이, 한국 최초의 서양식 성당인 약현성당입니다. 명동대성당보다 6년 앞선 1892년에 세워졌습니다. 크고 화려하지는 않지만, 이 성당이 왜 하필 이 언덕에 세워졌는지를 알고 나면 걸음이 달라집니다. 천천히 함께 둘러보겠습니다.",
     "narrationEn": "This modest red-brick church on the hill is Yakhyeon Church, the first Western-style church in Korea, built in 1892 — six years before Myeongdong Cathedral. It is neither large nor grand, but once you know why it stands on this particular hill, you will walk it differently. Let us look around slowly.",
     "photos": []
@@ -14,6 +15,10 @@
     {
       "seq": 1,
       "title": "언덕 위의 자리 — 서소문이 내려다보이는 곳",
+      "titleEs": "La colina desde la que se contempla Seosomun",
+      "locationEs": "El patio de la iglesia, donde la vista se abre hacia la ciudad",
+      "narrationEs": "Mire hacia la ciudad desde el patio de la iglesia. Debajo de esta colina está Seosomun, el lugar oficial de ejecuciones de la dinastía Joseon. A través de las persecuciones de 1801, 1839 y 1866, cuarenta y cuatro católicos fueron martirizados allí abajo. La iglesia de Yakhyeon se construyó precisamente en esta colina para contemplar y recordar siempre aquel lugar de martirio. Su propia ubicación es un monumento.",
+      "lookForEs": "La vista abierta desde el patio de la iglesia hacia Seosomun",
       "titleEn": "The Hilltop — Overlooking Seosomun",
       "location": "성당 마당, 시내 방향이 트인 자리",
       "locationEn": "The churchyard, where the view opens toward the city",
@@ -28,6 +33,10 @@
     {
       "seq": 2,
       "title": "성당 외관 — 한국 최초의 서양식 성당",
+      "titleEs": "La fachada, la primera iglesia de estilo occidental de Corea",
+      "locationEs": "Frente a la iglesia",
+      "narrationEs": "El padre Doucet consiguió este terreno en 1891, y el padre Eugène Coste, arquitecto de la catedral de Myeongdong, diseñó y dirigió la construcción, terminada en 1892. Es la primera arquitectura eclesiástica de estilo occidental de Corea y está designada como Sitio Histórico número 252. Esta iglesia de ladrillo, que combina rasgos góticos y románicos, se convirtió en modelo para la arquitectura eclesiástica coreana posterior. Piense en ella como la tranquila hermana mayor de la grandiosa catedral de Myeongdong.",
+      "lookForEs": "Los muros de ladrillo rojo y las curvas de las ventanas de arco",
       "titleEn": "The Facade — Korea's First Western-Style Church",
       "location": "성당 정면",
       "locationEn": "In front of the church",
@@ -42,6 +51,10 @@
     {
       "seq": 3,
       "title": "성당 내부 — 작은 십자가 평면",
+      "titleEs": "El interior, una pequeña planta en forma de cruz",
+      "locationEs": "Dentro de la nave, por favor no entre durante la misa",
+      "narrationEs": "El interior tiene una íntima planta en forma de cruz, de unos treinta y dos metros de largo y doce de ancho. Visto desde arriba, el edificio mismo forma una cruz, conforme a la larga tradición de la arquitectura eclesiástica. Aunque es pequeño, aquí se ha celebrado misa durante más de ciento treinta años. Recórralo en silencio por quienes están rezando.",
+      "lookForEs": "Cómo el espacio en forma de cruz converge hacia el altar",
       "titleEn": "The Interior — A Small Cross-Shaped Plan",
       "location": "본당 안 (미사 중에는 입장을 삼가주세요)",
       "locationEn": "Inside the nave (please do not enter during Mass)",
@@ -56,6 +69,10 @@
     {
       "seq": 4,
       "title": "서소문 순교지로 가는 길",
+      "titleEs": "El camino que baja a Seosomun",
+      "locationEs": "Desde la iglesia hacia el Parque Histórico de Seosomun",
+      "narrationEs": "Ya que ha llegado hasta aquí, baje la colina hasta el lugar de martirio de Seosomun: el mismo terreno que esta iglesia ha contemplado y recordado durante más de ciento treinta años. Recorrer en sentido inverso el camino que una vez anduvieron los mártires y regresar a la iglesia es la parte más conmovedora de una peregrinación a Yakhyeon.",
+      "lookForEs": "La iglesia vista por encima del hombro al descender la colina",
       "titleEn": "The Walk Down to Seosomun",
       "location": "성당에서 서소문역사공원 방향",
       "locationEn": "From the church toward Seosomun History Park",
@@ -69,6 +86,7 @@
     }
   ],
   "outro": {
+    "narrationEs": "Gracias por visitar la iglesia de Yakhyeon con nosotros. Esta colina muestra que la iglesia más antigua no es la más grandiosa, sino la que ha recordado durante más tiempo. Que tenga un día de paz.",
     "narration": "약현성당 순례에 함께해 주셔서 감사합니다. 가장 오래된 성당은 가장 화려한 성당이 아니라, 가장 오래 기억해 온 성당이라는 것을 이 언덕이 보여줍니다. 평화로운 하루 되시기 바랍니다.",
     "narrationEn": "Thank you for visiting Yakhyeon Church with us. This hill shows that the oldest church is not the grandest one, but the one that has remembered the longest. May your day be peaceful.",
     "photos": []

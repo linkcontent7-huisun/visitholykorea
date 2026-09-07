@@ -6,6 +6,7 @@
   "surveyedBy": "현장: 미조사 / 원고: Claude (문헌 기반 초안)",
   "status": "draft",
   "intro": {
+    "narrationEs": "Solmoe significa «colina de pinos»: una elevación baja cubierta de pinos. En 1821 nació en este pueblo san Andrés Kim Taegon, el primer sacerdote católico coreano. Pero Solmoe es más que la tierra natal de un hombre: es el semillero de la fe de una familia que dio mártires durante cuatro generaciones, desde su bisabuelo. El papa Francisco lo visitó en 2014, y Solmoe es sede oficial de la Jornada Mundial de la Juventud de Seúl de 2027. Caminemos juntos bajo los pinos.",
     "narration": "소나무가 우거진 나지막한 산이라 하여 솔뫼입니다. 1821년 이 마을에서 한국 최초의 사제 김대건 안드레아 신부가 태어났습니다. 솔뫼는 김대건 한 사람의 고향이 아니라, 증조할아버지부터 4대에 걸쳐 순교자를 낸 한 가문의 신앙이 자란 못자리입니다. 2014년에는 프란치스코 교황이 이곳을 찾았고, 2027년 서울 세계청년대회의 공식 일정지이기도 합니다. 솔숲 사이로 함께 걸어보겠습니다.",
     "narrationEn": "Solmoe means a low hill thick with pines. In this village, in 1821, St. Andrew Kim Taegon — Korea's first Catholic priest — was born. But Solmoe is more than one man's hometown: it is the seedbed of a family whose faith bore martyrs across four generations, from his great-grandfather onward. Pope Francis visited in 2014, and Solmoe is an official site of World Youth Day Seoul 2027. Let us walk together beneath the pines.",
     "photos": []
@@ -14,6 +15,10 @@
     {
       "seq": 1,
       "title": "솔숲 — 이름이 된 소나무 숲",
+      "titleEs": "El pinar que dio nombre al lugar",
+      "locationEs": "El sendero de pinos que va de la entrada a la casa natal",
+      "narrationEs": "Comience caminando despacio entre los pinos. El nombre Solmoe es tan antiguo que aparece en la recomendación de Kim Taegon para el seminario de 1836. El bosque donde el muchacho jugaba es ahora un camino por el que los peregrinos caminan en meditación. Escuche por un momento el viento que pasa entre los pinos.",
+      "lookForEs": "Los troncos curvados de los pinos antiguos",
       "titleEn": "The Pine Grove That Named the Place",
       "location": "성지 입구에서 생가로 이어지는 솔숲 길",
       "locationEn": "The pine path from the entrance to the birth home",
@@ -28,6 +33,10 @@
     {
       "seq": 2,
       "title": "복원된 생가 — 김대건 신부가 태어난 집",
+      "titleEs": "La casa natal restaurada de san Andrés Kim Taegon",
+      "locationEs": "La casa de tejas dentro del bosque",
+      "narrationEs": "Esta casa de tejas, restaurada en 2004, es la casa natal de san Andrés Kim Taegon. Nació aquí en 1821, fue elegido seminarista a los quince años y enviado a Macao, regresó como sacerdote a los veinticuatro y fue martirizado en Saenamteo a los veinticinco. El 15 de agosto de 2014, el papa Francisco se sentó ante esta misma casa en oración silenciosa. Permanezca un momento donde el papa se sentó.",
+      "lookForEs": "El suelo de madera de la casa y el marcador de la visita papal",
       "titleEn": "The Restored Birth Home of St. Andrew Kim Taegon",
       "location": "솔숲 안쪽의 기와집",
       "locationEn": "The tile-roofed house within the grove",
@@ -42,6 +51,9 @@
     {
       "seq": 3,
       "title": "4대에 걸친 순교 — 한 가문의 이야기",
+      "titleEs": "Cuatro generaciones de mártires, la historia de una familia",
+      "locationEs": "Alrededor de la casa natal",
+      "narrationEs": "La historia de esta familia no termina con un solo hombre. Su bisabuelo Pío Kim Chin-hu fue martirizado en Haemi; su tío abuelo Andrés Kim Chong-han, en Daegu; su padre Ignacio Kim Che-jun, en Seosomun; y el propio Kim Taegon, en Saenamteo: la cuarta generación de mártires. En este patio, piense en el corazón de unos padres que conocían el camino recorrido por el abuelo y aun así entregaron a su hijo al seminario.",
       "titleEn": "Four Generations of Martyrs — One Family's Story",
       "location": "생가 주변",
       "locationEn": "Around the birth home",
@@ -49,6 +61,7 @@
       "narrationEn": "This family's story does not end with one man. His great-grandfather Pius Kim Chin-hu was martyred at Haemi; his great-uncle Andrew Kim Chong-han at Daegu; his father Ignatius Kim Che-jun at Seosomun; and Kim Taegon himself at Saenamteo — the fourth generation of martyrs. Standing in this yard, consider the heart of parents who knew the road the grandfather had walked, and still gave their son to the seminary.",
       "lookFor": null,
       "lookForEn": null,
+      "lookForEs": null,
       "forEveryone": "김진후 비오는 2014년 시복된 124위 복자에 포함되어 있으며, 그가 순교한 해미도 이 앱에서 찾아볼 수 있습니다.",
       "photos": [],
       "sourceNote": "성지 DB 원문 — 4대 순교(김진후·김종한·김제준·김대건). 해미 관련은 해미순교성지 DB 원문과 교차 확인"
@@ -56,6 +69,10 @@
     {
       "seq": 4,
       "title": "김대건 신부 동상과 기념관",
+      "titleEs": "La estatua y el memorial",
+      "locationEs": "La estatua entre los pinos y el memorial dentro del recinto",
+      "narrationEs": "En el corazón del bosque se alza la estatua de san Andrés Kim Taegon, y el recinto alberga un memorial de su vida, una iglesia y la plaza Arena al aire libre. Cuando la Jornada de la Juventud Asiática llegó a este bosque en 2014, jóvenes de toda Asia llenaron la plaza. Puesto que san Andrés Kim Taegon es patrono de la Jornada Mundial de la Juventud de Seúl de 2027, este lugar acogerá de nuevo a la juventud del mundo.",
+      "lookForEs": "Lo que sostiene la estatua y hacia dónde se dirige su mirada",
       "titleEn": "The Statue and Memorial Hall",
       "location": "솔숲 가운데 동상, 성지 내 기념관",
       "locationEn": "The statue amid the pines; the memorial hall on the grounds",
@@ -70,6 +87,10 @@
     {
       "seq": 5,
       "title": "성지 밖으로 — 버그내순례길",
+      "titleEs": "Más allá del santuario, el Camino de Peregrinación de Beogunae",
+      "locationEs": "El sendero que va de Solmoe hacia Hapdeok",
+      "narrationEs": "Si el tiempo y las piernas se lo permiten, recorra desde Solmoe el Camino de Peregrinación de Beogunae: un sendero rural llano de unos trece kilómetros que pasa por la iglesia de Hapdeok y el embalse de Hapdeok hasta el santuario de Sinri. La iglesia de Hapdeok, monumento de Chungcheongnam-do, acogió a misioneros durante la persecución de Byeongin; el embalse, uno de los tres grandes diques de Joseon y una estructura de riego de patrimonio mundial, se llena de flores de loto en verano. La fe y los campos comparten un mismo camino por las llanuras de Naepo.",
+      "lookForEs": "Las torres gemelas de la iglesia de Hapdeok al otro lado de los campos",
       "titleEn": "Beyond the Shrine — The Beogunae Pilgrimage Trail",
       "location": "솔뫼에서 합덕 방향으로 이어지는 순례길",
       "locationEn": "The trail from Solmoe toward Hapdeok",
@@ -83,6 +104,7 @@
     }
   ],
   "outro": {
+    "narrationEs": "Gracias por recorrer Solmoe con nosotros. El camino del muchacho nacido en este bosque, que llegó a ser el primer sacerdote coreano y dio su vida en Saenamteo, continúa en el santuario de Saenamteo en Seúl y en las rutas de peregrinación de esta aplicación. Llévese el aroma de los pinos y que sus pasos sean pacíficos.",
     "narration": "솔뫼 순례에 함께해 주셔서 감사합니다. 이 숲에서 태어난 소년이 조선 최초의 사제가 되어 새남터에서 생을 마치기까지의 길은, 서울의 새남터순교성지와 이 앱의 순례 코스로 이어집니다. 소나무 향을 기억하며, 평화로운 걸음 되시기 바랍니다.",
     "narrationEn": "Thank you for walking Solmoe with us. The road of the boy born in this grove — who became Korea's first priest and gave his life at Saenamteo — continues at the Saenamteo shrine in Seoul and in this app's pilgrimage routes. Carry the scent of the pines with you, and may your steps be peaceful.",
     "photos": []

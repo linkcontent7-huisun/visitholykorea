@@ -6,6 +6,7 @@
   "surveyedBy": "현장: 미조사 / 원고: Claude (문헌 기반 초안)",
   "status": "draft",
   "intro": {
+    "narrationEs": "Este es Baeron, en Jecheon: un valle llamado así por su forma, semejante al casco de una barca. En este estrecho valle, que fue una aldea escondida donde los creyentes que huían de la persecución vivían de cocer cerámica, se superponen tres escenas de la historia de la Iglesia coreana: la cueva donde Hwang Sa-yeong escribió su carta de seda, el Seminario de San José, el primero de Corea, y la tumba del padre Tomás Choe Yang-eop, el segundo sacerdote coreano. Permítame guiarle por el valle, escena por escena.",
     "narration": "제천 봉양읍, 배 밑바닥을 닮은 골짜기라 하여 배론입니다. 박해를 피해 숨어든 신자들이 옹기를 구우며 살던 교우촌이었던 이 좁은 골짜기에, 한국 교회사의 세 장면이 겹쳐 있습니다. 황사영이 백서를 쓴 토굴, 한국 최초의 신학교인 성 요셉 신학당, 그리고 한국인 두 번째 사제 최양업 신부의 묘. 골짜기를 따라 차례로 안내해 드리겠습니다.",
     "narrationEn": "This is Baeron in Jecheon — a valley named for its shape, like the hull of a boat. In this narrow valley, once a hidden village where believers fleeing persecution lived by firing pottery, three scenes of Korean church history overlap: the earthen cave where Hwang Sa-yong wrote his silk letter, St. Joseph Seminary — Korea's first — and the tomb of Fr. Thomas Choe Yang-eop, Korea's second priest. Let me guide you through the valley, one scene at a time.",
     "photos": []
@@ -14,6 +15,10 @@
     {
       "seq": 1,
       "title": "골짜기와 교우촌 — 옹기 굽던 사람들",
+      "titleEs": "El pueblo del valle de los alfareros",
+      "locationEs": "A la entrada, donde el valle aparece a la vista",
+      "narrationEs": "Al entrar, observe primero la forma del valle: largo y estrecho como el casco de una barca, de donde Baeron toma su nombre. A comienzos del siglo XIX, los creyentes que huían de la persecución se escondían en hondonadas de montaña como esta y vivían de cocer y vender vasijas onggi. Los hornos eran a la vez sustento y escondite. El apacible santuario de hoy se levanta sobre la aldea de quienes vivían ocultos.",
+      "lookForEs": "La forma larga y estrecha del valle",
       "titleEn": "The Valley Village of Potters",
       "location": "성지 입구, 골짜기가 한눈에 보이는 자리",
       "locationEn": "At the entrance, where the valley comes into view",
@@ -28,6 +33,10 @@
     {
       "seq": 2,
       "title": "황사영 백서 토굴",
+      "titleEs": "La cueva de la carta de seda de Hwang Sa-yeong",
+      "locationEs": "Detrás del Seminario de San José",
+      "narrationEs": "En esta pequeña cueva de tierra, disfrazada de horno de alfarería, Alejo Hwang Sa-yeong se ocultó durante ocho meses cuando estalló la persecución de 1801. En una pieza de seda de sesenta y dos por cuarenta centímetros escribió 13.384 diminutos caracteres: una carta al obispo de Pekín que informaba de la persecución y proponía cómo reconstruir la Iglesia. La carta nunca llegó; su portador fue capturado, y Hwang fue ejecutado en Seosomun ese mismo año. Ante la cueva, uno se pregunta qué sostuvo a un hombre durante ocho meses en aquella estrecha oscuridad.",
+      "lookForEs": "La boca de la cueva, tan baja que hay que agacharse para entrar",
       "titleEn": "The Cave of Hwang Sa-yong's Silk Letter",
       "location": "성 요셉 신학당 뒤편",
       "locationEn": "Behind St. Joseph Seminary",
@@ -42,6 +51,10 @@
     {
       "seq": 3,
       "title": "성 요셉 신학당 — 한국 최초의 신학교",
+      "titleEs": "El Seminario de San José, el primero de Corea",
+      "locationEs": "El seminario de paja restaurado dentro del recinto",
+      "narrationEs": "En 1855, un creyente llamado José Chang Chu-gi entregó su propia casa, y aquí se fundó el Seminario de San José, el primero de Corea. Los misioneros franceses padre Pourthié y padre Petitnicolas enseñaron latín y teología a jóvenes coreanos. Un seminario en una cabaña de paja: que el saber moderno occidental se enseñara en una aldea montañesa de Joseon es el silencioso asombro de este lugar. Durante la persecución de 1866, los dos sacerdotes fueron martirizados en Saenamteo, Chang Chu-gi en Galmaemot, y el seminario cerró tras once años.",
+      "lookForEs": "La escala modesta de la casa de paja restaurada",
       "titleEn": "St. Joseph Seminary — Korea's First",
       "location": "성지 내 복원된 신학당 초가",
       "locationEn": "The restored thatched seminary on the grounds",
@@ -56,6 +69,10 @@
     {
       "seq": 4,
       "title": "최양업 신부의 묘",
+      "titleEs": "La tumba del padre Tomás Choe Yang-eop",
+      "locationEs": "El camposanto dentro del santuario",
+      "narrationEs": "Aquí descansa el padre Tomás Choe Yang-eop, el segundo sacerdote coreano después de Kim Taegon. Si Kim Taegon es el mártir de la sangre, Choe es llamado el mártir del sudor: en lugar de morir a manos del verdugo, caminó miles de kilómetros al año durante doce años para llegar a creyentes dispersos por aldeas escondidas, hasta morir de agotamiento en el camino. La Iglesia lo ha declarado venerable y prepara su beatificación. Ante una vida consumada no por una muerte dramática, sino por un caminar constante, se replantea el sentido de la peregrinación.",
+      "lookForEs": "La posición de la tumba, que mira hacia el valle",
       "titleEn": "The Tomb of Fr. Thomas Choe Yang-eop",
       "location": "성지 내 묘역",
       "locationEn": "The burial ground within the shrine",
@@ -70,6 +87,10 @@
     {
       "seq": 5,
       "title": "최양업 신부 기념 대성당",
+      "titleEs": "La basílica conmemorativa del padre Choe Yang-eop",
+      "locationEs": "La gran iglesia dentro del recinto",
+      "narrationEs": "En lo profundo del valle se alza la gran iglesia conmemorativa del padre Choe Yang-eop, donde se celebran misas para peregrinos. El camino que ha recorrido, desde la oscuridad de la cueva, pasando por el aprendizaje del seminario, hasta la luz de esta iglesia, sigue el mismo orden de la historia que guarda este valle. Únase a la misa de peregrinos si la hora es propicia; si no, siéntese dentro y vuelva a sentir la quietud del valle.",
+      "lookForEs": "El valle visto desde el interior de la iglesia",
       "titleEn": "The Memorial Basilica of Fr. Choe Yang-eop",
       "location": "성지 내 대성당",
       "locationEn": "The great church on the grounds",
@@ -84,6 +105,10 @@
     {
       "seq": 6,
       "title": "성지 밖으로 — 봉양의 솔숲과 의림지",
+      "titleEs": "Más allá del santuario, pabellones entre pinos y Uirimji",
+      "locationEs": "Desde Baeron hacia el centro de Jecheon",
+      "narrationEs": "La comarca de Bongyang en torno a Baeron es tierra de agua y bosques. Cerca de aquí, Taksajeong es un pabellón rodeado de pinos sobre un acantilado junto al río, a cinco minutos de subida desde el aparcamiento. Hacia el centro de Jecheon está Uirimji, el primero de los diez paisajes escénicos de Jecheon: uno de los embalses más antiguos de Corea, del que se dice que data de la era Samhan y que está designado como paraje escénico nacional. Lleve consigo la quietud del valle y termine el día caminando junto a esas aguas antiguas.",
+      "lookForEs": "Los pinos antiguos alrededor de Uirimji y la cascada Yongchu",
       "titleEn": "Beyond the Shrine — Pine Pavilions and Uirimji",
       "location": "배론에서 제천 시내 방향",
       "locationEn": "From Baeron toward downtown Jecheon",
@@ -97,6 +122,7 @@
     }
   ],
   "outro": {
+    "narrationEs": "Gracias por recorrer Baeron con nosotros. La carta de seda escrita en este valle conduce a Seosomun; los sacerdotes que enseñaron aquí conducen a Saenamteo. Un valle estrecho guarda una historia así de amplia. Al marcharse, vuelva la vista hacia el valle una vez más. Que la paz esté con usted.",
     "narration": "배론 순례에 함께해 주셔서 감사합니다. 이 골짜기에서 쓰인 백서는 서소문으로, 이곳에서 가르치던 신부들은 새남터로 이어집니다. 좁은 골짜기 하나가 이렇게 넓은 이야기를 품고 있습니다. 돌아가는 길, 골짜기를 한 번 돌아봐 주시기 바랍니다. 평화를 빕니다.",
     "narrationEn": "Thank you for walking Baeron with us. The silk letter written in this valley leads to Seosomun; the priests who taught here lead to Saenamteo. One narrow valley holds a story this wide. As you leave, turn and look back at the valley once more. Peace be with you.",
     "photos": []
