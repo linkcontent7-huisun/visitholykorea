@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body { margin:0; background:#f8f9fa; font-family:'Inter',-apple-system,'Malgun Gothic',sans-serif; color:#1a1a1a; }
+a { color:#1e3a8a; text-decoration:none; }
+a:hover { color:#7c3aed; }
+input, select, button { font-family:inherit; }
+</style>
+</helmet>
+
+<div style="max-width:1400px; margin:0 auto; padding:40px 28px 120px;">
+  <header style="display:flex; flex-direction:column; gap:10px; margin-bottom:28px;">
+    <span style="font:700 11px/1 'Inter',sans-serif; letter-spacing:.18em; text-transform:uppercase; color:#7c3aed;">Visit Holy Korea · i18n 치트시트</span>
+    <h1 style="margin:0; font:800 32px/1.2 'Inter',sans-serif; letter-spacing:-.02em;">화면 글자 번역 치트시트 <span style="color:#495057; font-weight:600; font-size:20px;">/ UI string cheat sheet</span></h1>
+    <p style="margin:0; max-width:900px; font:400 15px/1.7 'Inter',sans-serif; color:#495057; text-wrap:pretty;">레포 <code style="font:600 13px 'IBM Plex Mono',monospace;">linkcontent7-huisun/visitholykorea@main</code>의 소스 167개 파일을 전수 조사해, 사전에 등록된 문구와 코드에 박혀 있는 문구를 각각 원본 위치까지 역추적한 표입니다. 대상 언어를 하나 고르고, 위에서 아래로 채우면 그 언어가 끝납니다.</p>
+  </header>
+
+  <section style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:28px;">
+    <div style="padding:16px 18px; border:1px solid #e9ecef; border-radius:12px; background:#fff;">
+      <p style="margin:0 0 6px; font:700 11px 'IBM Plex Mono',monospace; letter-spacing:.08em; color:#495057;">사전 키</p>
+      <p style="margin:0; font:800 26px/1 'Inter',sans-serif; color:#1e3a8a;">{{ stats.keys }}</p>
+      <p style="margin:6px 0 0; font:500 11px 'Inter',sans-serif; color:#495057;">6개 언어 완비</p>
+    </div>
+    <div style="padding:16px 18px; border:1px solid #e9ecef; border-radius:12px; background:#fff;">
+      <p style="margin:0 0 6px; font:700 11px 'IBM Plex Mono',monospace; letter-spacing:.08em; color:#495057;">하드코딩 UI 문구</p>
+      <p style="margin:0; font:800 26px/1 'Inter',sans-serif; color:#7c3aed;">{{ stats.hardUI }}</p>
+      <p style="margin:6px 0 0; font:500 11px 'Inter',sans-serif; color:#495057;">사전 밖 · 번역 안 됨</p>
+    </div>
+    <div style="padding:16px 18px; border:1px solid #e9ecef; border-radius:12px; background:#fff;">
+      <p style="margin:0 0 6px; font:700 11px 'IBM Plex Mono',monospace; letter-spacing:.08em; color:#495057;">도메인 값</p>
+      <p style="margin:0; font:800 26px/1 'Inter',sans-serif; color:#1a1a1a;">{{ stats.hardDomain }}</p>
+      <p style="margin:6px 0 0; font:500 11px 'Inter',sans-serif; color:#495057;">교구·분류 등 상수</p>
+    </div>
+    <div style="padding:16px 18px; border:1px solid #e9ecef; border-radius:12px; background:#fff;">
+      <p style="margin:0 0 6px; font:700 11px 'IBM Plex Mono',monospace; letter-spacing:.08em; color:#495057;">사용처 없는 키</p>
+      <p style="margin:0; font:800 26px/1 'Inter',sans-serif; color:#1a1a1a;">{{ stats.unused }}</p>
+      <p style="margin:6px 0 0; font:500 11px 'Inter',sans-serif; color:#495057;">번역 전 정리 대상</p>
+    </div>
+    <div style="padding:16px 18px; border:1px solid #e9ecef; border-radius:12px; background:#fff;">
+      <p style="margin:0 0 6px; font:700 11px 'IBM Plex Mono',monospace; letter-spacing:.08em; color:#495057;">자리표시자 오류</p>
+      <p style="margin:0; font:800 26px/1 'Inter',sans-serif; color:#1a1a1a;">{{ stats.phMismatch }}</p>
+      <p style="margin:6px 0 0; font:500 11px 'Inter',sans-serif; color:#495057;">{n} 누락·불일치</p>
+    </div>
+    <div style="padding:16px 18px; border:1px solid #e9ecef; border-radius:12px; background:#fff;">
+      <p style="margin:0 0 6px; font:700 11px 'IBM Plex Mono',monospace; letter-spacing:.08em; color:#495057;">번역 분량</p>
+      <p style="margin:0; font:800 26px/1 'Inter',sans-serif; color:#1a1a1a;">{{ stats.totalChars }}</p>
+      <p style="margin:6px 0 0; font:500 11px 'Inter',sans-serif; color:#495057;">사전 + 하드코딩 글자수</p>
+    </div>
+  </section>
+
+  <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:16px 18px; border:1px solid #e9ecef; border-radius:12px; background:#fff; margin-bottom:20px; position:sticky; top:0; z-index:5;">
+    <label style="display:flex; align-items:center; gap:8px; font:700 12px 'Inter',sans-serif; color:#1a1a1a;">
+      대상 언어
+      <select value="{{ lang }}" onChange="{{ onLang }}" style="padding:8px 10px; border:1px solid #dee2e6; border-radius:8px; font:600 12px 'Inter',sans-serif; color:#1a1a1a;">
+        <option value="en">EN · English</option>
+        <option value="es">ES · Español</option>
+        <option value="fr">FR · Français</option>
+        <option value="pt">PT · Português</option>
+        <option value="it">IT · Italiano</option>
+        <option value="ko">KO · 한국어 (원문 점검)</option>
+      </select>
+    </label>
+    <input value="{{ query }}" onInput="{{ onQuery }}" placeholder="키 · 원문 · 파일 검색" style="flex:1; min-width:220px; padding:9px 12px; border:1px solid #dee2e6; border-radius:8px; font:500 12px 'Inter',sans-serif;">
+    <select value="{{ section }}" onChange="{{ onSection }}" style="padding:8px 10px; border:1px solid #dee2e6; border-radius:8px; font:600 12px 'Inter',sans-serif; max-width:280px;">
+      <option value="">분류 전체</option>
+      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="6">
+        <option value="{{ s }}">{{ s }}</option>
+      </sc-for>
+    </select>
+    <button onClick="{{ onToggleIssues }}" style="padding:9px 14px; border:1px solid #dee2e6; border-radius:8px; background:#fff; font:700 12px 'Inter',sans-serif; color:#495057; cursor:pointer;">{{ issueLabel }}</button>
+    <button onClick="{{ onCopyTsv }}" style="padding:9px 14px; border:none; border-radius:8px; background:#1e3a8a; font:700 12px 'Inter',sans-serif; color:#fff; cursor:pointer;">{{ copyLabel }}</button>
+  </div>
+
+  <!-- ① 사전 키 -->
+  <section style="margin-bottom:44px;">
+    <h2 style="margin:0 0 6px; font:800 20px 'Inter',sans-serif;">① 사전에 등록된 화면 문구 <span style="color:#495057; font-weight:600; font-size:14px;">/ DICTIONARY — {{ shownRows }}개 표시</span></h2>
+    <p style="margin:0 0 14px; font:400 13px/1.7 'Inter',sans-serif; color:#495057;">출처 <code style="font:600 12px 'IBM Plex Mono',monospace;">src/shared/i18n/dictionary.ts</code> (91–1930행). 여섯 언어가 모두 채워져 있고 자리표시자 불일치도 없습니다 — 새 언어를 넣을 때 이 {{ stats.keys }}줄이 작업 단위입니다. 사용처는 <code style="font:600 12px 'IBM Plex Mono',monospace;">t('키')</code> 호출을 코드에서 역추적한 결과입니다.</p>
+
+    <div style="border:1px solid #e9ecef; border-radius:12px; background:#fff; overflow:hidden;">
+      <div style="display:grid; grid-template-columns:46px 190px 130px 108px minmax(0,1.15fr) minmax(0,1.15fr) minmax(0,1.15fr) 96px; gap:12px; padding:12px 16px; border-bottom:1.5px solid #1a1a1a; font:700 11px 'Inter',sans-serif; color:#1a1a1a; background:#f8f9fa;">
+        <span>#</span><span>키</span><span>분류</span><span>화면</span><span>KO 원문</span><span>EN 참고</span><span>{{ langLabel }}</span><span>메모</span>
+      </div>
+      <sc-for list="{{ rows }}" as="r" hint-placeholder-count="12">
+        <div style="display:grid; grid-template-columns:46px 190px 130px 108px minmax(0,1.15fr) minmax(0,1.15fr) minmax(0,1.15fr) 96px; gap:12px; padding:12px 16px; border-bottom:1px solid #f1f3f5; align-items:start;">
+          <span style="font:600 11px 'IBM Plex Mono',monospace; color:#adb5bd;">{{ r.n }}</span>
+          <span style="font:600 12px/1.5 'IBM Plex Mono',monospace; color:#1e3a8a; overflow-wrap:anywhere;">{{ r.key }}</span>
+          <span style="font:500 11px/1.5 'Inter',sans-serif; color:#495057; overflow-wrap:anywhere;">{{ r.sectionShort }}</span>
+          <span style="font:700 11px/1.5 'Inter',sans-serif; color:#7c3aed; overflow-wrap:anywhere;">{{ r.screenLabel }}</span>
+          <span style="font:500 12px/1.6 'Inter',sans-serif; color:#1a1a1a;">{{ r.ko }}</span>
+          <span style="font:400 12px/1.6 'Inter',sans-serif; color:#495057;">{{ r.en }}</span>
+          <span style="font:600 12px/1.6 'Inter',sans-serif; color:#1a1a1a;">{{ r.target }}</span>
+          <span style="font:600 10px/1.5 'IBM Plex Mono',monospace; color:#868e96; overflow-wrap:anywhere;">{{ r.memo }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ② 하드코딩 -->
+  <section style="margin-bottom:44px;">
+    <h2 style="margin:0 0 6px; font:800 20px 'Inter',sans-serif;">② 코드에 박혀 있는 문구 <span style="color:#495057; font-weight:600; font-size:14px;">/ 사전 밖 — {{ shownHard }}개 표시</span></h2>
+    <p style="margin:0 0 14px; font:400 13px/1.7 'Inter',sans-serif; color:#495057; max-width:1000px;">여기 있는 문구는 <strong>언어를 바꿔도 한국어로 남습니다.</strong> 새 언어를 추가하기 전에 이 목록을 사전으로 옮기는 것이 실제 작업의 대부분입니다. 옮기는 방법은 세 단계입니다 — ⑴ <code style="font:600 12px 'IBM Plex Mono',monospace;">dictionary.ts</code>에 키를 추가하고 ⑵ 해당 파일에서 <code style="font:600 12px 'IBM Plex Mono',monospace;">t('새키')</code>로 바꾸고 ⑶ 여섯 언어를 채웁니다. <strong>도메인 값</strong>(교구 이름, 성지 분류)은 DB 값과 짝이 맞아야 하므로 문자열을 바꾸지 말고 표시용 사전을 따로 두십시오.</p>
+
+    <div style="border:1px solid #e9ecef; border-radius:12px; background:#fff; overflow:hidden;">
+      <div style="display:grid; grid-template-columns:110px 300px 96px minmax(0,1fr) 92px; gap:12px; padding:12px 16px; border-bottom:1.5px solid #1a1a1a; font:700 11px 'Inter',sans-serif; background:#f8f9fa;">
+        <span>화면 · 기능</span><span>파일 : 줄</span><span>종류</span><span>원문 (KO)</span><span>구분</span>
+      </div>
+      <sc-for list="{{ hard }}" as="h" hint-placeholder-count="12">
+        <div style="display:grid; grid-template-columns:110px 300px 96px minmax(0,1fr) 92px; gap:12px; padding:11px 16px; border-bottom:1px solid #f1f3f5; align-items:start;">
+          <span style="font:700 11px/1.5 'Inter',sans-serif; color:#7c3aed;">{{ h.screen }}</span>
+          <span style="font:400 10.5px/1.6 'IBM Plex Mono',monospace; color:#495057; overflow-wrap:anywhere;">{{ h.loc }}</span>
+          <span style="font:600 10.5px/1.5 'Inter',sans-serif; color:#868e96;">{{ h.kind }}</span>
+          <span style="font:500 12px/1.6 'Inter',sans-serif; color:#1a1a1a;">{{ h.text }}</span>
+          <span style="font:700 10px/1.5 'IBM Plex Mono',monospace; color:#495057;">{{ h.group }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ③ 교차검증 -->
+  <section style="margin-bottom:44px;">
+    <h2 style="margin:0 0 6px; font:800 20px 'Inter',sans-serif;">③ 교차검증 결과</h2>
+    <p style="margin:0 0 14px; font:400 13px/1.7 'Inter',sans-serif; color:#495057; max-width:1000px;">사전에 있는 키와 코드가 부르는 키를 양방향으로 맞춰 봤습니다. <strong>코드가 부르는데 사전에 없는 키는 {{ stats.missing }}개</strong>입니다(화면에 키 이름이 그대로 노출되는 사고가 없다는 뜻). 반대로 사전에는 있으나 호출을 찾지 못한 키가 {{ stats.unused }}개 있습니다 — 아래 목록입니다. 지우기 전에 확인하십시오: 문자열을 조립해 부르는 자리(<code style="font:600 12px 'IBM Plex Mono',monospace;">t(`prefix${'{'}x{'}'}`)</code>)는 이 조사가 잡지 못합니다.</p>
+    <div style="display:flex; flex-wrap:wrap; gap:7px; padding:18px; border:1px solid #e9ecef; border-radius:12px; background:#fff;">
+      <sc-for list="{{ unusedKeys }}" as="k" hint-placeholder-count="20">
+        <span style="padding:5px 10px; border-radius:6px; background:#f8f9fa; font:600 11px 'IBM Plex Mono',monospace; color:#495057;">{{ k }}</span>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ④ DB 콘텐츠 -->
+  <section style="margin-bottom:44px;">
+    <h2 style="margin:0 0 6px; font:800 20px 'Inter',sans-serif;">④ 성지 본문 번역 — 화면 문구와 다른 경로</h2>
+    <p style="margin:0 0 16px; font:400 13px/1.7 'Inter',sans-serif; color:#495057; max-width:1000px;">성지 이름·소개글·역사·주소는 사전이 아니라 DB(<code style="font:600 12px 'IBM Plex Mono',monospace;">holy_site_translations</code>)에 들어갑니다. 갱신 주기가 화면 문구와 다르기 때문에 일부러 분리되어 있습니다. 208곳을 한 번에 하지 않고 <strong>교구 단위로 파일을 뽑아 채운 뒤 다시 넣는</strong> 방식입니다.</p>
+    <div style="display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+      <div style="padding:18px; border:1px solid #e9ecef; border-radius:12px; background:#fff;">
+        <p style="margin:0 0 8px; font:800 12px 'IBM Plex Mono',monospace; color:#7c3aed;">1 · 내보내기</p>
+        <p style="margin:0 0 8px; font:400 13px/1.7 'Inter',sans-serif; color:#495057;">교구 하나를 골라 작업 파일을 만듭니다.</p>
+        <p style="margin:0; font:600 11.5px/1.7 'IBM Plex Mono',monospace; color:#1a1a1a;">npm run translate:export -- --lang en --diocese 대전</p>
+      </div>
+      <div style="padding:18px; border:1px solid #e9ecef; border-radius:12px; background:#fff;">
+        <p style="margin:0 0 8px; font:800 12px 'IBM Plex Mono',monospace; color:#7c3aed;">2 · 채우기</p>
+        <p style="margin:0 0 8px; font:400 13px/1.7 'Inter',sans-serif; color:#495057;"><code style="font:600 11.5px 'IBM Plex Mono',monospace;">data/translations/&lt;lang&gt;-&lt;교구&gt;.todo.json</code>의 <code style="font:600 11.5px 'IBM Plex Mono',monospace;">target</code>만 채웁니다. <code style="font:600 11.5px 'IBM Plex Mono',monospace;">source</code>는 참고용이라 건드리지 않습니다.</p>
+        <p style="margin:0; font:500 12px/1.7 'Inter',sans-serif; color:#495057;">필드: name · description · history · addressRomanized</p>
+      </div>
+      <div style="padding:18px; border:1px solid #e9ecef; border-radius:12px; background:#fff;">
+        <p style="margin:0 0 8px; font:800 12px 'IBM Plex Mono',monospace; color:#7c3aed;">3 · 넣기 · 진행률</p>
+        <p style="margin:0 0 8px; font:400 13px/1.7 'Inter',sans-serif; color:#495057;">형식 검사를 통과한 파일만 DB 로 들어갑니다.</p>
+        <p style="margin:0; font:600 11.5px/1.7 'IBM Plex Mono',monospace; color:#1a1a1a;">npm run translate:import -- --file …<br>npm run translate:status -- --lang en</p>
+      </div>
+    </div>
+    <div style="margin-top:12px; padding:16px 18px; border:1px solid #7c3aed; border-radius:12px; background:#faf7ff;">
+      <p style="margin:0 0 6px; font:800 12px 'Inter',sans-serif; color:#7c3aed;">번역 규칙 — 코드에 적혀 있는 약속</p>
+      <ul style="margin:0; padding-left:20px; font:400 13px/1.8 'Inter',sans-serif; color:#495057;">
+        <li><strong>주소는 번역하지 않습니다.</strong> 로마자 표기만 넣습니다 — 택시 기사에게 통해야 합니다.</li>
+        <li><strong>빈 문자열·null 은 "아직 안 함"</strong>으로 보고 건너뜁니다. 빈 껍데기 행을 만들지 마십시오.</li>
+        <li><strong>대체 순서</strong>가 있습니다: 번역이 없으면 영어를 거쳐 한국어로 내려갑니다(<code style="font:600 12px 'IBM Plex Mono',monospace;">FALLBACK_CHAIN</code>, dictionary.ts 74행). 그래서 <strong>영어를 가장 먼저 완성</strong>하는 것이 다른 모든 언어의 품질을 올립니다.</li>
+        <li><strong>자리표시자</strong> <code style="font:600 12px 'IBM Plex Mono',monospace;">{'{'}n{'}'}</code> <code style="font:600 12px 'IBM Plex Mono',monospace;">{'{'}total{'}'}</code>은 개수와 이름을 그대로 유지하고 위치만 옮깁니다. 문장을 조각내어 이어 붙이지 마십시오 — 어순이 다른 언어에서 무너집니다.</li>
+        <li><strong>포르투갈어 음성은 pt-BR</strong> 입니다. 본문은 브라질·포르투갈 양쪽이 읽을 수 있는 표현으로 씁니다.</li>
+        <li><strong>언어 이름은 그 언어로</strong> 적습니다(Español, Français…). 못 읽는 언어로 써 두면 고를 수 없습니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ⑤ 새 언어 추가 절차 -->
+  <section style="margin-bottom:44px;">
+    <h2 style="margin:0 0 6px; font:800 20px 'Inter',sans-serif;">⑤ 새 언어 하나를 추가하는 절차</h2>
+    <p style="margin:0 0 14px; font:400 13px/1.7 'Inter',sans-serif; color:#495057; max-width:1000px;">현재 지원: 한국어 · 영어 · 스페인어 · 프랑스어 · 포르투갈어 · 이탈리아어(2027 서울 WYD 공식 언어). 일본어·중국어처럼 <strong>일곱 번째 언어</strong>를 넣을 때 손댈 자리는 여섯 곳뿐이며, 타입 검사가 나머지를 강제로 잡아 줍니다 — 한 곳만 채우면 <code style="font:600 12px 'IBM Plex Mono',monospace;">npm run build</code>가 빠진 곳을 전부 알려 줍니다.</p>
+    <table style="width:100%; table-layout:fixed; border-collapse:collapse; font:400 13px/1.6 'Inter',sans-serif; background:#fff; border:1px solid #e9ecef; border-radius:12px; overflow:hidden;">
+      <thead>
+        <tr>
+          <th style="width:44px; text-align:left; padding:11px 14px; border-bottom:1.5px solid #1a1a1a; font:700 11px 'Inter',sans-serif;">순서</th>
+          <th style="width:300px; text-align:left; padding:11px 14px; border-bottom:1.5px solid #1a1a1a; font:700 11px 'Inter',sans-serif;">위치</th>
+          <th style="text-align:left; padding:11px 14px; border-bottom:1.5px solid #1a1a1a; font:700 11px 'Inter',sans-serif;">할 일</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:700 12px 'IBM Plex Mono',monospace; color:#7c3aed;">1</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:600 11.5px 'IBM Plex Mono',monospace; overflow-wrap:anywhere;">dictionary.ts:5 — type Language</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5;">언어 코드를 유니온에 추가. 이 한 줄이 타입 검사의 출발점입니다.</td></tr>
+        <tr><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:700 12px 'IBM Plex Mono',monospace; color:#7c3aed;">2</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:600 11.5px 'IBM Plex Mono',monospace; overflow-wrap:anywhere;">dictionary.ts:7 — LANGUAGES</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5;">배열에 추가하면 언어 선택 드롭다운에 자동으로 나타납니다(LanguagePicker 가 이 배열을 읽습니다).</td></tr>
+        <tr><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:700 12px 'IBM Plex Mono',monospace; color:#7c3aed;">3</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:600 11.5px 'IBM Plex Mono',monospace; overflow-wrap:anywhere;">dictionary.ts:35 / :45</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5;">LANGUAGE_LABEL(그 언어로 쓴 이름) · LANGUAGE_SHORT(2글자 코드).</td></tr>
+        <tr><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:700 12px 'IBM Plex Mono',monospace; color:#7c3aed;">4</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:600 11.5px 'IBM Plex Mono',monospace; overflow-wrap:anywhere;">dictionary.ts:59 — SPEECH_LOCALE</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5;">음성 안내(TTS) 로케일. 기기에 음성이 실제로 깔려 있는 변종을 고릅니다(예: pt→pt-BR).</td></tr>
+        <tr><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:700 12px 'IBM Plex Mono',monospace; color:#7c3aed;">5</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:600 11.5px 'IBM Plex Mono',monospace; overflow-wrap:anywhere;">dictionary.ts:74 — FALLBACK_CHAIN</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5;">번역이 비었을 때 내려갈 순서. 새 언어는 보통 <code style="font:600 11.5px 'IBM Plex Mono',monospace;">['en','ko']</code>.</td></tr>
+        <tr><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:700 12px 'IBM Plex Mono',monospace; color:#7c3aed;">6</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:600 11.5px 'IBM Plex Mono',monospace; overflow-wrap:anywhere;">dictionary.ts:91–1930 — DICTIONARY</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5;">{{ stats.keys }}개 키에 그 언어 줄을 한 줄씩 추가. 위 ① 표를 그대로 작업 목록으로 쓰고, TSV 복사 버튼으로 스프레드시트에 옮겨 채운 뒤 되돌려 넣으면 됩니다.</td></tr>
+        <tr><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:700 12px 'IBM Plex Mono',monospace; color:#495057;">+</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5; font:600 11.5px 'IBM Plex Mono',monospace; overflow-wrap:anywhere;">holy_site_translations (DB)</td><td style="padding:11px 14px; border-bottom:1px solid #f1f3f5;">성지 본문은 ④의 내보내기/넣기 절차로 별도 진행. 화면 문구가 먼저 끝나야 순례자가 그 언어를 고를 수 있습니다.</td></tr>
+        <tr><td style="padding:11px 14px; font:700 12px 'IBM Plex Mono',monospace; color:#495057;">+</td><td style="padding:11px 14px; font:600 11.5px 'IBM Plex Mono',monospace; overflow-wrap:anywhere;">SettingsProvider.tsx</td><td style="padding:11px 14px;">저장 키 <code style="font:600 11.5px 'IBM Plex Mono',monospace;">vhk_language</code>·<code style="font:600 11.5px 'IBM Plex Mono',monospace;">html[lang]</code> 처리는 이미 언어 목록을 따라가므로 수정할 필요가 없습니다. 확인만 하십시오.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ⑥ 조사 방법 -->
+  <section>
+    <h2 style="margin:0 0 6px; font:800 20px 'Inter',sans-serif;">⑥ 이 표를 만든 방법 (재현 가능)</h2>
+    <ul style="margin:0; padding-left:22px; font:400 13px/1.85 'Inter',sans-serif; color:#495057; max-width:1000px;">
+      <li><code style="font:600 12px 'IBM Plex Mono',monospace;">src/</code> 아래 <strong>167개</strong> <code style="font:600 12px 'IBM Plex Mono',monospace;">.ts/.tsx</code> 파일 전수 조사.</li>
+      <li>사전 파싱: <code style="font:600 12px 'IBM Plex Mono',monospace;">dictionary.ts</code>의 한 줄 표기와 여러 줄 표기를 모두 읽어 키 · 분류 주석 · 6개 언어 값 · 정의 위치를 추출.</li>
+      <li>사용처 역추적: <code style="font:600 12px 'IBM Plex Mono',monospace;">t('키')</code> 호출을 파일·행 단위로 수집해 키마다 붙였고, 화면 이름은 라우트 파일과 기능 폴더로 환산.</li>
+      <li>하드코딩 탐지: 주석 줄(<code style="font:600 12px 'IBM Plex Mono',monospace;">// /* *</code>)을 제외한 뒤 문자열 리터럴과 JSX 본문에서 한글이 든 문구를 추출하고, 파일 단위로 중복 제거.</li>
+      <li>한계: 문자열을 조립해 부르는 <code style="font:600 12px 'IBM Plex Mono',monospace;">t()</code>, 서버·Edge Function 문구, 이미지 안에 그려진 글자는 잡지 못합니다. 테스트 파일은 제외했습니다.</li>
+    </ul>
+  </section>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1400}}">
+class Component extends DCLogic {
+  state = { data: null, lang: 'en', query: '', section: '', onlyIssues: false, copied: false };
+
+  componentDidMount() {
+    import('./i18n-cheatsheet-data.js')
+      .then((m) => this.setState({ data: m }))
+      .catch((e) => console.error('i18n 데이터를 불러오지 못했습니다', e));
+  }
+
+  shortSection(s) {
+    if (!s) return '';
+    const cut = s.split('—')[0].trim();
+    return cut.length > 22 ? cut.slice(0, 22) + '…' : cut;
+  }
+
+  filteredRows() {
+    const { data, lang, query, section, onlyIssues } = this.state;
+    if (!data) return [];
+    const q = query.trim().toLowerCase();
+    return data.ROWS.filter((r) => {
+      if (section && r.section !== section) return false;
+      if (onlyIssues && r.issues.length === 0) return false;
+      if (!q) return true;
+      return (
+        r.key.toLowerCase().includes(q) ||
+        (r.ko || '').toLowerCase().includes(q) ||
+        (r.en || '').toLowerCase().includes(q) ||
+        (r[lang] || '').toLowerCase().includes(q) ||
+        r.uses.join(' ').toLowerCase().includes(q)
+      );
+    }).map((r) => ({
+      n: r.n,
+      key: r.key,
+      sectionShort: this.shortSection(r.section),
+      screenLabel: r.screens.length ? r.screens.slice(0, 2).join(' · ') : '—',
+      ko: r.ko,
+      en: r.en,
+      target: r[lang] || '(비어 있음)',
+      memo: [
+        r.placeholders ? r.placeholders : '',
+        r.useCount === 0 ? '사용처 없음' : r.useCount + '곳',
+      ].filter(Boolean).join(' / '),
+    }));
+  }
+
+  filteredHard() {
+    const { data, query } = this.state;
+    if (!data) return [];
+    const q = query.trim().toLowerCase();
+    return data.HARDCODED.filter((h) =>
+      !q || h.text.toLowerCase().includes(q) || h.file.toLowerCase().includes(q) || h.screen.toLowerCase().includes(q),
+    ).map((h) => ({ ...h, loc: h.file + ':' + h.line }));
+  }
+
+  copyTsv() {
+    const lang = this.state.lang;
+    const rows = this.filteredRows();
+    const head = ['key', 'ko', 'en', lang, 'placeholders', 'screens'].join('\t');
+    const body = rows.map((r) => [r.key, r.ko, r.en, r.target === '(비어 있음)' ? '' : r.target, r.memo, r.screenLabel].join('\t'));
+    const tsv = [head, ...body].join('\n');
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(tsv).then(() => {
+        this.setState({ copied: true });
+        setTimeout(() => this.setState({ copied: false }), 2000);
+      });
+    }
+  }
+
+  renderVals() {
+    const { data, lang, query, section, onlyIssues, copied } = this.state;
+    const rows = this.filteredRows();
+    const hard = this.filteredHard();
+    const LABEL = { en: 'EN 번역', es: 'ES 번역', fr: 'FR 번역', pt: 'PT 번역', it: 'IT 번역', ko: 'KO 원문(점검)' };
+    const stats = data
+      ? { ...data.STATS, totalChars: (data.STATS.koChars + data.STATS.hardChars).toLocaleString() }
+      : { keys: '…', hardUI: '…', hardDomain: '…', unused: '…', phMismatch: '…', missing: '…', totalChars: '…' };
+
+    return {
+      stats,
+      lang,
+      query,
+      section,
+      langLabel: LABEL[lang],
+      rows,
+      hard,
+      shownRows: rows.length,
+      shownHard: hard.length,
+      sections: data ? [...new Set(data.ROWS.map((r) => r.section))] : [],
+      unusedKeys: data ? data.ROWS.filter((r) => r.useCount === 0).map((r) => r.key) : [],
+      issueLabel: onlyIssues ? '점검 필요만 ✓' : '점검 필요만 보기',
+      copyLabel: copied ? '복사했습니다' : 'TSV 복사 (선택 언어)',
+      onLang: (e) => this.setState({ lang: e.target.value }),
+      onQuery: (e) => this.setState({ query: e.target.value }),
+      onSection: (e) => this.setState({ section: e.target.value }),
+      onToggleIssues: () => this.setState({ onlyIssues: !this.state.onlyIssues }),
+      onCopyTsv: () => this.copyTsv(),
+    };
+  }
+}
+</script>
+</body>
+</html>

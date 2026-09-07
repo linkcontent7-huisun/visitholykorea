@@ -21,6 +21,9 @@ export default tseslint.config(
       'visitholykorea-학습자료',
       // 일회성 진단 스크립트. 한 번 돌려 보고 버린다.
       'scripts/tmp-*.ts',
+      // 협력자가 보내온 시안·참고 자료(2026-09-07 PR #13). 브라우저로 열어보는
+      // 문서일 뿐 앱 빌드에 들어가지 않는다 — 보낸 분도 "넣지 말 것"이라 적었다.
+      'docs/2026-08-27-CHOISUNGBIN-Patch',
     ],
   },
   js.configs.recommended,
