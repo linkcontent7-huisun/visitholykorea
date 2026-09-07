@@ -33,12 +33,12 @@ export function TopNav() {
         </Link>
 
         {/* 데스크톱 메뉴 */}
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="주요 메뉴">
+        <nav className="hidden items-center gap-4 lg:flex xl:gap-6" aria-label="주요 메뉴">
           {TOP_NAV_ITEMS.map((item) => (
             <NavLink key={item.id} to={item.to} end={item.end} id={`topnav-${item.id}`}>
               {({ isActive }) => (
                 <span
-                  className={`block border-b-2 py-1.5 text-[13px] transition-colors ${
+                  className={`block whitespace-nowrap border-b-2 py-1.5 text-[13px] transition-colors ${
                     isActive
                       ? 'border-brand-blue font-bold text-app-text'
                       : 'border-transparent font-semibold text-app-text-muted hover:text-brand-violet'
