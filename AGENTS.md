@@ -42,9 +42,13 @@ Claude Code 창과 Codex 창이 **같은 폴더**를 본다. 브랜치가 같으
 
 ### git
 
-- `git commit` · `git push` · `git checkout` · `git switch` · `git reset` ·
+- `git add` · `git commit` · `git push` · `git checkout` · `git switch` · `git reset` ·
   `git restore` · `git stash` · `git clean` · `git rebase` · `git merge` **전부 금지.**
   읽기 명령(`git status` · `git diff` · `git log`)만 쓴다.
+- 🔴 **`git add` 를 특히 조심한다.** 2026-09-07 에 누군가 `git add -A` 로 전체를
+  스테이징해 둔 탓에, 지시자가 `git add docs` 만 했는데도 사장님 개인 문서
+  두 개가 공개 저장소에 올라갔다. 히스토리를 다시 쓰고 강제 푸시해야 했다.
+  **스테이징은 지시자만 한다.** 파일만 고쳐 두면 된다.
 - 파일만 고쳐두면 지시자(Claude Code 창)가 확인하고 커밋한다.
 
 ### 명령
