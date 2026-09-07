@@ -6,15 +6,13 @@
  * 바뀌므로 적지 않는다 — 전화로 확인하게 안내하는 것이 정직하다.
  */
 
-import { Church, Navigation, Phone } from 'lucide-react';
+import { Church, Phone } from 'lucide-react';
 import type { HolySite } from '@/shared/types/domain';
-import { useSettings } from '@/shared/i18n/use-settings';
-import { buildMapLinks } from '@/shared/lib/map-links';
+import { QuickDirectionsButtons } from './QuickDirectionsButtons';
 import { formatDistanceKm } from '../lib/nearby-directory';
 import { useNearbyDirectory } from '../hooks/use-nearby-directory';
 
 export function NearbyParishesCard({ site }: { site: HolySite }) {
-  const { t, language } = useSettings();
   const { data: places = [], isLoading } = useNearbyDirectory(site.coordinates);
 
   // 좌표가 없거나 주변에 아무것도 없으면 카드 자체를 내리지 않는다 — 빈 껍데기 금지
@@ -27,42 +25,41 @@ export function NearbyParishesCard({ site }: { site: HolySite }) {
         <h3 className="text-sm font-bold text-app-text">주변 본당·피정의집</h3>
       </div>
 
-      <ul className="space-y-3">
+      <ul className="space-y-4">
         {places.map((p) => (
-          <li key={p.id} className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-app-text">
-                {p.name}
-                <span className="ml-2 inline-block rounded-full bg-app-bg px-2 py-0.5 text-xs text-app-text-muted">
-                  {p.category}
+          <li key={p.id}>
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="truncate text-sm font-medium text-app-text">
+                  {p.name}
+                  <span className="ml-2 inline-block rounded-full bg-app-bg px-2 py-0.5 text-xs text-app-text-muted">
+                    {p.category}
+                  </span>
+                </p>
+                {p.address && (
+                  <p className="mt-0.5 truncate text-xs text-app-text-muted">{p.address}</p>
+                )}
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <span className="text-xs font-bold tabular-nums text-app-text-muted">
+                  {formatDistanceKm(p.distanceKm)}
                 </span>
-              </p>
-              {p.address && (
-                <p className="mt-0.5 truncate text-xs text-app-text-muted">{p.address}</p>
-              )}
+                {p.phone && (
+                  <a
+                    href={`tel:${p.phone}`}
+                    aria-label={`${p.name} 전화 걸기`}
+                    className="rounded-xl bg-app-bg p-2 text-brand-violet"
+                  >
+                    <Phone size={14} />
+                  </a>
+                )}
+              </div>
             </div>
-            <div className="flex shrink-0 items-center gap-2">
-              <span className="text-xs font-bold tabular-nums text-app-text-muted">
-                {formatDistanceKm(p.distanceKm)}
-              </span>
-              <a
-                href={buildMapLinks({ name: p.name, lat: p.lat, lng: p.lng }, language === 'ko')[0]?.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${p.name} ${t('directions')}`}
-                className="rounded-xl bg-app-bg p-2 text-brand-violet"
-              >
-                <Navigation size={14} />
-              </a>
-              {p.phone && (
-                <a
-                  href={`tel:${p.phone}`}
-                  aria-label={`${p.name} 전화 걸기`}
-                  className="rounded-xl bg-app-bg p-2 text-brand-violet"
-                >
-                  <Phone size={14} />
-                </a>
-              )}
+            <div className="mt-2">
+              <QuickDirectionsButtons
+                destination={{ name: p.name, lat: p.lat, lng: p.lng }}
+                siteName={p.name}
+              />
             </div>
           </li>
         ))}

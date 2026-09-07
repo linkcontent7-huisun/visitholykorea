@@ -1,14 +1,14 @@
-import { AlertTriangle, Check, MapPin, Navigation, Search } from 'lucide-react';
+import { AlertTriangle, Check, MapPin, Search } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { MapLegend, NationalMap } from '@/features/map/components/NationalMap';
 import { DioceseProgressList } from '@/features/map/components/DioceseProgressList';
+import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirectionsButtons';
 import { useVisitedSites } from '@/features/map/hooks/use-visited';
 import { almostSiteIds, buildNudge, computeDioceseProgress } from '@/features/map/lib/progress';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { useSites } from '@/features/sites/hooks/use-sites';
-import { buildMapLinks } from '@/shared/lib/map-links';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
@@ -34,7 +34,7 @@ import type { HolySite } from '@/shared/types/domain';
 export default function MapPage() {
   // 공식 사진이 없는 성지는 순례자가 보내준(승인된) 사진으로 채운다
   const { data: featured = {} } = useFeaturedPhotos();
-  const { t, wideView, language } = useSettings();
+  const { t, wideView } = useSettings();
   const [selectedDiocese, setSelectedDiocese] = useState('전체');
   const [keyword, setKeyword] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -92,15 +92,6 @@ export default function MapPage() {
     />
   );
 
-  /** 선택한 성지의 실제 길찾기 링크 — 좌표를 아는 경우에만 있다. */
-  const selectedDirectionsUrl =
-    selectedSite && selectedSite.coordinates.lat != null && selectedSite.coordinates.lng != null
-      ? buildMapLinks(
-          { name: selectedSite.name, lat: selectedSite.coordinates.lat, lng: selectedSite.coordinates.lng },
-          language === 'ko',
-        )[0]?.url
-      : undefined;
-
   /** 핀·목록에서 고른 성지 카드. 구글맵처럼 정보보다 행동이 먼저 온다. */
   const selectedCard = selectedSite && (
     <div className="rounded-[24px] border border-brand-blue/30 bg-white p-5 shadow-sm">
@@ -131,17 +122,19 @@ export default function MapPage() {
         </Link>
       </div>
 
-      {/* 이 지도는 조망용이라 실제 길찾기가 없다는 피드백(2026-09-07) — 여기서 바로 연결한다 */}
-      {selectedDirectionsUrl && (
-        <a
-          href={selectedDirectionsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-2 flex items-center justify-center gap-1.5 rounded-2xl px-4 py-2.5 text-xs font-bold text-brand-violet hover:underline"
-        >
-          <Navigation size={14} />
-          {t('directions')}
-        </a>
+      {/* 이 지도는 조망용이라 실제 길찾기가 없다는 피드백(2026-09-07) — 여기서 바로 연결한다.
+          구글(안드로이드)·애플(iOS) 두 버튼을 함께 준다(WYD 외국인 방문자 요청, 09-07). */}
+      {selectedSite.coordinates.lat != null && selectedSite.coordinates.lng != null && (
+        <div className="mt-3 flex justify-center border-t border-app-border pt-3">
+          <QuickDirectionsButtons
+            destination={{
+              name: selectedSite.name,
+              lat: selectedSite.coordinates.lat,
+              lng: selectedSite.coordinates.lng,
+            }}
+            siteName={selectedSite.name}
+          />
+        </div>
       )}
     </div>
   );

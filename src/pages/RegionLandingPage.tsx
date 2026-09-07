@@ -1,8 +1,9 @@
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Church, MapPin, Navigation, Phone } from 'lucide-react';
+import { ArrowLeft, Church, MapPin, Phone } from 'lucide-react';
 import { paths } from '@/app/routes/paths';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
+import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirectionsButtons';
 import { SiteListItem } from '@/features/sites/components/SiteListItem';
 import { useSites } from '@/features/sites/hooks/use-sites';
 import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
@@ -10,7 +11,6 @@ import { formatDistanceKm } from '@/features/sites/lib/nearby-directory';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
-import { buildMapLinks } from '@/shared/lib/map-links';
 import { isRegion, regionCoords, REGIONS } from '@/shared/lib/regions';
 
 /** 이 반경 안이면 "그 도시에서 다녀올 수 있는 거리"로 본다. */
@@ -33,7 +33,7 @@ const DIRECTORY_LIMIT = 30;
 export default function RegionLandingPage() {
   const navigate = useNavigate();
   const { region: raw } = useParams<{ region: string }>();
-  const { origin, setOrigin, t, language } = useSettings();
+  const { origin, setOrigin, t } = useSettings();
   const region = isRegion(raw) ? raw : null;
   const centerCoords = regionCoords(region);
 
@@ -164,42 +164,41 @@ export default function RegionLandingPage() {
                   {nearbyParishes.map((p) => (
                     <li
                       key={p.id}
-                      className="flex items-start justify-between gap-3 rounded-[20px] border border-app-border bg-white p-4"
+                      className="rounded-[20px] border border-app-border bg-white p-4"
                     >
-                      <div className="min-w-0 flex-1">
-                        <p className="flex flex-wrap items-center gap-2">
-                          <span className="truncate text-sm font-bold text-app-text">{p.name}</span>
-                          <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[10px] font-bold text-app-text-muted">
-                            {localizeDomainValue(p.category, t)}
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <p className="flex flex-wrap items-center gap-2">
+                            <span className="truncate text-sm font-bold text-app-text">{p.name}</span>
+                            <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[10px] font-bold text-app-text-muted">
+                              {localizeDomainValue(p.category, t)}
+                            </span>
+                          </p>
+                          {p.address && (
+                            <p className="mt-0.5 truncate text-xs text-app-text-muted">{p.address}</p>
+                          )}
+                        </div>
+                        <div className="flex shrink-0 items-center gap-2">
+                          <span className="text-xs font-bold tabular-nums text-app-text-muted">
+                            {formatDistanceKm(p.distanceKm)}
                           </span>
-                        </p>
-                        {p.address && (
-                          <p className="mt-0.5 truncate text-xs text-app-text-muted">{p.address}</p>
-                        )}
+                          {p.phone && (
+                            <a
+                              href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}
+                              aria-label={`${p.name} ${t('callPhone')}`}
+                              className="rounded-xl bg-app-bg p-2 text-brand-violet"
+                            >
+                              <Phone size={14} />
+                            </a>
+                          )}
+                        </div>
                       </div>
-                      <div className="flex shrink-0 items-center gap-2">
-                        <span className="text-xs font-bold tabular-nums text-app-text-muted">
-                          {formatDistanceKm(p.distanceKm)}
-                        </span>
-                        {/* 외국인 순례자가 직접 찾아갈 수 있게 — 개별 홈페이지 대신 실제 길찾기로 연결한다 */}
-                        <a
-                          href={buildMapLinks({ name: p.name, lat: p.lat, lng: p.lng }, language === 'ko')[0]?.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`${p.name} ${t('directions')}`}
-                          className="rounded-xl bg-app-bg p-2 text-brand-violet"
-                        >
-                          <Navigation size={14} />
-                        </a>
-                        {p.phone && (
-                          <a
-                            href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}
-                            aria-label={`${p.name} ${t('callPhone')}`}
-                            className="rounded-xl bg-app-bg p-2 text-brand-violet"
-                          >
-                            <Phone size={14} />
-                          </a>
-                        )}
+                      {/* 외국인 순례자가 직접 찾아갈 수 있게 — 개별 홈페이지 대신 실제 길찾기로 연결한다 */}
+                      <div className="mt-3 border-t border-app-border pt-3">
+                        <QuickDirectionsButtons
+                          destination={{ name: p.name, lat: p.lat, lng: p.lng }}
+                          siteName={p.name}
+                        />
                       </div>
                     </li>
                   ))}
