@@ -6,12 +6,15 @@
  * 바뀌므로 적지 않는다 — 전화로 확인하게 안내하는 것이 정직하다.
  */
 
-import { Church, Phone } from 'lucide-react';
+import { Church, Navigation, Phone } from 'lucide-react';
 import type { HolySite } from '@/shared/types/domain';
+import { useSettings } from '@/shared/i18n/use-settings';
+import { buildMapLinks } from '@/shared/lib/map-links';
 import { formatDistanceKm } from '../lib/nearby-directory';
 import { useNearbyDirectory } from '../hooks/use-nearby-directory';
 
 export function NearbyParishesCard({ site }: { site: HolySite }) {
+  const { t, language } = useSettings();
   const { data: places = [], isLoading } = useNearbyDirectory(site.coordinates);
 
   // 좌표가 없거나 주변에 아무것도 없으면 카드 자체를 내리지 않는다 — 빈 껍데기 금지
@@ -42,6 +45,15 @@ export function NearbyParishesCard({ site }: { site: HolySite }) {
               <span className="text-xs font-bold tabular-nums text-app-text-muted">
                 {formatDistanceKm(p.distanceKm)}
               </span>
+              <a
+                href={buildMapLinks({ name: p.name, lat: p.lat, lng: p.lng }, language === 'ko')[0]?.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${p.name} ${t('directions')}`}
+                className="rounded-xl bg-app-bg p-2 text-brand-violet"
+              >
+                <Navigation size={14} />
+              </a>
               {p.phone && (
                 <a
                   href={`tel:${p.phone}`}

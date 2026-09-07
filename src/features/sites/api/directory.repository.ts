@@ -21,6 +21,8 @@ export interface DirectoryEntry {
   diocese: string | null;
   phone: string | null;
   address: string | null;
+  lat: number | null;
+  lng: number | null;
 }
 
 /**
@@ -37,7 +39,7 @@ export async function searchDirectory(term: string, limit = 8): Promise<Director
 
   const { data, error } = await supabase
     .from('catholic_directory')
-    .select('id, name, category, diocese, phone, address')
+    .select('id, name, category, diocese, phone, address, lat, lng')
     .in('category', VISITOR_CATEGORIES)
     .or(`name.ilike.%${trimmed}%,address.ilike.%${trimmed}%,diocese.ilike.%${trimmed}%`)
     .limit(limit);

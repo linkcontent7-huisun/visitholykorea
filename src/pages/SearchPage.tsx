@@ -5,6 +5,7 @@ import {
   Compass,
   Loader2,
   MapPin,
+  Navigation,
   PartyPopper,
   Phone,
   Search,
@@ -22,10 +23,11 @@ import { useDirectorySearch } from '@/features/sites/hooks/use-nearby-directory'
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { buildMapLinks } from '@/shared/lib/map-links';
 
 export default function SearchPage() {
   const navigate = useNavigate();
-  const { wideView, t } = useSettings();
+  const { wideView, t, language } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
   const [query, setQuery] = useState('');
@@ -204,15 +206,34 @@ export default function SearchPage() {
                           </p>
                         )}
                       </div>
-                      {entry.phone && (
-                        <a
-                          href={`tel:${entry.phone.replace(/[^0-9+]/g, '')}`}
-                          aria-label={`${entry.name} ${t('callPhone')}`}
-                          className="flex shrink-0 items-center justify-center rounded-xl bg-slate-50 p-2.5 text-blue-600"
-                        >
-                          <Phone size={14} />
-                        </a>
-                      )}
+                      <div className="flex shrink-0 items-center gap-2">
+                        {/* 외국인 순례자가 직접 찾아갈 수 있게 — 개별 홈페이지 대신 실제 길찾기로 연결한다 */}
+                        {entry.lat != null && entry.lng != null && (
+                          <a
+                            href={
+                              buildMapLinks(
+                                { name: entry.name, lat: entry.lat, lng: entry.lng },
+                                language === 'ko',
+                              )[0]?.url
+                            }
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${entry.name} ${t('directions')}`}
+                            className="flex items-center justify-center rounded-xl bg-slate-50 p-2.5 text-brand-violet"
+                          >
+                            <Navigation size={14} />
+                          </a>
+                        )}
+                        {entry.phone && (
+                          <a
+                            href={`tel:${entry.phone.replace(/[^0-9+]/g, '')}`}
+                            aria-label={`${entry.name} ${t('callPhone')}`}
+                            className="flex items-center justify-center rounded-xl bg-slate-50 p-2.5 text-blue-600"
+                          >
+                            <Phone size={14} />
+                          </a>
+                        )}
+                      </div>
                     </li>
                   ))}
                 </ul>

@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Church, MapPin, Phone } from 'lucide-react';
+import { ArrowLeft, Church, MapPin, Navigation, Phone } from 'lucide-react';
 import { paths } from '@/app/routes/paths';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { SiteListItem } from '@/features/sites/components/SiteListItem';
@@ -10,6 +10,7 @@ import { formatDistanceKm } from '@/features/sites/lib/nearby-directory';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
+import { buildMapLinks } from '@/shared/lib/map-links';
 import { isRegion, regionCoords, REGIONS } from '@/shared/lib/regions';
 
 /** 이 반경 안이면 "그 도시에서 다녀올 수 있는 거리"로 본다. */
@@ -32,7 +33,7 @@ const DIRECTORY_LIMIT = 30;
 export default function RegionLandingPage() {
   const navigate = useNavigate();
   const { region: raw } = useParams<{ region: string }>();
-  const { origin, setOrigin, t } = useSettings();
+  const { origin, setOrigin, t, language } = useSettings();
   const region = isRegion(raw) ? raw : null;
   const centerCoords = regionCoords(region);
 
@@ -180,6 +181,16 @@ export default function RegionLandingPage() {
                         <span className="text-xs font-bold tabular-nums text-app-text-muted">
                           {formatDistanceKm(p.distanceKm)}
                         </span>
+                        {/* 외국인 순례자가 직접 찾아갈 수 있게 — 개별 홈페이지 대신 실제 길찾기로 연결한다 */}
+                        <a
+                          href={buildMapLinks({ name: p.name, lat: p.lat, lng: p.lng }, language === 'ko')[0]?.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${p.name} ${t('directions')}`}
+                          className="rounded-xl bg-app-bg p-2 text-brand-violet"
+                        >
+                          <Navigation size={14} />
+                        </a>
                         {p.phone && (
                           <a
                             href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}

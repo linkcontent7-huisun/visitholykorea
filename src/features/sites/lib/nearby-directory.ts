@@ -35,6 +35,9 @@ export interface NearbyPlace {
   phone: string | null;
   address: string | null;
   distanceKm: number;
+  /** 길찾기 링크(`buildMapLinks`)를 만들 때 쓴다. 반경 검색은 좌표가 있는 행만 남기므로 항상 값이 있다. */
+  lat: number;
+  lng: number;
 }
 
 /** 사각 범위로 받아온 행을 실제 거리로 걸러 가까운 순으로 낸다. */
@@ -54,6 +57,8 @@ export function rankNearby(
       phone: r.phone,
       address: r.address,
       distanceKm: haversineKm(lat, lng, r.lat!, r.lng!),
+      lat: r.lat!,
+      lng: r.lng!,
     }))
     .filter((p) => p.distanceKm <= radiusKm)
     .sort((a, b) => a.distanceKm - b.distanceKm)
