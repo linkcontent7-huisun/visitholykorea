@@ -6,6 +6,7 @@ import {
   Loader2,
   MapPin,
   PartyPopper,
+  Phone,
   Search,
   Wind,
   X,
@@ -17,7 +18,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { askAIGuide, FALLBACK_ANSWER } from '@/features/ai-guide/api/ai-guide.client';
 import { useSiteSearch } from '@/features/sites/hooks/use-sites';
+import { useDirectorySearch } from '@/features/sites/hooks/use-nearby-directory';
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
+import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 export default function SearchPage() {
@@ -28,6 +31,8 @@ export default function SearchPage() {
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebouncedValue(query, 300);
   const { data: results = [], isFetching } = useSiteSearch(debouncedQuery);
+  // 208곳 성지 밖에서, 전국 본당·공소 주소록(5,918건)도 함께 찾는다(2026-09-07 요청).
+  const { data: directoryResults = [] } = useDirectorySearch(debouncedQuery);
 
   const [aiResult, setAiResult] = useState<string | null>(null);
   const [isLoadingAi, setIsLoadingAi] = useState(false);
@@ -164,6 +169,53 @@ export default function SearchPage() {
                     </Link>
                   ))}
                 </div>
+              </section>
+            )}
+
+            {/* 208곳 성지에는 없지만 전국 본당·공소 주소록엔 있는 경우 —
+                "성당 검색이 안 된다"는 피드백(2026-09-07)에 대한 답.
+                아직 개별 홈페이지 데이터가 없어 우리 앱 안에서 주소·전화만 보여준다. */}
+            {directoryResults.length > 0 && (
+              <section className="space-y-4">
+                <div>
+                  <h2 className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    {t('directorySearchResults')}
+                  </h2>
+                  <p className="mt-1.5 text-xs leading-relaxed text-slate-400">
+                    {t('directorySearchHint')}
+                  </p>
+                </div>
+                <ul className="space-y-3">
+                  {directoryResults.map((entry) => (
+                    <li
+                      key={entry.id}
+                      className="flex items-start justify-between gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm"
+                    >
+                      <div className="min-w-0 flex-1">
+                        <p className="flex flex-wrap items-center gap-2">
+                          <span className="truncate font-bold text-slate-900">{entry.name}</span>
+                          <span className="shrink-0 rounded-full bg-slate-50 px-2 py-0.5 text-[10px] font-bold text-slate-400">
+                            {localizeDomainValue(entry.category, t)}
+                          </span>
+                        </p>
+                        {entry.address && (
+                          <p className="mt-1 flex items-center gap-1 truncate text-xs text-slate-400">
+                            <MapPin size={10} className="shrink-0" /> {entry.address}
+                          </p>
+                        )}
+                      </div>
+                      {entry.phone && (
+                        <a
+                          href={`tel:${entry.phone.replace(/[^0-9+]/g, '')}`}
+                          aria-label={`${entry.name} ${t('callPhone')}`}
+                          className="flex shrink-0 items-center justify-center rounded-xl bg-slate-50 p-2.5 text-blue-600"
+                        >
+                          <Phone size={14} />
+                        </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
               </section>
             )}
 

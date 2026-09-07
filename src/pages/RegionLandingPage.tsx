@@ -1,16 +1,22 @@
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, MapPin } from 'lucide-react';
+import { ArrowLeft, Church, MapPin, Phone } from 'lucide-react';
 import { paths } from '@/app/routes/paths';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { SiteListItem } from '@/features/sites/components/SiteListItem';
 import { useSites } from '@/features/sites/hooks/use-sites';
+import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
+import { formatDistanceKm } from '@/features/sites/lib/nearby-directory';
+import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
 import { isRegion, regionCoords, REGIONS } from '@/shared/lib/regions';
 
 /** 이 반경 안이면 "그 도시에서 다녀올 수 있는 거리"로 본다. */
 const RADIUS_KM = 45;
+
+/** 본당·공소는 밀집 지역에서 수백 곳이 나올 수 있어 가까운 순으로 캡을 둔다. */
+const DIRECTORY_LIMIT = 30;
 
 /**
  * 시·도 랜딩 — `/region/대전` 처럼 지역 이름을 붙여 들어오는 화면.
@@ -26,10 +32,18 @@ const RADIUS_KM = 45;
 export default function RegionLandingPage() {
   const navigate = useNavigate();
   const { region: raw } = useParams<{ region: string }>();
-  const { origin, setOrigin } = useSettings();
+  const { origin, setOrigin, t } = useSettings();
   const region = isRegion(raw) ? raw : null;
+  const centerCoords = regionCoords(region);
 
   const { data: allSites = [], isLoading } = useSites({ limit: 300 });
+  // 성지로 등록되진 않았지만 이 지역에서 실제로 다닐 수 있는 본당·공소도 보여준다
+  // (2026-09-07 요청 — "지역별 정보 안에 그 지역 성당들이 전부 등록되도록").
+  const { data: nearbyParishes = [] } = useNearbyDirectory(
+    centerCoords ?? undefined,
+    RADIUS_KM,
+    DIRECTORY_LIMIT,
+  );
 
   // 이 링크로 들어온 사람은 그 지역에서 출발한다고 보는 게 자연스럽다.
   // 앱 전체(홈·퀴즈)가 같은 출발지를 쓰므로, 여기서 한 번 맞춰두면 이후 화면이 이어진다.
@@ -135,6 +149,52 @@ export default function RegionLandingPage() {
             <p className="mt-6 text-[11px] leading-relaxed text-app-text-muted opacity-70">
               거리는 {region} 중심 좌표 기준 직선거리입니다. 실제 이동 거리·시간과는 다릅니다.
             </p>
+
+            {nearbyParishes.length > 0 && (
+              <div className="mt-10">
+                <h2 className="mb-1 flex items-center gap-2 text-base font-extrabold text-app-text">
+                  <Church size={18} className="text-brand-violet" aria-hidden />
+                  {t('regionParishesTitle')}
+                </h2>
+                <p className="mb-4 text-xs leading-relaxed text-app-text-muted">
+                  {t('regionParishesBody')}
+                </p>
+                <ul className="flex flex-col gap-3">
+                  {nearbyParishes.map((p) => (
+                    <li
+                      key={p.id}
+                      className="flex items-start justify-between gap-3 rounded-[20px] border border-app-border bg-white p-4"
+                    >
+                      <div className="min-w-0 flex-1">
+                        <p className="flex flex-wrap items-center gap-2">
+                          <span className="truncate text-sm font-bold text-app-text">{p.name}</span>
+                          <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[10px] font-bold text-app-text-muted">
+                            {localizeDomainValue(p.category, t)}
+                          </span>
+                        </p>
+                        {p.address && (
+                          <p className="mt-0.5 truncate text-xs text-app-text-muted">{p.address}</p>
+                        )}
+                      </div>
+                      <div className="flex shrink-0 items-center gap-2">
+                        <span className="text-xs font-bold tabular-nums text-app-text-muted">
+                          {formatDistanceKm(p.distanceKm)}
+                        </span>
+                        {p.phone && (
+                          <a
+                            href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}
+                            aria-label={`${p.name} ${t('callPhone')}`}
+                            className="rounded-xl bg-app-bg p-2 text-brand-violet"
+                          >
+                            <Phone size={14} />
+                          </a>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <div className="mt-8 flex flex-col gap-3">
               <Link

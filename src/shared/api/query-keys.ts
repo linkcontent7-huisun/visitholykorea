@@ -42,7 +42,9 @@ export const queryKeys = {
     latest: (userId: string) => ['compass', 'latest', userId] as const,
   },
   directory: {
-    nearby: (lat: number, lng: number) => ['directory', 'nearby', lat, lng] as const,
+    nearby: (lat: number, lng: number, radiusKm = 5) =>
+      ['directory', 'nearby', lat, lng, radiusKm] as const,
+    search: (term: string) => ['directory', 'search', term] as const,
   },
   favorites: {
     ids: ['favorites', 'ids'] as const,
