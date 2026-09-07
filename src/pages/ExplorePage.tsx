@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { useMyFavoriteIds } from '@/features/favorites/hooks/use-favorites';
 import { SiteListItem } from '@/features/sites/components/SiteListItem';
 import { fetchSiteDioceseIndex } from '@/features/sites/api/holy-sites.repository';
@@ -19,6 +20,12 @@ import { DIOCESES } from '@/shared/types/domain';
 
 const CATEGORIES = ['전체', '순교성지', '역사사적지', '주교좌성당', '순례길'] as const;
 
+/**
+ * 탐색 화면.
+ *
+ * 반응형: 좌우 여백과 최대 폭은 `PageContainer` 가 잡고, 교구 격자와 성지 목록만
+ * 폭에 따라 열 수를 늘린다. 정렬·필터 로직은 손대지 않았다 — 배치만 바뀐다.
+ */
 export default function ExplorePage() {
   const { t, language, origin } = useSettings();
 
@@ -36,8 +43,7 @@ export default function ExplorePage() {
 
   /**
    * 가까운 순 정렬 — 수요조사 자유의견 1호 "내 위치부터 소요시간별로 정리".
-   * 출발지(시·도)를 정해 둔 사람에게만 토글을 보여준다. 홈의 "가까운 성지"와
-   * 같은 출발지를 쓰므로 두 화면의 거리 감각이 어긋나지 않는다.
+   * 출발지(시·도)를 정해 둔 사람에게만 토글을 보여준다.
    */
   const [nearestFirst, setNearestFirst] = useState(false);
   const from = regionCoords(origin);
@@ -59,23 +65,25 @@ export default function ExplorePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <header className="p-8 pb-4">
-        <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-app-text">{t('exploreTitle')}</h1>
-        <p className="text-sm font-medium text-app-text-muted">{t('exploreSubtitle')}</p>
-      </header>
+      <PageContainer className="pt-8">
+        <header className="pb-6">
+          <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-app-text lg:text-4xl">
+            {t('exploreTitle')}
+          </h1>
+          <p className="text-sm font-medium text-app-text-muted">{t('exploreSubtitle')}</p>
+        </header>
 
-      <div className="px-8 py-4">
         {!selectedDiocese ? (
-          <div>
+          <div className="pb-10">
             {favoriteSites.length > 0 && (
-              <section className="mb-8">
+              <section className="mb-10">
                 <div className="mb-4 flex items-center gap-2">
                   <Heart size={16} className="fill-pink-500 text-pink-500" aria-hidden />
                   <h2 className="text-sm font-extrabold uppercase tracking-widest text-app-text">
                     즐겨찾는 성지
                   </h2>
                 </div>
-                <div className="space-y-5">
+                <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
                   {favoriteSites.map((site) => (
                     <SiteListItem key={site.id} site={site} />
                   ))}
@@ -86,7 +94,7 @@ export default function ExplorePage() {
             {/* 순례 코스 진입점 — 낱개 성지가 아니라 이야기 순서로 걷고 싶은 사람을 위해 */}
             <Link
               to={paths.routes}
-              className="mb-8 flex items-center justify-between rounded-[16px] bg-brand-violet p-5 text-white transition-opacity hover:opacity-90"
+              className="mb-10 flex items-center justify-between rounded-[16px] bg-brand-violet p-5 text-white transition-opacity hover:opacity-90 lg:max-w-[560px]"
             >
               <span className="flex items-center gap-3">
                 <Footprints size={22} aria-hidden />
@@ -97,10 +105,11 @@ export default function ExplorePage() {
               </span>
               <ChevronRight size={20} aria-hidden />
             </Link>
+
             <h2 className="mb-6 text-[11px] font-bold uppercase tracking-widest text-app-text-muted">
               {t('byDiocese')}
             </h2>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-8">
               {DIOCESES.map((diocese) => (
                 <button
                   key={diocese}
@@ -126,7 +135,7 @@ export default function ExplorePage() {
             </div>
           </div>
         ) : (
-          <div>
+          <div className="pb-10">
             <button
               onClick={() => setSelectedDiocese(null)}
               className="group mb-8 flex items-center gap-2 text-sm font-bold text-brand-blue"
@@ -139,7 +148,7 @@ export default function ExplorePage() {
               {selectedDiocese} 교구 목록
             </button>
 
-            <div className="no-scrollbar -mx-8 flex gap-2 overflow-x-auto px-8 pb-6">
+            <div className="no-scrollbar -mx-6 flex gap-2 overflow-x-auto px-6 pb-6 lg:mx-0 lg:flex-wrap lg:px-0">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
@@ -185,13 +194,15 @@ export default function ExplorePage() {
               </div>
             )}
 
-            <div className="mt-2 space-y-8">
+            <div className="mt-2 grid gap-8 lg:grid-cols-2 xl:grid-cols-3">
               {isLoading ? (
                 [1, 2, 3].map((i) => (
                   <div key={i} className="h-28 animate-pulse rounded-[24px] bg-app-bg" />
                 ))
               ) : sites.length === 0 ? (
-                <EmptyState icon={Church} title={t('noSites')} />
+                <div className="lg:col-span-2 xl:col-span-3">
+                  <EmptyState icon={Church} title={t('noSites')} />
+                </div>
               ) : sorted ? (
                 <>
                   {sorted.measured.map(({ site, km, driveMin }) => (
@@ -213,7 +224,7 @@ export default function ExplorePage() {
             </div>
           </div>
         )}
-      </div>
+      </PageContainer>
     </div>
   );
 }

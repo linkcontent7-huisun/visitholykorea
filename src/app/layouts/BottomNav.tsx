@@ -1,27 +1,26 @@
-import { BookOpen, Compass, Home, Map as MapIcon, Menu } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
-import { paths } from '@/app/routes/paths';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { NAV_ITEMS } from './nav-items';
 
-/** 하단 탭 내비게이션. 라우터 경로와 1:1로 대응한다. */
-export function BottomNav({ widthClass }: { widthClass: string }) {
+/**
+ * 하단 탭 내비게이션 — 모바일·태블릿 세로 전용.
+ *
+ * 1024px 이상에서는 상단 내비(TopNav)가 같은 일을 하므로 스스로 숨는다(`lg:hidden`).
+ * 폭은 예전처럼 셸에서 프롭으로 받지 않고 여기서 정한다 — 셸의 폭 규칙과 탭의 폭이
+ * 어긋나 화면 바깥으로 밀려나는 일을 막는다.
+ *
+ * 탭 목록은 `nav-items.ts` 한 곳에서만 정의한다.
+ */
+export function BottomNav() {
   const { t } = useSettings();
-
-  const tabs = [
-    { id: 'home', to: paths.home, icon: Home, label: t('home'), end: true },
-    { id: 'map', to: paths.map, icon: MapIcon, label: t('map'), end: false },
-    { id: 'explore', to: paths.explore, icon: Compass, label: t('explore'), end: false },
-    { id: 'record', to: paths.records, icon: BookOpen, label: t('record'), end: false },
-    { id: 'menu', to: paths.menu, icon: Menu, label: t('menu'), end: false },
-  ];
 
   return (
     <nav
-      className={`fixed bottom-0 left-1/2 z-50 w-full -translate-x-1/2 ${widthClass} safe-area-inset-bottom border-t border-app-border bg-white transition-[max-width] duration-300`}
+      className="safe-area-inset-bottom fixed bottom-0 left-1/2 z-50 w-full max-w-lg -translate-x-1/2 border-t border-app-border bg-white lg:hidden"
       aria-label="주요 메뉴"
     >
       <div className="flex h-[70px] items-center justify-around">
-        {tabs.map((tab) => {
+        {NAV_ITEMS.map((tab) => {
           const Icon = tab.icon;
           const isExplore = tab.id === 'explore';
 
@@ -51,7 +50,7 @@ export function BottomNav({ widthClass }: { widthClass: string }) {
                       isActive ? 'text-brand-blue' : 'text-[#ADB5BD]'
                     }`}
                   >
-                    {tab.label}
+                    {t(tab.labelKey)}
                   </span>
                 </>
               )}
