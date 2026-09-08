@@ -38,6 +38,9 @@ export interface NearbyPlace {
   /** 길찾기 링크(`buildMapLinks`)를 만들 때 쓴다. 반경 검색은 좌표가 있는 행만 남기므로 항상 값이 있다. */
   lat: number;
   lng: number;
+  /** 기계적 로마자 표기(2026-09-07). 사람이 감수하지 않았다 — 화면에서 그 사실을 밝힌다. */
+  nameRomanized: string | null;
+  addressRomanized: string | null;
 }
 
 /** 사각 범위로 받아온 행을 실제 거리로 걸러 가까운 순으로 낸다. */
@@ -59,6 +62,8 @@ export function rankNearby(
       distanceKm: haversineKm(lat, lng, r.lat!, r.lng!),
       lat: r.lat!,
       lng: r.lng!,
+      nameRomanized: r.name_romanized,
+      addressRomanized: r.address_romanized,
     }))
     .filter((p) => p.distanceKm <= radiusKm)
     .sort((a, b) => a.distanceKm - b.distanceKm)
@@ -68,4 +73,25 @@ export function rankNearby(
 /** 화면에 그대로 쓰는 거리 문구. 1km 미만은 미터로. */
 export function formatDistanceKm(km: number): string {
   return km < 1 ? `${Math.round(km * 1000)}m` : `${km.toFixed(1)}km`;
+}
+
+/**
+ * 화면에 보여줄 이름·주소를 고른다.
+ *
+ * 한국어 화면이면 원문을, 그 외 언어면 기계적 로마자 표기(2026-09-07)를 쓴다 —
+ * 검색·지역 랜딩·주변 본당 카드·나침반 결과 네 곳이 같은 규칙을 쓰므로 한 곳에 둔다.
+ * 로마자 표기가 비어 있으면(변환 전이거나 실패한 행) 원문으로 조용히 되돌아간다.
+ */
+export function directoryDisplayName(
+  entry: { name: string; nameRomanized: string | null },
+  language: string,
+): string {
+  return language !== 'ko' && entry.nameRomanized ? entry.nameRomanized : entry.name;
+}
+
+export function directoryDisplayAddress(
+  entry: { address: string | null; addressRomanized: string | null },
+  language: string,
+): string | null {
+  return language !== 'ko' && entry.addressRomanized ? entry.addressRomanized : entry.address;
 }

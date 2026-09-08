@@ -20,13 +20,14 @@ import { askAIGuide, FALLBACK_ANSWER } from '@/features/ai-guide/api/ai-guide.cl
 import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirectionsButtons';
 import { useSiteSearch } from '@/features/sites/hooks/use-sites';
 import { useDirectorySearch } from '@/features/sites/hooks/use-nearby-directory';
+import { directoryDisplayAddress, directoryDisplayName } from '@/features/sites/lib/nearby-directory';
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 export default function SearchPage() {
   const navigate = useNavigate();
-  const { wideView, t } = useSettings();
+  const { wideView, t, language } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
   const [query, setQuery] = useState('');
@@ -185,9 +186,18 @@ export default function SearchPage() {
                   <p className="mt-1.5 text-xs leading-relaxed text-slate-400">
                     {t('directorySearchHint')}
                   </p>
+                  {/* 로마자 표기가 실제로 쓰이는 화면에서만 — 기계 변환이라는 것을 밝힌다 */}
+                  {language !== 'ko' && directoryResults.some((e) => e.nameRomanized) && (
+                    <p className="mt-1 text-[11px] italic text-slate-300">
+                      {t('directoryRomanizedNote')}
+                    </p>
+                  )}
                 </div>
                 <ul className="space-y-3">
-                  {directoryResults.map((entry) => (
+                  {directoryResults.map((entry) => {
+                    const displayName = directoryDisplayName(entry, language);
+                    const displayAddress = directoryDisplayAddress(entry, language);
+                    return (
                     <li
                       key={entry.id}
                       className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm"
@@ -195,14 +205,14 @@ export default function SearchPage() {
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
                           <p className="flex flex-wrap items-center gap-2">
-                            <span className="truncate font-bold text-slate-900">{entry.name}</span>
+                            <span className="truncate font-bold text-slate-900">{displayName}</span>
                             <span className="shrink-0 rounded-full bg-slate-50 px-2 py-0.5 text-[10px] font-bold text-slate-400">
                               {localizeDomainValue(entry.category, t)}
                             </span>
                           </p>
-                          {entry.address && (
+                          {displayAddress && (
                             <p className="mt-1 flex items-center gap-1 truncate text-xs text-slate-400">
-                              <MapPin size={10} className="shrink-0" /> {entry.address}
+                              <MapPin size={10} className="shrink-0" /> {displayAddress}
                             </p>
                           )}
                         </div>
@@ -220,13 +230,14 @@ export default function SearchPage() {
                       {entry.lat != null && entry.lng != null && (
                         <div className="mt-3 border-t border-slate-100 pt-3">
                           <QuickDirectionsButtons
-                            destination={{ name: entry.name, lat: entry.lat, lng: entry.lng }}
-                            siteName={entry.name}
+                            destination={{ name: displayName, lat: entry.lat, lng: entry.lng }}
+                            siteName={displayName}
                           />
                         </div>
                       )}
                     </li>
-                  ))}
+                    );
+                  })}
                 </ul>
               </section>
             )}

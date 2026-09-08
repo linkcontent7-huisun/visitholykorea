@@ -7,7 +7,11 @@ import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirecti
 import { SiteListItem } from '@/features/sites/components/SiteListItem';
 import { useSites } from '@/features/sites/hooks/use-sites';
 import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
-import { formatDistanceKm } from '@/features/sites/lib/nearby-directory';
+import {
+  directoryDisplayAddress,
+  directoryDisplayName,
+  formatDistanceKm,
+} from '@/features/sites/lib/nearby-directory';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
@@ -33,7 +37,7 @@ const DIRECTORY_LIMIT = 30;
 export default function RegionLandingPage() {
   const navigate = useNavigate();
   const { region: raw } = useParams<{ region: string }>();
-  const { origin, setOrigin, t } = useSettings();
+  const { origin, setOrigin, t, language } = useSettings();
   const region = isRegion(raw) ? raw : null;
   const centerCoords = regionCoords(region);
 
@@ -157,11 +161,19 @@ export default function RegionLandingPage() {
                   <Church size={18} className="text-brand-violet" aria-hidden />
                   {t('regionParishesTitle')}
                 </h2>
-                <p className="mb-4 text-xs leading-relaxed text-app-text-muted">
+                <p className="mb-1 text-xs leading-relaxed text-app-text-muted">
                   {t('regionParishesBody')}
                 </p>
-                <ul className="flex flex-col gap-3">
-                  {nearbyParishes.map((p) => (
+                {language !== 'ko' && nearbyParishes.some((p) => p.nameRomanized) && (
+                  <p className="mb-4 text-[11px] italic text-app-text-muted opacity-70">
+                    {t('directoryRomanizedNote')}
+                  </p>
+                )}
+                <ul className="mt-4 flex flex-col gap-3">
+                  {nearbyParishes.map((p) => {
+                    const displayName = directoryDisplayName(p, language);
+                    const displayAddress = directoryDisplayAddress(p, language);
+                    return (
                     <li
                       key={p.id}
                       className="rounded-[20px] border border-app-border bg-white p-4"
@@ -169,13 +181,13 @@ export default function RegionLandingPage() {
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
                           <p className="flex flex-wrap items-center gap-2">
-                            <span className="truncate text-sm font-bold text-app-text">{p.name}</span>
+                            <span className="truncate text-sm font-bold text-app-text">{displayName}</span>
                             <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[10px] font-bold text-app-text-muted">
                               {localizeDomainValue(p.category, t)}
                             </span>
                           </p>
-                          {p.address && (
-                            <p className="mt-0.5 truncate text-xs text-app-text-muted">{p.address}</p>
+                          {displayAddress && (
+                            <p className="mt-0.5 truncate text-xs text-app-text-muted">{displayAddress}</p>
                           )}
                         </div>
                         <div className="flex shrink-0 items-center gap-2">
@@ -196,12 +208,13 @@ export default function RegionLandingPage() {
                       {/* 외국인 순례자가 직접 찾아갈 수 있게 — 개별 홈페이지 대신 실제 길찾기로 연결한다 */}
                       <div className="mt-3 border-t border-app-border pt-3">
                         <QuickDirectionsButtons
-                          destination={{ name: p.name, lat: p.lat, lng: p.lng }}
-                          siteName={p.name}
+                          destination={{ name: displayName, lat: p.lat, lng: p.lng }}
+                          siteName={displayName}
                         />
                       </div>
                     </li>
-                  ))}
+                    );
+                  })}
                 </ul>
               </div>
             )}

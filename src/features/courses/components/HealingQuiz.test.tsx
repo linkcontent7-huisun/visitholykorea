@@ -35,6 +35,10 @@ vi.mock('@/features/sites/hooks/use-nearby-tour', () => ({
   useNearbyFacilities: () => ({ data: [] }),
 }));
 
+vi.mock('@/features/sites/hooks/use-nearby-directory', () => ({
+  useNearbyDirectory: () => ({ data: [] }),
+}));
+
 const getRecommendedCoursesMock = vi.fn();
 vi.mock('../api/course-matching', () => ({
   getRecommendedCourses: (...args: unknown[]) => getRecommendedCoursesMock(...args),

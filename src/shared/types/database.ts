@@ -148,6 +148,9 @@ export interface CatholicDirectoryRow {
   address: string | null;
   lat: number | null;
   lng: number | null;
+  /** 기계적 로마자 표기(2026-09-07, `scripts/romanize-directory.ts`). 사람이 감수하지 않음. */
+  name_romanized: string | null;
+  address_romanized: string | null;
 }
 
 export interface FavoriteRow {

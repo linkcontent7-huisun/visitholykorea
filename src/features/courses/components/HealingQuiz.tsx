@@ -8,14 +8,24 @@ import {
   Footprints,
   MapPin,
   ExternalLink,
+  Church,
+  Phone,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
 import type { TranslationKey } from '@/shared/i18n/dictionary';
+import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { getRecommendedCourses, type CourseCard } from '../api/course-matching';
 import { useCompassMemory, useSaveCompassResponse } from '../hooks/use-compass-memory';
+import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirectionsButtons';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
+import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
+import {
+  directoryDisplayAddress,
+  directoryDisplayName,
+  formatDistanceKm,
+} from '@/features/sites/lib/nearby-directory';
 import { REGIONS, regionCoords, type Region } from '@/shared/lib/regions';
 import { useNearbyFacilities } from '@/features/sites/hooks/use-nearby-tour';
 import {
@@ -166,7 +176,7 @@ const TOTAL_QUESTIONS = 8;
 const RESULT_STEP = TOTAL_QUESTIONS + 1;
 
 export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps) {
-  const { wideView, origin, setOrigin, t } = useSettings();
+  const { wideView, origin, setOrigin, t, language } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
   const [step, setStep] = useState(0); // 0=intro, 1~8=질문, 9=결과
   const [emotion, setEmotion] = useState<EmotionTag | null>(null);
@@ -186,6 +196,13 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   // 결과 화면에 도달했을 때만 좌표가 넘어가므로 그전에는 호출되지 않는다.
   const { data: facilityGroups = [] } = useNearbyFacilities(
     step === RESULT_STEP ? result?.site.coordinates : undefined,
+  );
+  // 감정 매칭엔 안 섞는다 — 본당·공소는 감정 태그가 없어 억지 매칭이 된다.
+  // 대신 결과 화면 아래에 "이 지역 본당" 보조 정보로만 보여준다(2026-09-07 결정).
+  const { data: nearbyParishes = [] } = useNearbyDirectory(
+    step === RESULT_STEP ? result?.site.coordinates : undefined,
+    5,
+    3,
   );
 
   if (!isOpen) return null;
@@ -749,6 +766,74 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                         </div>
                       );
                     })()}
+
+                  {/* 이 지역 본당·공소 — 감정 매칭 결과가 아니라 실제로 미사 참례가 가능한
+                      가까운 본당 정보다. catholic_directory(5,918건) 조회, 성지와 별개 표시. */}
+                  {nearbyParishes.length > 0 && (
+                    <div className="mb-6 rounded-[28px] border border-app-border bg-white p-6 shadow-sm">
+                      <div className="mb-3 flex items-center gap-2">
+                        <Church size={16} className="text-brand-violet" aria-hidden />
+                        <h4 className="text-sm font-extrabold text-app-text">
+                          {t('regionParishesTitle')}
+                        </h4>
+                      </div>
+                      <p className="mb-1 text-[11px] leading-relaxed text-app-text-muted">
+                        {t('regionParishesBody')}
+                      </p>
+                      {language !== 'ko' && nearbyParishes.some((p) => p.nameRomanized) && (
+                        <p className="mb-4 text-[10px] italic text-app-text-muted opacity-70">
+                          {t('directoryRomanizedNote')}
+                        </p>
+                      )}
+                      <ul className="mt-4 space-y-4">
+                        {nearbyParishes.map((p) => {
+                          const displayName = directoryDisplayName(p, language);
+                          const displayAddress = directoryDisplayAddress(p, language);
+                          return (
+                          <li key={p.id}>
+                            <div className="flex items-start justify-between gap-3">
+                              <div className="min-w-0">
+                                <p className="flex flex-wrap items-center gap-2">
+                                  <span className="truncate text-sm font-bold text-app-text">
+                                    {displayName}
+                                  </span>
+                                  <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[10px] font-bold text-app-text-muted">
+                                    {localizeDomainValue(p.category, t)}
+                                  </span>
+                                </p>
+                                {displayAddress && (
+                                  <p className="mt-0.5 truncate text-xs text-app-text-muted">
+                                    {displayAddress}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="flex shrink-0 items-center gap-2">
+                                <span className="text-xs font-bold tabular-nums text-app-text-muted">
+                                  {formatDistanceKm(p.distanceKm)}
+                                </span>
+                                {p.phone && (
+                                  <a
+                                    href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}
+                                    aria-label={`${p.name} ${t('callPhone')}`}
+                                    className="rounded-xl bg-app-bg p-2 text-brand-violet"
+                                  >
+                                    <Phone size={14} />
+                                  </a>
+                                )}
+                              </div>
+                            </div>
+                            <div className="mt-2">
+                              <QuickDirectionsButtons
+                                destination={{ name: displayName, lat: p.lat, lng: p.lng }}
+                                siteName={displayName}
+                              />
+                            </div>
+                          </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  )}
 
                   <div className="flex gap-3">
                     <button

@@ -8,11 +8,18 @@
 
 import { Church, Phone } from 'lucide-react';
 import type { HolySite } from '@/shared/types/domain';
+import { localizeDomainValue } from '@/shared/i18n/domain-labels';
+import { useSettings } from '@/shared/i18n/use-settings';
 import { QuickDirectionsButtons } from './QuickDirectionsButtons';
-import { formatDistanceKm } from '../lib/nearby-directory';
+import {
+  directoryDisplayAddress,
+  directoryDisplayName,
+  formatDistanceKm,
+} from '../lib/nearby-directory';
 import { useNearbyDirectory } from '../hooks/use-nearby-directory';
 
 export function NearbyParishesCard({ site }: { site: HolySite }) {
+  const { t, language } = useSettings();
   const { data: places = [], isLoading } = useNearbyDirectory(site.coordinates);
 
   // 좌표가 없거나 주변에 아무것도 없으면 카드 자체를 내리지 않는다 — 빈 껍데기 금지
@@ -22,22 +29,25 @@ export function NearbyParishesCard({ site }: { site: HolySite }) {
     <div className="rounded-[20px] border border-app-border bg-white p-5">
       <div className="mb-3 flex items-center gap-2">
         <Church size={16} className="text-brand-violet" aria-hidden />
-        <h3 className="text-sm font-bold text-app-text">주변 본당·피정의집</h3>
+        <h3 className="text-sm font-bold text-app-text">{t('regionParishesTitle')}</h3>
       </div>
 
       <ul className="space-y-4">
-        {places.map((p) => (
+        {places.map((p) => {
+          const displayName = directoryDisplayName(p, language);
+          const displayAddress = directoryDisplayAddress(p, language);
+          return (
           <li key={p.id}>
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium text-app-text">
-                  {p.name}
+                  {displayName}
                   <span className="ml-2 inline-block rounded-full bg-app-bg px-2 py-0.5 text-xs text-app-text-muted">
-                    {p.category}
+                    {localizeDomainValue(p.category, t)}
                   </span>
                 </p>
-                {p.address && (
-                  <p className="mt-0.5 truncate text-xs text-app-text-muted">{p.address}</p>
+                {displayAddress && (
+                  <p className="mt-0.5 truncate text-xs text-app-text-muted">{displayAddress}</p>
                 )}
               </div>
               <div className="flex shrink-0 items-center gap-2">
@@ -47,7 +57,7 @@ export function NearbyParishesCard({ site }: { site: HolySite }) {
                 {p.phone && (
                   <a
                     href={`tel:${p.phone}`}
-                    aria-label={`${p.name} 전화 걸기`}
+                    aria-label={`${p.name} ${t('callPhone')}`}
                     className="rounded-xl bg-app-bg p-2 text-brand-violet"
                   >
                     <Phone size={14} />
@@ -57,16 +67,22 @@ export function NearbyParishesCard({ site }: { site: HolySite }) {
             </div>
             <div className="mt-2">
               <QuickDirectionsButtons
-                destination={{ name: p.name, lat: p.lat, lng: p.lng }}
-                siteName={p.name}
+                destination={{ name: displayName, lat: p.lat, lng: p.lng }}
+                siteName={displayName}
               />
             </div>
           </li>
-        ))}
+          );
+        })}
       </ul>
 
-      <p className="mt-3 text-xs leading-relaxed text-app-text-muted">
-        미사 시간은 본당 사정에 따라 바뀌니 방문 전 전화로 확인해 주세요.
+      {language !== 'ko' && places.some((p) => p.nameRomanized) && (
+        <p className="mt-3 text-xs italic leading-relaxed text-app-text-muted opacity-70">
+          {t('directoryRomanizedNote')}
+        </p>
+      )}
+      <p className="mt-2 text-xs leading-relaxed text-app-text-muted">
+        {t('nearbyParishesMassTimesNote')}
       </p>
     </div>
   );

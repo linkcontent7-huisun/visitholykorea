@@ -2485,6 +2485,24 @@ export const DICTIONARY = {
     pt: 'Além dos nossos 208 santuários selecionados, também buscamos no diretório nacional de paróquias católicas (Conferência Episcopal da Coreia).',
     it: 'Oltre ai nostri 208 santuari selezionati, cerchiamo anche nella directory nazionale delle parrocchie cattoliche (Conferenza Episcopale Coreana).',
   },
+  // 본당·공소 5,918건의 이름·주소는 사람이 번역한 게 아니라 표기법을 기계로 적용한
+  // 값이다(2026-09-07) — 208곳 성지의 사람이 확인한 번역과 다르다는 것을 밝힌다.
+  nearbyParishesMassTimesNote: {
+    ko: '미사 시간은 본당 사정에 따라 바뀌니 방문 전 전화로 확인해 주세요.',
+    en: 'Mass times vary by parish — please call ahead to confirm before visiting.',
+    es: 'Los horarios de misa varían según la parroquia; llama antes de visitar para confirmar.',
+    fr: 'Les horaires de messe varient selon la paroisse — appelez avant de visiter pour confirmer.',
+    pt: 'Os horários de missa variam por paróquia — ligue antes de visitar para confirmar.',
+    it: 'Gli orari delle Messe variano per parrocchia: telefona prima di visitare per confermare.',
+  },
+  directoryRomanizedNote: {
+    ko: '이름·주소는 자동 로마자 표기입니다. 정확하지 않을 수 있어요.',
+    en: 'Names and addresses are auto-romanized and may not be exact.',
+    es: 'Los nombres y direcciones están romanizados automáticamente y pueden no ser exactos.',
+    fr: 'Les noms et adresses sont translittérés automatiquement et peuvent ne pas être exacts.',
+    pt: 'Nomes e endereços são romanizados automaticamente e podem não ser exatos.',
+    it: 'Nomi e indirizzi sono traslitterati automaticamente e potrebbero non essere esatti.',
+  },
   regionParishesTitle: {
     ko: '주변 본당·공소',
     en: 'Nearby parishes & chapels',

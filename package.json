@@ -38,7 +38,8 @@
     "seed:rest": "tsx scripts/seed-rest-places.ts",
     "admin:list": "tsx scripts/grant-admin.ts list",
     "admin:grant": "tsx scripts/grant-admin.ts grant",
-    "admin:revoke": "tsx scripts/grant-admin.ts revoke"
+    "admin:revoke": "tsx scripts/grant-admin.ts revoke",
+    "directory:romanize": "tsx scripts/romanize-directory.ts"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",

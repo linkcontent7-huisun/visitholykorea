@@ -12,6 +12,8 @@ function row(partial: Partial<CatholicDirectoryRow>): CatholicDirectoryRow {
     address: null,
     lat: null,
     lng: null,
+    name_romanized: null,
+    address_romanized: null,
     ...partial,
   };
 }
