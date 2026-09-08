@@ -6,17 +6,17 @@ const HAEMI: Destination = { name: '해미순교성지', lat: 36.7137, lng: 126.
 describe('buildMapLinks — 실제로 쓸 수 있는 것을 먼저 보여준다', () => {
   it('외국어 화면에서는 구글·애플이 앞에 온다', () => {
     const links = buildMapLinks(HAEMI, false);
-    expect(links.map((l) => l.provider)).toEqual(['google', 'apple', 'kakao', 'naver']);
+    expect(links.map((l) => l.provider)).toEqual(['google', 'apple', 'kakao', 'tmap', 'naver']);
   });
 
-  it('한국어 화면에서는 카카오·네이버가 앞에 온다', () => {
+  it('한국어 화면에서는 실사용 순(카카오·티맵·네이버)이 앞에 오고 구글·애플은 뒤에 온다', () => {
     const links = buildMapLinks(HAEMI, true);
-    expect(links.map((l) => l.provider)).toEqual(['kakao', 'naver', 'google', 'apple']);
+    expect(links.map((l) => l.provider)).toEqual(['kakao', 'tmap', 'naver', 'google', 'apple']);
   });
 
-  it('어느 쪽이든 네 개를 모두 준다 — 하나만 주면 앱이 없는 사람이 막힌다', () => {
-    expect(buildMapLinks(HAEMI, true)).toHaveLength(4);
-    expect(buildMapLinks(HAEMI, false)).toHaveLength(4);
+  it('어느 쪽이든 다섯 개를 모두 준다 — 하나만 주면 앱이 없는 사람이 막힌다', () => {
+    expect(buildMapLinks(HAEMI, true)).toHaveLength(5);
+    expect(buildMapLinks(HAEMI, false)).toHaveLength(5);
   });
 });
 
@@ -43,6 +43,12 @@ describe('링크 형식', () => {
 
   it('네이버는 형식이 자주 바뀌는 좌표 길찾기 대신 검색으로 보낸다', () => {
     expect(byProvider.naver).toContain('map.naver.com/p/search/');
+  });
+
+  it('티맵은 공식 딥링크 스킴에 목적지 이름·좌표를 넣는다', () => {
+    expect(byProvider.tmap).toContain('tmap://route?');
+    expect(byProvider.tmap).toContain(`goalx=${HAEMI.lng}`);
+    expect(byProvider.tmap).toContain(`goaly=${HAEMI.lat}`);
   });
 
   it('이름에 공백이 있어도 링크가 깨지지 않는다', () => {

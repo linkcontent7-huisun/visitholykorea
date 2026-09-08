@@ -1876,6 +1876,14 @@ export const DICTIONARY = {
     pt: 'A melhor para transporte público na Coreia',
     it: 'La migliore per i mezzi pubblici in Corea',
   },
+  tmapNote: {
+    ko: '한국 운전자가 가장 많이 써요. 앱이 있어야 열려요',
+    en: 'Korea’s most popular driving app — only opens if it’s installed',
+    es: 'La app de conducción más popular en Corea — solo se abre si está instalada',
+    fr: 'L’appli de conduite la plus populaire en Corée — s’ouvre seulement si elle est installée',
+    pt: 'O app de direção mais popular na Coreia — só abre se estiver instalado',
+    it: 'L’app di guida più popolare in Corea: si apre solo se è installata',
+  },
   noCoordinates: {
     ko: '아직 좌표가 확인되지 않은 성지예요',
     en: 'Coordinates for this site are not confirmed yet',

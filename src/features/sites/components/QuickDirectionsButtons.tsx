@@ -3,16 +3,14 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import { buildMapLinks, type Destination } from '@/shared/lib/map-links';
 
 /**
- * 목록 행(검색 결과·지역 랜딩·주변 본당 카드)처럼 좁은 자리에서 쓰는 길찾기 버튼.
+ * 목록 행(검색 결과·지역 랜딩·주변 본당 카드·나침반 결과)에서 쓰는 길찾기 버튼 묶음.
  *
- * 성지 상세의 `DirectionsCard` 는 지도 앱 4개(구글·애플·카카오·네이버)를 전부
- * 늘어놓지만, 목록 행 한 줄에는 그럴 자리가 없다. 대신 외국인 방문자가 실제로
- * 쓰는 두 축만 남긴다 — **안드로이드 기본(구글) + iOS 기본(애플)**.
- * 한국어 화면이면 `buildMapLinks` 가 카카오맵을 구글보다 앞에 두므로(한국에서
- * 구글은 자동차 길찾기가 안 된다 — `map-links.ts` 참고), 1번 버튼은 언어에 따라
- * 자동으로 바뀌고 애플 버튼은 항상 별도로 보장한다. 두 링크 모두 새 탭 실제
- * URL(`maps.apple.com`, `map.kakao.com`/`google.com/maps`)로 열리는 진짜
- * 길찾기다 — 자리표시자가 아니다.
+ * 카카오맵만 있어서 안드로이드가 아닌 사람이 막힌다는 실기기 피드백(2026-09-08)
+ * 으로, 하나로 줄이지 않고 `buildMapLinks` 가 주는 순서 그대로 전부 보여준다 —
+ * 한국어 화면이면 카카오맵·티맵·네이버지도(실사용 순)가 앞에, 구글·애플이 뒤에
+ * 온다. 성지 상세의 `DirectionsCard` 와 같은 데이터(`buildMapLinks`)를 쓰므로
+ * 목록에서 보이는 순서와 상세 화면의 순서가 어긋나지 않는다. 전부 새 탭 실제
+ * URL 로 열리는 진짜 길찾기다 — 자리표시자가 아니다.
  */
 export function QuickDirectionsButtons({
   destination,
@@ -25,37 +23,22 @@ export function QuickDirectionsButtons({
   const { t, language } = useSettings();
   const links = buildMapLinks(destination, language === 'ko');
 
-  const primary = links[0];
-  const apple = links.find((link) => link.provider === 'apple');
-
   return (
-    <div className="flex shrink-0 items-center gap-1.5">
-      {primary && (
+    <div className="flex flex-wrap items-center gap-1.5">
+      {links.map((link) => (
         <a
-          href={primary.url}
+          key={link.provider}
+          href={link.url}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${siteName} — ${primary.label} ${t('directions')}`}
-          title={`${primary.label} ${t('directions')}`}
+          aria-label={`${siteName} — ${link.label} ${t('directions')}`}
+          title={`${link.label} — ${t(link.noteKey)}`}
           className="flex items-center gap-1 rounded-lg bg-app-bg px-2 py-1.5 text-[10px] font-bold text-brand-violet transition-colors hover:bg-brand-violet/10"
         >
           <Navigation size={12} aria-hidden />
-          {primary.label}
+          {link.label}
         </a>
-      )}
-      {apple && apple.provider !== primary?.provider && (
-        <a
-          href={apple.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${siteName} — ${apple.label} ${t('directions')}`}
-          title={`${apple.label} ${t('directions')}`}
-          className="flex items-center gap-1 rounded-lg bg-app-bg px-2 py-1.5 text-[10px] font-bold text-brand-violet transition-colors hover:bg-brand-violet/10"
-        >
-          <Navigation size={12} aria-hidden />
-          {apple.label}
-        </a>
-      )}
+      ))}
     </div>
   );
 }
