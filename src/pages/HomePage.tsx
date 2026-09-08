@@ -1,4 +1,5 @@
 import {
+  ChevronLeft,
   ChevronRight,
   Compass,
   HandHeart,
@@ -57,11 +58,17 @@ export default function HomePage() {
   // 히어로 사진은 "사진이 있는 성지"만 후보가 된다 — 사진 없는 곳이 뽑히면 안 된다.
   const { data: imagedSites = [] } = useSites({ limit: 100, withImageOnly: true });
 
-  /** 오늘 소개하는 성지. 사진이 있는 곳 중에서 날짜로 순서를 매겨 매일 바뀐다. */
-  const heroSite = useMemo(
-    () => (imagedSites.length > 0 ? imagedSites[dayIndex() % imagedSites.length] : null),
-    [imagedSites],
-  );
+  /**
+   * 오늘 소개하는 성지 다섯 곳. 사진이 있는 곳 중에서 날짜로 회전시켜 매일 바뀐다.
+   * 모바일에서는 좌우로 넘겨보는 캐러셀로, 데스크톱에서는 그중 첫 곳만 큰 히어로로 쓴다.
+   */
+  const heroSites = useMemo(() => {
+    if (imagedSites.length === 0) return [];
+    const start = dayIndex() % imagedSites.length;
+    const rotated = [...imagedSites.slice(start), ...imagedSites.slice(0, start)];
+    return rotated.slice(0, Math.min(5, rotated.length));
+  }, [imagedSites]);
+  const heroSite = heroSites[0] ?? null;
   const heroDocent = heroSite ? getDocentScript(heroSite.id) : null;
 
   /** 히어로 성지에 다녀간 사람의 한 줄 — 실제 데이터가 있을 때만 보여준다(더미 금지). */
@@ -91,13 +98,80 @@ export default function HomePage() {
   return (
     <div className="bg-app-bg pb-10">
       {/*
-        히어로 — 사진 한 장으로 시작한다.
-        모바일: 지금까지처럼 둥근 카드(오늘의 성지). 누르면 그 성지로 간다.
-        데스크톱: 같은 사진이 화면 폭을 꽉 채우고, 그 위에 서비스 한 줄 소개가 올라온다.
-        사진은 매일 바뀌는 "오늘의 성지"이므로 데스크톱에서도 성지 이름을 반드시 함께 밝힌다.
+        히어로 — 사진으로 시작한다.
+        모바일: 오늘의 성지 다섯 곳을 좌우로 넘겨보는 캐러셀(2026-09-08) — 한 장만
+        있는 줄 알았다는 피드백으로, 다음 카드가 오른쪽 끝에 살짝 걸치게 두고
+        화살표로 더 있음을 알린다.
+        데스크톱: 그중 첫 곳이 화면 폭을 꽉 채우고, 그 위에 서비스 한 줄 소개가 올라온다.
       */}
       {heroSite ? (
-        <section className="px-6 pt-4 lg:px-0 lg:pt-0">
+        <section className="pt-4 lg:px-0 lg:pt-0">
+          {/* 모바일 전용 — 캐러셀 */}
+          <div className="lg:hidden">
+            <div className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-1">
+              {heroSites.map((site, i) => {
+                const docent = getDocentScript(site.id);
+                return (
+                  <Link
+                    key={site.id}
+                    to={paths.siteDetail(site.id)}
+                    className="relative h-80 w-[86%] shrink-0 snap-center overflow-hidden rounded-3xl"
+                    id={i === 0 ? 'home-hero' : undefined}
+                  >
+                    <SiteThumbnail
+                      imageUrl={site.imageUrl}
+                      name={site.name}
+                      category={site.category}
+                      intensity="deep"
+                      className="h-full w-full object-cover"
+                    />
+                    <div
+                      className="absolute inset-0"
+                      aria-hidden
+                      style={{
+                        background: 'linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0) 65%)',
+                      }}
+                    />
+                    {/* 옆에 더 있다는 것을 손으로 안 밀어봐도 알 수 있게 */}
+                    {i > 0 && (
+                      <div
+                        className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm"
+                        aria-hidden
+                      >
+                        <ChevronLeft size={20} />
+                      </div>
+                    )}
+                    {i < heroSites.length - 1 && (
+                      <div
+                        className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 animate-pulse items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm"
+                        aria-hidden
+                      >
+                        <ChevronRight size={20} />
+                      </div>
+                    )}
+                    <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+                      <p className="text-[11px] font-bold uppercase tracking-widest opacity-90">
+                        {site.region} · {site.category}
+                      </p>
+                      <h2 className="mt-1 text-[26px] font-extrabold leading-tight tracking-tight">
+                        {site.name}
+                      </h2>
+                      {/* 도슨트 원고가 없는 성지에 있는 척하는 CTA 를 붙이지 않는다(더미 금지). */}
+                      {docent && (
+                        <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-[13px] font-semibold backdrop-blur-md">
+                          <Headphones size={16} aria-hidden />
+                          {t('heroDocentCta')}
+                        </span>
+                      )}
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 데스크톱 전용 — 오늘의 성지 한 곳을 크게 */}
+          <div className="hidden lg:block">
           <div className="relative h-80 overflow-hidden rounded-3xl lg:h-[420px] lg:rounded-none">
             <SiteThumbnail
               imageUrl={heroSite.imageUrl}
@@ -158,26 +232,26 @@ export default function HomePage() {
               </PageContainer>
             </div>
 
-            {/* 오늘의 성지 — 모바일은 왼쪽 아래, 데스크톱은 오른쪽 아래로 비켜 놓는다 */}
+            {/* 오늘의 성지 — 오른쪽 아래로 비켜 놓는다 */}
             <Link
               to={paths.siteDetail(heroSite.id)}
-              className="absolute inset-x-0 bottom-0 block p-6 text-white lg:inset-x-auto lg:bottom-8 lg:right-10 lg:max-w-[280px] lg:rounded-2xl lg:bg-black/35 lg:p-5 lg:backdrop-blur-md"
-              id="home-hero"
+              className="absolute inset-x-auto bottom-8 right-10 block max-w-[280px] rounded-2xl bg-black/35 p-5 text-white backdrop-blur-md"
             >
               <p className="text-[11px] font-bold uppercase tracking-widest opacity-90">
                 {heroSite.region} · {heroSite.category}
               </p>
-              <h2 className="mt-1 text-[26px] font-extrabold leading-tight tracking-tight lg:text-[20px]">
+              <h2 className="mt-1 text-[20px] font-extrabold leading-tight tracking-tight">
                 {heroSite.name}
               </h2>
               {/* 도슨트 원고가 없는 성지에 있는 척하는 CTA 를 붙이지 않는다(더미 금지). */}
               {heroDocent && (
-                <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-[13px] font-semibold backdrop-blur-md lg:mt-3 lg:px-3 lg:py-1.5 lg:text-[12px]">
+                <span className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1.5 text-[12px] font-semibold backdrop-blur-md">
                   <Headphones size={16} aria-hidden />
                   {t('heroDocentCta')}
                 </span>
               )}
             </Link>
+          </div>
           </div>
         </section>
       ) : (
@@ -196,7 +270,11 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="no-scrollbar -mx-6 flex gap-3 overflow-x-auto px-6 pb-1 lg:mx-0 lg:px-0 lg:pb-0">
+          {/*
+            모바일: 5개가 옆으로 넘겨야만 보였다는 피드백(2026-09-08) — 그리드로
+            한 화면 안에 전부 들어오게 줄였다. 데스크톱은 기존 가로줄 그대로.
+          */}
+          <div className="grid grid-cols-5 gap-2 lg:flex lg:gap-3">
             {EMOTION_TAGS.map((emotion) => {
               const Icon = EMOTION_ICON[emotion];
               const active = emotion === selectedEmotion;
@@ -204,21 +282,22 @@ export default function HomePage() {
                 <button
                   key={emotion}
                   onClick={() => setSelectedEmotion(emotion)}
-                  className="flex flex-shrink-0 flex-col items-center gap-2 lg:flex-row lg:gap-2"
+                  className="flex flex-col items-center gap-1.5 lg:flex-row lg:gap-2"
                   id={`emotion-${emotion}`}
                   aria-pressed={active}
                 >
                   <div
-                    className={`flex h-14 w-14 items-center justify-center rounded-2xl border transition-all lg:h-10 lg:w-10 lg:rounded-xl ${
+                    className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-all lg:h-10 lg:w-10 ${
                       active
                         ? 'border-brand-blue bg-brand-blue text-white shadow-lg shadow-brand-blue/20'
                         : 'border-app-border bg-white text-app-text-muted'
                     }`}
                   >
-                    <Icon size={22} />
+                    <Icon size={18} className="lg:hidden" />
+                    <Icon size={22} className="hidden lg:block" />
                   </div>
                   <span
-                    className={`text-[11px] font-bold lg:text-[13px] ${
+                    className={`text-[10px] font-bold lg:text-[13px] ${
                       active ? 'text-brand-blue' : 'text-app-text-muted'
                     }`}
                   >

@@ -285,6 +285,16 @@ export const DICTIONARY = {
     pt: 'Busque santuários ou pergunte ao Michael, o guia de IA',
     it: 'Cerca santuari o chiedi a Michael, la guida IA',
   },
+  // 모바일 상단바 — 돋보기 아이콘만 있으면 무엇을 하는 자리인지 안 보인다는
+  // 피드백(2026-09-08). 좁은 자리라 searchPlaceholder 보다 짧게 쓴다.
+  searchHintMobile: {
+    ko: '미카엘 천사에게 물어보세요',
+    en: 'Ask Michael the angel',
+    es: 'Pregúntale al ángel Miguel',
+    fr: 'Demandez à l’ange Michel',
+    pt: 'Pergunte ao anjo Miguel',
+    it: 'Chiedi all’angelo Michele',
+  },
   // 홈 화면 사진 히어로 (T-001)
   heroDocentCta: {
     ko: '오디오 가이드로 먼저 들어보기',

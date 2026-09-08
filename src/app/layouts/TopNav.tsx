@@ -63,8 +63,17 @@ export function TopNav() {
               {t('searchPlaceholder')}
             </span>
           </Link>
-          <Link to={paths.search} className="md:hidden" aria-label={t('searchPlaceholder')}>
-            <Search size={19} className="text-app-text-muted" />
+          {/* 모바일 — 돋보기만 있으면 무엇을 하는 자리인지 안 보인다는 피드백(2026-09-08).
+              작은 회색 설명글을 옆에 붙인다. 좁은 화면에서도 안 깨지게 truncate 를 둔다. */}
+          <Link
+            to={paths.search}
+            className="flex min-w-0 items-center gap-1.5 md:hidden"
+            aria-label={t('searchHintMobile')}
+          >
+            <Search size={19} className="shrink-0 text-app-text-muted" aria-hidden />
+            <span className="max-w-[104px] truncate text-[10px] font-medium text-app-text-muted">
+              {t('searchHintMobile')}
+            </span>
           </Link>
 
           <button
@@ -80,7 +89,9 @@ export function TopNav() {
             <Type size={14} />
           </button>
 
-          <LanguagePicker className="hidden md:block" />
+          {/* 언어 선택 — 전에는 데스크톱에만 보였다. 모바일에서도 삼선 메뉴를 열지
+              않고 바로 바꿀 수 있어야 한다는 피드백(2026-09-08)으로 항상 보이게 한다. */}
+          <LanguagePicker />
 
           {session ? (
             <Link
@@ -148,7 +159,7 @@ export function TopNav() {
               큰 글자
             </button>
             <div className="flex items-center gap-4">
-              <LanguagePicker />
+              {/* 언어 선택은 이제 상단바에 항상 보이므로 여기서 다시 그리지 않는다(중복 id 방지) */}
               {!session && (
                 <Link
                   to={paths.login}
