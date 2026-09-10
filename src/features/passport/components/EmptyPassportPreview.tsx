@@ -22,10 +22,11 @@ import { StampMotifIcon } from './StampMotifIcon';
  * 가짜 스탬프를 진짜처럼 보이게 하는 순간 더미 데이터가 된다.
  */
 export function EmptyPassportPreview() {
-  const { origin } = useSettings();
+  const { origin, gpsLocation, t } = useSettings();
 
-  // 출발 지역이 설정돼 있으면 거기서 가장 가까운 성지를 첫 순례지로 제안한다.
-  const coords = origin ? regionCoords(origin) : null;
+  // 출발 지역이 설정돼 있거나 GPS 를 켜 두었으면 거기서 가장 가까운 성지를 첫 순례지로 제안한다.
+  const coords = gpsLocation ?? (origin ? regionCoords(origin) : null);
+  const originLabel = gpsLocation ? t('useCurrentLocationButton') : origin;
   const { data: sites = [] } = useQuery({
     queryKey: queryKeys.sites.coordsIndex,
     queryFn: fetchSiteLocationIndex,
@@ -73,8 +74,8 @@ export function EmptyPassportPreview() {
         </p>
       </div>
 
-      {/* 출발지가 있어야 거리를 말할 수 있다 — nearest 는 origin 에서 계산된 값이다 */}
-      {nearest && origin && (
+      {/* 출발지가 있어야 거리를 말할 수 있다 — nearest 는 origin(또는 GPS)에서 계산된 값이다 */}
+      {nearest && originLabel && (
         <Link
           to={paths.siteDetail(nearest.id)}
           className="flex items-center gap-4 rounded-[24px] border border-brand-violet/20 bg-brand-violet/[0.04] p-6"
@@ -89,13 +90,13 @@ export function EmptyPassportPreview() {
             </p>
             <p className="truncate text-sm font-extrabold text-app-text">{nearest.name}</p>
             <p className="text-xs font-bold text-app-text-muted">
-              {distanceLabel(origin, nearest.km)}
+              {distanceLabel(originLabel!, nearest.km)}
             </p>
           </div>
         </Link>
       )}
 
-      {!origin && (
+      {!coords && (
         <Link
           to={paths.menu}
           className="block rounded-[24px] border border-app-border bg-app-bg p-6 text-center text-xs font-bold text-app-text-muted"

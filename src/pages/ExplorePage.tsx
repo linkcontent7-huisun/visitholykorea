@@ -27,7 +27,7 @@ const CATEGORIES = ['전체', '순교성지', '역사사적지', '주교좌성�
  * 폭에 따라 열 수를 늘린다. 정렬·필터 로직은 손대지 않았다 — 배치만 바뀐다.
  */
 export default function ExplorePage() {
-  const { t, language, origin } = useSettings();
+  const { t, language, origin, gpsLocation } = useSettings();
 
   // 교구 카드에 성지 수를 붙인다. 목록 전체가 아니라 id·교구만 받아 가볍다.
   const { data: dioceseIndex = [] } = useQuery({
@@ -46,7 +46,7 @@ export default function ExplorePage() {
    * 출발지(시·도)를 정해 둔 사람에게만 토글을 보여준다.
    */
   const [nearestFirst, setNearestFirst] = useState(false);
-  const from = regionCoords(origin);
+  const from = gpsLocation ?? regionCoords(origin);
   const sorted = useMemo(() => {
     if (!nearestFirst || !from) return null;
     return sortByDistance(sites, from);
@@ -189,7 +189,9 @@ export default function ExplorePage() {
                   </button>
                 ))}
                 {nearestFirst && (
-                  <span className="text-[11px] font-medium text-app-text-muted">{origin} →</span>
+                  <span className="text-[11px] font-medium text-app-text-muted">
+                    {gpsLocation ? t('useCurrentLocationButton') : origin} →
+                  </span>
                 )}
               </div>
             )}

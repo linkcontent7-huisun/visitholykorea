@@ -7,6 +7,7 @@ import {
   MapPin,
   LogIn,
   LogOut,
+  Navigation,
   Share2,
   ShieldQuestion,
   SlidersHorizontal,
@@ -21,10 +22,31 @@ import { signOut } from '@/features/auth/api/auth';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useMyLogs } from '@/features/records/hooks/use-logs';
-import { LANGUAGES, LANGUAGE_LABEL, type Language } from '@/shared/i18n/dictionary';
+import { LANGUAGES, LANGUAGE_LABEL, type Language, type TranslationKey } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { copyText } from '@/shared/lib/map-links';
 import { REGIONS, type Region } from '@/shared/lib/regions';
+
+/** GPS 상태별 부제. 성공 후 켜져 있을 때는 origin 항목 쪽이 현재 위치 안내를 맡는다. */
+function gpsLocationSub(
+  status: 'idle' | 'loading' | 'granted' | 'denied' | 'unsupported' | 'error',
+  t: (key: TranslationKey) => string,
+): string | undefined {
+  switch (status) {
+    case 'loading':
+      return t('currentLocationLoading');
+    case 'denied':
+      return t('currentLocationDenied');
+    case 'unsupported':
+      return t('currentLocationUnsupported');
+    case 'error':
+      return t('currentLocationError');
+    case 'granted':
+      return t('clearCurrentLocationButton');
+    default:
+      return undefined;
+  }
+}
 
 interface MenuItem {
   id: string;
@@ -46,8 +68,19 @@ export default function MenuPage() {
   const { session } = useSession();
   // 관리자 콘솔 입구. 권한이 없는 사람에게는 아예 그리지 않는다.
   const { canEnter: canEnterAdmin } = useAdminAccess();
-  const { language, setLanguage, largeText, setLargeText, origin, setOrigin, t } =
-    useSettings();
+  const {
+    language,
+    setLanguage,
+    largeText,
+    setLargeText,
+    origin,
+    setOrigin,
+    gpsLocation,
+    gpsStatus,
+    requestGpsLocation,
+    clearGpsLocation,
+    t,
+  } = useSettings();
   const { data: stamps = [] } = useMyStamps();
   const { data: logs = [] } = useMyLogs();
 
@@ -121,16 +154,28 @@ export default function MenuPage() {
           onClick: () => setLargeText(!largeText),
         },
         {
+          id: 'gps',
+          icon: Navigation,
+          label: t('useCurrentLocationButton'),
+          sub: gpsLocationSub(gpsStatus, t),
+          onClick: gpsLocation ? clearGpsLocation : requestGpsLocation,
+        },
+        {
           id: 'origin',
           icon: MapPin,
           label: t('originSetting'),
-          sub: origin ? `${origin}에서 가까운 순으로 봅니다` : t('originSub'),
+          sub: gpsLocation
+            ? t('currentLocationActiveSub')
+            : origin
+              ? `${origin}에서 가까운 순으로 봅니다`
+              : t('originSub'),
           control: (
             <select
               value={origin ?? ''}
               onChange={(e) => setOrigin((e.target.value || null) as Region | null)}
               aria-label="출발지 선택"
-              className="rounded-2xl border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20"
+              disabled={Boolean(gpsLocation)}
+              className="rounded-2xl border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20 disabled:opacity-50"
             >
               <option value="">{t('originAll')}</option>
               {REGIONS.map((r) => (

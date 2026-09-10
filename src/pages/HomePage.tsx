@@ -46,7 +46,7 @@ function dayIndex(): number {
 }
 
 export default function HomePage() {
-  const { origin, language, t } = useSettings();
+  const { origin, gpsLocation, language, t } = useSettings();
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionTag>('치유');
   const [isAIGuideOpen, setIsAIGuideOpen] = useState(false);
   const { session } = useSession();
@@ -80,7 +80,7 @@ export default function HomePage() {
    * 출발지가 없으면 지금까지처럼 기본 목록을 그대로 쓴다.
    */
   const nearbyFirst = useMemo(() => {
-    const from = regionCoords(origin);
+    const from = gpsLocation ?? regionCoords(origin);
     if (!from || allSites.length === 0) return sites;
 
     return [...allSites]
@@ -92,7 +92,7 @@ export default function HomePage() {
       .sort((a, b) => a.km - b.km)
       .slice(0, 8)
       .map((x) => x.site);
-  }, [origin, allSites, sites]);
+  }, [origin, gpsLocation, allSites, sites]);
   const { data: courses = [], isLoading: coursesLoading } = useRecommendedCourses(selectedEmotion);
 
   return (

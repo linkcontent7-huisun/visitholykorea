@@ -17,6 +17,10 @@ vi.mocked(useSettingsModule.useSettings).mockReturnValue({
   setLargeText: vi.fn(),
   origin: null,
   setOrigin: vi.fn(),
+  gpsLocation: null,
+  gpsStatus: 'idle',
+  requestGpsLocation: vi.fn(),
+  clearGpsLocation: vi.fn(),
   t: ((key: keyof typeof DICTIONARY) => DICTIONARY[key].ko) as never,
   wideView: false,
 });

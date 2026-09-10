@@ -14,6 +14,10 @@ function mockSettings(language: SettingsContextValue['language'], setLanguage = 
     setLargeText: vi.fn(),
     origin: null,
     setOrigin: vi.fn(),
+    gpsLocation: null,
+    gpsStatus: 'idle',
+    requestGpsLocation: vi.fn(),
+    clearGpsLocation: vi.fn(),
     t: ((k: string) => k) as SettingsContextValue['t'],
     wideView: false,
   });

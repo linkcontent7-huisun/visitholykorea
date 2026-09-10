@@ -38,6 +38,32 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   );
   const [origin, setOrigin] = useState<Region | null>(readStoredOrigin);
   const [wideView, setWideView] = useState(matchWideView);
+  const [gpsLocation, setGpsLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [gpsStatus, setGpsStatus] = useState<SettingsContextValue['gpsStatus']>('idle');
+
+  const requestGpsLocation = useCallback(() => {
+    if (typeof navigator === 'undefined' || !navigator.geolocation) {
+      setGpsStatus('unsupported');
+      return;
+    }
+    setGpsStatus('loading');
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setGpsLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
+        setGpsStatus('granted');
+      },
+      (error) => {
+        setGpsLocation(null);
+        setGpsStatus(error.code === error.PERMISSION_DENIED ? 'denied' : 'error');
+      },
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 5 * 60 * 1000 },
+    );
+  }, []);
+
+  const clearGpsLocation = useCallback(() => {
+    setGpsLocation(null);
+    setGpsStatus('idle');
+  }, []);
 
   // 창 크기를 바꾸거나 기기를 돌리면 따라 바뀐다.
   useEffect(() => {
@@ -74,10 +100,24 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       setLargeText,
       origin,
       setOrigin,
+      gpsLocation,
+      gpsStatus,
+      requestGpsLocation,
+      clearGpsLocation,
       t,
       wideView,
     }),
-    [language, largeText, origin, t, wideView],
+    [
+      language,
+      largeText,
+      origin,
+      gpsLocation,
+      gpsStatus,
+      requestGpsLocation,
+      clearGpsLocation,
+      t,
+      wideView,
+    ],
   );
 
   return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>;

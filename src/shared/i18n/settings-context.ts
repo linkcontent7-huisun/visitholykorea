@@ -12,6 +12,15 @@ export interface SettingsContextValue {
    */
   origin: Region | null;
   setOrigin: (r: Region | null) => void;
+  /**
+   * GPS 로 얻은 실제 현재 좌표. `origin`(시·도 선택)과는 별개이며, 있으면
+   * 거리 정렬에서 이것을 우선한다. 위치는 이동하므로 세션 간에는 저장하지
+   * 않고 켤 때마다 새로 요청한다.
+   */
+  gpsLocation: { lat: number; lng: number } | null;
+  gpsStatus: 'idle' | 'loading' | 'granted' | 'denied' | 'unsupported' | 'error';
+  requestGpsLocation: () => void;
+  clearGpsLocation: () => void;
   /** 고령 순례자를 위한 큰 글자 모드. html[data-text-size] 로 전체를 비례 확대한다. */
   largeText: boolean;
   setLargeText: (v: boolean) => void;
