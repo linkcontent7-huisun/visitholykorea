@@ -5,7 +5,7 @@ import { paths } from '@/app/routes/paths';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirectionsButtons';
 import { SiteListItem } from '@/features/sites/components/SiteListItem';
-import { useSites } from '@/features/sites/hooks/use-sites';
+import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
 import {
   directoryDisplayAddress,
@@ -41,7 +41,8 @@ export default function RegionLandingPage() {
   const region = isRegion(raw) ? raw : null;
   const centerCoords = regionCoords(region);
 
-  const { data: allSites = [], isLoading } = useSites({ limit: 300 });
+  const { data: allSitesRaw = [], isLoading } = useSites({ limit: 300 });
+  const allSites = useLocalizedSites(allSitesRaw);
   // 성지로 등록되진 않았지만 이 지역에서 실제로 다닐 수 있는 본당·공소도 보여준다
   // (2026-09-07 요청 — "지역별 정보 안에 그 지역 성당들이 전부 등록되도록").
   const { data: nearbyParishes = [] } = useNearbyDirectory(

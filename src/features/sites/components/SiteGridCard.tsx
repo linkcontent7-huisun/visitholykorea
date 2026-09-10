@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
+import { localizeDomainValue } from '@/shared/i18n/domain-labels';
+import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
 import { SiteThumbnail } from './SiteThumbnail';
 import { useFeaturedPhotos } from '../hooks/use-featured-photos';
@@ -8,6 +10,7 @@ import { useFeaturedPhotos } from '../hooks/use-featured-photos';
 export function SiteGridCard({ site }: { site: HolySite }) {
   // 공식 사진이 없는 성지는 순례자가 보내준(승인된) 사진으로 채운다
   const { data: featured = {} } = useFeaturedPhotos();
+  const { t } = useSettings();
   return (
     <Link
       to={paths.siteDetail(site.id)}
@@ -23,7 +26,7 @@ export function SiteGridCard({ site }: { site: HolySite }) {
           className="h-full w-full transform object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[9px] font-bold uppercase tracking-tight text-brand-blue shadow-sm backdrop-blur-sm">
-          {site.category}
+          {localizeDomainValue(site.category, t)}
         </div>
       </div>
       <div className="p-4">

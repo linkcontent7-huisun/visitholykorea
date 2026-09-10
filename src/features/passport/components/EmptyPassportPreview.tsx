@@ -3,6 +3,7 @@ import { MapPin, Stamp as StampIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { fetchSiteLocationIndex } from '@/features/sites/api/holy-sites.repository';
+import { useLocalizedSites } from '@/features/sites/hooks/use-sites';
 import { queryKeys } from '@/shared/api/query-keys';
 import { distanceLabel } from '../lib/distance-label';
 import { haversineKm } from '@/shared/lib/geo';
@@ -27,12 +28,13 @@ export function EmptyPassportPreview() {
   // 출발 지역이 설정돼 있거나 GPS 를 켜 두었으면 거기서 가장 가까운 성지를 첫 순례지로 제안한다.
   const coords = gpsLocation ?? (origin ? regionCoords(origin) : null);
   const originLabel = gpsLocation ? t('useCurrentLocationButton') : origin;
-  const { data: sites = [] } = useQuery({
+  const { data: sitesRaw = [] } = useQuery({
     queryKey: queryKeys.sites.coordsIndex,
     queryFn: fetchSiteLocationIndex,
     enabled: coords !== null,
     staleTime: 1000 * 60 * 60,
   });
+  const sites = useLocalizedSites(sitesRaw);
 
   const nearest =
     coords && sites.length > 0
@@ -90,7 +92,7 @@ export function EmptyPassportPreview() {
             </p>
             <p className="truncate text-sm font-extrabold text-app-text">{nearest.name}</p>
             <p className="text-xs font-bold text-app-text-muted">
-              {distanceLabel(originLabel!, nearest.km)}
+              {distanceLabel(t, originLabel!, nearest.km)}
             </p>
           </div>
         </Link>

@@ -11,7 +11,7 @@ import { fetchSiteDioceseIndex } from '@/features/sites/api/holy-sites.repositor
 import { countByDiocese } from '@/features/sites/lib/diocese-count';
 import { sortByDistance } from '@/features/sites/lib/nearest';
 import { queryKeys } from '@/shared/api/query-keys';
-import { useSites, useSitesByDiocese } from '@/features/sites/hooks/use-sites';
+import { useLocalizedSites, useSites, useSitesByDiocese } from '@/features/sites/hooks/use-sites';
 import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { formatDuration } from '@/shared/lib/geo';
@@ -39,7 +39,8 @@ export default function ExplorePage() {
   const [selectedDiocese, setSelectedDiocese] = useState<string | null>(null);
   const [category, setCategory] = useState<string>('전체');
 
-  const { data: sites = [], isLoading } = useSitesByDiocese(selectedDiocese, category);
+  const { data: sitesRaw = [], isLoading } = useSitesByDiocese(selectedDiocese, category);
+  const sites = useLocalizedSites(sitesRaw);
 
   /**
    * 가까운 순 정렬 — 수요조사 자유의견 1호 "내 위치부터 소요시간별로 정리".
@@ -55,13 +56,14 @@ export default function ExplorePage() {
   // 즐겨찾기 — 찜해 둔 성지를 교구를 고르기 전 화면 맨 위에 모아 보여준다
   const { data: favoriteIds = [] } = useMyFavoriteIds();
   const { data: allSites = [] } = useSites({ limit: 300 });
-  const favoriteSites = useMemo(() => {
+  const favoriteSitesRaw = useMemo(() => {
     if (favoriteIds.length === 0) return [];
     const order = new Map(favoriteIds.map((id, i) => [id, i]));
     return allSites
       .filter((s) => order.has(s.id))
       .sort((a, b) => order.get(a.id)! - order.get(b.id)!);
   }, [favoriteIds, allSites]);
+  const favoriteSites = useLocalizedSites(favoriteSitesRaw);
 
   return (
     <div className="min-h-screen bg-white">

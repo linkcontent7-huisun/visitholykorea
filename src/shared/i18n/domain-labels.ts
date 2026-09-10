@@ -26,6 +26,7 @@ export const EMOTION_TAG_KEY: Record<EmotionTag, TranslationKey> = {
 
 export const CATEGORY_KEY: Record<string, TranslationKey> = {
   순교성지: 'categoryMartyrdom',
+  성당: 'categoryChurch',
   역사사적지: 'categoryHistoric',
   주교좌성당: 'categoryCathedral',
   순례길: 'categoryPilgrimRoute',

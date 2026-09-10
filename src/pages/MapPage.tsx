@@ -8,7 +8,7 @@ import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirecti
 import { useVisitedSites } from '@/features/map/hooks/use-visited';
 import { almostSiteIds, buildNudge, computeDioceseProgress } from '@/features/map/lib/progress';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
-import { useSites } from '@/features/sites/hooks/use-sites';
+import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
@@ -39,7 +39,8 @@ export default function MapPage() {
   const [keyword, setKeyword] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const { data: sites = [], isLoading, isError, refetch } = useSites({ limit: 300 });
+  const { data: sitesRaw = [], isLoading, isError, refetch } = useSites({ limit: 300 });
+  const sites = useLocalizedSites(sitesRaw);
   const { visits, visitedIds, toggle } = useVisitedSites();
 
   // 진행률은 필터와 무관하게 **전체 기준**으로 센다.

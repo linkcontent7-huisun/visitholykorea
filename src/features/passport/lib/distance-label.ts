@@ -1,3 +1,5 @@
+import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
+
 /**
  * 출발지에서의 거리를 사람이 읽는 말로 바꾼다.
  *
@@ -8,10 +10,13 @@
  *
  * 그래서 가까운 거리는 숫자를 버리고 "안에 있어요" 로 말한다.
  * 시·도 대표점 기준이라는 사실을 감안하면 그게 더 정확하기도 하다.
+ *
+ * `t` 는 화면의 다국어 사전 함수 — 영어 모드에서도 이 문구가 한국어로
+ * 나오던 것(2026-09-11 발견)을 고치면서, 문구 자체를 사전으로 옮겼다.
  */
-export function distanceLabel(origin: string, km: number): string {
+export function distanceLabel(t: (key: TranslationKey) => string, origin: string, km: number): string {
   if (!Number.isFinite(km) || km < 0) return origin;
-  if (km < 5) return `${origin} 안에 있어요`;
-  if (km < 10) return `${origin}에서 10km 안쪽`;
-  return `${origin}에서 약 ${Math.round(km)}km`;
+  if (km < 5) return fillPlaceholders(t('distanceWithin'), { origin });
+  if (km < 10) return fillPlaceholders(t('distanceUnder10'), { origin });
+  return fillPlaceholders(t('distanceApprox'), { origin, km: Math.round(km) });
 }

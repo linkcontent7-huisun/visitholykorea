@@ -24,9 +24,10 @@ import { useSiteNotes } from '@/features/passport/hooks/use-stamps';
 import { TodayQuietSection } from '@/features/quiet/components/TodayQuietSection';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
-import { useSites } from '@/features/sites/hooks/use-sites';
+import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
+import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { regionCoords } from '@/shared/lib/regions';
 import { haversineKm } from '@/shared/lib/geo';
@@ -62,12 +63,13 @@ export default function HomePage() {
    * 오늘 소개하는 성지 다섯 곳. 사진이 있는 곳 중에서 날짜로 회전시켜 매일 바뀐다.
    * 모바일에서는 좌우로 넘겨보는 캐러셀로, 데스크톱에서는 그중 첫 곳만 큰 히어로로 쓴다.
    */
-  const heroSites = useMemo(() => {
+  const heroSitesRaw = useMemo(() => {
     if (imagedSites.length === 0) return [];
     const start = dayIndex() % imagedSites.length;
     const rotated = [...imagedSites.slice(start), ...imagedSites.slice(0, start)];
     return rotated.slice(0, Math.min(5, rotated.length));
   }, [imagedSites]);
+  const heroSites = useLocalizedSites(heroSitesRaw);
   const heroSite = heroSites[0] ?? null;
   const heroDocent = heroSite ? getDocentScript(heroSite.id) : null;
 
@@ -79,7 +81,7 @@ export default function HomePage() {
    * 출발지를 정해 둔 사람에게는 "전국 아무 데나"가 아니라 **갈 수 있는 곳**을 먼저 보여준다.
    * 출발지가 없으면 지금까지처럼 기본 목록을 그대로 쓴다.
    */
-  const nearbyFirst = useMemo(() => {
+  const nearbyFirstRaw = useMemo(() => {
     const from = gpsLocation ?? regionCoords(origin);
     if (!from || allSites.length === 0) return sites;
 
@@ -93,6 +95,7 @@ export default function HomePage() {
       .slice(0, 8)
       .map((x) => x.site);
   }, [origin, gpsLocation, allSites, sites]);
+  const nearbyFirst = useLocalizedSites(nearbyFirstRaw);
   const { data: courses = [], isLoading: coursesLoading } = useRecommendedCourses(selectedEmotion);
 
   return (
@@ -151,7 +154,7 @@ export default function HomePage() {
                     )}
                     <div className="absolute inset-x-0 bottom-0 p-6 text-white">
                       <p className="text-[11px] font-bold uppercase tracking-widest opacity-90">
-                        {site.region} · {site.category}
+                        {site.region} · {localizeDomainValue(site.category, t)}
                       </p>
                       <h2 className="mt-1 text-[26px] font-extrabold leading-tight tracking-tight">
                         {site.name}
@@ -238,7 +241,7 @@ export default function HomePage() {
               className="absolute inset-x-auto bottom-8 right-10 block max-w-[280px] rounded-2xl bg-black/35 p-5 text-white backdrop-blur-md"
             >
               <p className="text-[11px] font-bold uppercase tracking-widest opacity-90">
-                {heroSite.region} · {heroSite.category}
+                {heroSite.region} · {localizeDomainValue(heroSite.category, t)}
               </p>
               <h2 className="mt-1 text-[20px] font-extrabold leading-tight tracking-tight">
                 {heroSite.name}
@@ -301,7 +304,7 @@ export default function HomePage() {
                       active ? 'text-brand-blue' : 'text-app-text-muted'
                     }`}
                   >
-                    {emotion}
+                    {localizeDomainValue(emotion, t)}
                   </span>
                 </button>
               );

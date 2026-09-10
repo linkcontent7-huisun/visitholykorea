@@ -59,7 +59,7 @@ import {
   GROUP_HINT_KEY,
   GROUP_LABEL_KEY,
 } from '@/features/sites/lib/nearby-facilities';
-import { useSite, useSitesInSameDiocese } from '@/features/sites/hooks/use-sites';
+import { useLocalizedSites, useSite, useSitesInSameDiocese } from '@/features/sites/hooks/use-sites';
 import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
@@ -76,7 +76,8 @@ export default function SiteDetailPage() {
 
   const { data: site, isLoading } = useSite(siteId);
   const view = useTranslatedSite(site);
-  const { data: nearbySites = [] } = useSitesInSameDiocese(site?.region, siteId);
+  const { data: nearbySitesRaw = [] } = useSitesInSameDiocese(site?.region, siteId);
+  const nearbySites = useLocalizedSites(nearbySitesRaw);
   const { data: facilityGroups = [], isFetching: facilitiesLoading } = useNearbyFacilities(
     site?.coordinates,
   );

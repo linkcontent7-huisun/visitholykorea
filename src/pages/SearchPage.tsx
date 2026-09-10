@@ -18,7 +18,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { askAIGuide, FALLBACK_ANSWER } from '@/features/ai-guide/api/ai-guide.client';
 import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirectionsButtons';
-import { useSiteSearch } from '@/features/sites/hooks/use-sites';
+import { useLocalizedSites, useSiteSearch } from '@/features/sites/hooks/use-sites';
 import { useDirectorySearch } from '@/features/sites/hooks/use-nearby-directory';
 import { directoryDisplayAddress, directoryDisplayName } from '@/features/sites/lib/nearby-directory';
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
@@ -32,7 +32,8 @@ export default function SearchPage() {
 
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebouncedValue(query, 300);
-  const { data: results = [], isFetching } = useSiteSearch(debouncedQuery);
+  const { data: resultsRaw = [], isFetching } = useSiteSearch(debouncedQuery);
+  const results = useLocalizedSites(resultsRaw);
   // 208곳 성지 밖에서, 전국 본당·공소 주소록(5,918건)도 함께 찾는다(2026-09-07 요청).
   const { data: directoryResults = [] } = useDirectorySearch(debouncedQuery);
 

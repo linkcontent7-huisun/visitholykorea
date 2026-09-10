@@ -3,6 +3,8 @@ import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { getDocentScript } from '@/features/docent/data/scripts';
+import { localizeDomainValue } from '@/shared/i18n/domain-labels';
+import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
 import { SiteThumbnail } from './SiteThumbnail';
 import { useFeaturedPhotos } from '../hooks/use-featured-photos';
@@ -11,6 +13,7 @@ import { useFeaturedPhotos } from '../hooks/use-featured-photos';
 export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) {
   // 공식 사진이 없는 성지는 순례자가 보내준(승인된) 사진으로 채운다
   const { data: featured = {} } = useFeaturedPhotos();
+  const { t } = useSettings();
   // 포인트별 오디오 도슨트가 준비된 성지를 목록에서 알아볼 수 있게 한다
   const hasDocent = getDocentScript(site.id) !== null;
   return (
@@ -33,12 +36,12 @@ export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) 
         <div className="flex flex-1 flex-col justify-center border-b border-app-border pb-5">
           <div className="mb-1 flex items-center gap-2">
             <span className="rounded-lg bg-brand-violet/5 px-2 text-[9px] font-extrabold uppercase tracking-tight text-brand-violet">
-              {site.category}
+              {localizeDomainValue(site.category, t)}
             </span>
             {hasDocent && (
               <span className="flex items-center gap-1 rounded-lg bg-brand-blue/5 px-2 text-[9px] font-extrabold text-brand-blue">
                 <Headphones size={10} aria-hidden />
-                오디오 도슨트
+                {t('docentTitle')}
               </span>
             )}
           </div>

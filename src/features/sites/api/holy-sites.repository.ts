@@ -266,6 +266,47 @@ export async function fetchSiteTranslations(
   return byLanguage;
 }
 
+/**
+ * 목록·카드용 — 여러 성지의 **이름만** 한 번에 번역해 온다.
+ *
+ * 상세 페이지의 `fetchSiteTranslations`는 성지 1곳의 전문(설명·역사 포함)을 받는
+ * 용도라 목록에 그대로 쓰면 N+1 조회가 된다. 여기는 site_id 전체를 `in()` 한 번으로
+ * 묶고 이름 칸만 받아, 카드가 많은 화면(홈 그리드·검색 결과·지도)에서도 조회가 하나다.
+ * languages 는 우선순위 순서(요청 언어 → 폴백)로 넘기고, 그 순서대로 첫 값을 채택한다.
+ */
+export async function fetchSiteNameTranslations(
+  siteIds: string[],
+  languages: string[],
+): Promise<Record<string, string>> {
+  if (siteIds.length === 0 || languages.length === 0) return {};
+
+  const { data, error } = await supabase
+    .from('holy_site_translations')
+    .select('site_id, language, name')
+    .in('site_id', siteIds)
+    .in('language', languages);
+
+  if (error) {
+    console.warn('fetchSiteNameTranslations skipped:', error.message);
+    return {};
+  }
+
+  const languagePriority = new Map(languages.map((lang, i) => [lang, i]));
+  const best = new Map<string, { name: string; priority: number }>();
+  for (const row of data ?? []) {
+    const name = (row.name as string | null)?.trim();
+    if (!name) continue;
+    const siteId = row.site_id as string;
+    const priority = languagePriority.get(row.language as string) ?? Number.MAX_SAFE_INTEGER;
+    const current = best.get(siteId);
+    if (!current || priority < current.priority) {
+      best.set(siteId, { name, priority });
+    }
+  }
+
+  return Object.fromEntries([...best].map(([id, v]) => [id, v.name]));
+}
+
 /** 한 성지의 특정 언어 번역. 없으면 null — 호출부는 원문으로 폴백한다. */
 export async function fetchSiteTranslation(
   siteId: string,
