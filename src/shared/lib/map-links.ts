@@ -88,21 +88,22 @@ export function buildMapLinks(destination: Destination, preferKorean: boolean): 
     url: appleUrl(destination),
     noteKey: 'appleNote',
   };
+  // 브랜드명이라 번역하지 않는다 — 한국어 화면 밖에서는 로마자 표기로 통일한다.
   const kakao: MapLink = {
     provider: 'kakao',
-    label: '카카오맵',
+    label: preferKorean ? '카카오맵' : 'KakaoMap',
     url: kakaoUrl(destination),
     noteKey: 'kakaoNote',
   };
   const tmap: MapLink = {
     provider: 'tmap',
-    label: 'T맵',
+    label: preferKorean ? 'T맵' : 'T map',
     url: tmapUrl(destination),
     noteKey: 'tmapNote',
   };
   const naver: MapLink = {
     provider: 'naver',
-    label: '네이버지도',
+    label: preferKorean ? '네이버지도' : 'Naver Map',
     url: naverUrl(destination),
     noteKey: 'naverNote',
   };

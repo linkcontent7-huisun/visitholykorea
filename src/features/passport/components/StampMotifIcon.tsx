@@ -1,3 +1,5 @@
+import { localizeMotifLabel } from '@/shared/i18n/domain-labels';
+import { useSettings } from '@/shared/i18n/use-settings';
 import type { StampMotif } from '../lib/stamp-motifs';
 
 /**
@@ -5,12 +7,13 @@ import type { StampMotif } from '../lib/stamp-motifs';
  * 색은 currentColor — 부모의 text-* 클래스가 곧 도장 잉크 색이다.
  */
 export function StampMotifIcon({ motif, className }: { motif: StampMotif; className?: string }) {
+  const { t } = useSettings();
   return (
     <svg
       viewBox="0 0 100 100"
       className={className}
       role="img"
-      aria-label={motif.label}
+      aria-label={localizeMotifLabel(motif.id, t)}
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"

@@ -22,12 +22,18 @@ import { fetchSiteCoordsIndex } from '@/features/sites/api/holy-sites.repository
 import { LogComposer } from '@/features/records/components/LogComposer';
 import { useMyLogs } from '@/features/records/hooks/use-logs';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import {
+  localizeCertLevel,
+  localizeMotifLabel,
+  localizeRegionName,
+} from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 type Segment = 'logs' | 'stamps';
 
 export default function RecordsPage() {
-  const { t } = useSettings();
+  const { t, language } = useSettings();
   const [segment, setSegment] = useState<Segment>('logs');
   const [isComposing, setIsComposing] = useState(false);
   const { session } = useSession();
@@ -68,7 +74,7 @@ export default function RecordsPage() {
       await shareOrDownloadCard(blob, 'visitholy-순례별자리.png');
     } catch (e) {
       console.error('연대기 카드 생성 실패:', e);
-      window.alert('카드를 만드는 데 실패했어요. 잠시 후 다시 시도해주세요.');
+      window.alert(t('cardGenerationFailed'));
     } finally {
       setChronicleLoading(false);
     }
@@ -84,14 +90,14 @@ export default function RecordsPage() {
       await shareOrDownloadCard(blob, `visitholy-${diocese}-완주.png`);
     } catch (e) {
       console.error('완주 카드 생성 실패:', e);
-      window.alert('카드를 만드는 데 실패했어요. 잠시 후 다시 시도해주세요.');
+      window.alert(t('cardGenerationFailed'));
     }
   };
 
   const pilgrimName =
     (session?.user.user_metadata?.name as string | undefined) ||
     session?.user.email?.split('@')[0] ||
-    '순례자';
+    t('pilgrimDefaultName');
 
   const handleDownloadCertificate = async () => {
     if (!certLevel) return;
@@ -136,20 +142,20 @@ export default function RecordsPage() {
           </Link>
 
           <p className="mt-6 text-center text-[12px] font-medium leading-relaxed text-app-text-muted">
-            로그인하지 않아도 성지 정보와 지도는 모두 보실 수 있어요.
+            {t('browseWithoutLoginNote')}
           </p>
           <div className="mt-4 flex justify-center gap-3">
             <Link
               to={paths.map}
               className="rounded-2xl border border-app-border bg-white px-5 py-3 text-[13px] font-bold text-app-text"
             >
-              지도 보기
+              {t('viewMapButton')}
             </Link>
             <Link
               to={paths.explore}
               className="rounded-2xl border border-app-border bg-white px-5 py-3 text-[13px] font-bold text-app-text"
             >
-              성지 둘러보기
+              {t('browseShrinesButton')}
             </Link>
           </div>
         </div>
@@ -164,8 +170,8 @@ export default function RecordsPage() {
         <div className="flex rounded-[16px] border border-app-border bg-app-bg p-1" role="tablist">
           {(
             [
-              { id: 'logs', label: '순례 여행기' },
-              { id: 'stamps', label: '방문 스탬프' },
+              { id: 'logs', label: t('recordsLogsTab') },
+              { id: 'stamps', label: t('recordsStampsTab') },
             ] as const
           ).map((tab) => (
             <button
@@ -196,7 +202,7 @@ export default function RecordsPage() {
                 id="create-log-btn"
               >
                 <PenLine size={20} />
-                여행기 작성하기
+                {t('writeJournalButton')}
               </button>
             )}
 
@@ -271,7 +277,7 @@ export default function RecordsPage() {
                   role="progressbar"
                   aria-valuenow={stamps.length}
                   aria-valuemax={totalSites}
-                  aria-label="전국 순례 진행"
+                  aria-label={t('nationalProgressAriaLabel')}
                 >
                   <div
                     className="h-full rounded-full bg-amber-300"
@@ -281,13 +287,18 @@ export default function RecordsPage() {
               )}
               {certLevel && (
                 <p className="mb-1 text-sm font-bold">
-                  {certLevel.emoji} 현재 등급: {certLevel.label}
+                  {fillPlaceholders(t('currentCertLevel'), {
+                    emoji: certLevel.emoji,
+                    label: localizeCertLevel(certLevel.label, t),
+                  })}
                 </p>
               )}
               {nextLevel && (
                 <p className="text-xs opacity-70">
-                  다음 등급 &ldquo;{nextLevel.label}&rdquo;까지{' '}
-                  {nextLevel.minStamps - stamps.length}곳 남았어요
+                  {fillPlaceholders(t('nextCertLevel'), {
+                    label: localizeCertLevel(nextLevel.label, t),
+                    count: nextLevel.minStamps - stamps.length,
+                  })}
                 </p>
               )}
               {certLevel && (
@@ -297,7 +308,7 @@ export default function RecordsPage() {
                   id="download-certificate-btn"
                 >
                   <FileDown size={16} />
-                  순례 인증서 다운로드
+                  {t('downloadCertificateButton')}
                 </button>
               )}
               {stamps.length > 0 && (
@@ -308,7 +319,7 @@ export default function RecordsPage() {
                   id="chronicle-card-btn"
                 >
                   <Sparkles size={16} />
-                  {chronicleLoading ? '별자리 그리는 중...' : '나의 순례 별자리 카드 만들기'}
+                  {chronicleLoading ? t('chronicleCardLoading') : t('chronicleCardButton')}
                 </button>
               )}
             </div>
@@ -316,7 +327,9 @@ export default function RecordsPage() {
             {/* 교구별 진행 — 208곳 전부는 멀어도 교구 하나는 손에 잡힌다 */}
             {dioceseRows.length > 0 && (
               <div className="rounded-[32px] border border-app-border bg-white p-7">
-                <p className="mb-5 text-sm font-extrabold text-app-text">교구별 순례 진행</p>
+                <p className="mb-5 text-sm font-extrabold text-app-text">
+                  {t('dioceseProgressTitle')}
+                </p>
                 <ul className="space-y-4">
                   {dioceseRows.map(([diocese, v]) => {
                     const done = v.visited === v.total;
@@ -324,8 +337,12 @@ export default function RecordsPage() {
                       <li key={diocese}>
                         <div className="mb-1.5 flex items-center justify-between text-xs font-bold">
                           <span className="text-app-text">
-                            {diocese}
-                            {done && <span className="ml-1.5 text-amber-500">완주 🎉</span>}
+                            {localizeRegionName(diocese, language)}
+                            {done && (
+                              <span className="ml-1.5 text-amber-500">
+                                {t('dioceseCompleteBadge')}
+                              </span>
+                            )}
                           </span>
                           <span className="text-app-text-muted">
                             {v.visited} / {v.total}
@@ -343,7 +360,9 @@ export default function RecordsPage() {
                             className="mt-2 text-[11px] font-extrabold text-brand-violet underline-offset-2 hover:underline"
                             id={`diocese-card-${diocese}`}
                           >
-                            {diocese} 완주 카드 만들기
+                            {fillPlaceholders(t('dioceseCardButton'), {
+                              diocese: localizeRegionName(diocese, language),
+                            })}
                           </button>
                         )}
                       </li>
@@ -384,7 +403,7 @@ export default function RecordsPage() {
                         {isWydVenue(stamp.siteName) && (
                           <span
                             className="absolute -right-1 -top-1 rounded-full bg-amber-400 px-1.5 py-0.5 text-[8px] font-black text-amber-950"
-                            title="WYD 2027 공식 일정지"
+                            title={t('wydVenueBadge')}
                           >
                             WYD
                           </span>
@@ -394,16 +413,16 @@ export default function RecordsPage() {
                         {stamp.siteName}
                       </span>
                       <span className={`text-[9px] font-bold ${event.colorClass.text}`}>
-                        {motif.label} · {event.label}
+                        {localizeMotifLabel(motif.id, t)} · {t(event.labelKey)}
                       </span>
                       {wydLimited && (
                         <span className="-mt-2 text-[9px] font-black text-amber-600">
-                          ✦ WYD 2027 한정
+                          {t('wydLimitedBadge')}
                         </span>
                       )}
                       {reads > 0 && (
                         <span className="-mt-2 text-[9px] font-bold text-app-text-muted">
-                          내 한 줄을 {reads}명이 읽었어요
+                          {fillPlaceholders(t('noteReadsCount'), { count: reads })}
                         </span>
                       )}
                     </Link>

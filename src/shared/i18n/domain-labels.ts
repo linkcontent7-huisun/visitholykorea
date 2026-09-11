@@ -103,3 +103,50 @@ export function localizeCrowdingLevel(value: string, t: (key: TranslationKey) =>
   const key = CROWDING_LEVEL_KEY[value];
   return key ? t(key) : value;
 }
+
+/**
+ * 스탬프 모티프(`resolveStampMotif`)의 표시 이름을 지금 언어로.
+ * `motif.label` 자체는 한국어 원문이라 매핑은 `motif.id`(gothic·brick 등, 언어와
+ * 무관한 고정 값) 기준으로 한다 — label 문자열을 키로 쓰면 오탈자 하나로 깨진다.
+ */
+export const STAMP_MOTIF_KEY: Record<string, TranslationKey> = {
+  gothic: 'motifGothic',
+  romanesque: 'motifRomanesque',
+  brick: 'motifBrick',
+  hanok: 'motifHanok',
+  fortress: 'motifFortress',
+  riverside: 'motifRiverside',
+  pine: 'motifPine',
+  kiln: 'motifKiln',
+  monument: 'motifMonument',
+  cathedral: 'categoryCathedral',
+  historic: 'motifHistoric',
+  path: 'categoryPilgrimRoute',
+  cross: 'motifCross',
+};
+
+export function localizeMotifLabel(
+  motifId: string,
+  t: (key: TranslationKey) => string,
+): string {
+  const key = STAMP_MOTIF_KEY[motifId];
+  return key ? t(key) : motifId;
+}
+
+/**
+ * 순례 인증서 등급(`CERTIFICATE_LEVELS[].label`)의 표시 이름을 지금 언어로.
+ * `label` 자체는 PDF 인증서·공유 카드에 그대로 찍히는 한국어 기록물이라 바꾸지
+ * 않는다 — 화면에 보여줄 때만 이 매핑을 거친다.
+ */
+export const CERT_LEVEL_KEY: Record<string, TranslationKey> = {
+  첫_순례자: 'certLevelFirst',
+  순례_도보자: 'certLevelWalker',
+  순례_순례자: 'certLevelDevoted',
+  순례_구도자: 'certLevelSeeker',
+  순례_완주자: 'certLevelFinisher',
+};
+
+export function localizeCertLevel(label: string, t: (key: TranslationKey) => string): string {
+  const key = CERT_LEVEL_KEY[label.replace(/\s+/g, '_')];
+  return key ? t(key) : label;
+}

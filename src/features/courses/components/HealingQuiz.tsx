@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
-import type { TranslationKey } from '@/shared/i18n/dictionary';
+import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { getRecommendedCourses, type CourseCard } from '../api/course-matching';
@@ -341,7 +341,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   className="mt-4 w-full rounded-[20px] border border-app-border bg-white px-5 py-3 text-left"
                 >
                   <span className="block text-xs text-app-text-muted">
-                    지난번엔 이곳을 권해드렸어요
+                    {t('compassLastRecommendation')}
                   </span>
                   <span className="mt-0.5 block text-sm font-bold text-brand-violet">
                     {memory.matchedSiteName} →
@@ -360,9 +360,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               exit={{ opacity: 0 }}
             >
               <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">
-                지금 마음에
+                {t('compassQ1TitleLine1')}
                 <br />
-                가장 가까운 색을 골라주세요
+                {t('compassQ1TitleLine2')}
               </h3>
               <p className="text-xs text-app-text-muted mb-8">{t('compassPickColor')}</p>
               <div className="grid grid-cols-3 gap-5">
@@ -398,9 +398,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               exit={{ opacity: 0 }}
             >
               <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
-                요즘 어떤 것에
+                {t('compassQ2TitleLine1')}
                 <br />
-                마음을 많이 쓰고 계세요?
+                {t('compassQ2TitleLine2')}
               </h3>
               <div className="space-y-3">
                 {CONCERNS.map((c) => (
@@ -430,9 +430,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               exit={{ opacity: 0 }}
             >
               <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">
-                어디서
+                {t('compassQ3TitleLine1')}
                 <br />
-                출발하세요?
+                {t('compassQ3TitleLine2')}
               </h3>
               <p className="text-xs text-app-text-muted mb-8">{t('compassNearbyNote')}</p>
               <select
@@ -467,13 +467,11 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               exit={{ opacity: 0 }}
             >
               <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">
-                성별을
+                {t('compassQ4TitleLine1')}
                 <br />
-                알려주시겠어요?
+                {t('compassQ4TitleLine2')}
               </h3>
-              <p className="text-xs text-app-text-muted mb-8">
-                일부 프로그램은 성별에 따라 참여 대상이 달라요
-              </p>
+              <p className="text-xs text-app-text-muted mb-8">{t('compassQ4Subtitle')}</p>
               <div className="space-y-3">
                 {(['여성', '남성', '응답 안 함'] as Gender[]).map((g) => (
                   <button
@@ -502,7 +500,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               exit={{ opacity: 0 }}
             >
               <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
-                오늘은 어떤 게<br />더 필요하세요?
+                {t('compassQ5TitleLine1')}
+                <br />
+                {t('compassQ5TitleLine2')}
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -554,9 +554,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               exit={{ opacity: 0 }}
             >
               <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
-                오늘 얼마나
+                {t('compassQ6TitleLine1')}
                 <br />
-                시간을 낼 수 있으세요?
+                {t('compassQ6TitleLine2')}
               </h3>
               <div className="space-y-3">
                 {TIME_BUDGETS.map((tb) => (
@@ -586,8 +586,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               exit={{ opacity: 0 }}
             >
               <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
-                이번 길은
-                <br />몇 분이 함께하세요?
+                {t('compassQ7TitleLine1')}
+                <br />
+                {t('compassQ7TitleLine2')}
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 {PARTY_SIZES.map((p) => (
@@ -624,13 +625,11 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               exit={{ opacity: 0 }}
             >
               <h3 className="text-xl font-extrabold text-app-text mb-4 tracking-tight">
-                혹시 마음에 담아두고
+                {t('compassQ8TitleLine1')}
                 <br />
-                싶은 말이 있다면 적어주세요
+                {t('compassQ8TitleLine2')}
               </h3>
-              <p className="text-xs text-app-text-muted mb-6">
-                누구에게도 말 못했던 것도 괜찮아요. 건너뛰셔도 돼요.
-              </p>
+              <p className="text-xs text-app-text-muted mb-6">{t('compassQ8Subtitle')}</p>
               <textarea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
@@ -654,15 +653,15 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 <div className="pt-20 flex flex-col items-center gap-4">
                   <div className="w-10 h-10 border-4 border-brand-blue border-t-transparent rounded-full animate-spin" />
                   <p className="text-app-text-muted text-sm font-bold">
-                    당신을 위한 자리를 찾고 있어요...
+                    {t('compassFindingResult')}
                   </p>
                 </div>
               ) : result ? (
                 <div>
                   <h3 className="text-xl font-extrabold text-app-text mb-6 tracking-tight text-center">
-                    당신을 위한
+                    {t('compassResultTitleLine1')}
                     <br />
-                    쉼의 자리를 찾았어요
+                    {t('compassResultTitleLine2')}
                   </h3>
 
                   <div className="rounded-[28px] overflow-hidden bg-white border border-app-border shadow-sm mb-6">
@@ -708,10 +707,12 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                         <div className="mb-6 rounded-[28px] border border-app-border bg-white p-6 shadow-sm">
                           <div className="mb-4 flex items-baseline justify-between">
                             <h4 className="font-extrabold text-app-text text-sm">
-                              이대로 다녀오세요 — {timeBudget} 일정
+                              {fillPlaceholders(t('compassItineraryTitle'), {
+                                timeBudget: t(TIME_LABEL[timeBudget]),
+                              })}
                             </h4>
                             <span className="text-[9px] font-bold text-app-text-muted">
-                              실시간 · 한국관광공사
+                              {t('compassRealtimeSource')}
                             </span>
                           </div>
                           <ol className="space-y-3">
@@ -724,7 +725,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                                   {result.site.name}
                                 </p>
                                 <p className="text-[11px] font-bold text-app-text-muted">
-                                  고요히 머무는 시간
+                                  {t('compassQuietTime')}
                                 </p>
                               </div>
                             </li>
@@ -744,7 +745,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                                     target="_blank"
                                     rel="noreferrer noopener"
                                     className="group min-w-0 flex-1"
-                                    aria-label={`${spot.title} 카카오맵에서 보기`}
+                                    aria-label={fillPlaceholders(t('viewOnKakaoMap'), {
+                                      title: spot.title,
+                                    })}
                                   >
                                     <p className="flex items-center gap-1 truncate text-sm font-extrabold text-app-text group-hover:text-brand-blue">
                                       <span className="truncate">{spot.title}</span>
@@ -841,7 +844,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                       className="flex-1 bg-app-bg text-app-text border border-app-border py-4 rounded-[20px] font-bold text-sm"
                       id="quiz-retry"
                     >
-                      다시 골라볼게요
+                      {t('compassRetry')}
                     </button>
                     <button
                       onClick={() => {
@@ -851,7 +854,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                       className="flex-1 bg-brand-blue text-white py-4 rounded-[20px] font-bold text-sm shadow-lg shadow-brand-blue/20"
                       id="quiz-go"
                     >
-                      이 코스로 가볼게요
+                      {t('compassGoWithCourse')}
                     </button>
                   </div>
                 </div>
@@ -859,14 +862,14 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 <div className="text-center py-20">
                   <Footprints size={40} className="mx-auto mb-4 text-app-text-muted opacity-30" />
                   <p className="text-app-text-muted text-sm font-bold mb-6">
-                    아직 이 마음에 꼭 맞는 코스를 준비 중이에요.
+                    {t('compassNoCourseYet')}
                   </p>
                   <button
                     onClick={reset}
                     className="text-brand-blue font-bold text-sm"
                     id="quiz-retry-empty"
                   >
-                    다시 골라볼게요
+                    {t('compassRetry')}
                   </button>
                 </div>
               )}
