@@ -120,10 +120,12 @@ function QueueTab() {
   const visible = useMemo(() => {
     const keyword = term.trim();
     return (data ?? []).filter((site) => {
+      // 검색어를 치면 대기열 칩과 상관없이 208곳 전체에서 찾는다 — 이미 사진이 있는
+      // 성지도 글·사진을 고치러 들어와야 하는데, "사진 없음" 칩에 가려 못 찾는 일이 있었다.
+      if (keyword) return site.name.includes(keyword) || site.diocese.includes(keyword);
       if (filter === 'photo' && site.hasPhoto) return false;
       if (filter === 'description' && site.hasDescription) return false;
       if (filter === 'history' && site.hasHistory) return false;
-      if (keyword && !site.name.includes(keyword) && !site.diocese.includes(keyword)) return false;
       return true;
     });
   }, [data, filter, term]);
@@ -144,7 +146,7 @@ function QueueTab() {
         <input
           value={term}
           onChange={(e) => setTerm(e.target.value)}
-          placeholder="성지 이름 또는 교구로 찾기"
+          placeholder="성지 이름 또는 교구로 찾기 (208곳 전체)"
           className="w-full rounded-2xl border border-slate-200 bg-white py-3.5 pl-11 pr-4 text-sm font-bold text-slate-900 focus:border-slate-900 focus:outline-none"
         />
       </div>

@@ -23,7 +23,7 @@ export interface AdminSiteSummary {
   missingCount: number;
 }
 
-/** 편집 화면이 다루는 칸만 모은 형태. 이름·교구·좌표는 일부러 뺐다(구조는 안 건드린다). */
+/** 편집 화면이 다루는 칸만 모은 형태. 교구·좌표는 일부러 뺐다(지도·여권이 그 값으로 묶인다). */
 export interface AdminSiteDraft {
   id: string;
   name: string;
@@ -36,10 +36,17 @@ export interface AdminSiteDraft {
   imageLicense: string;
   phone: string;
   homepageUrl: string;
+  fax: string;
+  seoTitle: string;
+  seoDescription: string;
+  nearbyAttractions: string;
+  nearbyLodging: string;
 }
 
 /** 저장 가능한 칸. DB 칸 이름 그대로 두어 update 에 바로 넘긴다. */
 export interface AdminSitePatch {
+  /** 헤드라인. 도슨트는 id 로 이어지지만 스탬프 문양·WYD 표시는 이름을 보므로 신중히. */
+  name: string;
   location: string;
   description: string;
   history: string;
@@ -47,7 +54,29 @@ export interface AdminSitePatch {
   image_license: string;
   phone: string;
   homepage_url: string;
+  fax: string;
+  seo_title: string;
+  seo_description: string;
+  nearby_attractions: string;
+  nearby_lodging: string;
 }
+
+/** 편집 화면이 저장하는 DB 칸. fetch·update·revert 셋이 같은 목록을 써야 빠지는 칸이 없다. */
+const EDITABLE_COLUMNS = [
+  'name',
+  'location',
+  'description',
+  'history',
+  'image_source',
+  'image_license',
+  'phone',
+  'homepage_url',
+  'fax',
+  'seo_title',
+  'seo_description',
+  'nearby_attractions',
+  'nearby_lodging',
+] as const;
 
 export interface AdminPendingPhoto {
   stampId: string;
@@ -145,8 +174,10 @@ export function byMostMissing(a: AdminSiteSummary, b: AdminSiteSummary): number 
 export async function fetchSiteDraft(id: string): Promise<AdminSiteDraft> {
   const { data, error } = await supabase
     .from('holy_sites')
+    // supabase-js 는 select 문자열을 타입으로 해석하므로 글자 그대로 적어야 한다.
+    // EDITABLE_COLUMNS 와 같은 목록이어야 한다 — 칸을 늘리면 여기도 같이.
     .select(
-      'id, name, diocese, location, description, history, image_url, image_source, image_license, phone, homepage_url',
+      'id, diocese, image_url, name, location, description, history, image_source, image_license, phone, homepage_url, fax, seo_title, seo_description, nearby_attractions, nearby_lodging',
     )
     .eq('id', id)
     .single();
@@ -167,23 +198,27 @@ export async function fetchSiteDraft(id: string): Promise<AdminSiteDraft> {
     imageLicense: text(data.image_license),
     phone: text(data.phone),
     homepageUrl: text(data.homepage_url),
+    fax: text(data.fax),
+    seoTitle: text(data.seo_title),
+    seoDescription: text(data.seo_description),
+    nearbyAttractions: text(data.nearby_attractions),
+    nearbyLodging: text(data.nearby_lodging),
   };
 }
 
 /** 글 저장. 이전 값은 DB 트리거가 자동으로 site_revisions 에 남긴다. */
 export async function updateSite(id: string, patch: AdminSitePatch): Promise<AdminResult> {
-  const { error } = await supabase
-    .from('holy_sites')
-    .update({
-      location: nullable(patch.location),
-      description: nullable(patch.description),
-      history: nullable(patch.history),
-      image_source: nullable(patch.image_source),
-      image_license: nullable(patch.image_license),
-      phone: nullable(patch.phone),
-      homepage_url: nullable(patch.homepage_url),
-    })
-    .eq('id', id);
+  // 이름은 비울 수 없다 — 빈 헤드라인이 목록·지도·여권에 그대로 뜬다.
+  if (patch.name.trim().length === 0) {
+    return { success: false, error: '성지 이름은 비울 수 없습니다.' };
+  }
+
+  const row: Record<string, string | null> = {};
+  for (const column of EDITABLE_COLUMNS) {
+    row[column] = column === 'name' ? patch.name.trim() : nullable(patch[column]);
+  }
+
+  const { error } = await supabase.from('holy_sites').update(row).eq('id', id);
 
   if (error) {
     return { success: false, error: toMessage(error, '저장하지 못했습니다.') };
@@ -310,19 +345,14 @@ export async function revertSite(
   siteId: string,
   before: Record<string, unknown>,
 ): Promise<AdminResult> {
-  const { error } = await supabase
-    .from('holy_sites')
-    .update({
-      location: (before.location as string | null) ?? null,
-      description: (before.description as string | null) ?? null,
-      history: (before.history as string | null) ?? null,
-      image_url: (before.image_url as string | null) ?? null,
-      image_source: (before.image_source as string | null) ?? null,
-      image_license: (before.image_license as string | null) ?? null,
-      phone: (before.phone as string | null) ?? null,
-      homepage_url: (before.homepage_url as string | null) ?? null,
-    })
-    .eq('id', siteId);
+  const row: Record<string, string | null> = {
+    image_url: (before.image_url as string | null) ?? null,
+  };
+  for (const column of EDITABLE_COLUMNS) {
+    row[column] = (before[column] as string | null) ?? null;
+  }
+
+  const { error } = await supabase.from('holy_sites').update(row).eq('id', siteId);
 
   if (error) {
     return { success: false, error: toMessage(error, '되돌리지 못했습니다.') };

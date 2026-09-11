@@ -424,6 +424,41 @@ export default function SiteDetailPage() {
           </div>
         </section>
 
+        {/* 성지 사무실·운영자가 직접 적은 주변 안내. TourAPI 목록과 달리 우리 DB 값이라
+            관리자 콘솔에서 고칠 수 있다. 둘 다 비어 있으면 절 자체를 그리지 않는다. */}
+        {(site.nearbyAttractions || site.nearbyLodging) && (
+          <section>
+            <div className="mb-6 flex items-center gap-3">
+              <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
+              <h2 className="text-xl font-extrabold tracking-tight text-app-text">
+                {t('siteCuratedNearbyTitle')}
+              </h2>
+            </div>
+            <div className="space-y-3">
+              {site.nearbyAttractions && (
+                <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
+                  <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
+                    {t('siteCuratedAttractions')}
+                  </div>
+                  <p className="whitespace-pre-line text-sm font-medium leading-relaxed text-app-text">
+                    {site.nearbyAttractions}
+                  </p>
+                </div>
+              )}
+              {site.nearbyLodging && (
+                <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
+                  <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
+                    {t('siteCuratedLodging')}
+                  </div>
+                  <p className="whitespace-pre-line text-sm font-medium leading-relaxed text-app-text">
+                    {site.nearbyLodging}
+                  </p>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
         {/*
           주변 편의시설 — 맛집·숙박·볼거리·쉼터를 한 화면에서 본다.
           TourAPI 를 한 번만 부르고 유형으로 나눈다(저장하지 않는다).

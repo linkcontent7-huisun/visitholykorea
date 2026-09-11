@@ -48,6 +48,7 @@ function SiteEditor() {
   useEffect(() => {
     if (!draft) return;
     setForm({
+      name: draft.name,
       location: draft.location,
       description: draft.description,
       history: draft.history,
@@ -55,6 +56,11 @@ function SiteEditor() {
       image_license: draft.imageLicense,
       phone: draft.phone,
       homepage_url: draft.homepageUrl,
+      fax: draft.fax,
+      seo_title: draft.seoTitle,
+      seo_description: draft.seoDescription,
+      nearby_attractions: draft.nearbyAttractions,
+      nearby_lodging: draft.nearbyLodging,
     });
   }, [draft]);
 
@@ -130,6 +136,32 @@ function SiteEditor() {
       </header>
 
       <div className="flex flex-col gap-5 px-5 py-5">
+        {/* 헤드라인 */}
+        <section className="rounded-2xl bg-white p-4 shadow-sm">
+          <h2 className="mb-3 text-sm font-black text-slate-900">헤드라인</h2>
+          <Field
+            label="성지 이름 (목록·상세·지도·여권에 그대로 뜸)"
+            value={form.name}
+            onChange={(v) => set('name', v)}
+          />
+          <Field
+            label="검색·공유 제목 (비우면 성지 이름을 씀)"
+            value={form.seo_title}
+            onChange={(v) => set('seo_title', v)}
+            placeholder="예: 절두산 순교성지 — 한강가 순교자의 언덕"
+          />
+          <TextArea
+            label="검색·공유 한 줄 요약 (카드·검색 결과에 보이는 짧은 문장)"
+            value={form.seo_description}
+            onChange={(v) => set('seo_description', v)}
+            rows={2}
+          />
+          <p className="mt-1 text-[11px] font-bold leading-relaxed text-slate-400">
+            이름을 바꾸면 스탬프 문양·WYD 표시처럼 이름으로 찾는 장식이 풀릴 수 있습니다. 오타
+            수정 정도만 권합니다. 영어 등 다른 언어 이름은 번역 표에 따로 있어 같이 바뀌지 않습니다.
+          </p>
+        </section>
+
         {/* 대표 사진 */}
         <section className="rounded-2xl bg-white p-4 shadow-sm">
           <h2 className="mb-3 text-sm font-black text-slate-900">대표 사진</h2>
@@ -171,13 +203,13 @@ function SiteEditor() {
 
           <div className="mt-4 grid grid-cols-2 gap-2">
             <Field
-              label="출처"
+              label="사진 출처 (사진 아래 작은 글씨로 표시)"
               value={form.image_source}
               onChange={(v) => set('image_source', v)}
               placeholder={OWN_PHOTO.source}
             />
             <Field
-              label="이용 조건"
+              label="이용 조건 (예: CC BY-SA 4.0)"
               value={form.image_license}
               onChange={(v) => set('image_license', v)}
               placeholder={OWN_PHOTO.license}
@@ -193,13 +225,13 @@ function SiteEditor() {
         <section className="rounded-2xl bg-white p-4 shadow-sm">
           <h2 className="mb-3 text-sm font-black text-slate-900">안내 글</h2>
           <TextArea
-            label="소개글"
+            label="소개글 (상세 화면 맨 위 본문)"
             value={form.description}
             onChange={(v) => set('description', v)}
             rows={4}
           />
           <TextArea
-            label="역사"
+            label="역사 (상세 화면 「역사」 절)"
             value={form.history}
             onChange={(v) => set('history', v)}
             rows={8}
@@ -220,9 +252,31 @@ function SiteEditor() {
             value={form.homepage_url}
             onChange={(v) => set('homepage_url', v)}
           />
+          <Field label="팩스 (단체 순례 예약용)" value={form.fax} onChange={(v) => set('fax', v)} />
           <p className="mt-2 text-[11px] font-bold leading-relaxed text-slate-400">
-            성지 이름·교구·좌표는 여기서 고칠 수 없습니다. 지도와 순례 여권이 그 값을 기준으로
-            묶여 있어, 바꾸려면 확인할 것이 많습니다.
+            교구·좌표는 여기서 고칠 수 없습니다. 지도와 순례 여권이 그 값을 기준으로 묶여 있어,
+            바꾸려면 확인할 것이 많습니다.
+          </p>
+        </section>
+
+        {/* 주변 안내 */}
+        <section className="rounded-2xl bg-white p-4 shadow-sm">
+          <h2 className="mb-3 text-sm font-black text-slate-900">주변 안내 (직접 쓰는 글)</h2>
+          <TextArea
+            label="주변 볼거리 (성지에서 걸어갈 만한 곳)"
+            value={form.nearby_attractions}
+            onChange={(v) => set('nearby_attractions', v)}
+            rows={3}
+          />
+          <TextArea
+            label="숙박 안내 (피정의 집·근처 숙소)"
+            value={form.nearby_lodging}
+            onChange={(v) => set('nearby_lodging', v)}
+            rows={3}
+          />
+          <p className="mt-1 text-[11px] font-bold leading-relaxed text-slate-400">
+            한국관광공사 실시간 맛집·숙박 목록과는 별개입니다. 그쪽은 저장하지 않고 매번 불러오므로
+            여기서 고칠 수 없습니다.
           </p>
         </section>
 

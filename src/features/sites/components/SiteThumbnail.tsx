@@ -1,4 +1,6 @@
 import { Church, Cross, Footprints, Home, Landmark, type LucideIcon } from 'lucide-react';
+import { useState } from 'react';
+import { placeholderImageFor } from '@/shared/lib/site-placeholder';
 
 interface SiteThumbnailProps {
   imageUrl: string | null;
@@ -111,6 +113,7 @@ export function SiteThumbnail({
   className = '',
   intensity = 'light',
 }: SiteThumbnailProps) {
+  const [placeholderFailed, setPlaceholderFailed] = useState(false);
   const usingPilgrim = !imageUrl && Boolean(pilgrimUrl);
   const url = imageUrl ?? pilgrimUrl;
 
@@ -122,6 +125,21 @@ export function SiteThumbnail({
         alt={usingPilgrim ? `${name} — 순례자가 보내온 사진` : name}
         className={className}
         loading="lazy"
+      />
+    );
+  }
+
+  // 사진도 순례자 사진도 없으면 임시 이미지. "곧 현장 사진을 올릴 예정" 문구가
+  // 이미지 안에 박혀 있어 진짜 사진으로 읽히지 않는다 (2026-09-12).
+  // 분류별 문양 카드는 임시 이미지마저 못 불러왔을 때의 마지막 자리지킴이로 남긴다.
+  if (!placeholderFailed) {
+    return (
+      <img
+        src={placeholderImageFor(name)}
+        alt={`${name} — 사진 준비 중`}
+        className={className}
+        loading="lazy"
+        onError={() => setPlaceholderFailed(true)}
       />
     );
   }
