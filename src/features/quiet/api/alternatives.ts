@@ -15,6 +15,7 @@
  */
 
 import { haversineKm } from '@/shared/lib/geo';
+import { DICTIONARY, fillPlaceholders, type Language } from '@/shared/i18n/dictionary';
 import type { HolySite, Coordinates } from '@/shared/types/domain';
 import { getNearbyByLocation, getOngoingFestivals, type TourApiSpot } from '@/shared/api/tour-api';
 import {
@@ -76,7 +77,7 @@ function formatDistance(km: number): string {
  * 차·대중교통 소요 시간은 **일부러 추정하지 않는다.** 교통 상황을 모르는 채로
  * "15분"이라고 적으면 틀릴 때 신뢰가 깨진다. 도보만 계산 가능한 값이므로 도보만 적는다.
  */
-export function estimateTravel(distanceKm: number): TravelEstimate {
+export function estimateTravel(distanceKm: number, language: Language = 'ko'): TravelEstimate {
   const walkable = distanceKm <= ALTERNATIVE.walkableKm;
   const walkMinutes = walkable
     ? Math.max(1, Math.round((distanceKm / ALTERNATIVE.walkingKmh) * 60))
@@ -86,7 +87,9 @@ export function estimateTravel(distanceKm: number): TravelEstimate {
     mode: walkable ? '도보' : '대중교통·차',
     distanceKm,
     walkMinutes,
-    label: walkable ? `도보 ${walkMinutes}분` : formatDistance(distanceKm),
+    label: walkable
+      ? fillPlaceholders(DICTIONARY.walkMinutesLabel[language], { minutes: walkMinutes! })
+      : formatDistance(distanceKm),
   };
 }
 
@@ -140,6 +143,7 @@ export function rankAlternatives(
   originScore: number,
   scored: ScoredSite[],
   options: RankOptions = {},
+  language: Language = 'ko',
 ): RankResult {
   const {
     limit = 3,
@@ -163,7 +167,7 @@ export function rankAlternatives(
       ...entry,
       distanceKm,
       relief: Math.round((originScore - entry.crowding.score) * 10) / 10,
-      travel: estimateTravel(distanceKm),
+      travel: estimateTravel(distanceKm, language),
     });
   }
 
@@ -196,10 +200,18 @@ export function rankAlternatives(
 /**
  * 추천 문구. 숫자만 던지지 않고 "왜 여기인지"를 한 문장으로 말한다.
  */
-export function buildAlternativeReason(originName: string, alternative: Alternative): string {
+export function buildAlternativeReason(
+  originName: string,
+  alternative: Alternative,
+  language: Language = 'ko',
+): string {
   const { relief, travel } = alternative;
   const closer = travel.mode === '도보' ? travel.label : `${formatDistance(travel.distanceKm)}`;
-  return `${originName}보다 ${Math.round(relief)}점 한적합니다 · ${closer}`;
+  return fillPlaceholders(DICTIONARY.alternativeReasonTemplate[language], {
+    origin: originName,
+    relief: Math.round(relief),
+    closer,
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -255,6 +267,7 @@ export async function findAlternatives(
   spot: TourApiSpot,
   sites: HolySite[],
   options: FindAlternativesOptions = {},
+  language: Language = 'ko',
 ): Promise<AlternativeResult> {
   const { candidateCount = 6, ...rankOptions } = options;
   const searchRadiusKm = rankOptions.searchRadiusKm ?? ALTERNATIVE.searchRadiusKm;
@@ -314,6 +327,7 @@ export async function findAlternatives(
     originCrowding.score,
     scored,
     rankOptions,
+    language,
   );
 
   return { origin, picks, relaxed };

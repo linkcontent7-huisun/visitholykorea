@@ -8,8 +8,11 @@
  * 지오코딩이 끝나면 코드 수정 없이 자동으로 페어링이 살아난다.
  */
 
-import { fetchSitesByEmotion } from '@/features/sites/api/holy-sites.repository';
+import { fetchSiteNameTranslations, fetchSitesByEmotion } from '@/features/sites/api/holy-sites.repository';
 import { getNearbyAttractions, type TourApiSpot } from '@/shared/api/tour-api';
+import { fillPlaceholders, FALLBACK_CHAIN, type Language, type TranslationKey } from '@/shared/i18n/dictionary';
+import { localizeRegionName } from '@/shared/i18n/domain-labels';
+import { DICTIONARY } from '@/shared/i18n/dictionary';
 import { haversineKm, walkMinutes } from '@/shared/lib/geo';
 import { withDirection } from '@/shared/lib/korean';
 import type { EmotionTag, HolySite } from '@/shared/types/domain';
@@ -22,12 +25,12 @@ export interface CourseCard {
   walkMinutes: number | null;
 }
 
-const EMOTION_TITLE_HINT: Record<EmotionTag, string> = {
-  위로: '위로가 필요한 날',
-  새출발: '새출발을 다짐하는 이에게',
-  평온: '그저 쉬고 싶은 날',
-  치유: '마음을 어루만지는',
-  감사: '감사한 마음을 담아',
+const EMOTION_HINT_KEY: Record<EmotionTag, TranslationKey> = {
+  위로: 'courseHint위로',
+  새출발: 'courseHint새출발',
+  평온: 'courseHint평온',
+  치유: 'courseHint치유',
+  감사: 'courseHint감사',
 };
 
 /** 콘텐츠 완성도 점수: 소개글 분량 + 부가 필드 존재 여부. 정렬 1순위 기준. */
@@ -110,9 +113,15 @@ async function pairWithAttraction(site: HolySite): Promise<TourApiSpot | null> {
   }
 }
 
-function buildCard(site: HolySite, attraction: TourApiSpot | null): CourseCard {
-  const emotionHint = site.emotionTag ? EMOTION_TITLE_HINT[site.emotionTag] : '';
-  const title = `${emotionHint}, ${site.region} ${site.name} 걷기 코스`;
+function buildCard(site: HolySite, attraction: TourApiSpot | null, language: Language): CourseCard {
+  const t = (key: TranslationKey) => DICTIONARY[key][language];
+  const emotionHint = site.emotionTag ? t(EMOTION_HINT_KEY[site.emotionTag]) : '';
+  const regionLabel = localizeRegionName(site.region, language);
+  const title = fillPlaceholders(t('courseTitleTemplate'), {
+    hint: emotionHint,
+    region: regionLabel,
+    name: site.name,
+  });
 
   let minutes: number | null = null;
   let subtitle = site.seoDescription ?? site.description?.slice(0, 60) ?? '';
@@ -125,7 +134,13 @@ function buildCard(site: HolySite, attraction: TourApiSpot | null): CourseCard {
       Number(attraction.mapx),
     );
     minutes = walkMinutes(distKm);
-    subtitle = `${attraction.title} 인파를 뒤로하고, 도보 ${minutes}분 ${withDirection(site.name)}`;
+    // 한국어는 조사("~으로")가 필요하지만 다른 언어는 전치사가 템플릿 안에 있어 이름만 넣으면 된다.
+    const destination = language === 'ko' ? withDirection(site.name) : site.name;
+    subtitle = fillPlaceholders(t('coursePairedSubtitle'), {
+      attraction: attraction.title,
+      minutes,
+      name: destination,
+    });
   }
 
   return { site, attraction, title, subtitle, walkMinutes: minutes };
@@ -168,11 +183,27 @@ export async function getRecommendedCourses(
   diocese?: string,
   limit = 5,
   originCoords?: { lat: number; lng: number },
+  language: Language = 'ko',
 ): Promise<CourseCard[]> {
-  const sites = await fetchCandidateSites(emotion, diocese, limit * 2);
+  const rawSites = await fetchCandidateSites(emotion, diocese, limit * 2);
+
+  // 카드 제목·본문에 들어갈 성지 이름을 한 번의 배치 조회로 번역한다(카드 수만큼 조회하지 않는다).
+  const wanted =
+    language === 'ko' ? [] : [language, ...FALLBACK_CHAIN[language]].filter((l) => l !== 'ko');
+  const nameById =
+    wanted.length > 0
+      ? await fetchSiteNameTranslations(
+          rawSites.map((s) => s.id),
+          wanted,
+        )
+      : {};
+  const sites = rawSites.map((s) => {
+    const translated = nameById[s.id];
+    return translated ? { ...s, name: translated } : s;
+  });
 
   const cards = await Promise.all(
-    sites.map(async (site) => buildCard(site, await pairWithAttraction(site))),
+    sites.map(async (site) => buildCard(site, await pairWithAttraction(site), language)),
   );
 
   if (originCoords) {

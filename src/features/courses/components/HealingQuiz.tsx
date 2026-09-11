@@ -14,7 +14,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
 import type { TranslationKey } from '@/shared/i18n/dictionary';
-import { localizeDomainValue } from '@/shared/i18n/domain-labels';
+import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { getRecommendedCourses, type CourseCard } from '../api/course-matching';
 import { useCompassMemory, useSaveCompassResponse } from '../hooks/use-compass-memory';
@@ -230,7 +230,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     setStep(RESULT_STEP);
     setResultLoading(true);
     const originCoords = regionCoords(region) ?? undefined;
-    const courses = await getRecommendedCourses(emotion, undefined, 1, originCoords);
+    const courses = await getRecommendedCourses(emotion, undefined, 1, originCoords, language);
     const top = courses[0] ?? null;
     setResult(top);
     setResultLoading(false);
@@ -447,11 +447,11 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 id="quiz-region"
               >
                 <option value="" disabled>
-                  지역을 선택해주세요
+                  {t('regionSelectPlaceholder')}
                 </option>
                 {REGIONS.map((r) => (
                   <option key={r} value={r}>
-                    {r}
+                    {localizeRegionName(r, language)}
                   </option>
                 ))}
               </select>

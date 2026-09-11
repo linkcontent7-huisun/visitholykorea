@@ -13,7 +13,7 @@
  * 부르는 쪽에서 원래 문자열을 그대로 쓰면 된다 — 화면이 비지 않는다.
  */
 
-import type { TranslationKey } from './dictionary';
+import type { Language, TranslationKey } from './dictionary';
 import type { EmotionTag } from '@/shared/types/domain';
 
 export const EMOTION_TAG_KEY: Record<EmotionTag, TranslationKey> = {
@@ -25,6 +25,7 @@ export const EMOTION_TAG_KEY: Record<EmotionTag, TranslationKey> = {
 };
 
 export const CATEGORY_KEY: Record<string, TranslationKey> = {
+  전체: 'categoryAll',
   순교성지: 'categoryMartyrdom',
   성당: 'categoryChurch',
   역사사적지: 'categoryHistoric',
@@ -42,5 +43,63 @@ export function localizeDomainValue(
   t: (key: TranslationKey) => string,
 ): string {
   const key = CATEGORY_KEY[value] ?? EMOTION_TAG_KEY[value as EmotionTag];
+  return key ? t(key) : value;
+}
+
+/**
+ * 시·도(`REGIONS`)와 교구명(`DIOCESES`, `holy_sites.region`)의 로마자 표기.
+ *
+ * 지명은 언어마다 다르게 옮기지 않고 로마자 표기를 그대로 쓰는 것이 국제
+ * 관행이다("Seoul"은 영어·스페인어·프랑스어·포르투갈어·이탈리아어 어디서나
+ * 같다) — 그래서 6개 국어 사전 대신 언어 하나짜리 맵으로 충분하다.
+ * 표에 없는 값은 원문을 그대로 돌려준다(운영자가 새 지역을 넣어도 화면이 비지 않는다).
+ */
+const REGION_ROMANIZED: Record<string, string> = {
+  서울: 'Seoul',
+  부산: 'Busan',
+  대구: 'Daegu',
+  인천: 'Incheon',
+  광주: 'Gwangju',
+  대전: 'Daejeon',
+  울산: 'Ulsan',
+  세종: 'Sejong',
+  경기: 'Gyeonggi',
+  강원: 'Gangwon',
+  충북: 'Chungbuk',
+  충남: 'Chungnam',
+  전북: 'Jeonbuk',
+  전남: 'Jeonnam',
+  경북: 'Gyeongbuk',
+  경남: 'Gyeongnam',
+  제주: 'Jeju',
+  수원: 'Suwon',
+  의정부: 'Uijeongbu',
+  춘천: 'Chuncheon',
+  원주: 'Wonju',
+  청주: 'Cheongju',
+  전주: 'Jeonju',
+  안동: 'Andong',
+  마산: 'Masan',
+  기타: 'Other',
+  전체: 'All',
+};
+
+/** 시·도·교구명을 지금 언어로. 한국어 모드거나 표에 없는 값은 원문 그대로. */
+export function localizeRegionName(value: string, language: Language): string {
+  if (language === 'ko') return value;
+  return REGION_ROMANIZED[value] ?? value;
+}
+
+/** 붐빔 등급(`CrowdingLevel`)을 지금 언어로. 모르는 값은 원문 그대로. */
+export const CROWDING_LEVEL_KEY: Record<string, TranslationKey> = {
+  '아주 조용': 'crowdingLevelVeryQuiet',
+  조용: 'crowdingLevelQuiet',
+  보통: 'crowdingLevelNormal',
+  붐빔: 'crowdingLevelBusy',
+  '매우 붐빔': 'crowdingLevelVeryBusy',
+};
+
+export function localizeCrowdingLevel(value: string, t: (key: TranslationKey) => string): string {
+  const key = CROWDING_LEVEL_KEY[value];
   return key ? t(key) : value;
 }

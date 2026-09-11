@@ -64,7 +64,7 @@ import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
-import { localizeDomainValue } from '@/shared/i18n/domain-labels';
+import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { kakaoPlaceUrl } from '@/shared/lib/geo';
 
@@ -246,7 +246,9 @@ export default function SiteDetailPage() {
     return <p className="p-10 text-center font-bold">{t('siteNotFound')}</p>;
   }
 
-  const tags = [site.emotionTag, site.region, site.category].filter((t): t is string => Boolean(t));
+  const tags = [site.emotionTag, localizeRegionName(site.region, language), site.category].filter(
+    (tag): tag is string => Boolean(tag),
+  );
   const heroPhoto = sitePhoto;
 
   // "방문 정보" 그룹을 접었을 때 무엇이 안에 있는지 미리 보여줄 이름 목록.
@@ -385,7 +387,7 @@ export default function SiteDetailPage() {
               {t('siteDioceseEmotion')}
             </div>
             <p className="text-xs font-bold text-app-text">
-              {site.region}{' '}
+              {localizeRegionName(site.region, language)}{' '}
               {site.emotionTag ? `· ${localizeDomainValue(site.emotionTag, t)}` : ''}
             </p>
           </div>
@@ -806,7 +808,9 @@ export default function SiteDetailPage() {
           <section className="pb-10">
             <h2 className="mb-8 flex items-center gap-3 text-xl font-extrabold tracking-tight text-app-text">
               <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-              {fillPlaceholders(t('siteOtherInDiocese'), { diocese: site.region })}
+              {fillPlaceholders(t('siteOtherInDiocese'), {
+                diocese: localizeRegionName(site.region, language),
+              })}
             </h2>
             <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
               {nearbySites.map((nearby) => (

@@ -1,3 +1,5 @@
+import { localizeCrowdingLevel } from '@/shared/i18n/domain-labels';
+import { useSettings } from '@/shared/i18n/use-settings';
 import type { CrowdingLevel } from '../api/crowding-score';
 
 /**
@@ -23,13 +25,14 @@ interface CrowdingBadgeProps {
 }
 
 export function CrowdingBadge({ level, score, isPartial = false }: CrowdingBadgeProps) {
+  const { t } = useSettings();
   return (
     <span
       className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1 text-[11px] font-bold ${LEVEL_STYLE[level]}`}
     >
-      {level}
+      {localizeCrowdingLevel(level, t)}
       <span className="font-medium opacity-60">{score}</span>
-      {isPartial && <span className="font-medium opacity-60">· 일부</span>}
+      {isPartial && <span className="font-medium opacity-60">· {t('partialLabel')}</span>}
     </span>
   );
 }

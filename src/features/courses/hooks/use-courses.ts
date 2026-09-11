@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/shared/api/query-keys';
+import { useSettings } from '@/shared/i18n/use-settings';
 import type { EmotionTag } from '@/shared/types/domain';
 import { getRecommendedCourses } from '../api/course-matching';
 
@@ -9,9 +10,10 @@ import { getRecommendedCourses } from '../api/course-matching';
  * TourAPI 응답 자체를 영구 저장하지는 않는다(공모전 규정).
  */
 export function useRecommendedCourses(emotion: EmotionTag, diocese?: string, limit = 4) {
+  const { language } = useSettings();
   return useQuery({
-    queryKey: queryKeys.courses.byEmotion(emotion, diocese),
-    queryFn: () => getRecommendedCourses(emotion, diocese, limit),
+    queryKey: [...queryKeys.courses.byEmotion(emotion, diocese), language],
+    queryFn: () => getRecommendedCourses(emotion, diocese, limit, undefined, language),
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
   });

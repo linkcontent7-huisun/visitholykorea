@@ -4,10 +4,14 @@ import { TourApiError } from '@/shared/api/tour-api';
 import { DICTIONARY } from '@/shared/i18n/dictionary';
 import * as useSettingsModule from '@/shared/i18n/use-settings';
 import * as useQuietSitesModule from '../hooks/use-quiet-sites';
+import * as useSitesModule from '@/features/sites/hooks/use-sites';
 import { TodayQuietSection } from './TodayQuietSection';
 
 vi.mock('../hooks/use-quiet-sites');
 vi.mock('@/shared/i18n/use-settings');
+// 이름 번역 조회는 QueryClientProvider 가 필요하다 — 이 테스트는 그 범위 밖이라
+// 입력을 그대로 돌려주는 것으로 대체한다(오류 상태만 확인하는 테스트라 번역 결과 자체는 무관).
+vi.spyOn(useSitesModule, 'useLocalizedSites').mockImplementation((sites) => sites ?? []);
 
 // 문구는 사전을 거치므로, 테스트도 실제 사전 값을 그대로 쓴다
 vi.mocked(useSettingsModule.useSettings).mockReturnValue({

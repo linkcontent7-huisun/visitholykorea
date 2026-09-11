@@ -2,13 +2,19 @@ import { Footprints } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
+import { useSettings } from '@/shared/i18n/use-settings';
 import type { CourseCard } from '../api/course-matching';
 
 /** "쉼표 순례길" 피드에 노출되는 코스 카드. */
 export function CourseCardItem({ course }: { course: CourseCard }) {
-  const tags = [course.site.emotionTag, course.site.region, course.site.category].filter(
-    (tag): tag is string => Boolean(tag),
-  );
+  const { t, language } = useSettings();
+  const tags = [
+    course.site.emotionTag,
+    localizeRegionName(course.site.region, language),
+    course.site.category,
+  ].filter((tag): tag is string => Boolean(tag));
 
   return (
     <Link
@@ -26,7 +32,8 @@ export function CourseCardItem({ course }: { course: CourseCard }) {
         />
         {course.walkMinutes != null && (
           <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold text-brand-blue shadow-sm backdrop-blur-sm">
-            <Footprints size={12} /> 도보 {course.walkMinutes}분
+            <Footprints size={12} />{' '}
+            {fillPlaceholders(t('walkMinutesLabel'), { minutes: course.walkMinutes })}
           </div>
         )}
       </div>
@@ -41,7 +48,7 @@ export function CourseCardItem({ course }: { course: CourseCard }) {
               key={tag}
               className="rounded-full bg-app-bg px-2.5 py-1 text-[10px] font-bold text-app-text-muted"
             >
-              #{tag}
+              #{localizeDomainValue(tag, t)}
             </span>
           ))}
         </div>

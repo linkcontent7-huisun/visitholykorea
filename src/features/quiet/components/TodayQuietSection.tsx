@@ -4,6 +4,7 @@ import { paths } from '@/app/routes/paths';
 import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { isQuotaExceededError } from '@/shared/api/tour-api';
+import { useLocalizedSites } from '@/features/sites/hooks/use-sites';
 import type { HolySite } from '@/shared/types/domain';
 import { useQuietSites } from '../hooks/use-quiet-sites';
 import { QuietSiteCard } from './QuietSiteCard';
@@ -41,7 +42,17 @@ export function TodayQuietSection({
   padded?: boolean;
 }) {
   const { t, language } = useSettings();
-  const { data: quietSites = [], isLoading, isError, error } = useQuietSites(sites, 3);
+  const { data: quietSitesRaw = [], isLoading, isError, error } = useQuietSites(sites, 3);
+  /**
+   * 여기서 다시 한번 이름을 번역한다 — `useQuietSites`의 캐시 키가 날짜·개수뿐이라
+   * `sites`(위 useLocalizedSites 결과)가 나중에 번역본으로 바뀌어도 재계산을 트리거하지
+   * 않는다. 그 결과 원문 이름으로 캐시된 채 화면에 남는 문제가 있었다(2026-09-11).
+   */
+  const localizedQuietSites = useLocalizedSites(quietSitesRaw.map((q) => q.site));
+  const quietSites = quietSitesRaw.map((q, i) => ({
+    ...q,
+    site: localizedQuietSites[i] ?? q.site,
+  }));
   const compact = variant === 'compact';
 
   const locatedCount = sites.filter(

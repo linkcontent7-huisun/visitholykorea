@@ -13,14 +13,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAlternatives, useAttractionSearch } from '@/features/quiet/api/use-alternatives';
 import { AlternativesList } from '@/features/quiet/components/AlternativesList';
-import { useSites } from '@/features/sites/hooks/use-sites';
+import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import type { TourApiSpot } from '@/shared/api/tour-api';
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 export default function AlternativesPage() {
   const navigate = useNavigate();
-  const { wideView } = useSettings();
+  const { t, wideView } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
   const [query, setQuery] = useState('');
@@ -28,7 +29,8 @@ export default function AlternativesPage() {
   const [selected, setSelected] = useState<TourApiSpot | null>(null);
 
   // 붐빔 계산에는 전체 성지 좌표가 필요하다 (홈 화면과 같은 방식)
-  const { data: allSites = [] } = useSites({ limit: 300 });
+  const { data: allSitesRaw = [] } = useSites({ limit: 300 });
+  const allSites = useLocalizedSites(allSitesRaw);
 
   const { data: candidates = [], isFetching: isSearching } = useAttractionSearch(
     selected ? '' : debouncedQuery,
@@ -51,13 +53,15 @@ export default function AlternativesPage() {
         <button
           onClick={() => (selected ? resetSelection() : navigate(-1))}
           className="p-2 text-app-text-muted hover:text-app-text"
-          aria-label={selected ? '다시 검색하기' : '뒤로 가기'}
+          aria-label={selected ? t('searchAgain') : t('back')}
         >
           <ArrowLeft size={22} />
         </button>
         <div>
-          <h1 className="text-lg font-extrabold tracking-tight text-app-text">붐빔 피하기</h1>
-          <p className="text-xs text-app-text-muted">가려던 곳이 붐비면, 대신 조용한 성지를</p>
+          <h1 className="text-lg font-extrabold tracking-tight text-app-text">
+            {t('alternativesPageTitle')}
+          </h1>
+          <p className="text-xs text-app-text-muted">{t('alternativesPageSubtitle')}</p>
         </div>
       </div>
 
@@ -69,7 +73,7 @@ export default function AlternativesPage() {
               htmlFor="attraction-search"
               className="mb-2 block text-sm font-bold text-app-text"
             >
-              어디에 가려고 하셨나요?
+              {t('attractionSearchLabel')}
             </label>
             <div className="flex items-center gap-3 rounded-2xl border border-app-border bg-white px-5 py-3">
               <Search size={18} className="shrink-0 text-app-text-muted" />
@@ -77,8 +81,8 @@ export default function AlternativesPage() {
                 id="attraction-search"
                 autoFocus
                 type="search"
-                placeholder="관광지 이름 (예: 해미읍성, 화성행궁)"
-                aria-label="관광지 검색"
+                placeholder={t('attractionSearchPlaceholder')}
+                aria-label={t('attractionSearchAriaLabel')}
                 className="flex-1 border-none bg-transparent text-base font-medium text-app-text focus:outline-none"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -90,7 +94,7 @@ export default function AlternativesPage() {
 
             {/* 후보 목록 — 동명이지가 많아 사용자가 직접 고른다 */}
             {candidates.length > 0 && (
-              <ul className="mt-4 space-y-2" aria-label="관광지 후보">
+              <ul className="mt-4 space-y-2" aria-label={t('attractionCandidatesAriaLabel')}>
                 {candidates.map((spot) => (
                   <li key={spot.contentid}>
                     <button
@@ -110,7 +114,7 @@ export default function AlternativesPage() {
 
             {debouncedQuery.trim().length >= 2 && !isSearching && candidates.length === 0 && (
               <p className="mt-6 text-center text-sm text-app-text-muted">
-                &ldquo;{debouncedQuery}&rdquo; 로 찾은 관광지가 없습니다.
+                {fillPlaceholders(t('noAttractionFound'), { query: debouncedQuery })}
               </p>
             )}
 
@@ -118,9 +122,7 @@ export default function AlternativesPage() {
               <div className="mt-16 text-center">
                 <Wind size={32} className="mx-auto mb-4 text-gray-300" aria-hidden />
                 <p className="text-sm leading-relaxed text-app-text-muted">
-                  가려던 관광지를 검색하면
-                  <br />
-                  오늘의 붐빔과 근처의 조용한 성지를 알려드려요.
+                  {t('attractionSearchEmptyHint')}
                 </p>
               </div>
             )}
@@ -133,7 +135,7 @@ export default function AlternativesPage() {
             {isCalculating && (
               <div className="space-y-3" role="status" aria-live="polite">
                 <p className="text-sm font-medium text-app-text-muted">
-                  {selected.title} 의 오늘 붐빔을 계산하는 중…
+                  {fillPlaceholders(t('calculatingCrowding'), { title: selected.title })}
                 </p>
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="h-28 animate-pulse rounded-[20px] bg-white" />
@@ -143,9 +145,9 @@ export default function AlternativesPage() {
 
             {isError && (
               <div className="rounded-[20px] border border-app-border bg-white p-6 text-center">
-                <p className="text-sm font-bold text-app-text">붐빔을 계산하지 못했어요</p>
+                <p className="text-sm font-bold text-app-text">{t('crowdingCalcError')}</p>
                 <p className="mt-2 text-xs leading-relaxed text-app-text-muted">
-                  관광 정보를 불러오는 중 문제가 생겼습니다. 잠시 후 다시 시도해주세요.
+                  {t('crowdingCalcErrorBody')}
                 </p>
                 {error instanceof Error && (
                   <p className="mt-3 text-xs text-app-text-muted opacity-60">{error.message}</p>
@@ -162,9 +164,7 @@ export default function AlternativesPage() {
                 />
                 {/* 추정임을 숨기지 않는다 — 컨셉 문서 7장. 숨기면 발표에서 무너진다. */}
                 <p className="mt-6 text-center text-xs leading-relaxed text-app-text-muted">
-                  붐빔 지수는 한국관광공사 실시간 축제·관광 정보로 계산한 추정값입니다.
-                  <br />
-                  실제 현장과 다를 수 있어요.
+                  {t('crowdingEstimateNote')}
                 </p>
               </>
             )}

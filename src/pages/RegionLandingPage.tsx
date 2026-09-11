@@ -12,7 +12,8 @@ import {
   directoryDisplayName,
   formatDistanceKm,
 } from '@/features/sites/lib/nearby-directory';
-import { localizeDomainValue } from '@/shared/i18n/domain-labels';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
 import { isRegion, regionCoords, REGIONS } from '@/shared/lib/regions';
@@ -40,6 +41,7 @@ export default function RegionLandingPage() {
   const { origin, setOrigin, t, language } = useSettings();
   const region = isRegion(raw) ? raw : null;
   const centerCoords = regionCoords(region);
+  const regionLabel = region ? localizeRegionName(region, language) : '';
 
   const { data: allSitesRaw = [], isLoading } = useSites({ limit: 300 });
   const allSites = useLocalizedSites(allSitesRaw);
@@ -73,10 +75,8 @@ export default function RegionLandingPage() {
   if (!region) {
     return (
       <div className="mx-auto min-h-screen max-w-2xl bg-white p-8">
-        <h1 className="mb-3 text-2xl font-extrabold text-app-text">지역을 찾을 수 없어요</h1>
-        <p className="mb-6 text-sm font-medium text-app-text-muted">
-          주소의 지역 이름을 확인해 주세요.
-        </p>
+        <h1 className="mb-3 text-2xl font-extrabold text-app-text">{t('regionNotFoundTitle')}</h1>
+        <p className="mb-6 text-sm font-medium text-app-text-muted">{t('regionNotFoundBody')}</p>
         <div className="flex flex-wrap gap-2">
           {REGIONS.map((r) => (
             <Link
@@ -84,7 +84,7 @@ export default function RegionLandingPage() {
               to={paths.region(r)}
               className="rounded-full border border-app-border bg-app-bg px-4 py-2 text-sm font-bold text-app-text"
             >
-              {r}
+              {localizeRegionName(r, language)}
             </Link>
           ))}
         </div>
@@ -98,26 +98,25 @@ export default function RegionLandingPage() {
         <button
           onClick={() => navigate(paths.home)}
           className="mb-6 flex items-center gap-1 text-sm font-bold text-app-text-muted"
-          aria-label="홈으로"
+          aria-label={t('backToHome')}
         >
-          <ArrowLeft size={18} /> 홈으로
+          <ArrowLeft size={18} /> {t('backToHome')}
         </button>
         <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-violet">
           Visit Holy Korea
         </p>
         <h1 className="mb-3 text-3xl font-extrabold leading-tight tracking-tight text-app-text">
-          {region}에서 떠나는
+          {fillPlaceholders(t('regionHeroTitle'), { region: regionLabel })}
           <br />
-          성지 순례
+          {fillPlaceholders(t('regionHeroTitleLine2'), { region: regionLabel })}
         </h1>
         <p className="text-sm font-medium leading-relaxed text-app-text-muted">
-          {region} 중심에서 <strong className="text-app-text">{RADIUS_KM}km</strong> 안에 있는
-          천주교 성지를 가까운 순으로 모았어요
+          {fillPlaceholders(t('regionHeroSubtitle'), { region: regionLabel, radius: RADIUS_KM })}
         </p>
       </header>
 
       <div className="px-8 py-4">
-        {isLoading && <LoadingSpinner label="성지를 불러오는 중" />}
+        {isLoading && <LoadingSpinner label={t('loadingSites')} />}
 
         {!isLoading && (
           <>
@@ -126,18 +125,24 @@ export default function RegionLandingPage() {
                 <MapPin size={22} />
               </div>
               <div>
-                <p className="text-2xl font-extrabold text-app-text">{nearby.length}곳</p>
+                <p className="text-2xl font-extrabold text-app-text">
+                  {fillPlaceholders(t('siteCountUnit'), { count: nearby.length })}
+                </p>
                 <p className="text-[12px] font-medium text-app-text-muted">
-                  {region}에서 {RADIUS_KM}km 안 · 전국 {allSites.length}곳 중
+                  {fillPlaceholders(t('regionSiteCountLabel'), {
+                    region: regionLabel,
+                    radius: RADIUS_KM,
+                    total: allSites.length,
+                  })}
                 </p>
               </div>
             </div>
 
             {nearby.length === 0 ? (
               <p className="rounded-[20px] bg-app-bg p-6 text-center text-sm font-medium text-app-text-muted">
-                {region} 반경 {RADIUS_KM}km 안에는 아직 등록된 성지가 없어요.
+                {fillPlaceholders(t('regionEmptyBody'), { region: regionLabel, radius: RADIUS_KM })}
                 <br />
-                지도에서 전국 성지를 둘러보세요.
+                {t('regionEmptyHint')}
               </p>
             ) : (
               <ul className="flex flex-col gap-3">
@@ -153,7 +158,7 @@ export default function RegionLandingPage() {
             )}
 
             <p className="mt-6 text-[11px] leading-relaxed text-app-text-muted opacity-70">
-              거리는 {region} 중심 좌표 기준 직선거리입니다. 실제 이동 거리·시간과는 다릅니다.
+              {fillPlaceholders(t('regionDistanceDisclaimer'), { region: regionLabel })}
             </p>
 
             {nearbyParishes.length > 0 && (
@@ -225,13 +230,13 @@ export default function RegionLandingPage() {
                 to={paths.home}
                 className="rounded-[20px] bg-brand-violet px-6 py-4 text-center text-sm font-bold text-white"
               >
-                {region}을 출발지로 앱 시작하기
+                {fillPlaceholders(t('regionStartHere'), { region: regionLabel })}
               </Link>
               <Link
                 to={paths.map}
                 className="rounded-[20px] border border-app-border px-6 py-4 text-center text-sm font-bold text-app-text"
               >
-                지도에서 전국 성지 보기
+                {t('viewNationalMap')}
               </Link>
             </div>
           </>

@@ -10,6 +10,7 @@ import { almostSiteIds, buildNudge, computeDioceseProgress } from '@/features/ma
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
 import type { HolySite } from '@/shared/types/domain';
@@ -34,7 +35,7 @@ import type { HolySite } from '@/shared/types/domain';
 export default function MapPage() {
   // 공식 사진이 없는 성지는 순례자가 보내준(승인된) 사진으로 채운다
   const { data: featured = {} } = useFeaturedPhotos();
-  const { t, wideView } = useSettings();
+  const { t, language, wideView } = useSettings();
   const [selectedDiocese, setSelectedDiocese] = useState('전체');
   const [keyword, setKeyword] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -220,7 +221,9 @@ export default function MapPage() {
               onClick={() => setSelectedDiocese('전체')}
               className="mt-3 rounded-full border border-brand-blue bg-brand-blue px-4 py-2 text-xs font-bold text-white"
             >
-              {selectedDiocese} × 전체 보기
+              {fillPlaceholders(t('clearDioceseFilter'), {
+                diocese: localizeRegionName(selectedDiocese, language),
+              })}
             </button>
           )}
         </div>
@@ -231,7 +234,7 @@ export default function MapPage() {
             [1, 2, 3].map((i) => <div key={i} className="h-20 animate-pulse rounded-[24px] bg-white" />)
           ) : visibleSites.length === 0 ? (
             <p className="py-16 text-center text-sm font-medium text-app-text-muted">
-              조건에 맞는 성지가 없습니다.
+              {t('noSitesMatchFilter')}
             </p>
           ) : (
             visibleSites.map((site) => (

@@ -26,8 +26,8 @@ import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
-import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
-import { localizeDomainValue } from '@/shared/i18n/domain-labels';
+import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
+import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { regionCoords } from '@/shared/lib/regions';
 import { haversineKm } from '@/shared/lib/geo';
@@ -52,10 +52,14 @@ export default function HomePage() {
   const [isAIGuideOpen, setIsAIGuideOpen] = useState(false);
   const { session } = useSession();
 
-  const { data: sites = [] } = useSites({ limit: 6 });
+  const { data: sitesRaw = [] } = useSites({ limit: 6 });
+  const sites = useLocalizedSites(sitesRaw);
   // 붐빔 지수는 좌표가 있는 성지 전체를 후보로 삼는다. 실제 API 호출은
   // 상위 후보 몇 곳에만 일어나므로 목록을 넓게 가져와도 부담이 없다.
-  const { data: allSites = [] } = useSites({ limit: 300 });
+  // 300곳을 한 번에 번역해 두면 TodayQuietSection·nearbyFirst 등 아래 여러 곳이
+  // 각자 다시 조회하지 않고 같은 번역 결과를 재사용한다.
+  const { data: allSitesRaw = [] } = useSites({ limit: 300 });
+  const allSites = useLocalizedSites(allSitesRaw);
   // 히어로 사진은 "사진이 있는 성지"만 후보가 된다 — 사진 없는 곳이 뽑히면 안 된다.
   const { data: imagedSites = [] } = useSites({ limit: 100, withImageOnly: true });
 
@@ -81,7 +85,8 @@ export default function HomePage() {
    * 출발지를 정해 둔 사람에게는 "전국 아무 데나"가 아니라 **갈 수 있는 곳**을 먼저 보여준다.
    * 출발지가 없으면 지금까지처럼 기본 목록을 그대로 쓴다.
    */
-  const nearbyFirstRaw = useMemo(() => {
+  // allSites 가 이미 번역된 이름을 갖고 있어(위 useLocalizedSites), 여기서 다시 조회할 필요가 없다.
+  const nearbyFirst = useMemo(() => {
     const from = gpsLocation ?? regionCoords(origin);
     if (!from || allSites.length === 0) return sites;
 
@@ -95,7 +100,6 @@ export default function HomePage() {
       .slice(0, 8)
       .map((x) => x.site);
   }, [origin, gpsLocation, allSites, sites]);
-  const nearbyFirst = useLocalizedSites(nearbyFirstRaw);
   const { data: courses = [], isLoading: coursesLoading } = useRecommendedCourses(selectedEmotion);
 
   return (
@@ -154,7 +158,7 @@ export default function HomePage() {
                     )}
                     <div className="absolute inset-x-0 bottom-0 p-6 text-white">
                       <p className="text-[11px] font-bold uppercase tracking-widest opacity-90">
-                        {site.region} · {localizeDomainValue(site.category, t)}
+                        {localizeRegionName(site.region, language)} · {localizeDomainValue(site.category, t)}
                       </p>
                       <h2 className="mt-1 text-[26px] font-extrabold leading-tight tracking-tight">
                         {site.name}
@@ -241,7 +245,7 @@ export default function HomePage() {
               className="absolute inset-x-auto bottom-8 right-10 block max-w-[280px] rounded-2xl bg-black/35 p-5 text-white backdrop-blur-md"
             >
               <p className="text-[11px] font-bold uppercase tracking-widest opacity-90">
-                {heroSite.region} · {localizeDomainValue(heroSite.category, t)}
+                {localizeRegionName(heroSite.region, language)} · {localizeDomainValue(heroSite.category, t)}
               </p>
               <h2 className="mt-1 text-[20px] font-extrabold leading-tight tracking-tight">
                 {heroSite.name}
@@ -460,7 +464,11 @@ export default function HomePage() {
       <PageContainer className="pt-10">
         <div className="mb-5 flex items-end justify-between gap-4">
           <h3 className="text-lg font-bold text-app-text lg:text-2xl">
-            {origin ? `${origin}에서 가까운 성지` : t('exploreAllTitle')}
+            {gpsLocation
+              ? fillPlaceholders(t('nearbyRegionTitle'), { origin: t('useCurrentLocationButton') })
+              : origin
+                ? fillPlaceholders(t('nearbyRegionTitle'), { origin: localizeRegionName(origin, language) })
+                : t('exploreAllTitle')}
           </h3>
           <Link to={paths.explore} className="shrink-0 text-[12px] font-bold text-brand-violet">
             {t('explore')}

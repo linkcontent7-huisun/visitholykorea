@@ -5,6 +5,9 @@
  * 스크롤을 내리지 않아도 "여기만 마저 가면 된다"가 먼저 보이게 한다.
  */
 
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { localizeRegionName } from '@/shared/i18n/domain-labels';
+import { useSettings } from '@/shared/i18n/use-settings';
 import type { DioceseProgress } from '../lib/progress';
 
 interface Props {
@@ -14,6 +17,7 @@ interface Props {
 }
 
 export function DioceseProgressList({ progress, onSelectDiocese, selectedDiocese }: Props) {
+  const { t, language } = useSettings();
   return (
     <ul className="space-y-2.5">
       {progress.map((p) => {
@@ -33,7 +37,9 @@ export function DioceseProgressList({ progress, onSelectDiocese, selectedDiocese
               }`}
             >
               <div className="flex items-baseline justify-between gap-3">
-                <span className="text-sm font-bold text-app-text">{p.diocese}</span>
+                <span className="text-sm font-bold text-app-text">
+                  {localizeRegionName(p.diocese, language)}
+                </span>
                 <span className="shrink-0 text-xs font-semibold tabular-nums text-app-text-muted">
                   {p.visited} / {p.total}
                 </span>
@@ -45,7 +51,9 @@ export function DioceseProgressList({ progress, onSelectDiocese, selectedDiocese
                 aria-valuenow={percent}
                 aria-valuemin={0}
                 aria-valuemax={100}
-                aria-label={`${p.diocese}교구 진행`}
+                aria-label={fillPlaceholders(t('dioceseProgressAriaLabel'), {
+                  diocese: localizeRegionName(p.diocese, language),
+                })}
               >
                 <div
                   className={`h-full rounded-full transition-all ${
@@ -58,8 +66,12 @@ export function DioceseProgressList({ progress, onSelectDiocese, selectedDiocese
               {p.almost && (
                 <p className="mt-2 text-xs font-semibold text-brand-violet">
                   {p.remainingSites.length === 1
-                    ? `${p.remainingSites[0]?.name} 한 곳 남았습니다`
-                    : `${p.remainingSites.length}곳 남았습니다`}
+                    ? fillPlaceholders(t('remainingSitesOne'), {
+                        name: p.remainingSites[0]?.name ?? '',
+                      })
+                    : fillPlaceholders(t('remainingSitesCount'), {
+                        count: p.remainingSites.length,
+                      })}
                 </p>
               )}
             </button>

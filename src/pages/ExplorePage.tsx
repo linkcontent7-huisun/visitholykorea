@@ -13,6 +13,7 @@ import { sortByDistance } from '@/features/sites/lib/nearest';
 import { queryKeys } from '@/shared/api/query-keys';
 import { useLocalizedSites, useSites, useSitesByDiocese } from '@/features/sites/hooks/use-sites';
 import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
+import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { formatDuration } from '@/shared/lib/geo';
 import { regionCoords } from '@/shared/lib/regions';
@@ -82,7 +83,7 @@ export default function ExplorePage() {
                 <div className="mb-4 flex items-center gap-2">
                   <Heart size={16} className="fill-pink-500 text-pink-500" aria-hidden />
                   <h2 className="text-sm font-extrabold uppercase tracking-widest text-app-text">
-                    즐겨찾는 성지
+                    {t('favorites')}
                   </h2>
                 </div>
                 <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
@@ -124,12 +125,12 @@ export default function ExplorePage() {
                     className="text-gray-300 transition-all group-hover:scale-110 group-hover:text-brand-violet"
                   />
                   <span className="text-xs font-bold text-app-text-muted group-hover:text-brand-violet">
-                    {diocese}
+                    {localizeRegionName(diocese, language)}
                   </span>
                   {/* 숫자가 없으면 어느 교구를 눌러야 할지 판단할 근거가 없다 */}
                   {dioceseCounts[diocese] != null && (
                     <span className="text-[10px] font-bold text-gray-300 group-hover:text-brand-violet/60">
-                      {dioceseCounts[diocese]}곳
+                      {fillPlaceholders(t('siteCountUnit'), { count: dioceseCounts[diocese] })}
                     </span>
                   )}
                 </button>
@@ -147,7 +148,9 @@ export default function ExplorePage() {
                 size={20}
                 className="rotate-180 transition-transform group-hover:-translate-x-1"
               />
-              {selectedDiocese} 교구 목록
+              {fillPlaceholders(t('dioceseListTitle'), {
+                diocese: localizeRegionName(selectedDiocese ?? '', language),
+              })}
             </button>
 
             <div className="no-scrollbar -mx-6 flex gap-2 overflow-x-auto px-6 pb-6 lg:mx-0 lg:flex-wrap lg:px-0">
@@ -162,7 +165,7 @@ export default function ExplorePage() {
                   }`}
                   id={`filter-${cat}`}
                 >
-                  {cat}
+                  {localizeDomainValue(cat, t)}
                 </button>
               ))}
             </div>

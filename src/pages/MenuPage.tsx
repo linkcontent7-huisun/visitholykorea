@@ -22,7 +22,14 @@ import { signOut } from '@/features/auth/api/auth';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useMyLogs } from '@/features/records/hooks/use-logs';
-import { LANGUAGES, LANGUAGE_LABEL, type Language, type TranslationKey } from '@/shared/i18n/dictionary';
+import {
+  fillPlaceholders,
+  LANGUAGES,
+  LANGUAGE_LABEL,
+  type Language,
+  type TranslationKey,
+} from '@/shared/i18n/dictionary';
+import { localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { copyText } from '@/shared/lib/map-links';
 import { REGIONS, type Region } from '@/shared/lib/regions';
@@ -167,7 +174,7 @@ export default function MenuPage() {
           sub: gpsLocation
             ? t('currentLocationActiveSub')
             : origin
-              ? `${origin}에서 가까운 순으로 봅니다`
+              ? fillPlaceholders(t('originNearbyOrder'), { origin: localizeRegionName(origin, language) })
               : t('originSub'),
           control: (
             <select
@@ -180,7 +187,7 @@ export default function MenuPage() {
               <option value="">{t('originAll')}</option>
               {REGIONS.map((r) => (
                 <option key={r} value={r}>
-                  {r}
+                  {localizeRegionName(r, language)}
                 </option>
               ))}
             </select>

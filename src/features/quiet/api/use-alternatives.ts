@@ -11,6 +11,7 @@ import { useQuery } from '@tanstack/react-query';
 import type { TourApiSpot } from '@/shared/api/tour-api';
 import { searchAttractionsByKeyword } from '@/shared/api/tour-api';
 import { queryKeys } from '@/shared/api/query-keys';
+import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
 import { findAlternatives, type FindAlternativesOptions } from './alternatives';
 
@@ -47,12 +48,13 @@ export function useAlternatives(
   sites: HolySite[],
   options?: FindAlternativesOptions,
 ) {
+  const { language } = useSettings();
   return useQuery({
     // enabled 로 막아 두므로 spot 이 null 인 키는 실제로 조회되지 않는다.
-    queryKey: queryKeys.alternatives.forAttraction(spot?.contentid ?? 'none', today()),
+    queryKey: [...queryKeys.alternatives.forAttraction(spot?.contentid ?? 'none', today()), language],
     queryFn: () => {
       if (!spot) throw new Error('관광지가 선택되지 않았습니다');
-      return findAlternatives(spot, sites, options);
+      return findAlternatives(spot, sites, options, language);
     },
     enabled: spot !== null && sites.length > 0,
     // 붐빔은 그날의 축제·인프라로 정해지므로 하루 안에서는 다시 계산할 이유가 적다.

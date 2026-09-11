@@ -9,6 +9,8 @@
  * 접힌 것을 못 찾는다. 세로로 쌓으면 축제 카드가 화면 아래로 밀린다.
  */
 
+import { localizeRegionName } from '@/shared/i18n/domain-labels';
+import { useSettings } from '@/shared/i18n/use-settings';
 import { REGIONS, type Region } from '@/shared/lib/regions';
 
 interface RegionFilterChipsProps {
@@ -30,6 +32,7 @@ export function RegionFilterChips({
   allLabel,
   groupLabel,
 }: RegionFilterChipsProps) {
+  const { language } = useSettings();
   return (
     // 음수 마진으로 좌우 여백을 뚫어, 스크롤이 화면 끝까지 이어지게 한다
     <div
@@ -55,7 +58,7 @@ export function RegionFilterChips({
             aria-pressed={value === region}
             className={`${BASE} ${value === region ? ON : OFF}`}
           >
-            {region}
+            {localizeRegionName(region, language)}
           </button>
         ))}
       </div>

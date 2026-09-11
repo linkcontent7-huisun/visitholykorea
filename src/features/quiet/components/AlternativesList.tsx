@@ -6,8 +6,11 @@
  */
 
 import type { Alternative, CrowdedOrigin } from '../api/alternatives';
-import { buildAlternativeReason } from '../api/alternatives';
+import { ALTERNATIVE, buildAlternativeReason } from '../api/alternatives';
 import { CrowdingBadge } from './CrowdingBadge';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { localizeDomainValue } from '@/shared/i18n/domain-labels';
+import { useSettings } from '@/shared/i18n/use-settings';
 
 interface AlternativesListProps {
   /** 출발점(붐비는 관광지) */
@@ -19,6 +22,7 @@ interface AlternativesListProps {
 }
 
 export function AlternativesList({ origin, picks, relaxed = false }: AlternativesListProps) {
+  const { t, language } = useSettings();
   return (
     <div className="space-y-4">
       {/* 출발점 카드 */}
@@ -52,7 +56,7 @@ export function AlternativesList({ origin, picks, relaxed = false }: Alternative
         </div>
         <div className="relative flex justify-center text-sm">
           <span className="bg-app-bg px-3 text-sm font-bold text-brand-violet">
-            대신 여기는 어떠세요
+            {t('alternativesInsteadLabel')}
           </span>
         </div>
       </div>
@@ -75,7 +79,7 @@ export function AlternativesList({ origin, picks, relaxed = false }: Alternative
                   </div>
 
                   <p className="text-sm leading-relaxed text-app-text-muted">
-                    {buildAlternativeReason(origin.name, alt)}
+                    {buildAlternativeReason(origin.name, alt, language)}
                   </p>
 
                   <div className="flex flex-wrap gap-2 pt-2">
@@ -85,7 +89,7 @@ export function AlternativesList({ origin, picks, relaxed = false }: Alternative
                       isPartial={alt.crowding.isPartial}
                     />
                     <span className="inline-flex items-center rounded-full border border-app-border bg-app-bg px-3 py-1 text-xs font-medium text-app-text-muted">
-                      {alt.site.category}
+                      {localizeDomainValue(alt.site.category, t)}
                     </span>
                   </div>
 
@@ -107,17 +111,19 @@ export function AlternativesList({ origin, picks, relaxed = false }: Alternative
 
           {relaxed && (
             <p className="rounded-[20px] border border-app-border bg-white p-4 text-sm text-app-text-muted">
-              ℹ️ 반경 {Math.round(20)}km 안에서 크게 한적하지 않습니다. 그래도 출발지보다는
-              조용합니다.
+              ℹ️{' '}
+              {fillPlaceholders(t('alternativesRelaxedNote'), {
+                radius: ALTERNATIVE.searchRadiusKm,
+              })}
             </p>
           )}
         </div>
       ) : (
         <div className="rounded-[20px] border border-dashed border-app-border bg-white p-8 text-center">
           <p className="text-sm leading-relaxed text-app-text-muted">
-            반경 20km 안에 대체 성지가 없습니다.
+            {fillPlaceholders(t('alternativesEmptyBody'), { radius: ALTERNATIVE.searchRadiusKm })}
             <br />
-            다른 관광지를 검색해 보세요.
+            {t('alternativesEmptyHint')}
           </p>
         </div>
       )}

@@ -8,6 +8,7 @@ import { queryKeys } from '@/shared/api/query-keys';
 import { distanceLabel } from '../lib/distance-label';
 import { haversineKm } from '@/shared/lib/geo';
 import { regionCoords } from '@/shared/lib/regions';
+import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { resolveStampMotif } from '../lib/stamp-motifs';
 import { StampMotifIcon } from './StampMotifIcon';
@@ -23,11 +24,15 @@ import { StampMotifIcon } from './StampMotifIcon';
  * 가짜 스탬프를 진짜처럼 보이게 하는 순간 더미 데이터가 된다.
  */
 export function EmptyPassportPreview() {
-  const { origin, gpsLocation, t } = useSettings();
+  const { origin, gpsLocation, language, t } = useSettings();
 
   // 출발 지역이 설정돼 있거나 GPS 를 켜 두었으면 거기서 가장 가까운 성지를 첫 순례지로 제안한다.
   const coords = gpsLocation ?? (origin ? regionCoords(origin) : null);
-  const originLabel = gpsLocation ? t('useCurrentLocationButton') : origin;
+  const originLabel = gpsLocation
+    ? t('useCurrentLocationButton')
+    : origin
+      ? localizeRegionName(origin, language)
+      : null;
   const { data: sitesRaw = [] } = useQuery({
     queryKey: queryKeys.sites.coordsIndex,
     queryFn: fetchSiteLocationIndex,
@@ -54,10 +59,11 @@ export function EmptyPassportPreview() {
     <div className="space-y-8">
       <div className="rounded-[32px] border border-app-border bg-white p-8 text-center">
         <StampIcon size={28} className="mx-auto mb-4 text-brand-violet" />
-        <h3 className="text-base font-extrabold text-app-text">아직 찍은 스탬프가 없어요</h3>
+        <h3 className="text-base font-extrabold text-app-text">{t('noStampsYetTitle')}</h3>
         <p className="mt-2 text-xs leading-relaxed text-app-text-muted">
-          성지에 다녀와 스탬프를 찍으면, 그곳의 <strong>건축을 새긴 도장</strong>이 찍힙니다.
-          잉크 색은 다녀온 날의 전례 시기가 정해요.
+          {t('noStampsYetBodyPrefix')}
+          <strong>{t('noStampsYetBodyEmphasis')}</strong>
+          {t('noStampsYetBodySuffix')}
         </p>
 
         <div className="mt-7 flex items-end justify-center gap-6">
@@ -66,13 +72,15 @@ export function EmptyPassportPreview() {
               <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-dashed border-app-border text-app-text-muted/40">
                 <StampMotifIcon motif={motif} className="h-9 w-9" />
               </div>
-              <span className="text-[9px] font-bold text-app-text-muted/70">{label}</span>
+              <span className="text-[9px] font-bold text-app-text-muted/70">
+                {localizeDomainValue(label, t)}
+              </span>
             </div>
           ))}
         </div>
         {/* 미리보기임을 반드시 밝힌다 */}
         <p className="mt-4 text-[10px] font-bold text-app-text-muted/70">
-          위 도장은 미리보기예요 — 아직 찍히지 않은 자리입니다
+          {t('stampPreviewNote')}
         </p>
       </div>
 
@@ -88,7 +96,7 @@ export function EmptyPassportPreview() {
           </div>
           <div className="min-w-0 text-left">
             <p className="text-[10px] font-extrabold uppercase tracking-widest text-brand-violet">
-              첫 순례지 제안
+              {t('firstPilgrimageSuggestion')}
             </p>
             <p className="truncate text-sm font-extrabold text-app-text">{nearest.name}</p>
             <p className="text-xs font-bold text-app-text-muted">
@@ -103,7 +111,7 @@ export function EmptyPassportPreview() {
           to={paths.menu}
           className="block rounded-[24px] border border-app-border bg-app-bg p-6 text-center text-xs font-bold text-app-text-muted"
         >
-          출발 지역을 정해두면 가까운 성지를 먼저 알려드려요
+          {t('setOriginHint')}
         </Link>
       )}
     </div>

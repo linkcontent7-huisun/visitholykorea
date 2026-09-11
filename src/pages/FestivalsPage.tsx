@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFestivalPairs } from '@/features/festivals/api/use-festivals';
 import { FestivalCard } from '@/features/festivals/components/FestivalCard';
 import { RegionFilterChips } from '@/features/festivals/components/RegionFilterChips';
-import { useSites } from '@/features/sites/hooks/use-sites';
+import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import type { Region } from '@/shared/lib/regions';
@@ -31,7 +31,8 @@ export default function FestivalsPage() {
   const [region, setRegion] = useState<Region | null>(null);
 
   // 성지는 우리 자체 데이터라 저장·캐싱에 제약이 없다. 좌표만 있으면 되므로 넓게 받는다.
-  const { data: sites = [] } = useSites({ limit: 300 });
+  const { data: sitesRaw = [] } = useSites({ limit: 300 });
+  const sites = useLocalizedSites(sitesRaw);
   const { pairs, isLoading, isError } = useFestivalPairs(sites, region);
 
   return (
