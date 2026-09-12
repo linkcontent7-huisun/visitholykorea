@@ -1,6 +1,6 @@
 {
   "name": "visitholykorea",
-  "version": "1.0.0",
+  "version": "6.0.0",
   "private": true,
   "type": "module",
   "description": "한국 가톨릭 성지순례 웹앱 (Web / Android / iOS)",
