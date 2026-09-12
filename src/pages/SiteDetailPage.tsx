@@ -69,6 +69,7 @@ import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { kakaoPlaceUrl } from '@/shared/lib/geo';
 
 export default function SiteDetailPage() {
@@ -337,15 +338,18 @@ export default function SiteDetailPage() {
           <ChevronLeft size={22} />
         </button>
 
-        <button
-          onClick={handleToggleFavorite}
-          disabled={toggleFavorite.isPending}
-          className="absolute right-6 top-12 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
-          aria-label={isFavorited ? t('favoriteRemove') : t('favoriteAdd')}
-          aria-pressed={isFavorited}
-        >
-          <Heart size={20} className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined} />
-        </button>
+        {!SUBMISSION_MODE && (
+          // 제출판은 본선 기능만 보이게 한다 — T-013
+          <button
+            onClick={handleToggleFavorite}
+            disabled={toggleFavorite.isPending}
+            className="absolute right-6 top-12 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
+            aria-label={isFavorited ? t('favoriteRemove') : t('favoriteAdd')}
+            aria-pressed={isFavorited}
+          >
+            <Heart size={20} className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined} />
+          </button>
+        )}
 
         <div className="absolute bottom-12 left-8 right-8 text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.55)]">
           <span className="inline-block rounded-full bg-brand-violet px-3 py-1.5 text-[0.625rem] font-extrabold uppercase tracking-widest shadow-xl shadow-brand-violet/20">

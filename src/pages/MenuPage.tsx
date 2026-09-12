@@ -33,6 +33,7 @@ import {
 import { localizeRegionName } from '@/shared/i18n/domain-labels';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { promptInstall, type InstallResult } from '@/shared/lib/install-prompt';
 import { copyText } from '@/shared/lib/map-links';
 import { REGIONS, type Region } from '@/shared/lib/regions';
@@ -349,7 +350,8 @@ export default function MenuPage() {
           </section>
         ))}
 
-        {canEnterAdmin && (
+        {canEnterAdmin && !SUBMISSION_MODE && (
+          // 제출판은 본선 기능만 보이게 한다 — T-013
           // 운영자 전용 입구라 다국어로 만들지 않는다 — 이 줄을 보는 사람은 한국인 운영자뿐이다.
           <button
             onClick={() => navigate(paths.admin)}

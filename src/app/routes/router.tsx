@@ -3,6 +3,7 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 import { ScrollShell } from '@/app/layouts/ScrollShell';
 import { AppLayout } from '@/app/layouts/AppLayout';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
+import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { paths } from './paths';
 
 // 첫 화면 이후의 페이지는 필요할 때 내려받는다(초기 로딩 시간 단축).
@@ -107,8 +108,13 @@ export const router = createBrowserRouter([
       { path: paths.login, element: withSuspense(<LoginPage />) },
       { path: paths.terms, element: withSuspense(<TermsPage />) },
       { path: paths.faq, element: withSuspense(<FaqPage />) },
-      { path: paths.admin, element: withSuspense(<AdminPage />) },
-      { path: paths.adminSitePattern, element: withSuspense(<AdminSitePage />) },
+      // 제출판은 본선 기능만 보이게 하므로 직접 주소로도 관리자 화면에 닿지 못하게 한다 — T-013
+      ...(SUBMISSION_MODE
+        ? []
+        : [
+            { path: paths.admin, element: withSuspense(<AdminPage />) },
+            { path: paths.adminSitePattern, element: withSuspense(<AdminSitePage />) },
+          ]),
       { path: '*', element: withSuspense(<NotFoundPage />) },
     ],
   },

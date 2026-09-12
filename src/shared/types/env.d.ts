@@ -6,6 +6,7 @@ interface ImportMetaEnv {
   readonly VITE_TOUR_API_SERVICE_KEY?: string;
   readonly VITE_KAKAO_JS_KEY?: string;
   readonly VITE_APP_URL?: string;
+  readonly VITE_SUBMISSION_MODE?: string;
 }
 
 interface ImportMeta {

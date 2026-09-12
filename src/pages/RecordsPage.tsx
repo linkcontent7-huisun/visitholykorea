@@ -29,6 +29,7 @@ import {
   localizeRegionName,
 } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 
 type Segment = 'logs' | 'stamps';
 
@@ -195,7 +196,8 @@ export default function RecordsPage() {
           <div className="space-y-8">
             {isComposing ? (
               <LogComposer onDone={() => setIsComposing(false)} />
-            ) : (
+            ) : !SUBMISSION_MODE ? (
+              // 제출판은 본선 기능만 보이게 한다 — T-013
               <button
                 onClick={() => setIsComposing(true)}
                 className="flex w-full items-center justify-center gap-3 rounded-[24px] border-2 border-dashed border-app-border py-5 text-sm font-bold text-app-text-muted transition-all hover:border-brand-violet/30 hover:bg-brand-violet/5 hover:text-brand-violet"
@@ -204,7 +206,7 @@ export default function RecordsPage() {
                 <PenLine size={20} />
                 {t('writeJournalButton')}
               </button>
-            )}
+            ) : null}
 
             {logsLoading ? (
               [1, 2].map((i) => (
