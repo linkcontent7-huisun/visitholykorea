@@ -7,9 +7,9 @@ import type { EmotionTag } from '@/shared/types/domain';
 export const queryKeys = {
   sites: {
     translation: (siteId: string, lang: string) => ['sites', 'translation', siteId, lang] as const,
-    /** 목록·카드용 이름 일괄 번역. ids 순서가 같으면 같은 캐시를 쓴다. */
+    /** 목록·카드용 이름·영문 주소 일괄 번역. ids 순서가 같으면 같은 캐시를 쓴다. */
     nameTranslations: (ids: string[], lang: string) =>
-      ['sites', 'name-translations', ids, lang] as const,
+      ['sites', 'list-translations', ids, lang] as const,
     all: ['sites'] as const,
     list: (filters: Record<string, unknown> = {}) => ['sites', 'list', filters] as const,
     detail: (id: string) => ['sites', 'detail', id] as const,

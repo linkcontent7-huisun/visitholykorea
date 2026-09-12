@@ -334,7 +334,7 @@ export default function SiteDetailPage() {
 
         <div className="absolute bottom-12 left-8 right-8 text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.55)]">
           <span className="inline-block rounded-full bg-brand-violet px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-widest shadow-xl shadow-brand-violet/20">
-            {site.category}
+            {localizeDomainValue(site.category, t)}
           </span>
           {/* WYD 2027 공식 일정지 — 해외 청년 20~30만 명이 오는 확정 행사다 */}
           {isWydVenue(site.name) && (
@@ -354,9 +354,23 @@ export default function SiteDetailPage() {
           <p className="mb-4 flex items-start gap-2 text-sm font-medium">
             <MapPin size={16} className="mt-1 shrink-0 text-brand-violet" />
             <span className="flex flex-col gap-1">
-              <span className="leading-snug">{site.location}</span>
-              {view?.addressRomanized && (
-                <span className="text-xs leading-snug text-white/75">{view.addressRomanized}</span>
+              {/* 외국어 화면은 영문 주소가 주, 한국어 원 주소가 부 — 읽을 수 있는 쪽이 먼저 */}
+              {language !== 'ko' && view?.addressRomanized ? (
+                <>
+                  <span className="leading-snug">{view.addressRomanized}</span>
+                  <span className="text-xs leading-snug text-white/75" lang="ko">
+                    {site.location}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="leading-snug">{site.location}</span>
+                  {view?.addressRomanized && (
+                    <span className="text-xs leading-snug text-white/75">
+                      {view.addressRomanized}
+                    </span>
+                  )}
+                </>
               )}
             </span>
           </p>
@@ -825,7 +839,7 @@ export default function SiteDetailPage() {
               <VisitEtiquette />
 
               {/* 찾아가는 길 — 외국인 방문자를 기준으로 만든 화면 */}
-              <DirectionsCard site={site} />
+              <DirectionsCard site={site} addressEnglish={view?.addressRomanized ?? null} />
 
               {/* 문의 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
               <ContactCard site={site} />

@@ -274,37 +274,79 @@ export async function fetchSiteTranslations(
  * 묶고 이름 칸만 받아, 카드가 많은 화면(홈 그리드·검색 결과·지도)에서도 조회가 하나다.
  * languages 는 우선순위 순서(요청 언어 → 폴백)로 넘기고, 그 순서대로 첫 값을 채택한다.
  */
-export async function fetchSiteNameTranslations(
+/** 목록·카드가 쓰는 번역 두 칸. 주소는 모든 언어에서 영문 로마자 표기 한 벌을 같이 쓴다. */
+export interface SiteListTranslation {
+  name: string | null;
+  address: string | null;
+}
+
+/**
+ * 여러 성지의 이름·영문 주소를 한 번의 조회로 받는다(카드 수만큼 조회하지 않는다).
+ * 언어 우선순위는 `languages` 순서 — 칸마다 따로 고른다. 스페인어 이름은 있는데
+ * 주소가 비어 있으면 영어 주소를 쓴다 (주소는 208곳 전부 영어 번역이 있다, 2026-09-12).
+ */
+export async function fetchSiteListTranslations(
   siteIds: string[],
   languages: string[],
-): Promise<Record<string, string>> {
+): Promise<Record<string, SiteListTranslation>> {
   if (siteIds.length === 0 || languages.length === 0) return {};
 
   const { data, error } = await supabase
     .from('holy_site_translations')
-    .select('site_id, language, name')
+    .select('site_id, language, name, address_romanized')
     .in('site_id', siteIds)
     .in('language', languages);
 
   if (error) {
-    console.warn('fetchSiteNameTranslations skipped:', error.message);
+    console.warn('fetchSiteListTranslations skipped:', error.message);
     return {};
   }
 
   const languagePriority = new Map(languages.map((lang, i) => [lang, i]));
-  const best = new Map<string, { name: string; priority: number }>();
+  const best = new Map<
+    string,
+    { name: string | null; namePriority: number; address: string | null; addressPriority: number }
+  >();
   for (const row of data ?? []) {
-    const name = (row.name as string | null)?.trim();
-    if (!name) continue;
     const siteId = row.site_id as string;
     const priority = languagePriority.get(row.language as string) ?? Number.MAX_SAFE_INTEGER;
-    const current = best.get(siteId);
-    if (!current || priority < current.priority) {
-      best.set(siteId, { name, priority });
+    const name = (row.name as string | null)?.trim() || null;
+    const address = (row.address_romanized as string | null)?.trim() || null;
+    const current = best.get(siteId) ?? {
+      name: null,
+      namePriority: Number.MAX_SAFE_INTEGER,
+      address: null,
+      addressPriority: Number.MAX_SAFE_INTEGER,
+    };
+    if (name && priority < current.namePriority) {
+      current.name = name;
+      current.namePriority = priority;
     }
+    if (address && priority < current.addressPriority) {
+      current.address = address;
+      current.addressPriority = priority;
+    }
+    best.set(siteId, current);
   }
 
-  return Object.fromEntries([...best].map(([id, v]) => [id, v.name]));
+  return Object.fromEntries(
+    [...best]
+      .filter(([, v]) => v.name || v.address)
+      .map(([id, v]) => [id, { name: v.name, address: v.address }]),
+  );
+}
+
+/** 이름만 필요한 호출부(코스 매칭)용. */
+export async function fetchSiteNameTranslations(
+  siteIds: string[],
+  languages: string[],
+): Promise<Record<string, string>> {
+  const rows = await fetchSiteListTranslations(siteIds, languages);
+  return Object.fromEntries(
+    Object.entries(rows)
+      .filter(([, v]) => v.name)
+      .map(([id, v]) => [id, v.name as string]),
+  );
 }
 
 /** 한 성지의 특정 언어 번역. 없으면 null — 호출부는 원문으로 폴백한다. */

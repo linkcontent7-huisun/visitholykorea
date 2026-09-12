@@ -31,6 +31,7 @@ export const CATEGORY_KEY: Record<string, TranslationKey> = {
   역사사적지: 'categoryHistoric',
   주교좌성당: 'categoryCathedral',
   순례길: 'categoryPilgrimRoute',
+  교우촌: 'categoryVillage',
   // catholic_directory(본당·공소·피정의집 5,918건)의 값 — holy_sites 와 같은 표를 쓴다.
   본당: 'categoryParish',
   공소: 'categoryMission',

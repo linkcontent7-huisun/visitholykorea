@@ -2550,6 +2550,14 @@ export const DICTIONARY = {
   },
 
   // 성지 분류 — DB 에는 한국어로 들어 있어 화면에서만 옮긴다
+  categoryVillage: {
+    ko: '교우촌',
+    en: 'Catholic village',
+    es: 'Aldea católica',
+    fr: 'Village catholique',
+    pt: 'Aldeia católica',
+    it: 'Villaggio cattolico',
+  },
   categoryMartyrdom: {
     ko: '순교성지',
     en: 'Martyrdom shrine',

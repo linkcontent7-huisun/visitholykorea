@@ -6,7 +6,7 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
 import {
   fetchSiteById,
-  fetchSiteNameTranslations,
+  fetchSiteListTranslations,
   fetchSites,
   fetchSitesByDiocese,
   fetchSitesInSameDiocese,
@@ -67,23 +67,33 @@ export function useSiteSearch(term: string) {
  * 조회가 카드 수만큼 늘어난다. 여기는 보이는 성지 전체의 이름만 한 번의 조회로
  * 받아 온다. 번역이 없는 성지는 원문 이름(한국어)이 그대로 남는다 — 빈 이름보다 낫다.
  */
-export function useLocalizedSites<T extends Pick<HolySite, 'id' | 'name'>>(
-  sites: T[] | undefined,
-): T[] {
+export function useLocalizedSites<
+  T extends Pick<HolySite, 'id' | 'name'> & { location?: string },
+>(sites: T[] | undefined): T[] {
   const { language } = useSettings();
   const ids = useMemo(() => (sites ?? []).map((s) => s.id), [sites]);
   const wanted =
     language === 'ko' ? [] : [language, ...FALLBACK_CHAIN[language]].filter((l) => l !== 'ko');
 
-  const { data: nameById = {} } = useQuery({
+  const { data: byId = {} } = useQuery({
     queryKey: queryKeys.sites.nameTranslations(ids, language),
-    queryFn: () => fetchSiteNameTranslations(ids, wanted),
+    queryFn: () => fetchSiteListTranslations(ids, wanted),
     enabled: ids.length > 0 && wanted.length > 0,
     staleTime: 1000 * 60 * 10,
   });
 
+  // 외국어 화면에서는 주소도 영문(로마자) 주소로 바꾼다 — 카드에 한국어 주소만 있으면
+  // 외국 순례자가 어느 도시인지조차 못 읽는다 (2026-09-12). 한국어 원 주소는
+  // 상세 화면 「찾아가는 길」에 남아 택시 기사에게 보여줄 수 있다.
   return useMemo(() => {
-    if (!sites || Object.keys(nameById).length === 0) return sites ?? [];
-    return sites.map((s) => (nameById[s.id] ? { ...s, name: nameById[s.id] } : s));
-  }, [sites, nameById]);
+    if (!sites || Object.keys(byId).length === 0) return sites ?? [];
+    return sites.map((s) => {
+      const tr = byId[s.id];
+      if (!tr) return s;
+      const next = { ...s };
+      if (tr.name) next.name = tr.name;
+      if (tr.address && typeof s.location === 'string') next.location = tr.address;
+      return next;
+    });
+  }, [sites, byId]);
 }

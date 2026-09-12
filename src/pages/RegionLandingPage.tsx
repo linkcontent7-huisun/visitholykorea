@@ -147,11 +147,12 @@ export default function RegionLandingPage() {
             ) : (
               <ul className="flex flex-col gap-3">
                 {nearby.map(({ site, km }) => (
-                  <li key={site.id} className="relative">
-                    <SiteListItem site={site} />
-                    <span className="pointer-events-none absolute right-5 top-5 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-app-text-muted">
-                      {km < 10 ? km.toFixed(1) : Math.round(km)}km
-                    </span>
+                  <li key={site.id}>
+                    {/* 거리는 카드 안 meta 줄로 — 오른쪽 위 절대 배치는 긴 영어 이름과 겹쳤다 (9/12) */}
+                    <SiteListItem
+                      site={site}
+                      meta={`${km < 10 ? km.toFixed(1) : Math.round(km)}km`}
+                    />
                   </li>
                 ))}
               </ul>

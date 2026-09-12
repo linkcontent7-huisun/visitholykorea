@@ -17,7 +17,14 @@ import type { HolySite } from '@/shared/types/domain';
  * 무엇보다 **한국어 주소를 크게 보여준다.** 택시 기사에게 화면을 보여주는 것이
  * 외국인에게는 가장 확실한 길찾기다.
  */
-export function DirectionsCard({ site }: { site: HolySite }) {
+export function DirectionsCard({
+  site,
+  addressEnglish = null,
+}: {
+  site: HolySite;
+  /** 영문(로마자) 주소. 외국어 화면에서 한국어 주소 위에 읽을 수 있는 줄로 놓는다. */
+  addressEnglish?: string | null;
+}) {
   const { t, language } = useSettings();
   const [copied, setCopied] = useState<'address' | 'coords' | null>(null);
   const [copyError, setCopyError] = useState(false);
@@ -65,6 +72,13 @@ export function DirectionsCard({ site }: { site: HolySite }) {
             {copied === 'address' ? t('copied') : 'Copy'}
           </button>
         </div>
+
+        {/* 외국어 화면: 순례자가 읽을 영문 주소를 먼저 */}
+        {language !== 'ko' && addressEnglish && (
+          <p className="mb-1 text-sm font-semibold leading-relaxed text-app-text-muted">
+            {addressEnglish}
+          </p>
+        )}
 
         {/* 택시 기사에게 보여줄 수 있도록 크고 선택 가능하게 */}
         <p className="select-all text-lg font-bold leading-relaxed text-app-text" lang="ko">
