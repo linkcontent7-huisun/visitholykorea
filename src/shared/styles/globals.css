@@ -22,6 +22,19 @@
     @apply bg-app-bg text-app-text font-sans selection:bg-brand-violet/20;
   }
 
+  /*
+   * 스크롤은 body 가 아니라 앱 상자(#app-scroll, ScrollShell)가 한다.
+   * body 가 스크롤되면 휴대폰 브라우저가 주소창을 접었다 펴며 하단 탭이 출렁인다.
+   * 높이를 100% 로 못 박고 넘침을 잠가 브라우저가 움직일 거리를 없앤다.
+   */
+  html,
+  body,
+  #root {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
   /* 큰 글자 모드: rem 기반 Tailwind 크기 체계를 그대로 활용해 전체 화면을 비례 확대 */
   html[data-text-size='lg'] {
     font-size: 118%;

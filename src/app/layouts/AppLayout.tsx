@@ -35,7 +35,7 @@ export function AppLayout() {
   const [dismissed, setDismissed] = useState(false);
 
   return (
-    <div className="flex min-h-screen flex-col bg-app-bg font-sans text-app-text selection:bg-brand-violet/20">
+    <div className="flex min-h-full flex-col bg-app-bg font-sans text-app-text selection:bg-brand-violet/20">
       <TopNav />
 
       {/* 하단 탭이 가리는 만큼만 모바일에서 아래 여백을 준다 */}
