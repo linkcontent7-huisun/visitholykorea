@@ -91,6 +91,7 @@ export default function MapPage() {
       almostIds={almostIds}
       selectedId={selectedId}
       onSelect={setSelectedId}
+      highlightDiocese={selectedDiocese}
     />
   );
 

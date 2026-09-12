@@ -16,6 +16,7 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import type { VisitRecord } from '../lib/journey';
 import { buildJourneySegments } from '../lib/journey';
 import { jitterFor, MAP_ASPECT, projectToMap } from '../lib/projection';
+import { DioceseLayer } from './DioceseLayer';
 import type { PinState } from '../lib/progress';
 import { pinStateOf } from '../lib/progress';
 
@@ -41,6 +42,8 @@ interface NationalMapProps {
   almostIds: ReadonlySet<string>;
   selectedId: string | null;
   onSelect: (siteId: string) => void;
+  /** 지도 화면에서 고른 교구 — 구획 강조용. 없으면 전체를 같은 농도로 */
+  highlightDiocese?: string | null;
 }
 
 export function NationalMap({
@@ -50,8 +53,9 @@ export function NationalMap({
   almostIds,
   selectedId,
   onSelect,
+  highlightDiocese = null,
 }: NationalMapProps) {
-  const { t } = useSettings();
+  const { t, language } = useSettings();
   const { pins, offMap, positions } = useMemo(() => {
     const placed: Array<{ site: HolySite; x: number; y: number; state: PinState }> = [];
     const byId = new Map<string, { x: number; y: number }>();
@@ -102,6 +106,9 @@ export function NationalMap({
           pins.filter((p) => p.state === 'visited').length
         }곳을 다녀왔습니다.`}
       >
+        {/* 한국 윤곽과 교구 구획 — 맨 아래 깔린다 */}
+        <DioceseLayer language={language} highlight={highlightDiocese} />
+
         {/* 여정선을 핀보다 먼저 그려서 핀이 선 위에 오게 한다 */}
         <g fill="none" strokeLinecap="round" className="stroke-brand-blue">
           {journey.map((seg) => (
