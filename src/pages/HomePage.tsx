@@ -172,32 +172,33 @@ export default function HomePage() {
               <PageContainer>
                 <div className="max-w-[620px] text-white">
                   <p className="text-[0.6875rem] font-bold uppercase tracking-[.2em] text-[#c4b5fd]">
-                    2026 관광데이터 활용 공모전 출품작
+                    {t('heroEyebrow')}
                   </p>
                   <h1 className="mt-4 text-[46px] font-extrabold leading-[1.12] tracking-tight">
-                    붐비는 관광지 대신,
+                    {t('heroTitleLine1')}
                     <br />
-                    마음에 필요한 쉼표 하나.
+                    {t('heroTitleLine2')}
                   </h1>
                   <p className="mt-4 text-base leading-relaxed opacity-90">
-                    감정을 고르면 그에 맞는 성지와 도보권 관광지를 이어 붙인 쉼표 순례길을
-                    제안합니다.
-                    {allSites.length > 0 && ` 전국 성지 ${allSites.length}곳, 실시간 붐빔 정보와 함께.`}
+                    {t('heroBody')}
+                    {allSites.length > 0 &&
+                      ` ${fillPlaceholders(t('heroBodyCount'), { count: allSites.length })}`}
                   </p>
+                  {/* PC 는 히어로 버튼이 입구다 — 아래 파란·보라 카드 둘은 PC 에서 숨겨 중복을 없앤다 (2026-09-12) */}
                   <div className="mt-7 flex flex-wrap gap-3">
                     <Link
-                      to={paths.compass}
+                      to={paths.nearby}
                       className="rounded-full bg-white px-7 py-3.5 text-sm font-bold text-brand-blue"
+                      id="hero-nearby-cta"
+                    >
+                      {t('nearbyEntryTitle')}
+                    </Link>
+                    <Link
+                      to={paths.compass}
+                      className="rounded-full border border-white/50 px-7 py-3.5 text-sm font-bold text-white"
                       id="hero-compass-cta"
                     >
                       {t('compassTitle')}
-                    </Link>
-                    <Link
-                      to={paths.explore}
-                      className="rounded-full border border-white/50 px-7 py-3.5 text-sm font-bold text-white"
-                      id="hero-explore-cta"
-                    >
-                      {t('exploreAllTitle')}
                     </Link>
                   </div>
                 </div>
@@ -234,7 +235,7 @@ export default function HomePage() {
 
       {/* 여기에서 가장 가까운 성지·성당 — 홈에서 바로 보이는 입구 (2026-09-12 사장님 요청).
           누르면 현재 위치를 묻고 208곳 전부를 가까운 순으로 보여준다. */}
-      <PageContainer className="pt-6 lg:pt-10">
+      <PageContainer className="pt-6 lg:hidden">
         <Link
           to={paths.nearby}
           id="nearby-entry"
@@ -257,7 +258,7 @@ export default function HomePage() {
 
       {/* 마음 나침반 — 앱의 본질 (2026-09-12 개편). 감정·출발지·시간을 물어 일정을 짜 준다.
           예전 「쉼표 순례길」 감정 칩과 바로가기 넷은 이 카드와 목적지가 겹쳐 뺐다. */}
-      <PageContainer className="pt-4 lg:pt-6">
+      <PageContainer className="pt-4 lg:hidden">
         <Link
           to={paths.compass}
           id="compass-entry"

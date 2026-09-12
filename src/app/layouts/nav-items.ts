@@ -39,7 +39,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
  * `home` 은 빼고 시작한다.
  */
 export const TOP_NAV_ITEMS: readonly NavItem[] = [
-  { id: 'explore', to: paths.explore, icon: Compass, labelKey: 'explore', end: false },
+  // 「탐색」은 하단 탭과 같은 이유로 뺐다 (2026-09-12) — 지도 탭이 교구별 목록·검색을 한다
   { id: 'map', to: paths.map, icon: MapIcon, labelKey: 'map', end: false },
   { id: 'routes', to: paths.routes, icon: Footprints, labelKey: 'routesTitle', end: false },
   { id: 'compass', to: paths.compass, icon: Compass, labelKey: 'compassTitle', end: false },
