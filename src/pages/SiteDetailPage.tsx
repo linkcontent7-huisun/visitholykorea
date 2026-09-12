@@ -47,6 +47,7 @@ import { DocentPlayer } from '@/features/docent/components/DocentPlayer';
 import { buildChapters } from '@/features/docent/lib/chapters';
 import { getDocentScript } from '@/features/docent/data/scripts';
 import { ContactCard } from '@/features/sites/components/ContactCard';
+import { splitMassInfo } from '@/features/sites/lib/mass-info';
 import { BarrierFreeCard } from '@/features/sites/components/BarrierFreeCard';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
@@ -273,8 +274,11 @@ export default function SiteDetailPage() {
   const hasContact = Boolean(site.phone || site.homepageUrl || site.fax);
   const hasBarrierFree = barrierFreePlaces.length > 0;
   const hasNearbyParishes = nearbyParishes.length > 0;
+  // 소개글 끝의 「▷ 미사 시간」 문단은 인용문에서 떼어 방문 정보 카드로 보낸다 (2026-09-13)
+  const { body: descriptionBody, mass: massInfo } = splitMassInfo(site?.description);
   const visitInfoPreview = [
     t('visitInfoEtiquette'),
+    massInfo ? t('massTimesTitle') : null,
     t('directions'),
     hasContact ? t('visitInfoContact') : null,
     hasBarrierFree ? t('visitInfoBarrierFree') : null,
@@ -457,9 +461,9 @@ export default function SiteDetailPage() {
               size={100}
               className="absolute -bottom-6 -right-6 rotate-12 text-brand-blue/5"
             />
-            {(view?.description ?? site.description) && (
+            {(view?.description ?? descriptionBody) && (
               <p className="relative z-10 mb-6 text-lg font-bold italic leading-snug tracking-tight text-brand-blue/90">
-                &ldquo;{view?.description ?? site.description}&rdquo;
+                &ldquo;{view?.description ?? descriptionBody}&rdquo;
               </p>
             )}
             {(view?.history ?? site.history) && (
@@ -869,6 +873,27 @@ export default function SiteDetailPage() {
             <div id="visit-info-panel" className="mt-8 space-y-12">
               {/* 들어가기 전 안내 — 비신자·외국인이 문 앞에서 멈추는 이유를 없앤다 */}
               <VisitEtiquette />
+
+              {/* 미사 시간 — 서울 순례길 안내 책자 기준. 성지 사정에 따라 바뀔 수 있다 */}
+              {massInfo && (
+                <section className="rounded-[28px] border border-app-border bg-white p-6">
+                  <h3 className="mb-1 flex items-center gap-2 text-base font-extrabold text-app-text">
+                    <img src="/brand/church.png" alt="" aria-hidden className="h-[22px] w-auto" />
+                    {t('massTimesTitle')}
+                  </h3>
+                  {massInfo.basis && (
+                    <p className="mb-4 text-[0.6875rem] text-app-text-muted">{massInfo.basis}</p>
+                  )}
+                  <dl className="space-y-3">
+                    {massInfo.rows.map((row) => (
+                      <div key={row.label + row.value} className="grid grid-cols-[4.5rem_1fr] gap-3">
+                        <dt className="text-[0.75rem] font-extrabold text-brand-blue">{row.label}</dt>
+                        <dd className="text-sm font-medium leading-relaxed text-app-text">{row.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              )}
 
               {/* 찾아가는 길 — 외국인 방문자를 기준으로 만든 화면 */}
               <DirectionsCard site={site} addressEnglish={view?.addressRomanized ?? null} />

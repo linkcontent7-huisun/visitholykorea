@@ -2212,6 +2212,14 @@ export const DICTIONARY = {
     pt: 'Guia de etiqueta',
     it: 'Guida al galateo',
   },
+  massTimesTitle: {
+    ko: '미사 시간',
+    en: 'Mass times',
+    es: 'Horarios de misa',
+    fr: 'Horaires des messes',
+    pt: 'Horários de missa',
+    it: 'Orari delle messe',
+  },
   visitInfoContact: {
     ko: '문의',
     en: 'Contact',
