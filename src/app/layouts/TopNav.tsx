@@ -54,7 +54,7 @@ export function TopNav() {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-[10px] lg:gap-[16px]">
+        <div className="ml-auto flex items-center gap-[8px] lg:gap-[16px]">
           {/* 검색 — 데스크톱은 입력창 모양, 모바일은 아이콘 하나 */}
           <Link
             to={paths.search}
@@ -108,7 +108,7 @@ export function TopNav() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-app-text-muted lg:hidden"
+            className="-mr-[6px] flex h-9 w-8 items-center justify-center rounded-xl text-app-text-muted lg:hidden"
             aria-label="메뉴"
             aria-expanded={open}
             id="topnav-menu-toggle"

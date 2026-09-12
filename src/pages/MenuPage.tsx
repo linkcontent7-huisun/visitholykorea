@@ -10,6 +10,7 @@ import {
   Navigation,
   Share2,
   ShieldQuestion,
+  Smartphone,
   SlidersHorizontal,
   Type,
   User,
@@ -32,6 +33,7 @@ import {
 import { localizeRegionName } from '@/shared/i18n/domain-labels';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { promptInstall, type InstallResult } from '@/shared/lib/install-prompt';
 import { copyText } from '@/shared/lib/map-links';
 import { REGIONS, type Region } from '@/shared/lib/regions';
 
@@ -99,6 +101,24 @@ export default function MenuPage() {
   // 공유 시트가 없는 환경(데스크톱 크롬 등)에서는 링크 복사 결과를
   // "앱 공유하기" 항목의 부제로 잠깐 보여준다 — alert 을 쓰지 않기 위해서다.
   const [shareStatus, setShareStatus] = useState<'idle' | 'copied' | 'error'>('idle');
+  // 「홈 화면에 추가」 결과. 설치 창을 못 띄우는 환경(아이폰·카카오톡 안)은 방법을 부제로 안내한다.
+  const [installResult, setInstallResult] = useState<InstallResult | null>(null);
+  const installSub = (() => {
+    switch (installResult) {
+      case 'installed':
+        return t('installAlready');
+      case 'accepted':
+        return t('installDone');
+      case 'ios':
+        return t('installIosHint');
+      case 'in-app':
+        return t('installInAppHint');
+      case 'manual':
+        return t('installManualHint');
+      default:
+        return t('installSub');
+    }
+  })();
 
   const handleShare = async () => {
     const shareData = { title: document.title, url: window.location.origin };
@@ -209,6 +229,13 @@ export default function MenuPage() {
           label: t('customerSupport'),
           sub: t('customerSupportSub'),
           onClick: () => navigate(paths.faq),
+        },
+        {
+          id: 'install',
+          icon: Smartphone,
+          label: t('installApp'),
+          sub: installSub,
+          onClick: () => void promptInstall().then(setInstallResult),
         },
         {
           id: 'share',
