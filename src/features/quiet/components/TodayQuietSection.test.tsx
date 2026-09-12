@@ -17,6 +17,8 @@ vi.spyOn(useSitesModule, 'useLocalizedSites').mockImplementation((sites) => site
 vi.mocked(useSettingsModule.useSettings).mockReturnValue({
   language: 'ko',
   setLanguage: vi.fn(),
+  textSize: 'sm' as const,
+  setTextSize: vi.fn(),
   largeText: false,
   setLargeText: vi.fn(),
   origin: null,

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { isRegion, type Region } from '@/shared/lib/regions';
 import { DICTIONARY, isLanguage, type Language } from './dictionary';
-import { SettingsContext, type SettingsContextValue } from './settings-context';
+import { SettingsContext, type SettingsContextValue, type TextSize } from './settings-context';
 
 const STORAGE_KEY_LANG = 'vhk_language';
 const STORAGE_KEY_TEXT = 'vhk_large_text';
@@ -26,6 +26,13 @@ function readStoredLanguage(): Language {
 }
 
 /** 저장된 출발지. 값이 시·도 목록에 없으면(이전 버전·손댄 값) 안 고른 것으로 본다. */
+/** 저장된 글자 크기. 예전 켬/끔('true'/'false') 값도 읽어 준다. */
+function readStoredTextSize(): TextSize {
+  const raw = localStorage.getItem(STORAGE_KEY_TEXT);
+  if (raw === 'sm' || raw === 'md' || raw === 'lg') return raw;
+  return raw === 'true' ? 'lg' : 'sm';
+}
+
 function readStoredOrigin(): Region | null {
   const raw = localStorage.getItem(STORAGE_KEY_ORIGIN);
   return isRegion(raw) ? raw : null;
@@ -33,9 +40,7 @@ function readStoredOrigin(): Region | null {
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(readStoredLanguage);
-  const [largeText, setLargeText] = useState<boolean>(
-    () => localStorage.getItem(STORAGE_KEY_TEXT) === 'true',
-  );
+  const [textSize, setTextSize] = useState<TextSize>(readStoredTextSize);
   const [origin, setOrigin] = useState<Region | null>(readStoredOrigin);
   const [wideView, setWideView] = useState(matchWideView);
   const [gpsLocation, setGpsLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -81,9 +86,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   }, [origin]);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-text-size', largeText ? 'lg' : 'base');
-    localStorage.setItem(STORAGE_KEY_TEXT, String(largeText));
-  }, [largeText]);
+    document.documentElement.setAttribute('data-text-size', textSize);
+    localStorage.setItem(STORAGE_KEY_TEXT, textSize);
+  }, [textSize]);
+
+  // 옛 켬/끔 호출부 호환 — 켬은 '대', 끔은 '소'.
+  const largeText = textSize !== 'sm';
+  const setLargeText = useCallback((v: boolean) => setTextSize(v ? 'lg' : 'sm'), []);
 
   useEffect(() => {
     document.documentElement.setAttribute('lang', language);
@@ -96,6 +105,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     () => ({
       language,
       setLanguage,
+      textSize,
+      setTextSize,
       largeText,
       setLargeText,
       origin,
@@ -109,7 +120,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     }),
     [
       language,
+      textSize,
       largeText,
+      setLargeText,
       origin,
       gpsLocation,
       gpsStatus,

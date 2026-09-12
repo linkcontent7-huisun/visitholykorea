@@ -1,9 +1,10 @@
-import { Menu as MenuIcon, Search, Type, X } from 'lucide-react';
+import { Menu as MenuIcon, Search, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
+import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { NAV_ITEMS, TOP_NAV_ITEMS } from './nav-items';
 
@@ -17,7 +18,7 @@ import { NAV_ITEMS, TOP_NAV_ITEMS } from './nav-items';
  * 화면을 꽉 채우기 때문에(`MapPage`) 임의로 바꾸면 지도 2분할이 어긋난다.
  */
 export function TopNav() {
-  const { t, largeText, setLargeText } = useSettings();
+  const { t } = useSettings();
   const { session } = useSession();
   const [open, setOpen] = useState(false);
   const location = useLocation();
@@ -27,8 +28,10 @@ export function TopNav() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-app-border bg-white/95 backdrop-blur-md">
-      <div className="mx-auto flex h-[60px] w-full max-w-[1200px] items-center gap-6 px-6 lg:h-[72px] lg:px-8">
-        <Link to={paths.home} className="shrink-0 text-lg font-extrabold tracking-tight text-brand-blue lg:text-xl" id="logo">
+      {/* 상단바는 내용이 아니라 틀이다 — 글자 크기를 키워도 틀의 간격은 px 로 고정해
+          「대」에서 버튼들이 오른쪽으로 밀려 잘리지 않게 한다 (2026-09-12). */}
+      <div className="mx-auto flex h-[60px] w-full max-w-[1200px] items-center gap-[16px] px-[20px] lg:h-[72px] lg:gap-[24px] lg:px-[32px]">
+        <Link to={paths.home} className="shrink-0 text-[18px] font-extrabold tracking-tight text-brand-blue lg:text-[20px]" id="logo">
           VISIT <span className="text-brand-violet">HOLY</span>
         </Link>
 
@@ -51,7 +54,7 @@ export function TopNav() {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-3 lg:gap-4">
+        <div className="ml-auto flex items-center gap-[10px] lg:gap-[16px]">
           {/* 검색 — 데스크톱은 입력창 모양, 모바일은 아이콘 하나 */}
           <Link
             to={paths.search}
@@ -71,23 +74,14 @@ export function TopNav() {
             aria-label={t('searchHintMobile')}
           >
             <Search size={19} className="shrink-0 text-app-text-muted" aria-hidden />
-            <span className="max-w-[104px] truncate text-[10px] font-medium text-app-text-muted">
+            <span className="max-w-[84px] truncate text-[10px] font-medium text-app-text-muted [html[data-text-size-open]_&]:hidden">
               {t('searchHintMobile')}
             </span>
           </Link>
 
-          <button
-            type="button"
-            onClick={() => setLargeText(!largeText)}
-            className={`hidden h-7 w-7 items-center justify-center rounded-full transition-colors md:flex ${
-              largeText ? 'bg-brand-blue text-white' : 'bg-app-border text-app-text-muted'
-            }`}
-            id="large-text-toggle"
-            aria-label="큰 글자 모드"
-            aria-pressed={largeText}
-          >
-            <Type size={14} />
-          </button>
+          {/* 글자 크기 — 예전엔 데스크톱에만 있던 켬/끔 버튼. 휴대폰에서도 보이게 하고
+              누르면 옆에 소·중·대가 펼쳐진다 (2026-09-12). */}
+          <TextSizePicker />
 
           {/* 언어 선택 — 전에는 데스크톱에만 보였다. 모바일에서도 삼선 메뉴를 열지
               않고 바로 바꿀 수 있어야 한다는 피드백(2026-09-08)으로 항상 보이게 한다. */}
@@ -143,21 +137,11 @@ export function TopNav() {
             )}
           </nav>
           <div className="mt-4 flex items-center justify-between">
-            <button
-              type="button"
-              onClick={() => setLargeText(!largeText)}
-              className="flex items-center gap-2 text-[13px] font-bold text-app-text-muted"
-              aria-pressed={largeText}
-            >
-              <span
-                className={`flex h-7 w-7 items-center justify-center rounded-full ${
-                  largeText ? 'bg-brand-blue text-white' : 'bg-app-border text-app-text-muted'
-                }`}
-              >
-                <Type size={14} />
-              </span>
-              큰 글자
-            </button>
+            {/* 글자 크기는 상단바 「가」 버튼에서 고른다 — 펼친 메뉴에는 이름만 남긴다 */}
+            <span className="flex items-center gap-2 text-[13px] font-bold text-app-text-muted">
+              {t('textSizeButton')}
+              <TextSizePicker inline />
+            </span>
             <div className="flex items-center gap-4">
               {/* 언어 선택은 이제 상단바에 항상 보이므로 여기서 다시 그리지 않는다(중복 id 방지) */}
               {!session && (

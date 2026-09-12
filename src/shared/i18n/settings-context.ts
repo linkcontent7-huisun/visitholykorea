@@ -2,6 +2,10 @@ import { createContext } from 'react';
 import type { Region } from '@/shared/lib/regions';
 import type { Language, TranslationKey } from './dictionary';
 
+/** 글자 크기 3단계. 소=100% · 중=112% · 대=125% (globals.css 의 html[data-text-size]). */
+export type TextSize = 'sm' | 'md' | 'lg';
+export const TEXT_SIZES: readonly TextSize[] = ['sm', 'md', 'lg'];
+
 export interface SettingsContextValue {
   language: Language;
   setLanguage: (lang: Language) => void;
@@ -21,8 +25,12 @@ export interface SettingsContextValue {
   gpsStatus: 'idle' | 'loading' | 'granted' | 'denied' | 'unsupported' | 'error';
   requestGpsLocation: () => void;
   clearGpsLocation: () => void;
-  /** 고령 순례자를 위한 큰 글자 모드. html[data-text-size] 로 전체를 비례 확대한다. */
+  /** 글자 크기 소·중·대. html[data-text-size] 로 전체를 비례 확대한다. */
+  textSize: TextSize;
+  setTextSize: (size: TextSize) => void;
+  /** @deprecated textSize !== 'sm' 과 같다. 옛 호출부 호환용 — 새 코드는 textSize 를 쓴다. */
   largeText: boolean;
+  /** @deprecated true 면 '대', false 면 '소'. */
   setLargeText: (v: boolean) => void;
   t: (key: TranslationKey) => string;
   /**

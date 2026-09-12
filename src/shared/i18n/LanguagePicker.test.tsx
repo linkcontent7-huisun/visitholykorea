@@ -10,6 +10,8 @@ function mockSettings(language: SettingsContextValue['language'], setLanguage = 
   vi.mocked(useSettingsModule.useSettings).mockReturnValue({
     language,
     setLanguage,
+    textSize: 'sm' as const,
+    setTextSize: vi.fn(),
     largeText: false,
     setLargeText: vi.fn(),
     origin: null,

@@ -30,6 +30,7 @@ import {
   type TranslationKey,
 } from '@/shared/i18n/dictionary';
 import { localizeRegionName } from '@/shared/i18n/domain-labels';
+import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { copyText } from '@/shared/lib/map-links';
 import { REGIONS, type Region } from '@/shared/lib/regions';
@@ -78,8 +79,6 @@ export default function MenuPage() {
   const {
     language,
     setLanguage,
-    largeText,
-    setLargeText,
     origin,
     setOrigin,
     gpsLocation,
@@ -156,9 +155,8 @@ export default function MenuPage() {
         {
           id: 'largeText',
           icon: Type,
-          label: t('largeTextSetting'),
-          sub: largeText ? t('toggleOn') : t('toggleOff'),
-          onClick: () => setLargeText(!largeText),
+          label: t('textSizeButton'),
+          control: <TextSizePicker inline />,
         },
         {
           id: 'gps',
