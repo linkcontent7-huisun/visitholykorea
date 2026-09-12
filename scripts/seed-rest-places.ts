@@ -14,7 +14,7 @@
  *
  * 사회복지기관·의료기관·교육기관은 **넣지 않는다** — 병원 성당은 환자와 가족의
  * 공간이고 요양원 기도실은 외부인이 들어갈 곳이 아니다
- * (`docs/10-product/2026-08-쉼자리-컨셉.md` 4장).
+ * (`docs/10-product/기획-검토/2026-08-쉼자리-컨셉.md` 4장).
  */
 import { loadEnvLocal } from './lib/env.ts';
 loadEnvLocal();

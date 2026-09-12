@@ -352,7 +352,7 @@ TourAPI 호출:
 | `src/features/quiet/components/TodayQuietSection.tsx` | 오늘의 쉼표 섹션 |
 | `src/features/quiet/components/QuietSiteCard.tsx` | 개별 성지 카드 |
 | `src/features/quiet/components/CrowdingBadge.tsx` | 붐빔 배지 |
-| `docs/10-product/2026-08-공모전-출품컨셉.md` | 공모전 설계 배경 |
+| `docs/10-product/공모전/2026-08-공모전-출품컨셉.md` | 공모전 설계 배경 |
 
 ---
 

@@ -23,7 +23,7 @@ export default tseslint.config(
       'scripts/tmp-*.ts',
       // 협력자가 보내온 시안·참고 자료(2026-09-07 PR #13). 브라우저로 열어보는
       // 문서일 뿐 앱 빌드에 들어가지 않는다 — 보낸 분도 "넣지 말 것"이라 적었다.
-      'docs/2026-08-27-CHOISUNGBIN-Patch',
+      'docs/50-research/2026-08-27-최성빈-UI패치',
     ],
   },
   js.configs.recommended,
