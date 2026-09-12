@@ -1,7 +1,6 @@
 import {
   ArrowRight,
   BookOpen,
-  Church,
   Compass,
   Loader2,
   MapPin,
@@ -12,6 +11,7 @@ import {
   X,
 } from 'lucide-react';
 import { useState } from 'react';
+import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Link, useNavigate } from 'react-router-dom';
@@ -152,15 +152,13 @@ export default function SearchPage() {
                       className="flex w-full items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 text-left shadow-sm transition-all hover:shadow-md"
                     >
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-slate-50">
-                        {site.imageUrl ? (
-                          <img
-                            src={site.imageUrl}
-                            className="h-full w-full object-cover"
-                            alt={site.name}
-                          />
-                        ) : (
-                          <Church size={18} className="text-slate-300" />
-                        )}
+                        {/* 사진 없는 성지도 임시 이미지로 — SiteThumbnail 이 처리 (2026-09-12) */}
+                        <SiteThumbnail
+                          imageUrl={site.imageUrl}
+                          name={site.name}
+                          category={site.category}
+                          className="h-full w-full object-cover"
+                        />
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="truncate font-bold text-slate-900">{site.name}</p>

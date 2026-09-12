@@ -8,6 +8,7 @@
 import type { Alternative, CrowdedOrigin } from '../api/alternatives';
 import { ALTERNATIVE, buildAlternativeReason } from '../api/alternatives';
 import { CrowdingBadge } from './CrowdingBadge';
+import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -98,13 +99,13 @@ export function AlternativesList({ origin, picks, relaxed = false }: Alternative
                   )}
                 </div>
 
-                {alt.site.imageUrl && (
-                  <img
-                    src={alt.site.imageUrl}
-                    alt={alt.site.name}
-                    className="size-20 rounded-xl object-cover"
-                  />
-                )}
+                {/* 사진 없는 성지도 빈칸이 아니라 임시 이미지로 (SiteThumbnail 이 처리) */}
+                <SiteThumbnail
+                  imageUrl={alt.site.imageUrl}
+                  name={alt.site.name}
+                  category={alt.site.category}
+                  className="size-20 shrink-0 rounded-xl object-cover"
+                />
               </div>
             </div>
           ))}
