@@ -1,46 +1,18 @@
-import {
-  ChevronLeft,
-  ChevronRight,
-  Compass,
-  HandHeart,
-  Headphones,
-  HeartHandshake,
-  MapPin,
-  MessageCircle,
-  PartyPopper,
-  Sparkles,
-  Sunrise,
-  Wind,
-} from 'lucide-react';
-import { useState, type ComponentType, useMemo } from 'react';
+import { ChevronLeft, ChevronRight, Compass, Headphones, MapPin } from 'lucide-react';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
-import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
-import { CourseCardItem } from '@/features/courses/components/CourseCardItem';
-import { useRecommendedCourses } from '@/features/courses/hooks/use-courses';
-import { useSession } from '@/features/auth/hooks/use-session';
 import { getDocentScript } from '@/features/docent/data/scripts';
-import { EmptyPassportPreview } from '@/features/passport/components/EmptyPassportPreview';
-import { useSiteNotes } from '@/features/passport/hooks/use-stamps';
 import { TodayQuietSection } from '@/features/quiet/components/TodayQuietSection';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
-import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { regionCoords } from '@/shared/lib/regions';
 import { haversineKm } from '@/shared/lib/geo';
-import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
-
-const EMOTION_ICON: Record<EmotionTag, ComponentType<{ size?: number; className?: string }>> = {
-  위로: HeartHandshake,
-  새출발: Sunrise,
-  평온: Wind,
-  치유: Sparkles,
-  감사: HandHeart,
-};
 
 /** 하루 단위로 바뀌는 값. 날짜가 바뀌면 히어로에 뜨는 성지도 바뀐다. */
 function dayIndex(): number {
@@ -49,9 +21,6 @@ function dayIndex(): number {
 
 export default function HomePage() {
   const { origin, gpsLocation, language, t } = useSettings();
-  const [selectedEmotion, setSelectedEmotion] = useState<EmotionTag>('치유');
-  const [isAIGuideOpen, setIsAIGuideOpen] = useState(false);
-  const { session } = useSession();
 
   const { data: sitesRaw = [] } = useSites({ limit: 6 });
   const sites = useLocalizedSites(sitesRaw);
@@ -78,10 +47,6 @@ export default function HomePage() {
   const heroSite = heroSites[0] ?? null;
   const heroDocent = heroSite ? getDocentScript(heroSite.id) : null;
 
-  /** 히어로 성지에 다녀간 사람의 한 줄 — 실제 데이터가 있을 때만 보여준다(더미 금지). */
-  const { data: heroNotes = [] } = useSiteNotes(heroSite?.id);
-  const storyNote = heroNotes.find((n) => n.note);
-
   /**
    * 출발지를 정해 둔 사람에게는 "전국 아무 데나"가 아니라 **갈 수 있는 곳**을 먼저 보여준다.
    * 출발지가 없으면 지금까지처럼 기본 목록을 그대로 쓴다.
@@ -101,7 +66,6 @@ export default function HomePage() {
       .slice(0, 8)
       .map((x) => x.site);
   }, [origin, gpsLocation, allSites, sites]);
-  const { data: courses = [], isLoading: coursesLoading } = useRecommendedCourses(selectedEmotion);
 
   return (
     <div className="bg-app-bg pb-10">
@@ -291,129 +255,27 @@ export default function HomePage() {
         </Link>
       </PageContainer>
 
-      {/* 쉼표 순례길 — 감정 기반 코스 추천. 데스크톱에서는 감정 줄이 제목 옆으로 온다. */}
-      <PageContainer className="pt-8 lg:pt-12">
-        <div className="mb-6 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <h3 className="mb-1 text-lg font-bold text-app-text lg:text-2xl">{t('coursesTitle')}</h3>
-            <p className="text-[12px] font-medium text-app-text-muted lg:text-sm">
-              {t('coursesSubtitle')}
-            </p>
-          </div>
-
-          {/*
-            모바일: 5개가 옆으로 넘겨야만 보였다는 피드백(2026-09-08) — 그리드로
-            한 화면 안에 전부 들어오게 줄였다. 데스크톱은 기존 가로줄 그대로.
-          */}
-          <div className="grid grid-cols-5 gap-2 lg:flex lg:gap-3">
-            {EMOTION_TAGS.map((emotion) => {
-              const Icon = EMOTION_ICON[emotion];
-              const active = emotion === selectedEmotion;
-              return (
-                <button
-                  key={emotion}
-                  onClick={() => setSelectedEmotion(emotion)}
-                  className="flex flex-col items-center gap-1.5 lg:flex-row lg:gap-2"
-                  id={`emotion-${emotion}`}
-                  aria-pressed={active}
-                >
-                  <div
-                    className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-all lg:h-10 lg:w-10 ${
-                      active
-                        ? 'border-brand-blue bg-brand-blue text-white shadow-lg shadow-brand-blue/20'
-                        : 'border-app-border bg-white text-app-text-muted'
-                    }`}
-                  >
-                    <Icon size={18} className="lg:hidden" />
-                    <Icon size={22} className="hidden lg:block" />
-                  </div>
-                  <span
-                    className={`text-[10px] font-bold lg:text-[13px] ${
-                      active ? 'text-brand-blue' : 'text-app-text-muted'
-                    }`}
-                  >
-                    {localizeDomainValue(emotion, t)}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/*
-          감정 태그를 직접 고르기 어려운 사용자를 위한 안내형 진입점 「몇 가지 질문으로 나에게 맞는 곳 찾기」 카드를 뺐다 (2026-09-06).
-          바로 아래 칩줄의 「마음 나침반」과 가는 곳이 같아서, 한 화면 안에 같은
-          목적지가 두 번 있었다. 질문으로 찾는 길은 나침반 타일이 맡고,
-          여기서는 감정을 한 번에 고르는 빠른 길만 남긴다.
-        */}
-
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          {coursesLoading ? (
-            [1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-64 w-full animate-pulse rounded-[24px] bg-gray-100" />
-            ))
-          ) : courses.length > 0 ? (
-            courses.map((course) => <CourseCardItem key={course.site.id} course={course} />)
-          ) : (
-            <p className="py-10 text-center text-sm text-app-text-muted sm:col-span-2 xl:col-span-4">
-              {t('coursesEmpty')}
-            </p>
-          )}
-        </div>
-      </PageContainer>
-
-      {/*
-        바로가기 넷 — 「무엇을 하러 왔는가」를 한 덩어리로 모은다 (2026-09-07).
-
-        전에는 칩 3개 옆에 AI 가이드가 화면 4분의 1을 먹는 보라색 배너로 따로
-        있었다. 넷 다 "여기서 시작한다"는 같은 성격인데 하나만 크게 있으니
-        휴대폰에서 화면이 어수선했다. 넷을 한 격자에 넣고 **휴대폰은 2×2,
-        데스크톱은 한 줄**로 편다 — 요소를 두 벌 그리지 않으므로 상태도 하나다.
-        AI 가이드는 보라색 바탕을 남겨 여전히 먼저 눈에 들어온다.
-
-        「붐빔 피하기」와 「축제 가는 김에」는 방향이 반대인 한 쌍이라 나란히 둔다.
-      */}
-      <PageContainer className="pt-10">
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-            <Link
-              to={paths.alternatives}
-              className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-5 text-center transition-colors hover:border-brand-violet"
-              id="chip-alternatives"
-            >
-              <Wind size={22} className="text-brand-violet" aria-hidden />
-              <span className="text-[12px] font-bold leading-tight text-app-text">
-                {t('crowdAvoidChip')}
-              </span>
-            </Link>
-            <Link
-              to={paths.festivals}
-              className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-5 text-center transition-colors hover:border-brand-violet"
-              id="chip-festivals"
-            >
-              <PartyPopper size={22} className="text-brand-violet" aria-hidden />
-              <span className="text-[12px] font-bold leading-tight text-app-text">
-                {t('festivalsTitle')}
-              </span>
-            </Link>
-            <Link
-              to={paths.compass}
-              className="flex flex-col items-center justify-center gap-2 rounded-[20px] border border-app-border bg-white py-5 text-center transition-colors hover:border-brand-violet"
-              id="chip-compass"
-            >
-              <Compass size={22} className="text-brand-violet" aria-hidden />
-              <span className="text-[12px] font-bold leading-tight text-app-text">
-                {t('compassTitle')}
-              </span>
-            </Link>
-          <button
-            onClick={() => setIsAIGuideOpen(true)}
-            className="flex flex-col items-center justify-center gap-2 rounded-[20px] bg-gradient-to-br from-brand-blue to-brand-violet py-5 text-center text-white shadow-lg shadow-brand-blue/10"
-            id="ai-guide-btn"
-          >
-            <Sparkles size={22} aria-hidden />
-            <span className="text-[12px] font-bold leading-tight">{t('aiGuideTitle')}</span>
-          </button>
-        </div>
+      {/* 마음 나침반 — 앱의 본질 (2026-09-12 개편). 감정·출발지·시간을 물어 일정을 짜 준다.
+          예전 「쉼표 순례길」 감정 칩과 바로가기 넷은 이 카드와 목적지가 겹쳐 뺐다. */}
+      <PageContainer className="pt-4 lg:pt-6">
+        <Link
+          to={paths.compass}
+          id="compass-entry"
+          className="flex items-center gap-4 rounded-[28px] bg-gradient-to-br from-brand-blue to-brand-violet p-5 text-white shadow-lg shadow-brand-violet/20 transition-transform active:scale-[0.99] lg:p-6"
+        >
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/15">
+            <Compass size={24} aria-hidden />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-lg font-extrabold leading-tight lg:text-xl">
+              {t('compassTitle')}
+            </span>
+            <span className="mt-1 block text-[12px] font-medium text-white/85 lg:text-sm">
+              {t('compassEntrySub')}
+            </span>
+          </span>
+          <ChevronRight size={22} className="shrink-0 opacity-80" aria-hidden />
+        </Link>
       </PageContainer>
 
       {/* 오늘의 쉼표 — 실시간 붐빔. 컨테이너가 좌우 여백을 대신 잡는다. */}
@@ -422,67 +284,6 @@ export default function HomePage() {
           <TodayQuietSection sites={allSites} variant="compact" padded={false} />
         </div>
       </PageContainer>
-
-      {/* 순례 여권 미리보기 — 로그인 전 상태에만. 가입 유도 장치다. */}
-      {!session && (
-        <PageContainer className="pt-4">
-          <div className="rounded-[24px] border border-app-border bg-white p-6 lg:max-w-[820px]">
-            <div className="mb-5 flex items-center justify-between gap-4">
-              <div className="min-w-0">
-                <h3 className="text-base font-extrabold text-app-text">{t('pilgrimPassport')}</h3>
-                <p className="mt-1 text-[12px] text-app-text-muted">
-                  {t('passportPreviewSubtitle')}
-                </p>
-              </div>
-              <Link
-                to={paths.login}
-                className="shrink-0 rounded-full bg-brand-blue px-4 py-2 text-[12px] font-bold text-white"
-                id="passport-signup-cta"
-              >
-                {t('passportSignupCta')}
-              </Link>
-            </div>
-            {/* 실제 전체 성지 수(자체 큐레이션 데이터) — 값을 지어내지 않는다 */}
-            {allSites.length > 0 && (
-              <p className="mb-4 text-xs font-bold text-app-text-muted">0 / {allSites.length}</p>
-            )}
-            <EmptyPassportPreview />
-          </div>
-        </PageContainer>
-      )}
-
-      {/* 순례자 이야기 미리보기 — 실제 방문자 한 줄이 있을 때만 조용히 노출한다 */}
-      {heroSite && storyNote && (
-        <PageContainer className="pt-4">
-          <div className="flex items-center gap-4 rounded-[24px] border border-app-border bg-white p-5 lg:max-w-[720px]">
-            <div className="h-[72px] w-[72px] shrink-0 overflow-hidden rounded-2xl bg-app-bg">
-              {storyNote.photoUrl ? (
-                <img
-                  src={storyNote.photoUrl}
-                  alt="순례자가 남긴 사진"
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center text-brand-violet/40">
-                  <MessageCircle size={26} aria-hidden />
-                </div>
-              )}
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-[10px] font-extrabold uppercase tracking-widest text-brand-violet">
-                {t('pilgrimStoriesTitle')}
-              </p>
-              <p className="mt-1 truncate text-sm font-medium text-app-text">
-                &ldquo;{storyNote.note}&rdquo;
-              </p>
-              <p className="mt-1 text-[11px] text-app-text-muted">
-                {new Date(storyNote.visitedAt).toLocaleDateString(SPEECH_LOCALE[language])}
-              </p>
-            </div>
-          </div>
-        </PageContainer>
-      )}
 
       {/* 전국 성지 — 출발지가 있으면 가까운 곳부터 */}
       <PageContainer className="pt-10">
@@ -508,7 +309,6 @@ export default function HomePage() {
         </div>
       </PageContainer>
 
-      <AiGuideSheet isOpen={isAIGuideOpen} onClose={() => setIsAIGuideOpen(false)} />
     </div>
   );
 }

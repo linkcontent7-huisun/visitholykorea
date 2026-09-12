@@ -309,6 +309,22 @@ export const DICTIONARY = {
     pt: 'Perguntar',
     it: 'Fai una domanda',
   },
+  compassEntrySub: {
+    ko: '지금 마음·출발지·시간을 고르면 오늘의 순례 일정을 짜 드려요',
+    en: 'Pick your mood, start point and time — we plan today’s pilgrimage',
+    es: 'Elige tu ánimo, salida y tiempo — planeamos tu peregrinación de hoy',
+    fr: 'Choisissez votre humeur, départ et temps — nous planifions votre pèlerinage',
+    pt: 'Escolha o seu ânimo, partida e tempo — planeamos a peregrinação de hoje',
+    it: 'Scegli umore, partenza e tempo — pianifichiamo il pellegrinaggio di oggi',
+  },
+  aiGuideAskAboutSite: {
+    ko: '이 성지에 대해 물어보기',
+    en: 'Ask about this shrine',
+    es: 'Pregunta sobre este santuario',
+    fr: 'Poser une question sur ce sanctuaire',
+    pt: 'Perguntar sobre este santuário',
+    it: 'Chiedi su questo santuario',
+  },
   searchPlaceholder: {
     ko: '성지 검색 또는 미카엘 AI에게 물어보기',
     en: 'Search shrines, or ask Michael the AI guide',
@@ -319,13 +335,14 @@ export const DICTIONARY = {
   },
   // 모바일 상단바 — 돋보기 아이콘만 있으면 무엇을 하는 자리인지 안 보인다는
   // 피드백(2026-09-08). 좁은 자리라 searchPlaceholder 보다 짧게 쓴다.
+  // 2026-09-12: "천사에게 물어보기"는 60대에게 무엇인지 알 수 없는 버튼이었다 → 그냥 검색.
   searchHintMobile: {
-    ko: '미카엘 천사에게 물어보세요',
-    en: 'Ask Michael the angel',
-    es: 'Pregúntale al ángel Miguel',
-    fr: 'Demandez à l’ange Michel',
-    pt: 'Pergunte ao anjo Miguel',
-    it: 'Chiedi all’angelo Michele',
+    ko: '성지 검색',
+    en: 'Search shrines',
+    es: 'Buscar santuarios',
+    fr: 'Chercher un sanctuaire',
+    pt: 'Buscar santuários',
+    it: 'Cerca santuari',
   },
   // 홈 화면 사진 히어로 (T-001)
   heroDocentCta: {

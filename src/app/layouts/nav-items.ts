@@ -17,11 +17,16 @@ export interface NavItem {
   end: boolean;
 }
 
-/** 하단 탭 5개 — 모바일 기준. 순서와 라벨은 기존과 동일하다. */
+/**
+ * 하단 탭 4개 — 모바일 기준.
+ *
+ * 「탐색」 탭은 뺐다 (2026-09-12, 60대 피드백 "기능이 많고 겹친다"). 교구별 목록과
+ * 검색은 「지도」 탭이 이미 하고, 순례 코스·즐겨찾기는 홈과 상세에서 간다.
+ * `/explore` 화면 자체는 남아 있어 홈의 "탐색 →" 링크로 들어갈 수 있다.
+ */
 export const NAV_ITEMS: readonly NavItem[] = [
   { id: 'home', to: paths.home, icon: Home, labelKey: 'home', end: true },
   { id: 'map', to: paths.map, icon: MapIcon, labelKey: 'map', end: false },
-  { id: 'explore', to: paths.explore, icon: Compass, labelKey: 'explore', end: false },
   { id: 'record', to: paths.records, icon: BookOpen, labelKey: 'record', end: false },
   { id: 'menu', to: paths.menu, icon: Settings, labelKey: 'menu', end: false },
 ];
