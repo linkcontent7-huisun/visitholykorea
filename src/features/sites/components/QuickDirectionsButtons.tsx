@@ -33,7 +33,7 @@ export function QuickDirectionsButtons({
           rel="noopener noreferrer"
           aria-label={`${siteName} — ${link.label} ${t('directions')}`}
           title={`${link.label} — ${t(link.noteKey)}`}
-          className="flex items-center gap-1 rounded-lg bg-app-bg px-2 py-1.5 text-[10px] font-bold text-brand-violet transition-colors hover:bg-brand-violet/10"
+          className="flex items-center gap-1 rounded-lg bg-app-bg px-2 py-1.5 text-[0.625rem] font-bold text-brand-violet transition-colors hover:bg-brand-violet/10"
         >
           <Navigation size={12} aria-hidden />
           {link.label}

@@ -60,12 +60,12 @@ export function DirectionsCard({
       {/* 한국어 주소 — 이 화면에서 가장 중요한 요소라 가장 크게 둔다 */}
       <div className="mb-4 rounded-[24px] border border-app-border bg-app-bg p-5">
         <div className="mb-2 flex items-center justify-between gap-3">
-          <span className="text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
+          <span className="text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
             {t('addressKorean')}
           </span>
           <button
             onClick={() => void handleCopy(site.location, 'address')}
-            className="flex shrink-0 items-center gap-1.5 rounded-full border border-app-border bg-white px-3 py-1.5 text-[11px] font-bold text-app-text-muted transition-colors hover:border-brand-violet hover:text-brand-violet"
+            className="flex shrink-0 items-center gap-1.5 rounded-full border border-app-border bg-white px-3 py-1.5 text-[0.6875rem] font-bold text-app-text-muted transition-colors hover:border-brand-violet hover:text-brand-violet"
             aria-label={t('addressKorean')}
           >
             {copied === 'address' ? <Check size={13} /> : <Copy size={13} />}
@@ -87,11 +87,11 @@ export function DirectionsCard({
 
         {/* 영어 화면일 때만 이 주소가 왜 한국어인지 설명한다 */}
         {language !== 'ko' && (
-          <p className="mt-2 text-[12px] leading-relaxed text-app-text-muted">{t('addressHint')}</p>
+          <p className="mt-2 text-[0.75rem] leading-relaxed text-app-text-muted">{t('addressHint')}</p>
         )}
 
         {copyError && (
-          <p className="mt-2 text-[11px] font-medium text-app-text-muted">{t('copyFailed')}</p>
+          <p className="mt-2 text-[0.6875rem] font-medium text-app-text-muted">{t('copyFailed')}</p>
         )}
       </div>
 
@@ -100,23 +100,23 @@ export function DirectionsCard({
           {/* 좌표 — 어떤 지도 앱에도 붙여넣을 수 있는 최후의 수단 */}
           <div className="mb-4 flex items-center justify-between gap-3 rounded-[20px] border border-app-border bg-white px-5 py-3">
             <div className="min-w-0">
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
+              <span className="text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
                 {t('coordinates')}
               </span>
-              <p className="select-all font-mono text-[13px] text-app-text">
+              <p className="select-all font-mono text-[0.8125rem] text-app-text">
                 {formatCoordinates(lat, lng)}
               </p>
             </div>
             <button
               onClick={() => void handleCopy(formatCoordinates(lat, lng), 'coords')}
-              className="flex shrink-0 items-center gap-1.5 rounded-full border border-app-border px-3 py-1.5 text-[11px] font-bold text-app-text-muted transition-colors hover:border-brand-violet hover:text-brand-violet"
+              className="flex shrink-0 items-center gap-1.5 rounded-full border border-app-border px-3 py-1.5 text-[0.6875rem] font-bold text-app-text-muted transition-colors hover:border-brand-violet hover:text-brand-violet"
               aria-label={t('coordinates')}
             >
               {copied === 'coords' ? <Check size={13} /> : <Copy size={13} />}
             </button>
           </div>
 
-          <p className="mb-3 text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
+          <p className="mb-3 text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
             {t('openInMapApp')}
           </p>
 
@@ -136,7 +136,7 @@ export function DirectionsCard({
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-bold text-app-text">{link.label}</p>
-                  <p className="text-[11px] leading-relaxed text-app-text-muted">
+                  <p className="text-[0.6875rem] leading-relaxed text-app-text-muted">
                     {t(link.noteKey)}
                   </p>
                 </div>
@@ -148,7 +148,7 @@ export function DirectionsCard({
       ) : (
         <div className="flex items-center gap-3 rounded-[20px] border border-dashed border-app-border bg-white px-5 py-4">
           <MapPin size={18} className="shrink-0 text-gray-300" />
-          <p className="text-[12px] leading-relaxed text-app-text-muted">{t('noCoordinates')}</p>
+          <p className="text-[0.75rem] leading-relaxed text-app-text-muted">{t('noCoordinates')}</p>
         </div>
       )}
     </section>

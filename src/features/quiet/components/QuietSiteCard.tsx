@@ -29,7 +29,7 @@ export function QuietSiteCard({ site, crowding, compact = false }: QuietSiteCard
       >
         <div className="min-w-0">
           <h3 className="truncate text-sm font-bold text-app-text">{site.name}</h3>
-          <p className="mt-0.5 truncate text-[11px] text-app-text-muted">{site.location}</p>
+          <p className="mt-0.5 truncate text-[0.6875rem] text-app-text-muted">{site.location}</p>
         </div>
         <CrowdingBadge
           level={crowding.level}
@@ -49,7 +49,7 @@ export function QuietSiteCard({ site, crowding, compact = false }: QuietSiteCard
       <div className="mb-3 flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h3 className="truncate text-lg font-bold tracking-tight text-app-text">{site.name}</h3>
-          <p className="mt-0.5 flex items-center gap-1 truncate text-[11px] text-app-text-muted">
+          <p className="mt-0.5 flex items-center gap-1 truncate text-[0.6875rem] text-app-text-muted">
             <MapPin size={11} className="shrink-0" />
             {site.location}
           </p>
@@ -64,7 +64,7 @@ export function QuietSiteCard({ site, crowding, compact = false }: QuietSiteCard
       {/* 숫자만 보여주면 믿지 않는다. 왜 조용하다고 보는지를 그대로 적는다. */}
       <ul className="space-y-1">
         {crowding.reasons.map((reason) => (
-          <li key={reason} className="flex gap-2 text-[12px] leading-relaxed text-app-text-muted">
+          <li key={reason} className="flex gap-2 text-[0.75rem] leading-relaxed text-app-text-muted">
             <span aria-hidden className="text-app-border">
               ·
             </span>

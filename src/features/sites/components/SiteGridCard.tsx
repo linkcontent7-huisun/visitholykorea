@@ -25,13 +25,13 @@ export function SiteGridCard({ site }: { site: HolySite }) {
           category={site.category}
           className="h-full w-full transform object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[9px] font-bold uppercase tracking-tight text-brand-blue shadow-sm backdrop-blur-sm">
+        <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[0.5625rem] font-bold uppercase tracking-tight text-brand-blue shadow-sm backdrop-blur-sm">
           {localizeDomainValue(site.category, t)}
         </div>
       </div>
       <div className="p-4">
         <h4 className="truncate text-sm font-bold text-app-text">{site.name}</h4>
-        <p className="mt-1 truncate text-[11px] text-app-text-muted">{site.location}</p>
+        <p className="mt-1 truncate text-[0.6875rem] text-app-text-muted">{site.location}</p>
       </div>
     </Link>
   );

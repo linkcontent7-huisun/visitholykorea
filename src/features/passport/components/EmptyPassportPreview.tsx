@@ -72,14 +72,14 @@ export function EmptyPassportPreview() {
               <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-dashed border-app-border text-app-text-muted/40">
                 <StampMotifIcon motif={motif} className="h-9 w-9" />
               </div>
-              <span className="text-[9px] font-bold text-app-text-muted/70">
+              <span className="text-[0.5625rem] font-bold text-app-text-muted/70">
                 {localizeDomainValue(label, t)}
               </span>
             </div>
           ))}
         </div>
         {/* 미리보기임을 반드시 밝힌다 */}
-        <p className="mt-4 text-[10px] font-bold text-app-text-muted/70">
+        <p className="mt-4 text-[0.625rem] font-bold text-app-text-muted/70">
           {t('stampPreviewNote')}
         </p>
       </div>
@@ -95,7 +95,7 @@ export function EmptyPassportPreview() {
             <MapPin size={20} />
           </div>
           <div className="min-w-0 text-left">
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-brand-violet">
+            <p className="text-[0.625rem] font-extrabold uppercase tracking-widest text-brand-violet">
               {t('firstPilgrimageSuggestion')}
             </p>
             <p className="truncate text-sm font-extrabold text-app-text">{nearest.name}</p>

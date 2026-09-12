@@ -121,7 +121,7 @@ export default function RouteDetailPage() {
                     />
                   </div>
                   <div className="p-4">
-                    <p className="mb-1 text-[10px] font-extrabold uppercase tracking-widest text-brand-violet">
+                    <p className="mb-1 text-[0.625rem] font-extrabold uppercase tracking-widest text-brand-violet">
                       {ep.isFinale ? `${ep.episode}화 · 마지막 이야기` : `${ep.episode}화`}
                     </p>
                     <h2 className="mb-1 text-lg font-extrabold text-app-text group-hover:text-brand-violet">

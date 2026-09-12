@@ -69,24 +69,24 @@ export function TodayQuietSection({
             <div className="min-w-0">
               <h2 className="text-lg font-bold text-app-text">{t('quietHeroTitle')}</h2>
               {/* 위 칩줄의 「붐빔 피하기」와 같은 화면으로 간다는 것을 밝힌다(2026-09-07 피드백) */}
-              <p className="mt-0.5 text-[11px] text-app-text-muted">{t('quietHeroCaption')}</p>
+              <p className="mt-0.5 text-[0.6875rem] text-app-text-muted">{t('quietHeroCaption')}</p>
             </div>
             <Link
               to={paths.alternatives}
-              className="shrink-0 text-[12px] font-bold text-brand-violet"
+              className="shrink-0 text-[0.75rem] font-bold text-brand-violet"
             >
               {t('quietSeeMore')}
             </Link>
           </>
         ) : (
           <>
-            <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-brand-violet">
+            <p className="mb-1 text-[0.6875rem] font-bold uppercase tracking-widest text-brand-violet">
               {todayLabel(SPEECH_LOCALE[language])}
             </p>
             <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-app-text">
               {t('quietHeroTitle')}
             </h2>
-            <p className="mt-1.5 text-[12px] leading-relaxed text-app-text-muted">
+            <p className="mt-1.5 text-[0.75rem] leading-relaxed text-app-text-muted">
               {t('quietHeroSubtitle')}
             </p>
           </>
@@ -96,7 +96,7 @@ export function TodayQuietSection({
       {isLoading && (
         <div className="space-y-3" role="status" aria-live="polite">
           {!compact && (
-            <p className="text-[12px] font-medium text-app-text-muted">{t('quietLoading')}</p>
+            <p className="text-[0.75rem] font-medium text-app-text-muted">{t('quietLoading')}</p>
           )}
           {[1, 2, 3].map((i) => (
             <div
@@ -110,7 +110,7 @@ export function TodayQuietSection({
       {isError && isQuotaExceededError(error) && (
         <div className="rounded-[20px] border border-app-border bg-white p-6 text-center">
           <p className="text-sm font-bold text-app-text">{t('quietQuotaTitle')}</p>
-          <p className="mt-2 text-[12px] leading-relaxed text-app-text-muted">
+          <p className="mt-2 text-[0.75rem] leading-relaxed text-app-text-muted">
             {t('quietQuotaBody')}
           </p>
         </div>
@@ -119,11 +119,11 @@ export function TodayQuietSection({
       {isError && !isQuotaExceededError(error) && (
         <div className="rounded-[20px] border border-app-border bg-white p-6 text-center">
           <p className="text-sm font-bold text-app-text">{t('quietErrorTitle')}</p>
-          <p className="mt-2 text-[12px] leading-relaxed text-app-text-muted">
+          <p className="mt-2 text-[0.75rem] leading-relaxed text-app-text-muted">
             {t('quietErrorBody')}
           </p>
           {error instanceof Error && (
-            <p className="mt-3 text-[11px] text-app-text-muted opacity-60">{error.message}</p>
+            <p className="mt-3 text-[0.6875rem] text-app-text-muted opacity-60">{error.message}</p>
           )}
         </div>
       )}
@@ -132,7 +132,7 @@ export function TodayQuietSection({
         <div className="rounded-[20px] border border-dashed border-app-border bg-white p-8 text-center">
           <Wind size={28} className="mx-auto mb-3 text-gray-300" />
           <p className="text-sm font-bold text-app-text">아직 계산할 성지가 없어요</p>
-          <p className="mt-2 text-[12px] leading-relaxed text-app-text-muted">
+          <p className="mt-2 text-[0.75rem] leading-relaxed text-app-text-muted">
             붐빔을 재려면 성지 좌표가 필요합니다.
             <br />
             현재 좌표가 확인된 곳은 {locatedCount}곳입니다.
@@ -162,7 +162,7 @@ export function TodayQuietSection({
           )}
 
           {/* 추정값이라는 사실을 화면에서 밝힌다 — 목록이 축소돼도 이 문장은 남긴다 */}
-          <p className={`text-[11px] leading-relaxed text-app-text-muted opacity-70 ${compact ? 'mt-2' : 'mt-4'}`}>
+          <p className={`text-[0.6875rem] leading-relaxed text-app-text-muted opacity-70 ${compact ? 'mt-2' : 'mt-4'}`}>
             {t('quietDisclaimer')}
           </p>
         </>

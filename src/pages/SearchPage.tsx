@@ -86,7 +86,7 @@ export default function SearchPage() {
             {/* 처음 온 사람에게 막막하지 않도록, 이미 있는 화면들로 가는 지름길을 준다
                 (2026-09-07 피드백 — 새로 지어낸 추천 목록이 아니라 실제 기능으로 연결한다). */}
             <div className="pb-10">
-              <h2 className="mb-3 text-[10px] font-black uppercase tracking-widest text-slate-400">
+              <h2 className="mb-3 text-[0.625rem] font-black uppercase tracking-widest text-slate-400">
                 {t('searchRecommendTitle')}
               </h2>
               <div className="grid grid-cols-2 gap-3">
@@ -136,7 +136,7 @@ export default function SearchPage() {
 
             {(results.length > 0 || isFetching) && (
               <section className="space-y-4">
-                <h2 className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                <h2 className="text-[0.625rem] font-black uppercase tracking-widest text-slate-400">
                   {t('searchResults')}
                 </h2>
                 <div className="space-y-3">
@@ -181,7 +181,7 @@ export default function SearchPage() {
             {directoryResults.length > 0 && (
               <section className="space-y-4">
                 <div>
-                  <h2 className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  <h2 className="text-[0.625rem] font-black uppercase tracking-widest text-slate-400">
                     {t('directorySearchResults')}
                   </h2>
                   <p className="mt-1.5 text-xs leading-relaxed text-slate-400">
@@ -189,7 +189,7 @@ export default function SearchPage() {
                   </p>
                   {/* 로마자 표기가 실제로 쓰이는 화면에서만 — 기계 변환이라는 것을 밝힌다 */}
                   {language !== 'ko' && directoryResults.some((e) => e.nameRomanized) && (
-                    <p className="mt-1 text-[11px] italic text-slate-300">
+                    <p className="mt-1 text-[0.6875rem] italic text-slate-300">
                       {t('directoryRomanizedNote')}
                     </p>
                   )}
@@ -207,7 +207,7 @@ export default function SearchPage() {
                         <div className="min-w-0 flex-1">
                           <p className="flex flex-wrap items-center gap-2">
                             <span className="truncate font-bold text-slate-900">{displayName}</span>
-                            <span className="shrink-0 rounded-full bg-slate-50 px-2 py-0.5 text-[10px] font-bold text-slate-400">
+                            <span className="shrink-0 rounded-full bg-slate-50 px-2 py-0.5 text-[0.625rem] font-bold text-slate-400">
                               {localizeDomainValue(entry.category, t)}
                             </span>
                           </p>
@@ -245,7 +245,7 @@ export default function SearchPage() {
 
             <section className="space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                <h2 className="text-[0.625rem] font-black uppercase tracking-widest text-slate-400">
                   AI 순례 가이드에게 물어보기
                 </h2>
                 {isLoadingAi && <Loader2 className="animate-spin text-blue-500" size={16} />}
@@ -258,7 +258,7 @@ export default function SearchPage() {
                 >
                   <BookOpen size={24} />
                   <span className="font-bold">&ldquo;{query}&rdquo;에 대해 AI에게 물어보기</span>
-                  <span className="text-[10px] opacity-70">
+                  <span className="text-[0.625rem] opacity-70">
                     Enter를 누르거나 이 버튼을 눌러보세요
                   </span>
                 </button>
@@ -290,7 +290,7 @@ export default function SearchPage() {
                   </div>
                   {/* 성지 DB 밖 내용은 답하지 않도록 서버가 막고 있지만, 미사 시간처럼
                       현지 사정에 따라 바뀌는 정보는 화면에서도 다시 한 번 못 박는다. */}
-                  <p className="mt-6 border-t border-slate-100 pt-4 text-[11px] leading-relaxed text-slate-400">
+                  <p className="mt-6 border-t border-slate-100 pt-4 text-[0.6875rem] leading-relaxed text-slate-400">
                     {t('aiAnswerDisclaimer')}
                   </p>
                 </div>

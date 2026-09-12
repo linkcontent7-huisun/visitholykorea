@@ -88,7 +88,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                   </h3>
                   <div className="flex items-center gap-2">
                     <div className="h-2 w-2 animate-pulse rounded-full bg-green-400 shadow-lg shadow-green-400/50" />
-                    <span className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-white/50">
+                    <span className="text-[0.625rem] font-extrabold uppercase tracking-[0.2em] text-white/50">
                       Online Now
                     </span>
                   </div>

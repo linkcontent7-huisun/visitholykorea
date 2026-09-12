@@ -13,7 +13,9 @@ export default function CompassPage() {
     <HealingQuiz
       isOpen
       onClose={() => navigate(-1)}
-      onSelectSite={(id) => navigate(paths.siteDetail(id))}
+      // 코스를 고르면 상세의 「찾아가는 길」(지도 앱 길찾기)로 바로 연다.
+      // replace: 뒤로가기가 나침반 질문으로 되돌아가지 않게 한다.
+      onSelectSite={(id) => navigate(`${paths.siteDetail(id)}#directions`, { replace: true })}
     />
   );
 }

@@ -38,7 +38,7 @@ export default function RoutesPage() {
             to={paths.routeDetail(route.slug)}
             className="group rounded-[20px] border border-gray-100 bg-app-bg p-6 transition-all hover:border-brand-violet hover:bg-[#F3F0FF]"
           >
-            <div className="mb-1 flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-app-text-muted">
+            <div className="mb-1 flex items-center gap-2 text-[0.6875rem] font-bold uppercase tracking-widest text-app-text-muted">
               <Footprints size={14} aria-hidden />
               {route.stopCount != null && <span>{route.stopCount}곳 경유</span>}
             </div>

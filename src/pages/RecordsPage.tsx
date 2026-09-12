@@ -141,19 +141,19 @@ export default function RecordsPage() {
             {t('recordsLoginCta')}
           </Link>
 
-          <p className="mt-6 text-center text-[12px] font-medium leading-relaxed text-app-text-muted">
+          <p className="mt-6 text-center text-[0.75rem] font-medium leading-relaxed text-app-text-muted">
             {t('browseWithoutLoginNote')}
           </p>
           <div className="mt-4 flex justify-center gap-3">
             <Link
               to={paths.map}
-              className="rounded-2xl border border-app-border bg-white px-5 py-3 text-[13px] font-bold text-app-text"
+              className="rounded-2xl border border-app-border bg-white px-5 py-3 text-[0.8125rem] font-bold text-app-text"
             >
               {t('viewMapButton')}
             </Link>
             <Link
               to={paths.explore}
-              className="rounded-2xl border border-app-border bg-white px-5 py-3 text-[13px] font-bold text-app-text"
+              className="rounded-2xl border border-app-border bg-white px-5 py-3 text-[0.8125rem] font-bold text-app-text"
             >
               {t('browseShrinesButton')}
             </Link>
@@ -225,7 +225,7 @@ export default function RecordsPage() {
                   <div className="p-7">
                     <div className="mb-3 flex items-center gap-2 text-brand-violet">
                       <MapPin size={14} className="fill-brand-violet/10" />
-                      <span className="text-[10px] font-extrabold uppercase tracking-widest">
+                      <span className="text-[0.625rem] font-extrabold uppercase tracking-widest">
                         {log.siteName}
                       </span>
                     </div>
@@ -238,7 +238,7 @@ export default function RecordsPage() {
                     <div className="flex items-center justify-between border-t border-app-border pt-5">
                       <div className="flex items-center gap-2 text-app-text-muted">
                         <Calendar size={14} />
-                        <span className="text-[10px] font-bold">{log.visitDate}</span>
+                        <span className="text-[0.625rem] font-bold">{log.visitDate}</span>
                       </div>
                       <button className="flex items-center gap-1.5 font-bold text-pink-500">
                         <Heart size={16} className="fill-pink-500" />
@@ -260,7 +260,7 @@ export default function RecordsPage() {
         ) : (
           <div className="space-y-10">
             <div className="rounded-[32px] bg-gradient-to-br from-brand-blue to-brand-violet p-8 text-white shadow-xl shadow-brand-blue/20">
-              <p className="mb-2 text-[10px] font-extrabold uppercase tracking-widest opacity-70">
+              <p className="mb-2 text-[0.625rem] font-extrabold uppercase tracking-widest opacity-70">
                 {t('pilgrimPassport')}
               </p>
               <div className="mb-3 flex items-end gap-2">
@@ -357,7 +357,7 @@ export default function RecordsPage() {
                         {done && (
                           <button
                             onClick={() => void handleDioceseCard(diocese)}
-                            className="mt-2 text-[11px] font-extrabold text-brand-violet underline-offset-2 hover:underline"
+                            className="mt-2 text-[0.6875rem] font-extrabold text-brand-violet underline-offset-2 hover:underline"
                             id={`diocese-card-${diocese}`}
                           >
                             {fillPlaceholders(t('dioceseCardButton'), {
@@ -409,19 +409,19 @@ export default function RecordsPage() {
                           </span>
                         )}
                       </div>
-                      <span className="text-center text-[10px] font-extrabold leading-tight tracking-tight text-brand-blue">
+                      <span className="text-center text-[0.625rem] font-extrabold leading-tight tracking-tight text-brand-blue">
                         {stamp.siteName}
                       </span>
-                      <span className={`text-[9px] font-bold ${event.colorClass.text}`}>
+                      <span className={`text-[0.5625rem] font-bold ${event.colorClass.text}`}>
                         {localizeMotifLabel(motif.id, t)} · {t(event.labelKey)}
                       </span>
                       {wydLimited && (
-                        <span className="-mt-2 text-[9px] font-black text-amber-600">
+                        <span className="-mt-2 text-[0.5625rem] font-black text-amber-600">
                           {t('wydLimitedBadge')}
                         </span>
                       )}
                       {reads > 0 && (
-                        <span className="-mt-2 text-[9px] font-bold text-app-text-muted">
+                        <span className="-mt-2 text-[0.5625rem] font-bold text-app-text-muted">
                           {fillPlaceholders(t('noteReadsCount'), { count: reads })}
                         </span>
                       )}

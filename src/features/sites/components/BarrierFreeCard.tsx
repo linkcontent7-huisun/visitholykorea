@@ -24,7 +24,7 @@ export function BarrierFreeCard({ site }: { site: HolySite }) {
         <h2 className="flex-1 text-xl font-extrabold tracking-tight text-app-text">
           무장애 여행 정보
         </h2>
-        <span className="text-[10px] font-bold text-app-text-muted">실시간 · 한국관광공사</span>
+        <span className="text-[0.625rem] font-bold text-app-text-muted">실시간 · 한국관광공사</span>
       </div>
 
       <ul className="space-y-3">
@@ -38,7 +38,7 @@ export function BarrierFreeCard({ site }: { site: HolySite }) {
             </div>
             <div className="min-w-0">
               <h3 className="truncate text-sm font-extrabold text-app-text">{place.title}</h3>
-              <p className="truncate text-[10px] font-bold text-app-text-muted">
+              <p className="truncate text-[0.625rem] font-bold text-app-text-muted">
                 {place.addr1}
                 {place.dist ? ` · ${Math.round(Number(place.dist) / 100) / 10}km` : ''}
               </p>
@@ -48,7 +48,7 @@ export function BarrierFreeCard({ site }: { site: HolySite }) {
       </ul>
 
       {/* 정보의 한계를 밝힌다 — 실제 접근성은 현장이 다를 수 있다 */}
-      <p className="mt-3 text-[11px] leading-relaxed text-app-text-muted">
+      <p className="mt-3 text-[0.6875rem] leading-relaxed text-app-text-muted">
         한국관광공사가 수집한 무장애 정보입니다. 성지 내부의 계단·경사는 다를 수 있으니
         방문 전 성지 사무실에 확인하시는 것이 가장 정확합니다.
       </p>

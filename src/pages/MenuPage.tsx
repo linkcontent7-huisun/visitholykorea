@@ -277,13 +277,13 @@ export default function MenuPage() {
 
         <div className="mt-10 grid grid-cols-2 gap-6 border-t border-app-border pt-10">
           <div className="border-r border-app-border text-center">
-            <p className="mb-1.5 text-[9px] font-extrabold uppercase tracking-widest text-app-text-muted">
+            <p className="mb-1.5 text-[0.5625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
               {t('countShrines')}
             </p>
             <p className="text-xl font-extrabold text-app-text">{stamps.length}</p>
           </div>
           <div className="text-center">
-            <p className="mb-1.5 text-[9px] font-extrabold uppercase tracking-widest text-app-text-muted">
+            <p className="mb-1.5 text-[0.5625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
               {t('countJournals')}
             </p>
             <p className="text-xl font-extrabold text-app-text">{logs.length}</p>
@@ -294,7 +294,7 @@ export default function MenuPage() {
       <div className="flex-1 space-y-10 px-8 pb-32">
         {sections.map((section) => (
           <section key={section.title}>
-            <h3 className="mb-4 ml-4 text-[11px] font-extrabold uppercase tracking-[0.2em] text-app-text-muted">
+            <h3 className="mb-4 ml-4 text-[0.6875rem] font-extrabold uppercase tracking-[0.2em] text-app-text-muted">
               {section.title}
             </h3>
             <div className="overflow-hidden rounded-[32px] border border-app-border bg-white shadow-xl shadow-gray-200/40">
@@ -310,7 +310,7 @@ export default function MenuPage() {
                     <div className="flex-1 text-left">
                       <h4 className="font-bold tracking-tight text-app-text">{item.label}</h4>
                       {item.sub && (
-                        <p className="mt-0.5 text-[11px] font-medium text-app-text-muted">
+                        <p className="mt-0.5 text-[0.6875rem] font-medium text-app-text-muted">
                           {item.sub}
                         </p>
                       )}

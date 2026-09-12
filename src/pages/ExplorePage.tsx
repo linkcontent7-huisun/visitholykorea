@@ -109,7 +109,7 @@ export default function ExplorePage() {
               <ChevronRight size={20} aria-hidden />
             </Link>
 
-            <h2 className="mb-6 text-[11px] font-bold uppercase tracking-widest text-app-text-muted">
+            <h2 className="mb-6 text-[0.6875rem] font-bold uppercase tracking-widest text-app-text-muted">
               {t('byDiocese')}
             </h2>
             <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-8">
@@ -129,7 +129,7 @@ export default function ExplorePage() {
                   </span>
                   {/* 숫자가 없으면 어느 교구를 눌러야 할지 판단할 근거가 없다 */}
                   {dioceseCounts[diocese] != null && (
-                    <span className="text-[10px] font-bold text-gray-300 group-hover:text-brand-violet/60">
+                    <span className="text-[0.625rem] font-bold text-gray-300 group-hover:text-brand-violet/60">
                       {fillPlaceholders(t('siteCountUnit'), { count: dioceseCounts[diocese] })}
                     </span>
                   )}
@@ -182,7 +182,7 @@ export default function ExplorePage() {
                   <button
                     key={label}
                     onClick={() => setNearestFirst(mode)}
-                    className={`flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-[11px] font-extrabold transition-all ${
+                    className={`flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-[0.6875rem] font-extrabold transition-all ${
                       nearestFirst === mode
                         ? 'border-brand-violet bg-brand-violet text-white'
                         : 'border-app-border bg-white text-app-text-muted'
@@ -194,7 +194,7 @@ export default function ExplorePage() {
                   </button>
                 ))}
                 {nearestFirst && (
-                  <span className="text-[11px] font-medium text-app-text-muted">
+                  <span className="text-[0.6875rem] font-medium text-app-text-muted">
                     {gpsLocation ? t('useCurrentLocationButton') : origin} →
                   </span>
                 )}

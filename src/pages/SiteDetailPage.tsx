@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
 import { getInkDaysLeft, getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
@@ -92,7 +92,17 @@ export default function SiteDetailPage() {
   // TanStack Query 가 요청을 하나로 합친다 — TourAPI 추가 호출이 아니다.
   const { data: barrierFreePlaces = [] } = useBarrierFreeNearby(site?.coordinates);
   const { data: nearbyParishes = [] } = useNearbyDirectory(site?.coordinates);
-  const [visitInfoOpen, setVisitInfoOpen] = useState(false);
+  const location = useLocation();
+  // 마음 나침반에서 「이 코스로 가볼게요」로 오면 #directions — 「찾아가는 길」을 펼쳐 놓고 거기서 시작한다
+  const wantsDirections = location.hash === '#directions';
+  const [visitInfoOpen, setVisitInfoOpen] = useState(wantsDirections);
+  useEffect(() => {
+    if (!wantsDirections || !site) return;
+    setVisitInfoOpen(true);
+    // 스크롤은 body 가 아니라 앱 상자(#app-scroll)가 한다 — 요소 기준으로 옮긴다
+    const el = document.getElementById('visit-info-heading');
+    el?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }, [wantsDirections, site]);
   // AI 가이드는 홈 상단에서 이리로 옮겼다 (2026-09-12) — 성지를 보다가 궁금할 때 묻는 자리다
   const [aiOpen, setAiOpen] = useState(false);
   // 공식 사진이 없으면 순례자가 보내준(운영자 승인) 사진이 대표 자리를 채운다.
@@ -287,13 +297,13 @@ export default function SiteDetailPage() {
             />
             {/* 순례자 사진은 누가 보내준 것인지 밝힌다 — 공식 사진과 같아 보이면 안 된다 */}
             {heroPhoto.fromPilgrim && (
-              <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[10px] text-white/80 backdrop-blur-sm">
+              <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[0.625rem] text-white/80 backdrop-blur-sm">
                 {t('photoFromPilgrim')}
               </span>
             )}
             {/* CC 계열 라이선스는 출처 표기가 의무다 — 출처가 기록된 사진에만 붙는다 */}
             {!heroPhoto.fromPilgrim && site.imageSource && (
-              <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[10px] text-white/80 backdrop-blur-sm">
+              <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[0.625rem] text-white/80 backdrop-blur-sm">
                 {site.imageSource}
                 {site.imageLicense ? ` · ${site.imageLicense}` : ''}
               </span>
@@ -338,12 +348,12 @@ export default function SiteDetailPage() {
         </button>
 
         <div className="absolute bottom-12 left-8 right-8 text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.55)]">
-          <span className="inline-block rounded-full bg-brand-violet px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-widest shadow-xl shadow-brand-violet/20">
+          <span className="inline-block rounded-full bg-brand-violet px-3 py-1.5 text-[0.625rem] font-extrabold uppercase tracking-widest shadow-xl shadow-brand-violet/20">
             {localizeDomainValue(site.category, t)}
           </span>
           {/* WYD 2027 공식 일정지 — 해외 청년 20~30만 명이 오는 확정 행사다 */}
           {isWydVenue(site.name) && (
-            <span className="ml-2 inline-block rounded-full bg-amber-400/90 px-3 py-1.5 text-[10px] font-extrabold tracking-wide text-amber-950 shadow-xl">
+            <span className="ml-2 inline-block rounded-full bg-amber-400/90 px-3 py-1.5 text-[0.625rem] font-extrabold tracking-wide text-amber-950 shadow-xl">
               {language === 'ko' ? WYD_LABEL_KO : WYD_LABEL_EN}
             </span>
           )}
@@ -383,7 +393,7 @@ export default function SiteDetailPage() {
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-white/20 bg-white/15 px-3 py-1 text-[11px] font-bold backdrop-blur-md"
+                className="rounded-full border border-white/20 bg-white/15 px-3 py-1 text-[0.6875rem] font-bold backdrop-blur-md"
               >
                 #{localizeDomainValue(tag, t)}
               </span>
@@ -402,7 +412,7 @@ export default function SiteDetailPage() {
           </div>
           {/* 주소는 히어로 부제와 "찾아가는 길"에 이미 나오므로 여기서는 뺀다 (T-004) */}
           <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
-            <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
+            <div className="mb-2 text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
               {t('siteDioceseEmotion')}
             </div>
             <p className="text-xs font-bold text-app-text">
@@ -434,7 +444,7 @@ export default function SiteDetailPage() {
             <Sparkles size={20} aria-hidden className="shrink-0" />
             <span className="min-w-0 flex-1">
               <span className="block text-sm font-extrabold">{t('aiGuideAskAboutSite')}</span>
-              <span className="block text-[11px] font-medium text-white/80">{t('aiGuideTitle')}</span>
+              <span className="block text-[0.6875rem] font-medium text-white/80">{t('aiGuideTitle')}</span>
             </span>
             <ChevronRight size={18} aria-hidden className="shrink-0 opacity-80" />
           </button>
@@ -469,7 +479,7 @@ export default function SiteDetailPage() {
             <div className="space-y-3">
               {site.nearbyAttractions && (
                 <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
-                  <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
+                  <div className="mb-2 text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
                     {t('siteCuratedAttractions')}
                   </div>
                   <p className="whitespace-pre-line text-sm font-medium leading-relaxed text-app-text">
@@ -479,7 +489,7 @@ export default function SiteDetailPage() {
               )}
               {site.nearbyLodging && (
                 <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
-                  <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-app-text-muted">
+                  <div className="mb-2 text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
                     {t('siteCuratedLodging')}
                   </div>
                   <p className="whitespace-pre-line text-sm font-medium leading-relaxed text-app-text">
@@ -503,7 +513,7 @@ export default function SiteDetailPage() {
               <h2 className="text-xl font-extrabold tracking-tight text-app-text">
                 {t('siteNearbyTitle')}
               </h2>
-              <span className="text-[10px] font-bold text-app-text-muted">
+              <span className="text-[0.625rem] font-bold text-app-text-muted">
                 {t('siteNearbyMeta')}
               </span>
             </div>
@@ -525,7 +535,7 @@ export default function SiteDetailPage() {
                       <h3 className="text-sm font-extrabold text-app-text">
                         {t(GROUP_LABEL_KEY[group])}
                       </h3>
-                      <span className="text-[11px] font-bold text-app-text-muted">
+                      <span className="text-[0.6875rem] font-bold text-app-text-muted">
                         {t(GROUP_HINT_KEY[group])}
                       </span>
                     </div>
@@ -551,7 +561,7 @@ export default function SiteDetailPage() {
                               <Compass size={28} className="text-app-text-muted opacity-30" />
                             )}
                             {spot.dist && (
-                              <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[9px] font-extrabold text-brand-violet backdrop-blur-md">
+                              <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[0.5625rem] font-extrabold text-brand-violet backdrop-blur-md">
                                 {Math.round(Number(spot.dist))}m
                               </div>
                             )}
@@ -560,7 +570,7 @@ export default function SiteDetailPage() {
                             <h3 className="mb-1 truncate text-sm font-extrabold text-app-text group-hover:text-brand-violet">
                               {spot.title}
                             </h3>
-                            <p className="truncate text-[10px] font-bold text-app-text-muted">
+                            <p className="truncate text-[0.625rem] font-bold text-app-text-muted">
                               {spot.addr1}
                             </p>
                           </div>
@@ -582,7 +592,7 @@ export default function SiteDetailPage() {
               <h2 className="text-xl font-extrabold tracking-tight text-app-text">
                 {t('siteFestivalsTitle')}
               </h2>
-              <span className="text-[10px] font-bold text-app-text-muted">
+              <span className="text-[0.625rem] font-bold text-app-text-muted">
                 {t('siteLiveSource')}
               </span>
             </div>
@@ -603,7 +613,7 @@ export default function SiteDetailPage() {
                         <h3 className="truncate text-sm font-extrabold text-app-text">
                           {spot.title}
                         </h3>
-                        <p className="truncate text-[10px] font-bold text-app-text-muted">
+                        <p className="truncate text-[0.625rem] font-bold text-app-text-muted">
                           {spot.addr1}
                         </p>
                       </div>
@@ -622,22 +632,22 @@ export default function SiteDetailPage() {
           {!stamped &&
             (wydNow ? (
               // WYD 대회 기간 — 다시 오지 않는 날짜. 이 기간의 스탬프는 그 자체로 참가 증명이다.
-              <p className="text-center text-[11px] font-bold text-amber-600">
+              <p className="text-center text-[0.6875rem] font-bold text-amber-600">
                 ✨ <span className="font-extrabold">
                   {language === 'ko' ? WYD_LIMITED_LABEL_KO : WYD_LIMITED_LABEL_EN}
                 </span>
-                <span className="mt-0.5 block text-[10px] font-semibold text-app-text-muted">
+                <span className="mt-0.5 block text-[0.625rem] font-semibold text-app-text-muted">
                   {t('stampWydNote')}
                 </span>
               </p>
             ) : (
-              <p className="text-center text-[11px] font-bold text-app-text-muted">
+              <p className="text-center text-[0.6875rem] font-bold text-app-text-muted">
                 {t('stampLimitedTitle')}{' '}
                 <span className={todayLiturgical.colorClass.text}>
                   {todayLiturgical.emoji} {t(todayLiturgical.labelKey)}
                 </span>
                 {/* 기한이 보여야 한정판이 한정판이 된다 — 재방문의 이유 */}
-                <span className="mt-0.5 block text-[10px] font-semibold">
+                <span className="mt-0.5 block text-[0.625rem] font-semibold">
                   {fillPlaceholders(t('stampInkChanges'), {
                     days: inkWindow.daysLeft,
                     next: t(inkWindow.nextLabelKey),
@@ -768,7 +778,7 @@ export default function SiteDetailPage() {
                 data-testid="photo-input"
               />
             </label>
-            <p className="mt-2 text-[10px] leading-relaxed text-app-text-muted">
+            <p className="mt-2 text-[0.625rem] leading-relaxed text-app-text-muted">
               {t('photoPrivacyNote')}
             </p>
           </div>
@@ -807,7 +817,7 @@ export default function SiteDetailPage() {
                     <button
                       onClick={() => handleReport(n.id)}
                       disabled={reportedIds.has(n.id)}
-                      className="flex items-center gap-1 text-[10px] font-bold text-app-text-muted/60 disabled:opacity-40"
+                      className="flex items-center gap-1 text-[0.625rem] font-bold text-app-text-muted/60 disabled:opacity-40"
                       aria-label={t('reportAction')}
                     >
                       <Flag size={10} aria-hidden />
@@ -894,7 +904,7 @@ export default function SiteDetailPage() {
                       emojiSizeClass="text-4xl"
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[9px] font-extrabold text-brand-violet backdrop-blur-md">
+                    <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[0.5625rem] font-extrabold text-brand-violet backdrop-blur-md">
                       {localizeDomainValue(nearby.category, t)}
                     </div>
                   </div>
@@ -902,7 +912,7 @@ export default function SiteDetailPage() {
                     <h3 className="mb-1 truncate text-sm font-extrabold text-app-text">
                       {nearby.name}
                     </h3>
-                    <p className="truncate text-[10px] font-bold text-app-text-muted">
+                    <p className="truncate text-[0.625rem] font-bold text-app-text-muted">
                       {nearby.location}
                     </p>
                   </div>

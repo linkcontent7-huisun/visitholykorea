@@ -179,7 +179,7 @@ export default function NearbyPage() {
                             <span className="truncate text-sm font-bold text-app-text">
                               {directoryDisplayName(p, language)}
                             </span>
-                            <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[10px] font-bold text-app-text-muted">
+                            <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[0.625rem] font-bold text-app-text-muted">
                               {localizeDomainValue(p.category, t)}
                             </span>
                           </p>

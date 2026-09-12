@@ -102,7 +102,7 @@ export default function RegionLandingPage() {
         >
           <ArrowLeft size={18} /> {t('backToHome')}
         </button>
-        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-violet">
+        <p className="mb-2 text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-brand-violet">
           Visit Holy Korea
         </p>
         <h1 className="mb-3 text-3xl font-extrabold leading-tight tracking-tight text-app-text">
@@ -128,7 +128,7 @@ export default function RegionLandingPage() {
                 <p className="text-2xl font-extrabold text-app-text">
                   {fillPlaceholders(t('siteCountUnit'), { count: nearby.length })}
                 </p>
-                <p className="text-[12px] font-medium text-app-text-muted">
+                <p className="text-[0.75rem] font-medium text-app-text-muted">
                   {fillPlaceholders(t('regionSiteCountLabel'), {
                     region: regionLabel,
                     radius: RADIUS_KM,
@@ -158,7 +158,7 @@ export default function RegionLandingPage() {
               </ul>
             )}
 
-            <p className="mt-6 text-[11px] leading-relaxed text-app-text-muted opacity-70">
+            <p className="mt-6 text-[0.6875rem] leading-relaxed text-app-text-muted opacity-70">
               {fillPlaceholders(t('regionDistanceDisclaimer'), { region: regionLabel })}
             </p>
 
@@ -172,7 +172,7 @@ export default function RegionLandingPage() {
                   {t('regionParishesBody')}
                 </p>
                 {language !== 'ko' && nearbyParishes.some((p) => p.nameRomanized) && (
-                  <p className="mb-4 text-[11px] italic text-app-text-muted opacity-70">
+                  <p className="mb-4 text-[0.6875rem] italic text-app-text-muted opacity-70">
                     {t('directoryRomanizedNote')}
                   </p>
                 )}
@@ -189,7 +189,7 @@ export default function RegionLandingPage() {
                         <div className="min-w-0 flex-1">
                           <p className="flex flex-wrap items-center gap-2">
                             <span className="truncate text-sm font-bold text-app-text">{displayName}</span>
-                            <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[10px] font-bold text-app-text-muted">
+                            <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[0.625rem] font-bold text-app-text-muted">
                               {localizeDomainValue(p.category, t)}
                             </span>
                           </p>

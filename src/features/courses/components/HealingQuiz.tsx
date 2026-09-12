@@ -365,12 +365,13 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 {t('compassQ1TitleLine2')}
               </h3>
               <p className="text-xs text-app-text-muted mb-8">{t('compassPickColor')}</p>
-              <div className="grid grid-cols-3 gap-5">
+              {/* 5개라 3+2 로 줄이 갈린다 — 아래 2개가 왼쪽에 붙지 않게 가운데 정렬 (2026-09-12) */}
+              <div className="flex flex-wrap justify-center gap-5">
                 {EMOTION_TAGS.map((tag) => (
                   <button
                     key={tag}
                     onClick={() => setEmotion(tag)}
-                    className="flex flex-col items-center gap-3"
+                    className="flex w-[28%] flex-col items-center gap-3"
                     id={`quiz-emotion-${tag}`}
                   >
                     <span
@@ -380,7 +381,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                     >
                       {EMOTION_EMOJI[tag]}
                     </span>
-                    <span className="text-[11px] font-bold text-app-text-muted text-center leading-tight">
+                    <span className="text-[0.6875rem] font-bold text-app-text-muted text-center leading-tight">
                       {t(EMOTION_LABEL[tag])}
                     </span>
                   </button>
@@ -711,20 +712,20 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                                 timeBudget: t(TIME_LABEL[timeBudget]),
                               })}
                             </h4>
-                            <span className="text-[9px] font-bold text-app-text-muted">
+                            <span className="text-[0.5625rem] font-bold text-app-text-muted">
                               {t('compassRealtimeSource')}
                             </span>
                           </div>
                           <ol className="space-y-3">
                             <li className="flex items-start gap-3">
-                              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-blue text-[11px] font-extrabold text-white">
+                              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-blue text-[0.6875rem] font-extrabold text-white">
                                 1
                               </span>
                               <div className="min-w-0">
                                 <p className="truncate text-sm font-extrabold text-app-text">
                                   {result.site.name}
                                 </p>
-                                <p className="text-[11px] font-bold text-app-text-muted">
+                                <p className="text-[0.6875rem] font-bold text-app-text-muted">
                                   {t('compassQuietTime')}
                                 </p>
                               </div>
@@ -733,7 +734,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                               const dist = formatDistance(spot.dist);
                               return (
                                 <li key={spot.contentid} className="flex items-start gap-3">
-                                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-app-bg text-[11px] font-extrabold text-app-text">
+                                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-app-bg text-[0.6875rem] font-extrabold text-app-text">
                                     {i + 2}
                                   </span>
                                   <a
@@ -756,7 +757,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                                         className="shrink-0 text-app-text-muted"
                                       />
                                     </p>
-                                    <p className="flex items-center gap-1 text-[11px] font-bold text-app-text-muted">
+                                    <p className="flex items-center gap-1 text-[0.6875rem] font-bold text-app-text-muted">
                                       <MapPin size={10} className="shrink-0" />
                                       {t(ITINERARY_STEP_LABEL[groupName])}
                                       {dist && <span>· {dist}</span>}
@@ -780,11 +781,11 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                           {t('regionParishesTitle')}
                         </h4>
                       </div>
-                      <p className="mb-1 text-[11px] leading-relaxed text-app-text-muted">
+                      <p className="mb-1 text-[0.6875rem] leading-relaxed text-app-text-muted">
                         {t('regionParishesBody')}
                       </p>
                       {language !== 'ko' && nearbyParishes.some((p) => p.nameRomanized) && (
-                        <p className="mb-4 text-[10px] italic text-app-text-muted opacity-70">
+                        <p className="mb-4 text-[0.625rem] italic text-app-text-muted opacity-70">
                           {t('directoryRomanizedNote')}
                         </p>
                       )}
@@ -800,7 +801,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                                   <span className="truncate text-sm font-bold text-app-text">
                                     {displayName}
                                   </span>
-                                  <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[10px] font-bold text-app-text-muted">
+                                  <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[0.625rem] font-bold text-app-text-muted">
                                     {localizeDomainValue(p.category, t)}
                                   </span>
                                 </p>
@@ -848,8 +849,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                     </button>
                     <button
                       onClick={() => {
+                        // 이동만 한다. 예전엔 여기서 handleClose(뒤로가기)까지 불러
+                        // 상세로 간 직후 나침반으로 되돌아왔다 (2026-09-12 사장님 보고).
                         onSelectSite(result.site.id);
-                        handleClose();
                       }}
                       className="flex-1 bg-brand-blue text-white py-4 rounded-[20px] font-bold text-sm shadow-lg shadow-brand-blue/20"
                       id="quiz-go"

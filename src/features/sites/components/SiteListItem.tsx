@@ -35,11 +35,11 @@ export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) 
         </div>
         <div className="flex flex-1 flex-col justify-center border-b border-app-border pb-5">
           <div className="mb-1 flex items-center gap-2">
-            <span className="rounded-lg bg-brand-violet/5 px-2 text-[9px] font-extrabold uppercase tracking-tight text-brand-violet">
+            <span className="rounded-lg bg-brand-violet/5 px-2 text-[0.5625rem] font-extrabold uppercase tracking-tight text-brand-violet">
               {localizeDomainValue(site.category, t)}
             </span>
             {hasDocent && (
-              <span className="flex items-center gap-1 rounded-lg bg-brand-blue/5 px-2 text-[9px] font-extrabold text-brand-blue">
+              <span className="flex items-center gap-1 rounded-lg bg-brand-blue/5 px-2 text-[0.5625rem] font-extrabold text-brand-blue">
                 <Headphones size={10} aria-hidden />
                 {t('docentTitle')}
               </span>
@@ -50,7 +50,7 @@ export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) 
           </h4>
           <p className="w-48 truncate text-xs font-medium text-app-text-muted">{site.location}</p>
           {/* 가까운 순 정렬일 때 — 여기가 얼마나 먼 곳인지 목록에서 바로 보인다 */}
-          {meta && <p className="mt-0.5 text-[11px] font-bold text-brand-blue">{meta}</p>}
+          {meta && <p className="mt-0.5 text-[0.6875rem] font-bold text-brand-blue">{meta}</p>}
         </div>
       </Link>
     </motion.div>

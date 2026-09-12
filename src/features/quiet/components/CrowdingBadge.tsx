@@ -28,7 +28,7 @@ export function CrowdingBadge({ level, score, isPartial = false }: CrowdingBadge
   const { t } = useSettings();
   return (
     <span
-      className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1 text-[11px] font-bold ${LEVEL_STYLE[level]}`}
+      className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1 text-[0.6875rem] font-bold ${LEVEL_STYLE[level]}`}
     >
       {localizeCrowdingLevel(level, t)}
       <span className="font-medium opacity-60">{score}</span>

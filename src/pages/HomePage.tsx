@@ -122,7 +122,7 @@ export default function HomePage() {
                       </div>
                     )}
                     <div className="absolute inset-x-0 bottom-0 p-6 text-white">
-                      <p className="text-[11px] font-bold uppercase tracking-widest opacity-90">
+                      <p className="text-[0.6875rem] font-bold uppercase tracking-widest opacity-90">
                         {localizeRegionName(site.region, language)} · {localizeDomainValue(site.category, t)}
                       </p>
                       <h2 className="mt-1 text-[26px] font-extrabold leading-tight tracking-tight">
@@ -130,7 +130,7 @@ export default function HomePage() {
                       </h2>
                       {/* 도슨트 원고가 없는 성지에 있는 척하는 CTA 를 붙이지 않는다(더미 금지). */}
                       {docent && (
-                        <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-[13px] font-semibold backdrop-blur-md">
+                        <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-[0.8125rem] font-semibold backdrop-blur-md">
                           <Headphones size={16} aria-hidden />
                           {t('heroDocentCta')}
                         </span>
@@ -171,7 +171,7 @@ export default function HomePage() {
             <div className="absolute inset-0 hidden items-center lg:flex">
               <PageContainer>
                 <div className="max-w-[620px] text-white">
-                  <p className="text-[11px] font-bold uppercase tracking-[.2em] text-[#c4b5fd]">
+                  <p className="text-[0.6875rem] font-bold uppercase tracking-[.2em] text-[#c4b5fd]">
                     2026 관광데이터 활용 공모전 출품작
                   </p>
                   <h1 className="mt-4 text-[46px] font-extrabold leading-[1.12] tracking-tight">
@@ -209,7 +209,7 @@ export default function HomePage() {
               to={paths.siteDetail(heroSite.id)}
               className="absolute inset-x-auto bottom-8 right-10 block max-w-[280px] rounded-2xl bg-black/35 p-5 text-white backdrop-blur-md"
             >
-              <p className="text-[11px] font-bold uppercase tracking-widest opacity-90">
+              <p className="text-[0.6875rem] font-bold uppercase tracking-widest opacity-90">
                 {localizeRegionName(heroSite.region, language)} · {localizeDomainValue(heroSite.category, t)}
               </p>
               <h2 className="mt-1 text-[20px] font-extrabold leading-tight tracking-tight">
@@ -217,7 +217,7 @@ export default function HomePage() {
               </h2>
               {/* 도슨트 원고가 없는 성지에 있는 척하는 CTA 를 붙이지 않는다(더미 금지). */}
               {heroDocent && (
-                <span className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1.5 text-[12px] font-semibold backdrop-blur-md">
+                <span className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1.5 text-[0.75rem] font-semibold backdrop-blur-md">
                   <Headphones size={16} aria-hidden />
                   {t('heroDocentCta')}
                 </span>
@@ -247,7 +247,7 @@ export default function HomePage() {
             <span className="block text-lg font-extrabold leading-tight lg:text-xl">
               {t('nearbyEntryTitle')}
             </span>
-            <span className="mt-1 block text-[12px] font-medium text-white/80 lg:text-sm">
+            <span className="mt-1 block text-[0.75rem] font-medium text-white/80 lg:text-sm">
               {t('nearbyEntrySub')}
             </span>
           </span>
@@ -270,7 +270,7 @@ export default function HomePage() {
             <span className="block text-lg font-extrabold leading-tight lg:text-xl">
               {t('compassTitle')}
             </span>
-            <span className="mt-1 block text-[12px] font-medium text-white/85 lg:text-sm">
+            <span className="mt-1 block text-[0.75rem] font-medium text-white/85 lg:text-sm">
               {t('compassEntrySub')}
             </span>
           </span>
@@ -295,7 +295,7 @@ export default function HomePage() {
                 ? fillPlaceholders(t('nearbyRegionTitle'), { origin: localizeRegionName(origin, language) })
                 : t('exploreAllTitle')}
           </h3>
-          <Link to={paths.explore} className="shrink-0 text-[12px] font-bold text-brand-violet">
+          <Link to={paths.explore} className="shrink-0 text-[0.75rem] font-bold text-brand-violet">
             {t('explore')}
             <ChevronRight size={14} className="ml-0.5 inline" aria-hidden />
           </Link>

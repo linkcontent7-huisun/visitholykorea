@@ -97,7 +97,7 @@ export default function MapPage() {
   /** 핀·목록에서 고른 성지 카드. 구글맵처럼 정보보다 행동이 먼저 온다. */
   const selectedCard = selectedSite && (
     <div className="rounded-[24px] border border-brand-blue/30 bg-white p-5 shadow-sm">
-      <span className="text-[10px] font-extrabold uppercase tracking-tight text-brand-violet">
+      <span className="text-[0.625rem] font-extrabold uppercase tracking-tight text-brand-violet">
         {selectedSite.region} · {selectedSite.category}
       </span>
       <h2 className="mt-0.5 text-base font-bold text-app-text">{selectedSite.name}</h2>
@@ -330,7 +330,7 @@ function MapListRow({
           )}
         </div>
         <div className="min-w-0 flex-1">
-          <span className="text-[9px] font-extrabold uppercase tracking-tight text-brand-violet">
+          <span className="text-[0.5625rem] font-extrabold uppercase tracking-tight text-brand-violet">
             {site.category}
           </span>
           <h4 className="truncate text-sm font-bold text-app-text">{site.name}</h4>

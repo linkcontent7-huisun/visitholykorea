@@ -31,7 +31,7 @@ export function CourseCardItem({ course }: { course: CourseCard }) {
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {course.walkMinutes != null && (
-          <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold text-brand-blue shadow-sm backdrop-blur-sm">
+          <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-[0.625rem] font-bold text-brand-blue shadow-sm backdrop-blur-sm">
             <Footprints size={12} />{' '}
             {fillPlaceholders(t('walkMinutesLabel'), { minutes: course.walkMinutes })}
           </div>
@@ -41,12 +41,12 @@ export function CourseCardItem({ course }: { course: CourseCard }) {
         <h4 className="mb-2 text-[15px] font-extrabold leading-snug text-app-text">
           {course.title}
         </h4>
-        <p className="mb-3 text-[12px] leading-relaxed text-app-text-muted">{course.subtitle}</p>
+        <p className="mb-3 text-[0.75rem] leading-relaxed text-app-text-muted">{course.subtitle}</p>
         <div className="flex flex-wrap gap-1.5">
           {tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-app-bg px-2.5 py-1 text-[10px] font-bold text-app-text-muted"
+              className="rounded-full bg-app-bg px-2.5 py-1 text-[0.625rem] font-bold text-app-text-muted"
             >
               #{localizeDomainValue(tag, t)}
             </span>
