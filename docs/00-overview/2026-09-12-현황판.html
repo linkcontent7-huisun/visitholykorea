@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visit Holy Korea 현황판 (2026-09-12)</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#F5F6FA; --paper:#FFFFFF; --ink:#141C33; --ink-2:#4A5570; --ink-3:#7C86A0;
+  --line:#DDE1EC; --line-2:#EEF0F6;
+  --accent:#1E3A8A; --accent-soft:#E8EDFB; --violet:#6D28D9;
+  --done:#1B7F4C; --done-bg:#E4F4EA; --wip:#A8650F; --wip-bg:#FBEFD9; --todo:#B42318; --todo-bg:#FBE4E1; --off:#6B7280; --off-bg:#ECEEF3;
+  --mono:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --serif:"Noto Serif KR","Apple Myungjo","Batang",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1424; --paper:#171D31; --ink:#EEF1F8; --ink-2:#B6BDD0; --ink-3:#8C95AE;
+    --line:#2A3350; --line-2:#222A44;
+    --accent:#8FA6F0; --accent-soft:#1E2A52; --violet:#B497F5;
+    --done:#6CD39A; --done-bg:#163425; --wip:#F0B45A; --wip-bg:#3A2A10; --todo:#F58A7C; --todo-bg:#3F1A16; --off:#9AA3B8; --off-bg:#232A40;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1424; --paper:#171D31; --ink:#EEF1F8; --ink-2:#B6BDD0; --ink-3:#8C95AE;
+  --line:#2A3350; --line-2:#222A44;
+  --accent:#8FA6F0; --accent-soft:#1E2A52; --violet:#B497F5;
+  --done:#6CD39A; --done-bg:#163425; --wip:#F0B45A; --wip-bg:#3A2A10; --todo:#F58A7C; --todo-bg:#3F1A16; --off:#9AA3B8; --off-bg:#232A40;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:15px;line-height:1.65;padding-block:0 80px;padding-inline:20px}
+.wrap{max-width:1040px;margin:0 auto}
+header.top{padding-block:44px 28px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+h1{font-family:var(--serif);font-size:clamp(28px,4vw,40px);line-height:1.2;margin:8px 0 10px;text-wrap:balance;font-weight:700}
+.lede{color:var(--ink-2);max-width:62ch;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-size:13px;color:var(--ink-3)}
+.meta b{color:var(--ink-2);font-weight:600}
+h2{font-family:var(--serif);font-size:24px;margin:0 0 6px;font-weight:700;text-wrap:balance}
+h3{font-size:15px;margin:0 0 8px;font-weight:600}
+section{padding-block:40px 8px}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sec-head p{margin:0;color:var(--ink-2);flex-basis:100%;max-width:70ch}
+.stage{font-size:12px;color:var(--accent);font-weight:600;letter-spacing:.08em}
+
+/* 숫자 타일 */
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.num{background:var(--paper);padding:16px 18px}
+.num .v{font-size:30px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1;letter-spacing:-.01em}
+.num .v small{font-size:14px;color:var(--ink-3);font-weight:500;margin-left:2px}
+.num .l{font-size:13px;color:var(--ink-2);margin-top:4px}
+.num .d{font-size:11px;color:var(--ink-3);margin-top:2px}
+
+/* 상태 알약 */
+.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px 2px 8px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;vertical-align:middle}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.p-done{color:var(--done);background:var(--done-bg)}
+.p-wip{color:var(--wip);background:var(--wip-bg)}
+.p-todo{color:var(--todo);background:var(--todo-bg)}
+.p-off{color:var(--off);background:var(--off-bg)}
+
+/* 표 */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th{font-size:12px;text-align:left;color:var(--ink-3);font-weight:600;letter-spacing:.04em;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--paper)}
+td{padding:10px 14px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.k{font-weight:600;white-space:nowrap}
+td.d{color:var(--ink-3);font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+td .how{color:var(--ink-2);font-size:13px;display:block;margin-top:2px}
+tr.group td{background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:12px;letter-spacing:.06em;padding:6px 14px}
+
+/* 랜딩 순서 */
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;counter-reset:step}
+.step{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;position:relative}
+.step::before{counter-increment:step;content:counter(step);position:absolute;top:12px;right:14px;font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.step h3{padding-right:24px}
+.step p{margin:0;font-size:13px;color:var(--ink-2)}
+.step .tech{margin-top:8px;font-size:12px;color:var(--ink-3)}
+.step .tech code{background:var(--off-bg);padding:1px 6px;border-radius:4px;font-family:var(--mono);color:var(--ink-2)}
+
+/* 다이어그램 */
+.diagram{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto}
+pre.mermaid{margin:0;font-size:14px}
+.cap{font-size:12px;color:var(--ink-3);margin:8px 2px 0}
+
+/* 남은 일 */
+.todo-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.col{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.col.hot{border-color:var(--todo)}
+.col h3{display:flex;justify-content:space-between;align-items:baseline}
+.col h3 span{font-size:12px;color:var(--ink-3);font-weight:500}
+.col ul{margin:8px 0 0;padding-left:18px}
+.col li{margin-bottom:6px;font-size:14px}
+.col li small{color:var(--ink-3);display:block;font-size:12px}
+.col li.you::marker{color:var(--todo)}
+
+/* 명령어 */
+.cmds{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+.cmd{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14px}
+.cmd b{display:block;font-family:var(--mono);color:var(--accent);margin-bottom:2px}
+.cmd span{color:var(--ink-2);font-size:13px}
+.note{border-left:3px solid var(--accent);padding:6px 14px;color:var(--ink-2);font-size:14px;margin:18px 0 0;background:var(--paper);border-radius:0 8px 8px 0}
+footer{margin-top:40px;font-size:12px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:14px}
+a{color:var(--accent)}
+@media (max-width:520px){ .meta{gap:6px 14px} th,td{padding:8px 10px} }
+@media (prefers-reduced-motion:no-preference){ .pill{transition:none} }
+</style>
+<style>img{max-width:100%} pre.mermaid{font-family:var(--mono)}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">2026 한국관광공사 관광데이터 활용 공모전 · 기능 동결 9/14 · 제출 9/21 16:00</div>
+  <h1>Visit Holy Korea 현황판</h1>
+  <p class="lede">전국 가톨릭 성지 208곳을 6개 국어로 안내하는 순례 웹앱. 지금 무엇이 되고, 화면이 어떤 순서로 움직이며, 무엇이 남았는지를 한 장에 모았다. 모든 숫자는 잰 날짜를 함께 적었다.</p>
+  <div class="meta">
+    <span>작성 <b>2026-09-12 01:30</b></span>
+    <span>기준 커밋 <b>a36377c</b></span>
+    <span>배포 <b>visitholykorea-app.vercel.app</b></span>
+    <span>상태 <b>무료 공개 베타</b></span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head"><h2>실측 숫자</h2></div>
+  <div class="nums">
+    <div class="num"><div class="v">208</div><div class="l">성지 (DB)</div><div class="d">9/1 실측</div></div>
+    <div class="num"><div class="v">53<small>/208</small></div><div class="l">대표 사진 있는 곳</div><div class="d">9/1 실측 · 나머지 155곳은 9/12부터 임시 이미지</div></div>
+    <div class="num"><div class="v">208<small>/208</small></div><div class="l">영어 번역 (이름·소개·역사)</div><div class="d">9/1 실측</div></div>
+    <div class="num"><div class="v">6</div><div class="l">화면 언어 · 문구 426키</div><div class="d">한·영·스·프·포·이 · 9/12 실측</div></div>
+    <div class="num"><div class="v">13</div><div class="l">오디오 도슨트 (한·영·스)</div><div class="d">9/11 · 확대 중</div></div>
+    <div class="num"><div class="v">5,918</div><div class="l">본당·공소 주소록</div><div class="d">9/8 실측</div></div>
+    <div class="num"><div class="v">19</div><div class="l">화면 · DB 표 15개</div><div class="d">9/12 코드 기준</div></div>
+    <div class="num"><div class="v">349</div><div class="l">자동 테스트 통과</div><div class="d">9/12 00:50</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>화면이 움직이는 순서</h2>
+    <p>순례자가 앱을 여는 순간부터 기록을 남기기까지. 하단 탭 다섯 개가 뼈대이고, 성지 상세가 모든 길의 종착점이다.</p>
+  </div>
+  <div class="diagram">
+<pre class="mermaid">
+flowchart LR
+  L["링크·QR로 접속<br/>(설치 없음)"] --> H["홈 (랜딩)"]
+  H --> T1["지도 탭<br/>전국 조망·교구 진행률"]
+  H --> T2["탐색 탭<br/>교구별 목록"]
+  H --> T3["기록 탭<br/>스탬프·여권·여행기"]
+  H --> T4["메뉴 탭<br/>언어·큰 글자·현재 위치·관리자"]
+  H --> S["검색<br/>이름·지역·본당"]
+  H --> C["마음 나침반<br/>감정 → 코스"]
+  H --> Q["붐빔 피하기 · 축제 가는 김에<br/>(TourAPI 실시간)"]
+  T1 --> D
+  T2 --> D
+  S --> D
+  C --> R["순례 코스"] --> D
+  Q --> D
+  D["성지 상세<br/>사진 · 예절 · 도슨트 · 역사<br/>길찾기 5종 · 주변 5km · AI 가이드"]
+  D --> P["스탬프 찍기<br/>사진 1장 · 한 줄 감상"] --> T3
+  T4 --> A["관리자 콘솔 /admin<br/>(admin·editor 만)"]
+</pre>
+  </div>
+  <p class="cap">로그인은 스탬프·즐겨찾기·여행기 쓸 때만 요구한다. 보는 것은 전부 로그인 없이 된다.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>랜딩 페이지(홈)는 위에서 아래로 이렇게 짜여 있다</h2>
+    <p>홈은 한 화면에 앱의 여덟 가지 기능을 순서대로 보여주는 진열장이다. 각 칸이 어떤 기술로 움직이는지 함께 적었다.</p>
+  </div>
+  <div class="flow">
+    <div class="step"><h3>히어로 사진</h3><p>오늘의 성지 다섯 곳을 좌우로 넘긴다(휴대폰) · 데스크톱은 한 장이 화면 폭을 채움</p><div class="tech">사진 있는 성지 + 순례자 승인 사진 · <code>useFeaturedPhotos</code> · 9/8</div></div>
+    <div class="step"><h3>바로가기 4개</h3><p>마음 나침반 · 붐빔 피하기 · 축제 가는 김에 · AI 가이드</p><div class="tech">휴대폰 2×2, 데스크톱 한 줄 · 9/7 정리</div></div>
+    <div class="step"><h3>쉼표 순례길</h3><p>위로·새출발·평온·치유 중 하나를 고르면 그 감정에 맞는 순례 코스</p><div class="tech">감정 태그 매칭 · <code>useRecommendedCourses</code></div></div>
+    <div class="step"><h3>오늘의 쉼표</h3><p>지금 붐비는 관광지 대신 조용한 성지를 권한다</p><div class="tech">TourAPI 실시간 조회, 저장 안 함(공모전 규정)</div></div>
+    <div class="step"><h3>순례 여권 미리보기</h3><p>로그인 전에만 보임 — 스탬프가 이렇게 쌓인다는 안내</p><div class="tech">가입 유도 장치 · GPS 있으면 가까운 순으로</div></div>
+    <div class="step"><h3>순례자 이야기</h3><p>실제 방문자가 남긴 한 줄이 있을 때만 조용히 노출</p><div class="tech"><code>pilgrimage_stamps.note</code> · 숨김 처리된 글은 제외</div></div>
+    <div class="step"><h3>전국 성지</h3><p>현재 위치(허용 시) 또는 선택 지역에서 가까운 순 8곳</p><div class="tech">GPS 좌표는 메모리에만 · 9/8 T-011</div></div>
+    <div class="step"><h3>상단·하단 고정</h3><p>상단: 로고 · AI 검색창 · 언어. 하단: 홈·지도·탐색·기록·메뉴</p><div class="tech">반응형 껍데기 · 데스크톱은 상단 메뉴로 전환 · 9/7 PR #13</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>기능 현황</h2>
+    <p>순례자의 여정 순서 — 찾기·가기·이해하기·머물기·기록하기 — 로 묶었다. "확인일"은 실제로 동작을 본 날이다. 코드만 있고 눈으로 못 본 것은 그렇게 적었다.</p>
+  </div>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>기능</th><th>상태</th><th>확인일</th><th>무엇으로 · 어디까지</th></tr></thead>
+    <tbody>
+      <tr class="group"><td colspan="4">접근 · 언어</td></tr>
+      <tr><td class="k">설치 없는 웹앱 (휴대폰·태블릿·PC)</td><td><span class="pill p-done">완료</span></td><td class="d">9/7</td><td>React + Vite + Tailwind, Vercel 배포. 375·768·1280px 확인<span class="how">Capacitor 설정은 있으나 앱스토어 제출은 안 함</span></td></tr>
+      <tr><td class="k">6개 국어 화면</td><td><span class="pill p-done">완료</span></td><td class="d">9/7</td><td>문구 426키 × 6언어 사전. 영어 모드 잔여 한국어 T-007로 정리<span class="how">성지 본문은 영어 208/208, 다른 4개 언어는 영어→한국어 순으로 대체</span></td></tr>
+      <tr><td class="k">큰 글자 모드 · 읽어주기(TTS) · 속도</td><td><span class="pill p-done">완료</span></td><td class="d">9/7</td><td>Web Speech API, 언어별 음성 자동 선택<span class="how">실제 안드로이드·아이폰에서 음성 품질은 미확인</span></td></tr>
+      <tr class="group"><td colspan="4">찾기</td></tr>
+      <tr><td class="k">성지 208곳 검색·탐색</td><td><span class="pill p-done">완료</span></td><td class="d">9/1</td><td>이름·지역·감정·분류. 교구별 탐색, 시·도 랜딩 <code>/region/충북</code></td></tr>
+      <tr><td class="k">현재 위치로 가까운 성지</td><td><span class="pill p-wip">폰 확인 남음</span></td><td class="d">9/8</td><td>메뉴에서 직접 켤 때만 GPS. 좌표는 저장·전송 안 함<span class="how">권한 거부 경로는 확인. 실제 휴대폰에서 성공 경로 미확인</span></td></tr>
+      <tr><td class="k">본당·공소 5,918건 주변 검색</td><td><span class="pill p-done">완료</span></td><td class="d">9/8</td><td>반경 5km, 로마자 표기 — 숙소 근처 미사 찾기</td></tr>
+      <tr><td class="k">전국 조망 지도 (교구 진행률)</td><td><span class="pill p-done">완료</span></td><td class="d">8월</td><td>그림 지도(SVG). 도로가 보이는 실제 지도 타일은 아직 없음</td></tr>
+      <tr><td class="k">앱 안 네이버 지도 (핀·주변)</td><td><span class="pill p-todo">미착수</span></td><td class="d">9/12</td><td>NCP Maps 키는 받음. 인증 실패 → 콘솔에서 Web Dynamic Map·URL 등록 필요<span class="how">키 통과 후 상세·지도 탭에 붙일 예정</span></td></tr>
+      <tr class="group"><td colspan="4">가기</td></tr>
+      <tr><td class="k">길찾기 5종 연결</td><td><span class="pill p-done">완료</span></td><td class="d">8월</td><td>카카오·티맵·네이버·구글·애플 — 언어에 따라 순서 바뀜</td></tr>
+      <tr><td class="k">주소 겹침 등 상세 상단 다듬기</td><td><span class="pill p-done">완료</span></td><td class="d">9/7</td><td>어두운 띠·그림자 추가</td></tr>
+      <tr class="group"><td colspan="4">이해하기</td></tr>
+      <tr><td class="k">방문 예절 안내</td><td><span class="pill p-done">완료</span></td><td class="d">8월</td><td>미사 중 출입·복장·사진</td></tr>
+      <tr><td class="k">오디오 도슨트</td><td><span class="pill p-wip">13곳</span></td><td class="d">9/11</td><td>챕터형, 한·영·스페인어 원고. 초안은 「초안」 표시<span class="how">원고 없는 195곳은 소개·역사 본문을 읽어줌</span></td></tr>
+      <tr><td class="k">AI 가이드 (미카엘)</td><td><span class="pill p-done">완료</span></td><td class="d">9/11 23:35</td><td>Supabase Edge Function + Gemini 3.6 Flash. 성지 DB 안에서만 답함<span class="how">"절두산은 어떤 곳" 질문에 정확히 답함. 키는 서버에만</span></td></tr>
+      <tr><td class="k">대표 사진</td><td><span class="pill p-wip">53곳</span></td><td class="d">9/12</td><td>나머지 155곳은 "곧 현장 사진을 올릴 예정" 임시 이미지 6장을 이름 기준 고정 배정</td></tr>
+      <tr class="group"><td colspan="4">머물기</td></tr>
+      <tr><td class="k">주변 5km 맛집·숙박·관광지·축제</td><td><span class="pill p-done">완료</span></td><td class="d">8월</td><td>한국관광공사 TourAPI 4개 엔드포인트, 매번 실시간, 저장 안 함</td></tr>
+      <tr><td class="k">축제 가는 김에 · 붐빔 피하기 · 쉼터</td><td><span class="pill p-done">완료</span></td><td class="d">8월</td><td>오늘 열리는 축제 옆 성지 / 붐비는 곳 대신 조용한 성지 / 쉼터 제보</td></tr>
+      <tr><td class="k">성지가 알려주는 주변 (운영자 작성)</td><td><span class="pill p-done">완료</span></td><td class="d">9/12</td><td>관리자가 적은 볼거리·숙박 안내. 내용이 있을 때만 절이 생김</td></tr>
+      <tr class="group"><td colspan="4">기록하기</td></tr>
+      <tr><td class="k">스탬프 · 사진 1장 · 한 줄 감상</td><td><span class="pill p-done">완료</span></td><td class="d">9/6</td><td>휴대폰에서 축소 후 업로드. 신고 기능 포함</td></tr>
+      <tr><td class="k">순례 여권 · 교구 진행률 · 인증서 · 공유 카드</td><td><span class="pill p-done">완료</span></td><td class="d">8월</td><td>전례력(대림·사순…) 한정판 문양<span class="how">영어 모드에서 여권 화면 문구 수동 확인 남음</span></td></tr>
+      <tr><td class="k">여행기 · 즐겨찾기 · 나침반 응답 저장</td><td><span class="pill p-done">완료</span></td><td class="d">8월</td><td>로드맵 문서(8/4)에는 미구현으로 남아 있으나 표·화면 모두 있음</td></tr>
+      <tr class="group"><td colspan="4">계정 · 운영</td></tr>
+      <tr><td class="k">로그인</td><td><span class="pill p-wip">이메일만</span></td><td class="d">9/12</td><td>이메일·비밀번호. 카카오·구글·네이버 소셜은 모두 꺼짐<span class="how">naver-auth 함수 코드만 있고 미배포</span></td></tr>
+      <tr><td class="k">관리자 콘솔 <code>/admin</code></td><td><span class="pill p-wip">업로드 실측 남음</span></td><td class="d">9/12</td><td>권한 3단계(member·editor·admin), 채울 곳 대기열, 208곳 검색, 사진 교체, 이름·요약·소개·역사·출처·연락처·주변 안내 편집, 이력 되돌리기, 순례자 사진 승인·글 숨김<span class="how">실제 사진 업로드를 끝까지 해본 기록 없음 — 사장님 계정으로 1회 필요</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>기술 구조도</h2>
+    <p>브라우저 한 벌, 서버는 Supabase 하나, 바깥 API 셋. 비밀 키는 전부 서버 쪽에만 있다.</p>
+  </div>
+  <div class="diagram">
+<pre class="mermaid">
+flowchart TB
+  subgraph B["브라우저 (Vercel 배포)"]
+    R["React 19 · TypeScript · Vite<br/>Tailwind · TanStack Query<br/>pages → features → shared"]
+    I["6개 국어 사전 · 큰 글자 · TTS"]
+    G["GPS (메모리만) · 지도 링크 5종"]
+  end
+  subgraph S["Supabase"]
+    DB["Postgres 15개 표<br/>holy_sites · translations<br/>stamps · routes · directory …<br/>행 단위 권한(RLS)"]
+    AU["Auth (이메일)"]
+    ST["Storage<br/>site-photos · pilgrim-photos"]
+    EF["Edge Functions<br/>ai-guide ✔ 9/11<br/>naver-auth (미배포)"]
+  end
+  T["한국관광공사 TourAPI<br/>실시간 · 저장 안 함"]
+  GM["Google Gemini 3.6 Flash<br/>키는 서버 시크릿"]
+  NV["네이버 클라우드 Maps<br/>키 있음 · 인증 대기"]
+  R --> DB
+  R --> AU
+  R --> ST
+  R --> EF
+  R --> T
+  EF --> GM
+  EF --> DB
+  G -.-> NV
+</pre>
+  </div>
+  <p class="cap">데이터 원칙 — <code>holy_sites</code>는 직접 수집한 자체 데이터라 저장·캐시 자유. TourAPI 응답은 저장하면 실격 위험이라 매번 새로 부른다(ADR 0002).</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>남은 일</h2>
+    <p>빨간 테두리는 사장님이 직접 해야 하는 것. 나머지는 지시하면 세션이 한다.</p>
+  </div>
+  <div class="todo-cols">
+    <div class="col hot"><h3>9/14 동결 전 <span>이번 주말</span></h3>
+      <ul>
+        <li class="you">네이버 콘솔에서 Web Dynamic Map 체크 + URL 2개 등록<small>사장님 · 5분 · 그 뒤 "다시 확인해줘"</small></li>
+        <li>앱 안 네이버 지도 — 상세(성지·본당·TourAPI 핀), 지도 탭(현재 위치 중심)<small>키 통과 후 · 반나절</small></li>
+        <li class="you">관리자 콘솔에서 성지 하나 사진 교체·요약 저장 → 상세 반영 확인<small>사장님 · 10분</small></li>
+        <li class="you">휴대폰에서 메뉴 → 현재 위치 사용 → 가까운 순 정렬 확인<small>사장님 · 5분</small></li>
+        <li>큰 글자 모드 × 375·768·1280px 화면 확인<small>세션</small></li>
+      </ul>
+    </div>
+    <div class="col"><h3>9/21 제출 전 <span>공모전</span></h3>
+      <ul>
+        <li class="you">앱 캡처 — 홈·상세·도슨트·영어 모드·반응형<small>사장님</small></li>
+        <li>제출용 서비스 설명서 · 데이터 활용 설명(TourAPI 4개 엔드포인트)<small>세션</small></li>
+        <li>실제 기기(안드로이드·아이폰)에서 TTS·GPS·업로드 한 번씩<small>사장님 + 세션</small></li>
+      </ul>
+    </div>
+    <div class="col"><h3>이후 <span>10월 심사 · WYD 2027</span></h3>
+      <ul>
+        <li>대표 사진 155곳 현장 촬영 (임시 이미지 교체)</li>
+        <li>도슨트 13 → 교구대회 개최지 대표 성지부터 확대</li>
+        <li>소셜 로그인(네이버·카카오) 켜기 — naver-auth 배포</li>
+        <li>앱스토어 제출(Capacitor), 도메인 visitholykorea.com 연결</li>
+        <li>에이전트 오케스트레이션 재개 (WSL → 워크트리 → 키 교체)</li>
+        <li>GitHub 지원 티켓 #4734391 답 오면 마무리</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>이 판을 다시 부르는 말</h2>
+    <p>"기술 설계도·CR·구조도" 같은 말은 서로 다른 문서를 가리킨다. 이 현황판이 원하는 것이면 첫 줄만 말하면 된다.</p>
+  </div>
+  <div class="cmds">
+    <div class="cmd"><b>"현황판 갱신해줘"</b><span>이 페이지를 지금 코드·DB 기준으로 다시 잰다 (숫자·상태·남은 일)</span></div>
+    <div class="cmd"><b>"화면 흐름도 보여줘"</b><span>위의 "화면이 움직이는 순서"만 — 새 화면을 넣기 전에 볼 때</span></div>
+    <div class="cmd"><b>"기술 구조도 보여줘"</b><span>브라우저·서버·외부 API 연결 그림 — 심사위원·개발자에게 설명할 때</span></div>
+    <div class="cmd"><b>"기능 현황표 보여줘"</b><span>기능별 완료·진행·미착수 표만 — 무엇을 시킬지 고를 때</span></div>
+    <div class="cmd"><b>"이어서 할 일 알려줘"</b><span><code>docs/이어서-할-일.md</code> 맨 위 항목 — 매 세션 시작 때</span></div>
+    <div class="cmd"><b>"보고서 써줘"</b><span>끝난 것·진행 중·판단 필요·못 한 것 — 정해진 날 보고 형식</span></div>
+  </div>
+  <p class="note">CR(Change Request)은 "고쳐 달라는 요청서"라 현황을 보는 문서가 아니다. 설계 이유가 궁금하면 "왜 이렇게 만들었어" — 그건 <code>docs/20-architecture/adr/</code>에 있다.</p>
+</section>
+
+<footer>출처 — 코드 저장소 main(a36377c) · docs/이어서-할-일.md · docs/프로젝트-핵심기능-구조-테스트-분석-2026-09-10.md(일부 항목은 그 뒤 해결됨) · 2026-09-12 01:30 작성</footer>
+</div>
+
+<!-- 흐름도·구조도는 인터넷이 연결돼 있어야 그려진다 (mermaid CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+  var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  mermaid.initialize({ startOnLoad: true, theme: dark ? 'dark' : 'neutral', fontFamily: 'IBM Plex Sans KR, sans-serif' });
+</script>
+</body>
+</html>
