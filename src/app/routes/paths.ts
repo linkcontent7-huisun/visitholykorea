@@ -26,6 +26,8 @@ export const paths = {
    * 시·도 랜딩 — 지자체·지역 기관에 건네는 링크(예: `/region/대전`).
    * 17개 시·도 전부에 같은 화면이 뜬다. 한 지역만 따로 만들지 않는다.
    */
+  /** 여기에서 가장 가까운 성지·성당 — 현재 위치 기준 전체 목록 */
+  nearby: '/nearby',
   region: (region: string) => `/region/${encodeURIComponent(region)}`,
   regionPattern: '/region/:region',
   /** 순례 코스 — 박해 사건·인물 축으로 성지를 잇는 길 */

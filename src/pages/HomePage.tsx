@@ -5,6 +5,7 @@ import {
   HandHeart,
   Headphones,
   HeartHandshake,
+  MapPin,
   MessageCircle,
   PartyPopper,
   Sparkles,
@@ -266,6 +267,29 @@ export default function HomePage() {
           <div className="h-80 animate-pulse rounded-3xl bg-gray-100 lg:h-[420px] lg:rounded-none" />
         </section>
       )}
+
+      {/* 여기에서 가장 가까운 성지·성당 — 홈에서 바로 보이는 입구 (2026-09-12 사장님 요청).
+          누르면 현재 위치를 묻고 208곳 전부를 가까운 순으로 보여준다. */}
+      <PageContainer className="pt-6 lg:pt-10">
+        <Link
+          to={paths.nearby}
+          id="nearby-entry"
+          className="flex items-center gap-4 rounded-[28px] bg-brand-blue p-5 text-white shadow-lg shadow-brand-blue/20 transition-transform active:scale-[0.99] lg:p-6"
+        >
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/15">
+            <MapPin size={24} aria-hidden />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-lg font-extrabold leading-tight lg:text-xl">
+              {t('nearbyEntryTitle')}
+            </span>
+            <span className="mt-1 block text-[12px] font-medium text-white/80 lg:text-sm">
+              {t('nearbyEntrySub')}
+            </span>
+          </span>
+          <ChevronRight size={22} className="shrink-0 opacity-80" aria-hidden />
+        </Link>
+      </PageContainer>
 
       {/* 쉼표 순례길 — 감정 기반 코스 추천. 데스크톱에서는 감정 줄이 제목 옆으로 온다. */}
       <PageContainer className="pt-8 lg:pt-12">

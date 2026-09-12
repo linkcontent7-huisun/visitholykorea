@@ -1,4 +1,4 @@
-import { BookOpen, Compass, Footprints, Home, Map as MapIcon, Menu } from 'lucide-react';
+import { BookOpen, Compass, Footprints, Home, Map as MapIcon, Settings } from 'lucide-react';
 import type { ComponentType } from 'react';
 import { paths } from '@/app/routes/paths';
 import type { TranslationKey } from '@/shared/i18n/dictionary';
@@ -23,7 +23,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { id: 'map', to: paths.map, icon: MapIcon, labelKey: 'map', end: false },
   { id: 'explore', to: paths.explore, icon: Compass, labelKey: 'explore', end: false },
   { id: 'record', to: paths.records, icon: BookOpen, labelKey: 'record', end: false },
-  { id: 'menu', to: paths.menu, icon: Menu, labelKey: 'menu', end: false },
+  { id: 'menu', to: paths.menu, icon: Settings, labelKey: 'menu', end: false },
 ];
 
 /**
@@ -39,5 +39,5 @@ export const TOP_NAV_ITEMS: readonly NavItem[] = [
   { id: 'routes', to: paths.routes, icon: Footprints, labelKey: 'routesTitle', end: false },
   { id: 'compass', to: paths.compass, icon: Compass, labelKey: 'compassTitle', end: false },
   { id: 'record', to: paths.records, icon: BookOpen, labelKey: 'record', end: false },
-  { id: 'menu', to: paths.menu, icon: Menu, labelKey: 'menu', end: false },
+  { id: 'menu', to: paths.menu, icon: Settings, labelKey: 'menu', end: false },
 ];
