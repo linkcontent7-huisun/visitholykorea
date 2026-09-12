@@ -67,7 +67,10 @@ export function TodayQuietSection({
         {compact ? (
           <>
             <div className="min-w-0">
-              <h2 className="text-lg font-bold text-app-text">{t('quietHeroTitle')}</h2>
+              <h2 className="flex items-center gap-2 text-lg font-bold text-app-text">
+                <img src="/brand/dove.png" alt="" aria-hidden className="h-[22px] w-auto" />
+                {t('quietHeroTitle')}
+              </h2>
               {/* 위 칩줄의 「붐빔 피하기」와 같은 화면으로 간다는 것을 밝힌다(2026-09-07 피드백) */}
               <p className="mt-0.5 text-[0.6875rem] text-app-text-muted">{t('quietHeroCaption')}</p>
             </div>
@@ -83,7 +86,8 @@ export function TodayQuietSection({
             <p className="mb-1 text-[0.6875rem] font-bold uppercase tracking-widest text-brand-violet">
               {todayLabel(SPEECH_LOCALE[language])}
             </p>
-            <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-app-text">
+            <h2 className="flex items-center gap-2 text-2xl font-extrabold leading-tight tracking-tight text-app-text">
+              <img src="/brand/dove.png" alt="" aria-hidden className="h-[28px] w-auto" />
               {t('quietHeroTitle')}
             </h2>
             <p className="mt-1.5 text-[0.75rem] leading-relaxed text-app-text-muted">

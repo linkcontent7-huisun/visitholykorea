@@ -89,7 +89,8 @@ export default function NearbyPage() {
           {t('backToHome')}
         </Link>
 
-        <h1 className="mb-2 text-2xl font-extrabold tracking-tight text-app-text lg:text-3xl">
+        <h1 className="mb-2 flex items-center gap-3 text-2xl font-extrabold tracking-tight text-app-text lg:text-3xl">
+          <img src="/brand/map.png" alt="" aria-hidden className="h-[32px] w-auto" />
           {t('nearbyEntryTitle')}
         </h1>
 

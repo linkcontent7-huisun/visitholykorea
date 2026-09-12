@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Compass, Headphones, MapPin } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Headphones } from 'lucide-react';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -233,6 +233,19 @@ export default function HomePage() {
         </section>
       )}
 
+      {/* 인사 띠 — 사장님 브랜드 시트의 비둘기·붓글씨 (2026-09-12). 크림 바탕에 한 줄.
+          붓글씨는 한국어 이미지라 다른 언어에서는 같은 뜻의 글자로 대신한다. */}
+      <PageContainer className="pt-5 lg:hidden">
+        <div className="flex items-center gap-4 rounded-[24px] bg-[#FFF7E8] px-5 py-4">
+          <img src="/brand/dove.png" alt="" aria-hidden className="h-[48px] w-auto shrink-0" />
+          {language === 'ko' ? (
+            <img src="/brand/brush-navy.png" alt="지금, 성지로 떠나보세요!" className="h-[58px] w-auto" />
+          ) : (
+            <p className="text-[15px] font-extrabold leading-snug text-[#0D2B5C]">{t('heroTitleLine2')}</p>
+          )}
+        </div>
+      </PageContainer>
+
       {/* 여기에서 가장 가까운 성지·성당 — 홈에서 바로 보이는 입구 (2026-09-12 사장님 요청).
           누르면 현재 위치를 묻고 208곳 전부를 가까운 순으로 보여준다. */}
       <PageContainer className="pt-6 lg:hidden">
@@ -241,8 +254,8 @@ export default function HomePage() {
           id="nearby-entry"
           className="flex items-center gap-4 rounded-[28px] bg-brand-blue p-5 text-white shadow-lg shadow-brand-blue/20 transition-transform active:scale-[0.99] lg:p-6"
         >
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/15">
-            <MapPin size={24} aria-hidden />
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white">
+            <img src="/brand/map.png" alt="" aria-hidden className="h-[30px] w-auto" />
           </span>
           <span className="min-w-0 flex-1">
             <span className="block text-lg font-extrabold leading-tight lg:text-xl">
@@ -264,8 +277,8 @@ export default function HomePage() {
           id="compass-entry"
           className="flex items-center gap-4 rounded-[28px] bg-gradient-to-br from-brand-blue to-brand-violet p-5 text-white shadow-lg shadow-brand-violet/20 transition-transform active:scale-[0.99] lg:p-6"
         >
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/15">
-            <Compass size={24} aria-hidden />
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white">
+            <img src="/brand/heart.png" alt="" aria-hidden className="h-[28px] w-auto" />
           </span>
           <span className="min-w-0 flex-1">
             <span className="block text-lg font-extrabold leading-tight lg:text-xl">
