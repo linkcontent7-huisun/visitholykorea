@@ -2,21 +2,21 @@ import type { ReactNode } from 'react';
 import { useState } from 'react';
 import {
   ChevronRight,
+  Compass,
   Globe,
   Info,
   MapPin,
   LogIn,
   LogOut,
   Navigation,
-  Share2,
   ShieldQuestion,
-  Smartphone,
   SlidersHorizontal,
   Type,
   User,
   type LucideIcon,
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { NAV_ITEMS, TOP_NAV_ITEMS } from '@/app/layouts/nav-items';
 import { paths } from '@/app/routes/paths';
 import { useAdminAccess } from '@/features/admin/hooks/use-admin';
 import { signOut } from '@/features/auth/api/auth';
@@ -31,11 +31,10 @@ import {
   type TranslationKey,
 } from '@/shared/i18n/dictionary';
 import { localizeRegionName } from '@/shared/i18n/domain-labels';
+import { InstallShareSheet } from '@/shared/components/ui/InstallShareSheet';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
-import { promptInstall, type InstallResult } from '@/shared/lib/install-prompt';
-import { copyText } from '@/shared/lib/map-links';
 import { REGIONS, type Region } from '@/shared/lib/regions';
 
 /** GPS 상태별 부제. 성공 후 켜져 있을 때는 origin 항목 쪽이 현재 위치 안내를 맡는다. */
@@ -99,42 +98,23 @@ export default function MenuPage() {
 
   const requireAuth = () => navigate(paths.login);
 
-  // 공유 시트가 없는 환경(데스크톱 크롬 등)에서는 링크 복사 결과를
-  // "앱 공유하기" 항목의 부제로 잠깐 보여준다 — alert 을 쓰지 않기 위해서다.
-  const [shareStatus, setShareStatus] = useState<'idle' | 'copied' | 'error'>('idle');
-  // 「홈 화면에 추가」 결과. 설치 창을 못 띄우는 환경(아이폰·카카오톡 안)은 방법을 부제로 안내한다.
-  const [installResult, setInstallResult] = useState<InstallResult | null>(null);
-  const installSub = (() => {
-    switch (installResult) {
-      case 'installed':
-        return t('installAlready');
-      case 'accepted':
-        return t('installDone');
-      case 'ios':
-        return t('installIosHint');
-      case 'in-app':
-        return t('installInAppHint');
-      case 'manual':
-        return t('installManualHint');
-      default:
-        return t('installSub');
-    }
-  })();
+  // 「홈화면 추가」(설치 + 링크 공유)는 이제 시트 하나로 — 하단 탭 넷째 자리와 같은 것
+  const [installSheetOpen, setInstallSheetOpen] = useState(false);
 
-  const handleShare = async () => {
-    const shareData = { title: document.title, url: window.location.origin };
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-      } catch {
-        // 사용자가 공유를 취소한 경우 등 — 조용히 무시
-      }
-      return;
-    }
-    const ok = await copyText(shareData.url);
-    setShareStatus(ok ? 'copied' : 'error');
-    setTimeout(() => setShareStatus('idle'), 2000);
-  };
+  /**
+   * 맨 위 「전체 서비스」 — 앱이 주는 것을 한눈에. 하단 탭 + 상단 메뉴 항목을 합치되
+   * 이 화면 자신(전체)은 빼고, 탭에 없는 붐빔 피하기를 더한다 (2026-09-13 사장님 요청).
+   */
+  const services: { id: string; icon: LucideIcon; label: string; to?: string; onClick?: () => void }[] = [
+    ...[...NAV_ITEMS, ...TOP_NAV_ITEMS.filter((i) => !NAV_ITEMS.some((n) => n.id === i.id))]
+      .filter((i) => i.id !== 'menu')
+      .map((i) =>
+        i.action === 'install'
+          ? { id: i.id, icon: i.icon as LucideIcon, label: t(i.labelKey), onClick: () => setInstallSheetOpen(true) }
+          : { id: i.id, icon: i.icon as LucideIcon, label: t(i.labelKey), to: i.to },
+      ),
+    { id: 'alternatives', icon: Compass, label: t('quietHeroTitle'), to: paths.alternatives },
+  ];
 
   const sections: { title: string; items: MenuItem[] }[] = [
     {
@@ -231,34 +211,58 @@ export default function MenuPage() {
           sub: t('customerSupportSub'),
           onClick: () => navigate(paths.faq),
         },
-        {
-          id: 'install',
-          icon: Smartphone,
-          label: t('installApp'),
-          sub: installSub,
-          onClick: () => void promptInstall().then(setInstallResult),
-        },
-        {
-          id: 'share',
-          icon: Share2,
-          label: t('shareApp'),
-          sub:
-            shareStatus === 'copied' ? t('copied') : shareStatus === 'error' ? t('copyFailed') : undefined,
-          onClick: () => void handleShare(),
-        },
       ],
     },
   ];
 
   return (
     <div className="flex min-h-screen flex-col bg-app-bg">
-      <div className="mb-8 rounded-b-[48px] border-b border-app-border bg-white p-10 pt-16 shadow-2xl shadow-gray-200/50">
-        <div className="flex items-center gap-7">
-          <div className="flex h-20 w-20 items-center justify-center rounded-3xl border border-app-border bg-app-bg shadow-inner">
-            <User size={40} className="text-gray-300" />
+      <InstallShareSheet open={installSheetOpen} onClose={() => setInstallSheetOpen(false)} />
+
+      {/* 전체 서비스 — 이 화면의 첫 줄. 아이콘 옆에 이름, 4열(PC 6열) */}
+      <section className="px-8 pt-8">
+        <h1 className="mb-4 font-display text-2xl font-bold tracking-tight text-app-text">
+          {t('allServices')}
+        </h1>
+        <ul className="grid grid-cols-4 gap-2 lg:grid-cols-6" id="all-services">
+          {services.map((svc) => {
+            const inner = (
+              <>
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-app-bg text-brand-violet">
+                  <svc.icon size={22} />
+                </span>
+                <span className="break-keep text-center text-[0.75rem] font-bold leading-tight text-app-text">
+                  {svc.label}
+                </span>
+              </>
+            );
+            const cls =
+              'flex w-full flex-col items-center gap-1.5 rounded-2xl border border-app-border bg-white px-1 py-3 transition-colors hover:border-brand-violet';
+            return (
+              <li key={svc.id}>
+                {svc.to ? (
+                  <Link to={svc.to} className={cls} id={`service-${svc.id}`}>
+                    {inner}
+                  </Link>
+                ) : (
+                  <button type="button" onClick={svc.onClick} className={cls} id={`service-${svc.id}`}>
+                    {inner}
+                  </button>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      {/* 내 정보 — 로그인 안 했으면 로그인·회원가입 입구 */}
+      <div className="mx-8 mb-8 mt-6 rounded-[32px] border border-app-border bg-white p-6 shadow-xl shadow-gray-200/40">
+        <div className="flex items-center gap-5">
+          <div className="flex h-16 w-16 items-center justify-center rounded-3xl border border-app-border bg-app-bg shadow-inner">
+            <User size={32} className="text-gray-300" />
           </div>
           <div className="flex-1">
-            <h2 className="mb-1 text-2xl font-extrabold tracking-tight text-app-text">
+            <h2 className="mb-1 text-xl font-extrabold tracking-tight text-app-text">
               {displayName}
               {isLoggedIn ? ' 님' : ''}
             </h2>
@@ -270,13 +274,13 @@ export default function MenuPage() {
                 className="flex items-center gap-1.5 text-sm font-bold text-brand-blue"
                 id="menu-login-prompt"
               >
-                <LogIn size={14} /> {t('recordsLoginCta')}
+                <LogIn size={14} /> {t('login')} · {t('signup')}
               </button>
             )}
           </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-2 gap-6 border-t border-app-border pt-10">
+        <div className="mt-6 grid grid-cols-2 gap-6 border-t border-app-border pt-6">
           <div className="border-r border-app-border text-center">
             <p className="mb-1.5 text-[0.5625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
               {t('countShrines')}

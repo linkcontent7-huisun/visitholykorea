@@ -95,8 +95,33 @@ export const DICTIONARY = {
   explore: { ko: '탐색', en: 'Explore', es: 'Explorar', fr: 'Explorer', pt: 'Explorar', it: 'Esplora' },
   record: { ko: '기록', en: 'Record', es: 'Registro', fr: 'Carnet', pt: 'Registro', it: 'Diario' },
   menu: { ko: '설정', en: 'Settings', es: 'Ajustes', fr: 'Réglages', pt: 'Ajustes', it: 'Impostazioni' },
-  // 하단 탭 다섯째 자리 — 상단 삼선 메뉴를 여기로 내렸다(2026-09-13 사장님 요청)
+  // 하단 탭 다섯째 자리 「전체」 — 상단 삼선 메뉴를 여기로 내렸고(2026-09-13), 이어서
+  // 「설정」 화면이 통째로 이 탭 아래로 들어갔다. 넷째 자리는 「홈화면 추가」가 됐다.
   allMenu: { ko: '전체', en: 'More', es: 'Más', fr: 'Plus', pt: 'Mais', it: 'Altro' },
+  allServices: {
+    ko: '전체 서비스',
+    en: 'All services',
+    es: 'Todos los servicios',
+    fr: 'Tous les services',
+    pt: 'Todos os serviços',
+    it: 'Tutti i servizi',
+  },
+  installTab: {
+    ko: '홈화면 추가',
+    en: 'Add to home',
+    es: 'Añadir a inicio',
+    fr: 'Ajouter à l’accueil',
+    pt: 'Adicionar à tela',
+    it: 'Aggiungi a Home',
+  },
+  shareLink: {
+    ko: '링크 공유',
+    en: 'Share link',
+    es: 'Compartir enlace',
+    fr: 'Partager le lien',
+    pt: 'Compartilhar link',
+    it: 'Condividi link',
+  },
 
   // 공통
   search: { ko: '검색', en: 'Search', es: 'Buscar', fr: 'Rechercher', pt: 'Buscar', it: 'Cerca' },
