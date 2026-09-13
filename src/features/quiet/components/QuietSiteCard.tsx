@@ -24,12 +24,12 @@ export function QuietSiteCard({ site, crowding, compact = false }: QuietSiteCard
     return (
       <Link
         to={paths.siteDetail(site.id)}
-        className="flex items-center justify-between gap-3 rounded-[16px] border border-app-border bg-white px-4 py-3 transition-colors hover:border-brand-blue/30"
+        className="flex items-center justify-between gap-3 rounded-[16px] border border-app-border bg-white px-5 py-4 transition-colors hover:border-brand-blue/30"
         id={`quiet-${site.id}`}
       >
         <div className="min-w-0">
-          <h3 className="truncate text-sm font-bold text-app-text">{site.name}</h3>
-          <p className="mt-0.5 truncate text-[0.6875rem] text-app-text-muted">{site.location}</p>
+          <h3 className="truncate text-base font-bold text-app-text">{site.name}</h3>
+          <p className="mt-0.5 truncate text-[0.8125rem] text-app-text-muted">{site.location}</p>
         </div>
         <CrowdingBadge
           level={crowding.level}

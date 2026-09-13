@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
 @import 'tailwindcss';
 
 @theme {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+  /* 섹션 제목용 명조체 — 본문(고딕)과 대비를 줘서 「고요 속으로」 같은 제목에 성지의 정적인 느낌을 싣는다 */
+  --font-display: 'Gowun Batang', 'Noto Serif KR', 'Malgun Gothic', serif;
 
   --color-brand-blue: #1e3a8a;
   --color-brand-violet: #7c3aed;

@@ -67,16 +67,16 @@ export function TodayQuietSection({
         {compact ? (
           <>
             <div className="min-w-0">
-              <h2 className="flex items-center gap-2 text-lg font-bold text-app-text">
-                <img src="/brand/dove.png" alt="" aria-hidden className="h-[22px] w-auto" />
+              <h2 className="flex items-center gap-2.5 font-display text-2xl font-bold tracking-tight text-app-text lg:text-[1.75rem]">
+                <img src="/brand/dove.png" alt="" aria-hidden className="h-[28px] w-auto" />
                 {t('quietHeroTitle')}
               </h2>
               {/* 위 칩줄의 「붐빔 피하기」와 같은 화면으로 간다는 것을 밝힌다(2026-09-07 피드백) */}
-              <p className="mt-0.5 text-[0.6875rem] text-app-text-muted">{t('quietHeroCaption')}</p>
+              <p className="mt-1 text-[0.8125rem] text-app-text-muted">{t('quietHeroCaption')}</p>
             </div>
             <Link
               to={paths.alternatives}
-              className="shrink-0 text-[0.75rem] font-bold text-brand-violet"
+              className="shrink-0 text-sm font-bold text-brand-violet"
             >
               {t('quietSeeMore')}
             </Link>
@@ -166,7 +166,7 @@ export function TodayQuietSection({
           )}
 
           {/* 추정값이라는 사실을 화면에서 밝힌다 — 목록이 축소돼도 이 문장은 남긴다 */}
-          <p className={`text-[0.6875rem] leading-relaxed text-app-text-muted opacity-70 ${compact ? 'mt-2' : 'mt-4'}`}>
+          <p className={`text-[0.8125rem] leading-relaxed text-app-text-muted opacity-70 ${compact ? 'mt-3' : 'mt-4'}`}>
             {t('quietDisclaimer')}
           </p>
         </>

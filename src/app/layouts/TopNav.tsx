@@ -1,18 +1,18 @@
-import { Menu as MenuIcon, Search, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Search } from 'lucide-react';
+import { Link, NavLink } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { NAV_ITEMS, TOP_NAV_ITEMS } from './nav-items';
+import { TOP_NAV_ITEMS } from './nav-items';
 
 /**
  * 상단 내비게이션 — "웹 서비스형" 셸의 얼굴.
  *
  * 데스크톱(lg 이상)에서는 로고 + 메뉴 여섯 개 + 검색 + 언어 + 로그인이 한 줄에 온다.
- * 모바일에서는 로고 + 검색 + 메뉴 버튼만 남기고, 메뉴는 눌렀을 때 펼친다.
+ * 모바일에서는 로고 + 검색 + 글자크기 + 언어만 남긴다. 삼선(전체) 메뉴는 언어 버튼 옆에
+ * 있으면 헷갈린다는 사장님 요청(2026-09-13)으로 하단 탭 「설정」 옆으로 옮겼다(`BottomNav`).
  *
  * 높이는 모바일 60px, 데스크톱 72px 로 고정한다 — 지도 화면이 이 높이를 빼서
  * 화면을 꽉 채우기 때문에(`MapPage`) 임의로 바꾸면 지도 2분할이 어긋난다.
@@ -20,11 +20,6 @@ import { NAV_ITEMS, TOP_NAV_ITEMS } from './nav-items';
 export function TopNav() {
   const { t } = useSettings();
   const { session } = useSession();
-  const [open, setOpen] = useState(false);
-  const location = useLocation();
-
-  // 화면을 옮기면 펼친 메뉴는 닫는다 — 열린 채로 남으면 새 화면을 가린다.
-  useEffect(() => setOpen(false), [location.pathname]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-app-border bg-white/95 backdrop-blur-md">
@@ -108,59 +103,8 @@ export function TopNav() {
               {t('login')}
             </Link>
           )}
-
-          {/* 모바일 메뉴 버튼 */}
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            className="-mr-[6px] flex h-9 w-8 items-center justify-center rounded-xl text-app-text-muted lg:hidden"
-            aria-label="메뉴"
-            aria-expanded={open}
-            id="topnav-menu-toggle"
-          >
-            {open ? <X size={20} /> : <MenuIcon size={20} />}
-          </button>
         </div>
       </div>
-
-      {/* 모바일 펼침 메뉴 — 하단 탭에 없는 항목까지 여기서 갈 수 있게 한다 */}
-      {open && (
-        <div className="border-t border-app-border bg-white px-6 pb-5 pt-3 lg:hidden">
-          <nav className="grid grid-cols-2 gap-2" aria-label="전체 메뉴">
-            {[...NAV_ITEMS, ...TOP_NAV_ITEMS.filter((i) => !NAV_ITEMS.some((n) => n.id === i.id))].map(
-              (item) => (
-                <NavLink
-                  key={item.id}
-                  to={item.to}
-                  end={item.end}
-                  className="flex items-center gap-3 rounded-xl border border-app-border px-4 py-3 text-[13px] font-bold text-app-text"
-                >
-                  <item.icon size={17} className="text-brand-violet" />
-                  {t(item.labelKey)}
-                </NavLink>
-              ),
-            )}
-          </nav>
-          <div className="mt-4 flex items-center justify-between">
-            {/* 글자 크기는 상단바 「가」 버튼에서 고른다 — 펼친 메뉴에는 이름만 남긴다 */}
-            <span className="flex items-center gap-2 text-[13px] font-bold text-app-text-muted">
-              {t('textSizeButton')}
-              <TextSizePicker inline />
-            </span>
-            <div className="flex items-center gap-4">
-              {/* 언어 선택은 이제 상단바에 항상 보이므로 여기서 다시 그리지 않는다(중복 id 방지) */}
-              {!session && (
-                <Link
-                  to={paths.login}
-                  className="rounded-full bg-brand-blue px-4 py-2 text-[12px] font-bold text-white"
-                >
-                  {t('login')}
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   );
 }

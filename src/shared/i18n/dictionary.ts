@@ -95,6 +95,8 @@ export const DICTIONARY = {
   explore: { ko: '탐색', en: 'Explore', es: 'Explorar', fr: 'Explorer', pt: 'Explorar', it: 'Esplora' },
   record: { ko: '기록', en: 'Record', es: 'Registro', fr: 'Carnet', pt: 'Registro', it: 'Diario' },
   menu: { ko: '설정', en: 'Settings', es: 'Ajustes', fr: 'Réglages', pt: 'Ajustes', it: 'Impostazioni' },
+  // 하단 탭 다섯째 자리 — 상단 삼선 메뉴를 여기로 내렸다(2026-09-13 사장님 요청)
+  allMenu: { ko: '전체', en: 'More', es: 'Más', fr: 'Plus', pt: 'Mais', it: 'Altro' },
 
   // 공통
   search: { ko: '검색', en: 'Search', es: 'Buscar', fr: 'Rechercher', pt: 'Buscar', it: 'Cerca' },
