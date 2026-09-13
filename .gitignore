@@ -81,3 +81,4 @@ docs/10-product/금산_자문의뢰_기획서.md
 # 임시 이미지 원본(PNG 12MB). 앱은 public/placeholders/*.webp 압축본을 쓴다 — 원본은 로컬만
 visit_랜덤사진/
 scripts/crawl/.cache/
+scripts/crawl/__pycache__/
