@@ -33,6 +33,51 @@ export interface HolySiteRow {
 }
 
 /**
+ * 성지 자료 출처 (마이그레이션 20260913100000).
+ * 본문·사진의 근거를 남겨, 나중에 고칠 때 출처 없는 문장이 되지 않게 한다.
+ */
+export interface SiteSourceRow {
+  id: string;
+  site_id: string;
+  kind: 'web' | 'book' | 'field' | 'ai_draft' | 'user';
+  title: string;
+  url: string | null;
+  collected_at: string | null;
+  collected_by: string | null;
+  note: string | null;
+  created_at: string;
+}
+
+/**
+ * 익명 접속 기록 (마이그레이션 20260913100000).
+ * visitor_id 는 브라우저 익명 식별자이며 이름·이메일을 저장하지 않는다.
+ */
+export interface EventRow {
+  id: number;
+  occurred_at: string;
+  visitor_id: string;
+  user_id: string | null;
+  kind: 'view_site' | 'search' | 'view_route' | 'stamp' | 'ai_ask' | 'compass_done' | 'install';
+  target_id: string | null;
+  query: string | null;
+  language: string | null;
+  device: string | null;
+}
+
+/** 성지별 언어·영문 역사 번역 채움 현황 뷰 (마이그레이션 20260913100000). */
+export interface TranslationCoverageRow {
+  site_id: string;
+  name: string;
+  diocese: string | null;
+  has_en: boolean;
+  has_es: boolean;
+  has_fr: boolean;
+  has_pt: boolean;
+  has_it: boolean;
+  has_en_history: boolean;
+}
+
+/**
  * 회원 프로필 (마이그레이션 20260818020000).
  * 자격 증명은 auth.users 가 관리하고, 여기에는 앱이 쓰는 표시용 정보만 담긴다.
  * 가입 시 트리거가 자동 생성한다.
