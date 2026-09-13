@@ -1,0 +1,71 @@
+# DB 구조 — 무엇이 어디에 있나
+
+2026-09-13 기준 · Supabase(Postgres) 프로젝트 `kaahuoqzkgshihypzzyh` · 표 15개 + 뷰 · 버킷 2개
+스키마 원본은 `supabase/migrations/` (22개 파일, 시간순). 이 문서는 **분류별 지도**다 — 표 하나를 더하면 여기도 한 줄 더한다.
+백업은 `npm run db:export` (T-015) → `C:\VisitHoly-백업\<날짜>\`.
+
+## 1. 성지 원본 데이터 — 우리가 만든 자료. 저장·캐시 자유
+
+| 표 | 무엇 | 행(9/13) | 누가 쓰나 |
+| --- | --- | --- | --- |
+| `holy_sites` | 성지 208곳 — 이름·분류·교구·주소·좌표·소개·역사·대표 사진·출처·연락처 | 208 | 모든 화면 |
+| `holy_site_translations` | 성지 × 언어(en/es/fr/pt/it) — 이름·소개·역사·영문 주소 | en 208 | 외국어 화면 |
+| `catholic_directory` | 본당·공소·피정의집 주소록(로마자 포함) | 5,918 | 주변 본당·가까운 성당 |
+| `pilgrimage_routes` · `pilgrimage_route_sites` | 순례 코스와 경유지(순서·메모) | 7 / 62 | 순례 코스 |
+| `rest_spots` · `rest_places` · `rest_spot_reports` | 쉼터 후보와 제보 | — | 쉼터 |
+| `site_sources` (T-016) | 글·사진의 출처 — 웹/책자/현장/AI초안/제보 | 시드 20+ | 관리자·감사 |
+| `site_revisions` | 관리자가 성지 글을 고친 이력(이전 값 통째) | — | 되돌리기 |
+| 뷰 `translation_coverage` (T-016) | 성지 × 언어 채움 여부 | 208 | 관리자 번역 현황 |
+
+TourAPI(관광공사) 응답은 **저장하지 않는다** — ADR 0002. 여기 어떤 표에도 없다.
+
+## 2. 순례자 기록 — 사람이 만든 자료. RLS 로 본인만 쓰고, 일부만 공개
+
+| 표 | 무엇 | 공개 범위 |
+| --- | --- | --- |
+| `pilgrimage_stamps` | 스탬프(사용자 × 성지 유일) · 한 줄 감상 · 사진 1장 · 이동수단 | 본인 읽기/쓰기. 한 줄·사진은 뷰로 익명 공개 |
+| `stamp_photos` (T-017) | 스탬프당 사진 여러 장(모바일 5·PC 10) | 읽기 공개, 쓰기 본인 |
+| 뷰 `site_visit_notes` | 성지별 후기(한 줄·사진·날짜) — 이름·user_id 없음, 숨김 글 제외 | 누구나 |
+| `pilgrimage_logs` | 여행기(긴 글) | 본인 |
+| `favorites` | 즐겨찾기 | 본인 |
+| `compass_responses` | 마음 나침반 답 | 본인 |
+| `visit_note_reports` · `note_read_counts` | 후기 신고 · 읽힌 횟수 | 신고 본인 / 집계 |
+| 뷰 `admin_pending_photos` | 관리자 승인 대기 사진(user_id 없이) | admin |
+
+## 3. 계정·권한
+
+| 표 | 무엇 |
+| --- | --- |
+| `auth.users` (Supabase 관리) | 이메일·비밀번호·로그인 시각. 우리가 직접 쓰지 않는다 |
+| `profiles` | 표시 이름 · `role`(member/editor/admin) · 여행 성향. 가입 시 트리거로 생성 |
+| 함수 `admin_role()` `is_editor()` `can_edit_site(diocese)` | RLS 가 쓰는 권한 판정 |
+
+## 4. 접속 기록 (T-016, 화면 연결은 9/21 이후)
+
+| 표 | 무엇 | 원칙 |
+| --- | --- | --- |
+| `events` | 언제·어느 익명 방문자(또는 로그인 사용자)가·무엇을(성지 열람/검색어/코스/스탬프/AI 질문)·어떤 언어·기기로 | 이름·이메일 없음 · insert 만 누구나, 읽기는 admin · 1년 보관 · 개인정보처리방침에 명시 |
+
+## 5. 파일(Storage)
+
+| 버킷 | 무엇 | 경로 규칙 | 공개 |
+| --- | --- | --- | --- |
+| `site-photos` | 성지 대표 사진(관리자 업로드) | `<siteId>.jpg?v=` | 읽기 공개, 쓰기 editor/admin |
+| `pilgrim-photos` | 순례자 사진 | `<uid>/<siteId>.jpg` → T-017 부터 `<uid>/<siteId>/<n>.jpg` | 읽기 공개, 쓰기 본인 폴더만 |
+
+## 6. 앱 밖에 있는 자료 (DB 아님)
+
+| 자료 | 위치 | 비고 |
+| --- | --- | --- |
+| 도슨트 원고 13곳 | `data/docent/*.json` (저장소) | 한·영·스 |
+| 화면 문구 6개 국어 | `src/shared/i18n/dictionary.ts` (약 450키) | |
+| 교구 지도 모양 | `src/features/map/data/diocese-shapes.json` | 통계청 시군구 → 교구 |
+| 임시 사진·브랜드 아이콘 | `public/placeholders/`, `public/brand/` | |
+| 책자·사진 원본 | 사장님 PC·OneDrive (저장소 아님) | 출처는 `site_sources` 에 기록 |
+
+## 옮겨 갈 때
+
+1. `npm run db:export` 로 표 전부(JSON/CSV)·스키마·사진 목록·공개 사진을 받는다
+2. 마이그레이션 22개를 새 Postgres 에 순서대로 적용하면 빈 구조가 생긴다 (`scripts/db-migrate.ts`)
+3. JSON 을 표 순서(성지 → 번역 → 코스 → 프로필 → 스탬프 → 사진)대로 넣는다
+4. `auth.users` 는 Supabase 전용이라 그대로 못 옮긴다 — 사용자는 재가입, `profiles`·스탬프는 이메일 기준으로 다시 연결
