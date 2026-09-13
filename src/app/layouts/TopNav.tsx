@@ -30,7 +30,17 @@ export function TopNav() {
             텍스트라 작은 화면에서도 선명하고, 마크 색(#04377C)에 맞췄다. */}
         <Link to={paths.home} className="flex shrink-0 items-center gap-[8px]" id="logo">
           <img src="/logo-mark-88.png" alt="" aria-hidden className="h-[36px] w-auto lg:h-[40px]" />
-          <span className="text-[17px] font-extrabold tracking-tight text-[#04377C] lg:text-[19px]">
+          {/* 휴대폰에서는 두 줄(VisitHoly / Korea) — 한 줄로 길게 쓰면 옆 돋보기가 묻힌다
+              (2026-09-13 사장님 요청). PC 는 자리가 넉넉하니 한 줄 그대로. */}
+          <span
+            className="text-[13px] font-extrabold leading-[1.05] tracking-tight text-[#04377C] lg:hidden"
+            aria-label="VisitHolyKorea"
+          >
+            VisitHoly
+            <br />
+            Korea
+          </span>
+          <span className="hidden text-[19px] font-extrabold tracking-tight text-[#04377C] lg:inline">
             VisitHolyKorea
           </span>
         </Link>
