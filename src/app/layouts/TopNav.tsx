@@ -74,7 +74,7 @@ export function TopNav() {
             aria-label={t('searchHintMobile')}
           >
             <Search size={19} className="shrink-0 text-app-text-muted" aria-hidden />
-            <span className="max-w-[84px] truncate text-[10px] font-medium text-app-text-muted [html[data-text-size-open]_&]:hidden">
+            <span className="max-w-[84px] truncate text-[10px] font-medium text-app-text-muted">
               {t('searchHintMobile')}
             </span>
           </Link>

@@ -4,8 +4,10 @@ import { TEXT_SIZES, type TextSize } from './settings-context';
 import { useSettings } from './use-settings';
 
 /**
- * 글자 크기 고르기 — 「가」 버튼을 누르면 옆에 소·중·대 세 개가 나란히 펼쳐지고,
+ * 글자 크기 고르기 — 「가」 버튼을 누르면 아래로 대·중·소 세 개가 세로로 펼쳐지고,
  * 하나를 고르면 바로 적용되고 접힌다 (2026-09-12 사장님 요청).
+ * 처음엔 옆으로 소·중·대였는데, 휴대폰에서 상단바가 비좁아 세로 목록으로 바꾸고
+ * 큰 글자를 맨 위에 뒀다 — 주 사용자가 고르는 것이 「대」라서 (2026-09-13).
  *
  * 왜 켬/끔 토글이 아닌가 — 118% 한 단계는 누구에게는 모자라고 누구에게는 과했다.
  * 60대 이상이 주 사용자라 "조금 더"와 "훨씬 더"를 고를 수 있어야 한다.
@@ -27,15 +29,6 @@ export function TextSizePicker({ inline = false }: { inline?: boolean }) {
     return () => document.removeEventListener('pointerdown', onDown);
   }, [inline, open]);
 
-  // 펼친 동안 문서에 표시를 남긴다 — 상단바가 이걸 보고 검색 안내 글씨를 잠시 감춰
-  // 휴대폰 폭에서 소·중·대가 오른쪽으로 밀려 잘리지 않게 한다.
-  useEffect(() => {
-    if (inline) return;
-    if (open) document.documentElement.setAttribute('data-text-size-open', '');
-    else document.documentElement.removeAttribute('data-text-size-open');
-    return () => document.documentElement.removeAttribute('data-text-size-open');
-  }, [inline, open]);
-
   const labels: Record<TextSize, string> = {
     sm: t('textSizeSmall'),
     md: t('textSizeMedium'),
@@ -48,7 +41,7 @@ export function TextSizePicker({ inline = false }: { inline?: boolean }) {
   };
 
   return (
-    <div ref={rootRef} className="flex items-center gap-[6px]">
+    <div ref={rootRef} className={inline ? 'flex items-center' : 'relative'}>
       {!inline && (
         <button
           type="button"
@@ -70,9 +63,14 @@ export function TextSizePicker({ inline = false }: { inline?: boolean }) {
           id="text-size-options"
           role="radiogroup"
           aria-label={t('textSizeButton')}
-          className="flex items-center gap-[2px] rounded-full border border-app-border bg-white p-[2px]"
+          className={
+            inline
+              ? 'flex items-center gap-[2px] rounded-full border border-app-border bg-white p-[2px]'
+              : 'absolute right-0 top-[calc(100%+6px)] z-50 flex w-[64px] flex-col gap-[2px] rounded-[18px] border border-app-border bg-white p-[3px] shadow-lg shadow-black/10'
+          }
         >
-          {TEXT_SIZES.map((size) => {
+          {/* 펼침일 때는 큰 것부터 — 위에서 아래로 대·중·소 */}
+          {(inline ? TEXT_SIZES : [...TEXT_SIZES].reverse()).map((size) => {
             const active = size === textSize;
             return (
               <button
@@ -81,7 +79,9 @@ export function TextSizePicker({ inline = false }: { inline?: boolean }) {
                 role="radio"
                 aria-checked={active}
                 onClick={() => choose(size)}
-                className={`min-w-[34px] rounded-full px-[10px] py-[6px] text-[13px] font-bold leading-none transition-colors ${
+                className={`rounded-full px-[10px] text-[13px] font-bold leading-none transition-colors ${
+                  inline ? 'min-w-[34px] py-[6px]' : 'py-[9px]'
+                } ${
                   active ? 'bg-brand-blue text-white' : 'text-app-text-muted hover:text-brand-blue'
                 }`}
                 id={`text-size-${size}`}
