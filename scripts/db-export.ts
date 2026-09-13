@@ -194,7 +194,7 @@ try {
   for (const row of siteImages.rows) {
     // 저장소 안 사진(/images/sites/…)은 배포 주소로 받는다. 위키미디어는 연속 요청에 429 를 주므로 쉬어 가며 한 번 더 시도
     const url = row.image_url.startsWith('/') ? `https://visitholykorea-app.vercel.app${row.image_url}` : row.image_url;
-    const ext = (url.split('?')[0].match(/\.(jpe?g|png|webp|gif)$/i)?.[1] ?? 'jpg').toLowerCase();
+    const ext = ((url.split('?')[0] ?? url).match(/\.(jpe?g|png|webp|gif)$/i)?.[1] ?? 'jpg').toLowerCase();
     const destination = join(siteImagesDir, `${row.id}.${ext}`);
     try {
       await sleep(400);
