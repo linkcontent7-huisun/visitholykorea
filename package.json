@@ -27,6 +27,7 @@
     "content": "tsx scripts/content-report.ts",
     "db:status": "tsx scripts/db-migrate.ts --status",
     "db:migrate": "tsx scripts/db-migrate.ts",
+    "db:export": "tsx scripts/db-export.ts",
     "import:contacts": "tsx scripts/import-contacts.ts",
     "translate:export": "tsx scripts/translation-export.ts",
     "translate:import": "tsx scripts/translation-import.ts",
