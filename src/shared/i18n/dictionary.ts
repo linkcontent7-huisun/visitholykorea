@@ -3639,8 +3639,10 @@ export const DICTIONARY = {
     pt: 'Verifique o nome da região no endereço.',
     it: 'Controlla il nome della regione nell’indirizzo.',
   },
+  // 한국어의 줄바꿈 문자는 「가까운」 화면 제목에서만 살아난다(whitespace-pre-line).
+  // "성/지·성당"처럼 단어 중간에서 갈리지 않게 사장님이 줄 위치를 정했다(2026-09-13).
   nearbyEntryTitle: {
-    ko: '여기에서 가장 가까운 성지·성당',
+    ko: '여기에서 가장 가까운\n성지·성당',
     en: 'Nearest shrines & churches from here',
     es: 'Santuarios e iglesias más cercanos',
     fr: 'Sanctuaires et églises les plus proches',
@@ -3671,13 +3673,31 @@ export const DICTIONARY = {
     pt: 'Use a sua localização ou escolha uma região de partida',
     it: 'Usa la tua posizione o scegli una regione di partenza',
   },
+  // 「가까운」 화면의 두 탭 — 성지 전부 / 주변 성당. 사장님 요청(2026-09-13)으로
+  // "성지 N곳, 가까운 순" 한 줄 제목을 나란한 탭 두 개로 바꿨다.
   nearbyAllTitle: {
-    ko: '성지 {count}곳, 가까운 순',
-    en: '{count} shrines, nearest first',
-    es: '{count} santuarios, los más cercanos primero',
-    fr: '{count} sanctuaires, du plus proche',
-    pt: '{count} santuários, mais próximos primeiro',
-    it: '{count} santuari, dal più vicino',
+    ko: '가까운 성지 {count}곳',
+    en: 'Shrines · {count}',
+    es: 'Santuarios · {count}',
+    fr: 'Sanctuaires · {count}',
+    pt: 'Santuários · {count}',
+    it: 'Santuari · {count}',
+  },
+  nearbyParishesTab: {
+    ko: '가까운 성당',
+    en: 'Churches',
+    es: 'Iglesias',
+    fr: 'Églises',
+    pt: 'Igrejas',
+    it: 'Chiese',
+  },
+  nearbyParishesEmpty: {
+    ko: '반경 {radius}km 안에 등록된 본당·공소가 없어요.',
+    en: 'No parishes or mission stations within {radius} km.',
+    es: 'No hay parroquias ni capillas en {radius} km.',
+    fr: 'Aucune paroisse ni chapelle dans un rayon de {radius} km.',
+    pt: 'Nenhuma paróquia ou capela num raio de {radius} km.',
+    it: 'Nessuna parrocchia o cappella entro {radius} km.',
   },
   nearbyDistanceNote: {
     ko: '직선거리예요. 실제 이동 거리·시간은 길찾기에서 확인하세요.',

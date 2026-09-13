@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Church, LocateFixed, MapPin, Phone } from 'lucide-react';
 import { paths } from '@/app/routes/paths';
@@ -18,16 +18,21 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
 import { isRegion, regionCoords, REGIONS } from '@/shared/lib/regions';
 
-/** 본당·공소는 성지보다 촘촘하므로 반경을 좁게 잡는다 — 10km 면 웬만한 시·군 하나다. */
-const PARISH_RADIUS_KM = 10;
-const PARISH_LIMIT = 30;
+/** 본당·공소는 성지보다 촘촘하지만, 탭으로 따로 보게 되면서(2026-09-13) 시골에서도
+ *  비지 않게 반경을 30km 로 넓혔다. 거리순이라 가까운 곳이 위에 온다. */
+const PARISH_RADIUS_KM = 30;
+const PARISH_LIMIT = 50;
+
+type NearbyTab = 'sites' | 'parishes';
 
 /**
  * 「여기에서 가장 가까운 성지·성당」.
  *
  * 홈의 큰 입구를 눌러 들어오는 화면이다 (2026-09-12 사장님 요청). 들어오는 순간
  * 현재 위치를 한 번 묻고, 성지 208곳 **전부**를 가까운 순으로 늘어놓는다 — 8곳만
- * 보여주는 홈과 달리 여기서는 끝까지 스크롤할 수 있다. 그 아래에 반경 10km 의 본당·공소.
+ * 보여주는 홈과 달리 여기서는 끝까지 스크롤할 수 있다. 「가까운 성당」 탭을 누르면
+ * 같은 기준점에서 본당·공소를 가까운 순으로 보여준다 (처음엔 성지 목록 아래에 붙어
+ * 있었는데, 사장님 요청으로 나란한 탭 두 개로 바꿨다 — 2026-09-13).
  *
  * 위치 권한을 거부했거나 못 받으면 출발 지역을 골라 그 중심에서 잰다. 위치는 메모리에만 둔다.
  */
@@ -66,6 +71,8 @@ export default function NearbyPage() {
       .sort((a, b) => a.km - b.km);
   }, [allSites, center]);
 
+  const [tab, setTab] = useState<NearbyTab>('sites');
+
   const { data: parishes = [] } = useNearbyDirectory(
     center ?? undefined,
     PARISH_RADIUS_KM,
@@ -89,8 +96,8 @@ export default function NearbyPage() {
           {t('backToHome')}
         </Link>
 
-        <h1 className="mb-2 flex items-center gap-3 text-2xl font-extrabold tracking-tight text-app-text lg:text-3xl">
-          <img src="/brand/map.png" alt="" aria-hidden className="h-[32px] w-auto" />
+        <h1 className="mb-2 flex items-center gap-3 whitespace-pre-line break-keep text-[1.375rem] font-extrabold leading-tight tracking-tight text-app-text lg:text-3xl">
+          <img src="/brand/map.png" alt="" aria-hidden className="h-[32px] w-auto shrink-0" />
           {t('nearbyEntryTitle')}
         </h1>
 
@@ -149,66 +156,98 @@ export default function NearbyPage() {
           <LoadingSpinner />
         ) : !center ? null : (
           <>
-            <h2 className="mb-1 flex items-center gap-2 text-base font-extrabold text-app-text">
-              <MapPin size={18} className="text-brand-violet" aria-hidden />
-              {fillPlaceholders(t('nearbyAllTitle'), { count: sorted.length })}
-            </h2>
-            <p className="mb-4 text-xs text-app-text-muted">{t('nearbyDistanceNote')}</p>
-            <ul className="flex flex-col gap-3">
-              {sorted.map(({ site, km }) => (
-                <li key={site.id}>
-                  <SiteListItem site={site} meta={formatDistanceKm(km)} />
-                </li>
-              ))}
-            </ul>
+            {/* 탭 두 개 — 성지(기본) / 성당. 하나를 고르면 그 목록만 보인다 */}
+            <div role="tablist" aria-label={t('nearbyEntryTitle')} className="mb-3 flex gap-2">
+              {(
+                [
+                  ['sites', MapPin, fillPlaceholders(t('nearbyAllTitle'), { count: sorted.length })],
+                  ['parishes', Church, t('nearbyParishesTab')],
+                ] as const
+              ).map(([key, Icon, label]) => {
+                const active = tab === key;
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setTab(key)}
+                    id={`nearby-tab-${key}`}
+                    className={`flex items-center justify-center gap-2 whitespace-nowrap rounded-full border px-3 py-2.5 text-sm font-extrabold leading-snug transition-colors ${
+                      key === 'sites' ? 'shrink-0' : 'flex-1'
+                    } ${
+                      active
+                        ? 'border-brand-blue bg-brand-blue text-white'
+                        : 'border-app-border bg-white text-app-text-muted'
+                    }`}
+                  >
+                    <Icon size={16} className={`shrink-0 ${active ? 'text-white' : 'text-brand-violet'}`} aria-hidden />
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
 
-            {parishes.length > 0 && (
-              <div className="mt-10">
-                <h2 className="mb-1 flex items-center gap-2 text-base font-extrabold text-app-text">
-                  <Church size={18} className="text-brand-violet" aria-hidden />
-                  {t('regionParishesTitle')}
-                </h2>
-                <p className="mb-4 text-xs text-app-text-muted">
-                  {fillPlaceholders(t('nearbyParishesSub'), { radius: PARISH_RADIUS_KM })}
-                </p>
+            {tab === 'sites' ? (
+              <>
+                <p className="mb-4 text-xs text-app-text-muted">{t('nearbyDistanceNote')}</p>
                 <ul className="flex flex-col gap-3">
-                  {parishes.map((p) => (
-                    <li key={p.id} className="rounded-[20px] border border-app-border bg-white p-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0 flex-1">
-                          <p className="flex flex-wrap items-center gap-2">
-                            <span className="truncate text-sm font-bold text-app-text">
-                              {directoryDisplayName(p, language)}
-                            </span>
-                            <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[0.625rem] font-bold text-app-text-muted">
-                              {localizeDomainValue(p.category, t)}
-                            </span>
-                          </p>
-                          {directoryDisplayAddress(p, language) && (
-                            <p className="mt-0.5 truncate text-xs text-app-text-muted">
-                              {directoryDisplayAddress(p, language)}
-                            </p>
-                          )}
-                        </div>
-                        <div className="flex shrink-0 items-center gap-2">
-                          <span className="text-xs font-bold tabular-nums text-app-text-muted">
-                            {formatDistanceKm(p.distanceKm)}
-                          </span>
-                          {p.phone && (
-                            <a
-                              href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}
-                              aria-label={`${p.name} ${t('callPhone')}`}
-                              className="rounded-xl bg-app-bg p-2 text-brand-violet"
-                            >
-                              <Phone size={14} />
-                            </a>
-                          )}
-                        </div>
-                      </div>
+                  {sorted.map(({ site, km }) => (
+                    <li key={site.id}>
+                      <SiteListItem site={site} meta={formatDistanceKm(km)} />
                     </li>
                   ))}
                 </ul>
-              </div>
+              </>
+            ) : (
+              <>
+                <p className="mb-4 text-xs text-app-text-muted">
+                  {fillPlaceholders(t('nearbyParishesSub'), { radius: PARISH_RADIUS_KM })}
+                </p>
+                {parishes.length === 0 ? (
+                  <p className="rounded-[20px] border border-dashed border-app-border bg-white p-6 text-center text-sm text-app-text-muted">
+                    {fillPlaceholders(t('nearbyParishesEmpty'), { radius: PARISH_RADIUS_KM })}
+                  </p>
+                ) : (
+                  <ul className="flex flex-col gap-3">
+                    {parishes.map((p) => (
+                      <li key={p.id} className="rounded-[20px] border border-app-border bg-white p-4">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0 flex-1">
+                            <p className="flex flex-wrap items-center gap-2">
+                              <span className="truncate text-sm font-bold text-app-text">
+                                {directoryDisplayName(p, language)}
+                              </span>
+                              <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[0.625rem] font-bold text-app-text-muted">
+                                {localizeDomainValue(p.category, t)}
+                              </span>
+                            </p>
+                            {directoryDisplayAddress(p, language) && (
+                              <p className="mt-0.5 truncate text-xs text-app-text-muted">
+                                {directoryDisplayAddress(p, language)}
+                              </p>
+                            )}
+                          </div>
+                          <div className="flex shrink-0 items-center gap-2">
+                            <span className="text-xs font-bold tabular-nums text-app-text-muted">
+                              {formatDistanceKm(p.distanceKm)}
+                            </span>
+                            {p.phone && (
+                              <a
+                                href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}
+                                aria-label={`${p.name} ${t('callPhone')}`}
+                                className="rounded-xl bg-app-bg p-2 text-brand-violet"
+                              >
+                                <Phone size={14} />
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
             )}
           </>
         )}
