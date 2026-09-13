@@ -252,7 +252,7 @@ function PhotoReviewTab() {
               <div className="mt-3 flex gap-2">
                 <button
                   onClick={() =>
-                    feature.mutate({ stampId: photo.stampId, featured: !photo.featured })
+                    feature.mutate({ photoId: photo.photoId, featured: !photo.featured })
                   }
                   disabled={feature.isPending}
                   className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl py-3 text-sm font-bold disabled:opacity-50 ${

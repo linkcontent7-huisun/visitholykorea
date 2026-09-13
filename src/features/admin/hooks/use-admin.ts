@@ -130,8 +130,8 @@ export function usePhotoReview() {
   };
 
   const feature = useMutation({
-    mutationFn: (input: { stampId: string; featured: boolean }) =>
-      setPhotoFeatured(input.stampId, input.featured),
+    mutationFn: (input: { photoId: string; featured: boolean }) =>
+      setPhotoFeatured(input.photoId, input.featured),
     onSuccess: (result) => {
       if (result.success) refresh();
     },

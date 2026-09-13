@@ -21,11 +21,30 @@ export function fitWithin(
 const MAX_EDGE = 1600;
 const JPEG_QUALITY = 0.82;
 
+export interface PhotoShrinkOptions {
+  maxEdge?: number;
+  quality?: number;
+}
+
+export interface PhotoPolicy {
+  maxCount: number;
+  maxEdge: number;
+  quality: number;
+}
+
+/** 기기에서 고를 수 있는 수와 압축 크기를 함께 정해, 작은 화면에서 업로드가 오래 걸리지 않게 한다. */
+export function photoPolicy(): PhotoPolicy {
+  const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768;
+  return isMobile
+    ? { maxCount: 5, maxEdge: 1280, quality: 0.8 }
+    : { maxCount: 10, maxEdge: MAX_EDGE, quality: JPEG_QUALITY };
+}
+
 /** 파일을 캔버스로 줄여 JPEG Blob 으로 만든다. 실패하면 원본을 그대로 쓴다. */
-export async function shrinkPhoto(file: File): Promise<Blob> {
+export async function shrinkPhoto(file: File, options: PhotoShrinkOptions = {}): Promise<Blob> {
   try {
     const bitmap = await createImageBitmap(file);
-    const { width, height } = fitWithin(bitmap.width, bitmap.height, MAX_EDGE);
+    const { width, height } = fitWithin(bitmap.width, bitmap.height, options.maxEdge ?? MAX_EDGE);
     const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
@@ -34,7 +53,7 @@ export async function shrinkPhoto(file: File): Promise<Blob> {
     ctx.drawImage(bitmap, 0, 0, width, height);
     bitmap.close();
     const blob = await new Promise<Blob | null>((resolve) =>
-      canvas.toBlob(resolve, 'image/jpeg', JPEG_QUALITY),
+      canvas.toBlob(resolve, 'image/jpeg', options.quality ?? JPEG_QUALITY),
     );
     return blob ?? file;
   } catch {

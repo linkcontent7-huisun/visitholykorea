@@ -11,7 +11,10 @@ import {
   useDioceseProgress,
   useMyNoteReadCounts,
   useMyStamps,
+  useDeleteStampPhoto,
+  useUploadStampPhotos,
 } from '@/features/passport/hooks/use-stamps';
+import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 import { downloadCertificatePDF } from '@/features/passport/lib/certificate';
 import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
 import { generateChronicleCard, generateDioceseCard } from '@/features/passport/lib/recap-card';
@@ -40,6 +43,15 @@ export default function RecordsPage() {
   const { session } = useSession();
   const { data: logs = [], isLoading: logsLoading } = useMyLogs();
   const { data: stamps = [] } = useMyStamps();
+  const uploadPhotos = useUploadStampPhotos('');
+  const deletePhoto = useDeleteStampPhoto('');
+  const handlePhotos = async (stampId: string, siteId: string, files: FileList | null) => {
+    if (!files) return;
+    const policy = photoPolicy();
+    const picked = Array.from(files).slice(0, policy.maxCount);
+    if (files.length > policy.maxCount) window.alert(`최대 ${policy.maxCount}장까지 올릴 수 있습니다.`);
+    uploadPhotos.mutate({ stampId, siteId, photos: await Promise.all(picked.map((file) => shrinkPhoto(file, policy))) });
+  };
   const { data: dioceseProgress = {} } = useDioceseProgress(Boolean(session));
   const { data: noteReads = {} } = useMyNoteReadCounts(Boolean(session));
   const [chronicleLoading, setChronicleLoading] = useState(false);
@@ -390,8 +402,8 @@ export default function RecordsPage() {
                   // "그때 거기 있었다"는 증명은 시간이 지날수록 값이 오른다.
                   const wydLimited = isWydPeriod(new Date(stamp.visitedAt));
                   return (
+                    <div key={stamp.stampId} className="flex flex-col items-center gap-2">
                     <Link
-                      key={stamp.stampId}
                       to={paths.siteDetail(stamp.siteId)}
                       className="flex flex-col items-center gap-3"
                       id={`stamp-${stamp.stampId}`}
@@ -428,6 +440,14 @@ export default function RecordsPage() {
                         </span>
                       )}
                     </Link>
+                    <div className="w-full space-y-1">
+                      {stamp.photos.length > 0 && <div className="grid grid-cols-3 gap-1">{stamp.photos.map((photo) => <div key={photo.id} className="relative"><img src={photo.url} alt={`${stamp.siteName} 사진`} className="aspect-square rounded-md object-cover" /><button type="button" onClick={() => deletePhoto.mutate(photo)} className="absolute right-0 top-0 rounded-bl bg-black/60 px-1 text-xs text-white" aria-label="사진 삭제">×</button></div>)}</div>}
+                      <label className="block cursor-pointer rounded-lg border border-dashed border-brand-violet/40 px-2 py-1 text-center text-[0.625rem] font-bold text-brand-violet">
+                        사진 여러 장 +
+                        <input type="file" accept="image/*" multiple className="hidden" disabled={uploadPhotos.isPending} onChange={(e) => { void handlePhotos(stamp.stampId, stamp.siteId, e.target.files); e.target.value = ''; }} />
+                      </label>
+                    </div>
+                    </div>
                   );
                 })}
               </div>

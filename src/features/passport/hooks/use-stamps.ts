@@ -3,12 +3,14 @@ import { queryKeys } from '@/shared/api/query-keys';
 import {
   addStamp,
   attachStampPhoto,
+  deleteStampPhoto,
   getDioceseProgress,
   getMyNoteReadCounts,
   getMyStamp,
   getMyStamps,
   getSiteNotes,
   reportVisitNote,
+  uploadStampPhotos,
 } from '../api/stamps.repository';
 
 export function useMyStamps() {
@@ -28,10 +30,10 @@ export function useMyStamp(siteId: string | undefined) {
 }
 
 /** 이 성지에 다녀간 사람들의 익명 한 줄 (최신 3개). */
-export function useSiteNotes(siteId: string | undefined) {
+export function useSiteNotes(siteId: string | undefined, limit?: number) {
   return useQuery({
     queryKey: queryKeys.passport.siteNotes(siteId ?? ''),
-    queryFn: () => getSiteNotes(siteId!),
+    queryFn: () => getSiteNotes(siteId!, limit),
     enabled: Boolean(siteId),
     staleTime: 1000 * 60 * 5,
   });
@@ -79,6 +81,32 @@ export function useAttachPhoto(siteId: string) {
     mutationFn: (photo: Blob) => attachStampPhoto(siteId, photo),
     onSuccess: (result) => {
       if (!result.success) return;
+      void queryClient.invalidateQueries({ queryKey: queryKeys.passport.myStamp(siteId) });
+      void queryClient.invalidateQueries({ queryKey: queryKeys.passport.siteNotes(siteId) });
+    },
+  });
+}
+
+export function useUploadStampPhotos(siteId?: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (input: { stampId: string; siteId?: string; photos: Blob[] }) => uploadStampPhotos(input.stampId, input.siteId ?? siteId ?? '', input.photos),
+    onSuccess: (result, input) => {
+      if (!result.success) return;
+      void queryClient.invalidateQueries({ queryKey: queryKeys.passport.stamps });
+      const affectedSiteId = input.siteId ?? siteId ?? '';
+      void queryClient.invalidateQueries({ queryKey: queryKeys.passport.myStamp(affectedSiteId) });
+      void queryClient.invalidateQueries({ queryKey: queryKeys.passport.siteNotes(affectedSiteId) });
+    },
+  });
+}
+
+export function useDeleteStampPhoto(siteId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteStampPhoto,
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: queryKeys.passport.stamps });
       void queryClient.invalidateQueries({ queryKey: queryKeys.passport.myStamp(siteId) });
       void queryClient.invalidateQueries({ queryKey: queryKeys.passport.siteNotes(siteId) });
     },

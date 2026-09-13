@@ -20,6 +20,7 @@ export interface StampedSite {
   visitedAt: string;
   /** 내가 남긴 방문 한 줄. 없으면 null. */
   note: string | null;
+  photos: StampPhoto[];
 }
 
 export interface CertificateLevel {
@@ -100,24 +101,32 @@ export interface MyStamp {
   note: string | null;
   /** 내가 올린 순례 사진. */
   photoUrl: string | null;
+  photos: StampPhoto[];
+}
+
+export interface StampPhoto {
+  id: string;
+  url: string;
+  position: number;
 }
 
 export async function getMyStamp(siteId: string): Promise<MyStamp> {
   const userId = await getCurrentUserId();
-  if (!userId) return { stamped: false, note: null, photoUrl: null };
+  if (!userId) return { stamped: false, note: null, photoUrl: null, photos: [] };
 
   const { data, error } = await supabase
     .from(TABLE)
-    .select('id, note, photo_url')
+    .select('id, note, photo_url, stamp_photos(id, url, position)')
     .eq('user_id', userId)
     .eq('site_id', siteId)
     .maybeSingle();
 
   if (error) {
     console.error('getMyStamp error:', error);
-    return { stamped: false, note: null, photoUrl: null };
+    return { stamped: false, note: null, photoUrl: null, photos: [] };
   }
-  return { stamped: Boolean(data), note: data?.note ?? null, photoUrl: data?.photo_url ?? null };
+  const photos = ((data?.stamp_photos ?? []) as StampPhoto[]).sort((a, b) => a.position - b.position);
+  return { stamped: Boolean(data), note: data?.note ?? null, photoUrl: data?.photo_url ?? null, photos };
 }
 
 export interface SiteVisitNote {
@@ -126,6 +135,7 @@ export interface SiteVisitNote {
   note: string | null;
   /** 순례자가 남긴 사진. 없으면 null. */
   photoUrl: string | null;
+  photos: string[];
   visitedAt: string;
 }
 
@@ -135,13 +145,14 @@ export interface SiteVisitNote {
  * site_visit_notes 뷰를 읽는다 — user_id 가 아예 뷰에 없어서
  * "누가"는 클라이언트까지 오지 않는다.
  */
-export async function getSiteNotes(siteId: string, limit = 6): Promise<SiteVisitNote[]> {
-  const { data, error } = await supabase
+export async function getSiteNotes(siteId: string, limit?: number): Promise<SiteVisitNote[]> {
+  let query = supabase
     .from('site_visit_notes')
-    .select('id, note, photo_url, created_at')
+    .select('id, note, photo_url, photos, created_at')
     .eq('site_id', siteId)
-    .order('created_at', { ascending: false })
-    .limit(limit);
+    .order('created_at', { ascending: false });
+  if (limit !== undefined) query = query.limit(limit);
+  const { data, error } = await query;
 
   if (error) {
     console.error('getSiteNotes error:', error);
@@ -151,6 +162,7 @@ export async function getSiteNotes(siteId: string, limit = 6): Promise<SiteVisit
     id: row.id as string,
     note: (row.note as string | null) ?? null,
     photoUrl: (row.photo_url as string | null) ?? null,
+    photos: (row.photos as string[] | null) ?? [],
     visitedAt: row.created_at as string,
   }));
 }
@@ -191,6 +203,50 @@ export async function attachStampPhoto(
   return { success: true };
 }
 
+/** 여러 장은 각각의 순서를 DB에 남겨, 공개 사진 격자와 내 기록의 순서가 바뀌지 않게 한다. */
+export async function uploadStampPhotos(
+  stampId: string,
+  siteId: string,
+  photos: Blob[],
+): Promise<{ success: boolean; error?: string }> {
+  const userId = await getCurrentUserId();
+  if (!userId) return { success: false, error: '로그인이 필요합니다.' };
+  const uploaded: { path: string; url: string; position: number }[] = [];
+  for (let index = 0; index < photos.length; index += 1) {
+    const position = index + 1;
+    const path = `${userId}/${siteId}/${position}.jpg`;
+    const { error } = await supabase.storage
+      .from('pilgrim-photos')
+      .upload(path, photos[index]!, { upsert: true, contentType: 'image/jpeg' });
+    if (error) return { success: false, error: '사진을 올리지 못했습니다. 잠시 후 다시 시도해주세요.' };
+    const { data: pub } = supabase.storage.from('pilgrim-photos').getPublicUrl(path);
+    uploaded.push({ path, url: `${pub.publicUrl}?v=${Date.now()}`, position });
+  }
+  const { error } = await supabase.from('stamp_photos').upsert(
+    uploaded.map(({ url, position }) => ({ stamp_id: stampId, url, position })),
+    { onConflict: 'stamp_id,position' },
+  );
+  if (error) return { success: false, error: '사진 기록을 저장하지 못했습니다.' };
+  // 예전 화면도 계속 같은 사진을 표시해야 하므로 첫 사진을 대표 칸에 남긴다.
+  const { error: legacyError } = await supabase.from(TABLE).update({ photo_url: uploaded[0]?.url ?? null }).eq('id', stampId);
+  if (legacyError) return { success: false, error: '사진 기록을 저장하지 못했습니다.' };
+  return { success: true };
+}
+
+/** 파일과 행을 함께 지워, 내 기록에서 없앤 사진이 공개 화면에 남지 않게 한다. */
+export async function deleteStampPhoto(photo: StampPhoto): Promise<{ success: boolean }> {
+  const path = new URL(photo.url).pathname.split('/object/public/pilgrim-photos/')[1];
+  if (path) {
+    const { error: storageError } = await supabase.storage
+      .from('pilgrim-photos')
+      .remove([decodeURIComponent(path)]);
+    // 파일을 못 지웠는데 행만 지우면 공개 URL을 잃어 운영자가 정리할 방법도 사라진다.
+    if (storageError) return { success: false };
+  }
+  const { error } = await supabase.from('stamp_photos').delete().eq('id', photo.id);
+  return { success: !error };
+}
+
 /** 부적절한 글·사진 신고. 3명이 신고하면 서버가 자동으로 숨긴다. */
 export async function reportVisitNote(stampId: string): Promise<{ success: boolean }> {
   const { error } = await supabase.rpc('report_visit_note', { p_stamp_id: stampId });
@@ -206,6 +262,7 @@ interface StampJoinRow {
   created_at: string;
   site_id: string;
   note: string | null;
+  stamp_photos: StampPhoto[] | null;
   holy_sites: { name: string; diocese: string | null; category: string | null } | null;
 }
 
@@ -216,7 +273,7 @@ export async function getMyStamps(): Promise<StampedSite[]> {
 
   const { data, error } = await supabase
     .from(TABLE)
-    .select('id, created_at, site_id, note, holy_sites(name, diocese, category)')
+    .select('id, created_at, site_id, note, stamp_photos(id, url, position), holy_sites(name, diocese, category)')
     .eq('user_id', userId)
     .order('created_at', { ascending: false });
 
@@ -233,6 +290,7 @@ export async function getMyStamps(): Promise<StampedSite[]> {
     category: row.holy_sites?.category ?? null,
     visitedAt: row.created_at,
     note: row.note,
+    photos: (row.stamp_photos ?? []).sort((a, b) => a.position - b.position),
   }));
 }
 

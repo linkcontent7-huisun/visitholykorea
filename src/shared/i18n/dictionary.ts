@@ -2612,6 +2612,27 @@ export const DICTIONARY = {
     pt: 'A sua foto e a sua nota são partilhadas anonimamente com outros peregrinos. Evite fotos com rostos visíveis.',
     it: 'La tua foto e la tua nota sono condivise in forma anonima con gli altri pellegrini. Evita foto in cui si vedono volti.',
   },
+  reviewPhotosMax: {
+    ko: '한 번에 최대 {count}장까지 올릴 수 있어요.', en: 'You can upload up to {count} photos at once.', es: 'Puedes subir hasta {count} fotos a la vez.', fr: 'Vous pouvez envoyer jusqu’à {count} photos à la fois.', pt: 'Pode enviar até {count} fotos de uma vez.', it: 'Puoi caricare fino a {count} foto alla volta.',
+  },
+  reviewPublicNotice: {
+    ko: '올린 사진과 한 줄은 다른 순례자에게 익명으로 공개돼요. 얼굴이 나온 사진은 피해주세요.', en: 'Your photos and note are shared anonymously with other pilgrims. Please avoid photos showing faces.', es: 'Tus fotos y nota se comparten de forma anónima. Evita fotos con rostros.', fr: 'Vos photos et votre mot sont partagés anonymement. Évitez les visages.', pt: 'As suas fotos e nota são partilhadas anonimamente. Evite rostos.', it: 'Le foto e il messaggio sono condivisi in modo anonimo. Evita volti visibili.',
+  },
+  reviewModerationNotice: {
+    ko: '이 장소와 관련 없거나 부적절한 내용·사진(저작권·초상권 문제 포함)은 관리자 판단으로 후기에 공개하지 않을 수 있습니다.',
+    en: 'Notes or photos unrelated to this place, or inappropriate (including copyright or privacy issues), may not be published as reviews at the administrator’s discretion.',
+    es: 'Los textos o fotos ajenos a este lugar o inapropiados (incluidos problemas de derechos de autor o de imagen) pueden no publicarse a criterio del administrador.',
+    fr: 'Les textes ou photos sans rapport avec ce lieu ou inappropriés (y compris droits d’auteur ou droit à l’image) peuvent ne pas être publiés, à la discrétion de l’administrateur.',
+    pt: 'Textos ou fotos sem relação com este lugar ou inadequados (incluindo direitos de autor ou de imagem) podem não ser publicados, a critério do administrador.',
+    it: 'Testi o foto non pertinenti a questo luogo o inappropriati (inclusi problemi di copyright o di privacy) potrebbero non essere pubblicati a discrezione dell’amministratore.',
+  },
+
+  reviewsTitle: {
+    ko: '순례 후기 ({count})', en: 'Pilgrim reviews ({count})', es: 'Reseñas de peregrinos ({count})', fr: 'Avis de pèlerins ({count})', pt: 'Avaliações de peregrinos ({count})', it: 'Recensioni dei pellegrini ({count})',
+  },
+  reviewsShow: { ko: '후기 모두 보기', en: 'Show all reviews', es: 'Ver todas las reseñas', fr: 'Voir tous les avis', pt: 'Ver todas as avaliações', it: 'Mostra tutte le recensioni' },
+  reviewsHide: { ko: '접기', en: 'Show less', es: 'Ver menos', fr: 'Réduire', pt: 'Ver menos', it: 'Mostra meno' },
+  reviewsEmpty: { ko: '아직 남겨진 후기가 없어요.', en: 'No reviews yet.', es: 'Aún no hay reseñas.', fr: 'Aucun avis pour le moment.', pt: 'Ainda não há avaliações.', it: 'Non ci sono ancora recensioni.' },
 
   // 성지 상세 — 순례자 이야기
   pilgrimStories: {

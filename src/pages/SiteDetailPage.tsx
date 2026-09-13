@@ -25,14 +25,14 @@ import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/
 import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use-favorites';
 import {
   useAddStamp,
-  useAttachPhoto,
   useMyStamp,
   useMyStamps,
   useReportNote,
   useSiteNotes,
+  useUploadStampPhotos,
 } from '@/features/passport/hooks/use-stamps';
 import { recordNoteReads } from '@/features/passport/api/stamps.repository';
-import { shrinkPhoto } from '@/shared/lib/photo';
+import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
 import { resolveStampMotif } from '@/features/passport/lib/stamp-motifs';
 import {
@@ -115,7 +115,8 @@ export default function SiteDetailPage() {
   const { data: myStamp } = useMyStamp(siteId);
   const stamped = myStamp?.stamped ?? false;
   const { data: myStamps = [] } = useMyStamps();
-  const { data: visitNotes = [] } = useSiteNotes(siteId);
+  const [reviewsOpen, setReviewsOpen] = useState(false);
+  const { data: visitNotes = [] } = useSiteNotes(siteId, reviewsOpen ? undefined : 6);
   const addStamp = useAddStamp(siteId ?? '');
 
   // 이 성지가 나의 몇 번째 순례인가 (오래된 순으로 센다). 안 찍었으면 null.
@@ -165,13 +166,16 @@ export default function SiteDetailPage() {
   );
 
   // 순례 사진 — 스탬프를 찍은 사람만 남길 수 있다 (실방문 인증)
-  const attachPhoto = useAttachPhoto(siteId ?? '');
+  const uploadPhotos = useUploadStampPhotos(siteId ?? '');
   const reportNote = useReportNote(siteId ?? '');
   const [reportedIds, setReportedIds] = useState<Set<string>>(new Set());
-  const handlePhotoPick = async (file: File | undefined) => {
-    if (!file) return;
-    const small = await shrinkPhoto(file);
-    attachPhoto.mutate(small);
+  const handlePhotoPick = async (files: FileList | null) => {
+    if (!files || !myStamp) return;
+    const policy = photoPolicy();
+    const picked = Array.from(files).slice(0, policy.maxCount);
+    if (files.length > policy.maxCount) window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
+    const photos = await Promise.all(picked.map((file) => shrinkPhoto(file, policy)));
+    uploadPhotos.mutate({ stampId: myStamp.stamped ? (myStamps.find((s) => s.siteId === siteId)?.stampId ?? '') : '', photos });
   };
   const handleReport = (stampId: string) => {
     if (!window.confirm(t('reportConfirm'))) return;
@@ -756,38 +760,41 @@ export default function SiteDetailPage() {
             )}
             {/* 순례 사진 — 모두가 함께 만드는 앱: 다녀온 사람의 사진이
                 다음 순례자의 안내가 된다. 올리기 전에 1600px 로 줄인다. */}
-            {myStamp?.photoUrl && (
-              <img
-                src={myStamp.photoUrl}
-                alt={t('photoMineAlt')}
-                className="mt-3 max-h-48 w-full rounded-2xl object-cover"
-              />
-            )}
+            {myStamp?.photos.length ? (
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                {myStamp.photos.map((photo) => (
+                  <img key={photo.id} src={photo.url} alt={t('photoMineAlt')} className="aspect-square rounded-xl object-cover" />
+                ))}
+              </div>
+            ) : myStamp?.photoUrl ? (
+              <img src={myStamp.photoUrl} alt={t('photoMineAlt')} className="mt-3 max-h-48 w-full rounded-2xl object-cover" />
+            ) : null}
             <label
               className={`mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-brand-violet/40 py-3 text-xs font-bold text-brand-violet ${
-                attachPhoto.isPending ? 'opacity-50' : ''
+                uploadPhotos.isPending ? 'opacity-50' : ''
               }`}
             >
               <Camera size={14} aria-hidden />
-              {attachPhoto.isPending
+              {uploadPhotos.isPending
                 ? t('photoUploading')
-                : myStamp?.photoUrl
+                : myStamp?.photos.length
                   ? t('photoReplace')
                   : t('photoAdd')}
               <input
                 type="file"
                 accept="image/*"
+                multiple
                 className="hidden"
-                disabled={attachPhoto.isPending}
+                disabled={uploadPhotos.isPending}
                 onChange={(e) => {
-                  void handlePhotoPick(e.target.files?.[0]);
+                  void handlePhotoPick(e.target.files);
                   e.target.value = '';
                 }}
                 data-testid="photo-input"
               />
             </label>
             <p className="mt-2 text-[0.625rem] leading-relaxed text-app-text-muted">
-              {t('photoPrivacyNote')}
+              {t('reviewPublicNotice')}
             </p>
           </div>
         )}
@@ -795,21 +802,19 @@ export default function SiteDetailPage() {
         {/* 다녀온 사람의 한 줄 — 추정 지수를 사람의 증언이 보정한다 */}
         {visitNotes.length > 0 && (
           <div className="rounded-[20px] border border-app-border bg-white p-5">
-            <p className="text-sm font-bold text-app-text">{t('pilgrimStories')}</p>
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-sm font-bold text-app-text">{t('reviewsTitle').replace('{count}', String(visitNotes.length))}</p>
+              <button type="button" onClick={() => setReviewsOpen((open) => !open)} className="text-xs font-bold text-brand-violet">
+                {reviewsOpen ? t('reviewsHide') : t('reviewsShow')}
+              </button>
+            </div>
             <p className="mt-1 text-xs text-app-text-muted">
               {t('pilgrimStoriesHint')}
             </p>
             <ul className="mt-3 space-y-4">
               {visitNotes.map((n) => (
                 <li key={n.id} className="border-l-2 border-brand-violet/30 pl-3">
-                  {n.photoUrl && (
-                    <img
-                      src={n.photoUrl}
-                      alt={t('pilgrimPhotoAlt')}
-                      loading="lazy"
-                      className="mb-2 max-h-56 w-full rounded-2xl object-cover"
-                    />
-                  )}
+                  {n.photos.length > 0 && <div className="mb-2 grid grid-cols-3 gap-1">{n.photos.map((url) => <img key={url} src={url} alt={t('pilgrimPhotoAlt')} loading="lazy" className="aspect-square rounded-lg object-cover" />)}</div>}
                   {n.note && (
                     <p className="text-sm leading-relaxed text-app-text">&ldquo;{n.note}&rdquo;</p>
                   )}
@@ -835,6 +840,9 @@ export default function SiteDetailPage() {
                 </li>
               ))}
             </ul>
+            <p className="mt-4 text-[0.625rem] leading-relaxed text-app-text-muted">
+              {t('reviewModerationNotice')}
+            </p>
           </div>
         )}
 

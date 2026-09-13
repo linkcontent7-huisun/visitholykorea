@@ -79,6 +79,7 @@ const EDITABLE_COLUMNS = [
 ] as const;
 
 export interface AdminPendingPhoto {
+  photoId: string;
   stampId: string;
   siteId: string;
   siteName: string;
@@ -279,6 +280,7 @@ export async function fetchPendingPhotos(): Promise<AdminPendingPhoto[]> {
   }
 
   return ((data ?? []) as AdminPendingPhotoRow[]).map((row) => ({
+    photoId: row.photo_id,
     stampId: row.stamp_id,
     siteId: row.site_id,
     siteName: row.site_name,
@@ -290,9 +292,9 @@ export async function fetchPendingPhotos(): Promise<AdminPendingPhoto[]> {
 }
 
 /** 순례자 사진을 그 성지의 대표 사진으로 승인(또는 승인 취소)한다. */
-export async function setPhotoFeatured(stampId: string, featured: boolean): Promise<AdminResult> {
+export async function setPhotoFeatured(photoId: string, featured: boolean): Promise<AdminResult> {
   const { error } = await supabase.rpc('admin_set_photo_featured', {
-    p_stamp_id: stampId,
+    p_photo_id: photoId,
     p_featured: featured,
   });
   if (error) {

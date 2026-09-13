@@ -48,6 +48,42 @@ export interface SiteSourceRow {
   created_at: string;
 }
 
+/** 매체 기사에서 원문 대신 저작권 범위 안의 서지·요약·사실만 남긴다. */
+export interface ArticleRow {
+  id: string;
+  source: 'catholicnews' | 'cpbc' | 'catholictimes' | 'other';
+  url: string;
+  title: string;
+  published_at: string | null;
+  author: string | null;
+  summary: string | null;
+  excerpt: string | null;
+  topics: Array<'pilgrimage_route' | 'pilgrimage_record' | 'statue' | 'stained_glass' | 'relic' | 'sculpture' | 'artwork' | 'architecture' | 'shrine_news'>;
+  facts: Record<string, unknown>;
+  fetched_at: string;
+  status: 'new' | 'reviewed' | 'used' | 'skip';
+}
+
+/** 기사와 성지의 연결은 자동 추출이므로 확신도를 함께 둔다. */
+export interface ArticleSiteRow {
+  article_id: string;
+  site_id: string;
+  confidence: number;
+}
+
+/** 도슨트의 볼거리 원고를 쓰기 전, 작품별 근거와 설명을 모아 둔다. */
+export interface SiteArtworkRow {
+  id: string;
+  site_id: string;
+  kind: 'statue' | 'stained_glass' | 'relic' | 'sculpture' | 'painting' | 'architecture' | 'other';
+  title: string;
+  artist: string | null;
+  year: string | null;
+  description: string | null;
+  article_id: string | null;
+  created_at: string;
+}
+
 /**
  * 익명 접속 기록 (마이그레이션 20260913100000).
  * visitor_id 는 브라우저 익명 식별자이며 이름·이메일을 저장하지 않는다.
@@ -115,6 +151,7 @@ export interface SiteRevisionRow {
  * 회원을 특정할 수 있는 정보(user_id·이메일)는 일부러 빠져 있다.
  */
 export interface AdminPendingPhotoRow {
+  photo_id: string;
   stamp_id: string;
   site_id: string;
   site_name: string;
@@ -156,6 +193,15 @@ export interface PilgrimageStampRow {
   created_at: string;
 }
 
+/** 한 번의 순례에 남긴 사진. position은 공개 화면과 업로드 순서를 같게 한다. */
+export interface StampPhotoRow {
+  id: string;
+  stamp_id: string;
+  url: string;
+  position: number;
+  created_at: string;
+}
+
 /** site_visit_notes 뷰 — 사생활 보호를 위해 user_id 를 뺀 공개 형태. */
 export interface SiteVisitNoteRow {
   /** 스탬프 id — 신고할 때 필요하다. uuid 라 사람을 특정하지 못한다. */
@@ -163,6 +209,7 @@ export interface SiteVisitNoteRow {
   site_id: string;
   note: string | null;
   photo_url: string | null;
+  photos: string[];
   created_at: string;
 }
 
