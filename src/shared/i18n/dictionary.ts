@@ -23,10 +23,7 @@ export function isLanguage(value: unknown): value is Language {
  * 조각을 이어 붙이면 번역이 불가능해진다. 문장 전체를 사전에 두고 값만 끼워 넣는다.
  * 값이 없는 자리표시자는 그대로 남긴다 — 몰래 빈칸이 되면 원인을 찾기 어렵다.
  */
-export function fillPlaceholders(
-  text: string,
-  values: Record<string, string | number>,
-): string {
+export function fillPlaceholders(text: string, values: Record<string, string | number>): string {
   return text.replace(/\{(\w+)\}/g, (whole, key: string) =>
     key in values ? String(values[key]) : whole,
   );
@@ -92,9 +89,23 @@ export const DICTIONARY = {
   // 내비게이션
   home: { ko: '홈', en: 'Home', es: 'Inicio', fr: 'Accueil', pt: 'Início', it: 'Home' },
   map: { ko: '지도', en: 'Map', es: 'Mapa', fr: 'Carte', pt: 'Mapa', it: 'Mappa' },
-  explore: { ko: '탐색', en: 'Explore', es: 'Explorar', fr: 'Explorer', pt: 'Explorar', it: 'Esplora' },
+  explore: {
+    ko: '탐색',
+    en: 'Explore',
+    es: 'Explorar',
+    fr: 'Explorer',
+    pt: 'Explorar',
+    it: 'Esplora',
+  },
   record: { ko: '기록', en: 'Record', es: 'Registro', fr: 'Carnet', pt: 'Registro', it: 'Diario' },
-  menu: { ko: '설정', en: 'Settings', es: 'Ajustes', fr: 'Réglages', pt: 'Ajustes', it: 'Impostazioni' },
+  menu: {
+    ko: '설정',
+    en: 'Settings',
+    es: 'Ajustes',
+    fr: 'Réglages',
+    pt: 'Ajustes',
+    it: 'Impostazioni',
+  },
   // 하단 탭 다섯째 자리 「전체」 — 상단 삼선 메뉴를 여기로 내렸고(2026-09-13), 이어서
   // 「설정」 화면이 통째로 이 탭 아래로 들어갔다. 넷째 자리는 「홈화면 추가」가 됐다.
   allMenu: { ko: '전체', en: 'More', es: 'Más', fr: 'Plus', pt: 'Mais', it: 'Altro' },
@@ -125,12 +136,40 @@ export const DICTIONARY = {
 
   // 공통
   search: { ko: '검색', en: 'Search', es: 'Buscar', fr: 'Rechercher', pt: 'Buscar', it: 'Cerca' },
-  login: { ko: '로그인', en: 'Log in', es: 'Iniciar sesión', fr: 'Connexion', pt: 'Entrar', it: 'Accedi' },
-  logout: { ko: '로그아웃', en: 'Log out', es: 'Cerrar sesión', fr: 'Déconnexion', pt: 'Sair', it: 'Esci' },
-  signup: { ko: '회원가입', en: 'Sign up', es: 'Registrarse', fr: 'S’inscrire', pt: 'Cadastrar-se', it: 'Registrati' },
+  login: {
+    ko: '로그인',
+    en: 'Log in',
+    es: 'Iniciar sesión',
+    fr: 'Connexion',
+    pt: 'Entrar',
+    it: 'Accedi',
+  },
+  logout: {
+    ko: '로그아웃',
+    en: 'Log out',
+    es: 'Cerrar sesión',
+    fr: 'Déconnexion',
+    pt: 'Sair',
+    it: 'Esci',
+  },
+  signup: {
+    ko: '회원가입',
+    en: 'Sign up',
+    es: 'Registrarse',
+    fr: 'S’inscrire',
+    pt: 'Cadastrar-se',
+    it: 'Registrati',
+  },
   close: { ko: '닫기', en: 'Close', es: 'Cerrar', fr: 'Fermer', pt: 'Fechar', it: 'Chiudi' },
   back: { ko: '뒤로', en: 'Back', es: 'Atrás', fr: 'Retour', pt: 'Voltar', it: 'Indietro' },
-  copied: { ko: '복사했어요', en: 'Copied', es: 'Copiado', fr: 'Copié', pt: 'Copiado', it: 'Copiato' },
+  copied: {
+    ko: '복사했어요',
+    en: 'Copied',
+    es: 'Copiado',
+    fr: 'Copié',
+    pt: 'Copiado',
+    it: 'Copiato',
+  },
   copyFailed: {
     ko: '길게 눌러 복사해 주세요',
     en: 'Press and hold to copy',
@@ -141,7 +180,14 @@ export const DICTIONARY = {
   },
 
   // 설정
-  myProfile: { ko: '내 프로필', en: 'My Profile', es: 'Mi perfil', fr: 'Mon profil', pt: 'Meu perfil', it: 'Il mio profilo' },
+  myProfile: {
+    ko: '내 프로필',
+    en: 'My Profile',
+    es: 'Mi perfil',
+    fr: 'Mon profil',
+    pt: 'Meu perfil',
+    it: 'Il mio profilo',
+  },
   favorites: {
     ko: '즐겨찾는 성지',
     en: 'Favorite Sites',
@@ -150,8 +196,22 @@ export const DICTIONARY = {
     pt: 'Santuários favoritos',
     it: 'Santuari preferiti',
   },
-  appSettings: { ko: '앱 설정', en: 'App Settings', es: 'Ajustes', fr: 'Paramètres', pt: 'Configurações', it: 'Impostazioni' },
-  languageSetting: { ko: '언어 설정', en: 'Language', es: 'Idioma', fr: 'Langue', pt: 'Idioma', it: 'Lingua' },
+  appSettings: {
+    ko: '앱 설정',
+    en: 'App Settings',
+    es: 'Ajustes',
+    fr: 'Paramètres',
+    pt: 'Configurações',
+    it: 'Impostazioni',
+  },
+  languageSetting: {
+    ko: '언어 설정',
+    en: 'Language',
+    es: 'Idioma',
+    fr: 'Langue',
+    pt: 'Idioma',
+    it: 'Lingua',
+  },
   textSizeButton: {
     ko: '글자 크기',
     en: 'Text size',
@@ -2097,7 +2157,14 @@ export const DICTIONARY = {
   },
 
   // 찾아가는 길 — 외국인에게 가장 중요한 화면
-  directions: { ko: '찾아가는 길', en: 'Getting there', es: 'Cómo llegar', fr: 'S’y rendre', pt: 'Como chegar', it: 'Come arrivare' },
+  directions: {
+    ko: '찾아가는 길',
+    en: 'Getting there',
+    es: 'Cómo llegar',
+    fr: 'S’y rendre',
+    pt: 'Como chegar',
+    it: 'Come arrivare',
+  },
   addressKorean: {
     ko: '한국어 주소',
     en: 'Address in Korean',
@@ -2114,7 +2181,14 @@ export const DICTIONARY = {
     pt: 'Mostre isto ao motorista de táxi: ele pode não ler endereços em inglês',
     it: 'Mostra questo al tassista: potrebbe non leggere indirizzi in inglese',
   },
-  coordinates: { ko: '좌표', en: 'Coordinates', es: 'Coordenadas', fr: 'Coordonnées', pt: 'Coordenadas', it: 'Coordinate' },
+  coordinates: {
+    ko: '좌표',
+    en: 'Coordinates',
+    es: 'Coordenadas',
+    fr: 'Coordonnées',
+    pt: 'Coordenadas',
+    it: 'Coordinate',
+  },
   openInMapApp: {
     ko: '지도 앱으로 열기',
     en: 'Open in a map app',
@@ -2638,10 +2712,20 @@ export const DICTIONARY = {
     it: 'La tua foto e la tua nota sono condivise in forma anonima con gli altri pellegrini. Evita foto in cui si vedono volti.',
   },
   reviewPhotosMax: {
-    ko: '한 번에 최대 {count}장까지 올릴 수 있어요.', en: 'You can upload up to {count} photos at once.', es: 'Puedes subir hasta {count} fotos a la vez.', fr: 'Vous pouvez envoyer jusqu’à {count} photos à la fois.', pt: 'Pode enviar até {count} fotos de uma vez.', it: 'Puoi caricare fino a {count} foto alla volta.',
+    ko: '한 번에 최대 {count}장까지 올릴 수 있어요.',
+    en: 'You can upload up to {count} photos at once.',
+    es: 'Puedes subir hasta {count} fotos a la vez.',
+    fr: 'Vous pouvez envoyer jusqu’à {count} photos à la fois.',
+    pt: 'Pode enviar até {count} fotos de uma vez.',
+    it: 'Puoi caricare fino a {count} foto alla volta.',
   },
   reviewPublicNotice: {
-    ko: '올린 사진과 한 줄은 다른 순례자에게 익명으로 공개돼요. 얼굴이 나온 사진은 피해주세요.', en: 'Your photos and note are shared anonymously with other pilgrims. Please avoid photos showing faces.', es: 'Tus fotos y nota se comparten de forma anónima. Evita fotos con rostros.', fr: 'Vos photos et votre mot sont partagés anonymement. Évitez les visages.', pt: 'As suas fotos e nota são partilhadas anonimamente. Evite rostos.', it: 'Le foto e il messaggio sono condivisi in modo anonimo. Evita volti visibili.',
+    ko: '올린 사진과 한 줄은 다른 순례자에게 익명으로 공개돼요. 얼굴이 나온 사진은 피해주세요.',
+    en: 'Your photos and note are shared anonymously with other pilgrims. Please avoid photos showing faces.',
+    es: 'Tus fotos y nota se comparten de forma anónima. Evita fotos con rostros.',
+    fr: 'Vos photos et votre mot sont partagés anonymement. Évitez les visages.',
+    pt: 'As suas fotos e nota são partilhadas anonimamente. Evite rostos.',
+    it: 'Le foto e il messaggio sono condivisi in modo anonimo. Evita volti visibili.',
   },
   reviewModerationNotice: {
     ko: '이 장소와 관련 없거나 부적절한 내용·사진(저작권·초상권 문제 포함)은 관리자 판단으로 후기에 공개하지 않을 수 있습니다.',
@@ -2653,11 +2737,37 @@ export const DICTIONARY = {
   },
 
   reviewsTitle: {
-    ko: '순례 후기 ({count})', en: 'Pilgrim reviews ({count})', es: 'Reseñas de peregrinos ({count})', fr: 'Avis de pèlerins ({count})', pt: 'Avaliações de peregrinos ({count})', it: 'Recensioni dei pellegrini ({count})',
+    ko: '순례 후기 ({count})',
+    en: 'Pilgrim reviews ({count})',
+    es: 'Reseñas de peregrinos ({count})',
+    fr: 'Avis de pèlerins ({count})',
+    pt: 'Avaliações de peregrinos ({count})',
+    it: 'Recensioni dei pellegrini ({count})',
   },
-  reviewsShow: { ko: '후기 모두 보기', en: 'Show all reviews', es: 'Ver todas las reseñas', fr: 'Voir tous les avis', pt: 'Ver todas as avaliações', it: 'Mostra tutte le recensioni' },
-  reviewsHide: { ko: '접기', en: 'Show less', es: 'Ver menos', fr: 'Réduire', pt: 'Ver menos', it: 'Mostra meno' },
-  reviewsEmpty: { ko: '아직 남겨진 후기가 없어요.', en: 'No reviews yet.', es: 'Aún no hay reseñas.', fr: 'Aucun avis pour le moment.', pt: 'Ainda não há avaliações.', it: 'Non ci sono ancora recensioni.' },
+  reviewsShow: {
+    ko: '후기 모두 보기',
+    en: 'Show all reviews',
+    es: 'Ver todas las reseñas',
+    fr: 'Voir tous les avis',
+    pt: 'Ver todas as avaliações',
+    it: 'Mostra tutte le recensioni',
+  },
+  reviewsHide: {
+    ko: '접기',
+    en: 'Show less',
+    es: 'Ver menos',
+    fr: 'Réduire',
+    pt: 'Ver menos',
+    it: 'Mostra meno',
+  },
+  reviewsEmpty: {
+    ko: '아직 남겨진 후기가 없어요.',
+    en: 'No reviews yet.',
+    es: 'Aún no hay reseñas.',
+    fr: 'Aucun avis pour le moment.',
+    pt: 'Ainda não há avaliações.',
+    it: 'Non ci sono ancora recensioni.',
+  },
 
   // 성지 상세 — 순례자 이야기
   pilgrimStories: {
@@ -4133,6 +4243,52 @@ export const DICTIONARY = {
     pt: 'Remover dos favoritos',
     it: 'Rimuovi dai preferiti',
   },
+  siteAudioStoriesTitle: {
+    ko: '주변 관광지 오디오 이야기',
+    en: 'Nearby audio stories',
+    es: 'Historias de audio cercanas',
+    fr: 'Récits audio à proximité',
+    pt: 'Histórias em áudio próximas',
+    it: 'Storie audio nelle vicinanze',
+  },
+  siteTourismSource: {
+    ko: '한국관광공사 제공',
+    en: 'Provided by Korea Tourism Organization',
+    es: 'Proporcionado por la Organización de Turismo de Corea',
+    fr: 'Fourni par l’Organisation du tourisme de Corée',
+    pt: 'Fornecido pela Organização de Turismo da Coreia',
+    it: 'Fornito dall’Organizzazione del Turismo della Corea',
+  },
+  siteWalkingCoursesTitle: {
+    ko: '이 근처 걷기길',
+    en: 'Walking trails nearby',
+    es: 'Senderos cercanos',
+    fr: 'Sentiers à proximité',
+    pt: 'Caminhos próximos',
+    it: 'Sentieri vicini',
+  },
+  // 여행기 쓰기 칸 — 고른 언어로 기록도 쓸 수 있어야 한다(2026-09-14 사장님 요청). 전엔 한국어뿐이었다.
+  logNewTitle: { ko: '새 여행기', en: 'New journal entry', es: 'Nueva entrada', fr: 'Nouveau récit', pt: 'Novo registro', it: 'Nuovo diario' },
+  logSiteLabel: { ko: '다녀온 성지', en: 'Shrine visited', es: 'Santuario visitado', fr: 'Sanctuaire visité', pt: 'Santuário visitado', it: 'Santuario visitato' },
+  logSitePlaceholder: { ko: '성지 이름을 검색하세요', en: 'Search a shrine by name', es: 'Busca un santuario por nombre', fr: 'Rechercher un sanctuaire', pt: 'Busque um santuário pelo nome', it: 'Cerca un santuario per nome' },
+  logSiteStamped: { ko: '스탬프 찍은 곳', en: 'Stamped', es: 'Con sello', fr: 'Tamponné', pt: 'Com carimbo', it: 'Timbrato' },
+  logSitePickExact: { ko: '목록에서 정확한 이름을 골라주세요.', en: 'Pick the exact name from the list.', es: 'Elige el nombre exacto de la lista.', fr: 'Choisissez le nom exact dans la liste.', pt: 'Escolha o nome exato na lista.', it: 'Scegli il nome esatto dall’elenco.' },
+  logDateLabel: { ko: '방문일', en: 'Date of visit', es: 'Fecha de la visita', fr: 'Date de la visite', pt: 'Data da visita', it: 'Data della visita' },
+  logTitleLabel: { ko: '제목', en: 'Title', es: 'Título', fr: 'Titre', pt: 'Título', it: 'Titolo' },
+  logTitlePlaceholder: { ko: '예: 솔뫼성지에서 보낸 조용한 오후', en: 'e.g. A quiet afternoon at Solmoe', es: 'p. ej. Una tarde tranquila en Solmoe', fr: 'ex. Un après-midi paisible à Solmoe', pt: 'ex. Uma tarde tranquila em Solmoe', it: 'es. Un pomeriggio tranquillo a Solmoe' },
+  logContentLabel: { ko: '기록', en: 'Notes', es: 'Notas', fr: 'Notes', pt: 'Anotações', it: 'Appunti' },
+  logContentPlaceholder: { ko: '그날의 감동과 기도를 남겨보세요.', en: 'Write down the moments and prayers of that day.', es: 'Anota las emociones y oraciones de ese día.', fr: 'Notez les émotions et les prières de ce jour.', pt: 'Registre as emoções e orações daquele dia.', it: 'Annota le emozioni e le preghiere di quel giorno.' },
+  logPhotosLabel: { ko: '사진', en: 'Photos', es: 'Fotos', fr: 'Photos', pt: 'Fotos', it: 'Foto' },
+  logPhotoPick: { ko: '사진 올리기', en: 'Add photos', es: 'Añadir fotos', fr: 'Ajouter des photos', pt: 'Adicionar fotos', it: 'Aggiungi foto' },
+  logPhotoRemove: { ko: '사진 빼기', en: 'Remove photo', es: 'Quitar foto', fr: 'Retirer la photo', pt: 'Remover foto', it: 'Rimuovi foto' },
+  logPhotoDelete: { ko: '사진 삭제', en: 'Delete photo', es: 'Eliminar foto', fr: 'Supprimer la photo', pt: 'Excluir foto', it: 'Elimina foto' },
+  logPhotoLimit: { ko: '사진은 최대 {count}장까지 올릴 수 있어요.', en: 'You can add up to {count} photos.', es: 'Puedes añadir hasta {count} fotos.', fr: 'Vous pouvez ajouter jusqu’à {count} photos.', pt: 'Você pode adicionar até {count} fotos.', it: 'Puoi aggiungere fino a {count} foto.' },
+  logSaveFailed: { ko: '여행기 저장에 실패했어요.', en: 'Could not save the entry.', es: 'No se pudo guardar la entrada.', fr: 'Impossible d’enregistrer le récit.', pt: 'Não foi possível salvar o registro.', it: 'Impossibile salvare il diario.' },
+  logSave: { ko: '저장하기', en: 'Save', es: 'Guardar', fr: 'Enregistrer', pt: 'Salvar', it: 'Salva' },
+  logSaving: { ko: '저장하는 중…', en: 'Saving…', es: 'Guardando…', fr: 'Enregistrement…', pt: 'Salvando…', it: 'Salvataggio…' },
+  cancel: { ko: '취소', en: 'Cancel', es: 'Cancelar', fr: 'Annuler', pt: 'Cancelar', it: 'Annulla' },
+  stampPhotosAdd: { ko: '사진 여러 장 +', en: 'Add photos +', es: 'Añadir fotos +', fr: 'Ajouter des photos +', pt: 'Adicionar fotos +', it: 'Aggiungi foto +' },
+  stampPhotoAlt: { ko: '{site} 사진', en: 'Photo of {site}', es: 'Foto de {site}', fr: 'Photo de {site}', pt: 'Foto de {site}', it: 'Foto di {site}' },
 } as const satisfies Record<string, Record<Language, string>>;
 
 export type TranslationKey = keyof typeof DICTIONARY;

@@ -45,7 +45,7 @@ export default function RecordsPage() {
     if (!files) return;
     const policy = photoPolicy();
     const picked = Array.from(files).slice(0, policy.maxCount);
-    if (files.length > policy.maxCount) window.alert(`최대 ${policy.maxCount}장까지 올릴 수 있습니다.`);
+    if (files.length > policy.maxCount) window.alert(fillPlaceholders(t('logPhotoLimit'), { count: policy.maxCount }));
     uploadPhotos.mutate({ stampId, siteId, photos: await Promise.all(picked.map((file) => shrinkPhoto(file, policy))) });
   };
   const { data: dioceseProgress = {} } = useDioceseProgress(Boolean(session));
@@ -355,9 +355,9 @@ export default function RecordsPage() {
                     )}
                   </Link>
                   <div className="w-full space-y-1">
-                    {stamp.photos.length > 0 && <div className="grid grid-cols-3 gap-1">{stamp.photos.map((photo) => <div key={photo.id} className="relative"><img src={photo.url} alt={`${stamp.siteName} 사진`} className="aspect-square rounded-md object-cover" /><button type="button" onClick={() => deletePhoto.mutate(photo)} className="absolute right-0 top-0 rounded-bl bg-black/60 px-1 text-xs text-white" aria-label="사진 삭제">×</button></div>)}</div>}
+                    {stamp.photos.length > 0 && <div className="grid grid-cols-3 gap-1">{stamp.photos.map((photo) => <div key={photo.id} className="relative"><img src={photo.url} alt={fillPlaceholders(t('stampPhotoAlt'), { site: stamp.siteName })} className="aspect-square rounded-md object-cover" /><button type="button" onClick={() => deletePhoto.mutate(photo)} className="absolute right-0 top-0 rounded-bl bg-black/60 px-1 text-xs text-white" aria-label={t('logPhotoDelete')}>×</button></div>)}</div>}
                     <label className="block cursor-pointer rounded-lg border border-dashed border-brand-violet/40 px-2 py-1 text-center text-[0.625rem] font-bold text-brand-violet">
-                      사진 여러 장 +
+                      {t('stampPhotosAdd')}
                       <input type="file" accept="image/*" multiple className="hidden" disabled={uploadPhotos.isPending} onChange={(e) => { void handlePhotos(stamp.stampId, stamp.siteId, e.target.files); e.target.value = ''; }} />
                     </label>
                   </div>

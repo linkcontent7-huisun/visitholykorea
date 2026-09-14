@@ -11,7 +11,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
-import { useSites } from '@/features/sites/hooks/use-sites';
+import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { useSettings } from '@/shared/i18n/use-settings';
 import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 import { useCreateLog } from '../hooks/use-logs';
 
@@ -32,7 +34,10 @@ export function LogComposer({
   persistent?: boolean;
 }) {
   const navigate = useNavigate();
-  const { data: sites = [] } = useSites({ limit: 300 });
+  const { t } = useSettings();
+  // 성지 이름도 고른 언어로 — 외국인이 한국어 이름을 쳐서 고를 수는 없다
+  const { data: sitesRaw = [] } = useSites({ limit: 300 });
+  const sites = useLocalizedSites(sitesRaw);
   const { data: stamps = [] } = useMyStamps();
   const createLog = useCreateLog();
 
@@ -53,7 +58,7 @@ export function LogComposer({
     const { maxCount } = photoPolicy();
     const room = Math.max(0, maxCount - photos.length);
     const picked = Array.from(files).slice(0, room);
-    if (files.length > room) setPhotoNotice(`사진은 최대 ${maxCount}장까지 올릴 수 있어요.`);
+    if (files.length > room) setPhotoNotice(fillPlaceholders(t('logPhotoLimit'), { count: maxCount }));
     else setPhotoNotice(null);
     setPhotos((prev) => [...prev, ...picked.map((file) => ({ file, preview: URL.createObjectURL(file) }))]);
   };
@@ -112,7 +117,7 @@ export function LogComposer({
             navigate(paths.login);
             return;
           }
-          window.alert('여행기 저장에 실패했어요.');
+          window.alert(t('logSaveFailed'));
         },
       },
     );
@@ -122,13 +127,13 @@ export function LogComposer({
     <div className="rounded-[32px] border border-app-border bg-white p-7 shadow-xl shadow-gray-200/40">
       <div className="mb-5 flex items-center gap-2 text-brand-violet">
         <PenLine size={16} />
-        <h2 className="text-sm font-extrabold uppercase tracking-widest">새 여행기</h2>
+        <h2 className="text-sm font-extrabold uppercase tracking-widest">{t('logNewTitle')}</h2>
       </div>
 
       <div className="space-y-4">
         <div>
           <label htmlFor="log-site" className="mb-1.5 block text-xs font-bold text-app-text-muted">
-            다녀온 성지
+            {t('logSiteLabel')}
           </label>
           {/* 208곳까지 늘어난 긴 드롭다운 대신, 이름을 치면 걸러지는 검색형 입력으로 바꿨다
               (2026-09-07 피드백 — "기록할 성지가 많아질수록 긴 드롭다운은 찾기 어렵다"). */}
@@ -136,7 +141,7 @@ export function LogComposer({
             id="log-site"
             type="text"
             list="log-site-options"
-            placeholder="성지 이름을 검색하세요"
+            placeholder={t('logSitePlaceholder')}
             value={siteQuery}
             onChange={(e) => {
               const value = e.target.value;
@@ -148,7 +153,7 @@ export function LogComposer({
           />
           <datalist id="log-site-options">
             {stampedSites.map((s) => (
-              <option key={s.id} value={s.name} label="스탬프 찍은 곳" />
+              <option key={s.id} value={s.name} label={t('logSiteStamped')} />
             ))}
             {otherSites.map((s) => (
               <option key={s.id} value={s.name} />
@@ -156,14 +161,14 @@ export function LogComposer({
           </datalist>
           {siteQuery !== '' && siteId === '' && (
             <p className="mt-1.5 text-xs text-app-text-muted">
-              목록에서 정확한 이름을 골라주세요.
+              {t('logSitePickExact')}
             </p>
           )}
         </div>
 
         <div>
           <label htmlFor="log-date" className="mb-1.5 block text-xs font-bold text-app-text-muted">
-            방문일
+            {t('logDateLabel')}
           </label>
           <input
             id="log-date"
@@ -177,13 +182,13 @@ export function LogComposer({
 
         <div>
           <label htmlFor="log-title" className="mb-1.5 block text-xs font-bold text-app-text-muted">
-            제목
+            {t('logTitleLabel')}
           </label>
           <input
             id="log-title"
             type="text"
             maxLength={80}
-            placeholder="예: 솔뫼성지에서 보낸 조용한 오후"
+            placeholder={t('logTitlePlaceholder')}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="w-full rounded-2xl border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
@@ -195,12 +200,12 @@ export function LogComposer({
             htmlFor="log-content"
             className="mb-1.5 block text-xs font-bold text-app-text-muted"
           >
-            기록
+            {t('logContentLabel')}
           </label>
           <textarea
             id="log-content"
             rows={5}
-            placeholder="그날의 감동과 기도를 남겨보세요."
+            placeholder={t('logContentPlaceholder')}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             className="w-full resize-none rounded-2xl border border-app-border bg-app-bg px-4 py-3 text-sm leading-relaxed text-app-text focus:border-brand-violet focus:outline-none"
@@ -208,7 +213,7 @@ export function LogComposer({
         </div>
 
         <div>
-          <p className="mb-1.5 text-xs font-bold text-app-text-muted">사진</p>
+          <p className="mb-1.5 text-xs font-bold text-app-text-muted">{t('logPhotosLabel')}</p>
           <div className="grid grid-cols-4 gap-2">
             {photos.map((p, i) => (
               <div key={p.preview} className="relative">
@@ -216,7 +221,7 @@ export function LogComposer({
                 <button
                   type="button"
                   onClick={() => removePhoto(i)}
-                  aria-label="사진 빼기"
+                  aria-label={t('logPhotoRemove')}
                   className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/70 text-white"
                 >
                   <X size={12} />
@@ -228,7 +233,7 @@ export function LogComposer({
               id="log-photo-picker"
             >
               <Camera size={20} aria-hidden />
-              <span className="text-[0.6875rem] font-bold">사진 올리기</span>
+              <span className="text-[0.6875rem] font-bold">{t('logPhotoPick')}</span>
               <input
                 type="file"
                 accept="image/*"
@@ -250,7 +255,7 @@ export function LogComposer({
               onClick={onDone}
               className="rounded-xl px-5 py-2.5 text-sm font-bold text-app-text-muted"
             >
-              취소
+              {t('cancel')}
             </button>
           )}
           <button
@@ -258,7 +263,7 @@ export function LogComposer({
             disabled={!canSubmit}
             className="rounded-xl bg-brand-violet px-5 py-2.5 text-sm font-bold text-white disabled:opacity-40"
           >
-            {createLog.isPending ? '저장하는 중…' : '저장하기'}
+            {createLog.isPending ? t('logSaving') : t('logSave')}
           </button>
         </div>
       </div>
