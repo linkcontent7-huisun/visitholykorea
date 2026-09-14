@@ -1,6 +1,8 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Check, Footprints, MapPin } from 'lucide-react';
 import { paths } from '@/app/routes/paths';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { useSettings } from '@/shared/i18n/use-settings';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
@@ -8,6 +10,7 @@ import { usePilgrimageRoute } from '@/features/routes/hooks/use-pilgrimage-route
 import { countVisitedEpisodes, toEpisodes } from '@/features/routes/lib/episodes';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
+import { useWalkingCoursesNear } from '@/features/sites/hooks/use-tour-extras';
 
 /**
  * 코스 상세 — 경유지를 이야기 순서대로 보여준다.
@@ -16,18 +19,20 @@ import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
  * 드러내고, 각 경유지에는 이 코스에서의 의미(note) 한 줄을 붙인다.
  */
 export default function RouteDetailPage() {
+  const { t } = useSettings();
   // 공식 사진이 없는 성지는 순례자가 보내준(승인된) 사진으로 채운다
   const { data: featured = {} } = useFeaturedPhotos();
   const { routeSlug = '' } = useParams();
   const navigate = useNavigate();
   const { data, isLoading } = usePilgrimageRoute(routeSlug);
+  const { data: walkingCourses = [] } = useWalkingCoursesNear(data?.stops[0]?.site);
   // 이 코스에서 내가 몇 화까지 다녀왔는지 — 여권의 스탬프가 곧 진행도다
   const { data: myStamps = [] } = useMyStamps();
 
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        <LoadingSpinner label="코스를 불러오는 중" />
+        <LoadingSpinner label={t('routeLoading')} />
       </div>
     );
   }
@@ -37,8 +42,8 @@ export default function RouteDetailPage() {
       <div className="mx-auto min-h-screen max-w-2xl bg-white p-8">
         <EmptyState
           icon={Footprints}
-          title="코스를 찾을 수 없어요"
-          description="주소를 다시 확인해 주세요."
+          title={t('routeNotFoundTitle')}
+          description={t('routeNotFoundBody')}
         />
       </div>
     );
@@ -55,9 +60,9 @@ export default function RouteDetailPage() {
         <button
           onClick={() => navigate(-1)}
           className="mb-6 flex items-center gap-1 text-sm font-bold text-app-text-muted"
-          aria-label="뒤로 가기"
+          aria-label={t('backAria')}
         >
-          <ArrowLeft size={18} /> 뒤로
+          <ArrowLeft size={18} /> {t('back')}
         </button>
         <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-app-text">{route.title}</h1>
         {route.subtitle && (
@@ -72,7 +77,7 @@ export default function RouteDetailPage() {
           <div className="mb-2 flex items-center justify-between text-xs font-extrabold">
             <span className="text-app-text">
               전 {stops.length}화 ·{' '}
-              {visitedCount > 0 ? `${visitedCount}화까지 다녀오셨어요` : '아직 시작 전'}
+              {visitedCount > 0 ? fillPlaceholders(t('routeVisitedUpTo'), { count: visitedCount }) : t('routeNotStarted')}
             </span>
             <span className="text-app-text-muted">
               {visitedCount} / {stops.length}
@@ -101,7 +106,7 @@ export default function RouteDetailPage() {
                 className={`z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-extrabold text-white ${
                   visited ? 'bg-emerald-500' : 'bg-brand-violet'
                 }`}
-                aria-label={visited ? `${ep.episode}화 · 다녀옴` : `${ep.episode}화`}
+                aria-label={fillPlaceholders(t(visited ? 'routeEpisodeVisited' : 'routeEpisode'), { n: ep.episode })}
               >
                 {visited ? <Check size={16} aria-hidden /> : ep.episode}
               </span>
@@ -122,7 +127,7 @@ export default function RouteDetailPage() {
                   </div>
                   <div className="p-4">
                     <p className="mb-1 text-[0.625rem] font-extrabold uppercase tracking-widest text-brand-violet">
-                      {ep.isFinale ? `${ep.episode}화 · 마지막 이야기` : `${ep.episode}화`}
+                      {fillPlaceholders(t(ep.isFinale ? 'routeEpisodeFinale' : 'routeEpisode'), { n: ep.episode })}
                     </p>
                     <h2 className="mb-1 text-lg font-extrabold text-app-text group-hover:text-brand-violet">
                       {stop.site.name}
@@ -151,6 +156,29 @@ export default function RouteDetailPage() {
           );
         })}
       </ol>
+      {walkingCourses.length > 0 && (
+        <section className="px-8 pb-8">
+          <h2 className="mb-3 text-lg font-extrabold text-app-text">{t('routeNearbyTrails')}</h2>
+          <div className="space-y-2">
+            {walkingCourses.slice(0, 3).map((course, index) => (
+              <a
+                key={`${course.brdTitle ?? course.title ?? 'course'}-${index}`}
+                href={course.url ?? course.gpxpath}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="block rounded-2xl border border-app-border bg-app-bg p-4"
+              >
+                <p className="text-sm font-extrabold text-app-text">
+                  {course.brdTitle ?? course.title}
+                </p>
+                {course.courseTime && (
+                  <p className="mt-1 text-xs text-app-text-muted">{course.courseTime}</p>
+                )}
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

@@ -142,7 +142,7 @@ export default function MenuPage() {
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value as Language)}
-              aria-label="언어 선택 / Select language"
+              aria-label={t('languageSelectAria')}
               className="rounded-2xl border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20"
             >
               {LANGUAGES.map((lang) => (
@@ -179,7 +179,7 @@ export default function MenuPage() {
             <select
               value={origin ?? ''}
               onChange={(e) => setOrigin((e.target.value || null) as Region | null)}
-              aria-label="출발지 선택"
+              aria-label={t('originSelectAria')}
               disabled={Boolean(gpsLocation)}
               className="rounded-2xl border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20 disabled:opacity-50"
             >
@@ -264,7 +264,8 @@ export default function MenuPage() {
           <div className="flex-1">
             <h2 className="mb-1 text-xl font-extrabold tracking-tight text-app-text">
               {displayName}
-              {isLoggedIn ? ' 님' : ''}
+              {/* 「님」은 한국어 존칭 — 다른 언어에는 붙일 말이 없다 */}
+              {isLoggedIn && language === 'ko' ? ' 님' : ''}
             </h2>
             {isLoggedIn ? (
               <p className="text-sm font-bold text-brand-violet">{t('menuGreeting')}</p>

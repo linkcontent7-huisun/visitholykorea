@@ -1,6 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ChevronRight, Footprints } from 'lucide-react';
 import { paths } from '@/app/routes/paths';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { useSettings } from '@/shared/i18n/use-settings';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { usePilgrimageRoutes } from '@/features/routes/hooks/use-pilgrimage-routes';
 
@@ -11,6 +13,7 @@ import { usePilgrimageRoutes } from '@/features/routes/hooks/use-pilgrimage-rout
  * 산티아고 가이드(Gronze)가 길을 "하루 구간"으로 나누듯, 우리는 "이야기 구간"으로 나눈다.
  */
 export default function RoutesPage() {
+  const { t } = useSettings();
   const navigate = useNavigate();
   const { data: routes = [], isLoading } = usePilgrimageRoutes();
 
@@ -20,18 +23,18 @@ export default function RoutesPage() {
         <button
           onClick={() => navigate(-1)}
           className="mb-6 flex items-center gap-1 text-sm font-bold text-app-text-muted"
-          aria-label="뒤로 가기"
+          aria-label={t('backAria')}
         >
-          <ArrowLeft size={18} /> 뒤로
+          <ArrowLeft size={18} /> {t('back')}
         </button>
-        <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-app-text">순례 코스</h1>
+        <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-app-text">{t('routesTitle')}</h1>
         <p className="text-sm font-medium text-app-text-muted">
           박해의 역사와 인물을 따라, 성지를 이야기 순서로 걷는다
         </p>
       </header>
 
       <div className="flex flex-col gap-4 px-8 py-4">
-        {isLoading && <LoadingSpinner label="코스를 불러오는 중" />}
+        {isLoading && <LoadingSpinner label={t('routeLoading')} />}
         {routes.map((route) => (
           <Link
             key={route.id}
@@ -40,7 +43,7 @@ export default function RoutesPage() {
           >
             <div className="mb-1 flex items-center gap-2 text-[0.6875rem] font-bold uppercase tracking-widest text-app-text-muted">
               <Footprints size={14} aria-hidden />
-              {route.stopCount != null && <span>{route.stopCount}곳 경유</span>}
+              {route.stopCount != null && <span>{fillPlaceholders(t('routeStopsCount'), { count: route.stopCount })}</span>}
             </div>
             <h2 className="mb-1 text-xl font-extrabold text-app-text group-hover:text-brand-violet">
               {route.title}

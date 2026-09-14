@@ -23,6 +23,7 @@ import { useDirectorySearch } from '@/features/sites/hooks/use-nearby-directory'
 import { directoryDisplayAddress, directoryDisplayName } from '@/features/sites/lib/nearby-directory';
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 export default function SearchPage() {
@@ -45,7 +46,7 @@ export default function SearchPage() {
     if (!term) return;
     setIsLoadingAi(true);
     setAiResult(null);
-    setAiResult(await askAIGuide(`"${term}"에 대해 알려줘.`));
+    setAiResult(await askAIGuide(fillPlaceholders(t('searchAskAiPrompt'), { query: term })));
     setIsLoadingAi(false);
   };
 
@@ -57,7 +58,7 @@ export default function SearchPage() {
           autoFocus
           type="search"
           placeholder={t('searchInputPlaceholder')}
-          aria-label="성지 검색"
+          aria-label={t('searchAria')}
           className="flex-1 border-none bg-transparent text-xl font-bold text-slate-900 focus:outline-none"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -68,7 +69,7 @@ export default function SearchPage() {
         <button
           onClick={() => navigate(-1)}
           className="p-2 text-slate-400 hover:text-slate-900"
-          aria-label="검색 닫기"
+          aria-label={t('searchCloseAria')}
         >
           <X size={24} />
         </button>
@@ -142,7 +143,7 @@ export default function SearchPage() {
                 <div className="space-y-3">
                   {isFetching && results.length === 0 && (
                     <div className="flex items-center justify-center gap-2 py-4 text-slate-300">
-                      <Loader2 className="animate-spin" size={16} /> 검색 중...
+                      <Loader2 className="animate-spin" size={16} /> {t('searching')}
                     </div>
                   )}
                   {results.map((site) => (
@@ -255,7 +256,7 @@ export default function SearchPage() {
                   className="flex w-full flex-col items-center justify-center gap-2 rounded-[2rem] bg-gradient-to-r from-blue-600 to-indigo-600 py-6 text-white shadow-xl shadow-blue-100 transition-all active:scale-[0.98]"
                 >
                   <BookOpen size={24} />
-                  <span className="font-bold">&ldquo;{query}&rdquo;에 대해 AI에게 물어보기</span>
+                  <span className="font-bold">{fillPlaceholders(t('searchAskAi'), { query })}</span>
                   <span className="text-[0.625rem] opacity-70">
                     Enter를 누르거나 이 버튼을 눌러보세요
                   </span>

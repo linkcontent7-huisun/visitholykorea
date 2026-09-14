@@ -1,5 +1,6 @@
 import { Globe, Phone, Printer } from 'lucide-react';
 import type { HolySite } from '@/shared/types/domain';
+import { useSettings } from '@/shared/i18n/use-settings';
 
 /**
  * 성지 연락처.
@@ -15,6 +16,7 @@ import type { HolySite } from '@/shared/types/domain';
  * 화면만 차지하고 아무것도 알려주지 않는다.
  */
 export function ContactCard({ site }: { site: HolySite }) {
+  const { t } = useSettings();
   const { phone, homepageUrl, fax } = site;
   if (!phone && !homepageUrl && !fax) return null;
 
@@ -43,7 +45,7 @@ export function ContactCard({ site }: { site: HolySite }) {
             >
               <Phone size={18} className="shrink-0 text-brand-blue" aria-hidden />
               <span className="flex-1 text-sm font-semibold text-app-text">{phone}</span>
-              <span className="text-xs font-bold text-brand-blue">전화</span>
+              <span className="text-xs font-bold text-brand-blue">{t('contactCall')}</span>
             </a>
           </li>
         )}
@@ -61,7 +63,7 @@ export function ContactCard({ site }: { site: HolySite }) {
                 {homepageUrl}
               </span>
               <span className="shrink-0 text-xs font-bold text-brand-violet">
-                열기<span className="sr-only"> (새 창)</span>
+                {t('contactOpen')}<span className="sr-only"> {t('contactNewWindow')}</span>
               </span>
             </a>
           </li>
@@ -71,7 +73,7 @@ export function ContactCard({ site }: { site: HolySite }) {
           <li className="flex items-center gap-3 p-4">
             <Printer size={18} className="shrink-0 text-app-text-muted" aria-hidden />
             <span className="flex-1 text-sm text-app-text-muted">{fax}</span>
-            <span className="text-xs text-app-text-muted">팩스</span>
+            <span className="text-xs text-app-text-muted">{t('contactFax')}</span>
           </li>
         )}
       </ul>

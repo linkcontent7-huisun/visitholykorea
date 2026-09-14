@@ -3,6 +3,7 @@ import { Bot, Loader2, Send, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { useSettings } from '@/shared/i18n/use-settings';
 import { askAIGuide } from '../api/ai-guide.client';
 
 /**
@@ -17,10 +18,6 @@ interface Message {
   text: string;
 }
 
-const GREETING: Message = {
-  role: 'bot',
-  text: '안녕하세요, 순례자님. 성지순례를 돕는 미카엘입니다. 가고 싶은 지역이나 마음에 걸리는 것이 있다면 편히 말씀해 주세요.',
-};
 
 interface AiGuideSheetProps {
   isOpen: boolean;
@@ -29,7 +26,9 @@ interface AiGuideSheetProps {
 
 /** 하단에서 올라오는 AI 가이드 대화 시트. */
 export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
-  const [messages, setMessages] = useState<Message[]>([GREETING]);
+  const { t } = useSettings();
+  // 첫 인사는 고른 언어로 — 외국인에게 한국어 인사가 먼저 뜨면 답도 한국어로 올 것처럼 보인다
+  const [messages, setMessages] = useState<Message[]>(() => [{ role: 'bot', text: t('aiGreeting') }]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -60,7 +59,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
           className="fixed inset-0 z-[100] flex items-end justify-center p-0 sm:items-center sm:p-4"
           role="dialog"
           aria-modal="true"
-          aria-label="AI 순례 가이드"
+          aria-label={t('aiSheetAria')}
         >
           <motion.div
             initial={{ opacity: 0 }}
@@ -97,7 +96,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
               <button
                 onClick={onClose}
                 className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/10 transition-all hover:bg-white/20"
-                aria-label="닫기"
+                aria-label={t('close')}
               >
                 <X size={22} />
               </button>
@@ -152,14 +151,14 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') void handleSend();
                   }}
-                  placeholder="평화 속에서 질문해 보세요"
-                  aria-label="질문 입력"
+                  placeholder={t('aiInputPlaceholder')}
+                  aria-label={t('aiInputAria')}
                   className="w-full rounded-[24px] border border-app-border bg-app-bg px-7 py-5 pr-16 text-sm font-bold text-app-text outline-none transition-all placeholder:text-gray-300 focus:ring-2 focus:ring-brand-blue/20"
                 />
                 <button
                   onClick={() => void handleSend()}
                   disabled={!input.trim() || isLoading}
-                  aria-label="보내기"
+                  aria-label={t('send')}
                   className={`absolute right-2 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-2xl px-4 py-3 transition-all ${
                     input.trim()
                       ? 'bg-brand-blue text-white shadow-xl shadow-brand-blue/20'

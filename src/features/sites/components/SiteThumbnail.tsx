@@ -1,6 +1,8 @@
 import { Church, Cross, Footprints, Home, Landmark, type LucideIcon } from 'lucide-react';
 import { useState } from 'react';
 import { placeholderImageFor } from '@/shared/lib/site-placeholder';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { useSettings } from '@/shared/i18n/use-settings';
 
 interface SiteThumbnailProps {
   imageUrl: string | null;
@@ -113,6 +115,7 @@ export function SiteThumbnail({
   className = '',
   intensity = 'light',
 }: SiteThumbnailProps) {
+  const { t } = useSettings();
   const [placeholderFailed, setPlaceholderFailed] = useState(false);
   const usingPilgrim = !imageUrl && Boolean(pilgrimUrl);
   const url = imageUrl ?? pilgrimUrl;
@@ -122,7 +125,7 @@ export function SiteThumbnail({
       <img
         src={url}
         // 순례자 사진임을 스크린리더에도 알린다 — 공식 사진과 같은 것으로 읽히면 안 된다
-        alt={usingPilgrim ? `${name} — 순례자가 보내온 사진` : name}
+        alt={usingPilgrim ? fillPlaceholders(t('photoByPilgrimAlt'), { name }) : name}
         className={className}
         loading="lazy"
       />
@@ -136,7 +139,7 @@ export function SiteThumbnail({
     return (
       <img
         src={placeholderImageFor(name)}
-        alt={`${name} — 사진 준비 중`}
+        alt={fillPlaceholders(t('photoPendingAlt'), { name })}
         className={className}
         loading="lazy"
         onError={() => setPlaceholderFailed(true)}
@@ -153,7 +156,7 @@ export function SiteThumbnail({
   return (
     <div
       role="img"
-      aria-label={`${name} — 사진 준비 중`}
+      aria-label={fillPlaceholders(t('photoPendingAlt'), { name })}
       className={`flex items-center justify-center ${className}`}
       style={{ background }}
     >

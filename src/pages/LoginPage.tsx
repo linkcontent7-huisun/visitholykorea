@@ -9,6 +9,7 @@ import {
 } from '@/features/auth/api/auth';
 import { HAS_ANY_SOCIAL } from '@/features/auth/lib/providers';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -82,7 +83,7 @@ export default function LoginPage() {
   return (
     <div className={`mx-auto flex min-h-screen ${widthClass} flex-col bg-white`}>
       <div className="flex h-16 shrink-0 items-center px-4">
-        <button onClick={() => navigate(-1)} className="p-2 text-slate-800" aria-label="뒤로 가기">
+        <button onClick={() => navigate(-1)} className="p-2 text-slate-800" aria-label={t('backAria')}>
           <ChevronLeft size={28} />
         </button>
       </div>
@@ -111,8 +112,8 @@ export default function LoginPage() {
               />
               <input
                 type="text"
-                placeholder="이름"
-                aria-label="이름"
+                placeholder={t('nameField')}
+                aria-label={t('nameField')}
                 autoComplete="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -128,8 +129,8 @@ export default function LoginPage() {
             />
             <input
               type="email"
-              placeholder="이메일 주소"
-              aria-label="이메일 주소"
+              placeholder={t('emailField')}
+              aria-label={t('emailField')}
               autoComplete="email"
               required
               value={email}
@@ -145,8 +146,8 @@ export default function LoginPage() {
             />
             <input
               type="password"
-              placeholder="비밀번호"
-              aria-label="비밀번호"
+              placeholder={t('passwordField')}
+              aria-label={t('passwordField')}
               autoComplete={isLogin ? 'current-password' : 'new-password'}
               required
               value={password}
@@ -214,8 +215,8 @@ export default function LoginPage() {
               type="button"
               onClick={() => signInWithNaver()}
               disabled={loading}
-              aria-label="네이버로 로그인"
-              title="네이버로 로그인"
+              aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerNaver') })}
+              title={fillPlaceholders(t('loginWith'), { provider: t('providerNaver') })}
               className="flex h-14 w-14 items-center justify-center rounded-full bg-[#03C75A] shadow-md transition-all hover:brightness-95 active:scale-95 disabled:opacity-50"
             >
               {/* 네이버 N 심볼 */}
@@ -228,8 +229,8 @@ export default function LoginPage() {
               type="button"
               onClick={() => handleOAuth('kakao')}
               disabled={loading}
-              aria-label="카카오로 로그인"
-              title="카카오로 로그인"
+              aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerKakao') })}
+              title={fillPlaceholders(t('loginWith'), { provider: t('providerKakao') })}
               className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FEE500] shadow-md transition-all hover:brightness-95 active:scale-95 disabled:opacity-50"
             >
               {/* 카카오 말풍선 심볼 */}
@@ -245,8 +246,8 @@ export default function LoginPage() {
               type="button"
               onClick={() => handleOAuth('google')}
               disabled={loading}
-              aria-label="Google로 로그인"
-              title="Google로 로그인"
+              aria-label={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
+              title={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
               className="flex h-14 w-14 items-center justify-center rounded-full border border-slate-200 bg-white shadow-md transition-all hover:bg-slate-50 active:scale-95 disabled:opacity-50"
             >
               {/* 구글 G 심볼 */}
@@ -274,8 +275,8 @@ export default function LoginPage() {
               type="button"
               onClick={() => handleOAuth('facebook')}
               disabled={loading}
-              aria-label="페이스북으로 로그인"
-              title="페이스북으로 로그인"
+              aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerFacebook') })}
+              title={fillPlaceholders(t('loginWith'), { provider: t('providerFacebook') })}
               className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1877F2] shadow-md transition-all hover:brightness-95 active:scale-95 disabled:opacity-50"
             >
               {/* 페이스북 f 심볼 */}

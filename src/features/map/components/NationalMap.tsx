@@ -102,9 +102,10 @@ export function NationalMap({
         viewBox={`0 0 ${VIEW.width} ${VIEW.height}`}
         className="h-auto w-full"
         role="img"
-        aria-label={`전국 성지 지도. 표시된 ${pins.length}곳 중 ${
-          pins.filter((p) => p.state === 'visited').length
-        }곳을 다녀왔습니다.`}
+        aria-label={fillPlaceholders(t('nationalMapAria'), {
+          total: pins.length,
+          visited: pins.filter((p) => p.state === 'visited').length,
+        })}
       >
         {/* 한국 윤곽과 교구 구획 — 맨 아래 깔린다 */}
         <DioceseLayer language={language} highlight={highlightDiocese} />
@@ -142,7 +143,7 @@ export function NationalMap({
                 className="cursor-pointer fill-transparent"
                 role="button"
                 tabIndex={0}
-                aria-label={`${site.name}${state === 'visited' ? ' (다녀옴)' : ''}`}
+                aria-label={`${site.name}${state === 'visited' ? t('visitedSuffix') : ''}`}
                 onClick={() => onSelect(site.id)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
