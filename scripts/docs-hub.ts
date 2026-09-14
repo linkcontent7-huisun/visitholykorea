@@ -14,6 +14,8 @@
 
 import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative, resolve, sep } from 'node:path';
+import { spawn } from 'node:child_process';
+import { pathToFileURL } from 'node:url';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const DOCS = join(ROOT, 'docs');
@@ -276,19 +278,36 @@ if (!docFiles.some((f) => f.path === selfPath)) {
 
 const byPath = new Map(docFiles.map((f) => [f.path, f]));
 
-/** 폴더 순서와 이름은 docs/README.md 의 첫 표에서 가져온다. */
+function isFolder(name: string): boolean {
+  try {
+    return statSync(join(DOCS, name)).isDirectory();
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * 폴더 순서와 이름은 docs/README.md 의 「폴더 → 담는 것」 표에서 가져온다.
+ *
+ * "첫 표"로 찾으면 안 된다 — 그 문서에 다른 표(예: 허브 보는 법)가 위에 하나 더 생기는
+ * 순간 폴더를 0개로 읽는다. 실제로 2026-09-14 에 그렇게 깨졌다.
+ * 그래서 **실제 폴더를 가장 많이 가리키는 표**를 고른다.
+ */
 function folderOrder(): { folder: string; blurb: string }[] {
   const rootReadme = readFileSync(join(DOCS, 'README.md'), 'utf8');
-  const [first] = parseTables(rootReadme);
-  const out: { folder: string; blurb: string }[] = [];
-  if (!first) return out;
-  for (const row of first.rows.slice(1)) {
-    const raw = pickPath(row)?.raw ?? (row[0] ?? '').replace(/`/g, '').trim();
-    const folder = raw.replace(/^docs\//, '').replace(/\/$/, '');
-    if (!folder || folder.endsWith('.md')) continue;
-    out.push({ folder, blurb: plain(row.slice(1).join(' — ')) });
+
+  let best: { folder: string; blurb: string }[] = [];
+  for (const table of parseTables(rootReadme)) {
+    const rows: { folder: string; blurb: string }[] = [];
+    for (const row of table.rows.slice(1)) {
+      const raw = pickPath(row)?.raw ?? (row[0] ?? '').replace(/`/g, '').trim();
+      const folder = raw.replace(/^docs\//, '').replace(/\/$/, '');
+      if (!folder || !isFolder(folder)) continue;
+      rows.push({ folder, blurb: plain(row.slice(1).join(' — ')) });
+    }
+    if (rows.length > best.length) best = rows;
   }
-  return out;
+  return best;
 }
 
 /**
@@ -941,6 +960,31 @@ writeFileSync(OUT_MD, md.join('\n'), 'utf8');
 
 console.log(`문서 허브를 만들었습니다 → ${relative(ROOT, OUT)}`);
 console.log(`                        → ${relative(ROOT, OUT_MD)}`);
+
+/**
+ * `npm run docs` 로 만들고 바로 연다.
+ *
+ * 마크다운 판은 편집기·Orca 에서 원본 글자로만 보인다(GitHub 웹에서만 렌더된다).
+ * 사람이 눈으로 볼 판은 `index.html` 인데, 매번 탐색기에서 찾아 여는 게 번거로워
+ * 기본 브라우저로 띄우는 길을 둔다.
+ */
+function openInBrowser(target: string): void {
+  const url = pathToFileURL(target).href;
+  const [command, args] =
+    process.platform === 'win32'
+      ? ['cmd', ['/c', 'start', '', url]]
+      : process.platform === 'darwin'
+        ? ['open', [url]]
+        : ['xdg-open', [url]];
+
+  const child = spawn(command, args, { detached: true, stdio: 'ignore' });
+  // 브라우저가 없는 환경(CI·웹 세션)에서 생성까지 실패로 만들지 않는다
+  child.on('error', () => {
+    console.log(`  브라우저를 열지 못했습니다. 직접 여세요 → ${url}`);
+  });
+  child.unref();
+}
+
 console.log(`  문서 ${docFiles.length}개 · 폴더 ${sections.length}개 · 작업 ${tasks.length}건`);
 if (missing.length > 0) {
   console.log(`  ⚠️ 저장소에 없는 경로를 가리키는 참조 ${missing.length}종 (허브에 배지로 표시)`);
@@ -950,3 +994,12 @@ console.log(
   `  폴더 README 표에 오른 문서 ${docFiles.length - unlisted.length}개 · 표에 없는 문서 ${unlisted.length}개`,
 );
 console.log('  (표에 없는 문서도 허브의 「전체 문서 찾아보기」 에서 이름으로 찾을 수 있습니다)');
+
+if (process.argv.includes('--open')) {
+  console.log(`\n브라우저로 엽니다 → ${pathToFileURL(OUT).href}`);
+  openInBrowser(OUT);
+} else {
+  console.log('\n눈으로 보려면 → npm run docs   (브라우저로 docs/index.html 을 연다)');
+  console.log('마크다운 판(docs/DSH/문서-허브.md)은 GitHub 웹에서만 예쁘게 보인다 —');
+  console.log('편집기·Orca 에서는 원본 글자로 나온다.');
+}
