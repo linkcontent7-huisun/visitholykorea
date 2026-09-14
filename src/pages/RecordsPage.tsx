@@ -34,12 +34,8 @@ import {
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 
-type Segment = 'logs' | 'stamps';
-
 export default function RecordsPage() {
   const { t, language } = useSettings();
-  const [segment, setSegment] = useState<Segment>('logs');
-  const [isComposing, setIsComposing] = useState(false);
   const { session } = useSession();
   const { data: logs = [], isLoading: logsLoading } = useMyLogs();
   const { data: stamps = [] } = useMyStamps();
@@ -178,282 +174,262 @@ export default function RecordsPage() {
 
   return (
     <div className="min-h-screen bg-app-bg">
-      <header className="sticky top-0 z-40 border-b border-app-border bg-white/90 p-8 pb-4 backdrop-blur-md">
-        <h1 className="mb-4 text-3xl font-extrabold tracking-tight text-app-text">{t('recordsTitle')}</h1>
-        <div className="flex rounded-[16px] border border-app-border bg-app-bg p-1" role="tablist">
-          {(
-            [
-              { id: 'logs', label: t('recordsLogsTab') },
-              { id: 'stamps', label: t('recordsStampsTab') },
-            ] as const
-          ).map((tab) => (
-            <button
-              key={tab.id}
-              role="tab"
-              aria-selected={segment === tab.id}
-              onClick={() => setSegment(tab.id)}
-              className={`flex-1 rounded-[12px] py-2.5 text-xs font-bold transition-all ${
-                segment === tab.id ? 'bg-white text-brand-blue shadow-sm' : 'text-app-text-muted'
-              }`}
-              id={`seg-${tab.id}`}
-            >
-              {tab.label}
-            </button>
-          ))}
+      {/* 제목 옆에 이 화면이 무엇을 하는 곳인지 — 예전엔 빈 목록 아래에만 있어 스크롤해야 보였다
+          (2026-09-14 사장님 요청). 탭(여행기/스탬프) 없이 한 흐름: 여권 → 스탬프 → 쓰기 칸 → 여행기 */}
+      <header className="sticky top-0 z-40 border-b border-app-border bg-white/90 p-8 pb-5 backdrop-blur-md">
+        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <h1 className="text-3xl font-extrabold tracking-tight text-app-text">{t('recordsTitle')}</h1>
+          <p className="text-base font-bold text-brand-violet">{t('logsEmptyTitle')}</p>
         </div>
+        <p className="mt-1.5 whitespace-pre-line text-[0.8125rem] leading-relaxed text-app-text-muted">
+          {t('logsEmptyBody')}
+        </p>
       </header>
 
-      <div className="p-8 pb-32">
-        {segment === 'logs' ? (
-          <div className="space-y-8">
-            {isComposing ? (
-              <LogComposer onDone={() => setIsComposing(false)} />
-            ) : !SUBMISSION_MODE ? (
-              // 제출판은 본선 기능만 보이게 한다 — T-013
-              <button
-                onClick={() => setIsComposing(true)}
-                className="flex w-full items-center justify-center gap-3 rounded-[24px] border-2 border-dashed border-app-border py-5 text-sm font-bold text-app-text-muted transition-all hover:border-brand-violet/30 hover:bg-brand-violet/5 hover:text-brand-violet"
-                id="create-log-btn"
+      <div className="space-y-10 p-8 pb-32">
+          <div className="rounded-[32px] bg-gradient-to-br from-brand-blue to-brand-violet p-8 text-white shadow-xl shadow-brand-blue/20">
+            <p className="mb-2 text-[0.625rem] font-extrabold uppercase tracking-widest opacity-70">
+              {t('pilgrimPassport')}
+            </p>
+            <div className="mb-3 flex items-end gap-2">
+              <span className="text-4xl font-black">{stamps.length}</span>
+              {/* 진행 분모는 숫자로만 붙인다 — 6개 언어 어디서나 그대로 읽힌다 */}
+              <span className="mb-1 text-sm font-bold opacity-80">
+                {t('sitesVisitedSuffix')}
+                {totalSites > 0 ? ` · ${stamps.length}/${totalSites}` : ''}
+              </span>
+            </div>
+            {totalSites > 0 && (
+              <div
+                className="mb-4 h-2 overflow-hidden rounded-full bg-white/20"
+                role="progressbar"
+                aria-valuenow={stamps.length}
+                aria-valuemax={totalSites}
+                aria-label={t('nationalProgressAriaLabel')}
               >
-                <PenLine size={20} />
-                {t('writeJournalButton')}
+                <div
+                  className="h-full rounded-full bg-amber-300"
+                  style={{ width: `${Math.min(100, (stamps.length / totalSites) * 100)}%` }}
+                />
+              </div>
+            )}
+            {certLevel && (
+              <p className="mb-1 text-sm font-bold">
+                {fillPlaceholders(t('currentCertLevel'), {
+                  emoji: certLevel.emoji,
+                  label: localizeCertLevel(certLevel.label, t),
+                })}
+              </p>
+            )}
+            {nextLevel && (
+              <p className="text-xs opacity-70">
+                {fillPlaceholders(t('nextCertLevel'), {
+                  label: localizeCertLevel(nextLevel.label, t),
+                  count: nextLevel.minStamps - stamps.length,
+                })}
+              </p>
+            )}
+            {certLevel && (
+              <button
+                onClick={() => void handleDownloadCertificate()}
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-white/15 py-3 text-xs font-bold backdrop-blur-md transition-colors hover:bg-white/25"
+                id="download-certificate-btn"
+              >
+                <FileDown size={16} />
+                {t('downloadCertificateButton')}
               </button>
-            ) : null}
-
-            {logsLoading ? (
-              [1, 2].map((i) => (
-                <div key={i} className="h-64 animate-pulse rounded-[32px] bg-white" />
-              ))
-            ) : logs.length > 0 ? (
-              logs.map((log) => (
-                <motion.article
-                  key={log.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="overflow-hidden rounded-[32px] border border-app-border bg-white shadow-xl shadow-gray-200/40"
-                  id={`log-item-${log.id}`}
-                >
-                  {log.siteImage && (
-                    <img src={log.siteImage} alt={log.title} className="h-56 w-full object-cover" />
-                  )}
-                  <div className="p-7">
-                    <div className="mb-3 flex items-center gap-2 text-brand-violet">
-                      <MapPin size={14} className="fill-brand-violet/10" />
-                      <span className="text-[0.625rem] font-extrabold uppercase tracking-widest">
-                        {log.siteName}
-                      </span>
-                    </div>
-                    <h3 className="mb-3 text-xl font-bold leading-tight text-app-text">
-                      {log.title}
-                    </h3>
-                    <p className="mb-6 line-clamp-3 text-sm font-medium leading-relaxed text-app-text-muted">
-                      {log.content}
-                    </p>
-                    <div className="flex items-center justify-between border-t border-app-border pt-5">
-                      <div className="flex items-center gap-2 text-app-text-muted">
-                        <Calendar size={14} />
-                        <span className="text-[0.625rem] font-bold">{log.visitDate}</span>
-                      </div>
-                      <button className="flex items-center gap-1.5 font-bold text-pink-500">
-                        <Heart size={16} className="fill-pink-500" />
-                      </button>
-                    </div>
-                  </div>
-                </motion.article>
-              ))
-            ) : (
-              <EmptyState
-                icon={PenLine}
-                title={t('logsEmptyTitle')}
-                description={
-                  t('logsEmptyBody')
-                }
-              />
+            )}
+            {stamps.length > 0 && (
+              <button
+                onClick={() => void handleChronicleCard()}
+                disabled={chronicleLoading}
+                className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl bg-white/15 py-3 text-xs font-bold backdrop-blur-md transition-colors hover:bg-white/25 disabled:opacity-50"
+                id="chronicle-card-btn"
+              >
+                <Sparkles size={16} />
+                {chronicleLoading ? t('chronicleCardLoading') : t('chronicleCardButton')}
+              </button>
             )}
           </div>
-        ) : (
-          <div className="space-y-10">
-            <div className="rounded-[32px] bg-gradient-to-br from-brand-blue to-brand-violet p-8 text-white shadow-xl shadow-brand-blue/20">
-              <p className="mb-2 text-[0.625rem] font-extrabold uppercase tracking-widest opacity-70">
-                {t('pilgrimPassport')}
+
+          {/* 교구별 진행 — 208곳 전부는 멀어도 교구 하나는 손에 잡힌다 */}
+          {dioceseRows.length > 0 && (
+            <div className="rounded-[32px] border border-app-border bg-white p-7">
+              <p className="mb-5 text-sm font-extrabold text-app-text">
+                {t('dioceseProgressTitle')}
               </p>
-              <div className="mb-3 flex items-end gap-2">
-                <span className="text-4xl font-black">{stamps.length}</span>
-                {/* 진행 분모는 숫자로만 붙인다 — 6개 언어 어디서나 그대로 읽힌다 */}
-                <span className="mb-1 text-sm font-bold opacity-80">
-                  {t('sitesVisitedSuffix')}
-                  {totalSites > 0 ? ` · ${stamps.length}/${totalSites}` : ''}
-                </span>
-              </div>
-              {totalSites > 0 && (
-                <div
-                  className="mb-4 h-2 overflow-hidden rounded-full bg-white/20"
-                  role="progressbar"
-                  aria-valuenow={stamps.length}
-                  aria-valuemax={totalSites}
-                  aria-label={t('nationalProgressAriaLabel')}
-                >
-                  <div
-                    className="h-full rounded-full bg-amber-300"
-                    style={{ width: `${Math.min(100, (stamps.length / totalSites) * 100)}%` }}
-                  />
-                </div>
-              )}
-              {certLevel && (
-                <p className="mb-1 text-sm font-bold">
-                  {fillPlaceholders(t('currentCertLevel'), {
-                    emoji: certLevel.emoji,
-                    label: localizeCertLevel(certLevel.label, t),
-                  })}
-                </p>
-              )}
-              {nextLevel && (
-                <p className="text-xs opacity-70">
-                  {fillPlaceholders(t('nextCertLevel'), {
-                    label: localizeCertLevel(nextLevel.label, t),
-                    count: nextLevel.minStamps - stamps.length,
-                  })}
-                </p>
-              )}
-              {certLevel && (
-                <button
-                  onClick={() => void handleDownloadCertificate()}
-                  className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-white/15 py-3 text-xs font-bold backdrop-blur-md transition-colors hover:bg-white/25"
-                  id="download-certificate-btn"
-                >
-                  <FileDown size={16} />
-                  {t('downloadCertificateButton')}
-                </button>
-              )}
-              {stamps.length > 0 && (
-                <button
-                  onClick={() => void handleChronicleCard()}
-                  disabled={chronicleLoading}
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl bg-white/15 py-3 text-xs font-bold backdrop-blur-md transition-colors hover:bg-white/25 disabled:opacity-50"
-                  id="chronicle-card-btn"
-                >
-                  <Sparkles size={16} />
-                  {chronicleLoading ? t('chronicleCardLoading') : t('chronicleCardButton')}
-                </button>
-              )}
-            </div>
-
-            {/* 교구별 진행 — 208곳 전부는 멀어도 교구 하나는 손에 잡힌다 */}
-            {dioceseRows.length > 0 && (
-              <div className="rounded-[32px] border border-app-border bg-white p-7">
-                <p className="mb-5 text-sm font-extrabold text-app-text">
-                  {t('dioceseProgressTitle')}
-                </p>
-                <ul className="space-y-4">
-                  {dioceseRows.map(([diocese, v]) => {
-                    const done = v.visited === v.total;
-                    return (
-                      <li key={diocese}>
-                        <div className="mb-1.5 flex items-center justify-between text-xs font-bold">
-                          <span className="text-app-text">
-                            {localizeRegionName(diocese, language)}
-                            {done && (
-                              <span className="ml-1.5 text-amber-500">
-                                {t('dioceseCompleteBadge')}
-                              </span>
-                            )}
-                          </span>
-                          <span className="text-app-text-muted">
-                            {v.visited} / {v.total}
-                          </span>
-                        </div>
-                        <div className="h-1.5 overflow-hidden rounded-full bg-app-bg">
-                          <div
-                            className={`h-full rounded-full ${done ? 'bg-amber-400' : 'bg-brand-violet'}`}
-                            style={{ width: `${(v.visited / v.total) * 100}%` }}
-                          />
-                        </div>
-                        {done && (
-                          <button
-                            onClick={() => void handleDioceseCard(diocese)}
-                            className="mt-2 text-[0.6875rem] font-extrabold text-brand-violet underline-offset-2 hover:underline"
-                            id={`diocese-card-${diocese}`}
-                          >
-                            {fillPlaceholders(t('dioceseCardButton'), {
-                              diocese: localizeRegionName(diocese, language),
-                            })}
-                          </button>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            )}
-
-            {stamps.length === 0 ? (
-              // 빈 화면 대신 "무엇을 모으는 여권인지" 보여준다 (미리보기임을 명시)
-              <EmptyPassportPreview />
-            ) : (
-              <div className="grid grid-cols-3 gap-x-6 gap-y-8">
-                {stamps.map((stamp) => {
-                  // 스탬프를 찍은 그날의 전례 시기로 잉크 색이 갈리고, 도장의 그림은
-                  // 그 성지의 건축(명동=고딕 쌍탑, 해미읍성=성곽…)이 정한다 —
-                  // 같은 여권 안에서 어느 하나 같은 도장이 없다.
-                  const event = getLiturgicalEvent(new Date(stamp.visitedAt));
-                  const motif = resolveStampMotif(stamp.siteName, stamp.category);
-                  const reads = stamp.note ? (noteReads[stamp.stampId] ?? 0) : 0;
-                  // WYD 대회 기간(2027.7.29~8.8)에 찍은 스탬프는 금테를 두른다 —
-                  // "그때 거기 있었다"는 증명은 시간이 지날수록 값이 오른다.
-                  const wydLimited = isWydPeriod(new Date(stamp.visitedAt));
+              <ul className="space-y-4">
+                {dioceseRows.map(([diocese, v]) => {
+                  const done = v.visited === v.total;
                   return (
-                    <div key={stamp.stampId} className="flex flex-col items-center gap-2">
-                    <Link
-                      to={paths.siteDetail(stamp.siteId)}
-                      className="flex flex-col items-center gap-3"
-                      id={`stamp-${stamp.stampId}`}
-                    >
-                      <div
-                        className={`relative flex h-20 w-20 rotate-6 scale-110 items-center justify-center rounded-full border-4 text-white shadow-2xl transition-all duration-500 ${event.colorClass.bg} ${
-                          wydLimited ? 'border-amber-400 ring-2 ring-amber-300/60' : 'border-white'
-                        }`}
-                      >
-                        <StampMotifIcon motif={motif} className="h-12 w-12" />
-                        {isWydVenue(stamp.siteName) && (
-                          <span
-                            className="absolute -right-1 -top-1 rounded-full bg-amber-400 px-1.5 py-0.5 text-[8px] font-black text-amber-950"
-                            title={t('wydVenueBadge')}
-                          >
-                            WYD
-                          </span>
-                        )}
+                    <li key={diocese}>
+                      <div className="mb-1.5 flex items-center justify-between text-xs font-bold">
+                        <span className="text-app-text">
+                          {localizeRegionName(diocese, language)}
+                          {done && (
+                            <span className="ml-1.5 text-amber-500">
+                              {t('dioceseCompleteBadge')}
+                            </span>
+                          )}
+                        </span>
+                        <span className="text-app-text-muted">
+                          {v.visited} / {v.total}
+                        </span>
                       </div>
-                      <span className="text-center text-[0.625rem] font-extrabold leading-tight tracking-tight text-brand-blue">
-                        {stamp.siteName}
-                      </span>
-                      <span className={`text-[0.5625rem] font-bold ${event.colorClass.text}`}>
-                        {localizeMotifLabel(motif.id, t)} · {t(event.labelKey)}
-                      </span>
-                      {wydLimited && (
-                        <span className="-mt-2 text-[0.5625rem] font-black text-amber-600">
-                          {t('wydLimitedBadge')}
-                        </span>
+                      <div className="h-1.5 overflow-hidden rounded-full bg-app-bg">
+                        <div
+                          className={`h-full rounded-full ${done ? 'bg-amber-400' : 'bg-brand-violet'}`}
+                          style={{ width: `${(v.visited / v.total) * 100}%` }}
+                        />
+                      </div>
+                      {done && (
+                        <button
+                          onClick={() => void handleDioceseCard(diocese)}
+                          className="mt-2 text-[0.6875rem] font-extrabold text-brand-violet underline-offset-2 hover:underline"
+                          id={`diocese-card-${diocese}`}
+                        >
+                          {fillPlaceholders(t('dioceseCardButton'), {
+                            diocese: localizeRegionName(diocese, language),
+                          })}
+                        </button>
                       )}
-                      {reads > 0 && (
-                        <span className="-mt-2 text-[0.5625rem] font-bold text-app-text-muted">
-                          {fillPlaceholders(t('noteReadsCount'), { count: reads })}
-                        </span>
-                      )}
-                    </Link>
-                    <div className="w-full space-y-1">
-                      {stamp.photos.length > 0 && <div className="grid grid-cols-3 gap-1">{stamp.photos.map((photo) => <div key={photo.id} className="relative"><img src={photo.url} alt={`${stamp.siteName} 사진`} className="aspect-square rounded-md object-cover" /><button type="button" onClick={() => deletePhoto.mutate(photo)} className="absolute right-0 top-0 rounded-bl bg-black/60 px-1 text-xs text-white" aria-label="사진 삭제">×</button></div>)}</div>}
-                      <label className="block cursor-pointer rounded-lg border border-dashed border-brand-violet/40 px-2 py-1 text-center text-[0.625rem] font-bold text-brand-violet">
-                        사진 여러 장 +
-                        <input type="file" accept="image/*" multiple className="hidden" disabled={uploadPhotos.isPending} onChange={(e) => { void handlePhotos(stamp.stampId, stamp.siteId, e.target.files); e.target.value = ''; }} />
-                      </label>
-                    </div>
-                    </div>
+                    </li>
                   );
                 })}
-              </div>
-            )}
-          </div>
+              </ul>
+            </div>
+          )}
+
+          {stamps.length === 0 ? (
+            // 빈 화면 대신 "무엇을 모으는 여권인지" 보여준다 (미리보기임을 명시)
+            <EmptyPassportPreview />
+          ) : (
+            <div className="grid grid-cols-3 gap-x-6 gap-y-8">
+              {stamps.map((stamp) => {
+                // 스탬프를 찍은 그날의 전례 시기로 잉크 색이 갈리고, 도장의 그림은
+                // 그 성지의 건축(명동=고딕 쌍탑, 해미읍성=성곽…)이 정한다 —
+                // 같은 여권 안에서 어느 하나 같은 도장이 없다.
+                const event = getLiturgicalEvent(new Date(stamp.visitedAt));
+                const motif = resolveStampMotif(stamp.siteName, stamp.category);
+                const reads = stamp.note ? (noteReads[stamp.stampId] ?? 0) : 0;
+                // WYD 대회 기간(2027.7.29~8.8)에 찍은 스탬프는 금테를 두른다 —
+                // "그때 거기 있었다"는 증명은 시간이 지날수록 값이 오른다.
+                const wydLimited = isWydPeriod(new Date(stamp.visitedAt));
+                return (
+                  <div key={stamp.stampId} className="flex flex-col items-center gap-2">
+                  <Link
+                    to={paths.siteDetail(stamp.siteId)}
+                    className="flex flex-col items-center gap-3"
+                    id={`stamp-${stamp.stampId}`}
+                  >
+                    <div
+                      className={`relative flex h-20 w-20 rotate-6 scale-110 items-center justify-center rounded-full border-4 text-white shadow-2xl transition-all duration-500 ${event.colorClass.bg} ${
+                        wydLimited ? 'border-amber-400 ring-2 ring-amber-300/60' : 'border-white'
+                      }`}
+                    >
+                      <StampMotifIcon motif={motif} className="h-12 w-12" />
+                      {isWydVenue(stamp.siteName) && (
+                        <span
+                          className="absolute -right-1 -top-1 rounded-full bg-amber-400 px-1.5 py-0.5 text-[8px] font-black text-amber-950"
+                          title={t('wydVenueBadge')}
+                        >
+                          WYD
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-center text-[0.625rem] font-extrabold leading-tight tracking-tight text-brand-blue">
+                      {stamp.siteName}
+                    </span>
+                    <span className={`text-[0.5625rem] font-bold ${event.colorClass.text}`}>
+                      {localizeMotifLabel(motif.id, t)} · {t(event.labelKey)}
+                    </span>
+                    {wydLimited && (
+                      <span className="-mt-2 text-[0.5625rem] font-black text-amber-600">
+                        {t('wydLimitedBadge')}
+                      </span>
+                    )}
+                    {reads > 0 && (
+                      <span className="-mt-2 text-[0.5625rem] font-bold text-app-text-muted">
+                        {fillPlaceholders(t('noteReadsCount'), { count: reads })}
+                      </span>
+                    )}
+                  </Link>
+                  <div className="w-full space-y-1">
+                    {stamp.photos.length > 0 && <div className="grid grid-cols-3 gap-1">{stamp.photos.map((photo) => <div key={photo.id} className="relative"><img src={photo.url} alt={`${stamp.siteName} 사진`} className="aspect-square rounded-md object-cover" /><button type="button" onClick={() => deletePhoto.mutate(photo)} className="absolute right-0 top-0 rounded-bl bg-black/60 px-1 text-xs text-white" aria-label="사진 삭제">×</button></div>)}</div>}
+                    <label className="block cursor-pointer rounded-lg border border-dashed border-brand-violet/40 px-2 py-1 text-center text-[0.625rem] font-bold text-brand-violet">
+                      사진 여러 장 +
+                      <input type="file" accept="image/*" multiple className="hidden" disabled={uploadPhotos.isPending} onChange={(e) => { void handlePhotos(stamp.stampId, stamp.siteId, e.target.files); e.target.value = ''; }} />
+                    </label>
+                  </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+        {/* 여행기 쓰기 — 늘 펼쳐 둔다. 사진도 여기서 올린다 */}
+        {!SUBMISSION_MODE && (
+          // 제출판은 본선 기능만 보이게 한다 — T-013
+          <section aria-label={t('recordsLogsTab')}>
+            <h2 className="mb-4 flex items-center gap-2 text-lg font-extrabold text-app-text">
+              <PenLine size={18} className="text-brand-violet" aria-hidden />
+              {t('recordsLogsTab')}
+            </h2>
+            <LogComposer persistent onDone={() => undefined} />
+          </section>
         )}
+
+        <div className="space-y-8">
+          {logsLoading ? (
+            [1, 2].map((i) => (
+              <div key={i} className="h-64 animate-pulse rounded-[32px] bg-white" />
+            ))
+          ) : logs.length > 0 ? (
+            logs.map((log) => (
+              <motion.article
+                key={log.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="overflow-hidden rounded-[32px] border border-app-border bg-white shadow-xl shadow-gray-200/40"
+                id={`log-item-${log.id}`}
+              >
+                {log.siteImage && (
+                  <img src={log.siteImage} alt={log.title} className="h-56 w-full object-cover" />
+                )}
+                {log.photos.length > 0 && (
+                  <div className="grid grid-cols-3 gap-1 p-2">
+                    {log.photos.map((url) => (
+                      <img key={url} src={url} alt="" loading="lazy" className="aspect-square w-full rounded-xl object-cover" />
+                    ))}
+                  </div>
+                )}
+                <div className="p-7">
+                  <div className="mb-3 flex items-center gap-2 text-brand-violet">
+                    <MapPin size={14} className="fill-brand-violet/10" />
+                    <span className="text-[0.625rem] font-extrabold uppercase tracking-widest">
+                      {log.siteName}
+                    </span>
+                  </div>
+                  <h3 className="mb-3 text-xl font-bold leading-tight text-app-text">
+                    {log.title}
+                  </h3>
+                  <p className="mb-6 line-clamp-3 text-sm font-medium leading-relaxed text-app-text-muted">
+                    {log.content}
+                  </p>
+                  <div className="flex items-center justify-between border-t border-app-border pt-5">
+                    <div className="flex items-center gap-2 text-app-text-muted">
+                      <Calendar size={14} />
+                      <span className="text-[0.625rem] font-bold">{log.visitDate}</span>
+                    </div>
+                    <button className="flex items-center gap-1.5 font-bold text-pink-500">
+                      <Heart size={16} className="fill-pink-500" />
+                    </button>
+                  </div>
+                </div>
+              </motion.article>
+            ))
+          ) : null}
+        </div>
       </div>
     </div>
   );

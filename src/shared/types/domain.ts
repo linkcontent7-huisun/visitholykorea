@@ -87,6 +87,8 @@ export interface PilgrimageLog {
   visitDate: string;
   siteName?: string;
   siteImage?: string;
+  /** 여행기에 붙인 사진 URL — 없으면 빈 배열 */
+  photos: string[];
 }
 
 /**

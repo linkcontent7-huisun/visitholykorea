@@ -6,12 +6,13 @@
  * 찍은 곳을 먼저 보여준다. 다녀온 곳을 기록하는 화면이기 때문이다.
  */
 
-import { PenLine } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { Camera, PenLine, X } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useSites } from '@/features/sites/hooks/use-sites';
+import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 import { useCreateLog } from '../hooks/use-logs';
 
 /** 오늘 날짜(YYYY-MM-DD) — date input 의 기본값. */
@@ -19,7 +20,17 @@ function todayISO(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-export function LogComposer({ onDone }: { onDone: () => void }) {
+/**
+ * `persistent` — 기록 화면에 늘 펼쳐 두는 모드(2026-09-14 사장님 요청). 취소 단추가 없고
+ * 저장하면 칸이 비워진다. 기본값(false)은 예전처럼 「쓰기」로 열고 닫는 카드.
+ */
+export function LogComposer({
+  onDone,
+  persistent = false,
+}: {
+  onDone: () => void;
+  persistent?: boolean;
+}) {
   const navigate = useNavigate();
   const { data: sites = [] } = useSites({ limit: 300 });
   const { data: stamps = [] } = useMyStamps();
@@ -30,6 +41,34 @@ export function LogComposer({ onDone }: { onDone: () => void }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [visitDate, setVisitDate] = useState(todayISO());
+  // 고른 사진 — 올리기 전 미리보기용 object URL 을 같이 든다
+  const [photos, setPhotos] = useState<{ file: File; preview: string }[]>([]);
+  const [photoNotice, setPhotoNotice] = useState<string | null>(null);
+
+  // 미리보기 URL 은 브라우저 메모리를 잡으므로 바뀔 때마다 놓아준다
+  useEffect(() => () => photos.forEach((p) => URL.revokeObjectURL(p.preview)), [photos]);
+
+  const pickPhotos = (files: FileList | null) => {
+    if (!files) return;
+    const { maxCount } = photoPolicy();
+    const room = Math.max(0, maxCount - photos.length);
+    const picked = Array.from(files).slice(0, room);
+    if (files.length > room) setPhotoNotice(`사진은 최대 ${maxCount}장까지 올릴 수 있어요.`);
+    else setPhotoNotice(null);
+    setPhotos((prev) => [...prev, ...picked.map((file) => ({ file, preview: URL.createObjectURL(file) }))]);
+  };
+
+  const removePhoto = (index: number) => setPhotos((prev) => prev.filter((_, i) => i !== index));
+
+  const resetForm = () => {
+    setSiteId('');
+    setSiteQuery('');
+    setTitle('');
+    setContent('');
+    setVisitDate(todayISO());
+    setPhotos([]);
+    setPhotoNotice(null);
+  };
 
   // 스탬프 찍은 성지를 위로 — 여행기는 대부분 다녀온 직후에 쓴다
   const { stampedSites, otherSites } = useMemo(() => {
@@ -43,9 +82,13 @@ export function LogComposer({ onDone }: { onDone: () => void }) {
 
   const canSubmit = siteId !== '' && title.trim() !== '' && !createLog.isPending;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const site = sites.find((s) => s.id === siteId);
     if (!site) return;
+
+    // 휴대폰 원본(3~10MB)은 올리기 전에 줄인다 — 사이트 사진과 같은 규칙
+    const policy = photoPolicy();
+    const shrunk = await Promise.all(photos.map((p) => shrinkPhoto(p.file, policy)));
 
     createLog.mutate(
       {
@@ -55,10 +98,13 @@ export function LogComposer({ onDone }: { onDone: () => void }) {
         visitDate,
         siteName: site.name,
         siteImage: site.imageUrl ?? null,
+        photos: shrunk,
       },
       {
         onSuccess: (result) => {
           if (result.success) {
+            if ('photoError' in result && result.photoError) window.alert(result.photoError);
+            if (persistent) resetForm();
             onDone();
             return;
           }
@@ -161,15 +207,54 @@ export function LogComposer({ onDone }: { onDone: () => void }) {
           />
         </div>
 
+        <div>
+          <p className="mb-1.5 text-xs font-bold text-app-text-muted">사진</p>
+          <div className="grid grid-cols-4 gap-2">
+            {photos.map((p, i) => (
+              <div key={p.preview} className="relative">
+                <img src={p.preview} alt="" className="aspect-square w-full rounded-xl object-cover" />
+                <button
+                  type="button"
+                  onClick={() => removePhoto(i)}
+                  aria-label="사진 빼기"
+                  className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/70 text-white"
+                >
+                  <X size={12} />
+                </button>
+              </div>
+            ))}
+            <label
+              className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-brand-violet/40 text-brand-violet"
+              id="log-photo-picker"
+            >
+              <Camera size={20} aria-hidden />
+              <span className="text-[0.6875rem] font-bold">사진 올리기</span>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                className="hidden"
+                onChange={(e) => {
+                  pickPhotos(e.target.files);
+                  e.target.value = '';
+                }}
+              />
+            </label>
+          </div>
+          {photoNotice && <p className="mt-1.5 text-xs text-app-text-muted">{photoNotice}</p>}
+        </div>
+
         <div className="flex justify-end gap-2 pt-1">
+          {!persistent && (
+            <button
+              onClick={onDone}
+              className="rounded-xl px-5 py-2.5 text-sm font-bold text-app-text-muted"
+            >
+              취소
+            </button>
+          )}
           <button
-            onClick={onDone}
-            className="rounded-xl px-5 py-2.5 text-sm font-bold text-app-text-muted"
-          >
-            취소
-          </button>
-          <button
-            onClick={handleSubmit}
+            onClick={() => void handleSubmit()}
             disabled={!canSubmit}
             className="rounded-xl bg-brand-violet px-5 py-2.5 text-sm font-bold text-white disabled:opacity-40"
           >

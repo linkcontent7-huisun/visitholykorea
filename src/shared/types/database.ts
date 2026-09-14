@@ -243,6 +243,22 @@ export interface CatholicDirectoryRow {
   /** 기계적 로마자 표기(2026-09-07, `scripts/romanize-directory.ts`). 사람이 감수하지 않음. */
   name_romanized: string | null;
   address_romanized: string | null;
+  cbck_code: string | null;
+  district: string | null;
+  zipcode: string | null;
+  fax: string | null;
+  pastor_phone: string | null;
+  homepage: string | null;
+  email: string | null;
+  pastor: string | null;
+  pastor_en: string | null;
+  founded_on: string | null;
+  patron: string | null;
+  members_count: number | null;
+  mission_count: number | null;
+  address_en: string | null;
+  name_en: string | null;
+  cbck_synced_at: string | null;
 }
 
 export interface FavoriteRow {
@@ -260,5 +276,7 @@ export interface PilgrimageLogRow {
   visit_date: string;
   site_name: string | null;
   site_image: string | null;
+  /** 여행기 사진 공개 URL 목록(순서대로). 마이그레이션 20260914000000. */
+  photos: string[] | null;
   created_at: string;
 }
