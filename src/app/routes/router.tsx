@@ -9,7 +9,6 @@ import { paths } from './paths';
 // 첫 화면 이후의 페이지는 필요할 때 내려받는다(초기 로딩 시간 단축).
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const MapPage = lazy(() => import('@/pages/MapPage'));
-const ExplorePage = lazy(() => import('@/pages/ExplorePage'));
 const RecordsPage = lazy(() => import('@/pages/RecordsPage'));
 const MenuPage = lazy(() => import('@/pages/MenuPage'));
 const SiteDetailPage = lazy(() => import('@/pages/SiteDetailPage'));
@@ -91,7 +90,8 @@ export const router = createBrowserRouter([
         children: [
           { path: paths.home, element: withSuspense(<HomePage />) },
           { path: paths.map, element: withSuspense(<MapPage />) },
-          { path: paths.explore, element: withSuspense(<ExplorePage />) },
+          // 「탐색」은 성지 찾기(검색 + 교구·행정지역 필터)로 흡수됐다 (재기획 2026-09-14)
+          { path: paths.explore, element: <Navigate to={paths.search} replace /> },
           { path: paths.records, element: withSuspense(<RecordsPage />) },
           { path: paths.menu, element: withSuspense(<MenuPage />) },
           // 둘러보기 화면들 — 예전엔 전체 화면 그룹에 있어 순례 코스·마음 나침반을 누르면

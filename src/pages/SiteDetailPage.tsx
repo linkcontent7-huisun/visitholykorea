@@ -48,6 +48,8 @@ import { splitMassInfo } from '@/features/sites/lib/mass-info';
 import { BarrierFreeCard } from '@/features/sites/components/BarrierFreeCard';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
+import { TransitParkingCard } from '@/features/sites/components/TransitParkingCard';
+import { classifyTourError } from '@/shared/api/tour-api';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
 import {
@@ -70,11 +72,25 @@ import {
 import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
-import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { kakaoPlaceUrl } from '@/shared/lib/geo';
+
+/** 외부 API 실패를 종류별로 다른 문장으로 — 한도·잠시 후·설정 누락·그 밖. */
+function externalErrorKey(error: unknown): TranslationKey {
+  switch (classifyTourError(error)) {
+    case 'quota':
+      return 'externalApiQuota';
+    case 'rate_limited':
+      return 'externalApiRateLimited';
+    case 'not_configured':
+      return 'externalApiNotConfigured';
+    default:
+      return 'externalApiFailedBody';
+  }
+}
 
 export default function SiteDetailPage() {
   const { siteId } = useParams<{ siteId: string }>();
@@ -86,12 +102,20 @@ export default function SiteDetailPage() {
   const view = useTranslatedSite(site);
   const { data: nearbySitesRaw = [] } = useSitesInSameDiocese(site?.region, siteId);
   const nearbySites = useLocalizedSites(nearbySitesRaw);
-  const { data: facilityGroups = [], isFetching: facilitiesLoading } = useNearbyFacilities(
-    site?.coordinates,
-  );
-  const { data: festivals = [], isFetching: festivalsLoading } = useNearbyFestivals(
-    site?.coordinates,
-  );
+  const {
+    data: facilityGroups = [],
+    isFetching: facilitiesLoading,
+    isError: facilitiesError,
+    error: facilitiesErr,
+    refetch: refetchFacilities,
+  } = useNearbyFacilities(site?.coordinates);
+  const {
+    data: festivals = [],
+    isFetching: festivalsLoading,
+    isError: festivalsError,
+    error: festivalsErr,
+    refetch: refetchFestivals,
+  } = useNearbyFestivals(site?.coordinates);
   // "방문 정보" 접이식 그룹의 미리보기 이름을 만들기 위해 여기서도 조회한다.
   // BarrierFreeCard·NearbyParishesCard 내부에서도 같은 쿼리 키로 부르므로
   // TanStack Query 가 요청을 하나로 합친다 — TourAPI 추가 호출이 아니다.
@@ -102,7 +126,8 @@ export default function SiteDetailPage() {
   const location = useLocation();
   // 마음 나침반에서 「이 코스로 가볼게요」로 오면 #directions — 「찾아가는 길」을 펼쳐 놓고 거기서 시작한다
   const wantsDirections = location.hash === '#directions';
-  const [visitInfoOpen, setVisitInfoOpen] = useState(wantsDirections);
+  // 방문 정보는 기본으로 펼쳐 둔다 — 순례자가 가장 먼저 찾는 정보다(재기획 2026-09-14)
+  const [visitInfoOpen, setVisitInfoOpen] = useState(true);
   useEffect(() => {
     if (!wantsDirections || !site) return;
     setVisitInfoOpen(true);
@@ -441,6 +466,89 @@ export default function SiteDetailPage() {
           </div>
         </section>
 
+        {/* 방문 정보 — 재기획(2026-09-14) 순서: 들어가기 전 안내 → 미사 시간 → 연락처·홈페이지 →
+            주소·외부 지도 → 대중교통·주차 → 무장애 → 주변 본당. 순례자가 가장 먼저 찾는 정보라
+            역사·주변 관광보다 위에 두고 기본으로 펼쳐 둔다(접을 수는 있다). */}
+        <section aria-labelledby="visit-info-heading">
+          <button
+            type="button"
+            onClick={() => setVisitInfoOpen((open) => !open)}
+            aria-expanded={visitInfoOpen}
+            aria-controls="visit-info-panel"
+            className="flex min-h-14 w-full items-center gap-3 rounded-[28px] border border-app-border bg-app-bg p-5 text-left"
+          >
+            <div className="h-6 w-1.5 shrink-0 rounded-full bg-brand-violet" />
+            <div className="min-w-0 flex-1">
+              <h2
+                id="visit-info-heading"
+                className="text-xl font-extrabold tracking-tight text-app-text"
+              >
+                {t('visitInfo')}
+              </h2>
+              {!visitInfoOpen && visitInfoPreview && (
+                <p className="mt-1 truncate text-xs font-semibold text-app-text-muted">
+                  {visitInfoPreview}
+                </p>
+              )}
+            </div>
+            <ChevronDown
+              size={18}
+              className={`shrink-0 text-app-text-muted transition-transform ${visitInfoOpen ? 'rotate-180' : ''}`}
+              aria-hidden
+            />
+          </button>
+
+          {visitInfoOpen && (
+            <div id="visit-info-panel" className="mt-8 space-y-12">
+              {/* 들어가기 전 안내 — 비신자·외국인이 문 앞에서 멈추는 이유를 없앤다 */}
+              <VisitEtiquette />
+
+              {/* 미사 시간 — 안내 책자 기준. 성지 사정에 따라 바뀔 수 있다 */}
+              {massInfo && (
+                <section className="rounded-[28px] border border-app-border bg-white p-6">
+                  <h3 className="mb-1 flex items-center gap-2 text-base font-extrabold text-app-text">
+                    <img src="/brand/church.png" alt="" aria-hidden width={22} height={22} className="h-[22px] w-auto" />
+                    {t('massTimesTitle')}
+                  </h3>
+                  {massInfo.basis && (
+                    <p className="mb-4 text-[0.6875rem] text-app-text-muted">{massInfo.basis}</p>
+                  )}
+                  <dl className="space-y-3">
+                    {massInfo.rows.map((row) => (
+                      <div
+                        key={row.label + row.value}
+                        className="grid grid-cols-[4.5rem_1fr] gap-3"
+                      >
+                        <dt className="text-[0.75rem] font-extrabold text-brand-blue">
+                          {row.label}
+                        </dt>
+                        <dd className="text-sm font-medium leading-relaxed text-app-text">
+                          {row.value}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              )}
+
+              {/* 공식 홈페이지·연락처 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
+              <ContactCard site={site} />
+
+              {/* 주소와 외부 지도 — 외국인 방문자를 기준으로 만든 화면 */}
+              <DirectionsCard site={site} addressEnglish={view?.addressRomanized ?? null} />
+
+              {/* 대중교통·주차 — 자체 DB 에 칸이 없어 "확인되지 않음" + 문의 경로 */}
+              <TransitParkingCard site={site} />
+
+              {/* 무장애 여행 정보 — 결과가 있을 때만 그려진다 (한국관광공사) */}
+              <BarrierFreeCard site={site} />
+
+              {/* 주변 본당 — 순례 후 미사를 드리고 싶은 이들을 위해 (교구 주소록 기반) */}
+              <NearbyParishesCard site={site} />
+            </div>
+          )}
+        </section>
+
         <section>
           <div className="mb-6 flex items-center gap-3">
             <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
@@ -536,6 +644,44 @@ export default function SiteDetailPage() {
             </div>
           </section>
         )}
+
+        {/* 주변 관광 정보 — 한국관광공사 OpenAPI 를 지금 불러온 것. 실패해도 위의 방문 정보는 그대로다.
+            역사·방문 정보보다 아래에 둔다(재기획 §4-1: 주변 음식점이 기본 방문 정보보다 먼저 나오지 않게). */}
+        <section aria-labelledby="nearby-tourism-heading" className="space-y-10">
+          <div>
+            <div className="mb-2 flex items-center gap-3">
+              <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
+              <h2 id="nearby-tourism-heading" className="text-xl font-extrabold tracking-tight text-app-text">
+                {t('siteNearbyTourismTitle')}
+              </h2>
+            </div>
+            <p className="text-xs leading-relaxed text-app-text-muted">{t('siteNearbyTourismSub')}</p>
+          </div>
+
+          {(facilitiesError || festivalsError) && (
+            <div className="rounded-[20px] border border-app-border bg-app-bg p-5 text-center" role="alert">
+              <p className="text-sm font-bold text-app-text">{t('externalApiFailedTitle')}</p>
+              <p className="mt-2 text-xs leading-relaxed text-app-text-muted">
+                {t(externalErrorKey(facilitiesErr ?? festivalsErr))}
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  void refetchFacilities();
+                  void refetchFestivals();
+                }}
+                className="mt-4 min-h-11 rounded-full border border-app-border bg-white px-5 text-sm font-bold text-app-text"
+              >
+                {t('retry')}
+              </button>
+            </div>
+          )}
+
+          {!facilitiesLoading && !facilitiesError && facilityGroups.length === 0 && (
+            <p className="rounded-[20px] border border-dashed border-app-border bg-white p-5 text-sm text-app-text-muted">
+              {t('siteNearbyTourismEmpty')}
+            </p>
+          )}
 
         {/*
           주변 편의시설 — 맛집·숙박·볼거리·레포츠·쇼핑을 한 화면에서 본다(관광공사 유형 그대로).
@@ -674,6 +820,8 @@ export default function SiteDetailPage() {
             </div>
           </section>
         )}
+
+        </section>
 
         {/* 순례 스탬프 찍기 — 이 화면의 진짜 주인공(T-004). 다른 섹션과 같은
             "보라 세로줄 + h2" 제목 스타일을 쓰지 않고, 굵은 테두리와 배경색만으로
@@ -909,88 +1057,6 @@ export default function SiteDetailPage() {
             </p>
           </div>
         )}
-
-        {/* 방문 정보 — 들어가기 전 안내·찾아가는 길·문의·무장애 정보·주변 본당을
-            한 그룹으로 묶는다(T-004). 각 컴포넌트 내부는 그대로 두고 바깥만
-            접이식으로 감싼다. 기본은 접힘 — 대신 접힌 채로도 안에 뭐가 있는지
-            미리 보이게 해서(50대 이상 주 사용자에게는 이 쪽이 더 안심된다),
-            "눌러봐야 아는" 부담을 없앤다. */}
-        <section aria-labelledby="visit-info-heading">
-          <button
-            type="button"
-            onClick={() => setVisitInfoOpen((open) => !open)}
-            aria-expanded={visitInfoOpen}
-            aria-controls="visit-info-panel"
-            className="flex w-full items-center gap-3 rounded-[28px] border border-app-border bg-app-bg p-5 text-left"
-          >
-            <div className="h-6 w-1.5 shrink-0 rounded-full bg-brand-violet" />
-            <div className="min-w-0 flex-1">
-              <h2
-                id="visit-info-heading"
-                className="text-base font-extrabold tracking-tight text-app-text"
-              >
-                {t('visitInfo')}
-              </h2>
-              {!visitInfoOpen && visitInfoPreview && (
-                <p className="mt-1 truncate text-xs font-semibold text-app-text-muted">
-                  {visitInfoPreview}
-                </p>
-              )}
-            </div>
-            <ChevronDown
-              size={18}
-              className={`shrink-0 text-app-text-muted transition-transform ${visitInfoOpen ? 'rotate-180' : ''}`}
-              aria-hidden
-            />
-          </button>
-
-          {visitInfoOpen && (
-            <div id="visit-info-panel" className="mt-8 space-y-12">
-              {/* 들어가기 전 안내 — 비신자·외국인이 문 앞에서 멈추는 이유를 없앤다 */}
-              <VisitEtiquette />
-
-              {/* 미사 시간 — 서울 순례길 안내 책자 기준. 성지 사정에 따라 바뀔 수 있다 */}
-              {massInfo && (
-                <section className="rounded-[28px] border border-app-border bg-white p-6">
-                  <h3 className="mb-1 flex items-center gap-2 text-base font-extrabold text-app-text">
-                    <img src="/brand/church.png" alt="" aria-hidden className="h-[22px] w-auto" />
-                    {t('massTimesTitle')}
-                  </h3>
-                  {massInfo.basis && (
-                    <p className="mb-4 text-[0.6875rem] text-app-text-muted">{massInfo.basis}</p>
-                  )}
-                  <dl className="space-y-3">
-                    {massInfo.rows.map((row) => (
-                      <div
-                        key={row.label + row.value}
-                        className="grid grid-cols-[4.5rem_1fr] gap-3"
-                      >
-                        <dt className="text-[0.75rem] font-extrabold text-brand-blue">
-                          {row.label}
-                        </dt>
-                        <dd className="text-sm font-medium leading-relaxed text-app-text">
-                          {row.value}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-                </section>
-              )}
-
-              {/* 찾아가는 길 — 외국인 방문자를 기준으로 만든 화면 */}
-              <DirectionsCard site={site} addressEnglish={view?.addressRomanized ?? null} />
-
-              {/* 문의 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
-              <ContactCard site={site} />
-
-              {/* 무장애 여행 정보 — 결과가 있을 때만 그려진다 (한국관광공사 실시간) */}
-              <BarrierFreeCard site={site} />
-
-              {/* 주변 본당 — 순례 후 미사를 드리고 싶은 이들을 위해 (교구 주소록 기반) */}
-              <NearbyParishesCard site={site} />
-            </div>
-          )}
-        </section>
 
         {nearbySites.length > 0 && (
           <section className="pb-10">

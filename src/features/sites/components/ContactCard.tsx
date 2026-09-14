@@ -18,7 +18,19 @@ import { useSettings } from '@/shared/i18n/use-settings';
 export function ContactCard({ site }: { site: HolySite }) {
   const { t } = useSettings();
   const { phone, homepageUrl, fax } = site;
-  if (!phone && !homepageUrl && !fax) return null;
+  // 연락처가 하나도 없으면 "확인되지 않음"을 정직하게 적는다 — 임의로 채우지 않는다(재기획 §8).
+  if (!phone && !homepageUrl && !fax) {
+    return (
+      <section aria-labelledby="contact-heading">
+        <h2 id="contact-heading" className="mb-3 text-sm font-extrabold text-app-text">
+          {t('visitInfoContact')}
+        </h2>
+        <p className="rounded-[20px] border border-dashed border-app-border bg-white p-4 text-sm leading-relaxed text-app-text-muted">
+          {t('contactUnknown')}
+        </p>
+      </section>
+    );
+  }
 
   /** `tel:` 은 숫자와 +만 받는다. (02)740-9707 같은 표기를 그대로 넣으면 안 걸린다. */
   const telHref = phone ? `tel:${phone.replace(/[^0-9+]/g, '')}` : null;
@@ -31,9 +43,9 @@ export function ContactCard({ site }: { site: HolySite }) {
     : null;
 
   return (
-    <section aria-labelledby="contact-heading" className="px-6">
+    <section aria-labelledby="contact-heading">
       <h2 id="contact-heading" className="mb-3 text-sm font-extrabold text-app-text">
-        문의
+        {t('visitInfoContact')}
       </h2>
 
       <ul className="divide-y divide-app-border overflow-hidden rounded-[20px] border border-app-border bg-white">
@@ -78,9 +90,7 @@ export function ContactCard({ site }: { site: HolySite }) {
         )}
       </ul>
 
-      <p className="mt-2 text-xs text-app-text-muted">
-        미사 시간과 단체 순례는 성지에 직접 확인하시는 것이 정확합니다.
-      </p>
+      <p className="mt-2 text-xs text-app-text-muted">{t('contactConfirmNote')}</p>
     </section>
   );
 }

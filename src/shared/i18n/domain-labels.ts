@@ -91,6 +91,19 @@ export function localizeRegionName(value: string, language: Language): string {
   return REGION_ROMANIZED[value] ?? value;
 }
 
+/** 대교구 셋. 나머지는 교구다. */
+const ARCHDIOCESES = new Set(['서울', '대구', '광주']);
+
+/**
+ * 교구 이름을 행정구역과 구분되게 적는다 — "서울대교구"는 "서울특별시"가 아니다.
+ * 한국어는 「서울대교구」「수원교구」, 그 외 언어는 「Seoul Archdiocese」「Suwon Diocese」.
+ */
+export function dioceseLabel(diocese: string, language: Language): string {
+  const arch = ARCHDIOCESES.has(diocese);
+  if (language === 'ko') return `${diocese}${arch ? '대교구' : '교구'}`;
+  return `${localizeRegionName(diocese, language)} ${arch ? 'Archdiocese' : 'Diocese'}`;
+}
+
 /** 붐빔 등급(`CrowdingLevel`)을 지금 언어로. 모르는 값은 원문 그대로. */
 export const CROWDING_LEVEL_KEY: Record<string, TranslationKey> = {
   '아주 조용': 'crowdingLevelVeryQuiet',
