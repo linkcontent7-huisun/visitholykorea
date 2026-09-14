@@ -47,11 +47,11 @@ export const ALTERNATIVE = {
    */
   minRelief: 15,
 
-  /** 도보로 안내할 상한(km). 이 이상은 대중교통·차로 표기한다. */
+  /**
+   * "걸어서 갈 만한 거리일 수 있다"고 표시할 상한(km). 직선거리 기준이라 실제 도보 시간은
+   * 계산하지 않는다 — 강·철도·산이 있으면 직선 2km 가 도보 1시간이 될 수 있다.
+   */
   walkableKm: 2,
-
-  /** 도보 속도(km/h). 성지 순례 인구를 감안해 보수적으로 잡았다. */
-  walkingKmh: 4.5,
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -59,37 +59,33 @@ export const ALTERNATIVE = {
 // ---------------------------------------------------------------------------
 
 export interface TravelEstimate {
-  mode: '도보' | '대중교통·차';
+  /** 직선 2km 이내면 '도보권'(걸어갈 만할 수 있음), 그 밖은 대중교통·차 */
+  mode: '도보권' | '대중교통·차';
+  /** 직선거리(km). 실제 이동 거리가 아니다. */
   distanceKm: number;
-  /** 도보일 때만 채워진다. 차·대중교통 소요는 우리가 알 수 없어 넣지 않는다. */
-  walkMinutes: number | null;
-  /** 화면에 그대로 쓰는 문구 */
+  /** 화면에 그대로 쓰는 문구 — "직선거리 1.5km · 참고값" */
   label: string;
 }
 
-function formatDistance(km: number): string {
+export function formatDistance(km: number): string {
   return km < 1 ? `${Math.round(km * 1000)}m` : `${km.toFixed(1)}km`;
 }
 
 /**
- * 거리로 이동 수단을 추정한다.
+ * 거리로 이동 부담을 표시한다.
  *
- * 차·대중교통 소요 시간은 **일부러 추정하지 않는다.** 교통 상황을 모르는 채로
- * "15분"이라고 적으면 틀릴 때 신뢰가 깨진다. 도보만 계산 가능한 값이므로 도보만 적는다.
+ * 소요 시간은 **도보·차·대중교통 어느 것도 추정하지 않는다.** 예전에는 직선거리를 4.5km/h 로
+ * 나눠 "도보 20분"이라 적었는데, 그 값은 실제 길과 무관한 계산이라 틀릴 때 신뢰가 깨진다.
+ * 직선거리를 참고값이라고 밝히고, 2km 이내는 "걸어갈 만할 수 있다"는 정도로만 말한다.
  */
 export function estimateTravel(distanceKm: number, language: Language = 'ko'): TravelEstimate {
   const walkable = distanceKm <= ALTERNATIVE.walkableKm;
-  const walkMinutes = walkable
-    ? Math.max(1, Math.round((distanceKm / ALTERNATIVE.walkingKmh) * 60))
-    : null;
-
   return {
-    mode: walkable ? '도보' : '대중교통·차',
+    mode: walkable ? '도보권' : '대중교통·차',
     distanceKm,
-    walkMinutes,
-    label: walkable
-      ? fillPlaceholders(DICTIONARY.walkMinutesLabel[language], { minutes: walkMinutes! })
-      : formatDistance(distanceKm),
+    label: fillPlaceholders(DICTIONARY.straightLineLabel[language], {
+      distance: formatDistance(distanceKm),
+    }),
   };
 }
 
@@ -110,6 +106,16 @@ export interface Alternative extends ScoredSite {
   travel: TravelEstimate;
 }
 
+/**
+ * 추천이 어떻게 끝났는지. 화면은 이 값으로 문장을 고른다.
+ *   recommended        등급이 실제로 내려가는 곳을 찾았다
+ *   relaxed            크게 한적하진 않지만 조금 조용한 곳만 있다
+ *   origin_quiet       출발지가 이미 조용하다 — 이동을 권하지 않는다
+ *   origin_unverified  출발지의 주변 정보를 못 받아 비교할 수 없다 — 추천하지 않는다
+ *   none               반경 안에 확인된 대안이 없다
+ */
+export type RankOutcome = 'recommended' | 'relaxed' | 'origin_quiet' | 'origin_unverified' | 'none';
+
 export interface RankResult {
   picks: Alternative[];
   /**
@@ -117,6 +123,9 @@ export interface RankResult {
    * true 면 화면에서 "크게 한적하진 않습니다"라고 정직하게 알려야 한다.
    */
   relaxed: boolean;
+  /** 주변 정보를 못 받아 순위에서 뺀 후보. "확인 부족"으로 따로 보여준다. */
+  unverified: Alternative[];
+  outcome: RankOutcome;
 }
 
 /** 붐빔 등급의 순번. 클수록 붐빈다. 점수가 아니라 등급으로 비교할 때 쓴다. */
@@ -124,10 +133,15 @@ function levelRank(score: number): number {
   return CROWDING_LEVELS.indexOf(toCrowdingLevel(score));
 }
 
+/** 「조용」 이하면 이미 한적한 곳이다. 여기서 다른 곳으로 옮기라고 권하지 않는다. */
+const QUIET_ENOUGH_RANK = CROWDING_LEVELS.indexOf('조용');
+
 export interface RankOptions {
   limit?: number;
   searchRadiusKm?: number;
   minRelief?: number;
+  /** 출발지의 주변 정보를 못 받았는지. true 면 비교 자체를 하지 않는다. */
+  originUnverified?: boolean;
 }
 
 /**
@@ -149,12 +163,24 @@ export function rankAlternatives(
     limit = 3,
     searchRadiusKm = ALTERNATIVE.searchRadiusKm,
     minRelief = ALTERNATIVE.minRelief,
+    originUnverified = false,
   } = options;
 
   const { lat, lng } = origin;
-  if (lat == null || lng == null) return { picks: [], relaxed: false };
+  if (lat == null || lng == null) return { picks: [], relaxed: false, unverified: [], outcome: 'none' };
+
+  // 출발지 자체를 비교할 수 없으면 어떤 곳도 "더 조용하다"고 말할 근거가 없다.
+  if (originUnverified) {
+    return { picks: [], relaxed: false, unverified: [], outcome: 'origin_unverified' };
+  }
+
+  // 이미 조용한 곳에서 다른 곳으로 가라고 하면 불필요한 이동만 만든다.
+  if (levelRank(originScore) <= QUIET_ENOUGH_RANK) {
+    return { picks: [], relaxed: false, unverified: [], outcome: 'origin_quiet' };
+  }
 
   const withinRadius: Alternative[] = [];
+  const unverified: Alternative[] = [];
 
   for (const entry of scored) {
     const { lat: sLat, lng: sLng } = entry.site.coordinates;
@@ -163,13 +189,22 @@ export function rankAlternatives(
     const distanceKm = haversineKm(lat, lng, sLat, sLng);
     if (distanceKm > searchRadiusKm) continue;
 
-    withinRadius.push({
+    const alternative: Alternative = {
       ...entry,
       distanceKm,
       relief: Math.round((originScore - entry.crowding.score) * 10) / 10,
       travel: estimateTravel(distanceKm, language),
-    });
+    };
+
+    // 주변 정보를 못 받은 후보는 축제 점수만 남아 인위적으로 낮다. 순위에 넣으면
+    // "조회에 실패한 곳일수록 1위"가 된다(2026-09-14 감사). 따로 떼어 "확인 부족"으로 보여준다.
+    if (entry.crowding.isPartial) {
+      unverified.push(alternative);
+      continue;
+    }
+    withinRadius.push(alternative);
   }
+  unverified.sort((a, b) => a.distanceKm - b.distanceKm);
 
   // ① 충분히 조용해지는 곳 → 가까운 순
   //
@@ -186,6 +221,8 @@ export function rankAlternatives(
     return {
       picks: meaningful.sort((a, b) => a.distanceKm - b.distanceKm).slice(0, limit),
       relaxed: false,
+      unverified,
+      outcome: 'recommended',
     };
   }
 
@@ -194,23 +231,27 @@ export function rankAlternatives(
   return {
     picks: anyBetter.sort((a, b) => a.crowding.score - b.crowding.score).slice(0, limit),
     relaxed: anyBetter.length > 0,
+    unverified,
+    outcome: anyBetter.length > 0 ? 'relaxed' : 'none',
   };
 }
 
 /**
- * 추천 문구. 숫자만 던지지 않고 "왜 여기인지"를 한 문장으로 말한다.
+ * 추천 문구. "N점 더 조용"처럼 추정치끼리의 점수 차를 확정처럼 말하지 않는다.
+ * 등급(예: 붐빔 → 조용)과 직선거리만 말한다 — 둘 다 화면에서 근거를 같이 보여줄 수 있는 값이다.
  */
 export function buildAlternativeReason(
   originName: string,
+  originLevelLabel: string,
   alternative: Alternative,
   language: Language = 'ko',
+  levelLabel: string = alternative.crowding.level,
 ): string {
-  const { relief, travel } = alternative;
-  const closer = travel.mode === '도보' ? travel.label : `${formatDistance(travel.distanceKm)}`;
   return fillPlaceholders(DICTIONARY.alternativeReasonTemplate[language], {
     origin: originName,
-    relief: Math.round(relief),
-    closer,
+    originLevel: originLevelLabel,
+    level: levelLabel,
+    distance: formatDistance(alternative.travel.distanceKm),
   });
 }
 
@@ -245,10 +286,8 @@ export interface CrowdedOrigin {
   crowding: CrowdingScore;
 }
 
-export interface AlternativeResult {
+export interface AlternativeResult extends RankResult {
   origin: CrowdedOrigin;
-  picks: Alternative[];
-  relaxed: boolean;
 }
 
 export interface FindAlternativesOptions extends RankOptions {
@@ -297,7 +336,7 @@ export async function findAlternatives(
 
   const { lat, lng } = originCoords;
   if (lat == null || lng == null) {
-    return { origin, picks: [], relaxed: false };
+    return { origin, picks: [], relaxed: false, unverified: [], outcome: 'none' };
   }
 
   // 반경 안의 성지만 추린 뒤, 축제 압력이 낮은 순으로 후보를 좁힌다
@@ -322,13 +361,13 @@ export async function findAlternatives(
     }),
   );
 
-  const { picks, relaxed } = rankAlternatives(
+  const ranked = rankAlternatives(
     originCoords,
     originCrowding.score,
     scored,
-    rankOptions,
+    { ...rankOptions, originUnverified: originCrowding.isPartial },
     language,
   );
 
-  return { origin, picks, relaxed };
+  return { origin, ...ranked };
 }

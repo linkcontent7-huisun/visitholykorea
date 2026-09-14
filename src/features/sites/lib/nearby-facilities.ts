@@ -13,23 +13,23 @@ import { CONTENT_TYPE, type TourApiSpot } from '@/shared/api/tour-api';
 import type { TranslationKey } from '@/shared/i18n/dictionary';
 
 /** 순례자가 실제로 찾는 순서대로 둔다. 화면의 탭 순서가 이 순서다. */
-export const FACILITY_GROUPS = ['맛집', '숙박', '볼거리', '쉼터'] as const;
+export const FACILITY_GROUPS = ['맛집', '숙박', '볼거리', '레포츠', '쇼핑'] as const;
 export type FacilityGroup = (typeof FACILITY_GROUPS)[number];
 
 /**
  * TourAPI 유형 → 우리 분류.
  *
- * 쇼핑(38)과 레포츠(28)를 "쉼터"로 묶은 이유 — 순례 일정에서 이 둘은
- * "목적지"가 아니라 "사이에 들르는 곳"이다. 별도 탭을 만들면 대개 비어 있고,
- * 빈 탭은 서비스가 부실해 보이게 만든다.
+ * 레포츠(28)·쇼핑(38)은 **관광공사 유형 그대로** 보여준다. 예전에는 둘을 "쉼터"로 묶었는데
+ * 사격장·백화점이 쉼터로 나왔다(2026-09-14). 휴식 장소인지 확인할 수 없는 것을
+ * 쉼터라고 부르지 않는다 — 빈 탭은 아래 groupNearbyFacilities 가 걸러 준다.
  */
 const GROUP_OF: Record<number, FacilityGroup> = {
   [CONTENT_TYPE.음식점]: '맛집',
   [CONTENT_TYPE.숙박]: '숙박',
   [CONTENT_TYPE.관광지]: '볼거리',
   [CONTENT_TYPE.문화시설]: '볼거리',
-  [CONTENT_TYPE.레포츠]: '쉼터',
-  [CONTENT_TYPE.쇼핑]: '쉼터',
+  [CONTENT_TYPE.레포츠]: '레포츠',
+  [CONTENT_TYPE.쇼핑]: '쇼핑',
 };
 
 export interface GroupedFacilities {
@@ -94,7 +94,8 @@ export const GROUP_HINT: Record<FacilityGroup, string> = {
   맛집: '식사하고 가실 곳',
   숙박: '하룻밤 묵어가실 곳',
   볼거리: '함께 둘러볼 곳',
-  쉼터: '오가는 길에 들를 곳',
+  레포츠: '관광공사 분류 「레포츠」',
+  쇼핑: '관광공사 분류 「쇼핑」',
 };
 
 /**
@@ -108,12 +109,14 @@ export const GROUP_LABEL_KEY: Record<FacilityGroup, TranslationKey> = {
   맛집: 'nearbyFood',
   숙박: 'nearbyStay',
   볼거리: 'nearbySights',
-  쉼터: 'facilityRest',
+  레포츠: 'facilityLeisure',
+  쇼핑: 'facilityShopping',
 };
 
 export const GROUP_HINT_KEY: Record<FacilityGroup, TranslationKey> = {
   맛집: 'facilityHintFood',
   숙박: 'facilityHintStay',
   볼거리: 'facilityHintSights',
-  쉼터: 'facilityHintRest',
+  레포츠: 'facilityHintLeisure',
+  쇼핑: 'facilityHintShopping',
 };

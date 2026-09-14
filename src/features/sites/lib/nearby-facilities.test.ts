@@ -124,3 +124,14 @@ describe('buildItineraryStops', () => {
     expect(stops.map((s) => s.group)).toEqual(['맛집', '볼거리']);
   });
 });
+
+describe('groupNearbyFacilities — 레포츠·쇼핑은 쉼터가 아니다', () => {
+  it('레포츠·쇼핑을 쉼터로 묶지 않고 원래 유형으로 둔다', () => {
+    const result = groupNearbyFacilities([
+      spot('사격장', CONTENT_TYPE.레포츠, 100),
+      spot('백화점', CONTENT_TYPE.쇼핑, 200),
+    ]);
+    expect(result.map((g) => g.group)).toEqual(['레포츠', '쇼핑']);
+    expect(result.some((g) => (g.group as string) === '쉼터')).toBe(false);
+  });
+});

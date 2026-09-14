@@ -161,7 +161,8 @@ const ITINERARY_STEP_LABEL: Record<FacilityGroup, TranslationKey> = {
   맛집: 'nearbyMeal',
   볼거리: 'nearbyTogether',
   숙박: 'nearbyOvernight',
-  쉼터: 'nearbyAlong',
+  레포츠: 'nearbyAlong',
+  쇼핑: 'nearbyAlong',
 };
 
 /** 거리를 사람이 읽는 형태로. */

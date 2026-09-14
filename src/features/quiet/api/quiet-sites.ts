@@ -37,6 +37,13 @@ export interface QuietSite {
   crowding: CrowdingScore;
 }
 
+export interface QuietSitesResult {
+  /** 주변 정보까지 확인된 곳, 조용한 순 */
+  picks: QuietSite[];
+  /** 주변 정보를 못 받아 순위에서 뺀 곳 — "확인 부족" */
+  unverified: QuietSite[];
+}
+
 export interface FindQuietSitesOptions {
   /** 최종적으로 돌려줄 개수 */
   limit?: number;
@@ -44,33 +51,42 @@ export interface FindQuietSitesOptions {
   candidateCount?: number;
 }
 
-/** 주소의 시·군·구 이름과 관광공사 응답의 signguNm을 맞춘다. 코드표를 앱에 중복 저장하지 않는다. */
-function matchingCongestion(site: HolySite, rates: CongestionRate[]) {
-  const addressWords = site.location
-    .replace(/[(),]/g, ' ')
-    .split(/\s+/)
-    .filter((word) => /시$|군$|구$/.test(word));
-  const nearby = rates.filter((rate) => {
-    const nameMatches = addressWords.some(
-      (word) => rate.signguNm.includes(word) || word.includes(rate.signguNm),
-    );
-    if (!nameMatches) return false;
-    const lat = Number(rate.mapY);
-    const lng = Number(rate.mapX);
-    return (
-      !Number.isFinite(lat) ||
-      !Number.isFinite(lng) ||
-      lat === 0 ||
-      lng === 0 ||
-      haversineKm(site.coordinates.lat!, site.coordinates.lng!, lat, lng) <= RADIUS_KM.festival
-    );
-  });
-  const highest = nearby.reduce<CongestionRate | null>(
-    (best, rate) => (!best || Number(rate.cnctrRate) > Number(best.cnctrRate) ? rate : best),
-    null,
-  );
-  return highest && Number.isFinite(Number(highest.cnctrRate))
-    ? { name: highest.tAtsNm, rate: Math.max(0, Math.min(100, Number(highest.cnctrRate))) }
+/** 집중률 실측을 성지에 붙일 때 허용하는 거리(km). 이보다 멀면 그 관광지의 붐빔이 아니다. */
+export const MEASURED_RADIUS_KM = 5;
+
+/**
+ * 관광공사 집중률 응답 중 이 성지에 붙일 한 건을 고른다.
+ *
+ * 응답에는 여러 날짜·여러 관광지가 섞여 온다. 예전에는 날짜를 보지 않고 시·군·구 이름이
+ * 맞는 것 중 **최댓값**을 골라 체계적으로 과대추정했고, 좌표 없는 행은 거리 검증 없이
+ * 통과시켰다(2026-09-14 감사). 지금은 ① 가장 최근 날짜의 행만 ② 좌표가 있고
+ * ③ 성지에서 5km 이내인 것 중 ④ 가장 가까운 관광지 하나를 쓴다. 없으면 실측을 섞지 않는다.
+ */
+export function matchingCongestion(site: HolySite, rates: CongestionRate[]) {
+  const { lat: siteLat, lng: siteLng } = site.coordinates;
+  if (siteLat == null || siteLng == null) return undefined;
+
+  const latestYmd = rates.reduce((max, r) => (r.baseYmd > max ? r.baseYmd : max), '');
+  const candidates = rates
+    .filter((rate) => rate.baseYmd === latestYmd && Number.isFinite(Number(rate.cnctrRate)))
+    .map((rate) => {
+      const lat = Number(rate.mapY);
+      const lng = Number(rate.mapX);
+      if (!Number.isFinite(lat) || !Number.isFinite(lng) || lat === 0 || lng === 0) return null;
+      return { rate, distanceKm: haversineKm(siteLat, siteLng, lat, lng) };
+    })
+    .filter((entry): entry is { rate: CongestionRate; distanceKm: number } => entry !== null)
+    .filter((entry) => entry.distanceKm <= MEASURED_RADIUS_KM)
+    .sort((a, b) => a.distanceKm - b.distanceKm);
+
+  const nearest = candidates[0];
+  return nearest
+    ? {
+        name: nearest.rate.tAtsNm,
+        rate: Math.max(0, Math.min(100, Number(nearest.rate.cnctrRate))),
+        baseYmd: nearest.rate.baseYmd,
+        distanceKm: Math.round(nearest.distanceKm * 10) / 10,
+      }
     : undefined;
 }
 
@@ -135,19 +151,20 @@ async function fetchInfra(site: HolySite): Promise<TourApiSpot[] | null> {
 /**
  * 오늘 조용한 성지를 조용한 순으로 돌려준다.
  *
- * 2단계 조회를 거치지 못한 성지는 축제 압력만 반영된 임시 점수(`isPartial`)를 갖는다.
- * 후보 안에 들지 못한 곳들이라 어차피 상위 노출 대상이 아니다.
+ * 2단계 조회에 실패한 성지는 축제 압력만 남아 점수가 인위적으로 낮다. 예전에는 그대로
+ * 정렬에 넣어 **조회에 실패한 곳일수록 "가장 조용" 1위**가 됐다(2026-09-14 감사).
+ * 지금은 `unverified` 로 분리하고 순위에는 넣지 않는다.
  */
 export async function findQuietSites(
   sites: HolySite[],
   options: FindQuietSitesOptions = {},
-): Promise<QuietSite[]> {
+): Promise<QuietSitesResult> {
   // 12 → 6 (2026-08-28). 최종 노출은 limit(기본 3)곳뿐이라 2배 여유면 충분하고,
   // TourAPI 일일 호출 한도(개발계정 1,000건)를 홈 화면 1회 로드가 덜 쓰게 한다.
   const { limit = 3, candidateCount = 6 } = options;
 
   const located = sites.filter(hasCoordinates);
-  if (located.length === 0) return [];
+  if (located.length === 0) return { picks: [], unverified: [] };
 
   // 1단계 — 전국 축제 1회 조회 후, 거리 계산은 로컬에서
   const festivals = await getOngoingFestivals();
@@ -176,7 +193,12 @@ export async function findQuietSites(
     }),
   );
 
-  return scored.sort((a, b) => a.crowding.score - b.crowding.score).slice(0, limit);
+  const verified = scored.filter((s) => !s.crowding.isPartial);
+  const unverified = scored.filter((s) => s.crowding.isPartial);
+  return {
+    picks: verified.sort((a, b) => a.crowding.score - b.crowding.score).slice(0, limit),
+    unverified,
+  };
 }
 
 /**

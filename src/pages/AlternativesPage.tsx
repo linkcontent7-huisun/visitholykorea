@@ -40,6 +40,7 @@ export default function AlternativesPage() {
     isLoading: isCalculating,
     isError,
     error,
+    refetch,
   } = useAlternatives(selected, allSites);
 
   const resetSelection = () => {
@@ -157,11 +158,7 @@ export default function AlternativesPage() {
 
             {result && (
               <>
-                <AlternativesList
-                  origin={result.origin}
-                  picks={result.picks}
-                  relaxed={result.relaxed}
-                />
+                <AlternativesList result={result} onRetry={() => void refetch()} />
                 {/* 추정임을 숨기지 않는다 — 컨셉 문서 7장. 숨기면 발표에서 무너진다. */}
                 <p className="mt-6 text-center text-xs leading-relaxed text-app-text-muted">
                   {t('crowdingEstimateNote')}

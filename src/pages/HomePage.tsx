@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { getDocentScript } from '@/features/docent/data/scripts';
-import { TodayQuietSection } from '@/features/quiet/components/TodayQuietSection';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
@@ -290,13 +289,6 @@ export default function HomePage() {
           </span>
           <ChevronRight size={22} className="shrink-0 opacity-80" aria-hidden />
         </Link>
-      </PageContainer>
-
-      {/* 오늘의 쉼표 — 실시간 붐빔. 컨테이너가 좌우 여백을 대신 잡는다. */}
-      <PageContainer className="pt-6">
-        <div className="lg:max-w-[720px]">
-          <TodayQuietSection sites={allSites} variant="compact" padded={false} />
-        </div>
       </PageContainer>
 
       {/* 전국 성지 — 출발지가 있으면 가까운 곳부터 */}
