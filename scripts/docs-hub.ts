@@ -19,6 +19,15 @@ const ROOT = resolve(import.meta.dirname, '..');
 const DOCS = join(ROOT, 'docs');
 const OUT = join(DOCS, 'index.html');
 
+/**
+ * 마크다운 판도 같이 낸다.
+ *
+ * `index.html` 은 브라우저로 열어야 보이고 GitHub 웹에서는 원본 코드로만 보인다.
+ * 저장소에서 바로 읽히는 목차가 하나 필요해서 같은 원본으로 두 벌을 낸다.
+ * 두 파일 다 **손으로 고치지 않는다** — 폴더 README 표를 고치면 따라온다.
+ */
+const OUT_MD = join(DOCS, 'DSH', '문서-허브.md');
+
 /** 허브에 싣는 문서 확장자. pptx 같은 첨부는 목록에만 나오고 링크는 걸지 않는다. */
 const DOC_EXT = ['.md', '.html', '.txt', '.gs'];
 
@@ -131,6 +140,8 @@ interface Candidate {
   raw: string;
   /** 확장자가 없어 "파일일지도 모르는" 값 — 못 찾으면 조용히 버린다 */
   uncertain: boolean;
+  /** 경로가 들어 있던 칸 번호. 설명에서 경로를 빼는 데 쓴다 */
+  cellIndex: number;
 }
 
 /**
@@ -142,12 +153,14 @@ interface Candidate {
  */
 function pickPath(cells: string[]): Candidate | null {
   let fallback: Candidate | null = null;
-  for (const cell of cells) {
-    for (const match of cell.matchAll(/`([^`]+)`/g)) {
+  for (let i = 0; i < cells.length; i++) {
+    for (const match of (cells[i] ?? '').matchAll(/`([^`]+)`/g)) {
       const raw = (match[1] ?? '').trim();
       if (raw.includes(' ') || raw.includes('*') || raw.endsWith('/')) continue;
-      if (DOC_EXT.some((ext) => raw.toLowerCase().endsWith(ext))) return { raw, uncertain: false };
-      if (!fallback && /^[^.]+$/.test(raw)) fallback = { raw, uncertain: true };
+      if (DOC_EXT.some((ext) => raw.toLowerCase().endsWith(ext))) {
+        return { raw, uncertain: false, cellIndex: i };
+      }
+      if (!fallback && /^[^.]+$/.test(raw)) fallback = { raw, uncertain: true, cellIndex: i };
     }
   }
   return fallback;
@@ -237,16 +250,29 @@ const allFiles = walk(DOCS)
   .filter((p) => p !== 'index.html')
   .sort();
 
-const docFiles: DocFile[] = allFiles.map((path) => {
+function toDocFile(path: string, kb: number): DocFile {
   const parts = path.split('/');
   return {
     path,
     folder: parts.length > 1 ? (parts[0] ?? '') : '',
     name: parts[parts.length - 1] ?? path,
-    kb: Math.round(statSync(join(DOCS, path)).size / 1024),
+    kb,
     listed: false,
   };
-});
+}
+
+const docFiles: DocFile[] = allFiles.map((path) =>
+  toDocFile(path, Math.round(statSync(join(DOCS, path)).size / 1024)),
+);
+
+// 이 스크립트가 만들 마크다운 판은 목록을 훑는 지금 시점엔 아직 없을 수 있다
+// (첫 실행이거나 파일 이름을 바꾼 직후). 넣어 두지 않으면 허브가 **자기 자신을**
+// "저장소에 없는 문서"로 표시한다.
+const selfPath = toDocsPath(OUT_MD);
+if (!docFiles.some((f) => f.path === selfPath)) {
+  docFiles.push(toDocFile(selfPath, 0));
+  docFiles.sort((a, b) => a.path.localeCompare(b.path));
+}
 
 const byPath = new Map(docFiles.map((f) => [f.path, f]));
 
@@ -309,11 +335,23 @@ function buildSection(folder: string, blurb: string): Section | null {
         const found = byPath.get(target.docsPath);
         if (found) found.listed = true;
       }
+      // 설명에서 경로 자체를 뺀다 — 안 그러면 "프로젝트-개요.md — 프로젝트-개요.md" 가 된다.
+      // 경로를 빼고 나면 앞에 구분 기호가 남는다(`…md — 일부는 해결됨` → `— 일부는 해결됨`).
+      // 그걸 그대로 두면 표에서 "— — 일부는 해결됨" 이 된다.
+      const noteCells = row
+        .map((text, i) =>
+          i === candidate.cellIndex
+            ? text.replace(`\`${candidate.raw}\``, '').replace(/^[\s—·,:-]+/, '').trim()
+            : text,
+        )
+        .slice(1)
+        .filter((text) => text.length > 0);
+
       const heading = table.heading || '주요 문서';
       const list = groups.get(heading) ?? [];
       list.push({
         label: plain(row[0] ?? '') || candidate.raw,
-        note: plain(row.slice(1).join(' · ')),
+        note: plain(noteCells.join(' · ')),
         href: target.href,
         missing: target.href === null,
         rawPath: target.docsPath ?? candidate.raw,
@@ -374,6 +412,8 @@ function missingRefs(): { path: string; from: string[] }[] {
   const found = new Map<string, Set<string>>();
   for (const file of docFiles) {
     if (!file.path.endsWith('.md')) continue;
+    // 아직 만들어지지 않은 자기 자신은 읽을 수 없다 (위 selfPath 참고)
+    if (!exists(file.path)) continue;
     const text = readFileSync(join(DOCS, file.path), 'utf8');
     for (const match of text.matchAll(/`(docs\/[^`]+?\.(?:md|html|txt|gs))`/g)) {
       const target = (match[1] ?? '').slice('docs/'.length);
@@ -739,7 +779,168 @@ footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:v
 
 writeFileSync(OUT, html, 'utf8');
 
+// ─────────────────────────────────────────────────────────── 마크다운 그리기
+
+/**
+ * 마크다운 표 칸.
+ *
+ * 원본이 이미 마크다운이므로 백틱·굵게 표기는 **그대로 둔다** (HTML 판과 달리 그대로 렌더된다).
+ * 칸 안의 `|` 와 줄바꿈만 표를 깨뜨리므로 그 둘을 손본다.
+ */
+function cell(text: string): string {
+  return text.replace(/\s+/g, ' ').trim().replace(/\|/g, '\\|');
+}
+
+/** `docs/DSH/문서 허브.md` 기준 링크. 공백·한글이 있어도 열리게 인코딩한다. */
+function mdLink(label: string, docsPath: string): string {
+  const safe = docsPath
+    .split('/')
+    .map((part) => encodeURIComponent(part))
+    .join('/');
+  return `[${label.replace(/([[\]])/g, '\\$1')}](../${safe})`;
+}
+
+function mdTable(table: Table): string {
+  const [header, ...rows] = table.rows;
+  if (!header) return '';
+  const width = header.length;
+  const line = (cells: string[]): string => {
+    const padded = [...cells];
+    while (padded.length < width) padded.push('');
+    return `| ${padded.slice(0, width).map(cell).join(' | ')} |`;
+  };
+  return [line(header), `| ${header.map(() => '---').join(' | ')} |`, ...rows.map(line)].join('\n');
+}
+
+/**
+ * 폴더 README 와 같은 두 칸 표의 한 줄을 만든다 — `| 확인하고 싶은 것 | 파일 |`.
+ *
+ * 불릿에 인코딩된 URL 을 그대로 늘어놓으면 한 줄이 너무 길어져 GitHub 에서 가로로 밀린다.
+ * 링크 글자는 **파일 이름**만 쓰고, 긴 경로는 주소 안에 숨긴다.
+ */
+function mdRow(entry: Entry): string {
+  const label = cell(entry.label);
+  const note = cell(entry.note);
+  const tail = note ? ` — ${note}` : '';
+  const name = (entry.rawPath.split('/').pop() ?? entry.rawPath).trim();
+
+  if (entry.missing) {
+    return `| ${label} | \`${cell(entry.rawPath)}\` 🔒 **로컬 전용 · 저장소에 없음**${tail} |`;
+  }
+  if (entry.outside) {
+    // docs/ 밖 파일은 한 단계 더 올라간다
+    const repoPath = (entry.href ?? '').replace(/^\.\.\//, '');
+    return `| ${label} | [${cell(name)}](../../${repoPath}) <sub>${cell(repoPath)}</sub>${tail} |`;
+  }
+  const path = entry.href ?? '';
+  const dir = path.includes('/') ? `${path.slice(0, path.lastIndexOf('/'))}/` : '';
+  return `| ${label} | ${mdLink(name, path)} <sub>${cell(dir)}</sub>${tail} |`;
+}
+
+const md: string[] = [
+  '# 문서 허브',
+  '',
+  '> 🤖 **이 파일은 `npm run docs:hub` 이 만들어 낸다. 손으로 고치지 말 것** — 다음 실행에서 덮어써진다.',
+  '> 내용을 바꾸려면 각 폴더의 `README.md` 안 「확인하고 싶은 것 → 파일」 표를 고친다.',
+  '> 브라우저로 보는 판은 `docs/index.html` (검색·필터·다크모드). 생성기는 `scripts/docs-hub.ts`.',
+  '',
+  `생성 **${stamp}** · 문서 **${docFiles.length}개** · 합계 **${totalKb.toLocaleString()} KB** · 폴더 **${sections.length}개**`,
+  '',
+  '| 알고 싶은 것 | 어디로 |',
+  '| --- | --- |',
+  `| 오늘 뭘 해야 하나 | ${mdLink('이어서-할-일.md', '이어서-할-일.md')} 의 「지금 최우선」 |`,
+  `| 지난 기록 | ${mdLink('00-overview/일지/', '00-overview/일지')} |`,
+  `| 그날의 경위 | ${mdLink('00-overview/인수인계/', '00-overview/인수인계')} |`,
+  '',
+  '---',
+  '',
+  '## 지금 상태',
+  '',
+  '숫자의 원본은 `docs/이어서-할-일.md` 한 곳이다. 이 표는 거기서 읽어 온 것이라 따로 낡지 않는다.',
+  '',
+  ...statusTables().flatMap((t) => [mdTable(t), '']),
+  '---',
+  '',
+  '## 에이전트 작업 (T-번호)',
+  '',
+  '원본은 `docs/70-agent-workspace/README.md` 의 표다. 지시서만 있고 개발기록이 없으면 아직 시작 전이다.',
+  '',
+  '| 번호 | 작업 | 담당 | 상태 |',
+  '| --- | --- | --- | --- |',
+  ...tasks.map((t) => `| ${cell(t.id)} | ${cell(t.what)} | ${cell(t.owner)} | ${cell(t.status)} |`),
+  '',
+  '---',
+  '',
+  '## 폴더별 문서',
+  '',
+  ...sections.flatMap((section) => [
+    `### ${cell(section.title)}`,
+    '',
+    `\`docs/${section.folder}/\`${section.blurb ? ` — ${cell(section.blurb)}` : ''}`,
+    '',
+    ...section.groups.flatMap((group) => [
+      `**${cell(group.heading)}**`,
+      '',
+      '| 확인하고 싶은 것 | 파일 |',
+      '| --- | --- |',
+      ...group.entries.map(mdRow),
+      '',
+    ]),
+  ]),
+  '---',
+  '',
+  `## 🔒 저장소에 없는 문서를 가리키는 곳 — ${missing.length}종`,
+  '',
+  '창업 지원사업 서류·사업계획서는 `.gitignore` 로 로컬 전용이다.',
+  '**링크가 안 열려도 파일이 사라진 것이 아니다** — 원래 작업 폴더(노트북)에는 있다.',
+  '',
+  '| 없는 경로 | 가리키는 곳 |',
+  '| --- | --- |',
+  ...missing.map((m) => `| \`${m.path}\` | ${m.from.length}곳 — ${m.from.map((f) => `\`${f}\``).join(', ')} |`),
+  '',
+  '---',
+  '',
+  '## 전체 문서 찾아보기',
+  '',
+  `위 목차는 "무엇을 알고 싶은가"로 고른 것이라 묶음으로만 설명되는 문서는 빠진다. 여기는 **${docFiles.length}개 전부**다.`,
+  '`표에 없음` 은 폴더 README 표에 아직 한 줄이 없다는 뜻이다.',
+  '',
+];
+
+{
+  const byFolder = new Map<string, DocFile[]>();
+  for (const file of docFiles) {
+    if (file.name === '.gitkeep') continue;
+    const top = file.folder || '(최상위)';
+    const list = byFolder.get(top) ?? [];
+    list.push(file);
+    byFolder.set(top, list);
+  }
+  for (const [top, files] of byFolder) {
+    md.push(`<details><summary><b>${top}</b> — ${files.length}개</summary>`, '');
+    md.push('| 파일 | 위치 | 크기 |', '| --- | --- | --- |');
+    for (const file of files) {
+      const dir = file.path.includes('/')
+        ? `${file.path.slice(0, file.path.lastIndexOf('/'))}/`
+        : '(최상위)';
+      const mark = file.listed ? '' : ' · *표에 없음*';
+      md.push(`| ${mdLink(file.name, file.path)} | ${cell(dir)} | ${file.kb}KB${mark} |`);
+    }
+    md.push('', '</details>', '');
+  }
+}
+
+md.push(
+  '---',
+  '',
+  '`npm run docs:hub` 로 다시 만든다 · 생성기 `scripts/docs-hub.ts`',
+  '',
+);
+
+writeFileSync(OUT_MD, md.join('\n'), 'utf8');
+
 console.log(`문서 허브를 만들었습니다 → ${relative(ROOT, OUT)}`);
+console.log(`                        → ${relative(ROOT, OUT_MD)}`);
 console.log(`  문서 ${docFiles.length}개 · 폴더 ${sections.length}개 · 작업 ${tasks.length}건`);
 if (missing.length > 0) {
   console.log(`  ⚠️ 저장소에 없는 경로를 가리키는 참조 ${missing.length}종 (허브에 배지로 표시)`);
