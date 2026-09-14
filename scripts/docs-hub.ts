@@ -834,14 +834,16 @@ function mdTable(table: Table): string {
 /**
  * 폴더 README 와 같은 두 칸 표의 한 줄을 만든다 — `| 확인하고 싶은 것 | 파일 |`.
  *
- * 불릿에 인코딩된 URL 을 그대로 늘어놓으면 한 줄이 너무 길어져 GitHub 에서 가로로 밀린다.
- * 링크 글자는 **파일 이름**만 쓰고, 긴 경로는 주소 안에 숨긴다.
+ * **원시 HTML(`<sub>`·`<details>`)을 쓰지 않는다.** 넣으면 편집기가
+ * "HTML/JSX/MDX 가 들어 있어 코드 모드에서만 편집할 수 있습니다" 하고 렌더를 포기한다
+ * (2026-09-14 실측). 사람이 보라고 만든 문서가 코드로 보이면 뜻이 없다.
+ *
+ * 링크 글자는 폴더 README 관례대로 **docs/ 기준 경로**를 그대로 쓴다.
  */
 function mdRow(entry: Entry): string {
   const label = cell(entry.label);
   const note = cell(entry.note);
   const tail = note ? ` — ${note}` : '';
-  const name = (entry.rawPath.split('/').pop() ?? entry.rawPath).trim();
 
   if (entry.missing) {
     return `| ${label} | \`${cell(entry.rawPath)}\` 🔒 **로컬 전용 · 저장소에 없음**${tail} |`;
@@ -849,11 +851,10 @@ function mdRow(entry: Entry): string {
   if (entry.outside) {
     // docs/ 밖 파일은 한 단계 더 올라간다
     const repoPath = (entry.href ?? '').replace(/^\.\.\//, '');
-    return `| ${label} | [${cell(name)}](../../${repoPath}) <sub>${cell(repoPath)}</sub>${tail} |`;
+    return `| ${label} | [${cell(repoPath)}](../../${repoPath})${tail} |`;
   }
   const path = entry.href ?? '';
-  const dir = path.includes('/') ? `${path.slice(0, path.lastIndexOf('/'))}/` : '';
-  return `| ${label} | ${mdLink(name, path)} <sub>${cell(dir)}</sub>${tail} |`;
+  return `| ${label} | ${mdLink(path, path)}${tail} |`;
 }
 
 const md: string[] = [
@@ -936,16 +937,14 @@ const md: string[] = [
     byFolder.set(top, list);
   }
   for (const [top, files] of byFolder) {
-    md.push(`<details><summary><b>${top}</b> — ${files.length}개</summary>`, '');
-    md.push('| 파일 | 위치 | 크기 |', '| --- | --- | --- |');
+    // `<details>` 로 접으면 편집기가 이 파일을 HTML 로 보고 렌더를 포기한다 (mdRow 주석 참고)
+    md.push(`### ${top} — ${files.length}개`, '');
+    md.push('| 파일 | 크기 | 메모 |', '| --- | --- | --- |');
     for (const file of files) {
-      const dir = file.path.includes('/')
-        ? `${file.path.slice(0, file.path.lastIndexOf('/'))}/`
-        : '(최상위)';
-      const mark = file.listed ? '' : ' · *표에 없음*';
-      md.push(`| ${mdLink(file.name, file.path)} | ${cell(dir)} | ${file.kb}KB${mark} |`);
+      const mark = file.listed ? '' : '*표에 없음*';
+      md.push(`| ${mdLink(file.path, file.path)} | ${file.kb}KB | ${mark} |`);
     }
-    md.push('', '</details>', '');
+    md.push('');
   }
 }
 
@@ -956,7 +955,17 @@ md.push(
   '',
 );
 
-writeFileSync(OUT_MD, md.join('\n'), 'utf8');
+const markdown = md.join('\n');
+
+/**
+ * 마크다운 판에 원시 HTML 이 섞이면 편집기가 렌더를 포기하고 코드로만 보여준다
+ * ("HTML, JSX 또는 MDX가 포함되어 있으므로 코드 모드에서만 편집할 수 있습니다").
+ * 사람이 보라고 만든 문서라 그건 실패다. 다시 섞이면 바로 알아채도록 재어 둔다.
+ */
+const RAW_HTML = /<\/?[a-zA-Z][a-zA-Z0-9]*[\s/>]/;
+const hasRawHtml = RAW_HTML.test(markdown);
+
+writeFileSync(OUT_MD, markdown, 'utf8');
 
 console.log(`문서 허브를 만들었습니다 → ${relative(ROOT, OUT)}`);
 console.log(`                        → ${relative(ROOT, OUT_MD)}`);
@@ -995,11 +1004,17 @@ console.log(
 );
 console.log('  (표에 없는 문서도 허브의 「전체 문서 찾아보기」 에서 이름으로 찾을 수 있습니다)');
 
+if (hasRawHtml) {
+  console.log(
+    '\n  🔴 마크다운 판에 원시 HTML 이 섞였습니다 — 편집기가 "코드 모드"로만 열게 됩니다.',
+  );
+  console.log('     `<details>`·`<sub>` 같은 태그를 쓰지 말고 순수 마크다운으로 바꾸세요.');
+}
+
 if (process.argv.includes('--open')) {
   console.log(`\n브라우저로 엽니다 → ${pathToFileURL(OUT).href}`);
   openInBrowser(OUT);
 } else {
-  console.log('\n눈으로 보려면 → npm run docs   (브라우저로 docs/index.html 을 연다)');
-  console.log('마크다운 판(docs/DSH/문서-허브.md)은 GitHub 웹에서만 예쁘게 보인다 —');
-  console.log('편집기·Orca 에서는 원본 글자로 나온다.');
+  console.log('\n눈으로 보려면 → npm run docs   (검색·필터가 되는 docs/index.html 을 브라우저로 연다)');
+  console.log('마크다운 판(docs/DSH/문서-허브.md)은 순수 마크다운이라 GitHub·미리보기에서 표로 보인다.');
 }
