@@ -25,6 +25,8 @@
     "icons": "node scripts/generate-icons.mjs",
     "crowding": "tsx scripts/crowding-report.ts",
     "content": "tsx scripts/content-report.ts",
+    "docs": "tsx scripts/docs-hub.ts --open",
+    "docs:hub": "tsx scripts/docs-hub.ts",
     "db:status": "tsx scripts/db-migrate.ts --status",
     "db:migrate": "tsx scripts/db-migrate.ts",
     "db:export": "tsx scripts/db-export.ts",
