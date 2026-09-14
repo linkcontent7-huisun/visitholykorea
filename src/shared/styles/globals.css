@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
+/* 웹폰트는 index.html 에서 비차단으로 불러온다 — CSS @import 는 CSS → 폰트 CSS → woff2 로 직렬화돼
+   느린 망에서 첫 그림을 수 초 늦췄다(Lighthouse 9/14). 아래 폰트 스택은 폰트가 늦어도 읽히게 둔다. */
 @import 'tailwindcss';
 
 @theme {

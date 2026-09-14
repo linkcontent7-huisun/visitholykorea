@@ -34,7 +34,7 @@ export function TopNav() {
               (2026-09-13 사장님 요청). PC 는 자리가 넉넉하니 한 줄 그대로. */}
           <span
             className="text-[13px] font-extrabold leading-[1.05] tracking-tight text-[#04377C] lg:hidden"
-            aria-label="VisitHolyKorea"
+            aria-label="VisitHoly Korea"
           >
             VisitHoly
             <br />

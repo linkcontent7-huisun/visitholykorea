@@ -55,6 +55,8 @@ export default defineConfig(({ mode }) => ({
     tourProxyDevPlugin(mode),
     VitePWA({
       registerType: 'autoUpdate',
+      // registerSW.js 를 따로 받지 않고 index.html 에 인라인 — 첫 그림을 막던 요청 하나를 줄인다(9/14)
+      injectRegister: 'inline',
       includeAssets: ['favicon-64.png', 'favicon-32.png', 'icons/apple-touch-icon.png', 'logo-mark-88.png'],
       manifest: {
         name: 'Visit Holy Korea - 한국 가톨릭 성지순례',

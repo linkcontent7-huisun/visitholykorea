@@ -30,7 +30,7 @@ export function SiteGridCard({ site }: { site: HolySite }) {
         </div>
       </div>
       <div className="p-4">
-        <h4 className="truncate text-sm font-bold text-app-text">{site.name}</h4>
+        <h3 className="truncate text-sm font-bold text-app-text">{site.name}</h3>
         <p className="mt-1 truncate text-[0.6875rem] text-app-text-muted">{site.location}</p>
       </div>
     </Link>
