@@ -34,12 +34,15 @@ describe('LanguagePicker', () => {
     expect(screen.queryByText('Español')).not.toBeInTheDocument();
   });
 
-  it('누르면 6개 언어가 각자의 언어 이름으로 나온다', () => {
+  it('누르면 검수된 한국어·영어만 각자의 언어 이름으로 나온다 (es·fr·pt·it 는 검수 전이라 숨김)', () => {
     mockSettings('ko');
     render(<LanguagePicker />);
     fireEvent.click(screen.getByRole('button', { name: /언어|Language/i }));
-    for (const label of ['한국어', 'English', 'Español', 'Français', 'Português', 'Italiano']) {
+    for (const label of ['한국어', 'English']) {
       expect(screen.getByRole('option', { name: label })).toBeInTheDocument();
+    }
+    for (const label of ['Español', 'Français', 'Português', 'Italiano']) {
+      expect(screen.queryByRole('option', { name: label })).not.toBeInTheDocument();
     }
   });
 
@@ -47,16 +50,16 @@ describe('LanguagePicker', () => {
     const setLanguage = mockSettings('ko');
     render(<LanguagePicker />);
     fireEvent.click(screen.getByRole('button', { name: /언어|Language/i }));
-    fireEvent.click(screen.getByRole('option', { name: 'Español' }));
-    expect(setLanguage).toHaveBeenCalledWith('es');
-    expect(screen.queryByRole('option', { name: 'Español' })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('option', { name: 'English' }));
+    expect(setLanguage).toHaveBeenCalledWith('en');
+    expect(screen.queryByRole('option', { name: 'English' })).not.toBeInTheDocument();
   });
 
   it('지금 언어가 무엇인지 목록에서 알 수 있다', () => {
-    mockSettings('fr');
+    mockSettings('en');
     render(<LanguagePicker />);
     fireEvent.click(screen.getByRole('button', { name: /언어|Language/i }));
-    expect(screen.getByRole('option', { name: 'Français' })).toHaveAttribute(
+    expect(screen.getByRole('option', { name: 'English' })).toHaveAttribute(
       'aria-selected',
       'true',
     );

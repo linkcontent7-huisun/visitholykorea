@@ -1,4 +1,4 @@
-import { BookOpen, Compass, Footprints, Home, Map as MapIcon, Menu, Smartphone } from 'lucide-react';
+import { BookOpen, Home, Menu, Search, Wind } from 'lucide-react';
 import type { ComponentType } from 'react';
 import { paths } from '@/app/routes/paths';
 import type { TranslationKey } from '@/shared/i18n/dictionary';
@@ -15,44 +15,27 @@ export interface NavItem {
   icon: ComponentType<{ size?: number; className?: string }>;
   labelKey: TranslationKey;
   end: boolean;
-  /**
-   * 화면으로 가지 않고 하단 탭 위에 시트를 여는 항목. `to` 는 시트를 못 여는
-   * 곳(데스크톱 상단 메뉴)에서 대신 갈 화면이다.
-   */
-  action?: 'install';
 }
 
 /**
- * 하단 탭 5개 — 모바일 기준.
+ * 하단 탭 5개 — 재기획(2026-09-14) 정보 구조 그대로.
  *
- * 「탐색」 탭은 뺐다 (2026-09-12, 60대 피드백 "기능이 많고 겹친다"). 교구별 목록과
- * 검색은 「지도」 탭이 이미 하고, 순례 코스·즐겨찾기는 홈과 상세에서 간다.
- * `/explore` 화면 자체는 남아 있어 홈의 "탐색 →" 링크로 들어갈 수 있다.
+ *   홈 · 성지 찾기 · 고요 속으로 · 내 기록 · 더보기
  *
- * 넷째 「홈화면 추가」는 화면이 아니라 시트(홈 화면에 추가 · 링크 공유)를 연다.
- * 다섯째 「전체」가 예전 「설정」 화면이다 — 맨 위에 전체 서비스 목록, 아래에 설정
- * (2026-09-13 사장님 요청).
+ * 「지도」는 배경 없는 점 지도라 주 탐색 수단이 못 되어 더보기 안 「전국 성지 분포 개요」로,
+ * 「홈화면 추가」는 더보기 안으로 옮겼다. 「고요 속으로」와 「붐빔 피하기」처럼 같은 기능이
+ * 두 이름으로 보이던 것은 하나로 합쳤다.
  */
 export const NAV_ITEMS: readonly NavItem[] = [
   { id: 'home', to: paths.home, icon: Home, labelKey: 'home', end: true },
-  { id: 'map', to: paths.map, icon: MapIcon, labelKey: 'map', end: false },
-  { id: 'record', to: paths.records, icon: BookOpen, labelKey: 'record', end: false },
-  { id: 'install', to: paths.menu, icon: Smartphone, labelKey: 'installTab', end: false, action: 'install' },
-  { id: 'menu', to: paths.menu, icon: Menu, labelKey: 'allMenu', end: false },
+  { id: 'search', to: paths.search, icon: Search, labelKey: 'findShrines', end: false },
+  { id: 'quiet', to: paths.quiet, icon: Wind, labelKey: 'quietHeroTitle', end: false },
+  { id: 'record', to: paths.records, icon: BookOpen, labelKey: 'myRecords', end: false },
+  { id: 'menu', to: paths.menu, icon: Menu, labelKey: 'moreTab', end: false },
 ];
 
 /**
- * 데스크톱 상단 내비에만 노출하는 항목.
- *
- * 넓은 화면에서는 하단 탭 5개로 좁힐 이유가 없다 — 모바일에서 `더보기` 안에
- * 숨어 있던 순례 코스·마음 나침반을 한 줄로 꺼낸다. 로고가 홈을 대신하므로
- * `home` 은 빼고 시작한다.
+ * 데스크톱 상단 내비 — 로고가 홈을 대신하므로 `home` 만 빼고 하단 탭과 같다.
+ * 넓은 화면이라고 다른 구조를 주면 휴대폰과 PC 를 오가는 사람이 길을 잃는다.
  */
-export const TOP_NAV_ITEMS: readonly NavItem[] = [
-  // 「탐색」은 하단 탭과 같은 이유로 뺐다 (2026-09-12) — 지도 탭이 교구별 목록·검색을 한다
-  { id: 'map', to: paths.map, icon: MapIcon, labelKey: 'map', end: false },
-  { id: 'routes', to: paths.routes, icon: Footprints, labelKey: 'routesTitle', end: false },
-  { id: 'compass', to: paths.compass, icon: Compass, labelKey: 'compassTitle', end: false },
-  { id: 'record', to: paths.records, icon: BookOpen, labelKey: 'record', end: false },
-  { id: 'menu', to: paths.menu, icon: Menu, labelKey: 'allMenu', end: false },
-];
+export const TOP_NAV_ITEMS: readonly NavItem[] = NAV_ITEMS.filter((item) => item.id !== 'home');

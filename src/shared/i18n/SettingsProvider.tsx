@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { isRegion, type Region } from '@/shared/lib/regions';
-import { DICTIONARY, isLanguage, type Language } from './dictionary';
+import { DICTIONARY, type Language } from './dictionary';
+import { resolveInitialLanguage } from './language-default';
 import { SettingsContext, type SettingsContextValue, type TextSize } from './settings-context';
 
 const STORAGE_KEY_LANG = 'vhk_language';
@@ -22,7 +23,13 @@ function matchWideView(): boolean {
 
 function readStoredLanguage(): Language {
   const raw = localStorage.getItem(STORAGE_KEY_LANG);
-  return isLanguage(raw) ? raw : 'ko';
+  const browserLanguages =
+    typeof navigator === 'undefined'
+      ? []
+      : navigator.languages?.length
+        ? navigator.languages
+        : [navigator.language];
+  return resolveInitialLanguage(raw, browserLanguages);
 }
 
 /** 저장된 출발지. 값이 시·도 목록에 없으면(이전 버전·손댄 값) 안 고른 것으로 본다. */

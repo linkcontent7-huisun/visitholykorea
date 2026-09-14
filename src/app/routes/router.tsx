@@ -1,5 +1,5 @@
 import { lazy, Suspense, type ReactNode } from 'react';
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import { ScrollShell } from '@/app/layouts/ScrollShell';
 import { AppLayout } from '@/app/layouts/AppLayout';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
@@ -16,8 +16,9 @@ const SiteDetailPage = lazy(() => import('@/pages/SiteDetailPage'));
 const SearchPage = lazy(() => import('@/pages/SearchPage'));
 const RoutesPage = lazy(() => import('@/pages/RoutesPage'));
 const RouteDetailPage = lazy(() => import('@/pages/RouteDetailPage'));
-const CompassPage = lazy(() => import('@/pages/CompassPage'));
-const AlternativesPage = lazy(() => import('@/pages/AlternativesPage'));
+const QuietPage = lazy(() => import('@/pages/QuietPage'));
+const RetiredFeaturePage = lazy(() => import('@/pages/RetiredFeaturePage'));
+const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
 const FestivalsPage = lazy(() => import('@/pages/FestivalsPage'));
 const RegionLandingPage = lazy(() => import('@/pages/RegionLandingPage'));
 const NearbyPage = lazy(() => import('@/pages/NearbyPage'));
@@ -98,9 +99,13 @@ export const router = createBrowserRouter([
           // 되돌아갈 수단이 「← 뒤로」 글자 하나뿐이라 PC 에서 특히 길을 잃었다.
           { path: paths.routes, element: withSuspense(<RoutesPage />) },
           { path: paths.routeDetailPattern, element: withSuspense(<RouteDetailPage />) },
-          { path: paths.compass, element: withSuspense(<CompassPage />) },
           { path: paths.search, element: withSuspense(<SearchPage />) },
-          { path: paths.alternatives, element: withSuspense(<AlternativesPage />) },
+          { path: paths.quiet, element: withSuspense(<QuietPage />) },
+          // 옛 이름·옛 기능의 주소는 버리지 않고 안내한다 — 밖에 퍼진 링크가 죽으면 안 된다
+          { path: paths.alternatives, element: <Navigate to={paths.quiet} replace /> },
+          { path: paths.compass, element: withSuspense(<RetiredFeaturePage feature="compass" />) },
+          { path: paths.aiGuide, element: withSuspense(<RetiredFeaturePage feature="ai" />) },
+          { path: paths.privacy, element: withSuspense(<PrivacyPage />) },
           { path: paths.festivals, element: withSuspense(<FestivalsPage />) },
           { path: paths.regionPattern, element: withSuspense(<RegionLandingPage />) },
           { path: paths.nearby, element: withSuspense(<NearbyPage />) },

@@ -1,60 +1,75 @@
-import { ChevronLeft, ChevronRight, Headphones } from 'lucide-react';
+import { ChevronRight, Info, MessageSquare, Search, Wind } from 'lucide-react';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
-import { getDocentScript } from '@/features/docent/data/scripts';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
-import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
-import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
+import { localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { regionCoords } from '@/shared/lib/regions';
 import { haversineKm } from '@/shared/lib/geo';
+import { REGIONS, regionCoords } from '@/shared/lib/regions';
+import type { HolySite } from '@/shared/types/domain';
 
-/** 하루 단위로 바뀌는 값. 날짜가 바뀌면 히어로에 뜨는 성지도 바뀐다. */
-function dayIndex(): number {
-  return Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+/**
+ * 홈 — 재기획(2026-09-14) §4-1 순서를 그대로 따른다.
+ *
+ *   1. 서비스가 해결하는 문제 한 문장
+ *   2. 고요 속으로 진입
+ *   3. 지역별 성지 찾기 (행정구역 17개)
+ *   4. 추천 성지 (출발지·현재 위치 기준 가까운 순 — 없으면 안내만)
+ *   5. 처음 방문하기 좋은 성지 (사진·연락처·좌표가 모두 확인된 곳)
+ *   6. 정보의 출처와 이용 방법
+ *   7. 문의와 정보 수정 제안
+ *
+ * 홈에서는 TourAPI 를 부르지 않는다. 예전 「오늘의 쉼표」는 홈 로드마다 7회를 불러
+ * 일일 한도를 갉아먹었고, 「고요 속으로」와 같은 기능이 두 이름으로 보였다.
+ * 저속 통신에서도 첫 화면은 자체 성지 DB 하나로 뜬다.
+ */
+
+/** 처음 방문에 권할 조건 — 실제로 찾아가서 연락할 수 있는 정보가 다 있는 곳. 임의 큐레이션이 아니다. */
+function isFirstVisitReady(site: HolySite): boolean {
+  return Boolean(
+    site.imageUrl && site.phone && site.coordinates.lat != null && site.coordinates.lng != null,
+  );
+}
+
+function SectionTitle({
+  title,
+  sub,
+  action,
+}: {
+  title: string;
+  sub?: string;
+  action?: { to: string; label: string };
+}) {
+  return (
+    <div className="mb-4 flex items-end justify-between gap-4">
+      <div className="min-w-0">
+        <h2 className="text-lg font-extrabold tracking-tight text-app-text lg:text-2xl">{title}</h2>
+        {sub && <p className="mt-1 text-sm leading-relaxed text-app-text-muted">{sub}</p>}
+      </div>
+      {action && (
+        <Link to={action.to} className="shrink-0 text-sm font-bold text-brand-violet">
+          {action.label}
+          <ChevronRight size={14} className="ml-0.5 inline" aria-hidden />
+        </Link>
+      )}
+    </div>
+  );
 }
 
 export default function HomePage() {
   const { origin, gpsLocation, language, t } = useSettings();
 
-  const { data: sitesRaw = [] } = useSites({ limit: 6 });
-  const sites = useLocalizedSites(sitesRaw);
-  // 붐빔 지수는 좌표가 있는 성지 전체를 후보로 삼는다. 실제 API 호출은
-  // 상위 후보 몇 곳에만 일어나므로 목록을 넓게 가져와도 부담이 없다.
-  // 300곳을 한 번에 번역해 두면 TodayQuietSection·nearbyFirst 등 아래 여러 곳이
-  // 각자 다시 조회하지 않고 같은 번역 결과를 재사용한다.
   const { data: allSitesRaw = [] } = useSites({ limit: 300 });
   const allSites = useLocalizedSites(allSitesRaw);
-  // 히어로 사진은 "사진이 있는 성지"만 후보가 된다 — 사진 없는 곳이 뽑히면 안 된다.
-  const { data: imagedSites = [] } = useSites({ limit: 100, withImageOnly: true });
 
-  /**
-   * 오늘 소개하는 성지 다섯 곳. 사진이 있는 곳 중에서 날짜로 회전시켜 매일 바뀐다.
-   * 모바일에서는 좌우로 넘겨보는 캐러셀로, 데스크톱에서는 그중 첫 곳만 큰 히어로로 쓴다.
-   */
-  const heroSitesRaw = useMemo(() => {
-    if (imagedSites.length === 0) return [];
-    const start = dayIndex() % imagedSites.length;
-    const rotated = [...imagedSites.slice(start), ...imagedSites.slice(0, start)];
-    return rotated.slice(0, Math.min(5, rotated.length));
-  }, [imagedSites]);
-  const heroSites = useLocalizedSites(heroSitesRaw);
-  const heroSite = heroSites[0] ?? null;
-  const heroDocent = heroSite ? getDocentScript(heroSite.id) : null;
-
-  /**
-   * 출발지를 정해 둔 사람에게는 "전국 아무 데나"가 아니라 **갈 수 있는 곳**을 먼저 보여준다.
-   * 출발지가 없으면 지금까지처럼 기본 목록을 그대로 쓴다.
-   */
-  // allSites 가 이미 번역된 이름을 갖고 있어(위 useLocalizedSites), 여기서 다시 조회할 필요가 없다.
-  const nearbyFirst = useMemo(() => {
-    const from = gpsLocation ?? regionCoords(origin);
-    if (!from || allSites.length === 0) return sites;
-
+  /** 출발지(또는 현재 위치)가 있을 때만 "가까운 순" 추천을 만든다. 없으면 지어내지 않는다. */
+  const from = gpsLocation ?? regionCoords(origin);
+  const recommended = useMemo(() => {
+    if (!from || allSites.length === 0) return [];
     return [...allSites]
       .filter((s) => s.coordinates.lat != null && s.coordinates.lng != null)
       .map((s) => ({
@@ -64,257 +79,145 @@ export default function HomePage() {
       .sort((a, b) => a.km - b.km)
       .slice(0, 8)
       .map((x) => x.site);
-  }, [origin, gpsLocation, allSites, sites]);
+  }, [from, allSites]);
+
+  /** 사진·연락처·좌표가 모두 있는 성지 중 이름순 4곳. 날짜로 돌리지 않는다 — 심사·시연 때 매번 같아야 한다. */
+  const firstVisit = useMemo(
+    () =>
+      [...allSites]
+        .filter(isFirstVisitReady)
+        .sort((a, b) => a.name.localeCompare(b.name, 'ko'))
+        .slice(0, 4),
+    [allSites],
+  );
+
+  const originLabel = gpsLocation
+    ? t('useCurrentLocationButton')
+    : origin
+      ? localizeRegionName(origin, language)
+      : null;
 
   return (
     <div className="bg-app-bg pb-10">
-      {/*
-        히어로 — 사진으로 시작한다.
-        모바일: 오늘의 성지 다섯 곳을 좌우로 넘겨보는 캐러셀(2026-09-08) — 한 장만
-        있는 줄 알았다는 피드백으로, 다음 카드가 오른쪽 끝에 살짝 걸치게 두고
-        화살표로 더 있음을 알린다.
-        데스크톱: 그중 첫 곳이 화면 폭을 꽉 채우고, 그 위에 서비스 한 줄 소개가 올라온다.
-      */}
-      {heroSite ? (
-        <section className="pt-4 lg:px-0 lg:pt-0">
-          {/* 모바일 전용 — 캐러셀 */}
-          <div className="lg:hidden">
-            <div className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-1">
-              {heroSites.map((site, i) => {
-                const docent = getDocentScript(site.id);
-                return (
-                  <Link
-                    key={site.id}
-                    to={paths.siteDetail(site.id)}
-                    className="relative h-80 w-[86%] shrink-0 snap-center overflow-hidden rounded-3xl"
-                    id={i === 0 ? 'home-hero' : undefined}
-                  >
-                    <SiteThumbnail
-                      imageUrl={site.imageUrl}
-                      name={site.name}
-                      category={site.category}
-                      intensity="deep"
-                      className="h-full w-full object-cover"
-                    />
-                    <div
-                      className="absolute inset-0"
-                      aria-hidden
-                      style={{
-                        background: 'linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0) 65%)',
-                      }}
-                    />
-                    {/* 옆에 더 있다는 것을 손으로 안 밀어봐도 알 수 있게 */}
-                    {i > 0 && (
-                      <div
-                        className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm"
-                        aria-hidden
-                      >
-                        <ChevronLeft size={20} />
-                      </div>
-                    )}
-                    {i < heroSites.length - 1 && (
-                      <div
-                        className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 animate-pulse items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm"
-                        aria-hidden
-                      >
-                        <ChevronRight size={20} />
-                      </div>
-                    )}
-                    <div className="absolute inset-x-0 bottom-0 p-6 text-white">
-                      <p className="text-[0.6875rem] font-bold uppercase tracking-widest opacity-90">
-                        {localizeRegionName(site.region, language)} · {localizeDomainValue(site.category, t)}
-                      </p>
-                      <h2 className="mt-1 text-[26px] font-extrabold leading-tight tracking-tight">
-                        {site.name}
-                      </h2>
-                      {/* 도슨트 원고가 없는 성지에 있는 척하는 CTA 를 붙이지 않는다(더미 금지). */}
-                      {docent && (
-                        <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-[0.8125rem] font-semibold backdrop-blur-md">
-                          <Headphones size={16} aria-hidden />
-                          {t('heroDocentCta')}
-                        </span>
-                      )}
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
+      {/* 1. 문제 정의 */}
+      <section className="bg-white">
+        <PageContainer className="py-8 lg:py-12">
+          <p className="text-[0.6875rem] font-bold uppercase tracking-[.2em] text-brand-violet">
+            Visit Holy Korea
+          </p>
+          <h1 className="mt-3 max-w-3xl text-2xl font-extrabold leading-snug tracking-tight text-app-text lg:text-4xl">
+            {t('homeProblemLine')}
+          </h1>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-app-text-muted lg:text-base">
+            {allSites.length > 0
+              ? fillPlaceholders(t('homeDefinition'), { count: allSites.length })
+              : fillPlaceholders(t('homeDefinition'), { count: '…' })}
+          </p>
+        </PageContainer>
+      </section>
 
-          {/* 데스크톱 전용 — 오늘의 성지 한 곳을 크게 */}
-          <div className="hidden lg:block">
-          <div className="relative h-80 overflow-hidden rounded-3xl lg:h-[420px] lg:rounded-none">
-            <SiteThumbnail
-              imageUrl={heroSite.imageUrl}
-              name={heroSite.name}
-              category={heroSite.category}
-              intensity="deep"
-              className="h-full w-full object-cover"
-            />
-            {/* 모바일: 아래에서 위로. 데스크톱: 왼쪽에서 오른쪽으로 — 글이 왼쪽에 오므로 */}
-            <div
-              className="absolute inset-0 lg:hidden"
-              aria-hidden
-              style={{ background: 'linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0) 65%)' }}
-            />
-            <div
-              className="absolute inset-0 hidden lg:block"
-              aria-hidden
-              style={{
-                background:
-                  'linear-gradient(90deg, rgba(10,14,30,.85) 0%, rgba(10,14,30,.45) 55%, rgba(10,14,30,.12) 100%)',
-              }}
-            />
-
-            {/* 데스크톱 전용 소개 문구 */}
-            <div className="absolute inset-0 hidden items-center lg:flex">
-              <PageContainer>
-                <div className="max-w-[620px] text-white">
-                  <p className="text-[0.6875rem] font-bold uppercase tracking-[.2em] text-[#c4b5fd]">
-                    {t('heroEyebrow')}
-                  </p>
-                  <h1 className="mt-4 text-[46px] font-extrabold leading-[1.12] tracking-tight">
-                    {t('heroTitleLine1')}
-                    <br />
-                    {t('heroTitleLine2')}
-                  </h1>
-                  <p className="mt-4 text-base leading-relaxed opacity-90">
-                    {t('heroBody')}
-                    {allSites.length > 0 &&
-                      ` ${fillPlaceholders(t('heroBodyCount'), { count: allSites.length })}`}
-                  </p>
-                  {/* PC 는 히어로 버튼이 입구다 — 아래 파란·보라 카드 둘은 PC 에서 숨겨 중복을 없앤다 (2026-09-12) */}
-                  <div className="mt-7 flex flex-wrap gap-3">
-                    <Link
-                      to={paths.nearby}
-                      className="rounded-full bg-white px-7 py-3.5 text-sm font-bold text-brand-blue"
-                      id="hero-nearby-cta"
-                    >
-                      {t('nearbyEntryTitle')}
-                    </Link>
-                    <Link
-                      to={paths.compass}
-                      className="rounded-full border border-white/50 px-7 py-3.5 text-sm font-bold text-white"
-                      id="hero-compass-cta"
-                    >
-                      {t('compassTitle')}
-                    </Link>
-                  </div>
-                </div>
-              </PageContainer>
-            </div>
-
-            {/* 오늘의 성지 — 오른쪽 아래로 비켜 놓는다 */}
-            <Link
-              to={paths.siteDetail(heroSite.id)}
-              className="absolute inset-x-auto bottom-8 right-10 block max-w-[280px] rounded-2xl bg-black/35 p-5 text-white backdrop-blur-md"
-            >
-              <p className="text-[0.6875rem] font-bold uppercase tracking-widest opacity-90">
-                {localizeRegionName(heroSite.region, language)} · {localizeDomainValue(heroSite.category, t)}
-              </p>
-              <h2 className="mt-1 text-[20px] font-extrabold leading-tight tracking-tight">
-                {heroSite.name}
-              </h2>
-              {/* 도슨트 원고가 없는 성지에 있는 척하는 CTA 를 붙이지 않는다(더미 금지). */}
-              {heroDocent && (
-                <span className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1.5 text-[0.75rem] font-semibold backdrop-blur-md">
-                  <Headphones size={16} aria-hidden />
-                  {t('heroDocentCta')}
-                </span>
-              )}
-            </Link>
-          </div>
-          </div>
-        </section>
-      ) : (
-        <section className="px-6 pt-4 lg:px-0 lg:pt-0">
-          <div className="h-80 animate-pulse rounded-3xl bg-gray-100 lg:h-[420px] lg:rounded-none" />
-        </section>
-      )}
-
-      {/* 인사 띠 — 사장님 브랜드 시트의 비둘기·붓글씨 (2026-09-12). 크림 바탕에 한 줄.
-          붓글씨는 한국어 이미지라 다른 언어에서는 같은 뜻의 글자로 대신한다. */}
-      <PageContainer className="pt-5 lg:hidden">
-        <div className="flex items-center gap-4 rounded-[24px] bg-[#FFF7E8] px-5 py-4">
-          <img src="/brand/dove.png" alt="" aria-hidden className="h-[48px] w-auto shrink-0" />
-          {language === 'ko' ? (
-            <img src="/brand/brush-navy.png" alt="지금, 성지로 떠나보세요!" className="h-[58px] w-auto" />
-          ) : (
-            <p className="text-[15px] font-extrabold leading-snug text-[#0D2B5C]">{t('heroTitleLine2')}</p>
-          )}
-        </div>
-      </PageContainer>
-
-      {/* 여기에서 가장 가까운 성지·성당 — 홈에서 바로 보이는 입구 (2026-09-12 사장님 요청).
-          누르면 현재 위치를 묻고 208곳 전부를 가까운 순으로 보여준다. */}
-      <PageContainer className="pt-6 lg:hidden">
+      {/* 2. 고요 속으로 진입 */}
+      <PageContainer className="pt-6">
         <Link
-          to={paths.nearby}
-          id="nearby-entry"
-          className="flex items-center gap-4 rounded-[28px] bg-brand-blue p-5 text-white shadow-lg shadow-brand-blue/20 transition-transform active:scale-[0.99] lg:p-6"
+          to={paths.quiet}
+          id="quiet-entry"
+          className="flex items-center gap-4 rounded-[28px] bg-gradient-to-br from-brand-blue to-brand-violet p-5 text-white shadow-lg shadow-brand-violet/20 transition-transform active:scale-[0.99] lg:p-7"
         >
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white">
-            <img src="/brand/map.png" alt="" aria-hidden className="h-[30px] w-auto" />
+            <Wind size={26} className="text-brand-blue" aria-hidden />
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block text-lg font-extrabold leading-tight lg:text-xl">
-              {t('nearbyEntryTitle')}
+            <span className="block font-display text-xl font-bold leading-tight lg:text-2xl">
+              {t('quietHeroTitle')}
             </span>
-            <span className="mt-1 block text-[0.75rem] font-medium text-white/80 lg:text-sm">
-              {t('nearbyEntrySub')}
+            <span className="mt-1 block text-sm leading-relaxed text-white/85">
+              {t('homeQuietEntrySub')}
             </span>
           </span>
           <ChevronRight size={22} className="shrink-0 opacity-80" aria-hidden />
         </Link>
       </PageContainer>
 
-      {/* 마음 나침반 — 앱의 본질 (2026-09-12 개편). 감정·출발지·시간을 물어 일정을 짜 준다.
-          예전 「쉼표 순례길」 감정 칩과 바로가기 넷은 이 카드와 목적지가 겹쳐 뺐다. */}
-      <PageContainer className="pt-4 lg:hidden">
-        <Link
-          to={paths.compass}
-          id="compass-entry"
-          className="flex items-center gap-4 rounded-[28px] bg-gradient-to-br from-brand-blue to-brand-violet p-5 text-white shadow-lg shadow-brand-violet/20 transition-transform active:scale-[0.99] lg:p-6"
-        >
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white">
-            <img src="/brand/heart.png" alt="" aria-hidden className="h-[28px] w-auto" />
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block text-lg font-extrabold leading-tight lg:text-xl">
-              {t('compassTitle')}
-            </span>
-            <span className="mt-1 block text-[0.75rem] font-medium text-white/85 lg:text-sm">
-              {t('compassEntrySub')}
-            </span>
-          </span>
-          <ChevronRight size={22} className="shrink-0 opacity-80" aria-hidden />
-        </Link>
-      </PageContainer>
-
-      {/* 전국 성지 — 출발지가 있으면 가까운 곳부터 */}
+      {/* 3. 지역별 성지 찾기 — 행정구역. 교구는 성지 찾기에서(둘은 다른 개념) */}
       <PageContainer className="pt-10">
-        <div className="mb-5 flex items-end justify-between gap-4">
-          <h3 className="text-lg font-bold text-app-text lg:text-2xl">
-            {gpsLocation
-              ? fillPlaceholders(t('nearbyRegionTitle'), { origin: t('useCurrentLocationButton') })
-              : origin
-                ? fillPlaceholders(t('nearbyRegionTitle'), { origin: localizeRegionName(origin, language) })
-                : t('exploreAllTitle')}
-          </h3>
-          <Link to={paths.explore} className="shrink-0 text-[0.75rem] font-bold text-brand-violet">
-            {t('explore')}
-            <ChevronRight size={14} className="ml-0.5 inline" aria-hidden />
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
-          {nearbyFirst.length > 0
-            ? nearbyFirst.map((site) => <SiteGridCard key={site.id} site={site} />)
+        <SectionTitle
+          title={t('homeRegionTitle')}
+          sub={t('homeRegionSub')}
+          action={{ to: paths.search, label: t('findShrines') }}
+        />
+        <ul className="flex flex-wrap gap-2" aria-label={t('homeRegionTitle')}>
+          {REGIONS.map((region) => (
+            <li key={region}>
+              <Link
+                to={paths.region(region)}
+                className="inline-flex min-h-11 items-center rounded-full border border-app-border bg-white px-4 text-sm font-bold text-app-text hover:border-brand-violet"
+                id={`region-${region}`}
+              >
+                {localizeRegionName(region, language)}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </PageContainer>
+
+      {/* 4. 추천 성지 — 출발지가 있을 때만 */}
+      <PageContainer className="pt-10">
+        <SectionTitle
+          title={t('homeRecommendedTitle')}
+          sub={
+            originLabel
+              ? fillPlaceholders(t('homeRecommendedSub'), { origin: originLabel })
+              : t('homeRecommendedSubNoOrigin')
+          }
+          action={originLabel ? { to: paths.nearby, label: t('seeAll') } : { to: paths.menu, label: t('moreTab') }}
+        />
+        {recommended.length > 0 && (
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
+            {recommended.map((site) => (
+              <SiteGridCard key={site.id} site={site} />
+            ))}
+          </div>
+        )}
+      </PageContainer>
+
+      {/* 5. 처음 방문하기 좋은 성지 */}
+      <PageContainer className="pt-10">
+        <SectionTitle title={t('homeFirstVisitTitle')} sub={t('homeFirstVisitSub')} />
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {firstVisit.length > 0
+            ? firstVisit.map((site) => <SiteGridCard key={site.id} site={site} />)
             : [1, 2, 3, 4].map((i) => (
                 <div key={i} className="aspect-square animate-pulse rounded-[20px] bg-gray-100" />
               ))}
         </div>
       </PageContainer>
 
+      {/* 6. 출처와 이용 방법 · 7. 문의 */}
+      <PageContainer className="pt-10">
+        <div className="grid gap-4 lg:grid-cols-2">
+          <section className="rounded-[24px] border border-app-border bg-white p-6">
+            <h2 className="flex items-center gap-2 text-base font-extrabold text-app-text">
+              <Info size={18} className="text-brand-blue" aria-hidden />
+              {t('homeSourcesTitle')}
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-app-text-muted">{t('homeSourcesBody')}</p>
+          </section>
+          <section className="rounded-[24px] border border-app-border bg-white p-6">
+            <h2 className="flex items-center gap-2 text-base font-extrabold text-app-text">
+              <MessageSquare size={18} className="text-brand-violet" aria-hidden />
+              {t('homeContactTitle')}
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-app-text-muted">{t('homeContactBody')}</p>
+            <Link
+              to={paths.faq}
+              className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-app-border px-5 text-sm font-bold text-app-text"
+            >
+              <Search size={14} aria-hidden />
+              {t('viewFaq')}
+            </Link>
+          </section>
+        </div>
+      </PageContainer>
     </div>
   );
 }

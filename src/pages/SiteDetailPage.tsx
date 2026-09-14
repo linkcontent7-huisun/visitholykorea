@@ -3,14 +3,12 @@ import {
   Check,
   ChevronDown,
   ChevronLeft,
-  ChevronRight,
   Compass,
   Heart,
   History,
   MapPin,
   PartyPopper,
   Share2,
-  Sparkles,
   Stamp,
   Flag,
 } from 'lucide-react';
@@ -18,7 +16,6 @@ import { motion } from 'motion/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
-import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
 import { getInkDaysLeft, getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
 import { resolveReflectionQuestion } from '@/features/passport/lib/reflection-questions';
 import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/share-card';
@@ -114,7 +111,6 @@ export default function SiteDetailPage() {
     el?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }, [wantsDirections, site]);
   // AI 가이드는 홈 상단에서 이리로 옮겼다 (2026-09-12) — 성지를 보다가 궁금할 때 묻는 자리다
-  const [aiOpen, setAiOpen] = useState(false);
   // 공식 사진이 없으면 순례자가 보내준(운영자 승인) 사진이 대표 자리를 채운다.
   // 훅이므로 이른 return 위에서 부른다.
   const sitePhoto = useSitePhoto(siteId, site?.imageUrl ?? null);
@@ -488,21 +484,6 @@ export default function SiteDetailPage() {
               </div>
             </details>
           )}
-          <button
-            type="button"
-            onClick={() => setAiOpen(true)}
-            id="ai-guide-btn"
-            className="mb-4 flex w-full items-center gap-3 rounded-[24px] bg-gradient-to-br from-brand-blue to-brand-violet px-5 py-4 text-left text-white shadow-lg shadow-brand-blue/10"
-          >
-            <Sparkles size={20} aria-hidden className="shrink-0" />
-            <span className="min-w-0 flex-1">
-              <span className="block text-sm font-extrabold">{t('aiGuideAskAboutSite')}</span>
-              <span className="block text-[0.6875rem] font-medium text-white/80">
-                {t('aiGuideTitle')}
-              </span>
-            </span>
-            <ChevronRight size={18} aria-hidden className="shrink-0 opacity-80" />
-          </button>
           <div className="relative overflow-hidden rounded-[40px] border border-brand-blue/5 bg-brand-blue/[0.03] p-8">
             <History
               size={100}
@@ -1052,7 +1033,6 @@ export default function SiteDetailPage() {
           </section>
         )}
       </div>
-      <AiGuideSheet isOpen={aiOpen} onClose={() => setAiOpen(false)} />
     </div>
   );
 }

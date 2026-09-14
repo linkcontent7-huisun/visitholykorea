@@ -1,29 +1,14 @@
-import {
-  ArrowRight,
-  BookOpen,
-  Compass,
-  Loader2,
-  MapPin,
-  PartyPopper,
-  Phone,
-  Search,
-  Wind,
-  X,
-} from 'lucide-react';
+import { ArrowRight, Loader2, MapPin, PartyPopper, Phone, Search, Wind, X } from 'lucide-react';
 import { useState } from 'react';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
-import { askAIGuide, FALLBACK_ANSWER } from '@/features/ai-guide/api/ai-guide.client';
 import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirectionsButtons';
 import { useLocalizedSites, useSiteSearch } from '@/features/sites/hooks/use-sites';
 import { useDirectorySearch } from '@/features/sites/hooks/use-nearby-directory';
 import { directoryDisplayAddress, directoryDisplayName } from '@/features/sites/lib/nearby-directory';
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
-import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 export default function SearchPage() {
@@ -38,17 +23,6 @@ export default function SearchPage() {
   // 208곳 성지 밖에서, 전국 본당·공소 주소록(5,918건)도 함께 찾는다(2026-09-07 요청).
   const { data: directoryResults = [] } = useDirectorySearch(debouncedQuery);
 
-  const [aiResult, setAiResult] = useState<string | null>(null);
-  const [isLoadingAi, setIsLoadingAi] = useState(false);
-
-  const handleAiSearch = async () => {
-    const term = query.trim();
-    if (!term) return;
-    setIsLoadingAi(true);
-    setAiResult(null);
-    setAiResult(await askAIGuide(fillPlaceholders(t('searchAskAiPrompt'), { query: term })));
-    setIsLoadingAi(false);
-  };
 
   return (
     <div className={`mx-auto flex min-h-page ${widthClass} flex-col bg-white`}>
@@ -62,9 +36,6 @@ export default function SearchPage() {
           className="flex-1 border-none bg-transparent text-xl font-bold text-slate-900 focus:outline-none"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') void handleAiSearch();
-          }}
         />
         <button
           onClick={() => navigate(-1)}
@@ -101,16 +72,7 @@ export default function SearchPage() {
                   </span>
                 </Link>
                 <Link
-                  to={paths.compass}
-                  className="flex flex-col items-start gap-2 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm hover:shadow-md"
-                >
-                  <Compass size={18} className="text-blue-500" />
-                  <span className="text-sm font-bold text-slate-800">
-                    {t('searchRecommendQuiet')}
-                  </span>
-                </Link>
-                <Link
-                  to={paths.alternatives}
+                  to={paths.quiet}
                   className="flex flex-col items-start gap-2 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm hover:shadow-md"
                 >
                   <Wind size={18} className="text-blue-500" />
@@ -132,9 +94,6 @@ export default function SearchPage() {
           </div>
         ) : (
           <div className="mx-auto max-w-prose space-y-10">
-            {/* 검색과 AI 가이드가 뭐가 다른지 헷갈린다는 피드백(2026-09-07) — 한 줄로 구분한다 */}
-            <p className="text-xs leading-relaxed text-slate-400">{t('searchRoleHint')}</p>
-
             {(results.length > 0 || isFetching) && (
               <section className="space-y-4">
                 <h2 className="text-[0.625rem] font-black uppercase tracking-widest text-slate-400">
@@ -242,59 +201,6 @@ export default function SearchPage() {
               </section>
             )}
 
-            <section className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-[0.625rem] font-black uppercase tracking-widest text-slate-400">
-                  AI 순례 가이드에게 물어보기
-                </h2>
-                {isLoadingAi && <Loader2 className="animate-spin text-blue-500" size={16} />}
-              </div>
-
-              {!aiResult && !isLoadingAi && (
-                <button
-                  onClick={() => void handleAiSearch()}
-                  className="flex w-full flex-col items-center justify-center gap-2 rounded-[2rem] bg-gradient-to-r from-blue-600 to-indigo-600 py-6 text-white shadow-xl shadow-blue-100 transition-all active:scale-[0.98]"
-                >
-                  <BookOpen size={24} />
-                  <span className="font-bold">{fillPlaceholders(t('searchAskAi'), { query })}</span>
-                  <span className="text-[0.625rem] opacity-70">
-                    Enter를 누르거나 이 버튼을 눌러보세요
-                  </span>
-                </button>
-              )}
-
-              {/* 서버 함수 호출이 실패하면 askAIGuide 가 고정 안내문을 돌려준다 —
-                  이때는 정상 답변처럼 보이지 않도록, 검색으로 이어지는 대안을 보여준다
-                  (2026-09-07 피드백: "AI 가 작동하지 않을 때 대안을 제공하면 좋겠다"). */}
-              {aiResult === FALLBACK_ANSWER && (
-                <div className="rounded-[2rem] border border-amber-100 bg-amber-50 p-6 text-center">
-                  <p className="text-sm font-bold text-amber-800">{aiResult}</p>
-                  <p className="mt-3 text-xs font-semibold text-amber-700">
-                    {t('aiUnavailableCta')}
-                  </p>
-                </div>
-              )}
-
-              {aiResult && aiResult !== FALLBACK_ANSWER && (
-                <div className="rounded-[2rem] border border-slate-100 bg-white p-8 shadow-sm">
-                  <div className="mb-6 flex items-center gap-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600">
-                      <BookOpen size={16} />
-                    </div>
-                    <span className="text-sm font-bold text-slate-800">{t('aiGuideName')}</span>
-                  </div>
-                  {/* 미카엘의 답변은 마크다운(표·불릿)으로 온다 */}
-                  <div className="prose prose-sm text-sm font-light leading-relaxed text-slate-600 [&_ol]:list-decimal [&_ol]:pl-4 [&_p]:mb-2 [&_strong]:font-bold [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:px-2 [&_td]:py-1 [&_th]:border [&_th]:px-2 [&_th]:py-1 [&_ul]:list-disc [&_ul]:pl-4">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{aiResult}</ReactMarkdown>
-                  </div>
-                  {/* 성지 DB 밖 내용은 답하지 않도록 서버가 막고 있지만, 미사 시간처럼
-                      현지 사정에 따라 바뀌는 정보는 화면에서도 다시 한 번 못 박는다. */}
-                  <p className="mt-6 border-t border-slate-100 pt-4 text-[0.6875rem] leading-relaxed text-slate-400">
-                    {t('aiAnswerDisclaimer')}
-                  </p>
-                </div>
-              )}
-            </section>
           </div>
         )}
       </div>
