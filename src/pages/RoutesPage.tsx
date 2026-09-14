@@ -18,7 +18,7 @@ export default function RoutesPage() {
   const { data: routes = [], isLoading } = usePilgrimageRoutes();
 
   return (
-    <div className="mx-auto min-h-screen max-w-2xl bg-white pb-16">
+    <div className="mx-auto min-h-page max-w-2xl bg-white pb-16">
       <header className="p-8 pb-4">
         <button
           onClick={() => navigate(-1)}

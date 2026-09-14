@@ -282,8 +282,11 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   const isQuestionStep = step >= 1 && step <= TOTAL_QUESTIONS;
 
   return (
+    // 예전엔 화면 전체를 덮는 오버레이(fixed)였다. 이제 /compass 는 헤더·하단 탭이 있는
+    // 레이아웃 안에서 뜨므로 보통 페이지처럼 흐름에 둔다 (T-021). 높이는 헤더(61/73px)와
+    // 모바일 하단 탭(70px)을 뺀 나머지 — 인트로처럼 짧은 화면에서도 버튼 바가 바닥에 붙는다.
     <div
-      className={`fixed inset-y-0 left-1/2 -translate-x-1/2 w-full ${widthClass} z-[310] bg-white flex flex-col`}
+      className={`mx-auto flex w-full ${widthClass} min-h-page flex-col bg-white`}
     >
       {/* Header */}
       <div className="h-16 flex items-center justify-between px-6 border-b border-app-border shrink-0">
@@ -305,7 +308,8 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
         </div>
       )}
 
-      <div className={`flex-1 overflow-y-auto p-8 ${isQuestionStep ? 'pb-28' : ''}`}>
+      {/* 스크롤은 ScrollShell(#app-scroll)이 맡는다 — 여기서 또 스크롤시키면 이중 스크롤이 된다 */}
+      <div className="flex-1 p-8">
         <AnimatePresence mode="wait">
           {/* 인트로 */}
           {step === 0 && (
@@ -880,11 +884,11 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
         </AnimatePresence>
       </div>
 
-      {/* 화면 아래 고정된 이전/다음 버튼 — 스크롤해도 항상 보인다 */}
+      {/* 화면 아래 붙는 이전/다음 버튼 — 스크롤해도 항상 보인다.
+          sticky 라 흐름 안에 있으면서도 스크롤 상자 바닥에 붙고, 모바일에선 하단 탭(70px) 위에 앉는다.
+          z 는 헤더(z-40)·하단 탭(z-50)보다 낮게 — 이 바가 그 둘을 덮으면 안 된다. */}
       {isQuestionStep && (
-        <div
-          className={`fixed bottom-0 left-1/2 -translate-x-1/2 w-full ${widthClass} p-6 pt-4 bg-white/95 backdrop-blur-md border-t border-app-border flex gap-3 z-[60]`}
-        >
+        <div className="sticky bottom-[70px] z-30 flex w-full gap-3 border-t border-app-border bg-white/95 p-6 pt-4 backdrop-blur-md lg:bottom-0">
           <button
             onClick={() => setStep(step - 1)}
             className="w-16 h-14 bg-app-bg text-app-text border border-app-border rounded-[18px] flex items-center justify-center shrink-0"

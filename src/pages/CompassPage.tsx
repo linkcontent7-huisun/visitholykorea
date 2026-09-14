@@ -3,8 +3,9 @@ import { paths } from '@/app/routes/paths';
 import { HealingQuiz } from '@/features/courses/components/HealingQuiz';
 
 /**
- * "마음 나침반" — 일곱 가지 질문으로 지금 마음에 맞는 성지 한 곳을 찾아주는 화면.
- * 전체 화면을 쓰기 때문에 하단 탭 없이 독립 라우트로 둔다.
+ * "마음 나침반" — 여덟 가지 질문으로 지금 마음에 맞는 성지 한 곳을 찾아주는 화면.
+ * 헤더·하단 탭이 있는 AppLayout 안에서 뜬다 — 전체 화면으로 두었더니 "새 창이 떴다"고
+ * 느끼고 되돌아가지 못하는 사용자가 있었다 (T-021).
  */
 export default function CompassPage() {
   const navigate = useNavigate();

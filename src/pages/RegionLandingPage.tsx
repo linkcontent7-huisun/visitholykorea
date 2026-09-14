@@ -74,7 +74,7 @@ export default function RegionLandingPage() {
 
   if (!region) {
     return (
-      <div className="mx-auto min-h-screen max-w-2xl bg-white p-8">
+      <div className="mx-auto min-h-page max-w-2xl bg-white p-8">
         <h1 className="mb-3 text-2xl font-extrabold text-app-text">{t('regionNotFoundTitle')}</h1>
         <p className="mb-6 text-sm font-medium text-app-text-muted">{t('regionNotFoundBody')}</p>
         <div className="flex flex-wrap gap-2">
@@ -93,7 +93,7 @@ export default function RegionLandingPage() {
   }
 
   return (
-    <div className="mx-auto min-h-screen max-w-2xl bg-white pb-16">
+    <div className="mx-auto min-h-page max-w-2xl bg-white pb-16">
       <header className="p-8 pb-4">
         <button
           onClick={() => navigate(paths.home)}

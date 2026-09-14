@@ -47,7 +47,7 @@ export default function AlternativesPage() {
   };
 
   return (
-    <div className={`mx-auto flex min-h-screen ${widthClass} flex-col bg-app-bg`}>
+    <div className={`mx-auto flex min-h-page ${widthClass} flex-col bg-app-bg`}>
       {/* 헤더 */}
       <div className="flex h-20 shrink-0 items-center gap-3 border-b border-app-border bg-white px-6">
         <button

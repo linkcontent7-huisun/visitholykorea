@@ -101,7 +101,7 @@ export default function TermsPage() {
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
   return (
-    <div className={`mx-auto flex min-h-screen ${widthClass} flex-col bg-white`}>
+    <div className={`mx-auto flex min-h-page ${widthClass} flex-col bg-white`}>
       <div className="flex h-16 shrink-0 items-center px-4">
         <button onClick={() => navigate(-1)} className="p-2 text-slate-800" aria-label="뒤로 가기">
           <ChevronLeft size={28} />

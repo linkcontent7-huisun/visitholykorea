@@ -36,7 +36,7 @@ export default function FestivalsPage() {
   const { pairs, isLoading, isError } = useFestivalPairs(sites, region);
 
   return (
-    <div className={`mx-auto flex min-h-screen ${widthClass} flex-col bg-app-bg`}>
+    <div className={`mx-auto flex min-h-page ${widthClass} flex-col bg-app-bg`}>
       {/* 높이를 고정하지 않는다 — 큰 글자 모드나 긴 번역문(프랑스어)에서 제목이 잘리지 않게. */}
       <header className="flex min-h-20 shrink-0 items-center gap-3 border-b border-app-border bg-white px-6 py-4">
         <button

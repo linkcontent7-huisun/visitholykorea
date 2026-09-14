@@ -93,21 +93,24 @@ export const router = createBrowserRouter([
           { path: paths.explore, element: withSuspense(<ExplorePage />) },
           { path: paths.records, element: withSuspense(<RecordsPage />) },
           { path: paths.menu, element: withSuspense(<MenuPage />) },
+          // 둘러보기 화면들 — 예전엔 전체 화면 그룹에 있어 순례 코스·마음 나침반을 누르면
+          // 헤더·하단 탭이 통째로 사라져 "새 창이 뜬 것"처럼 보였다 (T-021, 2026-09-14).
+          // 되돌아갈 수단이 「← 뒤로」 글자 하나뿐이라 PC 에서 특히 길을 잃었다.
+          { path: paths.routes, element: withSuspense(<RoutesPage />) },
+          { path: paths.routeDetailPattern, element: withSuspense(<RouteDetailPage />) },
+          { path: paths.compass, element: withSuspense(<CompassPage />) },
+          { path: paths.search, element: withSuspense(<SearchPage />) },
+          { path: paths.alternatives, element: withSuspense(<AlternativesPage />) },
+          { path: paths.festivals, element: withSuspense(<FestivalsPage />) },
+          { path: paths.regionPattern, element: withSuspense(<RegionLandingPage />) },
+          { path: paths.nearby, element: withSuspense(<NearbyPage />) },
+          { path: paths.faq, element: withSuspense(<FaqPage />) },
+          { path: paths.terms, element: withSuspense(<TermsPage />) },
         ],
       },
-      // 하단 탭 없이 전체 화면으로 뜨는 화면들
+      // 하단 탭 없이 전체 화면으로 뜨는 화면들 — 성지 상세(큰 사진 히어로)·로그인·관리자·404 만
       { path: paths.siteDetailPattern, element: withSuspense(<SiteDetailPage />) },
-      { path: paths.routes, element: withSuspense(<RoutesPage />) },
-      { path: paths.routeDetailPattern, element: withSuspense(<RouteDetailPage />) },
-      { path: paths.search, element: withSuspense(<SearchPage />) },
-      { path: paths.compass, element: withSuspense(<CompassPage />) },
-      { path: paths.alternatives, element: withSuspense(<AlternativesPage />) },
-      { path: paths.festivals, element: withSuspense(<FestivalsPage />) },
-      { path: paths.regionPattern, element: withSuspense(<RegionLandingPage />) },
-      { path: paths.nearby, element: withSuspense(<NearbyPage />) },
       { path: paths.login, element: withSuspense(<LoginPage />) },
-      { path: paths.terms, element: withSuspense(<TermsPage />) },
-      { path: paths.faq, element: withSuspense(<FaqPage />) },
       // 제출판은 본선 기능만 보이게 하므로 직접 주소로도 관리자 화면에 닿지 못하게 한다 — T-013
       ...(SUBMISSION_MODE
         ? []

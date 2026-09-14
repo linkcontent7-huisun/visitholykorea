@@ -32,7 +32,7 @@ export default function RouteDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex min-h-page items-center justify-center bg-white">
         <LoadingSpinner label={t('routeLoading')} />
       </div>
     );
@@ -40,7 +40,7 @@ export default function RouteDetailPage() {
 
   if (!data) {
     return (
-      <div className="mx-auto min-h-screen max-w-2xl bg-white p-8">
+      <div className="mx-auto min-h-page max-w-2xl bg-white p-8">
         <EmptyState
           icon={Footprints}
           title={t('routeNotFoundTitle')}
@@ -56,7 +56,7 @@ export default function RouteDetailPage() {
   const visitedCount = countVisitedEpisodes(stops, visitedIds);
 
   return (
-    <div className="mx-auto min-h-screen max-w-2xl bg-white pb-16">
+    <div className="mx-auto min-h-page max-w-2xl bg-white pb-16">
       <header className="p-8 pb-2">
         <button
           onClick={() => navigate(-1)}

@@ -51,7 +51,7 @@ export default function SearchPage() {
   };
 
   return (
-    <div className={`mx-auto flex min-h-screen ${widthClass} flex-col bg-white`}>
+    <div className={`mx-auto flex min-h-page ${widthClass} flex-col bg-white`}>
       <div className="flex h-20 shrink-0 items-center gap-4 border-b border-slate-100 px-6">
         <Search className="text-slate-400" size={24} />
         <input
