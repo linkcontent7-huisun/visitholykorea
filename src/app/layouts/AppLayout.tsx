@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { TravelProfileSheet } from '@/features/auth/components/TravelProfileSheet';
 import { useTravelProfilePrompt } from '@/features/auth/hooks/use-travel-profile-prompt';
+import { useSettings } from '@/shared/i18n/use-settings';
 import { BottomNav } from './BottomNav';
 import { TopNav } from './TopNav';
 
@@ -31,15 +32,24 @@ const KEEP_BOTTOM_NAV_ON_MOBILE = true;
 export function AppLayout() {
   // 서버가 "물어본 적 없다"고 답한 세션에서만 뜬다. 시트를 닫으면(답했든 건너뛰었든)
   // 서버에도 표시가 남으므로, 여기서는 다시 안 뜨게만 로컬로 즉시 숨긴다.
+  const { t } = useSettings();
   const shouldPrompt = useTravelProfilePrompt();
   const [dismissed, setDismissed] = useState(false);
 
   return (
     <div className="flex min-h-full flex-col bg-app-bg font-sans text-app-text selection:bg-brand-violet/20">
+      {/* 키보드·스크린리더 사용자가 상단 메뉴를 건너뛰고 본문으로 — 포커스될 때만 보인다 */}
+      <a href="#main-content" className="skip-link">
+        {t('skipToContent')}
+      </a>
       <TopNav />
 
       {/* 하단 탭이 가리는 만큼만 모바일에서 아래 여백을 준다 */}
-      <main className={`flex-1 ${KEEP_BOTTOM_NAV_ON_MOBILE ? 'pb-[70px] lg:pb-0' : ''}`}>
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className={`flex-1 outline-none ${KEEP_BOTTOM_NAV_ON_MOBILE ? 'pb-[70px] lg:pb-0' : ''}`}
+      >
         <Outlet />
       </main>
 

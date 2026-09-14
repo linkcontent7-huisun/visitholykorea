@@ -59,6 +59,12 @@
     font-size: 125%;
   }
 
+  /* 키보드 포커스는 어디서나 보여야 한다 — 마우스 클릭(:focus)에는 안 그린다 */
+  :focus-visible {
+    outline: 3px solid var(--color-brand-violet);
+    outline-offset: 2px;
+  }
+
   /* 접근성: 모션 최소화 설정을 존중한다 */
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -72,6 +78,23 @@
 }
 
 @layer components {
+  /* 본문 건너뛰기 링크 — Tab 으로 포커스될 때만 화면에 들어온다 */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 100;
+    border-radius: 9999px;
+    background: var(--color-brand-blue);
+    color: #fff;
+    padding: 0.75rem 1.25rem;
+    font-weight: 800;
+    transition: top 0.15s;
+  }
+  .skip-link:focus-visible {
+    top: 1rem;
+  }
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }

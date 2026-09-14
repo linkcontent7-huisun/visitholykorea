@@ -38,6 +38,7 @@ import { InstallShareSheet } from '@/shared/components/ui/InstallShareSheet';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
+import { OFFICIAL_LINKS } from '@/shared/config/official-links';
 import { REGIONS, type Region } from '@/shared/lib/regions';
 
 /** GPS 상태별 부제. 성공 후 켜져 있을 때는 origin 항목 쪽이 현재 위치 안내를 맡는다. */
@@ -213,7 +214,29 @@ export default function MenuPage() {
           sub: t('customerSupportSub'),
           onClick: () => navigate(paths.faq),
         },
+        {
+          id: 'terms',
+          icon: Info,
+          label: t('viewTerms'),
+          onClick: () => navigate(paths.terms),
+        },
+        {
+          id: 'privacy',
+          icon: Info,
+          label: t('privacyNotice'),
+          onClick: () => navigate(paths.privacy),
+        },
       ],
+    },
+    {
+      title: t('officialLinksTitle'),
+      items: OFFICIAL_LINKS.map((link) => ({
+        id: `official-${link.id}`,
+        icon: Globe,
+        label: language === 'ko' ? link.labelKo : link.labelEn,
+        sub: link.url ? link.url : t('officialLinkPending'),
+        onClick: link.url ? () => window.open(link.url!, '_blank', 'noopener') : undefined,
+      })),
     },
   ];
 

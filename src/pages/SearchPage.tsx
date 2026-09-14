@@ -24,6 +24,7 @@ import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirecti
 import { useLocalizedSites, useSiteSearch, useSites } from '@/features/sites/hooks/use-sites';
 import { useDirectorySearch } from '@/features/sites/hooks/use-nearby-directory';
 import { directoryDisplayAddress, directoryDisplayName } from '@/features/sites/lib/nearby-directory';
+import { normalizeSearchText, siteMatchesQuery } from '@/features/sites/lib/site-search-match';
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { dioceseLabel, localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
@@ -31,30 +32,6 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
 import { REGIONS, regionCoords, regionOfAddress, type Region } from '@/shared/lib/regions';
 import { DIOCESES, EMOTION_TAGS, type EmotionTag, type HolySite } from '@/shared/types/domain';
-
-/** 대소문자·공백·하이픈 차이를 무시하고 비교한다 — "Myeong-dong" 과 "myeongdong" 은 같은 검색이다. */
-function normalize(text: string): string {
-  return text.toLowerCase().replace(/[\s\-_·,()]/g, '');
-}
-
-/** 이 성지가 검색어와 맞는가 — 이름·주소·교구·시도(한국어·로마자) */
-function matchesQuery(site: HolySite, needle: string): boolean {
-  if (!needle) return true;
-  const region = regionOfAddress(site.location);
-  const haystack = [
-    site.name,
-    site.location,
-    site.region,
-    localizeRegionName(site.region, 'en'),
-    dioceseLabel(site.region, 'ko'),
-    dioceseLabel(site.region, 'en'),
-    region ?? '',
-    region ? localizeRegionName(region, 'en') : '',
-  ]
-    .map(normalize)
-    .join('|');
-  return haystack.includes(needle);
-}
 
 function formatKm(km: number): string {
   return km < 1 ? `${Math.round(km * 1000)}m` : `${km.toFixed(1)}km`;
@@ -87,7 +64,7 @@ export default function SearchPage() {
   const { data: directoryResults = [] } = useDirectorySearch(debouncedQuery);
 
   const from = gpsLocation ?? regionCoords(origin);
-  const needle = normalize(debouncedQuery.trim());
+  const needle = normalizeSearchText(debouncedQuery.trim());
   const hasQuery = needle.length > 0;
   const hasFilter = Boolean(diocese || region || purpose);
 
@@ -95,7 +72,7 @@ export default function SearchPage() {
     if (!hasQuery && !hasFilter) return [];
     const merged = new Map<string, HolySite>();
     for (const site of allSites) {
-      if (matchesQuery(site, needle)) merged.set(site.id, site);
+      if (siteMatchesQuery(site, needle)) merged.set(site.id, site);
     }
     for (const site of serverResults) merged.set(site.id, site);
 

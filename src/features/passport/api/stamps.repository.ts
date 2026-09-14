@@ -17,10 +17,25 @@ export interface StampedSite {
   diocese: string | null;
   /** 성지 분류 — 스탬프 모티프(건축 도장) 폴백에 쓴다. */
   category: string | null;
+  /** 기록한 시각(created_at). 실제 방문일이 아닐 수 있다. */
   visitedAt: string;
+  /**
+   * 사용자가 고른 방문일(YYYY-MM-DD). 마이그레이션 20260914130000 의 `visited_on` 열.
+   * 열이 아직 없는 DB 에서는 항상 null 이고, 화면은 "기록한 날"만 보여준다.
+   */
+  visitedOn: string | null;
   /** 내가 남긴 방문 한 줄. 없으면 null. */
   note: string | null;
   photos: StampPhoto[];
+}
+
+/**
+ * `visited_on` 열이 운영 DB 에 있는지. 처음 조회에서 42703(열 없음)이 오면 false 로 기억해
+ * 이후 조회·수정은 열 없이 보낸다 — 마이그레이션 적용 전에도 화면이 깨지지 않는다.
+ */
+let visitedOnAvailable = true;
+export function isVisitedOnAvailable(): boolean {
+  return visitedOnAvailable;
 }
 
 export interface CertificateLevel {
@@ -260,6 +275,7 @@ export async function reportVisitNote(stampId: string): Promise<{ success: boole
 interface StampJoinRow {
   id: string;
   created_at: string;
+  visited_on?: string | null;
   site_id: string;
   note: string | null;
   stamp_photos: StampPhoto[] | null;
@@ -271,11 +287,21 @@ export async function getMyStamps(): Promise<StampedSite[]> {
   const userId = await getCurrentUserId();
   if (!userId) return [];
 
-  const { data, error } = await supabase
-    .from(TABLE)
-    .select('id, created_at, site_id, note, stamp_photos(id, url, position), holy_sites(name, diocese, category)')
-    .eq('user_id', userId)
-    .order('created_at', { ascending: false });
+  const baseColumns =
+    'id, created_at, site_id, note, stamp_photos(id, url, position), holy_sites(name, diocese, category)';
+  const select = (withVisitedOn: boolean) =>
+    supabase
+      .from(TABLE)
+      .select(withVisitedOn ? `${baseColumns}, visited_on` : baseColumns)
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false });
+
+  let { data, error } = await select(visitedOnAvailable);
+  // 42703 = 열 없음. 마이그레이션 전 DB 라면 열 없이 다시 받는다.
+  if (error && visitedOnAvailable && error.code === '42703') {
+    visitedOnAvailable = false;
+    ({ data, error } = await select(false));
+  }
 
   if (error) {
     console.error('getMyStamps error:', error);
@@ -289,9 +315,45 @@ export async function getMyStamps(): Promise<StampedSite[]> {
     diocese: row.holy_sites?.diocese ?? null,
     category: row.holy_sites?.category ?? null,
     visitedAt: row.created_at,
+    visitedOn: row.visited_on ?? null,
     note: row.note,
     photos: (row.stamp_photos ?? []).sort((a, b) => a.position - b.position),
   }));
+}
+
+/**
+ * 내 기록 하나를 고친다 — 메모와(열이 있으면) 방문일만. hidden·photo_featured 는 절대 보내지 않는다
+ * (DB 도 마이그레이션 20260914130000 으로 막는다).
+ */
+export async function updateStamp(
+  stampId: string,
+  patch: { note?: string | null; visitedOn?: string | null },
+): Promise<{ success: boolean; error?: string }> {
+  const userId = await getCurrentUserId();
+  if (!userId) return { success: false, error: 'UNAUTHENTICATED' };
+
+  const payload: Record<string, string | null> = {};
+  if ('note' in patch) payload.note = patch.note ?? null;
+  if ('visitedOn' in patch && visitedOnAvailable) payload.visited_on = patch.visitedOn ?? null;
+
+  const { error } = await supabase.from(TABLE).update(payload).eq('id', stampId).eq('user_id', userId);
+  if (error) {
+    console.error('updateStamp error:', error);
+    return { success: false, error: error.message };
+  }
+  return { success: true };
+}
+
+/** 내 기록 하나를 지운다. RLS(stamps_delete_own)가 본인 것만 허용한다. */
+export async function deleteStamp(stampId: string): Promise<{ success: boolean; error?: string }> {
+  const userId = await getCurrentUserId();
+  if (!userId) return { success: false, error: 'UNAUTHENTICATED' };
+  const { error } = await supabase.from(TABLE).delete().eq('id', stampId).eq('user_id', userId);
+  if (error) {
+    console.error('deleteStamp error:', error);
+    return { success: false, error: error.message };
+  }
+  return { success: true };
 }
 
 /**
