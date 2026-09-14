@@ -963,7 +963,9 @@ const markdown = md.join('\n');
  * 사람이 보라고 만든 문서라 그건 실패다. 다시 섞이면 바로 알아채도록 재어 둔다.
  */
 const RAW_HTML = /<\/?[a-zA-Z][a-zA-Z0-9]*[\s/>]/;
-const hasRawHtml = RAW_HTML.test(markdown);
+// 백틱 안의 `<details>` 는 글자일 뿐 HTML 이 아니다. 코드 구간을 걷어내고 잰다 —
+// 안 그러면 "HTML 쓰지 말 것"이라고 적은 문장 자체가 경고에 걸린다.
+const hasRawHtml = RAW_HTML.test(markdown.replace(/```[\s\S]*?```/g, '').replace(/`[^`]*`/g, ''));
 
 writeFileSync(OUT_MD, markdown, 'utf8');
 
