@@ -184,6 +184,9 @@ export interface CrowdingScore {
   stayCount: number;
   /** 주변 인프라를 조회하지 못해 축제 압력만으로 낸 점수인지 */
   isPartial: boolean;
+  /** 한국관광공사 집중률 실측이 섞였는지. */
+  source: 'measured' | 'estimated';
+  measuredSpot?: { name: string; rate: number };
 }
 
 function round(value: number): number {
@@ -197,6 +200,7 @@ function round(value: number): number {
 export function combineCrowdingScore(
   pressure: FestivalPressure,
   density: InfraDensity | null,
+  measuredSpot?: { name: string; rate: number },
 ): CrowdingScore {
   const breakdown: CrowdingBreakdown = {
     festival: round(pressure.score),
@@ -204,18 +208,29 @@ export function combineCrowdingScore(
     stay: round(density?.stayScore ?? 0),
   };
 
-  const score = round(breakdown.festival + breakdown.attraction + breakdown.stay);
+  const estimatedScore = round(breakdown.festival + breakdown.attraction + breakdown.stay);
+  // 집중률은 0~100 실측값이다. 기존 산식도 0~100이므로 비율만 섞어 의미를 보존한다.
+  const score = measuredSpot
+    ? round(measuredSpot.rate * 0.6 + estimatedScore * 0.4)
+    : estimatedScore;
 
   return {
     score,
     level: toCrowdingLevel(score),
     breakdown,
-    reasons: buildReasons(pressure, density),
+    reasons: measuredSpot
+      ? [
+          `실측 집중률 ${Math.round(measuredSpot.rate)}% · ${measuredSpot.name}`,
+          ...buildReasons(pressure, density),
+        ]
+      : buildReasons(pressure, density),
     festivalCount: pressure.count,
     nearestFestival: pressure.nearest,
     attractionCount: density?.attractionCount ?? 0,
     stayCount: density?.stayCount ?? 0,
     isPartial: density === null,
+    source: measuredSpot ? 'measured' : 'estimated',
+    ...(measuredSpot ? { measuredSpot } : {}),
   };
 }
 

@@ -51,6 +51,60 @@ export const REGION_COORDS: Record<Region, { lat: number; lng: number }> = {
   제주: { lat: 33.4996, lng: 126.5312 },
 };
 
+/** 관광공사 빅데이터 API가 요구하는 시·도 행정코드. 시·군·구 코드는 주소 이름으로 응답과 맞춘다. */
+export const REGION_AREA_CODES: Record<Region, string> = {
+  서울: '11',
+  부산: '26',
+  대구: '27',
+  인천: '28',
+  광주: '29',
+  대전: '30',
+  울산: '31',
+  세종: '36',
+  경기: '41',
+  강원: '42',
+  충북: '43',
+  충남: '44',
+  전북: '45',
+  전남: '46',
+  경북: '47',
+  경남: '48',
+  제주: '50',
+};
+
+/**
+ * 주소의 긴 시·도 이름 → 짧은 이름. DB 주소는 「충청남도」「경상북도」처럼 긴 이름이 절반이라
+ * (2026-09-14 실측: 208곳 중 57곳) 짧은 이름 포함 검사만으로는 못 찾는다.
+ */
+const REGION_ALIASES: Record<string, Region> = {
+  충청남도: '충남',
+  충청북도: '충북',
+  전라남도: '전남',
+  전라북도: '전북',
+  전북특별자치도: '전북',
+  경상남도: '경남',
+  경상북도: '경북',
+};
+
+/** 주소가 속한 시·도(짧은 이름). 교구명은 행정구역이 아니므로 쓰지 않는다. */
+export function regionOfAddress(address: string): Region | null {
+  const alias = Object.keys(REGION_ALIASES).find((name) => address.startsWith(name));
+  if (alias) return REGION_ALIASES[alias] ?? null;
+  return REGIONS.find((name) => address.includes(name)) ?? null;
+}
+
+/** 성지 주소 첫 행정구역으로 시·도 코드를 찾는다. */
+export function areaCodeForAddress(address: string): string | null {
+  const region = regionOfAddress(address);
+  return region ? REGION_AREA_CODES[region] : null;
+}
+
+/** 주소에서 시·군·구 이름(「서산시」「강동구」). 첫 단어(시·도)는 뺀다 — 「서울시」가 시·군·구로 잡히지 않게. */
+export function districtOfAddress(address: string): string | null {
+  const words = address.replace(/[(),]/g, ' ').trim().split(/\s+/);
+  return words.slice(1).find((word) => /^[가-힣]+(시|군|구)$/.test(word)) ?? null;
+}
+
 /** 저장된 문자열이 실제 시·도인지. localStorage 값은 믿을 수 없다. */
 export function isRegion(value: unknown): value is Region {
   return typeof value === 'string' && (REGIONS as readonly string[]).includes(value);

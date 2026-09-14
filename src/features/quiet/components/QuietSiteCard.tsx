@@ -35,6 +35,8 @@ export function QuietSiteCard({ site, crowding, compact = false }: QuietSiteCard
           level={crowding.level}
           score={crowding.score}
           isPartial={crowding.isPartial}
+          source={crowding.source}
+          measuredSpot={crowding.measuredSpot}
         />
       </Link>
     );
@@ -58,13 +60,18 @@ export function QuietSiteCard({ site, crowding, compact = false }: QuietSiteCard
           level={crowding.level}
           score={crowding.score}
           isPartial={crowding.isPartial}
+          source={crowding.source}
+          measuredSpot={crowding.measuredSpot}
         />
       </div>
 
       {/* 숫자만 보여주면 믿지 않는다. 왜 조용하다고 보는지를 그대로 적는다. */}
       <ul className="space-y-1">
         {crowding.reasons.map((reason) => (
-          <li key={reason} className="flex gap-2 text-[0.75rem] leading-relaxed text-app-text-muted">
+          <li
+            key={reason}
+            className="flex gap-2 text-[0.75rem] leading-relaxed text-app-text-muted"
+          >
             <span aria-hidden className="text-app-border">
               ·
             </span>

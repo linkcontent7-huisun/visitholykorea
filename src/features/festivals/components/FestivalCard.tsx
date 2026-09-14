@@ -71,6 +71,8 @@ export function FestivalCard({ festival, nearbyLabel }: FestivalCardProps) {
                       level={crowding.level}
                       score={crowding.score}
                       isPartial={crowding.isPartial}
+                      source={crowding.source}
+                      measuredSpot={crowding.measuredSpot}
                     />
                   </span>
                 </span>

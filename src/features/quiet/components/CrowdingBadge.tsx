@@ -22,9 +22,17 @@ interface CrowdingBadgeProps {
   score: number;
   /** 주변 정보를 못 받아 축제 압력만으로 낸 값인지 */
   isPartial?: boolean;
+  source?: 'measured' | 'estimated';
+  measuredSpot?: { name: string; rate: number };
 }
 
-export function CrowdingBadge({ level, score, isPartial = false }: CrowdingBadgeProps) {
+export function CrowdingBadge({
+  level,
+  score,
+  isPartial = false,
+  source = 'estimated',
+  measuredSpot,
+}: CrowdingBadgeProps) {
   const { t } = useSettings();
   return (
     <span
@@ -32,6 +40,12 @@ export function CrowdingBadge({ level, score, isPartial = false }: CrowdingBadge
     >
       {localizeCrowdingLevel(level, t)}
       <span className="font-medium opacity-60">{score}</span>
+      {source === 'measured' && measuredSpot && (
+        <span className="font-medium opacity-70">
+          · 실측 집중률 {Math.round(measuredSpot.rate)}% · {measuredSpot.name}
+        </span>
+      )}
+      {source === 'estimated' && <span className="font-medium opacity-60">· 추정</span>}
       {isPartial && <span className="font-medium opacity-60">· {t('partialLabel')}</span>}
     </span>
   );

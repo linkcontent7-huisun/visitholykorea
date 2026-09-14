@@ -53,6 +53,7 @@ function crowding(score: number): CrowdingScore {
     attractionCount: 0,
     stayCount: 0,
     isPartial: false,
+    source: 'estimated',
   };
 }
 

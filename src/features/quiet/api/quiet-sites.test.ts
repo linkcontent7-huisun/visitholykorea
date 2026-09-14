@@ -8,6 +8,8 @@ vi.mock('@/shared/api/tour-api', async (importOriginal) => {
     ...actual,
     getOngoingFestivals: vi.fn().mockResolvedValue([]),
     getNearbyByLocation: vi.fn().mockResolvedValue([]),
+    // 실측 집중률(T-020)도 막는다 — 안 막으면 진짜 TourAPI 를 부르다 시간 초과
+    getCongestionRates: vi.fn().mockResolvedValue([]),
   };
 });
 

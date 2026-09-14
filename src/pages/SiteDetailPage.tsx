@@ -60,10 +60,16 @@ import {
 } from '@/features/sites/hooks/use-nearby-tour';
 import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
 import {
-  GROUP_HINT_KEY,
-  GROUP_LABEL_KEY,
-} from '@/features/sites/lib/nearby-facilities';
-import { useLocalizedSites, useSite, useSitesInSameDiocese } from '@/features/sites/hooks/use-sites';
+  useAudioStoriesNearby,
+  useWalkingCoursesNear,
+} from '@/features/sites/hooks/use-tour-extras';
+import { WalkingCourseCard } from '@/features/sites/components/WalkingCourseCard';
+import { GROUP_HINT_KEY, GROUP_LABEL_KEY } from '@/features/sites/lib/nearby-facilities';
+import {
+  useLocalizedSites,
+  useSite,
+  useSitesInSameDiocese,
+} from '@/features/sites/hooks/use-sites';
 import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
@@ -94,6 +100,8 @@ export default function SiteDetailPage() {
   // TanStack Query 가 요청을 하나로 합친다 — TourAPI 추가 호출이 아니다.
   const { data: barrierFreePlaces = [] } = useBarrierFreeNearby(site?.coordinates);
   const { data: nearbyParishes = [] } = useNearbyDirectory(site?.coordinates);
+  const { data: audioStories = [] } = useAudioStoriesNearby(site);
+  const { data: walkingCourses = [] } = useWalkingCoursesNear(site);
   const location = useLocation();
   // 마음 나침반에서 「이 코스로 가볼게요」로 오면 #directions — 「찾아가는 길」을 펼쳐 놓고 거기서 시작한다
   const wantsDirections = location.hash === '#directions';
@@ -173,9 +181,13 @@ export default function SiteDetailPage() {
     if (!files || !myStamp) return;
     const policy = photoPolicy();
     const picked = Array.from(files).slice(0, policy.maxCount);
-    if (files.length > policy.maxCount) window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
+    if (files.length > policy.maxCount)
+      window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
     const photos = await Promise.all(picked.map((file) => shrinkPhoto(file, policy)));
-    uploadPhotos.mutate({ stampId: myStamp.stamped ? (myStamps.find((s) => s.siteId === siteId)?.stampId ?? '') : '', photos });
+    uploadPhotos.mutate({
+      stampId: myStamp.stamped ? (myStamps.find((s) => s.siteId === siteId)?.stampId ?? '') : '',
+      photos,
+    });
   };
   const handleReport = (stampId: string) => {
     if (!window.confirm(t('reportConfirm'))) return;
@@ -197,7 +209,6 @@ export default function SiteDetailPage() {
     readRecordedRef.current.add(siteId);
     void recordNoteReads(siteId, visitNotes.length);
   }, [siteId, visitNotes.length]);
-
 
   const handleSaveNote = () => {
     const note = normalizeNote(noteDraft);
@@ -447,6 +458,36 @@ export default function SiteDetailPage() {
             isDraft={docentScript?.status === 'draft'}
             language={language}
           />
+          {audioStories.length > 0 && (
+            <details className="mb-4 rounded-[24px] border border-app-border bg-app-bg p-4">
+              <summary className="cursor-pointer text-sm font-extrabold text-app-text">
+                {t('siteAudioStoriesTitle')}
+              </summary>
+              <p className="mt-1 text-[0.625rem] font-bold text-app-text-muted">
+                {t('siteTourismSource')}
+              </p>
+              <div className="mt-3 space-y-3">
+                {audioStories.slice(0, 3).map((story, index) => (
+                  <div
+                    key={`${story.audioTitle ?? story.title ?? 'story'}-${index}`}
+                    className="rounded-2xl bg-white p-3"
+                  >
+                    <h3 className="text-sm font-extrabold text-app-text">
+                      {story.audioTitle ?? story.title}
+                    </h3>
+                    {story.script && (
+                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-app-text-muted">
+                        {story.script}
+                      </p>
+                    )}
+                    {story.audioUrl && (
+                      <audio className="mt-2 w-full" controls src={story.audioUrl} preload="none" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </details>
+          )}
           <button
             type="button"
             onClick={() => setAiOpen(true)}
@@ -456,7 +497,9 @@ export default function SiteDetailPage() {
             <Sparkles size={20} aria-hidden className="shrink-0" />
             <span className="min-w-0 flex-1">
               <span className="block text-sm font-extrabold">{t('aiGuideAskAboutSite')}</span>
-              <span className="block text-[0.6875rem] font-medium text-white/80">{t('aiGuideTitle')}</span>
+              <span className="block text-[0.6875rem] font-medium text-white/80">
+                {t('aiGuideTitle')}
+              </span>
             </span>
             <ChevronRight size={18} aria-hidden className="shrink-0 opacity-80" />
           </button>
@@ -635,6 +678,22 @@ export default function SiteDetailPage() {
           </section>
         )}
 
+        {walkingCourses.length > 0 && (
+          <section>
+            <div className="mb-6 flex items-center gap-3">
+              <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
+              <h2 className="text-xl font-extrabold tracking-tight text-app-text">
+                {t('siteWalkingCoursesTitle')}
+              </h2>
+            </div>
+            <div className="space-y-2">
+              {walkingCourses.slice(0, 3).map((course, index) => (
+                <WalkingCourseCard key={course.crsIdx ?? index} course={course} />
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* 순례 스탬프 찍기 — 이 화면의 진짜 주인공(T-004). 다른 섹션과 같은
             "보라 세로줄 + h2" 제목 스타일을 쓰지 않고, 굵은 테두리와 배경색만으로
             가장 먼저 눈에 띄게 만든다. 안내 문구와 버튼 사이는 예전에 -mb-2 로
@@ -645,7 +704,8 @@ export default function SiteDetailPage() {
             (wydNow ? (
               // WYD 대회 기간 — 다시 오지 않는 날짜. 이 기간의 스탬프는 그 자체로 참가 증명이다.
               <p className="text-center text-[0.6875rem] font-bold text-amber-600">
-                ✨ <span className="font-extrabold">
+                ✨{' '}
+                <span className="font-extrabold">
                   {language === 'ko' ? WYD_LIMITED_LABEL_KO : WYD_LIMITED_LABEL_EN}
                 </span>
                 <span className="mt-0.5 block text-[0.625rem] font-semibold text-app-text-muted">
@@ -715,9 +775,7 @@ export default function SiteDetailPage() {
                 ? resolveReflectionQuestion(site.name, site.category).ko
                 : resolveReflectionQuestion(site.name, site.category).en}
             </blockquote>
-            <p className="mt-2 text-xs leading-relaxed text-app-text-muted">
-              {t('noteHint')}
-            </p>
+            <p className="mt-2 text-xs leading-relaxed text-app-text-muted">{t('noteHint')}</p>
             <input
               type="text"
               maxLength={NOTE_MAX_LENGTH}
@@ -763,11 +821,20 @@ export default function SiteDetailPage() {
             {myStamp?.photos.length ? (
               <div className="mt-3 grid grid-cols-3 gap-2">
                 {myStamp.photos.map((photo) => (
-                  <img key={photo.id} src={photo.url} alt={t('photoMineAlt')} className="aspect-square rounded-xl object-cover" />
+                  <img
+                    key={photo.id}
+                    src={photo.url}
+                    alt={t('photoMineAlt')}
+                    className="aspect-square rounded-xl object-cover"
+                  />
                 ))}
               </div>
             ) : myStamp?.photoUrl ? (
-              <img src={myStamp.photoUrl} alt={t('photoMineAlt')} className="mt-3 max-h-48 w-full rounded-2xl object-cover" />
+              <img
+                src={myStamp.photoUrl}
+                alt={t('photoMineAlt')}
+                className="mt-3 max-h-48 w-full rounded-2xl object-cover"
+              />
             ) : null}
             <label
               className={`mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-brand-violet/40 py-3 text-xs font-bold text-brand-violet ${
@@ -803,18 +870,34 @@ export default function SiteDetailPage() {
         {visitNotes.length > 0 && (
           <div className="rounded-[20px] border border-app-border bg-white p-5">
             <div className="flex items-center justify-between gap-3">
-              <p className="text-sm font-bold text-app-text">{t('reviewsTitle').replace('{count}', String(visitNotes.length))}</p>
-              <button type="button" onClick={() => setReviewsOpen((open) => !open)} className="text-xs font-bold text-brand-violet">
+              <p className="text-sm font-bold text-app-text">
+                {t('reviewsTitle').replace('{count}', String(visitNotes.length))}
+              </p>
+              <button
+                type="button"
+                onClick={() => setReviewsOpen((open) => !open)}
+                className="text-xs font-bold text-brand-violet"
+              >
                 {reviewsOpen ? t('reviewsHide') : t('reviewsShow')}
               </button>
             </div>
-            <p className="mt-1 text-xs text-app-text-muted">
-              {t('pilgrimStoriesHint')}
-            </p>
+            <p className="mt-1 text-xs text-app-text-muted">{t('pilgrimStoriesHint')}</p>
             <ul className="mt-3 space-y-4">
               {visitNotes.map((n) => (
                 <li key={n.id} className="border-l-2 border-brand-violet/30 pl-3">
-                  {n.photos.length > 0 && <div className="mb-2 grid grid-cols-3 gap-1">{n.photos.map((url) => <img key={url} src={url} alt={t('pilgrimPhotoAlt')} loading="lazy" className="aspect-square rounded-lg object-cover" />)}</div>}
+                  {n.photos.length > 0 && (
+                    <div className="mb-2 grid grid-cols-3 gap-1">
+                      {n.photos.map((url) => (
+                        <img
+                          key={url}
+                          src={url}
+                          alt={t('pilgrimPhotoAlt')}
+                          loading="lazy"
+                          className="aspect-square rounded-lg object-cover"
+                        />
+                      ))}
+                    </div>
+                  )}
                   {n.note && (
                     <p className="text-sm leading-relaxed text-app-text">&ldquo;{n.note}&rdquo;</p>
                   )}
@@ -861,7 +944,10 @@ export default function SiteDetailPage() {
           >
             <div className="h-6 w-1.5 shrink-0 rounded-full bg-brand-violet" />
             <div className="min-w-0 flex-1">
-              <h2 id="visit-info-heading" className="text-base font-extrabold tracking-tight text-app-text">
+              <h2
+                id="visit-info-heading"
+                className="text-base font-extrabold tracking-tight text-app-text"
+              >
                 {t('visitInfo')}
               </h2>
               {!visitInfoOpen && visitInfoPreview && (
@@ -894,9 +980,16 @@ export default function SiteDetailPage() {
                   )}
                   <dl className="space-y-3">
                     {massInfo.rows.map((row) => (
-                      <div key={row.label + row.value} className="grid grid-cols-[4.5rem_1fr] gap-3">
-                        <dt className="text-[0.75rem] font-extrabold text-brand-blue">{row.label}</dt>
-                        <dd className="text-sm font-medium leading-relaxed text-app-text">{row.value}</dd>
+                      <div
+                        key={row.label + row.value}
+                        className="grid grid-cols-[4.5rem_1fr] gap-3"
+                      >
+                        <dt className="text-[0.75rem] font-extrabold text-brand-blue">
+                          {row.label}
+                        </dt>
+                        <dd className="text-sm font-medium leading-relaxed text-app-text">
+                          {row.value}
+                        </dd>
                       </div>
                     ))}
                   </dl>

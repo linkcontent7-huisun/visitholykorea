@@ -8,6 +8,7 @@ import {
 } from '@/shared/api/tour-api';
 import { groupNearbyFacilities } from '@/features/sites/lib/nearby-facilities';
 import type { Coordinates } from '@/shared/types/domain';
+import { useSettings } from '@/shared/i18n/use-settings';
 
 /**
  * TourAPI 조회 훅.
@@ -23,12 +24,13 @@ const REALTIME_QUERY_OPTIONS = {
 
 /** 성지 반경 3km 관광지 (성지 상세 페이지의 "주변 정보"). */
 export function useNearbyAttractions(coordinates: Coordinates | undefined) {
+  const { language } = useSettings();
   const lat = coordinates?.lat ?? null;
   const lng = coordinates?.lng ?? null;
 
   return useQuery({
-    queryKey: queryKeys.tour.nearby(lat ?? 0, lng ?? 0),
-    queryFn: () => getNearbyAttractions(lng!, lat!, 3000, 8),
+    queryKey: queryKeys.tour.nearby(lat ?? 0, lng ?? 0, language),
+    queryFn: () => getNearbyAttractions(lng!, lat!, 3000, 8, language),
     enabled: lat != null && lng != null,
     ...REALTIME_QUERY_OPTIONS,
   });
@@ -45,17 +47,19 @@ export function useNearbyAttractions(coordinates: Coordinates | undefined) {
  * 응답은 저장하지 않는다 — `REALTIME_QUERY_OPTIONS` 참조.
  */
 export function useNearbyFacilities(coordinates: Coordinates | undefined) {
+  const { language } = useSettings();
   const lat = coordinates?.lat ?? null;
   const lng = coordinates?.lng ?? null;
 
   return useQuery({
-    queryKey: queryKeys.tour.facilities(lat ?? 0, lng ?? 0),
+    queryKey: queryKeys.tour.facilities(lat ?? 0, lng ?? 0, language),
     // 반경 5km — 3km 면 시골 성지에서 맛집·숙박이 거의 안 잡힌다.
     queryFn: () =>
       getNearbyByLocation(lng!, lat!, {
         radiusMeters: 5000,
         numOfRows: 50,
         contentTypeId: null,
+        language,
       }),
     select: (spots) => groupNearbyFacilities(spots),
     enabled: lat != null && lng != null,
@@ -65,12 +69,13 @@ export function useNearbyFacilities(coordinates: Coordinates | undefined) {
 
 /** 성지 반경 10km 에서 오늘 이후 열리는 축제·행사. */
 export function useNearbyFestivals(coordinates: Coordinates | undefined) {
+  const { language } = useSettings();
   const lat = coordinates?.lat ?? null;
   const lng = coordinates?.lng ?? null;
 
   return useQuery({
-    queryKey: queryKeys.tour.festivals(`${lat},${lng}`),
-    queryFn: () => getNearbyFestivals(lng!, lat!, 10000, 6),
+    queryKey: queryKeys.tour.festivals(`${lat},${lng}`, language),
+    queryFn: () => getNearbyFestivals(lng!, lat!, 10000, 6, language),
     enabled: lat != null && lng != null,
     ...REALTIME_QUERY_OPTIONS,
   });

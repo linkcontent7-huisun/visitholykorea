@@ -14,7 +14,15 @@
  * TourAPI 응답은 이 과정 어디에도 저장하지 않는다. 매번 실시간으로 받아 계산하고 버린다.
  */
 
-import { getNearbyByLocation, getOngoingFestivals, type TourApiSpot } from '@/shared/api/tour-api';
+import {
+  getCongestionRates,
+  getNearbyByLocation,
+  getOngoingFestivals,
+  type CongestionRate,
+  type TourApiSpot,
+} from '@/shared/api/tour-api';
+import { areaCodeForAddress } from '@/shared/lib/regions';
+import { haversineKm } from '@/shared/lib/geo';
 import type { HolySite } from '@/shared/types/domain';
 import {
   combineCrowdingScore,
@@ -34,6 +42,67 @@ export interface FindQuietSitesOptions {
   limit?: number;
   /** 2단계에서 인프라를 조회할 후보 수. 이 값이 곧 추가 호출 수다. */
   candidateCount?: number;
+}
+
+/** 주소의 시·군·구 이름과 관광공사 응답의 signguNm을 맞춘다. 코드표를 앱에 중복 저장하지 않는다. */
+function matchingCongestion(site: HolySite, rates: CongestionRate[]) {
+  const addressWords = site.location
+    .replace(/[(),]/g, ' ')
+    .split(/\s+/)
+    .filter((word) => /시$|군$|구$/.test(word));
+  const nearby = rates.filter((rate) => {
+    const nameMatches = addressWords.some(
+      (word) => rate.signguNm.includes(word) || word.includes(rate.signguNm),
+    );
+    if (!nameMatches) return false;
+    const lat = Number(rate.mapY);
+    const lng = Number(rate.mapX);
+    return (
+      !Number.isFinite(lat) ||
+      !Number.isFinite(lng) ||
+      lat === 0 ||
+      lng === 0 ||
+      haversineKm(site.coordinates.lat!, site.coordinates.lng!, lat, lng) <= RADIUS_KM.festival
+    );
+  });
+  const highest = nearby.reduce<CongestionRate | null>(
+    (best, rate) => (!best || Number(rate.cnctrRate) > Number(best.cnctrRate) ? rate : best),
+    null,
+  );
+  return highest && Number.isFinite(Number(highest.cnctrRate))
+    ? { name: highest.tAtsNm, rate: Math.max(0, Math.min(100, Number(highest.cnctrRate))) }
+    : undefined;
+}
+
+/**
+ * 집중률은 시·도 단위로 하루치가 한 번에 오므로 같은 시·도는 한 번만 부른다 (메모리, 6시간).
+ * 후보 6곳 + 상세 화면마다 부르다 2026-09-14 개발 계정 일일 한도(429)를 넘겼다.
+ * 저장소(DB·localStorage)에는 넣지 않는다 — ADR 0002.
+ */
+const CONGESTION_TTL_MS = 6 * 60 * 60 * 1000;
+const congestionByArea = new Map<string, { at: number; rates: Promise<CongestionRate[]> }>();
+
+function congestionRatesFor(areaCd: string): Promise<CongestionRate[]> {
+  const hit = congestionByArea.get(areaCd);
+  if (hit && Date.now() - hit.at < CONGESTION_TTL_MS) return hit.rates;
+  const rates = getCongestionRates(areaCd).catch((error) => {
+    // 실패(한도 초과 등)는 캐시하지 않는다 — 다음 호출에서 다시 시도
+    congestionByArea.delete(areaCd);
+    throw error;
+  });
+  congestionByArea.set(areaCd, { at: Date.now(), rates });
+  return rates;
+}
+
+async function fetchMeasuredCongestion(site: HolySite) {
+  const areaCd = areaCodeForAddress(site.location);
+  if (!areaCd) return undefined;
+  try {
+    return matchingCongestion(site, await congestionRatesFor(areaCd));
+  } catch (error) {
+    console.warn(`관광지 집중률 조회 건너뜀 (${site.name}):`, error);
+    return undefined;
+  }
 }
 
 /** 좌표가 없는 성지는 거리 계산이 불가능해 지수를 낼 수 없다. */
@@ -96,10 +165,13 @@ export async function findQuietSites(
   // 2단계 — 후보에만 인프라 조회
   const scored = await Promise.all(
     candidates.map(async ({ site, pressure }) => {
-      const infra = await fetchInfra(site);
+      const [infra, measured] = await Promise.all([
+        fetchInfra(site),
+        fetchMeasuredCongestion(site),
+      ]);
       return {
         site,
-        crowding: combineCrowdingScore(pressure, infra ? infraDensity(infra) : null),
+        crowding: combineCrowdingScore(pressure, infra ? infraDensity(infra) : null, measured),
       };
     }),
   );
@@ -114,9 +186,14 @@ export async function findQuietSites(
 export async function getCrowdingForSite(site: HolySite): Promise<CrowdingScore | null> {
   if (!hasCoordinates(site)) return null;
 
-  const [festivals, infra] = await Promise.all([getOngoingFestivals(), fetchInfra(site)]);
+  const [festivals, infra, measured] = await Promise.all([
+    getOngoingFestivals(),
+    fetchInfra(site),
+    fetchMeasuredCongestion(site),
+  ]);
   return combineCrowdingScore(
     festivalPressure(site.coordinates, festivals),
     infra ? infraDensity(infra) : null,
+    measured,
   );
 }

@@ -37,6 +37,8 @@ export function AlternativesList({ origin, picks, relaxed = false }: Alternative
                 level={origin.crowding.level}
                 score={origin.crowding.score}
                 isPartial={origin.crowding.isPartial}
+                source={origin.crowding.source}
+                measuredSpot={origin.crowding.measuredSpot}
               />
             </div>
           </div>
@@ -88,6 +90,8 @@ export function AlternativesList({ origin, picks, relaxed = false }: Alternative
                       level={alt.crowding.level}
                       score={alt.crowding.score}
                       isPartial={alt.crowding.isPartial}
+                      source={alt.crowding.source}
+                      measuredSpot={alt.crowding.measuredSpot}
                     />
                     <span className="inline-flex items-center rounded-full border border-app-border bg-app-bg px-3 py-1 text-xs font-medium text-app-text-muted">
                       {localizeDomainValue(alt.site.category, t)}

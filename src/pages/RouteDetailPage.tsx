@@ -11,6 +11,7 @@ import { countVisitedEpisodes, toEpisodes } from '@/features/routes/lib/episodes
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
 import { useWalkingCoursesNear } from '@/features/sites/hooks/use-tour-extras';
+import { WalkingCourseCard } from '@/features/sites/components/WalkingCourseCard';
 
 /**
  * 코스 상세 — 경유지를 이야기 순서대로 보여준다.
@@ -161,20 +162,7 @@ export default function RouteDetailPage() {
           <h2 className="mb-3 text-lg font-extrabold text-app-text">{t('routeNearbyTrails')}</h2>
           <div className="space-y-2">
             {walkingCourses.slice(0, 3).map((course, index) => (
-              <a
-                key={`${course.brdTitle ?? course.title ?? 'course'}-${index}`}
-                href={course.url ?? course.gpxpath}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="block rounded-2xl border border-app-border bg-app-bg p-4"
-              >
-                <p className="text-sm font-extrabold text-app-text">
-                  {course.brdTitle ?? course.title}
-                </p>
-                {course.courseTime && (
-                  <p className="mt-1 text-xs text-app-text-muted">{course.courseTime}</p>
-                )}
-              </a>
+              <WalkingCourseCard key={course.crsIdx ?? index} course={course} />
             ))}
           </div>
         </section>

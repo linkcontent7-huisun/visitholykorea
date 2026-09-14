@@ -135,11 +135,9 @@ export function TodayQuietSection({
       {!isLoading && !isError && quietSites.length === 0 && (
         <div className="rounded-[20px] border border-dashed border-app-border bg-white p-8 text-center">
           <Wind size={28} className="mx-auto mb-3 text-gray-300" />
-          <p className="text-sm font-bold text-app-text">아직 계산할 성지가 없어요</p>
+          <p className="text-sm font-bold text-app-text">{t('quietEmptyTitle')}</p>
           <p className="mt-2 text-[0.75rem] leading-relaxed text-app-text-muted">
-            붐빔을 재려면 성지 좌표가 필요합니다.
-            <br />
-            현재 좌표가 확인된 곳은 {locatedCount}곳입니다.
+            {t('quietEmptyBody').replace('{count}', String(locatedCount))}
           </p>
         </div>
       )}

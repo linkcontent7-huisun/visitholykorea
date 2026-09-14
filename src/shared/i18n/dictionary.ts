@@ -4267,6 +4267,13 @@ export const DICTIONARY = {
     pt: 'Caminhos próximos',
     it: 'Sentieri vicini',
   },
+  quietEmptyTitle: { ko: '아직 계산할 성지가 없어요', en: 'No shrines to measure yet', es: 'Aún no hay santuarios para medir', fr: 'Aucun sanctuaire à mesurer pour l’instant', pt: 'Ainda não há santuários para medir', it: 'Nessun santuario da misurare per ora' },
+  quietEmptyBody: { ko: '붐빔을 재려면 성지 좌표가 필요합니다. 현재 좌표가 확인된 곳은 {count}곳입니다.', en: 'Crowding needs shrine coordinates. {count} shrines have confirmed coordinates so far.', es: 'Para medir la afluencia hacen falta coordenadas. Hasta ahora {count} santuarios las tienen confirmadas.', fr: 'Mesurer l’affluence demande des coordonnées. {count} sanctuaires en ont pour l’instant.', pt: 'Para medir a lotação são necessárias coordenadas. Até agora {count} santuários as têm confirmadas.', it: 'Per misurare l’affollamento servono le coordinate. Finora {count} santuari le hanno confermate.' },
+  walkingCourseTime: { ko: '약 {h}시간 {m}분', en: 'About {h}h {m}m', es: 'Unas {h} h {m} min', fr: 'Environ {h} h {m} min', pt: 'Cerca de {h} h {m} min', it: 'Circa {h} h {m} min' },
+  walkingLevelEasy: { ko: '쉬움', en: 'Easy', es: 'Fácil', fr: 'Facile', pt: 'Fácil', it: 'Facile' },
+  walkingLevelNormal: { ko: '보통', en: 'Moderate', es: 'Moderado', fr: 'Modéré', pt: 'Moderado', it: 'Moderato' },
+  walkingLevelHard: { ko: '어려움', en: 'Hard', es: 'Difícil', fr: 'Difficile', pt: 'Difícil', it: 'Difficile' },
+  walkingCourseSource: { ko: '두루누비 · 한국관광공사 제공', en: 'Durunubi · Korea Tourism Organization', es: 'Durunubi · Organización de Turismo de Corea', fr: 'Durunubi · Office du tourisme de Corée', pt: 'Durunubi · Organização de Turismo da Coreia', it: 'Durunubi · Ente del turismo coreano' },
   // 여행기 쓰기 칸 — 고른 언어로 기록도 쓸 수 있어야 한다(2026-09-14 사장님 요청). 전엔 한국어뿐이었다.
   logNewTitle: { ko: '새 여행기', en: 'New journal entry', es: 'Nueva entrada', fr: 'Nouveau récit', pt: 'Novo registro', it: 'Nuovo diario' },
   logSiteLabel: { ko: '다녀온 성지', en: 'Shrine visited', es: 'Santuario visitado', fr: 'Sanctuaire visité', pt: 'Santuário visitado', it: 'Santuario visitato' },

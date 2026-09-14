@@ -174,4 +174,33 @@ describe('combineCrowdingScore — 합산', () => {
     expect(result.reasons[0]).toContain('행사 1곳');
     expect(result.reasons[1]).toContain('해미읍성 축제');
   });
+
+  it('실측 집중률이 있으면 총점의 60%를 반영한다', () => {
+    const result = combineCrowdingScore(festivalPressure(HAEMI, []), infraDensity([]), {
+      name: '간송미술관',
+      rate: 49,
+    });
+    expect(result.score).toBe(29.4);
+    expect(result.source).toBe('measured');
+  });
+
+  it('실측 근거 장소와 비율을 보존한다', () => {
+    const result = combineCrowdingScore(festivalPressure(HAEMI, []), infraDensity([]), {
+      name: '해미읍성',
+      rate: 72,
+    });
+    expect(result.measuredSpot).toEqual({ name: '해미읍성', rate: 72 });
+    expect(result.reasons[0]).toContain('실측 집중률 72%');
+  });
+
+  it('실측이 없으면 기존 추정 점수를 그대로 쓴다', () => {
+    const pressure = festivalPressure(HAEMI, [spot(northOf(1))]);
+    const density = infraDensity([spot()]);
+    expect(combineCrowdingScore(pressure, density).source).toBe('estimated');
+    // 항목별로 소수 첫째 자리 반올림 뒤 합산하므로 0.1 안쪽 오차는 정상
+    expect(combineCrowdingScore(pressure, density).score).toBeCloseTo(
+      pressure.score + density.attractionScore,
+      0,
+    );
+  });
 });
