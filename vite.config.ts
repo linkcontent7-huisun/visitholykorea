@@ -67,7 +67,9 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    // M-04(보안 진단 2026-09-13): 운영 번들에 소스맵을 싣지 않는다 — 배포본에서 원본 TS 가
+    // 복원되던 것을 막는다. Vercel 은 dist 의 .map 을 그대로 서빙하므로 'hidden' 으로는 부족하다.
+    sourcemap: false,
     // 순례자 중 구형 아이폰이 많다. lookbehind 정규식 하나가 iOS 16.3 이하에서
     // 앱 전체를 흰 화면으로 만든 사고(2026-09-01) 후 낮은 타깃으로 못 박음 —
     // esbuild 가 변환 못 하는 문법이 들어오면 빌드가 실패해 배포 전에 잡힌다.

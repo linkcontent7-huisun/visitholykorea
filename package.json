@@ -28,6 +28,7 @@
     "db:status": "tsx scripts/db-migrate.ts --status",
     "db:migrate": "tsx scripts/db-migrate.ts",
     "db:export": "tsx scripts/db-export.ts",
+    "db:check-security": "tsx scripts/db-check-security.ts",
     "import:contacts": "tsx scripts/import-contacts.ts",
     "translate:export": "tsx scripts/translation-export.ts",
     "translate:import": "tsx scripts/translation-import.ts",

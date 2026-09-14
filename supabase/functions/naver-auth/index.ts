@@ -57,7 +57,15 @@ Deno.serve(async (req) => {
     authorize.searchParams.set('client_id', NAVER_CLIENT_ID);
     authorize.searchParams.set('redirect_uri', 콜백주소(req));
     authorize.searchParams.set('state', state);
-    return Response.redirect(authorize.toString(), 302);
+    // M-01(보안 진단 2026-09-13): state 를 브라우저 쿠키에 묶는다. 콜백에서 쿼리 state 와 쿠키를
+    // 대조해, 공격자가 만든 콜백 URL 을 피해자에게 열게 하는 로그인 CSRF 를 막는다.
+    return new Response(null, {
+      status: 302,
+      headers: {
+        location: authorize.toString(),
+        'set-cookie': `naver_oauth_state=${state}; Path=/; Max-Age=600; HttpOnly; Secure; SameSite=Lax`,
+      },
+    });
   }
 
   // ── 2단계: 콜백 처리 ─────────────────────────────────────
@@ -65,6 +73,14 @@ Deno.serve(async (req) => {
     const code = url.searchParams.get('code');
     const state = url.searchParams.get('state');
     if (!code || !state) return 실패('naver_denied');
+
+    // M-01: 쿼리 state 가 /login 이 심은 쿠키와 일치해야 한다.
+    const cookieState = (req.headers.get('cookie') ?? '')
+      .split(';')
+      .map((c) => c.trim())
+      .find((c) => c.startsWith('naver_oauth_state='))
+      ?.slice('naver_oauth_state='.length);
+    if (!cookieState || cookieState !== state) return 실패('naver_state');
 
     // code → access_token
     const tokenUrl = new URL('https://nid.naver.com/oauth2.0/token');
@@ -92,8 +108,22 @@ Deno.serve(async (req) => {
       user_metadata: { name: naver.name ?? naver.nickname ?? '', provider: 'naver' },
     });
     // "이미 존재" 오류는 정상 경로다 — 재로그인이 그렇다.
-    if (createError && !`${createError.message}`.includes('already')) {
+    const alreadyExists = !!createError && `${createError.message}`.includes('already');
+    if (createError && !alreadyExists) {
       return 실패('naver_create');
+    }
+
+    // M-02(보안 진단 2026-09-13): 같은 이메일의 계정이 다른 경로(이메일·카카오 등)로 만들어졌다면
+    // 동의 없이 네이버 로그인으로 그 계정에 들어가게 두지 않는다 — 이메일만 같다고 같은 사람이라 단정하지 않는다.
+    // 판정은 profiles.provider 가 아니라 auth 의 user_metadata.provider 로 한다: 위 createUser 가 심는 값이
+    // 그것이고, profiles.provider 는 app_metadata 기준이라 네이버로 만든 계정도 'email' 로 적혀 재로그인이 막힌다.
+    if (alreadyExists) {
+      const { data: prof } = await admin.from('profiles').select('id').eq('email', naver.email).maybeSingle();
+      if (prof?.id) {
+        const { data: existing } = await admin.auth.admin.getUserById(prof.id);
+        const madeBy = existing?.user?.user_metadata?.provider ?? existing?.user?.app_metadata?.provider;
+        if (madeBy && madeBy !== 'naver') return 실패('account_exists_other_provider');
+      }
     }
 
     // 매직링크를 만들어 그 verify 주소로 보내면 브라우저에 세션이 열린다

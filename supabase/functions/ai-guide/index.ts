@@ -18,11 +18,25 @@ const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
 // 모델은 환경변수로 갈아끼울 수 있게 둔다(모델 교체 때 코드 수정이 필요 없도록).
 const GEMINI_MODEL = Deno.env.get('GEMINI_MODEL') ?? 'gemini-3.6-flash';
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-};
+// H-01(보안 진단 2026-09-13): '*' 대신 허용 도메인만. 프리뷰 도메인이 필요하면 ALLOWED_ORIGINS 시크릿에 쉼표로 추가.
+const ALLOWED_ORIGINS = (Deno.env.get('ALLOWED_ORIGINS') ?? 'https://visitholykorea-app.vercel.app')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+function corsFor(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  const allow = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    'Access-Control-Allow-Origin': allow,
+    Vary: 'Origin',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  };
+}
+
+// H-01: 질문 길이 상한. 시스템 프롬프트의 [되묻기] 규칙상 긴 입력은 필요 없다.
+const MAX_QUESTION_LEN = 1000;
 
 const MICHAEL_SYSTEM_INSTRUCTION = `당신은 천주교 성지순례 안내 챗봇 '미카엘(대천사)'입니다. 아래 규칙을 엄격히 준수하여 응대하세요.
 
@@ -114,7 +128,8 @@ async function buildSiteContext(question: string): Promise<string> {
   };
   const rawTokens = question
     .split(/[\s,.!?·]+/)
-    .map((t) => stripParticle(t.trim()))
+    // L-04: PostgREST or() 문법을 흔드는 문자(쉼표·괄호·% 등)를 버린다. 글자·숫자만 남긴다.
+    .map((t) => stripParticle(t.trim().replace(/[^\p{L}\p{N}]/gu, '')))
     .filter((t) => t.length >= 2)
     .slice(0, 5);
   const compactTokens = new Set<string>();
@@ -151,7 +166,7 @@ async function buildSiteContext(question: string): Promise<string> {
   // 성지 목록에 없는 본당·공소는 주소록(5,918건)에서 이름·주소·연락처만 준다 — 미사 시간은 답하지 않게
   const dirFilter = tokens.map((t) => `name_compact.ilike.%${t}%`).join(',');
   const { data: dir } = await supabase
-    .from('catholic_directory')
+    .from('directory_public') // H-02: 원본 표는 anon 이 못 읽는다 — 공개 뷰만
     .select('name, category, diocese, address, phone')
     .or(dirFilter)
     .limit(5);
@@ -168,19 +183,19 @@ async function buildSiteContext(question: string): Promise<string> {
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
+    return new Response('ok', { headers: corsFor(req) });
   }
 
   if (!GEMINI_API_KEY) {
     return new Response(JSON.stringify({ error: 'GEMINI_API_KEY 미설정' }), {
       status: 500,
-      headers: { ...corsHeaders, 'content-type': 'application/json' },
+      headers: { ...corsFor(req), 'content-type': 'application/json' },
     });
   }
 
   try {
     const payload = await req.json();
-    const question: string = payload.question ?? '';
+    const question: string = String(payload.question ?? '').slice(0, MAX_QUESTION_LEN);
 
     // 선택 프로필 — 사용자가 설정에서 직접 알려준 경우에만 넘어온다.
     // 추측으로 채워 보내면 안 된다(시스템 프롬프트의 [상대에 맞추기] 참고).
@@ -205,13 +220,14 @@ Deno.serve(async (req) => {
     const text = await callGemini(MICHAEL_SYSTEM_INSTRUCTION, prompt);
 
     return new Response(JSON.stringify({ text }), {
-      headers: { ...corsHeaders, 'content-type': 'application/json' },
+      headers: { ...corsFor(req), 'content-type': 'application/json' },
     });
   } catch (err) {
+    // L-03: 상세(업스트림 응답·모델명·프로젝트 식별자)는 서버 로그로만. 사용자에겐 안내문만.
     console.error('ai-guide error:', err);
-    return new Response(JSON.stringify({ error: String(err) }), {
-      status: 500,
-      headers: { ...corsHeaders, 'content-type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ error: '미카엘 천사가 잠시 자리를 비웠어요. 잠시 후 다시 시도해 주세요.' }),
+      { status: 500, headers: { ...corsFor(req), 'content-type': 'application/json' } },
+    );
   }
 });

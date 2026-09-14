@@ -18,6 +18,15 @@ jobs:
 
       - run: npm ci
 
+      - name: 개인 문서 유출 방지 (보안 L-05)
+        run: |
+          # 루트 PDF·개인 설계도 파일이 추적되면 실패한다. .gitignore 만으로는
+          # 이미 추적된 파일을 못 막는다는 것을 2026-09-13 진단에서 확인.
+          if git ls-files | grep -E '^[^/]+\.pdf$|작업설계도_|비지트홀리코리아-설계문서'; then
+            echo "::error::개인 문서가 저장소에 포함됨 — git rm --cached 로 제거하세요."
+            exit 1
+          fi
+
       - name: Typecheck
         run: npm run typecheck
 

@@ -61,7 +61,7 @@ export async function searchDirectory(term: string, limit = 8): Promise<Director
   if (!trimmed) return [];
 
   const { data, error } = await supabase
-    .from('catholic_directory')
+    .from('directory_public')
     .select(DIRECTORY_COLUMNS)
     .in('category', VISITOR_CATEGORIES)
     .or(
@@ -87,7 +87,7 @@ export async function fetchNearbyDirectory(
 
   const box = bboxAround(lat, lng, radiusKm);
   const { data, error } = await supabase
-    .from('catholic_directory')
+    .from('directory_public')
     .select(DIRECTORY_COLUMNS)
     .in('category', VISITOR_CATEGORIES)
     .gte('lat', box.latMin)
