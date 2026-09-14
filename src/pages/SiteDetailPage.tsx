@@ -50,6 +50,7 @@ import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCa
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { TransitParkingCard } from '@/features/sites/components/TransitParkingCard';
 import { classifyTourError } from '@/shared/api/tour-api';
+import { sizedImageUrl } from '@/shared/lib/image-url';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
 import {
@@ -332,9 +333,12 @@ export default function SiteDetailPage() {
               initial={{ scale: 1.1 }}
               animate={{ scale: 1 }}
               transition={{ duration: 10 }}
-              src={heroPhoto.url}
+              // 화면 첫 그림(LCP) — 휴대폰엔 960px 이면 충분. 1280px 원본은 Lighthouse LCP 11초를 만들었다(9/14)
+              src={sizedImageUrl(heroPhoto.url, 960)}
               alt={heroPhoto.fromPilgrim ? `${site.name} — ${t('photoFromPilgrim')}` : site.name}
               className="h-full w-full object-cover"
+              fetchPriority="high"
+              decoding="async"
             />
             {/* 순례자 사진은 누가 보내준 것인지 밝힌다 — 공식 사진과 같아 보이면 안 된다 */}
             {heroPhoto.fromPilgrim && (

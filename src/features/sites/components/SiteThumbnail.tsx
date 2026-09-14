@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { placeholderImageFor } from '@/shared/lib/site-placeholder';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { sizedImageUrl } from '@/shared/lib/image-url';
 
 interface SiteThumbnailProps {
   imageUrl: string | null;
@@ -123,7 +124,9 @@ export function SiteThumbnail({
   if (url) {
     return (
       <img
-        src={url}
+        // 카드·목록용이라 800px 이면 2배 밀도 휴대폰에서도 충분하다 — Wikimedia 1280px 을 그대로 받지 않는다
+        src={sizedImageUrl(url, 800)}
+        decoding="async"
         // 순례자 사진임을 스크린리더에도 알린다 — 공식 사진과 같은 것으로 읽히면 안 된다
         alt={usingPilgrim ? fillPlaceholders(t('photoByPilgrimAlt'), { name }) : name}
         className={className}
