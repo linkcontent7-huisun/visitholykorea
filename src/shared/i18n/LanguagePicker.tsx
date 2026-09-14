@@ -47,7 +47,8 @@ export function LanguagePicker({ className = '' }: { className?: string }) {
         onClick={() => setOpen((v) => !v)}
         className="flex cursor-pointer items-center gap-1 text-[13px] font-bold text-app-text-muted"
         id="language-toggle"
-        aria-label={`언어 / Language — ${LANGUAGE_LABEL[language]}`}
+        // 보이는 글자(KO)가 접근성 이름에 들어가야 한다 — Lighthouse label-content-name-mismatch (9/14)
+        aria-label={`${LANGUAGE_SHORT[language]} · 언어 / Language — ${LANGUAGE_LABEL[language]}`}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
