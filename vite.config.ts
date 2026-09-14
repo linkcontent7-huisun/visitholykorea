@@ -1,17 +1,58 @@
 import path from 'node:path';
+import type { IncomingMessage, ServerResponse } from 'node:http';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import { loadEnv, type Plugin } from 'vite';
 // vitest 설정(test 블록)까지 한 파일에서 다루기 위해 vitest/config 의 defineConfig 를 쓴다.
 import { defineConfig } from 'vitest/config';
 import { VitePWA } from 'vite-plugin-pwa';
+import { handleTourProxy } from './api/_lib/tour-proxy-core';
+
+/**
+ * 로컬 개발·미리보기에서 `/api/tour` 를 Vercel 서버리스 함수와 똑같이 띄운다.
+ *
+ * 서비스키는 `.env.local` 의 `TOUR_API_SERVICE_KEY`(VITE_ 접두사 없음)에서 읽는다 —
+ * 브라우저 번들에는 들어가지 않고 이 미들웨어(Node)만 본다. 운영에서는 `api/tour.ts` 가
+ * 같은 `handleTourProxy` 를 쓴다.
+ */
+function tourProxyDevPlugin(mode: string): Plugin {
+  const serviceKey = loadEnv(mode, process.cwd(), '').TOUR_API_SERVICE_KEY;
+  const middleware = async (req: IncomingMessage, res: ServerResponse, next: () => void) => {
+    const url = new URL(req.url ?? '/', 'http://localhost');
+    if (url.pathname !== '/api/tour') return next();
+    if (req.method !== 'GET') {
+      res.statusCode = 405;
+      res.setHeader('allow', 'GET');
+      res.end(JSON.stringify({ error: { kind: 'bad_request', reason: 'GET 만 허용' } }));
+      return;
+    }
+    const result = await handleTourProxy(url.searchParams, {
+      serviceKey,
+      log: (entry) => console.warn('[tour-proxy:dev]', JSON.stringify(entry)),
+    });
+    res.statusCode = result.status;
+    for (const [name, value] of Object.entries(result.headers)) res.setHeader(name, value);
+    res.end(result.body);
+  };
+  return {
+    name: 'vhk-tour-proxy-dev',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => void middleware(req, res, next));
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use((req, res, next) => void middleware(req, res, next));
+    },
+  };
+}
 
 // 브라우저 번들에는 VITE_ 접두사가 붙은 환경변수만 노출된다(shared/config/env.ts 참고).
-// Gemini 등 비밀 키가 필요한 호출은 Supabase Edge Function을 거치도록 하고,
-// 클라이언트 코드에 직접 심지 않는다.
-export default defineConfig({
+// Gemini 등 비밀 키가 필요한 호출은 Supabase Edge Function을, TourAPI 서비스키는
+// 같은 출처의 /api/tour 중계를 거치도록 하고 클라이언트 코드에 직접 심지 않는다.
+export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     tailwindcss(),
+    tourProxyDevPlugin(mode),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon-64.png', 'favicon-32.png', 'icons/apple-touch-icon.png', 'logo-mark-88.png'],
@@ -39,8 +80,11 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        // /api/* 는 화면이 아니라 중계 함수다. 내비게이션 폴백이 index.html 을 돌려주면 안 된다.
+        navigateFallbackDenylist: [/^\/api\//],
         // 성지 정보(자체 큐레이션 DB)는 오프라인 대비 캐싱한다.
-        // TourAPI 응답은 공모전 규정상 캐싱하지 않으므로 런타임 캐시 대상에서 제외한다.
+        // TourAPI 응답(/api/tour·apis.data.go.kr)은 공모전 규정상 캐싱하지 않으므로
+        // 런타임 캐시 규칙에 넣지 않는다 — 아래 목록에 그 URL 이 없는 것이 의도다.
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/v1\/holy_sites.*/i,
@@ -81,4 +125,4 @@ export default defineConfig({
     setupFiles: ['./tests/setup/vitest.setup.ts'],
     include: ['src/**/*.test.{ts,tsx}', 'tests/**/*.test.{ts,tsx}'],
   },
-});
+}));
