@@ -194,6 +194,8 @@ export const DICTIONARY = {
   },
   officialLinkPending: { ko: '공식 링크는 운영자 확인 후 연결됩니다', en: 'Official link to be confirmed by the operator', es: 'Enlace oficial pendiente de confirmación', fr: 'Lien officiel à confirmer par l’opérateur', pt: 'Link oficial a confirmar pelo operador', it: 'Link ufficiale da confermare dall’operatore' },
   saveVisitRecord: { ko: '방문 기록 남기기', en: 'Save a visit record', es: 'Guardar visita', fr: 'Enregistrer la visite', pt: 'Guardar visita', it: 'Salva visita' },
+  photoLoadFailedAlt: { ko: '{name} 사진을 불러오지 못했습니다', en: 'Could not load the photo of {name}', es: 'No se pudo cargar la foto de {name}', fr: 'Impossible de charger la photo de {name}', pt: 'Não foi possível carregar a foto de {name}', it: 'Impossibile caricare la foto di {name}' },
+  photoLoadFailedLabel: { ko: '사진을 불러오지 못했어요', en: 'Photo failed to load', es: 'La foto no se cargó', fr: 'Photo non chargée', pt: 'A foto não carregou', it: 'Foto non caricata' },
   skipToContent: { ko: '본문으로 건너뛰기', en: 'Skip to content', es: 'Saltar al contenido', fr: 'Aller au contenu', pt: 'Ir para o conteúdo', it: 'Vai al contenuto' },
   // 성지 찾기 (재기획 2026-09-14) — 교구와 행정지역은 다른 개념이라 라벨을 따로 둔다
   searchPageTitle: { ko: '성지 찾기', en: 'Find shrines', es: 'Buscar santuarios', fr: 'Trouver un sanctuaire', pt: 'Encontrar santuários', it: 'Trova santuari' },

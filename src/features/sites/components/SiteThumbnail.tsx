@@ -118,10 +118,12 @@ export function SiteThumbnail({
 }: SiteThumbnailProps) {
   const { t } = useSettings();
   const [placeholderFailed, setPlaceholderFailed] = useState(false);
+  // 사진이 "없는" 것과 "있는데 못 받은" 것은 다르다(재기획 §13). 못 받으면 그 사실을 적은 자리지킴이를 그린다.
+  const [downloadFailed, setDownloadFailed] = useState(false);
   const usingPilgrim = !imageUrl && Boolean(pilgrimUrl);
   const url = imageUrl ?? pilgrimUrl;
 
-  if (url) {
+  if (url && !downloadFailed) {
     return (
       <img
         // 카드·목록용이라 800px 이면 2배 밀도 휴대폰에서도 충분하다 — Wikimedia 1280px 을 그대로 받지 않는다
@@ -131,7 +133,20 @@ export function SiteThumbnail({
         alt={usingPilgrim ? fillPlaceholders(t('photoByPilgrimAlt'), { name }) : name}
         className={className}
         loading="lazy"
+        onError={() => setDownloadFailed(true)}
       />
+    );
+  }
+
+  if (url && downloadFailed) {
+    return (
+      <div
+        role="img"
+        aria-label={fillPlaceholders(t('photoLoadFailedAlt'), { name })}
+        className={`flex items-center justify-center bg-gray-100 text-center text-[0.6875rem] font-bold text-gray-500 ${className}`}
+      >
+        <span className="px-2">{t('photoLoadFailedLabel')}</span>
+      </div>
     );
   }
 

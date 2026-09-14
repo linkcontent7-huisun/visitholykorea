@@ -150,9 +150,8 @@ export default function MapPage() {
         className="relative lg:w-[452px] lg:shrink-0 lg:overflow-y-auto lg:border-r lg:border-app-border lg:bg-white"
       >
         <div className="p-6 pb-2">
-          <h1 className="mb-1 text-xl font-extrabold tracking-tight text-app-text">
-            {t('mapTitle')}
-          </h1>
+          <h1 className="mb-1 text-xl font-extrabold tracking-tight text-app-text">{t('mapOverviewTitle')}</h1>
+          <p className="mt-1 text-xs leading-relaxed text-app-text-muted">{t('mapOverviewNote')}</p>
           <p className="text-sm text-app-text-muted">
             {isLoading
               ? t('loading')
