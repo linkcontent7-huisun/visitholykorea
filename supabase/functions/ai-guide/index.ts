@@ -104,17 +104,31 @@ async function callGemini(systemInstruction: string, userPrompt: string): Promis
 async function buildSiteContext(question: string): Promise<string> {
   const supabase = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_ANON_KEY')!);
 
-  // 질문에서 2글자 이상 토큰만 뽑아 OR 검색한다.
-  const tokens = question
+  // 질문에서 2글자 이상 토큰만 뽑는다. 「대산성당에」처럼 조사가 붙은 채로 오므로 흔한 조사를 떼고,
+  // 「대산성당」→「대산」처럼 성당/성지 같은 꼬리도 뗀 후보를 함께 만든다 (2026-09-13 사장님 실기기 보고).
+  const PARTICLES = ['에서는', '에서', '에는', '에게', '으로', '이랑', '인가요', '이에요', '은', '는', '이', '가', '을', '를', '의', '도', '로', '과', '와', '에', '요'];
+  const SUFFIXES = ['순교성지', '순교지', '성지', '성당', '공소', '본당', '교회', '기념관', '묘'];
+  const stripParticle = (t: string) => {
+    for (const p of PARTICLES) if (t.length - p.length >= 2 && t.endsWith(p)) return t.slice(0, -p.length);
+    return t;
+  };
+  const rawTokens = question
     .split(/[\s,.!?·]+/)
-    .map((t) => t.trim())
+    .map((t) => stripParticle(t.trim()))
     .filter((t) => t.length >= 2)
     .slice(0, 5);
-
+  const compactTokens = new Set<string>();
+  for (const t of rawTokens) {
+    const c = t.replace(/\s+/g, '');
+    compactTokens.add(c);
+    for (const s of SUFFIXES) if (c.length - s.length >= 2 && c.endsWith(s)) compactTokens.add(c.slice(0, -s.length));
+  }
+  const tokens = [...compactTokens];
   if (tokens.length === 0) return '';
 
+  // name_compact(공백 제거 열)로 띄어쓰기와 무관하게 맞춘다
   const orFilter = tokens
-    .flatMap((t) => [`name.ilike.%${t}%`, `location.ilike.%${t}%`, `description.ilike.%${t}%`])
+    .flatMap((t) => [`name_compact.ilike.%${t}%`, `location.ilike.%${t}%`, `description.ilike.%${t}%`])
     .join(',');
 
   const { data, error } = await supabase
@@ -123,16 +137,32 @@ async function buildSiteContext(question: string): Promise<string> {
     .or(orFilter)
     .limit(5);
 
-  if (error || !data?.length) return '';
+  const siteLines =
+    error || !data?.length
+      ? []
+      : data.map(
+          (s) =>
+            `- ${s.name} (${s.category ?? '성지'}, ${s.diocese ?? ''}교구)\n` +
+            `  주소: ${s.location ?? '정보 없음'}\n` +
+            `  소개: ${s.description ?? '정보 없음'}\n` +
+            `  역사: ${s.history ?? '정보 없음'}`,
+        );
 
-  return data
-    .map(
-      (s) =>
-        `- ${s.name} (${s.category ?? '성지'}, ${s.diocese ?? ''}교구)\n` +
-        `  주소: ${s.location ?? '정보 없음'}\n` +
-        `  소개: ${s.description ?? '정보 없음'}\n` +
-        `  역사: ${s.history ?? '정보 없음'}`,
-    )
+  // 성지 목록에 없는 본당·공소는 주소록(5,918건)에서 이름·주소·연락처만 준다 — 미사 시간은 답하지 않게
+  const dirFilter = tokens.map((t) => `name_compact.ilike.%${t}%`).join(',');
+  const { data: dir } = await supabase
+    .from('catholic_directory')
+    .select('name, category, diocese, address, phone')
+    .or(dirFilter)
+    .limit(5);
+  const dirLines = (dir ?? []).map(
+    (d) =>
+      `- ${d.name} (${d.category ?? '본당'}, ${d.diocese ?? ''}) — 주소: ${d.address ?? '정보 없음'}, 전화: ${d.phone ?? '정보 없음'} [주소록 정보만 있음]`,
+  );
+
+  if (siteLines.length === 0 && dirLines.length === 0) return '';
+
+  return [...siteLines, ...(dirLines.length ? ['', '[본당·공소 주소록 — 이름·주소·전화만 있음]', ...dirLines] : [])]
     .join('\n\n');
 }
 
