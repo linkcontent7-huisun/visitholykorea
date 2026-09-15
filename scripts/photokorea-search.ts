@@ -64,7 +64,7 @@ function keywordsFor(site: SiteRow): string[] {
 
   // 괄호 안 별칭 — "곡성 옥터 성지(곡성성당)" → "곡성성당"
   const paren = /\(([^)]+)\)/.exec(raw);
-  if (paren) out.add(paren[1].replace(/\s+/g, ''));
+  if (paren?.[1]) out.add(paren[1].replace(/\s+/g, ''));
   const base = raw.replace(/\([^)]*\)/g, '').trim();
 
   // 이름 전체(공백 제거) — "배론 성지" → "배론성지"
