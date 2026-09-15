@@ -44,4 +44,3 @@ jobs:
         env:
           VITE_SUPABASE_URL: https://example.supabase.co
           VITE_SUPABASE_ANON_KEY: ci-placeholder
-          VITE_TOUR_API_SERVICE_KEY: ci-placeholder

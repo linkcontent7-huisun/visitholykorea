@@ -18,8 +18,16 @@ export const paths = {
   terms: '/terms',
   /** 자주 묻는 질문 */
   faq: '/faq',
-  /** 붐빔 피하기 — 붐비는 관광지 대신 조용한 성지를 권하는 화면 */
+  /**
+   * 고요 속으로 — 공모전 대표 기능. 관광지·지역 검색 → 예상 붐빔 → 비교적 한적한 성지.
+   * 예전 「붐빔 피하기」(/alternatives)와 같은 기능이라 하나로 합쳤다(2026-09-14). 옛 주소는 리다이렉트.
+   */
+  quiet: '/quiet',
   alternatives: '/alternatives',
+  /** 제출 범위에서 뺀 AI 가이드의 옛 진입 주소 — 안내 후 성지 찾기로 보낸다 */
+  aiGuide: '/ai-guide',
+  /** 개인정보 안내 */
+  privacy: '/privacy',
   /** 축제 가는 김에 — 오늘 열리는 축제 옆의 성지를 권하는 화면(붐빔 피하기의 반대 방향) */
   festivals: '/festivals',
   /**

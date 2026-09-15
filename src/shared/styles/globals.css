@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
+/* 웹폰트는 index.html 에서 비차단으로 불러온다 — CSS @import 는 CSS → 폰트 CSS → woff2 로 직렬화돼
+   느린 망에서 첫 그림을 수 초 늦췄다(Lighthouse 9/14). 아래 폰트 스택은 폰트가 늦어도 읽히게 둔다. */
 @import 'tailwindcss';
 
 @theme {
@@ -59,6 +59,12 @@
     font-size: 125%;
   }
 
+  /* 키보드 포커스는 어디서나 보여야 한다 — 마우스 클릭(:focus)에는 안 그린다 */
+  :focus-visible {
+    outline: 3px solid var(--color-brand-violet);
+    outline-offset: 2px;
+  }
+
   /* 접근성: 모션 최소화 설정을 존중한다 */
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -72,6 +78,23 @@
 }
 
 @layer components {
+  /* 본문 건너뛰기 링크 — Tab 으로 포커스될 때만 화면에 들어온다 */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 100;
+    border-radius: 9999px;
+    background: var(--color-brand-blue);
+    color: #fff;
+    padding: 0.75rem 1.25rem;
+    font-weight: 800;
+    transition: top 0.15s;
+  }
+  .skip-link:focus-visible {
+    top: 1rem;
+  }
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }

@@ -43,7 +43,8 @@
     "admin:list": "tsx scripts/grant-admin.ts list",
     "admin:grant": "tsx scripts/grant-admin.ts grant",
     "admin:revoke": "tsx scripts/grant-admin.ts revoke",
-    "directory:romanize": "tsx scripts/romanize-directory.ts"
+    "directory:romanize": "tsx scripts/romanize-directory.ts",
+    "photos:search": "tsx scripts/photokorea-search.ts"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",

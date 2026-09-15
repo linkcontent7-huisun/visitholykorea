@@ -1,12 +1,13 @@
 import { Check, Globe } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { LANGUAGES, LANGUAGE_LABEL, LANGUAGE_SHORT, type Language } from './dictionary';
+import { ENABLED_LANGUAGES, LANGUAGE_LABEL, LANGUAGE_SHORT, type Language } from './dictionary';
 import { useSettings } from './use-settings';
 
 /**
  * 언어 선택 드롭다운.
  *
- * 2027 서울 세계청년대회(WYD) 공식 언어 6개를 고를 수 있다. 목록의 이름은
+ * 지금은 검수를 마친 한국어·영어만 보인다(`ENABLED_LANGUAGES`). 2027 서울 세계청년대회
+ * 공식 언어 넷(es·fr·pt·it)은 사전은 있으나 검수 전이라 숨긴다. 목록의 이름은
  * **각자의 언어로** 적는다 — 스페인어 순례자에게 "스페인어"라고 한글로 써 두면
  * 자기 언어를 찾을 수가 없다.
  *
@@ -46,7 +47,8 @@ export function LanguagePicker({ className = '' }: { className?: string }) {
         onClick={() => setOpen((v) => !v)}
         className="flex cursor-pointer items-center gap-1 text-[13px] font-bold text-app-text-muted"
         id="language-toggle"
-        aria-label={`언어 / Language — ${LANGUAGE_LABEL[language]}`}
+        // 보이는 글자(KO)가 접근성 이름에 들어가야 한다 — Lighthouse label-content-name-mismatch (9/14)
+        aria-label={`${LANGUAGE_SHORT[language]} · 언어 / Language — ${LANGUAGE_LABEL[language]}`}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
@@ -60,7 +62,7 @@ export function LanguagePicker({ className = '' }: { className?: string }) {
           aria-label="언어 / Language"
           className="absolute right-0 top-full z-50 mt-2 min-w-[9rem] overflow-hidden rounded-2xl border border-app-border bg-white py-1 shadow-xl"
         >
-          {LANGUAGES.map((lang) => {
+          {ENABLED_LANGUAGES.map((lang) => {
             const selected = lang === language;
             return (
               <li key={lang}>

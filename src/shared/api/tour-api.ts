@@ -1,17 +1,25 @@
 /**
- * 한국관광공사 TourAPI(KorService2) 실시간 호출 클라이언트.
+ * 한국관광공사 TourAPI 실시간 호출 클라이언트.
  *
  * 공모전 규정: OpenAPI 응답을 로컬 DB에 캐싱해 재사용하면 안 되고 매 요청마다
- * 실시간으로 호출해야 한다. 따라서 이 모듈은 절대 결과를 저장하지 않으며,
- * 서비스워커 런타임 캐시 대상에서도 제외되어 있다(vite.config.ts 참고).
+ * 실시간으로 호출해야 한다. 따라서 이 모듈은 DB·localStorage·서비스워커 어디에도
+ * 결과를 저장하지 않는다(vite.config.ts 의 runtimeCaching 에 이 URL 이 없는 것이 의도).
+ * 화면이 쓰는 TanStack Query 메모리 캐시(최대 1시간)와 두루누비 목록의 세션 메모리는
+ * 새로고침하면 사라지는 값이다.
+ *
+ * **브라우저는 공공데이터포털을 직접 부르지 않는다.** 같은 출처의 `/api/tour`
+ * (Vercel 서버리스 · Vite 미들웨어, `api/_lib/tour-proxy-core.ts`)가 서비스키를 붙여
+ * 중계한다 — 2026-09-14 실측에서 키가 번들에 노출됐던 것을 막는 구조다.
+ * `scripts/` 의 Node 도구만 `TOUR_API_SERVICE_KEY` 로 직접 호출한다.
  */
 
 import { env } from '@/shared/config/env';
 import { createConcurrencyGate } from '@/shared/lib/concurrency-gate';
 import type { Language } from '@/shared/i18n/dictionary';
 
-const BASE_URL = 'https://apis.data.go.kr/B551011/KorService2';
 const TOUR_API_ROOT = 'https://apis.data.go.kr/B551011';
+/** 기본 서비스(국문 관광정보). 다른 서비스는 이름으로 지정한다. */
+const DEFAULT_SERVICE = 'KorService2';
 /**
  * 무장애 여행 정보 서비스.
  *
@@ -23,8 +31,10 @@ const TOUR_API_ROOT = 'https://apis.data.go.kr/B551011';
  * 승인(보통 몇 시간~1일) 후 자동으로 화면에 나타난다. 승인 전까지는 403 이
  * 빈 배열로 흡수되어 섹션이 조용히 접히므로 사용자에게 오류가 보이지 않는다.
  */
-const BARRIER_FREE_BASE_URL = 'https://apis.data.go.kr/B551011/KorWithService2';
+const BARRIER_FREE_SERVICE = 'KorWithService2';
 const MOBILE_APP = 'VisitHolyKorea';
+/** 브라우저 쪽 요청 제한. 중계(8초)보다 조금 길게 잡아 중계의 분류된 오류를 먼저 받는다. */
+const REQUEST_TIMEOUT_MS = 10_000;
 
 /** TourAPI 콘텐츠 타입 코드 (자주 쓰는 것만) */
 export const CONTENT_TYPE = {
@@ -107,15 +117,51 @@ export interface WalkingCourse {
   gpxpath?: string;
 }
 
-/** resultCode 를 들고 있는 에러. 어떤 종류의 실패인지 화면이 구분할 수 있게 한다. */
+/**
+ * 실패의 종류. 화면은 이 값으로 문구를 고른다 — "고장"과 "오늘은 그만"과 "잠시 후"는 다른 안내다.
+ *
+ *   quota          일일 한도 초과(resultCode 22). 오늘은 다시 시도해도 소용없다
+ *   rate_limited   초당 한도·HTTP 429. 잠시 후 다시 시도
+ *   upstream       공공데이터포털 쪽 장애(5xx·4xx)
+ *   timeout        제한 시간 초과
+ *   network        연결 실패(오프라인 등)
+ *   not_configured 서버에 서비스키가 없음(배포 설정 문제)
+ *   api            그 밖의 TourAPI 오류 코드
+ */
+export type TourApiErrorKind =
+  | 'quota'
+  | 'rate_limited'
+  | 'upstream'
+  | 'timeout'
+  | 'network'
+  | 'not_configured'
+  | 'api';
+
+/** resultCode·종류를 들고 있는 에러. 어떤 종류의 실패인지 화면이 구분할 수 있게 한다. */
 export class TourApiError extends Error {
+  readonly kind: TourApiErrorKind;
   constructor(
     message: string,
     public readonly code: string,
+    kind?: TourApiErrorKind,
   ) {
     super(message);
     this.name = 'TourApiError';
+    this.kind = kind ?? (code === '22' ? 'quota' : 'api');
   }
+}
+
+/** 어떤 에러든 종류로 바꾼다. TourApiError 가 아니면 네트워크 문제로 본다. */
+export function classifyTourError(error: unknown): TourApiErrorKind {
+  if (error instanceof TourApiError) return error.kind;
+  if (error instanceof Error && error.name === 'AbortError') return 'timeout';
+  return 'network';
+}
+
+/** 다시 시도해 볼 만한 실패인지. 한도 초과와 설정 누락은 눌러도 소용없다. */
+export function isRetryableTourError(error: unknown): boolean {
+  const kind = classifyTourError(error);
+  return kind !== 'quota' && kind !== 'not_configured';
 }
 
 /**
@@ -126,7 +172,7 @@ export class TourApiError extends Error {
  * 다른 에러와 다른 문구(다시 시도 대신 "잠시 후")로 안내해야 한다.
  */
 export function isQuotaExceededError(error: unknown): boolean {
-  return error instanceof TourApiError && error.code === '22';
+  return error instanceof TourApiError && (error.code === '22' || error.kind === 'rate_limited');
 }
 
 interface TourApiResponse<T> {
@@ -164,9 +210,47 @@ const gate = createConcurrencyGate(4);
 async function callTourApi<T = TourApiSpot>(
   endpoint: string,
   params: Record<string, string | number>,
-  baseUrl: string = BASE_URL,
+  service: string = DEFAULT_SERVICE,
 ): Promise<T[]> {
-  return (await callTourApiPage<T>(endpoint, params, baseUrl)).items;
+  return (await callTourApiPage<T>(endpoint, params, service)).items;
+}
+
+/** 중계(/api/tour)가 돌려주는 오류 껍데기 */
+interface ProxyErrorResponse {
+  error?: { kind?: string; status?: number; reason?: string };
+}
+
+const PROXY_KIND: Record<string, TourApiErrorKind> = {
+  rate_limited: 'rate_limited',
+  upstream: 'upstream',
+  timeout: 'timeout',
+  network: 'network',
+  not_configured: 'not_configured',
+  bad_request: 'api',
+};
+
+/**
+ * 요청 URL. Node 도구(키 있음)는 직접, 브라우저는 중계로.
+ * 중계 주소가 상대 경로(`/api/tour`)면 같은 출처다.
+ */
+function requestUrl(
+  endpoint: string,
+  service: string,
+  params: Record<string, string | number>,
+): string {
+  const query = new URLSearchParams(
+    Object.fromEntries(Object.entries(params).map(([k, v]) => [k, String(v)])),
+  );
+  if (env.tourApiServiceKey) {
+    query.set('serviceKey', env.tourApiServiceKey);
+    query.set('MobileOS', 'ETC');
+    query.set('MobileApp', MOBILE_APP);
+    query.set('_type', 'json');
+    return `${TOUR_API_ROOT}/${service}/${endpoint}?${query.toString()}`;
+  }
+  query.set('service', service);
+  query.set('op', endpoint);
+  return `${env.tourProxyUrl}?${query.toString()}`;
 }
 
 /** 공공데이터포털 게이트웨이가 한도 초과·연결 실패 때 내려주는 껍데기 (HTTP 200 으로 올 때도 있다) */
@@ -180,31 +264,48 @@ interface GatewayErrorResponse {
 async function callTourApiPage<T = TourApiSpot>(
   endpoint: string,
   params: Record<string, string | number>,
-  baseUrl: string = BASE_URL,
+  service: string = DEFAULT_SERVICE,
 ): Promise<{ items: T[]; totalCount: number }> {
   // 빈 배열로 조용히 넘기면 붐빔 지수에서 "아무것도 없음 = 아주 조용"으로 읽혀
-  // 완전히 틀린 결과가 화면에 뜬다. 실패는 실패로 드러낸다.
-  if (!env.tourApiServiceKey) {
-    throw new Error('VITE_TOUR_API_SERVICE_KEY 가 설정되지 않았습니다 (.env.local 확인).');
-  }
-
-  const query = new URLSearchParams({
-    serviceKey: env.tourApiServiceKey,
-    MobileOS: 'ETC',
-    MobileApp: MOBILE_APP,
-    _type: 'json',
-    ...Object.fromEntries(Object.entries(params).map(([k, v]) => [k, String(v)])),
-  });
+  // 완전히 틀린 결과가 화면에 뜬다. 실패는 실패로 드러낸다 — 종류를 붙여서.
+  const url = requestUrl(endpoint, service, params);
 
   await gate.acquire();
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
   let data: TourApiResponse<T>;
   try {
-    const res = await fetch(`${baseUrl}/${endpoint}?${query.toString()}`);
+    let res: Response;
+    try {
+      res = await fetch(url, { signal: controller.signal });
+    } catch (error) {
+      const aborted = error instanceof Error && error.name === 'AbortError';
+      throw new TourApiError(
+        aborted ? `TourAPI 응답 시간 초과: ${endpoint}` : `TourAPI 연결 실패: ${endpoint}`,
+        aborted ? 'TIMEOUT' : 'NETWORK',
+        aborted ? 'timeout' : 'network',
+      );
+    }
     if (!res.ok) {
-      throw new Error(`TourAPI 호출 실패: ${endpoint} (HTTP ${res.status})`);
+      // 중계가 분류해 준 종류를 그대로 쓴다. 직접 호출(Node)에서는 상태코드로 나눈다.
+      let proxyKind: string | undefined;
+      try {
+        proxyKind = ((await res.json()) as ProxyErrorResponse).error?.kind;
+      } catch {
+        proxyKind = undefined;
+      }
+      const kind: TourApiErrorKind =
+        (proxyKind ? PROXY_KIND[proxyKind] : undefined) ??
+        (res.status === 429 ? 'rate_limited' : res.status >= 500 ? 'upstream' : 'api');
+      throw new TourApiError(
+        `TourAPI 호출 실패: ${endpoint} (HTTP ${res.status})`,
+        String(res.status),
+        kind,
+      );
     }
     data = (await res.json()) as TourApiResponse<T>;
   } finally {
+    clearTimeout(timer);
     gate.release();
   }
 
@@ -234,19 +335,16 @@ export function serviceFor(language: Language): string {
   return 'KorService2';
 }
 
-function serviceUrl(language: Language): string {
-  return `${TOUR_API_ROOT}/${serviceFor(language)}`;
-}
-
 /** 외국어 서비스가 비어 있을 때만 국문을 한 번 더 요청한다. */
 async function callLocalized<T = TourApiSpot>(
   endpoint: string,
   params: Record<string, string | number>,
   language: Language,
 ): Promise<T[]> {
-  const localized = await callTourApi<T>(endpoint, params, serviceUrl(language));
-  return localized.length === 0 && language !== 'ko'
-    ? callTourApi<T>(endpoint, params, BASE_URL)
+  const service = serviceFor(language);
+  const localized = await callTourApi<T>(endpoint, params, service);
+  return localized.length === 0 && service !== DEFAULT_SERVICE
+    ? callTourApi<T>(endpoint, params, DEFAULT_SERVICE)
     : localized;
 }
 
@@ -365,7 +463,7 @@ export function getBarrierFreeNearby(
       pageNo: 1,
       arrange: 'E', // 거리순
     },
-    BARRIER_FREE_BASE_URL,
+    BARRIER_FREE_SERVICE,
   );
 }
 
@@ -411,7 +509,7 @@ export function getCongestionRates(areaCd: string, signguCd?: string): Promise<C
   return callTourApi<CongestionRate>(
     'tatsCnctrRatedList',
     { areaCd, ...(signguCd ? { signguCd } : {}), numOfRows: 200, pageNo: 1 },
-    `${TOUR_API_ROOT}/TatsCnctrRateService`,
+    'TatsCnctrRateService',
   );
 }
 
@@ -423,7 +521,7 @@ export function getRelatedSpots(
   return callTourApi<RelatedSpot>(
     'areaBasedList1',
     { areaCd, signguCd, baseYm, numOfRows: 20, pageNo: 1 },
-    `${TOUR_API_ROOT}/TarRlteTarService1`,
+    'TarRlteTarService1',
   );
 }
 
@@ -431,7 +529,7 @@ export function getHubSpots(areaCd: string, signguCd: string, baseYm: string): P
   return callTourApi<HubSpot>(
     'areaBasedList1',
     { areaCd, signguCd, baseYm, numOfRows: 20, pageNo: 1 },
-    `${TOUR_API_ROOT}/LocgoHubTarService1`,
+    'LocgoHubTarService1',
   );
 }
 
@@ -443,7 +541,7 @@ export function getAudioStoriesNearby(
   return callTourApi<AudioStory>(
     'storyLocationBasedList',
     { mapX, mapY, radius: 3000, langCode, numOfRows: 10, pageNo: 1 },
-    `${TOUR_API_ROOT}/Odii`,
+    'Odii',
   );
 }
 
@@ -453,11 +551,11 @@ export function getAudioStoriesNearby(
 let allWalkingCourses: Promise<WalkingCourse[]> | null = null;
 
 async function fetchAllWalkingCourses(): Promise<WalkingCourse[]> {
-  const first = await callTourApiPage<WalkingCourse>('courseList', { brdDiv: 'DNWW', numOfRows: 50, pageNo: 1 }, `${TOUR_API_ROOT}/Durunubi`);
+  const first = await callTourApiPage<WalkingCourse>('courseList', { brdDiv: 'DNWW', numOfRows: 50, pageNo: 1 }, 'Durunubi');
   const pages = Math.min(6, Math.ceil(first.totalCount / 50));
   const rest = await Promise.all(
     Array.from({ length: pages - 1 }, (_, i) =>
-      callTourApi<WalkingCourse>('courseList', { brdDiv: 'DNWW', numOfRows: 50, pageNo: i + 2 }, `${TOUR_API_ROOT}/Durunubi`),
+      callTourApi<WalkingCourse>('courseList', { brdDiv: 'DNWW', numOfRows: 50, pageNo: i + 2 }, 'Durunubi'),
     ),
   );
   return [...first.items, ...rest.flat()];

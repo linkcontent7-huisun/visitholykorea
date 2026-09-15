@@ -21,7 +21,7 @@ import { loadEnvLocal } from './lib/env';
 
 loadEnvLocal({ supabasePlaceholder: true });
 
-const KEY = process.env.VITE_TOUR_API_SERVICE_KEY;
+const KEY = (process.env.TOUR_API_SERVICE_KEY ?? process.env.VITE_TOUR_API_SERVICE_KEY);
 const MOBILE_APP = 'VisitHolyKorea';
 
 /** 절두산 순교성지 좌표 — 서울 도심이라 주변 데이터가 가장 풍부하다. */
@@ -72,7 +72,7 @@ async function call(baseUrl: string, endpoint: string, params: Record<string, st
 
 async function main() {
   if (!KEY) {
-    console.error('VITE_TOUR_API_SERVICE_KEY 가 .env.local 에 없습니다.');
+    console.error('TOUR_API_SERVICE_KEY 가 .env.local 에 없습니다.');
     process.exit(1);
   }
 

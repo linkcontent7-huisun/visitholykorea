@@ -1,5 +1,5 @@
 import { lazy, Suspense, type ReactNode } from 'react';
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import { ScrollShell } from '@/app/layouts/ScrollShell';
 import { AppLayout } from '@/app/layouts/AppLayout';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
@@ -9,15 +9,15 @@ import { paths } from './paths';
 // 첫 화면 이후의 페이지는 필요할 때 내려받는다(초기 로딩 시간 단축).
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const MapPage = lazy(() => import('@/pages/MapPage'));
-const ExplorePage = lazy(() => import('@/pages/ExplorePage'));
 const RecordsPage = lazy(() => import('@/pages/RecordsPage'));
 const MenuPage = lazy(() => import('@/pages/MenuPage'));
 const SiteDetailPage = lazy(() => import('@/pages/SiteDetailPage'));
 const SearchPage = lazy(() => import('@/pages/SearchPage'));
 const RoutesPage = lazy(() => import('@/pages/RoutesPage'));
 const RouteDetailPage = lazy(() => import('@/pages/RouteDetailPage'));
-const CompassPage = lazy(() => import('@/pages/CompassPage'));
-const AlternativesPage = lazy(() => import('@/pages/AlternativesPage'));
+const QuietPage = lazy(() => import('@/pages/QuietPage'));
+const RetiredFeaturePage = lazy(() => import('@/pages/RetiredFeaturePage'));
+const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
 const FestivalsPage = lazy(() => import('@/pages/FestivalsPage'));
 const RegionLandingPage = lazy(() => import('@/pages/RegionLandingPage'));
 const NearbyPage = lazy(() => import('@/pages/NearbyPage'));
@@ -90,7 +90,8 @@ export const router = createBrowserRouter([
         children: [
           { path: paths.home, element: withSuspense(<HomePage />) },
           { path: paths.map, element: withSuspense(<MapPage />) },
-          { path: paths.explore, element: withSuspense(<ExplorePage />) },
+          // 「탐색」은 성지 찾기(검색 + 교구·행정지역 필터)로 흡수됐다 (재기획 2026-09-14)
+          { path: paths.explore, element: <Navigate to={paths.search} replace /> },
           { path: paths.records, element: withSuspense(<RecordsPage />) },
           { path: paths.menu, element: withSuspense(<MenuPage />) },
           // 둘러보기 화면들 — 예전엔 전체 화면 그룹에 있어 순례 코스·마음 나침반을 누르면
@@ -98,9 +99,13 @@ export const router = createBrowserRouter([
           // 되돌아갈 수단이 「← 뒤로」 글자 하나뿐이라 PC 에서 특히 길을 잃었다.
           { path: paths.routes, element: withSuspense(<RoutesPage />) },
           { path: paths.routeDetailPattern, element: withSuspense(<RouteDetailPage />) },
-          { path: paths.compass, element: withSuspense(<CompassPage />) },
           { path: paths.search, element: withSuspense(<SearchPage />) },
-          { path: paths.alternatives, element: withSuspense(<AlternativesPage />) },
+          { path: paths.quiet, element: withSuspense(<QuietPage />) },
+          // 옛 이름·옛 기능의 주소는 버리지 않고 안내한다 — 밖에 퍼진 링크가 죽으면 안 된다
+          { path: paths.alternatives, element: <Navigate to={paths.quiet} replace /> },
+          { path: paths.compass, element: withSuspense(<RetiredFeaturePage feature="compass" />) },
+          { path: paths.aiGuide, element: withSuspense(<RetiredFeaturePage feature="ai" />) },
+          { path: paths.privacy, element: withSuspense(<PrivacyPage />) },
           { path: paths.festivals, element: withSuspense(<FestivalsPage />) },
           { path: paths.regionPattern, element: withSuspense(<RegionLandingPage />) },
           { path: paths.nearby, element: withSuspense(<NearbyPage />) },

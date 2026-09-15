@@ -3,7 +3,9 @@ import { queryKeys } from '@/shared/api/query-keys';
 import {
   addStamp,
   attachStampPhoto,
+  deleteStamp,
   deleteStampPhoto,
+  updateStamp,
   getDioceseProgress,
   getMyNoteReadCounts,
   getMyStamp,
@@ -70,6 +72,31 @@ export function useAddStamp(siteId: string) {
       void queryClient.invalidateQueries({ queryKey: queryKeys.passport.stamps });
       void queryClient.invalidateQueries({ queryKey: queryKeys.passport.myStamp(siteId) });
       void queryClient.invalidateQueries({ queryKey: queryKeys.passport.siteNotes(siteId) });
+    },
+  });
+}
+
+/** 내 기록의 메모·방문일을 고친다. */
+export function useUpdateStamp() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (input: { stampId: string; note?: string | null; visitedOn?: string | null }) =>
+      updateStamp(input.stampId, input),
+    onSuccess: (result) => {
+      if (!result.success) return;
+      void queryClient.invalidateQueries({ queryKey: queryKeys.passport.stamps });
+    },
+  });
+}
+
+/** 내 기록을 지운다. */
+export function useDeleteStamp() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (stampId: string) => deleteStamp(stampId),
+    onSuccess: (result) => {
+      if (!result.success) return;
+      void queryClient.invalidateQueries({ queryKey: queryKeys.passport.stamps });
     },
   });
 }

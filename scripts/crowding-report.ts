@@ -6,7 +6,7 @@
  *
  *   npm run crowding
  *
- * `.env.local` 의 VITE_TOUR_API_SERVICE_KEY 가 있어야 동작한다.
+ * `.env.local` 의 TOUR_API_SERVICE_KEY 가 있어야 동작한다.
  * 좌표는 data/reference/holy_sites_daejeon.csv 에서 읽는다 (좌표가 확보된 성지들).
  */
 

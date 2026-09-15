@@ -184,9 +184,18 @@ export interface CrowdingScore {
   stayCount: number;
   /** 주변 인프라를 조회하지 못해 축제 압력만으로 낸 점수인지 */
   isPartial: boolean;
-  /** 한국관광공사 집중률 실측이 섞였는지. */
+  /** 한국관광공사 집중률(관광지별 방문자 추이)이 섞였는지. */
   source: 'measured' | 'estimated';
-  measuredSpot?: { name: string; rate: number };
+  /** 섞인 집중률의 출처 — 관광지 이름·값·기준일·성지에서의 직선거리 */
+  measuredSpot?: MeasuredSpot;
+}
+
+export interface MeasuredSpot {
+  name: string;
+  rate: number;
+  /** YYYYMMDD. 오늘 값이 아닐 수 있으므로 화면에 같이 적는다. */
+  baseYmd?: string;
+  distanceKm?: number;
 }
 
 function round(value: number): number {
@@ -200,7 +209,7 @@ function round(value: number): number {
 export function combineCrowdingScore(
   pressure: FestivalPressure,
   density: InfraDensity | null,
-  measuredSpot?: { name: string; rate: number },
+  measuredSpot?: MeasuredSpot,
 ): CrowdingScore {
   const breakdown: CrowdingBreakdown = {
     festival: round(pressure.score),
@@ -220,7 +229,7 @@ export function combineCrowdingScore(
     breakdown,
     reasons: measuredSpot
       ? [
-          `실측 집중률 ${Math.round(measuredSpot.rate)}% · ${measuredSpot.name}`,
+          `관광공사 집중률 ${Math.round(measuredSpot.rate)}% · ${measuredSpot.name}`,
           ...buildReasons(pressure, density),
         ]
       : buildReasons(pressure, density),

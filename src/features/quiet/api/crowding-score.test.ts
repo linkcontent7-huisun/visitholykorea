@@ -190,7 +190,7 @@ describe('combineCrowdingScore — 합산', () => {
       rate: 72,
     });
     expect(result.measuredSpot).toEqual({ name: '해미읍성', rate: 72 });
-    expect(result.reasons[0]).toContain('실측 집중률 72%');
+    expect(result.reasons[0]).toContain('관광공사 집중률 72%');
   });
 
   it('실측이 없으면 기존 추정 점수를 그대로 쓴다', () => {

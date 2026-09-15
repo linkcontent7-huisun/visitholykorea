@@ -2,8 +2,11 @@ import type { ReactNode } from 'react';
 import { useState } from 'react';
 import {
   ChevronRight,
-  Compass,
+  Footprints,
   Globe,
+  Map as MapIcon,
+  PartyPopper,
+  Smartphone,
   Info,
   MapPin,
   LogIn,
@@ -24,8 +27,8 @@ import { useSession } from '@/features/auth/hooks/use-session';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useMyLogs } from '@/features/records/hooks/use-logs';
 import {
+  ENABLED_LANGUAGES,
   fillPlaceholders,
-  LANGUAGES,
   LANGUAGE_LABEL,
   type Language,
   type TranslationKey,
@@ -35,6 +38,7 @@ import { InstallShareSheet } from '@/shared/components/ui/InstallShareSheet';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
+import { OFFICIAL_LINKS } from '@/shared/config/official-links';
 import { REGIONS, type Region } from '@/shared/lib/regions';
 
 /** GPS 상태별 부제. 성공 후 켜져 있을 때는 origin 항목 쪽이 현재 위치 안내를 맡는다. */
@@ -102,18 +106,17 @@ export default function MenuPage() {
   const [installSheetOpen, setInstallSheetOpen] = useState(false);
 
   /**
-   * 맨 위 「전체 서비스」 — 앱이 주는 것을 한눈에. 하단 탭 + 상단 메뉴 항목을 합치되
-   * 이 화면 자신(전체)은 빼고, 탭에 없는 붐빔 피하기를 더한다 (2026-09-13 사장님 요청).
+   * 맨 위 「전체 서비스」 — 앱이 주는 것을 한눈에. 하단 탭 4개(이 화면 자신은 빼고) +
+   * 탭에 두지 않은 화면(순례 코스·축제·전국 분포 개요·홈 화면 추가) (재기획 2026-09-14).
    */
   const services: { id: string; icon: LucideIcon; label: string; to?: string; onClick?: () => void }[] = [
     ...[...NAV_ITEMS, ...TOP_NAV_ITEMS.filter((i) => !NAV_ITEMS.some((n) => n.id === i.id))]
       .filter((i) => i.id !== 'menu')
-      .map((i) =>
-        i.action === 'install'
-          ? { id: i.id, icon: i.icon as LucideIcon, label: t(i.labelKey), onClick: () => setInstallSheetOpen(true) }
-          : { id: i.id, icon: i.icon as LucideIcon, label: t(i.labelKey), to: i.to },
-      ),
-    { id: 'alternatives', icon: Compass, label: t('quietHeroTitle'), to: paths.alternatives },
+      .map((i) => ({ id: i.id, icon: i.icon as LucideIcon, label: t(i.labelKey), to: i.to })),
+    { id: 'routes', icon: Footprints, label: t('routesTitle'), to: paths.routes },
+    { id: 'festivals', icon: PartyPopper, label: t('festivalsTitle'), to: paths.festivals },
+    { id: 'map', icon: MapIcon, label: t('mapOverviewTitle'), to: paths.map },
+    { id: 'install', icon: Smartphone, label: t('installTab'), onClick: () => setInstallSheetOpen(true) },
   ];
 
   const sections: { title: string; items: MenuItem[] }[] = [
@@ -136,7 +139,7 @@ export default function MenuPage() {
           id: 'lang',
           icon: Globe,
           label: t('languageSetting'),
-          // WYD 2027 공식 언어 6개. 목록은 각자의 언어로 적어야 자기 언어를 찾을 수 있다.
+          // 검수를 마친 한국어·영어만(ENABLED_LANGUAGES). 목록은 각자의 언어로 적어야 자기 언어를 찾을 수 있다.
           sub: LANGUAGE_LABEL[language],
           control: (
             <select
@@ -145,7 +148,7 @@ export default function MenuPage() {
               aria-label={t('languageSelectAria')}
               className="rounded-2xl border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20"
             >
-              {LANGUAGES.map((lang) => (
+              {ENABLED_LANGUAGES.map((lang) => (
                 <option key={lang} value={lang}>
                   {LANGUAGE_LABEL[lang]}
                 </option>
@@ -211,7 +214,29 @@ export default function MenuPage() {
           sub: t('customerSupportSub'),
           onClick: () => navigate(paths.faq),
         },
+        {
+          id: 'terms',
+          icon: Info,
+          label: t('viewTerms'),
+          onClick: () => navigate(paths.terms),
+        },
+        {
+          id: 'privacy',
+          icon: Info,
+          label: t('privacyNotice'),
+          onClick: () => navigate(paths.privacy),
+        },
       ],
+    },
+    {
+      title: t('officialLinksTitle'),
+      items: OFFICIAL_LINKS.map((link) => ({
+        id: `official-${link.id}`,
+        icon: Globe,
+        label: language === 'ko' ? link.labelKo : link.labelEn,
+        sub: link.url ? link.url : t('officialLinkPending'),
+        onClick: link.url ? () => window.open(link.url!, '_blank', 'noopener') : undefined,
+      })),
     },
   ];
 

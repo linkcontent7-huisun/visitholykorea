@@ -1,5 +1,6 @@
 import { Accessibility } from 'lucide-react';
 import { useBarrierFreeNearby } from '../hooks/use-nearby-tour';
+import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
 
 /**
@@ -13,6 +14,7 @@ import type { HolySite } from '@/shared/types/domain';
  * 빈 껍데기로 먼저 보이는 일을 만들지 않기 위해서다.
  */
 export function BarrierFreeCard({ site }: { site: HolySite }) {
+  const { t } = useSettings();
   const { data: places = [] } = useBarrierFreeNearby(site.coordinates);
 
   if (places.length === 0) return null;
@@ -22,9 +24,9 @@ export function BarrierFreeCard({ site }: { site: HolySite }) {
       <div className="mb-6 flex items-center gap-3">
         <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
         <h2 className="flex-1 text-xl font-extrabold tracking-tight text-app-text">
-          무장애 여행 정보
+          {t('visitInfoBarrierFree')}
         </h2>
-        <span className="text-[0.625rem] font-bold text-app-text-muted">실시간 · 한국관광공사</span>
+        <span className="text-[0.625rem] font-bold text-app-text-muted">{t('siteLiveSource')}</span>
       </div>
 
       <ul className="space-y-3">

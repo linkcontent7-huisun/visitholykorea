@@ -1,6 +1,7 @@
 import { ArrowRight, ChevronLeft, Lock, Mail, ShieldCheck, User as UserIcon } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { paths } from '@/app/routes/paths';
 import {
   signInWithEmail,
   signInWithNaver,
@@ -52,10 +53,31 @@ export default function LoginPage() {
       return;
     }
 
-    const { error } = await signUpWithEmail(email, password, name);
+    const { data, error } = await signUpWithEmail(email, password, name);
     setLoading(false);
     if (error) {
-      setMessage({ type: 'error', text: error.message });
+      // 상태를 구분해 안내한다(재기획 §12): 기존 계정 / 약한 비밀번호 / 일시 오류 — 원문 영어 메시지를 그대로 보여주지 않는다.
+      const msg = error.message.toLowerCase();
+      if (msg.includes('already') || msg.includes('registered') || error.status === 422 && msg.includes('exist')) {
+        setMessage({ type: 'error', text: t('signupExisting') });
+        setIsLogin(true);
+      } else if (msg.includes('password')) {
+        setMessage({ type: 'error', text: t('signupWeakPassword') });
+      } else {
+        setMessage({ type: 'error', text: `${t('signupTemporaryError')} · ${t('signupContact')}` });
+      }
+      return;
+    }
+    // Supabase 는 이미 가입된 이메일로 다시 가입해도 오류 대신 identities 가 빈 사용자를 돌려준다.
+    if (data.user && data.user.identities && data.user.identities.length === 0) {
+      setMessage({ type: 'error', text: t('signupExisting') });
+      setIsLogin(true);
+      return;
+    }
+    // 세션이 바로 오면 이메일 확인이 꺼진 설정 — "가입 완료". 없으면 인증 메일 발송 → 인증 대기.
+    if (data.session) {
+      setMessage({ type: 'info', text: t('signupDone') });
+      navigate(-1);
       return;
     }
     setMessage({ type: 'info', text: t('signupMailSent') });
@@ -291,22 +313,34 @@ export default function LoginPage() {
             </>
           )}
 
-          <div className="mt-8 flex items-center justify-center gap-6">
-            <button
-              type="button"
-              onClick={() => navigate('/terms')}
-              className="text-xs font-bold text-slate-400 underline underline-offset-2"
+          {/* 약관·개인정보·FAQ 는 새 창으로 — 같은 창에서 이동하면 입력하던 이메일·비밀번호·동의가 사라진다(재기획 §12) */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <Link
+              to={paths.terms}
+              target="_blank"
+              rel="noopener"
+              className="min-h-11 text-xs font-bold text-slate-400 underline underline-offset-2"
             >
               {t('viewTerms')}
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate('/faq')}
-              className="text-xs font-bold text-slate-400 underline underline-offset-2"
+            </Link>
+            <Link
+              to={paths.privacy}
+              target="_blank"
+              rel="noopener"
+              className="min-h-11 text-xs font-bold text-slate-400 underline underline-offset-2"
+            >
+              {t('privacyNotice')}
+            </Link>
+            <Link
+              to={paths.faq}
+              target="_blank"
+              rel="noopener"
+              className="min-h-11 text-xs font-bold text-slate-400 underline underline-offset-2"
             >
               {t('viewFaq')}
-            </button>
+            </Link>
           </div>
+          <p className="mt-2 text-center text-[0.6875rem] text-slate-400">{t('termsOpensNewTab')}</p>
         </div>
 
         <div className="mt-10 text-center">

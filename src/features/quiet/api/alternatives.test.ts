@@ -63,31 +63,21 @@ function scored(name: string, km: number, score: number): ScoredSite {
 
 // ---------------------------------------------------------------------------
 
-describe('estimateTravel — 이동 수단 추정', () => {
-  it('2km 이하는 도보로 안내한다', () => {
+describe('estimateTravel — 이동 부담 표시', () => {
+  it('2km 이하는 도보권으로 표시하되 도보 시간은 계산하지 않는다', () => {
     const t = estimateTravel(1.5);
-    expect(t.mode).toBe('도보');
-    expect(t.walkMinutes).toBeGreaterThan(0);
+    expect(t.mode).toBe('도보권');
+    expect(t.label).toContain('직선거리');
+    expect(t.label).not.toContain('분');
   });
 
-  it('기획서 사례(도보 20분)와 어긋나지 않는다 — 1.5km는 20분 내외', () => {
-    expect(estimateTravel(1.5).walkMinutes).toBe(20);
+  it('2km를 넘으면 대중교통·차로 표시한다', () => {
+    expect(estimateTravel(5).mode).toBe('대중교통·차');
   });
 
-  it('2km를 넘으면 대중교통·차로 바뀌고 도보 시간을 내지 않는다', () => {
-    const t = estimateTravel(5);
-    expect(t.mode).toBe('대중교통·차');
-    // 교통 상황을 모르므로 소요 시간을 지어내지 않는다
-    expect(t.walkMinutes).toBeNull();
-  });
-
-  it('아주 가까워도 최소 1분으로 표기한다 (0분은 오해를 부른다)', () => {
-    expect(estimateTravel(0.01).walkMinutes).toBe(1);
-  });
-
-  it('1km 미만은 m 단위로 적는다', () => {
-    expect(estimateTravel(3.4).label).toBe('3.4km');
-    expect(estimateTravel(0.4).label).toContain('분'); // 도보라 분으로 표기
+  it('1km 미만은 m, 이상은 km 로 적고 참고값임을 밝힌다', () => {
+    expect(estimateTravel(3.4).label).toBe('직선거리 3.4km · 참고값');
+    expect(estimateTravel(0.4).label).toBe('직선거리 400m · 참고값');
   });
 });
 
@@ -204,20 +194,43 @@ describe('rankAlternatives — 대체지 순위', () => {
 });
 
 describe('buildAlternativeReason — 추천 문구', () => {
-  it('도보권이면 걸리는 시간을 말한다', () => {
+  it('점수 차가 아니라 등급과 직선거리로 말한다', () => {
     const { picks } = rankAlternatives(HWASEONG, 80, [scored('수원 화성 순교성지', 1.5, 20)]);
-    const reason = buildAlternativeReason('화성행궁', picks[0]!);
+    const reason = buildAlternativeReason('화성행궁', '매우 붐빔', picks[0]!);
 
-    expect(reason).toContain('화성행궁보다');
-    expect(reason).toContain('한적합니다');
-    expect(reason).toContain('도보');
+    expect(reason).toContain('화성행궁(매우 붐빔) 대신');
+    expect(reason).toContain('「조용」');
+    expect(reason).toContain('직선거리 1.5km');
+    expect(reason).not.toMatch(/점 한적/);
+    expect(reason).not.toContain('도보');
+  });
+});
+
+describe('rankAlternatives — 정직한 분기', () => {
+  it('출발지가 이미 「조용」 이하면 이동을 권하지 않는다', () => {
+    const result = rankAlternatives(HWASEONG, 20, [scored('A', 1, 5)]);
+    expect(result.outcome).toBe('origin_quiet');
+    expect(result.picks).toEqual([]);
   });
 
-  it('먼 곳이면 시간 대신 거리를 말한다 (교통 소요는 추정하지 않는다)', () => {
-    const { picks } = rankAlternatives(HWASEONG, 80, [scored('먼 성지', 8, 20)]);
-    const reason = buildAlternativeReason('화성행궁', picks[0]!);
+  it('출발지 주변 정보를 못 받았으면 비교하지 않는다', () => {
+    const result = rankAlternatives(HWASEONG, 80, [scored('A', 1, 5)], { originUnverified: true });
+    expect(result.outcome).toBe('origin_unverified');
+    expect(result.picks).toEqual([]);
+  });
 
-    expect(reason).toContain('km');
-    expect(reason).not.toContain('도보');
+  it('주변 정보를 못 받은 후보는 순위에서 빼고 확인 부족으로 따로 낸다', () => {
+    const partial = scored('실패한 성지', 0.5, 3);
+    partial.crowding.isPartial = true;
+    const result = rankAlternatives(HWASEONG, 80, [partial, scored('확인된 성지', 3, 20)]);
+    expect(result.picks.map((p) => p.site.name)).toEqual(['확인된 성지']);
+    expect(result.unverified.map((p) => p.site.name)).toEqual(['실패한 성지']);
+    expect(result.outcome).toBe('recommended');
+  });
+
+  it('확인된 대안이 없으면 none — 추천하지 않는다', () => {
+    const result = rankAlternatives(HWASEONG, 80, [scored('더 붐빔', 1, 90)]);
+    expect(result.outcome).toBe('none');
+    expect(result.picks).toEqual([]);
   });
 });
