@@ -5,10 +5,16 @@
  * 구분이 안 되고, 「한적한 성지」는 성지 안 사람 수를 잴 데이터가 없어 거짓 주장이다.
  * 한 성지에 태그 하나. 겹치면 가까움 → 조용 → 자세함 순으로 양보한다.
  *
+ * 「인근이 조용해요」는 3장 중 최저인 것만으로는 부족하다 — 명동대성당이 3장 중 최저라서 「조용」이
+ * 붙은 적이 있다(2026-09-16 실측). 산식의 「조용」 등급(30 미만)에 실제로 들어야 붙인다.
+ *
  * 순수 함수 — 스펙 7-1 절. 테스트로 고정한다.
  */
 
 export type CandidateTag = 'nearest' | 'quiet' | 'detailed';
+
+/** 산식 `toCrowdingLevel` 의 「조용」 상한과 같다. 이 아래여야 「인근이 조용해요」를 말할 수 있다. */
+export const QUIET_MAX_SCORE = 30;
 
 export interface TagInput {
   distanceKm: number;
@@ -32,9 +38,9 @@ export function assignTags(cards: readonly TagInput[]): (CandidateTag | null)[] 
   const byDistance = cards.map((_, i) => i).sort((a, b) => cards[a]!.distanceKm - cards[b]!.distanceKm);
   claim('nearest', byDistance);
 
-  // 조용 태그는 붐빔 점수가 있는 카드끼리만 겨룬다. 3장 다 없으면 이 태그는 없다.
+  // 조용 태그는 붐빔 점수가 있고 실제로 「조용」 등급인 카드끼리만 겨룬다. 없으면 이 태그는 없다.
   const withCrowding = cards
-    .map((c, i) => (c.crowdingScore == null ? null : i))
+    .map((c, i) => (c.crowdingScore == null || c.crowdingScore >= QUIET_MAX_SCORE ? null : i))
     .filter((i): i is number => i != null)
     .sort((a, b) => cards[a]!.crowdingScore! - cards[b]!.crowdingScore!);
   claim('quiet', withCrowding);

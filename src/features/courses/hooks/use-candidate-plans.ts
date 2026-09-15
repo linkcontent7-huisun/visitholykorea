@@ -1,5 +1,4 @@
 import { useQueries } from '@tanstack/react-query';
-import { useMemo } from 'react';
 import { queryKeys } from '@/shared/api/query-keys';
 import { getNearbyByLocation, type TourApiSpot } from '@/shared/api/tour-api';
 import { useOngoingFestivals } from '@/features/festivals/api/use-festivals';
@@ -68,12 +67,12 @@ export function useCandidatePlans(pooled: readonly PooledSite[]): Candidate[] {
     })),
   });
 
-  // useQueries 결과 배열은 렌더마다 새 객체라 안의 data 로 의존성을 잡는다.
+  // 메모하지 않는다 — 카드 3장 계산은 싸고, 길이가 변하는 의존성 배열은 React 가 경고한다.
   const facilityData = facilities.map((q) => q.data);
   const facilityDone = facilities.map((q) => q.isSuccess || q.isError);
   const rateData = rates.map((q) => q.data);
 
-  return useMemo(() => {
+  {
     const drafts = pooled.map((p, i) => {
       const spots = facilityData[i] ?? null;
       const siteRates = rateData[i] ?? [];
@@ -110,6 +109,5 @@ export function useCandidatePlans(pooled: readonly PooledSite[]): Candidate[] {
       })),
     );
     return drafts.map((d, i) => ({ ...d, tag: tags[i] ?? null }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pooled, festivals.data, festivals.isSuccess, festivals.isError, ...facilityData, ...facilityDone, ...rateData]);
+  }
 }

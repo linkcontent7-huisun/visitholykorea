@@ -30,9 +30,8 @@ export const RADIUS_KM_BY_TIME: Record<TimeBudget, number> = {
   '1박2일': 180,
 };
 
-/** 카드 한 페이지 장수 · 반경 안 후보를 들고 있는 상한 (3페이지). */
+/** 카드 한 페이지 장수. 반경 안 후보는 전부 들고 있다가 3장씩 보여준다 — 중간에 끊고 「여기까지」라고 하지 않는다. */
 export const CARD_PAGE_SIZE = 3;
-export const POOL_MAX = 9;
 
 export interface Origin {
   lat: number;
@@ -72,14 +71,14 @@ export function contentQualityScore(site: HolySite): number {
 }
 
 /**
- * 순수 함수 — 좌표 있는 성지만, 반경 안만, 가까운 순, 최대 `max`.
+ * 순수 함수 — 좌표 있는 성지만, 반경 안만, 가까운 순. `max` 는 테스트·특수 용도.
  * 동점은 이름순으로 고정해 같은 답에 같은 결과가 나오게 한다.
  */
 export function rankByDistance(
   sites: HolySite[],
   origin: { lat: number; lng: number },
   radiusKm: number,
-  max = POOL_MAX,
+  max = Infinity,
 ): PooledSite[] {
   return sites
     .flatMap((site) => {
@@ -121,7 +120,7 @@ export async function fetchEmotionSites(emotion: EmotionTag, language: Language)
   return sites.map((s) => (nameById[s.id] ? { ...s, name: nameById[s.id]! } : s));
 }
 
-/** 최상위 진입점: 마음 · 출발지 · 시간 → 반경 안 후보(거리순, 최대 9). TourAPI 호출 0. */
+/** 최상위 진입점: 마음 · 출발지 · 시간 → 반경 안 후보 전부(거리순). TourAPI 호출 0. */
 export async function buildCandidatePool(
   emotion: EmotionTag,
   origin: Origin,

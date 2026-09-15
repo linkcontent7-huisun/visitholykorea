@@ -41,13 +41,20 @@ function latestRates(rates: readonly CongestionRate[]): CongestionRate[] {
   return rates.filter((r) => r.baseYmd === latest && Number.isFinite(Number(r.cnctrRate)));
 }
 
-/** 관광지 제목 ↔ 집중률 관광지명(tAtsNm). 한쪽이 다른 쪽을 포함하면 같은 곳으로 본다. */
+/**
+ * 관광지 제목 ↔ 집중률 관광지명(tAtsNm). 정확히 같거나, 3자 이상인 쪽이 다른 쪽에 포함되면 같은 곳으로 본다.
+ * 2자("서울" ⊂ "서울숲")는 포함 매칭을 안 한다 — 오매칭이 더 해롭다.
+ */
 export function matchCongestion(title: string, rates: readonly CongestionRate[]): number | null {
   const key = normalizeName(title);
   if (!key) return null;
   const hit = latestRates(rates).find((r) => {
     const name = normalizeName(r.tAtsNm);
-    return name.length > 0 && (name === key || name.includes(key) || key.includes(name));
+    if (!name) return false;
+    if (name === key) return true;
+    const shorter = name.length <= key.length ? name : key;
+    const longer = shorter === name ? key : name;
+    return shorter.length >= 3 && longer.includes(shorter);
   });
   return hit ? Math.max(0, Math.min(100, Number(hit.cnctrRate))) : null;
 }

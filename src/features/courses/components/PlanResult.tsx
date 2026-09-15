@@ -95,7 +95,7 @@ export function PlanResult({
   onBack,
   onGo,
 }: PlanResultProps) {
-  const { t } = useSettings();
+  const { t, language } = useSettings();
   const { site, crowding, lunch, afternoon, facilities, loading } = candidate;
   const pick = afternoon[afternoonIndex] ?? afternoon[0] ?? null;
   const nextPick = afternoon[afternoonIndex + 1] ?? null;
@@ -103,7 +103,8 @@ export function PlanResult({
 
   const nearbyLine = (() => {
     if (crowding == null) return loading ? t('planLoadingNearby') : t('nearbyUnknown');
-    const reason = crowding.reasons[0];
+    // reasons 는 산식이 만드는 한국어 문장 — 다른 언어에선 「추정」만.
+    const reason = language === 'ko' ? crowding.reasons[0] : undefined;
     const tail = crowding.isPartial ? t('nearbyPartial') : reason ? `${reason}` : t('nearbyEstimate');
     return `${t(NEARBY_KEY[crowding.level])} · ${tail}`;
   })();

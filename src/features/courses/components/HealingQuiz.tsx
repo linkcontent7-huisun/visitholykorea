@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { X, ChevronLeft, ChevronRight, Church, LocateFixed, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
@@ -147,12 +147,13 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   const [emotion, setEmotion] = useState<EmotionTag | null>(null);
   const [concern, setConcern] = useState<Concern | null>(null);
   const [region, setRegion] = useState<Region | null>(storedRegion);
-  const [useGps, setUseGps] = useState(false);
+  // null = 아직 안 정함(GPS 가 되면 자동으로 GPS) · true = 현재 위치 · false = 시·도를 직접 골랐음
+  const [useGps, setUseGps] = useState<boolean | null>(null);
   const [timeBudget, setTimeBudget] = useState<TimeBudget | null>(null);
   const [party, setParty] = useState<PartySize | null>(null);
   const [note, setNote] = useState('');
 
-  // 결과 — 반경 안 후보 전부(거리순, 최대 9)와 지금 보이는 페이지 · 고른 카드
+  // 결과 — 반경 안 후보 전부(거리순)와 지금 보이는 페이지 · 고른 카드
   const [pool, setPool] = useState<PooledSite[]>([]);
   const [moreInNextRadius, setMoreInNextRadius] = useState(0);
   const [page, setPage] = useState(0);
@@ -160,6 +161,8 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   const [afternoonIndex, setAfternoonIndex] = useState<Record<string, number>>({});
   const [poolLoading, setPoolLoading] = useState(false);
   const [poolError, setPoolError] = useState(false);
+  // 카드에서 성지를 처음 고른 때 1회만 저장. 「처음부터 다시」 하면 다시 1회.
+  const savedRef = useRef(false);
 
   const saveResponse = useSaveCompassResponse();
   const { data: memory } = useCompassMemory();
@@ -175,9 +178,10 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   useEffect(() => {
     if (step === 3 && gpsStatus === 'idle') requestGpsLocation();
   }, [step, gpsStatus, requestGpsLocation]);
+  // 위치가 허용됐고 사용자가 아직 시·도를 직접 고르지 않았으면 현재 위치가 기본.
   useEffect(() => {
-    if (gpsStatus === 'granted' && gpsLocation) setUseGps(true);
-  }, [gpsStatus, gpsLocation]);
+    if (step === 3 && gpsStatus === 'granted' && gpsLocation && useGps === null) setUseGps(true);
+  }, [step, gpsStatus, gpsLocation, useGps]);
 
   if (!isOpen) return null;
 
@@ -194,7 +198,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     setEmotion(null);
     setConcern(null);
     setRegion(null);
-    setUseGps(false);
+    setUseGps(null);
     setTimeBudget(null);
     setParty(null);
     setNote('');
@@ -204,6 +208,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     setSelected(null);
     setAfternoonIndex({});
     setPoolError(false);
+    savedRef.current = false;
   };
 
   const handleClose = () => {
@@ -235,7 +240,8 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     setSelected(index);
     const site = pageSites[index]?.site;
     if (!site || !emotion || !origin) return;
-    if (!saveResponse.isPending && !saveResponse.isSuccess) {
+    if (!savedRef.current) {
+      savedRef.current = true;
       saveResponse.mutate({
         answers: {
           emotion,
@@ -400,7 +406,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               <p className="text-xs text-app-text-muted mb-6">{t('compassNearbyNote')}</p>
 
               {gpsStatus === 'granted' && gpsLocation ? (
-                <button type="button" onClick={() => setUseGps(true)} className={optionClass(useGps)} id="quiz-gps">
+                <button type="button" onClick={() => setUseGps(true)} className={optionClass(useGps === true)} id="quiz-gps">
                   <span className="flex items-center gap-2">
                     <LocateFixed size={18} aria-hidden />
                     {t('fromCurrentLocation')}
@@ -421,7 +427,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
 
               <p className="mt-6 mb-2 text-xs font-bold text-app-text-muted">{t('pickRegionInstead')}</p>
               <select
-                value={useGps ? '' : (region ?? '')}
+                value={useGps === true ? '' : (region ?? '')}
                 onChange={(e) => {
                   const next = (e.target.value || null) as Region | null;
                   setRegion(next);
