@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>고요한 성지로 초대합니다 — 홈 재설계 브리핑</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F6F3EE; --ink:#1E222B; --navy:#1F2F55; --gold:#B08A2E; --muted:#676B75;
+    --line:#D9D3C8; --panel:#FFFFFF; --panel-2:#EFEAE1; --ok:#2F6B3A; --warn:#9A5B12; --bad:#8E2B2B;
+    --font-display:'Gowun Batang','Noto Serif KR',serif;
+    --font-body:'Noto Sans KR','Malgun Gothic',sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#171A21; --ink:#ECE8E0; --navy:#9FB3E0; --gold:#D3AE55; --muted:#A3A7B2;
+      --line:#343947; --panel:#1F232D; --panel-2:#262B37; --ok:#7BC48A; --warn:#E0A75A; --bad:#E08A8A;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#171A21; --ink:#ECE8E0; --navy:#9FB3E0; --gold:#D3AE55; --muted:#A3A7B2;
+    --line:#343947; --panel:#1F232D; --panel-2:#262B37; --ok:#7BC48A; --warn:#E0A75A; --bad:#E08A8A;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.65;
+       padding-block:32px 64px;padding-inline:20px}
+  .wrap{max-width:1040px;margin:0 auto}
+  h1,h2,h3{font-family:var(--font-display);font-weight:700;text-wrap:balance;margin:0}
+  h1{font-size:2.1rem;line-height:1.25}
+  h2{font-size:1.45rem;margin-top:0;padding-bottom:8px;border-bottom:2px solid var(--navy)}
+  h3{font-size:1.1rem;font-family:var(--font-body);font-weight:700}
+  .eyebrow{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .lead{font-size:1.05rem;max-width:62ch}
+  .meta{color:var(--muted);font-size:.9rem}
+  section{margin-top:44px;display:grid;gap:16px}
+  p{margin:0;max-width:72ch}
+  table{width:100%;border-collapse:collapse;font-size:.92rem;background:var(--panel)}
+  th,td{padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+  th{background:var(--panel-2);font-weight:700;font-size:.85rem}
+  tr:last-child td{border-bottom:0}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line)}
+  .pill{display:inline-block;padding:1px 8px;border:1px solid var(--line);font-size:.78rem;font-weight:700;white-space:nowrap}
+  .ok{color:var(--ok);border-color:currentColor} .warn{color:var(--warn);border-color:currentColor} .bad{color:var(--bad);border-color:currentColor}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
+  .note{border-left:3px solid var(--gold);padding:10px 14px;background:var(--panel);font-size:.92rem}
+  .danger{border-left-color:var(--bad)}
+  ul{margin:0;padding-left:1.2em} li{margin:3px 0}
+  code{font-family:ui-monospace,Consolas,monospace;font-size:.86em;background:var(--panel-2);padding:1px 5px}
+
+  /* ── 와이어프레임 ── */
+  .wire{background:var(--panel);border:1px solid var(--line);padding:14px;display:grid;gap:8px;font-size:.8rem;color:var(--muted)}
+  .wire .bar{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px dashed var(--line);padding:8px 10px}
+  .wire .search{flex:1;border:1.5px solid var(--navy);padding:6px 10px;color:var(--navy);font-weight:700}
+  .wire .hero{border:1px solid var(--line);background:var(--panel-2);display:grid;place-items:center;gap:4px;text-align:center;padding:26px 12px}
+  .wire .hero b{font-family:var(--font-display);font-size:1.15rem;color:var(--ink);font-weight:700}
+  .wire .dots{letter-spacing:.35em}
+  .wire .entries{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:var(--panel-2);padding:8px}
+  .wire .entry{border:1.5px solid var(--navy);background:var(--panel);padding:12px 10px;color:var(--ink);font-weight:700;text-align:center}
+  .wire .entry small{display:block;font-weight:400;color:var(--muted);margin-top:2px}
+  .wire .cards{display:grid;gap:8px}
+  .wire .card{border:1px solid var(--line);aspect-ratio:4/3;display:grid;grid-template-rows:1fr auto}
+  .wire .card i{background:var(--panel-2);display:block}
+  .wire .card span{padding:4px 6px;color:var(--ink);font-size:.72rem}
+  .wire .tabs{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);padding-top:8px;text-align:center;color:var(--ink);font-weight:700}
+  .pc .cards{grid-template-columns:repeat(3,1fr)}
+  .mobile{max-width:300px;margin:0 auto}
+  .mobile .cards{grid-template-columns:repeat(2,1fr)}
+  .mobile .entries{grid-template-columns:1fr}
+  .mobile .hero{padding:32px 12px}
+  .cap{font-size:.82rem;color:var(--muted);text-align:center}
+
+  /* ── 질문 흐름 ── */
+  .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+  @media (max-width:760px){.flow{grid-template-columns:1fr}}
+  .step{background:var(--panel);border:1px solid var(--line);padding:10px 12px;font-size:.88rem;display:grid;gap:4px}
+  .step .q{font-weight:700;color:var(--ink)}
+  .step .does{color:var(--muted);font-size:.82rem}
+  .step .n{font-family:var(--font-display);color:var(--gold);font-size:1.3rem;line-height:1}
+  .result{background:var(--panel-2);border:1px solid var(--line);padding:12px 14px;font-size:.9rem;display:grid;gap:4px}
+
+  /* ── 상세 붐빔 견본 ── */
+  .detail{background:var(--panel);border:1px solid var(--line);max-width:420px}
+  .detail .photo{aspect-ratio:16/9;background:var(--panel-2);display:grid;place-items:center;color:var(--muted);font-size:.8rem}
+  .detail .body{padding:12px 14px;display:grid;gap:6px}
+  .detail .name{font-family:var(--font-display);font-size:1.2rem;font-weight:700}
+  .crowd{display:flex;gap:8px;align-items:center;font-size:.9rem}
+  .crowd .lvl{padding:2px 10px;border:1px solid var(--ok);color:var(--ok);font-weight:700}
+  .crowd .why{color:var(--muted);font-size:.78rem}
+  footer{margin-top:56px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+  @media print{body{padding:0} .wire,.tablewrap,.step{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header style="display:grid;gap:10px">
+  <div class="eyebrow">Visit Holy Korea · 홈 재설계 브리핑</div>
+  <h1>고요한 성지로 초대합니다.</h1>
+  <p class="lead">2026-09-16(수) 12:00 회의용. 9/15 밤 사장님과 정리한 <b>홈 첫 화면 구조 · 확정 사항 · 기능별 데이터 요구 · 디자인 참고</b>를 한 장에 모았다. 개발자(승현·동인)가 이 파일만 보고 화면을 그릴 수 있게 쓴다.</p>
+  <p class="meta">작성 2026-09-16 00:40 · 기준 저장소 <code>main 3d309fc</code>(재기획 병합본) · 배포본은 9/15 21:19 에 이 판으로 바뀜</p>
+</header>
+
+<section>
+  <div class="eyebrow">회의 목표</div>
+  <h2>이 회의가 끝나면 정해져 있어야 할 것 두 가지</h2>
+  <div class="grid2">
+    <div class="note"><b>① 랜딩(홈) 화면에서 보여줄 기능 확정</b><br>아래 「홈 첫 화면 구조」가 그 제안이다. 넣을 것 4개 · 하단 탭 5개 · 3×2 카드.</div>
+    <div class="note"><b>② 그 기능별 백엔드·DB 정리</b><br>아래 「기능별 데이터 요구」 표. 무엇이 이미 DB 에 있고, 무엇이 실시간 API 이고, 무엇이 비어 있는지.</div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">홈 첫 화면 구조</div>
+  <h2>브라우저(1280)와 휴대폰(430) — 같은 요소, 다른 배치</h2>
+  <p>웹앱이라 브라우저와 휴대폰에서 다르게 보인다. <b>요소는 같고 열 수만 다르게</b> 잡는다. 3×2 카드는 브라우저에서 3열, 휴대폰에서 2열.</p>
+  <div class="grid2" style="align-items:start">
+    <div>
+      <div class="wire pc">
+        <div class="bar"><span>로고 VisitHolyKorea</span><span class="search">🔍 성지 이름·지역으로 검색</span><span>글자 · 언어</span></div>
+        <div class="hero"><b>고요한 성지로 초대합니다.</b><span>히어로 사진 5장 · 6초마다 페이드 · 누르면 그 성지 상세</span><span class="dots">● ○ ○ ○ ○</span></div>
+        <div class="entries">
+          <div class="entry">여기서 가까운 성지·성당 찾기<small>현재 위치 기준, 가까운 순</small></div>
+          <div class="entry">마음 상태로 고르는 오늘의 성지 일정<small>상단 짧은 버튼: 「오늘의 성지 일정」</small></div>
+        </div>
+        <div class="cards">
+          <div class="card"><i></i><span>특색 성당 1</span></div><div class="card"><i></i><span>특색 성당 2</span></div><div class="card"><i></i><span>특색 성당 3</span></div>
+          <div class="card"><i></i><span>특색 성당 4</span></div><div class="card"><i></i><span>특색 성당 5</span></div><div class="card"><i></i><span>특색 성당 6</span></div>
+        </div>
+        <div class="tabs"><span>홈</span><span>지도</span><span>기록</span><span>홈화면 추가</span><span>전체</span></div>
+      </div>
+      <p class="cap">브라우저 1280px — 카드 3열</p>
+    </div>
+    <div>
+      <div class="wire mobile">
+        <div class="bar"><span>로고</span><span class="search">🔍 검색</span></div>
+        <div class="hero"><b>고요한 성지로<br>초대합니다.</b><span>사진 5장 · 6초</span><span class="dots">● ○ ○ ○ ○</span></div>
+        <div class="entries">
+          <div class="entry">여기서 가까운 성지·성당 찾기</div>
+          <div class="entry">마음 상태로 고르는<br>오늘의 성지 일정</div>
+        </div>
+        <div class="cards">
+          <div class="card"><i></i><span>특색 1</span></div><div class="card"><i></i><span>특색 2</span></div>
+          <div class="card"><i></i><span>특색 3</span></div><div class="card"><i></i><span>특색 4</span></div>
+          <div class="card"><i></i><span>특색 5</span></div><div class="card"><i></i><span>특색 6</span></div>
+        </div>
+        <div class="tabs"><span>홈</span><span>지도</span><span>기록</span><span>추가</span><span>전체</span></div>
+      </div>
+      <p class="cap">휴대폰 430px — 카드 2열, 입구 두 개는 세로</p>
+    </div>
+  </div>
+  <div class="note danger"><b>충돌 하나 — 하단 탭.</b> 지금 배포된 재기획 판은 <b>홈 · 성지 찾기 · 고요 속으로 · 내 기록 · 더보기</b>다. 사장님 안은 <b>홈 · 지도 · 기록 · 홈화면 추가 · 전체</b>. 회의에서 어느 쪽으로 갈지 <b>명시적으로</b> 정해야 한다. 「성지 찾기」는 헤더 검색창이 흡수하고, 「고요 속으로」는 삭제가 결정됐으니 남는 쟁점은 「지도」와 「홈화면 추가」 두 탭이다.</div>
+</section>
+
+<section>
+  <div class="eyebrow">확정 사항</div>
+  <h2>9/15 밤 사장님이 정한 것</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th style="width:22%">항목</th><th>결정</th><th style="width:26%">비고</th></tr></thead>
+    <tbody>
+      <tr><td>전체 느낌</td><td><b>「고요한 성지로 초대합니다.」</b> 사진이 말하는 계열(글자 최소·사진 큼)</td><td>참고 40곳 검토 중 — 아래 「디자인 참고」</td></tr>
+      <tr><td>헤더</td><td><b>일반 검색</b>(이름·지역). 검색창을 가로로 크게, 안에 옅은 안내 문구</td><td><b>미카엘 챗봇·페르소나는 삭제.</b> 9/14 에 승현 님께 "페르소나 강화" 부탁드린 것 → 취소를 직접 알려야 함</td></tr>
+      <tr><td>히어로</td><td>사진 5장 — <b>명동대성당 · 대흥동 성당 · 공세리 성당 · 솔뫼성지 · 해미성지</b>. 오른쪽→왼쪽 자동 넘김, 누르면 상세</td><td>5곳 모두 사진 있음(9/16 DB 실측). 도슨트 원고 5곳 전부 있음(대흥동·공세리는 9/16 신규 작성)</td></tr>
+      <tr><td>히어로 속도</td><td>한 장 <b>6초</b> · 넘김 0.6~0.8초 페이드 · 손대면 멈춤 · 아래 점 5개 · 「동작 줄이기」면 자동 넘김 끔</td><td>40대 기준 권장값. 써 보고 조정</td></tr>
+      <tr><td>홈 큰 카드</td><td>제목 <b>「마음 상태로 고르는 오늘의 성지 일정」</b> · 상단 짧은 버튼 <b>「오늘의 성지 일정」</b></td><td>구 마음나침반. 인사말·마음 이모지 5개는 그대로</td></tr>
+      <tr><td>질문</td><td><b>5문항.</b> 답을 고르면 <b>자동으로 다음 질문</b>(다음 버튼 없음). 「한 줄 남기기」는 결과 화면 맨 아래로</td><td>아래 「오늘의 성지 일정」</td></tr>
+      <tr><td>붐빔(구 고요 속으로)</td><td>관광공사 API 로 <b>성지 인근</b> 밀집도 계산 → 상세 페이지 <b>대표 사진 아래</b> 「인근이 한산 · 보통 · 복잡」</td><td>사진 위에 얹지 않는다(글자 겹침). 산식은 그대로</td></tr>
+      <tr><td>3×2 카드</td><td><b>특색 있는 성당 6곳.</b> 브라우저 폭에 맞춰 크기 조정, 누르면 상세 → 설명글·오디오 도슨트</td><td>선정 기준: 사진 있음 + 도슨트 있으면 우선 + 교구 분산. 후보는 아래</td></tr>
+      <tr><td>하단 탭</td><td>홈 · 지도 · 기록 · 홈화면 추가 · 전체</td><td>⚠ 재기획 판과 충돌 — 위 붉은 상자</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <div class="eyebrow">히어로 5곳 · 특색 성당 6곳</div>
+  <h2>사진과 도슨트가 실제로 있는가 — 9/16 00:20 DB 실측</h2>
+  <div class="grid2" style="align-items:start">
+    <div class="tablewrap"><table>
+      <thead><tr><th colspan="4">히어로 5곳 (사장님 지정)</th></tr><tr><th>성지</th><th>교구</th><th>사진</th><th>도슨트</th></tr></thead>
+      <tbody>
+        <tr><td>명동대성당</td><td>서울</td><td><span class="pill ok">있음</span></td><td><span class="pill ok">5포인트</span></td></tr>
+        <tr><td>대흥동 성당</td><td>대전</td><td><span class="pill ok">있음</span></td><td><span class="pill ok">5포인트 · 9/16 신규</span></td></tr>
+        <tr><td>공세리성지성당</td><td>대전</td><td><span class="pill ok">있음</span></td><td><span class="pill ok">5포인트 · 9/16 신규</span></td></tr>
+        <tr><td>솔뫼성지</td><td>대전</td><td><span class="pill ok">있음</span></td><td><span class="pill ok">5포인트</span></td></tr>
+        <tr><td>해미순교성지</td><td>대전</td><td><span class="pill ok">있음</span></td><td><span class="pill ok">5포인트</span></td></tr>
+      </tbody>
+    </table></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th colspan="4">특색 성당 6곳 — 후보 (기준 (나): 사진 + 도슨트 우선 + 교구 분산)</th></tr><tr><th>성당</th><th>교구</th><th>왜 특색인가</th><th>도슨트</th></tr></thead>
+      <tbody>
+        <tr><td>전동성당</td><td>전주</td><td>한옥마을 입구의 회색 벽돌 로마네스크. 최초 순교자 윤지충의 자리</td><td><span class="pill ok">있음</span></td></tr>
+        <tr><td>약현성당</td><td>서울</td><td>1892년, 명동보다 6년 앞선 한국 최초 서양식 성당</td><td><span class="pill ok">있음</span></td></tr>
+        <tr><td>계산 주교좌대성당</td><td>대구</td><td>근대골목 한복판의 고딕 첨탑. 대구 최초 성당</td><td><span class="pill warn">DB 소개글로 재생</span></td></tr>
+        <tr><td>답동주교좌성당</td><td>인천</td><td>차이나타운 계단 위 로마네스크. 개항과 함께 선 성당</td><td><span class="pill warn">DB 소개글로 재생</span></td></tr>
+        <tr><td>진주 문산성당</td><td>마산</td><td>한옥 기와지붕과 고딕 첨탑이 <b>나란히</b> 선 유일한 풍경</td><td><span class="pill warn">DB 소개글로 재생</span></td></tr>
+        <tr><td>풍수원성당</td><td>원주</td><td>산골 고딕. 박해를 피해 들어온 신자들이 세운 성당</td><td><span class="pill warn">DB 소개글로 재생</span></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <p class="meta">도슨트 원고가 없는 성지도 오디오는 나온다 — 앱이 DB 소개글을 읽어 준다(<code>features/docent/lib/chapters.ts</code>). 다만 포인트별 투어는 원고 있는 곳만. 대체 후보: 가회동(서울, 첫 미사 자리) · 참회와 속죄의 성당(의정부) · 언양성당(부산, 화강석). 사진 없는 교구: 광주 · 안동 · 청주 · 군종 — 후보에서 뺐다.</p>
+</section>
+
+<section>
+  <div class="eyebrow">오늘의 성지 일정</div>
+  <h2>5문항 — 답을 고르면 바로 다음으로</h2>
+  <div class="flow">
+    <div class="step"><span class="n">1</span><span class="q">지금 마음에 가장 가까운 색</span><span class="does">→ 어느 성지가 나올지 정한다 (감정 태그)</span></div>
+    <div class="step"><span class="n">2</span><span class="q">요즘 어떤 것에 마음을 쓰고 계세요?</span><span class="does">→ 성지는 안 바꾸고 결과 첫 문장만 바꾼다</span></div>
+    <div class="step"><span class="n">3</span><span class="q">어디서 출발하세요?</span><span class="does">→ 가까운 순 정렬, 반경의 기준점</span></div>
+    <div class="step"><span class="n">4</span><span class="q">오늘 얼마나 시간을 낼 수 있으세요?</span><span class="does">→ 반나절 · 하루 · 1박2일 = 반경과 일정 줄 수</span></div>
+    <div class="step"><span class="n">5</span><span class="q">이번 길은 몇 분이 함께하세요?</span><span class="does">→ 결과 문장. 옛 「혼자/함께」 흡수</span></div>
+  </div>
+  <div class="grid2">
+    <div class="tablewrap"><table>
+      <thead><tr><th>4번 답</th><th>반경(출발지 기준)</th><th>결과 일정</th></tr></thead>
+      <tbody>
+        <tr><td>반나절</td><td>약 30 km</td><td>오전 성지 → 오후 근처 관광지 (2줄)</td></tr>
+        <tr><td>하루</td><td>약 80 km</td><td>오전 성지 → 점심 근처 식당 → 오후 근처 관광지 (3줄)</td></tr>
+        <tr><td>1박2일 이상</td><td>제한 없음</td><td>1일차 3줄 + 「2일차 일정은 준비 중이에요」</td></tr>
+      </tbody>
+    </table></div>
+    <div class="result">
+      <b>결과 화면 (하루 · 예시)</b>
+      <span>요즘 일로 마음이 많이 쓰이셨죠 … ← 2번 답에 따른 첫 문장</span>
+      <span>오전 ○○성지 (출발지에서 N km)</span>
+      <span>점심 △△식당 · 오후 □□관광지 ← TourAPI 실시간</span>
+      <span>[ 다른 성지로 ] ← 답을 다시 하지 않고 갈아탄다</span>
+      <span style="color:var(--muted)">──</span>
+      <span>일정을 보고 한 줄 남기기 (건너뛰기 가능) ← 구 6번 질문, 여기로 이동</span>
+    </div>
+  </div>
+  <div class="note">반경 안에 갈 곳이 없으면 몰래 넓히지 않고 <b>"이 시간으로 갈 수 있는 곳이 없어요 — 시간을 늘려 보시겠어요?"</b>. 2일차는 지금 만들지 않는다. 뺀 질문: 성별(붙일 자리 없음) · 참여 방식(1번과 중복).</div>
+</section>
+
+<section>
+  <div class="eyebrow">인근 붐빔 표시</div>
+  <h2>성지 상세 — 사진 아래 한 줄</h2>
+  <div class="grid2" style="align-items:start">
+    <div class="detail">
+      <div class="photo">대표 사진 (16:9)</div>
+      <div class="body">
+        <div class="name">공세리성지성당</div>
+        <div class="crowd"><span class="lvl">인근이 한산합니다</span><span class="why">관광공사 집중률 · 오늘 축제 0건 · 주변 관광 인프라 기준 · 추정</span></div>
+        <span class="meta">충남 아산시 인주면 공세리성당길 10 · 대전교구</span>
+      </div>
+    </div>
+    <div style="display:grid;gap:10px">
+      <p>주어는 항상 <b>"인근"</b>이다. 점수가 재는 것은 성지 안 사람 수가 아니라 <b>주변의 축제·명소·숙박 밀도</b>라서, "조용한 성지"라고 쓰면 거짓 주장이 된다.</p>
+      <p>데이터: 상세를 열 때 TourAPI 실시간 호출(축제 1 + 주변 인프라 1). <b>저장하지 않는다</b>(ADR 0002). 좌표 없는 성지·API 실패 → "인근 붐빔 정보를 불러오지 못했어요".</p>
+      <p>산식은 <code>crowding-score.ts</code> 그대로. 동인 님이 조사 중인 관광공사 밀집도 API · SK 지오비전은 <b>이 자리의 근거를 바꾸는 일</b>이지 화면을 바꾸는 일이 아니다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">회의 목표 ②</div>
+  <h2>기능별 데이터 요구 — 무엇이 있고 무엇이 비었나</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th style="width:18%">홈 기능</th><th>필요한 데이터</th><th style="width:16%">출처</th><th style="width:22%">지금 상태 (9/16 실측)</th></tr></thead>
+    <tbody>
+      <tr><td>히어로 5장</td><td><code>holy_sites.image_url</code> · 이름 · id (상세 링크) · 도슨트 원고</td><td>DB + <code>data/docent/*.json</code></td><td><span class="pill ok">5곳 전부 있음</span></td></tr>
+      <tr><td>헤더 검색</td><td><code>name</code> · <code>name_compact</code> · <code>diocese</code> · <code>location</code></td><td>DB</td><td><span class="pill ok">있음</span> — 기존 검색 그대로</td></tr>
+      <tr><td>가까운 성지·성당</td><td><code>lat</code> · <code>lng</code> (208곳) + 본당 주소록 좌표 + 브라우저 위치 권한</td><td>DB + GPS</td><td><span class="pill warn">좌표 없는 성지 1곳</span></td></tr>
+      <tr><td>오늘의 성지 일정</td><td>① <code>emotion_tag</code>(1번 답) ② 좌표(3번) ③ <b>소요시간 · 규모</b>(4번 근거) ④ 근처 식당·관광지</td><td>DB · DB · <b>DB 신설(B-2)</b> · TourAPI 실시간</td><td><span class="pill warn">감정 태그 빈 4곳 (B-1)</span> <span class="pill bad">소요시간·규모 칸 없음 (B-2)</span></td></tr>
+      <tr><td>인근 붐빔</td><td>관광공사 집중률 · 오늘 축제 · 주변 인프라 (좌표 기준)</td><td>TourAPI 실시간</td><td><span class="pill ok">산식 있음</span> — 자리만 상세로 이동(A-2)</td></tr>
+      <tr><td>특색 성당 6곳</td><td>6곳 id 고정 목록 + 사진 + 소개글</td><td>코드 상수 또는 DB 플래그</td><td><span class="pill warn">6곳 확정 필요</span> — 후보 위 표</td></tr>
+      <tr><td>오디오 도슨트</td><td>포인트 원고(있으면) / 소개글(없으면) → TTS</td><td><code>data/docent</code> · DB</td><td><span class="pill ok">15곳 원고</span> (전부 초안, 현장 미확인)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><b>B-2(소요시간·규모)는 출처 있는 값만 넣는다.</b> 소개글·공식 안내·주소록에서 확인되는 것만. 없으면 <code>null</code>, 화면은 "정보 없음". 더미 금지(CLAUDE.md). 표본 20곳은 사람이 확인.</div>
+</section>
+
+<section>
+  <div class="eyebrow">디자인 참고</div>
+  <h2>세 사이트에서 가져올 것 — 그리고 안 가져올 것</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th style="width:20%">참고</th><th>그 사이트의 방식</th><th>우리 앱에 이렇게</th></tr></thead>
+    <tbody>
+      <tr><td><b>civitatis.com</b> 카드</td><td>사진이 카드의 2/3, 아래 제목·소요시간·평점·가격 <b>네 줄</b>. 글자 굵고 큼. 색은 하나</td><td>성지 카드 = 사진 + <b>이름 · 거리 · 소요시간 · 인근 붐빔</b>. 분류 배지·주소는 뺀다</td></tr>
+      <tr><td>civitatis 격자</td><td>PC 3~4열, 폰 2열. 카드 비율 전부 같음</td><td>3×2 격자. <b>사진 비율 4:3 통일</b>(잘라서라도)</td></tr>
+      <tr><td>civitatis 상세</td><td>사진 여러 장 나란히 → 설명 → 예약 상자 고정</td><td>사진 <b>있는 만큼</b> 나란히 → 설명 → 「찾아가는 길 · 미사 시간」 상자</td></tr>
+      <tr><td><b>tripadvisor</b> 명소</td><td>맨 위 분류 칩, 카드에 사진·이름·평점·후기 수 한 줄</td><td>목록 맨 위 칩: 순교성지 · 성당 · 순례길 · 피정의집. 평점 대신 <b>"다녀온 순례자 N명"</b></td></tr>
+      <tr><td>tripadvisor 섹션</td><td>"지금 인기 · 근처 · 이런 것도" 가로 줄 여러 개</td><td>홈 아래 <b>두 줄만</b>: 여기서 가까운 · 이번 주 축제 근처</td></tr>
+      <tr><td><b>traveloregon.com</b> 히어로</td><td>사진 한 장 꽉 채움 + 짧은 초대문 한 줄</td><td>「고요한 성지로 초대합니다.」 한 줄만</td></tr>
+      <tr><td>traveloregon 지역</td><td>주 지도를 7개 지역으로 나눠 누르게</td><td>교구 지도(이미 있음)를 「지도」 탭에 — 홈에는 안 넣음</td></tr>
+      <tr><td>traveloregon 목록</td><td>큰 카드·작은 카드 섞은 잡지식</td><td><b>안 가져옴</b> — 50대에겐 균일한 격자가 읽기 쉽다</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid3">
+    <div class="note"><b>사진이 말하는 계열 — 사장님 검토 중 (40곳)</b><br>관광청: newzealand · visitnorway · faroeislands · iceland · bhutan · slovenia · greenland · sweden · tasmania · oregon · portugal · ireland<br>순례: <b>구마노 고도(tb-kumano.jp)</b> · 시코쿠 · caminoways · <b>fatima.pt</b> · lourdes-france<br>호텔·잡지: aman · hoshinoya · belmond · singita · sixsenses · soneva · rosewood · oneandonly · fogoislandinn · explora · blacktomato · cereal · suitcase · kinfolk · afar · cntraveler · natgeo travel · airbnb · patagonia</div>
+    <div class="note"><b>판매 사이트 — 헤매지 않게 (10곳)</b><br>getyourguide · viator · klook · airbnb experiences · booking · headout · tourradar · <b>intrepidtravel(체력 난이도 표시)</b> · <b>civitatis</b> · tripadvisor</div>
+    <div class="note"><b>이 파일 자체가 견본이다</b><br>제목 명조(Gowun Batang) · 본문 Noto Sans KR · 돌·종이색 바탕 · 남색 한 가지 + 금색 소량 · 알약 카드 없음 · 그라데이션 없음. 팀 문서 A-3 "AI 냄새 제거" 방향 그대로.</div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">일 나누기</div>
+  <h2>누가 무엇을 — 9/15 팀 문서 번호 그대로</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>번호</th><th>무엇</th><th style="width:14%">담당</th><th style="width:30%">이 브리핑에서 바뀐 것</th></tr></thead>
+    <tbody>
+      <tr><td>A-1</td><td>고요 속으로 제거 → <b>「오늘의 성지 일정」</b>(5문항 · 자동 진행 · 반경)</td><td>개발</td><td>이름 확정. 질문 6→5, 「한 줄 남기기」 결과 화면으로</td></tr>
+      <tr><td>A-2</td><td>상세에 「인근이 한산·보통·복잡」 — 사진 아래</td><td>개발(동인: 데이터 근거)</td><td>위치 "사진 아래"로 확정</td></tr>
+      <tr><td>A-3</td><td>글꼴·색·반경·라벨 — AI 냄새 제거</td><td>개발</td><td>이 파일의 토큰을 출발점으로</td></tr>
+      <tr><td>A-4</td><td>헤더 검색창 확대 · 더보기 가로 배치 · 상세 사진 나란히</td><td>개발</td><td>챗봇 삭제 확정</td></tr>
+      <tr><td>A-5</td><td>히어로 5장 슬라이드</td><td>개발</td><td>5곳·속도 확정 (위 표)</td></tr>
+      <tr><td><b>신규</b></td><td>홈 3×2 특색 성당 카드</td><td>개발 · 6곳 선정은 사장님</td><td>후보 6곳 제시</td></tr>
+      <tr><td>B-1</td><td>감정 태그 빈 4곳</td><td>AI</td><td>—</td></tr>
+      <tr><td>B-2</td><td>소요시간·규모 칸 + 208곳 (출처 있는 것만)</td><td>AI</td><td>"걷기 난이도" 칸을 같이 둘지 — <b>질문</b></td></tr>
+      <tr><td>B-3</td><td>사진 0% 교구 5곳에 1장씩</td><td>동인(2-1)</td><td>—</td></tr>
+      <tr><td>B-4</td><td>영어 감수</td><td>미정</td><td>es·fr·pt·it 안 함</td></tr>
+      <tr><td>—</td><td>디자인 참고 40곳 검토 → 「이 느낌」 5곳 추리기</td><td>사장님</td><td>추린 뒤 디자인 지시서로</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><b>브랜치 규칙(팀 문서):</b> <code>main</code> 직접 커밋 금지 · 작업은 <code>feat/…</code> <code>design/…</code> <code>data/…</code> 브랜치 → PR · main 병합은 <b>목요일 한 번</b>(= Vercel 배포) · 합치기 전 <code>npm run verify</code>. 일정: 목 9/17 17:00 개발 완료 → 토 9/19 QA → 일 9/20 14~18시 센터 → 9/21 16:00 제출.</div>
+</section>
+
+<section>
+  <div class="eyebrow">회의에서 정할 것</div>
+  <h2>답이 없으면 개발이 멈추는 질문</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th style="width:5%">#</th><th>질문</th><th style="width:34%">권장</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>하단 탭 — 재기획 5탭 vs 사장님 5탭 (「지도」 · 「홈화면 추가」 넣나)</td><td>사장님 안. 「홈화면 추가」는 폰에서만 보이고 PC 에선 숨김</td></tr>
+      <tr><td>2</td><td>특색 성당 6곳 최종 확정</td><td>위 후보 6곳</td></tr>
+      <tr><td>3</td><td>B-2 에 「걷기 난이도(계단·경사)」 칸을 같이 두나 — 50대 핵심 정보</td><td>칸은 만들되 출처 있는 곳만 채움</td></tr>
+      <tr><td>4</td><td>붐빔 근거 데이터 — 관광공사 집중률 그대로 vs 밀집도 API · SK 지오비전 추가 (동인 조사)</td><td>목요일까지는 그대로. 추가는 제출 후</td></tr>
+      <tr><td>5</td><td>QA 2인(태우 · 성빈) — 9/15 12:06 질문에 답 없음. 교체하나</td><td>수요일 정오까지 답 없으면 교체</td></tr>
+      <tr><td>6</td><td>승현 님 — 미카엘 챗봇 페르소나 작업 중단 통보</td><td>이 회의에서 직접</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <div class="eyebrow">기록</div>
+  <h2>9/15 밤 — 무엇을 했고 무엇을 배웠나</h2>
+  <ul>
+    <li><b>크롬 화면 분석 환경</b>(agent-browser + CDP)으로 17개 화면 × 한국어·큰 글자·스페인어 40여 장 비교 → 11건 발견, 9건 수정. <b>그런데 옛 UI 기준이었다.</b> 재기획 판이 17:15 main 에 합쳐지고 21:19 배포됐는데, 20:30 촬영분은 그 전 것. 수정 2커밋은 <code>design/consistency-old-ia</code> 브랜치에 보관. 살릴 것: 제목 공용 부품(<code>PageTitle</code>) · 붐빔 배지 단순화.</li>
+    <li>배포본 분석 전에 <code>curl -sI</code> 로 <code>Last-Modified</code> 를 보고 <b>어느 커밋이 떠 있는지</b> 먼저 확인한다 — 스킬에 반영 예정.</li>
+    <li>도슨트 원고 2곳 신규(<b>대흥동 성당 · 공세리성지성당</b>, 각 5포인트, 한·영). 문헌 기반 초안 — 현장 확인 전.</li>
+    <li>디스코드 9/10~9/15 전체 읽음. 팀 5인 · 역할 · 일정 · 브랜치 규칙을 메모리에 저장.</li>
+    <li>실수 하나: <code>git reset --hard</code> 로 다른 세션의 커밋 안 된 <code>AGENTS.md</code> 수정(1~2줄)이 사라짐. 내용은 복구 못 함.</li>
+  </ul>
+</section>
+
+<footer>이 파일: <code>docs/10-product/재기획/2026-09-16-홈-재설계-브리핑.html</code> · 브라우저에서 열어 인쇄 → PDF 로 저장하면 회의 자료가 된다 · 관련 문서: <code>docs/DSH/2026-09-15-노력-대비-성과-우선순위.md</code> · <code>docs/10-product/기획-검토/2026-09-15-오늘의-성지-일정-결정.md</code></footer>
+</div>
+</body>
+</html>
