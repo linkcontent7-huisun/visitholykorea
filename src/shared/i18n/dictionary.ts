@@ -307,6 +307,39 @@ export const DICTIONARY = {
     pt: 'Informações de visita de {count} santuários católicos da Coreia, com o movimento previsto a partir de dados turísticos.',
     it: 'Informazioni di visita per {count} santuari cattolici coreani, con l’affluenza prevista dai dati turistici.',
   },
+  // 오늘의 성지 일정 — 고요 속으로 자리를 이어받은 대표 기능 (2026-09-15). 영어 외 언어는 영어 값(언어 선택기에 안 나옴).
+  todayPlanTab: {
+    ko: '오늘의 성지 일정',
+    en: "Today's Plan",
+    es: "Today's Plan",
+    fr: "Today's Plan",
+    pt: "Today's Plan",
+    it: "Today's Plan",
+  },
+  todayPlanShort: {
+    ko: '성지 일정',
+    en: "Today's Plan",
+    es: "Today's Plan",
+    fr: "Today's Plan",
+    pt: "Today's Plan",
+    it: "Today's Plan",
+  },
+  todayPlanHeroTitle: {
+    ko: '마음 상태로 고르는 오늘의 성지 일정',
+    en: 'A shrine day planned around how you feel',
+    es: 'A shrine day planned around how you feel',
+    fr: 'A shrine day planned around how you feel',
+    pt: 'A shrine day planned around how you feel',
+    it: 'A shrine day planned around how you feel',
+  },
+  todayPlanHeroSub: {
+    ko: '지금 마음을 고르면 성지 한 곳으로 하루를 짜 드려요.',
+    en: 'Pick how you feel and we plan a day around one shrine.',
+    es: 'Pick how you feel and we plan a day around one shrine.',
+    fr: 'Pick how you feel and we plan a day around one shrine.',
+    pt: 'Pick how you feel and we plan a day around one shrine.',
+    it: 'Pick how you feel and we plan a day around one shrine.',
+  },
   homeQuietEntrySub: {
     ko: '가려던 관광지나 지역을 검색하면 예상 붐빔 정도와 주변의 비교적 한적한 성지를 보여줍니다.',
     en: 'Search a landmark or area to see expected crowding and comparatively quiet shrines nearby.',
@@ -1583,8 +1616,8 @@ export const DICTIONARY = {
 
   // 마음 나침반 — 7문항 안내 + 결과
   compassTitle: {
-    ko: '마음 나침반',
-    en: 'Heart Compass',
+    ko: '오늘의 성지 일정',
+    en: "Today's Plan",
     es: 'Brújula del corazón',
     fr: 'Boussole du cœur',
     pt: 'Bússola do coração',

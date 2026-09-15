@@ -1,4 +1,4 @@
-import { ChevronRight, Info, MessageSquare, Search, Wind } from 'lucide-react';
+import { CalendarHeart, ChevronRight, Info, MessageSquare, Search } from 'lucide-react';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -116,22 +116,22 @@ export default function HomePage() {
         </PageContainer>
       </section>
 
-      {/* 2. 고요 속으로 진입 */}
+      {/* 2. 오늘의 성지 일정 진입 — 고요 속으로 자리를 이어받음 (2026-09-15) */}
       <PageContainer className="pt-6">
         <Link
-          to={paths.quiet}
-          id="quiet-entry"
+          to={paths.compass}
+          id="plan-entry"
           className="flex items-center gap-4 rounded-[28px] bg-gradient-to-br from-brand-blue to-brand-violet p-5 text-white shadow-lg shadow-brand-violet/20 transition-transform active:scale-[0.99] lg:p-7"
         >
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white">
-            <Wind size={26} className="text-brand-blue" aria-hidden />
+            <CalendarHeart size={26} className="text-brand-blue" aria-hidden />
           </span>
           <span className="min-w-0 flex-1">
             <span className="block font-display text-xl font-bold leading-tight lg:text-2xl">
-              {t('quietHeroTitle')}
+              {t('todayPlanHeroTitle')}
             </span>
             <span className="mt-1 block text-sm leading-relaxed text-white/85">
-              {t('homeQuietEntrySub')}
+              {t('todayPlanHeroSub')}
             </span>
           </span>
           <ChevronRight size={22} className="shrink-0 opacity-80" aria-hidden />
