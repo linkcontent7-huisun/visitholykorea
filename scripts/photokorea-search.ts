@@ -10,8 +10,15 @@
  *      읽힐 수 있다. 채택한 사진은 공공누리 제1유형 저작물로 내려받아 우리 저장소에 올리고
  *      출처(포토코리아·사진가)를 적는 별도 단계로 처리한다.
  *
- * API: PhotoGalleryService1/gallerySearchList1 (keyword 는 제목·검색어 부분 일치).
- * 응답에는 라이선스 필드가 없으므로 채택 전 포토코리아 페이지에서 공공누리 유형을 확인한다.
+ * 두 API 를 본다 (9/15 실측: 두 API 의 수록 범위가 다르다 — 목포 성지·김수환 추기경 공원은 관광정보에만 있다).
+ *   - 사진(고품질): PhotoGalleryService1/gallerySearchList1 — 제목·검색어 부분 일치
+ *   - 관광정보: KorService2/searchKeyword2 — 제목 단어 단위 일치라 "목포"·"추기경"처럼 짧게 쳐야 나온다.
+ *     결과의 firstimage 가 대표 사진이고 contentid 로 detailImage2 를 더 부를 수 있다.
+ * 사진 API 응답에는 라이선스 필드가 없으므로 채택 전 포토코리아 페이지에서 공공누리 유형을 확인한다.
+ * 관광정보 사진은 TourAPI 응답의 일부다 — 저장 방식은 ADR 0002 를 따른다.
+ *
+ * 호출 수: 성지당 검색어 2~4개 × API 2개. 개발계정 일일 한도(1,000건)를 배포 앱과 나눠 쓰므로
+ * `--only photo|tour` 로 한쪽만 돌릴 수 있다.
  */
 
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -29,6 +36,8 @@ if (!serviceKey) {
 
 const limitIndex = process.argv.indexOf('--limit');
 const limit = limitIndex === -1 ? Infinity : Number(process.argv[limitIndex + 1]);
+const onlyIndex = process.argv.indexOf('--only');
+const only = onlyIndex === -1 ? 'both' : (process.argv[onlyIndex + 1] as 'photo' | 'tour');
 
 interface SiteRow {
   id: string;
@@ -39,7 +48,9 @@ interface SiteRow {
   category: string | null;
 }
 
+/** 두 API 의 결과를 같은 모양으로 맞춘다. source 로 어느 API 인지 남긴다. */
 interface GalleryItem {
+  source: 'photokorea' | 'tourinfo';
   galContentId: string;
   galTitle: string;
   galWebImageUrl: string;
@@ -47,6 +58,15 @@ interface GalleryItem {
   galPhotographer?: string;
   galPhotographyMonth?: string;
   galSearchKeyword?: string;
+}
+
+interface TourInfoItem {
+  contentid: string;
+  contenttypeid?: string;
+  title: string;
+  firstimage?: string;
+  addr1?: string;
+  modifiedtime?: string;
 }
 
 interface Candidate {
@@ -64,7 +84,7 @@ function keywordsFor(site: SiteRow): string[] {
 
   // 괄호 안 별칭 — "곡성 옥터 성지(곡성성당)" → "곡성성당"
   const paren = /\(([^)]+)\)/.exec(raw);
-  if (paren) out.add(paren[1].replace(/\s+/g, ''));
+  if (paren?.[1]) out.add(paren[1].replace(/\s+/g, ''));
   const base = raw.replace(/\([^)]*\)/g, '').trim();
 
   // 이름 전체(공백 제거) — "배론 성지" → "배론성지"
@@ -154,6 +174,49 @@ async function search(keyword: string): Promise<GalleryItem[]> {
   return items && typeof items === 'object' ? (items.item ?? []) : [];
 }
 
+/** 관광정보 검색. 사진 없는 결과는 버린다(대표 사진을 찾는 게 목적이므로). */
+async function searchTourInfo(keyword: string): Promise<GalleryItem[]> {
+  const q = new URLSearchParams({
+    serviceKey: serviceKey!,
+    numOfRows: '100',
+    pageNo: '1',
+    MobileOS: 'ETC',
+    MobileApp: 'VisitHolyKorea',
+    arrange: 'A',
+    _type: 'json',
+    keyword,
+  });
+  const res = await fetch(`https://apis.data.go.kr/B551011/KorService2/searchKeyword2?${q}`);
+  const text = await res.text();
+  let data: { response?: { header?: { resultCode?: string; resultMsg?: string }; body?: { items?: { item?: TourInfoItem[] } | '' } } };
+  try {
+    data = JSON.parse(text);
+  } catch {
+    throw new Error(`JSON 아님(한도 초과·서버 오류 가능): ${text.slice(0, 120)}`);
+  }
+  const header = data.response?.header;
+  if (header?.resultCode && header.resultCode !== '0000') throw new Error(`${header.resultCode} ${header.resultMsg}`);
+  const items = data.response?.body?.items;
+  const list = items && typeof items === 'object' ? (items.item ?? []) : [];
+  return list
+    .filter((i) => i.firstimage)
+    .map((i) => ({
+      source: 'tourinfo' as const,
+      galContentId: i.contentid,
+      galTitle: i.title,
+      galWebImageUrl: i.firstimage!,
+      galPhotographyLocation: i.addr1,
+      galPhotographer: `TourAPI 관광정보(contentTypeId ${i.contenttypeid ?? '?'})`,
+      galPhotographyMonth: i.modifiedtime?.slice(0, 6),
+      galSearchKeyword: '',
+    }));
+}
+
+/** 관광정보 검색은 단어 단위라 붙여 쓴 이름은 0건이 된다. 고유 지명·인명 조각만 쓴다. */
+function tourKeywordsFor(site: SiteRow): string[] {
+  return keywordsFor(site).filter((k) => !/성지|성당|공소|순교/.test(k) || k.length <= 4);
+}
+
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const csvCell = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`;
 
@@ -173,27 +236,34 @@ let calls = 0;
 
 for (const site of targets) {
   const seen = new Set<string>();
-  for (const keyword of keywordsFor(site)) {
-    let items: GalleryItem[];
-    try {
-      items = await search(keyword);
-      calls += 1;
-    } catch (e) {
-      errors.push(`${site.name} [${keyword}]: ${(e as Error).message}`);
-      await sleep(1000);
-      continue;
+  const plans: Array<[GalleryItem['source'], string[], (k: string) => Promise<GalleryItem[]>]> = [];
+  if (only !== 'tour') plans.push(['photokorea', keywordsFor(site), search]);
+  if (only !== 'photo') plans.push(['tourinfo', tourKeywordsFor(site), searchTourInfo]);
+  for (const [source, keywords, fn] of plans) {
+    for (const keyword of keywords) {
+      let items: GalleryItem[];
+      try {
+        items = await fn(keyword);
+        calls += 1;
+      } catch (e) {
+        errors.push(`${site.name} [${source}:${keyword}]: ${(e as Error).message}`);
+        await sleep(1000);
+        continue;
+      }
+      for (const item of items) {
+        const key = `${source}:${item.galContentId}`;
+        if (seen.has(key)) continue;
+        const scored = scoreItem(site, keyword, item);
+        if (!scored) continue;
+        seen.add(key);
+        candidates.push({ site, keyword, item, ...scored });
+      }
+      await sleep(250);
     }
-    for (const item of items) {
-      if (seen.has(item.galContentId)) continue;
-      const scored = scoreItem(site, keyword, item);
-      if (!scored) continue;
-      seen.add(item.galContentId);
-      candidates.push({ site, keyword, item, ...scored });
-    }
-    await sleep(250);
   }
   const n = candidates.filter((c) => c.site.id === site.id).length;
-  console.log(`${n > 0 ? '○' : '·'} ${site.diocese} ${site.name} — 후보 ${n}`);
+  const nt = candidates.filter((c) => c.site.id === site.id && c.item.source === 'tourinfo').length;
+  console.log(`${n > 0 ? '○' : '·'} ${site.diocese} ${site.name} — 후보 ${n} (관광정보 ${nt})`);
 }
 
 candidates.sort((a, b) => a.site.name.localeCompare(b.site.name, 'ko') || b.score - a.score);
@@ -212,20 +282,21 @@ const dir = join(ROOT, 'data', 'research');
 mkdirSync(dir, { recursive: true });
 
 const header = [
-  'use', 'site_id', 'site_name', 'diocese', 'site_location', 'keyword', 'score', 'reason',
+  'use', 'site_id', 'site_name', 'diocese', 'site_location', 'source', 'keyword', 'score', 'reason',
   'gal_content_id', 'gal_title', 'gal_image_url', 'gal_location', 'gal_photographer', 'gal_month', 'gal_keywords',
 ];
 const lines = [header.join(',')];
 for (const c of candidates) {
   lines.push(
     [
-      '', c.site.id, c.site.name, c.site.diocese, c.site.location, c.keyword, c.score, c.reason,
+      '', c.site.id, c.site.name, c.site.diocese, c.site.location, c.item.source, c.keyword, c.score, c.reason,
       c.item.galContentId, c.item.galTitle, c.item.galWebImageUrl, c.item.galPhotographyLocation,
       c.item.galPhotographer, c.item.galPhotographyMonth, c.item.galSearchKeyword,
     ].map(csvCell).join(','),
   );
 }
-const csvPath = join(dir, `photokorea_candidates_${today}.csv`);
+const suffix = only === 'both' ? '' : `_${only}`;
+const csvPath = join(dir, `photokorea_candidates_${today}${suffix}.csv`);
 writeFileSync(csvPath, '﻿' + lines.join('\n') + '\n');
 
 const withCandidates = new Map<string, Candidate[]>();
@@ -242,19 +313,19 @@ const md: string[] = [
   `- 후보 CSV: \`data/research/${csvPath.split('/').pop()}\` — \`use\` 열에 y 를 적어 채택 표시`,
   '- 점수: 제목=이름 5 · 검색어=이름 3 · 종교어 +2 · 같은 도 +2 · 다른 도 −3. 3점 미만은 버림',
   '',
-  '| 성지 | 교구 | 후보 | 최고 후보 제목 | 점수 | 촬영지 |',
-  '| --- | --- | --- | --- | --- | --- |',
+  '| 성지 | 교구 | 후보 | 최고 후보 제목 | 출처 | 점수 | 촬영지 |',
+  '| --- | --- | --- | --- | --- | --- | --- |',
 ];
 for (const [, list] of withCandidates) {
   const best = list.reduce((a, b) => (b.score > a.score ? b : a));
   md.push(
-    `| ${best.site.name} | ${best.site.diocese} | ${list.length} | ${best.item.galTitle} | ${best.score} | ${best.item.galPhotographyLocation ?? ''} |`,
+    `| ${best.site.name} | ${best.site.diocese} | ${list.length} | ${best.item.galTitle} | ${best.item.source} | ${best.score} | ${best.item.galPhotographyLocation ?? ''} |`,
   );
 }
 md.push('', '## 후보 없음', '');
 for (const s of targets) if (!withCandidates.has(s.id)) md.push(`- ${s.diocese} ${s.name}`);
 if (errors.length) md.push('', '## 오류', '', ...errors.map((e) => `- ${e}`));
-const mdPath = join(dir, `photokorea_summary_${today}.md`);
+const mdPath = join(dir, `photokorea_summary_${today}${suffix}.md`);
 writeFileSync(mdPath, md.join('\n') + '\n');
 
 console.log(`\n후보 있는 성지 ${withCandidates.size}/${targets.length}, 후보 ${candidates.length}장, 호출 ${calls}회, 오류 ${errors.length}`);
