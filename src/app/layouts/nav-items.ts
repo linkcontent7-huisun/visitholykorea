@@ -1,4 +1,4 @@
-import { BookOpen, Home, Menu, Search, Wind } from 'lucide-react';
+import { BookOpen, CalendarHeart, Home, Menu, Search } from 'lucide-react';
 import type { ComponentType } from 'react';
 import { paths } from '@/app/routes/paths';
 import type { TranslationKey } from '@/shared/i18n/dictionary';
@@ -20,7 +20,9 @@ export interface NavItem {
 /**
  * 하단 탭 5개 — 재기획(2026-09-14) 정보 구조 그대로.
  *
- *   홈 · 성지 찾기 · 고요 속으로 · 내 기록 · 더보기
+ *   홈 · 성지 찾기 · 오늘의 성지 일정 · 내 기록 · 더보기
+ *
+ * 「고요 속으로」 자리는 2026-09-15 팀 결정으로 「오늘의 성지 일정」(마음나침반 + 하루 일정)이 이어받았다.
  *
  * 「지도」는 배경 없는 점 지도라 주 탐색 수단이 못 되어 더보기 안 「전국 성지 분포 개요」로,
  * 「홈화면 추가」는 더보기 안으로 옮겼다. 「고요 속으로」와 「붐빔 피하기」처럼 같은 기능이
@@ -29,7 +31,7 @@ export interface NavItem {
 export const NAV_ITEMS: readonly NavItem[] = [
   { id: 'home', to: paths.home, icon: Home, labelKey: 'home', end: true },
   { id: 'search', to: paths.search, icon: Search, labelKey: 'findShrines', end: false },
-  { id: 'quiet', to: paths.quiet, icon: Wind, labelKey: 'quietHeroTitle', end: false },
+  { id: 'plan', to: paths.compass, icon: CalendarHeart, labelKey: 'todayPlanTab', end: false },
   { id: 'record', to: paths.records, icon: BookOpen, labelKey: 'myRecords', end: false },
   { id: 'menu', to: paths.menu, icon: Menu, labelKey: 'moreTab', end: false },
 ];

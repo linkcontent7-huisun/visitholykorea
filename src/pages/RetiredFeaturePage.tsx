@@ -9,15 +9,15 @@ import { useSettings } from '@/shared/i18n/use-settings';
  *
  *   /ai-guide — AI 순례 가이드(미카엘). 출처 표시·정확성 검수·오류 신고·비용 한도가
  *               갖춰지기 전까지 공개하지 않는다(재기획 2026-09-14). 코드와 Edge Function 은 남아 있다.
- *   /compass  — 마음 나침반 8문항. 성지 찾기의 조건(마음 상태·출발 지역·이동 조건)으로 흡수했다.
  *
  * 404 로 보내지 않는 이유 — 밖에 퍼진 링크·북마크로 온 사람이 "앱이 죽었다"고 느끼지 않게,
  * 무엇으로 대신할 수 있는지를 말하고 성지 찾기로 이어 준다.
  */
-export default function RetiredFeaturePage({ feature }: { feature: 'ai' | 'compass' }) {
+export default function RetiredFeaturePage({ feature }: { feature: 'ai' }) {
   const { t } = useSettings();
-  const title = feature === 'ai' ? t('retiredAiTitle') : t('retiredCompassTitle');
-  const body = feature === 'ai' ? t('retiredAiBody') : t('retiredCompassBody');
+  void feature; // 지금은 AI 가이드뿐 — 나침반은 「오늘의 성지 일정」으로 돌아왔다 (2026-09-15)
+  const title = t('retiredAiTitle');
+  const body = t('retiredAiBody');
 
   return (
     <PageContainer className="min-h-page py-12">

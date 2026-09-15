@@ -1,43 +1,68 @@
 /**
- * "쉼표 순례길" 감정 기반 코스 매칭 엔진.
+ * 「오늘의 성지 일정」 후보 엔진.
  *
- * 흐름: 감정 선택 → holy_sites 후보 조회 → (좌표가 있으면) TourAPI로 도보권 관광지
- * 실시간 페어링 → 코스 카드 조립 → 정렬·다양성 보정.
+ * 흐름: 마음(감정 태그) → holy_sites 후보 전체 조회 → 좌표 있는 곳 → 출발지 반경 안 →
+ * 가까운 순 → 카드 3장씩. **여기서는 TourAPI 를 부르지 않는다** — 점심·오후·붐빔은
+ * 카드 화면이 보이는 3장에 대해서만 실시간으로 받는다(호출 수를 줄이기 위해).
  *
- * 좌표(lat/lng)가 아직 없는 성지는 페어링 없이 "성지 단독 카드"로 내려간다 —
- * 지오코딩이 끝나면 코드 수정 없이 자동으로 페어링이 살아난다.
+ * 순위는 거리다. 예전엔 설명 길이로 줄 세우고 동점을 무작위로 섞어 같은 답에 매번 다른
+ * 성지가 나왔다(2026-09-15 실측). 마음 질문은 후보 집합만 고르고, 순서는 거리가 정한다.
+ *
+ * 스펙: docs/10-product/재기획/2026-09-15-오늘의-성지-일정-스펙.md 6절.
  */
 
 import { fetchSiteNameTranslations, fetchSitesByEmotion } from '@/features/sites/api/holy-sites.repository';
-import { getNearbyAttractions, type TourApiSpot } from '@/shared/api/tour-api';
-import { fillPlaceholders, FALLBACK_CHAIN, type Language, type TranslationKey } from '@/shared/i18n/dictionary';
-import { localizeRegionName } from '@/shared/i18n/domain-labels';
-import { DICTIONARY } from '@/shared/i18n/dictionary';
-import { haversineKm, walkMinutes } from '@/shared/lib/geo';
-import { withDirection } from '@/shared/lib/korean';
+import { FALLBACK_CHAIN, type Language } from '@/shared/i18n/dictionary';
+import { haversineKm } from '@/shared/lib/geo';
 import type { EmotionTag, HolySite } from '@/shared/types/domain';
 
-export interface CourseCard {
-  site: HolySite;
-  attraction: TourApiSpot | null;
-  title: string;
-  subtitle: string;
-  walkMinutes: number | null;
-}
+export const TIME_BUDGETS = ['반나절', '하루', '1박2일'] as const;
+export type TimeBudget = (typeof TIME_BUDGETS)[number];
 
-const EMOTION_HINT_KEY: Record<EmotionTag, TranslationKey> = {
-  위로: 'courseHint위로',
-  새출발: 'courseHint새출발',
-  평온: 'courseHint평온',
-  치유: 'courseHint치유',
-  감사: 'courseHint감사',
+/**
+ * 시간 답 → 출발지 반경(km). 대중교통 기준 — 문 앞에서 문 앞까지 시속 20km 안팎,
+ * 왕복 이동이 머무는 시간을 넘지 않게. 사장님 결정 2026-09-15. 써 보고 조정한다.
+ * 반경 안에 없으면 몰래 넓히지 않고 「없어요」 화면이 시간을 늘리라고 묻는다.
+ */
+export const RADIUS_KM_BY_TIME: Record<TimeBudget, number> = {
+  반나절: 20,
+  하루: 60,
+  '1박2일': 180,
 };
 
-/** 콘텐츠 완성도 점수: 소개글 분량 + 부가 필드 존재 여부. 정렬 1순위 기준. */
-function contentQualityScore(site: HolySite): number {
+/** 카드 한 페이지 장수. 반경 안 후보는 전부 들고 있다가 3장씩 보여준다 — 중간에 끊고 「여기까지」라고 하지 않는다. */
+export const CARD_PAGE_SIZE = 3;
+
+export interface Origin {
+  lat: number;
+  lng: number;
+  /** 화면·저장용 이름 — 「현재 위치」 또는 시·도 이름 */
+  label: string;
+  kind: 'gps' | 'region';
+}
+
+export interface PooledSite {
+  site: HolySite;
+  distanceKm: number;
+  /** 소개글·역사·사진 충실도. 「소개가 자세해요」 태그 근거 */
+  quality: number;
+}
+
+/**
+ * 페어링에서 제외할 관광지.
+ *
+ * 오후 관광지 후보에 가톨릭 시설 자체가 자주 잡힌다 — 예전에 "나주 순교성지 인파를 뒤로하고
+ * 나주 순교자 기념성당으로" 같은 카드가 실제로 나갔다. **가톨릭 시설만 거른다.**
+ * 사찰·향교 같은 다른 종교 시설은 실제 관광지이므로 정상이다.
+ */
+export const CATHOLIC_TITLE = /성지|성당|순교|수도원|성모|천주교|가톨릭|공소/;
+
+/** 콘텐츠 완성도 점수: 소개글 분량 + 부가 필드 존재 여부. 「소개가 자세해요」 태그의 근거. */
+export function contentQualityScore(site: HolySite): number {
   let score = 0;
   if (site.description) score += site.description.length > 100 ? 2 : 1;
   if (site.history) score += 1;
+  if (site.imageUrl) score += 1;
   if (site.seoTitle) score += 0.5;
   if (site.seoDescription) score += 0.5;
   if (site.nearbyAttractions) score += 0.5;
@@ -45,182 +70,66 @@ function contentQualityScore(site: HolySite): number {
   return score;
 }
 
-/** 점수 순으로 정렬하되 동점 구간만 섞어, 늘 같은 몇 곳만 노출되지 않게 한다. */
-function jitterShuffle<T>(items: T[], scoreFn: (item: T) => number): T[] {
-  const groups = new Map<number, T[]>();
-  for (const item of items) {
-    const score = scoreFn(item);
-    const group = groups.get(score);
-    if (group) group.push(item);
-    else groups.set(score, [item]);
-  }
-
-  const result: T[] = [];
-  for (const score of [...groups.keys()].sort((a, b) => b - a)) {
-    const group = groups.get(score)!;
-    for (let i = group.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [group[i], group[j]] = [group[j]!, group[i]!];
-    }
-    result.push(...group);
-  }
-  return result;
-}
-
-/** 감정(+선택적 교구)에 맞는 후보 성지. 설명이 충실한 곳을 우선한다. */
-export async function fetchCandidateSites(
-  emotion: EmotionTag,
-  diocese: string | undefined,
-  limit = 10,
-): Promise<HolySite[]> {
-  // 필터링·정렬 여유분까지 넉넉히 가져온다.
-  const sites = await fetchSitesByEmotion(emotion, diocese, limit * 3);
-
-  // 교구 조건 때문에 결과가 너무 적으면 조건을 풀고 감정만으로 다시 찾는다.
-  if (diocese && sites.length < 3) {
-    return fetchCandidateSites(emotion, undefined, limit);
-  }
-
-  return jitterShuffle(sites, contentQualityScore).slice(0, limit);
+/**
+ * 순수 함수 — 좌표 있는 성지만, 반경 안만, 가까운 순. `max` 는 테스트·특수 용도.
+ * 동점은 이름순으로 고정해 같은 답에 같은 결과가 나오게 한다.
+ */
+export function rankByDistance(
+  sites: HolySite[],
+  origin: { lat: number; lng: number },
+  radiusKm: number,
+  max = Infinity,
+): PooledSite[] {
+  return sites
+    .flatMap((site) => {
+      const { lat, lng } = site.coordinates;
+      if (lat == null || lng == null) return [];
+      const distanceKm = haversineKm(origin.lat, origin.lng, lat, lng);
+      return distanceKm <= radiusKm ? [{ site, distanceKm, quality: contentQualityScore(site) }] : [];
+    })
+    .sort((a, b) => a.distanceKm - b.distanceKm || a.site.name.localeCompare(b.site.name, 'ko'))
+    .slice(0, max);
 }
 
 /**
- * 페어링에서 제외할 관광지.
- *
- * 이 코스의 문장은 "붐비는 관광지를 뒤로하고 조용한 성지로"다. 그런데 TourAPI 주변
- * 검색에는 가톨릭 시설 자체가 자주 잡혀서, 예전에 "나주 순교성지 인파를 뒤로하고
- * 나주 순교자 기념성당으로", "남산동 가톨릭타운 인파를 뒤로하고 관덕정 순교성지로"
- * 같은 카드가 실제로 화면에 나갔다 — 성지를 피해 성지로 가라는 말이 된다.
- *
- * **가톨릭 시설만 거른다.** 사찰·향교 같은 다른 종교 시설은 실제로 붐비는 관광지이므로
- * 페어링 상대로 정상이다(예: "심향사(나주) 인파를 뒤로하고").
+ * 「반경을 넓히면 N곳 더 있어요」 — 다음 시간 단계 반경 안에는 있지만 지금 반경엔 없는 수.
+ * 마지막 단계(1박2일)면 0. 순수 함수, 호출 0.
  */
-export const CATHOLIC_TITLE = /성지|성당|순교|수도원|성모|천주교|가톨릭|공소/;
-
-/** 좌표가 있는 성지에 한해 도보권 관광지를 실시간으로 페어링한다. */
-async function pairWithAttraction(site: HolySite): Promise<TourApiSpot | null> {
-  const { lat, lng } = site.coordinates;
-  if (lat == null || lng == null) return null;
-
-  try {
-    const spots = await getNearbyAttractions(lng, lat, 3000, 5);
-    const secular = spots.filter((s) => !CATHOLIC_TITLE.test(s.title));
-    // 대표 이미지가 있는 곳을 우선한다(콘텐츠가 풍부한 = 상대적으로 알려진 관광지).
-    return secular.find((s) => Boolean(s.firstimage)) ?? secular[0] ?? null;
-  } catch (e) {
-    console.error(`TourAPI 페어링 실패 (${site.name}):`, e);
-    return null;
-  }
+export function countInNextRadius(
+  sites: HolySite[],
+  origin: { lat: number; lng: number },
+  timeBudget: TimeBudget,
+): number {
+  const idx = TIME_BUDGETS.indexOf(timeBudget);
+  const next = TIME_BUDGETS[idx + 1];
+  if (!next) return 0;
+  const now = rankByDistance(sites, origin, RADIUS_KM_BY_TIME[timeBudget], Infinity).length;
+  const wider = rankByDistance(sites, origin, RADIUS_KM_BY_TIME[next], Infinity).length;
+  return wider - now;
 }
 
-function buildCard(site: HolySite, attraction: TourApiSpot | null, language: Language): CourseCard {
-  const t = (key: TranslationKey) => DICTIONARY[key][language];
-  const emotionHint = site.emotionTag ? t(EMOTION_HINT_KEY[site.emotionTag]) : '';
-  const regionLabel = localizeRegionName(site.region, language);
-  const title = fillPlaceholders(t('courseTitleTemplate'), {
-    hint: emotionHint,
-    region: regionLabel,
-    name: site.name,
-  });
-
-  let minutes: number | null = null;
-  let subtitle = site.seoDescription ?? site.description?.slice(0, 60) ?? '';
-
-  if (attraction && site.coordinates.lat != null && site.coordinates.lng != null) {
-    const distKm = haversineKm(
-      site.coordinates.lat,
-      site.coordinates.lng,
-      Number(attraction.mapy),
-      Number(attraction.mapx),
-    );
-    minutes = walkMinutes(distKm);
-    // 한국어는 조사("~으로")가 필요하지만 다른 언어는 전치사가 템플릿 안에 있어 이름만 넣으면 된다.
-    const destination = language === 'ko' ? withDirection(site.name) : site.name;
-    subtitle = fillPlaceholders(t('coursePairedSubtitle'), {
-      attraction: attraction.title,
-      minutes,
-      name: destination,
-    });
-  }
-
-  return { site, attraction, title, subtitle, walkMinutes: minutes };
-}
-
-/** 같은 교구·같은 유형이 연달아 나오지 않도록 순서를 섞는다. */
-function diversify(cards: CourseCard[]): CourseCard[] {
-  const buckets = new Map<string, CourseCard[]>();
-  for (const card of cards) {
-    const key = `${card.site.region || '기타'}::${card.site.category}`;
-    const bucket = buckets.get(key);
-    if (bucket) bucket.push(card);
-    else buckets.set(key, [card]);
-  }
-
-  const result: CourseCard[] = [];
-  let remaining = cards.length;
-  while (remaining > 0) {
-    for (const bucket of buckets.values()) {
-      const next = bucket.shift();
-      if (next) {
-        result.push(next);
-        remaining -= 1;
-      }
-    }
-  }
-  return result;
-}
-
-/** 출발지에서 성지까지의 거리(km). 좌표가 없으면 정렬에서 뒤로 밀리도록 Infinity. */
-function distanceFromOrigin(site: HolySite, origin: { lat: number; lng: number }): number {
-  const { lat, lng } = site.coordinates;
-  if (lat == null || lng == null) return Infinity;
-  return haversineKm(origin.lat, origin.lng, lat, lng);
-}
-
-/** 최상위 진입점: 감정(+선택적 교구, +선택적 출발지 좌표)으로 추천 코스 카드를 만든다. */
-export async function getRecommendedCourses(
-  emotion: EmotionTag,
-  diocese?: string,
-  limit = 5,
-  originCoords?: { lat: number; lng: number },
-  language: Language = 'ko',
-): Promise<CourseCard[]> {
-  const rawSites = await fetchCandidateSites(emotion, diocese, limit * 2);
-
-  // 카드 제목·본문에 들어갈 성지 이름을 한 번의 배치 조회로 번역한다(카드 수만큼 조회하지 않는다).
-  const wanted =
-    language === 'ko' ? [] : [language, ...FALLBACK_CHAIN[language]].filter((l) => l !== 'ko');
-  const nameById =
-    wanted.length > 0
-      ? await fetchSiteNameTranslations(
-          rawSites.map((s) => s.id),
-          wanted,
-        )
-      : {};
-  const sites = rawSites.map((s) => {
-    const translated = nameById[s.id];
-    return translated ? { ...s, name: translated } : s;
-  });
-
-  const cards = await Promise.all(
-    sites.map(async (site) => buildCard(site, await pairWithAttraction(site), language)),
+/** 마음에 맞는 성지 전체(최대 62곳). 이름은 요청 언어로 번역해 둔다 — 카드가 한 곳씩 조회하지 않게. */
+export async function fetchEmotionSites(emotion: EmotionTag, language: Language): Promise<HolySite[]> {
+  const sites = await fetchSitesByEmotion(emotion);
+  const wanted = language === 'ko' ? [] : [language, ...FALLBACK_CHAIN[language]].filter((l) => l !== 'ko');
+  if (wanted.length === 0) return sites;
+  const nameById = await fetchSiteNameTranslations(
+    sites.map((s) => s.id),
+    wanted,
   );
+  return sites.map((s) => (nameById[s.id] ? { ...s, name: nameById[s.id]! } : s));
+}
 
-  if (originCoords) {
-    // 출발지가 있으면 "관광지 페어링 여부"보다 "출발지에서 가까운 순"이 우선이다 —
-    // 시간이 한정된 사용자에게는 실제로 갈 수 있는 곳을 먼저 보여주는 게 더 중요하다.
-    cards.sort(
-      (a, b) => distanceFromOrigin(a.site, originCoords) - distanceFromOrigin(b.site, originCoords),
-    );
-  } else {
-    // 출발지가 없으면 페어링 성공 여부 우선, 그다음 도보 거리가 짧은 순.
-    cards.sort((a, b) => {
-      const aHasPair = a.attraction ? 1 : 0;
-      const bHasPair = b.attraction ? 1 : 0;
-      if (aHasPair !== bHasPair) return bHasPair - aHasPair;
-      return (a.walkMinutes ?? 999) - (b.walkMinutes ?? 999);
-    });
-  }
-
-  return diversify(cards).slice(0, limit);
+/** 최상위 진입점: 마음 · 출발지 · 시간 → 반경 안 후보 전부(거리순). TourAPI 호출 0. */
+export async function buildCandidatePool(
+  emotion: EmotionTag,
+  origin: Origin,
+  timeBudget: TimeBudget,
+  language: Language = 'ko',
+): Promise<{ pool: PooledSite[]; moreInNextRadius: number }> {
+  const sites = await fetchEmotionSites(emotion, language);
+  return {
+    pool: rankByDistance(sites, origin, RADIUS_KM_BY_TIME[timeBudget]),
+    moreInNextRadius: countInNextRadius(sites, origin, timeBudget),
+  };
 }

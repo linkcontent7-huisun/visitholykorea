@@ -15,7 +15,7 @@ const SiteDetailPage = lazy(() => import('@/pages/SiteDetailPage'));
 const SearchPage = lazy(() => import('@/pages/SearchPage'));
 const RoutesPage = lazy(() => import('@/pages/RoutesPage'));
 const RouteDetailPage = lazy(() => import('@/pages/RouteDetailPage'));
-const QuietPage = lazy(() => import('@/pages/QuietPage'));
+const CompassPage = lazy(() => import('@/pages/CompassPage'));
 const RetiredFeaturePage = lazy(() => import('@/pages/RetiredFeaturePage'));
 const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
 const FestivalsPage = lazy(() => import('@/pages/FestivalsPage'));
@@ -100,10 +100,11 @@ export const router = createBrowserRouter([
           { path: paths.routes, element: withSuspense(<RoutesPage />) },
           { path: paths.routeDetailPattern, element: withSuspense(<RouteDetailPage />) },
           { path: paths.search, element: withSuspense(<SearchPage />) },
-          { path: paths.quiet, element: withSuspense(<QuietPage />) },
-          // 옛 이름·옛 기능의 주소는 버리지 않고 안내한다 — 밖에 퍼진 링크가 죽으면 안 된다
-          { path: paths.alternatives, element: <Navigate to={paths.quiet} replace /> },
-          { path: paths.compass, element: withSuspense(<RetiredFeaturePage feature="compass" />) },
+          { path: paths.compass, element: withSuspense(<CompassPage />) },
+          // 옛 이름·옛 기능의 주소는 버리지 않고 안내한다 — 밖에 퍼진 링크가 죽으면 안 된다.
+          // 고요 속으로(/quiet)는 「오늘의 성지 일정」이 자리를 이어받았다 (2026-09-15 팀 결정).
+          { path: paths.quiet, element: <Navigate to={paths.compass} replace /> },
+          { path: paths.alternatives, element: <Navigate to={paths.compass} replace /> },
           { path: paths.aiGuide, element: withSuspense(<RetiredFeaturePage feature="ai" />) },
           { path: paths.privacy, element: withSuspense(<PrivacyPage />) },
           { path: paths.festivals, element: withSuspense(<FestivalsPage />) },

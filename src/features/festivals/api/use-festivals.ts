@@ -25,10 +25,11 @@ function today(): string {
 }
 
 /** 오늘 진행 중인 전국 축제. TourAPI 를 성지 수와 무관하게 2~3회 부른다(페이지 넘김). */
-export function useOngoingFestivals() {
+export function useOngoingFestivals(enabled = true) {
   return useQuery({
     queryKey: queryKeys.festivals.ongoing(today()),
     queryFn: () => getOngoingFestivals(),
+    enabled,
     // 오늘 열리는 행사 목록은 하루 안에서 거의 바뀌지 않는다.
     staleTime: 1000 * 60 * 60,
     retry: 1,
