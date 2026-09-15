@@ -11,8 +11,13 @@ import type { CompassResponseRow } from '@/shared/types/database';
 export interface CompassAnswers {
   emotion: string;
   concern: string | null;
-  gender: string | null;
+  /** 출발지 — 현재 위치인지 시·도인지와 이름만. GPS 좌표는 저장하지 않는다 (2026-09-15) */
+  origin?: { kind: 'gps' | 'region'; label: string } | null;
+  /** 옛 필드 호환용 — 시·도로 출발할 때만 채운다 */
   region: string | null;
+  /** 2026-09-15 부터 묻지 않는다. 옛 응답 호환용으로 남김 — 항상 null */
+  gender: string | null;
+  /** 2026-09-15 부터 묻지 않는다. 옛 응답 호환용으로 남김 — 항상 null */
   style: string | null;
   timeBudget: string | null;
   /** 몇 명이 가는가. 웰니스 실측 동반자 95.5% — 혼자만 전제하지 않는다. */

@@ -148,17 +148,16 @@ export async function searchSites(term: string, limit = 8): Promise<HolySite[]> 
   return [...nativeSites, ...(extraRows ?? []).map(toHolySite)].slice(0, limit);
 }
 
-/** 감정 태그(+선택적 교구)에 해당하는 후보 성지. 코스 추천 엔진의 입력. */
-export async function fetchSitesByEmotion(
-  emotion: EmotionTag,
-  diocese: string | undefined,
-  limit: number,
-): Promise<HolySite[]> {
-  let query = supabase.from(TABLE).select('*').eq('emotion_tag', emotion);
-  if (diocese) {
-    query = query.eq('diocese', diocese);
-  }
-  const { data, error } = await query.limit(limit);
+/**
+ * 감정 태그에 해당하는 성지 전체(최대 62곳, 2026-09-15 실측). 「오늘의 성지 일정」 후보 엔진의 입력.
+ * 예전엔 limit 만 걸고 ORDER BY 가 없어 같은 답에 매번 다른 6곳이 왔다 — 전부 받아 이름순으로 고정한다.
+ */
+export async function fetchSitesByEmotion(emotion: EmotionTag): Promise<HolySite[]> {
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .eq('emotion_tag', emotion)
+    .order('name');
   return unwrap(data, error, 'fetchSitesByEmotion').map(toHolySite);
 }
 

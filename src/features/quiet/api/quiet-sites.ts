@@ -32,25 +32,6 @@ import {
   type CrowdingScore,
 } from './crowding-score';
 
-export interface QuietSite {
-  site: HolySite;
-  crowding: CrowdingScore;
-}
-
-export interface QuietSitesResult {
-  /** 주변 정보까지 확인된 곳, 조용한 순 */
-  picks: QuietSite[];
-  /** 주변 정보를 못 받아 순위에서 뺀 곳 — "확인 부족" */
-  unverified: QuietSite[];
-}
-
-export interface FindQuietSitesOptions {
-  /** 최종적으로 돌려줄 개수 */
-  limit?: number;
-  /** 2단계에서 인프라를 조회할 후보 수. 이 값이 곧 추가 호출 수다. */
-  candidateCount?: number;
-}
-
 /** 집중률 실측을 성지에 붙일 때 허용하는 거리(km). 이보다 멀면 그 관광지의 붐빔이 아니다. */
 export const MEASURED_RADIUS_KM = 5;
 
@@ -110,6 +91,21 @@ function congestionRatesFor(areaCd: string): Promise<CongestionRate[]> {
   return rates;
 }
 
+/**
+ * 성지가 속한 시·도의 집중률 행 전체. 「오늘의 성지 일정」이 오후 관광지 이름과 대조할 때 쓴다.
+ * 시·도 코드를 못 찾거나 실패하면 빈 배열 — 화면은 집중률 자리를 비운다.
+ */
+export async function fetchCongestionRatesForSite(site: HolySite): Promise<CongestionRate[]> {
+  const areaCd = areaCodeForAddress(site.location);
+  if (!areaCd) return [];
+  try {
+    return await congestionRatesFor(areaCd);
+  } catch (error) {
+    console.warn(`관광지 집중률 조회 건너뜀 (${site.name}):`, error);
+    return [];
+  }
+}
+
 async function fetchMeasuredCongestion(site: HolySite) {
   const areaCd = areaCodeForAddress(site.location);
   if (!areaCd) return undefined;
@@ -146,59 +142,6 @@ async function fetchInfra(site: HolySite): Promise<TourApiSpot[] | null> {
     console.error(`주변 인프라 조회 실패 (${site.name}):`, e);
     return null;
   }
-}
-
-/**
- * 오늘 조용한 성지를 조용한 순으로 돌려준다.
- *
- * 2단계 조회에 실패한 성지는 축제 압력만 남아 점수가 인위적으로 낮다. 예전에는 그대로
- * 정렬에 넣어 **조회에 실패한 곳일수록 "가장 조용" 1위**가 됐다(2026-09-14 감사).
- * 지금은 `unverified` 로 분리하고 순위에는 넣지 않는다.
- */
-export async function findQuietSites(
-  sites: HolySite[],
-  options: FindQuietSitesOptions = {},
-): Promise<QuietSitesResult> {
-  // 12 → 6 (2026-08-28). 최종 노출은 limit(기본 3)곳뿐이라 2배 여유면 충분하고,
-  // TourAPI 일일 호출 한도(개발계정 1,000건)를 홈 화면 1회 로드가 덜 쓰게 한다.
-  const { limit = 3, candidateCount = 6 } = options;
-
-  const located = sites.filter(hasCoordinates);
-  if (located.length === 0) return { picks: [], unverified: [] };
-
-  // 1단계 — 전국 축제 1회 조회 후, 거리 계산은 로컬에서
-  const festivals = await getOngoingFestivals();
-
-  const withPressure = located.map((site) => ({
-    site,
-    pressure: festivalPressure(site.coordinates, festivals),
-  }));
-
-  // 축제 압력이 낮은 순으로 후보를 좁힌다
-  const candidates = [...withPressure]
-    .sort((a, b) => a.pressure.score - b.pressure.score)
-    .slice(0, Math.max(candidateCount, limit));
-
-  // 2단계 — 후보에만 인프라 조회
-  const scored = await Promise.all(
-    candidates.map(async ({ site, pressure }) => {
-      const [infra, measured] = await Promise.all([
-        fetchInfra(site),
-        fetchMeasuredCongestion(site),
-      ]);
-      return {
-        site,
-        crowding: combineCrowdingScore(pressure, infra ? infraDensity(infra) : null, measured),
-      };
-    }),
-  );
-
-  const verified = scored.filter((s) => !s.crowding.isPartial);
-  const unverified = scored.filter((s) => s.crowding.isPartial);
-  return {
-    picks: verified.sort((a, b) => a.crowding.score - b.crowding.score).slice(0, limit),
-    unverified,
-  };
 }
 
 /**

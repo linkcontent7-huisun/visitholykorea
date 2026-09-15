@@ -23,8 +23,8 @@ export const queryKeys = {
     featuredPhotos: ['sites', 'featured-photos'] as const,
   },
   courses: {
-    byEmotion: (emotion: EmotionTag, diocese?: string) =>
-      ['courses', emotion, diocese ?? 'all'] as const,
+    /** 마음(감정 태그)별 성지 전체 — 「오늘의 성지 일정」 후보 pool 의 입력. DB 만이라 캐시해도 된다. */
+    byEmotion: (emotion: EmotionTag, language: string) => ['courses', emotion, language] as const,
   },
   routes: {
     all: ['routes'] as const,
@@ -71,15 +71,6 @@ export const queryKeys = {
       ['tour', 'audio-stories', lat, lng, langCode] as const,
     walkingCourses: (sigunguName: string) => ['tour', 'walking-courses', sigunguName] as const,
     searchKeyword: (keyword: string) => ['tour', 'search', keyword] as const,
-  },
-  quiet: {
-    /** 오늘 조용한 성지. 날짜가 바뀌면 키가 바뀌어 자동으로 다시 계산된다. */
-    today: (date: string, limit: number) => ['quiet', 'today', date, limit] as const,
-    site: (date: string, siteId: string) => ['quiet', 'site', date, siteId] as const,
-  },
-  alternatives: {
-    /** 붐비는 관광지의 대체 성지. TourAPI contentid 기준. */
-    forAttraction: (contentId: string, date: string) => ['alternatives', contentId, date] as const,
   },
   festivals: {
     /**

@@ -13,8 +13,7 @@ vi.mock('@/shared/api/tour-api', async (importOriginal) => {
   };
 });
 
-import { getNearbyByLocation } from '@/shared/api/tour-api';
-import { findQuietSites, matchingCongestion } from './quiet-sites';
+import { matchingCongestion } from './quiet-sites';
 import type { CongestionRate } from '@/shared/api/tour-api';
 
 function site(id: string, lat: number, lng: number): HolySite {
@@ -40,35 +39,6 @@ function site(id: string, lat: number, lng: number): HolySite {
     fax: null,
   };
 }
-
-describe('findQuietSites — 호출 수', () => {
-  it('후보 수를 지정하지 않으면 인프라 조회를 6회만 한다 (일일 호출 한도 절약)', async () => {
-    const sites = Array.from({ length: 20 }, (_, i) => site(`s${i}`, 37.5 + i * 0.01, 127));
-    await findQuietSites(sites);
-    expect(vi.mocked(getNearbyByLocation)).toHaveBeenCalledTimes(6);
-  });
-
-  it('candidateCount 를 넘기면 그 수만큼만 조회한다', async () => {
-    vi.mocked(getNearbyByLocation).mockClear();
-    const sites = Array.from({ length: 20 }, (_, i) => site(`s${i}`, 37.5 + i * 0.01, 127));
-    await findQuietSites(sites, { candidateCount: 3 });
-    expect(vi.mocked(getNearbyByLocation)).toHaveBeenCalledTimes(3);
-  });
-});
-
-describe('findQuietSites — 확인 부족 분리', () => {
-  it('주변 정보 조회가 실패한 성지는 순위에 넣지 않고 unverified 로 낸다', async () => {
-    vi.mocked(getNearbyByLocation).mockClear();
-    vi.mocked(getNearbyByLocation)
-      .mockRejectedValueOnce(new Error('HTTP 502'))
-      .mockResolvedValue([]);
-    const sites = Array.from({ length: 3 }, (_, i) => site(`s${i}`, 37.5 + i * 0.01, 127));
-    const result = await findQuietSites(sites, { candidateCount: 3, limit: 3 });
-    expect(result.picks).toHaveLength(2);
-    expect(result.unverified).toHaveLength(1);
-    expect(result.picks.every((p) => !p.crowding.isPartial)).toBe(true);
-  });
-});
 
 describe('matchingCongestion — 집중률 선택', () => {
   const rate = (over: Partial<CongestionRate>): CongestionRate => ({

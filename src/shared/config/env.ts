@@ -54,7 +54,9 @@ function required(key: string): string {
 }
 
 function optional(key: string, fallback = ''): string {
-  return source[key] ?? fallback;
+  // 빈 문자열도 "안 정한 것"이다 — .env 에 `VITE_TOUR_PROXY_URL=""` 로 두면 기본값(/api/tour)을 써야 한다.
+  // `??` 였을 때는 빈 값이 그대로 남아 브라우저가 `?service=…` 를 현재 페이지에 보냈다 (2026-09-16 실측).
+  return source[key] || fallback;
 }
 
 /** 브라우저 밖(Node 스크립트·테스트)에서는 origin 이 없다. */
