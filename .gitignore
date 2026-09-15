@@ -82,3 +82,6 @@ docs/10-product/금산_자문의뢰_기획서.md
 visit_랜덤사진/
 scripts/crawl/.cache/
 scripts/crawl/__pycache__/
+
+# 화면 분석용 스크린샷 (scripts/browser/shoot-all.ps1 결과). 문서에 남길 것만 docs/ 로 옮긴다.
+screenshots/
