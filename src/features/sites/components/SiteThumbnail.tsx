@@ -116,7 +116,7 @@ export function SiteThumbnail({
   className = '',
   intensity = 'light',
 }: SiteThumbnailProps) {
-  const { t } = useSettings();
+  const { t, language } = useSettings();
   const [placeholderFailed, setPlaceholderFailed] = useState(false);
   // 사진이 "없는" 것과 "있는데 못 받은" 것은 다르다(재기획 §13). 못 받으면 그 사실을 적은 자리지킴이를 그린다.
   const [downloadFailed, setDownloadFailed] = useState(false);
@@ -156,7 +156,7 @@ export function SiteThumbnail({
   if (!placeholderFailed) {
     return (
       <img
-        src={placeholderImageFor(name)}
+        src={placeholderImageFor(name, language)}
         alt={fillPlaceholders(t('photoPendingAlt'), { name })}
         className={className}
         loading="lazy"
