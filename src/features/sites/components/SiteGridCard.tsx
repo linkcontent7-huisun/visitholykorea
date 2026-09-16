@@ -26,6 +26,7 @@ export function SiteGridCard({ site }: { site: HolySite }) {
           pilgrimUrl={featured[site.id] ?? null}
           name={site.name}
           category={site.category}
+          diocese={site.region}
           className="h-full w-full transform object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>

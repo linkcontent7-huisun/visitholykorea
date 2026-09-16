@@ -315,6 +315,7 @@ function MapListRow({
               pilgrimUrl={photoUrl}
               name={site.name}
               category={site.category}
+              diocese={site.region}
               className="h-full w-full object-cover"
             />
           ) : (

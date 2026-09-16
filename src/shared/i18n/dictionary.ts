@@ -4925,6 +4925,8 @@ export const DICTIONARY = {
   contactFax: { ko: '팩스', en: 'Fax', es: 'Fax', fr: 'Fax', pt: 'Fax', it: 'Fax' },
   photoByPilgrimAlt: { ko: '{name} — 순례자가 보내온 사진', en: '{name} — photo sent by a pilgrim', es: '{name} — foto enviada por un peregrino', fr: '{name} — photo envoyée par un pèlerin', pt: '{name} — foto enviada por um peregrino', it: '{name} — foto inviata da un pellegrino' },
   photoPendingAlt: { ko: '{name} — 사진 준비 중', en: '{name} — photo coming soon', es: '{name} — foto próximamente', fr: '{name} — photo à venir', pt: '{name} — foto em breve', it: '{name} — foto in arrivo' },
+  dioceseBand: { ko: '{diocese} 성지', en: '{diocese} shrine', es: 'Santuario de la {diocese}', fr: 'Sanctuaire du {diocese}', pt: 'Santuário da {diocese}', it: 'Santuario della {diocese}' },
+  dioceseFallbackAlt: { ko: '{diocese} 대표 사진 · {label} (이 성지 사진 아님)', en: '{diocese} representative photo · {label} (not this site)', es: 'Foto representativa de la {diocese} · {label} (no es este lugar)', fr: 'Photo représentative du {diocese} · {label} (pas ce lieu)', pt: 'Foto representativa da {diocese} · {label} (não é este lugar)', it: 'Foto rappresentativa della {diocese} · {label} (non questo luogo)' },
   nationalMapAria: { ko: '전국 성지 지도. 표시된 {total}곳 중 {visited}곳을 다녀왔습니다.', en: 'Map of shrines nationwide. Visited {visited} of {total} shown.', es: 'Mapa de santuarios del país. Visitados {visited} de {total}.', fr: 'Carte des sanctuaires du pays. {visited} visités sur {total}.', pt: 'Mapa de santuários do país. {visited} de {total} visitados.', it: 'Mappa dei santuari del paese. Visitati {visited} su {total}.' },
   visitedSuffix: { ko: ' (다녀옴)', en: ' (visited)', es: ' (visitado)', fr: ' (visité)', pt: ' (visitado)', it: ' (visitato)' },
 
