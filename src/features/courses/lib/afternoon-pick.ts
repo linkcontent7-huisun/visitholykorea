@@ -5,10 +5,11 @@
  * 맞는 데이터다. 집중률이 있는 곳끼리는 낮은 순, 없는 곳은 그 뒤에 가까운 순 —
  * 즉 같은 거리면 덜 붐비는 곳. 붐빌 예정(70 이상)이면 화면이 한 줄 더 알린다.
  *
- * 순수 함수 — 스펙 8-2 절. 집중률 조회 자체는 `quiet-sites.ts` 가 한다.
+ * 순수 함수 — 스펙 8-2 절. 집중률 조회 자체는 `crowding/api/congestion-lookup.ts` 가 한다.
  */
 
 import type { CongestionRate, TourApiSpot } from '@/shared/api/tour-api';
+import { isSameSpot, normalizeName } from '@/features/crowding/lib/name-match';
 import { CATHOLIC_TITLE } from '../api/course-matching';
 
 /** 집중률 등급 경계. 사장님이 조정할 값 — 스펙 19절. */
@@ -30,32 +31,21 @@ export function toCongestionLevel(rate: number): CongestionLevel {
   return 'easy';
 }
 
-/** 이름 비교용 — 공백·괄호 안 내용을 걷어낸다. "경복궁(서울)" 과 "경복궁" 이 같아야 한다. */
-function normalizeName(name: string): string {
-  return name.replace(/\([^)]*\)/g, '').replace(/\s+/g, '').trim();
-}
-
-/** 응답의 여러 날짜 중 가장 최근 날짜 행만 남긴다 — 예전엔 날짜를 안 보고 최댓값을 골라 과대추정했다. */
-function latestRates(rates: readonly CongestionRate[]): CongestionRate[] {
-  const latest = rates.reduce((max, r) => (r.baseYmd > max ? r.baseYmd : max), '');
-  return rates.filter((r) => r.baseYmd === latest && Number.isFinite(Number(r.cnctrRate)));
-}
-
 /**
- * 관광지 제목 ↔ 집중률 관광지명(tAtsNm). 정확히 같거나, 3자 이상인 쪽이 다른 쪽에 포함되면 같은 곳으로 본다.
- * 2자("서울" ⊂ "서울숲")는 포함 매칭을 안 한다 — 오매칭이 더 해롭다.
+ * 응답은 **오늘부터** 30일치가 섞여 온다 — 가장 이른 날(=오늘) 행만 남긴다.
+ * 예전엔 `max(baseYmd)` 를 골라 30일 뒤 예측을 오늘 값처럼 썼다(2026-09-16 발견).
  */
+function todayRates(rates: readonly CongestionRate[]): CongestionRate[] {
+  const valid = rates.filter((r) => r.baseYmd && Number.isFinite(Number(r.cnctrRate)));
+  if (valid.length === 0) return [];
+  const today = valid.reduce((min, r) => (r.baseYmd < min ? r.baseYmd : min), valid[0]!.baseYmd);
+  return valid.filter((r) => r.baseYmd === today);
+}
+
+/** 관광지 제목 ↔ 집중률 관광지명(tAtsNm). 규칙은 `name-match.ts`(성지 매칭과 같다). */
 export function matchCongestion(title: string, rates: readonly CongestionRate[]): number | null {
-  const key = normalizeName(title);
-  if (!key) return null;
-  const hit = latestRates(rates).find((r) => {
-    const name = normalizeName(r.tAtsNm);
-    if (!name) return false;
-    if (name === key) return true;
-    const shorter = name.length <= key.length ? name : key;
-    const longer = shorter === name ? key : name;
-    return shorter.length >= 3 && longer.includes(shorter);
-  });
+  if (!normalizeName(title)) return null;
+  const hit = todayRates(rates).find((r) => isSameSpot(title, r.tAtsNm));
   return hit ? Math.max(0, Math.min(100, Number(hit.cnctrRate))) : null;
 }
 

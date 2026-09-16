@@ -10,7 +10,6 @@
 import { CalendarDays, ChevronRight, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
-import { CrowdingBadge } from '@/features/quiet/components/CrowdingBadge';
 import type { FestivalWithSites } from '../api/festival-pairs';
 import { formatDistanceKm, formatFestivalPeriod } from '../api/festival-pairs';
 
@@ -51,7 +50,7 @@ export function FestivalCard({ festival, nearbyLabel }: FestivalCardProps) {
           {nearbyLabel}
         </p>
         <ul className="space-y-2">
-          {festival.sites.map(({ site, distanceKm, crowding }) => (
+          {festival.sites.map(({ site, distanceKm }) => (
             <li key={site.id}>
               <Link
                 to={paths.siteDetail(site.id)}
@@ -67,13 +66,6 @@ export function FestivalCard({ festival, nearbyLabel }: FestivalCardProps) {
                     <span className="text-xs font-medium text-app-text-muted">
                       {formatDistanceKm(distanceKm)}
                     </span>
-                    <CrowdingBadge
-                      level={crowding.level}
-                      score={crowding.score}
-                      isPartial={crowding.isPartial}
-                      source={crowding.source}
-                      measuredSpot={crowding.measuredSpot}
-                    />
                   </span>
                 </span>
                 <ChevronRight size={18} className="shrink-0 text-app-text-muted" aria-hidden />

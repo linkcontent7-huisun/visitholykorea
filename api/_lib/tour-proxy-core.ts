@@ -59,7 +59,12 @@ export const ALLOWED_OPERATIONS: Record<
     services: TOUR_INFO_SERVICES,
     params: ['areaCode', 'sigunguCode', 'contentTypeId', 'numOfRows', 'pageNo', 'arrange'],
   },
-  /** 관광지 집중률(실측 방문자 추이) */
+  /** 법정동 코드표 — 집중률 조회에 필요한 시·군·구 코드를 얻는다 */
+  ldongCode2: {
+    services: ['KorService2'],
+    params: ['lDongRegnCd', 'numOfRows', 'pageNo'],
+  },
+  /** 관광지 집중률 예측(오늘부터 30일, 시·군·구 필수) */
   tatsCnctrRatedList: {
     services: ['TatsCnctrRateService'],
     params: ['areaCd', 'signguCd', 'numOfRows', 'pageNo'],
@@ -86,6 +91,7 @@ const NUMERIC_PARAMS = new Set([
   'sigunguCode',
   'areaCd',
   'signguCd',
+  'lDongRegnCd',
 ]);
 
 /** 임의 텍스트 파라미터의 길이 상한. 검색어가 이보다 길 이유는 없다. */

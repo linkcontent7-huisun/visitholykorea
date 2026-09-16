@@ -63,8 +63,8 @@ export const queryKeys = {
     barrierFree: (lat: number, lng: number) => ['tour', 'barrier-free', lat, lng] as const,
     festivals: (coords: string, language = 'ko') =>
       ['tour', 'festivals', coords, language] as const,
-    congestion: (areaCd: string, sigunguName: string) =>
-      ['tour', 'congestion', areaCd, sigunguName] as const,
+    /** 성지의 시·군·구 관광지 집중률 예측 — 성지 id 로 키를 잡는다(주소 → 코드는 조회 계층이 한다). */
+    congestion: (siteId: string) => ['tour', 'congestion', siteId] as const,
     hubSpots: (areaCd: string, signguCd: string, baseYm: string) =>
       ['tour', 'hub-spots', areaCd, signguCd, baseYm] as const,
     audioStories: (lat: number, lng: number, langCode: string) =>

@@ -40,9 +40,9 @@ describe('matchCongestion — 이름 매칭', () => {
     expect(matchCongestion('남산타워', rates)).toBeNull();
   });
 
-  it('가장 최근 날짜 행만 쓴다', () => {
-    const rates = [rate('경복궁', 90, '20260901'), rate('경복궁', 30, '20260915')];
-    expect(matchCongestion('경복궁', rates)).toBe(30);
+  it('가장 이른 날짜(오늘) 행만 쓴다 — 응답은 오늘부터 30일치가 섞여 온다', () => {
+    const rates = [rate('경복궁', 90, '20260915'), rate('경복궁', 30, '20261010')];
+    expect(matchCongestion('경복궁', rates)).toBe(90);
   });
 });
 
