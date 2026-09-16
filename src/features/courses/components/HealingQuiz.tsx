@@ -28,7 +28,7 @@ import {
 import { REGIONS, regionCoords, type Region } from '@/shared/lib/regions';
 
 /**
- * 「오늘의 성지 일정」 — 질문 5개 → 후보 카드 최대 3장(태그 1개씩) → 카드를 누르면 하루 일정.
+ * 「오늘의 성지 일정」 — 질문 3개(마음 · 출발지 · 시간) → 후보 카드 최대 3장(태그 1개씩) → 카드를 누르면 하루 일정.
  *
  * 마음 질문은 후보 집합만 고르고, 순서는 거리가 정한다. 답을 다시 하지 않고 카드로
  * 돌아가 다른 곳을 고를 수 있다. 스펙: docs/10-product/재기획/2026-09-15-오늘의-성지-일정-스펙.md
@@ -66,67 +66,18 @@ const EMOTION_COLOR: Record<EmotionTag, { bg: string; ring: string }> = {
   감사: { bg: 'bg-amber-200', ring: 'ring-amber-400' },
 };
 
-const CONCERNS = [
-  '일과 진로',
-  '육아와 가족',
-  '사람들과의 관계',
-  '나 자신을 돌보는 일',
-  '뚜렷한 이유는 없어요',
-] as const;
-type Concern = (typeof CONCERNS)[number];
-
-const CONCERN_LABEL: Record<Concern, TranslationKey> = {
-  '일과 진로': 'compassReasonWork',
-  '육아와 가족': 'compassReasonFamily',
-  '사람들과의 관계': 'compassReasonPeople',
-  '나 자신을 돌보는 일': 'compassReasonSelf',
-  '뚜렷한 이유는 없어요': 'compassReasonNone',
-};
-
-/** 결과 첫 문장 — 성지는 안 바꾸고 "내 얘기를 들었구나" 느낌만 준다. */
-const CONCERN_OPENER: Record<Concern, TranslationKey> = {
-  '일과 진로': 'compassReasonWorkReply',
-  '육아와 가족': 'compassReasonFamilyReply',
-  '사람들과의 관계': 'compassReasonPeopleReply',
-  '나 자신을 돌보는 일': 'compassReasonSelfReply',
-  '뚜렷한 이유는 없어요': 'compassReasonNoneReply',
-};
-
 const TIME_LABEL: Record<TimeBudget, TranslationKey> = {
   반나절: 'compassStayHalfDay',
   하루: 'compassStayDay',
   '1박2일': 'compassStayOvernight',
 };
 
-/** 몇 명이 가는가 — 웰니스 실측 동반자 95.5%. 혼자만 전제하지 않는다. */
-const PARTY_SIZES = ['혼자', '둘이서', '3~4명', '5명 이상'] as const;
-type PartySize = (typeof PARTY_SIZES)[number];
-
-const PARTY_EMOJI: Record<PartySize, string> = {
-  혼자: '🚶',
-  둘이서: '👥',
-  '3~4명': '👨‍👩‍👧',
-  '5명 이상': '🚌',
-};
-
-const PARTY_LABEL: Record<PartySize, TranslationKey> = {
-  혼자: 'compassAlone',
-  둘이서: 'compassGroupTwo',
-  '3~4명': 'compassGroupFew',
-  '5명 이상': 'compassGroupMany',
-};
-
-const PARTY_NOTE: Record<PartySize, TranslationKey> = {
-  혼자: 'compassSilentAdvice',
-  둘이서: 'compassWalkTogetherAdvice',
-  '3~4명': 'compassSilentStretchAdvice',
-  '5명 이상': 'compassGroupNote',
-};
-
-// 1=감정 2=관심사 3=출발지 4=시간 5=인원 — 성별·참여 방식(9/15)·자유 텍스트(9/16, 어디에도 안 쓰여 뺌)
-const TOTAL_QUESTIONS = 5;
+// 1=마음 2=출발지 3=시간 — 결과를 실제로 바꾸는 답만 남겼다. 성별·참여 방식(9/15), 자유 텍스트·관심사·인원(9/16)은
+// 결과 성지나 일정을 바꾸지 않고 문장 한 줄만 바꿔서 뺐다. 50대 이용자에게 결과가 안 바뀌는 질문은 손가락 품이다.
+const TOTAL_QUESTIONS = 3;
 const RESULT_STEP = TOTAL_QUESTIONS + 1;
-const STEP_TIME = 4;
+const STEP_ORIGIN = 2;
+const STEP_TIME = 3;
 
 const fade = { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0 } };
 
@@ -143,14 +94,12 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
-  const [step, setStep] = useState(0); // 0=intro, 1~5=질문, 6=결과
+  const [step, setStep] = useState(0); // 0=intro, 1~3=질문, 4=결과
   const [emotion, setEmotion] = useState<EmotionTag | null>(null);
-  const [concern, setConcern] = useState<Concern | null>(null);
   const [region, setRegion] = useState<Region | null>(storedRegion);
   // null = 아직 안 정함(GPS 가 되면 자동으로 GPS) · true = 현재 위치 · false = 시·도를 직접 골랐음
   const [useGps, setUseGps] = useState<boolean | null>(null);
   const [timeBudget, setTimeBudget] = useState<TimeBudget | null>(null);
-  const [party, setParty] = useState<PartySize | null>(null);
 
   // 결과 — 반경 안 후보 전부(거리순)와 지금 보이는 페이지 · 고른 카드
   const [pool, setPool] = useState<PooledSite[]>([]);
@@ -173,13 +122,13 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   // 이 지역 본당·공소 — 감정 매칭 결과가 아니라 실제로 미사 참례가 가능한 가까운 본당 정보(2026-09-07 결정).
   const { data: nearbyParishes = [] } = useNearbyDirectory(chosen?.site.coordinates, 5, 3);
 
-  // 질문 3에 들어오면 곧바로 위치 권한을 묻는다 — 시·도 중심점 + 반나절 20km 는 거의 「없어요」다(스펙 6절).
+  // 출발지 질문에 들어오면 곧바로 위치 권한을 묻는다 — 시·도 중심점 + 반나절 20km 는 거의 「없어요」다(스펙 6절).
   useEffect(() => {
-    if (step === 3 && gpsStatus === 'idle') requestGpsLocation();
+    if (step === STEP_ORIGIN && gpsStatus === 'idle') requestGpsLocation();
   }, [step, gpsStatus, requestGpsLocation]);
   // 위치가 허용됐고 사용자가 아직 시·도를 직접 고르지 않았으면 현재 위치가 기본.
   useEffect(() => {
-    if (step === 3 && gpsStatus === 'granted' && gpsLocation && useGps === null) setUseGps(true);
+    if (step === STEP_ORIGIN && gpsStatus === 'granted' && gpsLocation && useGps === null) setUseGps(true);
   }, [step, gpsStatus, gpsLocation, useGps]);
 
   if (!isOpen) return null;
@@ -195,11 +144,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   const reset = () => {
     setStep(0);
     setEmotion(null);
-    setConcern(null);
     setRegion(null);
     setUseGps(null);
     setTimeBudget(null);
-    setParty(null);
     setPool([]);
     setMoreInNextRadius(0);
     setPage(0);
@@ -243,13 +190,13 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
       saveResponse.mutate({
         answers: {
           emotion,
-          concern,
+          concern: null,
           origin: { kind: origin.kind, label: origin.label },
           region: origin.kind === 'region' ? region : null,
           gender: null,
           style: null,
           timeBudget,
-          party,
+          party: null,
           note: null,
         },
         matchedSiteId: site.id,
@@ -268,15 +215,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     step >= 1 && step <= TOTAL_QUESTIONS ? step / TOTAL_QUESTIONS : step === RESULT_STEP ? 1 : 0;
 
   const canProceed =
-    step === 1
-      ? emotion != null
-      : step === 2
-        ? concern != null
-        : step === 3
-          ? origin != null
-          : step === STEP_TIME
-            ? timeBudget != null
-            : party != null; // step 5(인원)
+    step === 1 ? emotion != null : step === STEP_ORIGIN ? origin != null : timeBudget != null;
 
   const handleNext = () => {
     if (step === TOTAL_QUESTIONS) void goToResult();
@@ -373,26 +312,8 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             </motion.div>
           )}
 
-          {/* Q2: 관심사 — 결과 첫 문장만 바꾼다 */}
-          {step === 2 && (
-            <motion.div key="q2" {...fade}>
-              <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
-                {t('compassQ2TitleLine1')}
-                <br />
-                {t('compassQ2TitleLine2')}
-              </h3>
-              <div className="space-y-3">
-                {CONCERNS.map((c) => (
-                  <button key={c} onClick={() => setConcern(c)} className={optionClass(concern === c)} id={`quiz-concern-${c}`}>
-                    {t(CONCERN_LABEL[c])}
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Q3: 출발지 — 현재 위치가 첫 선택지, 시·도는 GPS 를 못 쓸 때의 대안 */}
-          {step === 3 && (
+          {/* Q2: 출발지 — 현재 위치가 첫 선택지, 시·도는 GPS 를 못 쓸 때의 대안 */}
+          {step === STEP_ORIGIN && (
             <motion.div key="q3-origin" {...fade}>
               <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">
                 {t('compassQ3TitleLine1')}
@@ -446,7 +367,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             </motion.div>
           )}
 
-          {/* Q4: 시간 — 반경과 일정 줄 수를 정한다 */}
+          {/* Q3: 시간 — 반경과 일정 줄 수를 정한다 */}
           {step === STEP_TIME && (
             <motion.div key="q4-time" {...fade}>
               <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
@@ -458,34 +379,6 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 {TIME_BUDGETS.map((tb) => (
                   <button key={tb} onClick={() => setTimeBudget(tb)} className={optionClass(timeBudget === tb)} id={`quiz-time-${tb}`}>
                     {t(TIME_LABEL[tb])}
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Q5: 인원 — 결과 둘째 문장 */}
-          {step === 5 && (
-            <motion.div key="q5-party" {...fade}>
-              <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
-                {t('compassQ7TitleLine1')}
-                <br />
-                {t('compassQ7TitleLine2')}
-              </h3>
-              <div className="grid grid-cols-2 gap-4">
-                {PARTY_SIZES.map((p) => (
-                  <button
-                    key={p}
-                    onClick={() => setParty(p)}
-                    className={`p-5 rounded-[20px] border text-center transition-all ${
-                      party === p ? 'border-brand-blue bg-brand-blue/5' : 'border-app-border bg-white'
-                    }`}
-                    id={`quiz-party-${p}`}
-                  >
-                    <span className="block text-3xl mb-2">{PARTY_EMOJI[p]}</span>
-                    <span className={`block font-bold text-sm ${party === p ? 'text-brand-blue' : 'text-app-text'}`}>
-                      {t(PARTY_LABEL[p])}
-                    </span>
                   </button>
                 ))}
               </div>
@@ -539,7 +432,6 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   <PlanResult
                     candidate={chosen}
                     timeBudget={timeBudget ?? '하루'}
-                    openers={[concern ? t(CONCERN_OPENER[concern]) : '', party ? t(PARTY_NOTE[party]) : ''].filter(Boolean)}
                     afternoonIndex={afternoonIndex[chosen.site.id] ?? 0}
                     onSwapAfternoon={() =>
                       setAfternoonIndex((m) => ({ ...m, [chosen.site.id]: (m[chosen.site.id] ?? 0) + 1 }))
