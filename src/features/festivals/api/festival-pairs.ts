@@ -10,8 +10,6 @@
  * 실제 조회는 `use-festivals.ts` 가 한다 — 전국 축제 **1회**가 전부다.
  */
 
-import { combineCrowdingScore, festivalPressure } from '@/features/quiet/api/crowding-score';
-import type { CrowdingScore } from '@/features/quiet/api/crowding-score';
 import type { TourApiSpot } from '@/shared/api/tour-api';
 import { haversineKm } from '@/shared/lib/geo';
 import { type Region } from '@/shared/lib/regions';
@@ -36,14 +34,6 @@ export interface PairedSite {
   site: HolySite;
   /** 축제 좌표에서의 직선거리(km) */
   distanceKm: number;
-  /**
-   * 그 성지의 오늘 붐빔.
-   *
-   * 주변 인프라 조회(성지마다 1회)를 **일부러 하지 않는다.** 그러면 호출 수가
-   * 성지 수에 비례해 늘어난다. 이미 받아 둔 전국 축제 목록만으로 낼 수 있는
-   * 축제 압력 축만 쓰고, 그 사실은 배지에 「일부」로 표시된다(`isPartial`).
-   */
-  crowding: CrowdingScore;
 }
 
 /** 오늘 열리는 축제 한 건 + 그 옆 성지들 */
@@ -228,12 +218,8 @@ export function pairFestivalsWithSites(
       coordinates,
       region: spotRegion,
       imageUrl: spot.firstimage || null,
-      sites: nearby.map(({ site, distanceKm }) => ({
-        site,
-        distanceKm,
-        // 이미 받아 둔 전국 축제 목록만 쓴다. 여기서 API 를 더 부르지 않는다.
-        crowding: combineCrowdingScore(festivalPressure(site.coordinates, festivalList), null),
-      })),
+      // 붐빔 배지는 2026-09-16 에 뺐다 — 축제 압력만으로는 등급을 낼 수 없어 항상 「확인 부족」이었다.
+      sites: nearby.map(({ site, distanceKm }) => ({ site, distanceKm })),
     });
   }
 

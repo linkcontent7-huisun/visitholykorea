@@ -49,7 +49,6 @@ import { BarrierFreeCard } from '@/features/sites/components/BarrierFreeCard';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { TransitParkingCard } from '@/features/sites/components/TransitParkingCard';
-import { classifyTourError } from '@/shared/api/tour-api';
 import { sizedImageUrl } from '@/shared/lib/image-url';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
@@ -58,6 +57,7 @@ import {
   useNearbyFacilities,
   useNearbyFestivals,
 } from '@/features/sites/hooks/use-nearby-tour';
+import { NearbyCrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
 import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
 import {
   useAudioStoriesNearby,
@@ -73,25 +73,12 @@ import {
 import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
-import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { kakaoPlaceUrl } from '@/shared/lib/geo';
-
-/** 외부 API 실패를 종류별로 다른 문장으로 — 한도·잠시 후·설정 누락·그 밖. */
-function externalErrorKey(error: unknown): TranslationKey {
-  switch (classifyTourError(error)) {
-    case 'quota':
-      return 'externalApiQuota';
-    case 'rate_limited':
-      return 'externalApiRateLimited';
-    case 'not_configured':
-      return 'externalApiNotConfigured';
-    default:
-      return 'externalApiFailedBody';
-  }
-}
+import { externalErrorKey } from '@/shared/i18n/external-error-key';
 
 export default function SiteDetailPage() {
   const { siteId } = useParams<{ siteId: string }>();
@@ -437,7 +424,9 @@ export default function SiteDetailPage() {
               )}
             </span>
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            {/* 인근 혼잡도 라벨 — 값이 있을 때만(재기획 A-2). 주어는 "인근 지역", 숫자는 없다 */}
+            <NearbyCrowdingLabel site={site} variant="onDark" />
             {tags.map((tag) => (
               <span
                 key={tag}

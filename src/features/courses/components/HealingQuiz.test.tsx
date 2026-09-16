@@ -225,7 +225,10 @@ describe('HealingQuiz — 전체 흐름', () => {
     fireEvent.click(document.getElementById('plan-card-가까운성지')!);
     await waitFor(() => expect(document.getElementById('plan-swap-afternoon')).toBeTruthy());
     expect(screen.getByText('붐비는곳')).toBeInTheDocument();
-    expect(document.getElementById('plan-congestion')!.textContent).toContain('85%');
+    // 숫자는 화면에 내지 않는다(2026-09-16) — 등급 말만 보인다
+    const congestionLine = document.getElementById('plan-congestion')!.textContent ?? '';
+    expect(congestionLine).toContain('붐빌 예정');
+    expect(congestionLine).not.toMatch(/\d/);
     fireEvent.click(document.getElementById('plan-swap-afternoon')!);
     await waitFor(() => expect(screen.getByText('한적한곳')).toBeInTheDocument());
     expect(document.getElementById('plan-swap-afternoon')).toBeNull();

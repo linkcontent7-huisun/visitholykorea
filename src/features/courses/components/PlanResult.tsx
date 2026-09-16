@@ -5,7 +5,7 @@ import type { TourApiSpot } from '@/shared/api/tour-api';
 import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm, kakaoPlaceUrl } from '@/shared/lib/geo';
-import type { CrowdingScore } from '@/features/quiet/api/crowding-score';
+import { CrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
 import type { TimeBudget } from '../api/course-matching';
 import type { Candidate } from '../hooks/use-candidate-plans';
 import type { CongestionLevel } from '../lib/afternoon-pick';
@@ -15,18 +15,11 @@ import { formatFromOrigin, formatFromSite } from '../lib/plan-format';
  * 일정 화면 — 카드를 누르면. 성지 1곳 중심 하루 일정: 오전 성지 → 점심 → 오후 관광지.
  * 데이터는 카드 화면에서 이미 받아 둔 것(Candidate)을 그대로 쓴다 — 여기서 TourAPI 추가 호출 0.
  *
- * 붐빔은 두 자리에서, 역할이 다르다(스펙 8절):
- *   오전 줄 — 성지 **인근 지역**의 붐빔 추정(A-2 와 같은 산식). 성지가 조용하다고는 말하지 않는다.
- *   오후 줄 — 관광지의 관광공사 집중률. 붐빌 예정이면 한 줄 더 알리고 「바꾸기」.
+ * 혼잡도는 두 자리에서, 역할이 다르다(스펙 8절 · 2026-09-16 재설계):
+ *   오전 줄 — 성지 **인근 지역**의 혼잡도 추정(상세 카드와 같은 산식·같은 문구). 성지가 조용하다고는 말하지 않는다.
+ *   오후 줄 — 관광지의 관광공사 집중률 등급. 붐빌 예정이면 한 줄 더 알리고 「바꾸기」.
+ * 숫자(퍼센트·점수)는 화면에 내지 않는다.
  */
-
-const NEARBY_KEY: Record<CrowdingScore['level'], TranslationKey> = {
-  '아주 조용': 'nearbyQuiet',
-  조용: 'nearbyQuiet',
-  보통: 'nearbyModerate',
-  붐빔: 'nearbyCrowded',
-  '매우 붐빔': 'nearbyCrowded',
-};
 
 const CONGESTION_KEY: Record<CongestionLevel, TranslationKey> = {
   easy: 'congestionEasy',
@@ -92,19 +85,11 @@ export function PlanResult({
   onBack,
   onGo,
 }: PlanResultProps) {
-  const { t, language } = useSettings();
+  const { t } = useSettings();
   const { site, crowding, lunch, afternoon, facilities, loading } = candidate;
   const pick = afternoon[afternoonIndex] ?? afternoon[0] ?? null;
   const nextPick = afternoon[afternoonIndex + 1] ?? null;
   const showLunch = timeBudget !== '반나절';
-
-  const nearbyLine = (() => {
-    if (crowding == null) return loading ? t('planLoadingNearby') : t('nearbyUnknown');
-    // reasons 는 산식이 만드는 한국어 문장 — 다른 언어에선 「추정」만.
-    const reason = language === 'ko' ? crowding.reasons[0] : undefined;
-    const tail = crowding.isPartial ? t('nearbyPartial') : reason ? `${reason}` : t('nearbyEstimate');
-    return `${t(NEARBY_KEY[crowding.level])} · ${tail}`;
-  })();
 
   const nearbyFailed = facilities == null && !loading;
 
@@ -140,9 +125,12 @@ export function PlanResult({
                 {formatFromOrigin(candidate.distanceKm, t)}
               </p>
             </button>
-            <p className="mt-1 text-xs font-bold text-app-text" id="plan-nearby-crowding">
-              {nearbyLine}
-            </p>
+            {/* 인근 혼잡도 라벨 — 상세 페이지와 같은 부품. 값이 없으면(조회 중·실패·데이터 없는 지역) 비운다 */}
+            {crowding?.level && (
+              <div className="mt-1.5">
+                <CrowdingLabel level={crowding.level} id="plan-nearby-crowding" />
+              </div>
+            )}
           </Row>
 
           {showLunch && (
@@ -163,8 +151,7 @@ export function PlanResult({
                 <SpotLink candidate={candidate} spot={pick.spot} t={t} />
                 {pick.congestion != null && pick.level && (
                   <p className="mt-1 text-[0.6875rem] font-bold text-app-text-muted" id="plan-congestion">
-                    {fillPlaceholders(t('congestionLabel'), { rate: Math.round(pick.congestion) })} ·{' '}
-                    {t(CONGESTION_KEY[pick.level])}
+                    {t('congestionLabel')} · {t(CONGESTION_KEY[pick.level])}
                   </p>
                 )}
                 {pick.level === 'busy' && (
