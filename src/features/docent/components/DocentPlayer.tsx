@@ -35,12 +35,12 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
   if (chapters.length === 0 || !current) return null;
 
   return (
-    <div className="mb-6 overflow-hidden rounded-[28px] border border-app-border bg-app-bg">
+    <div className="mb-6 overflow-hidden rounded-lg border border-app-border bg-app-bg">
       <div className="flex items-center gap-3 border-b border-app-border p-5">
         {isSupported && (
           <button
             onClick={toggle}
-            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl transition-all ${
+            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg transition-all ${
               isPlaying
                 ? 'bg-brand-violet text-white'
                 : 'border border-app-border bg-white text-brand-violet'
@@ -105,7 +105,7 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
             <button
                 onClick={confirmHeadphones}
                 disabled={isVerifying}
-                className="mt-3 w-full rounded-xl bg-brand-violet py-2.5 text-xs font-extrabold text-white disabled:opacity-50"
+                className="mt-3 w-full rounded-lg bg-brand-violet py-2.5 text-xs font-extrabold text-white disabled:opacity-50"
                 id="docent-earphone-confirm"
               >
                 {isVerifying ? t('docentEarphoneVerifying') : t('docentEarphoneConfirm')}

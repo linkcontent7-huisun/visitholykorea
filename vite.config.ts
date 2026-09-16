@@ -89,6 +89,16 @@ export default defineConfig(({ mode }) => ({
         // 런타임 캐시 규칙에 넣지 않는다 — 아래 목록에 그 URL 이 없는 것이 의도다.
         runtimeCaching: [
           {
+            // 홈 히어로 고정 5곳 사진(자체 저장, `public/images/hero/`) — 한 번 받으면 오래 쓴다(9/16 회의: 캐싱해 리소스 절약).
+            urlPattern: /\/images\/(hero|sites)\/.*\.(jpg|webp)$/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'site-photos',
+              expiration: { maxEntries: 40, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
             urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/v1\/holy_sites.*/i,
             handler: 'NetworkFirst',
             options: {

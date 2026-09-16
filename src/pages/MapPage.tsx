@@ -82,7 +82,7 @@ export default function MapPage() {
 
   /** 지도 노드 — 폭에 따라 꽂히는 자리만 달라진다. */
   const mapNode = isLoading ? (
-    <div className="h-72 w-full animate-pulse rounded-2xl bg-app-bg" />
+    <div className="h-72 w-full animate-pulse rounded-lg bg-app-bg" />
   ) : (
     <NationalMap
       sites={sites}
@@ -97,7 +97,7 @@ export default function MapPage() {
 
   /** 핀·목록에서 고른 성지 카드. 구글맵처럼 정보보다 행동이 먼저 온다. */
   const selectedCard = selectedSite && (
-    <div className="rounded-[24px] border border-brand-blue/30 bg-white p-5 shadow-sm">
+    <div className="rounded-lg border border-brand-blue/30 bg-white p-5 shadow-sm">
       <span className="text-[0.625rem] font-extrabold uppercase tracking-tight text-brand-violet">
         {selectedSite.region} · {selectedSite.category}
       </span>
@@ -108,7 +108,7 @@ export default function MapPage() {
         <button
           type="button"
           onClick={() => toggle(selectedSite.id)}
-          className={`flex flex-1 items-center justify-center gap-1.5 rounded-2xl px-4 py-3 text-sm font-bold transition-all ${
+          className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-4 py-3 text-sm font-bold transition-all ${
             visitedIds.has(selectedSite.id)
               ? 'bg-brand-blue text-white'
               : 'border border-app-border bg-white text-app-text hover:border-brand-violet'
@@ -119,7 +119,7 @@ export default function MapPage() {
         </button>
         <Link
           to={paths.siteDetail(selectedSite.id)}
-          className="flex flex-1 items-center justify-center rounded-2xl border border-app-border bg-white px-4 py-3 text-sm font-bold text-app-text hover:border-brand-violet"
+          className="flex flex-1 items-center justify-center rounded-lg border border-app-border bg-white px-4 py-3 text-sm font-bold text-app-text hover:border-brand-violet"
         >
           자세히
         </Link>
@@ -163,13 +163,13 @@ export default function MapPage() {
           </p>
 
           {nudge && (
-            <p className="mt-3 rounded-2xl bg-brand-violet/10 px-4 py-3 text-sm font-semibold text-brand-violet">
+            <p className="mt-3 rounded-lg bg-brand-violet/10 px-4 py-3 text-sm font-semibold text-brand-violet">
               {nudge}
             </p>
           )}
 
           {isError && (
-            <div className="mt-3 flex items-start gap-3 rounded-2xl border border-red-100 bg-red-50 px-4 py-3">
+            <div className="mt-3 flex items-start gap-3 rounded-lg border border-red-100 bg-red-50 px-4 py-3">
               <AlertTriangle size={18} className="mt-0.5 shrink-0 text-red-500" aria-hidden />
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-bold text-red-700">{t('mapSitesErrorTitle')}</p>
@@ -189,7 +189,7 @@ export default function MapPage() {
         {/* 지도 — 모바일에서만 여기에 온다 */}
         {!wideView && (
           <div className="px-6">
-            <div className="rounded-[24px] border border-app-border bg-white p-4">
+            <div className="rounded-lg border border-app-border bg-white p-4">
               {mapNode}
               <div className="mt-3 border-t border-app-border pt-3">
                 <MapLegend />
@@ -211,7 +211,7 @@ export default function MapPage() {
               onChange={(e) => setKeyword(e.target.value)}
               placeholder={t('mapSearchSite')}
               aria-label={t('mapSearchSite')}
-              className="w-full rounded-[20px] border border-app-border bg-white py-3.5 pl-12 pr-4 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-brand-violet/50"
+              className="w-full rounded-lg border border-app-border bg-white py-3.5 pl-12 pr-4 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-brand-violet/50"
             />
           </div>
 
@@ -231,7 +231,7 @@ export default function MapPage() {
         {/* 목록 — 데스크톱에서는 마우스를 올리면 지도의 핀이 함께 강조된다 */}
         <div className="space-y-3 p-6 pb-32 lg:pb-6">
           {isLoading ? (
-            [1, 2, 3].map((i) => <div key={i} className="h-20 animate-pulse rounded-[24px] bg-white" />)
+            [1, 2, 3].map((i) => <div key={i} className="h-20 animate-pulse rounded-lg bg-white" />)
           ) : visibleSites.length === 0 ? (
             <p className="py-16 text-center text-sm font-medium text-app-text-muted">
               {t('noSitesMatchFilter')}
@@ -270,7 +270,7 @@ export default function MapPage() {
         <div className="relative hidden flex-1 items-center justify-center bg-app-bg p-10 lg:flex">
           <div className="w-full max-w-[620px]">{mapNode}</div>
 
-          <div className="absolute bottom-6 left-8 rounded-2xl border border-app-border bg-white/95 px-5 py-3 backdrop-blur-md">
+          <div className="absolute bottom-6 left-8 rounded-lg border border-app-border bg-white/95 px-5 py-3 backdrop-blur-md">
             <MapLegend />
           </div>
 
@@ -303,12 +303,12 @@ function MapListRow({
     <div ref={rowRef} onMouseEnter={onHover}>
       <Link
         to={paths.siteDetail(site.id)}
-        className={`flex items-center gap-4 rounded-[24px] border bg-white p-4 shadow-sm transition-all hover:shadow-md ${
+        className={`flex items-center gap-4 rounded-lg border bg-white p-4 shadow-sm transition-all hover:shadow-md ${
           active ? 'border-brand-blue ring-1 ring-brand-blue/20' : 'border-app-border'
         }`}
         id={`map-item-${site.id}`}
       >
-        <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-app-bg text-brand-violet">
+        <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-app-bg text-brand-violet">
           {site.imageUrl ? (
             <SiteThumbnail
               imageUrl={site.imageUrl}

@@ -66,7 +66,7 @@ export function TextSizePicker({ inline = false }: { inline?: boolean }) {
           className={
             inline
               ? 'flex items-center gap-[2px] rounded-full border border-app-border bg-white p-[2px]'
-              : 'absolute right-0 top-[calc(100%+6px)] z-50 flex w-[64px] flex-col gap-[2px] rounded-[18px] border border-app-border bg-white p-[3px] shadow-lg shadow-black/10'
+              : 'absolute right-0 top-[calc(100%+6px)] z-50 flex w-[64px] flex-col gap-[2px] rounded-lg border border-app-border bg-white p-[3px] shadow-lg shadow-black/10'
           }
         >
           {/* 펼침일 때는 큰 것부터 — 위에서 아래로 대·중·소 */}

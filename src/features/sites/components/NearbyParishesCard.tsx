@@ -26,7 +26,7 @@ export function NearbyParishesCard({ site }: { site: HolySite }) {
   if (isLoading || places.length === 0) return null;
 
   return (
-    <div className="rounded-[20px] border border-app-border bg-white p-5">
+    <div className="rounded-lg border border-app-border bg-white p-5">
       <div className="mb-3 flex items-center gap-2">
         <Church size={16} className="text-brand-violet" aria-hidden />
         <h3 className="text-sm font-bold text-app-text">{t('regionParishesTitle')}</h3>
@@ -58,7 +58,7 @@ export function NearbyParishesCard({ site }: { site: HolySite }) {
                   <a
                     href={`tel:${p.phone}`}
                     aria-label={`${p.name} ${t('callPhone')}`}
-                    className="rounded-xl bg-app-bg p-2 text-brand-violet"
+                    className="rounded-lg bg-app-bg p-2 text-brand-violet"
                   >
                     <Phone size={14} />
                   </a>

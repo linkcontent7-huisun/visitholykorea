@@ -54,7 +54,7 @@ function AdminConsole() {
           </div>
           <button
             onClick={() => void signOut()}
-            className="flex items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold text-slate-600"
+            className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-2 text-xs font-bold text-slate-600"
           >
             <LogOut size={14} />
             로그아웃
@@ -90,7 +90,7 @@ function TabButton({
   return (
     <button
       onClick={onClick}
-      className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl py-2.5 text-sm font-bold ${
+      className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-bold ${
         active ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-500'
       }`}
     >
@@ -147,7 +147,7 @@ function QueueTab() {
           value={term}
           onChange={(e) => setTerm(e.target.value)}
           placeholder="성지 이름 또는 교구로 찾기 (208곳 전체)"
-          className="w-full rounded-2xl border border-slate-200 bg-white py-3.5 pl-11 pr-4 text-sm font-bold text-slate-900 focus:border-slate-900 focus:outline-none"
+          className="w-full rounded-lg border border-slate-200 bg-white py-3.5 pl-11 pr-4 text-sm font-bold text-slate-900 focus:border-slate-900 focus:outline-none"
         />
       </div>
 
@@ -173,7 +173,7 @@ function QueueTab() {
           <li key={site.id}>
             <Link
               to={paths.adminSite(site.id)}
-              className="flex items-center gap-3 rounded-2xl bg-white px-4 py-4 shadow-sm"
+              className="flex items-center gap-3 rounded-lg bg-white px-4 py-4 shadow-sm"
             >
               <div className="min-w-0 flex-1">
                 <p className="truncate text-base font-bold text-slate-900">{site.name}</p>
@@ -235,7 +235,7 @@ function PhotoReviewTab() {
 
       <ul className="flex flex-col gap-4">
         {photos.map((photo) => (
-          <li key={photo.stampId} className="overflow-hidden rounded-2xl bg-white shadow-sm">
+          <li key={photo.stampId} className="overflow-hidden rounded-lg bg-white shadow-sm">
             <img
               src={photo.photoUrl}
               alt={`${photo.siteName} 순례자 사진`}
@@ -255,7 +255,7 @@ function PhotoReviewTab() {
                     feature.mutate({ photoId: photo.photoId, featured: !photo.featured })
                   }
                   disabled={feature.isPending}
-                  className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl py-3 text-sm font-bold disabled:opacity-50 ${
+                  className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg py-3 text-sm font-bold disabled:opacity-50 ${
                     photo.featured
                       ? 'bg-amber-100 text-amber-700'
                       : 'bg-slate-900 text-white'
@@ -267,7 +267,7 @@ function PhotoReviewTab() {
                 <button
                   onClick={() => hide.mutate({ stampId: photo.stampId, hidden: true })}
                   disabled={hide.isPending}
-                  className="rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold text-slate-500 disabled:opacity-50"
+                  className="rounded-lg border border-slate-200 px-4 py-3 text-sm font-bold text-slate-500 disabled:opacity-50"
                 >
                   내리기
                 </button>
@@ -282,7 +282,7 @@ function PhotoReviewTab() {
 
 function Stat({ label, value, total }: { label: string; value: number; total: number }) {
   return (
-    <div className="rounded-2xl bg-white px-3 py-3 text-center shadow-sm">
+    <div className="rounded-lg bg-white px-3 py-3 text-center shadow-sm">
       <p className="text-xl font-black text-slate-900">{value}</p>
       <p className="mt-0.5 text-[11px] font-bold text-slate-400">
         {label} / {total}곳
@@ -303,7 +303,7 @@ function Chip({
   return (
     <button
       onClick={onClick}
-      className={`rounded-xl px-3.5 py-2 text-sm font-bold ${
+      className={`rounded-lg px-3.5 py-2 text-sm font-bold ${
         active ? 'bg-slate-900 text-white' : 'bg-white text-slate-500 shadow-sm'
       }`}
     >

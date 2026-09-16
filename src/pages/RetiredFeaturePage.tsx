@@ -21,7 +21,7 @@ export default function RetiredFeaturePage({ feature }: { feature: 'ai' }) {
 
   return (
     <PageContainer className="min-h-page py-12">
-      <div className="mx-auto max-w-lg rounded-[28px] border border-app-border bg-white p-8 text-center">
+      <div className="mx-auto max-w-lg rounded-lg border border-app-border bg-white p-8 text-center">
         <h1 className="text-xl font-extrabold tracking-tight text-app-text">{title}</h1>
         <p className="mt-3 text-sm leading-relaxed text-app-text-muted">{body}</p>
         <Link

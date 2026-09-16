@@ -4991,6 +4991,72 @@ export const DICTIONARY = {
   crowdingWordLow: { ko: "낮음", en: "low", es: "low", fr: "low", pt: "low", it: "low" },
   crowdingWordMid: { ko: "보통", en: "moderate", es: "moderate", fr: "moderate", pt: "moderate", it: "moderate" },
   crowdingWordHigh: { ko: "높음", en: "high", es: "high", fr: "high", pt: "high", it: "high" },
+
+  // ── 홈 재정돈(2026-09-16 시안 확정) — 히어로 슬라이드·입구 2개 ──
+  heroCarouselLabel: {
+    ko: '오늘의 성지 사진',
+    en: 'Featured shrine photos',
+    es: 'Fotos de santuarios destacados',
+    fr: 'Photos de sanctuaires à la une',
+    pt: 'Fotos de santuários em destaque',
+    it: 'Foto di santuari in evidenza',
+  },
+  heroPrev: {
+    ko: '이전 성지',
+    en: 'Previous shrine',
+    es: 'Santuario anterior',
+    fr: 'Sanctuaire précédent',
+    pt: 'Santuário anterior',
+    it: 'Santuario precedente',
+  },
+  heroNext: {
+    ko: '다음 성지',
+    en: 'Next shrine',
+    es: 'Siguiente santuario',
+    fr: 'Sanctuaire suivant',
+    pt: 'Próximo santuário',
+    it: 'Santuario successivo',
+  },
+  homeEntrySearchSub: {
+    ko: '이름 · 지역 · 교구로 {count}곳',
+    en: '{count} shrines by name, region or diocese',
+    es: '{count} santuarios por nombre, región o diócesis',
+    fr: '{count} sanctuaires par nom, région ou diocèse',
+    pt: '{count} santuários por nome, região ou diocese',
+    it: '{count} santuari per nome, regione o diocesi',
+  },
+  recordsLoggedInAs: {
+    ko: '{name} 님 · 기록 {count}건',
+    en: '{name} · {count} records',
+    es: '{name} · {count} registros',
+    fr: '{name} · {count} notes',
+    pt: '{name} · {count} registros',
+    it: '{name} · {count} appunti',
+  },
+  recordsLoggedInNote: {
+    ko: '로그인 상태 · 기록은 나에게만 보여요',
+    en: 'Signed in · records are visible only to you',
+    es: 'Sesión iniciada · los registros solo los ves tú',
+    fr: 'Connecté · vos notes ne sont visibles que par vous',
+    pt: 'Conectado · os registros só você vê',
+    it: 'Accesso effettuato · gli appunti li vedi solo tu',
+  },
+  showPassword: {
+    ko: '비밀번호 보기',
+    en: 'Show password',
+    es: 'Mostrar contraseña',
+    fr: 'Afficher le mot de passe',
+    pt: 'Mostrar senha',
+    it: 'Mostra password',
+  },
+  hidePassword: {
+    ko: '비밀번호 숨기기',
+    en: 'Hide password',
+    es: 'Ocultar contraseña',
+    fr: 'Masquer le mot de passe',
+    pt: 'Ocultar senha',
+    it: 'Nascondi password',
+  },
 } as const satisfies Record<string, Record<Language, string>>;
 
 export type TranslationKey = keyof typeof DICTIONARY;

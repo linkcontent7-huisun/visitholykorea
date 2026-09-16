@@ -3,16 +3,27 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
-  /* 섹션 제목용 명조체 — 본문(고딕)과 대비를 줘서 「고요 속으로」 같은 제목에 성지의 정적인 느낌을 싣는다 */
+  /*
+   * 디자인 재정돈(2026-09-16 회의 · 시안 확정). 기준은 `docs/이어서-할-일.md` 9/16(저녁) 항목.
+   * - 글꼴: 본문 Noto Sans KR(한글 가독성 — 50대 이상 기준), 제목 Gowun Batang 명조.
+   * - 색: 남색 #1F2F55 하나가 「누르는 것」(버튼·링크·활성 탭·포커스). 올리브는 「표시하는 것」(칩 켜짐·작은 라벨).
+   *   예전 보라(brand-violet)는 이름을 남기되 남색과 같은 값으로 둔다 — 화면 곳곳의 `text-brand-violet` 이
+   *   한 번에 남색이 되고, `from-brand-blue to-brand-violet` 그라데이션은 단색이 된다(보라 그라데이션 금지).
+   * - 바탕: 홈은 흰색(화면이 직접 지정), 그 밖은 종이색. 선은 따뜻한 회색.
+   */
+  --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
   --font-display: 'Gowun Batang', 'Noto Serif KR', 'Malgun Gothic', serif;
 
-  --color-brand-blue: #1e3a8a;
-  --color-brand-violet: #7c3aed;
-  --color-app-bg: #f8f9fa;
-  --color-app-border: #f1f3f5;
-  --color-app-text: #1a1a1a;
-  --color-app-text-muted: #495057;
+  --color-brand-blue: #1f2f55;
+  --color-brand-violet: #1f2f55;
+  --color-brand-soft: #e6eaf3;
+  --color-brand-olive: #6e7f5c;
+  --color-brand-olive-soft: #e9ede3;
+  --color-app-bg: #f5f3ee;
+  --color-app-panel: #f1eee8;
+  --color-app-border: #ddd8cf;
+  --color-app-text: #1e222b;
+  --color-app-text-muted: #5e6470;
 }
 
 /*

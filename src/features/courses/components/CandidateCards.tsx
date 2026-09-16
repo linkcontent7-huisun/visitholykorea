@@ -64,10 +64,10 @@ export function CandidateCards({
             <button
               type="button"
               onClick={() => onSelect(i)}
-              className="flex w-full items-center gap-4 rounded-[20px] border border-app-border bg-white p-3 text-left transition-transform active:scale-[0.99]"
+              className="flex w-full items-center gap-4 rounded-lg border border-app-border bg-white p-3 text-left transition-transform active:scale-[0.99]"
               id={`plan-card-${c.site.id}`}
             >
-              <span className="h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-app-bg">
+              <span className="h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-app-bg">
                 <SiteThumbnail
                   imageUrl={c.site.imageUrl}
                   name={c.site.name}
@@ -108,13 +108,13 @@ export function CandidateCards({
         <button
           type="button"
           onClick={onMore}
-          className="mt-4 w-full rounded-[20px] border border-app-border bg-app-bg py-4 text-sm font-bold text-app-text"
+          className="mt-4 w-full rounded-lg border border-app-border bg-app-bg py-4 text-base font-bold text-app-text"
           id="plan-more"
         >
           {t('planMore')}
         </button>
       ) : (
-        <div className="mt-5 rounded-[20px] border border-dashed border-app-border p-5 text-center">
+        <div className="mt-5 rounded-lg border border-dashed border-app-border p-5 text-center">
           <p className="text-sm font-bold text-app-text-muted">
             {moreInNextRadius > 0
               ? fillPlaceholders(t('planMoreInRadius'), { n: moreInNextRadius })
@@ -124,7 +124,7 @@ export function CandidateCards({
             <button
               type="button"
               onClick={onWidenTime}
-              className="flex-1 rounded-[16px] bg-brand-blue py-3 text-sm font-bold text-white"
+              className="flex-1 rounded-lg bg-brand-blue py-3.5 text-base font-bold text-white"
               id="plan-widen-time"
             >
               {t('planWidenTime')}
@@ -132,7 +132,7 @@ export function CandidateCards({
             <button
               type="button"
               onClick={onChangeMood}
-              className="flex-1 rounded-[16px] border border-app-border bg-white py-3 text-sm font-bold text-app-text"
+              className="flex-1 rounded-lg border border-app-border bg-white py-3.5 text-base font-bold text-app-text"
               id="plan-change-mood"
             >
               {t('planChangeMood')}

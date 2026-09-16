@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronLeft, Lock, Mail, ShieldCheck, User as UserIcon } from 'lucide-react';
+import { ArrowRight, ChevronLeft, Eye, EyeOff, Lock, Mail, ShieldCheck, User as UserIcon } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -20,6 +20,7 @@ export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState('');
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -100,25 +101,25 @@ export default function LoginPage() {
   };
 
   const inputClass =
-    'w-full rounded-2xl border border-slate-100 bg-slate-50 py-4 pl-12 pr-4 font-bold transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20';
+    'w-full rounded-lg border border-app-border bg-white py-4 pl-12 pr-4 font-bold transition-all focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/20';
 
   return (
     <div className={`mx-auto flex min-h-screen ${widthClass} flex-col bg-white`}>
       <div className="flex h-16 shrink-0 items-center px-4">
-        <button onClick={() => navigate(-1)} className="p-2 text-slate-800" aria-label={t('backAria')}>
+        <button onClick={() => navigate(-1)} className="p-2 text-app-text" aria-label={t('backAria')}>
           <ChevronLeft size={28} />
         </button>
       </div>
 
       <div className="flex-1 overflow-y-auto px-8 pb-10">
         <div className="mb-12 mt-10">
-          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-blue-600 text-white shadow-xl shadow-blue-100">
+          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-lg bg-brand-blue text-white shadow-xl ">
             <ShieldCheck size={32} />
           </div>
-          <h1 className="mb-2 whitespace-pre-line text-3xl font-black tracking-tight text-slate-900">
+          <h1 className="mb-2 whitespace-pre-line text-3xl font-black tracking-tight text-app-text">
             {isLogin ? t('loginWelcomeBack') : t('signupTitle')}
           </h1>
-          <p className="whitespace-pre-line font-medium text-slate-400">
+          <p className="whitespace-pre-line font-medium text-app-text-muted">
             {isLogin
               ? t('loginWelcomeBackSub')
               : t('signupSub')}
@@ -129,7 +130,7 @@ export default function LoginPage() {
           {!isLogin && (
             <div className="group relative">
               <UserIcon
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 transition-colors group-focus-within:text-blue-500"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
                 size={20}
               />
               <input
@@ -146,7 +147,7 @@ export default function LoginPage() {
 
           <div className="group relative">
             <Mail
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 transition-colors group-focus-within:text-blue-500"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
               size={20}
             />
             <input
@@ -163,28 +164,40 @@ export default function LoginPage() {
 
           <div className="group relative">
             <Lock
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 transition-colors group-focus-within:text-blue-500"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
               size={20}
             />
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               placeholder={t('passwordField')}
               aria-label={t('passwordField')}
               autoComplete={isLogin ? 'current-password' : 'new-password'}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={inputClass}
+              className={`${inputClass} pr-14`}
             />
+            {/* 비밀번호 보기 — 브라우저 기본 기능이 아니다(Chrome·Safari 에 없음). 오타로 로그인에 실패하는
+                50대 이상 사용자를 위해 둔다 (2026-09-16 회의). */}
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg text-app-text-muted hover:text-brand-blue"
+              aria-label={showPassword ? t('hidePassword') : t('showPassword')}
+              aria-pressed={showPassword}
+              id="toggle-password"
+            >
+              {showPassword ? <EyeOff size={20} aria-hidden /> : <Eye size={20} aria-hidden />}
+            </button>
           </div>
 
           {!isLogin && (
-            <label className="flex cursor-pointer items-start gap-2.5 px-1 text-xs font-medium text-slate-500">
+            <label className="flex cursor-pointer items-start gap-2.5 px-1 text-xs font-medium text-app-text-muted">
               <input
                 type="checkbox"
                 checked={agreed}
                 onChange={(e) => setAgreed(e.target.checked)}
-                className="mt-0.5 size-4 shrink-0 accent-blue-600"
+                className="mt-0.5 size-4 shrink-0 accent-brand-blue"
               />
               <span>{t('signupConsentLabel')}</span>
             </label>
@@ -193,7 +206,7 @@ export default function LoginPage() {
           {message && (
             <p
               className={`px-1 text-sm font-bold ${
-                message.type === 'error' ? 'text-red-500' : 'text-blue-600'
+                message.type === 'error' ? 'text-red-500' : 'text-brand-blue'
               }`}
               role="status"
             >
@@ -204,7 +217,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading || (!isLogin && !agreed)}
-            className="group mt-8 flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 py-5 font-black text-white shadow-xl shadow-blue-100 transition-all hover:bg-blue-700 active:scale-95 disabled:opacity-50"
+            className="group mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-brand-blue py-5 font-black text-white shadow-xl  transition-all hover:bg-brand-blue/90 active:scale-95 disabled:opacity-50"
           >
             {loading ? t('processing') : isLogin ? t('login') : t('signup')}
             {!loading && (
@@ -224,11 +237,11 @@ export default function LoginPage() {
           {HAS_ANY_SOCIAL && (
             <>
           <div className="mb-6 flex items-center gap-4" aria-hidden>
-            <span className="h-px flex-1 bg-slate-100" />
-            <span className="text-xs font-bold text-slate-300">{t('socialLogin')}</span>
-            <span className="h-px flex-1 bg-slate-100" />
+            <span className="h-px flex-1 bg-app-panel" />
+            <span className="text-xs font-bold text-app-text-muted">{t('socialLogin')}</span>
+            <span className="h-px flex-1 bg-app-panel" />
           </div>
-          <p className="mb-6 text-sm font-medium text-slate-400">
+          <p className="mb-6 text-sm font-medium text-app-text-muted">
             {t('socialLoginHint')}
           </p>
 
@@ -270,7 +283,7 @@ export default function LoginPage() {
               disabled={loading}
               aria-label={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
               title={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
-              className="flex h-14 w-14 items-center justify-center rounded-full border border-slate-200 bg-white shadow-md transition-all hover:bg-slate-50 active:scale-95 disabled:opacity-50"
+              className="flex h-14 w-14 items-center justify-center rounded-full border border-app-border bg-white shadow-md transition-all hover:bg-white active:scale-95 disabled:opacity-50"
             >
               {/* 구글 G 심볼 */}
               <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden>
@@ -319,7 +332,7 @@ export default function LoginPage() {
               to={paths.terms}
               target="_blank"
               rel="noopener"
-              className="min-h-11 text-xs font-bold text-slate-400 underline underline-offset-2"
+              className="min-h-11 text-xs font-bold text-app-text-muted underline underline-offset-2"
             >
               {t('viewTerms')}
             </Link>
@@ -327,7 +340,7 @@ export default function LoginPage() {
               to={paths.privacy}
               target="_blank"
               rel="noopener"
-              className="min-h-11 text-xs font-bold text-slate-400 underline underline-offset-2"
+              className="min-h-11 text-xs font-bold text-app-text-muted underline underline-offset-2"
             >
               {t('privacyNotice')}
             </Link>
@@ -335,18 +348,18 @@ export default function LoginPage() {
               to={paths.faq}
               target="_blank"
               rel="noopener"
-              className="min-h-11 text-xs font-bold text-slate-400 underline underline-offset-2"
+              className="min-h-11 text-xs font-bold text-app-text-muted underline underline-offset-2"
             >
               {t('viewFaq')}
             </Link>
           </div>
-          <p className="mt-2 text-center text-[0.6875rem] text-slate-400">{t('termsOpensNewTab')}</p>
+          <p className="mt-2 text-center text-[0.6875rem] text-app-text-muted">{t('termsOpensNewTab')}</p>
         </div>
 
         <div className="mt-10 text-center">
-          <button onClick={() => setIsLogin(!isLogin)} className="text-sm font-bold text-slate-400">
+          <button onClick={() => setIsLogin(!isLogin)} className="text-sm font-bold text-app-text-muted">
             {isLogin ? t('noAccountYet') : t('alreadyHaveAccount')}
-            <span className="text-blue-600">{isLogin ? t('signup') : t('login')}</span>
+            <span className="text-brand-blue">{isLogin ? t('signup') : t('login')}</span>
           </button>
         </div>
       </div>

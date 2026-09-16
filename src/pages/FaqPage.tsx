@@ -84,19 +84,19 @@ export default function FaqPage() {
   return (
     <div className={`mx-auto flex min-h-page ${widthClass} flex-col bg-white`}>
       <div className="flex h-16 shrink-0 items-center px-4">
-        <button onClick={() => navigate(-1)} className="p-2 text-slate-800" aria-label="뒤로 가기">
+        <button onClick={() => navigate(-1)} className="p-2 text-app-text" aria-label="뒤로 가기">
           <ChevronLeft size={28} />
         </button>
       </div>
 
       <div className="flex-1 overflow-y-auto px-8 pb-16">
-        <h1 className="mb-2 text-3xl font-black tracking-tight text-slate-900">자주 묻는 질문</h1>
-        <p className="mb-8 text-sm font-medium text-slate-400">
+        <h1 className="mb-2 text-3xl font-black tracking-tight text-app-text">자주 묻는 질문</h1>
+        <p className="mb-8 text-sm font-medium text-app-text-muted">
           Visit Holy Korea 를 이용하며 자주 묻는 질문입니다.
         </p>
 
         {/* 탭 */}
-        <div className="mb-6 flex overflow-hidden rounded-xl border border-slate-200" role="tablist">
+        <div className="mb-6 flex overflow-hidden rounded-lg border border-app-border" role="tablist">
           {(Object.keys(FAQ) as 탭[]).map((tab) => (
             <button
               key={tab}
@@ -107,7 +107,7 @@ export default function FaqPage() {
                 set열린질문(null);
               }}
               className={`flex-1 py-3.5 text-sm font-bold transition-colors ${
-                탭선택 === tab ? 'bg-blue-600 text-white' : 'bg-slate-50 text-slate-500'
+                탭선택 === tab ? 'bg-brand-blue text-white' : 'bg-white text-app-text-muted'
               }`}
             >
               {tab}
@@ -120,26 +120,26 @@ export default function FaqPage() {
           {FAQ[탭선택].map(({ q, a }) => {
             const 열림 = 열린질문 === q;
             return (
-              <div key={q} className="overflow-hidden rounded-xl border border-slate-100">
+              <div key={q} className="overflow-hidden rounded-lg border border-app-border">
                 <button
                   onClick={() => set열린질문(열림 ? null : q)}
                   aria-expanded={열림}
                   className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left"
                 >
                   <span className="flex items-start gap-3">
-                    <span className="font-black text-blue-600" aria-hidden>
+                    <span className="font-black text-brand-blue" aria-hidden>
                       Q
                     </span>
-                    <span className="text-[15px] font-bold text-slate-800">{q}</span>
+                    <span className="text-[15px] font-bold text-app-text">{q}</span>
                   </span>
                   <ChevronDown
                     size={18}
-                    className={`shrink-0 text-slate-400 transition-transform ${열림 ? 'rotate-180' : ''}`}
+                    className={`shrink-0 text-app-text-muted transition-transform ${열림 ? 'rotate-180' : ''}`}
                     aria-hidden
                   />
                 </button>
                 {열림 && (
-                  <p className="whitespace-pre-line border-t border-slate-100 bg-slate-50 px-5 py-4 text-sm leading-relaxed text-slate-600">
+                  <p className="whitespace-pre-line border-t border-app-border bg-white px-5 py-4 text-sm leading-relaxed text-app-text-muted">
                     {a}
                   </p>
                 )}
@@ -148,19 +148,19 @@ export default function FaqPage() {
           })}
         </div>
 
-        <div className="mt-10 rounded-2xl border border-slate-100 bg-slate-50 p-6 text-center">
-          <p className="text-sm font-bold text-slate-800">{t('contactSectionTitle')}</p>
-          <p className="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-slate-500">
+        <div className="mt-10 rounded-lg border border-app-border bg-white p-6 text-center">
+          <p className="text-sm font-bold text-app-text">{t('contactSectionTitle')}</p>
+          <p className="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-app-text-muted">
             {t('contactSectionBody')}
           </p>
           <a
             href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('[Visit Holy Korea] ')}`}
-            className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white"
+            className="mt-4 inline-flex items-center gap-2 rounded-lg bg-brand-blue px-5 py-3 text-sm font-bold text-white"
           >
             <Mail size={16} />
             {t('contactEmailCta')}
           </a>
-          <p className="mt-2 text-xs font-medium text-slate-400">{CONTACT_EMAIL}</p>
+          <p className="mt-2 text-xs font-medium text-app-text-muted">{CONTACT_EMAIL}</p>
         </div>
       </div>
     </div>

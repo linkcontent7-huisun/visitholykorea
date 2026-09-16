@@ -25,7 +25,7 @@ export function ContactCard({ site }: { site: HolySite }) {
         <h2 id="contact-heading" className="mb-3 text-sm font-extrabold text-app-text">
           {t('visitInfoContact')}
         </h2>
-        <p className="rounded-[20px] border border-dashed border-app-border bg-white p-4 text-sm leading-relaxed text-app-text-muted">
+        <p className="rounded-lg border border-dashed border-app-border bg-white p-4 text-sm leading-relaxed text-app-text-muted">
           {t('contactUnknown')}
         </p>
       </section>
@@ -48,7 +48,7 @@ export function ContactCard({ site }: { site: HolySite }) {
         {t('visitInfoContact')}
       </h2>
 
-      <ul className="divide-y divide-app-border overflow-hidden rounded-[20px] border border-app-border bg-white">
+      <ul className="divide-y divide-app-border overflow-hidden rounded-lg border border-app-border bg-white">
         {telHref && (
           <li>
             <a

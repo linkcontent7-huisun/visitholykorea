@@ -363,7 +363,7 @@ export default function SiteDetailPage() {
 
         <button
           onClick={() => navigate(-1)}
-          className="absolute left-6 top-12 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
+          className="absolute left-6 top-12 flex h-11 w-11 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
           id="back-button"
           aria-label={t('back')}
         >
@@ -375,7 +375,7 @@ export default function SiteDetailPage() {
           <button
             onClick={handleToggleFavorite}
             disabled={toggleFavorite.isPending}
-            className="absolute right-6 top-12 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
+            className="absolute right-6 top-12 flex h-11 w-11 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
             aria-label={isFavorited ? t('favoriteRemove') : t('favoriteAdd')}
             aria-pressed={isFavorited}
           >
@@ -440,7 +440,7 @@ export default function SiteDetailPage() {
         </div>
       </div>
 
-      <div className="relative z-10 -mt-8 space-y-12 rounded-t-[40px] bg-white p-8">
+      <div className="relative z-10 -mt-8 space-y-12 rounded-t-lg bg-white p-8">
         <section>
           <div className="mb-6 flex items-center gap-3">
             <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
@@ -449,7 +449,7 @@ export default function SiteDetailPage() {
             </h2>
           </div>
           {/* 주소는 히어로 부제와 "찾아가는 길"에 이미 나오므로 여기서는 뺀다 (T-004) */}
-          <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
+          <div className="rounded-lg border border-app-border bg-app-bg p-5">
             <div className="mb-2 text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
               {t('siteDioceseEmotion')}
             </div>
@@ -469,7 +469,7 @@ export default function SiteDetailPage() {
             onClick={() => setVisitInfoOpen((open) => !open)}
             aria-expanded={visitInfoOpen}
             aria-controls="visit-info-panel"
-            className="flex min-h-14 w-full items-center gap-3 rounded-[28px] border border-app-border bg-app-bg p-5 text-left"
+            className="flex min-h-14 w-full items-center gap-3 rounded-lg border border-app-border bg-app-bg p-5 text-left"
           >
             <div className="h-6 w-1.5 shrink-0 rounded-full bg-brand-violet" />
             <div className="min-w-0 flex-1">
@@ -499,7 +499,7 @@ export default function SiteDetailPage() {
 
               {/* 미사 시간 — 안내 책자 기준. 성지 사정에 따라 바뀔 수 있다 */}
               {massInfo && (
-                <section className="rounded-[28px] border border-app-border bg-white p-6">
+                <section className="rounded-lg border border-app-border bg-white p-6">
                   <h3 className="mb-1 flex items-center gap-2 text-base font-extrabold text-app-text">
                     <img src="/brand/church.png" alt="" aria-hidden width={22} height={22} className="h-[22px] w-auto" />
                     {t('massTimesTitle')}
@@ -557,7 +557,7 @@ export default function SiteDetailPage() {
             language={language}
           />
           {audioStories.length > 0 && (
-            <details className="mb-4 rounded-[24px] border border-app-border bg-app-bg p-4">
+            <details className="mb-4 rounded-lg border border-app-border bg-app-bg p-4">
               <summary className="cursor-pointer text-sm font-extrabold text-app-text">
                 {t('siteAudioStoriesTitle')}
               </summary>
@@ -568,7 +568,7 @@ export default function SiteDetailPage() {
                 {audioStories.slice(0, 3).map((story, index) => (
                   <div
                     key={`${story.audioTitle ?? story.title ?? 'story'}-${index}`}
-                    className="rounded-2xl bg-white p-3"
+                    className="rounded-lg bg-white p-3"
                   >
                     <h3 className="text-sm font-extrabold text-app-text">
                       {story.audioTitle ?? story.title}
@@ -586,7 +586,7 @@ export default function SiteDetailPage() {
               </div>
             </details>
           )}
-          <div className="relative overflow-hidden rounded-[40px] border border-brand-blue/5 bg-brand-blue/[0.03] p-8">
+          <div className="relative overflow-hidden rounded-lg border border-brand-blue/5 bg-brand-blue/[0.03] p-8">
             <History
               size={100}
               className="absolute -bottom-6 -right-6 rotate-12 text-brand-blue/5"
@@ -616,7 +616,7 @@ export default function SiteDetailPage() {
             </div>
             <div className="space-y-3">
               {site.nearbyAttractions && (
-                <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
+                <div className="rounded-lg border border-app-border bg-app-bg p-5">
                   <div className="mb-2 text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
                     {t('siteCuratedAttractions')}
                   </div>
@@ -626,7 +626,7 @@ export default function SiteDetailPage() {
                 </div>
               )}
               {site.nearbyLodging && (
-                <div className="rounded-[28px] border border-app-border bg-app-bg p-5">
+                <div className="rounded-lg border border-app-border bg-app-bg p-5">
                   <div className="mb-2 text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
                     {t('siteCuratedLodging')}
                   </div>
@@ -653,7 +653,7 @@ export default function SiteDetailPage() {
           </div>
 
           {(facilitiesError || festivalsError) && (
-            <div className="rounded-[20px] border border-app-border bg-app-bg p-5 text-center" role="alert">
+            <div className="rounded-lg border border-app-border bg-app-bg p-5 text-center" role="alert">
               <p className="text-sm font-bold text-app-text">{t('externalApiFailedTitle')}</p>
               <p className="mt-2 text-xs leading-relaxed text-app-text-muted">
                 {t(externalErrorKey(facilitiesErr ?? festivalsErr))}
@@ -672,7 +672,7 @@ export default function SiteDetailPage() {
           )}
 
           {!facilitiesLoading && !facilitiesError && facilityGroups.length === 0 && (
-            <p className="rounded-[20px] border border-dashed border-app-border bg-white p-5 text-sm text-app-text-muted">
+            <p className="rounded-lg border border-dashed border-app-border bg-white p-5 text-sm text-app-text-muted">
               {t('siteNearbyTourismEmpty')}
             </p>
           )}
@@ -699,7 +699,7 @@ export default function SiteDetailPage() {
                 {[1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    className="h-64 w-44 flex-shrink-0 animate-pulse rounded-[32px] bg-app-bg"
+                    className="h-64 w-44 flex-shrink-0 animate-pulse rounded-lg bg-app-bg"
                   />
                 ))}
               </div>
@@ -723,7 +723,7 @@ export default function SiteDetailPage() {
                           target="_blank"
                           rel="noreferrer noopener"
                           aria-label={`${spot.title} 카카오맵에서 보기`}
-                          className="group w-44 flex-shrink-0 overflow-hidden rounded-[32px] border border-app-border bg-white text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-violet hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
+                          className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-violet hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
                         >
                           <div className="relative flex h-40 items-center justify-center overflow-hidden bg-app-bg">
                             {spot.firstimage ? (
@@ -775,14 +775,14 @@ export default function SiteDetailPage() {
             <div className="space-y-3">
               {festivalsLoading
                 ? [1, 2].map((i) => (
-                    <div key={i} className="h-16 animate-pulse rounded-[20px] bg-app-bg" />
+                    <div key={i} className="h-16 animate-pulse rounded-lg bg-app-bg" />
                   ))
                 : festivals.map((spot) => (
                     <div
                       key={spot.contentid}
-                      className="flex items-center gap-4 rounded-[20px] border border-app-border bg-app-bg p-4"
+                      className="flex items-center gap-4 rounded-lg border border-app-border bg-app-bg p-4"
                     >
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-violet/10 text-brand-violet">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-violet/10 text-brand-violet">
                         <PartyPopper size={18} />
                       </div>
                       <div className="min-w-0">
@@ -822,7 +822,7 @@ export default function SiteDetailPage() {
             가장 먼저 눈에 띄게 만든다. 안내 문구와 버튼 사이는 예전에 -mb-2 로
             좁혔다가 버튼을 8px 끌어올려 문구를 가리는 문제가 있었다 — 여기서도
             래퍼 안에서 space-y 로만 간격을 준다. */}
-        <section className="space-y-3 rounded-[32px] border-2 border-brand-blue bg-brand-blue/[0.06] p-6 shadow-lg shadow-brand-blue/10">
+        <section className="space-y-3 rounded-lg border-2 border-brand-blue bg-brand-blue/[0.06] p-6 shadow-lg shadow-brand-blue/10">
           {!stamped &&
             (wydNow ? (
               // WYD 대회 기간 — 다시 오지 않는 날짜. 이 기간의 스탬프는 그 자체로 참가 증명이다.
@@ -855,7 +855,7 @@ export default function SiteDetailPage() {
             <button
               onClick={handleStamp}
               disabled={stamped || addStamp.isPending}
-              className={`flex flex-1 items-center justify-center gap-2 rounded-[24px] py-5 text-sm font-extrabold shadow-2xl transition-all ${
+              className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-5 text-sm font-extrabold shadow-2xl transition-all ${
                 stamped
                   ? 'border border-emerald-200 bg-emerald-50 text-emerald-600 shadow-none'
                   : 'bg-brand-blue text-white shadow-brand-blue/20 hover:bg-brand-blue/90'
@@ -877,7 +877,7 @@ export default function SiteDetailPage() {
             <button
               onClick={() => void handleShareCard()}
               disabled={shareLoading}
-              className="flex w-full items-center justify-center gap-2 rounded-[20px] border-2 border-dashed border-brand-violet/40 bg-white py-4 text-sm font-bold text-brand-violet disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-brand-violet/40 bg-white py-4 text-sm font-bold text-brand-violet disabled:opacity-50"
               id="share-card-button"
             >
               <Share2 size={18} />
@@ -889,7 +889,7 @@ export default function SiteDetailPage() {
         {/* 한 줄 남기기 — 붐빔 지수는 추정이고, 실제로 조용했는지는 다녀온
             사람만 안다. 이 한 줄이 다음 방문자의 판단 근거가 된다 (컨셉 축 3). */}
         {stamped && !myStamp?.note && !noteDismissed && (
-          <div className="rounded-[20px] border border-app-border bg-white p-5">
+          <div className="rounded-lg border border-app-border bg-white p-5">
             <p className="text-sm font-bold text-app-text">{t('noteAskTitle')}</p>
             {/* 오늘의 질문 — 빈 입력창은 쓰기 어렵지만 질문에는 답하게 된다.
                 이 성지의 역사에서 나온 질문이라, 답이 곧 이곳과 나의 기록이 된다. */}
@@ -904,7 +904,7 @@ export default function SiteDetailPage() {
               maxLength={NOTE_MAX_LENGTH}
               placeholder={t('notePlaceholder')}
               aria-label={t('noteAriaLabel')}
-              className="mt-3 w-full rounded-2xl border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
+              className="mt-3 w-full rounded-lg border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
               value={noteDraft}
               onChange={(e) => setNoteDraft(e.target.value)}
               onKeyDown={(e) => {
@@ -914,14 +914,14 @@ export default function SiteDetailPage() {
             <div className="mt-3 flex justify-end gap-2">
               <button
                 onClick={() => setNoteDismissed(true)}
-                className="rounded-xl px-4 py-2 text-xs font-bold text-app-text-muted"
+                className="rounded-lg px-4 py-2 text-xs font-bold text-app-text-muted"
               >
                 {t('noteLater')}
               </button>
               <button
                 onClick={handleSaveNote}
                 disabled={normalizeNote(noteDraft) === null || addStamp.isPending}
-                className="rounded-xl bg-brand-violet px-4 py-2 text-xs font-bold text-white disabled:opacity-40"
+                className="rounded-lg bg-brand-violet px-4 py-2 text-xs font-bold text-white disabled:opacity-40"
               >
                 {addStamp.isPending ? t('noteSubmitting') : t('noteSubmit')}
               </button>
@@ -930,7 +930,7 @@ export default function SiteDetailPage() {
         )}
 
         {stamped && (
-          <div className="rounded-[20px] border border-app-border bg-white p-5">
+          <div className="rounded-lg border border-app-border bg-white p-5">
             {myStamp?.note && (
               <>
                 <p className="text-xs font-bold text-app-text-muted">{t('noteMine')}</p>
@@ -948,7 +948,7 @@ export default function SiteDetailPage() {
                     key={photo.id}
                     src={photo.url}
                     alt={t('photoMineAlt')}
-                    className="aspect-square rounded-xl object-cover"
+                    className="aspect-square rounded-lg object-cover"
                   />
                 ))}
               </div>
@@ -956,11 +956,11 @@ export default function SiteDetailPage() {
               <img
                 src={myStamp.photoUrl}
                 alt={t('photoMineAlt')}
-                className="mt-3 max-h-48 w-full rounded-2xl object-cover"
+                className="mt-3 max-h-48 w-full rounded-lg object-cover"
               />
             ) : null}
             <label
-              className={`mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-brand-violet/40 py-3 text-xs font-bold text-brand-violet ${
+              className={`mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-brand-violet/40 py-3 text-xs font-bold text-brand-violet ${
                 uploadPhotos.isPending ? 'opacity-50' : ''
               }`}
             >
@@ -991,7 +991,7 @@ export default function SiteDetailPage() {
 
         {/* 다녀온 사람의 한 줄 — 추정 지수를 사람의 증언이 보정한다 */}
         {visitNotes.length > 0 && (
-          <div className="rounded-[20px] border border-app-border bg-white p-5">
+          <div className="rounded-lg border border-app-border bg-white p-5">
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-bold text-app-text">
                 {t('reviewsTitle').replace('{count}', String(visitNotes.length))}
@@ -1065,7 +1065,7 @@ export default function SiteDetailPage() {
                 <Link
                   key={nearby.id}
                   to={paths.siteDetail(nearby.id)}
-                  className="group w-44 flex-shrink-0 overflow-hidden rounded-[32px] border border-app-border bg-white text-left shadow-sm"
+                  className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left shadow-sm"
                   id={`nearby-${nearby.id}`}
                 >
                   <div className="relative flex h-40 items-center justify-center overflow-hidden bg-app-bg">

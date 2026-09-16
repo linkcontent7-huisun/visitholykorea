@@ -120,8 +120,8 @@ export default function RegionLandingPage() {
 
         {!isLoading && (
           <>
-            <div className="mb-6 flex items-center gap-4 rounded-[20px] bg-app-bg p-6">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-violet/10 text-brand-violet">
+            <div className="mb-6 flex items-center gap-4 rounded-lg bg-app-bg p-6">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-brand-violet/10 text-brand-violet">
                 <MapPin size={22} />
               </div>
               <div>
@@ -139,7 +139,7 @@ export default function RegionLandingPage() {
             </div>
 
             {nearby.length === 0 ? (
-              <p className="rounded-[20px] bg-app-bg p-6 text-center text-sm font-medium text-app-text-muted">
+              <p className="rounded-lg bg-app-bg p-6 text-center text-sm font-medium text-app-text-muted">
                 {fillPlaceholders(t('regionEmptyBody'), { region: regionLabel, radius: RADIUS_KM })}
                 <br />
                 {t('regionEmptyHint')}
@@ -183,7 +183,7 @@ export default function RegionLandingPage() {
                     return (
                     <li
                       key={p.id}
-                      className="rounded-[20px] border border-app-border bg-white p-4"
+                      className="rounded-lg border border-app-border bg-white p-4"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
@@ -205,7 +205,7 @@ export default function RegionLandingPage() {
                             <a
                               href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}
                               aria-label={`${p.name} ${t('callPhone')}`}
-                              className="rounded-xl bg-app-bg p-2 text-brand-violet"
+                              className="rounded-lg bg-app-bg p-2 text-brand-violet"
                             >
                               <Phone size={14} />
                             </a>
@@ -229,13 +229,13 @@ export default function RegionLandingPage() {
             <div className="mt-8 flex flex-col gap-3">
               <Link
                 to={paths.home}
-                className="rounded-[20px] bg-brand-violet px-6 py-4 text-center text-sm font-bold text-white"
+                className="rounded-lg bg-brand-violet px-6 py-4 text-center text-sm font-bold text-white"
               >
                 {fillPlaceholders(t('regionStartHere'), { region: regionLabel })}
               </Link>
               <Link
                 to={paths.map}
-                className="rounded-[20px] border border-app-border px-6 py-4 text-center text-sm font-bold text-app-text"
+                className="rounded-lg border border-app-border px-6 py-4 text-center text-sm font-bold text-app-text"
               >
                 {t('viewNationalMap')}
               </Link>
