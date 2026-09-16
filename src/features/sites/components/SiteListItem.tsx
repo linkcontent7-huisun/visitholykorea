@@ -29,7 +29,6 @@ export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) 
             pilgrimUrl={featured[site.id] ?? null}
             name={site.name}
             category={site.category}
-            diocese={site.region}
             fallback="icon"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
