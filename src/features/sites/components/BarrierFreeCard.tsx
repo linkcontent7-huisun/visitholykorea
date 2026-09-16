@@ -33,9 +33,9 @@ export function BarrierFreeCard({ site }: { site: HolySite }) {
         {places.map((place) => (
           <li
             key={place.contentid}
-            className="flex items-center gap-4 rounded-[20px] border border-app-border bg-app-bg p-4"
+            className="flex items-center gap-4 rounded-lg border border-app-border bg-app-bg p-4"
           >
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-violet/10 text-brand-violet">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-violet/10 text-brand-violet">
               <Accessibility size={18} />
             </div>
             <div className="min-w-0">

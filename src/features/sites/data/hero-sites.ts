@@ -1,0 +1,77 @@
+/**
+ * 홈 히어로에 고정으로 거는 성지 5곳 (2026-09-16 회의 결정).
+ *
+ * 매일 돌아가던 예전 방식 대신 다섯 곳을 못 박고 사진을 `public/images/hero/` 에 직접 둔다 —
+ * 첫 화면이 Wikimedia 응답 속도에 흔들리지 않고, 서비스워커가 한 번 받은 사진을 30일 쓴다
+ * (`vite.config.ts` 의 `site-photos` 캐시). 성지 정보는 우리 자체 DB 라 저장·캐싱해도 된다(ADR 0002).
+ *
+ * 이름·지역·분류는 DB 를 아직 못 받았을 때의 **대체 표기**다. 화면은 같은 id 의 DB 행이 있으면
+ * 그쪽(번역 포함)을 우선한다. 사진 출처는 CC 계열이라 화면에 표기해야 한다(라이선스 의무).
+ *
+ * ⚠️ 솔뫼 사진은 교황 방문 현수막이 찍혀 있어 교체가 필요하다(사장님, 9/16 브리핑 11번).
+ * 파일만 같은 이름으로 바꿔 넣으면 된다.
+ */
+export interface HeroSite {
+  /** `holy_sites.id` (2026-09-16 운영 DB 실측) */
+  id: string;
+  /** 파일 이름 — `/images/hero/<slug>-800.jpg` · `-1280.jpg` */
+  slug: string;
+  name: string;
+  region: string;
+  category: string;
+  imageSource: string;
+  imageLicense: string;
+}
+
+export const HERO_SITES: readonly HeroSite[] = [
+  {
+    id: '4b4199cf-2236-4842-8996-38ee9d36e542',
+    slug: 'myeongdong',
+    name: '명동대성당',
+    region: '서울',
+    category: '주교좌성당',
+    imageSource: 'Wikimedia Commons (Exj)',
+    imageLicense: 'CC BY-SA 4.0',
+  },
+  {
+    id: 'f1e25869-e3cb-40de-b4b6-da5b5b398797',
+    slug: 'daeheung',
+    name: '대흥동 성당',
+    region: '대전',
+    category: '주교좌성당',
+    imageSource: 'Wikimedia Commons (Exj)',
+    imageLicense: 'CC BY-SA 4.0',
+  },
+  {
+    id: '66e08f67-b761-40aa-9c6e-db6bd6efb6d6',
+    slug: 'gongseri',
+    name: '공세리성지성당',
+    region: '대전',
+    category: '성당',
+    imageSource: 'Wikimedia Commons',
+    imageLicense: 'CC BY-SA 3.0',
+  },
+  {
+    id: '7e9b0733-1c97-4d1c-beb0-fd7e9c6ab8c0',
+    slug: 'solmoe',
+    name: '솔뫼성지',
+    region: '대전',
+    category: '순례길',
+    imageSource: 'Wikimedia Commons',
+    imageLicense: 'CC BY-SA 2.0',
+  },
+  {
+    id: 'aeac09d0-c5ef-4091-b1b0-b84686940659',
+    slug: 'haemi',
+    name: '해미순교성지',
+    region: '대전',
+    category: '순교성지',
+    imageSource: 'Wikimedia Commons (Korea.net / KOCIS, Jeon Han)',
+    imageLicense: 'CC BY-SA 2.0',
+  },
+];
+
+/** 폭에 맞는 자체 저장 사진 주소. 휴대폰은 800, PC 는 1280. */
+export function heroImageSrc(slug: string, width: 800 | 1280): string {
+  return `/images/hero/${slug}-${width}.jpg`;
+}

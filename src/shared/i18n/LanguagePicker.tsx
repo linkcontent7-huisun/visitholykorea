@@ -60,7 +60,7 @@ export function LanguagePicker({ className = '' }: { className?: string }) {
         <ul
           role="listbox"
           aria-label="언어 / Language"
-          className="absolute right-0 top-full z-50 mt-2 min-w-[9rem] overflow-hidden rounded-2xl border border-app-border bg-white py-1 shadow-xl"
+          className="absolute right-0 top-full z-50 mt-2 min-w-[9rem] overflow-hidden rounded-lg border border-app-border bg-white py-1 shadow-xl"
         >
           {ENABLED_LANGUAGES.map((lang) => {
             const selected = lang === language;

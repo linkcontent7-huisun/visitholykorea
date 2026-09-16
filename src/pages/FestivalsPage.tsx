@@ -66,13 +66,13 @@ export default function FestivalsPage() {
           <div className="mt-6 space-y-3" role="status" aria-live="polite">
             <p className="text-sm font-medium text-app-text-muted">{t('festivalsLoading')}</p>
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-40 animate-pulse rounded-[20px] bg-white" />
+              <div key={i} className="h-40 animate-pulse rounded-lg bg-white" />
             ))}
           </div>
         )}
 
         {!isLoading && isError && (
-          <div className="mt-6 rounded-[20px] border border-app-border bg-white p-6 text-center">
+          <div className="mt-6 rounded-lg border border-app-border bg-white p-6 text-center">
             <p className="text-sm font-bold text-app-text">{t('festivalsError')}</p>
             <p className="mt-2 text-xs leading-relaxed text-app-text-muted">
               {t('festivalsErrorHint')}
@@ -82,7 +82,7 @@ export default function FestivalsPage() {
 
         {/* 결과가 없으면 정직하게 없다고 쓴다. 가짜 카드·자리표시어를 넣지 않는다. */}
         {!isLoading && !isError && pairs.length === 0 && (
-          <div className="mt-6 rounded-[20px] border border-dashed border-app-border bg-white p-8 text-center">
+          <div className="mt-6 rounded-lg border border-dashed border-app-border bg-white p-8 text-center">
             <PartyPopper size={28} className="mx-auto mb-4 text-gray-300" aria-hidden />
             <p className="text-sm font-bold leading-relaxed text-app-text">{t('festivalsEmpty')}</p>
             <p className="mt-2 text-xs text-app-text-muted">{t('festivalsEmptyHint')}</p>

@@ -52,7 +52,7 @@ function RouteErrorPage() {
       </p>
       <button
         onClick={() => window.location.reload()}
-        className="rounded-[16px] bg-brand-violet px-6 py-3 text-sm font-bold text-white"
+        className="rounded-lg bg-brand-violet px-6 py-3 text-sm font-bold text-white"
       >
         새로고침
       </button>

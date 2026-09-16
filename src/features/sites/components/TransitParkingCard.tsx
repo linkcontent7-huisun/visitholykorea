@@ -25,7 +25,7 @@ export function TransitParkingCard({ site }: { site: HolySite }) {
         <Bus size={16} className="text-brand-blue" aria-hidden />
         {t('transitParkingTitle')}
       </h2>
-      <div className="rounded-[20px] border border-dashed border-app-border bg-white p-4">
+      <div className="rounded-lg border border-dashed border-app-border bg-white p-4">
         <p className="text-sm leading-relaxed text-app-text-muted">{t('transitParkingUnknown')}</p>
         <p className="mt-2 text-xs leading-relaxed text-app-text-muted">{t('transitParkingHint')}</p>
         {telHref && (

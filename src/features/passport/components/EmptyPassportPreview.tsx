@@ -57,7 +57,7 @@ export function EmptyPassportPreview() {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-[32px] border border-app-border bg-white p-8 text-center">
+      <div className="rounded-lg border border-app-border bg-white p-8 text-center">
         <StampIcon size={28} className="mx-auto mb-4 text-brand-violet" />
         <h3 className="text-base font-extrabold text-app-text">{t('noStampsYetTitle')}</h3>
         <p className="mt-2 text-xs leading-relaxed text-app-text-muted">
@@ -88,10 +88,10 @@ export function EmptyPassportPreview() {
       {nearest && originLabel && (
         <Link
           to={paths.siteDetail(nearest.id)}
-          className="flex items-center gap-4 rounded-[24px] border border-brand-violet/20 bg-brand-violet/[0.04] p-6"
+          className="flex items-center gap-4 rounded-lg border border-brand-violet/20 bg-brand-violet/[0.04] p-6"
           id="nearest-site-suggestion"
         >
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-violet/10 text-brand-violet">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-violet/10 text-brand-violet">
             <MapPin size={20} />
           </div>
           <div className="min-w-0 text-left">
@@ -109,7 +109,7 @@ export function EmptyPassportPreview() {
       {!coords && (
         <Link
           to={paths.menu}
-          className="block rounded-[24px] border border-app-border bg-app-bg p-6 text-center text-xs font-bold text-app-text-muted"
+          className="block rounded-lg border border-app-border bg-app-bg p-6 text-center text-xs font-bold text-app-text-muted"
         >
           {t('setOriginHint')}
         </Link>

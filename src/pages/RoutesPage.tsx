@@ -39,7 +39,7 @@ export default function RoutesPage() {
           <Link
             key={route.id}
             to={paths.routeDetail(route.slug)}
-            className="group rounded-[20px] border border-gray-100 bg-app-bg p-6 transition-all hover:border-brand-violet hover:bg-[#F3F0FF]"
+            className="group rounded-lg border border-gray-100 bg-app-bg p-6 transition-all hover:border-brand-violet hover:bg-[#F3F0FF]"
           >
             <div className="mb-1 flex items-center gap-2 text-[0.6875rem] font-bold uppercase tracking-widest text-app-text-muted">
               <Footprints size={14} aria-hidden />

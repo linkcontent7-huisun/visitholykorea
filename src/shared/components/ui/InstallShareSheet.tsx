@@ -67,7 +67,7 @@ export function InstallShareSheet({ open, onClose }: { open: boolean; onClose: (
       <div
         role="dialog"
         aria-label={t('installTab')}
-        className="fixed bottom-[70px] left-1/2 z-50 w-full max-w-lg -translate-x-1/2 rounded-t-[24px] border-t border-app-border bg-white px-5 pb-5 pt-4 lg:bottom-0 lg:rounded-[24px] lg:border"
+        className="fixed bottom-[70px] left-1/2 z-50 w-full max-w-lg -translate-x-1/2 rounded-t-lg border-t border-app-border bg-white px-5 pb-5 pt-4 lg:bottom-0 lg:rounded-lg lg:border"
         id="install-share-sheet"
       >
         <div className="mb-3 flex items-center justify-between">
@@ -87,10 +87,10 @@ export function InstallShareSheet({ open, onClose }: { open: boolean; onClose: (
               key={a.id}
               type="button"
               onClick={a.onClick}
-              className="flex w-full items-center gap-4 rounded-2xl border border-app-border bg-app-bg px-4 py-3.5 text-left transition-colors hover:border-brand-violet"
+              className="flex w-full items-center gap-4 rounded-lg border border-app-border bg-app-bg px-4 py-3.5 text-left transition-colors hover:border-brand-violet"
               id={`install-share-${a.id}`}
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-brand-violet">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-brand-violet">
                 <a.icon size={20} />
               </span>
               <span className="min-w-0">

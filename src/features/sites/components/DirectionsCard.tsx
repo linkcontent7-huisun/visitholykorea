@@ -58,7 +58,7 @@ export function DirectionsCard({
       </div>
 
       {/* 한국어 주소 — 이 화면에서 가장 중요한 요소라 가장 크게 둔다 */}
-      <div className="mb-4 rounded-[24px] border border-app-border bg-app-bg p-5">
+      <div className="mb-4 rounded-lg border border-app-border bg-app-bg p-5">
         <div className="mb-2 flex items-center justify-between gap-3">
           <span className="text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
             {t('addressKorean')}
@@ -98,7 +98,7 @@ export function DirectionsCard({
       {hasCoordinates ? (
         <>
           {/* 좌표 — 어떤 지도 앱에도 붙여넣을 수 있는 최후의 수단 */}
-          <div className="mb-4 flex items-center justify-between gap-3 rounded-[20px] border border-app-border bg-white px-5 py-3">
+          <div className="mb-4 flex items-center justify-between gap-3 rounded-lg border border-app-border bg-white px-5 py-3">
             <div className="min-w-0">
               <span className="text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
                 {t('coordinates')}
@@ -128,10 +128,10 @@ export function DirectionsCard({
                 href={link.url}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="flex items-center gap-4 rounded-[20px] border border-app-border bg-white p-4 transition-colors hover:border-brand-blue/40"
+                className="flex items-center gap-4 rounded-lg border border-app-border bg-white p-4 transition-colors hover:border-brand-blue/40"
                 id={`map-${link.provider}`}
               >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-brand-blue/5 text-brand-blue">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-blue/5 text-brand-blue">
                   <Navigation size={18} />
                 </div>
                 <div className="min-w-0 flex-1">
@@ -146,7 +146,7 @@ export function DirectionsCard({
           </div>
         </>
       ) : (
-        <div className="flex items-center gap-3 rounded-[20px] border border-dashed border-app-border bg-white px-5 py-4">
+        <div className="flex items-center gap-3 rounded-lg border border-dashed border-app-border bg-white px-5 py-4">
           <MapPin size={18} className="shrink-0 text-gray-300" />
           <p className="text-[0.75rem] leading-relaxed text-app-text-muted">{t('noCoordinates')}</p>
         </div>

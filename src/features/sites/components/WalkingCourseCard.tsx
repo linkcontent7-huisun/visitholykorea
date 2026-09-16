@@ -20,7 +20,7 @@ export function WalkingCourseCard({ course }: { course: WalkingCourse }) {
   ];
   const meta = [course.crsDstnc ? `${course.crsDstnc}km` : null, time, level].filter(Boolean).join(' · ');
   return (
-    <div className="rounded-2xl border border-app-border bg-app-bg p-4">
+    <div className="rounded-lg border border-app-border bg-app-bg p-4">
       <p className="text-sm font-extrabold text-app-text">{course.crsKorNm}</p>
       {meta && <p className="mt-1 text-xs text-app-text-muted">{meta}</p>}
       {course.crsSummary && (

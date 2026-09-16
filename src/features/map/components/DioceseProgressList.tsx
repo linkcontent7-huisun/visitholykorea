@@ -30,7 +30,7 @@ export function DioceseProgressList({ progress, onSelectDiocese, selectedDiocese
               type="button"
               onClick={() => onSelectDiocese(p.diocese)}
               aria-pressed={isSelected}
-              className={`w-full rounded-2xl border p-3.5 text-left transition-all ${
+              className={`w-full rounded-lg border p-3.5 text-left transition-all ${
                 isSelected
                   ? 'border-brand-blue bg-white shadow-sm'
                   : 'border-app-border bg-white/70 hover:border-brand-violet'

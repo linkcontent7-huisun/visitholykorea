@@ -126,7 +126,8 @@ export function SiteThumbnail({
   if (url && !downloadFailed) {
     return (
       <img
-        // 카드·목록용이라 800px 이면 2배 밀도 휴대폰에서도 충분하다 — Wikimedia 1280px 을 그대로 받지 않는다
+        // 카드·목록용이라 800px 이면 2배 밀도 휴대폰에서도 충분하다 — Wikimedia 1280px 을 그대로 받지 않는다.
+        // Wikimedia 주소는 sizedImageUrl 이 허용 표준 폭(960)으로 올려 요청한다 — 800 그대로 보내면 400 (2026-09-16).
         src={sizedImageUrl(url, 800)}
         decoding="async"
         // 순례자 사진임을 스크린리더에도 알린다 — 공식 사진과 같은 것으로 읽히면 안 된다

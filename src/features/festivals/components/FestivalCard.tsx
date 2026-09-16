@@ -23,7 +23,7 @@ export function FestivalCard({ festival, nearbyLabel }: FestivalCardProps) {
   const period = formatFestivalPeriod(festival.startDate, festival.endDate);
 
   return (
-    <article className="overflow-hidden rounded-[20px] border border-app-border bg-white">
+    <article className="overflow-hidden rounded-lg border border-app-border bg-white">
       {/* 축제 */}
       <div className="p-5">
         <h3 className="text-base font-extrabold leading-snug tracking-tight text-app-text">
@@ -54,7 +54,7 @@ export function FestivalCard({ festival, nearbyLabel }: FestivalCardProps) {
             <li key={site.id}>
               <Link
                 to={paths.siteDetail(site.id)}
-                className="flex items-center gap-3 rounded-2xl border border-app-border bg-white px-4 py-3"
+                className="flex items-center gap-3 rounded-lg border border-app-border bg-white px-4 py-3"
               >
                 <span className="min-w-0 flex-1">
                   {/* 성지 이름은 자르지 않고 접는다 — 큰 글자 모드에서 이름이 사라지면 고를 수 없다.

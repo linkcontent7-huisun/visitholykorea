@@ -99,7 +99,7 @@ export default function ExplorePage() {
             {/* 순례 코스 진입점 — 낱개 성지가 아니라 이야기 순서로 걷고 싶은 사람을 위해 */}
             <Link
               to={paths.routes}
-              className="mb-10 flex items-center justify-between rounded-[16px] bg-brand-violet p-5 text-white transition-opacity hover:opacity-90 lg:max-w-[560px]"
+              className="mb-10 flex items-center justify-between rounded-lg bg-brand-violet p-5 text-white transition-opacity hover:opacity-90 lg:max-w-[560px]"
             >
               <span className="flex items-center gap-3">
                 <Footprints size={22} aria-hidden />
@@ -119,7 +119,7 @@ export default function ExplorePage() {
                 <button
                   key={diocese}
                   onClick={() => setSelectedDiocese(diocese)}
-                  className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-[16px] border border-transparent bg-app-bg transition-all hover:border-brand-violet hover:bg-[#F3F0FF] hover:text-brand-violet"
+                  className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-lg border border-transparent bg-app-bg transition-all hover:border-brand-violet hover:bg-[#F3F0FF] hover:text-brand-violet"
                   id={`diocese-${diocese}`}
                 >
                   <MapPin
@@ -160,7 +160,7 @@ export default function ExplorePage() {
                 <button
                   key={cat}
                   onClick={() => setCategory(cat)}
-                  className={`whitespace-nowrap rounded-xl border px-5 py-2.5 text-xs font-bold transition-all ${
+                  className={`whitespace-nowrap rounded-lg border px-5 py-2.5 text-xs font-bold transition-all ${
                     category === cat
                       ? 'border-brand-blue bg-brand-blue text-white shadow-lg shadow-brand-blue/10'
                       : 'border-app-border bg-white text-app-text-muted hover:border-brand-violet'
@@ -206,7 +206,7 @@ export default function ExplorePage() {
             <div className="mt-2 grid gap-8 lg:grid-cols-2 xl:grid-cols-3">
               {isLoading ? (
                 [1, 2, 3].map((i) => (
-                  <div key={i} className="h-28 animate-pulse rounded-[24px] bg-app-bg" />
+                  <div key={i} className="h-28 animate-pulse rounded-lg bg-app-bg" />
                 ))
               ) : sites.length === 0 ? (
                 <div className="lg:col-span-2 xl:col-span-3">
