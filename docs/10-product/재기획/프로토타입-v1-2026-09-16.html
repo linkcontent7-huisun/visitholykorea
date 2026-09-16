@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visit Holy Korea 시제품 v1</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --brand:#1F2F55;--brand-soft:#E6EAF3;--second:#6E7F5C;--second-soft:#E9EDE3;
+    --ink:#1E222B;--muted:#5E6470;--line:#DDD8CF;--bg:#FFFFFF;--paper:#F5F3EE;--panel:#F1EEE8;
+    --ok:#3E7A4E;--ok-soft:#E4EFE6;--warn:#9A6A1E;--warn-soft:#F5EBD7;--bad:#9A3F36;--bad-soft:#F5E1DE;
+    --display:'Gowun Batang','Noto Serif KR',serif;--body:'Noto Sans KR','Malgun Gothic',sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:#DDD9D1;font-family:var(--body);color:var(--ink);font-size:16px;line-height:1.55}
+  /* 시제품 안내 띠 */
+  .proto{position:static;background:#1E222B;color:#fff;font-size:12px;padding:6px 12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .proto b{color:#C9D3A8}
+  .proto a{color:#fff;opacity:.85;text-decoration:none;border:1px solid rgba(255,255,255,.35);padding:1px 8px;border-radius:3px}
+  .proto a.on{background:#fff;color:#1E222B;opacity:1}
+  /* 앱 틀 */
+  .app{max-width:1200px;margin:0 auto;background:var(--bg);min-height:calc(100vh - 60px);position:relative;padding-bottom:78px}
+  @media (min-width:1000px){.app{padding-bottom:24px}}
+  .screen{display:none}.screen.on{display:block}
+  header.top{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:10}
+  header.top .logo{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--brand);text-decoration:none}
+  header.top .logo img{height:28px}
+  header.top .tools{display:flex;gap:8px;font-size:13px;color:var(--muted)}
+  header.top .tools span{border:1px solid var(--line);padding:3px 8px;border-radius:4px}
+  .wrap{padding:0 16px}@media (min-width:1000px){.wrap{padding:0 32px}}
+  h1,h2{font-family:var(--display);margin:0;line-height:1.2}
+  h1{font-size:2rem}h2{font-size:1.4rem;margin:28px 0 12px}
+  .muted{color:var(--muted)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:6px;font:700 1rem var(--body);border:1.5px solid var(--brand);color:var(--brand);background:#fff;cursor:pointer;text-decoration:none}
+  .btn.primary{background:var(--brand);color:#fff}
+  .btn:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+  .back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-weight:700;font-size:.95rem;text-decoration:none;margin:16px 0 8px}
+  /* 히어로 */
+  .hero{position:relative;aspect-ratio:4/5;overflow:hidden;background:#333}
+  @media (min-width:1000px){.hero{aspect-ratio:21/9}}
+  .hero .slide{position:absolute;inset:0;background:center/cover;opacity:0;transition:opacity .7s ease}
+  .hero .slide.on{opacity:1}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),rgba(0,0,0,.05) 55%);pointer-events:none}
+  .hero .txt{position:absolute;left:16px;right:16px;bottom:84px;z-index:2;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.55)}
+  .hero .txt h1{color:#fff;font-size:1.9rem}@media (min-width:1000px){.hero .txt h1{font-size:2.8rem}.hero .txt{left:32px;bottom:110px}}
+  .hero .txt .name{font-size:.95rem;opacity:.95;margin-top:4px}
+  .hero .txt .name a{color:#fff;text-decoration:underline}
+  .hero .search{position:absolute;left:16px;right:16px;bottom:20px;z-index:2;display:flex;align-items:center;gap:10px;min-height:48px;padding:0 14px;background:#fff;border-radius:8px;color:var(--muted);text-decoration:none}
+  @media (min-width:1000px){.hero .search{left:32px;right:auto;width:560px;bottom:36px;min-height:54px;font-size:1.05rem}}
+  .hero .search i{width:12px;height:12px;border:2.5px solid var(--brand);border-radius:50%}
+  .hero .dots{position:absolute;top:12px;right:14px;z-index:2;display:flex;gap:6px}
+  .hero .dots button{width:10px;height:10px;border-radius:50%;border:1.5px solid #fff;background:rgba(0,0,0,.35);padding:0;cursor:pointer}
+  .hero .dots button.on{background:#fff}
+  /* 입구 */
+  .entries{display:grid;gap:10px;padding:16px 0 4px}@media (min-width:640px){.entries{grid-template-columns:1fr 1fr}}
+  .entry{display:flex;align-items:center;gap:14px;padding:16px;border:1.5px solid var(--brand);border-radius:8px;color:var(--brand);text-decoration:none;font-weight:700;line-height:1.3}
+  .entry.fill{background:var(--brand);color:#fff}
+  .entry img{width:48px;height:48px;background:#fff;border-radius:8px;padding:6px;object-fit:contain}
+  .entry small{display:block;font-weight:400;font-size:.85rem;opacity:.85;margin-top:3px}
+  /* 교구 */
+  .sec{display:flex;justify-content:space-between;align-items:baseline}
+  .sec a{color:var(--brand);font-weight:500;font-size:.9rem;text-decoration:none}
+  .regions{display:flex;gap:16px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none}.regions::-webkit-scrollbar{display:none}
+  .region{display:grid;gap:6px;justify-items:center;font-size:.85rem;font-weight:500;text-decoration:none;color:var(--ink);flex:0 0 auto}
+  .region i{width:64px;height:64px;border-radius:50%;background:#bbb center/cover;border:2px solid var(--panel);display:grid;place-items:center;color:var(--muted);font-size:.8rem}
+  /* 칩·카드 */
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto;min-height:32px;display:inline-flex;align-items:center;padding:0 12px;border:1px solid var(--line);border-radius:999px;font-size:.9rem;background:#fff;color:#444;cursor:pointer}
+  .chip.on{background:var(--second);border-color:var(--second);color:#fff;font-weight:700}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media (min-width:1000px){.cards{grid-template-columns:repeat(3,1fr);gap:16px}}
+  .card{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;text-decoration:none;color:var(--ink);display:block}
+  .card:hover{box-shadow:0 6px 24px rgba(30,34,43,.10)}
+  .card i{display:block;aspect-ratio:4/3;background:#bbb center/cover}
+  .card .b{padding:8px 10px 10px;display:grid;gap:2px;font-size:.85rem}
+  .card .t{font-weight:700;font-size:1rem;line-height:1.25}
+  .card .m{color:var(--muted)}.card .m em{font-style:normal;color:var(--brand);font-weight:700}
+  .card .f{display:flex;justify-content:space-between}.card .f b{color:var(--second)}.card .f span{color:var(--muted)}
+  /* 하단 탭 */
+  nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:20;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 4px 10px;max-width:1200px;margin:0 auto}
+  @media (min-width:1000px){nav.tabs{display:none}}
+  nav.tabs a{text-decoration:none;text-align:center;font-size:.72rem;color:var(--muted);display:grid;gap:3px;justify-items:center}
+  nav.tabs a i{width:22px;height:22px;border:2px solid currentColor;border-radius:5px}
+  nav.tabs a.on{color:var(--brand);font-weight:700}
+  /* 상세 */
+  .detail{background:var(--paper);min-height:100vh}
+  .dphotos{display:grid;gap:4px}@media (min-width:1000px){.dphotos{grid-template-columns:2fr 1fr 1fr}}
+  .dphotos i{display:block;aspect-ratio:16/10;background:#bbb center/cover}
+  @media (min-width:1000px){.dphotos i:first-child{grid-row:span 2;aspect-ratio:auto}}
+  .dback{position:absolute;left:12px;top:12px;z-index:3;background:rgba(255,255,255,.9);border-radius:6px;padding:8px 12px;font-weight:700;text-decoration:none;color:var(--brand)}
+  .dbody{padding:16px;display:grid;gap:12px;max-width:760px}
+  .cat{font-size:.75rem;letter-spacing:.12em;color:var(--second);font-weight:700}
+  .badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:4px;font-size:.9rem;font-weight:700}
+  .badge.ok{background:var(--ok-soft);color:var(--ok)}
+  .box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:grid;gap:4px}
+  .box b{font-size:.75rem;letter-spacing:.1em;color:var(--muted)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .story{line-height:1.75}
+  .story h3{font-family:var(--display);font-size:1.25rem;margin:8px 0 4px}
+  /* 일정 */
+  .plan{max-width:640px;margin:0 auto;padding:24px 16px}
+  .q{display:none}.q.on{display:block}
+  .q h2{margin:8px 0 6px}
+  .opts{display:grid;gap:10px;margin-top:16px}
+  .opt{display:flex;align-items:center;gap:12px;min-height:56px;padding:0 16px;border:1.5px solid var(--line);border-radius:8px;background:#fff;font:700 1rem var(--body);cursor:pointer;text-align:left}
+  .opt:hover{border-color:var(--brand)}
+  .opt i{width:22px;height:22px;border-radius:50%;flex:0 0 auto}
+  .prog{display:flex;gap:6px;margin-bottom:8px}.prog i{flex:1;height:4px;background:var(--line);border-radius:2px}.prog i.on{background:var(--brand)}
+  .result{background:var(--paper);min-height:100vh}
+  .band{background:#fff;border:1px solid var(--line);border-left:4px solid var(--second);padding:12px 14px;font-size:1.05rem}
+  .band b{display:block;font-size:.75rem;color:var(--second);letter-spacing:.1em;margin-bottom:2px}
+  .itin{display:grid;gap:10px}
+  .stop{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px;text-decoration:none;color:var(--ink)}
+  .stop .when{font-weight:700;color:var(--brand)}
+  .stop .what{font-weight:700}.stop .sub{color:var(--muted);font-size:.9rem}
+  .stub{padding:40px 16px;text-align:center;color:var(--muted)}
+  textarea{width:100%;min-height:80px;border:1.5px solid var(--line);border-radius:8px;padding:10px;font:400 1rem var(--body)}
+</style>
+</head>
+<body>
+<div class="proto"><b>시제품 v1</b> 디자인 시스템 v1 그대로 그린 화면. 데이터는 예시(실제 208곳 아님). 위 화면 번호를 눌러도 되고, 앱 안에서 눌러 가도 된다:
+  <a href="#home" data-nav="home" class="on">1 홈</a><a href="#list" data-nav="list">2 목록</a><a href="#detail" data-nav="detail">3 상세</a><a href="#plan" data-nav="plan">4 일정 질문</a><a href="#result" data-nav="result">5 일정 결과</a>
+</div>
+
+<div class="app">
+
+<!-- 1 홈 -->
+<section class="screen on" id="s-home">
+  <header class="top"><a class="logo" href="#home"><img src="../../../public/logo-mark-88.png" alt="">VisitHolyKorea</a><div class="tools"><span>가</span><span>KO</span></div></header>
+  <div class="hero" id="hero">
+    <div class="slide on" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Myeongdong_Cathedral_02.jpg/1280px-Myeongdong_Cathedral_02.jpg')" data-name="명동대성당 · 서울"></div>
+    <div class="slide" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Daeheung_Dong-Cathedral_01.jpg/1280px-Daeheung_Dong-Cathedral_01.jpg')" data-name="대흥동 성당 · 대전"></div>
+    <div class="slide" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/%EA%B3%B5%EC%84%B8%EB%A6%AC%EC%84%B1%EB%8B%B9_%EC%A0%84%EA%B2%BD.jpg/1280px-%EA%B3%B5%EC%84%B8%EB%A6%AC%EC%84%B1%EB%8B%B9_%EC%A0%84%EA%B2%BD.jpg')" data-name="공세리성지성당 · 아산"></div>
+    <div class="slide" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Korea_Haemi_Martyrdom_Holy_Ground_16_%2814031341538%29.jpg/1280px-Korea_Haemi_Martyrdom_Holy_Ground_16_%2814031341538%29.jpg')" data-name="해미순교성지 · 서산"></div>
+    <div class="slide" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Jeondong_Cathedral.jpg/1280px-Jeondong_Cathedral.jpg')" data-name="전동성당 · 전주 (솔뫼 사진 교체 전 임시)"></div>
+    <div class="dots" id="dots"></div>
+    <div class="txt"><h1>고요한 성지로<br>초대합니다.</h1><div class="name"><a href="#detail" id="heroName">명동대성당 · 서울</a> ›</div></div>
+    <a class="search" href="#list"><i></i> 성지 이름 · 지역으로 검색</a>
+  </div>
+  <div class="wrap">
+    <div class="entries">
+      <a class="entry fill" href="#list"><img src="../../../public/brand/map.png" alt=""><span>여기서 가까운 성지·성당 찾기<small>현재 위치 기준, 가까운 순</small></span></a>
+      <a class="entry" href="#plan"><img src="../../../public/brand/heart.png" alt=""><span>마음 상태로 고르는 오늘의 성지 일정<small>5가지만 여쭤볼게요</small></span></a>
+    </div>
+    <h2>교구로 찾기</h2>
+    <div class="regions">
+      <a class="region" href="#list"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Myeongdong_Cathedral_02.jpg/1280px-Myeongdong_Cathedral_02.jpg')"></i>서울</a>
+      <a class="region" href="#list"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Daeheung_Dong-Cathedral_01.jpg/1280px-Daeheung_Dong-Cathedral_01.jpg')"></i>대전</a>
+      <a class="region" href="#list"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Jeondong_Cathedral.jpg/1280px-Jeondong_Cathedral.jpg')"></i>전주</a>
+      <a class="region" href="#list"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Kyesan_Cathedral_Front.jpg/1280px-Kyesan_Cathedral_Front.jpg')"></i>대구</a>
+      <a class="region" href="#list"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Dapdong_cathedral.JPG/1280px-Dapdong_cathedral.JPG')"></i>인천</a>
+      <a class="region" href="#list"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/2020-04-22_14.01.12_%ED%92%8D%EC%88%98%EC%9B%90%EC%84%B1%EB%8B%B9.jpg/1280px-2020-04-22_14.01.12_%ED%92%8D%EC%88%98%EC%9B%90%EC%84%B1%EB%8B%B9.jpg')"></i>원주</a>
+      <a class="region" href="#list"><i style="background:var(--panel)">+10</i>전체 16</a>
+    </div>
+    <div class="sec"><h2>특색 있는 성당</h2><a href="#list">전체 ›</a></div>
+    <div class="chips"><span class="chip on">전체</span><span class="chip">성당</span><span class="chip">순교성지</span><span class="chip">순례길</span><span class="chip">피정의집</span></div>
+    <div class="cards" id="homeCards"></div>
+    <div style="height:24px"></div>
+  </div>
+</section>
+
+<!-- 2 목록 -->
+<section class="screen" id="s-list">
+  <header class="top"><a class="logo" href="#home"><img src="../../../public/logo-mark-88.png" alt="">VisitHolyKorea</a><div class="tools"><span>가</span><span>KO</span></div></header>
+  <div class="wrap">
+    <a class="back" href="#home">← 홈으로</a>
+    <h1>여기서 가까운 성지·성당</h1>
+    <p class="muted" style="margin:6px 0 12px">대전 시청 기준 · 가까운 순 · 직선거리</p>
+    <div class="chips"><span class="chip on">전체 207</span><span class="chip">성당</span><span class="chip">순교성지</span><span class="chip">순례길</span><span class="chip">피정의집</span></div>
+    <div class="cards" id="listCards"></div>
+    <div style="height:24px"></div>
+  </div>
+</section>
+
+<!-- 3 상세 -->
+<section class="screen" id="s-detail">
+  <div class="detail">
+    <div style="position:relative">
+      <a class="dback" href="#list">‹ 뒤로</a>
+      <div class="dphotos">
+        <i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/%EA%B3%B5%EC%84%B8%EB%A6%AC%EC%84%B1%EB%8B%B9_%EC%A0%84%EA%B2%BD.jpg/1280px-%EA%B3%B5%EC%84%B8%EB%A6%AC%EC%84%B1%EB%8B%B9_%EC%A0%84%EA%B2%BD.jpg')"></i>
+      </div>
+    </div>
+    <div class="dbody">
+      <div class="cat">성당 · 대전교구</div>
+      <h1>공세리성지성당</h1>
+      <div class="muted">충남 아산시 인주면 공세리성당길 10</div>
+      <div class="row"><span class="badge ok">인근이 한산합니다</span><span class="muted" style="font-size:.85rem">관광공사 집중률 · 오늘 축제 0건 · 주변 관광 인프라 기준 · 추정</span></div>
+      <div class="box"><b>미사 시간</b>정보 없음 — 성당에 확인하세요 (예시)<b style="margin-top:6px">둘러보는 시간</b>약 1시간 · 언덕길 · 계단 있음 (예시)</div>
+      <div class="row"><a class="btn primary" href="#detail">▶ 오디오 도슨트 · 5개 지점</a><a class="btn" href="#detail">찾아가는 길</a></div>
+      <div class="story">
+        <h3>성지 이야기</h3>
+        <p>아산 인주면, 삼백 년 넘은 보호수가 둘러선 언덕에 고딕식 벽돌 성당이 서 있다. 공세리라는 이름은 내포에서 거둔 세곡을 보관하던 공세창(貢稅倉)에서 왔다. 바다와 육로가 만나는 포구였으니 선교사와 밀사가 드나들던 길목이기도 했다.</p>
+        <p>1890년 설립된 본당은 폐지된 공세창 터를 사들여 1895년 지금 자리로 옮겼고, 현재의 건물은 파리외방전교회 드비즈 신부가 설계해 1922년 완공했다. 충청남도 기념물 144호. 성지 안에는 순교자 32위의 묘와 현양탑이 있고, 옛 사제관을 고쳐 만든 박물관에 박씨 삼형제의 유해와 박해시대 교우촌 유물이 전시되어 있다.</p>
+        <h3>도슨트 지점</h3>
+        <p class="muted">1 언덕 입구 — 공세창 터와 보호수 · 2 성당 외관 — 1922년 고딕 벽돌 성당 · 3 순교자 묘역과 현양탑 · 4 옛 사제관 박물관 · 5 드비즈 신부와 이명래 고약</p>
+        <h3>주변 관광 (TourAPI 실시간)</h3>
+        <p class="muted">아산 외암민속마을 9 km · 삽교호 관광지 7 km · 솔뫼성지 18 km</p>
+      </div>
+      <div style="height:24px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 일정 질문 -->
+<section class="screen" id="s-plan">
+  <header class="top"><a class="logo" href="#home"><img src="../../../public/logo-mark-88.png" alt="">VisitHolyKorea</a><a href="#home" class="muted" style="text-decoration:none;font-size:1.3rem">×</a></header>
+  <div class="plan">
+    <div class="q on" data-q="0">
+      <div style="text-align:center;padding:16px 0 8px"><img src="../../../public/brand/heart.png" alt="" style="width:64px"></div>
+      <h1 style="text-align:center;font-size:1.6rem">지금, 어떤 마음으로 여기 오셨나요?</h1>
+      <p class="muted" style="text-align:center;margin-top:8px">몇 가지만 여쭤볼게요. 당신에게 꼭 맞는 쉼의 자리를 찾아드릴게요.</p>
+      <div class="opts" style="margin-top:24px"><button class="opt" data-next="1" style="justify-content:center;background:var(--brand);color:#fff;border-color:var(--brand)">시작하기</button></div>
+    </div>
+    <div class="q" data-q="1"><div class="prog"><i class="on"></i><i></i><i></i><i></i><i></i></div><h2>1. 지금 마음에 가장 가까운 색은?</h2><p class="muted">어느 성지가 나올지 정합니다</p>
+      <div class="opts">
+        <button class="opt" data-next="2"><i style="background:#8FA3C8"></i>위로 — 잔잔한 파랑</button>
+        <button class="opt" data-next="2"><i style="background:#C9D3A8"></i>새 시작 — 연둣빛</button>
+        <button class="opt" data-next="2"><i style="background:#E8D9B5"></i>평온 — 모래색</button>
+        <button class="opt" data-next="2"><i style="background:#D9A9A0"></i>어루만짐 — 옅은 분홍</button>
+        <button class="opt" data-next="2"><i style="background:#E0C36A"></i>감사 — 노랑</button>
+      </div></div>
+    <div class="q" data-q="2"><div class="prog"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div><h2>2. 요즘 어떤 것에 마음을 많이 쓰고 계세요?</h2><p class="muted">결과의 첫 문장이 여기서 나옵니다</p>
+      <div class="opts"><button class="opt" data-next="3">일 · 직장</button><button class="opt" data-next="3">가족 · 관계</button><button class="opt" data-next="3">건강</button><button class="opt" data-next="3">나 자신</button><button class="opt" data-next="3">떠나보낸 사람</button></div></div>
+    <div class="q" data-q="3"><div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><h2>3. 어디서 출발하세요?</h2><p class="muted">가까운 순으로 찾고, 반경의 기준이 됩니다</p>
+      <div class="opts"><button class="opt" data-next="4">📍 현재 위치 사용</button><button class="opt" data-next="4">서울</button><button class="opt" data-next="4">대전</button><button class="opt" data-next="4">다른 지역 고르기…</button></div></div>
+    <div class="q" data-q="4"><div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div><h2>4. 오늘 얼마나 시간을 낼 수 있으세요?</h2><p class="muted">반경과 일정 길이가 정해집니다</p>
+      <div class="opts"><button class="opt" data-next="5">반나절 <span class="muted" style="font-weight:400">· 약 30 km 안</span></button><button class="opt" data-next="5">하루 <span class="muted" style="font-weight:400">· 약 80 km 안</span></button><button class="opt" data-next="5">1박 2일 이상 <span class="muted" style="font-weight:400">· 전국</span></button></div></div>
+    <div class="q" data-q="5"><div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div><h2>5. 이번 길은 몇 분이 함께하세요?</h2><p class="muted">마지막 질문입니다</p>
+      <div class="opts"><button class="opt" data-go="result">혼자</button><button class="opt" data-go="result">둘이서</button><button class="opt" data-go="result">셋 이상</button></div></div>
+  </div>
+</section>
+
+<!-- 5 일정 결과 -->
+<section class="screen" id="s-result">
+  <div class="result">
+    <header class="top" style="background:transparent;border:0"><a class="logo" href="#home"><img src="../../../public/logo-mark-88.png" alt="">VisitHolyKorea</a><a href="#plan" class="muted" style="text-decoration:none;font-size:.9rem;font-weight:700">다시 고르기</a></header>
+    <div class="plan" style="display:grid;gap:14px">
+      <h1>오늘의 성지 일정</h1>
+      <div class="band"><b>대전 출발 · 하루 · 둘이서</b>요즘 일로 마음이 많이 쓰이셨죠. 오늘은 바다가 보이는 언덕의 성당에서 천천히 걸어 보세요.</div>
+      <div class="itin">
+        <a class="stop" href="#detail"><div class="when">오전</div><div><div class="what">공세리성지성당</div><div class="sub">대전에서 62 km · 약 1시간 · 오디오 도슨트 5개 지점</div></div></a>
+        <div class="stop"><div class="when">점심</div><div><div class="what">인주면 근처 식당</div><div class="sub">TourAPI 음식점 · 실시간 · 2.1 km</div></div></div>
+        <div class="stop"><div class="when">오후</div><div><div class="what">삽교호 관광지</div><div class="sub">TourAPI 관광지 · 7 km · 걷기 좋은 호숫가</div></div></div>
+      </div>
+      <div class="row"><a class="btn primary" href="#detail">이 일정으로</a><a class="btn" href="#result">다른 성지로 ↻</a></div>
+      <div class="box" style="margin-top:8px"><b>일정을 보고 한 줄 남기기 (건너뛰어도 돼요)</b><textarea placeholder="오늘 마음에 담아두고 싶은 말"></textarea><div class="row" style="justify-content:flex-end"><a class="btn" href="#home">저장</a></div></div>
+      <div style="height:24px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 준비 중 화면 -->
+<section class="screen" id="s-stub">
+  <header class="top"><a class="logo" href="#home"><img src="../../../public/logo-mark-88.png" alt="">VisitHolyKorea</a><div class="tools"><span>가</span><span>KO</span></div></header>
+  <div class="stub"><h1 style="font-size:1.5rem;margin-bottom:8px" id="stubTitle">지도</h1>이 시제품에서는 홈 · 목록 · 상세 · 일정만 그렸어요.<br>실제 앱의 이 화면은 디자인 시스템의 「화면 틀」 표를 따릅니다.</div>
+</section>
+
+<nav class="tabs" id="tabs">
+  <a href="#home" data-tab="home" class="on"><i></i>홈</a><a href="#map" data-tab="map"><i></i>지도</a><a href="#records" data-tab="records"><i></i>기록</a><a href="#install" data-tab="install"><i></i>홈화면 추가</a><a href="#menu" data-tab="menu"><i></i>전체</a>
+</nav>
+</div>
+
+<script>
+  // ── 데이터 (예시) ──
+  const W='https://upload.wikimedia.org/wikipedia/commons/thumb/';
+  const SITES=[
+    {n:'전동성당',r:'전주',t:'1시간',f:'▶ 도슨트',p:42,img:W+'3/31/Jeondong_Cathedral.jpg/1280px-Jeondong_Cathedral.jpg'},
+    {n:'약현성당',r:'서울',t:'40분',f:'▶ 도슨트',p:31,img:W+'f/f7/Archdiocese_of_Seoul_Jungnim-dong_Yakhyeon_Catholic_Church.JPG/1280px-Archdiocese_of_Seoul_Jungnim-dong_Yakhyeon_Catholic_Church.JPG'},
+    {n:'계산 주교좌대성당',r:'대구',t:'1시간',f:'인근 한산',p:18,img:W+'e/e1/Kyesan_Cathedral_Front.jpg/1280px-Kyesan_Cathedral_Front.jpg'},
+    {n:'답동주교좌성당',r:'인천',t:'40분',f:'인근 보통',p:12,img:W+'7/7a/Dapdong_cathedral.JPG/1280px-Dapdong_cathedral.JPG'},
+    {n:'풍수원성당',r:'원주',t:'1시간',f:'인근 한산',p:9,img:W+'b/b1/2020-04-22_14.01.12_%ED%92%8D%EC%88%98%EC%9B%90%EC%84%B1%EB%8B%B9.jpg/1280px-2020-04-22_14.01.12_%ED%92%8D%EC%88%98%EC%9B%90%EC%84%B1%EB%8B%B9.jpg'},
+    {n:'대흥동 성당',r:'대전',t:'30분',f:'▶ 도슨트',p:27,img:W+'e/e0/Daeheung_Dong-Cathedral_01.jpg/1280px-Daeheung_Dong-Cathedral_01.jpg'},
+  ];
+  const NEAR=[
+    {n:'대흥동 성당',r:'4.8 km',t:'30분',f:'▶ 도슨트',p:27,img:W+'e/e0/Daeheung_Dong-Cathedral_01.jpg/1280px-Daeheung_Dong-Cathedral_01.jpg'},
+    {n:'진산 성지',r:'23 km',t:'정보 없음',f:'인근 한산',p:3,img:'../../../public/placeholders/ko/site-placeholder-3.webp'},
+    {n:'황새바위 순교성지',r:'27 km',t:'정보 없음',f:'인근 한산',p:5,img:'../../../public/placeholders/ko/site-placeholder-2.webp'},
+    {n:'공세리성지성당',r:'62 km',t:'1시간',f:'▶ 도슨트',p:22,img:W+'6/61/%EA%B3%B5%EC%84%B8%EB%A6%AC%EC%84%B1%EB%8B%B9_%EC%A0%84%EA%B2%BD.jpg/1280px-%EA%B3%B5%EC%84%B8%EB%A6%AC%EC%84%B1%EB%8B%B9_%EC%A0%84%EA%B2%BD.jpg'},
+    {n:'솔뫼성지',r:'70 km',t:'1시간',f:'▶ 도슨트',p:35,img:'../../../public/placeholders/ko/site-placeholder-1.webp'},
+    {n:'해미순교성지',r:'78 km',t:'1시간 30분',f:'▶ 도슨트',p:29,img:W+'7/74/Korea_Haemi_Martyrdom_Holy_Ground_16_%2814031341538%29.jpg/1280px-Korea_Haemi_Martyrdom_Holy_Ground_16_%2814031341538%29.jpg'},
+  ];
+  const card=s=>`<a class="card" href="#detail"><i style="background-image:url('${s.img}')"></i><div class="b"><div class="t">${s.n}</div><div class="m">${s.r} · <em>${s.t}</em></div><div class="f"><b>${s.f}</b><span>순례자 ${s.p}</span></div></div></a>`;
+  document.getElementById('homeCards').innerHTML=SITES.map(card).join('');
+  document.getElementById('listCards').innerHTML=NEAR.map(card).join('');
+
+  // ── 히어로 슬라이드: 6초, 페이드, 손대면 멈춤, 동작 줄이기 존중 ──
+  const slides=[...document.querySelectorAll('#hero .slide')], dots=document.getElementById('dots'), heroName=document.getElementById('heroName');
+  let cur=0, timer=null; const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  slides.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label',`${i+1}번 사진`);b.onclick=()=>show(i);dots.appendChild(b);});
+  function show(i){cur=i;slides.forEach((s,k)=>s.classList.toggle('on',k===i));[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));heroName.textContent=slides[i].dataset.name;}
+  function start(){if(reduce)return;stop();timer=setInterval(()=>show((cur+1)%slides.length),6000);}
+  function stop(){if(timer){clearInterval(timer);timer=null;}}
+  show(0);start();
+  const hero=document.getElementById('hero');hero.addEventListener('mouseenter',stop);hero.addEventListener('mouseleave',start);hero.addEventListener('touchstart',stop,{passive:true});
+
+  // ── 화면 전환 (해시) ──
+  const screens={home:'s-home',list:'s-list',detail:'s-detail',plan:'s-plan',result:'s-result',map:'s-stub',records:'s-stub',install:'s-stub',menu:'s-stub'};
+  const stubTitles={map:'지도',records:'기록',install:'홈화면 추가',menu:'전체'};
+  function route(){
+    const h=(location.hash||'#home').slice(1); const id=screens[h]||'s-home';
+    document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));
+    if(stubTitles[h])document.getElementById('stubTitle').textContent=stubTitles[h];
+    document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===h));
+    document.querySelectorAll('[data-tab]').forEach(a=>a.classList.toggle('on',a.dataset.tab===h||(h==='list'&&a.dataset.tab==='home')));
+    document.getElementById('tabs').style.display=(id==='s-detail'||id==='s-plan'||id==='s-result')?'none':'';
+    if(h==='plan'){document.querySelectorAll('.q').forEach(q=>q.classList.toggle('on',q.dataset.q==='0'));}
+    window.scrollTo(0,0);
+  }
+  addEventListener('hashchange',route);route();
+  // 질문: 답을 고르면 자동으로 다음
+  document.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
+    if(b.dataset.go){location.hash='#'+b.dataset.go;return;}
+    const n=b.dataset.next;document.querySelectorAll('.q').forEach(q=>q.classList.toggle('on',q.dataset.q===n));window.scrollTo(0,0);
+  }));
+  document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{c.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');}));
+</script>
+</body>
+</html>
