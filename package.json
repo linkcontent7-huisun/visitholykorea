@@ -45,7 +45,9 @@
     "admin:grant": "tsx scripts/grant-admin.ts grant",
     "admin:revoke": "tsx scripts/grant-admin.ts revoke",
     "directory:romanize": "tsx scripts/romanize-directory.ts",
-    "photos:search": "tsx scripts/photokorea-search.ts"
+    "photos:search": "tsx scripts/photokorea-search.ts",
+    "photos:sweep": "tsx scripts/tour-photo-sweep.ts",
+    "photos:apply": "tsx scripts/tour-photo-apply.ts"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",

@@ -29,6 +29,14 @@ export interface HolySiteRow {
   phone: string | null;
   homepage_url: string | null;
   fax: string | null;
+  /**
+   * 관광공사 사진 「호출값」 (마이그레이션 20260916120000).
+   * 이미지 주소가 아니라 TourAPI 식별자만 둔다 — 화면이 실시간으로 조회한다(ADR 0002).
+   * photokorea 는 galContentId, tourinfo 는 contentid. 셋은 함께 있거나 함께 없다.
+   */
+  tour_photo_source: 'photokorea' | 'tourinfo' | null;
+  tour_photo_id: string | null;
+  tour_photo_title: string | null;
   created_at: string;
 }
 

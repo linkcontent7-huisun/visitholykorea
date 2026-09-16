@@ -23,6 +23,11 @@ export function toHolySite(row: HolySiteRow): HolySite {
     imageUrl: row.image_url,
     imageSource: row.image_source ?? null,
     imageLicense: row.image_license ?? null,
+    // DB 제약이 셋을 함께 보장하지만, 옛 export 로 만든 행이 섞일 수 있어 한 번 더 확인한다
+    tourPhoto:
+      row.tour_photo_source && row.tour_photo_id && row.tour_photo_title
+        ? { source: row.tour_photo_source, id: row.tour_photo_id, title: row.tour_photo_title }
+        : null,
     coordinates: { lat: row.lat, lng: row.lng },
     emotionTag: (row.emotion_tag as EmotionTag | null) ?? null,
     seoTitle: row.seo_title,

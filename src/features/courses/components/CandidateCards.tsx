@@ -70,6 +70,7 @@ export function CandidateCards({
               <span className="h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-app-bg">
                 <SiteThumbnail
                   imageUrl={c.site.imageUrl}
+                  tourPhoto={c.site.tourPhoto}
                   name={c.site.name}
                   category={c.site.category}
                   className="h-full w-full object-cover"

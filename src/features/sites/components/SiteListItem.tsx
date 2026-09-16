@@ -27,6 +27,7 @@ export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) 
           <SiteThumbnail
             imageUrl={site.imageUrl}
             pilgrimUrl={featured[site.id] ?? null}
+            tourPhoto={site.tourPhoto}
             name={site.name}
             category={site.category}
             fallback="icon"

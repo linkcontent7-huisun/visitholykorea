@@ -3001,6 +3001,15 @@ export const DICTIONARY = {
     pt: 'Santuário não encontrado.',
     it: 'Santuario non trovato.',
   },
+  /** 관광공사 사진의 출처 표시 — 공공누리 제1·3유형은 출처 표시가 의무다. {name} 은 사진가 */
+  photoCreditKto: {
+    ko: '사진 한국관광공사 {name}',
+    en: 'Photo: Korea Tourism Organization {name}',
+    es: 'Foto: Organización de Turismo de Corea {name}',
+    fr: 'Photo : Office du tourisme de Corée {name}',
+    pt: 'Foto: Organização de Turismo da Coreia {name}',
+    it: 'Foto: Organizzazione del Turismo Coreano {name}',
+  },
   photoFromPilgrim: {
     ko: '순례자가 보내온 사진',
     en: 'Photo sent by a pilgrim',

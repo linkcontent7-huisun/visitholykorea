@@ -21,6 +21,7 @@ export function SiteGridCard({ site }: { site: HolySite }) {
         <SiteThumbnail
           imageUrl={site.imageUrl}
           pilgrimUrl={featured[site.id] ?? null}
+          tourPhoto={site.tourPhoto}
           name={site.name}
           category={site.category}
           className="h-full w-full transform object-cover transition-transform duration-500 group-hover:scale-110"

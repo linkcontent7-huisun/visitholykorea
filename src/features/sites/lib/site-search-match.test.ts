@@ -14,6 +14,7 @@ function site(name: string, region: string, location: string): HolySite {
     imageUrl: null,
     imageSource: null,
     imageLicense: null,
+    tourPhoto: null,
     coordinates: { lat: null, lng: null },
     emotionTag: null,
     seoTitle: null,

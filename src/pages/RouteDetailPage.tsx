@@ -120,6 +120,7 @@ export default function RouteDetailPage() {
                     <SiteThumbnail
                       imageUrl={stop.site.imageUrl}
                       pilgrimUrl={featured[stop.site.id] ?? null}
+                      tourPhoto={stop.site.tourPhoto}
                       name={stop.site.name}
                       category={stop.site.category}
                       emojiSizeClass="text-5xl"

@@ -125,6 +125,7 @@ export function PlanResult({
           <div className="h-40 overflow-hidden bg-app-bg">
             <SiteThumbnail
               imageUrl={site.imageUrl}
+              tourPhoto={site.tourPhoto}
               name={site.name}
               category={site.category}
               className="h-full w-full object-cover"

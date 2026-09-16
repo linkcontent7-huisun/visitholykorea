@@ -71,6 +71,8 @@ export const queryKeys = {
       ['tour', 'audio-stories', lat, lng, langCode] as const,
     walkingCourses: (sigunguName: string) => ['tour', 'walking-courses', sigunguName] as const,
     searchKeyword: (keyword: string) => ['tour', 'search', keyword] as const,
+    /** 성지 대표 사진의 실시간 조회 (관광사진·관광정보). 메모리 캐시만 — 저장하지 않는다(ADR 0002). */
+    photo: (source: string, id: string) => ['tour', 'photo', source, id] as const,
   },
   festivals: {
     /**
