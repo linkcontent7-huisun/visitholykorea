@@ -78,8 +78,6 @@ function SpotLink({ candidate, spot, t }: { candidate: Candidate; spot: TourApiS
 interface PlanResultProps {
   candidate: Candidate;
   timeBudget: TimeBudget;
-  /** 질문 2·5 에서 오는 두 문장 */
-  openers: string[];
   afternoonIndex: number;
   onSwapAfternoon: () => void;
   onBack: () => void;
@@ -89,7 +87,6 @@ interface PlanResultProps {
 export function PlanResult({
   candidate,
   timeBudget,
-  openers,
   afternoonIndex,
   onSwapAfternoon,
   onBack,
@@ -122,12 +119,6 @@ export function PlanResult({
         <ChevronLeft size={16} aria-hidden />
         {t('planBackToCards')}
       </button>
-
-      <div className="mb-5 space-y-1 text-sm leading-relaxed text-app-text-muted">
-        {openers.map((line) => (
-          <p key={line}>{line}</p>
-        ))}
-      </div>
 
       <div className="mb-5 overflow-hidden rounded-[20px] border border-app-border bg-white">
         <button type="button" onClick={onGo} className="block w-full text-left" id="plan-site">

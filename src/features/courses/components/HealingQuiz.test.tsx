@@ -8,7 +8,7 @@ import type * as CourseMatching from '../api/course-matching';
 import type { PooledSite } from '../api/course-matching';
 
 /**
- * 「오늘의 성지 일정」 전체 흐름 — 인트로 → 5문항 → 후보 카드 → 일정.
+ * 「오늘의 성지 일정」 전체 흐름 — 인트로 → 3문항 → 후보 카드 → 일정.
  *
  * 실브라우저 검증이 번번이 막혔던 화면이다 — 프레임이 스로틀되는 환경에서는 mode="wait"
  * 전환이 끝나지 않아 다음 문항이 안 나온다. jsdom 은 애니메이션을 즉시 끝내므로 여기서
@@ -116,15 +116,11 @@ function next() {
   click(/다음으로|결과 보기/);
 }
 
-/** 인트로 → 5문항을 답하고 결과까지 간다. */
+/** 인트로 → 3문항(마음 · 출발지 · 시간)을 답하고 결과까지 간다. */
 async function answerAll(time: '반나절' | '하루' | '1박2일' = '하루') {
   click('시작하기');
   await waitFor(() => expect(document.getElementById('quiz-emotion-평온')).toBeTruthy());
   fireEvent.click(document.getElementById('quiz-emotion-평온')!);
-  next();
-
-  await waitFor(() => expect(document.getElementById('quiz-concern-나 자신을 돌보는 일')).toBeTruthy());
-  fireEvent.click(document.getElementById('quiz-concern-나 자신을 돌보는 일')!);
   next();
 
   await waitFor(() => expect(screen.queryByRole('combobox')).toBeTruthy());
@@ -134,18 +130,15 @@ async function answerAll(time: '반나절' | '하루' | '1박2일' = '하루') {
   await waitFor(() => expect(document.getElementById(`quiz-time-${time}`)).toBeTruthy());
   fireEvent.click(document.getElementById(`quiz-time-${time}`)!);
   next();
-
-  await waitFor(() => expect(document.querySelector('button[id^="quiz-party-"]')).toBeTruthy());
-  fireEvent.click(document.querySelector<HTMLButtonElement>('button[id^="quiz-party-"]')!);
-  next();
 }
 
 describe('HealingQuiz — 전체 흐름', () => {
-  it('질문이 5개다 — 성별·참여 방식·자유 텍스트를 묻지 않는다', async () => {
+  it('질문이 3개다 — 마음 · 출발지 · 시간만. 관심사 · 인원 · 성별 · 참여 방식 · 자유 텍스트는 묻지 않는다', async () => {
     render(<HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />);
     await answerAll();
-    expect(document.querySelector('[id^="quiz-gender-"]')).toBeNull();
-    expect(document.querySelector('[id^="quiz-style-"]')).toBeNull();
+    for (const prefix of ['quiz-gender-', 'quiz-style-', 'quiz-concern-', 'quiz-party-']) {
+      expect(document.querySelector(`[id^="${prefix}"]`), prefix).toBeNull();
+    }
     expect(document.getElementById('quiz-note')).toBeNull();
     await waitFor(() => expect(document.getElementById('plan-cards')).toBeTruthy());
   });
@@ -193,6 +186,8 @@ describe('HealingQuiz — 전체 흐름', () => {
     expect(saved.answers.origin).toEqual({ kind: 'region', label: '서울' });
     expect(saved.answers.gender).toBeNull();
     expect(saved.answers.style).toBeNull();
+    expect(saved.answers.concern).toBeNull();
+    expect(saved.answers.party).toBeNull();
 
     // 이 일정으로 → 성지 상세
     fireEvent.click(document.getElementById('quiz-go')!);
@@ -286,18 +281,12 @@ describe('HealingQuiz — 전체 흐름', () => {
     await waitFor(() => expect(document.getElementById('quiz-emotion-평온')).toBeTruthy());
     fireEvent.click(document.getElementById('quiz-emotion-평온')!);
     next();
-    await waitFor(() => expect(document.getElementById('quiz-concern-일과 진로')).toBeTruthy());
-    fireEvent.click(document.getElementById('quiz-concern-일과 진로')!);
-    next();
     await waitFor(() => expect(document.getElementById('quiz-gps')).toBeTruthy());
     // 시·도를 고르지 않아도 다음으로 갈 수 있다
     expect(document.getElementById('quiz-next')).not.toBeDisabled();
     next();
     await waitFor(() => expect(document.getElementById('quiz-time-하루')).toBeTruthy());
     fireEvent.click(document.getElementById('quiz-time-하루')!);
-    next();
-    await waitFor(() => expect(document.querySelector('button[id^="quiz-party-"]')).toBeTruthy());
-    fireEvent.click(document.querySelector<HTMLButtonElement>('button[id^="quiz-party-"]')!);
     next();
     await waitFor(() => expect(poolMock).toHaveBeenCalledOnce());
     expect(poolMock.mock.calls[0]![1]).toMatchObject({ kind: 'gps', lat: 36.0, lng: 127.0 });
