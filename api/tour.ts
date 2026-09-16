@@ -11,7 +11,9 @@
  */
 
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { handleTourProxy } from './_lib/tour-proxy-core';
+// 확장자 필수 — package.json 이 "type": "module" 이라 Node ESM 이 확장자 없는 상대 import 를 못 찾는다.
+// 없으면 Vercel 함수가 뜨자마자 죽어 모든 /api/tour 가 500 FUNCTION_INVOCATION_FAILED (2026-09-16 실측).
+import { handleTourProxy } from './_lib/tour-proxy-core.js';
 
 export default async function handler(req: IncomingMessage, res: ServerResponse): Promise<void> {
   if (req.method !== 'GET') {
