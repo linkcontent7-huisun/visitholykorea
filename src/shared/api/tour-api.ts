@@ -516,11 +516,14 @@ export function getNearbyFestivals(
 /**
  * 시·군·구의 관광지 집중률 예측(오늘부터 30일). `areaCd`·`signguCd` 둘 다 필수 —
  * 시·도만 넘기면 API 가 거절한다(2026-09-16 실측). 메모리에서만 잠깐 쓴다.
+ *
+ * 행은 관광지별로 30일치가 묶여 오므로(관광지 A 의 30일 → 관광지 B 의 30일 …) 300행이면 관광지
+ * 10곳까지만 온다. 서울 중구는 55곳(1,650행, 2026-09-16 실측) — 한 번에 다 받아야 오늘 행이 빠지지 않는다.
  */
 export function getCongestionRates(areaCd: string, signguCd: string): Promise<CongestionRate[]> {
   return callTourApi<CongestionRate>(
     'tatsCnctrRatedList',
-    { areaCd, signguCd, numOfRows: 300, pageNo: 1 },
+    { areaCd, signguCd, numOfRows: 2000, pageNo: 1 },
     'TatsCnctrRateService',
   );
 }

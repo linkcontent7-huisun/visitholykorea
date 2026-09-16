@@ -26,6 +26,10 @@ describe('matchSido — 주소 → 법정동 시·도', () => {
     expect(matchSido('광주광역시 남구', SIDO)?.code).toBe('12');
     expect(matchSido('전라남도 나주시', SIDO)?.code).toBe('12');
   });
+  it('「경기도 광주시」는 경기 — 뒤에 나오는 「광주」에 속지 않는다', () => {
+    const withGyeonggi = [...SIDO, { code: '41', name: '경기도' }];
+    expect(matchSido('경기도 광주시 퇴촌면 천진암로 1203', withGyeonggi)?.code).toBe('41');
+  });
   it('시·도를 못 찾으면 null', () => {
     expect(matchSido('', SIDO)).toBeNull();
   });
