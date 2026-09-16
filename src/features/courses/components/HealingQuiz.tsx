@@ -28,7 +28,7 @@ import {
 import { REGIONS, regionCoords, type Region } from '@/shared/lib/regions';
 
 /**
- * 「오늘의 성지 일정」 — 질문 6개 → 후보 카드 최대 3장(태그 1개씩) → 카드를 누르면 하루 일정.
+ * 「오늘의 성지 일정」 — 질문 5개 → 후보 카드 최대 3장(태그 1개씩) → 카드를 누르면 하루 일정.
  *
  * 마음 질문은 후보 집합만 고르고, 순서는 거리가 정한다. 답을 다시 하지 않고 카드로
  * 돌아가 다른 곳을 고를 수 있다. 스펙: docs/10-product/재기획/2026-09-15-오늘의-성지-일정-스펙.md
@@ -123,8 +123,8 @@ const PARTY_NOTE: Record<PartySize, TranslationKey> = {
   '5명 이상': 'compassGroupNote',
 };
 
-// 1=감정 2=관심사 3=출발지 4=시간 5=인원 6=자유텍스트 — 성별·참여 방식은 2026-09-15 에 뺐다
-const TOTAL_QUESTIONS = 6;
+// 1=감정 2=관심사 3=출발지 4=시간 5=인원 — 성별·참여 방식(9/15)·자유 텍스트(9/16, 어디에도 안 쓰여 뺌)
+const TOTAL_QUESTIONS = 5;
 const RESULT_STEP = TOTAL_QUESTIONS + 1;
 const STEP_TIME = 4;
 
@@ -143,7 +143,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   } = useSettings();
   const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
-  const [step, setStep] = useState(0); // 0=intro, 1~6=질문, 7=결과
+  const [step, setStep] = useState(0); // 0=intro, 1~5=질문, 6=결과
   const [emotion, setEmotion] = useState<EmotionTag | null>(null);
   const [concern, setConcern] = useState<Concern | null>(null);
   const [region, setRegion] = useState<Region | null>(storedRegion);
@@ -151,7 +151,6 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   const [useGps, setUseGps] = useState<boolean | null>(null);
   const [timeBudget, setTimeBudget] = useState<TimeBudget | null>(null);
   const [party, setParty] = useState<PartySize | null>(null);
-  const [note, setNote] = useState('');
 
   // 결과 — 반경 안 후보 전부(거리순)와 지금 보이는 페이지 · 고른 카드
   const [pool, setPool] = useState<PooledSite[]>([]);
@@ -201,7 +200,6 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     setUseGps(null);
     setTimeBudget(null);
     setParty(null);
-    setNote('');
     setPool([]);
     setMoreInNextRadius(0);
     setPage(0);
@@ -252,7 +250,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
           style: null,
           timeBudget,
           party,
-          note: note.trim() || null,
+          note: null,
         },
         matchedSiteId: site.id,
         matchedSiteName: site.name,
@@ -278,9 +276,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
           ? origin != null
           : step === STEP_TIME
             ? timeBudget != null
-            : step === 5
-              ? party != null
-              : true; // step 6(자유 텍스트)는 건너뛰어도 됨
+            : party != null; // step 5(인원)
 
   const handleNext = () => {
     if (step === TOTAL_QUESTIONS) void goToResult();
@@ -493,26 +489,6 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   </button>
                 ))}
               </div>
-            </motion.div>
-          )}
-
-          {/* Q6: 자유 텍스트 — 저장만 */}
-          {step === 6 && (
-            <motion.div key="q6-note" {...fade}>
-              <h3 className="text-xl font-extrabold text-app-text mb-4 tracking-tight">
-                {t('compassQ8TitleLine1')}
-                <br />
-                {t('compassQ8TitleLine2')}
-              </h3>
-              <p className="text-xs text-app-text-muted mb-6">{t('compassQ8Subtitle')}</p>
-              <textarea
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-                rows={5}
-                placeholder={t('compassFreeText')}
-                className="w-full bg-app-bg rounded-[20px] p-5 text-sm outline-none border border-app-border resize-none"
-                id="quiz-note"
-              />
             </motion.div>
           )}
 
