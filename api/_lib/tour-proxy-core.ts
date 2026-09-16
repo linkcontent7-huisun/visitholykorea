@@ -59,6 +59,22 @@ export const ALLOWED_OPERATIONS: Record<
     services: TOUR_INFO_SERVICES,
     params: ['areaCode', 'sigunguCode', 'contentTypeId', 'numOfRows', 'pageNo', 'arrange'],
   },
+  /**
+   * 관광정보 1건 상세 — 성지 대표 사진을 실시간으로 받는 데 쓴다.
+   * DB 에는 contentid 만 있고(ADR 0002) 이미지 주소는 매번 여기서 온다.
+   */
+  detailCommon2: {
+    services: TOUR_INFO_SERVICES,
+    params: ['contentId'],
+  },
+  /**
+   * 관광사진(포토코리아) 검색. id 로 직접 조회하는 오퍼레이션이 없어 제목으로 검색해
+   * DB 에 적힌 galContentId 와 맞춘다. 사진은 공공누리 제1유형이다.
+   */
+  gallerySearchList1: {
+    services: ['PhotoGalleryService1'],
+    params: ['keyword', 'numOfRows', 'pageNo', 'arrange'],
+  },
   /** 관광지 집중률(실측 방문자 추이) */
   tatsCnctrRatedList: {
     services: ['TatsCnctrRateService'],
@@ -86,6 +102,7 @@ const NUMERIC_PARAMS = new Set([
   'sigunguCode',
   'areaCd',
   'signguCd',
+  'contentId',
 ]);
 
 /** 임의 텍스트 파라미터의 길이 상한. 검색어가 이보다 길 이유는 없다. */

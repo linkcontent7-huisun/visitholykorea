@@ -253,6 +253,7 @@ export default function SearchPage() {
                           <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-slate-50">
                             <SiteThumbnail
                               imageUrl={site.imageUrl}
+                              tourPhoto={site.tourPhoto}
                               name={site.name}
                               category={site.category}
                               className="h-full w-full object-cover"

@@ -25,7 +25,7 @@ describe('buildUpstreamUrl — 허용 목록', () => {
   });
 
   it('목록에 없는 오퍼레이션·서비스는 거절한다 — 임의 URL 중계를 막는다', () => {
-    expect(buildUpstreamUrl(query({ op: 'detailCommon2' }), KEY).ok).toBe(false);
+    expect(buildUpstreamUrl(query({ op: 'detailIntro2' }), KEY).ok).toBe(false);
     expect(buildUpstreamUrl(query({ op: 'searchKeyword2', service: 'Durunubi' }), KEY).ok).toBe(
       false,
     );

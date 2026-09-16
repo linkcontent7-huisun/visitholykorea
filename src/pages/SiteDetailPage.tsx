@@ -71,6 +71,7 @@ import {
   useSitesInSameDiocese,
 } from '@/features/sites/hooks/use-sites';
 import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
+import { useTourPhoto } from '@/features/sites/hooks/use-tour-photo';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
@@ -140,6 +141,8 @@ export default function SiteDetailPage() {
   // 공식 사진이 없으면 순례자가 보내준(운영자 승인) 사진이 대표 자리를 채운다.
   // 훅이므로 이른 return 위에서 부른다.
   const sitePhoto = useSitePhoto(siteId, site?.imageUrl ?? null);
+  // 둘 다 없으면 관광공사 사진을 실시간으로 부른다(저장하지 않는다 — ADR 0002)
+  const { data: tourPhoto = null } = useTourPhoto(sitePhoto.url ? null : site?.tourPhoto);
   const { data: isFavorited = false } = useIsFavorite(siteId);
   const toggleFavorite = useToggleFavorite(siteId ?? '');
   const { data: myStamp } = useMyStamp(siteId);
@@ -276,8 +279,9 @@ export default function SiteDetailPage() {
         siteName: site.name,
         location: site.location,
         emotionTag: site.emotionTag,
-        // 순례자 사진이 대표가 된 성지는 카드 배경도 그 사진을 쓴다
-        imageUrl: heroPhoto.url,
+        // 순례자 사진이 대표가 된 성지는 카드 배경도 그 사진을 쓴다.
+        // 관광공사 사진은 뺀다 — 다른 출처(tong.visitkorea.or.kr)라 캔버스에 그리면 CORS 로 막힌다
+        imageUrl: heroPhoto.fromTour ? null : heroPhoto.url,
         visitedAt: new Date(),
         liturgical: todayLiturgical,
         visitOrder,
@@ -303,7 +307,17 @@ export default function SiteDetailPage() {
   const tags = [site.emotionTag, localizeRegionName(site.region, language), site.category].filter(
     (tag): tag is string => Boolean(tag),
   );
-  const heroPhoto = sitePhoto;
+  // 대표 사진 우선순위: 공식 → 순례자 → 관광공사(실시간). 관광공사 사진은 출처를 화면에 적는다(공공누리)
+  const heroPhoto = sitePhoto.url
+    ? { ...sitePhoto, fromTour: false as const }
+    : { url: tourPhoto?.url ?? null, fromPilgrim: false, fromTour: Boolean(tourPhoto?.url) };
+  const heroCredit = heroPhoto.fromTour
+    ? [fillPlaceholders(t('photoCreditKto'), { name: tourPhoto?.credit ?? '' }).trim(), tourPhoto?.license]
+        .filter(Boolean)
+        .join(' · ')
+    : site.imageSource
+      ? `${site.imageSource}${site.imageLicense ? ` · ${site.imageLicense}` : ''}`
+      : null;
 
   // "방문 정보" 그룹을 접었을 때 무엇이 안에 있는지 미리 보여줄 이름 목록.
   // 성지마다 있는 항목이 다르므로(문의·무장애 정보·주변 본당은 조건부),
@@ -346,11 +360,10 @@ export default function SiteDetailPage() {
                 {t('photoFromPilgrim')}
               </span>
             )}
-            {/* CC 계열 라이선스는 출처 표기가 의무다 — 출처가 기록된 사진에만 붙는다 */}
-            {!heroPhoto.fromPilgrim && site.imageSource && (
+            {/* CC·공공누리 라이선스는 출처 표기가 의무다 — 출처가 있는 사진에만 붙는다 */}
+            {!heroPhoto.fromPilgrim && heroCredit && (
               <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[0.625rem] text-white/80 backdrop-blur-sm">
-                {site.imageSource}
-                {site.imageLicense ? ` · ${site.imageLicense}` : ''}
+                {heroCredit}
               </span>
             )}
           </>
@@ -1081,6 +1094,7 @@ export default function SiteDetailPage() {
                   <div className="relative flex h-40 items-center justify-center overflow-hidden bg-app-bg">
                     <SiteThumbnail
                       imageUrl={nearby.imageUrl}
+                      tourPhoto={nearby.tourPhoto}
                       name={nearby.name}
                       emojiSizeClass="text-4xl"
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"

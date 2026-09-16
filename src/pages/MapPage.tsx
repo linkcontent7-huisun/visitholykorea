@@ -309,10 +309,11 @@ function MapListRow({
         id={`map-item-${site.id}`}
       >
         <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-app-bg text-brand-violet">
-          {site.imageUrl ? (
+          {site.imageUrl || site.tourPhoto ? (
             <SiteThumbnail
               imageUrl={site.imageUrl}
               pilgrimUrl={photoUrl}
+              tourPhoto={site.tourPhoto}
               name={site.name}
               category={site.category}
               className="h-full w-full object-cover"

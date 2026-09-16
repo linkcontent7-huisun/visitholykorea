@@ -38,6 +38,21 @@ export interface Coordinates {
   lng: number | null;
 }
 
+/**
+ * 관광공사 사진을 실시간으로 다시 부르기 위한 호출값.
+ *
+ * 사진이 없는 성지 일부는 한국관광공사 TourAPI(관광사진·관광정보)에 사진이 있다.
+ * 공모전 규정(ADR 0002)상 응답값(이미지 주소)을 저장할 수 없어 식별자만 두고,
+ * 화면이 `/api/tour` 로 매번 조회한다. `imageUrl` 이 있으면 이 값은 쓰지 않는다.
+ */
+export interface TourPhotoRef {
+  source: 'photokorea' | 'tourinfo';
+  /** photokorea: galContentId · tourinfo: contentid */
+  id: string;
+  /** 관광사진 API 는 id 조회가 없어 제목으로 검색해 id 를 맞춘다 */
+  title: string;
+}
+
 /** 성지 한 곳. 앱이 직접 수집·큐레이션한 자체 데이터(TourAPI 데이터가 아니다). */
 export interface HolySite {
   id: string;
@@ -58,6 +73,8 @@ export interface HolySite {
    */
   imageSource: string | null;
   imageLicense: string | null;
+  /** 자체 사진이 없을 때 실시간으로 부를 관광공사 사진. 없으면 null. */
+  tourPhoto: TourPhotoRef | null;
   coordinates: Coordinates;
   emotionTag: EmotionTag | null;
   seoTitle: string | null;

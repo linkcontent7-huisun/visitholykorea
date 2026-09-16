@@ -615,3 +615,84 @@ export async function getOngoingFestivals(
     return start <= today && today <= end;
   });
 }
+
+// ---------------------------------------------------------------------------
+// 성지 대표 사진 실시간 조회 (관광사진·관광정보)
+// ---------------------------------------------------------------------------
+
+/** 관광사진(포토코리아) gallerySearchList1 응답 항목 (2026-09-15 실측 필드) */
+interface GalleryItem {
+  galContentId: string;
+  galTitle: string;
+  galWebImageUrl: string;
+  galPhotographer?: string;
+  galPhotographyLocation?: string;
+}
+
+/** 관광정보 detailCommon2 응답 항목 — 사진에 필요한 필드만 */
+interface TourDetailItem {
+  contentid: string;
+  title: string;
+  firstimage?: string;
+  firstimage2?: string;
+  /** 공공누리 유형 (Type1·Type3). 없으면 화면에 유형을 적지 않는다 */
+  cpyrhtDivCd?: string;
+}
+
+/** 화면이 그릴 관광공사 사진 한 장. 응답에서 방금 받은 값이고 어디에도 저장하지 않는다. */
+export interface TourPhoto {
+  url: string;
+  /** 사진가 또는 촬영지 — 출처 표시 옆에 붙인다. 없으면 빈 문자열 */
+  credit: string;
+  /** 「공공누리 제1유형」 꼴. 응답에 유형이 없으면 null */
+  license: string | null;
+}
+
+const KOGL_LABEL: Record<string, string> = {
+  Type1: '공공누리 제1유형',
+  Type2: '공공누리 제2유형',
+  Type3: '공공누리 제3유형',
+  Type4: '공공누리 제4유형',
+};
+
+/**
+ * DB 에 적힌 호출값(식별자)으로 관광공사 사진을 실시간 조회한다.
+ *
+ * 왜 매번 부르는가 — 공모전 규정(ADR 0002)상 TourAPI 응답(이미지 주소)을 저장하면 안 된다.
+ * 그래서 `holy_sites.tour_photo_*` 에는 식별자만 있고, 주소는 이 함수가 매번 받아 온다.
+ * TanStack Query 메모리 캐시(새로고침하면 사라짐)만 거친다.
+ *
+ * 관광사진 API 에는 id 로 1건을 받는 오퍼레이션이 없어 제목으로 검색한 뒤 galContentId 를 맞춘다.
+ * 같은 제목의 사진이 수십 장이라 50장을 받아 본다 — 없으면 null(화면은 임시 이미지로 돌아간다).
+ */
+export async function getTourPhoto(ref: {
+  source: 'photokorea' | 'tourinfo';
+  id: string;
+  title: string;
+}): Promise<TourPhoto | null> {
+  if (ref.source === 'photokorea') {
+    const items = await callTourApi<GalleryItem>(
+      'gallerySearchList1',
+      { keyword: ref.title, numOfRows: 50, pageNo: 1, arrange: 'A' },
+      'PhotoGalleryService1',
+    );
+    const hit = items.find((i) => i.galContentId === ref.id);
+    if (!hit?.galWebImageUrl) return null;
+    return {
+      // 응답은 http 주소로 오기도 한다 — 혼합 콘텐츠로 막히지 않게 https 로 맞춘다
+      url: hit.galWebImageUrl.replace(/^http:\/\//, 'https://'),
+      credit: hit.galPhotographer ?? '',
+      // 관광사진 API 는 전량 공공누리 제1유형 (공공데이터포털 안내, 2026-09-15 확인)
+      license: KOGL_LABEL.Type1 ?? null,
+    };
+  }
+  const items = await callTourApi<TourDetailItem>('detailCommon2', { contentId: ref.id });
+  const hit = items[0];
+  const url = hit?.firstimage || hit?.firstimage2;
+  if (!url) return null;
+  return {
+    url: url.replace(/^http:\/\//, 'https://'),
+    credit: '',
+    license: hit.cpyrhtDivCd ? (KOGL_LABEL[hit.cpyrhtDivCd] ?? null) : null,
+  };
+}

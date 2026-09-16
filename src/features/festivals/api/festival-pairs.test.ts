@@ -30,6 +30,7 @@ function site(name: string, coordinates: Coordinates): HolySite {
     imageUrl: null,
     imageSource: null,
     imageLicense: null,
+    tourPhoto: null,
     coordinates,
     emotionTag: null,
     seoTitle: null,

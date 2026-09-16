@@ -4,6 +4,8 @@ import { placeholderImageFor } from '@/shared/lib/site-placeholder';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { sizedImageUrl } from '@/shared/lib/image-url';
+import type { TourPhotoRef } from '@/shared/types/domain';
+import { useTourPhoto } from '../hooks/use-tour-photo';
 
 interface SiteThumbnailProps {
   imageUrl: string | null;
@@ -17,6 +19,12 @@ interface SiteThumbnailProps {
    * (`useFeaturedPhotos`).
    */
   pilgrimUrl?: string | null;
+  /**
+   * 관광공사 사진 호출값. 공식·순례자 사진이 다 없을 때만 실시간으로 부른다.
+   * 이 값이 있을 때만 훅이 도는 하위 컴포넌트를 그리므로, 값이 없는 렌더는
+   * 여전히 QueryClientProvider 없이도 된다.
+   */
+  tourPhoto?: TourPhotoRef | null;
   /** 분류에 따라 대체 화면의 색·상징이 달라진다. 없으면 성당 취급. */
   category?: string | null;
   className?: string;
@@ -112,10 +120,79 @@ export function SiteThumbnail({
   imageUrl,
   name,
   pilgrimUrl = null,
+  tourPhoto = null,
   category,
   className = '',
   intensity = 'light',
 }: SiteThumbnailProps) {
+  const url = imageUrl ?? pilgrimUrl;
+  // 관광공사 사진은 매번 실시간으로 받아야 해서(ADR 0002) 조회 훅이 필요하다.
+  // 훅은 조건부로 부를 수 없으므로, 필요할 때만 훅을 가진 컴포넌트로 갈아 끼운다.
+  if (!url && tourPhoto) {
+    return (
+      <TourPhotoThumbnail
+        tourPhoto={tourPhoto}
+        name={name}
+        category={category}
+        className={className}
+        intensity={intensity}
+      />
+    );
+  }
+  return (
+    <StaticThumbnail
+      imageUrl={imageUrl}
+      name={name}
+      pilgrimUrl={pilgrimUrl}
+      category={category}
+      className={className}
+      intensity={intensity}
+    />
+  );
+}
+
+/** 관광공사 사진을 받아 그린다. 받는 중·실패·없음은 모두 임시 이미지로 — 사진은 부속물이라 기다리게 하지 않는다. */
+function TourPhotoThumbnail({
+  tourPhoto,
+  name,
+  category,
+  className,
+  intensity,
+}: {
+  tourPhoto: TourPhotoRef;
+  name: string;
+  category?: string | null;
+  className: string;
+  intensity: 'light' | 'deep';
+}) {
+  const { data } = useTourPhoto(tourPhoto);
+  return (
+    <StaticThumbnail
+      imageUrl={data?.url ?? null}
+      name={name}
+      pilgrimUrl={null}
+      category={category}
+      className={className}
+      intensity={intensity}
+    />
+  );
+}
+
+function StaticThumbnail({
+  imageUrl,
+  name,
+  pilgrimUrl,
+  category,
+  className,
+  intensity,
+}: {
+  imageUrl: string | null;
+  name: string;
+  pilgrimUrl: string | null;
+  category?: string | null;
+  className: string;
+  intensity: 'light' | 'deep';
+}) {
   const { t } = useSettings();
   const [placeholderFailed, setPlaceholderFailed] = useState(false);
   // 사진이 "없는" 것과 "있는데 못 받은" 것은 다르다(재기획 §13). 못 받으면 그 사실을 적은 자리지킴이를 그린다.

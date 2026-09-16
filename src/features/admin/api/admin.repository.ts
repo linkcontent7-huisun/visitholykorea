@@ -138,7 +138,7 @@ export async function fetchMyRole(): Promise<AdminRole> {
 export async function fetchAdminQueue(): Promise<AdminSiteSummary[]> {
   const { data, error } = await supabase
     .from('holy_sites')
-    .select('id, name, diocese, image_url, description, history')
+    .select('id, name, diocese, image_url, tour_photo_id, description, history')
     .order('name');
 
   if (error) {
@@ -151,7 +151,8 @@ export async function fetchAdminQueue(): Promise<AdminSiteSummary[]> {
 /** 대기열 한 줄 만들기. 빈 문자열도 "없음"으로 친다 — 공백만 있는 소개글은 없는 것이다. */
 export function toSiteSummary(row: Record<string, unknown>): AdminSiteSummary {
   const filled = (value: unknown) => typeof value === 'string' && value.trim() !== '';
-  const hasPhoto = filled(row.image_url);
+  // 관광공사 사진을 실시간으로 부르는 성지도 화면에는 사진이 보이므로 "채운 곳"으로 친다
+  const hasPhoto = filled(row.image_url) || filled(row.tour_photo_id);
   const hasDescription = filled(row.description);
   const hasHistory = filled(row.history);
 
