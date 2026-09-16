@@ -8,7 +8,7 @@ import type * as CourseMatching from '../api/course-matching';
 import type { PooledSite } from '../api/course-matching';
 
 /**
- * 「오늘의 성지 일정」 전체 흐름 — 인트로 → 6문항 → 후보 카드 → 일정.
+ * 「오늘의 성지 일정」 전체 흐름 — 인트로 → 5문항 → 후보 카드 → 일정.
  *
  * 실브라우저 검증이 번번이 막혔던 화면이다 — 프레임이 스로틀되는 환경에서는 mode="wait"
  * 전환이 끝나지 않아 다음 문항이 안 나온다. jsdom 은 애니메이션을 즉시 끝내므로 여기서
@@ -116,7 +116,7 @@ function next() {
   click(/다음으로|결과 보기/);
 }
 
-/** 인트로 → 6문항을 답하고 결과까지 간다. */
+/** 인트로 → 5문항을 답하고 결과까지 간다. */
 async function answerAll(time: '반나절' | '하루' | '1박2일' = '하루') {
   click('시작하기');
   await waitFor(() => expect(document.getElementById('quiz-emotion-평온')).toBeTruthy());
@@ -138,17 +138,15 @@ async function answerAll(time: '반나절' | '하루' | '1박2일' = '하루') {
   await waitFor(() => expect(document.querySelector('button[id^="quiz-party-"]')).toBeTruthy());
   fireEvent.click(document.querySelector<HTMLButtonElement>('button[id^="quiz-party-"]')!);
   next();
-
-  await waitFor(() => expect(screen.queryByRole('textbox')).toBeTruthy());
-  next();
 }
 
 describe('HealingQuiz — 전체 흐름', () => {
-  it('질문이 6개다 — 성별·참여 방식을 묻지 않는다', async () => {
+  it('질문이 5개다 — 성별·참여 방식·자유 텍스트를 묻지 않는다', async () => {
     render(<HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />);
     await answerAll();
     expect(document.querySelector('[id^="quiz-gender-"]')).toBeNull();
     expect(document.querySelector('[id^="quiz-style-"]')).toBeNull();
+    expect(document.getElementById('quiz-note')).toBeNull();
     await waitFor(() => expect(document.getElementById('plan-cards')).toBeTruthy());
   });
 
@@ -300,8 +298,6 @@ describe('HealingQuiz — 전체 흐름', () => {
     next();
     await waitFor(() => expect(document.querySelector('button[id^="quiz-party-"]')).toBeTruthy());
     fireEvent.click(document.querySelector<HTMLButtonElement>('button[id^="quiz-party-"]')!);
-    next();
-    await waitFor(() => expect(screen.queryByRole('textbox')).toBeTruthy());
     next();
     await waitFor(() => expect(poolMock).toHaveBeenCalledOnce());
     expect(poolMock.mock.calls[0]![1]).toMatchObject({ kind: 'gps', lat: 36.0, lng: 127.0 });
