@@ -346,6 +346,7 @@ export default function SiteDetailPage() {
             imageUrl={null}
             name={site.name}
             category={site.category}
+            diocese={site.region}
             intensity="deep"
             className="h-full w-full"
           />
