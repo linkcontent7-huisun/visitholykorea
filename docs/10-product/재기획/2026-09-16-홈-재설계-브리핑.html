@@ -8,19 +8,19 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
 <style>
   :root{
-    --paper:#F6F3EE; --ink:#1E222B; --navy:#1F2F55; --gold:#B08A2E; --muted:#676B75;
+    --paper:#F6F3EE; --ink:#1E222B; --navy:#1F2F55; --olive:#6E7F5C; --muted:#676B75;
     --line:#D9D3C8; --panel:#FFFFFF; --panel-2:#EFEAE1; --ok:#2F6B3A; --warn:#9A5B12; --bad:#8E2B2B;
     --font-display:'Gowun Batang','Noto Serif KR',serif;
     --font-body:'Noto Sans KR','Malgun Gothic',sans-serif;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --paper:#171A21; --ink:#ECE8E0; --navy:#9FB3E0; --gold:#D3AE55; --muted:#A3A7B2;
+      --paper:#171A21; --ink:#ECE8E0; --navy:#9FB3E0; --olive:#93A67F; --muted:#A3A7B2;
       --line:#343947; --panel:#1F232D; --panel-2:#262B37; --ok:#7BC48A; --warn:#E0A75A; --bad:#E08A8A;
     }
   }
   :root[data-theme="dark"]{
-    --paper:#171A21; --ink:#ECE8E0; --navy:#9FB3E0; --gold:#D3AE55; --muted:#A3A7B2;
+    --paper:#171A21; --ink:#ECE8E0; --navy:#9FB3E0; --olive:#93A67F; --muted:#A3A7B2;
     --line:#343947; --panel:#1F232D; --panel-2:#262B37; --ok:#7BC48A; --warn:#E0A75A; --bad:#E08A8A;
   }
   *{box-sizing:border-box}
@@ -32,7 +32,7 @@
   h1{font-size:2.1rem;line-height:1.25}
   h2{font-size:1.45rem;margin-top:0;padding-bottom:8px;border-bottom:2px solid var(--navy)}
   h3{font-size:1.1rem;font-family:var(--font-body);font-weight:700}
-  .eyebrow{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .eyebrow{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--olive);font-weight:700}
   .lead{font-size:1.05rem;max-width:62ch}
   .meta{color:var(--muted);font-size:.9rem}
   section{margin-top:44px;display:grid;gap:16px}
@@ -47,7 +47,7 @@
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   @media (max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
-  .note{border-left:3px solid var(--gold);padding:10px 14px;background:var(--panel);font-size:.92rem}
+  .note{border-left:3px solid var(--olive);padding:10px 14px;background:var(--panel);font-size:.92rem}
   .danger{border-left-color:var(--bad)}
   ul{margin:0;padding-left:1.2em} li{margin:3px 0}
   code{font-family:ui-monospace,Consolas,monospace;font-size:.86em;background:var(--panel-2);padding:1px 5px}
@@ -80,7 +80,7 @@
   .step{background:var(--panel);border:1px solid var(--line);padding:10px 12px;font-size:.88rem;display:grid;gap:4px}
   .step .q{font-weight:700;color:var(--ink)}
   .step .does{color:var(--muted);font-size:.82rem}
-  .step .n{font-family:var(--font-display);color:var(--gold);font-size:1.3rem;line-height:1}
+  .step .n{font-family:var(--font-display);color:var(--olive);font-size:1.3rem;line-height:1}
   .result{background:var(--panel-2);border:1px solid var(--line);padding:12px 14px;font-size:.9rem;display:grid;gap:4px}
 
   /* ── 상세 붐빔 견본 ── */
@@ -162,7 +162,8 @@
   <div class="tablewrap"><table>
     <thead><tr><th style="width:22%">항목</th><th>결정</th><th style="width:26%">비고</th></tr></thead>
     <tbody>
-      <tr><td>전체 느낌</td><td><b>「고요한 성지로 초대합니다.」</b> 사진이 말하는 계열(글자 최소·사진 큼)</td><td>참고 40곳 검토 중 — 아래 「디자인 참고」</td></tr>
+      <tr><td>전체 느낌</td><td><b>「고요한 성지로 초대합니다.」</b> 사진이 말하는 계열(글자 최소·사진 큼). <b>기준 사이트 = headout.com</b>(영상 대신 성지 사진 5장)</td><td>headout 에서 가져올 것: 사진 위 검색창 · 사진 카드 줄 · 교구 둥근 사진 버튼 · 여백과 흰 바탕. 배지는 안 씀</td></tr>
+      <tr><td>색</td><td><b>남색 <code>#1F2F55</code> 하나</b>(버튼·링크·활성 탭) + 보조 <b>올리브 <code>#6E7F5C</code></b>(분류 칩·카드 표시·붐빔 배지·일정 첫 문장 띠). 홈 바탕 흰색, 상세 바탕 종이색 <code>#F5F3EE</code></td><td>9/16 00:50 결정. 견본 <code>2026-09-16-남색-보조색-3안.html</code> A안. 화면마다 색을 다르게 하지 않는다 — 분위기는 바탕·사진 크기·글꼴로</td></tr>
       <tr><td>헤더</td><td><b>일반 검색</b>(이름·지역). 검색창을 가로로 크게, 안에 옅은 안내 문구</td><td><b>미카엘 챗봇·페르소나는 삭제.</b> 9/14 에 승현 님께 "페르소나 강화" 부탁드린 것 → 취소를 직접 알려야 함</td></tr>
       <tr><td>히어로</td><td>사진 5장 — <b>명동대성당 · 대흥동 성당 · 공세리 성당 · 솔뫼성지 · 해미성지</b>. 오른쪽→왼쪽 자동 넘김, 누르면 상세</td><td>5곳 모두 사진 있음(9/16 DB 실측). 도슨트 원고 5곳 전부 있음(대흥동·공세리는 9/16 신규 작성)</td></tr>
       <tr><td>히어로 속도</td><td>한 장 <b>6초</b> · 넘김 0.6~0.8초 페이드 · 손대면 멈춤 · 아래 점 5개 · 「동작 줄이기」면 자동 넘김 끔</td><td>40대 기준 권장값. 써 보고 조정</td></tr>
@@ -293,7 +294,7 @@
   <div class="grid3">
     <div class="note"><b>사진이 말하는 계열 — 사장님 검토 중 (40곳)</b><br>관광청: newzealand · visitnorway · faroeislands · iceland · bhutan · slovenia · greenland · sweden · tasmania · oregon · portugal · ireland<br>순례: <b>구마노 고도(tb-kumano.jp)</b> · 시코쿠 · caminoways · <b>fatima.pt</b> · lourdes-france<br>호텔·잡지: aman · hoshinoya · belmond · singita · sixsenses · soneva · rosewood · oneandonly · fogoislandinn · explora · blacktomato · cereal · suitcase · kinfolk · afar · cntraveler · natgeo travel · airbnb · patagonia</div>
     <div class="note"><b>판매 사이트 — 헤매지 않게 (10곳)</b><br>getyourguide · viator · klook · airbnb experiences · booking · headout · tourradar · <b>intrepidtravel(체력 난이도 표시)</b> · <b>civitatis</b> · tripadvisor</div>
-    <div class="note"><b>이 파일 자체가 견본이다</b><br>제목 명조(Gowun Batang) · 본문 Noto Sans KR · 돌·종이색 바탕 · 남색 한 가지 + 금색 소량 · 알약 카드 없음 · 그라데이션 없음. 팀 문서 A-3 "AI 냄새 제거" 방향 그대로.</div>
+    <div class="note"><b>이 파일 자체가 견본이다</b><br>제목 명조(Gowun Batang) · 본문 Noto Sans KR · 종이색 바탕 · 남색 한 가지 + 올리브 보조 · 알약 카드 없음 · 그라데이션 없음. 팀 문서 A-3 "AI 냄새 제거" 방향 그대로. 화면 견본: <code>2026-09-16-남색-보조색-3안.html</code>(A안)</div>
   </div>
 </section>
 
