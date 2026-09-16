@@ -18,21 +18,20 @@ export interface NavItem {
 }
 
 /**
- * 하단 탭 5개 — 재기획(2026-09-14) 정보 구조 그대로.
+ * 하단 탭 5개 — 2026-09-16 회의 · 시안 확정.
  *
- *   홈 · 성지 찾기 · 오늘의 성지 일정 · 내 기록 · 더보기
+ *   홈 · 성지 찾기 · 기록 · 성지 일정 · 더보기
  *
- * 「고요 속으로」 자리는 2026-09-15 팀 결정으로 「오늘의 성지 일정」(마음나침반 + 하루 일정)이 이어받았다.
- *
- * 「지도」는 배경 없는 점 지도라 주 탐색 수단이 못 되어 더보기 안 「전국 성지 분포 개요」로,
- * 「홈화면 추가」는 더보기 안으로 옮겼다. 「고요 속으로」와 「붐빔 피하기」처럼 같은 기능이
- * 두 이름으로 보이던 것은 하나로 합쳤다.
+ * 「기록」이 이 서비스의 중심이라(사장님, 9/16) 가운데에 두고 `BottomNav` 가 솟은 둥근 단추로 키운다 —
+ * 재기획 이전(9/13, `908543a`) 방식. 회의록의 「지도」 대신 「성지 일정」을 남겼다(사장님 결정, 같은 날).
+ * 세 번째 라벨은 「성지 일정」 — 「오늘의 성지 일정」은 390px 폭에서 잘린다(시안 렌더로 확인).
+ * 「지도」는 더보기 안 「전국 성지 분포 개요」로, 「홈화면 추가」도 더보기 안에 있다.
  */
 export const NAV_ITEMS: readonly NavItem[] = [
   { id: 'home', to: paths.home, icon: Home, labelKey: 'home', end: true },
   { id: 'search', to: paths.search, icon: Search, labelKey: 'findShrines', end: false },
-  { id: 'plan', to: paths.compass, icon: CalendarHeart, labelKey: 'todayPlanTab', end: false },
-  { id: 'record', to: paths.records, icon: BookOpen, labelKey: 'myRecords', end: false },
+  { id: 'record', to: paths.records, icon: BookOpen, labelKey: 'record', end: false },
+  { id: 'plan', to: paths.compass, icon: CalendarHeart, labelKey: 'todayPlanShort', end: false },
   { id: 'menu', to: paths.menu, icon: Menu, labelKey: 'moreTab', end: false },
 ];
 

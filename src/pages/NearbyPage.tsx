@@ -102,7 +102,7 @@ export default function NearbyPage() {
         </h1>
 
         {/* 기준점 상태 — 현재 위치인지, 지역 중심인지, 아직 못 잡았는지 */}
-        <div className="mb-6 rounded-[24px] border border-app-border bg-white p-4">
+        <div className="mb-6 rounded-lg border border-app-border bg-white p-4">
           {gpsLocation ? (
             <p className="flex items-center gap-2 text-sm font-bold text-app-text">
               <LocateFixed size={16} className="text-brand-violet" aria-hidden />
@@ -205,13 +205,13 @@ export default function NearbyPage() {
                   {fillPlaceholders(t('nearbyParishesSub'), { radius: PARISH_RADIUS_KM })}
                 </p>
                 {parishes.length === 0 ? (
-                  <p className="rounded-[20px] border border-dashed border-app-border bg-white p-6 text-center text-sm text-app-text-muted">
+                  <p className="rounded-lg border border-dashed border-app-border bg-white p-6 text-center text-sm text-app-text-muted">
                     {fillPlaceholders(t('nearbyParishesEmpty'), { radius: PARISH_RADIUS_KM })}
                   </p>
                 ) : (
                   <ul className="flex flex-col gap-3">
                     {parishes.map((p) => (
-                      <li key={p.id} className="rounded-[20px] border border-app-border bg-white p-4">
+                      <li key={p.id} className="rounded-lg border border-app-border bg-white p-4">
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0 flex-1">
                             <p className="flex flex-wrap items-center gap-2">
@@ -236,7 +236,7 @@ export default function NearbyPage() {
                               <a
                                 href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}
                                 aria-label={`${p.name} ${t('callPhone')}`}
-                                className="rounded-xl bg-app-bg p-2 text-brand-violet"
+                                className="rounded-lg bg-app-bg p-2 text-brand-violet"
                               >
                                 <Phone size={14} />
                               </a>

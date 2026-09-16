@@ -74,7 +74,7 @@ export default function RouteDetailPage() {
         )}
 
         {/* 연재 진행도 — 스탬프가 곧 "몇 화까지 봤는가"다 */}
-        <div className="mt-5 rounded-[20px] border border-app-border bg-app-bg p-4">
+        <div className="mt-5 rounded-lg border border-app-border bg-app-bg p-4">
           <div className="mb-2 flex items-center justify-between text-xs font-extrabold">
             <span className="text-app-text">
               전 {stops.length}화 ·{' '}
@@ -114,7 +114,7 @@ export default function RouteDetailPage() {
               <div className="flex-1">
                 <Link
                   to={paths.siteDetail(stop.site.id)}
-                  className="group block overflow-hidden rounded-[16px] border border-gray-100 bg-app-bg transition-all hover:border-brand-violet"
+                  className="group block overflow-hidden rounded-lg border border-gray-100 bg-app-bg transition-all hover:border-brand-violet"
                 >
                   <div className="relative flex h-36 items-center justify-center overflow-hidden bg-white">
                     <SiteThumbnail

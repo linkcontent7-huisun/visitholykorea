@@ -146,7 +146,7 @@ export default function MenuPage() {
               value={language}
               onChange={(e) => setLanguage(e.target.value as Language)}
               aria-label={t('languageSelectAria')}
-              className="rounded-2xl border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20"
+              className="rounded-lg border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20"
             >
               {ENABLED_LANGUAGES.map((lang) => (
                 <option key={lang} value={lang}>
@@ -184,7 +184,7 @@ export default function MenuPage() {
               onChange={(e) => setOrigin((e.target.value || null) as Region | null)}
               aria-label={t('originSelectAria')}
               disabled={Boolean(gpsLocation)}
-              className="rounded-2xl border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20 disabled:opacity-50"
+              className="rounded-lg border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20 disabled:opacity-50"
             >
               <option value="">{t('originAll')}</option>
               {REGIONS.map((r) => (
@@ -246,23 +246,23 @@ export default function MenuPage() {
 
       {/* 전체 서비스 — 이 화면의 첫 줄. 아이콘 옆에 이름, 4열(PC 6열) */}
       <section className="px-8 pt-8">
-        <h1 className="mb-4 font-display text-2xl font-bold tracking-tight text-app-text">
+        <h1 className="mb-4 font-display text-[1.625rem] font-bold tracking-tight text-app-text">
           {t('allServices')}
         </h1>
         <ul className="grid grid-cols-4 gap-2 lg:grid-cols-6" id="all-services">
           {services.map((svc) => {
             const inner = (
               <>
-                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-app-bg text-brand-violet">
+                <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-soft text-brand-blue">
                   <svc.icon size={22} />
                 </span>
-                <span className="break-keep text-center text-[0.75rem] font-bold leading-tight text-app-text">
+                <span className="break-keep text-center text-[0.8125rem] font-bold leading-tight text-app-text">
                   {svc.label}
                 </span>
               </>
             );
             const cls =
-              'flex w-full flex-col items-center gap-1.5 rounded-2xl border border-app-border bg-white px-1 py-3 transition-colors hover:border-brand-violet';
+              'flex w-full flex-col items-center gap-1.5 rounded-lg border border-app-border bg-white px-1 py-3 transition-colors hover:border-brand-blue';
             return (
               <li key={svc.id}>
                 {svc.to ? (
@@ -281,10 +281,10 @@ export default function MenuPage() {
       </section>
 
       {/* 내 정보 — 로그인 안 했으면 로그인·회원가입 입구 */}
-      <div className="mx-8 mb-8 mt-6 rounded-[32px] border border-app-border bg-white p-6 shadow-xl shadow-gray-200/40">
+      <div className="mx-8 mb-8 mt-6 rounded-lg border border-app-border bg-white p-5">
         <div className="flex items-center gap-5">
-          <div className="flex h-16 w-16 items-center justify-center rounded-3xl border border-app-border bg-app-bg shadow-inner">
-            <User size={32} className="text-gray-300" />
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-soft">
+            <User size={28} className="text-brand-blue" />
           </div>
           <div className="flex-1">
             <h2 className="mb-1 text-xl font-extrabold tracking-tight text-app-text">
@@ -328,20 +328,20 @@ export default function MenuPage() {
             <h3 className="mb-4 ml-4 text-[0.6875rem] font-extrabold uppercase tracking-[0.2em] text-app-text-muted">
               {section.title}
             </h3>
-            <div className="overflow-hidden rounded-[32px] border border-app-border bg-white shadow-xl shadow-gray-200/40">
+            <div className="overflow-hidden rounded-lg border border-app-border bg-white">
               {section.items.map((item, idx) => {
                 const rowClass = `flex w-full items-center gap-5 p-6 ${
                   idx !== section.items.length - 1 ? 'border-b border-app-border' : ''
                 }`;
                 const body = (
                   <>
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-app-border bg-app-bg text-app-text-muted">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-app-panel text-app-text-muted">
                       <item.icon size={20} />
                     </div>
                     <div className="flex-1 text-left">
                       <h4 className="font-bold tracking-tight text-app-text">{item.label}</h4>
                       {item.sub && (
-                        <p className="mt-0.5 text-[0.6875rem] font-medium text-app-text-muted">
+                        <p className="mt-0.5 text-sm font-medium text-app-text-muted">
                           {item.sub}
                         </p>
                       )}
@@ -385,7 +385,7 @@ export default function MenuPage() {
           // 운영자 전용 입구라 다국어로 만들지 않는다 — 이 줄을 보는 사람은 한국인 운영자뿐이다.
           <button
             onClick={() => navigate(paths.admin)}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-app-border bg-white p-5 text-sm font-bold text-app-text"
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-app-border bg-white p-5 text-sm font-bold text-app-text"
             id="admin-console-btn"
           >
             <SlidersHorizontal size={16} />

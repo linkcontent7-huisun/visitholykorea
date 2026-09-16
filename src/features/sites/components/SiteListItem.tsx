@@ -23,7 +23,7 @@ export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) 
         className="group flex gap-5"
         id={`explore-item-${site.id}`}
       >
-        <div className="flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded-[20px] bg-app-bg shadow-lg shadow-gray-100">
+        <div className="flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-app-bg shadow-lg shadow-gray-100">
           <SiteThumbnail
             imageUrl={site.imageUrl}
             pilgrimUrl={featured[site.id] ?? null}

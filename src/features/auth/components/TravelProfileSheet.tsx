@@ -55,7 +55,7 @@ export function TravelProfileSheet({ isOpen, onClose }: TravelProfileSheetProps)
   };
 
   const optionButtonClass = (active: boolean) =>
-    `rounded-2xl border px-4 py-3 text-sm font-bold transition-colors ${
+    `rounded-lg border px-4 py-3 text-sm font-bold transition-colors ${
       active
         ? 'border-brand-blue bg-brand-blue text-white'
         : 'border-slate-200 bg-white text-slate-600 hover:border-brand-violet/40'
@@ -82,7 +82,7 @@ export function TravelProfileSheet({ isOpen, onClose }: TravelProfileSheetProps)
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="relative flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-t-[40px] bg-white shadow-2xl sm:max-h-[85vh] sm:rounded-[40px]"
+            className="relative flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-t-lg bg-white shadow-2xl sm:max-h-[85vh] sm:rounded-lg"
           >
             <header className="relative shrink-0 bg-gradient-to-br from-brand-blue to-brand-violet px-8 pb-8 pt-10 text-white">
               <button
@@ -119,7 +119,7 @@ export function TravelProfileSheet({ isOpen, onClose }: TravelProfileSheetProps)
                   aria-label={t('travelProfileCountryOther')}
                   value={countryCode && !QUICK_COUNTRIES.includes(countryCode as (typeof QUICK_COUNTRIES)[number]) ? countryCode : ''}
                   onChange={(e) => setCountryCode(e.target.value || null)}
-                  className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-600"
+                  className="mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-600"
                 >
                   <option value="">{t('travelProfileCountryOther')}</option>
                   {Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i)).flatMap((a) =>
@@ -210,7 +210,7 @@ export function TravelProfileSheet({ isOpen, onClose }: TravelProfileSheetProps)
               <button
                 onClick={() => void finish(false)}
                 disabled={saving}
-                className="w-full rounded-2xl bg-brand-blue py-4 font-black text-white shadow-xl shadow-brand-blue/20 transition-all hover:opacity-90 active:scale-95 disabled:opacity-50"
+                className="w-full rounded-lg bg-brand-blue py-4 font-black text-white shadow-xl shadow-brand-blue/20 transition-all hover:opacity-90 active:scale-95 disabled:opacity-50"
               >
                 {t('travelProfileDone')}
               </button>

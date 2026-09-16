@@ -105,7 +105,7 @@ export function PlanResult({
         {t('planBackToCards')}
       </button>
 
-      <div className="mb-5 overflow-hidden rounded-[20px] border border-app-border bg-white">
+      <div className="mb-5 overflow-hidden rounded-lg border border-app-border bg-white">
         <button type="button" onClick={onGo} className="block w-full text-left" id="plan-site">
           <div className="h-40 overflow-hidden bg-app-bg">
             <SiteThumbnail
@@ -155,7 +155,7 @@ export function PlanResult({
                   </p>
                 )}
                 {pick.level === 'busy' && (
-                  <p className="mt-2 flex items-start gap-1.5 rounded-xl bg-orange-50 p-3 text-xs font-bold text-orange-900">
+                  <p className="mt-2 flex items-start gap-1.5 rounded-lg bg-orange-50 p-3 text-xs font-bold text-orange-900">
                     <AlertTriangle size={14} className="mt-0.5 shrink-0" aria-hidden />
                     <span>
                       {nextPick
@@ -183,7 +183,7 @@ export function PlanResult({
           </Row>
 
           {timeBudget === '1박2일' && (
-            <li className="rounded-xl bg-app-bg p-3 text-xs font-bold text-app-text-muted" id="plan-day2">
+            <li className="rounded-lg bg-app-bg p-3 text-xs font-bold text-app-text-muted" id="plan-day2">
               {t('planDay2Pending')}
             </li>
           )}
@@ -196,7 +196,7 @@ export function PlanResult({
       <button
         type="button"
         onClick={onGo}
-        className="w-full rounded-[20px] bg-brand-blue py-4 text-sm font-bold text-white shadow-lg shadow-brand-blue/20"
+        className="w-full rounded-lg bg-brand-blue py-4 text-sm font-bold text-white shadow-lg shadow-brand-blue/20"
         id="quiz-go"
       >
         {t('planGoWithThis')}

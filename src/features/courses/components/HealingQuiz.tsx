@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { X, ChevronLeft, ChevronRight, Church, LocateFixed, Phone } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Church, Compass, LocateFixed, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
 import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
@@ -59,7 +59,7 @@ const EMOTION_LABEL: Record<EmotionTag, TranslationKey> = {
 
 // 색으로 직관적으로 고를 수 있도록 감정마다 고유한 색을 지정한다.
 const EMOTION_COLOR: Record<EmotionTag, { bg: string; ring: string }> = {
-  위로: { bg: 'bg-indigo-200', ring: 'ring-indigo-400' },
+  위로: { bg: 'bg-brand-soft', ring: 'ring-brand-blue' },
   새출발: { bg: 'bg-emerald-200', ring: 'ring-emerald-400' },
   평온: { bg: 'bg-cyan-200', ring: 'ring-cyan-400' },
   치유: { bg: 'bg-rose-200', ring: 'ring-rose-400' },
@@ -224,8 +224,8 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
 
   const isQuestionStep = step >= 1 && step <= TOTAL_QUESTIONS;
   const optionClass = (active: boolean) =>
-    `w-full p-5 rounded-[20px] border text-left font-bold text-sm transition-all ${
-      active ? 'border-brand-blue bg-brand-blue/5 text-brand-blue' : 'border-app-border bg-white text-app-text'
+    `w-full p-5 rounded-lg border-2 text-left font-bold text-base transition-all ${
+      active ? 'border-brand-blue bg-brand-soft text-brand-blue' : 'border-app-border bg-white text-app-text'
     }`;
 
   return (
@@ -233,7 +233,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     <div className={`mx-auto flex w-full ${widthClass} min-h-page flex-col bg-white`}>
       <div className="h-16 flex items-center justify-between px-6 border-b border-app-border shrink-0">
         <div className="w-9" />
-        <span className="text-xs font-bold text-app-text-muted">{t('compassTitle')}</span>
+        <span className="text-base font-bold text-app-text">{t('compassTitle')}</span>
         <button onClick={handleClose} className="p-2 text-app-text-muted" id="quiz-close" aria-label={t('compassBack')}>
           <X size={22} />
         </button>
@@ -253,7 +253,10 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
         <AnimatePresence mode="wait">
           {step === 0 && (
             <motion.div key="intro" {...fade} className="pt-10 text-center">
-              <div className="text-5xl mb-6">🧭</div>
+              {/* 이모지 대신 선 아이콘 — 디자인 원칙(2026-09-16): 이모지 아이콘 안 씀 */}
+              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-brand-soft text-brand-blue" aria-hidden>
+                <Compass size={32} />
+              </div>
               <h2 className="text-2xl font-extrabold text-app-text mb-4 tracking-tight">
                 {t('compassIntroLine1')}
                 <br />
@@ -262,7 +265,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               <p className="text-app-text-muted text-sm leading-relaxed mb-10">{t('compassIntroBody')}</p>
               <button
                 onClick={() => setStep(1)}
-                className="w-full bg-brand-blue text-white py-4 rounded-[20px] font-bold text-sm shadow-lg shadow-brand-blue/20"
+                className="w-full bg-brand-blue text-white py-4 rounded-lg font-bold text-base"
                 id="quiz-start"
               >
                 {t('compassStart')}
@@ -270,7 +273,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               {memory?.matchedSiteId && memory.matchedSiteName && (
                 <button
                   onClick={() => onSelectSite(memory.matchedSiteId!)}
-                  className="mt-4 w-full rounded-[20px] border border-app-border bg-white px-5 py-3 text-left"
+                  className="mt-4 w-full rounded-lg border border-app-border bg-white px-5 py-3 text-left"
                 >
                   <span className="block text-xs text-app-text-muted">{t('compassLastRecommendation')}</span>
                   <span className="mt-0.5 block text-sm font-bold text-brand-violet">{memory.matchedSiteName} →</span>
@@ -337,7 +340,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   </span>
                 </button>
               ) : (
-                <p className="rounded-[20px] bg-app-bg p-4 text-xs font-bold text-app-text-muted" id="quiz-gps-unavailable">
+                <p className="rounded-lg bg-app-bg p-4 text-xs font-bold text-app-text-muted" id="quiz-gps-unavailable">
                   {t('locationUnavailable')}
                 </p>
               )}
@@ -352,7 +355,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   // 여기서 고른 출발지를 앱 전체가 쓴다 — 홈·탐색도 이 기준으로 가까운 순이 된다
                   setStoredRegion(next);
                 }}
-                className="w-full bg-app-bg rounded-[20px] p-5 text-sm font-bold text-app-text outline-none border border-app-border appearance-none"
+                className="w-full bg-app-bg rounded-lg p-5 text-sm font-bold text-app-text outline-none border border-app-border appearance-none"
                 id="quiz-region"
               >
                 <option value="" disabled>
@@ -413,14 +416,14 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   <div className="flex gap-3">
                     <button
                       onClick={() => goToQuestion(STEP_TIME)}
-                      className="flex-1 bg-brand-blue text-white py-4 rounded-[20px] font-bold text-sm"
+                      className="flex-1 bg-brand-blue text-white py-4 rounded-lg font-bold text-base"
                       id="plan-widen-time"
                     >
                       {t('planWidenTime')}
                     </button>
                     <button
                       onClick={() => goToQuestion(1)}
-                      className="flex-1 bg-app-bg text-app-text border border-app-border py-4 rounded-[20px] font-bold text-sm"
+                      className="flex-1 bg-app-bg text-app-text border border-app-border py-4 rounded-lg font-bold text-base"
                       id="plan-change-mood"
                     >
                       {t('planChangeMood')}
@@ -442,7 +445,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   />
 
                   {nearbyParishes.length > 0 && (
-                    <div className="mt-6 rounded-[20px] border border-app-border bg-white p-6">
+                    <div className="mt-6 rounded-lg border border-app-border bg-white p-6">
                       <div className="mb-3 flex items-center gap-2">
                         <Church size={16} className="text-brand-violet" aria-hidden />
                         <h4 className="text-sm font-extrabold text-app-text">{t('regionParishesTitle')}</h4>
@@ -477,7 +480,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                                     <a
                                       href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}
                                       aria-label={`${p.name} ${t('callPhone')}`}
-                                      className="rounded-xl bg-app-bg p-2 text-brand-violet"
+                                      className="rounded-lg bg-app-bg p-2 text-brand-violet"
                                     >
                                       <Phone size={14} />
                                     </a>
@@ -527,7 +530,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
         <div className="sticky bottom-[70px] z-30 flex w-full gap-3 border-t border-app-border bg-white/95 p-6 pt-4 backdrop-blur-md lg:bottom-0">
           <button
             onClick={() => setStep(step - 1)}
-            className="w-16 h-14 bg-app-bg text-app-text border border-app-border rounded-[18px] flex items-center justify-center shrink-0"
+            className="w-16 h-14 bg-white text-app-text border-[1.5px] border-app-border rounded-lg flex items-center justify-center shrink-0"
             id="quiz-prev"
             aria-label={t('compassBack')}
           >
@@ -536,7 +539,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
           <button
             onClick={handleNext}
             disabled={!canProceed}
-            className="flex-1 bg-brand-blue text-white rounded-[18px] font-bold text-sm shadow-lg shadow-brand-blue/20 flex items-center justify-center gap-2 disabled:opacity-30 disabled:shadow-none"
+            className="flex-1 bg-brand-blue text-white rounded-lg font-bold text-[1.0625rem] flex items-center justify-center gap-2 disabled:opacity-30"
             id="quiz-next"
           >
             {step === TOTAL_QUESTIONS ? t('compassSeeResult') : t('compassNext')}

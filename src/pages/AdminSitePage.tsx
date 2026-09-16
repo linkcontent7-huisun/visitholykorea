@@ -137,7 +137,7 @@ function SiteEditor() {
 
       <div className="flex flex-col gap-5 px-5 py-5">
         {/* 헤드라인 */}
-        <section className="rounded-2xl bg-white p-4 shadow-sm">
+        <section className="rounded-lg bg-white p-4 shadow-sm">
           <h2 className="mb-3 text-sm font-black text-slate-900">헤드라인</h2>
           <Field
             label="성지 이름 (목록·상세·지도·여권에 그대로 뜸)"
@@ -163,10 +163,10 @@ function SiteEditor() {
         </section>
 
         {/* 대표 사진 */}
-        <section className="rounded-2xl bg-white p-4 shadow-sm">
+        <section className="rounded-lg bg-white p-4 shadow-sm">
           <h2 className="mb-3 text-sm font-black text-slate-900">대표 사진</h2>
 
-          <div className="overflow-hidden rounded-xl bg-slate-100">
+          <div className="overflow-hidden rounded-lg bg-slate-100">
             {pickedPhoto ? (
               <img src={pickedPhoto.preview} alt="새 사진 미리보기" className="aspect-[4/3] w-full object-cover" />
             ) : draft.imageUrl ? (
@@ -178,7 +178,7 @@ function SiteEditor() {
             )}
           </div>
 
-          <label className="mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-slate-200 py-3.5 text-sm font-bold text-slate-700">
+          <label className="mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-slate-200 py-3.5 text-sm font-bold text-slate-700">
             <Camera size={18} />
             {pickedPhoto ? '다시 고르기' : '사진 찍기 · 고르기'}
             <input
@@ -195,7 +195,7 @@ function SiteEditor() {
             <button
               onClick={handleUpload}
               disabled={upload.isPending}
-              className="mt-2 w-full rounded-xl bg-slate-900 py-3.5 text-sm font-bold text-white disabled:opacity-50"
+              className="mt-2 w-full rounded-lg bg-slate-900 py-3.5 text-sm font-bold text-white disabled:opacity-50"
             >
               {upload.isPending ? '올리는 중…' : '이 사진으로 교체'}
             </button>
@@ -222,7 +222,7 @@ function SiteEditor() {
         </section>
 
         {/* 안내 글 */}
-        <section className="rounded-2xl bg-white p-4 shadow-sm">
+        <section className="rounded-lg bg-white p-4 shadow-sm">
           <h2 className="mb-3 text-sm font-black text-slate-900">안내 글</h2>
           <TextArea
             label="소개글 (상세 화면 맨 위 본문)"
@@ -243,7 +243,7 @@ function SiteEditor() {
         </section>
 
         {/* 기본 정보 */}
-        <section className="rounded-2xl bg-white p-4 shadow-sm">
+        <section className="rounded-lg bg-white p-4 shadow-sm">
           <h2 className="mb-3 text-sm font-black text-slate-900">기본 정보</h2>
           <Field label="주소" value={form.location} onChange={(v) => set('location', v)} />
           <Field label="전화" value={form.phone} onChange={(v) => set('phone', v)} />
@@ -260,7 +260,7 @@ function SiteEditor() {
         </section>
 
         {/* 주변 안내 */}
-        <section className="rounded-2xl bg-white p-4 shadow-sm">
+        <section className="rounded-lg bg-white p-4 shadow-sm">
           <h2 className="mb-3 text-sm font-black text-slate-900">주변 안내 (직접 쓰는 글)</h2>
           <TextArea
             label="주변 볼거리 (성지에서 걸어갈 만한 곳)"
@@ -282,7 +282,7 @@ function SiteEditor() {
 
         {/* 수정 이력 */}
         {revisions && revisions.length > 0 && (
-          <section className="rounded-2xl bg-white p-4 shadow-sm">
+          <section className="rounded-lg bg-white p-4 shadow-sm">
             <h2 className="mb-3 flex items-center gap-1.5 text-sm font-black text-slate-900">
               <History size={15} />
               수정 이력
@@ -291,7 +291,7 @@ function SiteEditor() {
               {revisions.map((rev) => (
                 <li
                   key={rev.id}
-                  className="flex items-center justify-between gap-3 rounded-xl bg-slate-50 px-3 py-3"
+                  className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-3"
                 >
                   <div className="min-w-0">
                     <p className="text-xs font-bold text-slate-700">
@@ -340,7 +340,7 @@ function SiteEditor() {
         <button
           onClick={handleSave}
           disabled={update.isPending}
-          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-900 py-4 text-base font-bold text-white disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-slate-900 py-4 text-base font-bold text-white disabled:opacity-50"
         >
           <Save size={18} />
           {update.isPending ? '저장 중…' : '글 저장'}
@@ -368,7 +368,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold text-slate-900 focus:border-slate-900 focus:outline-none"
+        className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold text-slate-900 focus:border-slate-900 focus:outline-none"
       />
     </label>
   );
@@ -392,7 +392,7 @@ function TextArea({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         rows={rows}
-        className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-medium leading-relaxed text-slate-900 focus:border-slate-900 focus:outline-none"
+        className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-medium leading-relaxed text-slate-900 focus:border-slate-900 focus:outline-none"
       />
     </label>
   );

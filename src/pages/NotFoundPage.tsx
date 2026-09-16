@@ -18,7 +18,7 @@ export default function NotFoundPage() {
       </div>
       <Link
         to={paths.home}
-        className="rounded-2xl bg-brand-blue px-8 py-4 text-sm font-bold text-white shadow-lg shadow-brand-blue/20"
+        className="rounded-lg bg-brand-blue px-8 py-4 text-sm font-bold text-white shadow-lg shadow-brand-blue/20"
       >
         홈으로 돌아가기
       </Link>

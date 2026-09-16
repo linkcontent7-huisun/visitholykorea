@@ -31,7 +31,7 @@ export function VisitEtiquette() {
         </h2>
       </div>
 
-      <ul className="space-y-2.5 rounded-[24px] border border-app-border bg-app-bg p-6">
+      <ul className="space-y-2.5 rounded-lg border border-app-border bg-app-bg p-6">
         {ETIQUETTE_KEYS.map((key) => (
           <li key={key} className="flex gap-3 text-[14px] leading-relaxed text-app-text">
             <span aria-hidden className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand-violet" />
