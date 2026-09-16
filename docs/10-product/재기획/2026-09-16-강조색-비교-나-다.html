@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>강조색 비교 — 남색·금 vs 흙·테라코타</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+  :root{--ink:#1E222B;--muted:#6B6F78;--line:#E2DDD4;--page:#EDEAE4}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--page);color:var(--ink);font-family:'Noto Sans KR','Malgun Gothic',sans-serif;font-size:14px;line-height:1.5;padding:28px 20px 60px}
+  h1{font-family:'Gowun Batang',serif;font-size:1.7rem;margin:0 0 6px;text-wrap:balance}
+  .sub{color:var(--muted);max-width:70ch;margin:0 0 22px}
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1100px;margin:0 auto}
+  @media (max-width:900px){.compare{grid-template-columns:1fr}}
+  .col{display:grid;gap:14px;align-content:start}
+  .col h2{font-family:'Gowun Batang',serif;font-size:1.25rem;margin:0;display:flex;align-items:center;gap:10px}
+  .swatches{display:flex;gap:6px;font-size:.72rem;color:var(--muted)}
+  .sw{display:grid;gap:2px;justify-items:center}
+  .sw i{display:block;width:44px;height:26px;border:1px solid rgba(0,0,0,.12)}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:560px){.pair{grid-template-columns:1fr}}
+  .label{font-size:.78rem;color:var(--muted);text-align:center;margin-top:6px}
+
+  /* 팔레트 — 열마다 변수만 바꾼다. 화면 구조는 완전히 같다 */
+  .na{--accent:#1F2F55;--accent-ink:#fff;--spot:#B08A2E;--paper:#F5F2EC;--soft:#E9E4DA}
+  .da{--accent:#B5552E;--accent-ink:#fff;--spot:#C9A24B;--paper:#F8F1E9;--soft:#EEE2D4}
+
+  /* 폰 목업 */
+  .phone{width:100%;max-width:330px;margin:0 auto;background:#fff;border:1px solid var(--line);box-shadow:0 8px 30px rgba(0,0,0,.08);overflow:hidden;font-size:12px}
+  .phone.detail{background:var(--paper)}
+  .top{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;font-weight:700;font-size:12px}
+  .top .logo{color:var(--accent)}
+  .hero{position:relative;aspect-ratio:4/5;background:#ccc center/cover}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,.05) 55%)}
+  .hero .txt{position:absolute;left:14px;right:14px;bottom:52px;color:#fff;z-index:1}
+  .hero .txt b{display:block;font-family:'Gowun Batang',serif;font-size:19px;line-height:1.25;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+  .hero .txt span{font-size:11px;opacity:.9}
+  .hero .search{position:absolute;left:14px;right:14px;bottom:14px;z-index:1;background:#fff;border-radius:4px;padding:9px 10px;display:flex;gap:6px;align-items:center;color:#777;font-size:12px}
+  .hero .search i{width:8px;height:8px;border:2px solid var(--accent);border-radius:50%;display:inline-block}
+  .dots{position:absolute;top:10px;right:12px;z-index:1;color:#fff;font-size:9px;letter-spacing:.25em}
+  .entries{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px}
+  .entry{padding:12px 10px;font-weight:700;font-size:12px;line-height:1.3;border:1.5px solid var(--accent);color:var(--accent);border-radius:4px}
+  .entry.fill{background:var(--accent);color:var(--accent-ink)}
+  .entry small{display:block;font-weight:400;opacity:.8;margin-top:3px;font-size:10px}
+  .sec{padding:2px 12px 0;font-weight:700;font-size:12px;display:flex;justify-content:space-between;align-items:baseline}
+  .sec a{color:var(--accent);font-weight:500;font-size:11px}
+  .regions{display:flex;gap:10px;padding:8px 12px 4px;overflow:hidden}
+  .region{display:grid;gap:4px;justify-items:center;font-size:10px}
+  .region i{width:46px;height:46px;border-radius:50%;background:#bbb center/cover;border:2px solid var(--soft)}
+  .cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:8px 12px 12px}
+  .card{display:grid;gap:4px;font-size:10px}
+  .card i{display:block;aspect-ratio:4/3;background:#bbb center/cover;border-radius:4px}
+  .card b{font-size:11px;line-height:1.2}
+  .card span{color:var(--muted)}
+  .card em{font-style:normal;color:var(--spot);font-weight:700}
+  .tabs{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);padding:8px 4px;font-size:10px;text-align:center;color:#777}
+  .tabs b{color:var(--accent)}
+
+  /* 상세 */
+  .dphoto{aspect-ratio:16/10;background:#bbb center/cover}
+  .dbody{padding:14px 14px 10px;display:grid;gap:8px}
+  .dbody .cat{font-size:10px;letter-spacing:.12em;color:var(--spot);font-weight:700}
+  .dbody h3{font-family:'Gowun Batang',serif;font-size:19px;margin:0;line-height:1.25}
+  .dbody .addr{color:var(--muted);font-size:11px}
+  .crowd{display:flex;align-items:center;gap:8px;font-size:11px}
+  .crowd .lvl{padding:2px 8px;border:1px solid #2F6B3A;color:#2F6B3A;font-weight:700;border-radius:3px}
+  .crowd .why{color:var(--muted);font-size:10px}
+  .box{background:#fff;border:1px solid var(--line);padding:10px 12px;display:grid;gap:4px;font-size:11px;border-radius:4px}
+  .box b{font-size:10px;letter-spacing:.1em;color:var(--muted)}
+  .btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .btn{padding:10px;text-align:center;font-weight:700;font-size:12px;border-radius:4px;border:1.5px solid var(--accent);color:var(--accent)}
+  .btn.fill{background:var(--accent);color:var(--accent-ink)}
+  .story{font-size:11.5px;line-height:1.6;color:#333}
+  .story .t{font-family:'Gowun Batang',serif;font-weight:700;font-size:13px;display:block;margin-bottom:3px}
+  .verdict{max-width:1100px;margin:30px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  @media (max-width:900px){.verdict{grid-template-columns:1fr}}
+  .verdict div{background:#fff;border:1px solid var(--line);padding:12px 14px;font-size:.9rem}
+  .verdict div > b:first-child{display:block;margin-bottom:4px}
+</style>
+</head>
+<body>
+<h1>강조색 하나 — (나) 남색·금 vs (다) 흙·테라코타</h1>
+<p class="sub">화면 구조는 둘 다 <b>완전히 같다</b>(headout 방식: 사진 위 검색창 · 입구 두 개 · 교구 둥근 버튼 · 사진 카드). 바뀌는 건 버튼·링크·강조 글자의 색 하나와 상세 화면 바탕의 온도뿐이다. 사진은 실제 DB 사진(명동 · 공세리 · 전동 · 계산 · 답동 · 풍수원 · 대흥동 · 솔뫼 · 해미).</p>
+
+<div class="compare">
+
+<!-- ───────── (나) 남색 + 금 ───────── -->
+<div class="col na">
+  <h2>(나) 남색 + 금색 소량
+    <span class="swatches"><span class="sw"><i style="background:#1F2F55"></i>남색</span><span class="sw"><i style="background:#B08A2E"></i>금</span><span class="sw"><i style="background:#F5F2EC"></i>상세 바탕</span></span>
+  </h2>
+  <div class="pair">
+    <div>
+      <div class="phone">
+        <div class="top"><span class="logo">VisitHolyKorea</span><span>가 · KO</span></div>
+        <div class="hero" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Myeongdong_Cathedral_02.jpg/1280px-Myeongdong_Cathedral_02.jpg')">
+          <div class="dots">● ○ ○ ○ ○</div>
+          <div class="txt"><b>고요한 성지로<br>초대합니다.</b><span>명동대성당 · 서울</span></div>
+          <div class="search"><i></i> 성지 이름·지역으로 검색</div>
+        </div>
+        <div class="entries">
+          <div class="entry fill">여기서 가까운<br>성지·성당 찾기<small>현재 위치 기준</small></div>
+          <div class="entry">마음 상태로 고르는<br>오늘의 성지 일정<small>5가지만 여쭤볼게요</small></div>
+        </div>
+        <div class="sec">교구로 찾기 <a>전체 16 ›</a></div>
+        <div class="regions">
+          <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Myeongdong_Cathedral_02.jpg/1280px-Myeongdong_Cathedral_02.jpg')"></i>서울</div>
+          <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Daeheung_Dong-Cathedral_01.jpg/1280px-Daeheung_Dong-Cathedral_01.jpg')"></i>대전</div>
+          <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Jeondong_Cathedral.jpg/1280px-Jeondong_Cathedral.jpg')"></i>전주</div>
+          <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Kyesan_Cathedral_Front.jpg/1280px-Kyesan_Cathedral_Front.jpg')"></i>대구</div>
+          <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Dapdong_cathedral.JPG/1280px-Dapdong_cathedral.JPG')"></i>인천</div>
+          <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/2020-04-22_14.01.12_%ED%92%8D%EC%88%98%EC%9B%90%EC%84%B1%EB%8B%B9.jpg/1280px-2020-04-22_14.01.12_%ED%92%8D%EC%88%98%EC%9B%90%EC%84%B1%EB%8B%B9.jpg')"></i>원주</div>
+        </div>
+        <div class="sec">특색 있는 성당</div>
+        <div class="cards">
+          <div class="card"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Jeondong_Cathedral.jpg/1280px-Jeondong_Cathedral.jpg')"></i><b>전동성당</b><span>전주 · 12 km</span><em>도슨트</em></div>
+          <div class="card"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Kyesan_Cathedral_Front.jpg/1280px-Kyesan_Cathedral_Front.jpg')"></i><b>계산 주교좌대성당</b><span>대구 · 1시간</span><em>&nbsp;</em></div>
+          <div class="card"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Dapdong_cathedral.JPG/1280px-Dapdong_cathedral.JPG')"></i><b>답동주교좌성당</b><span>인천 · 40분</span><em>&nbsp;</em></div>
+        </div>
+        <div class="tabs"><b>홈</b><span>지도</span><span>기록</span><span>홈화면 추가</span><span>전체</span></div>
+      </div>
+      <div class="label">홈 — 흰 바탕</div>
+    </div>
+    <div>
+      <div class="phone detail">
+        <div class="dphoto" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/%EA%B3%B5%EC%84%B8%EB%A6%AC%EC%84%B1%EB%8B%B9_%EC%A0%84%EA%B2%BD.jpg/1280px-%EA%B3%B5%EC%84%B8%EB%A6%AC%EC%84%B1%EB%8B%B9_%EC%A0%84%EA%B2%BD.jpg')"></div>
+        <div class="dbody">
+          <div class="cat">성당 · 대전교구</div>
+          <h3>공세리성지성당</h3>
+          <div class="addr">충남 아산시 인주면 공세리성당길 10</div>
+          <div class="crowd"><span class="lvl">인근이 한산합니다</span><span class="why">관광공사 집중률 · 오늘 축제 0건 · 추정</span></div>
+          <div class="box"><b>미사 시간</b>주일 06:30 · 10:30 · 평일 06:30<b style="margin-top:4px">둘러보는 시간</b>약 1시간 · 계단 있음</div>
+          <div class="btns"><div class="btn fill">▶ 오디오 도슨트</div><div class="btn">찾아가는 길</div></div>
+          <div class="story"><span class="t">성지 이야기</span>삼백 년 넘은 보호수가 둘러선 언덕에 고딕식 벽돌 성당이 서 있다. 공세리라는 이름은 내포에서 거둔 세곡을 보관하던 공세창에서 왔다…</div>
+        </div>
+      </div>
+      <div class="label">상세 — 종이·돌색 바탕, 명조 제목</div>
+    </div>
+  </div>
+</div>
+
+<!-- ───────── (다) 흙 · 테라코타 ───────── -->
+<div class="col da">
+  <h2>(다) 흙 · 테라코타
+    <span class="swatches"><span class="sw"><i style="background:#B5552E"></i>테라코타</span><span class="sw"><i style="background:#C9A24B"></i>황토</span><span class="sw"><i style="background:#F8F1E9"></i>상세 바탕</span></span>
+  </h2>
+  <div class="pair">
+    <div>
+      <div class="phone">
+        <div class="top"><span class="logo">VisitHolyKorea</span><span>가 · KO</span></div>
+        <div class="hero" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Myeongdong_Cathedral_02.jpg/1280px-Myeongdong_Cathedral_02.jpg')">
+          <div class="dots">● ○ ○ ○ ○</div>
+          <div class="txt"><b>고요한 성지로<br>초대합니다.</b><span>명동대성당 · 서울</span></div>
+          <div class="search"><i></i> 성지 이름·지역으로 검색</div>
+        </div>
+        <div class="entries">
+          <div class="entry fill">여기서 가까운<br>성지·성당 찾기<small>현재 위치 기준</small></div>
+          <div class="entry">마음 상태로 고르는<br>오늘의 성지 일정<small>5가지만 여쭤볼게요</small></div>
+        </div>
+        <div class="sec">교구로 찾기 <a>전체 16 ›</a></div>
+        <div class="regions">
+          <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Myeongdong_Cathedral_02.jpg/1280px-Myeongdong_Cathedral_02.jpg')"></i>서울</div>
+          <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Daeheung_Dong-Cathedral_01.jpg/1280px-Daeheung_Dong-Cathedral_01.jpg')"></i>대전</div>
+          <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Jeondong_Cathedral.jpg/1280px-Jeondong_Cathedral.jpg')"></i>전주</div>
+          <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Kyesan_Cathedral_Front.jpg/1280px-Kyesan_Cathedral_Front.jpg')"></i>대구</div>
+          <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Dapdong_cathedral.JPG/1280px-Dapdong_cathedral.JPG')"></i>인천</div>
+          <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/2020-04-22_14.01.12_%ED%92%8D%EC%88%98%EC%9B%90%EC%84%B1%EB%8B%B9.jpg/1280px-2020-04-22_14.01.12_%ED%92%8D%EC%88%98%EC%9B%90%EC%84%B1%EB%8B%B9.jpg')"></i>원주</div>
+        </div>
+        <div class="sec">특색 있는 성당</div>
+        <div class="cards">
+          <div class="card"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Jeondong_Cathedral.jpg/1280px-Jeondong_Cathedral.jpg')"></i><b>전동성당</b><span>전주 · 12 km</span><em>도슨트</em></div>
+          <div class="card"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Kyesan_Cathedral_Front.jpg/1280px-Kyesan_Cathedral_Front.jpg')"></i><b>계산 주교좌대성당</b><span>대구 · 1시간</span><em>&nbsp;</em></div>
+          <div class="card"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Dapdong_cathedral.JPG/1280px-Dapdong_cathedral.JPG')"></i><b>답동주교좌성당</b><span>인천 · 40분</span><em>&nbsp;</em></div>
+        </div>
+        <div class="tabs"><b>홈</b><span>지도</span><span>기록</span><span>홈화면 추가</span><span>전체</span></div>
+      </div>
+      <div class="label">홈 — 흰 바탕</div>
+    </div>
+    <div>
+      <div class="phone detail">
+        <div class="dphoto" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/%EA%B3%B5%EC%84%B8%EB%A6%AC%EC%84%B1%EB%8B%B9_%EC%A0%84%EA%B2%BD.jpg/1280px-%EA%B3%B5%EC%84%B8%EB%A6%AC%EC%84%B1%EB%8B%B9_%EC%A0%84%EA%B2%BD.jpg')"></div>
+        <div class="dbody">
+          <div class="cat">성당 · 대전교구</div>
+          <h3>공세리성지성당</h3>
+          <div class="addr">충남 아산시 인주면 공세리성당길 10</div>
+          <div class="crowd"><span class="lvl">인근이 한산합니다</span><span class="why">관광공사 집중률 · 오늘 축제 0건 · 추정</span></div>
+          <div class="box"><b>미사 시간</b>주일 06:30 · 10:30 · 평일 06:30<b style="margin-top:4px">둘러보는 시간</b>약 1시간 · 계단 있음</div>
+          <div class="btns"><div class="btn fill">▶ 오디오 도슨트</div><div class="btn">찾아가는 길</div></div>
+          <div class="story"><span class="t">성지 이야기</span>삼백 년 넘은 보호수가 둘러선 언덕에 고딕식 벽돌 성당이 서 있다. 공세리라는 이름은 내포에서 거둔 세곡을 보관하던 공세창에서 왔다…</div>
+        </div>
+      </div>
+      <div class="label">상세 — 따뜻한 종이 바탕, 명조 제목</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="verdict">
+  <div><b>(나) 남색·금이 맞는 경우</b>"고요·격식·성당의 돌"을 앞세우고 싶을 때. 붉은 벽돌 성당 사진(명동·전동·계산·답동)과 남색이 서로를 살린다. 흰 바탕 홈에서 버튼이 또렷하다. 금은 도슨트 표시처럼 아주 작게만.</div>
+  <div><b>(다) 흙·테라코타가 맞는 경우</b>"순례길·걷기·따뜻함"을 앞세우고 싶을 때. 카미노·부탄 계열. 단, 붉은 벽돌 사진과 테라코타 버튼이 <b>같은 색으로 묻히는</b> 장면이 생긴다(위 홈의 카드 줄을 보라). 사진에 초록·하늘이 많으면 더 잘 맞는다.</div>
+</div>
+<p class="sub" style="max-width:1100px;margin:18px auto 0">미사 시간·둘러보는 시간은 <b>예시 값</b>이다(실제 데이터 아님). 상세 화면의 미사 시간 칸은 DB 에 있는 곳만, 둘러보는 시간은 B-2 작업 뒤에 채워진다.</p>
+</body>
+</html>
