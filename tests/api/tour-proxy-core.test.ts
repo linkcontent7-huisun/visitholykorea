@@ -24,6 +24,28 @@ describe('buildUpstreamUrl — 허용 목록', () => {
     expect(built.url.searchParams.get('keyword')).toBe('경복궁');
   });
 
+  it('성지 대표 사진용 두 오퍼레이션 — 관광정보 1건은 contentId 만, 관광사진 검색은 사진 서비스로 간다', () => {
+    const detail = buildUpstreamUrl(query({ op: 'detailCommon2', contentId: '127634', foo: 'x' }), KEY);
+    expect(detail.ok).toBe(true);
+    if (!detail.ok) return;
+    expect(detail.url.pathname).toBe('/B551011/KorService2/detailCommon2');
+    expect(detail.url.searchParams.get('contentId')).toBe('127634');
+    expect(detail.url.searchParams.has('foo')).toBe(false);
+    // contentId 는 숫자만 — 문자열이 섞이면 거절
+    expect(buildUpstreamUrl(query({ op: 'detailCommon2', contentId: '1 or 1' }), KEY).ok).toBe(false);
+
+    const gallery = buildUpstreamUrl(
+      query({ op: 'gallerySearchList1', service: 'PhotoGalleryService1', keyword: '배티성지', numOfRows: '50' }),
+      KEY,
+    );
+    expect(gallery.ok).toBe(true);
+    if (!gallery.ok) return;
+    expect(gallery.url.pathname).toBe('/B551011/PhotoGalleryService1/gallerySearchList1');
+    expect(gallery.url.searchParams.get('keyword')).toBe('배티성지');
+    // 관광사진 오퍼레이션을 관광정보 서비스로 보내는 조합은 없다
+    expect(buildUpstreamUrl(query({ op: 'gallerySearchList1', keyword: '배티성지' }), KEY).ok).toBe(false);
+  });
+
   it('목록에 없는 오퍼레이션·서비스는 거절한다 — 임의 URL 중계를 막는다', () => {
     expect(buildUpstreamUrl(query({ op: 'detailIntro2' }), KEY).ok).toBe(false);
     expect(buildUpstreamUrl(query({ op: 'searchKeyword2', service: 'Durunubi' }), KEY).ok).toBe(
