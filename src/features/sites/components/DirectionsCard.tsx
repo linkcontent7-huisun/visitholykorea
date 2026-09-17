@@ -53,42 +53,34 @@ export function DirectionsCard({
     <section aria-labelledby="directions-heading">
       <SectionHeading as="h3" size="md" id="directions-heading" title={t('directions')} />
 
-      {/* 주소 — 한국어를 택시 기사에게 보여줄 수 있게 크게, 영문은 그 아래 작게 병기.
-          Copy 단추는 주소와 같은 줄에 둔다(2026-09-17) — 예전엔 위 별도 줄의 작은
-          라벨과만 나란했다. */}
-      <div className="mb-4 rounded-lg border border-app-border bg-app-bg p-5">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <p className="select-all text-xl font-bold leading-relaxed text-app-text" lang="ko">
-              {site.location}
-            </p>
-            {addressEnglish && (
-              <p className="mt-1 text-base leading-relaxed text-app-text-muted">
-                {addressEnglish}
-              </p>
-            )}
-          </div>
-          <button
-            onClick={() => void handleCopy(site.location)}
-            className="flex min-h-10 shrink-0 items-center gap-1.5 rounded-lg border border-app-border bg-white px-3 text-sm font-bold text-app-text-muted transition-colors hover:border-brand-blue hover:text-brand-blue"
-            aria-label={`${t('addressKorean')} — ${copied ? t('copied') : 'Copy'}`}
-            aria-live="polite"
-          >
-            {copied ? <Check size={16} aria-hidden /> : <Copy size={16} aria-hidden />}
-            {copied ? t('copied') : 'Copy'}
-          </button>
-        </div>
-
-        {/* 영어 화면일 때만 이 주소가 왜 한국어인지 설명한다 */}
-        {language !== 'ko' && (
-          <p className="mt-2 text-sm leading-relaxed text-app-text-muted">{t('addressHint')}</p>
-        )}
-
-        {copyError && (
-          <p className="mt-2 text-sm text-app-text-muted" role="status">
-            {t('copyFailed')}
+      {/* 주소 — 더 단순하게(사장님 지적, 2026-09-17). 상자·배경을 걷어내고 글자만 크게 둔다.
+          Copy 는 아이콘 하나로 — 글자 라벨은 뺐다(뜻은 aria-label 로 남긴다). */}
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="select-all text-xl font-bold leading-relaxed text-app-text" lang="ko">
+            {site.location}
           </p>
-        )}
+          {addressEnglish && (
+            <p className="mt-1 text-base leading-relaxed text-app-text-muted">{addressEnglish}</p>
+          )}
+          {/* 영어 화면일 때만 이 주소가 왜 한국어인지 설명한다 */}
+          {language !== 'ko' && (
+            <p className="mt-2 text-sm leading-relaxed text-app-text-muted">{t('addressHint')}</p>
+          )}
+          {copyError && (
+            <p className="mt-2 text-sm text-app-text-muted" role="status">
+              {t('copyFailed')}
+            </p>
+          )}
+        </div>
+        <button
+          onClick={() => void handleCopy(site.location)}
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg hover:text-brand-blue"
+          aria-label={`${t('addressKorean')} — ${copied ? t('copied') : 'Copy'}`}
+          aria-live="polite"
+        >
+          {copied ? <Check size={18} aria-hidden /> : <Copy size={18} aria-hidden />}
+        </button>
       </div>
 
       {/* 지도 앱 — 주변 본당 목록과 같은 작은 단추로(2026-09-17). 앱 이름만 보이고

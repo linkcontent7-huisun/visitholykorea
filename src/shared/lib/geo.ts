@@ -58,15 +58,3 @@ export function kakaoDirectionsUrl(name: string, lat: number, lng: number): stri
 export function kakaoPlaceUrl(name: string, lat: number, lng: number): string {
   return `https://map.kakao.com/link/map/${encodeURIComponent(name)},${lat},${lng}`;
 }
-
-/**
- * 카카오맵 키워드 검색 결과 딥링크.
- *
- * `kakaoPlaceUrl` 은 좌표에 이름표만 붙인 핀이라 카카오가 실제로 아는 장소(리뷰·영업시간·
- * 전화번호가 있는 업체 정보)와 연결되지 않을 때가 많다. 이름으로 검색하면 카카오맵이
- * 가진 진짜 장소 정보로 연결될 가능성이 높다(사장님 지적, 2026-09-17 — "가는 김에
- * 둘러볼 곳" 카드를 누르면 정확한 장소 검색 결과가 나와야 한다).
- */
-export function kakaoSearchUrl(name: string): string {
-  return `https://map.kakao.com/link/search/${encodeURIComponent(name)}`;
-}

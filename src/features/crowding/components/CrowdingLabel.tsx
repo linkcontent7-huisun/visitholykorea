@@ -56,20 +56,36 @@ export function CrowdingLabel({
   );
 }
 
+const SKELETON_CLASS: Record<Variant, string> = {
+  default: 'bg-app-panel',
+  onDark: 'bg-white/15',
+};
+
 /**
  * 성지 한 곳의 인근 혼잡도를 조회해 라벨로. 조회 중·실패·데이터 없는 지역이면 아무것도 그리지 않는다 —
  * 라벨은 "말할 수 있을 때만" 말한다(더미 금지).
+ *
+ * 조회 중에는 같은 크기의 빈 자리(스켈레톤)를 먼저 잡아 둔다(사장님 지적, 2026-09-17) —
+ * 아무것도 없다가 응답이 오면 라벨이 갑자기 튀어나와 옆 태그들이 밀렸다.
  */
 export function NearbyCrowdingLabel({
   site,
-  variant,
-  className,
+  variant = 'default',
+  className = '',
 }: {
   site: HolySite;
   variant?: Variant;
   className?: string;
 }) {
-  const { data } = useNearbyCrowding(site);
+  const { data, isLoading } = useNearbyCrowding(site);
+  if (isLoading) {
+    return (
+      <span
+        aria-hidden
+        className={`inline-block h-[26px] w-28 animate-pulse rounded-full ${SKELETON_CLASS[variant]} ${className}`}
+      />
+    );
+  }
   if (!data?.level) return null;
   return (
     <CrowdingLabel

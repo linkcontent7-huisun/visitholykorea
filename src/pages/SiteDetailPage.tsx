@@ -2,6 +2,7 @@ import {
   Camera,
   ChevronDown,
   ChevronLeft,
+  ChevronRight,
   Compass,
   Flag,
   Heart,
@@ -11,8 +12,7 @@ import {
   User,
   X,
 } from 'lucide-react';
-import { motion } from 'motion/react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
@@ -57,19 +57,60 @@ import { Button } from '@/shared/components/ui/Button';
 import { Card } from '@/shared/components/ui/Card';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
-import { kakaoSearchUrl } from '@/shared/lib/geo';
-import { externalErrorKey } from '@/shared/i18n/external-error-key';
+import { kakaoDirectionsUrl } from '@/shared/lib/geo';
 
 /** 가는 김에 둘러볼 곳 — 레포츠·쇼핑은 도보권 밖으로 벗어나는 유형이라 뺀다(사장님 지적, 2026-09-17) */
 const HIDDEN_FACILITY_GROUPS = new Set(['레포츠', '쇼핑']);
 
 /** 순례 후기에 붙이는 사진 최대 장수(2026-09-17) — 일반 사진 추가(최대 5·10장)와는 다른 값 */
 const NOTE_PHOTO_MAX = 3;
+
+/**
+ * 가로 스크롤 줄 — 더 볼 게 있으면 오른쪽에 옅은 그라디언트 + 화살표로 알려준다(2026-09-17).
+ * `no-scrollbar` 라 스크롤바가 안 보여서, 더 있다는 사실 자체를 모르고 지나치는 사람이 있었다.
+ */
+function ScrollHintRow({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [hasMore, setHasMore] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const check = () => setHasMore(el.scrollWidth - el.clientWidth - el.scrollLeft > 8);
+    check();
+    el.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check);
+    return () => {
+      el.removeEventListener('scroll', check);
+      window.removeEventListener('resize', check);
+    };
+  }, []);
+
+  return (
+    <div className="relative">
+      <div
+        ref={ref}
+        className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8"
+      >
+        {children}
+      </div>
+      {hasMore && (
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 flex w-10 items-center justify-end bg-gradient-to-l from-white to-transparent"
+          aria-hidden
+        >
+          <ChevronRight size={18} className="text-app-text-muted" />
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function SiteDetailPage() {
   const { siteId } = useParams<{ siteId: string }>();
@@ -84,17 +125,11 @@ export default function SiteDetailPage() {
     data: facilityGroupsRaw = [],
     isFetching: facilitiesLoading,
     isError: facilitiesError,
-    error: facilitiesErr,
-    refetch: refetchFacilities,
   } = useNearbyFacilities(site?.coordinates);
   const facilityGroups = facilityGroupsRaw.filter((g) => !HIDDEN_FACILITY_GROUPS.has(g.group));
-  const {
-    data: festivals = [],
-    isFetching: festivalsLoading,
-    isError: festivalsError,
-    error: festivalsErr,
-    refetch: refetchFestivals,
-  } = useNearbyFestivals(site?.coordinates);
+  const { data: festivals = [], isFetching: festivalsLoading } = useNearbyFestivals(
+    site?.coordinates,
+  );
   const { data: walkingCourses = [] } = useWalkingCoursesNear(site);
   const location = useLocation();
   // 마음 나침반에서 「이 코스로 가볼게요」로 오면 #directions — 「방문 정보」로 스크롤한다
@@ -318,16 +353,16 @@ export default function SiteDetailPage() {
       : descriptionBody;
 
   return (
-    // 상단바·하단 탭이 있는 AppLayout 안에서 뜬다(2026-09-17) — 아래 여백은 AppLayout 이 탭 높이만큼 준다
-    <div className="mx-auto min-h-page max-w-3xl bg-white pb-12">
+    // 상단바·하단 탭이 있는 AppLayout 안에서 뜬다(2026-09-17) — 아래 여백은 AppLayout 이 탭 높이만큼 준다.
+    // 본문 폭은 홈과 같은 PageContainer(기본 1200px) 로 — 예전엔 이 화면만 max-w-3xl(768px) 라
+    // PC 에서 유독 좌우 여백이 넓어 보였다(사장님 지적, 2026-09-17).
+    <div className="min-h-page bg-white pb-12">
       {/* 사진 높이는 화면의 절반 — 상단바(60px)를 뺀 나머지에서 잰다 */}
       <div className="relative flex h-[min(55vh,520px)] w-full items-center justify-center overflow-hidden bg-app-bg">
         {heroPhoto.url ? (
           <>
-            <motion.img
-              initial={{ scale: 1.1 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 10 }}
+            {/* 확대되며 나타나는 연출을 없앴다(사장님 지적, 2026-09-17) — 사진이 바로 보인다 */}
+            <img
               // 화면 첫 그림(LCP) — 휴대폰엔 960px 이면 충분. 1280px 원본은 Lighthouse LCP 11초를 만들었다(9/14)
               src={sizedImageUrl(heroPhoto.url, 960)}
               alt={heroPhoto.fromPilgrim ? `${site.name} — ${t('photoFromPilgrim')}` : site.name}
@@ -423,27 +458,58 @@ export default function SiteDetailPage() {
         </div>
       </div>
 
-      <div className="relative z-10 -mt-6 space-y-8 rounded-t-lg bg-white px-5 py-6 lg:px-8">
-        {/* 방문 정보 — 재기획(2026-09-14) 순서: 미사 시간 → 연락처·홈페이지 → 주소·외부 지도.
-            순례자가 가장 먼저 찾는 정보라 역사·주변 관광보다 위에 둔다. 예전엔 접이식이었는데
-            펼쳐야 보이는 것 자체가 방해라는 지적(2026-09-17)으로 늘 펼쳐 둔다. */}
+      {/* 상단 라운드 처리를 없앴다(사장님 지적, 2026-09-17) — 사진 바로 아래가 흰 면으로
+          깔끔하게 이어진다. -mt-6 는 그대로 둬 사진과 본문이 살짝 겹치며 이어지게 한다. */}
+      <PageContainer className="relative z-10 -mt-6 space-y-8 bg-white py-6">
+        {/* 성지 이야기를 맨 위로 — 사진 다음에는 "여기가 어떤 곳인지" 이야기부터 읽고,
+            미사 시간 같은 실용 정보는 그다음이 자연스럽다(사장님 지적, 2026-09-17).
+            ⚠️ 이 순서는 재기획(2026-09-14) §4-1 이 정한 "방문 정보가 역사보다 위" 결정을
+            뒤집는다 — 이번 지적을 그대로 따랐다. */}
+        <section>
+          <SectionHeading title={t('siteStory')} />
+          {/* 오디오 도슨트 — 박물관 오디오 가이드처럼 챕터를 골라 듣는다 */}
+          <DocentPlayer chapters={docentChapters} language={language} />
+          <Card tone="panel" className="relative overflow-hidden">
+            <History
+              size={100}
+              className="absolute -bottom-6 -right-6 rotate-12 text-brand-blue/5"
+              aria-hidden
+            />
+            {description && (
+              <p className="relative z-10 mb-5 font-display text-lg leading-relaxed text-brand-blue">
+                &ldquo;{description}&rdquo;
+              </p>
+            )}
+            {(view?.history ?? site.history) && (
+              <p className="relative z-10 text-base leading-relaxed text-app-text">
+                {view?.history ?? site.history}
+              </p>
+            )}
+          </Card>
+        </section>
+
         <section aria-labelledby="visit-info-heading" className="space-y-8">
           <SectionHeading id="visit-info-heading" title={t('visitInfo')} />
 
-          {/* 미사 시간 — 안내 책자 기준. 성지 사정에 따라 바뀔 수 있다 */}
+          {/* 미사 시간 — 안내 책자 기준. 성지 사정에 따라 바뀔 수 있다.
+              시각만 굵게 하는 것만으로는 부족하다는 지적(2026-09-17)으로,
+              라벨을 알약 배지로 두고 줄마다 카드를 나눠 한눈에 훑기 쉽게 했다. */}
           {massInfo && massRows.length > 0 && (
             <section aria-labelledby="mass-heading">
               <SectionHeading as="h3" size="md" id="mass-heading" title={t('massTimesTitle')} />
-              <dl className="space-y-4 rounded-lg border border-app-border bg-white p-5">
+              <dl className="divide-y divide-app-border overflow-hidden rounded-lg border border-app-border bg-white">
                 {massRows.map((row) => (
-                  <div key={row.label + row.value}>
-                    <dt className="text-sm font-bold text-brand-blue">{row.label}</dt>
-                    <dd className="mt-1 text-base leading-relaxed text-app-text">
-                      {/* 시간을 강조 — "07:00, 10:00(성지미사)" 같은 줄에서 시각(HH:MM)만
-                          도드라지게 한다(사장님 지적, 2026-09-17). 나머지 글(요일·비고)은 그대로. */}
+                  <div key={row.label + row.value} className="p-5">
+                    <dt className="mb-2 inline-block rounded-full bg-brand-soft px-2.5 py-1 text-xs font-bold text-brand-blue">
+                      {row.label}
+                    </dt>
+                    <dd className="text-base leading-loose text-app-text">
                       {row.value.split(/(\d{1,2}:\d{2})/g).map((part, i) =>
                         /^\d{1,2}:\d{2}$/.test(part) ? (
-                          <span key={i} className="font-bold tabular-nums text-brand-blue">
+                          <span
+                            key={i}
+                            className="mx-0.5 inline-flex items-center rounded-md bg-brand-soft px-1.5 py-0.5 font-bold tabular-nums text-brand-blue"
+                          >
                             {part}
                           </span>
                         ) : (
@@ -462,33 +528,6 @@ export default function SiteDetailPage() {
 
           {/* 주소와 외부 지도 — 외국인 방문자를 기준으로 만든 화면 */}
           <DirectionsCard site={site} addressEnglish={view?.addressRomanized ?? null} />
-        </section>
-
-        <section>
-          <SectionHeading title={t('siteStory')} />
-          {/* 오디오 도슨트 — 박물관 오디오 가이드처럼 챕터를 골라 듣는다 */}
-          <DocentPlayer
-            chapters={docentChapters}
-            isDraft={docentScript?.status === 'draft'}
-            language={language}
-          />
-          <Card tone="panel" className="relative overflow-hidden">
-            <History
-              size={100}
-              className="absolute -bottom-6 -right-6 rotate-12 text-brand-blue/5"
-              aria-hidden
-            />
-            {description && (
-              <p className="relative z-10 mb-5 font-display text-lg leading-relaxed text-brand-blue">
-                &ldquo;{description}&rdquo;
-              </p>
-            )}
-            {(view?.history ?? site.history) && (
-              <p className="relative z-10 text-base leading-relaxed text-app-text">
-                {view?.history ?? site.history}
-              </p>
-            )}
-          </Card>
         </section>
 
         {/* 성지 사무실·운영자가 직접 적은 주변 안내. TourAPI 목록과 달리 우리 DB 값이라
@@ -527,28 +566,9 @@ export default function SiteDetailPage() {
             그대로 두고 감싸던 제목만 없앤다. 역사·방문 정보보다 아래에 둔 이유는 그대로다
             (재기획 §4-1: 주변 음식점이 기본 방문 정보보다 먼저 나오지 않게). */}
         <div className="space-y-8">
-          {(facilitiesError || festivalsError) && (
-            <Card tone="panel" padded={false}>
-              <EmptyState
-                compact
-                role="alert"
-                title={t('externalApiFailedTitle')}
-                description={t(externalErrorKey(facilitiesErr ?? festivalsErr))}
-                action={
-                  <Button
-                    variant="neutral"
-                    onClick={() => {
-                      void refetchFacilities();
-                      void refetchFestivals();
-                    }}
-                  >
-                    {t('retry')}
-                  </Button>
-                }
-              />
-            </Card>
-          )}
-
+          {/* 한국관광공사 오류 카드는 없앴다(사장님 지적, 2026-09-17) — 축제 API 가 늘 실패해서
+              (9/17 밤 기록: searchFestival2 는 좌표 반경 검색을 지원하지 않음) 이 카드가 거의
+              항상 떠 있었다. 실패해도 아래 절들은 조용히 안 그려질 뿐 — 빈 화면이 오류보다 낫다. */}
           {!facilitiesLoading && !facilitiesError && facilityGroups.length === 0 && (
             <p className="rounded-lg border border-dashed border-app-border bg-white p-5 text-base text-app-text-muted">
               {t('siteNearbyTourismEmpty')}
@@ -580,16 +600,20 @@ export default function SiteDetailPage() {
                       <h3 className="mb-3 text-lg font-bold text-app-text">
                         {t(GROUP_LABEL_KEY[group])}
                       </h3>
-                      <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
+                      <ScrollHintRow>
                         {spots.map((spot) => (
                           <a
                             key={spot.contentid}
-                            // 좌표 핀 대신 이름으로 검색 — 실제 카카오맵 장소(리뷰·영업시간)로
-                            // 이어질 가능성이 높다(사장님 지적, 2026-09-17)
-                            href={kakaoSearchUrl(spot.title)}
+                            // 이름 검색은 정확한 장소로 안 이어질 때가 있었다(사장님 지적,
+                            // 2026-09-17) — 좌표가 있으니 길찾기로 보낸다. 목적지가 곧 정답이다.
+                            href={kakaoDirectionsUrl(
+                              spot.title,
+                              Number(spot.mapy),
+                              Number(spot.mapx),
+                            )}
                             target="_blank"
                             rel="noreferrer noopener"
-                            aria-label={`${spot.title} 카카오맵에서 검색`}
+                            aria-label={`${spot.title} 길찾기`}
                             className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left transition-colors hover:border-brand-blue"
                           >
                             <div className="relative flex h-36 items-center justify-center overflow-hidden bg-app-panel">
@@ -609,14 +633,13 @@ export default function SiteDetailPage() {
                               )}
                             </div>
                             <div className="p-4">
-                              <h4 className="mb-1 truncate text-base font-bold text-app-text group-hover:text-brand-blue">
+                              <h4 className="truncate text-base font-bold text-app-text group-hover:text-brand-blue">
                                 {spot.title}
                               </h4>
-                              <p className="truncate text-sm text-app-text-muted">{spot.addr1}</p>
                             </div>
                           </a>
                         ))}
-                      </div>
+                      </ScrollHintRow>
                     </div>
                   ))}
                 </div>
@@ -967,7 +990,7 @@ export default function SiteDetailPage() {
         <section className="pb-10">
           <NearbyParishesCard site={site} />
         </section>
-      </div>
+      </PageContainer>
     </div>
   );
 }

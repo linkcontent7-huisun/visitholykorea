@@ -7,7 +7,6 @@ import { isAndroid } from '../lib/headphones';
 
 interface DocentPlayerProps {
   chapters: DocentChapter[];
-  isDraft: boolean;
   language: Language;
 }
 
@@ -20,7 +19,7 @@ interface DocentPlayerProps {
  * 브라우저 TTS(`speechSynthesis`)는 재생 위치·길이를 안 준다(`useDocentPlayer` 참고).
  * 글은 챕터마다 전문을 그 줄 안에 바로 보여준다 — 소리를 못 듣는 곳에서도 읽을 수 있다.
  */
-export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps) {
+export function DocentPlayer({ chapters, language }: DocentPlayerProps) {
   const {
     currentIndex,
     isPlaying,
@@ -80,13 +79,10 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
             </span>
           </div>
           <p className="mt-0.5 truncate text-sm text-app-text-muted">{t('docentHint')}</p>
-          {/* 문헌으로만 쓴 원고임을 정직하게 표시한다 — 더미 금지 원칙.
-              좁은 화면에서 제목을 밀어내지 않도록 배지는 제목 아래 줄에 둔다 */}
-          {isDraft && (
-            <span className="mt-1 inline-block rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-800">
-              {t('docentDraft')}
-            </span>
-          )}
+          {/* 「초안 — 현장 확인 전」 배지를 화면에서 뺐다(사장님 지적, 2026-09-17).
+              ⚠️ 이 배지는 "문헌으로만 쓴 원고임을 정직하게 표시한다"는 더미 금지 원칙에서
+              나왔다 — isDraft 값과 docentScript.status 는 그대로 두었으니, 다시 보여줘야
+              한다면 이 자리에 되살리면 된다. */}
         </div>
         {/* 고령 사용자를 위한 속도 조절 — 느리게·보통·빠르게 순환 */}
         {isSupported && (
