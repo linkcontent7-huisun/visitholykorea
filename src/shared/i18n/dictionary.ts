@@ -676,14 +676,6 @@ export const DICTIONARY = {
     pt: 'Bons para a primeira visita',
     it: 'Ideali per la prima visita',
   },
-  homeFirstVisitSub: {
-    ko: '사진·연락처·좌표가 모두 확인된 성지 중에서 골랐어요.',
-    en: 'Chosen from shrines with a confirmed photo, contact and coordinates.',
-    es: 'Elegidos entre santuarios con foto, contacto y coordenadas confirmados.',
-    fr: 'Choisis parmi les sanctuaires avec photo, contact et coordonnées confirmés.',
-    pt: 'Escolhidos entre santuários com foto, contato e coordenadas confirmados.',
-    it: 'Scelti tra i santuari con foto, contatto e coordinate confermati.',
-  },
   homeSourcesTitle: {
     ko: '정보의 출처와 이용 방법',
     en: 'Sources and how to use',
@@ -1113,6 +1105,15 @@ export const DICTIONARY = {
     fr: 'Guide de pèlerinage IA',
     pt: 'Guia de peregrinação com IA',
     it: 'Guida al pellegrinaggio con IA',
+  },
+  // 헤더의 작은 버튼용 — 인사말(aiGreeting)과 같은 이름을 언어별로 음역해 짧게 쓴다
+  aiGuideNavLabel: {
+    ko: '미카엘',
+    en: 'Michael',
+    es: 'Miguel',
+    fr: 'Michel',
+    pt: 'Miguel',
+    it: 'Michele',
   },
   // 2026-09-07 부터 화면에서 쓰이지 않는다 — 홈의 큰 AI 배너를 바로가기 칩으로
   // 줄이면서 본문·버튼 문구가 빠졌다. 시트 안에 안내를 넣게 되면 다시 쓴다.
@@ -5620,6 +5621,14 @@ export const DICTIONARY = {
     pt: 'Pergunte em paz',
     it: 'Chiedi in pace',
   },
+  aiThinking: {
+    ko: '미카엘이 답변을 생각하고 있어요…',
+    en: 'Michael is thinking…',
+    es: 'Miguel está pensando…',
+    fr: 'Michel réfléchit…',
+    pt: 'Miguel está pensando…',
+    it: 'Michele sta pensando…',
+  },
   aiInputAria: {
     ko: '질문 입력',
     en: 'Type your question',
@@ -6144,14 +6153,6 @@ export const DICTIONARY = {
     fr: 'Sanctuaire suivant',
     pt: 'Próximo santuário',
     it: 'Santuario successivo',
-  },
-  homeEntrySearchSub: {
-    ko: '이름 · 지역 · 교구로 {count}곳',
-    en: '{count} shrines by name, region or diocese',
-    es: '{count} santuarios por nombre, región o diócesis',
-    fr: '{count} sanctuaires par nom, région ou diocèse',
-    pt: '{count} santuários por nome, região ou diocese',
-    it: '{count} santuari per nome, regione o diocesi',
   },
   recordsLoggedInAs: {
     ko: '{name} 님 · 기록 {count}건',

@@ -1,7 +1,9 @@
+import { BookOpen, Menu, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
+import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
 import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -41,6 +43,8 @@ export function TopNav() {
   const { pathname } = useLocation();
   const isHome = pathname === paths.home;
   const [scrolled, setScrolled] = useState(false);
+  // 미카엘 AI 시트 — 헤더 아무 화면에서나 열 수 있게 여기서 상태를 들고 있는다(2026-09-18 되살림).
+  const [aiOpen, setAiOpen] = useState(false);
 
   useEffect(() => {
     if (!isHome) {
@@ -71,11 +75,12 @@ export function TopNav() {
   const transparent = isHome && !scrolled;
 
   return (
-    <header
-      className={`${isHome ? 'fixed inset-x-0 top-0' : 'sticky top-0'} z-40 transition-colors duration-200 ${
-        transparent ? 'bg-transparent' : 'border-b border-app-border bg-white'
-      }`}
-    >
+    <>
+      <header
+        className={`${isHome ? 'fixed inset-x-0 top-0' : 'sticky top-0'} z-40 transition-colors duration-200 ${
+          transparent ? 'bg-transparent' : 'border-b border-app-border bg-white'
+        }`}
+      >
       {/* 상단바는 내용이 아니라 틀이다 — 글자 크기를 키워도 틀의 간격은 px 로 고정해
           「대」에서 버튼들이 오른쪽으로 밀려 잘리지 않게 한다 (2026-09-12). */}
       <div className="mx-auto flex h-[60px] w-full max-w-[1200px] items-center gap-[12px] px-[20px] lg:h-[72px] lg:gap-[24px] lg:px-[32px]">
@@ -115,13 +120,60 @@ export function TopNav() {
               누르면 옆에 소·중·대가 펼쳐진다 (2026-09-12). */}
           <TextSizePicker variant={transparent ? 'onDark' : 'default'} />
 
+          {/* 미카엘 AI — 재기획(2026-09-14)에서 정확성·비용 안전장치가 갖춰지기 전까지
+              숨겨 뒀던 것을, 검색 정확도·Gemini 한도 안내를 고친 뒤(PR #40, 2026-09-17)
+              되살린다(사장님 지적, 2026-09-18). 글자크기·언어 버튼과 같은 자리에 둔다. */}
+          <button
+            type="button"
+            onClick={() => setAiOpen(true)}
+            className={
+              transparent
+                ? 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-white/40 bg-black/30 px-[10px] text-[14px] font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45'
+                : 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-app-border bg-white px-[10px] text-[14px] font-bold text-brand-blue transition-colors hover:bg-app-bg'
+            }
+            id="ai-guide-toggle"
+          >
+            <Sparkles size={16} aria-hidden />
+            {t('aiGuideNavLabel')}
+          </button>
+
           {/* 언어 선택 — 전에는 데스크톱에만 보였다. 모바일에서도 삼선 메뉴를 열지
               않고 바로 바꿀 수 있어야 한다는 피드백(2026-09-08)으로 항상 보이게 한다. */}
           <LanguagePicker variant={transparent ? 'onDark' : 'default'} />
 
-          {/* 로그인 전에만 — 로그인 뒤의 「기록」은 메뉴에 이미 강조돼 있어 오른쪽에 또 두지 않는다.
-              원래도 불투명한 남색 버튼이라 사진 위에서도 그대로 두고, 그림자만 살짝 더한다. */}
-          {!session && (
+          {session ? (
+            // 로그인 뒤 PC — 「기록」·「더보기」를 다시 둔다(사장님 지적, 2026-09-18).
+            // 9/17 에 헤더에서 통째로 뺐던 이유("로그인해야 의미 있는 메뉴")가 로그인
+            // 상태에서는 해당하지 않는다 — 그래서 로그인했을 때만, PC 에서만 보인다.
+            <div className="hidden items-center gap-[8px] lg:flex">
+              <Link
+                to={paths.records}
+                className={
+                  transparent
+                    ? 'flex h-[44px] shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border-[1.5px] border-white/40 bg-black/30 px-[14px] text-[14px] font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45'
+                    : 'flex h-[44px] shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border-[1.5px] border-app-border bg-white px-[14px] text-[14px] font-bold text-brand-blue transition-colors hover:bg-app-bg'
+                }
+                id="topnav-records"
+              >
+                <BookOpen size={16} aria-hidden />
+                {t('record')}
+              </Link>
+              <Link
+                to={paths.menu}
+                aria-label={t('moreTab')}
+                title={t('moreTab')}
+                className={
+                  transparent
+                    ? 'flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] border-white/40 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45'
+                    : 'flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] border-app-border bg-white text-brand-blue transition-colors hover:bg-app-bg'
+                }
+                id="topnav-more"
+              >
+                <Menu size={20} aria-hidden />
+              </Link>
+            </div>
+          ) : (
+            // 로그인 전에만 — 원래도 불투명한 남색 버튼이라 사진 위에서도 그대로 두고, 그림자만 살짝 더한다.
             <Link
               to={paths.login}
               className={`hidden h-[44px] shrink-0 items-center whitespace-nowrap rounded-lg bg-brand-blue px-5 text-[15px] font-bold text-white transition-shadow lg:flex ${
@@ -135,5 +187,7 @@ export function TopNav() {
         </div>
       </div>
     </header>
+    <AiGuideSheet isOpen={aiOpen} onClose={() => setAiOpen(false)} />
+    </>
   );
 }

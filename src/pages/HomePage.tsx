@@ -17,7 +17,6 @@ import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { ButtonLink } from '@/shared/components/ui/Button';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
-import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
@@ -58,7 +57,7 @@ function EntryCard({
   id: string;
   icon: React.ReactNode;
   title: string;
-  sub: string;
+  sub?: string;
   filled?: boolean;
 }) {
   return (
@@ -79,11 +78,13 @@ function EntryCard({
         <span className="block text-[1.0625rem] font-bold leading-tight lg:text-[1.1875rem]">
           {title}
         </span>
-        <span
-          className={`mt-0.5 block text-sm leading-snug ${filled ? 'text-white/90' : 'text-app-text-muted'}`}
-        >
-          {sub}
-        </span>
+        {sub && (
+          <span
+            className={`mt-0.5 block text-sm leading-snug ${filled ? 'text-white/90' : 'text-app-text-muted'}`}
+          >
+            {sub}
+          </span>
+        )}
       </span>
       <ChevronRight size={20} className="shrink-0" aria-hidden />
     </Link>
@@ -187,8 +188,6 @@ export default function HomePage() {
     [allSites],
   );
 
-  const countLabel = allSites.length > 0 ? String(allSites.length) : '…';
-
   return (
     <div className="bg-white pb-10">
       {/* 화면 제목은 스크린리더용으로만 — 눈에는 사진이 먼저 들어와야 한다 */}
@@ -205,7 +204,6 @@ export default function HomePage() {
             id="entry-search"
             icon={<Search size={24} aria-hidden />}
             title={t('findShrines')}
-            sub={fillPlaceholders(t('homeEntrySearchSub'), { count: countLabel })}
           />
           <EntryCard
             to={paths.compass}
@@ -220,7 +218,7 @@ export default function HomePage() {
 
       {/* 3. 처음 방문하기 좋은 성지 */}
       <PageContainer className="pt-8 lg:pt-12">
-        <SectionHeading title={t('homeFirstVisitTitle')} sub={t('homeFirstVisitSub')} />
+        <SectionHeading title={t('homeFirstVisitTitle')} />
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:gap-5">
           {firstVisit.length > 0
             ? firstVisit.map((site) => <SiteGridCard key={site.id} site={site} />)

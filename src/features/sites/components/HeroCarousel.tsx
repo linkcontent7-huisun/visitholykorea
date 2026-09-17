@@ -181,14 +181,8 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
           >
             <ChevronRight size={24} aria-hidden />
           </button>
-          {/* 헤더가 이제 투명하게 이 슬라이드 위에 뜬다(2026-09-17 저녁) — 헤더 높이(모바일
-              60px·PC 72px) 아래로 내려서 헤더 오른쪽 버튼들과 겹치지 않게 한다 */}
-          <div
-            className="absolute right-4 top-[70px] rounded-full bg-black/40 px-2.5 py-1 text-[0.8125rem] font-bold tracking-wide text-white lg:top-[84px]"
-            aria-live="polite"
-          >
-            {index + 1} / {count}
-          </div>
+          {/* "1 / 5" 같은 숫자 카운터는 뺀다(사장님 지적, 2026-09-18) — 아래 점(dot)
+              표시로도 몇 번째인지 충분히 보인다. */}
           <div className="absolute inset-x-0 bottom-2 flex justify-center gap-1.5" aria-hidden>
             {slides.map((slide, i) => (
               <span
