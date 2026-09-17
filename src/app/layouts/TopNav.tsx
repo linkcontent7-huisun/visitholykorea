@@ -4,7 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
-import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
 
@@ -137,22 +136,24 @@ export function TopNav() {
             {t('aiGuideNavLabel')}
           </button>
 
-          {/* 언어 선택 — 전에는 데스크톱에만 보였다. 모바일에서도 삼선 메뉴를 열지
-              않고 바로 바꿀 수 있어야 한다는 피드백(2026-09-08)으로 항상 보이게 한다. */}
-          <LanguagePicker variant={transparent ? 'onDark' : 'default'} />
+          {/* 언어 선택 버튼을 헤더에서 뺐다(사장님 지적, 2026-09-18) — 더보기(`MenuPage`)의
+              「언어 설정」에서 그대로 바꿀 수 있다. ⚠️ 2026-09-08 "모바일에서도 바로 바꿀 수
+              있어야 한다"는 결정을 뒤집는 변경이니, WYD 외국인 방문자 피드백이 다시 나오면
+              참고할 것. */}
 
           {session ? (
             // 로그인 뒤 PC — 「기록」·「더보기」를 다시 둔다(사장님 지적, 2026-09-18).
             // 9/17 에 헤더에서 통째로 뺐던 이유("로그인해야 의미 있는 메뉴")가 로그인
             // 상태에서는 해당하지 않는다 — 그래서 로그인했을 때만, PC 에서만 보인다.
+            // 「기록」은 이 서비스의 중심이라(9/16 결정, BottomNav 의 솟은 버튼과 같은 이유)
+            // 남색 채움으로 강조한다(사장님 지적, 2026-09-18) — 옆의 글자크기·미카엘과는
+            // 다른 무게를 준다.
             <div className="hidden items-center gap-[8px] lg:flex">
               <Link
                 to={paths.records}
-                className={
-                  transparent
-                    ? 'flex h-[44px] shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border-[1.5px] border-white/40 bg-black/30 px-[14px] text-[14px] font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45'
-                    : 'flex h-[44px] shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border-[1.5px] border-app-border bg-white px-[14px] text-[14px] font-bold text-brand-blue transition-colors hover:bg-app-bg'
-                }
+                className={`flex h-[44px] shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg bg-brand-blue px-[14px] text-[14px] font-bold text-white transition-shadow hover:bg-brand-blue/90 ${
+                  transparent ? 'shadow-lg shadow-black/25' : ''
+                }`}
                 id="topnav-records"
               >
                 <BookOpen size={16} aria-hidden />

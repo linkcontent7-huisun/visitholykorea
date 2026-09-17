@@ -5,11 +5,13 @@ import {
   Info,
   MessageSquare,
   Search,
+  Sparkles,
   X,
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
+import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
 import { HeroCarousel, type HeroSlide } from '@/features/sites/components/HeroCarousel';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { HERO_SITES } from '@/features/sites/data/hero-sites';
@@ -47,27 +49,27 @@ function isFirstVisitReady(site: HolySite): boolean {
 /** 홈 입구 카드 — 「누르는 것」은 남색. 둘 중 일정 쪽을 채워 첫 화면에서 두 기능이 다르게 보이게 한다. */
 function EntryCard({
   to,
+  onClick,
   id,
   icon,
   title,
   sub,
   filled,
 }: {
-  to: string;
+  /** 둘 중 하나만 준다 — 화면 이동은 `to`, 시트 열기 같은 그 자리 동작은 `onClick`(2026-09-18, 미카엘 카드) */
+  to?: string;
+  onClick?: () => void;
   id: string;
   icon: React.ReactNode;
   title: string;
   sub?: string;
   filled?: boolean;
 }) {
-  return (
-    <Link
-      to={to}
-      id={id}
-      className={`flex min-h-[84px] items-center gap-3.5 rounded-lg border-[1.5px] border-brand-blue p-4 transition-transform active:scale-[0.99] lg:min-h-24 lg:px-5 ${
-        filled ? 'bg-brand-blue text-white' : 'bg-white text-brand-blue'
-      }`}
-    >
+  const className = `flex min-h-[84px] w-full items-center gap-3.5 rounded-lg border-[1.5px] border-brand-blue p-4 text-left transition-transform active:scale-[0.99] lg:min-h-24 lg:px-5 ${
+    filled ? 'bg-brand-blue text-white' : 'bg-white text-brand-blue'
+  }`;
+  const inner = (
+    <>
       <span
         className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg ${filled ? 'bg-white/15' : 'bg-brand-soft'}`}
         aria-hidden
@@ -87,7 +89,19 @@ function EntryCard({
         )}
       </span>
       <ChevronRight size={20} className="shrink-0" aria-hidden />
-    </Link>
+    </>
+  );
+  if (to) {
+    return (
+      <Link to={to} id={id} className={className}>
+        {inner}
+      </Link>
+    );
+  }
+  return (
+    <button type="button" onClick={onClick} id={id} className={className}>
+      {inner}
+    </button>
   );
 }
 
@@ -156,6 +170,7 @@ function HomeInfoSheet({ onClose }: { onClose: () => void }) {
 export default function HomePage() {
   const { language, t } = useSettings();
   const [infoOpen, setInfoOpen] = useState(false);
+  const [aiOpen, setAiOpen] = useState(false);
 
   const { data: allSitesRaw = [] } = useSites({ limit: 300 });
   const allSites = useLocalizedSites(allSitesRaw);
@@ -196,14 +211,22 @@ export default function HomePage() {
       {/* 1. 히어로 — 모바일·PC 모두 100vw 로 가장자리까지, 헤더 바로 아래(2026-09-17) */}
       <HeroCarousel slides={heroSlides} />
 
-      {/* 2. 입구 2개 */}
+      {/* 2. 입구 3개 — 성지 찾기 · 미카엘 AI · 오늘의 성지 일정 순서(사장님 지적, 2026-09-18).
+          미카엘은 화면 이동이 아니라 그 자리에서 시트를 연다 — `to` 대신 `onClick`. */}
       <PageContainer className="pt-4 lg:pt-5">
-        <div className="grid gap-3 lg:grid-cols-2">
+        <div className="grid gap-3 lg:grid-cols-3">
           <EntryCard
             to={paths.search}
             id="entry-search"
             icon={<Search size={24} aria-hidden />}
             title={t('findShrines')}
+          />
+          <EntryCard
+            onClick={() => setAiOpen(true)}
+            id="entry-ai-guide"
+            icon={<Sparkles size={24} aria-hidden />}
+            title={t('aiGuideEntryTitle')}
+            sub={t('aiGuideEntrySub')}
           />
           <EntryCard
             to={paths.compass}
@@ -229,25 +252,45 @@ export default function HomePage() {
       </PageContainer>
 
       {/* 4. 출처·문의 — 접어서 푸터 한 줄로, 상세는 팝업(2026-09-17 오후 사장님 지시).
-          「추천 성지」 푸터 링크는 삭제(같은 지시) — /nearby 는 지금 앱 안 어디에서도 안 이어진다. */}
+          「추천 성지」 푸터 링크는 삭제(같은 지시) — /nearby 는 지금 앱 안 어디에서도 안 이어진다.
+          디자인은 로그인 화면의 약관·개인정보·FAQ 줄과 같게(사장님 지적, 2026-09-18) — 가운데
+          정렬된 밑줄 글자 여러 개를 나란히 둔다. 정보 출처·문의는 그대로 팝업(`HomeInfoSheet`)으로
+          열리되, 로그인 화면에도 있는 약관·개인정보·FAQ 를 홈에서도 바로 갈 수 있게 더했다. */}
       <PageContainer className="pt-8 lg:pt-10">
         <footer className="border-t border-app-border pt-5">
-          <button
-            type="button"
-            onClick={() => setInfoOpen(true)}
-            id="footer-about"
-            className="-ml-2 flex min-h-11 items-start gap-1.5 rounded-lg px-2 py-2 text-left text-base font-bold text-app-text-muted transition-colors hover:bg-app-bg hover:text-brand-blue"
-          >
-            <Info size={18} className="mt-0.5 shrink-0" aria-hidden />
-            <span className="flex-1">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <button
+              type="button"
+              onClick={() => setInfoOpen(true)}
+              id="footer-about"
+              className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
+            >
               {t('homeSourcesTitle')} · {t('homeContactTitle')}
-            </span>
-            <ChevronRight size={18} className="mt-0.5 shrink-0" aria-hidden />
-          </button>
+            </button>
+            <Link
+              to={paths.terms}
+              className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
+            >
+              {t('viewTerms')}
+            </Link>
+            <Link
+              to={paths.privacy}
+              className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
+            >
+              {t('privacyNotice')}
+            </Link>
+            <Link
+              to={paths.faq}
+              className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
+            >
+              {t('viewFaq')}
+            </Link>
+          </div>
         </footer>
       </PageContainer>
 
       {infoOpen && <HomeInfoSheet onClose={() => setInfoOpen(false)} />}
+      <AiGuideSheet isOpen={aiOpen} onClose={() => setAiOpen(false)} />
     </div>
   );
 }

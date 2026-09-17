@@ -669,12 +669,12 @@ export const DICTIONARY = {
     it: 'Imposta una regione di partenza o la posizione in Altro per ordinare per distanza.',
   },
   homeFirstVisitTitle: {
-    ko: '처음 방문하기 좋은 성지',
-    en: 'Good for a first visit',
-    es: 'Ideales para una primera visita',
-    fr: 'Idéaux pour une première visite',
-    pt: 'Bons para a primeira visita',
-    it: 'Ideali per la prima visita',
+    ko: '오늘 방문하기 좋은 성지',
+    en: 'Good to visit today',
+    es: 'Buenos para visitar hoy',
+    fr: 'Idéaux à visiter aujourd’hui',
+    pt: 'Bons para visitar hoje',
+    it: 'Ideali da visitare oggi',
   },
   homeSourcesTitle: {
     ko: '정보의 출처와 이용 방법',
@@ -1114,6 +1114,23 @@ export const DICTIONARY = {
     fr: 'Michel',
     pt: 'Miguel',
     it: 'Michele',
+  },
+  // 홈 입구 카드용 — 이름 + AI, 헤더 라벨(aiGuideNavLabel)보다 한 단계 더 설명적이다
+  aiGuideEntryTitle: {
+    ko: '미카엘 AI',
+    en: 'Michael AI',
+    es: 'Miguel IA',
+    fr: 'Michel IA',
+    pt: 'Miguel IA',
+    it: 'Michele IA',
+  },
+  aiGuideEntrySub: {
+    ko: '무엇이든 편히 물어보세요',
+    en: 'Ask anything, anytime',
+    es: 'Pregunta lo que quieras',
+    fr: 'Posez toutes vos questions',
+    pt: 'Pergunte o que quiser',
+    it: 'Chiedi quello che vuoi',
   },
   // 2026-09-07 부터 화면에서 쓰이지 않는다 — 홈의 큰 AI 배너를 바로가기 칩으로
   // 줄이면서 본문·버튼 문구가 빠졌다. 시트 안에 안내를 넣게 되면 다시 쓴다.
