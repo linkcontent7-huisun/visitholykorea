@@ -43,12 +43,13 @@ function check(files: ReturnType<typeof load>, lang: 'ko' | 'en') {
   const template = new Set([...sentenceOwners.entries()].filter(([, o]) => o.size >= 3).map(([k]) => k));
   const problems: string[] = [];
   const endsOk = lang === 'ko' ? /(다|요|니다)\.?"$/ : /[.!?]"$/;
-  const hasFact = lang === 'ko' ? /\d{3,4}|신부|성인|주교|성당|양식|벽돌|고딕|로마네스크|순교|성지|공소|교우촌|박해|주교좌|수도원|기념/ : /\d{3,4}|Father|Bishop|Saint|St\.|martyr|Gothic|brick|church|shrine/i;
+  const hasFact = lang === 'ko' ? /\d{3,4}|신부|성인|주교|성당|양식|벽돌|고딕|로마네스크|순교|성지|공소|교우촌|박해|주교좌|수도원|기념/ : /\d{3,4}|Father|Bishop|Saint|St\.|martyr|Gothic|Romanesque|brick|church|cathedral|shrine|hill|village|gate|parish|persecution|mission/i;
   for (const f of files) {
     const bad: string[] = [];
     const chars = f.body.replace(/\s/g, '').length;
     if (f.paras.length !== 3) bad.push(`문단 ${f.paras.length}개`);
-    if (chars > 500) bad.push(`${chars}자`);
+    // 영어는 같은 내용이 글자 수로 두 배 안팎이라 기준을 달리 둔다
+    if (chars > (lang === 'ko' ? 500 : 1000)) bad.push(`${chars}자`);
     if (!f.paras.every((p) => p.startsWith('"') && p.endsWith('"'))) bad.push('큰따옴표 누락');
     f.paras.forEach((p, i) => { if (!endsOk.test(p)) bad.push(`${i + 1}문단 잘림`); });
     f.paras.forEach((p, i) => { if (!hasFact.test(p)) bad.push(`${i + 1}문단 고유 사실 없음`); });
