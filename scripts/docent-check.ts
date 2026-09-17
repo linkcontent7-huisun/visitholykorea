@@ -54,7 +54,7 @@ function check(files: ReturnType<typeof load>, lang: 'ko' | 'en') {
     f.paras.forEach((p, i) => { if (!hasFact.test(p)) bad.push(`${i + 1}문단 고유 사실 없음`); });
     if (!/^\s+url:\s*https?:\/\//m.test(f.head)) bad.push('출처 url 없음');
     const t = [...template].filter((k) => f.body.replace(/\s+/g, ' ').includes(k));
-    if (t.length) bad.push(`틀 문장 ${t.length}개: "${t[0].slice(0, 30)}…"`);
+    if (t.length) bad.push(`틀 문장 ${t.length}개: "${(t[0] ?? '').slice(0, 30)}…"`);
     if (bad.length) problems.push(`  ✗ ${f.name} — ${bad.join(' · ')}`);
   }
   return { n: files.length, problems, template };
