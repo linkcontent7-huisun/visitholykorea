@@ -1,5 +1,6 @@
 import { useSettings } from '@/shared/i18n/use-settings';
 import type { TranslationKey } from '@/shared/i18n/dictionary';
+import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 
 /**
  * 들어가기 전 안내.
@@ -24,17 +25,15 @@ export function VisitEtiquette() {
 
   return (
     <section aria-labelledby="etiquette-heading">
-      <div className="mb-6 flex items-center gap-3">
-        <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-        <h2 id="etiquette-heading" className="text-xl font-extrabold tracking-tight text-app-text">
-          {t('beforeYouGo')}
-        </h2>
-      </div>
+      <SectionHeading as="h3" size="md" id="etiquette-heading" title={t('beforeYouGo')} />
 
-      <ul className="space-y-2.5 rounded-lg border border-app-border bg-app-bg p-6">
+      <ul className="space-y-3 rounded-lg border border-app-border bg-white p-5">
         {ETIQUETTE_KEYS.map((key) => (
-          <li key={key} className="flex gap-3 text-[14px] leading-relaxed text-app-text">
-            <span aria-hidden className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand-violet" />
+          <li key={key} className="flex gap-3 text-base leading-relaxed text-app-text">
+            <span
+              aria-hidden
+              className="mt-[0.7rem] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-blue"
+            />
             {t(key)}
           </li>
         ))}

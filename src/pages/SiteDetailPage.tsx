@@ -72,8 +72,12 @@ import {
 } from '@/features/sites/hooks/use-sites';
 import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
+import { Button } from '@/shared/components/ui/Button';
+import { Card } from '@/shared/components/ui/Card';
+import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
-import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { SectionHeading } from '@/shared/components/ui/SectionHeading';
+import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
@@ -83,8 +87,7 @@ import { externalErrorKey } from '@/shared/i18n/external-error-key';
 export default function SiteDetailPage() {
   const { siteId } = useParams<{ siteId: string }>();
   const navigate = useNavigate();
-  const { wideView, language, t } = useSettings();
-  const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
+  const { language, t } = useSettings();
 
   const { data: site, isLoading } = useSite(siteId);
   const view = useTranslatedSite(site);
@@ -284,7 +287,7 @@ export default function SiteDetailPage() {
   if (isLoading) return <LoadingSpinner />;
 
   if (!site) {
-    return <p className="p-10 text-center font-bold">{t('siteNotFound')}</p>;
+    return <EmptyState title={t('siteNotFound')} />;
   }
 
   const tags = [site.emotionTag, localizeRegionName(site.region, language), site.category].filter(
@@ -312,7 +315,7 @@ export default function SiteDetailPage() {
     .join(' · ');
 
   return (
-    <div className={`mx-auto min-h-screen ${widthClass} bg-white pb-32`}>
+    <div className="mx-auto min-h-screen max-w-3xl bg-white pb-32">
       <div className="relative flex h-[55vh] w-full items-center justify-center overflow-hidden bg-app-bg">
         {heroPhoto.url ? (
           <>
@@ -329,13 +332,13 @@ export default function SiteDetailPage() {
             />
             {/* 순례자 사진은 누가 보내준 것인지 밝힌다 — 공식 사진과 같아 보이면 안 된다 */}
             {heroPhoto.fromPilgrim && (
-              <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[0.625rem] text-white/80 backdrop-blur-sm">
+              <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-xs text-white/85 backdrop-blur-sm">
                 {t('photoFromPilgrim')}
               </span>
             )}
             {/* CC 계열 라이선스는 출처 표기가 의무다 — 출처가 기록된 사진에만 붙는다 */}
             {!heroPhoto.fromPilgrim && site.imageSource && (
-              <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-[0.625rem] text-white/80 backdrop-blur-sm">
+              <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-xs text-white/85 backdrop-blur-sm">
                 {site.imageSource}
                 {site.imageLicense ? ` · ${site.imageLicense}` : ''}
               </span>
@@ -362,11 +365,11 @@ export default function SiteDetailPage() {
 
         <button
           onClick={() => navigate(-1)}
-          className="absolute left-6 top-12 flex h-11 w-11 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
+          className="absolute left-5 top-5 flex h-11 w-11 items-center justify-center rounded-lg border border-white/30 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45"
           id="back-button"
           aria-label={t('back')}
         >
-          <ChevronLeft size={22} />
+          <ChevronLeft size={24} aria-hidden />
         </button>
 
         {!SUBMISSION_MODE && (
@@ -374,25 +377,29 @@ export default function SiteDetailPage() {
           <button
             onClick={handleToggleFavorite}
             disabled={toggleFavorite.isPending}
-            className="absolute right-6 top-12 flex h-11 w-11 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white shadow-xl backdrop-blur-xl transition-all hover:bg-white/20"
+            className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-lg border border-white/30 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45"
             aria-label={isFavorited ? t('favoriteRemove') : t('favoriteAdd')}
             aria-pressed={isFavorited}
           >
-            <Heart size={20} className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined} />
+            <Heart
+              size={22}
+              className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined}
+              aria-hidden
+            />
           </button>
         )}
 
-        <div className="absolute bottom-12 left-8 right-8 text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.55)]">
-          <span className="inline-block rounded-full bg-brand-violet px-3 py-1.5 text-[0.625rem] font-extrabold uppercase tracking-widest shadow-xl shadow-brand-violet/20">
+        <div className="absolute bottom-10 left-5 right-5 text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.55)] lg:left-8 lg:right-8">
+          <span className="inline-block rounded-full bg-brand-blue px-3 py-1 text-xs font-bold">
             {localizeDomainValue(site.category, t)}
           </span>
           {/* WYD 2027 공식 일정지 — 해외 청년 20~30만 명이 오는 확정 행사다 */}
           {isWydVenue(site.name) && (
-            <span className="ml-2 inline-block rounded-full bg-amber-400/90 px-3 py-1.5 text-[0.625rem] font-extrabold tracking-wide text-amber-950 shadow-xl">
+            <span className="ml-2 inline-block rounded-full bg-amber-400/90 px-3 py-1 text-xs font-bold text-amber-950">
               {language === 'ko' ? WYD_LABEL_KO : WYD_LABEL_EN}
             </span>
           )}
-          <h1 className="mb-4 mt-3 text-4xl font-extrabold leading-tight tracking-tight">
+          <h1 className="mb-3 mt-3 font-display text-[2rem] leading-tight lg:text-[2.5rem]">
             {view?.name ?? site.name}
           </h1>
           {/*
@@ -401,14 +408,14 @@ export default function SiteDetailPage() {
             로마자 주소는 opacity 대신 흰색 농도로 낮춘다 — opacity 는 글자와
             그림자를 함께 흐리게 만들어 오히려 안 읽혔다.
           */}
-          <p className="mb-4 flex items-start gap-2 text-sm font-medium">
-            <MapPin size={16} className="mt-1 shrink-0 text-brand-violet" />
+          <p className="mb-4 flex items-start gap-2 text-base font-medium">
+            <MapPin size={18} className="mt-1 shrink-0 text-white/85" aria-hidden />
             <span className="flex flex-col gap-1">
               {/* 외국어 화면은 영문 주소가 주, 한국어 원 주소가 부 — 읽을 수 있는 쪽이 먼저 */}
               {language !== 'ko' && view?.addressRomanized ? (
                 <>
                   <span className="leading-snug">{view.addressRomanized}</span>
-                  <span className="text-xs leading-snug text-white/75" lang="ko">
+                  <span className="text-sm leading-snug text-white/80" lang="ko">
                     {site.location}
                   </span>
                 </>
@@ -416,7 +423,7 @@ export default function SiteDetailPage() {
                 <>
                   <span className="leading-snug">{site.location}</span>
                   {view?.addressRomanized && (
-                    <span className="text-xs leading-snug text-white/75">
+                    <span className="text-sm leading-snug text-white/80">
                       {view.addressRomanized}
                     </span>
                   )}
@@ -430,7 +437,7 @@ export default function SiteDetailPage() {
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-white/20 bg-white/15 px-3 py-1 text-[0.6875rem] font-bold backdrop-blur-md"
+                className="rounded-full border border-white/20 bg-white/15 px-3 py-1 text-xs font-bold backdrop-blur-md"
               >
                 #{localizeDomainValue(tag, t)}
               </span>
@@ -439,24 +446,19 @@ export default function SiteDetailPage() {
         </div>
       </div>
 
-      <div className="relative z-10 -mt-8 space-y-12 rounded-t-lg bg-white p-8">
+      <div className="relative z-10 -mt-6 space-y-12 rounded-t-lg bg-white px-5 py-8 lg:px-8">
         <section>
-          <div className="mb-6 flex items-center gap-3">
-            <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-            <h2 className="text-xl font-extrabold tracking-tight text-app-text">
-              {t('siteBasicInfo')}
-            </h2>
-          </div>
+          <SectionHeading title={t('siteBasicInfo')} />
           {/* 주소는 히어로 부제와 "찾아가는 길"에 이미 나오므로 여기서는 뺀다 (T-004) */}
-          <div className="rounded-lg border border-app-border bg-app-bg p-5">
-            <div className="mb-2 text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
+          <Card tone="panel">
+            <div className="mb-1 text-sm font-bold text-app-text-muted">
               {t('siteDioceseEmotion')}
             </div>
-            <p className="text-xs font-bold text-app-text">
+            <p className="text-base font-bold text-app-text">
               {localizeRegionName(site.region, language)}{' '}
               {site.emotionTag ? `· ${localizeDomainValue(site.emotionTag, t)}` : ''}
             </p>
-          </div>
+          </Card>
         </section>
 
         {/* 방문 정보 — 재기획(2026-09-14) 순서: 들어가기 전 안내 → 미사 시간 → 연락처·홈페이지 →
@@ -468,56 +470,58 @@ export default function SiteDetailPage() {
             onClick={() => setVisitInfoOpen((open) => !open)}
             aria-expanded={visitInfoOpen}
             aria-controls="visit-info-panel"
-            className="flex min-h-14 w-full items-center gap-3 rounded-lg border border-app-border bg-app-bg p-5 text-left"
+            className="flex min-h-16 w-full items-center gap-3 rounded-lg border border-app-border bg-app-bg px-5 py-4 text-left transition-colors hover:border-brand-blue/50"
           >
-            <div className="h-6 w-1.5 shrink-0 rounded-full bg-brand-violet" />
             <div className="min-w-0 flex-1">
               <h2
                 id="visit-info-heading"
-                className="text-xl font-extrabold tracking-tight text-app-text"
+                className="font-display text-[1.375rem] leading-tight text-app-text lg:text-2xl"
               >
                 {t('visitInfo')}
               </h2>
               {!visitInfoOpen && visitInfoPreview && (
-                <p className="mt-1 truncate text-xs font-semibold text-app-text-muted">
-                  {visitInfoPreview}
-                </p>
+                <p className="mt-1 truncate text-sm text-app-text-muted">{visitInfoPreview}</p>
               )}
             </div>
             <ChevronDown
-              size={18}
+              size={22}
               className={`shrink-0 text-app-text-muted transition-transform ${visitInfoOpen ? 'rotate-180' : ''}`}
               aria-hidden
             />
           </button>
 
           {visitInfoOpen && (
-            <div id="visit-info-panel" className="mt-8 space-y-12">
+            <div id="visit-info-panel" className="mt-6 space-y-10">
               {/* 들어가기 전 안내 — 비신자·외국인이 문 앞에서 멈추는 이유를 없앤다 */}
               <VisitEtiquette />
 
               {/* 미사 시간 — 안내 책자 기준. 성지 사정에 따라 바뀔 수 있다 */}
               {massInfo && (
-                <section className="rounded-lg border border-app-border bg-white p-6">
-                  <h3 className="mb-1 flex items-center gap-2 text-base font-extrabold text-app-text">
-                    <img src="/brand/church.png" alt="" aria-hidden width={22} height={22} className="h-[22px] w-auto" />
-                    {t('massTimesTitle')}
-                  </h3>
-                  {massInfo.basis && (
-                    <p className="mb-4 text-[0.6875rem] text-app-text-muted">{massInfo.basis}</p>
-                  )}
-                  <dl className="space-y-3">
+                <section aria-labelledby="mass-heading">
+                  <SectionHeading
+                    as="h3"
+                    size="md"
+                    id="mass-heading"
+                    title={
+                      <span className="inline-flex items-center gap-2">
+                        <img
+                          src="/brand/church.png"
+                          alt=""
+                          aria-hidden
+                          width={22}
+                          height={22}
+                          className="h-[22px] w-auto"
+                        />
+                        {t('massTimesTitle')}
+                      </span>
+                    }
+                    sub={massInfo.basis ?? undefined}
+                  />
+                  <dl className="space-y-3 rounded-lg border border-app-border bg-white p-5">
                     {massInfo.rows.map((row) => (
-                      <div
-                        key={row.label + row.value}
-                        className="grid grid-cols-[4.5rem_1fr] gap-3"
-                      >
-                        <dt className="text-[0.75rem] font-extrabold text-brand-blue">
-                          {row.label}
-                        </dt>
-                        <dd className="text-sm font-medium leading-relaxed text-app-text">
-                          {row.value}
-                        </dd>
+                      <div key={row.label + row.value} className="grid grid-cols-[5rem_1fr] gap-3">
+                        <dt className="text-sm font-bold text-brand-blue">{row.label}</dt>
+                        <dd className="text-base leading-relaxed text-app-text">{row.value}</dd>
                       </div>
                     ))}
                   </dl>
@@ -543,12 +547,7 @@ export default function SiteDetailPage() {
         </section>
 
         <section>
-          <div className="mb-6 flex items-center gap-3">
-            <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-            <h2 className="flex-1 text-xl font-extrabold tracking-tight text-app-text">
-              {t('siteStory')}
-            </h2>
-          </div>
+          <SectionHeading title={t('siteStory')} />
           {/* 오디오 도슨트 — 박물관 오디오 가이드처럼 챕터를 골라 듣는다 */}
           <DocentPlayer
             chapters={docentChapters}
@@ -556,24 +555,22 @@ export default function SiteDetailPage() {
             language={language}
           />
           {audioStories.length > 0 && (
-            <details className="mb-4 rounded-lg border border-app-border bg-app-bg p-4">
-              <summary className="cursor-pointer text-sm font-extrabold text-app-text">
+            <details className="mb-4 rounded-lg border border-app-border bg-app-bg p-5">
+              <summary className="min-h-11 cursor-pointer text-base font-bold text-app-text">
                 {t('siteAudioStoriesTitle')}
               </summary>
-              <p className="mt-1 text-[0.625rem] font-bold text-app-text-muted">
-                {t('siteTourismSource')}
-              </p>
+              <p className="mt-1 text-xs font-bold text-app-text-muted">{t('siteTourismSource')}</p>
               <div className="mt-3 space-y-3">
                 {audioStories.slice(0, 3).map((story, index) => (
                   <div
                     key={`${story.audioTitle ?? story.title ?? 'story'}-${index}`}
                     className="rounded-lg bg-white p-3"
                   >
-                    <h3 className="text-sm font-extrabold text-app-text">
+                    <h3 className="text-base font-bold text-app-text">
                       {story.audioTitle ?? story.title}
                     </h3>
                     {story.script && (
-                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-app-text-muted">
+                      <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-app-text-muted">
                         {story.script}
                       </p>
                     )}
@@ -585,54 +582,50 @@ export default function SiteDetailPage() {
               </div>
             </details>
           )}
-          <div className="relative overflow-hidden rounded-lg border border-brand-blue/5 bg-brand-blue/[0.03] p-8">
+          <Card tone="panel" className="relative overflow-hidden">
             <History
               size={100}
               className="absolute -bottom-6 -right-6 rotate-12 text-brand-blue/5"
+              aria-hidden
             />
             {(view?.description ?? descriptionBody) && (
-              <p className="relative z-10 mb-6 text-lg font-bold italic leading-snug tracking-tight text-brand-blue/90">
+              <p className="relative z-10 mb-5 font-display text-lg leading-relaxed text-brand-blue">
                 &ldquo;{view?.description ?? descriptionBody}&rdquo;
               </p>
             )}
             {(view?.history ?? site.history) && (
-              <p className="relative z-10 text-[15px] font-medium leading-relaxed text-app-text-muted">
+              <p className="relative z-10 text-base leading-relaxed text-app-text">
                 {view?.history ?? site.history}
               </p>
             )}
-          </div>
+          </Card>
         </section>
 
         {/* 성지 사무실·운영자가 직접 적은 주변 안내. TourAPI 목록과 달리 우리 DB 값이라
             관리자 콘솔에서 고칠 수 있다. 둘 다 비어 있으면 절 자체를 그리지 않는다. */}
         {(site.nearbyAttractions || site.nearbyLodging) && (
           <section>
-            <div className="mb-6 flex items-center gap-3">
-              <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-              <h2 className="text-xl font-extrabold tracking-tight text-app-text">
-                {t('siteCuratedNearbyTitle')}
-              </h2>
-            </div>
+            <SectionHeading title={t('siteCuratedNearbyTitle')} />
             <div className="space-y-3">
               {site.nearbyAttractions && (
-                <div className="rounded-lg border border-app-border bg-app-bg p-5">
-                  <div className="mb-2 text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
+                <Card tone="panel">
+                  <div className="mb-1 text-sm font-bold text-app-text-muted">
                     {t('siteCuratedAttractions')}
                   </div>
-                  <p className="whitespace-pre-line text-sm font-medium leading-relaxed text-app-text">
+                  <p className="whitespace-pre-line text-base leading-relaxed text-app-text">
                     {site.nearbyAttractions}
                   </p>
-                </div>
+                </Card>
               )}
               {site.nearbyLodging && (
-                <div className="rounded-lg border border-app-border bg-app-bg p-5">
-                  <div className="mb-2 text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
+                <Card tone="panel">
+                  <div className="mb-1 text-sm font-bold text-app-text-muted">
                     {t('siteCuratedLodging')}
                   </div>
-                  <p className="whitespace-pre-line text-sm font-medium leading-relaxed text-app-text">
+                  <p className="whitespace-pre-line text-base leading-relaxed text-app-text">
                     {site.nearbyLodging}
                   </p>
-                </div>
+                </Card>
               )}
             </div>
           </section>
@@ -641,179 +634,159 @@ export default function SiteDetailPage() {
         {/* 주변 관광 정보 — 한국관광공사 OpenAPI 를 지금 불러온 것. 실패해도 위의 방문 정보는 그대로다.
             역사·방문 정보보다 아래에 둔다(재기획 §4-1: 주변 음식점이 기본 방문 정보보다 먼저 나오지 않게). */}
         <section aria-labelledby="nearby-tourism-heading" className="space-y-10">
-          <div>
-            <div className="mb-2 flex items-center gap-3">
-              <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-              <h2 id="nearby-tourism-heading" className="text-xl font-extrabold tracking-tight text-app-text">
-                {t('siteNearbyTourismTitle')}
-              </h2>
-            </div>
-            <p className="text-xs leading-relaxed text-app-text-muted">{t('siteNearbyTourismSub')}</p>
-          </div>
+          <SectionHeading
+            id="nearby-tourism-heading"
+            title={t('siteNearbyTourismTitle')}
+            sub={t('siteNearbyTourismSub')}
+          />
 
           {(facilitiesError || festivalsError) && (
-            <div className="rounded-lg border border-app-border bg-app-bg p-5 text-center" role="alert">
-              <p className="text-sm font-bold text-app-text">{t('externalApiFailedTitle')}</p>
-              <p className="mt-2 text-xs leading-relaxed text-app-text-muted">
-                {t(externalErrorKey(facilitiesErr ?? festivalsErr))}
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  void refetchFacilities();
-                  void refetchFestivals();
-                }}
-                className="mt-4 min-h-11 rounded-full border border-app-border bg-white px-5 text-sm font-bold text-app-text"
-              >
-                {t('retry')}
-              </button>
-            </div>
+            <Card tone="panel" padded={false}>
+              <EmptyState
+                compact
+                role="alert"
+                title={t('externalApiFailedTitle')}
+                description={t(externalErrorKey(facilitiesErr ?? festivalsErr))}
+                action={
+                  <Button
+                    variant="neutral"
+                    onClick={() => {
+                      void refetchFacilities();
+                      void refetchFestivals();
+                    }}
+                  >
+                    {t('retry')}
+                  </Button>
+                }
+              />
+            </Card>
           )}
 
           {!facilitiesLoading && !facilitiesError && facilityGroups.length === 0 && (
-            <p className="rounded-lg border border-dashed border-app-border bg-white p-5 text-sm text-app-text-muted">
+            <p className="rounded-lg border border-dashed border-app-border bg-white p-5 text-base text-app-text-muted">
               {t('siteNearbyTourismEmpty')}
             </p>
           )}
 
-        {/*
+          {/*
           주변 편의시설 — 맛집·숙박·볼거리·레포츠·쇼핑을 한 화면에서 본다(관광공사 유형 그대로).
           TourAPI 를 한 번만 부르고 유형으로 나눈다(저장하지 않는다).
           빈 유형은 아예 그리지 않는다 — 시골 성지의 빈 탭은 정보가 없는 앱으로 보인다.
         */}
-        {(facilitiesLoading || facilityGroups.length > 0) && (
-          <section>
-            <div className="mb-6 flex items-center gap-3">
-              <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-              <h2 className="text-xl font-extrabold tracking-tight text-app-text">
-                {t('siteNearbyTitle')}
-              </h2>
-              <span className="text-[0.625rem] font-bold text-app-text-muted">
-                {t('siteNearbyMeta')}
-              </span>
-            </div>
+          {(facilitiesLoading || facilityGroups.length > 0) && (
+            <section>
+              <SectionHeading title={t('siteNearbyTitle')} meta={t('siteNearbyMeta')} />
 
-            {facilitiesLoading ? (
-              <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
-                {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="h-64 w-44 flex-shrink-0 animate-pulse rounded-lg bg-app-bg"
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="space-y-8">
-                {facilityGroups.map(({ group, spots }) => (
-                  <div key={group}>
-                    <div className="mb-3 flex items-baseline gap-2">
-                      <h3 className="text-sm font-extrabold text-app-text">
-                        {t(GROUP_LABEL_KEY[group])}
-                      </h3>
-                      <span className="text-[0.6875rem] font-bold text-app-text-muted">
-                        {t(GROUP_HINT_KEY[group])}
-                      </span>
-                    </div>
-                    <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
-                      {spots.map((spot) => (
-                        <a
-                          key={spot.contentid}
-                          href={kakaoPlaceUrl(spot.title, Number(spot.mapy), Number(spot.mapx))}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          aria-label={`${spot.title} 카카오맵에서 보기`}
-                          className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-violet hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
-                        >
-                          <div className="relative flex h-40 items-center justify-center overflow-hidden bg-app-bg">
-                            {spot.firstimage ? (
-                              <img
-                                src={spot.firstimage}
-                                alt={spot.title}
-                                className="h-full w-full object-cover"
-                                loading="lazy"
-                              />
-                            ) : (
-                              <Compass size={28} className="text-app-text-muted opacity-30" />
-                            )}
-                            {spot.dist && (
-                              <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[0.5625rem] font-extrabold text-brand-violet backdrop-blur-md">
-                                {Math.round(Number(spot.dist))}m
-                              </div>
-                            )}
-                          </div>
-                          <div className="p-5">
-                            <h3 className="mb-1 truncate text-sm font-extrabold text-app-text group-hover:text-brand-violet">
-                              {spot.title}
-                            </h3>
-                            <p className="truncate text-[0.625rem] font-bold text-app-text-muted">
-                              {spot.addr1}
-                            </p>
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-        )}
-
-        {/* 오늘 열리는 행사 — 매일 바뀌므로 캐싱이 원천적으로 불가능한 데이터 */}
-        {(festivalsLoading || festivals.length > 0) && (
-          <section>
-            <div className="mb-6 flex items-center gap-3">
-              <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-              <h2 className="text-xl font-extrabold tracking-tight text-app-text">
-                {t('siteFestivalsTitle')}
-              </h2>
-              <span className="text-[0.625rem] font-bold text-app-text-muted">
-                {t('siteLiveSource')}
-              </span>
-            </div>
-            <div className="space-y-3">
-              {festivalsLoading
-                ? [1, 2].map((i) => (
-                    <div key={i} className="h-16 animate-pulse rounded-lg bg-app-bg" />
-                  ))
-                : festivals.map((spot) => (
+              {facilitiesLoading ? (
+                <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
+                  {[1, 2, 3].map((i) => (
                     <div
-                      key={spot.contentid}
-                      className="flex items-center gap-4 rounded-lg border border-app-border bg-app-bg p-4"
-                    >
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-violet/10 text-brand-violet">
-                        <PartyPopper size={18} />
-                      </div>
-                      <div className="min-w-0">
-                        <h3 className="truncate text-sm font-extrabold text-app-text">
-                          {spot.title}
+                      key={i}
+                      className="h-64 w-44 flex-shrink-0 animate-pulse rounded-lg bg-app-bg"
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-8">
+                  {facilityGroups.map(({ group, spots }) => (
+                    <div key={group}>
+                      <div className="mb-3 flex items-baseline gap-2">
+                        <h3 className="text-lg font-bold text-app-text">
+                          {t(GROUP_LABEL_KEY[group])}
                         </h3>
-                        <p className="truncate text-[0.625rem] font-bold text-app-text-muted">
-                          {spot.addr1}
-                        </p>
+                        <span className="text-sm text-app-text-muted">
+                          {t(GROUP_HINT_KEY[group])}
+                        </span>
+                      </div>
+                      <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
+                        {spots.map((spot) => (
+                          <a
+                            key={spot.contentid}
+                            href={kakaoPlaceUrl(spot.title, Number(spot.mapy), Number(spot.mapx))}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            aria-label={`${spot.title} 카카오맵에서 보기`}
+                            className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left transition-colors hover:border-brand-blue"
+                          >
+                            <div className="relative flex h-36 items-center justify-center overflow-hidden bg-app-panel">
+                              {spot.firstimage ? (
+                                <img
+                                  src={spot.firstimage}
+                                  alt={spot.title}
+                                  className="h-full w-full object-cover"
+                                  loading="lazy"
+                                />
+                              ) : (
+                                <Compass
+                                  size={28}
+                                  className="text-app-text-muted opacity-30"
+                                  aria-hidden
+                                />
+                              )}
+                              {spot.dist && (
+                                <div className="absolute left-2 top-2 rounded-md bg-white/90 px-2 py-0.5 text-xs font-bold tabular-nums text-brand-blue backdrop-blur-md">
+                                  {Math.round(Number(spot.dist))}m
+                                </div>
+                              )}
+                            </div>
+                            <div className="p-4">
+                              <h4 className="mb-1 truncate text-base font-bold text-app-text group-hover:text-brand-blue">
+                                {spot.title}
+                              </h4>
+                              <p className="truncate text-sm text-app-text-muted">{spot.addr1}</p>
+                            </div>
+                          </a>
+                        ))}
                       </div>
                     </div>
                   ))}
-            </div>
-          </section>
-        )}
+                </div>
+              )}
+            </section>
+          )}
 
-        {walkingCourses.length > 0 && (
-          <section>
-            <div className="mb-6 flex items-center gap-3">
-              <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-              <h2 className="text-xl font-extrabold tracking-tight text-app-text">
-                {t('siteWalkingCoursesTitle')}
-              </h2>
-            </div>
-            <div className="space-y-2">
-              {walkingCourses.slice(0, 3).map((course, index) => (
-                <WalkingCourseCard key={course.crsIdx ?? index} course={course} />
-              ))}
-            </div>
-          </section>
-        )}
+          {/* 오늘 열리는 행사 — 매일 바뀌므로 캐싱이 원천적으로 불가능한 데이터 */}
+          {(festivalsLoading || festivals.length > 0) && (
+            <section>
+              <SectionHeading title={t('siteFestivalsTitle')} meta={t('siteLiveSource')} />
+              <div className="space-y-3">
+                {festivalsLoading
+                  ? [1, 2].map((i) => (
+                      <div key={i} className="h-16 animate-pulse rounded-lg bg-app-bg" />
+                    ))
+                  : festivals.map((spot) => (
+                      <div
+                        key={spot.contentid}
+                        className="flex items-center gap-4 rounded-lg border border-app-border bg-white p-4"
+                      >
+                        <div
+                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand-blue"
+                          aria-hidden
+                        >
+                          <PartyPopper size={20} />
+                        </div>
+                        <div className="min-w-0">
+                          <h3 className="truncate text-base font-bold text-app-text">
+                            {spot.title}
+                          </h3>
+                          <p className="truncate text-sm text-app-text-muted">{spot.addr1}</p>
+                        </div>
+                      </div>
+                    ))}
+              </div>
+            </section>
+          )}
 
+          {walkingCourses.length > 0 && (
+            <section>
+              <SectionHeading title={t('siteWalkingCoursesTitle')} />
+              <div className="space-y-3">
+                {walkingCourses.slice(0, 3).map((course, index) => (
+                  <WalkingCourseCard key={course.crsIdx ?? index} course={course} />
+                ))}
+              </div>
+            </section>
+          )}
         </section>
 
         {/* 순례 스탬프 찍기 — 이 화면의 진짜 주인공(T-004). 다른 섹션과 같은
@@ -821,27 +794,27 @@ export default function SiteDetailPage() {
             가장 먼저 눈에 띄게 만든다. 안내 문구와 버튼 사이는 예전에 -mb-2 로
             좁혔다가 버튼을 8px 끌어올려 문구를 가리는 문제가 있었다 — 여기서도
             래퍼 안에서 space-y 로만 간격을 준다. */}
-        <section className="space-y-3 rounded-lg border-2 border-brand-blue bg-brand-blue/[0.06] p-6 shadow-lg shadow-brand-blue/10">
+        <section className="space-y-3 rounded-lg border-2 border-brand-blue bg-brand-soft/60 p-5">
           {!stamped &&
             (wydNow ? (
               // WYD 대회 기간 — 다시 오지 않는 날짜. 이 기간의 스탬프는 그 자체로 참가 증명이다.
-              <p className="text-center text-[0.6875rem] font-bold text-amber-600">
+              <p className="text-center text-sm font-bold text-amber-700">
                 ✨{' '}
                 <span className="font-extrabold">
                   {language === 'ko' ? WYD_LIMITED_LABEL_KO : WYD_LIMITED_LABEL_EN}
                 </span>
-                <span className="mt-0.5 block text-[0.625rem] font-semibold text-app-text-muted">
+                <span className="mt-0.5 block text-sm font-medium text-app-text-muted">
                   {t('stampWydNote')}
                 </span>
               </p>
             ) : (
-              <p className="text-center text-[0.6875rem] font-bold text-app-text-muted">
+              <p className="text-center text-sm font-bold text-app-text-muted">
                 {t('stampLimitedTitle')}{' '}
                 <span className={todayLiturgical.colorClass.text}>
                   {todayLiturgical.emoji} {t(todayLiturgical.labelKey)}
                 </span>
                 {/* 기한이 보여야 한정판이 한정판이 된다 — 재방문의 이유 */}
-                <span className="mt-0.5 block text-[0.625rem] font-semibold">
+                <span className="mt-0.5 block text-sm font-medium">
                   {fillPlaceholders(t('stampInkChanges'), {
                     days: inkWindow.daysLeft,
                     next: t(inkWindow.nextLabelKey),
@@ -854,14 +827,14 @@ export default function SiteDetailPage() {
             <button
               onClick={handleStamp}
               disabled={stamped || addStamp.isPending}
-              className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-5 text-sm font-extrabold shadow-2xl transition-all ${
+              className={`flex min-h-14 flex-1 items-center justify-center gap-2 rounded-lg text-lg font-bold transition-colors ${
                 stamped
-                  ? 'border border-emerald-200 bg-emerald-50 text-emerald-600 shadow-none'
-                  : 'bg-brand-blue text-white shadow-brand-blue/20 hover:bg-brand-blue/90'
+                  ? 'border border-emerald-200 bg-emerald-50 text-emerald-700'
+                  : 'bg-brand-blue text-white hover:bg-brand-blue/90'
               }`}
               id="stamp-button"
             >
-              {stamped ? <Check size={20} /> : <Stamp size={20} />}
+              {stamped ? <Check size={22} aria-hidden /> : <Stamp size={22} aria-hidden />}
               {addStamp.isPending
                 ? t('stampRecording')
                 : stamped
@@ -873,37 +846,40 @@ export default function SiteDetailPage() {
           {/* 공유 버튼 — 방문정보 섹션들 뒤에 있으면 스탬프를 막 찍은 사람이
               다시 스크롤해야 했다(T-004). 스탬프 버튼 바로 아래로 옮긴다. */}
           {stamped && (
-            <button
+            <Button
+              variant="secondary"
+              block
               onClick={() => void handleShareCard()}
               disabled={shareLoading}
-              className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-brand-violet/40 bg-white py-4 text-sm font-bold text-brand-violet disabled:opacity-50"
               id="share-card-button"
             >
-              <Share2 size={18} />
+              <Share2 size={18} aria-hidden />
               {shareLoading ? t('shareCardMaking') : t('shareStampCard')}
-            </button>
+            </Button>
           )}
         </section>
 
         {/* 한 줄 남기기 — 붐빔 지수는 추정이고, 실제로 조용했는지는 다녀온
             사람만 안다. 이 한 줄이 다음 방문자의 판단 근거가 된다 (컨셉 축 3). */}
         {stamped && !myStamp?.note && !noteDismissed && (
-          <div className="rounded-lg border border-app-border bg-white p-5">
-            <p className="text-sm font-bold text-app-text">{t('noteAskTitle')}</p>
+          <Card>
+            <p className="text-base font-bold text-app-text">{t('noteAskTitle')}</p>
             {/* 오늘의 질문 — 빈 입력창은 쓰기 어렵지만 질문에는 답하게 된다.
                 이 성지의 역사에서 나온 질문이라, 답이 곧 이곳과 나의 기록이 된다. */}
-            <blockquote className="mt-2 border-l-2 border-brand-violet/40 pl-3 text-xs font-semibold leading-relaxed text-brand-violet">
+            <blockquote className="mt-2 border-l-2 border-brand-blue/40 pl-3 text-sm font-medium leading-relaxed text-brand-blue">
               {language === 'ko'
                 ? resolveReflectionQuestion(site.name, site.category).ko
                 : resolveReflectionQuestion(site.name, site.category).en}
             </blockquote>
-            <p className="mt-2 text-xs leading-relaxed text-app-text-muted">{t('noteHint')}</p>
+            <p className="mt-2 text-sm leading-relaxed text-app-text-muted">{t('noteHint')}</p>
             <input
               type="text"
+              name="note"
+              autoComplete="off"
               maxLength={NOTE_MAX_LENGTH}
               placeholder={t('notePlaceholder')}
               aria-label={t('noteAriaLabel')}
-              className="mt-3 w-full rounded-lg border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
+              className="mt-3 min-h-12 w-full rounded-lg border border-app-border bg-white px-4 text-base text-app-text focus:border-brand-blue"
               value={noteDraft}
               onChange={(e) => setNoteDraft(e.target.value)}
               onKeyDown={(e) => {
@@ -911,29 +887,26 @@ export default function SiteDetailPage() {
               }}
             />
             <div className="mt-3 flex justify-end gap-2">
-              <button
-                onClick={() => setNoteDismissed(true)}
-                className="rounded-lg px-4 py-2 text-xs font-bold text-app-text-muted"
-              >
+              <Button variant="ghost" size="sm" onClick={() => setNoteDismissed(true)}>
                 {t('noteLater')}
-              </button>
-              <button
+              </Button>
+              <Button
+                size="sm"
                 onClick={handleSaveNote}
                 disabled={normalizeNote(noteDraft) === null || addStamp.isPending}
-                className="rounded-lg bg-brand-violet px-4 py-2 text-xs font-bold text-white disabled:opacity-40"
               >
                 {addStamp.isPending ? t('noteSubmitting') : t('noteSubmit')}
-              </button>
+              </Button>
             </div>
-          </div>
+          </Card>
         )}
 
         {stamped && (
-          <div className="rounded-lg border border-app-border bg-white p-5">
+          <Card>
             {myStamp?.note && (
               <>
-                <p className="text-xs font-bold text-app-text-muted">{t('noteMine')}</p>
-                <p className="mt-2 text-sm leading-relaxed text-app-text">
+                <p className="text-sm font-bold text-app-text-muted">{t('noteMine')}</p>
+                <p className="mt-2 text-base leading-relaxed text-app-text">
                   &ldquo;{myStamp.note}&rdquo;
                 </p>
               </>
@@ -959,11 +932,11 @@ export default function SiteDetailPage() {
               />
             ) : null}
             <label
-              className={`mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-brand-violet/40 py-3 text-xs font-bold text-brand-violet ${
+              className={`mt-3 flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg border-[1.5px] border-dashed border-brand-blue/50 text-base font-bold text-brand-blue transition-colors hover:bg-brand-soft ${
                 uploadPhotos.isPending ? 'opacity-50' : ''
               }`}
             >
-              <Camera size={14} aria-hidden />
+              <Camera size={18} aria-hidden />
               {uploadPhotos.isPending
                 ? t('photoUploading')
                 : myStamp?.photos.length
@@ -982,31 +955,33 @@ export default function SiteDetailPage() {
                 data-testid="photo-input"
               />
             </label>
-            <p className="mt-2 text-[0.625rem] leading-relaxed text-app-text-muted">
+            <p className="mt-2 text-sm leading-relaxed text-app-text-muted">
               {t('reviewPublicNotice')}
             </p>
-          </div>
+          </Card>
         )}
 
         {/* 다녀온 사람의 한 줄 — 추정 지수를 사람의 증언이 보정한다 */}
         {visitNotes.length > 0 && (
-          <div className="rounded-lg border border-app-border bg-white p-5">
+          <Card>
             <div className="flex items-center justify-between gap-3">
-              <p className="text-sm font-bold text-app-text">
+              <p className="text-base font-bold text-app-text">
                 {t('reviewsTitle').replace('{count}', String(visitNotes.length))}
               </p>
-              <button
-                type="button"
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={() => setReviewsOpen((open) => !open)}
-                className="text-xs font-bold text-brand-violet"
+                className="-mr-3 text-brand-blue"
+                aria-expanded={reviewsOpen}
               >
                 {reviewsOpen ? t('reviewsHide') : t('reviewsShow')}
-              </button>
+              </Button>
             </div>
-            <p className="mt-1 text-xs text-app-text-muted">{t('pilgrimStoriesHint')}</p>
+            <p className="mt-1 text-sm text-app-text-muted">{t('pilgrimStoriesHint')}</p>
             <ul className="mt-3 space-y-4">
               {visitNotes.map((n) => (
-                <li key={n.id} className="border-l-2 border-brand-violet/30 pl-3">
+                <li key={n.id} className="border-l-2 border-brand-blue/30 pl-3">
                   {n.photos.length > 0 && (
                     <div className="mb-2 grid grid-cols-3 gap-1">
                       {n.photos.map((url) => (
@@ -1021,11 +996,13 @@ export default function SiteDetailPage() {
                     </div>
                   )}
                   {n.note && (
-                    <p className="text-sm leading-relaxed text-app-text">&ldquo;{n.note}&rdquo;</p>
+                    <p className="text-base leading-relaxed text-app-text">
+                      &ldquo;{n.note}&rdquo;
+                    </p>
                   )}
                   <div className="mt-1 flex items-center justify-between">
-                    <p className="text-xs text-app-text-muted">
-                      {new Date(n.visitedAt).toLocaleDateString('ko-KR', {
+                    <p className="text-sm text-app-text-muted">
+                      {new Date(n.visitedAt).toLocaleDateString(SPEECH_LOCALE[language], {
                         month: 'long',
                         day: 'numeric',
                       })}{' '}
@@ -1035,55 +1012,49 @@ export default function SiteDetailPage() {
                     <button
                       onClick={() => handleReport(n.id)}
                       disabled={reportedIds.has(n.id)}
-                      className="flex items-center gap-1 text-[0.625rem] font-bold text-app-text-muted/60 disabled:opacity-40"
+                      className="flex min-h-11 items-center gap-1 rounded-lg px-2 text-sm font-bold text-app-text-muted transition-colors hover:bg-app-bg hover:text-app-text disabled:opacity-40"
                       aria-label={t('reportAction')}
                     >
-                      <Flag size={10} aria-hidden />
+                      <Flag size={14} aria-hidden />
                       {reportedIds.has(n.id) ? t('reportedAction') : t('reportAction')}
                     </button>
                   </div>
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-[0.625rem] leading-relaxed text-app-text-muted">
+            <p className="mt-4 text-sm leading-relaxed text-app-text-muted">
               {t('reviewModerationNotice')}
             </p>
-          </div>
+          </Card>
         )}
 
         {nearbySites.length > 0 && (
           <section className="pb-10">
-            <h2 className="mb-8 flex items-center gap-3 text-xl font-extrabold tracking-tight text-app-text">
-              <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-              {fillPlaceholders(t('siteOtherInDiocese'), {
+            <SectionHeading
+              title={fillPlaceholders(t('siteOtherInDiocese'), {
                 diocese: localizeRegionName(site.region, language),
               })}
-            </h2>
-            <div className="no-scrollbar -mx-8 flex gap-4 overflow-x-auto px-8">
+            />
+            <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
               {nearbySites.map((nearby) => (
                 <Link
                   key={nearby.id}
                   to={paths.siteDetail(nearby.id)}
-                  className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left shadow-sm"
+                  className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left transition-colors hover:border-brand-blue"
                   id={`nearby-${nearby.id}`}
                 >
-                  <div className="relative flex h-40 items-center justify-center overflow-hidden bg-app-bg">
+                  <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-app-panel">
                     <SiteThumbnail
                       imageUrl={nearby.imageUrl}
                       name={nearby.name}
-                      emojiSizeClass="text-4xl"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      category={nearby.category}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-1 text-[0.5625rem] font-extrabold text-brand-violet backdrop-blur-md">
-                      {localizeDomainValue(nearby.category, t)}
-                    </div>
                   </div>
-                  <div className="p-5">
-                    <h3 className="mb-1 truncate text-sm font-extrabold text-app-text">
-                      {nearby.name}
-                    </h3>
-                    <p className="truncate text-[0.625rem] font-bold text-app-text-muted">
-                      {nearby.location}
+                  <div className="px-3 pb-3 pt-2.5">
+                    <h3 className="truncate text-base font-bold text-app-text">{nearby.name}</h3>
+                    <p className="mt-0.5 truncate text-sm text-app-text-muted">
+                      {localizeDomainValue(nearby.category, t)} · {nearby.location}
                     </p>
                   </div>
                 </Link>

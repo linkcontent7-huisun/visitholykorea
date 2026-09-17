@@ -34,7 +34,9 @@ import {
   type TranslationKey,
 } from '@/shared/i18n/dictionary';
 import { localizeRegionName } from '@/shared/i18n/domain-labels';
+import { Button } from '@/shared/components/ui/Button';
 import { InstallShareSheet } from '@/shared/components/ui/InstallShareSheet';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
@@ -98,7 +100,9 @@ export default function MenuPage() {
 
   const isLoggedIn = Boolean(session);
   const displayName =
-    (session?.user.user_metadata?.name as string | undefined) || session?.user.email || t('pilgrimDefaultName');
+    (session?.user.user_metadata?.name as string | undefined) ||
+    session?.user.email ||
+    t('pilgrimDefaultName');
 
   const requireAuth = () => navigate(paths.login);
 
@@ -109,14 +113,25 @@ export default function MenuPage() {
    * 맨 위 「전체 서비스」 — 앱이 주는 것을 한눈에. 하단 탭 4개(이 화면 자신은 빼고) +
    * 탭에 두지 않은 화면(순례 코스·축제·전국 분포 개요·홈 화면 추가) (재기획 2026-09-14).
    */
-  const services: { id: string; icon: LucideIcon; label: string; to?: string; onClick?: () => void }[] = [
+  const services: {
+    id: string;
+    icon: LucideIcon;
+    label: string;
+    to?: string;
+    onClick?: () => void;
+  }[] = [
     ...[...NAV_ITEMS, ...TOP_NAV_ITEMS.filter((i) => !NAV_ITEMS.some((n) => n.id === i.id))]
       .filter((i) => i.id !== 'menu')
       .map((i) => ({ id: i.id, icon: i.icon as LucideIcon, label: t(i.labelKey), to: i.to })),
     { id: 'routes', icon: Footprints, label: t('routesTitle'), to: paths.routes },
     { id: 'festivals', icon: PartyPopper, label: t('festivalsTitle'), to: paths.festivals },
     { id: 'map', icon: MapIcon, label: t('mapOverviewTitle'), to: paths.map },
-    { id: 'install', icon: Smartphone, label: t('installTab'), onClick: () => setInstallSheetOpen(true) },
+    {
+      id: 'install',
+      icon: Smartphone,
+      label: t('installTab'),
+      onClick: () => setInstallSheetOpen(true),
+    },
   ];
 
   const sections: { title: string; items: MenuItem[] }[] = [
@@ -146,7 +161,7 @@ export default function MenuPage() {
               value={language}
               onChange={(e) => setLanguage(e.target.value as Language)}
               aria-label={t('languageSelectAria')}
-              className="rounded-lg border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20"
+              className="min-h-11 max-w-[45%] rounded-lg border border-app-border bg-white px-3 text-sm font-bold text-app-text"
             >
               {ENABLED_LANGUAGES.map((lang) => (
                 <option key={lang} value={lang}>
@@ -176,7 +191,9 @@ export default function MenuPage() {
           sub: gpsLocation
             ? t('currentLocationActiveSub')
             : origin
-              ? fillPlaceholders(t('originNearbyOrder'), { origin: localizeRegionName(origin, language) })
+              ? fillPlaceholders(t('originNearbyOrder'), {
+                  origin: localizeRegionName(origin, language),
+                })
               : t('originSub'),
           control: (
             <select
@@ -184,7 +201,7 @@ export default function MenuPage() {
               onChange={(e) => setOrigin((e.target.value || null) as Region | null)}
               aria-label={t('originSelectAria')}
               disabled={Boolean(gpsLocation)}
-              className="rounded-lg border border-app-border bg-app-bg px-4 py-2.5 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20 disabled:opacity-50"
+              className="min-h-11 max-w-[45%] rounded-lg border border-app-border bg-white px-3 text-sm font-bold text-app-text disabled:opacity-50"
             >
               <option value="">{t('originAll')}</option>
               {REGIONS.map((r) => (
@@ -241,12 +258,12 @@ export default function MenuPage() {
   ];
 
   return (
-    <div className="flex min-h-screen flex-col bg-app-bg">
+    <PageContainer className="flex min-h-page flex-col pb-16 pt-6">
       <InstallShareSheet open={installSheetOpen} onClose={() => setInstallSheetOpen(false)} />
 
       {/* 전체 서비스 — 이 화면의 첫 줄. 아이콘 옆에 이름, 4열(PC 6열) */}
-      <section className="px-8 pt-8">
-        <h1 className="mb-4 font-display text-[1.625rem] font-bold tracking-tight text-app-text">
+      <section>
+        <h1 className="mb-4 font-display text-[1.625rem] leading-tight text-app-text lg:text-3xl">
           {t('allServices')}
         </h1>
         <ul className="grid grid-cols-4 gap-2 lg:grid-cols-6" id="all-services">
@@ -254,15 +271,15 @@ export default function MenuPage() {
             const inner = (
               <>
                 <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-soft text-brand-blue">
-                  <svc.icon size={22} />
+                  <svc.icon size={22} aria-hidden />
                 </span>
-                <span className="break-keep text-center text-[0.8125rem] font-bold leading-tight text-app-text">
+                <span className="text-center text-sm font-bold leading-tight text-app-text">
                   {svc.label}
                 </span>
               </>
             );
             const cls =
-              'flex w-full flex-col items-center gap-1.5 rounded-lg border border-app-border bg-white px-1 py-3 transition-colors hover:border-brand-blue';
+              'flex min-h-[88px] w-full flex-col items-center justify-center gap-1.5 rounded-lg border border-app-border bg-white px-1 py-3 transition-colors hover:border-brand-blue';
             return (
               <li key={svc.id}>
                 {svc.to ? (
@@ -270,7 +287,12 @@ export default function MenuPage() {
                     {inner}
                   </Link>
                 ) : (
-                  <button type="button" onClick={svc.onClick} className={cls} id={`service-${svc.id}`}>
+                  <button
+                    type="button"
+                    onClick={svc.onClick}
+                    className={cls}
+                    id={`service-${svc.id}`}
+                  >
                     {inner}
                   </button>
                 )}
@@ -281,70 +303,66 @@ export default function MenuPage() {
       </section>
 
       {/* 내 정보 — 로그인 안 했으면 로그인·회원가입 입구 */}
-      <div className="mx-8 mb-8 mt-6 rounded-lg border border-app-border bg-white p-5">
-        <div className="flex items-center gap-5">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-soft">
+      <div className="mb-8 mt-6 rounded-lg border border-app-border bg-white p-5">
+        <div className="flex items-center gap-4">
+          <div
+            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-soft"
+            aria-hidden
+          >
             <User size={28} className="text-brand-blue" />
           </div>
-          <div className="flex-1">
-            <h2 className="mb-1 text-xl font-extrabold tracking-tight text-app-text">
+          <div className="min-w-0 flex-1">
+            <h2 className="mb-1 truncate text-xl font-bold text-app-text">
               {displayName}
               {/* 「님」은 한국어 존칭 — 다른 언어에는 붙일 말이 없다 */}
               {isLoggedIn && language === 'ko' ? ' 님' : ''}
             </h2>
             {isLoggedIn ? (
-              <p className="text-sm font-bold text-brand-violet">{t('menuGreeting')}</p>
+              <p className="text-base text-app-text-muted">{t('menuGreeting')}</p>
             ) : (
               <button
                 onClick={requireAuth}
-                className="flex items-center gap-1.5 text-sm font-bold text-brand-blue"
+                className="-ml-2 inline-flex min-h-11 items-center gap-1.5 rounded-lg px-2 text-base font-bold text-brand-blue transition-colors hover:bg-app-bg"
                 id="menu-login-prompt"
               >
-                <LogIn size={14} /> {t('login')} · {t('signup')}
+                <LogIn size={18} aria-hidden /> {t('login')} · {t('signup')}
               </button>
             )}
           </div>
         </div>
 
-        <div className="mt-6 grid grid-cols-2 gap-6 border-t border-app-border pt-6">
+        <div className="mt-5 grid grid-cols-2 gap-4 border-t border-app-border pt-5">
           <div className="border-r border-app-border text-center">
-            <p className="mb-1.5 text-[0.5625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
-              {t('countShrines')}
-            </p>
-            <p className="text-xl font-extrabold text-app-text">{stamps.length}</p>
+            <p className="mb-1 text-sm font-bold text-app-text-muted">{t('countShrines')}</p>
+            <p className="text-2xl font-bold tabular-nums text-app-text">{stamps.length}</p>
           </div>
           <div className="text-center">
-            <p className="mb-1.5 text-[0.5625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
-              {t('countJournals')}
-            </p>
-            <p className="text-xl font-extrabold text-app-text">{logs.length}</p>
+            <p className="mb-1 text-sm font-bold text-app-text-muted">{t('countJournals')}</p>
+            <p className="text-2xl font-bold tabular-nums text-app-text">{logs.length}</p>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 space-y-10 px-8 pb-32">
+      <div className="flex-1 space-y-8">
         {sections.map((section) => (
           <section key={section.title}>
-            <h3 className="mb-4 ml-4 text-[0.6875rem] font-extrabold uppercase tracking-[0.2em] text-app-text-muted">
-              {section.title}
-            </h3>
+            <h3 className="mb-3 ml-1 text-sm font-bold text-app-text-muted">{section.title}</h3>
             <div className="overflow-hidden rounded-lg border border-app-border bg-white">
               {section.items.map((item, idx) => {
-                const rowClass = `flex w-full items-center gap-5 p-6 ${
+                const rowClass = `flex min-h-16 w-full items-center gap-4 px-5 py-4 ${
                   idx !== section.items.length - 1 ? 'border-b border-app-border' : ''
                 }`;
                 const body = (
                   <>
-                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-app-panel text-app-text-muted">
+                    <div
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-app-panel text-app-text-muted"
+                      aria-hidden
+                    >
                       <item.icon size={20} />
                     </div>
-                    <div className="flex-1 text-left">
-                      <h4 className="font-bold tracking-tight text-app-text">{item.label}</h4>
-                      {item.sub && (
-                        <p className="mt-0.5 text-sm font-medium text-app-text-muted">
-                          {item.sub}
-                        </p>
-                      )}
+                    <div className="min-w-0 flex-1 text-left">
+                      <h4 className="text-base font-bold text-app-text">{item.label}</h4>
+                      {item.sub && <p className="mt-0.5 text-sm text-app-text-muted">{item.sub}</p>}
                     </div>
                   </>
                 );
@@ -372,7 +390,7 @@ export default function MenuPage() {
                     id={`menu-item-${item.id}`}
                   >
                     {body}
-                    <ChevronRight size={18} className="text-gray-300" />
+                    <ChevronRight size={20} className="shrink-0 text-app-text-muted" aria-hidden />
                   </button>
                 );
               })}
@@ -383,28 +401,30 @@ export default function MenuPage() {
         {canEnterAdmin && !SUBMISSION_MODE && (
           // 제출판은 본선 기능만 보이게 한다 — T-013
           // 운영자 전용 입구라 다국어로 만들지 않는다 — 이 줄을 보는 사람은 한국인 운영자뿐이다.
-          <button
+          <Button
+            variant="neutral"
+            block
             onClick={() => navigate(paths.admin)}
-            className="flex w-full items-center justify-center gap-2 rounded-lg border border-app-border bg-white p-5 text-sm font-bold text-app-text"
             id="admin-console-btn"
           >
-            <SlidersHorizontal size={16} />
+            <SlidersHorizontal size={18} aria-hidden />
             관리자 콘솔
-          </button>
+          </Button>
         )}
 
-        <button
+        <Button
+          variant="ghost"
+          block
           onClick={() => {
             if (isLoggedIn) void signOut();
             else requireAuth();
           }}
-          className="flex w-full items-center justify-center gap-2 p-6 text-xs font-bold uppercase tracking-widest text-app-text-muted transition-colors hover:text-red-500"
           id="logout-btn"
         >
-          {isLoggedIn ? <LogOut size={16} /> : <LogIn size={16} />}
+          {isLoggedIn ? <LogOut size={18} aria-hidden /> : <LogIn size={18} aria-hidden />}
           {isLoggedIn ? t('logout') : t('login')}
-        </button>
+        </Button>
       </div>
-    </div>
+    </PageContainer>
   );
 }

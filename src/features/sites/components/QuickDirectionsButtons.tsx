@@ -24,7 +24,7 @@ export function QuickDirectionsButtons({
   const links = buildMapLinks(destination, language === 'ko');
 
   return (
-    <div className="flex flex-wrap items-center gap-1.5">
+    <div className="flex flex-wrap items-center gap-2">
       {links.map((link) => (
         <a
           key={link.provider}
@@ -33,9 +33,9 @@ export function QuickDirectionsButtons({
           rel="noopener noreferrer"
           aria-label={`${siteName} — ${link.label} ${t('directions')}`}
           title={`${link.label} — ${t(link.noteKey)}`}
-          className="flex items-center gap-1 rounded-lg bg-app-bg px-2 py-1.5 text-[0.625rem] font-bold text-brand-violet transition-colors hover:bg-brand-violet/10"
+          className="inline-flex min-h-10 items-center gap-1 rounded-lg bg-app-panel px-3 text-sm font-bold text-brand-blue transition-colors hover:bg-brand-soft"
         >
-          <Navigation size={12} aria-hidden />
+          <Navigation size={14} aria-hidden />
           {link.label}
         </a>
       ))}

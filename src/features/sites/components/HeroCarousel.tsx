@@ -107,10 +107,12 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             />
             <div className="absolute inset-x-5 bottom-7 text-white [text-shadow:0_1px_8px_rgba(0,0,0,.45)] lg:inset-x-8 lg:bottom-10">
               <p className="text-sm font-bold tracking-wide opacity-95">{slide.caption}</p>
-              <h2 className="mt-1 font-display text-[1.75rem] leading-tight lg:text-[2.5rem]">{slide.name}</h2>
+              <h2 className="mt-1 font-display text-[1.75rem] leading-tight lg:text-[2.5rem]">
+                {slide.name}
+              </h2>
             </div>
             {/* CC 계열 라이선스 — 출처 표기는 의무 */}
-            <span className="absolute left-3 top-3.5 max-w-[60%] truncate rounded bg-black/40 px-2 py-0.5 text-[0.625rem] text-white/80 backdrop-blur-sm">
+            <span className="absolute left-3 top-3.5 max-w-[60%] truncate rounded bg-black/40 px-2 py-0.5 text-xs text-white/85 backdrop-blur-sm">
               {slide.credit}
             </span>
           </Link>
@@ -119,10 +121,22 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
 
       {count > 1 && (
         <>
-          <button type="button" onClick={() => goTo(index - 1)} className={`${arrowClass} left-3`} aria-label={t('heroPrev')} id="hero-prev">
+          <button
+            type="button"
+            onClick={() => goTo(index - 1)}
+            className={`${arrowClass} left-3`}
+            aria-label={t('heroPrev')}
+            id="hero-prev"
+          >
             <ChevronLeft size={24} aria-hidden />
           </button>
-          <button type="button" onClick={() => goTo(index + 1)} className={`${arrowClass} right-3`} aria-label={t('heroNext')} id="hero-next">
+          <button
+            type="button"
+            onClick={() => goTo(index + 1)}
+            className={`${arrowClass} right-3`}
+            aria-label={t('heroNext')}
+            id="hero-next"
+          >
             <ChevronRight size={24} aria-hidden />
           </button>
           <div

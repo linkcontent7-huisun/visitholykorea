@@ -33,15 +33,24 @@ export interface CrowdingLabelProps {
 }
 
 /** 값이 이미 있을 때 쓰는 순수 표시 부품. */
-export function CrowdingLabel({ level, text, variant = 'default', className = '', id }: CrowdingLabelProps) {
+export function CrowdingLabel({
+  level,
+  text,
+  variant = 'default',
+  className = '',
+  id,
+}: CrowdingLabelProps) {
   const { t } = useSettings();
   return (
     <span
       id={id}
       title={t('crowdingBasisLabel')}
-      className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1 text-[0.6875rem] font-bold ${PILL_CLASS[variant]} ${className}`}
+      className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1 text-xs font-bold ${PILL_CLASS[variant]} ${className}`}
     >
-      <span aria-hidden className={`inline-block h-2.5 w-2.5 shrink-0 rounded-full ${DOT_CLASS[level]}`} />
+      <span
+        aria-hidden
+        className={`inline-block h-2.5 w-2.5 shrink-0 rounded-full ${DOT_CLASS[level]}`}
+      />
       {text ?? nearbyHeadline(level, t)}
     </span>
   );
@@ -62,5 +71,12 @@ export function NearbyCrowdingLabel({
 }) {
   const { data } = useNearbyCrowding(site);
   if (!data?.level) return null;
-  return <CrowdingLabel level={data.level} variant={variant} className={className} id="nearby-crowding" />;
+  return (
+    <CrowdingLabel
+      level={data.level}
+      variant={variant}
+      className={className}
+      id="nearby-crowding"
+    />
+  );
 }

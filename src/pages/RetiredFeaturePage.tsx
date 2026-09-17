@@ -1,6 +1,8 @@
 import { Search } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
+import { ButtonLink } from '@/shared/components/ui/Button';
+import { Card } from '@/shared/components/ui/Card';
+import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { useSettings } from '@/shared/i18n/use-settings';
 
@@ -20,19 +22,20 @@ export default function RetiredFeaturePage({ feature }: { feature: 'ai' }) {
   const body = t('retiredAiBody');
 
   return (
-    <PageContainer className="min-h-page py-12">
-      <div className="mx-auto max-w-lg rounded-lg border border-app-border bg-white p-8 text-center">
-        <h1 className="text-xl font-extrabold tracking-tight text-app-text">{title}</h1>
-        <p className="mt-3 text-sm leading-relaxed text-app-text-muted">{body}</p>
-        <Link
-          to={paths.search}
-          className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-brand-blue px-6 text-sm font-bold text-white"
-          id="retired-go-search"
-        >
-          <Search size={16} aria-hidden />
-          {t('goToFindShrines')}
-        </Link>
-      </div>
+    <PageContainer width="narrow" className="min-h-page py-12">
+      <Card>
+        <EmptyState
+          compact
+          title={<h1>{title}</h1>}
+          description={body}
+          action={
+            <ButtonLink to={paths.search} id="retired-go-search">
+              <Search size={18} aria-hidden />
+              {t('goToFindShrines')}
+            </ButtonLink>
+          }
+        />
+      </Card>
     </PageContainer>
   );
 }

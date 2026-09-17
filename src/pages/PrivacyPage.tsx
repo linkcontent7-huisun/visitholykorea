@@ -1,5 +1,5 @@
-import { ChevronLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { PageHeader } from '@/shared/components/ui/PageHeader';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 /**
@@ -68,49 +68,38 @@ const ITEMS: PrivacyItem[] = [
 ];
 
 export default function PrivacyPage() {
-  const navigate = useNavigate();
-  const { wideView, language, t } = useSettings();
-  const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
+  const { language } = useSettings();
   const lang: 'ko' | 'en' = language === 'ko' ? 'ko' : 'en';
 
   return (
-    <div className={`mx-auto flex min-h-page ${widthClass} flex-col bg-white`}>
-      <div className="flex h-16 shrink-0 items-center px-4">
-        <button
-          onClick={() => navigate(-1)}
-          className="min-h-11 min-w-11 p-2 text-slate-800"
-          aria-label={t('backAria')}
-        >
-          <ChevronLeft size={28} />
-        </button>
-      </div>
-
-      <div className="flex-1 px-8 pb-16">
-        <h1 className="mb-2 text-3xl font-black tracking-tight text-slate-900">
-          {lang === 'ko' ? '개인정보 안내' : 'Privacy notice'}
-        </h1>
-        <p className="mb-8 text-sm leading-relaxed text-slate-500">
-          {lang === 'ko'
+    <PageContainer width="narrow" className="min-h-page pb-16">
+      <PageHeader
+        back
+        title={lang === 'ko' ? '개인정보 안내' : 'Privacy notice'}
+        sub={
+          lang === 'ko'
             ? '이 안내는 초안입니다. ▶ 표시가 있는 항목은 운영자가 값을 확정한 뒤 갱신됩니다.'
-            : 'This notice is a draft. Items marked ▶ will be updated once the operator confirms the values.'}
-        </p>
+            : 'This notice is a draft. Items marked ▶ will be updated once the operator confirms the values.'
+        }
+      />
 
+      <div className="mt-2">
         {ITEMS.map((item) => (
           <article key={item.title.en} className="mb-8">
-            <h2 className="mb-2 flex items-center gap-2 text-base font-extrabold text-slate-900">
+            <h2 className="mb-2 flex flex-wrap items-center gap-2 text-lg font-bold text-app-text">
               {item.title[lang]}
               {item.needsOperator && (
-                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[0.6875rem] font-bold text-amber-800">
+                <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-800">
                   {lang === 'ko' ? '운영자 확인 필요' : 'Operator to confirm'}
                 </span>
               )}
             </h2>
-            <p className="whitespace-pre-line text-sm leading-relaxed text-slate-600">
+            <p className="whitespace-pre-line text-base leading-relaxed text-app-text-muted">
               {item.body[lang]}
             </p>
           </article>
         ))}
       </div>
-    </div>
+    </PageContainer>
   );
 }

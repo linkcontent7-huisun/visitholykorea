@@ -46,15 +46,18 @@ export function TextSizePicker({ inline = false }: { inline?: boolean }) {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className={`flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-full transition-colors ${
-            textSize !== 'sm' ? 'bg-brand-blue text-white' : 'bg-app-border text-app-text-muted'
+          // 상단바의 세 단추(돋보기·글자 크기·언어)는 같은 44px 테두리 상자다. 글자 크기를 키워 둔 상태만 남색으로 채운다.
+          className={`flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] transition-colors ${
+            textSize !== 'sm'
+              ? 'border-brand-blue bg-brand-blue text-white'
+              : 'border-app-border bg-white text-brand-blue hover:bg-app-bg'
           }`}
           id="text-size-toggle"
           aria-label={t('textSizeButton')}
           aria-expanded={open}
           aria-controls="text-size-options"
         >
-          <Type size={15} />
+          <Type size={20} aria-hidden />
         </button>
       )}
 
@@ -65,8 +68,8 @@ export function TextSizePicker({ inline = false }: { inline?: boolean }) {
           aria-label={t('textSizeButton')}
           className={
             inline
-              ? 'flex items-center gap-[2px] rounded-full border border-app-border bg-white p-[2px]'
-              : 'absolute right-0 top-[calc(100%+6px)] z-50 flex w-[64px] flex-col gap-[2px] rounded-lg border border-app-border bg-white p-[3px] shadow-lg shadow-black/10'
+              ? 'flex items-center gap-[2px] rounded-lg border border-app-border bg-white p-[2px]'
+              : 'absolute right-0 top-[calc(100%+6px)] z-50 flex w-[76px] flex-col gap-[2px] rounded-lg border border-app-border bg-white p-[3px] shadow-lg shadow-black/10'
           }
         >
           {/* 펼침일 때는 큰 것부터 — 위에서 아래로 대·중·소 */}
@@ -79,8 +82,8 @@ export function TextSizePicker({ inline = false }: { inline?: boolean }) {
                 role="radio"
                 aria-checked={active}
                 onClick={() => choose(size)}
-                className={`rounded-full px-[10px] text-[13px] font-bold leading-none transition-colors ${
-                  inline ? 'min-w-[34px] py-[6px]' : 'py-[9px]'
+                className={`rounded-lg px-[10px] text-[14px] font-bold leading-none transition-colors ${
+                  inline ? 'min-h-[40px] min-w-[44px]' : 'min-h-[44px]'
                 } ${
                   active ? 'bg-brand-blue text-white' : 'text-app-text-muted hover:text-brand-blue'
                 }`}

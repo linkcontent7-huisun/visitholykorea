@@ -77,7 +77,7 @@ export function TopNav() {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-[8px] lg:gap-[16px]">
+        <div className="ml-auto flex items-center gap-[8px] lg:gap-[12px]">
           {/* 검색 — 데스크톱은 입력창 모양, 모바일은 아이콘 하나 */}
           <Link
             to={paths.search}

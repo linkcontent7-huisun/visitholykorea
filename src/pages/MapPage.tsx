@@ -12,6 +12,8 @@ import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { Button, ButtonLink } from '@/shared/components/ui/Button';
+import { Chip } from '@/shared/components/ui/Chip';
 import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
 import type { HolySite } from '@/shared/types/domain';
 
@@ -97,32 +99,32 @@ export default function MapPage() {
 
   /** 핀·목록에서 고른 성지 카드. 구글맵처럼 정보보다 행동이 먼저 온다. */
   const selectedCard = selectedSite && (
-    <div className="rounded-lg border border-brand-blue/30 bg-white p-5 shadow-sm">
-      <span className="text-[0.625rem] font-extrabold uppercase tracking-tight text-brand-violet">
+    <div className="rounded-lg border border-brand-blue/40 bg-white p-5">
+      <span className="text-sm font-bold text-brand-blue">
         {selectedSite.region} · {selectedSite.category}
       </span>
-      <h2 className="mt-0.5 text-base font-bold text-app-text">{selectedSite.name}</h2>
+      <h2 className="mt-0.5 text-lg font-bold text-app-text">{selectedSite.name}</h2>
       <p className="mt-1 text-sm text-app-text-muted">{selectedSite.location}</p>
 
       <div className="mt-4 flex gap-2">
-        <button
-          type="button"
+        <Button
+          variant={visitedIds.has(selectedSite.id) ? 'primary' : 'neutral'}
+          size="sm"
           onClick={() => toggle(selectedSite.id)}
-          className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-4 py-3 text-sm font-bold transition-all ${
-            visitedIds.has(selectedSite.id)
-              ? 'bg-brand-blue text-white'
-              : 'border border-app-border bg-white text-app-text hover:border-brand-violet'
-          }`}
+          className="flex-1"
+          aria-pressed={visitedIds.has(selectedSite.id)}
         >
-          <Check size={16} />
+          <Check size={16} aria-hidden />
           {visitedIds.has(selectedSite.id) ? t('visited') : t('markVisited')}
-        </button>
-        <Link
+        </Button>
+        <ButtonLink
           to={paths.siteDetail(selectedSite.id)}
-          className="flex flex-1 items-center justify-center rounded-lg border border-app-border bg-white px-4 py-3 text-sm font-bold text-app-text hover:border-brand-violet"
+          variant="secondary"
+          size="sm"
+          className="flex-1"
         >
           자세히
-        </Link>
+        </ButtonLink>
       </div>
 
       {/* 이 지도는 조망용이라 실제 길찾기가 없다는 피드백(2026-09-07) — 여기서 바로 연결한다.
@@ -149,21 +151,21 @@ export default function MapPage() {
         ref={listRef}
         className="relative lg:w-[452px] lg:shrink-0 lg:overflow-y-auto lg:border-r lg:border-app-border lg:bg-white"
       >
-        <div className="p-6 pb-2">
-          <h1 className="mb-1 text-xl font-extrabold tracking-tight text-app-text">{t('mapOverviewTitle')}</h1>
-          <p className="mt-1 text-xs leading-relaxed text-app-text-muted">{t('mapOverviewNote')}</p>
-          <p className="text-sm text-app-text-muted">
+        <div className="px-5 pb-2 pt-6 lg:px-8">
+          <h1 className="mb-1 font-display text-[1.625rem] leading-tight text-app-text lg:text-3xl">
+            {t('mapOverviewTitle')}
+          </h1>
+          <p className="mt-2 text-sm leading-relaxed text-app-text-muted">{t('mapOverviewNote')}</p>
+          <p className="text-base text-app-text-muted">
             {isLoading
               ? t('loading')
               : fillPlaceholders(t('mapProgress'), { n: totalVisited, total: sites.length })}
           </p>
           {/* 실제 도로 지도로 착각했다는 피드백(2026-09-07) — 무엇을 보여주는 지도인지 밝힌다 */}
-          <p className="mt-1.5 text-xs leading-relaxed text-app-text-muted opacity-80">
-            {t('mapScopeNote')}
-          </p>
+          <p className="mt-1.5 text-sm leading-relaxed text-app-text-muted">{t('mapScopeNote')}</p>
 
           {nudge && (
-            <p className="mt-3 rounded-lg bg-brand-violet/10 px-4 py-3 text-sm font-semibold text-brand-violet">
+            <p className="mt-3 rounded-lg bg-brand-soft px-4 py-3 text-sm font-bold text-brand-blue">
               {nudge}
             </p>
           )}
@@ -172,15 +174,13 @@ export default function MapPage() {
             <div className="mt-3 flex items-start gap-3 rounded-lg border border-red-100 bg-red-50 px-4 py-3">
               <AlertTriangle size={18} className="mt-0.5 shrink-0 text-red-500" aria-hidden />
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-bold text-red-700">{t('mapSitesErrorTitle')}</p>
-                <p className="mt-1 text-xs leading-relaxed text-red-600">{t('mapSitesErrorBody')}</p>
-                <button
-                  type="button"
-                  onClick={() => void refetch()}
-                  className="mt-2 rounded-full bg-red-600 px-4 py-1.5 text-xs font-bold text-white"
-                >
+                <p className="text-base font-bold text-red-700">{t('mapSitesErrorTitle')}</p>
+                <p className="mt-1 text-sm leading-relaxed text-red-700">
+                  {t('mapSitesErrorBody')}
+                </p>
+                <Button variant="neutral" size="sm" onClick={() => void refetch()} className="mt-3">
                   {t('retry')}
-                </button>
+                </Button>
               </div>
             </div>
           )}
@@ -188,7 +188,7 @@ export default function MapPage() {
 
         {/* 지도 — 모바일에서만 여기에 온다 */}
         {!wideView && (
-          <div className="px-6">
+          <div className="px-5 lg:px-8">
             <div className="rounded-lg border border-app-border bg-white p-4">
               {mapNode}
               <div className="mt-3 border-t border-app-border pt-3">
@@ -199,41 +199,43 @@ export default function MapPage() {
         )}
 
         {/* 선택 카드 — 모바일에서만 여기에 온다(데스크톱은 지도 위에 뜬다) */}
-        {!wideView && selectedCard && <div className="mt-4 px-6">{selectedCard}</div>}
+        {!wideView && selectedCard && <div className="mt-4 px-5 lg:px-8">{selectedCard}</div>}
 
         {/* 검색 */}
-        <div className="mt-6 px-6 lg:mt-2">
+        <div className="mt-6 px-5 lg:mt-2 lg:px-8">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+            <Search
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted"
+              size={20}
+              aria-hidden
+            />
             <input
               type="search"
+              name="q"
+              autoComplete="off"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               placeholder={t('mapSearchSite')}
               aria-label={t('mapSearchSite')}
-              className="w-full rounded-lg border border-app-border bg-white py-3.5 pl-12 pr-4 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-brand-violet/50"
+              className="min-h-12 w-full rounded-lg border border-app-border bg-white pl-12 pr-4 text-base font-bold text-app-text focus:border-brand-blue"
             />
           </div>
 
           {selectedDiocese !== '전체' && (
-            <button
-              type="button"
-              onClick={() => setSelectedDiocese('전체')}
-              className="mt-3 rounded-full border border-brand-blue bg-brand-blue px-4 py-2 text-xs font-bold text-white"
-            >
+            <Chip active onClick={() => setSelectedDiocese('전체')} className="mt-3">
               {fillPlaceholders(t('clearDioceseFilter'), {
                 diocese: localizeRegionName(selectedDiocese, language),
               })}
-            </button>
+            </Chip>
           )}
         </div>
 
         {/* 목록 — 데스크톱에서는 마우스를 올리면 지도의 핀이 함께 강조된다 */}
-        <div className="space-y-3 p-6 pb-32 lg:pb-6">
+        <div className="space-y-3 px-5 py-6 pb-32 lg:px-8 lg:pb-6">
           {isLoading ? (
             [1, 2, 3].map((i) => <div key={i} className="h-20 animate-pulse rounded-lg bg-white" />)
           ) : visibleSites.length === 0 ? (
-            <p className="py-16 text-center text-sm font-medium text-app-text-muted">
+            <p className="py-16 text-center text-base text-app-text-muted">
               {t('noSitesMatchFilter')}
             </p>
           ) : (
@@ -255,8 +257,8 @@ export default function MapPage() {
         </div>
 
         {/* 교구별 진행 — 데스크톱에서는 목록 아래에 계속 둔다 */}
-        <div className="px-6 pb-10 lg:pb-8">
-          <h2 className="mb-3 text-sm font-extrabold text-app-text">{t('dioceseProgress')}</h2>
+        <div className="px-5 pb-10 lg:px-8 lg:pb-8">
+          <h2 className="mb-3 text-lg font-bold text-app-text">{t('dioceseProgress')}</h2>
           <DioceseProgressList
             progress={progress}
             selectedDiocese={selectedDiocese}
@@ -274,7 +276,9 @@ export default function MapPage() {
             <MapLegend />
           </div>
 
-          {selectedCard && <div className="absolute bottom-6 right-8 w-[320px]">{selectedCard}</div>}
+          {selectedCard && (
+            <div className="absolute bottom-6 right-8 w-[320px]">{selectedCard}</div>
+          )}
         </div>
       )}
     </div>
@@ -303,12 +307,12 @@ function MapListRow({
     <div ref={rowRef} onMouseEnter={onHover}>
       <Link
         to={paths.siteDetail(site.id)}
-        className={`flex items-center gap-4 rounded-lg border bg-white p-4 shadow-sm transition-all hover:shadow-md ${
+        className={`flex items-center gap-4 rounded-lg border bg-white p-4 transition-colors hover:border-brand-blue ${
           active ? 'border-brand-blue ring-1 ring-brand-blue/20' : 'border-app-border'
         }`}
         id={`map-item-${site.id}`}
       >
-        <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-app-bg text-brand-violet">
+        <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-app-panel text-brand-blue">
           {site.imageUrl ? (
             <SiteThumbnail
               imageUrl={site.imageUrl}
@@ -318,23 +322,21 @@ function MapListRow({
               className="h-full w-full object-cover"
             />
           ) : (
-            <MapPin size={20} />
+            <MapPin size={20} aria-hidden />
           )}
           {visited && (
             <span
               className="absolute -right-0.5 -top-0.5 flex size-5 items-center justify-center rounded-full bg-brand-blue text-white"
               aria-label={visitedLabel}
             >
-              <Check size={12} />
+              <Check size={12} aria-hidden />
             </span>
           )}
         </div>
         <div className="min-w-0 flex-1">
-          <span className="text-[0.5625rem] font-extrabold uppercase tracking-tight text-brand-violet">
-            {site.category}
-          </span>
-          <h4 className="truncate text-sm font-bold text-app-text">{site.name}</h4>
-          <p className="mt-0.5 truncate text-xs text-app-text-muted">{site.location}</p>
+          <span className="text-xs font-bold text-brand-blue">{site.category}</span>
+          <h3 className="truncate text-base font-bold text-app-text">{site.name}</h3>
+          <p className="mt-0.5 truncate text-sm text-app-text-muted">{site.location}</p>
         </div>
       </Link>
     </div>

@@ -1,6 +1,7 @@
 import { Check, Copy, ExternalLink, MapPin, Navigation } from 'lucide-react';
 import { useState } from 'react';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { buildMapLinks, copyText, formatCoordinates } from '@/shared/lib/map-links';
 import type { HolySite } from '@/shared/types/domain';
 
@@ -50,48 +51,48 @@ export function DirectionsCard({
 
   return (
     <section aria-labelledby="directions-heading">
-      <div className="mb-6 flex items-center gap-3">
-        <div className="h-6 w-1.5 rounded-full bg-brand-violet" />
-        <h2 id="directions-heading" className="text-xl font-extrabold tracking-tight text-app-text">
-          {t('directions')}
-        </h2>
-      </div>
+      <SectionHeading as="h3" size="md" id="directions-heading" title={t('directions')} />
 
       {/* 한국어 주소 — 이 화면에서 가장 중요한 요소라 가장 크게 둔다 */}
       <div className="mb-4 rounded-lg border border-app-border bg-app-bg p-5">
         <div className="mb-2 flex items-center justify-between gap-3">
-          <span className="text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
-            {t('addressKorean')}
-          </span>
+          <span className="text-sm font-bold text-app-text-muted">{t('addressKorean')}</span>
           <button
             onClick={() => void handleCopy(site.location, 'address')}
-            className="flex shrink-0 items-center gap-1.5 rounded-full border border-app-border bg-white px-3 py-1.5 text-[0.6875rem] font-bold text-app-text-muted transition-colors hover:border-brand-violet hover:text-brand-violet"
-            aria-label={t('addressKorean')}
+            className="flex min-h-10 shrink-0 items-center gap-1.5 rounded-lg border border-app-border bg-white px-3 text-sm font-bold text-app-text-muted transition-colors hover:border-brand-blue hover:text-brand-blue"
+            aria-label={`${t('addressKorean')} — ${copied === 'address' ? t('copied') : 'Copy'}`}
+            aria-live="polite"
           >
-            {copied === 'address' ? <Check size={13} /> : <Copy size={13} />}
+            {copied === 'address' ? (
+              <Check size={16} aria-hidden />
+            ) : (
+              <Copy size={16} aria-hidden />
+            )}
             {copied === 'address' ? t('copied') : 'Copy'}
           </button>
         </div>
 
         {/* 외국어 화면: 순례자가 읽을 영문 주소를 먼저 */}
         {language !== 'ko' && addressEnglish && (
-          <p className="mb-1 text-sm font-semibold leading-relaxed text-app-text-muted">
+          <p className="mb-1 text-base font-medium leading-relaxed text-app-text-muted">
             {addressEnglish}
           </p>
         )}
 
         {/* 택시 기사에게 보여줄 수 있도록 크고 선택 가능하게 */}
-        <p className="select-all text-lg font-bold leading-relaxed text-app-text" lang="ko">
+        <p className="select-all text-xl font-bold leading-relaxed text-app-text" lang="ko">
           {site.location}
         </p>
 
         {/* 영어 화면일 때만 이 주소가 왜 한국어인지 설명한다 */}
         {language !== 'ko' && (
-          <p className="mt-2 text-[0.75rem] leading-relaxed text-app-text-muted">{t('addressHint')}</p>
+          <p className="mt-2 text-sm leading-relaxed text-app-text-muted">{t('addressHint')}</p>
         )}
 
         {copyError && (
-          <p className="mt-2 text-[0.6875rem] font-medium text-app-text-muted">{t('copyFailed')}</p>
+          <p className="mt-2 text-sm text-app-text-muted" role="status">
+            {t('copyFailed')}
+          </p>
         )}
       </div>
 
@@ -100,25 +101,25 @@ export function DirectionsCard({
           {/* 좌표 — 어떤 지도 앱에도 붙여넣을 수 있는 최후의 수단 */}
           <div className="mb-4 flex items-center justify-between gap-3 rounded-lg border border-app-border bg-white px-5 py-3">
             <div className="min-w-0">
-              <span className="text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
-                {t('coordinates')}
-              </span>
-              <p className="select-all font-mono text-[0.8125rem] text-app-text">
+              <span className="text-sm font-bold text-app-text-muted">{t('coordinates')}</span>
+              <p className="select-all font-mono text-sm text-app-text" translate="no">
                 {formatCoordinates(lat, lng)}
               </p>
             </div>
             <button
               onClick={() => void handleCopy(formatCoordinates(lat, lng), 'coords')}
-              className="flex shrink-0 items-center gap-1.5 rounded-full border border-app-border px-3 py-1.5 text-[0.6875rem] font-bold text-app-text-muted transition-colors hover:border-brand-violet hover:text-brand-violet"
-              aria-label={t('coordinates')}
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-app-border text-app-text-muted transition-colors hover:border-brand-blue hover:text-brand-blue"
+              aria-label={`${t('coordinates')} — ${copied === 'coords' ? t('copied') : 'Copy'}`}
             >
-              {copied === 'coords' ? <Check size={13} /> : <Copy size={13} />}
+              {copied === 'coords' ? (
+                <Check size={18} aria-hidden />
+              ) : (
+                <Copy size={18} aria-hidden />
+              )}
             </button>
           </div>
 
-          <p className="mb-3 text-[0.625rem] font-extrabold uppercase tracking-widest text-app-text-muted">
-            {t('openInMapApp')}
-          </p>
+          <p className="mb-3 text-sm font-bold text-app-text-muted">{t('openInMapApp')}</p>
 
           {/* 하나로 몰지 않는다. 앱이 없는 사람이 막히면 안 된다 */}
           <div className="space-y-2">
@@ -128,27 +129,28 @@ export function DirectionsCard({
                 href={link.url}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="flex items-center gap-4 rounded-lg border border-app-border bg-white p-4 transition-colors hover:border-brand-blue/40"
+                className="flex min-h-16 items-center gap-4 rounded-lg border border-app-border bg-white p-4 transition-colors hover:border-brand-blue"
                 id={`map-${link.provider}`}
               >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-blue/5 text-brand-blue">
-                  <Navigation size={18} />
+                <div
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand-blue"
+                  aria-hidden
+                >
+                  <Navigation size={20} />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-bold text-app-text">{link.label}</p>
-                  <p className="text-[0.6875rem] leading-relaxed text-app-text-muted">
-                    {t(link.noteKey)}
-                  </p>
+                  <p className="text-base font-bold text-app-text">{link.label}</p>
+                  <p className="text-sm leading-relaxed text-app-text-muted">{t(link.noteKey)}</p>
                 </div>
-                <ExternalLink size={15} className="shrink-0 text-gray-300" />
+                <ExternalLink size={18} className="shrink-0 text-app-text-muted" aria-hidden />
               </a>
             ))}
           </div>
         </>
       ) : (
         <div className="flex items-center gap-3 rounded-lg border border-dashed border-app-border bg-white px-5 py-4">
-          <MapPin size={18} className="shrink-0 text-gray-300" />
-          <p className="text-[0.75rem] leading-relaxed text-app-text-muted">{t('noCoordinates')}</p>
+          <MapPin size={20} className="shrink-0 text-app-text-muted" aria-hidden />
+          <p className="text-base leading-relaxed text-app-text-muted">{t('noCoordinates')}</p>
         </div>
       )}
     </section>

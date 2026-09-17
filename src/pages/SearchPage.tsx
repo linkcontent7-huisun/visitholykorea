@@ -15,15 +15,19 @@
  * 조회 중에는 "0곳" 을 먼저 보여주지 않는다.
  */
 
-import { ArrowRight, Loader2, MapPin, Navigation, Phone, Search, X } from 'lucide-react';
+import { ChevronRight, Loader2, MapPin, Navigation, Phone, Search, SearchX, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
+import { DirectoryEntryCard } from '@/features/sites/components/DirectoryEntryCard';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
-import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirectionsButtons';
+import { Button } from '@/shared/components/ui/Button';
+import { chipClass } from '@/shared/components/ui/class-names';
+import { EmptyState } from '@/shared/components/ui/EmptyState';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { PageHeader } from '@/shared/components/ui/PageHeader';
 import { useLocalizedSites, useSiteSearch, useSites } from '@/features/sites/hooks/use-sites';
 import { useDirectorySearch } from '@/features/sites/hooks/use-nearby-directory';
-import { directoryDisplayAddress, directoryDisplayName } from '@/features/sites/lib/nearby-directory';
 import { normalizeSearchText, siteMatchesQuery } from '@/features/sites/lib/site-search-match';
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
@@ -58,7 +62,8 @@ export default function SearchPage() {
   const allSites = useLocalizedSites(allSitesRaw);
 
   // 서버 검색 — 번역 이름·로마자 주소까지. 실패해도 자체 목록 매칭은 그대로 간다.
-  const { data: serverResultsRaw = [], isFetching: serverSearching } = useSiteSearch(debouncedQuery);
+  const { data: serverResultsRaw = [], isFetching: serverSearching } =
+    useSiteSearch(debouncedQuery);
   const serverResults = useLocalizedSites(serverResultsRaw);
   // 208곳 밖의 본당·공소 주소록
   const { data: directoryResults = [] } = useDirectorySearch(debouncedQuery);
@@ -95,28 +100,41 @@ export default function SearchPage() {
       list.sort((a, b) => a.name.localeCompare(b.name, 'ko'));
     }
     return list;
-  }, [allSites, serverResults, needle, hasQuery, hasFilter, diocese, region, purpose, nearestFirst, from]);
+  }, [
+    allSites,
+    serverResults,
+    needle,
+    hasQuery,
+    hasFilter,
+    diocese,
+    region,
+    purpose,
+    nearestFirst,
+    from,
+  ]);
 
   const active = hasQuery || hasFilter;
-  const searching = active && (sitesLoading || (hasQuery && serverSearching && results.length === 0));
+  const searching =
+    active && (sitesLoading || (hasQuery && serverSearching && results.length === 0));
 
   const selectClass =
-    'min-h-11 rounded-lg border border-app-border bg-white px-3 text-sm font-bold text-app-text outline-none focus:ring-2 focus:ring-brand-violet/20';
+    'min-h-12 rounded-lg border border-app-border bg-white px-3 text-base font-bold text-app-text';
 
   return (
-    <div className="mx-auto flex min-h-page w-full max-w-3xl flex-col bg-white">
+    <PageContainer width="narrow" className="flex min-h-page flex-col pb-16">
       {/* 검색 입력 */}
-      <div className="border-b border-app-border px-5 pt-5 pb-4">
-        <h1 className="mb-3 text-xl font-extrabold tracking-tight text-app-text">{t('searchPageTitle')}</h1>
+      <div className="border-b border-app-border pb-5">
+        <PageHeader title={t('searchPageTitle')} className="pb-4" />
         <div className="flex items-center gap-3 rounded-lg border-[1.5px] border-app-border bg-white px-4 focus-within:border-brand-blue">
-          <Search className="shrink-0 text-app-text-muted" size={20} aria-hidden />
+          <Search className="shrink-0 text-app-text-muted" size={22} aria-hidden />
           <input
-            autoFocus
             type="search"
+            name="q"
             autoComplete="off"
+            enterKeyHint="search"
             placeholder={t('searchInputPlaceholder')}
             aria-label={t('searchAria')}
-            className="min-h-12 flex-1 border-none bg-transparent text-base font-bold text-app-text focus:outline-none"
+            className="min-h-14 min-w-0 flex-1 border-none bg-transparent text-lg font-bold text-app-text focus:outline-none"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -124,20 +142,24 @@ export default function SearchPage() {
             <button
               type="button"
               onClick={() => setQuery('')}
-              className="min-h-11 min-w-11 text-app-text-muted hover:text-app-text"
+              className="-mr-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-app-text-muted hover:bg-app-bg hover:text-app-text"
               aria-label={t('searchCloseAria')}
             >
-              <X size={20} />
+              <X size={22} aria-hidden />
             </button>
           )}
         </div>
-        <p className="mt-2 text-xs leading-relaxed text-app-text-muted">{t('searchPageHint')}</p>
+        <p className="mt-2 text-sm leading-relaxed text-app-text-muted">{t('searchPageHint')}</p>
 
         {/* 필터 — 교구와 행정지역은 다른 축이다 */}
         <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-          <label className="flex flex-col gap-1 text-xs font-bold text-app-text-muted">
+          <label className="flex flex-col gap-1 text-sm font-bold text-app-text-muted">
             {t('searchFilterDiocese')}
-            <select value={diocese} onChange={(e) => setDiocese(e.target.value)} className={selectClass}>
+            <select
+              value={diocese}
+              onChange={(e) => setDiocese(e.target.value)}
+              className={selectClass}
+            >
               <option value="">{t('categoryAll')}</option>
               {DIOCESES.map((d) => (
                 <option key={d} value={d}>
@@ -146,7 +168,7 @@ export default function SearchPage() {
               ))}
             </select>
           </label>
-          <label className="flex flex-col gap-1 text-xs font-bold text-app-text-muted">
+          <label className="flex flex-col gap-1 text-sm font-bold text-app-text-muted">
             {t('searchFilterRegion')}
             <select
               value={region}
@@ -161,7 +183,7 @@ export default function SearchPage() {
               ))}
             </select>
           </label>
-          <label className="flex flex-col gap-1 text-xs font-bold text-app-text-muted">
+          <label className="flex flex-col gap-1 text-sm font-bold text-app-text-muted">
             {t('searchFilterPurpose')}
             <select
               value={purpose}
@@ -176,7 +198,7 @@ export default function SearchPage() {
               ))}
             </select>
           </label>
-          <div className="flex flex-col gap-1 text-xs font-bold text-app-text-muted">
+          <div className="flex flex-col gap-1 text-sm font-bold text-app-text-muted">
             {t('searchFilterTravel')}
             <button
               type="button"
@@ -185,47 +207,52 @@ export default function SearchPage() {
                 setNearestFirst((v) => !v);
               }}
               aria-pressed={nearestFirst}
-              className={`${selectClass} flex items-center justify-center gap-1.5 ${nearestFirst ? 'border-brand-violet text-brand-violet' : ''}`}
+              className={chipClass(nearestFirst, 'min-h-12 rounded-lg px-3')}
             >
-              <Navigation size={14} aria-hidden />
+              <Navigation size={16} aria-hidden />
               {t('searchNearestFirst')}
             </button>
           </div>
         </div>
         {nearestFirst && !from && (
-          <p className="mt-2 text-xs leading-relaxed text-app-text-muted" role="status">
+          <p className="mt-2 text-sm leading-relaxed text-app-text-muted" role="status">
             {gpsStatus === 'loading' ? t('currentLocationLoading') : t('searchNearestNeedsOrigin')}
           </p>
         )}
       </div>
 
-      <div className="flex-1 bg-white px-5 py-6">
+      <div className="flex-1 py-6">
         {/* 자체 데이터 없음 — 목록 자체를 못 받았을 때. 외부 API 와 무관한 우리 쪽 문제다. */}
         {sitesFailed && (
-          <div className="rounded-lg border border-app-border bg-white p-6 text-center" role="alert">
-            <p className="text-sm font-bold text-app-text">{t('ownDataFailedTitle')}</p>
-            <p className="mt-2 text-xs text-app-text-muted">{t('ownDataFailedBody')}</p>
-            <button
-              type="button"
-              onClick={() => void retrySites()}
-              className="mt-4 min-h-11 rounded-full border border-app-border px-5 text-sm font-bold text-app-text"
-            >
-              {t('retry')}
-            </button>
+          <div className="rounded-lg border border-app-border bg-white">
+            <EmptyState
+              compact
+              role="alert"
+              title={t('ownDataFailedTitle')}
+              description={t('ownDataFailedBody')}
+              action={
+                <Button variant="neutral" onClick={() => void retrySites()}>
+                  {t('retry')}
+                </Button>
+              }
+            />
           </div>
         )}
 
         {!active && !sitesFailed && (
-          <div className="py-14 text-center text-app-text-muted">
-            <Search size={40} className="mx-auto mb-4 opacity-20" aria-hidden />
-            <p className="font-bold">{t('searchPromptTitle')}</p>
-            <p className="mt-2 text-xs">{t('searchPromptBody')}</p>
-          </div>
+          <EmptyState
+            icon={Search}
+            title={t('searchPromptTitle')}
+            description={t('searchPromptBody')}
+          />
         )}
 
         {searching && (
-          <div className="flex items-center justify-center gap-2 py-8 text-app-text-muted" role="status">
-            <Loader2 className="animate-spin" size={16} aria-hidden /> {t('searching')}
+          <div
+            className="flex items-center justify-center gap-2 py-8 text-base text-app-text-muted"
+            role="status"
+          >
+            <Loader2 className="animate-spin" size={18} aria-hidden /> {t('searching')}
           </div>
         )}
 
@@ -233,24 +260,29 @@ export default function SearchPage() {
           <>
             {results.length > 0 ? (
               <section className="space-y-3" aria-label={t('searchResults')}>
-                <h2 className="text-xs font-black uppercase tracking-widest text-app-text-muted">
+                <h2 className="text-sm font-bold text-app-text-muted">
                   {fillPlaceholders(t('searchResultsCount'), { count: results.length })}
                 </h2>
                 <ul className="space-y-3">
                   {results.map((site) => {
                     const km =
                       from && site.coordinates.lat != null && site.coordinates.lng != null
-                        ? haversineKm(from.lat, from.lng, site.coordinates.lat, site.coordinates.lng)
+                        ? haversineKm(
+                            from.lat,
+                            from.lng,
+                            site.coordinates.lat,
+                            site.coordinates.lng,
+                          )
                         : null;
                     const addrRegion = regionOfAddress(site.location);
                     return (
                       <li key={site.id}>
                         <Link
                           to={paths.siteDetail(site.id)}
-                          className="flex w-full items-center gap-4 rounded-lg border border-app-border bg-white p-4 text-left shadow-sm transition-all hover:shadow-md"
+                          className="flex w-full items-center gap-4 rounded-lg border border-app-border bg-white p-4 text-left transition-colors hover:border-brand-blue"
                           id={`search-result-${site.id}`}
                         >
-                          <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white">
+                          <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-app-panel">
                             <SiteThumbnail
                               imageUrl={site.imageUrl}
                               name={site.name}
@@ -259,24 +291,32 @@ export default function SearchPage() {
                             />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <p className="truncate text-base font-bold text-app-text">{site.name}</p>
-                            <p className="mt-0.5 truncate text-xs text-app-text-muted">
+                            <p className="truncate text-lg font-bold text-app-text">{site.name}</p>
+                            <p className="mt-0.5 truncate text-sm text-app-text-muted">
                               {dioceseLabel(site.region, language)}
                               {addrRegion ? ` · ${localizeRegionName(addrRegion, language)}` : ''}
                               {' · '}
                               {localizeDomainValue(site.category, t)}
                             </p>
-                            <p className="mt-0.5 flex items-center gap-1 truncate text-xs text-app-text-muted">
-                              <MapPin size={10} aria-hidden /> {site.location}
+                            <p className="mt-0.5 flex items-center gap-1 truncate text-sm text-app-text-muted">
+                              <MapPin size={14} className="shrink-0" aria-hidden /> {site.location}
                             </p>
                             {km != null && (
-                              <p className="mt-0.5 text-[0.6875rem] font-bold text-brand-blue">
-                                {fillPlaceholders(t('straightLineLabel'), { distance: formatKm(km) })}
+                              <p className="mt-0.5 text-sm font-bold text-brand-blue">
+                                {fillPlaceholders(t('straightLineLabel'), {
+                                  distance: formatKm(km),
+                                })}
                               </p>
                             )}
                           </div>
-                          {site.phone && <Phone size={14} className="shrink-0 text-app-text-muted" aria-hidden />}
-                          <ArrowRight size={16} className="shrink-0 text-app-text-muted" aria-hidden />
+                          {site.phone && (
+                            <Phone size={16} className="shrink-0 text-app-text-muted" aria-hidden />
+                          )}
+                          <ChevronRight
+                            size={20}
+                            className="shrink-0 text-app-text-muted"
+                            aria-hidden
+                          />
                         </Link>
                       </li>
                     );
@@ -285,16 +325,19 @@ export default function SearchPage() {
               </section>
             ) : (
               directoryResults.length === 0 && (
-                <div className="rounded-lg border border-dashed border-app-border bg-white p-8 text-center">
-                  <p className="text-sm font-bold text-app-text">{t('searchNoResultsTitle')}</p>
-                  <p className="mt-2 text-xs leading-relaxed text-app-text-muted">{t('searchNoResultsBody')}</p>
-                  <button
-                    type="button"
-                    onClick={() => navigate(paths.home)}
-                    className="mt-4 min-h-11 rounded-full border border-app-border px-5 text-sm font-bold text-app-text"
-                  >
-                    {t('homeRegionTitle')}
-                  </button>
+                <div className="rounded-lg border border-dashed border-app-border bg-white">
+                  <EmptyState
+                    compact
+                    role="status"
+                    icon={SearchX}
+                    title={t('searchNoResultsTitle')}
+                    description={t('searchNoResultsBody')}
+                    action={
+                      <Button variant="neutral" onClick={() => navigate(paths.home)}>
+                        {t('homeRegionTitle')}
+                      </Button>
+                    }
+                  />
                 </div>
               )
             )}
@@ -303,61 +346,30 @@ export default function SearchPage() {
             {hasQuery && directoryResults.length > 0 && (
               <section className="mt-10 space-y-4">
                 <div>
-                  <h2 className="text-xs font-black uppercase tracking-widest text-app-text-muted">
+                  <h2 className="text-sm font-bold text-app-text-muted">
                     {t('directorySearchResults')}
                   </h2>
-                  <p className="mt-1.5 text-xs leading-relaxed text-app-text-muted">{t('directorySearchHint')}</p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-app-text-muted">
+                    {t('directorySearchHint')}
+                  </p>
                   {language !== 'ko' && directoryResults.some((e) => e.nameRomanized) && (
-                    <p className="mt-1 text-[0.6875rem] italic text-app-text-muted">{t('directoryRomanizedNote')}</p>
+                    <p className="mt-1 text-sm italic text-app-text-muted">
+                      {t('directoryRomanizedNote')}
+                    </p>
                   )}
                 </div>
                 <ul className="space-y-3">
-                  {directoryResults.map((entry) => {
-                    const displayName = directoryDisplayName(entry, language);
-                    const displayAddress = directoryDisplayAddress(entry, language);
-                    return (
-                      <li key={entry.id} className="rounded-lg border border-app-border bg-white p-4 shadow-sm">
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0 flex-1">
-                            <p className="flex flex-wrap items-center gap-2">
-                              <span className="truncate font-bold text-app-text">{displayName}</span>
-                              <span className="shrink-0 rounded-full bg-white px-2 py-0.5 text-[0.625rem] font-bold text-app-text-muted">
-                                {localizeDomainValue(entry.category, t)}
-                              </span>
-                            </p>
-                            {displayAddress && (
-                              <p className="mt-1 flex items-center gap-1 truncate text-xs text-app-text-muted">
-                                <MapPin size={10} className="shrink-0" aria-hidden /> {displayAddress}
-                              </p>
-                            )}
-                          </div>
-                          {entry.phone && (
-                            <a
-                              href={`tel:${entry.phone.replace(/[^0-9+]/g, '')}`}
-                              aria-label={`${entry.name} ${t('callPhone')}`}
-                              className="flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg bg-white text-brand-blue"
-                            >
-                              <Phone size={14} aria-hidden />
-                            </a>
-                          )}
-                        </div>
-                        {entry.lat != null && entry.lng != null && (
-                          <div className="mt-3 border-t border-app-border pt-3">
-                            <QuickDirectionsButtons
-                              destination={{ name: displayName, lat: entry.lat, lng: entry.lng }}
-                              siteName={displayName}
-                            />
-                          </div>
-                        )}
-                      </li>
-                    );
-                  })}
+                  {directoryResults.map((entry) => (
+                    <li key={entry.id}>
+                      <DirectoryEntryCard entry={entry} />
+                    </li>
+                  ))}
                 </ul>
               </section>
             )}
           </>
         )}
       </div>
-    </div>
+    </PageContainer>
   );
 }

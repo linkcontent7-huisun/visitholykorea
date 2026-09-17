@@ -1,5 +1,6 @@
 import { Bus, Phone } from 'lucide-react';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import type { HolySite } from '@/shared/types/domain';
 
 /**
@@ -18,23 +19,31 @@ export function TransitParkingCard({ site }: { site: HolySite }) {
 
   return (
     <section aria-labelledby="transit-heading">
-      <h2
+      <SectionHeading
+        as="h3"
+        size="md"
         id="transit-heading"
-        className="mb-3 flex items-center gap-2 text-sm font-extrabold text-app-text"
-      >
-        <Bus size={16} className="text-brand-blue" aria-hidden />
-        {t('transitParkingTitle')}
-      </h2>
-      <div className="rounded-lg border border-dashed border-app-border bg-white p-4">
-        <p className="text-sm leading-relaxed text-app-text-muted">{t('transitParkingUnknown')}</p>
-        <p className="mt-2 text-xs leading-relaxed text-app-text-muted">{t('transitParkingHint')}</p>
+        title={
+          <span className="inline-flex items-center gap-2">
+            <Bus size={20} className="text-brand-blue" aria-hidden />
+            {t('transitParkingTitle')}
+          </span>
+        }
+      />
+      <div className="rounded-lg border border-dashed border-app-border bg-white p-5">
+        <p className="text-base leading-relaxed text-app-text-muted">
+          {t('transitParkingUnknown')}
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-app-text-muted">
+          {t('transitParkingHint')}
+        </p>
         {telHref && (
           <a
             href={telHref}
-            className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full border border-app-border px-4 text-sm font-bold text-brand-blue"
+            className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-lg border-[1.5px] border-brand-blue px-4 text-sm font-bold text-brand-blue transition-colors hover:bg-brand-soft"
           >
-            <Phone size={14} aria-hidden />
-            {site.phone}
+            <Phone size={16} aria-hidden />
+            <span translate="no">{site.phone}</span>
           </a>
         )}
       </div>

@@ -1,4 +1,4 @@
-import { CalendarHeart, ChevronRight, Info, MessageSquare, Search } from 'lucide-react';
+import { CalendarHeart, ChevronRight, HelpCircle, Info, MessageSquare, Search } from 'lucide-react';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -6,7 +6,10 @@ import { HeroCarousel, type HeroSlide } from '@/features/sites/components/HeroCa
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { HERO_SITES } from '@/features/sites/data/hero-sites';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
+import { ButtonLink } from '@/shared/components/ui/Button';
+import { Card } from '@/shared/components/ui/Card';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -33,34 +36,6 @@ import type { HolySite } from '@/shared/types/domain';
 function isFirstVisitReady(site: HolySite): boolean {
   return Boolean(
     site.imageUrl && site.phone && site.coordinates.lat != null && site.coordinates.lng != null,
-  );
-}
-
-function SectionTitle({
-  title,
-  sub,
-  action,
-}: {
-  title: string;
-  sub?: string;
-  action?: { to: string; label: string };
-}) {
-  return (
-    <div className="mb-4 flex items-end justify-between gap-4">
-      <div className="min-w-0">
-        <h2 className="font-display text-[1.375rem] leading-tight text-app-text lg:text-2xl">{title}</h2>
-        {sub && <p className="mt-1 text-sm leading-relaxed text-app-text-muted">{sub}</p>}
-      </div>
-      {action && (
-        <Link
-          to={action.to}
-          className="flex min-h-11 shrink-0 items-center text-[0.9375rem] font-bold text-brand-blue"
-        >
-          {action.label}
-          <ChevronRight size={16} className="ml-0.5 inline" aria-hidden />
-        </Link>
-      )}
-    </div>
   );
 }
 
@@ -95,8 +70,12 @@ function EntryCard({
         {icon}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-[1.0625rem] font-bold leading-tight lg:text-[1.1875rem]">{title}</span>
-        <span className={`mt-0.5 block text-sm leading-snug ${filled ? 'text-white/90' : 'text-app-text-muted'}`}>
+        <span className="block text-[1.0625rem] font-bold leading-tight lg:text-[1.1875rem]">
+          {title}
+        </span>
+        <span
+          className={`mt-0.5 block text-sm leading-snug ${filled ? 'text-white/90' : 'text-app-text-muted'}`}
+        >
           {sub}
         </span>
       </span>
@@ -194,14 +173,18 @@ export default function HomePage() {
 
       {/* 3. 추천 성지 — 출발지가 있을 때만 */}
       <PageContainer className="pt-8 lg:pt-12">
-        <SectionTitle
+        <SectionHeading
           title={t('homeRecommendedTitle')}
           sub={
             originLabel
               ? fillPlaceholders(t('homeRecommendedSub'), { origin: originLabel })
               : t('homeRecommendedSubNoOrigin')
           }
-          action={originLabel ? { to: paths.nearby, label: t('seeAll') } : { to: paths.menu, label: t('moreTab') }}
+          action={
+            originLabel
+              ? { to: paths.nearby, label: t('seeAll') }
+              : { to: paths.menu, label: t('moreTab') }
+          }
         />
         {recommended.length > 0 && (
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-5 xl:grid-cols-4">
@@ -214,7 +197,7 @@ export default function HomePage() {
 
       {/* 4. 처음 방문하기 좋은 성지 */}
       <PageContainer className="pt-8 lg:pt-12">
-        <SectionTitle title={t('homeFirstVisitTitle')} sub={t('homeFirstVisitSub')} />
+        <SectionHeading title={t('homeFirstVisitTitle')} sub={t('homeFirstVisitSub')} />
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:gap-5">
           {firstVisit.length > 0
             ? firstVisit.map((site) => <SiteGridCard key={site.id} site={site} />)
@@ -227,27 +210,28 @@ export default function HomePage() {
       {/* 5. 출처와 이용 방법 · 문의 */}
       <PageContainer className="pt-8 lg:pt-12">
         <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
-          <section className="rounded-lg border border-app-border bg-white p-5">
-            <h2 className="flex items-center gap-2 text-[1.0625rem] font-bold text-app-text">
+          <Card>
+            <h2 className="flex items-center gap-2 text-lg font-bold text-app-text">
               <Info size={20} className="text-brand-blue" aria-hidden />
               {t('homeSourcesTitle')}
             </h2>
-            <p className="mt-2.5 text-base leading-relaxed text-app-text-muted">{t('homeSourcesBody')}</p>
-          </section>
-          <section className="rounded-lg border border-app-border bg-white p-5">
-            <h2 className="flex items-center gap-2 text-[1.0625rem] font-bold text-app-text">
+            <p className="mt-2.5 text-base leading-relaxed text-app-text-muted">
+              {t('homeSourcesBody')}
+            </p>
+          </Card>
+          <Card>
+            <h2 className="flex items-center gap-2 text-lg font-bold text-app-text">
               <MessageSquare size={20} className="text-brand-olive" aria-hidden />
               {t('homeContactTitle')}
             </h2>
-            <p className="mt-2.5 text-base leading-relaxed text-app-text-muted">{t('homeContactBody')}</p>
-            <Link
-              to={paths.faq}
-              className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-lg border-[1.5px] border-brand-blue px-5 text-base font-bold text-brand-blue"
-            >
-              <Search size={16} aria-hidden />
+            <p className="mt-2.5 text-base leading-relaxed text-app-text-muted">
+              {t('homeContactBody')}
+            </p>
+            <ButtonLink to={paths.faq} variant="secondary" className="mt-4">
+              <HelpCircle size={18} aria-hidden />
               {t('viewFaq')}
-            </Link>
-          </section>
+            </ButtonLink>
+          </Card>
         </div>
       </PageContainer>
     </div>

@@ -135,7 +135,7 @@ export function SiteThumbnail({
       <div
         role="img"
         aria-label={fillPlaceholders(t('photoLoadFailedAlt'), { name })}
-        className={`flex items-center justify-center bg-gray-100 text-center text-[0.6875rem] font-bold text-gray-500 ${className}`}
+        className={`flex items-center justify-center bg-app-panel text-center text-xs font-bold text-app-text-muted ${className}`}
       >
         <span className="px-2">{t('photoLoadFailedLabel')}</span>
       </div>
@@ -161,7 +161,11 @@ export function SiteThumbnail({
       {/* 도장은 은은하게 — 사진 흉내가 아니라 자리를 지키는 문양이다 */}
       <StampMotifIcon
         motif={resolveStampMotif(name, category ?? null)}
-        className={deep ? 'h-[46%] w-[46%] max-h-52 max-w-52 min-h-5 min-w-5 text-white opacity-20' : 'h-[58%] w-[58%] max-h-24 max-w-24 min-h-5 min-w-5 opacity-60'}
+        className={
+          deep
+            ? 'h-[46%] w-[46%] max-h-52 max-w-52 min-h-5 min-w-5 text-white opacity-20'
+            : 'h-[58%] w-[58%] max-h-24 max-w-24 min-h-5 min-w-5 opacity-60'
+        }
         style={deep ? undefined : { color: 표시.tone }}
       />
     </div>

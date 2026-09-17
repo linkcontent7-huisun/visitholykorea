@@ -44,19 +44,24 @@ function RouteErrorPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-app-bg px-8 text-center">
       <p className="text-4xl">🕯️</p>
-      <h1 className="text-lg font-extrabold text-app-text">화면을 여는 데 문제가 생겼어요</h1>
-      <p className="text-sm leading-relaxed text-app-text-muted">
+      <h1 className="font-display text-[1.625rem] leading-tight text-app-text">
+        화면을 여는 데 문제가 생겼어요
+      </h1>
+      <p className="text-base leading-relaxed text-app-text-muted">
         새 버전이 방금 배포되었을 수 있어요.
         <br />
         새로고침하면 대부분 해결됩니다.
       </p>
       <button
         onClick={() => window.location.reload()}
-        className="rounded-lg bg-brand-violet px-6 py-3 text-sm font-bold text-white"
+        className="inline-flex min-h-12 items-center justify-center rounded-lg bg-brand-blue px-6 text-base font-bold text-white transition-colors hover:bg-brand-blue/90"
       >
         새로고침
       </button>
-      <a href="/" className="text-xs font-bold text-app-text-muted underline underline-offset-4">
+      <a
+        href="/"
+        className="inline-flex min-h-11 items-center text-base font-bold text-app-text-muted underline underline-offset-4"
+      >
         홈으로 돌아가기
       </a>
     </div>

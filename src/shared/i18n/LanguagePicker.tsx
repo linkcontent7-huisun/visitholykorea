@@ -45,14 +45,14 @@ export function LanguagePicker({ className = '' }: { className?: string }) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex cursor-pointer items-center gap-1 text-[13px] font-bold text-app-text-muted"
+        className="flex h-[44px] cursor-pointer items-center gap-1 rounded-lg border-[1.5px] border-app-border bg-white px-[10px] text-[14px] font-bold text-brand-blue transition-colors hover:bg-app-bg"
         id="language-toggle"
         // 보이는 글자(KO)가 접근성 이름에 들어가야 한다 — Lighthouse label-content-name-mismatch (9/14)
         aria-label={`${LANGUAGE_SHORT[language]} · 언어 / Language — ${LANGUAGE_LABEL[language]}`}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <Globe size={14} aria-hidden />
+        <Globe size={16} aria-hidden />
         {LANGUAGE_SHORT[language]}
       </button>
 
@@ -71,14 +71,14 @@ export function LanguagePicker({ className = '' }: { className?: string }) {
                   role="option"
                   aria-selected={selected}
                   onClick={() => choose(lang)}
-                  className={`flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left text-sm transition-colors ${
+                  className={`flex min-h-11 w-full items-center justify-between gap-3 px-4 text-left text-base transition-colors ${
                     selected
-                      ? 'font-extrabold text-brand-violet'
+                      ? 'font-extrabold text-brand-blue'
                       : 'font-medium text-app-text hover:bg-app-bg'
                   }`}
                 >
                   {LANGUAGE_LABEL[lang]}
-                  {selected && <Check size={14} aria-hidden />}
+                  {selected && <Check size={16} aria-hidden />}
                 </button>
               </li>
             );

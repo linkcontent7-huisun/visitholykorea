@@ -5,8 +5,8 @@ export function LoadingSpinner({ label }: { label?: string }) {
       role="status"
       aria-live="polite"
     >
-      <div className="h-12 w-12 animate-spin rounded-full border-4 border-brand-violet border-t-transparent" />
-      {label && <p className="text-sm font-bold text-app-text-muted">{label}</p>}
+      <div className="h-12 w-12 animate-spin rounded-full border-4 border-brand-blue border-t-transparent" />
+      {label && <p className="text-base font-bold text-app-text-muted">{label}</p>}
     </div>
   );
 }
