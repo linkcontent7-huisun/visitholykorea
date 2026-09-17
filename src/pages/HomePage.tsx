@@ -172,6 +172,7 @@ export default function HomePage() {
         name: site?.name ?? h.name,
         caption: `${region} · ${category}`,
         credit: `${h.imageSource} · ${h.imageLicense}`,
+        objectPosition: h.objectPosition,
       };
     });
   }, [allSites, language, t]);

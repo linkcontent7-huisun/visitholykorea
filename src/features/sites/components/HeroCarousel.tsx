@@ -12,6 +12,8 @@ export interface HeroSlide {
   /** 사진 아래 작은 줄 — "서울 · 주교좌성당" */
   caption: string;
   credit: string;
+  /** 사진 초점(CSS object-position). 없으면 가운데 */
+  objectPosition?: string;
 }
 
 /**
@@ -131,6 +133,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
               sizes="100vw"
               alt=""
               className="h-full w-full object-cover"
+              style={slide.objectPosition ? { objectPosition: slide.objectPosition } : undefined}
               fetchPriority={i === 0 ? 'high' : 'low'}
               loading={i === 0 ? 'eager' : 'lazy'}
               decoding="async"
