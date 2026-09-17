@@ -123,7 +123,7 @@ export default function MapPage() {
           size="sm"
           className="flex-1"
         >
-          자세히
+          {t('viewSiteDetail')}
         </ButtonLink>
       </div>
 

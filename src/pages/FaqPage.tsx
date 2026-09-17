@@ -84,11 +84,7 @@ export default function FaqPage() {
 
   return (
     <PageContainer width="narrow" className="min-h-page pb-16">
-      <PageHeader
-        back
-        title="자주 묻는 질문"
-        sub="Visit Holy Korea 를 이용하며 자주 묻는 질문입니다."
-      />
+      <PageHeader back title={t('faqPageTitle')} sub={t('faqPageSub')} />
 
       <div>
         {/* 탭 */}
@@ -128,7 +124,7 @@ export default function FaqPage() {
                   className="flex min-h-14 w-full items-center justify-between gap-3 px-5 py-4 text-left transition-colors hover:bg-app-bg"
                 >
                   <span className="flex items-start gap-3">
-                    <span className="font-black text-brand-blue" aria-hidden>
+                    <span className="font-bold text-brand-blue" aria-hidden>
                       Q
                     </span>
                     <span className="text-base font-bold text-app-text">{q}</span>

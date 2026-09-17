@@ -1,5 +1,7 @@
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { useSettings } from '@/shared/i18n/use-settings';
 
 /**
  * 이용약관.
@@ -95,9 +97,14 @@ const 약관 = [
 ];
 
 export default function TermsPage() {
+  const { t } = useSettings();
   return (
     <PageContainer width="narrow" className="min-h-page pb-16">
-      <PageHeader back title="이용약관" sub={`시행일: ${시행일}`} />
+      <PageHeader
+        back
+        title={t('termsPageTitle')}
+        sub={fillPlaceholders(t('termsEffectiveDate'), { date: 시행일 })}
+      />
 
       <div className="mt-2">
         {약관.map((장) => (

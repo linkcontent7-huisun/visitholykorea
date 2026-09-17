@@ -1,4 +1,4 @@
-import { ArrowRight, Eye, EyeOff, Lock, Mail, ShieldCheck, User as UserIcon } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, ShieldCheck, User as UserIcon } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -231,7 +231,6 @@ export default function LoginPage() {
             className="mt-8 min-h-14 text-lg"
           >
             {loading ? t('processing') : isLogin ? t('login') : t('signup')}
-            {!loading && <ArrowRight size={20} aria-hidden />}
           </Button>
         </form>
 

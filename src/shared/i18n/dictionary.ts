@@ -1769,6 +1769,14 @@ export const DICTIONARY = {
     pt: 'Já estive aqui',
     it: 'Ci sono stato',
   },
+  viewSiteDetail: {
+    ko: '자세히',
+    en: 'Details',
+    es: 'Detalles',
+    fr: 'Détails',
+    pt: 'Detalhes',
+    it: 'Dettagli',
+  },
 
   // 기록 화면
   recordsTitle: {
@@ -2874,6 +2882,22 @@ export const DICTIONARY = {
     pt: 'Termos de serviço',
     it: 'Termini di servizio',
   },
+  termsPageTitle: {
+    ko: '이용약관',
+    en: 'Terms of Service',
+    es: 'Términos del servicio',
+    fr: 'Conditions d’utilisation',
+    pt: 'Termos de serviço',
+    it: 'Termini di servizio',
+  },
+  termsEffectiveDate: {
+    ko: '시행일: {date}',
+    en: 'Effective: {date}',
+    es: 'Vigente desde: {date}',
+    fr: 'En vigueur depuis le : {date}',
+    pt: 'Em vigor desde: {date}',
+    it: 'In vigore dal: {date}',
+  },
   viewFaq: {
     ko: '자주 묻는 질문',
     en: 'FAQ',
@@ -2881,6 +2905,22 @@ export const DICTIONARY = {
     fr: 'Questions fréquentes',
     pt: 'Perguntas frequentes',
     it: 'Domande frequenti',
+  },
+  faqPageTitle: {
+    ko: '자주 묻는 질문',
+    en: 'Frequently asked questions',
+    es: 'Preguntas frecuentes',
+    fr: 'Questions fréquentes',
+    pt: 'Perguntas frequentes',
+    it: 'Domande frequenti',
+  },
+  faqPageSub: {
+    ko: 'Visit Holy Korea 를 이용하며 자주 묻는 질문입니다.',
+    en: 'Common questions about using Visit Holy Korea.',
+    es: 'Preguntas comunes sobre el uso de Visit Holy Korea.',
+    fr: 'Questions courantes sur l’utilisation de Visit Holy Korea.',
+    pt: 'Perguntas comuns sobre o uso do Visit Holy Korea.',
+    it: 'Domande comuni sull’uso di Visit Holy Korea.',
   },
   // 가입 전 명시적 동의 절차가 없다는 피드백(2026-09-07) — 체크해야 가입 버튼이 열린다.
   signupConsentLabel: {
@@ -4700,6 +4740,22 @@ export const DICTIONARY = {
     pt: 'Voltar ao início',
     it: 'Torna alla home',
   },
+  notFoundTitle: {
+    ko: '길을 찾을 수 없습니다',
+    en: 'Page not found',
+    es: 'Página no encontrada',
+    fr: 'Page introuvable',
+    pt: 'Página não encontrada',
+    it: 'Pagina non trovata',
+  },
+  notFoundBody: {
+    ko: '요청하신 페이지가 없거나 주소가 바뀌었어요.',
+    en: 'This page doesn’t exist, or the address has changed.',
+    es: 'Esta página no existe o la dirección ha cambiado.',
+    fr: 'Cette page n’existe pas ou l’adresse a changé.',
+    pt: 'Esta página não existe ou o endereço mudou.',
+    it: 'Questa pagina non esiste o l’indirizzo è cambiato.',
+  },
   regionHeroTitle: {
     ko: '{region}에서 떠나는',
     en: 'A pilgrimage',
@@ -5436,6 +5492,22 @@ export const DICTIONARY = {
     pt: 'Ainda não começou',
     it: 'Non ancora iniziato',
   },
+  routeTotalEpisodes: {
+    ko: '전 {count}화',
+    en: '{count} chapters total',
+    es: '{count} capítulos en total',
+    fr: '{count} chapitres au total',
+    pt: '{count} capítulos no total',
+    it: '{count} capitoli in totale',
+  },
+  routeNextEpisode: {
+    ko: '다음 {n}화 · {name}',
+    en: 'Next: chapter {n} · {name}',
+    es: 'Siguiente: capítulo {n} · {name}',
+    fr: 'Suivant : chapitre {n} · {name}',
+    pt: 'Próximo: capítulo {n} · {name}',
+    it: 'Prossimo: capitolo {n} · {name}',
+  },
   routeEpisode: {
     ko: '{n}화',
     en: 'Chapter {n}',
@@ -5475,6 +5547,14 @@ export const DICTIONARY = {
     fr: '{count} étapes',
     pt: '{count} paradas',
     it: '{count} tappe',
+  },
+  routeViewCourse: {
+    ko: '코스 보기',
+    en: 'View route',
+    es: 'Ver ruta',
+    fr: 'Voir l’itinéraire',
+    pt: 'Ver rota',
+    it: 'Vedi il percorso',
   },
   searchAria: {
     ko: '성지 검색',

@@ -69,7 +69,7 @@ export default function RouteDetailPage() {
       <div className="mt-5 rounded-lg border border-app-border bg-white p-4">
         <div className="mb-2 flex items-center justify-between text-sm font-bold">
           <span className="text-app-text">
-            전 {stops.length}화 ·{' '}
+            {fillPlaceholders(t('routeTotalEpisodes'), { count: stops.length })} ·{' '}
             {visitedCount > 0
               ? fillPlaceholders(t('routeVisitedUpTo'), { count: visitedCount })
               : t('routeNotStarted')}
@@ -147,7 +147,10 @@ export default function RouteDetailPage() {
                 {ep.next && (
                   <p className="mt-3 border-l-2 border-brand-blue/30 pl-3 text-sm leading-relaxed text-app-text-muted">
                     <span className="font-bold text-brand-blue">
-                      다음 {ep.episode + 1}화 · {ep.next.siteName}
+                      {fillPlaceholders(t('routeNextEpisode'), {
+                        n: ep.episode + 1,
+                        name: ep.next.siteName,
+                      })}
                     </span>
                     {ep.next.teaser && <span className="block mt-0.5">{ep.next.teaser}</span>}
                   </p>

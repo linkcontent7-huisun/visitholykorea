@@ -21,10 +21,12 @@ const TAG_LABEL: Record<CandidateTag, TranslationKey> = {
   detailed: 'tagDetailed',
 };
 
+// 강조색은 하나(brand-blue)라는 화면 규칙에 맞춰, 가장 가까운 후보만 강조색으로 두드러지게 하고
+// 나머지 근거 태그는 두 번째 톤(brand-olive) 하나로 통일한다 — 태그마다 다른 색을 쓰면 색이 의미 없이 늘어난다.
 const TAG_STYLE: Record<CandidateTag, string> = {
   nearest: 'bg-brand-blue/10 text-brand-blue',
-  quiet: 'bg-emerald-50 text-emerald-800',
-  detailed: 'bg-amber-50 text-amber-800',
+  quiet: 'bg-brand-olive-soft text-brand-olive',
+  detailed: 'bg-brand-olive-soft text-brand-olive',
 };
 
 interface CandidateCardsProps {

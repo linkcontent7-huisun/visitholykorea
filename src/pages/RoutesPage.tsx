@@ -20,11 +20,7 @@ export default function RoutesPage() {
 
   return (
     <PageContainer width="narrow" className="min-h-page pb-16">
-      <PageHeader
-        back
-        title={t('routesTitle')}
-        sub="박해의 역사와 인물을 따라, 성지를 이야기 순서로 걷는다"
-      />
+      <PageHeader back title={t('routesTitle')} sub={t('routesSubtitle')} />
 
       <div className="flex flex-col gap-3">
         {isLoading && <LoadingSpinner label={t('routeLoading')} />}
@@ -52,7 +48,7 @@ export default function RoutesPage() {
               </p>
             )}
             <div className="mt-4 flex items-center gap-1 text-base font-bold text-brand-blue">
-              코스 보기 <ChevronRight size={16} aria-hidden />
+              {t('routeViewCourse')} <ChevronRight size={16} aria-hidden />
             </div>
           </Link>
         ))}

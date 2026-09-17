@@ -1,5 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import { X, ChevronLeft, ChevronRight, Church, Compass, LocateFixed } from 'lucide-react';
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Church,
+  Compass,
+  Feather,
+  HandHeart,
+  Leaf,
+  LocateFixed,
+  Sparkles,
+  Sprout,
+  type LucideIcon,
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
 import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
@@ -39,12 +52,13 @@ interface HealingQuizProps {
   onSelectSite: (id: string) => void;
 }
 
-const EMOTION_EMOJI: Record<EmotionTag, string> = {
-  위로: '🕊️',
-  새출발: '🌱',
-  평온: '🍃',
-  치유: '✨',
-  감사: '🙏',
+// 이모지 대신 선 아이콘 — 디자인 원칙(2026-09-16): 이모지 아이콘 안 씀.
+const EMOTION_ICON: Record<EmotionTag, LucideIcon> = {
+  위로: Feather,
+  새출발: Sprout,
+  평온: Leaf,
+  치유: Sparkles,
+  감사: HandHeart,
 };
 
 /** 표시 문구는 사전에서 온다. 여기 값은 사전 키다 — 내부 감정 코드(위로·치유…)는 그대로 쓴다. */
@@ -306,29 +320,36 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
               </h3>
               <p className="mb-8 text-sm text-app-text-muted">{t('compassPickColor')}</p>
               <div className="flex flex-wrap justify-center gap-5">
-                {EMOTION_TAGS.map((tag) => (
-                  <button
-                    key={tag}
-                    onClick={() => setEmotion(tag)}
-                    className="flex w-[28%] flex-col items-center gap-3 rounded-lg py-2"
-                    aria-pressed={emotion === tag}
-                    id={`quiz-emotion-${tag}`}
-                  >
-                    <span
-                      className={`flex h-20 w-20 items-center justify-center rounded-full text-3xl transition-[transform,box-shadow] ${EMOTION_COLOR[tag].bg} ${
-                        emotion === tag ? `ring-4 ${EMOTION_COLOR[tag].ring} scale-105` : ''
-                      }`}
-                      aria-hidden
+                {EMOTION_TAGS.map((tag) => {
+                  const Icon = EMOTION_ICON[tag];
+                  return (
+                    <button
+                      key={tag}
+                      onClick={() => setEmotion(tag)}
+                      className="flex w-[28%] flex-col items-center gap-3 rounded-lg py-2"
+                      aria-pressed={emotion === tag}
+                      id={`quiz-emotion-${tag}`}
                     >
-                      {EMOTION_EMOJI[tag]}
-                    </span>
-                    <span
-                      className={`text-center text-sm font-bold leading-tight ${emotion === tag ? 'text-brand-blue' : 'text-app-text-muted'}`}
-                    >
-                      {t(EMOTION_LABEL[tag])}
-                    </span>
-                  </button>
-                ))}
+                      <span
+                        className={`flex h-20 w-20 items-center justify-center rounded-full transition-[transform,box-shadow] ${EMOTION_COLOR[tag].bg} ${
+                          emotion === tag ? `ring-4 ${EMOTION_COLOR[tag].ring} scale-105` : ''
+                        }`}
+                        aria-hidden
+                      >
+                        <Icon
+                          size={30}
+                          strokeWidth={1.75}
+                          className={emotion === tag ? 'text-brand-blue' : 'text-app-text'}
+                        />
+                      </span>
+                      <span
+                        className={`text-center text-sm font-bold leading-tight ${emotion === tag ? 'text-brand-blue' : 'text-app-text-muted'}`}
+                      >
+                        {t(EMOTION_LABEL[tag])}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </motion.div>
           )}
