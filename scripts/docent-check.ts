@@ -42,7 +42,7 @@ function check(files: ReturnType<typeof load>, lang: 'ko' | 'en') {
   }
   const template = new Set([...sentenceOwners.entries()].filter(([, o]) => o.size >= 3).map(([k]) => k));
   const problems: string[] = [];
-  const endsOk = lang === 'ko' ? /(다|요|니다)\.?"$/ : /[.!?]"$/;
+  const endsOk = lang === 'ko' ? /(니다|요)\."$/ : /[.!?]"$/; // 한국어는 존댓말로 끝나야 한다 — "~자리다." 같은 반말 금지
   const hasFact = lang === 'ko' ? /\d{3,4}|신부|성인|주교|성당|양식|벽돌|고딕|로마네스크|순교|성지|공소|교우촌|박해|주교좌|수도원|기념/ : /\d{3,4}|Father|Bishop|Saint|St\.|martyr|Gothic|Romanesque|brick|church|cathedral|shrine|hill|village|gate|parish|persecution|mission/i;
   for (const f of files) {
     const bad: string[] = [];
@@ -56,6 +56,12 @@ function check(files: ReturnType<typeof load>, lang: 'ko' | 'en') {
     if (!/^\s+url:\s*https?:\/\//m.test(f.head)) bad.push('출처 url 없음');
     const t = [...template].filter((k) => f.body.replace(/\s+/g, ' ').includes(k));
     if (t.length) bad.push(`틀 문장 ${t.length}개: "${(t[0] ?? '').slice(0, 30)}…"`);
+    // 한 파일 안에서 같은 문장이 두 번 이상 — 9/18 실측(강경·경상감영·곡성)
+    const seen = new Map<string, number>();
+    for (const sent of f.body.split(/(?<=[.。!?"])\s+/)) { const k = sent.replace(/^"|"$/g, '').replace(/\s+/g, ' ').trim(); if (k.length >= 15) seen.set(k, (seen.get(k) ?? 0) + 1); }
+    const rep = [...seen.entries()].filter(([, c]) => c >= 2);
+    if (rep.length) bad.push(`파일 안 반복 ${rep.length}문장`);
+    if (lang === 'ko' && /[가-힣](다|자)\.\s/.test(f.body.replace(/(니다|습니다|입니다)\.\s/g, ' '))) bad.push('반말 문장');
     if (bad.length) problems.push(`  ✗ ${f.name} — ${bad.join(' · ')}`);
   }
   return { n: files.length, problems, template };

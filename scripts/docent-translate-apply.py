@@ -17,7 +17,7 @@ SRC = os.path.join(ROOT, 'data', 'docent', '소개글')
 NAME = {'en': '영어', 'it': '이탈리아어', 'fr': '프랑스어', 'pt': '포르투갈어', 'es': '스페인어'}
 
 bundle = json.load(io.open(sys.argv[1], encoding='utf-8'))
-lang = bundle['language']; out_dir = os.path.join(SRC, lang); os.makedirs(out_dir, exist_ok=True)
+lang = bundle['language']; out_dir = SRC if lang == 'ko' else os.path.join(SRC, lang); os.makedirs(out_dir, exist_ok=True)  # ko 는 원본 자리(다시 쓰기)
 n = 0; missing = []
 for key, paras in bundle['items'].items():
     src = os.path.join(SRC, key + '.md')
@@ -26,7 +26,7 @@ for key, paras in bundle['items'].items():
     head = re.match(r'^---\n(.*?)\n---\n', text, re.S).group(1)
     head = re.sub(r'^language:.*$', f'language: {lang}', head, flags=re.M)
     head = re.sub(r'^status:.*$', 'status: draft', head, flags=re.M)
-    head = re.sub(r'^writtenBy:.*$', f'writtenBy: Claude 번역+감수 ({NAME.get(lang, lang)})', head, flags=re.M)
+    head = re.sub(r'^writtenBy:.*$', 'writtenBy: Claude 다시 씀 (검사기 실패분, 2026-09-18)' if lang == 'ko' else f'writtenBy: Claude 번역+감수 ({NAME.get(lang, lang)})', head, flags=re.M)
     body = '\n\n'.join('"' + p.strip().strip('"') + '"' for p in paras)
     io.open(os.path.join(out_dir, key + '.md'), 'w', encoding='utf-8', newline='\n').write(f'---\n{head}\n---\n\n{body}\n')
     n += 1
