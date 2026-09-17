@@ -68,7 +68,7 @@ import { externalErrorKey } from '@/shared/i18n/external-error-key';
 /** 가는 김에 둘러볼 곳 — 레포츠·쇼핑은 도보권 밖으로 벗어나는 유형이라 뺀다(사장님 지적, 2026-09-17) */
 const HIDDEN_FACILITY_GROUPS = new Set(['레포츠', '쇼핑']);
 
-/** 순례 후기에 붙이는 사진 최대 장수(2026-09-18) — 일반 사진 추가(최대 5·10장)와는 다른 값 */
+/** 순례 후기에 붙이는 사진 최대 장수(2026-09-17) — 일반 사진 추가(최대 5·10장)와는 다른 값 */
 const NOTE_PHOTO_MAX = 3;
 
 export default function SiteDetailPage() {
@@ -129,10 +129,10 @@ export default function SiteDetailPage() {
 
   const [shareLoading, setShareLoading] = useState(false);
   const [noteDraft, setNoteDraft] = useState('');
-  // 후기 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-18).
+  // 후기 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-17).
   // 접어도 사라지지 않는다 — 줄만 남아서 다시 누르면 펼칠 수 있다.
   const [noteComposerOpen, setNoteComposerOpen] = useState(true);
-  // 후기와 함께 올릴 사진 — 최대 3장(2026-09-18, LogComposer 와 같은 미리보기 방식)
+  // 후기와 함께 올릴 사진 — 최대 3장(2026-09-17, LogComposer 와 같은 미리보기 방식)
   const [notePhotos, setNotePhotos] = useState<{ file: File; preview: string }[]>([]);
   const [notePhotoNotice, setNotePhotoNotice] = useState<string | null>(null);
 
@@ -440,7 +440,7 @@ export default function SiteDetailPage() {
                     <dt className="text-sm font-bold text-brand-blue">{row.label}</dt>
                     <dd className="mt-1 text-base leading-relaxed text-app-text">
                       {/* 시간을 강조 — "07:00, 10:00(성지미사)" 같은 줄에서 시각(HH:MM)만
-                          도드라지게 한다(사장님 지적, 2026-09-18). 나머지 글(요일·비고)은 그대로. */}
+                          도드라지게 한다(사장님 지적, 2026-09-17). 나머지 글(요일·비고)은 그대로. */}
                       {row.value.split(/(\d{1,2}:\d{2})/g).map((part, i) =>
                         /^\d{1,2}:\d{2}$/.test(part) ? (
                           <span key={i} className="font-bold tabular-nums text-brand-blue">
@@ -521,7 +521,7 @@ export default function SiteDetailPage() {
           </section>
         )}
 
-        {/* 「주변 관광 정보」라는 상위 제목·설명 문구는 뺀다(사장님 지적, 2026-09-18) —
+        {/* 「주변 관광 정보」라는 상위 제목·설명 문구는 뺀다(사장님 지적, 2026-09-17) —
             아래 세 절(둘러볼 곳·오늘의 행사·도보 코스)은 각자 제목이 있어 그것으로 충분하고,
             묶는 제목이 오히려 한 겹 더 얹힌 것처럼 느껴졌다. 절 자체(하위 구조·오류 카드)는
             그대로 두고 감싸던 제목만 없앤다. 역사·방문 정보보다 아래에 둔 이유는 그대로다
@@ -585,7 +585,7 @@ export default function SiteDetailPage() {
                           <a
                             key={spot.contentid}
                             // 좌표 핀 대신 이름으로 검색 — 실제 카카오맵 장소(리뷰·영업시간)로
-                            // 이어질 가능성이 높다(사장님 지적, 2026-09-18)
+                            // 이어질 가능성이 높다(사장님 지적, 2026-09-17)
                             href={kakaoSearchUrl(spot.title)}
                             target="_blank"
                             rel="noreferrer noopener"
@@ -679,7 +679,7 @@ export default function SiteDetailPage() {
             sub={t('pilgrimStoriesHint')}
           />
 
-          {/* 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-18).
+          {/* 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-17).
               닫혀도 이 줄은 그대로 있어서, 마음이 바뀌면 다시 눌러 펼칠 수 있다. */}
           {!myStamp?.note && (
             <Card padded={false}>

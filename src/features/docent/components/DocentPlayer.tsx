@@ -206,7 +206,7 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
                     {chapter.title}
                   </span>
                   {/* 걸으면서 힐끗 보는 안내 — 어디로 가서 무엇을 볼지. 작은 라벨+값으로 묶어
-                      아래 전문(스크립트)과 눈으로 바로 구분되게 한다(2026-09-18, 위계 지적 반영) */}
+                      아래 전문(스크립트)과 눈으로 바로 구분되게 한다(2026-09-17, 위계 지적 반영) */}
                   {(chapter.location || chapter.lookFor) && (
                     <span className="mt-1.5 flex flex-col gap-0.5">
                       {chapter.location && (

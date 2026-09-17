@@ -39,7 +39,7 @@ export function DirectoryEntryCard({
   /** 거리를 아예 안 보여준다(성지 상세의 주변 본당 — 성지 이름만으로 충분하다는 지적) */
   hideDistance?: boolean;
   /** 분류 칩을 안 보여준다. 목록이 전부 같은 분류(예: 본당·공소)일 때, 줄마다 같은 말이
-   *  반복되는 게 정보가 아니라 피로였다(사장님 지적, 2026-09-18) */
+   *  반복되는 게 정보가 아니라 피로였다(사장님 지적, 2026-09-17) */
   hideCategory?: boolean;
   /** 넘기면 길찾기 단추를 이 지도 앱들로만 좁힌다 */
   mapProviders?: readonly MapProvider[];
