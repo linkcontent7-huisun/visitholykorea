@@ -27,6 +27,7 @@ export function DirectoryEntryCard({
   showDirections = true,
   bare = false,
   hideDistance = false,
+  hideCategory = false,
   mapProviders,
 }: {
   /** 반경 검색 결과(`NearbyPlace`, 거리 있음)든 검색 결과(`DirectoryEntry`)든 같은 줄로 그린다 */
@@ -37,6 +38,9 @@ export function DirectoryEntryCard({
   bare?: boolean;
   /** 거리를 아예 안 보여준다(성지 상세의 주변 본당 — 성지 이름만으로 충분하다는 지적) */
   hideDistance?: boolean;
+  /** 분류 칩을 안 보여준다. 목록이 전부 같은 분류(예: 본당·공소)일 때, 줄마다 같은 말이
+   *  반복되는 게 정보가 아니라 피로였다(사장님 지적, 2026-09-18) */
+  hideCategory?: boolean;
   /** 넘기면 길찾기 단추를 이 지도 앱들로만 좁힌다 */
   mapProviders?: readonly MapProvider[];
 }) {
@@ -52,9 +56,11 @@ export function DirectoryEntryCard({
         <div className="min-w-0 flex-1">
           <p className="flex flex-wrap items-center gap-2">
             <span className="break-keep text-base font-bold text-app-text">{displayName}</span>
-            <span className="shrink-0 rounded-full bg-app-panel px-2 py-0.5 text-xs font-bold text-app-text-muted">
-              {localizeDomainValue(entry.category, t)}
-            </span>
+            {!hideCategory && (
+              <span className="shrink-0 rounded-full bg-app-panel px-2 py-0.5 text-xs font-bold text-app-text-muted">
+                {localizeDomainValue(entry.category, t)}
+              </span>
+            )}
           </p>
           {displayAddress && (
             <p className="mt-1 break-keep text-sm text-app-text-muted">{displayAddress}</p>

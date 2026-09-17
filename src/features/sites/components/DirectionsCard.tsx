@@ -94,7 +94,13 @@ export function DirectionsCard({
       {/* 지도 앱 — 주변 본당 목록과 같은 작은 단추로(2026-09-17). 앱 이름만 보이고
           설명은 길게 누르면(title) 나온다 — 큰 상자·화살표 아이콘 같은 군더더기를 뺐다 */}
       {hasCoordinates ? (
-        <QuickDirectionsButtons destination={{ name: site.name, lat, lng }} siteName={site.name} />
+        // 구글·애플은 뺀다(사장님 지적, 2026-09-18) — 주변 본당 카드(NearbyParishesCard)와
+        // 같은 기준: 카카오·티맵·네이버만 실제로 쓰인다.
+        <QuickDirectionsButtons
+          destination={{ name: site.name, lat, lng }}
+          siteName={site.name}
+          providers={['kakao', 'tmap', 'naver']}
+        />
       ) : (
         <div className="flex items-center gap-3 rounded-lg border border-dashed border-app-border bg-white px-5 py-4">
           <MapPin size={20} className="shrink-0 text-app-text-muted" aria-hidden />

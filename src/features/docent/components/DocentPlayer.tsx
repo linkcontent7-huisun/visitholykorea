@@ -54,7 +54,7 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
         {isSupported && (
           <button
             onClick={toggle}
-            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg transition-colors ${
+            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-colors ${
               isPlaying
                 ? 'bg-brand-blue text-white'
                 : 'border-[1.5px] border-brand-blue bg-white text-brand-blue hover:bg-brand-soft'
@@ -205,19 +205,29 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
                   >
                     {chapter.title}
                   </span>
-                  {/* 걸으면서 힐끗 보는 안내 — 어디로 가서 무엇을 볼지 */}
-                  {chapter.location && (
-                    <span className="mt-1 block text-sm leading-relaxed text-app-text-muted">
-                      {t('docentLocation')}: {chapter.location}
+                  {/* 걸으면서 힐끗 보는 안내 — 어디로 가서 무엇을 볼지. 작은 라벨+값으로 묶어
+                      아래 전문(스크립트)과 눈으로 바로 구분되게 한다(2026-09-18, 위계 지적 반영) */}
+                  {(chapter.location || chapter.lookFor) && (
+                    <span className="mt-1.5 flex flex-col gap-0.5">
+                      {chapter.location && (
+                        <span className="text-xs leading-relaxed text-app-text-muted">
+                          <span className="font-bold text-brand-blue">{t('docentLocation')}</span>
+                          {' · '}
+                          {chapter.location}
+                        </span>
+                      )}
+                      {chapter.lookFor && (
+                        <span className="text-xs leading-relaxed text-app-text-muted">
+                          <span className="font-bold text-brand-olive">{t('docentLookFor')}</span>
+                          {' · '}
+                          {chapter.lookFor}
+                        </span>
+                      )}
                     </span>
                   )}
-                  {chapter.lookFor && (
-                    <span className="mt-0.5 block text-sm leading-relaxed text-app-text-muted">
-                      {t('docentLookFor')}: {chapter.lookFor}
-                    </span>
-                  )}
-                  {/* 전문 — 소리를 켤 수 없는 곳, 잘 들리지 않는 이들을 위해 챕터마다 바로 보여준다 */}
-                  <span className="mt-2 block text-sm leading-relaxed text-app-text-muted">
+                  {/* 전문(스크립트) — 소리를 켤 수 없는 곳, 잘 들리지 않는 이들을 위해 챕터마다 바로
+                      보여준다. 위 두 안내보다 한 단계 크고 진하게 — 이게 실제로 읽는 본문이다. */}
+                  <span className="mt-2 block text-base leading-relaxed text-app-text">
                     {chapter.narration}
                   </span>
                 </span>

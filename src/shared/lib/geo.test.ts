@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { haversineKm, kakaoDirectionsUrl, kakaoPlaceUrl, walkMinutes } from './geo';
+import { haversineKm, kakaoDirectionsUrl, kakaoPlaceUrl, kakaoSearchUrl, walkMinutes } from './geo';
 
 describe('haversineKm', () => {
   it('같은 지점이면 0을 돌려준다', () => {
@@ -41,6 +41,14 @@ describe('kakaoPlaceUrl', () => {
   it('쉼표가 들어간 이름도 좌표와 섞이지 않게 인코딩한다', () => {
     expect(kakaoPlaceUrl('성지, 순례길', 36.7, 126.8)).toBe(
       'https://map.kakao.com/link/map/%EC%84%B1%EC%A7%80%2C%20%EC%88%9C%EB%A1%80%EA%B8%B8,36.7,126.8',
+    );
+  });
+});
+
+describe('kakaoSearchUrl', () => {
+  it('좌표 없이 이름만으로 검색 링크를 만든다', () => {
+    expect(kakaoSearchUrl('명동 교자')).toBe(
+      'https://map.kakao.com/link/search/%EB%AA%85%EB%8F%99%20%EA%B5%90%EC%9E%90',
     );
   });
 });

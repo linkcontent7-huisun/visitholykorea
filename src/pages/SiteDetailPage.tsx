@@ -1,4 +1,16 @@
-import { Camera, ChevronLeft, Compass, Flag, Heart, History, PartyPopper, Share2, User } from 'lucide-react';
+import {
+  Camera,
+  ChevronDown,
+  ChevronLeft,
+  Compass,
+  Flag,
+  Heart,
+  History,
+  PartyPopper,
+  Share2,
+  User,
+  X,
+} from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -15,7 +27,7 @@ import {
   useSiteNotes,
   useUploadStampPhotos,
 } from '@/features/passport/hooks/use-stamps';
-import { recordNoteReads } from '@/features/passport/api/stamps.repository';
+import { getMyStamps, recordNoteReads } from '@/features/passport/api/stamps.repository';
 import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
 import { resolveStampMotif } from '@/features/passport/lib/stamp-motifs';
@@ -50,11 +62,14 @@ import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
-import { kakaoPlaceUrl } from '@/shared/lib/geo';
+import { kakaoSearchUrl } from '@/shared/lib/geo';
 import { externalErrorKey } from '@/shared/i18n/external-error-key';
 
 /** 가는 김에 둘러볼 곳 — 레포츠·쇼핑은 도보권 밖으로 벗어나는 유형이라 뺀다(사장님 지적, 2026-09-17) */
 const HIDDEN_FACILITY_GROUPS = new Set(['레포츠', '쇼핑']);
+
+/** 순례 후기에 붙이는 사진 최대 장수(2026-09-18) — 일반 사진 추가(최대 5·10장)와는 다른 값 */
+const NOTE_PHOTO_MAX = 3;
 
 export default function SiteDetailPage() {
   const { siteId } = useParams<{ siteId: string }>();
@@ -114,8 +129,12 @@ export default function SiteDetailPage() {
 
   const [shareLoading, setShareLoading] = useState(false);
   const [noteDraft, setNoteDraft] = useState('');
-  // "남길게요"를 누르기 전까지는 입력창을 강요하지 않는다
-  const [noteDismissed, setNoteDismissed] = useState(false);
+  // 후기 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-18).
+  // 접어도 사라지지 않는다 — 줄만 남아서 다시 누르면 펼칠 수 있다.
+  const [noteComposerOpen, setNoteComposerOpen] = useState(true);
+  // 후기와 함께 올릴 사진 — 최대 3장(2026-09-18, LogComposer 와 같은 미리보기 방식)
+  const [notePhotos, setNotePhotos] = useState<{ file: File; preview: string }[]>([]);
+  const [notePhotoNotice, setNotePhotoNotice] = useState<string | null>(null);
 
   // 오디오 도슨트 — 현장조사 원고가 있으면 포인트별 투어, 없으면 소개·역사 챕터.
   // 훅(useMemo)이라 이른 return 위에서 부른다 — site 는 아직 없을 수 있어 옵셔널로 다룬다.
@@ -165,6 +184,23 @@ export default function SiteDetailPage() {
     reportNote.mutate(stampId);
   };
 
+  // 후기 입력 칸의 사진 — 올리기 전 미리보기 URL 은 메모리를 잡으므로 바뀔 때마다 놓아준다
+  useEffect(() => () => notePhotos.forEach((p) => URL.revokeObjectURL(p.preview)), [notePhotos]);
+  const pickNotePhotos = (files: FileList | null) => {
+    if (!files) return;
+    const room = Math.max(0, NOTE_PHOTO_MAX - notePhotos.length);
+    const picked = Array.from(files).slice(0, room);
+    if (files.length > room)
+      setNotePhotoNotice(t('reviewPhotosMax').replace('{count}', String(NOTE_PHOTO_MAX)));
+    else setNotePhotoNotice(null);
+    setNotePhotos((prev) => [
+      ...prev,
+      ...picked.map((file) => ({ file, preview: URL.createObjectURL(file) })),
+    ]);
+  };
+  const removeNotePhoto = (index: number) =>
+    setNotePhotos((prev) => prev.filter((_, i) => i !== index));
+
   // 공유 카드 디자인에 쓰는 오늘의 전례색·WYD 여부 — 화면에 절차로 보여주지 않는다(2026-09-17).
   const todayLiturgical = getLiturgicalEvent();
   const wydNow = isWydPeriod();
@@ -190,13 +226,28 @@ export default function SiteDetailPage() {
     const note = normalizeNote(noteDraft);
     if (!note) return;
     addStamp.mutate(note, {
-      onSuccess: (result) => {
-        if (result.success) return;
-        if (result.error === 'UNAUTHENTICATED') {
-          navigate(paths.login);
+      onSuccess: async (result) => {
+        if (!result.success) {
+          if (result.error === 'UNAUTHENTICATED') {
+            navigate(paths.login);
+            return;
+          }
+          window.alert(t('saveFailedNote'));
           return;
         }
-        window.alert(t('saveFailedNote'));
+        // 후기와 같이 고른 사진이 있으면 이어서 올린다 — stamp 는 방금 생겼으므로
+        // (myStamps 캐시가 아직 갱신 전일 수 있어) 직접 다시 조회해 stampId 를 얻는다.
+        if (notePhotos.length > 0 && siteId) {
+          const pending = notePhotos;
+          setNotePhotos([]);
+          const fresh = await getMyStamps();
+          const stampId = fresh.find((s) => s.siteId === siteId)?.stampId;
+          if (stampId) {
+            const policy = photoPolicy();
+            const photos = await Promise.all(pending.map((p) => shrinkPhoto(p.file, policy)));
+            uploadPhotos.mutate({ stampId, photos });
+          }
+        }
       },
     });
   };
@@ -387,7 +438,19 @@ export default function SiteDetailPage() {
                 {massRows.map((row) => (
                   <div key={row.label + row.value}>
                     <dt className="text-sm font-bold text-brand-blue">{row.label}</dt>
-                    <dd className="mt-1 text-base leading-relaxed text-app-text">{row.value}</dd>
+                    <dd className="mt-1 text-base leading-relaxed text-app-text">
+                      {/* 시간을 강조 — "07:00, 10:00(성지미사)" 같은 줄에서 시각(HH:MM)만
+                          도드라지게 한다(사장님 지적, 2026-09-18). 나머지 글(요일·비고)은 그대로. */}
+                      {row.value.split(/(\d{1,2}:\d{2})/g).map((part, i) =>
+                        /^\d{1,2}:\d{2}$/.test(part) ? (
+                          <span key={i} className="font-bold tabular-nums text-brand-blue">
+                            {part}
+                          </span>
+                        ) : (
+                          part
+                        ),
+                      )}
+                    </dd>
                   </div>
                 ))}
               </dl>
@@ -458,17 +521,12 @@ export default function SiteDetailPage() {
           </section>
         )}
 
-        {/* 주변 관광 정보 — 한국관광공사 OpenAPI 를 지금 불러온 것. 실패해도 위의 방문 정보는 그대로다.
-            역사·방문 정보보다 아래에 둔다(재기획 §4-1: 주변 음식점이 기본 방문 정보보다 먼저 나오지 않게).
-            안의 「가는 김에 둘러볼 곳」과는 다른 절이다 — 이 절은 아래 세 개(둘러볼 곳·오늘의 행사·
-            도보 코스)를 묶는 상위 제목이다. */}
-        <section aria-labelledby="nearby-tourism-heading" className="space-y-8">
-          <SectionHeading
-            id="nearby-tourism-heading"
-            title={t('siteNearbyTourismTitle')}
-            sub={t('siteNearbyTourismSub')}
-          />
-
+        {/* 「주변 관광 정보」라는 상위 제목·설명 문구는 뺀다(사장님 지적, 2026-09-18) —
+            아래 세 절(둘러볼 곳·오늘의 행사·도보 코스)은 각자 제목이 있어 그것으로 충분하고,
+            묶는 제목이 오히려 한 겹 더 얹힌 것처럼 느껴졌다. 절 자체(하위 구조·오류 카드)는
+            그대로 두고 감싸던 제목만 없앤다. 역사·방문 정보보다 아래에 둔 이유는 그대로다
+            (재기획 §4-1: 주변 음식점이 기본 방문 정보보다 먼저 나오지 않게). */}
+        <div className="space-y-8">
           {(facilitiesError || festivalsError) && (
             <Card tone="panel" padded={false}>
               <EmptyState
@@ -526,10 +584,12 @@ export default function SiteDetailPage() {
                         {spots.map((spot) => (
                           <a
                             key={spot.contentid}
-                            href={kakaoPlaceUrl(spot.title, Number(spot.mapy), Number(spot.mapx))}
+                            // 좌표 핀 대신 이름으로 검색 — 실제 카카오맵 장소(리뷰·영업시간)로
+                            // 이어질 가능성이 높다(사장님 지적, 2026-09-18)
+                            href={kakaoSearchUrl(spot.title)}
                             target="_blank"
                             rel="noreferrer noopener"
-                            aria-label={`${spot.title} 카카오맵에서 보기`}
+                            aria-label={`${spot.title} 카카오맵에서 검색`}
                             className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left transition-colors hover:border-brand-blue"
                           >
                             <div className="relative flex h-36 items-center justify-center overflow-hidden bg-app-panel">
@@ -606,7 +666,7 @@ export default function SiteDetailPage() {
               </div>
             </section>
           )}
-        </section>
+        </div>
 
         {/* 순례 후기 — "스탬프 찍기" 절차를 없앴다(2026-09-17 사장님 지적). 로그인한 사람은
             누구나 바로 한 줄을 남길 수 있고, 그 글이 이 성지의 첫 기록이면 스탬프(기록)가
@@ -619,42 +679,109 @@ export default function SiteDetailPage() {
             sub={t('pilgrimStoriesHint')}
           />
 
-          {!myStamp?.note && !noteDismissed && (
-            <Card>
-              <p className="text-base font-bold text-app-text">{t('noteAskTitle')}</p>
-              {/* 오늘의 질문 — 빈 입력창은 쓰기 어렵지만 질문에는 답하게 된다. */}
-              <blockquote className="mt-2 border-l-2 border-brand-blue/40 pl-3 text-sm font-medium leading-relaxed text-brand-blue">
-                {language === 'ko'
-                  ? resolveReflectionQuestion(site.name, site.category).ko
-                  : resolveReflectionQuestion(site.name, site.category).en}
-              </blockquote>
-              <p className="mt-2 text-sm leading-relaxed text-app-text-muted">{t('noteHint')}</p>
-              <input
-                type="text"
-                name="note"
-                autoComplete="off"
-                maxLength={NOTE_MAX_LENGTH}
-                placeholder={t('notePlaceholder')}
-                aria-label={t('noteAriaLabel')}
-                className="mt-3 min-h-12 w-full rounded-lg border border-app-border bg-white px-4 text-base text-app-text focus:border-brand-blue"
-                value={noteDraft}
-                onChange={(e) => setNoteDraft(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleSaveNote();
-                }}
-              />
-              <div className="mt-3 flex justify-end gap-2">
-                <Button variant="ghost" size="sm" onClick={() => setNoteDismissed(true)}>
-                  {t('noteLater')}
-                </Button>
-                <Button
-                  size="sm"
-                  onClick={handleSaveNote}
-                  disabled={normalizeNote(noteDraft) === null || addStamp.isPending}
-                >
-                  {addStamp.isPending ? t('noteSubmitting') : t('noteSubmit')}
-                </Button>
-              </div>
+          {/* 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-18).
+              닫혀도 이 줄은 그대로 있어서, 마음이 바뀌면 다시 눌러 펼칠 수 있다. */}
+          {!myStamp?.note && (
+            <Card padded={false}>
+              <button
+                type="button"
+                onClick={() => setNoteComposerOpen((open) => !open)}
+                className="flex min-h-14 w-full items-center justify-between gap-3 px-5 py-4 text-left"
+                aria-expanded={noteComposerOpen}
+              >
+                <span className="text-base font-bold text-app-text">{t('noteAskTitle')}</span>
+                <ChevronDown
+                  size={20}
+                  className={`shrink-0 text-app-text-muted transition-transform ${
+                    noteComposerOpen ? 'rotate-180' : ''
+                  }`}
+                  aria-hidden
+                />
+              </button>
+              {noteComposerOpen && (
+                <div className="px-5 pb-5">
+                  {/* 오늘의 질문 — 빈 입력창은 쓰기 어렵지만 질문에는 답하게 된다. */}
+                  <blockquote className="border-l-2 border-brand-blue/40 pl-3 text-sm font-medium leading-relaxed text-brand-blue">
+                    {language === 'ko'
+                      ? resolveReflectionQuestion(site.name, site.category).ko
+                      : resolveReflectionQuestion(site.name, site.category).en}
+                  </blockquote>
+                  <p className="mt-2 text-sm leading-relaxed text-app-text-muted">
+                    {t('noteHint')}
+                  </p>
+                  <input
+                    type="text"
+                    name="note"
+                    autoComplete="off"
+                    maxLength={NOTE_MAX_LENGTH}
+                    placeholder={t('notePlaceholder')}
+                    aria-label={t('noteAriaLabel')}
+                    className="mt-3 min-h-12 w-full rounded-lg border border-app-border bg-white px-4 text-base text-app-text focus:border-brand-blue"
+                    value={noteDraft}
+                    onChange={(e) => setNoteDraft(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') handleSaveNote();
+                    }}
+                  />
+                  {/* 사진 — 최대 3장. 후기 문장과 함께 한 번에 올라간다 */}
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {notePhotos.map((p, i) => (
+                      <div key={p.preview} className="relative">
+                        <img
+                          src={p.preview}
+                          alt=""
+                          className="h-16 w-16 rounded-lg object-cover"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removeNotePhoto(i)}
+                          aria-label={t('logPhotoRemove')}
+                          className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/70 text-white"
+                        >
+                          <X size={12} />
+                        </button>
+                      </div>
+                    ))}
+                    {notePhotos.length < NOTE_PHOTO_MAX && (
+                      <label className="flex h-16 w-16 cursor-pointer flex-col items-center justify-center gap-0.5 rounded-lg border-2 border-dashed border-brand-blue/40 text-brand-blue transition-colors hover:bg-brand-soft">
+                        <Camera size={16} aria-hidden />
+                        <span className="text-[0.625rem] font-bold">
+                          {notePhotos.length}/{NOTE_PHOTO_MAX}
+                        </span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          className="hidden"
+                          onChange={(e) => {
+                            pickNotePhotos(e.target.files);
+                            e.target.value = '';
+                          }}
+                        />
+                      </label>
+                    )}
+                  </div>
+                  {notePhotoNotice && (
+                    <p className="mt-1.5 text-xs text-app-text-muted">{notePhotoNotice}</p>
+                  )}
+                  <div className="mt-3 flex justify-end gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setNoteComposerOpen(false)}
+                    >
+                      {t('noteLater')}
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={handleSaveNote}
+                      disabled={normalizeNote(noteDraft) === null || addStamp.isPending}
+                    >
+                      {addStamp.isPending ? t('noteSubmitting') : t('noteSubmit')}
+                    </Button>
+                  </div>
+                </div>
+              )}
             </Card>
           )}
 

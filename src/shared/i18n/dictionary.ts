@@ -3248,7 +3248,7 @@ export const DICTIONARY = {
     it: 'La storia di questo santuario',
   },
   siteNearbyTitle: {
-    ko: '가는 김에 둘러볼 곳',
+    ko: '둘러볼 곳',
     en: 'Worth a stop nearby',
     es: 'Merece una parada cerca',
     fr: 'À voir dans les environs',

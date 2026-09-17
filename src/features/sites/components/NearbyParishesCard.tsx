@@ -34,6 +34,7 @@ export function NearbyParishesCard({ site }: { site: HolySite }) {
                 entry={p}
                 bare
                 hideDistance
+                hideCategory
                 mapProviders={PARISH_MAP_PROVIDERS}
               />
             </li>
