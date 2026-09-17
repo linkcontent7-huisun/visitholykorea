@@ -459,8 +459,8 @@ export default function SiteDetailPage() {
       </div>
 
       {/* 상단 라운드 처리를 없앴다(사장님 지적, 2026-09-17) — 사진 바로 아래가 흰 면으로
-          깔끔하게 이어진다. -mt-6 는 그대로 둬 사진과 본문이 살짝 겹치며 이어지게 한다. */}
-      <PageContainer className="relative z-10 -mt-6 space-y-8 bg-white py-6">
+          깔끔하게 이어진다. margin-top 도 0으로 — 사진과 겹치지 않고 바로 이어진다(사장님 지적, 2026-09-18). */}
+      <PageContainer className="relative z-10 mt-0 space-y-8 bg-white py-6">
         {/* 성지 이야기를 맨 위로 — 사진 다음에는 "여기가 어떤 곳인지" 이야기부터 읽고,
             미사 시간 같은 실용 정보는 그다음이 자연스럽다(사장님 지적, 2026-09-17).
             ⚠️ 이 순서는 재기획(2026-09-14) §4-1 이 정한 "방문 정보가 역사보다 위" 결정을
@@ -492,23 +492,21 @@ export default function SiteDetailPage() {
           <SectionHeading id="visit-info-heading" title={t('visitInfo')} />
 
           {/* 미사 시간 — 안내 책자 기준. 성지 사정에 따라 바뀔 수 있다.
-              시각만 굵게 하는 것만으로는 부족하다는 지적(2026-09-17)으로,
-              라벨을 알약 배지로 두고 줄마다 카드를 나눠 한눈에 훑기 쉽게 했다. */}
+              줄마다 카드를 나눠 한눈에 훑기 쉽게 하되, 라벨은 알약 배지가 아니라 원래의
+              간결한 글자로(사장님 지적, 2026-09-18) — 알약 모양은 시각(時刻) 칩 쪽으로 옮겼다. */}
           {massInfo && massRows.length > 0 && (
             <section aria-labelledby="mass-heading">
               <SectionHeading as="h3" size="md" id="mass-heading" title={t('massTimesTitle')} />
               <dl className="divide-y divide-app-border overflow-hidden rounded-lg border border-app-border bg-white">
                 {massRows.map((row) => (
                   <div key={row.label + row.value} className="p-5">
-                    <dt className="mb-2 inline-block rounded-full bg-brand-soft px-2.5 py-1 text-xs font-bold text-brand-blue">
-                      {row.label}
-                    </dt>
+                    <dt className="mb-2 text-sm font-bold text-brand-blue">{row.label}</dt>
                     <dd className="text-base leading-loose text-app-text">
                       {row.value.split(/(\d{1,2}:\d{2})/g).map((part, i) =>
                         /^\d{1,2}:\d{2}$/.test(part) ? (
                           <span
                             key={i}
-                            className="mx-0.5 inline-flex items-center rounded-md bg-brand-soft px-1.5 py-0.5 font-bold tabular-nums text-brand-blue"
+                            className="mx-0.5 inline-flex items-center rounded-full bg-brand-soft px-2 py-0.5 font-bold tabular-nums text-brand-blue"
                           >
                             {part}
                           </span>
