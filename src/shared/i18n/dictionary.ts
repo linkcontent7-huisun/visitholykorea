@@ -613,12 +613,12 @@ export const DICTIONARY = {
     it: 'A shrine day planned around how you feel',
   },
   todayPlanHeroSub: {
-    ko: '지금 마음을 고르면 성지 한 곳으로 하루를 짜 드려요.',
-    en: 'Pick how you feel and we plan a day around one shrine.',
-    es: 'Pick how you feel and we plan a day around one shrine.',
-    fr: 'Pick how you feel and we plan a day around one shrine.',
-    pt: 'Pick how you feel and we plan a day around one shrine.',
-    it: 'Pick how you feel and we plan a day around one shrine.',
+    ko: '마음 따라 하루 일정을 추천해요',
+    en: 'A day plan that fits your mood',
+    es: 'Un plan de un día según tu ánimo',
+    fr: 'Un programme selon votre humeur',
+    pt: 'Um plano de um dia pelo seu humor',
+    it: 'Un piano di un giorno in base all’umore',
   },
   homeQuietEntrySub: {
     ko: '가려던 관광지나 지역을 검색하면 예상 붐빔 정도와 주변의 비교적 한적한 성지를 보여줍니다.',
@@ -675,38 +675,6 @@ export const DICTIONARY = {
     fr: 'Idéaux à visiter aujourd’hui',
     pt: 'Bons para visitar hoje',
     it: 'Ideali da visitare oggi',
-  },
-  homeSourcesTitle: {
-    ko: '정보의 출처와 이용 방법',
-    en: 'Sources and how to use',
-    es: 'Fuentes y cómo usar',
-    fr: 'Sources et mode d’emploi',
-    pt: 'Fontes e como usar',
-    it: 'Fonti e come usare',
-  },
-  homeSourcesBody: {
-    ko: '성지 이름·주소·역사·연락처는 교구 공식 자료 등을 바탕으로 직접 정리한 자체 데이터입니다. 예상 붐빔 정도와 주변 관광 정보는 한국관광공사 OpenAPI(TourAPI)를 매번 실시간으로 불러오며 저장하지 않습니다. 미사 시간·개방 여부는 방문 전에 성지에 직접 확인해 주세요.',
-    en: 'Shrine names, addresses, history and contacts are our own data compiled from diocesan sources. Expected crowding and nearby tourism information are fetched live from the Korea Tourism Organization OpenAPI (TourAPI) on every request and never stored. Please confirm Mass times and opening hours with the shrine before visiting.',
-    es: 'Nombres, direcciones, historia y contactos son datos propios basados en fuentes diocesanas. La afluencia prevista y la información turística cercana se obtienen en tiempo real de la OpenAPI de la Organización de Turismo de Corea y no se almacenan. Confirma horarios de misa y apertura con el santuario.',
-    fr: 'Noms, adresses, histoire et contacts sont nos propres données issues de sources diocésaines. L’affluence prévue et les informations touristiques sont récupérées en temps réel via l’OpenAPI de l’Office du tourisme coréen et jamais stockées. Confirmez horaires de messe et d’ouverture auprès du sanctuaire.',
-    pt: 'Nomes, endereços, história e contatos são dados próprios baseados em fontes diocesanas. O movimento previsto e as informações turísticas são obtidos em tempo real da OpenAPI da Organização de Turismo da Coreia e nunca armazenados. Confirme horários de missa e abertura com o santuário.',
-    it: 'Nomi, indirizzi, storia e contatti sono dati propri basati su fonti diocesane. L’affluenza prevista e le informazioni turistiche sono recuperate in tempo reale dall’OpenAPI dell’Ente del Turismo Coreano e mai memorizzate. Conferma orari di messa e apertura con il santuario.',
-  },
-  homeContactTitle: {
-    ko: '문의와 정보 수정 제안',
-    en: 'Contact and corrections',
-    es: 'Contacto y correcciones',
-    fr: 'Contact et corrections',
-    pt: 'Contato e correções',
-    it: 'Contatti e correzioni',
-  },
-  homeContactBody: {
-    ko: '잘못된 정보를 발견하셨거나 성지 정보를 더 알려주실 수 있다면 알려 주세요. 문의 연락처는 자주 묻는 질문에 있습니다.',
-    en: 'Found an error or have more information about a shrine? Let us know. Contact details are in the FAQ.',
-    es: '¿Encontraste un error o tienes más información sobre un santuario? Avísanos. Los datos de contacto están en las preguntas frecuentes.',
-    fr: 'Une erreur ou un complément d’information sur un sanctuaire ? Dites-le-nous. Les coordonnées sont dans la FAQ.',
-    pt: 'Encontrou um erro ou tem mais informações sobre um santuário? Avise-nos. Os contatos estão nas perguntas frequentes.',
-    it: 'Hai trovato un errore o hai altre informazioni su un santuario? Faccelo sapere. I contatti sono nelle FAQ.',
   },
   seeAll: {
     ko: '모두 보기',
@@ -1131,6 +1099,16 @@ export const DICTIONARY = {
     fr: 'Posez toutes vos questions',
     pt: 'Pergunte o que quiser',
     it: 'Chiedi quello che vuoi',
+  },
+  // 홈 입구 카드 3개(성지 찾기·미카엘 AI·오늘의 성지 일정)의 부제 길이를 맞추려고 추가
+  // (사장님 지적, 2026-09-18) — 성지 찾기만 부제가 없어 카드 높이가 안 맞았다.
+  homeEntrySearchSub: {
+    ko: '이름이나 지역으로 찾아보세요',
+    en: 'Search by name or region',
+    es: 'Busca por nombre o región',
+    fr: 'Cherchez par nom ou région',
+    pt: 'Busque por nome ou região',
+    it: 'Cerca per nome o regione',
   },
   // 2026-09-07 부터 화면에서 쓰이지 않는다 — 홈의 큰 AI 배너를 바로가기 칩으로
   // 줄이면서 본문·버튼 문구가 빠졌다. 시트 안에 안내를 넣게 되면 다시 쓴다.

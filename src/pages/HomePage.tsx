@@ -1,13 +1,4 @@
-import {
-  CalendarHeart,
-  ChevronRight,
-  HelpCircle,
-  Info,
-  MessageSquare,
-  Search,
-  Sparkles,
-  X,
-} from 'lucide-react';
+import { CalendarHeart, ChevronRight, Search, Sparkles } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -16,7 +7,6 @@ import { HeroCarousel, type HeroSlide } from '@/features/sites/components/HeroCa
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { HERO_SITES } from '@/features/sites/data/hero-sites';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
-import { ButtonLink } from '@/shared/components/ui/Button';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
@@ -24,12 +14,13 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
 
 /**
- * 홈 — 2026-09-16 회의 · 시안(버전 8) 확정 순서, 9/17 오후 사장님 지시로 4번을 접었다.
+ * 홈 — 2026-09-16 회의 · 시안(버전 8) 확정 순서, 이후 9/17~9/18 사장님 지시로 여러 번 다듬었다.
  *
  *   1. 히어로 — 고정 5곳 사진 슬라이드, 100vw. 사진이 가장 먼저 눈에 들어온다. 설명글 없음.
- *   2. 입구 2개 — 성지 찾기 · 오늘의 성지 일정. 첫 화면 안에 보인다.
- *   3. 처음 방문하기 좋은 성지 (사진·연락처·좌표가 모두 확인된 곳)
- *   4. 정보의 출처와 이용 방법 · 문의 — 본문에 펼쳐 두지 않고 푸터 한 줄 + 팝업(`HomeInfoSheet`)으로 접는다.
+ *   2. 입구 3개 — 성지 찾기 · 미카엘 AI · 오늘의 성지 일정(2026-09-18, 미카엘 추가). 첫 화면 안에 보인다.
+ *   3. 오늘 방문하기 좋은 성지 (사진·연락처·좌표가 모두 확인된 곳)
+ *   4. 푸터 — 이용약관·개인정보·FAQ 링크만(2026-09-18). 「정보 출처·문의」 팝업은 없앴다 —
+ *      내용이 이미 FAQ·이용약관에 있었다.
  *
  * 뺀 것(같은 회의): 「지역별 성지 찾기」 칩(시안 코멘트로 삭제 — 지역·교구 필터는 성지 찾기 화면에만),
  * 사진 위 검색창(상단바 돋보기와 「성지 찾기」 입구로 대신), 「고요 속으로」 입구, 문제 정의 문단.
@@ -105,71 +96,8 @@ function EntryCard({
   );
 }
 
-/**
- * 푸터 「정보 출처·문의」 상세 팝업 (2026-09-17) — `InstallShareSheet` 와 같은 시트 모양.
- * 본문에 늘 펼쳐 두던 카드 2장을 접어 넣었다 — 첫 화면은 사진과 입구 2개만으로 끝나야 한다.
- */
-function HomeInfoSheet({ onClose }: { onClose: () => void }) {
-  const { t } = useSettings();
-  return (
-    <>
-      <button
-        type="button"
-        className="fixed inset-0 z-40 bg-black/30"
-        aria-label={t('close')}
-        onClick={onClose}
-      />
-      <div
-        role="dialog"
-        aria-label={`${t('homeSourcesTitle')} · ${t('homeContactTitle')}`}
-        className="fixed bottom-[70px] left-1/2 z-50 max-h-[70vh] w-full max-w-lg -translate-x-1/2 overflow-y-auto rounded-t-lg border-t border-app-border bg-white px-5 pb-5 pt-4 lg:bottom-0 lg:rounded-lg lg:border"
-        id="home-info-sheet"
-      >
-        <div className="mb-1 flex items-center justify-between">
-          <p className="text-lg font-bold text-app-text">
-            {t('homeSourcesTitle')} · {t('homeContactTitle')}
-          </p>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label={t('close')}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg"
-          >
-            <X size={22} aria-hidden />
-          </button>
-        </div>
-        <div className="divide-y divide-app-border">
-          <div className="py-4">
-            <h3 className="flex items-center gap-2 text-base font-bold text-app-text">
-              <Info size={18} className="text-brand-blue" aria-hidden />
-              {t('homeSourcesTitle')}
-            </h3>
-            <p className="mt-2 text-base leading-relaxed text-app-text-muted">
-              {t('homeSourcesBody')}
-            </p>
-          </div>
-          <div className="py-4">
-            <h3 className="flex items-center gap-2 text-base font-bold text-app-text">
-              <MessageSquare size={18} className="text-brand-olive" aria-hidden />
-              {t('homeContactTitle')}
-            </h3>
-            <p className="mt-2 text-base leading-relaxed text-app-text-muted">
-              {t('homeContactBody')}
-            </p>
-            <ButtonLink to={paths.faq} variant="secondary" className="mt-4">
-              <HelpCircle size={18} aria-hidden />
-              {t('viewFaq')}
-            </ButtonLink>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
-
 export default function HomePage() {
   const { language, t } = useSettings();
-  const [infoOpen, setInfoOpen] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
 
   const { data: allSitesRaw = [] } = useSites({ limit: 300 });
@@ -220,6 +148,7 @@ export default function HomePage() {
             id="entry-search"
             icon={<Search size={24} aria-hidden />}
             title={t('findShrines')}
+            sub={t('homeEntrySearchSub')}
           />
           <EntryCard
             onClick={() => setAiOpen(true)}
@@ -251,22 +180,16 @@ export default function HomePage() {
         </div>
       </PageContainer>
 
-      {/* 4. 출처·문의 — 접어서 푸터 한 줄로, 상세는 팝업(2026-09-17 오후 사장님 지시).
-          「추천 성지」 푸터 링크는 삭제(같은 지시) — /nearby 는 지금 앱 안 어디에서도 안 이어진다.
-          디자인은 로그인 화면의 약관·개인정보·FAQ 줄과 같게(사장님 지적, 2026-09-18) — 가운데
-          정렬된 밑줄 글자 여러 개를 나란히 둔다. 정보 출처·문의는 그대로 팝업(`HomeInfoSheet`)으로
-          열리되, 로그인 화면에도 있는 약관·개인정보·FAQ 를 홈에서도 바로 갈 수 있게 더했다. */}
-      <PageContainer className="pt-8 lg:pt-10">
-        <footer className="border-t border-app-border pt-5">
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            <button
-              type="button"
-              onClick={() => setInfoOpen(true)}
-              id="footer-about"
-              className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
-            >
-              {t('homeSourcesTitle')} · {t('homeContactTitle')}
-            </button>
+      {/* 4. 푸터 — 로그인 화면과 같은 가운데 정렬 밑줄 링크 줄(사장님 지적, 2026-09-18).
+          위 테두리는 화면 끝까지 간다(같은 지적) — 테두리는 PageContainer 밖에,
+          링크만 안에 둔다. 「정보 출처·문의」 팝업은 없앴다(같은 지적) — 그 안에
+          있던 내용(교구 출처·TourAPI 실시간 조회·미사 시간은 현장 확인)은 자주 묻는
+          질문에, 오류 발견 시 바로잡는다는 약속은 이용약관 제9조에 이미 있다 —
+          같은 말을 화면에 두 번 적어 둘 이유가 없었다.
+          「추천 성지」 푸터 링크는 삭제(9/17) — /nearby 는 지금 앱 안 어디에서도 안 이어진다. */}
+      <div className="mt-8 border-t border-app-border lg:mt-10">
+        <PageContainer className="pt-5">
+          <footer className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <Link
               to={paths.terms}
               className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
@@ -285,11 +208,10 @@ export default function HomePage() {
             >
               {t('viewFaq')}
             </Link>
-          </div>
-        </footer>
-      </PageContainer>
+          </footer>
+        </PageContainer>
+      </div>
 
-      {infoOpen && <HomeInfoSheet onClose={() => setInfoOpen(false)} />}
       <AiGuideSheet isOpen={aiOpen} onClose={() => setAiOpen(false)} />
     </div>
   );

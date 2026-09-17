@@ -99,7 +99,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
   // 화살표는 사진 세로 한가운데 (2026-09-17). 전엔 40% 높이라 아래 글자 쪽으로 치우쳐 보였다.
   // 평소엔 옅게, 올리거나 누르면 또렷한 흰색으로(사장님 지적, 2026-09-18) — 사진을 덜 가린다.
   const arrowClass =
-    'absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/50 text-app-text backdrop-blur-sm transition-colors hover:bg-white active:bg-white';
+    'absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/50 text-app-text backdrop-blur-sm transition-colors duration-300 hover:bg-white active:bg-white';
 
   return (
     <section
