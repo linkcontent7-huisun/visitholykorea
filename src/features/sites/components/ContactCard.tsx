@@ -94,8 +94,6 @@ export function ContactCard({ site }: { site: HolySite }) {
           </li>
         )}
       </ul>
-
-      <p className="mt-2 text-sm text-app-text-muted">{t('contactConfirmNote')}</p>
     </section>
   );
 }

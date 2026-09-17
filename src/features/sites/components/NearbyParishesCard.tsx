@@ -6,13 +6,15 @@
  * 바뀌므로 적지 않는다 — 전화로 확인하게 안내하는 것이 정직하다.
  */
 
-import { Church } from 'lucide-react';
 import type { HolySite } from '@/shared/types/domain';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { Card } from '@/shared/components/ui/Card';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { DirectoryEntryCard } from './DirectoryEntryCard';
 import { useNearbyDirectory } from '../hooks/use-nearby-directory';
+
+/** 구글·애플은 한국 사용자에게는 거의 안 쓰여 뺀다(사장님 지적, 2026-09-17) — 카카오·티맵·네이버만 */
+const PARISH_MAP_PROVIDERS = ['kakao', 'tmap', 'naver'] as const;
 
 export function NearbyParishesCard({ site }: { site: HolySite }) {
   const { t, language } = useSettings();
@@ -23,21 +25,17 @@ export function NearbyParishesCard({ site }: { site: HolySite }) {
 
   return (
     <section>
-      <SectionHeading
-        as="h3"
-        size="md"
-        title={
-          <span className="inline-flex items-center gap-2">
-            <Church size={20} className="text-brand-blue" aria-hidden />
-            {t('regionParishesTitle')}
-          </span>
-        }
-      />
+      <SectionHeading as="h3" size="md" title={t('regionParishesTitle')} />
       <Card>
         <ul className="divide-y divide-app-border">
           {places.map((p) => (
             <li key={p.id} className="py-3 first:pt-0 last:pb-0">
-              <DirectoryEntryCard entry={p} bare />
+              <DirectoryEntryCard
+                entry={p}
+                bare
+                hideDistance
+                mapProviders={PARISH_MAP_PROVIDERS}
+              />
             </li>
           ))}
         </ul>

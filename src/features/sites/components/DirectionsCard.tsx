@@ -1,9 +1,10 @@
-import { Check, Copy, ExternalLink, MapPin, Navigation } from 'lucide-react';
+import { Check, Copy, MapPin } from 'lucide-react';
 import { useState } from 'react';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
-import { buildMapLinks, copyText } from '@/shared/lib/map-links';
+import { copyText } from '@/shared/lib/map-links';
 import type { HolySite } from '@/shared/types/domain';
+import { QuickDirectionsButtons } from './QuickDirectionsButtons';
 
 /**
  * 찾아가는 길.
@@ -14,16 +15,20 @@ import type { HolySite } from '@/shared/types/domain';
  *  2. 카카오·네이버가 정확한데 앱이 깔려 있지 않다
  *  3. 택시를 타면 영어 주소가 통하지 않는다
  *
- * 그래서 지도 앱을 하나로 몰지 않고 **각각 무엇을 잘하는지 밝혀서 나란히** 두고,
- * 무엇보다 **한국어 주소를 크게 보여준다.** 택시 기사에게 화면을 보여주는 것이
- * 외국인에게는 가장 확실한 길찾기다.
+ * 그래서 지도 앱을 하나로 몰지 않고 나란히 두고(`QuickDirectionsButtons` — 주변 본당
+ * 목록과 같은 작은 단추), 무엇보다 **한국어 주소를 크게 보여준다.** 택시 기사에게
+ * 화면을 보여주는 것이 외국인에게는 가장 확실한 길찾기다.
+ *
+ * 한국어·영문 주소를 언어 설정과 무관하게 늘 함께 보여준다(2026-09-17) — 영어 화면에서만
+ * 영문 주소를 보여주면, 한국어 화면을 쓰는 한국인이 외국인 동행에게 영문 표기를 보여줄
+ * 방법이 없었다.
  */
 export function DirectionsCard({
   site,
   addressEnglish = null,
 }: {
   site: HolySite;
-  /** 영문(로마자) 주소. 외국어 화면에서 한국어 주소 위에 읽을 수 있는 줄로 놓는다. */
+  /** 영문(로마자) 주소. 있으면 한국어 주소 아래에 작게 병기한다. */
   addressEnglish?: string | null;
 }) {
   const { t, language } = useSettings();
@@ -44,19 +49,25 @@ export function DirectionsCard({
     }
   };
 
-  // 한국어 화면이면 국내 지도 앱을 앞에 둔다
-  const links = hasCoordinates
-    ? buildMapLinks({ name: site.name, lat, lng }, language === 'ko')
-    : [];
-
   return (
     <section aria-labelledby="directions-heading">
       <SectionHeading as="h3" size="md" id="directions-heading" title={t('directions')} />
 
-      {/* 한국어 주소 — 이 화면에서 가장 중요한 요소라 가장 크게 둔다 */}
+      {/* 주소 — 한국어를 택시 기사에게 보여줄 수 있게 크게, 영문은 그 아래 작게 병기.
+          Copy 단추는 주소와 같은 줄에 둔다(2026-09-17) — 예전엔 위 별도 줄의 작은
+          라벨과만 나란했다. */}
       <div className="mb-4 rounded-lg border border-app-border bg-app-bg p-5">
-        <div className="mb-2 flex items-center justify-between gap-3">
-          <span className="text-sm font-bold text-app-text-muted">{t('addressKorean')}</span>
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <p className="select-all text-xl font-bold leading-relaxed text-app-text" lang="ko">
+              {site.location}
+            </p>
+            {addressEnglish && (
+              <p className="mt-1 text-base leading-relaxed text-app-text-muted">
+                {addressEnglish}
+              </p>
+            )}
+          </div>
           <button
             onClick={() => void handleCopy(site.location)}
             className="flex min-h-10 shrink-0 items-center gap-1.5 rounded-lg border border-app-border bg-white px-3 text-sm font-bold text-app-text-muted transition-colors hover:border-brand-blue hover:text-brand-blue"
@@ -67,18 +78,6 @@ export function DirectionsCard({
             {copied ? t('copied') : 'Copy'}
           </button>
         </div>
-
-        {/* 외국어 화면: 순례자가 읽을 영문 주소를 먼저 */}
-        {language !== 'ko' && addressEnglish && (
-          <p className="mb-1 text-base font-medium leading-relaxed text-app-text-muted">
-            {addressEnglish}
-          </p>
-        )}
-
-        {/* 택시 기사에게 보여줄 수 있도록 크고 선택 가능하게 */}
-        <p className="select-all text-xl font-bold leading-relaxed text-app-text" lang="ko">
-          {site.location}
-        </p>
 
         {/* 영어 화면일 때만 이 주소가 왜 한국어인지 설명한다 */}
         {language !== 'ko' && (
@@ -92,36 +91,10 @@ export function DirectionsCard({
         )}
       </div>
 
+      {/* 지도 앱 — 주변 본당 목록과 같은 작은 단추로(2026-09-17). 앱 이름만 보이고
+          설명은 길게 누르면(title) 나온다 — 큰 상자·화살표 아이콘 같은 군더더기를 뺐다 */}
       {hasCoordinates ? (
-        <>
-          <p className="mb-3 text-sm font-bold text-app-text-muted">{t('openInMapApp')}</p>
-
-          {/* 하나로 몰지 않는다. 앱이 없는 사람이 막히면 안 된다 */}
-          <div className="space-y-2">
-            {links.map((link) => (
-              <a
-                key={link.provider}
-                href={link.url}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="flex min-h-16 items-center gap-4 rounded-lg border border-app-border bg-white p-4 transition-colors hover:border-brand-blue"
-                id={`map-${link.provider}`}
-              >
-                <div
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand-blue"
-                  aria-hidden
-                >
-                  <Navigation size={20} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-base font-bold text-app-text">{link.label}</p>
-                  <p className="text-sm leading-relaxed text-app-text-muted">{t(link.noteKey)}</p>
-                </div>
-                <ExternalLink size={18} className="shrink-0 text-app-text-muted" aria-hidden />
-              </a>
-            ))}
-          </div>
-        </>
+        <QuickDirectionsButtons destination={{ name: site.name, lat, lng }} siteName={site.name} />
       ) : (
         <div className="flex items-center gap-3 rounded-lg border border-dashed border-app-border bg-white px-5 py-4">
           <MapPin size={20} className="shrink-0 text-app-text-muted" aria-hidden />

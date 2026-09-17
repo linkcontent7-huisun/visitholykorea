@@ -1,22 +1,9 @@
-import {
-  Camera,
-  Check,
-  ChevronDown,
-  ChevronLeft,
-  Compass,
-  Heart,
-  History,
-  MapPin,
-  PartyPopper,
-  Share2,
-  Stamp,
-  Flag,
-} from 'lucide-react';
+import { Camera, ChevronLeft, Compass, Flag, Heart, History, PartyPopper, Share2, User } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
-import { getInkDaysLeft, getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
+import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
 import { resolveReflectionQuestion } from '@/features/passport/lib/reflection-questions';
 import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/share-card';
 import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use-favorites';
@@ -32,39 +19,21 @@ import { recordNoteReads } from '@/features/passport/api/stamps.repository';
 import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
 import { resolveStampMotif } from '@/features/passport/lib/stamp-motifs';
-import {
-  isWydPeriod,
-  isWydVenue,
-  WYD_LABEL_EN,
-  WYD_LABEL_KO,
-  WYD_LIMITED_LABEL_EN,
-  WYD_LIMITED_LABEL_KO,
-} from '@/features/passport/lib/wyd';
+import { isWydPeriod, isWydVenue, WYD_LABEL_EN, WYD_LABEL_KO } from '@/features/passport/lib/wyd';
 import { DocentPlayer } from '@/features/docent/components/DocentPlayer';
 import { buildChapters } from '@/features/docent/lib/chapters';
 import { getDocentScript } from '@/features/docent/data/scripts';
 import { ContactCard } from '@/features/sites/components/ContactCard';
 import { splitMassInfo } from '@/features/sites/lib/mass-info';
-import { BarrierFreeCard } from '@/features/sites/components/BarrierFreeCard';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
-import { TransitParkingCard } from '@/features/sites/components/TransitParkingCard';
 import { sizedImageUrl } from '@/shared/lib/image-url';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
-import { VisitEtiquette } from '@/features/sites/components/VisitEtiquette';
-import {
-  useBarrierFreeNearby,
-  useNearbyFacilities,
-  useNearbyFestivals,
-} from '@/features/sites/hooks/use-nearby-tour';
+import { useNearbyFacilities, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
 import { NearbyCrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
-import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
-import {
-  useAudioStoriesNearby,
-  useWalkingCoursesNear,
-} from '@/features/sites/hooks/use-tour-extras';
+import { useWalkingCoursesNear } from '@/features/sites/hooks/use-tour-extras';
 import { WalkingCourseCard } from '@/features/sites/components/WalkingCourseCard';
-import { GROUP_HINT_KEY, GROUP_LABEL_KEY } from '@/features/sites/lib/nearby-facilities';
+import { GROUP_LABEL_KEY } from '@/features/sites/lib/nearby-facilities';
 import {
   useLocalizedSites,
   useSite,
@@ -84,6 +53,9 @@ import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { kakaoPlaceUrl } from '@/shared/lib/geo';
 import { externalErrorKey } from '@/shared/i18n/external-error-key';
 
+/** 가는 김에 둘러볼 곳 — 레포츠·쇼핑은 도보권 밖으로 벗어나는 유형이라 뺀다(사장님 지적, 2026-09-17) */
+const HIDDEN_FACILITY_GROUPS = new Set(['레포츠', '쇼핑']);
+
 export default function SiteDetailPage() {
   const { siteId } = useParams<{ siteId: string }>();
   const navigate = useNavigate();
@@ -94,12 +66,13 @@ export default function SiteDetailPage() {
   const { data: nearbySitesRaw = [] } = useSitesInSameDiocese(site?.region, siteId);
   const nearbySites = useLocalizedSites(nearbySitesRaw);
   const {
-    data: facilityGroups = [],
+    data: facilityGroupsRaw = [],
     isFetching: facilitiesLoading,
     isError: facilitiesError,
     error: facilitiesErr,
     refetch: refetchFacilities,
   } = useNearbyFacilities(site?.coordinates);
+  const facilityGroups = facilityGroupsRaw.filter((g) => !HIDDEN_FACILITY_GROUPS.has(g.group));
   const {
     data: festivals = [],
     isFetching: festivalsLoading,
@@ -107,21 +80,12 @@ export default function SiteDetailPage() {
     error: festivalsErr,
     refetch: refetchFestivals,
   } = useNearbyFestivals(site?.coordinates);
-  // "방문 정보" 접이식 그룹의 미리보기 이름을 만들기 위해 여기서도 조회한다.
-  // BarrierFreeCard·NearbyParishesCard 내부에서도 같은 쿼리 키로 부르므로
-  // TanStack Query 가 요청을 하나로 합친다 — TourAPI 추가 호출이 아니다.
-  const { data: barrierFreePlaces = [] } = useBarrierFreeNearby(site?.coordinates);
-  const { data: nearbyParishes = [] } = useNearbyDirectory(site?.coordinates);
-  const { data: audioStories = [] } = useAudioStoriesNearby(site);
   const { data: walkingCourses = [] } = useWalkingCoursesNear(site);
   const location = useLocation();
-  // 마음 나침반에서 「이 코스로 가볼게요」로 오면 #directions — 「찾아가는 길」을 펼쳐 놓고 거기서 시작한다
+  // 마음 나침반에서 「이 코스로 가볼게요」로 오면 #directions — 「방문 정보」로 스크롤한다
   const wantsDirections = location.hash === '#directions';
-  // 방문 정보는 기본으로 펼쳐 둔다 — 순례자가 가장 먼저 찾는 정보다(재기획 2026-09-14)
-  const [visitInfoOpen, setVisitInfoOpen] = useState(true);
   useEffect(() => {
     if (!wantsDirections || !site) return;
-    setVisitInfoOpen(true);
     // 스크롤은 body 가 아니라 앱 상자(#app-scroll)가 한다 — 요소 기준으로 옮긴다
     const el = document.getElementById('visit-info-heading');
     el?.scrollIntoView({ block: 'start', behavior: 'smooth' });
@@ -155,12 +119,6 @@ export default function SiteDetailPage() {
 
   // 오디오 도슨트 — 현장조사 원고가 있으면 포인트별 투어, 없으면 소개·역사 챕터.
   // 훅(useMemo)이라 이른 return 위에서 부른다 — site 는 아직 없을 수 있어 옵셔널로 다룬다.
-  //
-  // useDocentPlayer 는 chapters 배열의 참조가 바뀌면 재생을 멈추고 처음으로 되감는다
-  // (화면을 나가거나 성지가 바뀔 때 멈추기 위한 장치). buildChapters 를 매 렌더마다
-  // 새로 부르면 이 페이지의 다른 상태(예: 방문 정보 아코디언)가 바뀔 때마다
-  // 도슨트가 끊긴다 — T-004 완료 조건("아코디언을 펼치거나 접어도 재생이 끊기지
-  // 않는다")을 만족하려면 여기서 참조를 고정해야 한다.
   const docentScript = getDocentScript(site?.id);
   const docentChapters = useMemo(
     () =>
@@ -185,7 +143,7 @@ export default function SiteDetailPage() {
     ],
   );
 
-  // 순례 사진 — 스탬프를 찍은 사람만 남길 수 있다 (실방문 인증)
+  // 순례 사진 — 첫 후기를 남기면 자동으로 생기는 "내 기록"에 붙인다
   const uploadPhotos = useUploadStampPhotos(siteId ?? '');
   const reportNote = useReportNote(siteId ?? '');
   const [reportedIds, setReportedIds] = useState<Set<string>>(new Set());
@@ -207,9 +165,8 @@ export default function SiteDetailPage() {
     reportNote.mutate(stampId);
   };
 
-  // 오늘 찍으면 어떤 한정판 스탬프가 되는지, 그 잉크가 며칠 남았는지 미리 보여준다.
+  // 공유 카드 디자인에 쓰는 오늘의 전례색·WYD 여부 — 화면에 절차로 보여주지 않는다(2026-09-17).
   const todayLiturgical = getLiturgicalEvent();
-  const inkWindow = getInkDaysLeft();
   const wydNow = isWydPeriod();
 
   // "다녀온 사람의 한 줄"이 실제로 화면에 보였을 때만 읽힘 수를 올린다.
@@ -222,12 +179,24 @@ export default function SiteDetailPage() {
     void recordNoteReads(siteId, visitNotes.length);
   }, [siteId, visitNotes.length]);
 
+  /**
+   * 후기 저장 — 이 한 번의 호출이 "기록"(스탬프)도 함께 만든다(2026-09-17).
+   * 예전엔 "스탬프 찍기" 버튼을 먼저 눌러야 후기를 쓸 수 있었다. 그 절차가
+   * 이 화면의 유일한 "기록" 입구인데도 무겁게 느껴진다는 지적으로, 절차를 화면에
+   * 드러내지 않고 후기 쓰기 한 번으로 합쳤다 — addStamp 자체는 그대로다
+   * (처음 쓰면 새 기록을 만들고, 이미 있으면 한 줄만 갱신한다).
+   */
   const handleSaveNote = () => {
     const note = normalizeNote(noteDraft);
     if (!note) return;
     addStamp.mutate(note, {
       onSuccess: (result) => {
-        if (!result.success) window.alert(t('saveFailedNote'));
+        if (result.success) return;
+        if (result.error === 'UNAUTHENTICATED') {
+          navigate(paths.login);
+          return;
+        }
+        window.alert(t('saveFailedNote'));
       },
     });
   };
@@ -241,19 +210,6 @@ export default function SiteDetailPage() {
           return;
         }
         window.alert(t('saveFailedFavorite'));
-      },
-    });
-  };
-
-  const handleStamp = () => {
-    addStamp.mutate(null, {
-      onSuccess: (result) => {
-        if (result.success) return;
-        if (result.error === 'UNAUTHENTICATED') {
-          navigate(paths.login);
-          return;
-        }
-        window.alert(t('saveFailedStamp'));
       },
     });
   };
@@ -295,24 +251,20 @@ export default function SiteDetailPage() {
   );
   const heroPhoto = sitePhoto;
 
-  // "방문 정보" 그룹을 접었을 때 무엇이 안에 있는지 미리 보여줄 이름 목록.
-  // 성지마다 있는 항목이 다르므로(문의·무장애 정보·주변 본당은 조건부),
-  // 실제로 그 성지에 존재하는 항목만 나열한다 — 없는 걸 있는 것처럼 보이면 안 된다.
-  const hasContact = Boolean(site.phone || site.homepageUrl || site.fax);
-  const hasBarrierFree = barrierFreePlaces.length > 0;
-  const hasNearbyParishes = nearbyParishes.length > 0;
   // 소개글 끝의 「▷ 미사 시간」 문단은 인용문에서 떼어 방문 정보 카드로 보낸다 (2026-09-13)
-  const { body: descriptionBody, mass: massInfo } = splitMassInfo(site?.description);
-  const visitInfoPreview = [
-    t('visitInfoEtiquette'),
-    massInfo ? t('massTimesTitle') : null,
-    t('directions'),
-    hasContact ? t('visitInfoContact') : null,
-    hasBarrierFree ? t('visitInfoBarrierFree') : null,
-    hasNearbyParishes ? t('visitInfoNearbyParishes') : null,
-  ]
-    .filter((label): label is string => Boolean(label))
-    .join(' · ');
+  const { body: descriptionBody, mass: massInfo } = splitMassInfo(site.description);
+  // 「문의」 줄은 바로 아래 연락처 카드와 같은 정보라 뺀다(사장님 지적, 2026-09-17)
+  const massRows = massInfo?.rows.filter((row) => row.label !== '문의') ?? [];
+  /**
+   * 인용문에 보여줄 소개글 — 번역이 실제로 있으면(view.description 이 원문과 다르면)
+   * 그대로, 없어 한국어 원문으로 돌아온 것이면 위에서 미사 시간을 뗀 본문을 쓴다.
+   * (버그 발견 2026-09-17: `view?.description ?? descriptionBody` 로 늘 원문을 먼저 봐서,
+   * 한국어 화면에서 "▷ 미사 시간(...) — 주일: …" 원문이 인용문에 그대로 보이고 있었다.)
+   */
+  const description =
+    view?.description && view.description !== site.description
+      ? view.description
+      : descriptionBody;
 
   return (
     // 상단바·하단 탭이 있는 AppLayout 안에서 뜬다(2026-09-17) — 아래 여백은 AppLayout 이 탭 높이만큼 준다
@@ -404,35 +356,7 @@ export default function SiteDetailPage() {
           <h1 className="mb-3 mt-3 font-display text-[2rem] leading-tight lg:text-[2.5rem]">
             {view?.name ?? site.name}
           </h1>
-          {/*
-            핀을 두 줄의 가운데가 아니라 첫 줄에 맞춘다(items-start).
-            가운데 정렬이면 핀이 두 줄 사이에 끼어 겹침이 더 심해 보였다.
-            로마자 주소는 opacity 대신 흰색 농도로 낮춘다 — opacity 는 글자와
-            그림자를 함께 흐리게 만들어 오히려 안 읽혔다.
-          */}
-          <p className="mb-4 flex items-start gap-2 text-base font-medium">
-            <MapPin size={18} className="mt-1 shrink-0 text-white/85" aria-hidden />
-            <span className="flex flex-col gap-1">
-              {/* 외국어 화면은 영문 주소가 주, 한국어 원 주소가 부 — 읽을 수 있는 쪽이 먼저 */}
-              {language !== 'ko' && view?.addressRomanized ? (
-                <>
-                  <span className="leading-snug">{view.addressRomanized}</span>
-                  <span className="text-sm leading-snug text-white/80" lang="ko">
-                    {site.location}
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span className="leading-snug">{site.location}</span>
-                  {view?.addressRomanized && (
-                    <span className="text-sm leading-snug text-white/80">
-                      {view.addressRomanized}
-                    </span>
-                  )}
-                </>
-              )}
-            </span>
-          </p>
+          {/* 주소는 삭제 — 「찾아가는 길」에 한국어·영문 병기로 이미 나온다(2026-09-17 사장님 지적) */}
           <div className="flex flex-wrap items-center gap-2">
             {/* 인근 혼잡도 라벨 — 값이 있을 때만(재기획 A-2). 주어는 "인근 지역", 숫자는 없다 */}
             <NearbyCrowdingLabel site={site} variant="onDark" />
@@ -449,89 +373,32 @@ export default function SiteDetailPage() {
       </div>
 
       <div className="relative z-10 -mt-6 space-y-8 rounded-t-lg bg-white px-5 py-6 lg:px-8">
-        {/* 방문 정보 — 재기획(2026-09-14) 순서: 들어가기 전 안내 → 미사 시간 → 연락처·홈페이지 →
-            주소·외부 지도 → 대중교통·주차 → 무장애 → 주변 본당. 순례자가 가장 먼저 찾는 정보라
-            역사·주변 관광보다 위에 두고 기본으로 펼쳐 둔다(접을 수는 있다). */}
-        <section aria-labelledby="visit-info-heading">
-          <button
-            type="button"
-            onClick={() => setVisitInfoOpen((open) => !open)}
-            aria-expanded={visitInfoOpen}
-            aria-controls="visit-info-panel"
-            className="flex min-h-16 w-full items-center gap-3 rounded-lg border border-app-border bg-app-bg px-5 py-4 text-left transition-colors hover:border-brand-blue/50"
-          >
-            <div className="min-w-0 flex-1">
-              <h2
-                id="visit-info-heading"
-                className="font-display text-[1.375rem] leading-tight text-app-text lg:text-2xl"
-              >
-                {t('visitInfo')}
-              </h2>
-              {!visitInfoOpen && visitInfoPreview && (
-                <p className="mt-1 truncate text-sm text-app-text-muted">{visitInfoPreview}</p>
-              )}
-            </div>
-            <ChevronDown
-              size={22}
-              className={`shrink-0 text-app-text-muted transition-transform ${visitInfoOpen ? 'rotate-180' : ''}`}
-              aria-hidden
-            />
-          </button>
+        {/* 방문 정보 — 재기획(2026-09-14) 순서: 미사 시간 → 연락처·홈페이지 → 주소·외부 지도.
+            순례자가 가장 먼저 찾는 정보라 역사·주변 관광보다 위에 둔다. 예전엔 접이식이었는데
+            펼쳐야 보이는 것 자체가 방해라는 지적(2026-09-17)으로 늘 펼쳐 둔다. */}
+        <section aria-labelledby="visit-info-heading" className="space-y-8">
+          <SectionHeading id="visit-info-heading" title={t('visitInfo')} />
 
-          {visitInfoOpen && (
-            <div id="visit-info-panel" className="mt-6 space-y-8">
-              {/* 들어가기 전 안내 — 비신자·외국인이 문 앞에서 멈추는 이유를 없앤다 */}
-              <VisitEtiquette />
-
-              {/* 미사 시간 — 안내 책자 기준. 성지 사정에 따라 바뀔 수 있다 */}
-              {massInfo && (
-                <section aria-labelledby="mass-heading">
-                  <SectionHeading
-                    as="h3"
-                    size="md"
-                    id="mass-heading"
-                    title={
-                      <span className="inline-flex items-center gap-2">
-                        <img
-                          src="/brand/church.png"
-                          alt=""
-                          aria-hidden
-                          width={22}
-                          height={22}
-                          className="h-[22px] w-auto"
-                        />
-                        {t('massTimesTitle')}
-                      </span>
-                    }
-                    sub={massInfo.basis ?? undefined}
-                  />
-                  <dl className="space-y-3 rounded-lg border border-app-border bg-white p-5">
-                    {massInfo.rows.map((row) => (
-                      <div key={row.label + row.value} className="grid grid-cols-[5rem_1fr] gap-3">
-                        <dt className="text-sm font-bold text-brand-blue">{row.label}</dt>
-                        <dd className="text-base leading-relaxed text-app-text">{row.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </section>
-              )}
-
-              {/* 공식 홈페이지·연락처 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
-              <ContactCard site={site} />
-
-              {/* 주소와 외부 지도 — 외국인 방문자를 기준으로 만든 화면 */}
-              <DirectionsCard site={site} addressEnglish={view?.addressRomanized ?? null} />
-
-              {/* 대중교통·주차 — 자체 DB 에 칸이 없어 "확인되지 않음" + 문의 경로 */}
-              <TransitParkingCard site={site} />
-
-              {/* 무장애 여행 정보 — 결과가 있을 때만 그려진다 (한국관광공사) */}
-              <BarrierFreeCard site={site} />
-
-              {/* 주변 본당 — 순례 후 미사를 드리고 싶은 이들을 위해 (교구 주소록 기반) */}
-              <NearbyParishesCard site={site} />
-            </div>
+          {/* 미사 시간 — 안내 책자 기준. 성지 사정에 따라 바뀔 수 있다 */}
+          {massInfo && massRows.length > 0 && (
+            <section aria-labelledby="mass-heading">
+              <SectionHeading as="h3" size="md" id="mass-heading" title={t('massTimesTitle')} />
+              <dl className="space-y-4 rounded-lg border border-app-border bg-white p-5">
+                {massRows.map((row) => (
+                  <div key={row.label + row.value}>
+                    <dt className="text-sm font-bold text-brand-blue">{row.label}</dt>
+                    <dd className="mt-1 text-base leading-relaxed text-app-text">{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
           )}
+
+          {/* 공식 홈페이지·연락처 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
+          <ContactCard site={site} />
+
+          {/* 주소와 외부 지도 — 외국인 방문자를 기준으로 만든 화면 */}
+          <DirectionsCard site={site} addressEnglish={view?.addressRomanized ?? null} />
         </section>
 
         <section>
@@ -542,43 +409,15 @@ export default function SiteDetailPage() {
             isDraft={docentScript?.status === 'draft'}
             language={language}
           />
-          {audioStories.length > 0 && (
-            <details className="mb-4 rounded-lg border border-app-border bg-app-bg p-5">
-              <summary className="min-h-11 cursor-pointer text-base font-bold text-app-text">
-                {t('siteAudioStoriesTitle')}
-              </summary>
-              <p className="mt-1 text-xs font-bold text-app-text-muted">{t('siteTourismSource')}</p>
-              <div className="mt-3 space-y-3">
-                {audioStories.slice(0, 3).map((story, index) => (
-                  <div
-                    key={`${story.audioTitle ?? story.title ?? 'story'}-${index}`}
-                    className="rounded-lg bg-white p-3"
-                  >
-                    <h3 className="text-base font-bold text-app-text">
-                      {story.audioTitle ?? story.title}
-                    </h3>
-                    {story.script && (
-                      <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-app-text-muted">
-                        {story.script}
-                      </p>
-                    )}
-                    {story.audioUrl && (
-                      <audio className="mt-2 w-full" controls src={story.audioUrl} preload="none" />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </details>
-          )}
           <Card tone="panel" className="relative overflow-hidden">
             <History
               size={100}
               className="absolute -bottom-6 -right-6 rotate-12 text-brand-blue/5"
               aria-hidden
             />
-            {(view?.description ?? descriptionBody) && (
+            {description && (
               <p className="relative z-10 mb-5 font-display text-lg leading-relaxed text-brand-blue">
-                &ldquo;{view?.description ?? descriptionBody}&rdquo;
+                &ldquo;{description}&rdquo;
               </p>
             )}
             {(view?.history ?? site.history) && (
@@ -620,7 +459,9 @@ export default function SiteDetailPage() {
         )}
 
         {/* 주변 관광 정보 — 한국관광공사 OpenAPI 를 지금 불러온 것. 실패해도 위의 방문 정보는 그대로다.
-            역사·방문 정보보다 아래에 둔다(재기획 §4-1: 주변 음식점이 기본 방문 정보보다 먼저 나오지 않게). */}
+            역사·방문 정보보다 아래에 둔다(재기획 §4-1: 주변 음식점이 기본 방문 정보보다 먼저 나오지 않게).
+            안의 「가는 김에 둘러볼 곳」과는 다른 절이다 — 이 절은 아래 세 개(둘러볼 곳·오늘의 행사·
+            도보 코스)를 묶는 상위 제목이다. */}
         <section aria-labelledby="nearby-tourism-heading" className="space-y-8">
           <SectionHeading
             id="nearby-tourism-heading"
@@ -657,13 +498,13 @@ export default function SiteDetailPage() {
           )}
 
           {/*
-          주변 편의시설 — 맛집·숙박·볼거리·레포츠·쇼핑을 한 화면에서 본다(관광공사 유형 그대로).
+          주변 편의시설 — 맛집·숙박·볼거리를 한 화면에서 본다(관광공사 유형 그대로, 레포츠·쇼핑은 뺐다).
           TourAPI 를 한 번만 부르고 유형으로 나눈다(저장하지 않는다).
           빈 유형은 아예 그리지 않는다 — 시골 성지의 빈 탭은 정보가 없는 앱으로 보인다.
         */}
           {(facilitiesLoading || facilityGroups.length > 0) && (
             <section>
-              <SectionHeading title={t('siteNearbyTitle')} meta={t('siteNearbyMeta')} />
+              <SectionHeading title={t('siteNearbyTitle')} />
 
               {facilitiesLoading ? (
                 <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
@@ -678,14 +519,9 @@ export default function SiteDetailPage() {
                 <div className="space-y-8">
                   {facilityGroups.map(({ group, spots }) => (
                     <div key={group}>
-                      <div className="mb-3 flex items-baseline gap-2">
-                        <h3 className="text-lg font-bold text-app-text">
-                          {t(GROUP_LABEL_KEY[group])}
-                        </h3>
-                        <span className="text-sm text-app-text-muted">
-                          {t(GROUP_HINT_KEY[group])}
-                        </span>
-                      </div>
+                      <h3 className="mb-3 text-lg font-bold text-app-text">
+                        {t(GROUP_LABEL_KEY[group])}
+                      </h3>
                       <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
                         {spots.map((spot) => (
                           <a
@@ -710,11 +546,6 @@ export default function SiteDetailPage() {
                                   className="text-app-text-muted opacity-30"
                                   aria-hidden
                                 />
-                              )}
-                              {spot.dist && (
-                                <div className="absolute left-2 top-2 rounded-md bg-white/90 px-2 py-0.5 text-xs font-bold tabular-nums text-brand-blue backdrop-blur-md">
-                                  {Math.round(Number(spot.dist))}m
-                                </div>
                               )}
                             </div>
                             <div className="p-4">
@@ -777,247 +608,203 @@ export default function SiteDetailPage() {
           )}
         </section>
 
-        {/* 순례 스탬프 찍기 — 이 화면의 진짜 주인공(T-004). 다른 섹션과 같은
-            "보라 세로줄 + h2" 제목 스타일을 쓰지 않고, 굵은 테두리와 배경색만으로
-            가장 먼저 눈에 띄게 만든다. 안내 문구와 버튼 사이는 예전에 -mb-2 로
-            좁혔다가 버튼을 8px 끌어올려 문구를 가리는 문제가 있었다 — 여기서도
-            래퍼 안에서 space-y 로만 간격을 준다. */}
-        <section className="space-y-3 rounded-lg border-2 border-brand-blue bg-brand-soft/60 p-5">
-          {!stamped &&
-            (wydNow ? (
-              // WYD 대회 기간 — 다시 오지 않는 날짜. 이 기간의 스탬프는 그 자체로 참가 증명이다.
-              <p className="text-center text-sm font-bold text-amber-700">
-                ✨{' '}
-                <span className="font-extrabold">
-                  {language === 'ko' ? WYD_LIMITED_LABEL_KO : WYD_LIMITED_LABEL_EN}
-                </span>
-                <span className="mt-0.5 block text-sm font-medium text-app-text-muted">
-                  {t('stampWydNote')}
-                </span>
-              </p>
-            ) : (
-              <p className="text-center text-sm font-bold text-app-text-muted">
-                {t('stampLimitedTitle')}{' '}
-                <span className={todayLiturgical.colorClass.text}>
-                  {todayLiturgical.emoji} {t(todayLiturgical.labelKey)}
-                </span>
-                {/* 기한이 보여야 한정판이 한정판이 된다 — 재방문의 이유 */}
-                <span className="mt-0.5 block text-sm font-medium">
-                  {fillPlaceholders(t('stampInkChanges'), {
-                    days: inkWindow.daysLeft,
-                    next: t(inkWindow.nextLabelKey),
-                  })}
-                </span>
-              </p>
-            ))}
+        {/* 순례 후기 — "스탬프 찍기" 절차를 없앴다(2026-09-17 사장님 지적). 로그인한 사람은
+            누구나 바로 한 줄을 남길 수 있고, 그 글이 이 성지의 첫 기록이면 스탬프(기록)가
+            뒤에서 함께 남는다. 사진은 확대해서 가로로 넘겨 보고, 다른 사람 글에는 실명 대신
+            일반 라벨("순례자")만 붙인다 — 누가 썼는지는 DB 조회 자체에 없다(비식별 설계 유지). */}
+        <section aria-labelledby="reviews-heading" className="space-y-4">
+          <SectionHeading
+            id="reviews-heading"
+            title={t('reviewsTitle').replace('{count}', String(visitNotes.length))}
+            sub={t('pilgrimStoriesHint')}
+          />
 
-          <div className="flex gap-4">
-            <button
-              onClick={handleStamp}
-              disabled={stamped || addStamp.isPending}
-              className={`flex min-h-14 flex-1 items-center justify-center gap-2 rounded-lg text-lg font-bold transition-colors ${
-                stamped
-                  ? 'border border-emerald-200 bg-emerald-50 text-emerald-700'
-                  : 'bg-brand-blue text-white hover:bg-brand-blue/90'
-              }`}
-              id="stamp-button"
-            >
-              {stamped ? <Check size={22} aria-hidden /> : <Stamp size={22} aria-hidden />}
-              {addStamp.isPending
-                ? t('stampRecording')
-                : stamped
-                  ? t('stampDone')
-                  : t('stampButton')}
-            </button>
-          </div>
+          {!myStamp?.note && !noteDismissed && (
+            <Card>
+              <p className="text-base font-bold text-app-text">{t('noteAskTitle')}</p>
+              {/* 오늘의 질문 — 빈 입력창은 쓰기 어렵지만 질문에는 답하게 된다. */}
+              <blockquote className="mt-2 border-l-2 border-brand-blue/40 pl-3 text-sm font-medium leading-relaxed text-brand-blue">
+                {language === 'ko'
+                  ? resolveReflectionQuestion(site.name, site.category).ko
+                  : resolveReflectionQuestion(site.name, site.category).en}
+              </blockquote>
+              <p className="mt-2 text-sm leading-relaxed text-app-text-muted">{t('noteHint')}</p>
+              <input
+                type="text"
+                name="note"
+                autoComplete="off"
+                maxLength={NOTE_MAX_LENGTH}
+                placeholder={t('notePlaceholder')}
+                aria-label={t('noteAriaLabel')}
+                className="mt-3 min-h-12 w-full rounded-lg border border-app-border bg-white px-4 text-base text-app-text focus:border-brand-blue"
+                value={noteDraft}
+                onChange={(e) => setNoteDraft(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleSaveNote();
+                }}
+              />
+              <div className="mt-3 flex justify-end gap-2">
+                <Button variant="ghost" size="sm" onClick={() => setNoteDismissed(true)}>
+                  {t('noteLater')}
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={handleSaveNote}
+                  disabled={normalizeNote(noteDraft) === null || addStamp.isPending}
+                >
+                  {addStamp.isPending ? t('noteSubmitting') : t('noteSubmit')}
+                </Button>
+              </div>
+            </Card>
+          )}
 
-          {/* 공유 버튼 — 방문정보 섹션들 뒤에 있으면 스탬프를 막 찍은 사람이
-              다시 스크롤해야 했다(T-004). 스탬프 버튼 바로 아래로 옮긴다. */}
           {stamped && (
-            <Button
-              variant="secondary"
-              block
-              onClick={() => void handleShareCard()}
-              disabled={shareLoading}
-              id="share-card-button"
-            >
-              <Share2 size={18} aria-hidden />
-              {shareLoading ? t('shareCardMaking') : t('shareStampCard')}
-            </Button>
+            <Card>
+              {myStamp?.note && (
+                <>
+                  <p className="text-sm font-bold text-app-text-muted">{t('noteMine')}</p>
+                  <p className="mt-2 text-base leading-relaxed text-app-text">
+                    &ldquo;{myStamp.note}&rdquo;
+                  </p>
+                </>
+              )}
+              {/* 순례 사진 — 확대해서 가로로 넘겨 본다(2026-09-17, 예전엔 3열 작은 격자) */}
+              {myStamp?.photos.length ? (
+                <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
+                  {myStamp.photos.map((photo) => (
+                    <img
+                      key={photo.id}
+                      src={photo.url}
+                      alt={t('photoMineAlt')}
+                      className="h-40 w-40 shrink-0 rounded-lg object-cover"
+                    />
+                  ))}
+                </div>
+              ) : myStamp?.photoUrl ? (
+                <img
+                  src={myStamp.photoUrl}
+                  alt={t('photoMineAlt')}
+                  className="mt-3 h-40 w-full rounded-lg object-cover"
+                />
+              ) : null}
+              <label
+                className={`mt-3 flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg border-[1.5px] border-dashed border-brand-blue/50 text-base font-bold text-brand-blue transition-colors hover:bg-brand-soft ${
+                  uploadPhotos.isPending ? 'opacity-50' : ''
+                }`}
+              >
+                <Camera size={18} aria-hidden />
+                {uploadPhotos.isPending
+                  ? t('photoUploading')
+                  : myStamp?.photos.length
+                    ? t('photoReplace')
+                    : t('photoAdd')}
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  disabled={uploadPhotos.isPending}
+                  onChange={(e) => {
+                    void handlePhotoPick(e.target.files);
+                    e.target.value = '';
+                  }}
+                  data-testid="photo-input"
+                />
+              </label>
+              <Button
+                variant="secondary"
+                block
+                onClick={() => void handleShareCard()}
+                disabled={shareLoading}
+                id="share-card-button"
+                className="mt-3"
+              >
+                <Share2 size={18} aria-hidden />
+                {shareLoading ? t('shareCardMaking') : t('shareStampCard')}
+              </Button>
+              <p className="mt-3 text-sm leading-relaxed text-app-text-muted">
+                {t('reviewPublicNotice')}
+              </p>
+            </Card>
+          )}
+
+          {visitNotes.length > 0 && (
+            <Card>
+              <div className="flex justify-end">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setReviewsOpen((open) => !open)}
+                  className="-mr-3 -mt-1 text-brand-blue"
+                  aria-expanded={reviewsOpen}
+                >
+                  {reviewsOpen ? t('reviewsHide') : t('reviewsShow')}
+                </Button>
+              </div>
+              <ul className="space-y-5">
+                {visitNotes.map((n) => (
+                  <li key={n.id} className="border-l-2 border-brand-blue/30 pl-3">
+                    {/* 실명 대신 일반 라벨만 — "누가"는 DB 조회에 아예 없다(비식별 설계) */}
+                    <div className="mb-1.5 flex items-center gap-2">
+                      <span
+                        className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-soft text-brand-blue"
+                        aria-hidden
+                      >
+                        <User size={14} />
+                      </span>
+                      <span className="text-sm font-bold text-app-text">
+                        {t('pilgrimDefaultName')}
+                      </span>
+                    </div>
+                    {n.photos.length > 0 && (
+                      <div className="no-scrollbar mb-2 flex gap-2 overflow-x-auto">
+                        {n.photos.map((url) => (
+                          <img
+                            key={url}
+                            src={url}
+                            alt={t('pilgrimPhotoAlt')}
+                            loading="lazy"
+                            className="h-36 w-36 shrink-0 rounded-lg object-cover"
+                          />
+                        ))}
+                      </div>
+                    )}
+                    {n.note && (
+                      <p className="text-base leading-relaxed text-app-text">
+                        &ldquo;{n.note}&rdquo;
+                      </p>
+                    )}
+                    <div className="mt-1 flex items-center justify-between">
+                      <p className="text-sm text-app-text-muted">
+                        {new Date(n.visitedAt).toLocaleDateString(SPEECH_LOCALE[language], {
+                          month: 'long',
+                          day: 'numeric',
+                        })}{' '}
+                        {t('visitedLabel')}
+                      </p>
+                      {/* 운영자가 한 명뿐이라 신고 3건이면 자동으로 가려진다 */}
+                      <button
+                        onClick={() => handleReport(n.id)}
+                        disabled={reportedIds.has(n.id)}
+                        className="flex min-h-11 items-center gap-1 rounded-lg px-2 text-sm font-bold text-app-text-muted transition-colors hover:bg-app-bg hover:text-app-text disabled:opacity-40"
+                        aria-label={t('reportAction')}
+                      >
+                        <Flag size={14} aria-hidden />
+                        {reportedIds.has(n.id) ? t('reportedAction') : t('reportAction')}
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-sm leading-relaxed text-app-text-muted">
+                {t('reviewModerationNotice')}
+              </p>
+            </Card>
           )}
         </section>
 
-        {/* 한 줄 남기기 — 붐빔 지수는 추정이고, 실제로 조용했는지는 다녀온
-            사람만 안다. 이 한 줄이 다음 방문자의 판단 근거가 된다 (컨셉 축 3). */}
-        {stamped && !myStamp?.note && !noteDismissed && (
-          <Card>
-            <p className="text-base font-bold text-app-text">{t('noteAskTitle')}</p>
-            {/* 오늘의 질문 — 빈 입력창은 쓰기 어렵지만 질문에는 답하게 된다.
-                이 성지의 역사에서 나온 질문이라, 답이 곧 이곳과 나의 기록이 된다. */}
-            <blockquote className="mt-2 border-l-2 border-brand-blue/40 pl-3 text-sm font-medium leading-relaxed text-brand-blue">
-              {language === 'ko'
-                ? resolveReflectionQuestion(site.name, site.category).ko
-                : resolveReflectionQuestion(site.name, site.category).en}
-            </blockquote>
-            <p className="mt-2 text-sm leading-relaxed text-app-text-muted">{t('noteHint')}</p>
-            <input
-              type="text"
-              name="note"
-              autoComplete="off"
-              maxLength={NOTE_MAX_LENGTH}
-              placeholder={t('notePlaceholder')}
-              aria-label={t('noteAriaLabel')}
-              className="mt-3 min-h-12 w-full rounded-lg border border-app-border bg-white px-4 text-base text-app-text focus:border-brand-blue"
-              value={noteDraft}
-              onChange={(e) => setNoteDraft(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') handleSaveNote();
-              }}
-            />
-            <div className="mt-3 flex justify-end gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setNoteDismissed(true)}>
-                {t('noteLater')}
-              </Button>
-              <Button
-                size="sm"
-                onClick={handleSaveNote}
-                disabled={normalizeNote(noteDraft) === null || addStamp.isPending}
-              >
-                {addStamp.isPending ? t('noteSubmitting') : t('noteSubmit')}
-              </Button>
-            </div>
-          </Card>
-        )}
-
-        {stamped && (
-          <Card>
-            {myStamp?.note && (
-              <>
-                <p className="text-sm font-bold text-app-text-muted">{t('noteMine')}</p>
-                <p className="mt-2 text-base leading-relaxed text-app-text">
-                  &ldquo;{myStamp.note}&rdquo;
-                </p>
-              </>
-            )}
-            {/* 순례 사진 — 모두가 함께 만드는 앱: 다녀온 사람의 사진이
-                다음 순례자의 안내가 된다. 올리기 전에 1600px 로 줄인다. */}
-            {myStamp?.photos.length ? (
-              <div className="mt-3 grid grid-cols-3 gap-2">
-                {myStamp.photos.map((photo) => (
-                  <img
-                    key={photo.id}
-                    src={photo.url}
-                    alt={t('photoMineAlt')}
-                    className="aspect-square rounded-lg object-cover"
-                  />
-                ))}
-              </div>
-            ) : myStamp?.photoUrl ? (
-              <img
-                src={myStamp.photoUrl}
-                alt={t('photoMineAlt')}
-                className="mt-3 max-h-48 w-full rounded-lg object-cover"
-              />
-            ) : null}
-            <label
-              className={`mt-3 flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg border-[1.5px] border-dashed border-brand-blue/50 text-base font-bold text-brand-blue transition-colors hover:bg-brand-soft ${
-                uploadPhotos.isPending ? 'opacity-50' : ''
-              }`}
-            >
-              <Camera size={18} aria-hidden />
-              {uploadPhotos.isPending
-                ? t('photoUploading')
-                : myStamp?.photos.length
-                  ? t('photoReplace')
-                  : t('photoAdd')}
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                className="hidden"
-                disabled={uploadPhotos.isPending}
-                onChange={(e) => {
-                  void handlePhotoPick(e.target.files);
-                  e.target.value = '';
-                }}
-                data-testid="photo-input"
-              />
-            </label>
-            <p className="mt-2 text-sm leading-relaxed text-app-text-muted">
-              {t('reviewPublicNotice')}
-            </p>
-          </Card>
-        )}
-
-        {/* 다녀온 사람의 한 줄 — 추정 지수를 사람의 증언이 보정한다 */}
-        {visitNotes.length > 0 && (
-          <Card>
-            <div className="flex items-center justify-between gap-3">
-              <p className="text-base font-bold text-app-text">
-                {t('reviewsTitle').replace('{count}', String(visitNotes.length))}
-              </p>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setReviewsOpen((open) => !open)}
-                className="-mr-3 text-brand-blue"
-                aria-expanded={reviewsOpen}
-              >
-                {reviewsOpen ? t('reviewsHide') : t('reviewsShow')}
-              </Button>
-            </div>
-            <p className="mt-1 text-sm text-app-text-muted">{t('pilgrimStoriesHint')}</p>
-            <ul className="mt-3 space-y-4">
-              {visitNotes.map((n) => (
-                <li key={n.id} className="border-l-2 border-brand-blue/30 pl-3">
-                  {n.photos.length > 0 && (
-                    <div className="mb-2 grid grid-cols-3 gap-1">
-                      {n.photos.map((url) => (
-                        <img
-                          key={url}
-                          src={url}
-                          alt={t('pilgrimPhotoAlt')}
-                          loading="lazy"
-                          className="aspect-square rounded-lg object-cover"
-                        />
-                      ))}
-                    </div>
-                  )}
-                  {n.note && (
-                    <p className="text-base leading-relaxed text-app-text">
-                      &ldquo;{n.note}&rdquo;
-                    </p>
-                  )}
-                  <div className="mt-1 flex items-center justify-between">
-                    <p className="text-sm text-app-text-muted">
-                      {new Date(n.visitedAt).toLocaleDateString(SPEECH_LOCALE[language], {
-                        month: 'long',
-                        day: 'numeric',
-                      })}{' '}
-                      {t('visitedLabel')}
-                    </p>
-                    {/* 운영자가 한 명뿐이라 신고 3건이면 자동으로 가려진다 */}
-                    <button
-                      onClick={() => handleReport(n.id)}
-                      disabled={reportedIds.has(n.id)}
-                      className="flex min-h-11 items-center gap-1 rounded-lg px-2 text-sm font-bold text-app-text-muted transition-colors hover:bg-app-bg hover:text-app-text disabled:opacity-40"
-                      aria-label={t('reportAction')}
-                    >
-                      <Flag size={14} aria-hidden />
-                      {reportedIds.has(n.id) ? t('reportedAction') : t('reportAction')}
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-4 text-sm leading-relaxed text-app-text-muted">
-              {t('reviewModerationNotice')}
-            </p>
-          </Card>
-        )}
-
         {nearbySites.length > 0 && (
-          <section className="pb-10">
+          <section>
             <SectionHeading
               title={fillPlaceholders(t('siteOtherInDiocese'), {
                 diocese: localizeRegionName(site.region, language),
@@ -1047,6 +834,12 @@ export default function SiteDetailPage() {
             </div>
           </section>
         )}
+
+        {/* 주변 본당·공소 — 「OO 교구의 다른 성지」 아래로 옮겼다(사장님 지적, 2026-09-17).
+            성지끼리 비교가 끝난 다음에 볼 정보라 방문 정보보다 뒤, 화면 맨 끝이 자리다. */}
+        <section className="pb-10">
+          <NearbyParishesCard site={site} />
+        </section>
       </div>
     </div>
   );

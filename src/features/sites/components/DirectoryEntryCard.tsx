@@ -2,6 +2,7 @@ import { Phone } from 'lucide-react';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { Card } from '@/shared/components/ui/Card';
+import type { MapProvider } from '@/shared/lib/map-links';
 import type { DirectoryEntry } from '../api/directory.repository';
 import {
   directoryDisplayAddress,
@@ -25,6 +26,8 @@ export function DirectoryEntryCard({
   distanceKm,
   showDirections = true,
   bare = false,
+  hideDistance = false,
+  mapProviders,
 }: {
   /** 반경 검색 결과(`NearbyPlace`, 거리 있음)든 검색 결과(`DirectoryEntry`)든 같은 줄로 그린다 */
   entry: DirectoryEntry | NearbyPlace;
@@ -32,11 +35,15 @@ export function DirectoryEntryCard({
   distanceKm?: number | null;
   showDirections?: boolean;
   bare?: boolean;
+  /** 거리를 아예 안 보여준다(성지 상세의 주변 본당 — 성지 이름만으로 충분하다는 지적) */
+  hideDistance?: boolean;
+  /** 넘기면 길찾기 단추를 이 지도 앱들로만 좁힌다 */
+  mapProviders?: readonly MapProvider[];
 }) {
   const { t, language } = useSettings();
   const displayName = directoryDisplayName(entry, language);
   const displayAddress = directoryDisplayAddress(entry, language);
-  const km = distanceKm ?? ('distanceKm' in entry ? entry.distanceKm : null);
+  const km = hideDistance ? null : (distanceKm ?? ('distanceKm' in entry ? entry.distanceKm : null));
   const hasCoords = entry.lat != null && entry.lng != null;
 
   const body = (
@@ -75,6 +82,7 @@ export function DirectoryEntryCard({
           <QuickDirectionsButtons
             destination={{ name: displayName, lat: entry.lat as number, lng: entry.lng as number }}
             siteName={displayName}
+            providers={mapProviders}
           />
         </div>
       )}

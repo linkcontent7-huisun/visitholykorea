@@ -1,4 +1,4 @@
-import { Gauge, Headphones, MapPin, Pause, Play } from 'lucide-react';
+import { Gauge, Headphones, Pause, Play } from 'lucide-react';
 import type { Language } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import type { DocentChapter } from '../lib/chapters';
@@ -11,7 +11,15 @@ interface DocentPlayerProps {
   language: Language;
 }
 
-/** 성지 상세의 챕터형 오디오 가이드. 챕터를 누르면 거기부터 이어 읽는다. */
+/**
+ * 성지 상세의 챕터형 오디오 가이드.
+ *
+ * 각 챕터 줄 전체가 재생/정지 단추다(2026-09-17 사장님 지적) — 누르면 그 챕터가 재생되고,
+ * 이미 재생 중인 줄을 다시 누르면 멈춘다. 번호 자리가 재생 중엔 정지 아이콘으로 바뀌어서
+ * 잘못 눌렀어도 바로 알아차릴 수 있다. 진행 막대는 초 단위가 아니라 **문장 개수 기준**이다 —
+ * 브라우저 TTS(`speechSynthesis`)는 재생 위치·길이를 안 준다(`useDocentPlayer` 참고).
+ * 글은 챕터마다 전문을 그 줄 안에 바로 보여준다 — 소리를 못 듣는 곳에서도 읽을 수 있다.
+ */
 export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps) {
   const {
     currentIndex,
@@ -26,6 +34,8 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
     headphoneGate,
     confirmHeadphones,
     isVerifying,
+    sentenceIndex,
+    totalSentences,
   } = useDocentPlayer(chapters, language);
   // 문구는 공용 사전에서 온다 — 6개 국어가 타입 검사로 강제된다
   const { t } = useSettings();
@@ -136,19 +146,38 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
         </div>
       )}
 
-      {/* 지금 읽는 챕터의 전문 — 소리를 켤 수 없는 곳, 잘 들리지 않는 이들을 위해 */}
-      <div className="border-b border-app-border bg-white/60 px-5 py-4">
-        <p className="text-base leading-relaxed text-app-text">{current.narration}</p>
-      </div>
-
       <ol>
         {chapters.map((chapter, i) => {
           const isCurrent = i === currentIndex;
+          const isCurrentlyPlaying = isCurrent && isPlaying;
+          const progressPct =
+            isCurrentlyPlaying && totalSentences > 0
+              ? Math.round((sentenceIndex / totalSentences) * 100)
+              : 0;
           return (
-            <li key={chapter.id} className="border-b border-app-border/60 last:border-b-0">
+            <li key={chapter.id} className="relative border-b border-app-border/60 last:border-b-0">
+              {/* 재생 막대 — 문장 몇 개 중 몇 번째인지(초 단위를 안 주는 TTS 라서) */}
+              {isCurrentlyPlaying && (
+                <span
+                  className="absolute inset-x-0 top-0 h-[3px] bg-app-border/40"
+                  role="progressbar"
+                  aria-valuenow={progressPct}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label={t('docentTitle')}
+                >
+                  <span
+                    className="block h-full bg-brand-blue transition-[width] duration-500"
+                    style={{ width: `${progressPct}%` }}
+                  />
+                </span>
+              )}
+              {/* 줄 전체가 재생/정지 단추 — 이미 재생 중인 줄을 다시 누르면 멈춘다.
+                  번호가 재생 중엔 정지 아이콘으로 바뀌어 잘못 눌렀어도 바로 보인다. */}
               <button
-                onClick={() => playFrom(i)}
+                onClick={() => (isCurrentlyPlaying ? toggle() : playFrom(i))}
                 aria-current={isCurrent}
+                aria-pressed={isCurrentlyPlaying}
                 className={`flex min-h-14 w-full items-start gap-3 px-5 py-3.5 text-left transition-colors ${
                   isCurrent ? 'bg-brand-soft' : 'hover:bg-white'
                 }`}
@@ -158,7 +187,15 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
                     isCurrent ? 'bg-brand-blue text-white' : 'bg-app-border/60 text-app-text-muted'
                   }`}
                 >
-                  {i + 1}
+                  {isSupported && isCurrent ? (
+                    isCurrentlyPlaying ? (
+                      <Pause size={14} aria-hidden />
+                    ) : (
+                      <Play size={14} className="ml-0.5" aria-hidden />
+                    )
+                  ) : (
+                    i + 1
+                  )}
                 </span>
                 <span className="min-w-0 flex-1">
                   <span
@@ -170,16 +207,19 @@ export function DocentPlayer({ chapters, isDraft, language }: DocentPlayerProps)
                   </span>
                   {/* 걸으면서 힐끗 보는 안내 — 어디로 가서 무엇을 볼지 */}
                   {chapter.location && (
-                    <span className="mt-1 flex items-start gap-1 text-sm leading-relaxed text-app-text-muted">
-                      <MapPin size={14} className="mt-0.5 shrink-0" aria-hidden />
+                    <span className="mt-1 block text-sm leading-relaxed text-app-text-muted">
                       {t('docentLocation')}: {chapter.location}
                     </span>
                   )}
                   {chapter.lookFor && (
                     <span className="mt-0.5 block text-sm leading-relaxed text-app-text-muted">
-                      👁 {t('docentLookFor')}: {chapter.lookFor}
+                      {t('docentLookFor')}: {chapter.lookFor}
                     </span>
                   )}
+                  {/* 전문 — 소리를 켤 수 없는 곳, 잘 들리지 않는 이들을 위해 챕터마다 바로 보여준다 */}
+                  <span className="mt-2 block text-sm leading-relaxed text-app-text-muted">
+                    {chapter.narration}
+                  </span>
                 </span>
               </button>
             </li>

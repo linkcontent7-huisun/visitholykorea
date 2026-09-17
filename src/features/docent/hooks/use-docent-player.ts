@@ -123,6 +123,9 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasError, setHasError] = useState(false);
+  // 재생 막대 — 초 단위 시간은 TTS 가 주지 않아서, 문장 몇 개 중 몇 번째인지로 진행을 보여준다.
+  const [sentenceIndex, setSentenceIndex] = useState(0);
+  const [totalSentences, setTotalSentences] = useState(0);
   const [rateIndex, setRateIndex] = useState(1); // 보통에서 시작
   const rateRef = useRef<number>(SPEECH_RATES[1]!.rate);
   const isSupported = detectSupport();
@@ -222,6 +225,8 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
 
     // 문장 단위로 끊어 읽어야 사이에 호흡이 생긴다 (한 문단 통짜는 기계처럼 들린다)
     const sentences = splitSentences(chapter.narration);
+    setTotalSentences(sentences.length);
+    setSentenceIndex(0);
 
     /**
      * 매번 새 utterance 를 만든다. 이미 한 번 speak 에 넘긴 객체를 다시 넘기면
@@ -238,6 +243,7 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
         if (sessionRef.current !== session) return;
         const nextSentence = sentenceIndex + 1;
         if (nextSentence < sentences.length) {
+          setSentenceIndex(nextSentence);
           window.speechSynthesis.speak(build(nextSentence));
           return;
         }
@@ -277,6 +283,7 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
     sessionRef.current += 1;
     window.speechSynthesis?.cancel();
     setIsPlaying(false);
+    setSentenceIndex(0);
   };
 
   const [isVerifying, setIsVerifying] = useState(false);
@@ -347,5 +354,8 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
     headphoneGate,
     confirmHeadphones,
     isVerifying,
+    /** 재생 중인 챕터의 문장 진행률(개수 기준) — 재생 중이 아니면 total 이 0 */
+    sentenceIndex,
+    totalSentences,
   };
 }

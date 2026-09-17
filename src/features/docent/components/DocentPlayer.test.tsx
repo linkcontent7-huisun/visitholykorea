@@ -80,15 +80,21 @@ describe('DocentPlayer', () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  it('현재 챕터의 해설 전문을 글로도 보여준다 — 소리를 못 듣는 상황을 위해', () => {
+  it('모든 챕터의 해설 전문을 각 줄 아래에 늘 보여준다 — 소리를 못 듣는 상황을 위해', () => {
     render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
-    // 처음에는 첫 챕터가 현재이므로 그 본문이 보인다
+    // 재생 중이 아니어도, 어느 챕터가 현재인지와 무관하게 셋 다 한 번에 보인다
+    // (2026-09-17 — 예전엔 "현재 챕터"의 본문만 공용 상자에 보였다)
     expect(screen.getByText('여는 말 본문')).toBeInTheDocument();
-    expect(screen.queryByText('설명')).not.toBeInTheDocument();
-    // 다른 챕터를 고르면 그 챕터의 본문으로 바뀐다
-    fireEvent.click(screen.getByText('순교자 기념상'));
     expect(screen.getByText('설명')).toBeInTheDocument();
-    expect(screen.queryByText('여는 말 본문')).not.toBeInTheDocument();
+    expect(screen.getByText('맺음말 본문')).toBeInTheDocument();
+  });
+
+  it('이미 재생 중인 줄을 다시 누르면 멈춘다 — 줄 전체가 재생/정지 단추', () => {
+    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    fireEvent.click(screen.getByText('순교자 기념상'));
+    expect(speech.speak).toHaveBeenCalledTimes(1);
+    fireEvent.click(screen.getByText('순교자 기념상'));
+    expect(speech.cancel).toHaveBeenCalled();
   });
 
   it('속도 버튼을 누르면 느리게·보통·빠르게가 순환하고 재생 속도에 반영된다', () => {
