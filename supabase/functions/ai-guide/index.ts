@@ -86,6 +86,8 @@ interface GeminiResponse {
   candidates?: { content?: { parts?: { text?: string }[] } }[];
 }
 
+class RateLimitError extends Error {}
+
 async function callGemini(systemInstruction: string, userPrompt: string): Promise<string> {
   const res = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
@@ -102,6 +104,10 @@ async function callGemini(systemInstruction: string, userPrompt: string): Promis
     },
   );
 
+  if (res.status === 429) {
+    // 무료 등급 분당·일일 한도. 연속 4~5번째 호출부터 걸린다 (2026-09-17 실측) — 사용자에게 이유를 말해 준다.
+    throw new RateLimitError();
+  }
   if (!res.ok) {
     throw new Error(`Gemini 호출 실패 (HTTP ${res.status}): ${await res.text()}`);
   }
@@ -138,24 +144,38 @@ async function buildSiteContext(question: string): Promise<string> {
     compactTokens.add(c);
     for (const s of SUFFIXES) if (c.length - s.length >= 2 && c.endsWith(s)) compactTokens.add(c.slice(0, -s.length));
   }
-  const tokens = [...compactTokens];
+  // 흔한 말은 검색어에서 뺀다. 「성지」「어디」「미사」 같은 단어가 208곳 전부에 걸려
+  // 물어본 성지 대신 아무 5곳이 컨텍스트에 들어갔다 (2026-09-17 실측: 10문 중 6문 "모른다").
+  const STOP = new Set(['성지', '성당', '순교성지', '순교지', '본당', '공소', '교회', '천주교', '가톨릭', '순례',
+    '어디', '어디예', '어디에', '위치', '있어', '있는', '있나', '있을까', '가는', '가요', '갈까', '갈만한', '근처', '주변', '가까운',
+    '미사', '시간', '알려', '알려줘', '알려주세', '주세', '추천', '추천해', '설명', '설명해', '간단히', '무슨', '어떤', '어떻게',
+    '언제', '얼마', '얼마예', '전화', '전화번호', '연락처', '주소', '역사', '소개', '정보', '곳이에', '곳', '입장료', '사람', '명이에',
+    '신부님', '신부', '성인', '순교자', '순교', '박해', '때', '것', '거', '좀', '저', '제가', '우리', '오늘', '내일', '주말']);
+  const tokens = [...compactTokens].filter((t) => !STOP.has(t));
   if (tokens.length === 0) return '';
 
-  // name_compact(공백 제거 열)로 띄어쓰기와 무관하게 맞춘다
-  const orFilter = tokens
-    .flatMap((t) => [`name_compact.ilike.%${t}%`, `location.ilike.%${t}%`, `description.ilike.%${t}%`])
-    .join(',');
-
-  const { data, error } = await supabase
-    .from('holy_sites')
-    .select('name, category, diocese, location, description, history')
-    .or(orFilter)
-    .limit(5);
+  type Row = { name: string; category: string | null; diocese: string | null; location: string | null; description: string | null; history: string | null };
+  const picked: Row[] = [];
+  const seen = new Set<string>();
+  const take = (rows: Row[] | null | undefined) => {
+    for (const r of rows ?? []) {
+      if (picked.length >= 5 || seen.has(r.name)) continue;
+      seen.add(r.name);
+      picked.push(r);
+    }
+  };
+  const SELECT = 'name, category, diocese, location, description, history';
+  // ① 이름이 맞는 곳부터 (name_compact: 공백 제거 열, 띄어쓰기 무관)
+  take((await supabase.from('holy_sites').select(SELECT).or(tokens.map((t) => `name_compact.ilike.%${t}%`).join(',')).limit(5)).data);
+  // ② 그다음 주소에 지역명이 있는 곳 (천안 · 서울 …)
+  if (picked.length < 5) take((await supabase.from('holy_sites').select(SELECT).or(tokens.map((t) => `location.ilike.%${t}%`).join(',')).limit(5)).data);
+  // ③ 마지막으로 소개·역사에 언급된 곳 (김대건 → 솔뫼 …)
+  if (picked.length < 5) take((await supabase.from('holy_sites').select(SELECT).or(tokens.flatMap((t) => [`description.ilike.%${t}%`, `history.ilike.%${t}%`]).join(',')).limit(5)).data);
 
   const siteLines =
-    error || !data?.length
+    picked.length === 0
       ? []
-      : data.map(
+      : picked.map(
           (s) =>
             `- ${s.name} (${s.category ?? '성지'}, ${s.diocese ?? ''}교구)\n` +
             `  주소: ${s.location ?? '정보 없음'}\n` +
@@ -223,6 +243,12 @@ Deno.serve(async (req) => {
       headers: { ...corsFor(req), 'content-type': 'application/json' },
     });
   } catch (err) {
+    if (err instanceof RateLimitError) {
+      return new Response(
+        JSON.stringify({ error: '지금 질문이 많아 미카엘 천사가 잠시 숨을 고르고 있어요. 1분 뒤에 다시 물어봐 주세요.' }),
+        { status: 429, headers: { ...corsFor(req), 'content-type': 'application/json' } },
+      );
+    }
     // L-03: 상세(업스트림 응답·모델명·프로젝트 식별자)는 서버 로그로만. 사용자에겐 안내문만.
     console.error('ai-guide error:', err);
     return new Response(
