@@ -5,7 +5,8 @@
   "status": "draft",
   "intro": {
     "photos": [],
-    "narration": "풍수원에서는 산골 교우촌이 남긴 성당과 생활의 흔적을 만나겠습니다. 벽돌 외벽과 나무 천장, 옛 사제관을 차례로 살펴보며 이 공간을 함께 지킨 사람들을 떠올려 보세요."
+    "narration": "풍수원에서는 산골 교우촌이 남긴 성당과 생활의 흔적을 만나겠습니다. 벽돌 외벽과 나무 천장, 옛 사제관을 차례로 살펴보며 이 공간을 함께 지킨 사람들을 떠올려 보세요.",
+    "narrationEn": "At Pungsuwon we meet the church and the traces of daily life left by a mountain village of believers. Look in turn at the brick walls, the wooden ceiling and the old rectory, and think of the people who kept this place together."
   },
   "points": [
     {
@@ -16,7 +17,11 @@
       "lookFor": "붉은색과 회색 벽돌의 어울림",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "한국학중앙연구원 국가유산 해설문의 벽돌 재료·정규하 신부·신자 건축 참여. 준공 연도는 자료 충돌로 제외. https://dh.aks.ac.kr/~heritage/wiki/index.php/횡성_풍수원_천주교회"
+      "sourceNote": "한국학중앙연구원 국가유산 해설문의 벽돌 재료·정규하 신부·신자 건축 참여. 준공 연도는 자료 충돌로 제외. https://dh.aks.ac.kr/~heritage/wiki/index.php/횡성_풍수원_천주교회",
+      "titleEn": "The Outer Wall — A House the Faithful Built Together",
+      "locationEn": "In front of the church",
+      "lookForEn": "The way the red and grey bricks sit together",
+      "narrationEn": "Notice the red and grey bricks of the church. Father Jeong Gyu-ha led the construction, and the parishioners took part too, gathering building materials themselves. In a village settled by people who had fled persecution, they raised a house to worship in together. Rather than only looking up at the bell tower, follow the brick wall and the rounded windows in turn. This church took on a Western form, yet it holds the hands of local people who supplied its materials and its labor."
     },
     {
       "seq": 2,
@@ -26,7 +31,11 @@
       "lookFor": "기둥 위로 이어지는 목조 천장의 곡선",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "한국학중앙연구원 국가유산 해설문의 기둥 배열·목제 천장·조선식 대들보 공법 설명. https://dh.aks.ac.kr/~heritage/wiki/index.php/횡성_풍수원_천주교회"
+      "sourceNote": "한국학중앙연구원 국가유산 해설문의 기둥 배열·목제 천장·조선식 대들보 공법 설명. https://dh.aks.ac.kr/~heritage/wiki/index.php/횡성_풍수원_천주교회",
+      "titleEn": "Inside — A Ceiling of Wood, Not Stone",
+      "locationEn": "Inside the church",
+      "lookForEn": "The curve of the wooden ceiling running above the pillars",
+      "narrationEn": "Step inside and look at the rounded ceiling above the rows of pillars. It resembles a Western church, but this vault is made of wood, not heavy stone. Builders adapted the traditional Korean beam method and joined curved planks to shape it — a solution found within the means and the skills of the time. Take in the line of pillars running to the altar together with the curve of the ceiling, and you see a familiar material making a new kind of space."
     },
     {
       "seq": 3,
@@ -36,12 +45,17 @@
       "lookFor": "성당과 나란히 자리한 벽돌 사제관",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "굿뉴스 성지 안내의 구 사제관 벽돌 구조·복원·2018년 역사관 개관 설명. https://m.catholic.or.kr/web/holyplace/?seq=2278"
+      "sourceNote": "굿뉴스 성지 안내의 구 사제관 벽돌 구조·복원·2018년 역사관 개관 설명. https://m.catholic.or.kr/web/holyplace/?seq=2278",
+      "titleEn": "The Old Rectory — A Home Turned History Hall",
+      "locationEn": "The old rectory beside the church",
+      "lookForEn": "The brick rectory standing alongside the church",
+      "narrationEn": "Look at the old rectory beside the church. A rectory is the house where the priest worked and lived. That such a house stands next to the place of worship reminds us that faith here went hand in hand with meeting the villagers and caring for everyday life. After restoration, the building opened in 2018 as the Pungsuwon Church history hall. As you study the brick house, think of the community whose years the church and the home kept side by side."
     }
   ],
   "outro": {
     "photos": [],
-    "narration": "붉은 벽돌과 나무 천장, 신부가 살던 집까지 돌아보았습니다. 풍수원은 건물의 아름다움과 그 안에서 이어진 공동체의 삶을 함께 기억하게 하는 곳입니다."
+    "narration": "붉은 벽돌과 나무 천장, 신부가 살던 집까지 돌아보았습니다. 풍수원은 건물의 아름다움과 그 안에서 이어진 공동체의 삶을 함께 기억하게 하는 곳입니다.",
+    "narrationEn": "We have walked past the red brick, the wooden ceiling and the house where the priest lived. Pungsuwon lets you remember the beauty of the building and the life of the community that went on inside it, both at once."
   },
   "surveyedAt": "2026-09-17",
   "surveyedBy": "현장: 미조사 / 원고: Codex (문헌 검토 2026-09-17)"

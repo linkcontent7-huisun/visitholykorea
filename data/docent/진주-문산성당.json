@@ -7,7 +7,8 @@
   "status": "draft",
   "intro": {
     "narration": "저와 함께 한옥 성당에서 서양식 성당으로 시선을 옮겨 보겠습니다. 서로 다른 건물에 남은 한 공동체의 이야기를 만나 보세요.",
-    "photos": []
+    "photos": [],
+    "narrationEn": "Let me move your eyes from the hanok church to the Western-style church beside it — one community's story, kept in two very different buildings."
   },
   "points": [
     {
@@ -18,7 +19,11 @@
       "lookFor": "한옥 기와지붕과 서양식 성당 지붕의 서로 다른 선",
       "forEveryone": "같은 용도의 건물을 서로 다른 방식으로 지은 모습을 비교해 보세요.",
       "photos": [],
-      "sourceNote": "한국민족문화대백과사전 문산성당의 민가 매입·한옥 성당·새 성당 건립 기록 및 두 건물 현존 설명 참고. 한옥 건립 연도는 자료마다 달라 생략. https://encykorea.aks.ac.kr/Article/E0069926"
+      "sourceNote": "한국민족문화대백과사전 문산성당의 민가 매입·한옥 성당·새 성당 건립 기록 및 두 건물 현존 설명 참고. 한옥 건립 연도는 자료마다 달라 생략. https://encykorea.aks.ac.kr/Article/E0069926",
+      "titleEn": "Two Churches in One Yard",
+      "locationEn": "The yard where both churches are visible",
+      "lookForEn": "The different lines of the hanok tiled roof and the Western church roof",
+      "narrationEn": "From the yard, take in the tiled roof of the hanok and the Western-style church together. Munsan began with prayers in a converted house; as the faithful grew, they built a new church. The old hanok building remains, carrying the community's years forward. Compare the lines of the two roofs. A familiar Korean roof and an architecture brought from the West share one yard, and together they show how the faith settled here."
     },
     {
       "seq": 2,
@@ -28,7 +33,11 @@
       "lookFor": "서양식 성당 벽과 입구의 짜임",
       "forEveryone": "건물 뒤에 있는 사람들의 노동과 나눔을 떠올려 보세요.",
       "photos": [],
-      "sourceNote": "가톨릭평화신문 문산성당 건축 기사에서 김영제 신부의 건립금 마련, 교우 자재 운반, 1937년 봉헌 확인. https://home.catholic.or.kr/pdsm/bbs_view.asp?SORT=C&id=165029&menu=4830&num=23"
+      "sourceNote": "가톨릭평화신문 문산성당 건축 기사에서 김영제 신부의 건립금 마련, 교우 자재 운반, 1937년 봉헌 확인. https://home.catholic.or.kr/pdsm/bbs_view.asp?SORT=C&id=165029&menu=4830&num=23",
+      "titleEn": "A Church Raised by Its Own People",
+      "locationEn": "In front of the Western-style church",
+      "lookForEn": "The way the wall and entrance of the Western-style church are put together",
+      "narrationEn": "Look at the wall and the entrance of the Western-style church. When the new church was built, Father Kim Yeong-je sold his property and even his motorcycle to help pay for it, and parishioners carried the cement and bricks themselves. Gathering their strength that way, they consecrated the church in 1937. Rather than the size of the building, I would rest your eyes on the small units that make up the wall. Materials carried by hand became a house where people could pray together."
     },
     {
       "seq": 3,
@@ -38,11 +47,16 @@
       "lookFor": "제대 뒤 벽에 그려진 그리스도와 사도들의 모습",
       "forEveryone": "오래된 건축과 후대의 그림이 함께 만드는 공간을 느껴 보세요.",
       "photos": [],
-      "sourceNote": "가톨릭평화신문 문산성당 기사에서 삼랑식 구조, 백주년 전후 내부 정비, 그리스도와 열두 사도 성화 확인. 현재 내부 세부 상태는 현장 확인 전. https://home.catholic.or.kr/pdsm/bbs_view.asp?SORT=C&id=165029&menu=4830&num=23"
+      "sourceNote": "가톨릭평화신문 문산성당 기사에서 삼랑식 구조, 백주년 전후 내부 정비, 그리스도와 열두 사도 성화 확인. 현재 내부 세부 상태는 현장 확인 전. https://home.catholic.or.kr/pdsm/bbs_view.asp?SORT=C&id=165029&menu=4830&num=23",
+      "titleEn": "The Painting Beyond the Pillars",
+      "locationEn": "Inside, from the pews",
+      "lookForEn": "Christ and the apostles painted on the wall behind the altar",
+      "narrationEn": "Inside, follow the line of pillars toward the altar. You can see how the space divides into a center and two sides. On the wall behind the altar is a painting of the risen Christ with the twelve apostles, added when the interior was renewed around the parish's centenary. Take in the whole composition first, then look at the expressions of the figures. Inside an old building, a later generation's hands are laid over the earlier ones."
     }
   ],
   "outro": {
     "narration": "두 성당을 둘러보았습니다. 마당으로 나오면 다른 지붕 아래 같은 공동체의 시간이 이어져 있다는 이야기를 떠올려 보세요.",
-    "photos": []
+    "photos": [],
+    "narrationEn": "We have looked at both churches. As you step back into the yard, remember that under two different roofs runs the time of one and the same community."
   }
 }

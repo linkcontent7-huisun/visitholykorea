@@ -7,7 +7,8 @@
   "status": "draft",
   "intro": {
     "narration": "저와 함께 두 첨탑에서 유리화, 마당의 십자가까지 살펴보겠습니다. 건물과 빛 속에 남은 대구 신앙 공동체의 이야기를 만나 보세요.",
-    "photos": []
+    "photos": [],
+    "narrationEn": "Let me walk you from the twin spires to the stained glass and out to the cross in the courtyard — the story of Daegu's Catholic community, kept in building and light."
   },
   "points": [
     {
@@ -18,7 +19,11 @@
       "lookFor": "두 첨탑 사이 정면의 둥근 장미창",
       "forEveryone": "건물을 고쳐 쓰며 자란 공동체의 시간을 살펴보세요.",
       "photos": [],
-      "sourceNote": "굿뉴스 계산 주교좌성당 소개에서 화재 뒤 벽돌 성당 재건, 종탑 증축, 장미창 확인. https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2257&menugubun=holyplace"
+      "sourceNote": "굿뉴스 계산 주교좌성당 소개에서 화재 뒤 벽돌 성당 재건, 종탑 증축, 장미창 확인. https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2257&menugubun=holyplace",
+      "titleEn": "Twin Spires and the Rose Window",
+      "locationEn": "In front of the church façade",
+      "lookForEn": "The round rose window set between the two spires",
+      "narrationEn": "Begin by looking up at the two spires on the façade. This brick church was rebuilt by the community after the earlier hanok church burned down. It did not start out this way: as the congregation grew, the bell towers were raised and the building widened. I also suggest you take in the round rose window between the towers. Look at the spires reaching upward, then at the window opening like a flower, and the building shows you two different faces."
     },
     {
       "seq": 2,
@@ -28,7 +33,11 @@
       "lookFor": "제대 뒤 긴 유리화의 인물 위아래에 표현된 식물 무늬",
       "forEveryone": "유리화는 햇빛을 통과시켜 그림을 보여 주는 공예입니다.",
       "photos": [],
-      "sourceNote": "평화신문 정수경의 계산주교좌성당 스테인드글라스 해설에서 제작 공방, 반입 기록, 식물 문양 확인. https://home.catholic.or.kr/pdsm/bbs_view.asp?Page=3&SORT=R&id=158841&menu=4830&num=61"
+      "sourceNote": "평화신문 정수경의 계산주교좌성당 스테인드글라스 해설에서 제작 공방, 반입 기록, 식물 문양 확인. https://home.catholic.or.kr/pdsm/bbs_view.asp?Page=3&SORT=R&id=158841&menu=4830&num=61",
+      "titleEn": "Glass That Crossed the Sea",
+      "locationEn": "Inside, from a pew facing the altar",
+      "lookForEn": "The plant motifs above and below the figures in the tall windows behind the altar",
+      "narrationEn": "Look at the tall windows behind the altar. These old stained-glass panels were made in the Gesta workshop in Toulouse, France, and brought to Daegu. Let your eyes drift from the faces of the figures to the flowers and leaves at the top and bottom of each window. As the light comes through, the colors and plant patterns wrap around the saints. The hand of a faraway workshop still rests in this place of prayer."
     },
     {
       "seq": 3,
@@ -38,11 +47,16 @@
       "lookFor": "성당 정면과 함께 보이는 앞마당의 큰 십자가",
       "forEveryone": "기념물과 건물을 함께 보면 장소의 역사가 연결됩니다.",
       "photos": [],
-      "sourceNote": "굿뉴스 계산 주교좌성당 소개에서 앞마당 대형 십자가와 교구장 부임 및 교구 설정 이십오 주년의 관계 확인. https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2257&menugubun=holyplace"
+      "sourceNote": "굿뉴스 계산 주교좌성당 소개에서 앞마당 대형 십자가와 교구장 부임 및 교구 설정 이십오 주년의 관계 확인. https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2257&menugubun=holyplace",
+      "titleEn": "The Memorial Cross in the Yard",
+      "locationEn": "The front courtyard",
+      "lookForEn": "The large cross in the forecourt, seen together with the façade",
+      "narrationEn": "Find the large cross in the front yard. It was raised to mark twenty-five years since Bishop Demange, the first bishop of Daegu, took office. Those years run alongside the birth of the Diocese of Daegu and Gyesan becoming its cathedral. After you look at the cross, let your gaze carry on to the church behind it. One monument in the yard tells how this place grew into the heart of the local Church."
     }
   ],
   "outro": {
     "narration": "두 탑과 유리창, 마당의 십자가를 지나왔습니다. 골목으로 돌아서기 전에 서로 다른 손길이 남은 성당을 한 번 더 바라보세요.",
-    "photos": []
+    "photos": [],
+    "narrationEn": "We have passed the two towers, the windows and the cross in the yard. Before you turn back into the lane, look once more at a church shaped by so many different hands."
   }
 }

@@ -7,7 +7,8 @@
   "status": "draft",
   "intro": {
     "narration": "저와 함께 정면의 종탑, 성당 안의 유리화, 광장의 조형물을 살펴보겠습니다. 항구 도시 한가운데 이어져 온 신앙의 흔적을 찾아보세요.",
-    "photos": []
+    "photos": [],
+    "narrationEn": "Let me walk you from the bell towers on the façade to the stained glass inside and the sculptures on the square — traces of a faith that has lived on in the middle of a port city."
   },
   "points": [
     {
@@ -18,7 +19,11 @@
       "lookFor": "둥근 창 윗부분과 붉은 벽돌 사이의 화강석",
       "forEveryone": "정면의 좌우 균형과 서로 다른 재료의 색을 비교해 보세요.",
       "photos": [],
-      "sourceNote": "굿뉴스 답동 주교좌성당 소개에서 세 종탑, 외곽 확장 개축, 화강석 아치 창 확인. https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2866&curpage=&menugubun=holyplace"
+      "sourceNote": "굿뉴스 답동 주교좌성당 소개에서 세 종탑, 외곽 확장 개축, 화강석 아치 창 확인. https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2866&curpage=&menugubun=holyplace",
+      "titleEn": "The Balance of Three Towers",
+      "locationEn": "In front of the church façade",
+      "lookForEn": "The granite bands between the rounded window tops and the red brick",
+      "narrationEn": "From the front, look at the large central bell tower, then the smaller ones on either side. Three towers in balance on a red-brick body — that is the signature of Dapdong. The church reached its present form when the outer walls were extended around the older building. I also suggest you find the rounded tops of the windows and the pale granite edging around them. Where brick meets stone, the building's expression comes into focus."
     },
     {
       "seq": 2,
@@ -28,7 +33,11 @@
       "lookFor": "제대 뒤 유리화의 색과 선 사이에 드러나는 장미 무늬",
       "forEveryone": "그림의 제목을 몰라도 색과 선을 따라가며 감상할 수 있습니다.",
       "photos": [],
-      "sourceNote": "굿뉴스 답동 주교좌성당 소개에서 본당 구십 주년 유리화 제작과 제대 뒤 장미 문양, 측면 수난·부활 주제 확인. https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2866&curpage=&menugubun=holyplace"
+      "sourceNote": "굿뉴스 답동 주교좌성당 소개에서 본당 구십 주년 유리화 제작과 제대 뒤 장미 문양, 측면 수난·부활 주제 확인. https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2866&curpage=&menugubun=holyplace",
+      "titleEn": "A Rose Hidden in the Light",
+      "locationEn": "Inside, from a pew facing the altar",
+      "lookForEn": "The rose pattern emerging from the colors and lines of the glass behind the altar",
+      "narrationEn": "Inside, look at the colored light falling through the window behind the altar. This glass was made to mark ninety years since the parish was founded. At first it looks like abstract color and line, but a rose is set into the window behind the altar. Follow the lines slowly and let the flower take shape. The side windows carry the Passion and Resurrection of Jesus, so the Scriptures arrive here through light."
     },
     {
       "seq": 3,
@@ -38,11 +47,16 @@
       "lookFor": "청동 조형물에 표현된 인물의 몸짓",
       "forEveryone": "고통을 겪는 사람과 그 곁에 있는 사람의 모습을 살펴보세요.",
       "photos": [],
-      "sourceNote": "가톨릭평화신문 답동성당 관광자원화사업 준공 기사에서 광장의 청동 십자가의 길과 신포시장 연결 확인. https://app.catholic.or.kr/web/news/?flag=2&seq=186646"
+      "sourceNote": "가톨릭평화신문 답동성당 관광자원화사업 준공 기사에서 광장의 청동 십자가의 길과 신포시장 연결 확인. https://app.catholic.or.kr/web/news/?flag=2&seq=186646",
+      "titleEn": "The Way of the Cross on the Square",
+      "locationEn": "The square in front of the church",
+      "lookForEn": "The gestures of the figures in the bronze reliefs",
+      "narrationEn": "On the square, find the bronze sculptures of the Way of the Cross. They depict the journey Jesus walked through his suffering. The path was laid out when the area around the church was remade as a place for citizens to rest and meet its history. Stop in front of one scene and study the gestures of the figures. On a square that opens onto the market and the street, you meet a story of pain and of care."
     }
   ],
   "outro": {
     "narration": "성당의 탑과 유리화, 광장의 이야기를 함께 보았습니다. 돌아가는 길에는 거리와 성당이 만나는 풍경도 눈여겨보세요.",
-    "photos": []
+    "photos": [],
+    "narrationEn": "We have seen the towers, the glass and the story of the square. On your way back, notice too where the street and the church meet."
   }
 }
