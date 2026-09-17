@@ -2,7 +2,7 @@ import { Check, Copy, ExternalLink, MapPin, Navigation } from 'lucide-react';
 import { useState } from 'react';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
-import { buildMapLinks, copyText, formatCoordinates } from '@/shared/lib/map-links';
+import { buildMapLinks, copyText } from '@/shared/lib/map-links';
 import type { HolySite } from '@/shared/types/domain';
 
 /**
@@ -27,18 +27,18 @@ export function DirectionsCard({
   addressEnglish?: string | null;
 }) {
   const { t, language } = useSettings();
-  const [copied, setCopied] = useState<'address' | 'coords' | null>(null);
+  const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
 
   const { lat, lng } = site.coordinates;
   const hasCoordinates = lat != null && lng != null;
 
-  const handleCopy = async (text: string, which: 'address' | 'coords') => {
+  const handleCopy = async (text: string) => {
     const ok = await copyText(text);
     if (ok) {
-      setCopied(which);
+      setCopied(true);
       setCopyError(false);
-      setTimeout(() => setCopied(null), 2000);
+      setTimeout(() => setCopied(false), 2000);
     } else {
       setCopyError(true);
     }
@@ -58,17 +58,13 @@ export function DirectionsCard({
         <div className="mb-2 flex items-center justify-between gap-3">
           <span className="text-sm font-bold text-app-text-muted">{t('addressKorean')}</span>
           <button
-            onClick={() => void handleCopy(site.location, 'address')}
+            onClick={() => void handleCopy(site.location)}
             className="flex min-h-10 shrink-0 items-center gap-1.5 rounded-lg border border-app-border bg-white px-3 text-sm font-bold text-app-text-muted transition-colors hover:border-brand-blue hover:text-brand-blue"
-            aria-label={`${t('addressKorean')} — ${copied === 'address' ? t('copied') : 'Copy'}`}
+            aria-label={`${t('addressKorean')} — ${copied ? t('copied') : 'Copy'}`}
             aria-live="polite"
           >
-            {copied === 'address' ? (
-              <Check size={16} aria-hidden />
-            ) : (
-              <Copy size={16} aria-hidden />
-            )}
-            {copied === 'address' ? t('copied') : 'Copy'}
+            {copied ? <Check size={16} aria-hidden /> : <Copy size={16} aria-hidden />}
+            {copied ? t('copied') : 'Copy'}
           </button>
         </div>
 
@@ -98,27 +94,6 @@ export function DirectionsCard({
 
       {hasCoordinates ? (
         <>
-          {/* 좌표 — 어떤 지도 앱에도 붙여넣을 수 있는 최후의 수단 */}
-          <div className="mb-4 flex items-center justify-between gap-3 rounded-lg border border-app-border bg-white px-5 py-3">
-            <div className="min-w-0">
-              <span className="text-sm font-bold text-app-text-muted">{t('coordinates')}</span>
-              <p className="select-all font-mono text-sm text-app-text" translate="no">
-                {formatCoordinates(lat, lng)}
-              </p>
-            </div>
-            <button
-              onClick={() => void handleCopy(formatCoordinates(lat, lng), 'coords')}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-app-border text-app-text-muted transition-colors hover:border-brand-blue hover:text-brand-blue"
-              aria-label={`${t('coordinates')} — ${copied === 'coords' ? t('copied') : 'Copy'}`}
-            >
-              {copied === 'coords' ? (
-                <Check size={18} aria-hidden />
-              ) : (
-                <Copy size={18} aria-hidden />
-              )}
-            </button>
-          </div>
-
           <p className="mb-3 text-sm font-bold text-app-text-muted">{t('openInMapApp')}</p>
 
           {/* 하나로 몰지 않는다. 앱이 없는 사람이 막히면 안 된다 */}

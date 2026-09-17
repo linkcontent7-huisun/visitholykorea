@@ -36,9 +36,9 @@ export const NAV_ITEMS: readonly NavItem[] = [
 ];
 
 /**
- * 데스크톱 상단 내비 — 로고가 홈을 대신하므로 `home` 을 빼고, 「성지 찾기」도 뺀다.
- * 상단바의 「성지 찾기」 메뉴·검색창·홈의 「성지 찾기」 입구가 전부 같은 화면(`/search`)으로
- * 이어져 하나만 남기기로 했다 — 홈 입구 카드 (사장님, 2026-09-17). 휴대폰 하단 탭의 「성지 찾기」는 그대로다.
+ * 「기록·성지 일정·더보기」 세 개 — 로고가 홈을 대신하므로 `home`, 홈 입구 카드와 겹치는
+ * `search` 를 뺀다. 상단바(`TopNav`)는 이 셋도 로그인해야 의미가 있다는 이유로 헤더에서
+ * 완전히 뺐고(2026-09-17 오후), 지금은 더보기 화면(`MenuPage`)의 「전체 서비스」 목록에만 쓰인다.
  */
 export const TOP_NAV_ITEMS: readonly NavItem[] = NAV_ITEMS.filter(
   (item) => item.id !== 'home' && item.id !== 'search',

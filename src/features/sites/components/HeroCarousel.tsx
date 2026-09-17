@@ -112,7 +112,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
       <div
         ref={trackRef}
         onScroll={onScroll}
-        className="no-scrollbar flex h-[320px] snap-x snap-mandatory overflow-x-auto lg:h-[520px] lg:rounded-lg"
+        className="no-scrollbar flex h-[320px] snap-x snap-mandatory overflow-x-auto lg:h-[520px]"
       >
         {track.map((slide, i) => (
           <Link
@@ -128,7 +128,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             <img
               src={heroImageSrc(slide.slug, 800)}
               srcSet={`${heroImageSrc(slide.slug, 800)} 800w, ${heroImageSrc(slide.slug, 1280)} 1280w`}
-              sizes="(min-width: 1024px) 1136px, 100vw"
+              sizes="100vw"
               alt=""
               className="h-full w-full object-cover"
               fetchPriority={i === 0 ? 'high' : 'low'}
@@ -149,8 +149,9 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 {slide.name}
               </h2>
             </div>
-            {/* CC 계열 라이선스 — 출처 표기는 의무 */}
-            <span className="absolute left-3 top-3.5 max-w-[60%] truncate rounded bg-black/40 px-2 py-0.5 text-xs text-white/85 backdrop-blur-sm">
+            {/* CC 계열 라이선스 — 출처 표기는 의무. 우하단(2026-09-17) — 캡션과 같은 높이,
+                맨 아래 넘김 점과는 겹치지 않게 살짝 위에 둔다 */}
+            <span className="absolute bottom-7 right-3 max-w-[60%] truncate rounded bg-black/40 px-2 py-0.5 text-xs text-white/85 backdrop-blur-sm lg:bottom-10">
               {slide.credit}
             </span>
           </Link>

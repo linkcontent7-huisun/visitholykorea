@@ -1,20 +1,19 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { TOP_NAV_ITEMS } from './nav-items';
 
 /**
  * 상단 내비게이션 — "웹 서비스형" 셸의 얼굴.
  *
- * 데스크톱(lg 이상)에서는 로고 + 메뉴(기록·성지 일정·더보기) + 글자크기 + 언어 + 로그인이 한 줄에 온다.
- * 모바일에서는 로고 + 글자크기 + 언어만 남긴다. 삼선(전체) 메뉴는 언어 버튼 옆에
- * 있으면 헷갈린다는 사장님 요청(2026-09-13)으로 하단 탭 「설정」 옆으로 옮겼다(`BottomNav`).
+ * 로고 + 글자크기 + 언어 + 로그인, 이 넷만 둔다(2026-09-17) — 「기록」·「성지 일정」·「더보기」는
+ * 로그인해야 의미가 있는 메뉴라 헤더에 다시 두지 않는다. 이동은 하단 탭(`BottomNav`)과
+ * 더보기 화면(`MenuPage`)이 이미 맡고 있다.
  *
- * 검색창·돋보기는 뺐다(2026-09-17) — 상단바 「성지 찾기」·검색창·홈 입구 카드가 전부 `/search` 로
- * 이어져 셋 중 홈 입구 카드 하나만 남겼다. 검색은 홈 카드, 휴대폰 하단 탭, 더보기 > 전체 서비스에서 간다.
+ * 배경은 완전 불투명(`bg-white`) — 바로 아래 히어로 슬라이드가 100vw 로 붙는다.
+ * 반투명이면 스크롤할 때 사진이 헤더에 비쳐 보인다.
  *
  * 높이는 모바일 60px, 데스크톱 72px 로 고정한다 — 지도 화면이 이 높이를 빼서
  * 화면을 꽉 채우기 때문에(`MapPage`) 임의로 바꾸면 지도 2분할이 어긋난다.
@@ -24,7 +23,7 @@ export function TopNav() {
   const { session } = useSession();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-app-border bg-white/95 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-app-border bg-white">
       {/* 상단바는 내용이 아니라 틀이다 — 글자 크기를 키워도 틀의 간격은 px 로 고정해
           「대」에서 버튼들이 오른쪽으로 밀려 잘리지 않게 한다 (2026-09-12). */}
       <div className="mx-auto flex h-[60px] w-full max-w-[1200px] items-center gap-[12px] px-[20px] lg:h-[72px] lg:gap-[24px] lg:px-[32px]">
@@ -46,38 +45,6 @@ export function TopNav() {
             VisitHolyKorea
           </span>
         </Link>
-
-        {/* 데스크톱 메뉴 */}
-        <nav className="hidden items-center gap-5 lg:flex xl:gap-7" aria-label="주요 메뉴">
-          {TOP_NAV_ITEMS.map((item) => (
-            <NavLink key={item.id} to={item.to} end={item.end} id={`topnav-${item.id}`}>
-              {({ isActive }) =>
-                item.id === 'record' ? (
-                  // 「기록」은 서비스의 중심(2026-09-16) — 하단 탭의 솟은 단추와 같은 규칙:
-                  // 평소 남색 테두리, 기록 화면에서만 남색 채움.
-                  <span
-                    className={`flex h-[44px] items-center gap-1.5 whitespace-nowrap rounded-lg border-2 border-brand-blue px-4 text-[16px] font-bold transition-colors ${
-                      isActive ? 'bg-brand-blue text-white' : 'bg-white text-brand-blue'
-                    }`}
-                  >
-                    <item.icon size={18} aria-hidden />
-                    {t(item.labelKey)}
-                  </span>
-                ) : (
-                  <span
-                    className={`block whitespace-nowrap border-b-2 py-1.5 text-[16px] font-bold transition-colors ${
-                      isActive
-                        ? 'border-brand-blue text-brand-blue'
-                        : 'border-transparent text-app-text hover:text-brand-blue'
-                    }`}
-                  >
-                    {t(item.labelKey)}
-                  </span>
-                )
-              }
-            </NavLink>
-          ))}
-        </nav>
 
         <div className="ml-auto flex shrink-0 items-center gap-[8px] lg:gap-[12px]">
           {/* 글자 크기 — 예전엔 데스크톱에만 있던 켬/끔 버튼. 휴대폰에서도 보이게 하고

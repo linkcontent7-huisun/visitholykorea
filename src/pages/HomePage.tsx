@@ -3,11 +3,11 @@ import {
   ChevronRight,
   HelpCircle,
   Info,
-  MapPin,
   MessageSquare,
   Search,
+  X,
 } from 'lucide-react';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { HeroCarousel, type HeroSlide } from '@/features/sites/components/HeroCarousel';
@@ -15,7 +15,6 @@ import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { HERO_SITES } from '@/features/sites/data/hero-sites';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { ButtonLink } from '@/shared/components/ui/Button';
-import { Card } from '@/shared/components/ui/Card';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
@@ -24,16 +23,17 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
 
 /**
- * 홈 — 2026-09-16 회의 · 시안(버전 8) 확정 순서.
+ * 홈 — 2026-09-16 회의 · 시안(버전 8) 확정 순서, 9/17 오후 사장님 지시로 4번을 접었다.
  *
- *   1. 히어로 — 고정 5곳 사진 슬라이드. 사진이 가장 먼저 눈에 들어온다. 설명글 없음.
+ *   1. 히어로 — 고정 5곳 사진 슬라이드, 100vw. 사진이 가장 먼저 눈에 들어온다. 설명글 없음.
  *   2. 입구 2개 — 성지 찾기 · 오늘의 성지 일정. 첫 화면 안에 보인다.
  *   3. 처음 방문하기 좋은 성지 (사진·연락처·좌표가 모두 확인된 곳)
- *   4. 정보의 출처와 이용 방법 · 문의
+ *   4. 정보의 출처와 이용 방법 · 문의 — 본문에 펼쳐 두지 않고 푸터 한 줄 + 팝업(`HomeInfoSheet`)으로 접는다.
  *
  * 뺀 것(같은 회의): 「지역별 성지 찾기」 칩(시안 코멘트로 삭제 — 지역·교구 필터는 성지 찾기 화면에만),
  * 사진 위 검색창(상단바 돋보기와 「성지 찾기」 입구로 대신), 「고요 속으로」 입구, 문제 정의 문단.
- * 「추천 성지」(출발지 기준 가까운 순)는 2026-09-17 사장님 지시로 본문에서 뺐다 — 내용을 펼치지 않고 맨 아래 푸터에 링크 한 줄로만 남긴다(→ /nearby).
+ * 「추천 성지」(출발지 기준 가까운 순)는 2026-09-17 오전 지시로 본문에서 푸터 링크 하나로 줄였다가,
+ * 같은 날 오후 지시로 그 링크마저 뺐다 — `/nearby` 는 지금 앱 안 어디에서도 안 이어진다.
  *
  * 홈에서는 TourAPI 를 부르지 않는다. 저속 통신에서도 첫 화면은 자체 성지 DB 하나로 뜬다.
  */
@@ -90,8 +90,71 @@ function EntryCard({
   );
 }
 
+/**
+ * 푸터 「정보 출처·문의」 상세 팝업 (2026-09-17) — `InstallShareSheet` 와 같은 시트 모양.
+ * 본문에 늘 펼쳐 두던 카드 2장을 접어 넣었다 — 첫 화면은 사진과 입구 2개만으로 끝나야 한다.
+ */
+function HomeInfoSheet({ onClose }: { onClose: () => void }) {
+  const { t } = useSettings();
+  return (
+    <>
+      <button
+        type="button"
+        className="fixed inset-0 z-40 bg-black/30"
+        aria-label={t('close')}
+        onClick={onClose}
+      />
+      <div
+        role="dialog"
+        aria-label={`${t('homeSourcesTitle')} · ${t('homeContactTitle')}`}
+        className="fixed bottom-[70px] left-1/2 z-50 max-h-[70vh] w-full max-w-lg -translate-x-1/2 overflow-y-auto rounded-t-lg border-t border-app-border bg-white px-5 pb-5 pt-4 lg:bottom-0 lg:rounded-lg lg:border"
+        id="home-info-sheet"
+      >
+        <div className="mb-1 flex items-center justify-between">
+          <p className="text-lg font-bold text-app-text">
+            {t('homeSourcesTitle')} · {t('homeContactTitle')}
+          </p>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t('close')}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg"
+          >
+            <X size={22} aria-hidden />
+          </button>
+        </div>
+        <div className="divide-y divide-app-border">
+          <div className="py-4">
+            <h3 className="flex items-center gap-2 text-base font-bold text-app-text">
+              <Info size={18} className="text-brand-blue" aria-hidden />
+              {t('homeSourcesTitle')}
+            </h3>
+            <p className="mt-2 text-base leading-relaxed text-app-text-muted">
+              {t('homeSourcesBody')}
+            </p>
+          </div>
+          <div className="py-4">
+            <h3 className="flex items-center gap-2 text-base font-bold text-app-text">
+              <MessageSquare size={18} className="text-brand-olive" aria-hidden />
+              {t('homeContactTitle')}
+            </h3>
+            <p className="mt-2 text-base leading-relaxed text-app-text-muted">
+              {t('homeContactBody')}
+            </p>
+            <ButtonLink to={paths.faq} variant="secondary" className="mt-4">
+              <HelpCircle size={18} aria-hidden />
+              {t('viewFaq')}
+            </ButtonLink>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 export default function HomePage() {
   const { language, t } = useSettings();
+  const [infoOpen, setInfoOpen] = useState(false);
 
   const { data: allSitesRaw = [] } = useSites({ limit: 300 });
   const allSites = useLocalizedSites(allSitesRaw);
@@ -130,10 +193,8 @@ export default function HomePage() {
       {/* 화면 제목은 스크린리더용으로만 — 눈에는 사진이 먼저 들어와야 한다 */}
       <h1 className="sr-only">Visit Holy Korea — {t('homeProblemLine')}</h1>
 
-      {/* 1. 히어로 — 모바일은 가장자리까지, PC 는 본문 폭 안에서 모서리 8px */}
-      <div className="lg:mx-auto lg:max-w-[1200px] lg:px-8 lg:pt-6">
-        <HeroCarousel slides={heroSlides} />
-      </div>
+      {/* 1. 히어로 — 모바일·PC 모두 100vw 로 가장자리까지, 헤더 바로 아래(2026-09-17) */}
+      <HeroCarousel slides={heroSlides} />
 
       {/* 2. 입구 2개 */}
       <PageContainer className="pt-4 lg:pt-5">
@@ -168,48 +229,26 @@ export default function HomePage() {
         </div>
       </PageContainer>
 
-      {/* 4. 출처와 이용 방법 · 문의 */}
-      <PageContainer className="pt-8 lg:pt-12">
-        <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
-          <Card>
-            <h2 className="flex items-center gap-2 text-lg font-bold text-app-text">
-              <Info size={20} className="text-brand-blue" aria-hidden />
-              {t('homeSourcesTitle')}
-            </h2>
-            <p className="mt-2.5 text-base leading-relaxed text-app-text-muted">
-              {t('homeSourcesBody')}
-            </p>
-          </Card>
-          <Card>
-            <h2 className="flex items-center gap-2 text-lg font-bold text-app-text">
-              <MessageSquare size={20} className="text-brand-olive" aria-hidden />
-              {t('homeContactTitle')}
-            </h2>
-            <p className="mt-2.5 text-base leading-relaxed text-app-text-muted">
-              {t('homeContactBody')}
-            </p>
-            <ButtonLink to={paths.faq} variant="secondary" className="mt-4">
-              <HelpCircle size={18} aria-hidden />
-              {t('viewFaq')}
-            </ButtonLink>
-          </Card>
-        </div>
-      </PageContainer>
-
-      {/* 푸터 — 「추천 성지」는 여기 링크로만 (2026-09-17). 눌러야 가까운 순 목록이 열린다 */}
+      {/* 4. 출처·문의 — 접어서 푸터 한 줄로, 상세는 팝업(2026-09-17 오후 사장님 지시).
+          「추천 성지」 푸터 링크는 삭제(같은 지시) — /nearby 는 지금 앱 안 어디에서도 안 이어진다. */}
       <PageContainer className="pt-8 lg:pt-10">
         <footer className="border-t border-app-border pt-5">
-          <Link
-            to={paths.nearby}
-            id="footer-recommended"
-            className="-ml-2 inline-flex min-h-11 items-center gap-1.5 rounded-lg px-2 text-base font-bold text-app-text-muted transition-colors hover:bg-app-bg hover:text-brand-blue"
+          <button
+            type="button"
+            onClick={() => setInfoOpen(true)}
+            id="footer-about"
+            className="-ml-2 flex min-h-11 items-start gap-1.5 rounded-lg px-2 py-2 text-left text-base font-bold text-app-text-muted transition-colors hover:bg-app-bg hover:text-brand-blue"
           >
-            <MapPin size={18} aria-hidden />
-            {t('homeRecommendedTitle')}
-            <ChevronRight size={18} aria-hidden />
-          </Link>
+            <Info size={18} className="mt-0.5 shrink-0" aria-hidden />
+            <span className="flex-1">
+              {t('homeSourcesTitle')} · {t('homeContactTitle')}
+            </span>
+            <ChevronRight size={18} className="mt-0.5 shrink-0" aria-hidden />
+          </button>
         </footer>
       </PageContainer>
+
+      {infoOpen && <HomeInfoSheet onClose={() => setInfoOpen(false)} />}
     </div>
   );
 }

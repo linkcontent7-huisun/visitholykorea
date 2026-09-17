@@ -448,21 +448,7 @@ export default function SiteDetailPage() {
         </div>
       </div>
 
-      <div className="relative z-10 -mt-6 space-y-12 rounded-t-lg bg-white px-5 py-8 lg:px-8">
-        <section>
-          <SectionHeading title={t('siteBasicInfo')} />
-          {/* 주소는 히어로 부제와 "찾아가는 길"에 이미 나오므로 여기서는 뺀다 (T-004) */}
-          <Card tone="panel">
-            <div className="mb-1 text-sm font-bold text-app-text-muted">
-              {t('siteDioceseEmotion')}
-            </div>
-            <p className="text-base font-bold text-app-text">
-              {localizeRegionName(site.region, language)}{' '}
-              {site.emotionTag ? `· ${localizeDomainValue(site.emotionTag, t)}` : ''}
-            </p>
-          </Card>
-        </section>
-
+      <div className="relative z-10 -mt-6 space-y-8 rounded-t-lg bg-white px-5 py-6 lg:px-8">
         {/* 방문 정보 — 재기획(2026-09-14) 순서: 들어가기 전 안내 → 미사 시간 → 연락처·홈페이지 →
             주소·외부 지도 → 대중교통·주차 → 무장애 → 주변 본당. 순례자가 가장 먼저 찾는 정보라
             역사·주변 관광보다 위에 두고 기본으로 펼쳐 둔다(접을 수는 있다). */}
@@ -493,7 +479,7 @@ export default function SiteDetailPage() {
           </button>
 
           {visitInfoOpen && (
-            <div id="visit-info-panel" className="mt-6 space-y-10">
+            <div id="visit-info-panel" className="mt-6 space-y-8">
               {/* 들어가기 전 안내 — 비신자·외국인이 문 앞에서 멈추는 이유를 없앤다 */}
               <VisitEtiquette />
 
@@ -635,7 +621,7 @@ export default function SiteDetailPage() {
 
         {/* 주변 관광 정보 — 한국관광공사 OpenAPI 를 지금 불러온 것. 실패해도 위의 방문 정보는 그대로다.
             역사·방문 정보보다 아래에 둔다(재기획 §4-1: 주변 음식점이 기본 방문 정보보다 먼저 나오지 않게). */}
-        <section aria-labelledby="nearby-tourism-heading" className="space-y-10">
+        <section aria-labelledby="nearby-tourism-heading" className="space-y-8">
           <SectionHeading
             id="nearby-tourism-heading"
             title={t('siteNearbyTourismTitle')}
