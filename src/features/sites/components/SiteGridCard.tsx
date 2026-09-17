@@ -14,7 +14,7 @@ export function SiteGridCard({ site }: { site: HolySite }) {
   return (
     <Link
       to={paths.siteDetail(site.id)}
-      className="group flex flex-col overflow-hidden rounded-lg border border-app-border bg-white transition-colors hover:border-brand-blue/50"
+      className="group flex flex-col overflow-hidden rounded-lg border border-app-border bg-white transition-colors duration-300 hover:border-brand-blue/50"
       id={`site-card-${site.id}`}
     >
       <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-app-panel">
