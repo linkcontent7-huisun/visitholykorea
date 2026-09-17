@@ -1,4 +1,12 @@
-import { CalendarHeart, ChevronRight, HelpCircle, Info, MessageSquare, Search } from 'lucide-react';
+import {
+  CalendarHeart,
+  ChevronRight,
+  HelpCircle,
+  Info,
+  MapPin,
+  MessageSquare,
+  Search,
+} from 'lucide-react';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -13,8 +21,6 @@ import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { haversineKm } from '@/shared/lib/geo';
-import { regionCoords } from '@/shared/lib/regions';
 import type { HolySite } from '@/shared/types/domain';
 
 /**
@@ -22,12 +28,12 @@ import type { HolySite } from '@/shared/types/domain';
  *
  *   1. 히어로 — 고정 5곳 사진 슬라이드. 사진이 가장 먼저 눈에 들어온다. 설명글 없음.
  *   2. 입구 2개 — 성지 찾기 · 오늘의 성지 일정. 첫 화면 안에 보인다.
- *   3. 추천 성지 (출발지·현재 위치 기준 가까운 순 — 없으면 안내만)
- *   4. 처음 방문하기 좋은 성지 (사진·연락처·좌표가 모두 확인된 곳)
- *   5. 정보의 출처와 이용 방법 · 문의
+ *   3. 처음 방문하기 좋은 성지 (사진·연락처·좌표가 모두 확인된 곳)
+ *   4. 정보의 출처와 이용 방법 · 문의
  *
  * 뺀 것(같은 회의): 「지역별 성지 찾기」 칩(시안 코멘트로 삭제 — 지역·교구 필터는 성지 찾기 화면에만),
  * 사진 위 검색창(상단바 돋보기와 「성지 찾기」 입구로 대신), 「고요 속으로」 입구, 문제 정의 문단.
+ * 「추천 성지」(출발지 기준 가까운 순)는 2026-09-17 사장님 지시로 본문에서 뺐다 — 내용을 펼치지 않고 맨 아래 푸터에 링크 한 줄로만 남긴다(→ /nearby).
  *
  * 홈에서는 TourAPI 를 부르지 않는다. 저속 통신에서도 첫 화면은 자체 성지 DB 하나로 뜬다.
  */
@@ -85,7 +91,7 @@ function EntryCard({
 }
 
 export default function HomePage() {
-  const { origin, gpsLocation, language, t } = useSettings();
+  const { language, t } = useSettings();
 
   const { data: allSitesRaw = [] } = useSites({ limit: 300 });
   const allSites = useLocalizedSites(allSitesRaw);
@@ -107,21 +113,6 @@ export default function HomePage() {
     });
   }, [allSites, language, t]);
 
-  /** 출발지(또는 현재 위치)가 있을 때만 "가까운 순" 추천을 만든다. 없으면 지어내지 않는다. */
-  const from = gpsLocation ?? regionCoords(origin);
-  const recommended = useMemo(() => {
-    if (!from || allSites.length === 0) return [];
-    return [...allSites]
-      .filter((s) => s.coordinates.lat != null && s.coordinates.lng != null)
-      .map((s) => ({
-        site: s,
-        km: haversineKm(from.lat, from.lng, s.coordinates.lat!, s.coordinates.lng!),
-      }))
-      .sort((a, b) => a.km - b.km)
-      .slice(0, 8)
-      .map((x) => x.site);
-  }, [from, allSites]);
-
   /** 사진·연락처·좌표가 모두 있는 성지 중 이름순 4곳. 날짜로 돌리지 않는다 — 심사·시연 때 매번 같아야 한다. */
   const firstVisit = useMemo(
     () =>
@@ -131,12 +122,6 @@ export default function HomePage() {
         .slice(0, 4),
     [allSites],
   );
-
-  const originLabel = gpsLocation
-    ? t('useCurrentLocationButton')
-    : origin
-      ? localizeRegionName(origin, language)
-      : null;
 
   const countLabel = allSites.length > 0 ? String(allSites.length) : '…';
 
@@ -171,31 +156,7 @@ export default function HomePage() {
         </div>
       </PageContainer>
 
-      {/* 3. 추천 성지 — 출발지가 있을 때만 */}
-      <PageContainer className="pt-8 lg:pt-12">
-        <SectionHeading
-          title={t('homeRecommendedTitle')}
-          sub={
-            originLabel
-              ? fillPlaceholders(t('homeRecommendedSub'), { origin: originLabel })
-              : t('homeRecommendedSubNoOrigin')
-          }
-          action={
-            originLabel
-              ? { to: paths.nearby, label: t('seeAll') }
-              : { to: paths.menu, label: t('moreTab') }
-          }
-        />
-        {recommended.length > 0 && (
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-5 xl:grid-cols-4">
-            {recommended.map((site) => (
-              <SiteGridCard key={site.id} site={site} />
-            ))}
-          </div>
-        )}
-      </PageContainer>
-
-      {/* 4. 처음 방문하기 좋은 성지 */}
+      {/* 3. 처음 방문하기 좋은 성지 */}
       <PageContainer className="pt-8 lg:pt-12">
         <SectionHeading title={t('homeFirstVisitTitle')} sub={t('homeFirstVisitSub')} />
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:gap-5">
@@ -207,7 +168,7 @@ export default function HomePage() {
         </div>
       </PageContainer>
 
-      {/* 5. 출처와 이용 방법 · 문의 */}
+      {/* 4. 출처와 이용 방법 · 문의 */}
       <PageContainer className="pt-8 lg:pt-12">
         <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
           <Card>
@@ -233,6 +194,21 @@ export default function HomePage() {
             </ButtonLink>
           </Card>
         </div>
+      </PageContainer>
+
+      {/* 푸터 — 「추천 성지」는 여기 링크로만 (2026-09-17). 눌러야 가까운 순 목록이 열린다 */}
+      <PageContainer className="pt-8 lg:pt-10">
+        <footer className="border-t border-app-border pt-5">
+          <Link
+            to={paths.nearby}
+            id="footer-recommended"
+            className="-ml-2 inline-flex min-h-11 items-center gap-1.5 rounded-lg px-2 text-base font-bold text-app-text-muted transition-colors hover:bg-app-bg hover:text-brand-blue"
+          >
+            <MapPin size={18} aria-hidden />
+            {t('homeRecommendedTitle')}
+            <ChevronRight size={18} aria-hidden />
+          </Link>
+        </footer>
       </PageContainer>
     </div>
   );

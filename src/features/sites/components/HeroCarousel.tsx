@@ -22,6 +22,10 @@ export interface HeroSlide {
  * 같은 상태(스크롤 위치)를 본다. 6초마다 다음 장으로 넘어가되, 손을 대거나 마우스를 올리면 멈추고
  * 「동작 줄이기」 설정이면 아예 돌리지 않는다(50대 이상 · 접근성).
  *
+ * 마지막 장에서 다음으로 가면 **앞으로** 1장이 나온다(2026-09-17). 전에는 스크롤 위치를 0 으로 되돌려
+ * 5→4→3→2→1 을 거꾸로 훑고 지나갔다. 그래서 맨 뒤에 1장의 복제본을 한 장 더 두고, 거기 도착하면
+ * 눈에 안 띄게 진짜 1장으로 순간 이동한다. 1장에서 「이전」도 같은 원리로 5장이 왼쪽에서 나온다.
+ *
  * 화면 첫 그림(LCP)이라 첫 장만 `fetchPriority="high"`, 나머지는 지연 로드.
  */
 export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
@@ -29,14 +33,30 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  // 「이전」으로 1→5 를 넘길 때 복제본으로 순간 이동한 상태 — 그 순간엔 onScroll 이 1장으로 되돌리면 안 된다
+  const wrappingBackRef = useRef(false);
   const count = slides.length;
+  // 두 장 이상일 때만 맨 뒤에 1장 복제본을 붙인다. 복제본의 위치 번호는 `count`.
+  const track = count > 1 ? [...slides, slides[0]!] : slides;
 
   const goTo = useCallback(
     (next: number, behavior: ScrollBehavior = 'smooth') => {
       const el = trackRef.current;
       if (!el || count === 0) return;
-      const target = ((next % count) + count) % count;
-      el.scrollTo({ left: target * el.clientWidth, behavior });
+      const width = el.clientWidth;
+      if (next >= count) {
+        // 마지막 → 처음: 복제본(맨 뒤)으로 앞으로 밀고, 도착은 onScroll 이 진짜 1장으로 바꿔 놓는다
+        el.scrollTo({ left: count * width, behavior });
+        return;
+      }
+      if (next < 0) {
+        // 처음 → 마지막: 복제본으로 순간 이동한 뒤 왼쪽으로 한 장 민다
+        wrappingBackRef.current = true;
+        el.scrollTo({ left: count * width, behavior: 'instant' });
+        requestAnimationFrame(() => el.scrollTo({ left: (count - 1) * width, behavior }));
+        return;
+      }
+      el.scrollTo({ left: next * width, behavior });
     },
     [count],
   );
@@ -46,7 +66,21 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
     const el = trackRef.current;
     if (!el) return;
     requestAnimationFrame(() => {
-      const next = Math.round(el.scrollLeft / Math.max(1, el.clientWidth));
+      const width = Math.max(1, el.clientWidth);
+      const raw = Math.round(el.scrollLeft / width);
+      if (wrappingBackRef.current) {
+        // 복제본에서 왼쪽으로 움직이기 시작해야 정상 상태로 돌아온다
+        if (el.scrollLeft < count * width - 2) wrappingBackRef.current = false;
+        else return;
+      }
+      // 복제본에 완전히 도착했으면 진짜 1장으로 소리 없이 옮긴다
+      if (count > 1 && raw >= count && Math.abs(el.scrollLeft - count * width) < 2) {
+        el.scrollTo({ left: 0, behavior: 'instant' });
+        setIndex(0);
+        return;
+      }
+      // 복제본 쪽에 가까워지는 동안은 마지막 장으로 센다
+      const next = raw >= count ? count - 1 : raw;
       setIndex((prev) => (prev === next ? prev : next));
     });
   };
@@ -60,8 +94,9 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
 
   if (count === 0) return null;
 
+  // 화살표는 사진 세로 한가운데 (2026-09-17). 전엔 40% 높이라 아래 글자 쪽으로 치우쳐 보였다.
   const arrowClass =
-    'absolute top-[40%] z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-app-text shadow-md backdrop-blur-sm';
+    'absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-app-text shadow-md backdrop-blur-sm';
 
   return (
     <section
@@ -79,13 +114,16 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
         onScroll={onScroll}
         className="no-scrollbar flex h-[320px] snap-x snap-mandatory overflow-x-auto lg:h-[520px] lg:rounded-lg"
       >
-        {slides.map((slide, i) => (
+        {track.map((slide, i) => (
           <Link
-            key={slide.id}
+            key={i < count ? slide.id : `${slide.id}-clone`}
             to={paths.siteDetail(slide.id)}
             className="relative h-full w-full shrink-0 snap-center overflow-hidden bg-app-panel"
-            aria-label={`${slide.name} (${i + 1} / ${count})`}
+            aria-label={`${slide.name} (${(i % count) + 1} / ${count})`}
             id={i === 0 ? 'home-hero' : undefined}
+            // 복제본은 보조기기·탭 이동에서 숨긴다 — 같은 장이 둘로 읽히면 안 된다
+            aria-hidden={i >= count || undefined}
+            tabIndex={i >= count ? -1 : undefined}
           >
             <img
               src={heroImageSrc(slide.slug, 800)}

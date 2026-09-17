@@ -117,10 +117,12 @@ export const router = createBrowserRouter([
           { path: paths.nearby, element: withSuspense(<NearbyPage />) },
           { path: paths.faq, element: withSuspense(<FaqPage />) },
           { path: paths.terms, element: withSuspense(<TermsPage />) },
+          // 성지 상세도 상단바·하단 탭 안에서 뜬다 (2026-09-17 사장님 지시). 전엔 큰 사진 히어로를 위해
+          // 전체 화면이었는데, 상세에서 다른 탭으로 못 가고 헤더가 사라져 길을 잃었다.
+          { path: paths.siteDetailPattern, element: withSuspense(<SiteDetailPage />) },
         ],
       },
-      // 하단 탭 없이 전체 화면으로 뜨는 화면들 — 성지 상세(큰 사진 히어로)·로그인·관리자·404 만
-      { path: paths.siteDetailPattern, element: withSuspense(<SiteDetailPage />) },
+      // 하단 탭 없이 전체 화면으로 뜨는 화면들 — 로그인·관리자·404 만
       { path: paths.login, element: withSuspense(<LoginPage />) },
       // 제출판은 본선 기능만 보이게 하므로 직접 주소로도 관리자 화면에 닿지 못하게 한다 — T-013
       ...(SUBMISSION_MODE

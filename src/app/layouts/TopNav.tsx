@@ -1,4 +1,3 @@
-import { Search } from 'lucide-react';
 import { Link, NavLink } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
@@ -10,9 +9,12 @@ import { TOP_NAV_ITEMS } from './nav-items';
 /**
  * 상단 내비게이션 — "웹 서비스형" 셸의 얼굴.
  *
- * 데스크톱(lg 이상)에서는 로고 + 메뉴 여섯 개 + 검색 + 언어 + 로그인이 한 줄에 온다.
- * 모바일에서는 로고 + 검색 + 글자크기 + 언어만 남긴다. 삼선(전체) 메뉴는 언어 버튼 옆에
+ * 데스크톱(lg 이상)에서는 로고 + 메뉴(기록·성지 일정·더보기) + 글자크기 + 언어 + 로그인이 한 줄에 온다.
+ * 모바일에서는 로고 + 글자크기 + 언어만 남긴다. 삼선(전체) 메뉴는 언어 버튼 옆에
  * 있으면 헷갈린다는 사장님 요청(2026-09-13)으로 하단 탭 「설정」 옆으로 옮겼다(`BottomNav`).
+ *
+ * 검색창·돋보기는 뺐다(2026-09-17) — 상단바 「성지 찾기」·검색창·홈 입구 카드가 전부 `/search` 로
+ * 이어져 셋 중 홈 입구 카드 하나만 남겼다. 검색은 홈 카드, 휴대폰 하단 탭, 더보기 > 전체 서비스에서 간다.
  *
  * 높이는 모바일 60px, 데스크톱 72px 로 고정한다 — 지도 화면이 이 높이를 빼서
  * 화면을 꽉 채우기 때문에(`MapPage`) 임의로 바꾸면 지도 2분할이 어긋난다.
@@ -77,30 +79,7 @@ export function TopNav() {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-[8px] lg:gap-[12px]">
-          {/* 검색 — 데스크톱은 입력창 모양, 모바일은 아이콘 하나 */}
-          <Link
-            to={paths.search}
-            className="hidden h-[44px] items-center gap-2.5 rounded-lg border-[1.5px] border-app-border bg-white px-4 md:flex"
-            id="search-bar"
-          >
-            <Search size={18} className="shrink-0 text-app-text-muted" aria-hidden />
-            <span className="max-w-[220px] truncate text-[15px] font-medium text-app-text-muted">
-              {t('searchPlaceholder')}
-            </span>
-          </Link>
-          {/* 모바일 — 돋보기만 있으면 무엇을 하는 자리인지 안 보인다는 피드백(2026-09-08).
-              작은 회색 설명글을 옆에 붙인다. 좁은 화면에서도 안 깨지게 truncate 를 둔다. */}
-          {/* 2026-09-16 시안(버전 7): 사진 위 검색창을 뺀 대신 상단바에 44px 돋보기 단추 — 검색은 한 번에 */}
-          <Link
-            to={paths.search}
-            className="flex h-[44px] w-[44px] items-center justify-center rounded-lg border-[1.5px] border-app-border text-brand-blue md:hidden"
-            aria-label={t('searchHintMobile')}
-            id="search-icon"
-          >
-            <Search size={20} aria-hidden />
-          </Link>
-
+        <div className="ml-auto flex shrink-0 items-center gap-[8px] lg:gap-[12px]">
           {/* 글자 크기 — 예전엔 데스크톱에만 있던 켬/끔 버튼. 휴대폰에서도 보이게 하고
               누르면 옆에 소·중·대가 펼쳐진다 (2026-09-12). */}
           <TextSizePicker />
@@ -113,7 +92,7 @@ export function TopNav() {
           {!session && (
             <Link
               to={paths.login}
-              className="hidden h-[44px] items-center rounded-lg bg-brand-blue px-5 text-[15px] font-bold text-white lg:flex"
+              className="hidden h-[44px] shrink-0 items-center whitespace-nowrap rounded-lg bg-brand-blue px-5 text-[15px] font-bold text-white lg:flex"
               id="topnav-login"
             >
               {t('login')}

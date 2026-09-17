@@ -315,8 +315,10 @@ export default function SiteDetailPage() {
     .join(' · ');
 
   return (
-    <div className="mx-auto min-h-screen max-w-3xl bg-white pb-32">
-      <div className="relative flex h-[55vh] w-full items-center justify-center overflow-hidden bg-app-bg">
+    // 상단바·하단 탭이 있는 AppLayout 안에서 뜬다(2026-09-17) — 아래 여백은 AppLayout 이 탭 높이만큼 준다
+    <div className="mx-auto min-h-page max-w-3xl bg-white pb-12">
+      {/* 사진 높이는 화면의 절반 — 상단바(60px)를 뺀 나머지에서 잰다 */}
+      <div className="relative flex h-[min(55vh,520px)] w-full items-center justify-center overflow-hidden bg-app-bg">
         {heroPhoto.url ? (
           <>
             <motion.img
@@ -1051,11 +1053,8 @@ export default function SiteDetailPage() {
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
-                  <div className="px-3 pb-3 pt-2.5">
+                  <div className="px-3 py-3">
                     <h3 className="truncate text-base font-bold text-app-text">{nearby.name}</h3>
-                    <p className="mt-0.5 truncate text-sm text-app-text-muted">
-                      {localizeDomainValue(nearby.category, t)} · {nearby.location}
-                    </p>
                   </div>
                 </Link>
               ))}

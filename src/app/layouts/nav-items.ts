@@ -36,7 +36,10 @@ export const NAV_ITEMS: readonly NavItem[] = [
 ];
 
 /**
- * 데스크톱 상단 내비 — 로고가 홈을 대신하므로 `home` 만 빼고 하단 탭과 같다.
- * 넓은 화면이라고 다른 구조를 주면 휴대폰과 PC 를 오가는 사람이 길을 잃는다.
+ * 데스크톱 상단 내비 — 로고가 홈을 대신하므로 `home` 을 빼고, 「성지 찾기」도 뺀다.
+ * 상단바의 「성지 찾기」 메뉴·검색창·홈의 「성지 찾기」 입구가 전부 같은 화면(`/search`)으로
+ * 이어져 하나만 남기기로 했다 — 홈 입구 카드 (사장님, 2026-09-17). 휴대폰 하단 탭의 「성지 찾기」는 그대로다.
  */
-export const TOP_NAV_ITEMS: readonly NavItem[] = NAV_ITEMS.filter((item) => item.id !== 'home');
+export const TOP_NAV_ITEMS: readonly NavItem[] = NAV_ITEMS.filter(
+  (item) => item.id !== 'home' && item.id !== 'search',
+);

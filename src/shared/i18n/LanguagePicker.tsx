@@ -45,7 +45,8 @@ export function LanguagePicker({ className = '' }: { className?: string }) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex h-[44px] cursor-pointer items-center gap-1 rounded-lg border-[1.5px] border-app-border bg-white px-[10px] text-[14px] font-bold text-brand-blue transition-colors hover:bg-app-bg"
+        // 영어 화면에서 「EN」·「Log in」이 두 줄로 꺾여 단추가 깨졌다(2026-09-17) — 상단바 단추는 줄바꿈도 줄어듦도 없다
+        className="flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-app-border bg-white px-[10px] text-[14px] font-bold text-brand-blue transition-colors hover:bg-app-bg"
         id="language-toggle"
         // 보이는 글자(KO)가 접근성 이름에 들어가야 한다 — Lighthouse label-content-name-mismatch (9/14)
         aria-label={`${LANGUAGE_SHORT[language]} · 언어 / Language — ${LANGUAGE_LABEL[language]}`}
@@ -71,7 +72,7 @@ export function LanguagePicker({ className = '' }: { className?: string }) {
                   role="option"
                   aria-selected={selected}
                   onClick={() => choose(lang)}
-                  className={`flex min-h-11 w-full items-center justify-between gap-3 px-4 text-left text-base transition-colors ${
+                  className={`flex min-h-11 w-full items-center justify-between gap-3 whitespace-nowrap px-4 text-left text-base transition-colors ${
                     selected
                       ? 'font-extrabold text-brand-blue'
                       : 'font-medium text-app-text hover:bg-app-bg'
