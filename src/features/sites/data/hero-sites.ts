@@ -9,7 +9,9 @@
  * 그쪽(번역 포함)을 우선한다. 사진 출처는 CC 계열이라 화면에 표기해야 한다(라이선스 의무).
  *
  * 솔뫼 사진은 9/17 사장님이 준 입구 십자가 문 사진으로 교체했다(교황 방문 현수막이 찍힌 옛 사진 대신).
- * 파일만 같은 이름으로 바꿔 넣으면 된다. 세로가 긴 피사체(십자가)가 넓은 PC 띠에서 잘리면 `objectPosition` 으로 초점을 올린다.
+ * 🔴 사진을 바꿀 때는 **파일 이름도 바꾼다**(slug). 서비스워커가 `/images/hero/` 를 CacheFirst 로 잡아 두어 같은 이름이면
+ * 이미 받은 사람에게 옛 사진이 계속 보인다(9/17 솔뫼 교체 때 실제로 그랬다). 세로가 긴 피사체(십자가)가 넓은 PC 띠에서
+ * 잘리면 `objectPosition` 으로 초점을 올린다.
  */
 export interface HeroSite {
   /** `holy_sites.id` (2026-09-16 운영 DB 실측) */
@@ -55,14 +57,14 @@ export const HERO_SITES: readonly HeroSite[] = [
   },
   {
     id: '7e9b0733-1c97-4d1c-beb0-fd7e9c6ab8c0',
-    slug: 'solmoe',
+    slug: 'solmoe-gate', // 9/17 사진 교체 — 캐시 때문에 이름을 바꿨다
     name: '솔뫼성지',
     region: '대전',
     category: '순례길',
     // 2026-09-17 사장님이 준 사진(입구 십자가 문)으로 교체. 위키미디어 사진은 더 이상 쓰지 않는다.
     imageSource: '직접 촬영',
     imageLicense: '앱 사용 동의',
-    objectPosition: '50% 18%', // 십자가 셋이 위쪽에 있다
+    objectPosition: '50% 6%', // 십자가 셋이 위쪽에 있다 — PC 띠에서 위 여백을 남긴다
   },
   {
     id: 'aeac09d0-c5ef-4091-b1b0-b84686940659',
