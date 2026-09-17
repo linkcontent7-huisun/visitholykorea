@@ -13,8 +13,17 @@ import { useSettings } from './use-settings';
  * 60대 이상이 주 사용자라 "조금 더"와 "훨씬 더"를 고를 수 있어야 한다.
  *
  * `inline` 은 설정 화면용 — 펼침 없이 세 개가 늘 보인다.
+ *
+ * `variant="onDark"` — 헤더가 사진 위에 투명하게 뜰 때(홈, `TopNav`). 평소 상태(글자 크기 「소」)만
+ * 흰 배경 대신 반투명 검정 칩 + 흰 글자로 바꾼다. 펼친 목록은 사진 위에서도 늘 흰 배경이라 그대로 둔다.
  */
-export function TextSizePicker({ inline = false }: { inline?: boolean }) {
+export function TextSizePicker({
+  inline = false,
+  variant = 'default',
+}: {
+  inline?: boolean;
+  variant?: 'default' | 'onDark';
+}) {
   const { t, textSize, setTextSize } = useSettings();
   const [open, setOpen] = useState(inline);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -50,7 +59,9 @@ export function TextSizePicker({ inline = false }: { inline?: boolean }) {
           className={`flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] transition-colors ${
             textSize !== 'sm'
               ? 'border-brand-blue bg-brand-blue text-white'
-              : 'border-app-border bg-white text-brand-blue hover:bg-app-bg'
+              : variant === 'onDark'
+                ? 'border-white/40 bg-black/30 text-white backdrop-blur-md hover:bg-black/45'
+                : 'border-app-border bg-white text-brand-blue hover:bg-app-bg'
           }`}
           id="text-size-toggle"
           aria-label={t('textSizeButton')}

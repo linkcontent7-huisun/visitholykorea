@@ -12,8 +12,17 @@ import { useSettings } from './use-settings';
  * 자기 언어를 찾을 수가 없다.
  *
  * 헤더의 좁은 자리에 들어가므로 평소에는 코드(KO·EN…)만 보이고, 누르면 펼친다.
+ *
+ * `variant="onDark"` — 헤더가 사진 위에 투명하게 뜰 때(홈, `TopNav`). 토글 단추만 흰 배경 대신
+ * 반투명 검정 칩 + 흰 글자로 바꾼다. 펼친 목록은 사진 위에서도 늘 흰 배경이라 그대로 둔다.
  */
-export function LanguagePicker({ className = '' }: { className?: string }) {
+export function LanguagePicker({
+  className = '',
+  variant = 'default',
+}: {
+  className?: string;
+  variant?: 'default' | 'onDark';
+}) {
   const { language, setLanguage } = useSettings();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -46,7 +55,11 @@ export function LanguagePicker({ className = '' }: { className?: string }) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         // 영어 화면에서 「EN」·「Log in」이 두 줄로 꺾여 단추가 깨졌다(2026-09-17) — 상단바 단추는 줄바꿈도 줄어듦도 없다
-        className="flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-app-border bg-white px-[10px] text-[14px] font-bold text-brand-blue transition-colors hover:bg-app-bg"
+        className={
+          variant === 'onDark'
+            ? 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-white/40 bg-black/30 px-[10px] text-[14px] font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45'
+            : 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-app-border bg-white px-[10px] text-[14px] font-bold text-brand-blue transition-colors hover:bg-app-bg'
+        }
         id="language-toggle"
         // 보이는 글자(KO)가 접근성 이름에 들어가야 한다 — Lighthouse label-content-name-mismatch (9/14)
         aria-label={`${LANGUAGE_SHORT[language]} · 언어 / Language — ${LANGUAGE_LABEL[language]}`}
