@@ -48,7 +48,8 @@
     "photos:search": "tsx scripts/photokorea-search.ts",
     "docent:load": "tsx scripts/docent-load.ts",
     "docent:status": "tsx scripts/docent-status.ts",
-    "docent:preview": "tsx scripts/docent-preview.ts"
+    "docent:preview": "tsx scripts/docent-preview.ts",
+    "docent:check": "tsx scripts/docent-check.ts"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",
