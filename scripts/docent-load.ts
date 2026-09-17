@@ -28,7 +28,7 @@ interface Row {
 /** 아주 작은 front-matter 파서 — 우리 md 머리만 읽는다 (key: value, sources 는 - label/url 목록) */
 function parseMd(text: string): { meta: Record<string, string>; sources: { label: string; url?: string }[]; body: string } {
   const m = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (!m) throw new Error('front-matter(---) 가 없다');
+  if (!m || m[1] === undefined || m[2] === undefined) throw new Error('front-matter(---) 가 없다');
   const meta: Record<string, string> = {};
   const sources: { label: string; url?: string }[] = [];
   let inSources = false;
@@ -36,7 +36,12 @@ function parseMd(text: string): { meta: Record<string, string>; sources: { label
     const line = raw.replace(/\s+$/, '');
     if (/^sources:/.test(line)) { inSources = true; continue; }
     if (inSources && /^\s+-\s+label:/.test(line)) { sources.push({ label: line.replace(/^\s+-\s+label:\s*/, '') }); continue; }
-    if (inSources && /^\s+url:/.test(line)) { sources[sources.length - 1].url = line.replace(/^\s+url:\s*/, ''); continue; }
+    if (inSources && /^\s+url:/.test(line)) {
+      const source = sources[sources.length - 1];
+      if (!source) throw new Error('출처 URL 앞에 label 이 없다');
+      source.url = line.replace(/^\s+url:\s*/, '');
+      continue;
+    }
     if (inSources && /^\s+-\s+/.test(line)) { sources.push({ label: line.replace(/^\s+-\s+/, '') }); continue; }
     if (/^\S/.test(line)) { inSources = false; const i = line.indexOf(':'); if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim(); }
   }
