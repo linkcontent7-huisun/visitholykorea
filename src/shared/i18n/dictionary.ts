@@ -1002,13 +1002,14 @@ export const DICTIONARY = {
     pt: 'Busque uma atração para ver o movimento de hoje e santuários tranquilos por perto',
     it: 'Cerca un’attrazione per vedere l’affluenza di oggi e i santuari tranquilli vicini',
   },
+  // 대화 시트 헤더 제목 — 「AI」 대신 이름을 앞세운다 (2026-09-18 사장님)
   aiGuideTitle: {
-    ko: 'AI 순례 가이드',
-    en: 'AI Pilgrimage Guide',
-    es: 'Guía de peregrinación con IA',
-    fr: 'Guide de pèlerinage IA',
-    pt: 'Guia de peregrinação com IA',
-    it: 'Guida al pellegrinaggio con IA',
+    ko: '순례 가이드 미카엘',
+    en: 'Michael, Pilgrimage Guide',
+    es: 'Miguel, guía de peregrinación',
+    fr: 'Michel, guide de pèlerinage',
+    pt: 'Miguel, guia de peregrinação',
+    it: 'Michele, guida al pellegrinaggio',
   },
   // 헤더의 작은 버튼용 — 인사말(aiGreeting)과 같은 이름을 언어별로 음역해 짧게 쓴다
   aiGuideNavLabel: {
