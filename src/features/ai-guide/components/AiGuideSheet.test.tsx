@@ -40,7 +40,7 @@ beforeEach(() => {
   vi.clearAllMocks();
   session.current = null;
   chatStore.set([]);
-  chatStore.markLoaded('__reset__');
+  chatStore.markLoaded(undefined);
   askMock.mockResolvedValue({ text: '절두산은 마포구에 있어요.', fallback: false, sources: ['절두산 순교성지'] });
   fetchHistoryMock.mockResolvedValue([]);
   clearMock.mockResolvedValue(true);
