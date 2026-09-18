@@ -87,11 +87,20 @@ interface GeminiResponse {
 }
 
 class RateLimitError extends Error {}
+/** 업스트림 상태만 담는다(본문·키 없음) — 폴백 이유를 화면 쪽에서 볼 수 있게 */
+class GeminiHttpError extends Error {
+  constructor(public status: number) {
+    super(`Gemini HTTP ${status}`);
+  }
+}
 
 type Turn = { role: 'user' | 'bot'; text: string };
 
 /** 직전 몇 턴만 실어 보낸다 — 저장이 아니라 문맥. 오래된 대화를 통째로 보내면 토큰·한도를 먹는다. */
 const MAX_HISTORY_TURNS = 6;
+
+/** Gemini 가 과부하(503)일 때 25~75초를 끌다 실패한다(2026-09-18 실측). 이 넘게 기다리지 않고 정보 카드로 넘어간다. */
+const GEMINI_TIMEOUT_MS = 15_000;
 
 async function callGemini(systemInstruction: string, userPrompt: string, history: Turn[] = []): Promise<string> {
   const res = await fetch(
@@ -102,6 +111,7 @@ async function callGemini(systemInstruction: string, userPrompt: string, history
         'content-type': 'application/json',
         'x-goog-api-key': GEMINI_API_KEY!,
       },
+      signal: AbortSignal.timeout(GEMINI_TIMEOUT_MS),
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: systemInstruction }] },
         contents: [
@@ -117,7 +127,8 @@ async function callGemini(systemInstruction: string, userPrompt: string, history
     throw new RateLimitError();
   }
   if (!res.ok) {
-    throw new Error(`Gemini 호출 실패 (HTTP ${res.status}): ${await res.text()}`);
+    console.error(`Gemini 호출 실패 (HTTP ${res.status}):`, (await res.text()).slice(0, 300));
+    throw new GeminiHttpError(res.status);
   }
 
   const data = (await res.json()) as GeminiResponse;
@@ -302,8 +313,10 @@ Deno.serve(async (req) => {
       // Gemini 가 못 답해도 검색 결과가 있으면 정보 카드로 답한다 (200). 없을 때만 오류로.
       const card = fallbackCard(ctx);
       if (card) {
-        console.warn('ai-guide fallback:', err instanceof RateLimitError ? 'rate_limited' : 'gemini_error');
-        return new Response(JSON.stringify({ text: card, sources, fallback: true }), {
+        // reason: 한도(429) · 업스트림 상태 코드 · 그 밖(네트워크·시간 초과). 비밀값 없음.
+        const reason = err instanceof RateLimitError ? 'rate_limited' : err instanceof GeminiHttpError ? `gemini_${err.status}` : err instanceof Error && err.name === 'TimeoutError' ? 'gemini_timeout' : 'gemini_error';
+        console.warn('ai-guide fallback:', reason);
+        return new Response(JSON.stringify({ text: card, sources, fallback: true, reason }), {
           headers: { ...corsFor(req), 'content-type': 'application/json' },
         });
       }
