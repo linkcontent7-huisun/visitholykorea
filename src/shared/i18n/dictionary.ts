@@ -917,7 +917,7 @@ export const DICTIONARY = {
     it: 'P',
   },
   textSizeMedium: {
-    ko: '중',
+    ko: '기본',
     en: 'M',
     es: 'M',
     fr: 'M',

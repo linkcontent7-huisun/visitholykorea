@@ -7,7 +7,6 @@ import {
   Map as MapIcon,
   Smartphone,
   Info,
-  MapPin,
   LogIn,
   LogOut,
   Navigation,
@@ -25,22 +24,15 @@ import { signOut } from '@/features/auth/api/auth';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useMyLogs } from '@/features/records/hooks/use-logs';
-import {
-  ENABLED_LANGUAGES,
-  fillPlaceholders,
-  LANGUAGE_LABEL,
-  type Language,
-  type TranslationKey,
-} from '@/shared/i18n/dictionary';
-import { localizeRegionName } from '@/shared/i18n/domain-labels';
+import { LANGUAGE_LABEL, type TranslationKey } from '@/shared/i18n/dictionary';
 import { Button } from '@/shared/components/ui/Button';
 import { InstallShareSheet } from '@/shared/components/ui/InstallShareSheet';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { OFFICIAL_LINKS } from '@/shared/config/official-links';
-import { REGIONS, type Region } from '@/shared/lib/regions';
 
 /** GPS 상태별 부제. 성공 후 켜져 있을 때는 origin 항목 쪽이 현재 위치 안내를 맡는다. */
 function gpsLocationSub(
@@ -83,17 +75,8 @@ export default function MenuPage() {
   const { session } = useSession();
   // 관리자 콘솔 입구. 권한이 없는 사람에게는 아예 그리지 않는다.
   const { canEnter: canEnterAdmin } = useAdminAccess();
-  const {
-    language,
-    setLanguage,
-    origin,
-    setOrigin,
-    gpsLocation,
-    gpsStatus,
-    requestGpsLocation,
-    clearGpsLocation,
-    t,
-  } = useSettings();
+  const { language, gpsLocation, gpsStatus, requestGpsLocation, clearGpsLocation, t } =
+    useSettings();
   const { data: stamps = [] } = useMyStamps();
   const { data: logs = [] } = useMyLogs();
 
@@ -144,20 +127,11 @@ export default function MenuPage() {
           label: t('languageSetting'),
           // 검수를 마친 한국어·영어만(ENABLED_LANGUAGES). 목록은 각자의 언어로 적어야 자기 언어를 찾을 수 있다.
           sub: LANGUAGE_LABEL[language],
-          control: (
-            <select
-              value={language}
-              onChange={(e) => setLanguage(e.target.value as Language)}
-              aria-label={t('languageSelectAria')}
-              className="min-h-11 max-w-[45%] rounded-lg border border-app-border bg-white px-3 text-sm font-bold text-app-text"
-            >
-              {ENABLED_LANGUAGES.map((lang) => (
-                <option key={lang} value={lang}>
-                  {LANGUAGE_LABEL[lang]}
-                </option>
-              ))}
-            </select>
-          ),
+          // 네이티브 <select> 는 펼침 목록 위치를 브라우저가 정해서, 모바일에서는 화면을
+          // 뒤덮고 PC 에서는 엉뚱한 자리(왼쪽 위)에 뜨는 문제가 있었다(사장님 지적,
+          // 2026-09-18) — 우리가 직접 위치를 잡는 `LanguagePicker`(헤더에서 쓰던 것,
+          // 지금은 헤더에서 뺀 뒤로 안 쓰이고 있었다)로 바꿔 항상 이 줄 바로 아래에 뜨게 한다.
+          control: <LanguagePicker />,
         },
         {
           id: 'largeText',
@@ -172,46 +146,11 @@ export default function MenuPage() {
           sub: gpsLocationSub(gpsStatus, t),
           onClick: gpsLocation ? clearGpsLocation : requestGpsLocation,
         },
-        {
-          id: 'origin',
-          icon: MapPin,
-          label: t('originSetting'),
-          sub: gpsLocation
-            ? t('currentLocationActiveSub')
-            : origin
-              ? fillPlaceholders(t('originNearbyOrder'), {
-                  origin: localizeRegionName(origin, language),
-                })
-              : t('originSub'),
-          control: (
-            <select
-              value={origin ?? ''}
-              onChange={(e) => setOrigin((e.target.value || null) as Region | null)}
-              aria-label={t('originSelectAria')}
-              disabled={Boolean(gpsLocation)}
-              className="min-h-11 max-w-[45%] rounded-lg border border-app-border bg-white px-3 text-sm font-bold text-app-text disabled:opacity-50"
-            >
-              <option value="">{t('originAll')}</option>
-              {REGIONS.map((r) => (
-                <option key={r} value={r}>
-                  {localizeRegionName(r, language)}
-                </option>
-              ))}
-            </select>
-          ),
-        },
       ],
     },
     {
       title: t('supportInfo'),
       items: [
-        {
-          id: 'intro',
-          icon: Info,
-          label: t('aboutService'),
-          sub: t('aboutServiceSub'),
-          onClick: () => navigate(paths.faq),
-        },
         {
           id: 'help',
           icon: ShieldQuestion,
