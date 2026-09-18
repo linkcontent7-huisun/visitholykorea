@@ -1,0 +1,48 @@
+{
+  "siteId": "65881e83-385c-4f91-ba56-1a92327fb2e2",
+  "siteName": "전라 감영",
+  "slug": "jeolla-gamyeong",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Claude (문헌 초안 2026-09-18, 소개글 출처 기반)",
+  "status": "draft",
+  "intro": {
+    "narration": "전라도 관찰사가 다스리던 전라감영입니다. 1791년 한국 교회 첫 순교자 윤지충과 권상연이 이곳에서 심문을 받았습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "선화당 — 복원된 감영",
+      "location": "옛 전북도청 자리, 복원 감영 중심 건물",
+      "narration": "2020년 선화당을 중심으로 감영 건물이 일부 복원되었습니다. 관찰사가 집무하던 이 건물 앞에서 신자들의 문초가 되풀이되었습니다.",
+      "lookFor": "선화당 현판",
+      "forEveryone": "조선 지방 행정의 중심이 그대로 복원된 공간입니다.",
+      "photos": [],
+      "sourceNote": "전주교구 순례 안내 e-book(2024): https://www.jcatholic.or.kr/data/jc_file/jc_ebook_list/2886733904_cHRVONsT_20240630.pdf"
+    },
+    {
+      "seq": 2,
+      "title": "감영 마당 — 첫 순교자의 심문",
+      "location": "선화당 앞마당",
+      "narration": "1791년 신해박해 때 윤지충 바오로와 권상연 야고보가 여기서 심문받고 한국 교회의 첫 순교자가 되었습니다. 1801년에는 유항검 아우구스티노 일가와 윤지헌 프란치스코, 1827년 이경언 바오로도 이 감영을 거쳤습니다.",
+      "lookFor": "복원 건물 안 감영 역사 전시",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "전주교구 순례 안내 e-book(2024): https://www.jcatholic.or.kr/data/jc_file/jc_ebook_list/2886733904_cHRVONsT_20240630.pdf"
+    },
+    {
+      "seq": 3,
+      "title": "길 — 전주 옥과 풍남문 밖 형장으로",
+      "location": "감영에서 풍남문 방향",
+      "narration": "감영에서 심문받은 신자들은 전주 옥에 갇혔다가 풍남문 밖 형장으로 끌려갔습니다. 1839년 신태보 베드로, 1866년 손선지 베드로도 이 길을 지났습니다.",
+      "lookFor": "풍남문 쪽으로 이어지는 순례 동선",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "전주교구 순례 안내 e-book(2024): https://www.jcatholic.or.kr/data/jc_file/jc_ebook_list/2886733904_cHRVONsT_20240630.pdf"
+    }
+  ],
+  "outro": {
+    "narration": "감영에서 옥, 그리고 형장으로 — 전주 순교사의 출발점이 이 마당입니다.",
+    "photos": []
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "siteId": "4f9b0f23-d523-4443-a6b5-3a134d52abc3",
+  "siteName": "전주 숲정이 성지",
+  "slug": "jeonju-supjeongi",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Claude (문헌 초안 2026-09-18, 소개글 출처 기반)",
+  "status": "draft",
+  "intro": {
+    "narration": "숲이 우거져 숲의 머리라 불리던 전주의 군사 훈련장이자 형장입니다. 1801년부터 1866년까지 신자들이 이곳에서 처형되었습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 기념 십자가와 기념탑",
+      "location": "성지 입구",
+      "narration": "교회는 1930년대에 이 터를 사들여 지켰고, 1935년 기념 십자가를, 1968년 기념탑을 세웠습니다. 도시 개발로 1992년 지금 자리로 옮겨 온 뒤에도 이 기념물들이 성지의 얼굴입니다.",
+      "lookFor": "1935년 기념 십자가",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 안내(전주 숲정이): https://m.catholic.or.kr/web/holyplace/?seq=2359"
+    },
+    {
+      "seq": 2,
+      "title": "야외제대 — 동정부부와 순교자들",
+      "location": "경내 야외제대",
+      "narration": "1801년 동정부부 유중철 요한과 이순이 루갈다가 이곳에서 순교했습니다. 이순이·유중성 등 일곱 분이 2014년 복자가 되었고, 정문호·손선지 등 여섯 분은 1984년 성인이 되었습니다.",
+      "lookFor": "야외제대 곁 순교자 명단",
+      "forEveryone": "남매처럼 살기로 한 부부의 이야기가 전해지는 곳입니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 안내(전주 숲정이): https://m.catholic.or.kr/web/holyplace/?seq=2359"
+    },
+    {
+      "seq": 3,
+      "title": "십자가의 길 — 2004년 조성",
+      "location": "경내 둘레",
+      "narration": "2004년 야외제대와 성모상, 십자가의 길이 더해졌습니다. 옮겨 온 성지이지만 숲정이의 기억을 한 바퀴 돌며 되새기도록 꾸며져 있습니다.",
+      "lookFor": "성모상",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 안내(전주 숲정이): https://m.catholic.or.kr/web/holyplace/?seq=2359"
+    }
+  ],
+  "outro": {
+    "narration": "기해·병인박해까지 세 차례 박해의 형장이었던 곳입니다. 기념탑 앞에서 잠시 머물러 보세요.",
+    "photos": []
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "siteId": "a0cefc62-82a0-40e6-9bc1-8e0631f384e4",
+  "siteName": "석정 보름 우물",
+  "slug": "seokjeong-boreum-well",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Claude (문헌 초안 2026-09-18, 소개글 출처 기반)",
+  "status": "draft",
+  "intro": {
+    "narration": "북촌 계동의 작은 돌우물입니다. 주문모 신부와 김대건 신부의 이야기가 이 우물물에 얽혀 있습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "우물 — 석정 보름 우물",
+      "location": "계동길 가회동성당 가까운 골목",
+      "narration": "이 우물은 보름 동안 물이 맑고 보름 동안 흐리다는 전승에서 보름 우물이라는 이름을 얻었습니다. 서울에 상수도가 놓이기 전 주민들이 생활용수로 쓰던 돌우물입니다.",
+      "lookFor": "우물 덮개와 돌테두리",
+      "forEveryone": "서울 옛 동네의 우물이 그대로 남은 드문 자리입니다.",
+      "photos": [],
+      "sourceNote": "한국 천주교 문화유산 실태조사(문화체육관광부 2012): https://m.korea.kr/expertWeb/resources/files/data/document_file/2012/%ED%95%9C%EA%B5%AD%EC%B2%9C%EC%A3%BC%EA%B5%90%EB%AC%B8%ED%99%94%EC%9C%A0%EC%82%B0%EC%8B%A4%ED%83%9C%EC%A1%B0%EC%82%AC%EB%B0%8F%ED%99%9C%EC%9A%A9%EB%B0%A9%EC%95%88.pdf"
+    },
+    {
+      "seq": 2,
+      "title": "우물 곁 — 주문모 신부 이야기",
+      "location": "우물 앞 안내판",
+      "narration": "1794년 압록강을 건너온 주문모 야고보 신부는 가까운 최인길의 집에 숨어 지냈습니다. 주 신부와 강완숙 골룸바가 이 우물물로 새 신자에게 몰래 세례를 주었다고 전합니다.",
+      "lookFor": "안내판의 주문모 신부 설명",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "한국 천주교 문화유산 실태조사(문화체육관광부 2012): https://m.korea.kr/expertWeb/resources/files/data/document_file/2012/%ED%95%9C%EA%B5%AD%EC%B2%9C%EC%A3%BC%EA%B5%90%EB%AC%B8%ED%99%94%EC%9C%A0%EC%82%B0%EC%8B%A4%ED%83%9C%EC%A1%B0%EC%82%AC%EB%B0%8F%ED%99%9C%EC%9A%A9%EB%B0%A9%EC%95%88.pdf"
+    },
+    {
+      "seq": 3,
+      "title": "우물 곁 — 김대건 신부 이야기",
+      "location": "우물 앞",
+      "narration": "1845년 사제가 되어 돌아온 김대건 안드레아 신부도 북촌에 머물며 이 물을 성수로 썼다는 전승이 있습니다. 서울 순례길에서 주문모 신부의 첫 사목과 김대건 신부의 활동을 잇는 작은 사적입니다.",
+      "lookFor": "가회동성당 방향 순례길 표지",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "한국 천주교 문화유산 실태조사(문화체육관광부 2012): https://m.korea.kr/expertWeb/resources/files/data/document_file/2012/%ED%95%9C%EA%B5%AD%EC%B2%9C%EC%A3%BC%EA%B5%90%EB%AC%B8%ED%99%94%EC%9C%A0%EC%82%B0%EC%8B%A4%ED%83%9C%EC%A1%B0%EC%82%AC%EB%B0%8F%ED%99%9C%EC%9A%A9%EB%B0%A9%EC%95%88.pdf"
+    }
+  ],
+  "outro": {
+    "narration": "큰 성당이 아니라 골목의 우물 하나가 두 사제의 이야기를 품고 있습니다. 가회동성당까지 이어서 걸어 보세요.",
+    "photos": []
+  }
+}

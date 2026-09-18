@@ -1,0 +1,48 @@
+{
+  "siteId": "8d87ca6f-f31d-40d4-b25e-9a425aed0954",
+  "siteName": "죽산 순교성지",
+  "slug": "juksan",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Claude (문헌 초안 2026-09-18, 소개글 출처 기반)",
+  "status": "draft",
+  "intro": {
+    "narration": "안성 죽산 도호부에서 심문받고 처형된 순교자들의 성지입니다. 이름이 확인된 순교자만 24명입니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "이진터 — 형장",
+      "location": "성지 안 이진터 구역",
+      "narration": "형장으로 전하는 이진터는 오랫동안 밭으로 잊혔다가 성지로 조성되었습니다. 기록으로 이름이 확인된 24명의 순교자가 이 일대 형장에서 목숨을 바쳤습니다.",
+      "lookFor": "이진터 표지",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 안내(죽산): https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2326&curpage=1&menugubun=holyplace"
+    },
+    {
+      "seq": 2,
+      "title": "옥터 — 박경진·오 마르가리타 부부",
+      "location": "옛 옥터 자리",
+      "narration": "옛 옥터에는 복자 박경진 프란치스코와 오 마르가리타 부부를 기리는 조형물이 서 있습니다. 부부가 함께 신앙을 지킨 이야기를 전하는 자리입니다.",
+      "lookFor": "부부 조형물",
+      "forEveryone": "부부 순교자를 기리는 드문 조형물입니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 안내(죽산): https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2326&curpage=1&menugubun=holyplace"
+    },
+    {
+      "seq": 3,
+      "title": "영성관 — 피정과 미사",
+      "location": "성지 안 영성관",
+      "narration": "2013년 마련한 영성관에서 순례자 피정과 미사가 이어집니다. 옥터와 이진터를 잇는 길은 재판에서 처형으로 이어진 순교자들의 마지막 동선을 되짚게 합니다.",
+      "lookFor": "옥터에서 이진터로 가는 길",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 안내(죽산): https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2326&curpage=1&menugubun=holyplace"
+    }
+  ],
+  "outro": {
+    "narration": "관아의 옥에서 형장까지, 짧은 길에 스물네 명의 마지막이 담겨 있습니다.",
+    "photos": []
+  }
+}
