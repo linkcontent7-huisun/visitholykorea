@@ -5993,6 +5993,10 @@ export const DICTIONARY = {
     pt: 'Plan updated',
     it: 'Plan updated',
   },
+  // 미카엘 대화 기록 · 폴백 · 출처 (스펙 2026-09-18)
+  aiClearChat: { ko: "대화 지우기", en: "Clear chat", es: "Clear chat", fr: "Clear chat", pt: "Clear chat", it: "Clear chat" },
+  aiFallbackNotice: { ko: "미카엘 대신 성지 정보만 보여드려요", en: "Michael is resting — showing shrine info only", es: "Michael is resting — showing shrine info only", fr: "Michael is resting — showing shrine info only", pt: "Michael is resting — showing shrine info only", it: "Michael is resting — showing shrine info only" },
+  aiSourcesLabel: { ko: "참고한 성지:", en: "Based on:", es: "Based on:", fr: "Based on:", pt: "Based on:", it: "Based on:" },
   languageSelectAria: {
     ko: '언어 선택',
     en: 'Select language',

@@ -88,7 +88,12 @@ interface GeminiResponse {
 
 class RateLimitError extends Error {}
 
-async function callGemini(systemInstruction: string, userPrompt: string): Promise<string> {
+type Turn = { role: 'user' | 'bot'; text: string };
+
+/** 직전 몇 턴만 실어 보낸다 — 저장이 아니라 문맥. 오래된 대화를 통째로 보내면 토큰·한도를 먹는다. */
+const MAX_HISTORY_TURNS = 6;
+
+async function callGemini(systemInstruction: string, userPrompt: string, history: Turn[] = []): Promise<string> {
   const res = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
     {
@@ -99,7 +104,10 @@ async function callGemini(systemInstruction: string, userPrompt: string): Promis
       },
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: systemInstruction }] },
-        contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
+        contents: [
+          ...history.map((h) => ({ role: h.role === 'bot' ? 'model' : 'user', parts: [{ text: h.text }] })),
+          { role: 'user', parts: [{ text: userPrompt }] },
+        ],
       }),
     },
   );
@@ -121,7 +129,14 @@ async function callGemini(systemInstruction: string, userPrompt: string): Promis
  * 성지 수가 200곳 내외라 이름·주소 부분 일치 검색으로 충분하며,
  * 콘텐츠가 늘어나면 pgvector 임베딩 검색으로 교체한다.
  */
-async function buildSiteContext(question: string): Promise<string> {
+type DirRow = { name: string; category: string | null; diocese: string | null; address: string | null; phone: string | null };
+interface SiteContext {
+  text: string;
+  sites: { name: string; category: string | null; diocese: string | null; location: string | null; description: string | null }[];
+  dirs: DirRow[];
+}
+
+async function buildSiteContext(question: string): Promise<SiteContext> {
   const supabase = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_ANON_KEY')!);
 
   // 질문에서 2글자 이상 토큰만 뽑는다. 「대산성당에」처럼 조사가 붙은 채로 오므로 흔한 조사를 떼고,
@@ -152,7 +167,7 @@ async function buildSiteContext(question: string): Promise<string> {
     '언제', '얼마', '얼마예', '전화', '전화번호', '연락처', '주소', '역사', '소개', '정보', '곳이에', '곳', '입장료', '사람', '명이에',
     '신부님', '신부', '성인', '순교자', '순교', '박해', '때', '것', '거', '좀', '저', '제가', '우리', '오늘', '내일', '주말']);
   const tokens = [...compactTokens].filter((t) => !STOP.has(t));
-  if (tokens.length === 0) return '';
+  if (tokens.length === 0) return { text: '', sites: [], dirs: [] };
 
   type Row = { name: string; category: string | null; diocese: string | null; location: string | null; description: string | null; history: string | null };
   const picked: Row[] = [];
@@ -190,15 +205,47 @@ async function buildSiteContext(question: string): Promise<string> {
     .select('name, category, diocese, address, phone')
     .or(dirFilter)
     .limit(5);
-  const dirLines = (dir ?? []).map(
+  const dirs = (dir ?? []) as DirRow[];
+  const dirLines = dirs.map(
     (d) =>
       `- ${d.name} (${d.category ?? '본당'}, ${d.diocese ?? ''}) — 주소: ${d.address ?? '정보 없음'}, 전화: ${d.phone ?? '정보 없음'} [주소록 정보만 있음]`,
   );
 
-  if (siteLines.length === 0 && dirLines.length === 0) return '';
+  const text =
+    siteLines.length === 0 && dirLines.length === 0
+      ? ''
+      : [...siteLines, ...(dirLines.length ? ['', '[본당·공소 주소록 — 이름·주소·전화만 있음]', ...dirLines] : [])].join('\n\n');
+  return { text, sites: picked, dirs };
+}
 
-  return [...siteLines, ...(dirLines.length ? ['', '[본당·공소 주소록 — 이름·주소·전화만 있음]', ...dirLines] : [])]
-    .join('\n\n');
+/** 소개글 첫 두 문장. 폴백 카드는 DB 글자를 그대로 쓴다 — 지어내는 것이 없다. */
+function firstSentences(s: string | null, n = 2): string {
+  if (!s) return '';
+  return s.split(/(?<=[.!?。])\s+/).slice(0, n).join(' ').trim();
+}
+
+/**
+ * Gemini 가 못 답할 때(한도 · 장애) 검색 결과를 정해진 틀로 보여준다 — 스펙 5절 B.
+ * 말투 없음, 표 없음. 심사 시연 중 "AI 가 죽었다"는 화면이 뜨지 않게 하는 보험이다.
+ */
+function fallbackCard(ctx: SiteContext): string | null {
+  if (ctx.sites.length === 0 && ctx.dirs.length === 0) return null;
+  const lines: string[] = ['미카엘이 잠시 쉬는 중이라, 찾은 정보를 그대로 보여드릴게요.', ''];
+  for (const s of ctx.sites) {
+    lines.push(`**${s.name}** (${s.category ?? '성지'} · ${s.diocese ?? ''}교구)`);
+    if (s.location) lines.push(s.location);
+    const intro = firstSentences(s.description);
+    if (intro) lines.push(intro);
+    lines.push('');
+  }
+  for (const d of ctx.dirs) {
+    lines.push(`**${d.name}** (${d.category ?? '본당'} · ${d.diocese ?? ''})`);
+    if (d.address) lines.push(d.address);
+    if (d.phone) lines.push(`전화 ${d.phone}`);
+    lines.push('');
+  }
+  lines.push('자세한 내용은 성지 상세 화면에서 보실 수 있어요.');
+  return lines.join('\n');
 }
 
 Deno.serve(async (req) => {
@@ -227,8 +274,17 @@ Deno.serve(async (req) => {
       .filter(Boolean)
       .join(', ');
 
-    const context = await buildSiteContext(question);
-    const contextBlock = context || '(관련된 성지 정보를 찾지 못했습니다)';
+    // 직전 대화 — 클라이언트가 들고 있는 것을 그대로 보낸다. 서버는 저장하지 않는다.
+    const history: Turn[] = Array.isArray(payload.history)
+      ? (payload.history as Turn[])
+          .filter((h) => (h?.role === 'user' || h?.role === 'bot') && typeof h.text === 'string')
+          .slice(-MAX_HISTORY_TURNS)
+          .map((h) => ({ role: h.role, text: String(h.text).slice(0, MAX_QUESTION_LEN) }))
+      : [];
+
+    const ctx = await buildSiteContext(question);
+    const contextBlock = ctx.text || '(관련된 성지 정보를 찾지 못했습니다)';
+    const sources = ctx.sites.map((s) => s.name);
     const prompt = [
       audienceLine ? `[사용자가 직접 알려준 프로필]\n${audienceLine}` : null,
       `[성지 정보]\n${contextBlock}`,
@@ -237,11 +293,22 @@ Deno.serve(async (req) => {
       .filter(Boolean)
       .join('\n\n');
 
-    const text = await callGemini(MICHAEL_SYSTEM_INSTRUCTION, prompt);
-
-    return new Response(JSON.stringify({ text }), {
-      headers: { ...corsFor(req), 'content-type': 'application/json' },
-    });
+    try {
+      const text = await callGemini(MICHAEL_SYSTEM_INSTRUCTION, prompt, history);
+      return new Response(JSON.stringify({ text, sources }), {
+        headers: { ...corsFor(req), 'content-type': 'application/json' },
+      });
+    } catch (err) {
+      // Gemini 가 못 답해도 검색 결과가 있으면 정보 카드로 답한다 (200). 없을 때만 오류로.
+      const card = fallbackCard(ctx);
+      if (card) {
+        console.warn('ai-guide fallback:', err instanceof RateLimitError ? 'rate_limited' : 'gemini_error');
+        return new Response(JSON.stringify({ text: card, sources, fallback: true }), {
+          headers: { ...corsFor(req), 'content-type': 'application/json' },
+        });
+      }
+      throw err;
+    }
   } catch (err) {
     if (err instanceof RateLimitError) {
       return new Response(
