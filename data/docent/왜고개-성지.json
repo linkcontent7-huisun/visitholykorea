@@ -1,0 +1,15 @@
+{
+  "siteId": "7e1d46c2-486b-4b56-8f02-cb0f7703edcd",
+  "siteName": "왜고개 성지",
+  "slug": "waegogae-seongji",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "왜고개는 순교자들의 시신이 오랫동안 묻혔던 자리이며 지금은 군종교구청과 국군중앙 주교좌성당이 자리합니다. 현양비와 십자가상, 십자가의 길을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "현양비 — 순교자 매장지의 기억", "location": "성지 안 현양 공간", "narration": "왜고개에는 병인박해 순교자 일곱 분과 서소문 밖 순교자 두 분이 오랜 기간 묻혀 있었습니다. 성 김대건 안드레아 신부의 시신도 잠시 이곳에 모셔졌습니다. 이 순교자들을 기억하기 위해 현양비가 세워졌습니다.", "lookFor": "순교자를 기리는 현양비", "forEveryone": "여러 사람의 임시 매장지가 공식 기억 장소로 바뀐 역사를 전합니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2294; https://www.gunjong.or.kr/parish/shrine.asp"},
+    {"seq": 2, "title": "대형 십자가상 — 새로 단장한 성지의 표지", "location": "성지 마당", "narration": "군종교구는 2013년 성지를 확장하면서 대형 십자가상을 세웠습니다. 현양비와 기도처도 이때 함께 마련했습니다. 큰 십자가는 군종교구의 주교좌성당 곁에 순교 사적지가 있음을 드러냅니다.", "lookFor": "마당에서 높이 보이는 대형 십자가상", "forEveryone": "대형 상징물이 현대 도시 안에서 역사 장소의 위치를 표시합니다.", "photos": [], "sourceNote": "https://www.gunjong.or.kr/parish/shrine.asp"},
+    {"seq": 3, "title": "십자가의 길 — 성지를 잇는 기도 동선", "location": "성지 안 산책로", "narration": "성지에는 십자가의 길이 이어져 있습니다. 군종교구는 순례자의 기도를 돕기 위해 현양비와 대형 십자가상, 기도처와 함께 이 길을 조성했습니다. 길을 따라가면 한 지점의 기념비에서 성지 전체로 시선이 넓어집니다.", "lookFor": "차례로 배치된 십자가의 길", "forEveryone": "연속된 표지가 방문자의 이동을 역사 기억의 과정으로 바꿉니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2294; https://www.gunjong.or.kr/parish/shrine.asp"}
+  ],
+  "outro": {"narration": "왜고개의 세 기념 시설은 이곳에 머물렀던 순교자들의 흔적을 오늘의 순례 동선으로 이어 줍니다.", "photos": []}
+}

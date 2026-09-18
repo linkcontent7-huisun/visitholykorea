@@ -1,0 +1,16 @@
+{
+  "siteId": "3703ae13-69fa-427e-aafe-ce32b340a1eb",
+  "siteName": "손골 성지",
+  "slug": "songol-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "손골 성지는 박해 시대 교우촌이자 프랑스 선교사들의 전교 거점이었습니다. 새 성당과 맷돌 십자가, 순교 현양비와 십자가의 길을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "성지 안 — 새 성당", "location": "성지 중심", "narration": "성지 중심의 새 성당을 바라보세요. 이 성당은 손골성지 설립 기념 시기에 새로 지어 봉헌되었습니다. 왼쪽의 피정의 집과 사제관, 성당이 한 줄로 이어지는 배치도 확인해 보세요.", "lookFor": "피정의 집·사제관·성당이 이어지는 배치", "forEveryone": "오래된 교우촌에 오늘의 예배와 피정 시설을 함께 마련했습니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2321&menugubun=holyplace; https://www.casuwon.or.kr/info/news/diocese/66595?page=255"},
+    {"seq": 2, "title": "성지 마당 — 맷돌 십자가", "location": "성당 주변", "narration": "성지에 세운 맷돌 십자가를 찾아보세요. 성 도리 헨리코 신부의 고향 부모님이 쓰던 맷돌로 만든 십자가입니다. 한 선교사의 가족 물건이 손골의 순교 기억을 전하는 성물이 되었습니다.", "lookFor": "맷돌로 만든 십자가", "forEveryone": "생활 도구가 한 인물과 가족의 기억을 품은 기념물이 되었습니다.", "photos": [], "sourceNote": "https://www.casuwon.or.kr/info/news/diocese/66595?page=255"},
+    {"seq": 3, "title": "성지 마당 — 순교 현양비", "location": "맷돌 십자가 부근", "narration": "맷돌 십자가와 함께 세워진 순교 현양비를 보세요. 손골은 도리 헨리코 신부와 오메트르 베드로 신부를 특별히 기억하는 곳입니다. 현양비는 이 교우촌과 선교사들의 역사를 방문자에게 알립니다.", "lookFor": "순교를 기리는 비문", "forEveryone": "교우촌에서 활동한 선교사들의 역사를 새긴 기념비입니다.", "photos": [], "sourceNote": "https://www.casuwon.or.kr/info/news/diocese/66595?page=255; https://www.casuwon.or.kr/holyland/intro/8"},
+    {"seq": 4, "title": "성지 길 — 십자가의 길", "location": "성당 주변 산책길", "narration": "성지 안의 십자가의 길을 따라가 보세요. 손골성지는 새 성당을 준비하며 십자가의 길도 새로 조성했습니다. 교우촌의 산골 지형을 걸으며 수난의 장면을 차례로 만납니다.", "lookFor": "길을 따라 이어지는 각 처", "forEveryone": "산골의 보행로에 수난 이야기를 장면별로 배치한 기도 길입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2321&menugubun=holyplace; https://directory.cbck.or.kr/m/mapInfo.asp?code=201003733&gubun=16&seq=002"}
+  ],
+  "outro": {"narration": "새 성당과 기념물, 십자가의 길은 손골 교우촌과 선교사들의 기억을 오늘의 순례 공간으로 잇습니다. 나가기 전 맷돌 십자가의 재료를 다시 살펴보세요.", "photos": []}
+}

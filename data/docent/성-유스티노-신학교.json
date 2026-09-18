@@ -1,0 +1,16 @@
+{
+  "siteId": "23144148-89ae-4ce2-967f-99154caf1a8f",
+  "siteName": "성 유스티노 신학교",
+  "slug": "st-justin-seminary",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "성 유스티노 신학교는 대구의 첫 신학교로 세워진 붉은 벽돌 건물입니다. 남아 있는 중앙 성당과 연속 아치 복도, 양쪽 역사관을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "정면 — 붉은 벽돌 건물", "location": "건물 앞", "narration": "정면에서 붉은 벽돌의 2층 건물을 바라보세요. 검은 벽돌 띠가 붉은 외벽을 가로지르며 건물의 층과 윤곽을 드러냅니다. 현재는 예전 건물의 중심 부분이 남아 있습니다.", "lookFor": "붉은 벽돌 사이의 검은 벽돌 띠", "forEveryone": "벽돌의 색을 달리해 건물의 수평선을 강조한 근대 건축입니다.", "photos": [], "sourceNote": "https://www.daegu-archdiocese.or.kr/page/shrine.html?idx=17&process=read&srl=&view_option=; https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2256&menugubun=holyplace"},
+    {"seq": 2, "title": "중앙 — 옛 성당", "location": "건물 정면 중앙", "narration": "정면 중앙으로 들어서면 옛 성당의 모습을 만납니다. 신학교는 중앙 성당을 중심으로 좌우 대칭을 이루도록 설계되었습니다. 지금 남은 중앙부가 과거 신학교의 예배 중심을 보여줍니다.", "lookFor": "좌우 대칭의 중심에 놓인 옛 성당", "forEveryone": "교육 시설의 한가운데에 예배 공간을 둔 배치입니다.", "photos": [], "sourceNote": "https://www.daegu-archdiocese.or.kr/page/shrine.html?idx=17&process=read&srl=&view_option=; https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2256&menugubun=holyplace"},
+    {"seq": 3, "title": "1층 앞면 — 연속 아치 복도", "location": "건물 1층 전면", "narration": "1층 앞면의 연속 아치를 따라가 보세요. 로마네스크 건축에서 많이 쓰인 아치로 툇간을 만들고 복도로 사용했습니다. 반복되는 곡선이 긴 벽돌 입면에 깊이와 리듬을 더합니다.", "lookFor": "나란히 반복되는 둥근 아치", "forEveryone": "전통 툇간의 기능과 서양식 아치가 결합된 복도입니다.", "photos": [], "sourceNote": "https://www.daegu-archdiocese.or.kr/page/shrine.html?idx=17&process=read&srl=&view_option="},
+    {"seq": 4, "title": "양쪽 날개 — 역사관", "location": "중앙 성당 양옆", "narration": "옛 성당 양쪽의 역사관을 살펴보세요. 현재 남은 양쪽 공간은 성 유스티노 신학교의 역사를 소개합니다. 건물 자체와 전시가 이곳의 사제 양성 역사를 함께 전합니다.", "lookFor": "중앙 성당 양쪽에 마련된 역사관", "forEveryone": "역사 건물을 보존하면서 그 안에 건물의 이야기를 전시합니다.", "photos": [], "sourceNote": "https://www.daegu-archdiocese.or.kr/page/shrine.html?idx=17&process=read&srl=&view_option=; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201009087&gubun=16"}
+  ],
+  "outro": {"narration": "붉은 벽돌 외관과 중앙 성당, 아치 복도와 역사관이 신학교의 옛 모습을 나누어 전합니다. 건물 앞에서 좌우 대칭 구성을 다시 확인해 보세요.", "photos": []}
+}

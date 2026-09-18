@@ -1,0 +1,16 @@
+{
+  "siteId": "51bac093-0540-47c7-a9ed-e87929538527",
+  "siteName": "성모당·성직자 묘지",
+  "slug": "seongmodang-clergy-cemetery",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "대구대교구청 안의 성모당과 성직자 묘지는 남산 순례길로 이어진 두 공간입니다. 루르드 동굴을 본뜬 성모당과 제대, 성직자 묘지 입구를 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "성모당 — 루르드 성모 동굴", "location": "교구청 안 성모당", "narration": "성모당의 동굴과 벽돌 구조를 바라보세요. 이곳은 루르드의 성모 동굴을 본떠 조성되었습니다. 동굴의 바위 모양과 이를 둘러싼 벽돌당까지 본보기와 가깝게 만들었습니다.", "lookFor": "동굴을 감싼 붉은 벽돌 구조", "forEveryone": "프랑스의 순례지를 대구에 재현한 종교 건축입니다.", "photos": [], "sourceNote": "https://www.daegu-archdiocese.or.kr/page/shrine.html?idx=12&process=read&srl=&view_option=; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201009088&gubun=16"},
+    {"seq": 2, "title": "동굴 벽 — 봉헌 글귀", "location": "성모 동굴 옆면", "narration": "동굴 옆면에 새긴 라틴어 글귀를 찾아보세요. 글에는 대구교구가 시작된 해와 성모당을 완공한 해가 함께 새겨져 있습니다. 드망즈 주교가 성모님께 드린 서약을 기념하는 문구입니다.", "lookFor": "1911과 1918이 들어간 라틴어 글귀", "forEveryone": "건물의 시작과 완공 사연을 외벽의 글로 기록했습니다.", "photos": [], "sourceNote": "https://www.daegu-archdiocese.or.kr/page/shrine.html?idx=12&process=read&srl=&view_option=; https://www.daegu-archdiocese.or.kr/_data/pdfview/golden_newspaper_54.pdf"},
+    {"seq": 3, "title": "제단 아래 — 이윤일 요한 성인 유해", "location": "성모당 제단", "narration": "성모당 제단 아래에는 이윤일 요한 성인의 유해가 모셔져 있습니다. 성모 신심의 공간이 영남의 순교 성인을 기리는 자리와 겹쳐 있습니다. 제단과 동굴을 함께 바라보며 두 기억의 관계를 살펴보세요.", "lookFor": "성인의 유해가 모셔진 제단 아래", "forEveryone": "성모 신심과 지역 순교자의 기억을 한 제단에 모은 공간입니다.", "photos": [], "sourceNote": "https://www.daegu-archdiocese.or.kr/page/shrine.html?idx=12&process=read&srl=&view_option="},
+    {"seq": 4, "title": "성직자 묘지 — 입구 글귀", "location": "성모당에서 이어지는 묘지 입구", "narration": "성직자 묘지 입구의 라틴어 글귀를 보세요. 글귀는 오늘의 죽음이 언젠가 자신의 일이 된다는 뜻을 전합니다. 안쪽에는 대구대교구의 주교와 사제들이 잠들어 있습니다.", "lookFor": "Hodie Mihi Cras Tibi라는 입구 글귀", "forEveryone": "죽음의 보편성을 방문자에게 직접 건네는 묘지의 문장입니다.", "photos": [], "sourceNote": "https://www.daegu-archdiocese.or.kr/page/shrine.html?idx=18&process=read&srl=pilgrimage&view_option=; https://www.daegu-archdiocese.or.kr/page/shrine.html"}
+  ],
+  "outro": {"narration": "성모당의 서약과 순교 성인의 유해, 성직자 묘지의 문장은 대구대교구의 시작과 죽음을 한 길에 놓습니다. 두 공간 사이를 걸으며 새겨진 글들을 다시 떠올려 보세요.", "photos": []}
+}
