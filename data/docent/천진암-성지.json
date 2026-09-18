@@ -1,0 +1,68 @@
+{
+  "siteId": "feae6f3d-52b8-4e9a-b28a-617ebf1ed500",
+  "siteName": "천진암 성지",
+  "slug": "cheonjinam-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "천진암 성지는 한국 천주교 신앙의 출발을 기억하는 곳입니다. 창립 선조 묘역에서 성당과 박물관, 성모상으로 이어지는 공간을 함께 살펴보시겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "묘역 — 창립 선조 다섯 분의 묘",
+      "location": "성지 안 창립 선조 묘역",
+      "narration": "이곳에는 이벽의 묘와 함께 정약종, 이승훈, 권철신과 권일신 형제의 묘가 모여 있습니다. 네 분의 묘는 1981년에 이벽의 묘 옆으로 이장되었습니다. 천진암 강학에서 싹튼 신앙의 역사를 사람들의 삶으로 기억하는 자리입니다.",
+      "lookFor": "한자리에 모인 창립 선조들의 묘",
+      "forEveryone": "한 공동체의 시작을 이끈 인물들을 기리는 역사 묘역입니다.",
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2327 ; https://www.casuwon.or.kr/journal/jubo/view/1358"
+    },
+    {
+      "seq": 2,
+      "title": "오른쪽 언덕 — 정하상·유진길 성인 묘",
+      "location": "성지 입구 삼거리에서 오른쪽으로 오르는 길",
+      "narration": "입구 삼거리 오른쪽 언덕에는 정하상과 유진길 성인의 묘가 있습니다. 두 분은 성직자 영입 운동과 조선 독립교구 설정에 중요한 역할을 했습니다. 창립 선조 묘역과 함께 보면 신앙 공동체가 제도를 갖추어 간 흐름이 이어집니다.",
+      "lookFor": "나란히 마련된 두 성인의 묘",
+      "forEveryone": "종교 공동체의 성장을 위해 활동한 인물들을 기리는 장소입니다.",
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2327"
+    },
+    {
+      "seq": 3,
+      "title": "성당 — 광암 성당",
+      "location": "성지 입구 쪽",
+      "narration": "광암 성당은 광암 이벽을 기념해 1994년에 세워졌습니다. 천진암 강학에서 신앙의 실천으로 나아간 이벽의 역할을 이름으로 기억합니다. 묘역을 둘러본 뒤 이곳에서 성지의 창립 의미를 다시 되새겨 보세요.",
+      "lookFor": "이벽의 호를 딴 광암 성당 이름",
+      "forEveryone": "역사 인물의 호를 건물 이름에 담은 기념 공간입니다.",
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2327"
+    },
+    {
+      "seq": 4,
+      "title": "박물관 — 천진암 박물관",
+      "location": "성지 안 박물관 건물",
+      "narration": "천진암 박물관은 1992년 건립 인준을 받고 1995년에 공사를 시작했습니다. 건물 공사를 마친 뒤 2011년에 축성식을 거행했습니다. 성지의 역사 연구와 보존이 별도의 공간으로 이어진 모습을 볼 수 있습니다.",
+      "lookFor": "성지 역사를 보존하는 박물관 건물",
+      "forEveryone": "유적의 의미를 자료와 연구로 전하는 문화 공간입니다.",
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2327 ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003741&gubun=16"
+    },
+    {
+      "seq": 5,
+      "title": "마당 — 세계평화의 성모상",
+      "location": "성지 안 성모상 앞",
+      "narration": "성지에는 2013년에 세워진 세계평화의 성모상이 있습니다. 높이 22미터의 큰 성모상은 평화를 향한 기도를 눈에 보이는 상징으로 드러냅니다. 주변을 한 바퀴 둘러보며 성지의 산세와 함께 바라보세요.",
+      "lookFor": "멀리서도 보이는 큰 성모상",
+      "forEveryone": "평화를 바라는 마음을 조형물로 표현한 장소입니다.",
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2327"
+    }
+  ],
+  "outro": {
+    "narration": "천진암의 묘역과 건물은 한국 천주교의 시작과 그 기억을 보존해 온 시간을 함께 보여 줍니다. 내려가는 길에는 숲과 묘역이 만드는 고요한 분위기도 천천히 느껴 보세요.",
+    "photos": []
+  }
+}

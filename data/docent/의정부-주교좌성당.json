@@ -1,0 +1,15 @@
+{
+  "siteId": "4b603a69-77ed-4d0a-913f-dee3bdcc7ec0",
+  "siteName": "의정부 주교좌성당",
+  "slug": "uijeongbu-jugyojwa-seongdang",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "의정부 주교좌성당은 오래된 석조 성당과 오늘의 주교좌성당이 한 마당에 자리한 곳입니다. 옛 성당과 성모상, 새 성당을 차례로 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "사적지 성당 — 돌로 쌓은 옛 성당", "location": "성당 입구 정면", "narration": "입구 정면에는 돌로 지은 옛 성당이 서 있습니다. 이 건물은 미군 군종 신부의 도움으로 세워 봉헌되었습니다. 지금은 경기도 문화재자료로 관리되며 의정부 지역 신앙 공동체의 오랜 시간을 보여줍니다.", "lookFor": "입구 정면의 석조 옛 성당", "forEveryone": "작은 석조 건물이 지역 공동체의 시작과 전후 복구의 기억을 전합니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2841&ctxtSubMenu=pds&curpage=1&menugubun=holyplace; https://ujbhome.or.kr/introduce; https://directory.cbck.or.kr/OnlineAddress/Catholic/DetailInfo.aspx?cgubn=c&char=all&code=201007919&gubn=16&gubn2=all&gyogu=201000020&tbxSearch="},
+    {"seq": 2, "title": "성모상 — 두 성당 사이의 기도 표지", "location": "성당 마당", "narration": "성당 마당에는 성모상이 서 있습니다. 본당 공식 소개는 옛 성당과 새 성당 사이에서 이 성모상을 주요 현장 모습으로 안내합니다. 두 시대의 건물을 오가며 성모상 앞에서 잠시 기도해 보세요.", "lookFor": "마당의 흰 성모상", "forEveryone": "성모상은 서로 다른 시기에 세워진 공간을 기도로 이어 줍니다.", "photos": [], "sourceNote": "https://ujbhome.or.kr/introduce"},
+    {"seq": 3, "title": "주교좌성당 — 오늘의 공동체 중심", "location": "마당 안쪽 새 성당", "narration": "옛 성당 뒤편에는 지금 사용하는 주교좌성당이 있습니다. 본당 공식 소개는 이 건물을 새 대성전으로 구분해 안내합니다. 오래된 성당과 함께 바라보면 공동체가 성장하며 예배 공간을 넓혀 온 흐름을 읽을 수 있습니다.", "lookFor": "마당 안쪽의 큰 성당 건물", "forEveryone": "옛 건물을 보존하면서 새 예배 공간을 함께 사용하는 모습을 볼 수 있습니다.", "photos": [], "sourceNote": "https://ujbhome.or.kr/introduce; https://directory.cbck.or.kr/OnlineAddress/Catholic/DetailInfo.aspx?cgubn=c&char=all&code=201007919&gubn=16&gubn2=all&gyogu=201000020&tbxSearch="}
+  ],
+  "outro": {"narration": "옛 성당과 성모상, 주교좌성당을 함께 보며 이곳의 과거와 현재가 한 마당에서 이어지는 모습을 기억해 보세요.", "photos": []}
+}

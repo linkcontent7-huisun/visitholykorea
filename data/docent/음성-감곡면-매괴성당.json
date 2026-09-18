@@ -1,0 +1,16 @@
+{
+  "siteId": "5e4d123d-49ce-4900-a78e-af010cfef31b",
+  "siteName": "음성 감곡면 매괴성당",
+  "slug": "eumseong-gamgok-maegoe-seongdang",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "감곡 매괴성당은 충청북도의 오래된 본당이자 성모 순례지입니다. 고딕 성당과 매괴 성모상, 옛 사제관의 박물관과 매산의 기도 공간을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "고딕 성당 — 매산 언덕의 붉은 벽돌 건물", "location": "성당 앞마당", "narration": "마당에서 붉은 벽돌의 고딕 성당을 바라보세요. 이 성당은 라틴 십자형 평면과 높은 종탑을 갖추고 있습니다. 충청북도에서 이른 시기에 세워진 고딕 성당으로 문화재로도 지정되어 있습니다.", "lookFor": "붉은 벽돌 외벽과 높은 종탑", "forEveryone": "서양식 교회 건축이 지역의 역사와 만난 모습을 보여줍니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2384&menugubun=holyplace; https://www.cdcj.or.kr/parish/holyland/11; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003756&gubun=16"},
+    {"seq": 2, "title": "매괴 성모상 — 탄흔을 간직한 주보상", "location": "성당 내부 제대 정면", "narration": "제대 정면에는 본당의 주보인 매괴 성모상이 모셔져 있습니다. 이 성모상에는 한국전쟁 때 생긴 일곱 군데의 탄흔이 남아 있습니다. 상처 입고도 자리를 지킨 성모상을 바라보며 전쟁의 아픔과 성모칠고를 묵상해 보세요.", "lookFor": "제대 중앙의 매괴 성모상과 탄흔", "forEveryone": "한 성상이 공동체의 전쟁 기억과 신심을 함께 품고 있습니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2384&menugubun=holyplace; https://www.cdcj.or.kr/parish/holyland/11"},
+    {"seq": 3, "title": "매괴 박물관 — 옛 사제관에 모은 기록", "location": "성당 곁 옛 사제관", "narration": "성당 곁의 석조 건물은 옛 사제관을 고쳐 만든 매괴 박물관입니다. 안에는 초기 본당에서 전해 온 깃발과 제의, 교리서 같은 유물이 전시되어 있습니다. 건물과 유물을 함께 보며 본당의 생활사를 살펴보세요.", "lookFor": "화강암으로 지은 박물관 건물", "forEveryone": "생활 도구와 문서는 공동체의 신앙이 실제로 어떻게 이어졌는지 보여줍니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2384&menugubun=holyplace; https://www.cdcj.or.kr/parish/holyland/11"},
+    {"seq": 4, "title": "매산 정상 — 십자가와 성상들", "location": "성당 뒤 매산 정상", "narration": "매산 정상에는 큰 십자가와 제대, 성모상과 사도 요한상이 마련되어 있습니다. 임 가밀로 신부의 성체강복상도 이곳에 함께 서 있습니다. 산 위의 기도 공간에서 본당이 이어 온 성체와 성모 신심을 한눈에 살펴보세요.", "lookFor": "정상의 큰 십자가와 야외제대", "forEveryone": "산길 끝의 조형물들은 걷는 순례를 기도와 연결합니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2384&menugubun=holyplace; https://www.cdcj.or.kr/parish/holyland/11"}
+  ],
+  "outro": {"narration": "성당과 성모상, 박물관과 매산의 기도 공간을 통해 이 본당이 건축과 기억, 신심을 함께 지켜 온 모습을 만나셨습니다.", "photos": []}
+}

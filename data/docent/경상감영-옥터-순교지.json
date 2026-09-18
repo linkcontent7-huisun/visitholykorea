@@ -1,0 +1,15 @@
+{
+  "siteId": "5c865c51-6dc2-4d56-bc85-7b2b1875da4b",
+  "siteName": "경상감영 옥터 순교지",
+  "slug": "gyeongsang-gamyeong-prison-site",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "경상감영 옥터 순교지는 경상도 각지에서 붙잡힌 천주교 신자들이 심문받고 갇혔던 대구 도심의 사적입니다. 감영공원의 선화당과 옥터, 관할 성당인 대안성당을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "감영공원 — 선화당", "location": "경상감영공원 안", "narration": "경상감영공원 안의 선화당을 바라보세요. 이 일대는 조선 시대 경상감영이 있던 곳입니다. 각 고을에서 붙잡혀 온 신자들은 감영에서 심문과 처분을 받았습니다.", "lookFor": "감영공원 안 선화당 건물", "forEveryone": "옛 지방 행정의 중심 건물이 박해 역사의 배경으로 남아 있습니다.", "photos": [], "sourceNote": "https://www.cbck.or.kr/koreanmartyrs/Shrines/30?search=%EA%B2%BD%EC%83%81; https://www.daegu-archdiocese.or.kr/page/shrine.html?idx=3&process=read&srl=martyr&view_option="},
+    {"seq": 2, "title": "서성로 일대 — 감영 옥터", "location": "대안성당과 옛 서문로 교회 일대", "narration": "이 일대가 경상감영의 옥이 있던 자리입니다. 끝까지 배교를 거부한 신자들은 대구로 이송되어 판결과 형 집행을 기다렸습니다. 옥 안에서 숨진 순교자들의 기억도 이 터에 남아 있습니다.", "lookFor": "옥터를 알리는 안내 표지", "forEveryone": "도심의 현재 거리 아래 옛 감옥과 수감자의 기억이 겹쳐 있습니다.", "photos": [], "sourceNote": "https://www.cbck.or.kr/koreanmartyrs/Shrines/30?search=%EA%B2%BD%EC%83%81; https://www.daegu-archdiocese.or.kr/page/arch.html?gotopage=42&idx=218945&process=read&searchPart=&searchStr=&sections=move&srl=archmove&sub_category=arch"},
+    {"seq": 3, "title": "옥터 곁 — 대안성당", "location": "서성로16길", "narration": "옥터 곁의 대안성당을 바라보세요. 주교회의 안내는 경상 감영과 옥터의 관할 기관으로 대안성당을 적고 있습니다. 과거 옥터를 기억하고 순례자를 맞는 현재의 신앙 공동체입니다.", "lookFor": "옥터 일대에 자리한 성당 건물", "forEveryone": "사라진 역사 현장을 가까운 공동체가 기억하고 관리하는 사례입니다.", "photos": [], "sourceNote": "https://www.cbck.or.kr/koreanmartyrs/Shrines/30?search=%EA%B2%BD%EC%83%81; https://directory.cbck.or.kr/OnlineAddress/SearchList.aspx?cgubn=g&char=all&gubn=16&gyogu=all&paged=10&scnt=159&start=11&tbxSearch="}
+  ],
+  "outro": {"narration": "선화당과 옥터, 대안성당은 행정과 박해, 오늘의 기억이 이어지는 세 지점입니다. 공원과 성당 사이를 걸으며 옛 감영의 범위를 떠올려 보세요.", "photos": []}
+}

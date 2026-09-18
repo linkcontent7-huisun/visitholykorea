@@ -1,0 +1,68 @@
+{
+  "siteId": "0e16c2ac-8f78-4b16-9059-b69041e3c96e",
+  "siteName": "치명자산 성지",
+  "slug": "chimyeongjasan-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "치명자산 성지는 유항검 아우구스티노와 가족 순교자들이 함께 묻힌 곳입니다. 산 아래 광장에서 정상 묘역까지 이어지는 기도 공간을 살펴보시겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "광장 — 요안루갈다 광장",
+      "location": "산 아래 성지 광장",
+      "narration": "산 아래에는 요안루갈다 광장이 있습니다. 이곳에는 평화의 전당과 순례자성당, 옹기가마 경당과 기도숲이 함께 조성되어 있습니다. 산을 오르기 전 성지의 여러 공간을 한눈에 살펴볼 수 있는 출발점입니다.",
+      "lookFor": "광장을 둘러싼 여러 성지 건물",
+      "forEveryone": "순례와 휴식, 문화 활동이 만나는 성지의 중심 공간입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta01.php ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003781&gubun=16"
+    },
+    {
+      "seq": 2,
+      "title": "산길 — 요안루갈다 십자가의 길",
+      "location": "산 위로 오르는 순례길",
+      "narration": "산길에는 요안루갈다 십자가의 길이 조성되어 있습니다. 정상 묘역으로 오르는 수고와 예수의 수난을 묵상하는 기도가 한 길에서 이어집니다. 경사가 있는 구간에서는 서두르지 말고 천천히 이동해 주세요.",
+      "lookFor": "오르는 길을 따라 놓인 십자가의 길",
+      "forEveryone": "걷기와 사색을 결합한 종교적 순례 동선입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta01.php"
+    },
+    {
+      "seq": 3,
+      "title": "산 위 — 기념성당과 기념관",
+      "location": "정상 묘역으로 오르는 길의 기념 공간",
+      "narration": "치명자산에는 1994년에 세운 기념성당과 기념관이 있습니다. 순교자들을 기리는 예배와 역사 안내가 건물 안에서 이어집니다. 묘역에 오르기 전후로 들러 성지의 배경을 정리해 보기 좋은 공간입니다.",
+      "lookFor": "서로 이어진 기념성당과 기념관",
+      "forEveryone": "추모 의식과 역사 이해를 돕는 기념 건물입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta01.php"
+    },
+    {
+      "seq": 4,
+      "title": "정상 — 가족 순교자 묘",
+      "location": "승암산 정상 묘역",
+      "narration": "정상에는 유항검 아우구스티노와 가족 여섯 분이 함께 묻힌 묘가 있습니다. 이 유해들은 초남이 바우배기에 묻혀 있다가 1914년에 이곳으로 옮겨졌습니다. 동정부부로 알려진 유중철 요한과 이순이 루갈다도 이 묘에 함께 모셔져 있습니다.",
+      "lookFor": "일곱 가족 순교자를 함께 모신 묘",
+      "forEveryone": "가족 전체가 겪은 박해의 역사를 기리는 산정 묘역입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta01.php ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003781&gubun=16"
+    },
+    {
+      "seq": 5,
+      "title": "성모동산 — 파티마성모동산",
+      "location": "성지 안 성모동산",
+      "narration": "성지에는 파티마성모동산이 조성되어 있습니다. 순교자 묘역과 십자가의 길 사이에서 성모 신심을 드러내는 기도 공간입니다. 조형물과 주변 산세가 어우러지는 모습을 조용히 살펴보세요.",
+      "lookFor": "동산 안 성모 조형물과 주변 풍경",
+      "forEveryone": "자연 속에 마련된 조용한 기도와 사색의 공간입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta01.php"
+    }
+  ],
+  "outro": {
+    "narration": "치명자산은 산을 오르는 과정 자체가 순교자들의 삶을 기억하는 길이 됩니다. 내려갈 때에는 발밑을 살피며 광장까지 천천히 이동해 주세요.",
+    "photos": []
+  }
+}

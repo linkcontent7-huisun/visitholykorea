@@ -1,0 +1,48 @@
+{
+  "siteId": "5fe15d55-cb32-4494-99c6-ad849a625f46",
+  "siteName": "합덕 성당",
+  "slug": "hapdeok-catholic-church",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "합덕 성당은 내포 지역 선교의 중심이 되어 온 오래된 본당입니다. 벽돌 성전과 순례자의 집, 본당 관내의 우물터를 통해 건축과 신앙 공동체의 역사를 살펴보시겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "성전 — 로마네스크 양식 벽돌 성당",
+      "location": "성당 마당에서 성전 정면",
+      "narration": "현재 성전은 1929년에 페랭 신부가 지었습니다. 붉은 벽돌로 세운 로마네스크 양식의 건물로, 충청남도 기념물로 지정되어 있습니다. 마당에서 건물 전체의 비례와 벽돌 표면을 천천히 살펴보세요.",
+      "lookFor": "붉은 벽돌과 로마네스크 양식의 외관",
+      "forEveryone": "근대 지역 사회의 변화를 보여 주는 역사적 종교 건축물입니다.",
+      "photos": [],
+      "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19 ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201008560&gubun=16"
+    },
+    {
+      "seq": 2,
+      "title": "마당 — 성가정 순례자의 집",
+      "location": "성당 구내 순례자의 집 앞",
+      "narration": "성당에서는 성가정 순례자의 집을 운영하고 있습니다. 단체 피정과 연수, 신앙학교와 숙박을 위한 공간입니다. 오래된 성전이 현재의 순례자를 맞이하는 공동체 공간과 함께 이어지는 모습을 볼 수 있습니다.",
+      "lookFor": "순례자를 맞이하는 별도 건물",
+      "forEveryone": "방문객의 체류와 교육을 돕는 공동체 시설입니다.",
+      "photos": [],
+      "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19"
+    },
+    {
+      "seq": 3,
+      "title": "본당 관내 — 원시장·원시보 우물터",
+      "location": "성당 안내에 따라 이동하는 본당 관내 우물터",
+      "narration": "합덕 성당 관내에는 복자 원시장과 원시보 형제의 우물터가 남아 있습니다. 교구는 이 우물터를 본당 주변의 유서 깊은 신앙 유산 가운데 하나로 소개합니다. 성당 구내와 떨어져 있을 수 있으니 현장 안내를 확인한 뒤 이동해 주세요.",
+      "lookFor": "두 복자의 이름이 남은 우물터",
+      "forEveryone": "생활 시설인 우물이 지역 인물의 기억을 전하는 유적으로 남은 곳입니다.",
+      "photos": [],
+      "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19"
+    }
+  ],
+  "outro": {
+    "narration": "합덕 성당은 역사적인 성전과 오늘의 순례자 시설이 함께 살아 있는 곳입니다. 우물터를 찾을 때에는 성당의 현장 안내를 먼저 확인해 주세요.",
+    "photos": []
+  }
+}

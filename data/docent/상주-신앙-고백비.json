@@ -1,0 +1,16 @@
+{
+  "siteId": "4c36258e-cfcc-4c77-be5c-325b77513f58",
+  "siteName": "상주 신앙 고백비",
+  "slug": "sangju-confession-of-faith-monument",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "상주 신앙 고백비는 바위에 신앙을 새겨 남긴 한국 교회의 독특한 사적입니다. 고백비와 대형 십자가, 제대와 십자가의 길을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "골짜기 — 신앙 고백비", "location": "성지 안 큰 바위", "narration": "골짜기의 큰 바위에 새긴 신앙 고백을 살펴보세요. 이 비는 자신의 신앙을 분명히 밝히기 위해 만든 한국 교회의 독특한 고백비입니다. 오랫동안 지역에 전해지다가 교회의 답사를 통해 알려졌습니다.", "lookFor": "큰 바위 표면에 새긴 글", "forEveryone": "개인의 믿음을 자연석에 기록해 후대에 남긴 기념물입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2348&menugubun=holyplace; https://history.acatholic.or.kr/sub1/sub3.asp"},
+    {"seq": 2, "title": "성지 마당 — 대형 십자가", "location": "신앙 고백비 주변", "narration": "고백비 주변의 대형 십자가를 바라보세요. 성역화 과정에서 고백비와 함께 바라보도록 설치한 상징물입니다. 자연 바위의 글과 새로 세운 십자가가 이곳의 신앙 기억을 함께 드러냅니다.", "lookFor": "고백비 주변에 선 큰 십자가", "forEveryone": "오래된 바위 기록 옆에 오늘의 상징물을 더해 장소의 의미를 알립니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2348&menugubun=holyplace; https://www.acatholic.or.kr/sub4/sub1.asp"},
+    {"seq": 3, "title": "성지 마당 — 야외 제대", "location": "대형 십자가 부근", "narration": "성지에 마련된 제대를 살펴보세요. 신앙 고백비 주변을 성역화하면서 제대도 함께 설치했습니다. 지금도 교구와 본당 공동체가 이곳을 돌보고 기도 장소로 사용합니다.", "lookFor": "바위와 십자가 가까이에 놓인 제대", "forEveryone": "역사적 기념지를 현재의 예식 공간으로 이어 주는 시설입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2348&menugubun=holyplace; https://www.acatholic.or.kr/gears_pds/program/newsletter/2026.2.8.371%ED%98%B8.pdf"},
+    {"seq": 4, "title": "성지 길 — 십자가의 길", "location": "고백비 주변 순례길", "narration": "성지 주변에 이어지는 십자가의 길을 걸어보세요. 이 길도 고백비 주변 성역화 과정에서 조성되었습니다. 각 처를 따라 걸으면 큰 바위의 고백과 야외 제대가 하나의 순례 동선으로 연결됩니다.", "lookFor": "길을 따라 이어지는 각 처", "forEveryone": "역사적 바위 주변을 걸으며 이야기를 되새기도록 만든 길입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2348&menugubun=holyplace; https://directory.cbck.or.kr/OnlineAddress/SearchList.aspx?cgubn=g&char=all&gubn=16&gyogu=all"}
+  ],
+  "outro": {"narration": "한 사람의 고백이 새겨진 바위 주변에 십자가와 제대, 기도 길이 더해져 오늘의 성지가 되었습니다. 마지막에는 바위의 글을 다시 천천히 읽어보세요.", "photos": []}
+}

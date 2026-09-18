@@ -1,0 +1,16 @@
+{
+  "siteId": "b61d59eb-f91d-4814-859f-754e7fa2f810",
+  "siteName": "성내동 성당",
+  "slug": "samcheok-seongnaedong-church",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "삼척 성내동 성당은 언덕 위에서 시내를 바라보는 근대 성당입니다. 성당 외관과 진 야고보 신부 순교기념비, 흉상과 앞 계단을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "언덕 위 — 성당 외관", "location": "성당 앞마당", "narration": "언덕 위 성당의 외관을 바라보세요. 현재 건물은 1957년에 봉헌되었고 지방의 당시 건축기술을 보여주는 근대문화유산으로 등록되었습니다. 높은 자리에서는 삼척 시내가 내려다보입니다.", "lookFor": "언덕 위에 길게 놓인 성당 건물", "forEveryone": "지역 건축기술과 종교 공동체의 성장을 함께 보여주는 근대 건물입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2852&menugubun=holyplace; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201008162&gubun=16"},
+    {"seq": 2, "title": "성당 마당 — 진 야고보 신부 순교기념비", "location": "성당 앞", "narration": "마당의 진 야고보 신부 순교기념비를 살펴보세요. 진 야고보 신부는 성내동 본당의 초대 주임으로 부임했습니다. 본당 설립 기념사업으로 이 순교기념비를 세웠습니다.", "lookFor": "진 야고보 신부를 기리는 비문", "forEveryone": "지역 공동체의 첫 책임자와 그의 죽음을 기억하는 기념비입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2852&menugubun=holyplace"},
+    {"seq": 3, "title": "기념 공간 — 진 야고보 신부 흉상", "location": "성당 마당", "narration": "진 야고보 신부의 흉상을 바라보세요. 흉상은 순교 60주년 이후 본당에 추가로 세워졌습니다. 비석의 글과 달리 얼굴을 통해 초대 주임을 기억하게 하는 기념물입니다.", "lookFor": "진 야고보 신부의 얼굴을 표현한 흉상", "forEveryone": "한 인물의 얼굴을 입체로 남겨 지역사의 주인공을 기억합니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2852&menugubun=holyplace; https://maria.catholic.or.kr/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2852&ctxtSubMenu=pds&curpage=1&menugubun=holyplace"},
+    {"seq": 4, "title": "성당 앞 — 계단과 광장", "location": "시내에서 성당으로 오르는 길", "narration": "시내와 성당을 잇는 정면 계단을 올려다보세요. 계단이 시내와 만나는 아래쪽에는 광장이 조성되어 있습니다. 언덕 위 성당으로 오르는 움직임이 건물의 정면축을 또렷하게 보여줍니다.", "lookFor": "광장에서 성당 정면으로 곧게 오르는 계단", "forEveryone": "도시와 언덕 위 종교 건물을 연결하는 접근 공간입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2852&menugubun=holyplace; https://directory.cbck.or.kr/OnlineAddress/SearchList.aspx?cgubn=g&char=all&gubn=16&gyogu=all&paged=10&scnt=179&start=81&tbxSearch="}
+  ],
+  "outro": {"narration": "성당과 계단, 순교기념비와 흉상은 삼척 본당의 건축과 초대 주임의 기억을 한 언덕에 모읍니다. 광장에서 성당 정면을 다시 올려다보세요.", "photos": []}
+}
