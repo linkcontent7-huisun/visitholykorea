@@ -1,14 +1,16 @@
-import { CalendarHeart, ChevronRight, Search, Sparkles } from 'lucide-react';
+import { CalendarHeart, ChevronRight, Footprints, Search, Sparkles } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
+import { usePilgrimageRoutes } from '@/features/routes/hooks/use-pilgrimage-routes';
 import { HeroCarousel, type HeroSlide } from '@/features/sites/components/HeroCarousel';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { HERO_SITES } from '@/features/sites/data/hero-sites';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
@@ -102,6 +104,7 @@ export default function HomePage() {
 
   const { data: allSitesRaw = [] } = useSites({ limit: 300 });
   const allSites = useLocalizedSites(allSitesRaw);
+  const { data: routes = [] } = usePilgrimageRoutes();
 
   /** 히어로 5곳 — DB 행(번역 포함)이 있으면 그것을, 아직 없으면 고정표의 대체 표기를 쓴다. 사진은 항상 자체 파일. */
   const heroSlides = useMemo<HeroSlide[]>(() => {
@@ -180,14 +183,52 @@ export default function HomePage() {
         </div>
       </PageContainer>
 
+      {/* 3.5 순례 코스 — 오늘 방문하기 좋은 성지 아래, 「모두 보기」 링크 포함(사장님 지적, 2026-09-18) */}
+      {routes.length > 0 && (
+        <PageContainer className="pt-8 lg:pt-12">
+          <SectionHeading
+            title={t('routesTitle')}
+            sub={t('routesSubtitle')}
+            action={{ to: paths.routes, label: t('seeAll') }}
+          />
+          <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
+            {routes.slice(0, 6).map((route) => (
+              <Link
+                key={route.id}
+                to={paths.routeDetail(route.slug)}
+                className="group w-64 flex-shrink-0 rounded-lg border border-app-border bg-white p-5 text-left transition-colors hover:border-brand-blue"
+                id={`home-route-${route.id}`}
+              >
+                <div className="mb-1 flex items-center gap-2 text-sm font-bold text-app-text-muted">
+                  <Footprints size={14} aria-hidden />
+                  {route.stopCount != null && (
+                    <span>{fillPlaceholders(t('routeStopsCount'), { count: route.stopCount })}</span>
+                  )}
+                </div>
+                <h3 className="mb-1 text-lg font-bold text-app-text group-hover:text-brand-blue">
+                  {route.title}
+                </h3>
+                {route.subtitle && (
+                  <p className="line-clamp-2 text-sm leading-relaxed text-app-text-muted">
+                    {route.subtitle}
+                  </p>
+                )}
+              </Link>
+            ))}
+          </div>
+        </PageContainer>
+      )}
+
       {/* 4. 푸터 — 로그인 화면과 같은 가운데 정렬 밑줄 링크 줄(사장님 지적, 2026-09-18).
           위 테두리는 화면 끝까지 간다(같은 지적) — 테두리는 PageContainer 밖에,
           링크만 안에 둔다. 「정보 출처·문의」 팝업은 없앴다(같은 지적) — 그 안에
           있던 내용(교구 출처·TourAPI 실시간 조회·미사 시간은 현장 확인)은 자주 묻는
           질문에, 오류 발견 시 바로잡는다는 약속은 이용약관 제9조에 이미 있다 —
           같은 말을 화면에 두 번 적어 둘 이유가 없었다.
-          「추천 성지」 푸터 링크는 삭제(9/17) — /nearby 는 지금 앱 안 어디에서도 안 이어진다. */}
-      <div className="mt-8 border-t border-app-border lg:mt-10">
+          「추천 성지」 푸터 링크는 삭제(9/17) — /nearby 는 지금 앱 안 어디에서도 안 이어진다.
+          모바일에서는 아예 없앴다(사장님 지적, 2026-09-18) — 이용약관·개인정보·FAQ 는
+          더보기 화면에서 늘 닿을 수 있어, 홈 하단까지 스크롤할 이유가 없었다. */}
+      <div className="mt-8 hidden border-t border-app-border lg:mt-10 lg:block">
         <PageContainer className="pt-5">
           <footer className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <Link
