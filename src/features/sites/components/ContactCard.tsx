@@ -1,6 +1,7 @@
 import { Globe, Phone, Printer } from 'lucide-react';
 import type { HolySite } from '@/shared/types/domain';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 
 /**
  * 성지 연락처.
@@ -22,10 +23,8 @@ export function ContactCard({ site }: { site: HolySite }) {
   if (!phone && !homepageUrl && !fax) {
     return (
       <section aria-labelledby="contact-heading">
-        <h2 id="contact-heading" className="mb-3 text-sm font-extrabold text-app-text">
-          {t('visitInfoContact')}
-        </h2>
-        <p className="rounded-lg border border-dashed border-app-border bg-white p-4 text-sm leading-relaxed text-app-text-muted">
+        <SectionHeading as="h3" size="md" id="contact-heading" title={t('visitInfoContact')} />
+        <p className="rounded-lg border border-dashed border-app-border bg-white p-5 text-base leading-relaxed text-app-text-muted">
           {t('contactUnknown')}
         </p>
       </section>
@@ -44,20 +43,20 @@ export function ContactCard({ site }: { site: HolySite }) {
 
   return (
     <section aria-labelledby="contact-heading">
-      <h2 id="contact-heading" className="mb-3 text-sm font-extrabold text-app-text">
-        {t('visitInfoContact')}
-      </h2>
+      <SectionHeading as="h3" size="md" id="contact-heading" title={t('visitInfoContact')} />
 
       <ul className="divide-y divide-app-border overflow-hidden rounded-lg border border-app-border bg-white">
         {telHref && (
           <li>
             <a
               href={telHref}
-              className="flex items-center gap-3 p-4 transition-colors hover:bg-app-bg"
+              className="flex min-h-14 items-center gap-3 px-5 py-3 transition-colors hover:bg-app-bg"
             >
-              <Phone size={18} className="shrink-0 text-brand-blue" aria-hidden />
-              <span className="flex-1 text-sm font-semibold text-app-text">{phone}</span>
-              <span className="text-xs font-bold text-brand-blue">{t('contactCall')}</span>
+              <Phone size={20} className="shrink-0 text-brand-blue" aria-hidden />
+              <span className="flex-1 text-lg font-bold text-app-text" translate="no">
+                {phone}
+              </span>
+              <span className="text-sm font-bold text-brand-blue">{t('contactCall')}</span>
             </a>
           </li>
         )}
@@ -68,29 +67,33 @@ export function ContactCard({ site }: { site: HolySite }) {
               href={homeHref}
               target="_blank"
               rel="noreferrer noopener"
-              className="flex items-center gap-3 p-4 transition-colors hover:bg-app-bg"
+              className="flex min-h-14 items-center gap-3 px-5 py-3 transition-colors hover:bg-app-bg"
             >
-              <Globe size={18} className="shrink-0 text-brand-violet" aria-hidden />
-              <span className="min-w-0 flex-1 truncate text-sm font-semibold text-app-text">
+              <Globe size={20} className="shrink-0 text-brand-blue" aria-hidden />
+              <span
+                className="min-w-0 flex-1 truncate text-base font-bold text-app-text"
+                translate="no"
+              >
                 {homepageUrl}
               </span>
-              <span className="shrink-0 text-xs font-bold text-brand-violet">
-                {t('contactOpen')}<span className="sr-only"> {t('contactNewWindow')}</span>
+              <span className="shrink-0 text-sm font-bold text-brand-blue">
+                {t('contactOpen')}
+                <span className="sr-only"> {t('contactNewWindow')}</span>
               </span>
             </a>
           </li>
         )}
 
         {fax && (
-          <li className="flex items-center gap-3 p-4">
-            <Printer size={18} className="shrink-0 text-app-text-muted" aria-hidden />
-            <span className="flex-1 text-sm text-app-text-muted">{fax}</span>
-            <span className="text-xs text-app-text-muted">{t('contactFax')}</span>
+          <li className="flex min-h-14 items-center gap-3 px-5 py-3">
+            <Printer size={20} className="shrink-0 text-app-text-muted" aria-hidden />
+            <span className="flex-1 text-base text-app-text-muted" translate="no">
+              {fax}
+            </span>
+            <span className="text-sm text-app-text-muted">{t('contactFax')}</span>
           </li>
         )}
       </ul>
-
-      <p className="mt-2 text-xs text-app-text-muted">{t('contactConfirmNote')}</p>
     </section>
   );
 }

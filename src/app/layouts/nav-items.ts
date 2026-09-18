@@ -36,7 +36,10 @@ export const NAV_ITEMS: readonly NavItem[] = [
 ];
 
 /**
- * 데스크톱 상단 내비 — 로고가 홈을 대신하므로 `home` 만 빼고 하단 탭과 같다.
- * 넓은 화면이라고 다른 구조를 주면 휴대폰과 PC 를 오가는 사람이 길을 잃는다.
+ * 「기록·성지 일정·더보기」 세 개 — 로고가 홈을 대신하므로 `home`, 홈 입구 카드와 겹치는
+ * `search` 를 뺀다. 상단바(`TopNav`)는 이 셋도 로그인해야 의미가 있다는 이유로 헤더에서
+ * 완전히 뺐고(2026-09-17 오후), 지금은 더보기 화면(`MenuPage`)의 「전체 서비스」 목록에만 쓰인다.
  */
-export const TOP_NAV_ITEMS: readonly NavItem[] = NAV_ITEMS.filter((item) => item.id !== 'home');
+export const TOP_NAV_ITEMS: readonly NavItem[] = NAV_ITEMS.filter(
+  (item) => item.id !== 'home' && item.id !== 'search',
+);

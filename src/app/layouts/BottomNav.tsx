@@ -65,11 +65,8 @@ export function BottomNav() {
             >
               {({ isActive }) => (
                 <>
-                  {/* 선택 표시선 — 색약·저시력에도 "여기"가 보이게 색 말고 모양으로도 알린다 */}
-                  <span
-                    className={`absolute left-1/2 top-0 h-[3px] w-10 -translate-x-1/2 rounded-b ${isActive ? 'bg-brand-blue' : 'bg-transparent'}`}
-                    aria-hidden
-                  />
+                  {/* 위쪽 3px 선택 표시선은 뺐다(사장님 지적, 2026-09-18) — 아이콘·글자 색
+                      (남색/회색)만으로 선택 상태를 나타낸다. */}
                   <span
                     className={`flex h-8 w-8 items-center justify-center rounded-lg ${isActive ? 'bg-brand-blue text-white' : 'text-app-text-muted'}`}
                   >

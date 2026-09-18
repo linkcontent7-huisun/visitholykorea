@@ -53,10 +53,11 @@ export function useNearbyFacilities(coordinates: Coordinates | undefined) {
 
   return useQuery({
     queryKey: queryKeys.tour.facilities(lat ?? 0, lng ?? 0, language),
-    // 반경 5km — 3km 면 시골 성지에서 맛집·숙박이 거의 안 잡힌다.
+    // 반경 1km — "가는 김에 들를 곳"이라 도보로 갈 수 있는 거리로 좁힌다(사장님 지적, 2026-09-17).
+    // 예전엔 5km 였는데, 차로 가야 하는 곳까지 "가는 김에"로 묶여 있었다.
     queryFn: () =>
       getNearbyByLocation(lng!, lat!, {
-        radiusMeters: 5000,
+        radiusMeters: 1000,
         numOfRows: 50,
         contentTypeId: null,
         language,

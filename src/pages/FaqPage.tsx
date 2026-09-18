@@ -1,6 +1,9 @@
-import { ChevronDown, ChevronLeft, Mail } from 'lucide-react';
+import { ChevronDown, Mail } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Card } from '@/shared/components/ui/Card';
+import { buttonClass } from '@/shared/components/ui/class-names';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { PageHeader } from '@/shared/components/ui/PageHeader';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 /**
@@ -74,29 +77,21 @@ SNS 간편 로그인은 별도 회원가입 절차 없이 첫 로그인과 동�
 const CONTACT_EMAIL = 'visitholykorea@gmail.com';
 
 export default function FaqPage() {
-  const navigate = useNavigate();
-  const { wideView, t } = useSettings();
-  const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
+  const { t } = useSettings();
 
   const [탭선택, set탭선택] = useState<탭>('회원가입 및 로그인');
   const [열린질문, set열린질문] = useState<string | null>(null);
 
   return (
-    <div className={`mx-auto flex min-h-page ${widthClass} flex-col bg-white`}>
-      <div className="flex h-16 shrink-0 items-center px-4">
-        <button onClick={() => navigate(-1)} className="p-2 text-app-text" aria-label="뒤로 가기">
-          <ChevronLeft size={28} />
-        </button>
-      </div>
+    <PageContainer width="narrow" className="min-h-page pb-16">
+      <PageHeader back title={t('faqPageTitle')} sub={t('faqPageSub')} />
 
-      <div className="flex-1 overflow-y-auto px-8 pb-16">
-        <h1 className="mb-2 text-3xl font-black tracking-tight text-app-text">자주 묻는 질문</h1>
-        <p className="mb-8 text-sm font-medium text-app-text-muted">
-          Visit Holy Korea 를 이용하며 자주 묻는 질문입니다.
-        </p>
-
+      <div>
         {/* 탭 */}
-        <div className="mb-6 flex overflow-hidden rounded-lg border border-app-border" role="tablist">
+        <div
+          className="mb-6 flex overflow-hidden rounded-lg border border-app-border bg-white"
+          role="tablist"
+        >
           {(Object.keys(FAQ) as 탭[]).map((tab) => (
             <button
               key={tab}
@@ -106,8 +101,10 @@ export default function FaqPage() {
                 set탭선택(tab);
                 set열린질문(null);
               }}
-              className={`flex-1 py-3.5 text-sm font-bold transition-colors ${
-                탭선택 === tab ? 'bg-brand-blue text-white' : 'bg-white text-app-text-muted'
+              className={`min-h-12 flex-1 px-2 text-base font-bold transition-colors ${
+                탭선택 === tab
+                  ? 'bg-brand-blue text-white'
+                  : 'bg-white text-app-text-muted hover:bg-app-bg'
               }`}
             >
               {tab}
@@ -120,26 +117,26 @@ export default function FaqPage() {
           {FAQ[탭선택].map(({ q, a }) => {
             const 열림 = 열린질문 === q;
             return (
-              <div key={q} className="overflow-hidden rounded-lg border border-app-border">
+              <div key={q} className="overflow-hidden rounded-lg border border-app-border bg-white">
                 <button
                   onClick={() => set열린질문(열림 ? null : q)}
                   aria-expanded={열림}
-                  className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left"
+                  className="flex min-h-14 w-full items-center justify-between gap-3 px-5 py-4 text-left transition-colors hover:bg-app-bg"
                 >
                   <span className="flex items-start gap-3">
-                    <span className="font-black text-brand-blue" aria-hidden>
+                    <span className="font-bold text-brand-blue" aria-hidden>
                       Q
                     </span>
-                    <span className="text-[15px] font-bold text-app-text">{q}</span>
+                    <span className="text-base font-bold text-app-text">{q}</span>
                   </span>
                   <ChevronDown
-                    size={18}
+                    size={20}
                     className={`shrink-0 text-app-text-muted transition-transform ${열림 ? 'rotate-180' : ''}`}
                     aria-hidden
                   />
                 </button>
                 {열림 && (
-                  <p className="whitespace-pre-line border-t border-app-border bg-white px-5 py-4 text-sm leading-relaxed text-app-text-muted">
+                  <p className="whitespace-pre-line border-t border-app-border bg-app-bg px-5 py-4 text-base leading-relaxed text-app-text">
                     {a}
                   </p>
                 )}
@@ -148,21 +145,23 @@ export default function FaqPage() {
           })}
         </div>
 
-        <div className="mt-10 rounded-lg border border-app-border bg-white p-6 text-center">
-          <p className="text-sm font-bold text-app-text">{t('contactSectionTitle')}</p>
-          <p className="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-app-text-muted">
+        <Card className="mt-10 text-center">
+          <p className="text-lg font-bold text-app-text">{t('contactSectionTitle')}</p>
+          <p className="mx-auto mt-2 max-w-md text-base leading-relaxed text-app-text-muted">
             {t('contactSectionBody')}
           </p>
           <a
             href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('[Visit Holy Korea] ')}`}
-            className="mt-4 inline-flex items-center gap-2 rounded-lg bg-brand-blue px-5 py-3 text-sm font-bold text-white"
+            className={buttonClass({ className: 'mt-5' })}
           >
-            <Mail size={16} />
+            <Mail size={18} aria-hidden />
             {t('contactEmailCta')}
           </a>
-          <p className="mt-2 text-xs font-medium text-app-text-muted">{CONTACT_EMAIL}</p>
-        </div>
+          <p className="mt-3 text-sm text-app-text-muted" translate="no">
+            {CONTACT_EMAIL}
+          </p>
+        </Card>
       </div>
-    </div>
+    </PageContainer>
   );
 }

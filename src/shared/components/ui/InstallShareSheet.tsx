@@ -36,7 +36,11 @@ export function InstallShareSheet({ open, onClose }: { open: boolean; onClose: (
     }
   })();
   const shareHint =
-    shareResult === 'copied' ? t('copied') : shareResult === 'error' ? t('copyFailed') : t('shareApp');
+    shareResult === 'copied'
+      ? t('copied')
+      : shareResult === 'error'
+        ? t('copyFailed')
+        : t('shareApp');
 
   const actions = [
     {
@@ -71,14 +75,14 @@ export function InstallShareSheet({ open, onClose }: { open: boolean; onClose: (
         id="install-share-sheet"
       >
         <div className="mb-3 flex items-center justify-between">
-          <p className="text-base font-extrabold text-app-text">{t('installTab')}</p>
+          <p className="text-lg font-bold text-app-text">{t('installTab')}</p>
           <button
             type="button"
             onClick={onClose}
             aria-label={t('close')}
-            className="rounded-full p-1.5 text-app-text-muted"
+            className="flex h-11 w-11 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg"
           >
-            <X size={18} />
+            <X size={22} aria-hidden />
           </button>
         </div>
         <div className="flex flex-col gap-2">
@@ -87,15 +91,15 @@ export function InstallShareSheet({ open, onClose }: { open: boolean; onClose: (
               key={a.id}
               type="button"
               onClick={a.onClick}
-              className="flex w-full items-center gap-4 rounded-lg border border-app-border bg-app-bg px-4 py-3.5 text-left transition-colors hover:border-brand-violet"
+              className="flex w-full items-center gap-4 rounded-lg border border-app-border bg-app-bg px-4 py-3.5 text-left transition-colors hover:border-brand-blue"
               id={`install-share-${a.id}`}
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-brand-violet">
-                <a.icon size={20} />
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-white text-brand-blue">
+                <a.icon size={22} aria-hidden />
               </span>
               <span className="min-w-0">
-                <span className="block text-[0.9375rem] font-bold text-app-text">{a.label}</span>
-                <span className="mt-0.5 block text-[0.75rem] leading-snug text-app-text-muted">
+                <span className="block text-base font-bold text-app-text">{a.label}</span>
+                <span className="mt-0.5 block text-sm leading-snug text-app-text-muted">
                   {a.hint}
                 </span>
               </span>

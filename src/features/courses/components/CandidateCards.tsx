@@ -3,6 +3,7 @@ import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
 import { formatFromOrigin } from '../lib/plan-format';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { Button } from '@/shared/components/ui/Button';
 import type { Candidate } from '../hooks/use-candidate-plans';
 import type { CandidateTag } from '../lib/candidate-tags';
 
@@ -20,10 +21,12 @@ const TAG_LABEL: Record<CandidateTag, TranslationKey> = {
   detailed: 'tagDetailed',
 };
 
+// 강조색은 하나(brand-blue)라는 화면 규칙에 맞춰, 가장 가까운 후보만 강조색으로 두드러지게 하고
+// 나머지 근거 태그는 두 번째 톤(brand-olive) 하나로 통일한다 — 태그마다 다른 색을 쓰면 색이 의미 없이 늘어난다.
 const TAG_STYLE: Record<CandidateTag, string> = {
   nearest: 'bg-brand-blue/10 text-brand-blue',
-  quiet: 'bg-emerald-50 text-emerald-800',
-  detailed: 'bg-amber-50 text-amber-800',
+  quiet: 'bg-brand-olive-soft text-brand-olive',
+  detailed: 'bg-brand-olive-soft text-brand-olive',
 };
 
 interface CandidateCardsProps {
@@ -53,10 +56,10 @@ export function CandidateCards({
 
   return (
     <div>
-      <h3 className="text-xl font-extrabold text-app-text mb-1 tracking-tight">
+      <h3 className="mb-1 font-display text-[1.375rem] leading-tight text-app-text lg:text-2xl">
         {fillPlaceholders(t('planCandidatesTitle'), { mood: moodLabel, n: candidates.length })}
       </h3>
-      <p className="text-xs text-app-text-muted mb-6">{t('planFirstSentenceHint')}</p>
+      <p className="mb-6 text-sm text-app-text-muted">{t('planFirstSentenceHint')}</p>
 
       <ul className="space-y-3" id="plan-cards">
         {candidates.map((c, i) => (
@@ -64,10 +67,10 @@ export function CandidateCards({
             <button
               type="button"
               onClick={() => onSelect(i)}
-              className="flex w-full items-center gap-4 rounded-lg border border-app-border bg-white p-3 text-left transition-transform active:scale-[0.99]"
+              className="flex w-full items-center gap-4 rounded-lg border border-app-border bg-white p-3 text-left transition-colors hover:border-brand-blue"
               id={`plan-card-${c.site.id}`}
             >
-              <span className="h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-app-bg">
+              <span className="h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-app-panel">
                 <SiteThumbnail
                   imageUrl={c.site.imageUrl}
                   name={c.site.name}
@@ -76,9 +79,11 @@ export function CandidateCards({
                 />
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-base font-extrabold text-app-text leading-tight">{c.site.name}</span>
-                <span className="mt-1 flex items-center gap-1 text-xs font-bold text-app-text-muted">
-                  <MapPin size={11} className="shrink-0" aria-hidden />
+                <span className="block text-lg font-bold leading-tight text-app-text">
+                  {c.site.name}
+                </span>
+                <span className="mt-1 flex items-center gap-1 text-sm text-app-text-muted">
+                  <MapPin size={14} className="shrink-0" aria-hidden />
                   <span className="truncate">
                     {c.site.location ? `${c.site.location} · ` : ''}
                     {formatFromOrigin(c.distanceKm, t)}
@@ -87,12 +92,12 @@ export function CandidateCards({
                 <span className="mt-2 block">
                   {c.tag ? (
                     <span
-                      className={`inline-block rounded-full px-3 py-1 text-[0.6875rem] font-bold ${TAG_STYLE[c.tag]}`}
+                      className={`inline-block rounded-full px-3 py-1 text-xs font-bold ${TAG_STYLE[c.tag]}`}
                     >
                       {t(TAG_LABEL[c.tag])}
                     </span>
                   ) : c.loading ? (
-                    <span className="inline-block rounded-full bg-app-bg px-3 py-1 text-[0.6875rem] font-bold text-app-text-muted">
+                    <span className="inline-block rounded-full bg-app-panel px-3 py-1 text-xs font-bold text-app-text-muted">
                       {t('tagChecking')}
                     </span>
                   ) : null}
@@ -105,38 +110,28 @@ export function CandidateCards({
       </ul>
 
       {hasMore ? (
-        <button
-          type="button"
-          onClick={onMore}
-          className="mt-4 w-full rounded-lg border border-app-border bg-app-bg py-4 text-base font-bold text-app-text"
-          id="plan-more"
-        >
+        <Button variant="neutral" block onClick={onMore} className="mt-4" id="plan-more">
           {t('planMore')}
-        </button>
+        </Button>
       ) : (
-        <div className="mt-5 rounded-lg border border-dashed border-app-border p-5 text-center">
-          <p className="text-sm font-bold text-app-text-muted">
+        <div className="mt-5 rounded-lg border border-dashed border-app-border bg-white p-5 text-center">
+          <p className="text-base font-bold text-app-text-muted">
             {moreInNextRadius > 0
               ? fillPlaceholders(t('planMoreInRadius'), { n: moreInNextRadius })
               : t('planExhausted')}
           </p>
-          <div className="mt-3 flex gap-2">
-            <button
-              type="button"
-              onClick={onWidenTime}
-              className="flex-1 rounded-lg bg-brand-blue py-3.5 text-base font-bold text-white"
-              id="plan-widen-time"
-            >
+          <div className="mt-4 flex gap-2">
+            <Button onClick={onWidenTime} className="flex-1" id="plan-widen-time">
               {t('planWidenTime')}
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
+              variant="neutral"
               onClick={onChangeMood}
-              className="flex-1 rounded-lg border border-app-border bg-white py-3.5 text-base font-bold text-app-text"
+              className="flex-1"
               id="plan-change-mood"
             >
               {t('planChangeMood')}
-            </button>
+            </Button>
           </div>
         </div>
       )}

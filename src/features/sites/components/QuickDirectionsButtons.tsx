@@ -1,6 +1,6 @@
 import { Navigation } from 'lucide-react';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { buildMapLinks, type Destination } from '@/shared/lib/map-links';
+import { buildMapLinks, type Destination, type MapProvider } from '@/shared/lib/map-links';
 
 /**
  * 목록 행(검색 결과·지역 랜딩·주변 본당 카드·나침반 결과)에서 쓰는 길찾기 버튼 묶음.
@@ -15,16 +15,21 @@ import { buildMapLinks, type Destination } from '@/shared/lib/map-links';
 export function QuickDirectionsButtons({
   destination,
   siteName,
+  providers,
 }: {
   destination: Destination;
   /** 접근성 라벨에 쓸 이름. destination.name 과 같을 때가 많지만 호출부가 명시한다. */
   siteName: string;
+  /** 넘기면 이 목록에 있는 지도 앱만 보여준다(예: 주변 본당 목록은 구글·애플을 뺀다). 기본은 전부. */
+  providers?: readonly MapProvider[];
 }) {
   const { t, language } = useSettings();
-  const links = buildMapLinks(destination, language === 'ko');
+  const links = buildMapLinks(destination, language === 'ko').filter(
+    (link) => !providers || providers.includes(link.provider),
+  );
 
   return (
-    <div className="flex flex-wrap items-center gap-1.5">
+    <div className="flex flex-wrap items-center gap-2">
       {links.map((link) => (
         <a
           key={link.provider}
@@ -33,9 +38,9 @@ export function QuickDirectionsButtons({
           rel="noopener noreferrer"
           aria-label={`${siteName} — ${link.label} ${t('directions')}`}
           title={`${link.label} — ${t(link.noteKey)}`}
-          className="flex items-center gap-1 rounded-lg bg-app-bg px-2 py-1.5 text-[0.625rem] font-bold text-brand-violet transition-colors hover:bg-brand-violet/10"
+          className="inline-flex min-h-10 items-center gap-1 rounded-lg bg-app-panel px-3 text-sm font-bold text-brand-blue transition-colors hover:bg-brand-soft"
         >
-          <Navigation size={12} aria-hidden />
+          <Navigation size={14} aria-hidden />
           {link.label}
         </a>
       ))}

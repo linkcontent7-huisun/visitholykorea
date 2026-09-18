@@ -74,28 +74,23 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="relative flex h-[85vh] w-full max-w-lg flex-col overflow-hidden rounded-t-lg bg-white shadow-2xl sm:h-[70vh] sm:rounded-lg"
+            className="relative flex h-[85vh] w-full max-w-lg flex-col overflow-hidden rounded-t-lg bg-white sm:h-[70vh] sm:rounded-lg"
           >
             <header className="flex shrink-0 items-center justify-between bg-brand-blue p-8 text-white">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-white/10 shadow-xl backdrop-blur-xl">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-white/10 backdrop-blur-xl">
                   <Bot size={28} />
                 </div>
-                <div>
-                  <h3 className="mb-1.5 text-xl font-extrabold leading-none tracking-tight">
-                    순례 안내 미카엘
+                <div className="flex items-center gap-2">
+                  <h3 className="text-xl font-extrabold leading-none tracking-tight">
+                    {t('aiGuideTitle')}
                   </h3>
-                  <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 animate-pulse rounded-full bg-green-400 shadow-lg shadow-green-400/50" />
-                    <span className="text-[0.625rem] font-extrabold uppercase tracking-[0.2em] text-white/50">
-                      Online Now
-                    </span>
-                  </div>
+                  <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-emerald-400" aria-hidden />
                 </div>
               </div>
               <button
                 onClick={onClose}
-                className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 bg-white/10 transition-all hover:bg-white/20"
+                className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 bg-white/10 transition-colors hover:bg-white/20"
                 aria-label={t('close')}
               >
                 <X size={22} />
@@ -114,7 +109,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] rounded-lg p-5 text-sm font-medium leading-relaxed shadow-sm ${
+                    className={`max-w-[85%] rounded-lg p-5 text-sm font-medium leading-relaxed ${
                       msg.role === 'user'
                         ? 'rounded-tr-none bg-brand-blue text-white'
                         : 'rounded-tl-none border border-app-border bg-app-bg text-app-text'
@@ -133,9 +128,9 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="flex items-center gap-3 rounded-lg rounded-tl-none border border-app-border bg-app-bg p-5">
-                    <Loader2 size={18} className="animate-spin text-brand-violet" />
+                    <Loader2 size={18} className="animate-spin text-brand-blue" />
                     <span className="text-xs font-bold tracking-tight text-app-text-muted">
-                      홀리가 답변을 생각하고 있어요...
+                      {t('aiThinking')}
                     </span>
                   </div>
                 </div>
@@ -153,16 +148,16 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                   }}
                   placeholder={t('aiInputPlaceholder')}
                   aria-label={t('aiInputAria')}
-                  className="w-full rounded-lg border border-app-border bg-app-bg px-7 py-5 pr-16 text-sm font-bold text-app-text outline-none transition-all placeholder:text-gray-300 focus:ring-2 focus:ring-brand-blue/20"
+                  className="w-full rounded-lg border border-app-border bg-app-bg px-7 py-5 pr-16 text-sm font-bold text-app-text outline-none transition-colors placeholder:text-app-text-muted focus:border-brand-blue"
                 />
                 <button
                   onClick={() => void handleSend()}
                   disabled={!input.trim() || isLoading}
                   aria-label={t('send')}
-                  className={`absolute right-2 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-lg px-4 py-3 transition-all ${
+                  className={`absolute right-2 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-lg px-4 py-3 transition-colors ${
                     input.trim()
-                      ? 'bg-brand-blue text-white shadow-xl shadow-brand-blue/20'
-                      : 'bg-gray-100 text-gray-300'
+                      ? 'bg-brand-blue text-white'
+                      : 'bg-app-panel text-app-text-muted'
                   }`}
                 >
                   <Send size={18} />

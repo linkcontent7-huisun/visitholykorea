@@ -6,6 +6,7 @@ import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary'
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm, kakaoPlaceUrl } from '@/shared/lib/geo';
 import { CrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
+import { Button } from '@/shared/components/ui/Button';
 import type { TimeBudget } from '../api/course-matching';
 import type { Candidate } from '../hooks/use-candidate-plans';
 import type { CongestionLevel } from '../lib/afternoon-pick';
@@ -38,13 +39,21 @@ function spotDistanceKm(candidate: Candidate, spot: TourApiSpot): number | null 
 function Row({ label, children }: { label: string; children: ReactNode }) {
   return (
     <li className="flex items-start gap-3">
-      <span className="mt-0.5 w-10 shrink-0 text-xs font-extrabold text-app-text-muted">{label}</span>
+      <span className="mt-0.5 w-12 shrink-0 text-sm font-bold text-app-text-muted">{label}</span>
       <div className="min-w-0 flex-1">{children}</div>
     </li>
   );
 }
 
-function SpotLink({ candidate, spot, t }: { candidate: Candidate; spot: TourApiSpot; t: (k: TranslationKey) => string }) {
+function SpotLink({
+  candidate,
+  spot,
+  t,
+}: {
+  candidate: Candidate;
+  spot: TourApiSpot;
+  t: (k: TranslationKey) => string;
+}) {
   const km = spotDistanceKm(candidate, spot);
   return (
     <a
@@ -54,13 +63,13 @@ function SpotLink({ candidate, spot, t }: { candidate: Candidate; spot: TourApiS
       className="group block"
       aria-label={fillPlaceholders(t('viewOnKakaoMap'), { title: spot.title })}
     >
-      <p className="flex items-center gap-1 text-sm font-extrabold text-app-text group-hover:text-brand-blue">
+      <p className="flex items-center gap-1 text-base font-bold text-app-text group-hover:text-brand-blue">
         <span>{spot.title}</span>
-        <ExternalLink size={11} className="shrink-0 text-app-text-muted" aria-hidden />
+        <ExternalLink size={14} className="shrink-0 text-app-text-muted" aria-hidden />
       </p>
       {km != null && (
-        <p className="flex items-center gap-1 text-[0.6875rem] font-bold text-app-text-muted">
-          <MapPin size={10} className="shrink-0" aria-hidden />
+        <p className="flex items-center gap-1 text-sm text-app-text-muted">
+          <MapPin size={14} className="shrink-0" aria-hidden />
           {formatFromSite(km, t)}
         </p>
       )}
@@ -98,16 +107,16 @@ export function PlanResult({
       <button
         type="button"
         onClick={onBack}
-        className="mb-4 inline-flex items-center gap-1 text-sm font-bold text-brand-blue"
+        className="-ml-2 mb-4 inline-flex min-h-11 items-center gap-1 rounded-lg px-2 text-base font-bold text-brand-blue transition-colors hover:bg-app-bg"
         id="plan-back"
       >
-        <ChevronLeft size={16} aria-hidden />
+        <ChevronLeft size={20} aria-hidden />
         {t('planBackToCards')}
       </button>
 
       <div className="mb-5 overflow-hidden rounded-lg border border-app-border bg-white">
         <button type="button" onClick={onGo} className="block w-full text-left" id="plan-site">
-          <div className="h-40 overflow-hidden bg-app-bg">
+          <div className="h-44 overflow-hidden bg-app-panel">
             <SiteThumbnail
               imageUrl={site.imageUrl}
               name={site.name}
@@ -119,8 +128,8 @@ export function PlanResult({
         <ol className="space-y-4 p-5" aria-live="polite">
           <Row label={t('planMorning')}>
             <button type="button" onClick={onGo} className="block text-left">
-              <p className="text-base font-extrabold text-app-text leading-tight">{site.name}</p>
-              <p className="mt-0.5 text-xs font-bold text-app-text-muted">
+              <p className="text-lg font-bold leading-tight text-app-text">{site.name}</p>
+              <p className="mt-0.5 text-sm text-app-text-muted">
                 {site.location ? `${site.location} · ` : ''}
                 {formatFromOrigin(candidate.distanceKm, t)}
               </p>
@@ -138,8 +147,12 @@ export function PlanResult({
               {lunch ? (
                 <SpotLink candidate={candidate} spot={lunch} t={t} />
               ) : (
-                <p className="text-sm font-bold text-app-text-muted">
-                  {loading ? t('planLoadingNearby') : nearbyFailed ? t('planNearbyFailed') : t('planNoLunch')}
+                <p className="text-base text-app-text-muted">
+                  {loading
+                    ? t('planLoadingNearby')
+                    : nearbyFailed
+                      ? t('planNearbyFailed')
+                      : t('planNoLunch')}
                 </p>
               )}
             </Row>
@@ -150,13 +163,13 @@ export function PlanResult({
               <>
                 <SpotLink candidate={candidate} spot={pick.spot} t={t} />
                 {pick.congestion != null && pick.level && (
-                  <p className="mt-1 text-[0.6875rem] font-bold text-app-text-muted" id="plan-congestion">
+                  <p className="mt-1 text-sm font-bold text-app-text-muted" id="plan-congestion">
                     {t('congestionLabel')} · {t(CONGESTION_KEY[pick.level])}
                   </p>
                 )}
                 {pick.level === 'busy' && (
-                  <p className="mt-2 flex items-start gap-1.5 rounded-lg bg-orange-50 p-3 text-xs font-bold text-orange-900">
-                    <AlertTriangle size={14} className="mt-0.5 shrink-0" aria-hidden />
+                  <p className="mt-2 flex items-start gap-1.5 rounded-lg bg-orange-50 p-3 text-sm font-bold text-orange-900">
+                    <AlertTriangle size={16} className="mt-0.5 shrink-0" aria-hidden />
                     <span>
                       {nextPick
                         ? fillPlaceholders(t('planCrowdedAfternoon'), { name: nextPick.spot.title })
@@ -165,7 +178,7 @@ export function PlanResult({
                         <button
                           type="button"
                           onClick={onSwapAfternoon}
-                          className="ml-2 underline"
+                          className="ml-2 min-h-11 underline underline-offset-2"
                           id="plan-swap-afternoon"
                         >
                           {t('planSwap')}
@@ -176,31 +189,33 @@ export function PlanResult({
                 )}
               </>
             ) : (
-              <p className="text-sm font-bold text-app-text-muted">
-                {loading ? t('planLoadingNearby') : nearbyFailed ? t('planNearbyFailed') : t('planNoAfternoon')}
+              <p className="text-base text-app-text-muted">
+                {loading
+                  ? t('planLoadingNearby')
+                  : nearbyFailed
+                    ? t('planNearbyFailed')
+                    : t('planNoAfternoon')}
               </p>
             )}
           </Row>
 
           {timeBudget === '1박2일' && (
-            <li className="rounded-lg bg-app-bg p-3 text-xs font-bold text-app-text-muted" id="plan-day2">
+            <li
+              className="rounded-lg bg-app-panel p-3 text-sm font-bold text-app-text-muted"
+              id="plan-day2"
+            >
               {t('planDay2Pending')}
             </li>
           )}
         </ol>
-        <p className="border-t border-app-border px-5 py-2 text-[0.5625rem] font-bold text-app-text-muted">
+        <p className="border-t border-app-border px-5 py-2 text-xs font-bold text-app-text-muted">
           {t('compassRealtimeSource')}
         </p>
       </div>
 
-      <button
-        type="button"
-        onClick={onGo}
-        className="w-full rounded-lg bg-brand-blue py-4 text-sm font-bold text-white shadow-lg shadow-brand-blue/20"
-        id="quiz-go"
-      >
+      <Button block onClick={onGo} className="min-h-14 text-lg" id="quiz-go">
         {t('planGoWithThis')}
-      </button>
+      </Button>
     </div>
   );
 }

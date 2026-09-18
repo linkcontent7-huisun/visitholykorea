@@ -11,7 +11,9 @@
    *   한 번에 남색이 되고, `from-brand-blue to-brand-violet` 그라데이션은 단색이 된다(보라 그라데이션 금지).
    * - 바탕: 홈은 흰색(화면이 직접 지정), 그 밖은 종이색. 선은 따뜻한 회색.
    */
-  --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-sans:
+    'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic',
+    sans-serif;
   --font-display: 'Gowun Batang', 'Noto Serif KR', 'Malgun Gothic', serif;
 
   --color-brand-blue: #1f2f55;
@@ -42,10 +44,34 @@
   html {
     /* iOS 노치·홈 인디케이터 대응 (Capacitor 네이티브 빌드) */
     -webkit-tap-highlight-color: transparent;
+    /* 앱은 밝은 화면만 있다 — 안드로이드 다크 모드에서 select·input 만 검게 바뀌는 일을 막는다 */
+    color-scheme: light;
   }
 
   body {
     @apply bg-app-bg text-app-text font-sans selection:bg-brand-violet/20;
+    /* 한국어 낱말을 글자 중간에서 끊지 않는다(keep-all). 긴 주소·영어 URL 은 anywhere 로 넘친 만큼만 접는다.
+       화면마다 break-keep 을 붙이던 것을 여기서 한 번에 — 50대 이상 가독성의 기본값이다 (2026-09-17). */
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  /* 제목은 마지막 줄에 낱말 하나만 남지 않게 줄을 고르게 나눈다 */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  /* 두 번 두드림 확대 지연(300ms)을 없앤다 — 누른 뒤 반응이 늦으면 한 번 더 눌러 두 번 실행된다 */
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  label,
+  summary {
+    touch-action: manipulation;
   }
 
   /*

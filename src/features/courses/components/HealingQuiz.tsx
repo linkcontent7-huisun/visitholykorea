@@ -1,9 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
-import { X, ChevronLeft, ChevronRight, Church, Compass, LocateFixed, Phone } from 'lucide-react';
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Church,
+  Compass,
+  Feather,
+  HandHeart,
+  Leaf,
+  LocateFixed,
+  Sparkles,
+  Sprout,
+  type LucideIcon,
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
 import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
-import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
+import { localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import {
   buildCandidatePool,
@@ -18,13 +31,12 @@ import { useCompassMemory, useSaveCompassResponse } from '../hooks/use-compass-m
 import { useCandidatePlans } from '../hooks/use-candidate-plans';
 import { CandidateCards } from './CandidateCards';
 import { PlanResult } from './PlanResult';
-import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirectionsButtons';
+import { DirectoryEntryCard } from '@/features/sites/components/DirectoryEntryCard';
 import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
-import {
-  directoryDisplayAddress,
-  directoryDisplayName,
-  formatDistanceKm,
-} from '@/features/sites/lib/nearby-directory';
+import { Button } from '@/shared/components/ui/Button';
+import { Card } from '@/shared/components/ui/Card';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { REGIONS, regionCoords, type Region } from '@/shared/lib/regions';
 
 /**
@@ -40,12 +52,13 @@ interface HealingQuizProps {
   onSelectSite: (id: string) => void;
 }
 
-const EMOTION_EMOJI: Record<EmotionTag, string> = {
-  위로: '🕊️',
-  새출발: '🌱',
-  평온: '🍃',
-  치유: '✨',
-  감사: '🙏',
+// 이모지 대신 선 아이콘 — 디자인 원칙(2026-09-16): 이모지 아이콘 안 씀.
+const EMOTION_ICON: Record<EmotionTag, LucideIcon> = {
+  위로: Feather,
+  새출발: Sprout,
+  평온: Leaf,
+  치유: Sparkles,
+  감사: HandHeart,
 };
 
 /** 표시 문구는 사전에서 온다. 여기 값은 사전 키다 — 내부 감정 코드(위로·치유…)는 그대로 쓴다. */
@@ -79,11 +92,14 @@ const RESULT_STEP = TOTAL_QUESTIONS + 1;
 const STEP_ORIGIN = 2;
 const STEP_TIME = 3;
 
-const fade = { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0 } };
+const fade = {
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0 },
+};
 
 export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps) {
   const {
-    wideView,
     origin: storedRegion,
     setOrigin: setStoredRegion,
     gpsLocation,
@@ -92,7 +108,6 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     t,
     language,
   } = useSettings();
-  const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
 
   const [step, setStep] = useState(0); // 0=intro, 1~3=질문, 4=결과
   const [emotion, setEmotion] = useState<EmotionTag | null>(null);
@@ -128,7 +143,8 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   }, [step, gpsStatus, requestGpsLocation]);
   // 위치가 허용됐고 사용자가 아직 시·도를 직접 고르지 않았으면 현재 위치가 기본.
   useEffect(() => {
-    if (step === STEP_ORIGIN && gpsStatus === 'granted' && gpsLocation && useGps === null) setUseGps(true);
+    if (step === STEP_ORIGIN && gpsStatus === 'granted' && gpsLocation && useGps === null)
+      setUseGps(true);
   }, [step, gpsStatus, gpsLocation, useGps]);
 
   if (!isOpen) return null;
@@ -224,23 +240,30 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
 
   const isQuestionStep = step >= 1 && step <= TOTAL_QUESTIONS;
   const optionClass = (active: boolean) =>
-    `w-full p-5 rounded-lg border-2 text-left font-bold text-base transition-all ${
-      active ? 'border-brand-blue bg-brand-soft text-brand-blue' : 'border-app-border bg-white text-app-text'
+    `flex min-h-14 w-full items-center rounded-lg border-2 px-5 py-3 text-left text-base font-bold transition-colors ${
+      active
+        ? 'border-brand-blue bg-brand-soft text-brand-blue'
+        : 'border-app-border bg-white text-app-text hover:border-brand-blue/50'
     }`;
 
   return (
     // /compass 는 헤더·하단 탭이 있는 레이아웃 안에서 뜬다 (T-021). 스크롤은 ScrollShell 이 맡는다.
-    <div className={`mx-auto flex w-full ${widthClass} min-h-page flex-col bg-white`}>
-      <div className="h-16 flex items-center justify-between px-6 border-b border-app-border shrink-0">
-        <div className="w-9" />
+    <PageContainer width="narrow" className="flex min-h-page flex-col">
+      <div className="flex min-h-14 shrink-0 items-center justify-between border-b border-app-border">
+        <div className="w-11" aria-hidden />
         <span className="text-base font-bold text-app-text">{t('compassTitle')}</span>
-        <button onClick={handleClose} className="p-2 text-app-text-muted" id="quiz-close" aria-label={t('compassBack')}>
-          <X size={22} />
+        <button
+          onClick={handleClose}
+          className="-mr-2 flex h-11 w-11 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg"
+          id="quiz-close"
+          aria-label={t('compassBack')}
+        >
+          <X size={22} aria-hidden />
         </button>
       </div>
 
       {progress > 0 && (
-        <div className="h-1 bg-app-bg shrink-0">
+        <div className="h-1 shrink-0 bg-app-panel">
           <motion.div
             className="h-full bg-brand-blue"
             animate={{ width: `${progress * 100}%` }}
@@ -249,34 +272,39 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
         </div>
       )}
 
-      <div className="flex-1 p-8">
+      <div className="flex-1 py-6">
         <AnimatePresence mode="wait">
           {step === 0 && (
             <motion.div key="intro" {...fade} className="pt-10 text-center">
               {/* 이모지 대신 선 아이콘 — 디자인 원칙(2026-09-16): 이모지 아이콘 안 씀 */}
-              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-brand-soft text-brand-blue" aria-hidden>
+              <div
+                className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-brand-soft text-brand-blue"
+                aria-hidden
+              >
                 <Compass size={32} />
               </div>
-              <h2 className="text-2xl font-extrabold text-app-text mb-4 tracking-tight">
+              <h2 className="mb-4 font-display text-[1.625rem] leading-tight text-app-text lg:text-3xl">
                 {t('compassIntroLine1')}
                 <br />
                 {t('compassIntroLine2')}
               </h2>
-              <p className="text-app-text-muted text-sm leading-relaxed mb-10">{t('compassIntroBody')}</p>
-              <button
-                onClick={() => setStep(1)}
-                className="w-full bg-brand-blue text-white py-4 rounded-lg font-bold text-base"
-                id="quiz-start"
-              >
+              <p className="mb-10 text-base leading-relaxed text-app-text-muted">
+                {t('compassIntroBody')}
+              </p>
+              <Button block onClick={() => setStep(1)} className="min-h-14 text-lg" id="quiz-start">
                 {t('compassStart')}
-              </button>
+              </Button>
               {memory?.matchedSiteId && memory.matchedSiteName && (
                 <button
                   onClick={() => onSelectSite(memory.matchedSiteId!)}
-                  className="mt-4 w-full rounded-lg border border-app-border bg-white px-5 py-3 text-left"
+                  className="mt-4 flex min-h-14 w-full flex-col justify-center rounded-lg border border-app-border bg-white px-5 py-3 text-left transition-colors hover:border-brand-blue"
                 >
-                  <span className="block text-xs text-app-text-muted">{t('compassLastRecommendation')}</span>
-                  <span className="mt-0.5 block text-sm font-bold text-brand-violet">{memory.matchedSiteName} →</span>
+                  <span className="block text-sm text-app-text-muted">
+                    {t('compassLastRecommendation')}
+                  </span>
+                  <span className="mt-0.5 block text-base font-bold text-brand-blue">
+                    {memory.matchedSiteName} →
+                  </span>
                 </button>
               )}
             </motion.div>
@@ -285,32 +313,43 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
           {/* Q1: 마음 — 색으로 직관적으로 고르기. 후보 집합을 정한다 */}
           {step === 1 && (
             <motion.div key="q1" {...fade}>
-              <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">
+              <h3 className="mb-2 font-display text-[1.375rem] leading-tight text-app-text lg:text-2xl">
                 {t('compassQ1TitleLine1')}
                 <br />
                 {t('compassQ1TitleLine2')}
               </h3>
-              <p className="text-xs text-app-text-muted mb-8">{t('compassPickColor')}</p>
+              <p className="mb-8 text-sm text-app-text-muted">{t('compassPickColor')}</p>
               <div className="flex flex-wrap justify-center gap-5">
-                {EMOTION_TAGS.map((tag) => (
-                  <button
-                    key={tag}
-                    onClick={() => setEmotion(tag)}
-                    className="flex w-[28%] flex-col items-center gap-3"
-                    id={`quiz-emotion-${tag}`}
-                  >
-                    <span
-                      className={`w-20 h-20 rounded-full flex items-center justify-center text-3xl shadow-sm transition-all ${EMOTION_COLOR[tag].bg} ${
-                        emotion === tag ? `ring-4 ${EMOTION_COLOR[tag].ring} scale-105` : ''
-                      }`}
+                {EMOTION_TAGS.map((tag) => {
+                  const Icon = EMOTION_ICON[tag];
+                  return (
+                    <button
+                      key={tag}
+                      onClick={() => setEmotion(tag)}
+                      className="flex w-[28%] flex-col items-center gap-3 rounded-lg py-2"
+                      aria-pressed={emotion === tag}
+                      id={`quiz-emotion-${tag}`}
                     >
-                      {EMOTION_EMOJI[tag]}
-                    </span>
-                    <span className="text-[0.6875rem] font-bold text-app-text-muted text-center leading-tight">
-                      {t(EMOTION_LABEL[tag])}
-                    </span>
-                  </button>
-                ))}
+                      <span
+                        className={`flex h-20 w-20 items-center justify-center rounded-full transition-[transform,box-shadow] ${EMOTION_COLOR[tag].bg} ${
+                          emotion === tag ? `ring-4 ${EMOTION_COLOR[tag].ring} scale-105` : ''
+                        }`}
+                        aria-hidden
+                      >
+                        <Icon
+                          size={30}
+                          strokeWidth={1.75}
+                          className={emotion === tag ? 'text-brand-blue' : 'text-app-text'}
+                        />
+                      </span>
+                      <span
+                        className={`text-center text-sm font-bold leading-tight ${emotion === tag ? 'text-brand-blue' : 'text-app-text-muted'}`}
+                      >
+                        {t(EMOTION_LABEL[tag])}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </motion.div>
           )}
@@ -318,15 +357,20 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
           {/* Q2: 출발지 — 현재 위치가 첫 선택지, 시·도는 GPS 를 못 쓸 때의 대안 */}
           {step === STEP_ORIGIN && (
             <motion.div key="q3-origin" {...fade}>
-              <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">
+              <h3 className="mb-2 font-display text-[1.375rem] leading-tight text-app-text lg:text-2xl">
                 {t('compassQ3TitleLine1')}
                 <br />
                 {t('compassQ3TitleLine2')}
               </h3>
-              <p className="text-xs text-app-text-muted mb-6">{t('compassNearbyNote')}</p>
+              <p className="mb-6 text-sm text-app-text-muted">{t('compassNearbyNote')}</p>
 
               {gpsStatus === 'granted' && gpsLocation ? (
-                <button type="button" onClick={() => setUseGps(true)} className={optionClass(useGps === true)} id="quiz-gps">
+                <button
+                  type="button"
+                  onClick={() => setUseGps(true)}
+                  className={optionClass(useGps === true)}
+                  id="quiz-gps"
+                >
                   <span className="flex items-center gap-2">
                     <LocateFixed size={18} aria-hidden />
                     {t('fromCurrentLocation')}
@@ -340,12 +384,20 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   </span>
                 </button>
               ) : (
-                <p className="rounded-lg bg-app-bg p-4 text-xs font-bold text-app-text-muted" id="quiz-gps-unavailable">
+                <p
+                  className="rounded-lg bg-app-panel p-4 text-sm font-bold text-app-text-muted"
+                  id="quiz-gps-unavailable"
+                >
                   {t('locationUnavailable')}
                 </p>
               )}
 
-              <p className="mt-6 mb-2 text-xs font-bold text-app-text-muted">{t('pickRegionInstead')}</p>
+              <label
+                className="mb-2 mt-6 block text-sm font-bold text-app-text-muted"
+                htmlFor="quiz-region"
+              >
+                {t('pickRegionInstead')}
+              </label>
               <select
                 value={useGps === true ? '' : (region ?? '')}
                 onChange={(e) => {
@@ -355,7 +407,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   // 여기서 고른 출발지를 앱 전체가 쓴다 — 홈·탐색도 이 기준으로 가까운 순이 된다
                   setStoredRegion(next);
                 }}
-                className="w-full bg-app-bg rounded-lg p-5 text-sm font-bold text-app-text outline-none border border-app-border appearance-none"
+                className="min-h-14 w-full rounded-lg border border-app-border bg-white px-5 text-base font-bold text-app-text"
                 id="quiz-region"
               >
                 <option value="" disabled>
@@ -373,14 +425,19 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
           {/* Q3: 시간 — 반경과 일정 줄 수를 정한다 */}
           {step === STEP_TIME && (
             <motion.div key="q4-time" {...fade}>
-              <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
+              <h3 className="mb-8 font-display text-[1.375rem] leading-tight text-app-text lg:text-2xl">
                 {t('compassQ6TitleLine1')}
                 <br />
                 {t('compassQ6TitleLine2')}
               </h3>
               <div className="space-y-3">
                 {TIME_BUDGETS.map((tb) => (
-                  <button key={tb} onClick={() => setTimeBudget(tb)} className={optionClass(timeBudget === tb)} id={`quiz-time-${tb}`}>
+                  <button
+                    key={tb}
+                    onClick={() => setTimeBudget(tb)}
+                    className={optionClass(timeBudget === tb)}
+                    id={`quiz-time-${tb}`}
+                  >
                     {t(TIME_LABEL[tb])}
                   </button>
                 ))}
@@ -392,21 +449,31 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
           {step === RESULT_STEP && (
             <motion.div key="result" {...fade}>
               {poolLoading ? (
-                <div className="pt-20 flex flex-col items-center gap-4">
-                  <div className="w-10 h-10 border-4 border-brand-blue border-t-transparent rounded-full animate-spin" />
-                  <p className="text-app-text-muted text-sm font-bold">{t('compassFindingResult')}</p>
+                <div
+                  className="flex flex-col items-center gap-4 pt-20"
+                  role="status"
+                  aria-live="polite"
+                >
+                  <div className="h-12 w-12 animate-spin rounded-full border-4 border-brand-blue border-t-transparent" />
+                  <p className="text-base font-bold text-app-text-muted">
+                    {t('compassFindingResult')}
+                  </p>
                 </div>
               ) : poolError ? (
-                <div className="text-center py-20">
-                  <p className="text-app-text-muted text-sm font-bold mb-6">{t('planNearbyFailed')}</p>
-                  <button onClick={() => void goToResult()} className="text-brand-blue font-bold text-sm" id="quiz-retry-pool">
+                <div className="py-20 text-center" role="alert">
+                  <p className="mb-6 text-base font-bold text-app-text-muted">
+                    {t('planNearbyFailed')}
+                  </p>
+                  <Button variant="neutral" onClick={() => void goToResult()} id="quiz-retry-pool">
                     {t('retry')}
-                  </button>
+                  </Button>
                 </div>
               ) : pool.length === 0 ? (
                 <div className="py-10 text-center" id="plan-empty">
-                  <h3 className="text-xl font-extrabold text-app-text mb-3 tracking-tight">{t('planEmptyTitle')}</h3>
-                  <p className="text-sm text-app-text-muted mb-8">
+                  <h3 className="mb-3 font-display text-[1.375rem] leading-tight text-app-text lg:text-2xl">
+                    {t('planEmptyTitle')}
+                  </h3>
+                  <p className="mb-8 text-base leading-relaxed text-app-text-muted">
                     {fillPlaceholders(t('planEmptyBody'), {
                       origin: origin?.label ?? '',
                       km: timeBudget ? RADIUS_KM_BY_TIME[timeBudget] : '',
@@ -414,20 +481,21 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                     })}
                   </p>
                   <div className="flex gap-3">
-                    <button
+                    <Button
                       onClick={() => goToQuestion(STEP_TIME)}
-                      className="flex-1 bg-brand-blue text-white py-4 rounded-lg font-bold text-base"
+                      className="flex-1"
                       id="plan-widen-time"
                     >
                       {t('planWidenTime')}
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      variant="neutral"
                       onClick={() => goToQuestion(1)}
-                      className="flex-1 bg-app-bg text-app-text border border-app-border py-4 rounded-lg font-bold text-base"
+                      className="flex-1"
                       id="plan-change-mood"
                     >
                       {t('planChangeMood')}
-                    </button>
+                    </Button>
                   </div>
                 </div>
               ) : chosen ? (
@@ -437,7 +505,10 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                     timeBudget={timeBudget ?? '하루'}
                     afternoonIndex={afternoonIndex[chosen.site.id] ?? 0}
                     onSwapAfternoon={() =>
-                      setAfternoonIndex((m) => ({ ...m, [chosen.site.id]: (m[chosen.site.id] ?? 0) + 1 }))
+                      setAfternoonIndex((m) => ({
+                        ...m,
+                        [chosen.site.id]: (m[chosen.site.id] ?? 0) + 1,
+                      }))
                     }
                     onBack={() => setSelected(null)}
                     // 이동만 한다. 예전엔 여기서 닫기까지 불러 상세로 간 직후 나침반으로 되돌아왔다 (2026-09-12).
@@ -445,59 +516,35 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   />
 
                   {nearbyParishes.length > 0 && (
-                    <div className="mt-6 rounded-lg border border-app-border bg-white p-6">
-                      <div className="mb-3 flex items-center gap-2">
-                        <Church size={16} className="text-brand-violet" aria-hidden />
-                        <h4 className="text-sm font-extrabold text-app-text">{t('regionParishesTitle')}</h4>
-                      </div>
-                      <p className="mb-1 text-[0.6875rem] leading-relaxed text-app-text-muted">{t('regionParishesBody')}</p>
-                      {language !== 'ko' && nearbyParishes.some((p) => p.nameRomanized) && (
-                        <p className="mb-4 text-[0.625rem] italic text-app-text-muted opacity-70">{t('directoryRomanizedNote')}</p>
-                      )}
-                      <ul className="mt-4 space-y-4">
-                        {nearbyParishes.map((p) => {
-                          const displayName = directoryDisplayName(p, language);
-                          const displayAddress = directoryDisplayAddress(p, language);
-                          return (
-                            <li key={p.id}>
-                              <div className="flex items-start justify-between gap-3">
-                                <div className="min-w-0">
-                                  <p className="flex flex-wrap items-center gap-2">
-                                    <span className="truncate text-sm font-bold text-app-text">{displayName}</span>
-                                    <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[0.625rem] font-bold text-app-text-muted">
-                                      {localizeDomainValue(p.category, t)}
-                                    </span>
-                                  </p>
-                                  {displayAddress && (
-                                    <p className="mt-0.5 truncate text-xs text-app-text-muted">{displayAddress}</p>
-                                  )}
-                                </div>
-                                <div className="flex shrink-0 items-center gap-2">
-                                  <span className="text-xs font-bold tabular-nums text-app-text-muted">
-                                    {formatDistanceKm(p.distanceKm)}
-                                  </span>
-                                  {p.phone && (
-                                    <a
-                                      href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}
-                                      aria-label={`${p.name} ${t('callPhone')}`}
-                                      className="rounded-lg bg-app-bg p-2 text-brand-violet"
-                                    >
-                                      <Phone size={14} />
-                                    </a>
-                                  )}
-                                </div>
-                              </div>
-                              <div className="mt-2">
-                                <QuickDirectionsButtons
-                                  destination={{ name: displayName, lat: p.lat, lng: p.lng }}
-                                  siteName={displayName}
-                                />
-                              </div>
-                            </li>
-                          );
-                        })}
+                    <Card className="mt-6">
+                      <SectionHeading
+                        as="h3"
+                        size="md"
+                        title={
+                          <span className="inline-flex items-center gap-2">
+                            <Church size={20} className="text-brand-blue" aria-hidden />
+                            {t('regionParishesTitle')}
+                          </span>
+                        }
+                        sub={
+                          <>
+                            {t('regionParishesBody')}
+                            {language !== 'ko' && nearbyParishes.some((p) => p.nameRomanized) && (
+                              <span className="mt-1 block italic">
+                                {t('directoryRomanizedNote')}
+                              </span>
+                            )}
+                          </>
+                        }
+                      />
+                      <ul className="divide-y divide-app-border">
+                        {nearbyParishes.map((p) => (
+                          <li key={p.id} className="py-3 first:pt-0 last:pb-0">
+                            <DirectoryEntryCard entry={p} bare />
+                          </li>
+                        ))}
                       </ul>
-                    </div>
+                    </Card>
                   )}
                 </div>
               ) : (
@@ -515,9 +562,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
 
               {!poolLoading && (
                 <div className="mt-8 text-center">
-                  <button onClick={reset} className="text-xs font-bold text-app-text-muted underline" id="quiz-retry">
+                  <Button variant="ghost" onClick={reset} id="quiz-retry">
                     {t('planStartOver')}
-                  </button>
+                  </Button>
                 </div>
               )}
             </motion.div>
@@ -527,26 +574,27 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
 
       {/* 화면 아래 붙는 이전/다음 버튼 — 스크롤해도 항상 보인다. 모바일에선 하단 탭(70px) 위. */}
       {isQuestionStep && (
-        <div className="sticky bottom-[70px] z-30 flex w-full gap-3 border-t border-app-border bg-white/95 p-6 pt-4 backdrop-blur-md lg:bottom-0">
-          <button
+        <div className="sticky bottom-[70px] z-30 -mx-5 flex gap-3 border-t border-app-border bg-white/95 px-5 py-4 backdrop-blur-md lg:-mx-8 lg:bottom-0 lg:px-8">
+          <Button
+            variant="neutral"
             onClick={() => setStep(step - 1)}
-            className="w-16 h-14 bg-white text-app-text border-[1.5px] border-app-border rounded-lg flex items-center justify-center shrink-0"
+            className="min-h-14 w-16 shrink-0 px-0"
             id="quiz-prev"
             aria-label={t('compassBack')}
           >
-            <ChevronLeft size={22} />
-          </button>
-          <button
+            <ChevronLeft size={24} aria-hidden />
+          </Button>
+          <Button
             onClick={handleNext}
             disabled={!canProceed}
-            className="flex-1 bg-brand-blue text-white rounded-lg font-bold text-[1.0625rem] flex items-center justify-center gap-2 disabled:opacity-30"
+            className="min-h-14 flex-1 text-lg"
             id="quiz-next"
           >
             {step === TOTAL_QUESTIONS ? t('compassSeeResult') : t('compassNext')}
-            <ChevronRight size={18} />
-          </button>
+            <ChevronRight size={20} aria-hidden />
+          </Button>
         </div>
       )}
-    </div>
+    </PageContainer>
   );
 }

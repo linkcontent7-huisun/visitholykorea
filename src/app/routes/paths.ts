@@ -8,6 +8,8 @@ export const paths = {
   explore: '/explore',
   records: '/records',
   menu: '/menu',
+  /** 계정 설정 — 더보기 맨 위 프로필 카드의 톱니바퀴 단추 (2026-09-18) */
+  account: '/account',
   search: '/search',
   login: '/login',
   /** 마음 나침반 — 질문으로 성지를 찾아주는 화면 */

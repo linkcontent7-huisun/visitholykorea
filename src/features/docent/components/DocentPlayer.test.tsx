@@ -54,20 +54,15 @@ const chapters: DocentChapter[] = [
 
 describe('DocentPlayer', () => {
   it('챕터 목록과 위치·볼거리 안내를 함께 보여준다', () => {
-    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    render(<DocentPlayer chapters={chapters} language="ko" />);
     expect(screen.getByText('여는 말')).toBeInTheDocument();
     expect(screen.getByText('순교자 기념상')).toBeInTheDocument();
     expect(screen.getByText(/입구 왼쪽/)).toBeInTheDocument();
     expect(screen.getByText(/십자가 부조/)).toBeInTheDocument();
   });
 
-  it('초안 원고에는 현장 확인 전 배지를 단다', () => {
-    render(<DocentPlayer chapters={chapters} isDraft language="ko" />);
-    expect(screen.getByText(/현장 확인 전/)).toBeInTheDocument();
-  });
-
   it('챕터를 누르면 그 챕터부터 읽기 시작한다', () => {
-    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    render(<DocentPlayer chapters={chapters} language="ko" />);
     fireEvent.click(screen.getByText('순교자 기념상'));
     expect(speech.speak).toHaveBeenCalledTimes(1);
     const utterance = speech.speak.mock.calls[0]?.[0] as FakeUtterance;
@@ -76,23 +71,29 @@ describe('DocentPlayer', () => {
   });
 
   it('챕터가 없으면 아무것도 그리지 않는다', () => {
-    const { container } = render(<DocentPlayer chapters={[]} isDraft={false} language="ko" />);
+    const { container } = render(<DocentPlayer chapters={[]} language="ko" />);
     expect(container).toBeEmptyDOMElement();
   });
 
-  it('현재 챕터의 해설 전문을 글로도 보여준다 — 소리를 못 듣는 상황을 위해', () => {
-    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
-    // 처음에는 첫 챕터가 현재이므로 그 본문이 보인다
+  it('모든 챕터의 해설 전문을 각 줄 아래에 늘 보여준다 — 소리를 못 듣는 상황을 위해', () => {
+    render(<DocentPlayer chapters={chapters} language="ko" />);
+    // 재생 중이 아니어도, 어느 챕터가 현재인지와 무관하게 셋 다 한 번에 보인다
+    // (2026-09-17 — 예전엔 "현재 챕터"의 본문만 공용 상자에 보였다)
     expect(screen.getByText('여는 말 본문')).toBeInTheDocument();
-    expect(screen.queryByText('설명')).not.toBeInTheDocument();
-    // 다른 챕터를 고르면 그 챕터의 본문으로 바뀐다
-    fireEvent.click(screen.getByText('순교자 기념상'));
     expect(screen.getByText('설명')).toBeInTheDocument();
-    expect(screen.queryByText('여는 말 본문')).not.toBeInTheDocument();
+    expect(screen.getByText('맺음말 본문')).toBeInTheDocument();
+  });
+
+  it('이미 재생 중인 줄을 다시 누르면 멈춘다 — 줄 전체가 재생/정지 단추', () => {
+    render(<DocentPlayer chapters={chapters} language="ko" />);
+    fireEvent.click(screen.getByText('순교자 기념상'));
+    expect(speech.speak).toHaveBeenCalledTimes(1);
+    fireEvent.click(screen.getByText('순교자 기념상'));
+    expect(speech.cancel).toHaveBeenCalled();
   });
 
   it('속도 버튼을 누르면 느리게·보통·빠르게가 순환하고 재생 속도에 반영된다', () => {
-    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    render(<DocentPlayer chapters={chapters} language="ko" />);
     const speedButton = screen.getByRole('button', { name: /읽는 속도/ });
     expect(speedButton).toHaveTextContent('보통');
     fireEvent.click(speedButton);
@@ -107,7 +108,7 @@ describe('DocentPlayer', () => {
   it('speak 가 무시되면(안드로이드 크롬 cancel 직후 버그) 잠시 후 한 번 재시도한다', () => {
     vi.useFakeTimers();
     // speaking/pending 이 계속 false → 시작되지 않은 것으로 판정되어야 한다
-    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    render(<DocentPlayer chapters={chapters} language="ko" />);
     fireEvent.click(screen.getByText('순교자 기념상'));
     expect(speech.speak).toHaveBeenCalledTimes(1);
     vi.advanceTimersByTime(400);
@@ -116,7 +117,7 @@ describe('DocentPlayer', () => {
   });
 
   it('음성 재생이 실패하면(onerror) 침묵하지 않고 안내 문구를 보여준다', () => {
-    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    render(<DocentPlayer chapters={chapters} language="ko" />);
     fireEvent.click(screen.getByText('순교자 기념상'));
     const utterance = speech.speak.mock.calls[0]?.[0] as FakeUtterance;
     act(() => utterance.onerror?.());
@@ -131,7 +132,7 @@ describe('DocentPlayer — 음성 미지원 브라우저(카카오톡 인앱 등
   });
 
   it('죽지 않고 안내 문구를 보여주며, 챕터를 누르면 글로는 읽을 수 있다', () => {
-    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    render(<DocentPlayer chapters={chapters} language="ko" />);
     expect(screen.getByText(/음성이 지원되지 않/)).toBeInTheDocument();
     // 재생은 못 해도 챕터 본문 읽기는 되어야 한다
     fireEvent.click(screen.getByText('순교자 기념상'));
@@ -151,7 +152,7 @@ describe('DocentPlayer — 성당 예절 가드 (휴대폰·태블릿)', () => {
   });
 
   it('이어폰을 알 수 없으면 재생 대신 정중한 안내와 확인 버튼을 보여준다', () => {
-    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    render(<DocentPlayer chapters={chapters} language="ko" />);
     fireEvent.click(screen.getByLabelText('재생'));
     expect(speech.speak).not.toHaveBeenCalled();
     expect(screen.getByText(/이어폰을 연결해 주세요/)).toBeInTheDocument();
@@ -159,7 +160,7 @@ describe('DocentPlayer — 성당 예절 가드 (휴대폰·태블릿)', () => {
   });
 
   it('"이어폰을 연결했어요"를 누르면 그때 재생이 시작된다', () => {
-    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    render(<DocentPlayer chapters={chapters} language="ko" />);
     fireEvent.click(screen.getByLabelText('재생'));
     fireEvent.click(screen.getByText('이어폰을 연결했어요'));
     expect(speech.speak).toHaveBeenCalled();
@@ -167,7 +168,7 @@ describe('DocentPlayer — 성당 예절 가드 (휴대폰·태블릿)', () => {
 
   it('한 번 확인하면 같은 세션에서는 다시 묻지 않는다', () => {
     sessionStorage.setItem('vhk_docent_earphone_ok', '1');
-    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    render(<DocentPlayer chapters={chapters} language="ko" />);
     fireEvent.click(screen.getByLabelText('재생'));
     expect(speech.speak).toHaveBeenCalled();
     expect(screen.queryByText(/이어폰을 연결해 주세요/)).not.toBeInTheDocument();
@@ -179,7 +180,7 @@ describe('DocentPlayer — 성당 예절 가드 (휴대폰·태블릿)', () => {
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),
     }));
-    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    render(<DocentPlayer chapters={chapters} language="ko" />);
     fireEvent.click(screen.getByLabelText('재생'));
     expect(speech.speak).toHaveBeenCalled();
   });
@@ -196,7 +197,7 @@ describe('DocentPlayer — 차단 상태에도 출구가 있다', () => {
   });
 
   it('안내가 떠 있는 동안에도 확인 버튼이 항상 남는다 — 영구 잠금 방지', () => {
-    render(<DocentPlayer chapters={chapters} isDraft={false} language="ko" />);
+    render(<DocentPlayer chapters={chapters} language="ko" />);
     fireEvent.click(screen.getByLabelText('재생'));
     // 어떤 가드 상태든 확인 버튼으로 빠져나갈 수 있어야 한다
     expect(screen.getByText('이어폰을 연결했어요')).toBeInTheDocument();

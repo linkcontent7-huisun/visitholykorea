@@ -11,6 +11,7 @@
 
 import { localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { chipClass } from '@/shared/components/ui/class-names';
 import { REGIONS, type Region } from '@/shared/lib/regions';
 
 interface RegionFilterChipsProps {
@@ -22,10 +23,6 @@ interface RegionFilterChipsProps {
   groupLabel: string;
 }
 
-const BASE = 'shrink-0 rounded-full border px-4 py-2 text-sm font-bold transition-colors min-h-11';
-const ON = 'border-brand-violet bg-brand-violet text-white';
-const OFF = 'border-app-border bg-white text-app-text';
-
 export function RegionFilterChips({
   value,
   onChange,
@@ -36,7 +33,7 @@ export function RegionFilterChips({
   return (
     // 음수 마진으로 좌우 여백을 뚫어, 스크롤이 화면 끝까지 이어지게 한다
     <div
-      className="-mx-6 overflow-x-auto px-6 pb-1"
+      className="no-scrollbar -mx-5 overflow-x-auto px-5 pb-1 lg:-mx-8 lg:px-8"
       role="group"
       aria-label={groupLabel}
       data-testid="region-chips"
@@ -46,7 +43,7 @@ export function RegionFilterChips({
           type="button"
           onClick={() => onChange(null)}
           aria-pressed={value === null}
-          className={`${BASE} ${value === null ? ON : OFF}`}
+          className={chipClass(value === null)}
         >
           {allLabel}
         </button>
@@ -56,7 +53,7 @@ export function RegionFilterChips({
             type="button"
             onClick={() => onChange(region)}
             aria-pressed={value === region}
-            className={`${BASE} ${value === region ? ON : OFF}`}
+            className={chipClass(value === region)}
           >
             {localizeRegionName(region, language)}
           </button>

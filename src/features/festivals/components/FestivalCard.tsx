@@ -30,13 +30,13 @@ export function FestivalCard({ festival, nearbyLabel }: FestivalCardProps) {
           {festival.title}
         </h3>
         {period && (
-          <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-app-text-muted">
+          <p className="mt-2 flex items-center gap-1.5 text-sm text-app-text-muted">
             <CalendarDays size={14} className="shrink-0" aria-hidden />
             <span>{period}</span>
           </p>
         )}
         {festival.address && (
-          <p className="mt-1 flex items-start gap-1.5 text-xs leading-relaxed text-app-text-muted">
+          <p className="mt-1 flex items-start gap-1.5 text-sm leading-relaxed text-app-text-muted">
             <MapPin size={14} className="mt-0.5 shrink-0" aria-hidden />
             <span className="min-w-0 break-words">{festival.address}</span>
           </p>
@@ -45,25 +45,22 @@ export function FestivalCard({ festival, nearbyLabel }: FestivalCardProps) {
 
       {/* 그 옆의 성지 */}
       <div className="border-t border-app-border bg-app-bg px-5 py-4">
-        {/* 큰 글자 모드(html 118%)에서 함께 커지도록 px 대신 rem 으로 적는다 */}
-        <p className="mb-2 text-[0.7rem] font-extrabold uppercase tracking-widest text-brand-violet">
-          {nearbyLabel}
-        </p>
+        <p className="mb-2 text-sm font-bold text-brand-blue">{nearbyLabel}</p>
         <ul className="space-y-2">
           {festival.sites.map(({ site, distanceKm }) => (
             <li key={site.id}>
               <Link
                 to={paths.siteDetail(site.id)}
-                className="flex items-center gap-3 rounded-lg border border-app-border bg-white px-4 py-3"
+                className="flex min-h-12 items-center gap-3 rounded-lg border border-app-border bg-white px-4 py-3 transition-colors hover:border-brand-blue/50"
               >
                 <span className="min-w-0 flex-1">
                   {/* 성지 이름은 자르지 않고 접는다 — 큰 글자 모드에서 이름이 사라지면 고를 수 없다.
                       break-keep 은 한국어 낱말을 낱글자로 쪼개지 않는다. */}
-                  <span className="block break-keep text-sm font-bold leading-snug text-app-text">
+                  <span className="block text-base font-bold leading-snug text-app-text">
                     {site.name}
                   </span>
                   <span className="mt-1 flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-medium text-app-text-muted">
+                    <span className="text-sm text-app-text-muted">
                       {formatDistanceKm(distanceKm)}
                     </span>
                   </span>
