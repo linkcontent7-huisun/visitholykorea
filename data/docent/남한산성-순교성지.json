@@ -1,0 +1,15 @@
+{
+  "siteId": "57ac0c3d-e94a-4f08-8c08-bc2edd3bc048",
+  "siteName": "남한산성 순교성지",
+  "slug": "namhansanseong-martyrs-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "남한산성은 군사 요새이면서 박해기 신자들이 갇히고 처형된 곳입니다. 로터리의 옥터와 성지의 현양비, 한옥 성당과 산길을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "산성 로터리 — 옥터와 처형터", "location": "남한산성 로터리", "narration": "산성 로터리에는 신자들을 가두었던 옥터와 처형터가 전합니다. 성곽의 군사 시설 안에 재판과 감옥 기능도 함께 있었음을 보여 주는 자리입니다. 현재의 도로와 광장 아래에 겹친 옛 관아 공간을 안내 표지와 함께 확인하세요.", "lookFor": "옥터와 처형터를 알리는 안내 표지", "forEveryone": "관광지의 일상적인 광장 아래에 사법 공간의 기억이 겹쳐 있습니다.", "photos": [], "sourceNote": "굿뉴스 남한산성 순교성지 안내: https://app.catholic.or.kr/web/holyplace/?flag=1&seq=2318"},
+    {"seq": 2, "title": "성지 마당 — 순교자현양비", "location": "성당 앞", "narration": "순교자현양비는 남한산성에서 희생된 신자들을 기억하려고 세웠습니다. 이름이 전하는 이들뿐 아니라 정확한 수를 알기 어려운 희생의 역사를 한곳에 모아 기립니다. 비문에 어떤 이름과 사건이 적혀 있는지 살펴보세요.", "lookFor": "현양비에 새긴 이름과 문구", "forEveryone": "기록이 온전하지 않은 희생을 공공의 표지로 남긴 기념물입니다.", "photos": [], "sourceNote": "굿뉴스 남한산성 순교성지 안내: https://app.catholic.or.kr/web/holyplace/?flag=1&seq=2318"},
+    {"seq": 3, "title": "성당 뒤 — 야외미사터와 십자가의 길", "location": "한옥 성당 뒤편 산", "narration": "한옥 형태의 성당 뒤 산에는 야외미사터와 십자가의 길 열네 처가 있습니다. 산성 지형의 오르막을 따라 예수의 수난 장면을 차례로 배치했습니다. 성당에서 산길로 바뀌는 지점과 각 처의 간격을 살펴보세요.", "lookFor": "산길을 따라 이어지는 열네 처", "forEveryone": "산의 경사를 이야기의 순서와 걷는 경험에 이용한 공간입니다.", "photos": [], "sourceNote": "굿뉴스 남한산성 순교성지 안내: https://app.catholic.or.kr/web/holyplace/?flag=1&seq=2318"}
+  ],
+  "outro": {"narration": "남한산성에서는 로터리의 옛 옥터와 새 성지의 기념 공간을 나누어 보아야 순교의 동선을 이해할 수 있습니다.", "photos": []}
+}

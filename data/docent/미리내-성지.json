@@ -1,0 +1,15 @@
+{
+  "siteId": "299f79c2-1572-4199-abdd-7b5979d5f14f",
+  "siteName": "미리내 성지",
+  "slug": "mirinae-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "미리내는 성 김대건 안드레아 신부의 묘와 오래된 성당, 기념성당이 모인 성지입니다. 묘역과 전시, 기도길을 차례로 보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "묘역 — 김대건 신부와 성직자 묘", "location": "복자기념경당 앞", "narration": "경당 앞 묘역에는 김대건 신부와 강도영 신부, 페레올 주교, 최문식 신부의 묘가 나란히 있습니다. 김대건 신부의 시신을 이곳에 안장한 역사와 미리내 본당의 시간이 한 줄의 묘역에 모입니다. 묘비의 이름과 배치를 차례로 살펴보세요.", "lookFor": "나란히 놓인 네 묘비의 이름", "forEveryone": "한 장소의 형성과 관련된 여러 인물을 배치로 설명하는 묘역입니다.", "photos": [], "sourceNote": "굿뉴스 미리내 성지 안내: https://app.catholic.or.kr/web/holyplace/?seq=2320"},
+    {"seq": 2, "title": "기념성당 — 제대와 전시실", "location": "기념성당 안", "narration": "기념성당 제대에는 김대건 신부의 유해 일부가 모셔져 있습니다. 위층 전시실에는 박해 때 사용한 형구와 순교 장면 모형이 있습니다. 예배 공간과 역사 전시가 층을 달리해 어떻게 구성됐는지 살펴보세요.", "lookFor": "제대의 유해 안치 자리와 위층 전시 안내", "forEveryone": "추모 의식과 역사 교육을 한 건물 안에서 나눈 구성입니다.", "photos": [], "sourceNote": "굿뉴스 미리내 성지 안내: https://app.catholic.or.kr/web/holyplace/?seq=2320"},
+    {"seq": 3, "title": "입구부터 경당 — 묵주기도 길", "location": "성지 입구에서 경당으로 오르는 길", "narration": "입구에서 경당까지 돌조각으로 만든 묵주기도 길이 이어집니다. 십자가의 길 열네 처도 기념성당 뒤편을 지나 경당 전에 끝나도록 배치했습니다. 두 기도길이 묘역과 성당 사이의 오르막을 어떻게 나누는지 보세요.", "lookFor": "돌조각 묵주와 열네 처의 갈림", "forEveryone": "오르막 동선을 두 가지 연속 이야기로 조직한 순례길입니다.", "photos": [], "sourceNote": "굿뉴스 미리내 성지 안내: https://app.catholic.or.kr/web/holyplace/?seq=2320"}
+  ],
+  "outro": {"narration": "미리내의 묘역과 전시실, 두 기도길은 김대건 신부의 유해를 중심으로 서로 이어집니다.", "photos": []}
+}

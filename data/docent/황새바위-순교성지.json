@@ -1,0 +1,15 @@
+{
+  "siteId": "751e12ce-fa81-4bd0-87e5-2f3af28848d0",
+  "siteName": "황새바위 순교성지",
+  "slug": "hwangsaebawi-martyrs-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "황새바위는 공주 감영 가까이에서 신자들이 처형된 형장입니다. 순교탑과 무덤경당, 열두 빛돌을 중심으로 성지의 기념 방식을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "정상 — 순교탑", "location": "성지 정상", "narration": "정상의 순교탑은 두 손을 모은 형상으로 세웠습니다. 멀리서 보면 탑의 두 갈래가 기도하는 손처럼 마주합니다. 옛 형장 위에 세운 수직 기념물이 공산성을 마주 보는 방향도 살펴보세요.", "lookFor": "두 손을 모은 듯 갈라지는 탑의 윤곽", "forEveryone": "사람의 몸짓을 추상적인 구조물로 바꾼 기념탑입니다.", "photos": [], "sourceNote": "황새바위 순교성지 공식 안내: https://hwangsae.or.kr/sub0103"},
+    {"seq": 2, "title": "경내 — 돌무덤 경당", "location": "순교자 광장", "narration": "돌무덤 형태의 경당 안에는 공주 순교자들의 이름을 새겼습니다. 건물 자체를 무덤처럼 만들어 처형된 이들을 기억하는 공간임을 드러냅니다. 돌벽에 이어지는 이름들을 한 사람씩 살펴보세요.", "lookFor": "돌벽에 새긴 순교자 이름", "forEveryone": "이름의 목록을 건물 내부의 핵심 장식으로 사용했습니다.", "photos": [], "sourceNote": "굿뉴스 황새바위 순교성지 안내: https://app.catholic.or.kr/web/holyplace/?seq=2301"},
+    {"seq": 3, "title": "무덤경당 앞 — 열두 빛돌", "location": "순교자 광장", "narration": "무덤경당 앞에는 열두 개의 빛돌이 서 있습니다. 이 돌들은 열두 사도를 상징하면서 이름 없이 순교한 이들의 묘비 역할도 합니다. 낮에는 돌의 배열을, 어두울 때는 빛이 광장을 밝히는 모습을 보세요.", "lookFor": "광장에 놓인 열두 개의 빛돌", "forEveryone": "하나의 조형물이 숫자의 상징과 무명 희생자의 묘비를 함께 맡습니다.", "photos": [], "sourceNote": "굿뉴스 황새바위 순교성지 안내: https://app.catholic.or.kr/web/holyplace/?seq=2301"}
+  ],
+  "outro": {"narration": "황새바위의 탑과 경당, 빛돌은 몸짓과 이름, 숫자를 이용해 순교자들을 서로 다르게 기억합니다.", "photos": []}
+}

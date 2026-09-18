@@ -1,0 +1,15 @@
+{
+  "siteId": "8c53e03c-1045-4a42-a1f7-8ad29a2f15c1",
+  "siteName": "구산 성지",
+  "slug": "gusan-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "구산은 성 김성우 안토니오가 태어나 공동체를 이끈 마을 성지입니다. 성인의 묘와 생가터, 기념 성당을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "묘역 — 성 김성우 안토니오 묘", "location": "성지 묘역", "narration": "김성우 안토니오 성인의 묘를 보세요. 구산마을 신자들은 오랫동안 이 묘를 돌보며 성인의 기억을 지켰습니다. 마을이 성지로 자리 잡은 중심에도 이 묘가 있습니다.", "lookFor": "성인의 이름이 적힌 묘비", "forEveryone": "한 마을이 오랜 기간 한 인물의 무덤을 지켜 온 장소입니다.", "photos": [], "sourceNote": "굿뉴스 구산 성지 안내: https://m.catholic.or.kr/web/holyplace/?seq=2316"},
+    {"seq": 2, "title": "마을 안 — 생가터", "location": "성지 안 생가터", "narration": "생가터는 김성우 성인이 태어나고 자란 구산마을의 삶을 가리킵니다. 그는 이곳 신앙 공동체를 이끌다가 기해박해 때 체포되었습니다. 묘와 생가터를 함께 보면 성인의 삶이 마을 안에서 시작해 다시 이곳으로 돌아온 과정을 알 수 있습니다.", "lookFor": "생가터를 알리는 표지", "forEveryone": "기념 인물의 일상과 죽음을 한 마을 안에서 연결해 보여 줍니다.", "photos": [], "sourceNote": "굿뉴스 구산 성지 안내: https://m.catholic.or.kr/web/holyplace/?seq=2316"},
+    {"seq": 3, "title": "경내 — 기념 성당", "location": "성지 안", "narration": "기념 성당은 김성우 성인의 삶과 구산 교우촌을 기억하는 예배 공간입니다. 순교 현장이 아니라 성인이 살았던 마을에 세워졌다는 점이 구산의 특징입니다. 성당에서 묘역과 생가터로 이어지는 동선을 살펴보세요.", "lookFor": "성당과 묘역을 잇는 길", "forEveryone": "마을 전체를 한 인물의 생애를 따라 걷도록 구성한 공간입니다.", "photos": [], "sourceNote": "굿뉴스 구산 성지 안내: https://m.catholic.or.kr/web/holyplace/?seq=2316"}
+  ],
+  "outro": {"narration": "구산에서는 성당 한 채보다 묘와 생가터, 마을 공동체가 함께 성인의 이야기를 전합니다.", "photos": []}
+}
