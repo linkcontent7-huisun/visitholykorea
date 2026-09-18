@@ -1,0 +1,48 @@
+{
+  "siteId": "98e959e5-4ace-4752-87bd-2fd3276a474c",
+  "siteName": "강릉 대도호부 관아",
+  "slug": "gangneung-daedohobu-office",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "강릉 대도호부 관아는 조선 시대 행정 공간이면서 박해기 신자들이 심문받은 곳으로 전해집니다. 칠사당과 고목, 임영관 삼문을 보며 관아 건축과 순교 기억을 함께 살펴보겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "관아 안 — 칠사당",
+      "location": "관아 경내",
+      "narration": "칠사당은 현재 강릉에 남은 조선 시대 관청 건물입니다. 한쪽이 다락 형식인 기역자 모양의 건물로, 지방 행정과 심문이 이루어진 관아의 성격을 보여 줍니다. 건물의 꺾인 평면과 다락 부분을 살펴보세요.",
+      "lookFor": "한쪽이 다락으로 된 기역자형 건물",
+      "forEveryone": "지방 관청의 실제 업무 공간이 남아 있는 건축 유산입니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 강릉 대도호부 관아 안내: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2263&menugubun=holyplace"
+    },
+    {
+      "seq": 2,
+      "title": "칠사당 마당 — 고목",
+      "location": "칠사당 마당",
+      "narration": "칠사당 마당 한가운데의 오래된 나무를 보세요. 굿뉴스 안내는 박해 때 붙잡힌 신자들을 이 나무에 묶어 심문했다고 전합니다. 건물만이 아니라 살아 있는 나무가 관아의 아픈 기억을 가리키는 표지가 되었습니다.",
+      "lookFor": "칠사당 마당 가운데 남은 고목",
+      "forEveryone": "자연물이 역사 현장의 표지 역할을 하는 사례입니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 강릉 대도호부 관아 안내: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2263&menugubun=holyplace"
+    },
+    {
+      "seq": 3,
+      "title": "뒤편 — 임영관 삼문",
+      "location": "칠사당 뒤편",
+      "narration": "임영관 삼문은 고려 말에 지은 객사의 정문입니다. 맞배지붕 아래 세 문이 나란히 서 있고, 기둥 위에 짜 맞춘 주심포 구조를 볼 수 있습니다. 관아의 순교 기억과 더 오래된 강릉 건축사가 바로 이 문에서 만납니다.",
+      "lookFor": "세 문과 굵은 배흘림기둥",
+      "forEveryone": "여러 시대의 행정 건축이 한 경내에 쌓인 모습을 보여 줍니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 강릉 대도호부 관아 안내: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2263&menugubun=holyplace"
+    }
+  ],
+  "outro": {
+    "narration": "칠사당과 고목, 임영관 삼문은 이곳이 행정과 심문, 숙박이 함께 이루어진 큰 관아였음을 보여 줍니다. 건물을 나서며 서로 다른 시대의 흔적을 다시 구분해 보세요.",
+    "photos": []
+  }
+}

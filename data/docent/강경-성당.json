@@ -1,0 +1,48 @@
+{
+  "siteId": "384ece39-557d-48bc-9708-ec04f1bb5e13",
+  "siteName": "강경 성당",
+  "slug": "ganggyeong-church",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "강경은 김대건 신부가 사제품을 받고 조선으로 돌아와 첫 사목을 시작한 포구입니다. 현재 성당과 기념관, 라파엘호 전시를 통해 그 귀국 여정을 살펴보겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "마당 — 강경성당",
+      "location": "성당 마당",
+      "narration": "현재 성당은 뾰족한 아치가 이어지는 내부 구조를 지닌 건물입니다. 김대건 신부 일행이 황산포에 닿아 첫 사목을 시작한 일을 기억하는 본당 성당입니다. 바깥에서 종탑과 창의 아치 형태를 먼저 살펴보세요.",
+      "lookFor": "외벽과 창에 이어지는 뾰족한 아치",
+      "forEveryone": "포구의 역사와 근대 성당 건축이 한 장소에 겹쳐 있습니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 강경 성당 안내: https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=4417&menugubun=holyplace"
+    },
+    {
+      "seq": 2,
+      "title": "경내 — 성 김대건 신부 기념관",
+      "location": "성당 곁 기념관",
+      "narration": "기념관은 김대건 신부가 사제품을 받은 상하이 성당을 본떠 지었습니다. 안에는 강경 도착과 관련된 기록을 전시하고 미사를 봉헌하는 공간도 마련되어 있습니다. 사제가 된 장소와 조선에서 사목을 시작한 장소를 건축으로 연결한 점을 보세요.",
+      "lookFor": "기념관 안의 강경 도착 관련 기록",
+      "forEveryone": "서로 멀리 떨어진 두 역사 현장을 복원 건축으로 잇는 방식입니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 강경 성당 안내: https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=4417&menugubun=holyplace"
+    },
+    {
+      "seq": 3,
+      "title": "경내 — 라파엘호 전시",
+      "location": "기념 공간",
+      "narration": "라파엘호는 김대건 신부 일행이 상하이에서 조선으로 돌아올 때 탄 배의 이름입니다. 강경성당에는 그 귀국 항해를 기억하는 배가 전시되어 있습니다. 배의 형태를 보며 황산포에 닿기까지 이어진 바닷길을 떠올려 보세요.",
+      "lookFor": "전시된 라파엘호의 선체 형태",
+      "forEveryone": "한 사람의 이동 경로를 실제 크기의 배 형상으로 설명하는 전시입니다.",
+      "photos": [],
+      "sourceNote": "가톨릭평화신문 강경본당 행사 기사: https://maria.catholic.or.kr/mobile/news/news_view.asp?seq=199505&tbcode=SEC01"
+    }
+  ],
+  "outro": {
+    "narration": "강경에서는 성당과 기념관, 라파엘호가 김대건 신부의 귀국과 첫 사목을 서로 다른 모습으로 전합니다.",
+    "photos": []
+  }
+}

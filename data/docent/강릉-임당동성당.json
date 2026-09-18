@@ -1,0 +1,48 @@
+{
+  "siteId": "5bc16668-2441-4f9d-a5c9-887ef00cde1e",
+  "siteName": "강릉 임당동성당",
+  "slug": "gangneung-imdangdong-church",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "강릉 임당동성당은 한국전쟁 뒤 완공된 강원 지역의 대표적인 성당 건축입니다. 종탑과 창, 외벽을 받치는 구조와 내부 몰딩을 나누어 살펴보겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "정면 — 뾰족한 종탑",
+      "location": "성당 정면",
+      "narration": "정면에서 높이 솟은 뾰족한 종탑을 보세요. 지붕 위 장식과 함께 수직선을 강조해 성당의 중심을 멀리서도 알아보게 합니다. 국가유산 설명은 이 종탑을 1950년대 강원 지역 성당 건축의 중요한 외관 요소로 꼽습니다.",
+      "lookFor": "종탑 꼭대기와 지붕 장식",
+      "forEveryone": "수직선으로 건물의 정면과 입구를 강조하는 설계입니다.",
+      "photos": [],
+      "sourceNote": "국가유산 디지털 서비스 강릉 임당동성당: https://digital.khs.go.kr/heri/heriDetail.do?ctptNo=4413204570000&ctptUid=13898859683116301483"
+    },
+    {
+      "seq": 2,
+      "title": "외벽 — 첨두형 아치 창과 부축벽",
+      "location": "성당 바깥쪽",
+      "narration": "옆면에서는 위가 뾰족한 아치 창을 따라 걸어보세요. 창 사이로 벽을 받치는 부축벽이 반복되어 긴 외벽에 리듬을 만듭니다. 창의 세로선과 부축벽이 함께 지붕의 무게를 안정적으로 보이게 합니다.",
+      "lookFor": "창 사이마다 돌출된 부축벽",
+      "forEveryone": "구조를 보강하는 부재가 외관의 반복 무늬가 된 사례입니다.",
+      "photos": [],
+      "sourceNote": "국가유산 디지털 서비스 강릉 임당동성당: https://digital.khs.go.kr/heri/heriDetail.do?ctptNo=4413204570000&ctptUid=13898859683116301483"
+    },
+    {
+      "seq": 3,
+      "title": "성당 안 — 몰딩 장식",
+      "location": "성당 안",
+      "narration": "내부에서는 벽과 천장 가장자리에 이어지는 몰딩을 살펴보세요. 바깥의 단단한 종탑과 부축벽에 비해 안쪽에는 정교한 장식선을 사용했습니다. 국가유산 설명은 이 내부 몰딩도 건물의 보존 가치를 보여 주는 요소로 평가합니다.",
+      "lookFor": "천장과 벽을 따라 이어지는 몰딩",
+      "forEveryone": "단순한 외관과 섬세한 내부 장식의 대비를 볼 수 있습니다.",
+      "photos": [],
+      "sourceNote": "국가유산 디지털 서비스 강릉 임당동성당: https://digital.khs.go.kr/heri/heriDetail.do?ctptNo=4413204570000&ctptUid=13898859683116301483"
+    }
+  ],
+  "outro": {
+    "narration": "임당동성당의 종탑, 아치 창, 부축벽과 내부 몰딩은 전후 강원 지역 성당 건축의 특징을 한 건물에서 보여 줍니다.",
+    "photos": []
+  }
+}
