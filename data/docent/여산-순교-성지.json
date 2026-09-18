@@ -1,0 +1,16 @@
+{
+  "siteId": "39141948-9d10-4b6d-977b-30474e748266",
+  "siteName": "여산 순교 성지",
+  "slug": "yeosan-sungyo-seongji",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "여산은 병인박해 뒤 여러 신자가 목숨을 잃은 순교 현장입니다. 숲정이의 야외제대와 십자가의 길, 여러 형장 흔적을 따라가 보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "숲정이 — 야외제대와 광장", "location": "숲정이 성지 중앙", "narration": "여산 본당은 옛 숲정이 부근의 땅을 매입해 야외제대와 광장을 마련했습니다. 주변에는 나무를 심어 사라진 숲의 모습을 되살리고자 했습니다. 지금의 공간은 들판으로 변한 옛 순교터를 기억하기 위한 재구성입니다.", "lookFor": "나무로 둘러싸인 야외제대와 중앙 광장", "forEveryone": "사라진 자연환경을 식재와 광장으로 다시 표현한 기억 공간입니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2376"},
+    {"seq": 2, "title": "순례길 — 십자가의 길 14처", "location": "성지 입구에서 이어지는 길", "narration": "성지에는 십자가의 길 열네 처가 마련되어 있습니다. 이 시설은 성지 입구 주차장과 화장실을 정비하던 시기에 함께 조성되었습니다. 각 처를 따라 걸으며 숲정이 순교터의 넓이를 몸으로 가늠할 수 있습니다.", "lookFor": "길을 따라 이어지는 열네 개의 표지", "forEveryone": "연속된 조형물이 방문자의 이동을 하나의 서사로 만듭니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2376"},
+    {"seq": 3, "title": "여산 감옥 터 — 수감과 고문의 현장", "location": "현재 시장 부근", "narration": "전주교구는 현재 시장 부근을 여산 감옥이 있던 자리로 설명합니다. 신자들은 이곳에 갇혀 고문과 굶주림을 겪으면서도 함께 기도하고 서로를 격려했습니다. 숲정이만이 아니라 감옥과 장터, 여산교 등 여산 곳곳이 박해의 현장이었습니다.", "lookFor": "감옥 터의 위치를 알리는 현장 표지", "forEveryone": "도시의 일상 공간 아래 겹쳐 있는 사법과 박해의 역사를 보여줍니다.", "photos": [], "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta06.php"},
+    {"seq": 4, "title": "탐방로 — 여러 순교터를 잇는 길", "location": "숲정이 일대 탐방로", "narration": "숲정이 일대에는 순례자가 걸을 수 있는 탐방로가 조성되어 있습니다. 여산의 순교는 한 지점이 아니라 감옥과 숲정이, 장터와 다리 주변에 걸쳐 일어났습니다. 이 길은 흩어진 사건의 장소들을 하나의 지역사로 이해하게 돕습니다.", "lookFor": "성지 일대를 연결하는 탐방로", "forEveryone": "흩어진 역사 현장을 보행 동선으로 묶어 이해하도록 만든 길입니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2376; https://www.jcatholic.or.kr/theme/main/pages/terrasanta06.php"}
+  ],
+  "outro": {"narration": "여산에서는 한 기념물보다 여러 형장과 길을 함께 볼 때 순교 역사의 범위가 드러납니다.", "photos": []}
+}

@@ -1,0 +1,15 @@
+{
+  "siteId": "dc218e5a-3218-4364-bc6d-4c5737122d53",
+  "siteName": "단내 성가정 성지",
+  "slug": "dannae-holy-family-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "단내 성가정 성지는 오래된 교우촌이자 김대건 신부님의 사목 활동지입니다. 성가정 광장과 순교자 광장, 와룡산 순례길을 차례로 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "성가정 광장 — 성가정상", "location": "아래쪽 큰 광장", "narration": "광장 중앙의 성가정상을 바라보세요. 이 상은 성가정 성지인 단내를 상징합니다. 이곳에서는 가정과 부부, 부모와 자녀를 위한 기도를 바칩니다.", "lookFor": "광장 중앙의 성가정상", "forEveryone": "가족 관계를 돌아보도록 마련한 상징 공간입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2319&ctxtOtherID=78&ctxtOtherMenu=MODIFY&ctxtSubMenu=other&curpage=1&menugubun=holyplace"},
+    {"seq": 2, "title": "순교자 광장 — 야외제단과 의묘", "location": "성가정 광장 위쪽", "narration": "위쪽 순교자 광장에는 돌 제대를 중심으로 야외제단이 마련되어 있습니다. 제단 앞에는 이천 출신 다섯 순교성인을 기념하는 의묘가 있습니다. 광장을 굽어보는 김대건 신부 성상도 함께 살펴보세요.", "lookFor": "돌 제대 앞에 놓인 다섯 순교성인의 의묘", "forEveryone": "실제 무덤이 아니라 다섯 순교자를 기억하도록 조성한 기념 묘역입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2319&ctxtOtherID=78&ctxtOtherMenu=MODIFY&ctxtSubMenu=other&curpage=1&menugubun=holyplace"},
+    {"seq": 3, "title": "와룡산 순례길 — 검은 바위와 굴바위", "location": "광장 뒤 산길", "narration": "와룡산 계곡과 능선을 잇는 순례길로 들어가 보세요. 길에는 박해받던 신자들의 은신처였던 검은 바위와 굴바위가 남아 있습니다. 정상의 예수성심상에서는 이문우 성인의 고향과 김대건 신부의 사목 경로를 조망할 수 있습니다.", "lookFor": "숲길에 이어지는 검은 바위와 굴바위", "forEveryone": "산의 지형이 박해를 피한 공동체의 피난처가 되었음을 보여줍니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2319&ctxtOtherID=78&ctxtOtherMenu=MODIFY&ctxtSubMenu=other&curpage=1&menugubun=holyplace; http://www.dannae.or.kr; https://directory.cbck.or.kr/m/sResultList.asp?gubun=16"}
+  ],
+  "outro": {"narration": "두 광장과 산길은 단내의 가족 신앙과 박해 시대 교우촌의 기억을 한데 잇습니다. 내려가는 길에는 방금 본 세 공간의 관계를 다시 떠올려 보세요.", "photos": []}
+}

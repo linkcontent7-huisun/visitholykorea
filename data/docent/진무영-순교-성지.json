@@ -1,0 +1,48 @@
+{
+  "siteId": "bf2a2782-a4b8-4238-be8b-70f1ef6202ac",
+  "siteName": "진무영 순교 성지",
+  "slug": "jinmuyeong-martyrs-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "진무영 순교 성지는 강화 성당 구내에 조성된 순교 기억의 장소입니다. 순교 성지 공간과 강화 성당, 마당의 노동사목 기념조형물을 살펴보시겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "마당 — 진무영 순교 성지",
+      "location": "강화 성당 구내",
+      "narration": "강화 본당은 2004년에 성당 구내에 진무영 순교 성지를 조성했습니다. 진무영은 해안 방어를 위해 설치된 군영이었고 천주교 신자들의 처형지가 되었습니다. 옛 진무영의 정확한 터는 확정되지 않았지만 강화 성당 부근으로 추정됩니다.",
+      "lookFor": "성당 구내에 마련된 순교 성지 표식",
+      "forEveryone": "정확한 유적 위치가 남지 않은 역사를 기념 공간으로 보존한 사례입니다.",
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2267 ; https://www.cbck.or.kr/koreanmartyrs/Shrines/80"
+    },
+    {
+      "seq": 2,
+      "title": "마당 안쪽 — 강화 성당",
+      "location": "성지 안쪽",
+      "narration": "진무영 순교 성지는 강화 성당 경내에 자리합니다. 주교회의 자료에도 강화 성당 경내에 조성된 성지로 소개되어 있습니다. 성당과 순교 기념 공간이 한 울타리 안에서 어떻게 이어지는지 살펴보세요.",
+      "lookFor": "순교 성지 뒤로 이어지는 강화 성당",
+      "forEveryone": "현재의 예배 공간 안에 과거 처형지의 기억을 함께 둔 장소입니다.",
+      "photos": [],
+      "sourceNote": "https://www.cbck.or.kr/koreanmartyrs/Shrines/80 ; https://directory.cbck.or.kr/m/mapInfo.asp?code=201008155&gubun=16&seq=001"
+    },
+    {
+      "seq": 3,
+      "title": "마당 — 노동사목 기념조형물",
+      "location": "성지 마당",
+      "narration": "마당에는 가톨릭 노동사목의 시작을 기억하는 표석과 기념조형물이 있습니다. 이 조형물은 심도직물 사건을 기억하기 위해 세웠다가 진무영 순교 성지 마당으로 옮겨졌습니다. 조형물에는 밀알 하나가 땅에 떨어져 맺는 열매를 말하는 성경 구절이 적혀 있습니다.",
+      "lookFor": "가톨릭 노동사목의 시작이라고 새긴 표석",
+      "forEveryone": "순교사뿐 아니라 강화 지역 노동운동의 기억도 함께 만나는 기념물입니다.",
+      "photos": [],
+      "sourceNote": "https://www.ice.go.kr/upload/ice/na/bbs_1482/2025/03/b45acab57e549ecd642faf8c7068cb16.pdf"
+    }
+  ],
+  "outro": {
+    "narration": "진무영 순교 성지는 정확한 옛터를 단정하지 않으면서도 강화의 순교와 노동사목 역사를 함께 기억합니다. 성당 마당의 서로 다른 기념물을 차분히 비교해 보세요.",
+    "photos": []
+  }
+}

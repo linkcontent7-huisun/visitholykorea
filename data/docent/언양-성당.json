@@ -1,0 +1,15 @@
+{
+  "siteId": "01e2aafd-7c1f-4c16-a9ee-870114adbe88",
+  "siteName": "언양 성당",
+  "slug": "eonyang-seongdang",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "언양 성당은 부산교구의 초기 본당 역사를 간직한 고딕식 석조 성당입니다. 성당 건물과 옛 사제관, 제대 뒤 성상들을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "성당 외관 — 고딕식 석조 건물", "location": "성당 앞마당", "narration": "언양 성당은 부산교구에서 유일한 석조 성당으로 소개됩니다. 1928년 기공한 뒤 1932년에 완공했고, 1936년에 봉헌식을 가졌습니다. 현재 성당과 옛 사제관은 함께 등록문화재로 지정되어 있습니다.", "lookFor": "돌로 쌓은 고딕식 성당 외관", "forEveryone": "지역 신자들이 오랜 기간 힘을 모아 완성한 근대 석조 건축입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2328&menugubun=holyplace; https://www.catholicbusan.or.kr/holyland/7"},
+    {"seq": 2, "title": "구 사제관 — 신앙유물 전시관", "location": "성당 곁 옛 사제관", "narration": "성당 옆 구 사제관은 현재 신앙유물 전시관으로 사용됩니다. 굿뉴스는 이 건물과 성당이 함께 근대문화유산으로 지정되었다고 설명합니다. 예전 사제의 생활 공간이 지역 신앙사를 보여주는 전시 공간으로 바뀐 셈입니다.", "lookFor": "성당과 함께 남아 있는 구 사제관", "forEveryone": "주거 건물을 전시관으로 전환해 공동체의 자료를 보존한 곳입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2328&menugubun=holyplace"},
+    {"seq": 3, "title": "성당 내부 — 제대 뒤 세 성상", "location": "성당 안 제대 앞", "narration": "제대 뒤에는 성모자상과 성부상, 성 요셉상이 나란히 서 있습니다. 내부는 성상들이 돋보이도록 단순하게 구성되어 있습니다. 바깥의 석조 외관과 안쪽의 절제된 공간을 함께 비교해 보세요.", "lookFor": "제대 뒤에 놓인 성모자상·성부상·성 요셉상", "forEveryone": "세 성상의 배치가 예배 공간의 중심축을 또렷하게 만듭니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2328&menugubun=holyplace"}
+  ],
+  "outro": {"narration": "석조 성당과 옛 사제관이 함께 남아 언양 공동체의 건축과 생활사를 전합니다.", "photos": []}
+}

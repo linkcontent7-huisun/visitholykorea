@@ -1,0 +1,15 @@
+{
+  "siteId": "ba46ee91-7cc8-4517-a079-04ad83235365",
+  "siteName": "당고개순교성지",
+  "slug": "danggogae-martyrs-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "당고개순교성지는 기해박해 순교자들을 기억하는 서울의 순례지입니다. 성당과 제대 뒤 부조, 전시관에서 이곳의 순교 이야기를 만나보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "성당 — 순교성지의 예배 공간", "location": "성지 안 성당", "narration": "성지 안 성당부터 바라보세요. 이곳은 당고개 순교자들을 기억하며 미사를 봉헌하는 공간입니다. 주교회의 주소록에는 당고개 순교성지가 서울대교구 소속이며 이 자리의 대표 주소도 확인됩니다.", "lookFor": "성당의 제대 방향", "forEveryone": "역사적 순교 터를 오늘의 예배 공간으로 이어 놓은 곳입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/board/board_view.asp?Mode=&RecHostcle=&bbscount=27&bbsgubun=pds&ctxtOrgNum=2288&ctxtSubMenu=pds&id=46039&infogubun=org&infoid=2288&menugubun=holyplace&orggubun=71; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201007059&gubun=4"},
+    {"seq": 2, "title": "제대 뒤 — 순교자 청동 부조", "location": "성당 제대 뒤", "narration": "제대 뒤의 청동 부조를 살펴보세요. 이 작품에는 당고개의 열 명 순교자와 한복을 입은 예수님이 함께 표현되어 있습니다. 순교자 한 사람 한 사람이 같은 장면 안에 놓인 구성을 눈여겨보세요.", "lookFor": "열 명의 순교자와 한복 차림 예수님", "forEveryone": "지역의 역사 인물을 한국적 성화로 표현한 작품입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2288&menugubun=holyplace"},
+    {"seq": 3, "title": "전시관 — 성인·복자화", "location": "성당 옆", "narration": "성당 옆 전시관으로 가보세요. 전시관에는 천국과 순교를 표현한 그림들이 있습니다. 당고개 순교자들의 성인화와 복자화, 복녀 이성례의 일생을 보여주는 작품도 전시되어 있습니다.", "lookFor": "복녀 이성례의 일생을 보여주는 작품", "forEveryone": "그림을 통해 순교자 개인의 생애를 읽을 수 있는 전시 공간입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/board/board_view.asp?Mode=&RecHostcle=&bbscount=27&bbsgubun=pds&ctxtOrgNum=2288&ctxtSubMenu=pds&id=46039&infogubun=org&infoid=2288&menugubun=holyplace&orggubun=71; https://danggogae.org"}
+  ],
+  "outro": {"narration": "성당의 부조와 전시관 작품은 당고개 순교자들을 얼굴과 이야기로 기억하게 합니다. 성지를 나서기 전 각 인물의 표정을 한 번 더 바라보세요.", "photos": []}
+}

@@ -1,0 +1,48 @@
+{
+  "siteId": "3c763a79-530c-422d-ba10-3e6aeda82324",
+  "siteName": "죽림동 순교 성지",
+  "slug": "jukrimdong-martyrs-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "죽림동 순교 성지는 한국전쟁 때 희생된 성직자들을 기억하는 교구 성직자 묘역입니다. 실제 유해가 안장된 묘와 유해를 모시지 못한 가묘, 현양 십자가를 차례로 살펴보시겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "묘역 — 세 순교 사제의 묘",
+      "location": "성직자 묘역",
+      "narration": "이 묘역에는 고 안토니오 신부와 라 파트리치오 신부, 진 야고보 신부의 유해가 안장되어 있습니다. 세 사람은 한국전쟁을 겪으며 희생된 성 골롬반 외방선교회 사제들입니다. 비석의 이름을 보며 이곳에 실제로 모셔진 세 사람을 구분해 보세요.",
+      "lookFor": "유해가 안장된 세 순교 사제의 이름",
+      "forEveryone": "한국전쟁이 외국인 선교사들에게도 남긴 희생을 보여 주는 묘역입니다.",
+      "photos": [],
+      "sourceNote": "https://www.cccatholic.or.kr/parish/holyland/21 ; https://www.cccatholic.or.kr/news/media/13874"
+    },
+    {
+      "seq": 2,
+      "title": "묘역 — 네 순교 사제의 가묘",
+      "location": "성직자 묘역",
+      "narration": "북한 지역에서 순교하여 유해를 모시지 못한 네 사제의 가묘도 조성되어 있습니다. 백응만, 김교명, 이광재, 손 프란치스코 신부를 기억하는 자리입니다. 실제 매장묘와 가묘가 함께 놓인 까닭을 안내문과 함께 확인해 보세요.",
+      "lookFor": "가묘에 새겨진 네 사제의 이름",
+      "forEveryone": "시신을 수습하지 못한 전쟁 희생자를 상징적으로 추모하는 공간입니다.",
+      "photos": [],
+      "sourceNote": "https://www.cccatholic.or.kr/parish/holyland/21 ; https://www.cccatholic.or.kr/news/media/13874"
+    },
+    {
+      "seq": 3,
+      "title": "묘역 옆 — 현양 십자가",
+      "location": "묘역 옆",
+      "narration": "묘역 옆에는 순교자를 현양하고 민족의 화해와 통일을 기원하는 나무 십자가가 서 있습니다. 이 십자가는 철원 월정리역에서 열린 민족의 화해와 일치를 위한 기도의 날 전국대회 때 제단에 설치되었던 것입니다. 전쟁의 기억과 화해의 바람을 한 자리에서 보여 주는 상징입니다.",
+      "lookFor": "묘역 곁의 나무 십자가",
+      "forEveryone": "전쟁 희생을 기억하면서 화해를 바라는 뜻을 담은 기념물입니다.",
+      "photos": [],
+      "sourceNote": "https://www.cccatholic.or.kr/news/media/9030?page=166 ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201008899&gubun=16"
+    }
+  ],
+  "outro": {
+    "narration": "이 묘역은 실제 묘와 가묘를 함께 두어 전쟁으로 흩어진 희생을 기억합니다. 비석과 십자가에 남은 이름을 되새기며 성당 쪽으로 돌아가세요.",
+    "photos": []
+  }
+}

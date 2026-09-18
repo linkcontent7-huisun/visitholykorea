@@ -1,0 +1,58 @@
+{
+  "siteId": "a8f9d7a8-a375-4bc5-8544-23f3eddbb08a",
+  "siteName": "종로 성당",
+  "slug": "jongno-catholic-church",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "종로 성당은 조선 시대 포도청과 여러 관청의 순교 역사를 기억하는 순례지 성당입니다. 성전과 지하 현양관을 차례로 보며 도심 한복판에 남은 신앙 증거의 흔적을 살펴보시겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "성전 — 포도청 순례지 성당",
+      "location": "성당 안",
+      "narration": "이 성당은 2013년에 포도청 순례지 성당으로 지정되었습니다. 현재 성전은 본당의 세 번째 성전으로 1987년에 봉헌되었습니다. 주변의 좌우 포도청과 의금부, 전옥서 같은 옛 관청에서 신앙을 증거한 이들을 기억하는 출발점입니다.",
+      "lookFor": "도심 순례의 출발점이 되는 성전 공간",
+      "forEveryone": "이곳은 종로의 관청 역사와 종교 박해의 기억을 함께 살펴보는 장소입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jongnocc.or.kr/ ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201007514&gubun=16"
+    },
+    {
+      "seq": 2,
+      "title": "지하 — 포도청 순교자 현양관",
+      "location": "성당 지하",
+      "narration": "지하에는 포도청 옥터 순교자 현양관이 마련되어 있습니다. 포도청에서 순교한 성인들과 전옥서에서 순교한 성인들, 순교 복자들의 기록물이 전시되어 있습니다. 다른 처형지에서 순교한 증거자들의 자료도 함께 볼 수 있습니다.",
+      "lookFor": "순교자와 증거자의 기록물",
+      "forEveryone": "기록과 전시를 통해 당시의 사법 기관과 박해의 관계를 이해할 수 있습니다.",
+      "photos": [],
+      "sourceNote": "https://www.jongnocc.or.kr/15 ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201007514&gubun=16"
+    },
+    {
+      "seq": 3,
+      "title": "성전 — 파이프 오르간",
+      "location": "성전 안",
+      "narration": "성전에는 2010년 리모델링 때 설치한 정통 파이프 오르간이 있습니다. 본당 신자들의 봉헌으로 성전 내부를 단장하면서 함께 마련한 악기입니다. 예배 공간의 역사와 공동체가 성전을 가꾸어 온 시간을 보여 줍니다.",
+      "lookFor": "성전 안의 파이프 오르간",
+      "forEveryone": "파이프 오르간은 이 성전의 예배와 음악 전통을 보여 주는 시설입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jongnocc.or.kr/"
+    },
+    {
+      "seq": 4,
+      "title": "마당 — 마리아 정원",
+      "location": "성당 마당",
+      "narration": "성당에는 2010년 리모델링으로 마련한 마리아 정원이 있습니다. 성전 내부를 단장하고 파이프 오르간을 설치한 시기에 함께 조성되었습니다. 실내의 순교 기록을 본 뒤 바깥에서 성당 공동체의 기도 공간을 이어서 살펴보세요.",
+      "lookFor": "성당에 조성된 마리아 정원",
+      "forEveryone": "도심 성당 안에 마련된 작은 정원 공간입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jongnocc.or.kr/"
+    }
+  ],
+  "outro": {
+    "narration": "종로 성당은 현양관의 기록과 성전의 현재가 한곳에 이어지는 순례지입니다. 밖으로 나가면 포도청 순례길을 따라 주변의 옛 관청 터까지 이어서 살펴볼 수 있습니다.",
+    "photos": []
+  }
+}

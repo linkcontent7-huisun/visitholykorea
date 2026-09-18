@@ -1,0 +1,15 @@
+{
+  "siteId": "c52027a2-f320-4f54-95b3-e64856dddb4c",
+  "siteName": "범어 주교좌대성당",
+  "slug": "beomeo-cathedral",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "범어 주교좌대성당은 대구대교구의 주교좌 성당입니다. 대성전의 스테인드글라스와 종탑, 성예술 공간을 중심으로 둘러보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "대성전 — 스테인드글라스", "location": "대성전 1층", "narration": "대성전의 스테인드글라스를 살펴보세요. 성당 공식 홈페이지는 1층 스테인드글라스를 별도의 성예술 항목으로 소개합니다. 여러 창을 따라 이어지는 색과 장면을 차례로 비교해 보세요.", "lookFor": "1층 창을 따라 이어지는 스테인드글라스", "forEveryone": "빛과 색을 이용해 실내 공간에 이야기를 더하는 유리 예술입니다.", "photos": [], "sourceNote": "https://www.besd.kr/sub/cat_100th_art_1.php"},
+    {"seq": 2, "title": "종탑 — 닭 형상", "location": "대성전 종탑 위", "narration": "종탑 꼭대기의 닭 형상을 찾아보세요. 대구대교구 자료는 이 닭을 베드로의 부인과 회개를 떠올리게 하는 상징으로 설명합니다. 높은 곳에 놓인 작은 형상이 성당 전체의 메시지를 마무리합니다.", "lookFor": "종탑 위에 선 닭 형상", "forEveryone": "닭은 잘못을 깨닫고 돌이키는 순간을 상징합니다.", "photos": [], "sourceNote": "https://www.daegu-archdiocese.or.kr/_data/pdfview/golden_newspaper_66.pdf; https://www.besd.kr/sub/cat_100th_art_1.php"},
+    {"seq": 3, "title": "성예술 공간 — 조각상", "location": "대성전 내부", "narration": "성당 안의 조각상도 살펴보세요. 공식 홈페이지는 대주교가 기증한 조각상을 별도의 성예술 항목으로 안내합니다. 건축과 스테인드글라스뿐 아니라 입체 작품도 대성전의 예술 구성을 이룹니다.", "lookFor": "대주교 기증 조각상", "forEveryone": "기증 작품이 공동체의 예배 공간 안에서 보존되는 사례입니다.", "photos": [], "sourceNote": "https://www.besd.kr/sub/cat_100th_art_1.php; https://directory.cbck.or.kr/OnlineAddress/Catholic/DetailInfo.aspx?cgubn=g&char=all&code=201000814&gubn=4&gubn2=all&gyogu=201000021"}
+  ],
+  "outro": {"narration": "스테인드글라스와 조각상, 종탑의 상징은 범어대성당의 성예술을 서로 다른 높이에서 보여줍니다. 밖으로 나가 종탑까지 다시 한눈에 담아보세요.", "photos": []}
+}

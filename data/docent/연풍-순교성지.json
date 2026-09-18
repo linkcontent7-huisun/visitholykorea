@@ -1,0 +1,16 @@
+{
+  "siteId": "4b1bd009-94ca-4cc5-8217-8c3b6b5491c7",
+  "siteName": "연풍 순교성지",
+  "slug": "yeonpung-sungyo-seongji",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "연풍은 황석두 루카 성인의 고향이자 묘가 모셔진 순교성지입니다. 옛 향청에서 성인의 묘와 다섯 성인상, 기념성당을 만나보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "옛 향청 — 순교터에서 발견된 형구돌", "location": "성지 안 옛 향청 건물", "narration": "이 건물은 공소로 쓰기 위해 매입한 연풍의 옛 향청입니다. 주변을 정리하는 과정에서 형구돌이 발견되며 이곳이 순교터였음이 알려졌습니다. 이후 향청은 복원되어 연풍 성지의 오래된 중심 공간이 되었습니다.", "lookFor": "복원된 옛 향청 건물", "forEveryone": "행정 건물이 종교 박해의 흔적을 간직한 문화유산으로 전환된 사례입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2338&menugubun=holyplace; https://www.cdcj.or.kr/parish/holyland/13"},
+    {"seq": 2, "title": "묘소 — 황석두 루카 성인", "location": "성지 안 성인 묘역", "narration": "황석두 루카 성인의 유해는 고향 병방골에서 발견되었습니다. 잠시 수안보 본당에 모셨다가 1982년 연풍 성지로 옮겨 안장했습니다. 성인의 고향과 안식처가 한 지역 안에서 이어지는 묘소입니다.", "lookFor": "황석두 루카 성인의 묘", "forEveryone": "유해의 발견과 이장이 지역의 역사적 정체성을 되찾은 과정입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2338&menugubun=holyplace; https://www.cdcj.or.kr/parish/holyland/13"},
+    {"seq": 3, "title": "오성바위 — 다섯 성인상과 반석", "location": "성지 마당", "narration": "이곳에는 갈매못에서 함께 순교한 다섯 성인의 상이 세워져 있습니다. 다블뤼 주교와 위앵·오메트르 신부, 장주기 회장, 황석두 루카를 한자리에서 기억합니다. 성인상 곁에는 반석을 재현한 오성바위가 있습니다.", "lookFor": "다섯 성인상과 오성바위", "forEveryone": "함께 죽음을 맞은 다섯 인물을 집단 조형물로 기념합니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2338&menugubun=holyplace"},
+    {"seq": 4, "title": "기념성당 — 황석두 탄생 200주년", "location": "성지 안 기념성당", "narration": "이 성당은 황석두 루카 성인 탄생 200주년을 기념해 세워졌습니다. 2014년 9월에 봉헌되었고 성당과 소성당, 집무실과 사무실을 갖추고 있습니다. 옛 향청과 나란히 연풍 성지의 현재 모습을 이루는 건물입니다.", "lookFor": "기념성당의 종탑과 외관", "forEveryone": "오래된 순교터에 현대 기념 건축이 더해진 시간의 층위를 보여줍니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2338&menugubun=holyplace"}
+  ],
+  "outro": {"narration": "옛 향청과 성인 묘, 현대 기념성당이 연풍의 순교 기억이 발견되고 보존된 과정을 전합니다.", "photos": []}
+}

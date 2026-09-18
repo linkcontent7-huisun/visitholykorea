@@ -1,0 +1,16 @@
+{
+  "siteId": "6aad7554-cb1e-4211-af58-3316ba8f1be2",
+  "siteName": "목포 산정동 순교자기념성당",
+  "slug": "mokpo-sanjeongdong-martyrs-church",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "산정동 성당 일대는 광주대교구의 첫 본당이자 한국 레지오 마리애의 발상지입니다. 성당과 기념비, 역사박물관과 기념관을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "성지 마당 — 산정동 성당", "location": "입구 오른쪽", "narration": "입구에서 오른쪽의 산정동 성당을 바라보세요. 산정동 본당은 광주대교구의 첫 본당으로 소개됩니다. 이곳은 한국에 레지오 마리애가 처음 도입된 자리이기도 합니다.", "lookFor": "입구 오른쪽 성당 건물", "forEveryone": "지역 교회의 시작과 평신도 신심 운동의 출발이 겹치는 장소입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2834&menugubun=holyplace; https://www.gjcatholic.or.kr/holyland/martyr/6"},
+    {"seq": 2, "title": "성모상 곁 — 성직자 순교비", "location": "성당 마당 성모상 옆", "narration": "성모상 옆의 순교비를 찾아보세요. 이 비는 한국전쟁 때 순교한 브렌난 몬시뇰과 본당 신부들을 기억합니다. 산정동 성당의 순교 기억이 한 기념물에 새겨져 있습니다.", "lookFor": "성모상 옆에 세운 순교비", "forEveryone": "전쟁 중 목숨을 잃은 성직자들을 기억하는 기념비입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2834&menugubun=holyplace"},
+    {"seq": 3, "title": "옛 교구청 — 역사박물관", "location": "성당 인근 옛 교구청 건물", "narration": "옛 교구청 건물은 현재 가톨릭 목포성지 역사박물관으로 쓰입니다. 이 건물은 근대문화유산 등록문화재로 소개됩니다. 복원과 보수를 거쳐 성지의 역사를 전하는 공간으로 다시 문을 열었습니다.", "lookFor": "옛 교구청 건물의 외관", "forEveryone": "행정 건물을 보존해 지역 종교사를 보여주는 박물관으로 활용합니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2834&menugubun=holyplace; https://directory.cbck.or.kr/m/sResultList.asp?gubun=16"},
+    {"seq": 4, "title": "입구 왼쪽 — 한국 레지오 마리애 기념관", "location": "성지 입구 왼쪽", "narration": "입구 왼쪽의 한국 레지오 마리애 기념관을 보세요. 기념관에는 전시관이 마련되어 있습니다. 산정동에서 시작된 한국 레지오 마리애의 역사를 이곳에서 확인할 수 있습니다.", "lookFor": "성당과 마주 선 기념관", "forEveryone": "한국 평신도 운동의 역사를 보존하고 전시하는 시설입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2834&menugubun=holyplace; https://maria.catholic.or.kr/sa_ho/board/board_view.asp?bbsgubun=pds&id=51797&infogubun=org&infoid=2834&menugubun=holyplace&orggubun=71"}
+  ],
+  "outro": {"narration": "성당과 순교비, 두 기념 시설은 산정동의 본당 역사와 순교, 레지오 마리애의 시작을 함께 전합니다. 입구에서 네 공간의 배치를 다시 살펴보세요.", "photos": []}
+}

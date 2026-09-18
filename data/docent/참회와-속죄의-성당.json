@@ -1,0 +1,58 @@
+{
+  "siteId": "3ea6ffbd-fb98-4331-b9b0-8cbc876d1ebe",
+  "siteName": "참회와 속죄의 성당",
+  "slug": "repentance-and-atonement-church",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "참회와 속죄의 성당은 한반도의 화해와 일치를 위해 세운 성당이며 북한 지역 순교자 기념 순례지입니다. 북녘 성당을 재현한 외관과 내부 공간, 남북 미술가가 함께 완성한 모자이크를 살펴보시겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "마당 — 진사동 성당을 재현한 외관",
+      "location": "성당 마당",
+      "narration": "성당 외형은 평안북도 신의주에 있던 진사동 성당의 모습을 재현했습니다. 남아 있던 사진과 자료를 바탕으로 북녘 성당의 형태를 되살렸습니다. 한반도 분단으로 직접 가기 어려운 건축의 기억을 이곳에서 마주하게 됩니다.",
+      "lookFor": "진사동 성당을 본뜬 외관",
+      "forEveryone": "사라지거나 접근하기 어려운 건축을 재현해 기억하는 사례입니다.",
+      "photos": [],
+      "sourceNote": "https://sd.uca.or.kr/chamsok/default?mnucd=20002301 ; https://jubo.ucatholic.or.kr/files/20181022153758.pdf"
+    },
+    {
+      "seq": 2,
+      "title": "성전 — 덕원 수도원 대성당을 재현한 내부",
+      "location": "성전 안",
+      "narration": "성당 내부는 함경남도 덕원에 있던 성 베네딕도 수도원 대성당을 재현했습니다. 외관은 신의주, 내부는 덕원의 기억을 한 건물 안에 모았습니다. 서로 다른 북녘 교회 건축이 한 공간에서 이어지는 구성을 살펴보세요.",
+      "lookFor": "덕원 수도원 대성당을 본뜬 내부 구조",
+      "forEveryone": "분단으로 갈라진 장소들의 기억을 하나의 건축 안에 합친 공간입니다.",
+      "photos": [],
+      "sourceNote": "https://sd.uca.or.kr/chamsok/default?mnucd=20002301 ; https://jubo.ucatholic.or.kr/files/20181022153758.pdf"
+    },
+    {
+      "seq": 3,
+      "title": "제대 위 — 유리 모자이크",
+      "location": "제대 위 반원형 벽",
+      "narration": "제대 위 반원형 공간에는 유리 모자이크가 펼쳐져 있습니다. 서울대교구 이콘연구소가 밑그림을 그리고 평양 만수대 창작사 소속 작가들이 제작에 참여했습니다. 예수 그리스도와 남북의 성인들을 담은 화면에서 남북 협업의 흔적을 찾아보세요.",
+      "lookFor": "예수 그리스도와 성인들이 표현된 유리 조각",
+      "forEveryone": "남과 북의 미술가들이 역할을 나누어 만든 공동 작품입니다.",
+      "photos": [],
+      "sourceNote": "https://sd.uca.or.kr/chamsok/default?mnucd=20002301 ; https://www.daegu-archdiocese.or.kr/_data/pdfview/golden_newspaper_58.pdf"
+    },
+    {
+      "seq": 4,
+      "title": "성전 — 남북 대표 성인들",
+      "location": "제대 위 모자이크 앞",
+      "narration": "모자이크에는 예수님을 중심으로 남과 북을 대표하는 여덟 성인이 표현되어 있습니다. 김대건 안드레아 신부와 정하상 바오로를 비롯한 순교 성인들의 모습이 좌우에 배치되어 있습니다. 인물들이 한 화면 안에서 어떻게 서로 마주하는지 살펴보세요.",
+      "lookFor": "예수님 좌우에 배치된 여덟 성인",
+      "forEveryone": "종교 인물의 배열을 통해 분단을 넘어선 공동체를 상징합니다.",
+      "photos": [],
+      "sourceNote": "https://www.daegu-archdiocese.or.kr/_data/pdfview/golden_newspaper_58.pdf ; https://sd.uca.or.kr/chamsok/default?mnucd=20002301"
+    }
+  ],
+  "outro": {
+    "narration": "이 성당은 북녘 교회 건축의 기억과 남북 미술가의 협업을 한 공간에 담았습니다. 외관과 내부, 모자이크가 각각 어떤 장소와 사람을 이어 주는지 다시 떠올려 보세요.",
+    "photos": []
+  }
+}

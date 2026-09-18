@@ -1,0 +1,15 @@
+{
+  "siteId": "e6ea8590-c9fa-4894-9a96-e9bc8718c9e7",
+  "siteName": "대정성지 (정난주 마리아 묘)",
+  "slug": "daejeong-jeong-nanju-maria-tomb",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "대정성지는 제주 유배 생활을 신앙으로 견딘 정난주 마리아의 묘가 있는 곳입니다. 입구의 성모자상에서 묘와 십자가의 길까지 걸어보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "입구 — 평화의 성모자상", "location": "아치형 돌담 입구", "narration": "아담한 아치형 돌담 옆의 성모자상을 먼저 보세요. 한복을 입은 성모자상이 순례자를 맞이합니다. 제주 돌담과 한국식 옷차림이 한 장면을 이루는 입구입니다.", "lookFor": "한복을 입은 성모자상", "forEveryone": "지역 재료와 한국적 복식으로 성모자상을 표현했습니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/board/board_view.asp?bbsgubun=pds&id=77177&infogubun=org&infoid=2368&menugubun=holyplace&orggubun=71"},
+    {"seq": 2, "title": "묘역 — 정난주 마리아의 묘", "location": "잔디밭 너머", "narration": "잔디밭 너머 큰 십자가 아래의 묘를 바라보세요. 이곳이 정난주 마리아의 묘입니다. 묘비와 함께 조성된 묘역은 대정성지의 중심입니다.", "lookFor": "큰 십자가 아래 묘와 묘비", "forEveryone": "제주에서 유배 생활을 마친 한 여성의 삶을 기억하는 묘역입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2368&ctxtSubMenu=album&menugubun=holyplace; https://www.diocesejeju.or.kr/holy_02"},
+    {"seq": 3, "title": "잔디밭 둘레 — 십자가의 길", "location": "묘역 둘레", "narration": "잔디밭 둘레를 따라 놓인 십자가의 길을 보세요. 열네 처가 묘역을 감싸듯 이어집니다. 각 처를 따라 걸으면 입구와 정난주 마리아의 묘가 하나의 순례 동선으로 연결됩니다.", "lookFor": "잔디밭 둘레의 십자가의 길 14처", "forEveryone": "예수의 수난을 열네 장면으로 따라가는 전통적인 기도 길입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/board/board_view.asp?bbsgubun=pds&id=77177&infogubun=org&infoid=2368&menugubun=holyplace&orggubun=71; https://directory.cbck.or.kr/m/sResultList.asp?gubun=16"}
+  ],
+  "outro": {"narration": "제주 돌담과 성모자상, 묘와 십자가의 길이 정난주 마리아의 유배와 신앙을 한 자리에서 전합니다. 나가는 길에는 입구의 성모자상을 다시 바라보세요.", "photos": []}
+}

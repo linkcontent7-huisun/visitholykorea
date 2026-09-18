@@ -1,0 +1,15 @@
+{
+  "siteId": "800a92cf-7894-484b-a1b8-ed426e8e3509",
+  "siteName": "신나무골 성지",
+  "slug": "sinnamugol-seongji",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "신나무골은 박해 시대 교우촌이자 대구교회의 첫 본당이 시작된 자리입니다. 한옥 성당과 옛 사제관, 이선이 엘리사벳의 묘를 차례로 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "성당 — 첫 한옥 성당의 재현", "location": "성지 안 한옥 성당", "narration": "이 한옥 성당은 로베르 신부가 계산동에 세웠던 첫 한옥 성당의 모습을 되살린 건물입니다. 신나무골이 대구 본당의 출발점이었다는 역사를 건축으로 보여줍니다. 2019년 5월에 새 성당 봉헌식이 거행되었습니다.", "lookFor": "한옥으로 재현한 성당 외관", "forEveryone": "사라진 초기 성당의 형태를 오늘의 건물로 되살린 역사 재현 공간입니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2252"},
+    {"seq": 2, "title": "묘역 — 이선이 엘리사벳의 묘", "location": "성지 입구 쪽 묘역", "narration": "이곳에는 순교자 이선이 엘리사벳의 유해가 모셔져 있습니다. 한티에서 순교한 뒤 다른 곳에 묻혔던 유해를 1984년 신나무골로 옮겨 안장했습니다. 묘는 이 성지가 품은 박해 시대의 기억을 직접 보여주는 자리입니다.", "lookFor": "이선이 엘리사벳의 묘와 묘비", "forEveryone": "한 사람의 매장과 이장 과정이 지역 공동체의 기억 보존 과정을 전합니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2252; https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2252&ctxtSubMenu=album&menugubun=holyplace"},
+    {"seq": 3, "title": "옛 사제관 — 로베르 신부의 초가", "location": "성당 주변 초가", "narration": "초가 형태의 옛 사제관은 로베르 신부가 신나무골에서 활동하던 시기를 기억하게 합니다. 그는 1885년 이곳에 사제관을 짓고 정착해 이듬해 대구 본당을 설립했습니다. 교구 공식 기록에도 이 초가 앞에서 행사가 열린 장소로 확인됩니다.", "lookFor": "초가 지붕을 얹은 옛 사제관", "forEveryone": "지역 선교의 거점이 된 생활 공간을 복원한 건물입니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2252; https://www.daegu-archdiocese.or.kr/page/arch.html?gotopage=18&idx=255525&process=read&searchPart=&searchStr=&sections=move&srl=archmove&sub_category=arch"}
+  ],
+  "outro": {"narration": "한옥 성당과 초가 사제관, 순교자의 묘가 신나무골의 서로 다른 시대를 한자리에 이어 줍니다.", "photos": []}
+}
