@@ -2,9 +2,7 @@ import type { ReactNode } from 'react';
 import { useState } from 'react';
 import {
   ChevronRight,
-  Footprints,
   Globe,
-  Map as MapIcon,
   Smartphone,
   Info,
   LogIn,
@@ -17,7 +15,7 @@ import {
   User,
   type LucideIcon,
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useAdminAccess } from '@/features/admin/hooks/use-admin';
 import { signOut } from '@/features/auth/api/auth';
@@ -68,6 +66,8 @@ interface MenuItem {
    * 마크업이 깨지고 키보드 조작도 어긋난다.
    */
   control?: ReactNode;
+  /** PC 에서는 감춘다 — 「홈 화면에 추가」는 휴대폰에서만 의미가 있다 */
+  mobileOnly?: boolean;
 }
 
 export default function MenuPage() {
@@ -91,36 +91,21 @@ export default function MenuPage() {
   // 「홈화면 추가」(설치 + 링크 공유)는 이제 시트 하나로 — 하단 탭 넷째 자리와 같은 것
   const [installSheetOpen, setInstallSheetOpen] = useState(false);
 
-  /**
-   * 맨 위 「전체 서비스」 — 하단 탭에 이미 있는 홈·성지 찾기·기록·성지 일정과 축제는
-   * 빼고, 탭에 없는 화면(순례 코스·전국 분포 개요·홈 화면 추가)만 둔다(사장님 지적,
-   * 2026-09-18) — 하단 탭과 겹치는 4개를 여기 또 늘어놓을 이유가 없었다.
-   */
-  const services: {
-    id: string;
-    icon: LucideIcon;
-    label: string;
-    to?: string;
-    onClick?: () => void;
-    /** PC 에서는 감춘다 — 「홈 화면에 추가」는 휴대폰에서만 의미가 있다 */
-    mobileOnly?: boolean;
-  }[] = [
-    { id: 'routes', icon: Footprints, label: t('routesTitle'), to: paths.routes },
-    { id: 'map', icon: MapIcon, label: t('mapOverviewTitle'), to: paths.map },
-    {
-      id: 'install',
-      icon: Smartphone,
-      label: t('installTab'),
-      onClick: () => setInstallSheetOpen(true),
-      mobileOnly: true,
-    },
-  ];
-
   // 「계정 설정」 절은 없앴다(2026-09-18) — 프로필 카드의 톱니바퀴 단추(`/account`)로 옮겼다.
   const sections: { title: string; items: MenuItem[] }[] = [
     {
       title: t('appSettings'),
       items: [
+        // 「전체 서비스」 절을 통째로 없애면서(사장님 지적, 2026-09-18) 그 안에 있던
+        // 「홈 화면 추가」만 앱 설정 맨 위로 옮겼다 — 순례 코스는 홈의 「모두 보기」,
+        // 전국 분포 개요는 지역 랜딩 화면에 각자 다른 입구가 이미 있어 잃는 게 없다.
+        {
+          id: 'install',
+          icon: Smartphone,
+          label: t('installTab'),
+          onClick: () => setInstallSheetOpen(true),
+          mobileOnly: true,
+        },
         {
           id: 'lang',
           icon: Globe,
@@ -242,47 +227,6 @@ export default function MenuPage() {
         </div>
       </div>
 
-      {/* 전체 서비스 — 아이콘 옆에 이름, 4열(PC 6열) */}
-      <section>
-        <h1 className="mb-4 font-display text-[1.625rem] leading-tight text-app-text lg:text-3xl">
-          {t('allServices')}
-        </h1>
-        <ul className="grid grid-cols-4 gap-2 lg:grid-cols-6" id="all-services">
-          {services.map((svc) => {
-            const inner = (
-              <>
-                <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-soft text-brand-blue">
-                  <svc.icon size={22} aria-hidden />
-                </span>
-                <span className="text-center text-sm font-bold leading-tight text-app-text">
-                  {svc.label}
-                </span>
-              </>
-            );
-            const cls =
-              'flex min-h-[88px] w-full flex-col items-center justify-center gap-1.5 rounded-lg border border-app-border bg-white px-1 py-3 transition-colors hover:border-brand-blue';
-            return (
-              <li key={svc.id} className={svc.mobileOnly ? 'lg:hidden' : undefined}>
-                {svc.to ? (
-                  <Link to={svc.to} className={cls} id={`service-${svc.id}`}>
-                    {inner}
-                  </Link>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={svc.onClick}
-                    className={cls}
-                    id={`service-${svc.id}`}
-                  >
-                    {inner}
-                  </button>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-
       <div className="flex-1 space-y-8">
         {sections.map((section) => (
           <section key={section.title}>
@@ -290,8 +234,8 @@ export default function MenuPage() {
             <div className="overflow-hidden rounded-lg border border-app-border bg-white">
               {section.items.map((item, idx) => {
                 const rowClass = `flex min-h-16 w-full items-center gap-4 px-5 py-4 ${
-                  idx !== section.items.length - 1 ? 'border-b border-app-border' : ''
-                }`;
+                  item.mobileOnly ? 'lg:hidden ' : ''
+                }${idx !== section.items.length - 1 ? 'border-b border-app-border' : ''}`;
                 const body = (
                   <>
                     <div

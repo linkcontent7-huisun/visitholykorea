@@ -22,7 +22,7 @@
  * 검색 결과가 있을 때 목록 위에 끼워 넣는다 — 검색창을 지도보다 먼저 두는 순서는 바꾸지 않았다.
  */
 
-import { ChevronRight, Loader2, MapPin, Navigation, Phone, Search, SearchX, X } from 'lucide-react';
+import { ChevronRight, Loader2, MapPin, Phone, Search, SearchX, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -30,7 +30,6 @@ import { DirectoryEntryCard } from '@/features/sites/components/DirectoryEntryCa
 import { SearchResultsMap } from '@/features/sites/components/SearchResultsMap';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { Button } from '@/shared/components/ui/Button';
-import { chipClass } from '@/shared/components/ui/class-names';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
@@ -42,8 +41,8 @@ import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { dioceseLabel, localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
-import { REGIONS, regionCoords, regionOfAddress, type Region } from '@/shared/lib/regions';
-import { DIOCESES, EMOTION_TAGS, type EmotionTag, type HolySite } from '@/shared/types/domain';
+import { regionCoords, regionOfAddress } from '@/shared/lib/regions';
+import type { HolySite } from '@/shared/types/domain';
 
 function formatKm(km: number): string {
   return km < 1 ? `${Math.round(km * 1000)}m` : `${km.toFixed(1)}km`;
@@ -51,15 +50,10 @@ function formatKm(km: number): string {
 
 export default function SearchPage() {
   const navigate = useNavigate();
-  const { t, language, origin, gpsLocation, gpsStatus, requestGpsLocation, wideView } =
-    useSettings();
+  const { t, language, origin, gpsLocation, wideView } = useSettings();
 
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebouncedValue(query, 250);
-  const [diocese, setDiocese] = useState<string>('');
-  const [region, setRegion] = useState<Region | ''>('');
-  const [purpose, setPurpose] = useState<EmotionTag | ''>('');
-  const [nearestFirst, setNearestFirst] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   // 자체 목록 — 네트워크가 끊겨도 서비스워커 캐시(holy_sites)로 온다
@@ -81,49 +75,21 @@ export default function SearchPage() {
   const from = gpsLocation ?? regionCoords(origin);
   const needle = normalizeSearchText(debouncedQuery.trim());
   const hasQuery = needle.length > 0;
-  const hasFilter = Boolean(diocese || region || purpose);
 
   const results = useMemo(() => {
-    if (!hasQuery && !hasFilter) return [];
+    if (!hasQuery) return [];
     const merged = new Map<string, HolySite>();
     for (const site of allSites) {
       if (siteMatchesQuery(site, needle)) merged.set(site.id, site);
     }
     for (const site of serverResults) merged.set(site.id, site);
 
-    let list = [...merged.values()].filter((site) => {
-      if (diocese && site.region !== diocese) return false;
-      if (region && regionOfAddress(site.location) !== region) return false;
-      if (purpose && site.emotionTag !== purpose) return false;
-      return true;
-    });
-
-    if (nearestFirst && from) {
-      list = list
-        .filter((s) => s.coordinates.lat != null && s.coordinates.lng != null)
-        .sort(
-          (a, b) =>
-            haversineKm(from.lat, from.lng, a.coordinates.lat!, a.coordinates.lng!) -
-            haversineKm(from.lat, from.lng, b.coordinates.lat!, b.coordinates.lng!),
-        );
-    } else {
-      list.sort((a, b) => a.name.localeCompare(b.name, 'ko'));
-    }
+    const list = [...merged.values()];
+    list.sort((a, b) => a.name.localeCompare(b.name, 'ko'));
     return list;
-  }, [
-    allSites,
-    serverResults,
-    needle,
-    hasQuery,
-    hasFilter,
-    diocese,
-    region,
-    purpose,
-    nearestFirst,
-    from,
-  ]);
+  }, [allSites, serverResults, needle, hasQuery]);
 
-  const active = hasQuery || hasFilter;
+  const active = hasQuery;
   const searching =
     active && (sitesLoading || (hasQuery && serverSearching && results.length === 0));
 
@@ -144,9 +110,6 @@ export default function SearchPage() {
     list.scrollTop = row.offsetTop - list.clientHeight / 2 + row.clientHeight / 2;
   }, [selectedId, wideView]);
 
-  const selectClass =
-    'min-h-12 rounded-lg border border-app-border bg-white px-3 text-base font-bold text-app-text';
-
   const mapNode = (
     <SearchResultsMap
       sites={allSites}
@@ -154,7 +117,6 @@ export default function SearchPage() {
       hasActiveSearch={active}
       selectedId={selectedId}
       onSelect={setSelectedId}
-      highlightDiocese={diocese || null}
     />
   );
 
@@ -193,80 +155,6 @@ export default function SearchPage() {
                 </button>
               )}
             </div>
-            <p className="mt-2 text-sm leading-relaxed text-app-text-muted">
-              {t('searchPageHint')}
-            </p>
-
-            {/* 필터 — 교구와 행정지역은 다른 축이다 */}
-            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-              <label className="flex flex-col gap-1 text-sm font-bold text-app-text-muted">
-                {t('searchFilterDiocese')}
-                <select
-                  value={diocese}
-                  onChange={(e) => setDiocese(e.target.value)}
-                  className={selectClass}
-                >
-                  <option value="">{t('categoryAll')}</option>
-                  {DIOCESES.map((d) => (
-                    <option key={d} value={d}>
-                      {dioceseLabel(d, language)}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="flex flex-col gap-1 text-sm font-bold text-app-text-muted">
-                {t('searchFilterRegion')}
-                <select
-                  value={region}
-                  onChange={(e) => setRegion(e.target.value as Region | '')}
-                  className={selectClass}
-                >
-                  <option value="">{t('categoryAll')}</option>
-                  {REGIONS.map((r) => (
-                    <option key={r} value={r}>
-                      {localizeRegionName(r, language)}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="flex flex-col gap-1 text-sm font-bold text-app-text-muted">
-                {t('searchFilterPurpose')}
-                <select
-                  value={purpose}
-                  onChange={(e) => setPurpose(e.target.value as EmotionTag | '')}
-                  className={selectClass}
-                >
-                  <option value="">{t('categoryAll')}</option>
-                  {EMOTION_TAGS.map((tag) => (
-                    <option key={tag} value={tag}>
-                      {localizeDomainValue(tag, t)}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <div className="flex flex-col gap-1 text-sm font-bold text-app-text-muted">
-                {t('searchFilterTravel')}
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (!from && gpsStatus !== 'loading') requestGpsLocation();
-                    setNearestFirst((v) => !v);
-                  }}
-                  aria-pressed={nearestFirst}
-                  className={chipClass(nearestFirst, 'min-h-12 rounded-lg px-3')}
-                >
-                  <Navigation size={16} aria-hidden />
-                  {t('searchNearestFirst')}
-                </button>
-              </div>
-            </div>
-            {nearestFirst && !from && (
-              <p className="mt-2 text-sm leading-relaxed text-app-text-muted" role="status">
-                {gpsStatus === 'loading'
-                  ? t('currentLocationLoading')
-                  : t('searchNearestNeedsOrigin')}
-              </p>
-            )}
           </div>
 
           <div className="flex-1 py-6">
