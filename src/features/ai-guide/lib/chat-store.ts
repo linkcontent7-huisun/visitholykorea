@@ -14,8 +14,11 @@ export interface ChatMessage extends ChatTurn {
 }
 
 let messages: ChatMessage[] = [];
-/** 로그인 사용자의 DB 기록을 이미 불러왔는지 — 시트를 열 때마다 다시 읽지 않게 */
-let loadedFor: string | null = null;
+/**
+ * 누구 기록을 채워 뒀는지 — 시트를 열 때마다 다시 읽지 않게. 로그인 id 또는 null(비로그인).
+ * 처음엔 undefined 여야 한다: null 로 두면 비로그인(null)과 같아져 첫 인사말이 안 뜬다 (2026-09-18 배포본 실측).
+ */
+let loadedFor: string | null | undefined = undefined;
 const listeners = new Set<() => void>();
 
 function emit() {
@@ -37,7 +40,7 @@ export const chatStore = {
     emit();
   },
   loadedFor: () => loadedFor,
-  markLoaded(userId: string | null) {
+  markLoaded(userId: string | null | undefined) {
     loadedFor = userId;
   },
   subscribe(l: () => void) {
