@@ -29,7 +29,8 @@ export default function RouteDetailPage() {
   const { routeSlug = '' } = useParams();
   const { data, isLoading } = usePilgrimageRoute(routeSlug);
   const { data: walkingCourses = [] } = useWalkingCoursesNear(data?.stops[0]?.site);
-  // 이 코스에서 내가 몇 화까지 다녀왔는지 — 여권의 스탬프가 곧 진행도다
+  // 이 코스 중 몇 화에 후기를 남겼는지 — 스탬프는 후기를 쓸 때만 찍힌다(2026-09-17,
+  // "순례 스탬프 찍기" 버튼 삭제 이후 후기 제출이 스탬프의 유일한 입구다).
   const { data: myStamps = [] } = useMyStamps();
 
   if (isLoading) {
@@ -65,7 +66,7 @@ export default function RouteDetailPage() {
         <p className="text-base leading-relaxed text-app-text-muted">{route.description}</p>
       )}
 
-      {/* 연재 진행도 — 스탬프가 곧 "몇 화까지 봤는가"다 */}
+      {/* 연재 진행도 — "몇 화에 후기를 남겼는가"다(방문 여부가 아니다, 사장님 확인 2026-09-18) */}
       <div className="mt-5 rounded-lg border border-app-border bg-white p-4">
         <div className="mb-2 flex items-center justify-between text-sm font-bold">
           <span className="text-app-text">

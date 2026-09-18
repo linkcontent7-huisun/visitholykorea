@@ -10,6 +10,7 @@ import { HERO_SITES } from '@/features/sites/data/hero-sites';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
+import { OFFICIAL_LINKS } from '@/shared/config/official-links';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -188,7 +189,6 @@ export default function HomePage() {
         <PageContainer className="pt-8 lg:pt-12">
           <SectionHeading
             title={t('routesTitle')}
-            sub={t('routesSubtitle')}
             action={{ to: paths.routes, label: t('seeAll') }}
           />
           <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
@@ -227,7 +227,9 @@ export default function HomePage() {
           같은 말을 화면에 두 번 적어 둘 이유가 없었다.
           「추천 성지」 푸터 링크는 삭제(9/17) — /nearby 는 지금 앱 안 어디에서도 안 이어진다.
           모바일에서는 아예 없앴다(사장님 지적, 2026-09-18) — 이용약관·개인정보·FAQ 는
-          더보기 화면에서 늘 닿을 수 있어, 홈 하단까지 스크롤할 이유가 없었다. */}
+          더보기 화면에서 늘 닿을 수 있어, 홈 하단까지 스크롤할 이유가 없었다.
+          WYD 2027·DID·주교회의 공식 링크 3개도 같은 줄에 더했다(사장님 지적, 같은 날) —
+          "데스크톱에서만" 이라는 요청은 이 푸터 자체가 이미 데스크톱 전용이라 그대로 만족한다. */}
       <div className="mt-8 hidden border-t border-app-border lg:mt-10 lg:block">
         <PageContainer className="pt-5">
           <footer className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
@@ -249,6 +251,17 @@ export default function HomePage() {
             >
               {t('viewFaq')}
             </Link>
+            {OFFICIAL_LINKS.filter((link) => link.url).map((link) => (
+              <a
+                key={link.id}
+                href={link.url!}
+                target="_blank"
+                rel="noopener"
+                className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
+              >
+                {language === 'ko' ? link.labelKo : link.labelEn}
+              </a>
+            ))}
           </footer>
         </PageContainer>
       </div>
