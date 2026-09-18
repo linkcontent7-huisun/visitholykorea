@@ -5545,12 +5545,12 @@ export const DICTIONARY = {
     it: 'Parlami di "{query}".',
   },
   aiGreeting: {
-    ko: '안녕하세요, 순례자님. 성지순례를 돕는 미카엘입니다. 가고 싶은 지역이나 마음에 걸리는 것이 있다면 편히 말씀해 주세요.',
-    en: 'Hello, pilgrim. I’m Michael, here to help with your pilgrimage. Tell me where you’d like to go or what’s on your mind.',
-    es: 'Hola, peregrino. Soy Miguel y te ayudo con tu peregrinación. Cuéntame adónde quieres ir o qué te preocupa.',
-    fr: 'Bonjour, pèlerin. Je suis Michel, votre guide de pèlerinage. Dites-moi où vous voulez aller ou ce qui vous préoccupe.',
-    pt: 'Olá, peregrino. Sou Miguel e ajudo na sua peregrinação. Diga-me aonde quer ir ou o que está em seu coração.',
-    it: 'Ciao, pellegrino. Sono Michele e ti aiuto nel pellegrinaggio. Dimmi dove vuoi andare o cosa ti sta a cuore.',
+    ko: '안녕하세요, 순례자님! 성지순례를 돕는 미카엘이에요. 가고 싶은 지역이나 궁금한 성지가 있다면 편히 물어봐 주세요.',
+    en: 'Hello, pilgrim! I’m Michael, happy to help with your pilgrimage. Ask me about any region or shrine you’re curious about.',
+    es: '¡Hola, peregrino! Soy Miguel y te ayudo con tu peregrinación. Pregúntame por cualquier región o santuario que te interese.',
+    fr: 'Bonjour, pèlerin ! Je suis Michel, ravi de vous guider. Demandez-moi une région ou un sanctuaire qui vous intéresse.',
+    pt: 'Olá, peregrino! Sou Miguel e ajudo na sua peregrinação. Pergunte-me sobre qualquer região ou santuário que lhe interesse.',
+    it: 'Ciao, pellegrino! Sono Michele e ti aiuto nel pellegrinaggio. Chiedimi di una regione o di un santuario che ti incuriosisce.',
   },
   aiSheetAria: {
     ko: 'AI 순례 가이드',
