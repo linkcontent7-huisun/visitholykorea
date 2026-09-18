@@ -109,9 +109,9 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="relative flex h-[85vh] w-full max-w-lg flex-col overflow-hidden rounded-t-lg bg-white sm:h-[70vh] sm:rounded-lg"
+            className="relative flex h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-lg bg-white sm:h-[88vh] sm:rounded-lg"
           >
-            <header className="flex shrink-0 items-center justify-between bg-brand-blue p-8 text-white">
+            <header className="flex shrink-0 items-center justify-between bg-brand-blue px-6 py-4 text-white">
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-white/10 backdrop-blur-xl">
                   <Bot size={28} />
@@ -147,7 +147,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
 
             <div
               ref={scrollRef}
-              className="no-scrollbar flex-1 space-y-6 overflow-y-auto bg-white p-8"
+              className="no-scrollbar flex-1 space-y-5 overflow-y-auto bg-white p-6"
             >
               {messages.map((msg, i) => (
                 <motion.div
@@ -157,7 +157,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] rounded-lg p-5 text-sm font-medium leading-relaxed ${
+                    className={`max-w-[90%] rounded-lg p-5 text-base font-medium leading-relaxed ${
                       msg.role === 'user'
                         ? 'rounded-tr-none bg-brand-blue text-white'
                         : 'rounded-tl-none border border-app-border bg-app-bg text-app-text'
@@ -197,7 +197,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
               )}
             </div>
 
-            <div className="flex shrink-0 items-center gap-4 border-t border-app-border bg-white p-8">
+            <div className="flex shrink-0 items-center gap-4 border-t border-app-border bg-white p-5">
               <div className="relative flex-1">
                 <input
                   type="text"
@@ -208,7 +208,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                   }}
                   placeholder={t('aiInputPlaceholder')}
                   aria-label={t('aiInputAria')}
-                  className="w-full rounded-lg border border-app-border bg-app-bg px-7 py-5 pr-16 text-sm font-bold text-app-text outline-none transition-colors placeholder:text-app-text-muted focus:border-brand-blue"
+                  className="w-full rounded-lg border border-app-border bg-app-bg px-6 py-4 pr-16 text-base font-bold text-app-text outline-none transition-colors placeholder:text-app-text-muted focus:border-brand-blue"
                 />
                 <button
                   onClick={() => void handleSend()}
