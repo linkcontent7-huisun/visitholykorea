@@ -5,13 +5,13 @@ import {
   Footprints,
   Globe,
   Map as MapIcon,
-  PartyPopper,
   Smartphone,
   Info,
   MapPin,
   LogIn,
   LogOut,
   Navigation,
+  Settings,
   ShieldQuestion,
   SlidersHorizontal,
   Type,
@@ -19,7 +19,6 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { NAV_ITEMS, TOP_NAV_ITEMS } from '@/app/layouts/nav-items';
 import { paths } from '@/app/routes/paths';
 import { useAdminAccess } from '@/features/admin/hooks/use-admin';
 import { signOut } from '@/features/auth/api/auth';
@@ -110,8 +109,9 @@ export default function MenuPage() {
   const [installSheetOpen, setInstallSheetOpen] = useState(false);
 
   /**
-   * 맨 위 「전체 서비스」 — 앱이 주는 것을 한눈에. 하단 탭 4개(이 화면 자신은 빼고) +
-   * 탭에 두지 않은 화면(순례 코스·축제·전국 분포 개요·홈 화면 추가) (재기획 2026-09-14).
+   * 맨 위 「전체 서비스」 — 하단 탭에 이미 있는 홈·성지 찾기·기록·성지 일정과 축제는
+   * 빼고, 탭에 없는 화면(순례 코스·전국 분포 개요·홈 화면 추가)만 둔다(사장님 지적,
+   * 2026-09-18) — 하단 탭과 겹치는 4개를 여기 또 늘어놓을 이유가 없었다.
    */
   const services: {
     id: string;
@@ -119,34 +119,22 @@ export default function MenuPage() {
     label: string;
     to?: string;
     onClick?: () => void;
+    /** PC 에서는 감춘다 — 「홈 화면에 추가」는 휴대폰에서만 의미가 있다 */
+    mobileOnly?: boolean;
   }[] = [
-    ...[...NAV_ITEMS, ...TOP_NAV_ITEMS.filter((i) => !NAV_ITEMS.some((n) => n.id === i.id))]
-      .filter((i) => i.id !== 'menu')
-      .map((i) => ({ id: i.id, icon: i.icon as LucideIcon, label: t(i.labelKey), to: i.to })),
     { id: 'routes', icon: Footprints, label: t('routesTitle'), to: paths.routes },
-    { id: 'festivals', icon: PartyPopper, label: t('festivalsTitle'), to: paths.festivals },
     { id: 'map', icon: MapIcon, label: t('mapOverviewTitle'), to: paths.map },
     {
       id: 'install',
       icon: Smartphone,
       label: t('installTab'),
       onClick: () => setInstallSheetOpen(true),
+      mobileOnly: true,
     },
   ];
 
+  // 「계정 설정」 절은 없앴다(2026-09-18) — 프로필 카드의 톱니바퀴 단추(`/account`)로 옮겼다.
   const sections: { title: string; items: MenuItem[] }[] = [
-    {
-      title: t('accountSettings'),
-      items: [
-        {
-          id: 'profile',
-          icon: User,
-          label: t('myProfile'),
-          sub: t('profileSub'),
-          requiresAuth: true,
-        },
-      ],
-    },
     {
       title: t('appSettings'),
       items: [
@@ -261,49 +249,9 @@ export default function MenuPage() {
     <PageContainer className="flex min-h-page flex-col pb-16 pt-6">
       <InstallShareSheet open={installSheetOpen} onClose={() => setInstallSheetOpen(false)} />
 
-      {/* 전체 서비스 — 이 화면의 첫 줄. 아이콘 옆에 이름, 4열(PC 6열) */}
-      <section>
-        <h1 className="mb-4 font-display text-[1.625rem] leading-tight text-app-text lg:text-3xl">
-          {t('allServices')}
-        </h1>
-        <ul className="grid grid-cols-4 gap-2 lg:grid-cols-6" id="all-services">
-          {services.map((svc) => {
-            const inner = (
-              <>
-                <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-soft text-brand-blue">
-                  <svc.icon size={22} aria-hidden />
-                </span>
-                <span className="text-center text-sm font-bold leading-tight text-app-text">
-                  {svc.label}
-                </span>
-              </>
-            );
-            const cls =
-              'flex min-h-[88px] w-full flex-col items-center justify-center gap-1.5 rounded-lg border border-app-border bg-white px-1 py-3 transition-colors hover:border-brand-blue';
-            return (
-              <li key={svc.id}>
-                {svc.to ? (
-                  <Link to={svc.to} className={cls} id={`service-${svc.id}`}>
-                    {inner}
-                  </Link>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={svc.onClick}
-                    className={cls}
-                    id={`service-${svc.id}`}
-                  >
-                    {inner}
-                  </button>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-
-      {/* 내 정보 — 로그인 안 했으면 로그인·회원가입 입구 */}
-      <div className="mb-8 mt-6 rounded-lg border border-app-border bg-white p-5">
+      {/* 내 정보 — 화면 맨 위로(사장님 지적, 2026-09-18). 로그인 안 했으면 로그인·회원가입 입구.
+          「계정 설정」 절이 여기 톱니바퀴 단추 하나로 합쳐졌다 — 아래 sections 에서 그 절은 뺐다. */}
+      <div className="mb-8 rounded-lg border border-app-border bg-white p-5">
         <div className="flex items-center gap-4">
           <div
             className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-soft"
@@ -329,6 +277,18 @@ export default function MenuPage() {
               </button>
             )}
           </div>
+          {isLoggedIn && (
+            <button
+              type="button"
+              onClick={() => navigate(paths.account)}
+              aria-label={t('accountSettings')}
+              title={t('accountSettings')}
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg hover:text-brand-blue"
+              id="menu-account-settings"
+            >
+              <Settings size={22} aria-hidden />
+            </button>
+          )}
         </div>
 
         <div className="mt-5 grid grid-cols-2 gap-4 border-t border-app-border pt-5">
@@ -342,6 +302,47 @@ export default function MenuPage() {
           </div>
         </div>
       </div>
+
+      {/* 전체 서비스 — 아이콘 옆에 이름, 4열(PC 6열) */}
+      <section>
+        <h1 className="mb-4 font-display text-[1.625rem] leading-tight text-app-text lg:text-3xl">
+          {t('allServices')}
+        </h1>
+        <ul className="grid grid-cols-4 gap-2 lg:grid-cols-6" id="all-services">
+          {services.map((svc) => {
+            const inner = (
+              <>
+                <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-soft text-brand-blue">
+                  <svc.icon size={22} aria-hidden />
+                </span>
+                <span className="text-center text-sm font-bold leading-tight text-app-text">
+                  {svc.label}
+                </span>
+              </>
+            );
+            const cls =
+              'flex min-h-[88px] w-full flex-col items-center justify-center gap-1.5 rounded-lg border border-app-border bg-white px-1 py-3 transition-colors hover:border-brand-blue';
+            return (
+              <li key={svc.id} className={svc.mobileOnly ? 'lg:hidden' : undefined}>
+                {svc.to ? (
+                  <Link to={svc.to} className={cls} id={`service-${svc.id}`}>
+                    {inner}
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={svc.onClick}
+                    className={cls}
+                    id={`service-${svc.id}`}
+                  >
+                    {inner}
+                  </button>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </section>
 
       <div className="flex-1 space-y-8">
         {sections.map((section) => (

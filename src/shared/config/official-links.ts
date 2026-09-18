@@ -15,7 +15,8 @@ export interface OfficialLink {
 }
 
 export const OFFICIAL_LINKS: readonly OfficialLink[] = [
-  { id: 'wyd2027', labelKo: '2027 서울 세계청년대회(WYD) 공식 안내', labelEn: 'WYD Seoul 2027 official site', url: null },
-  { id: 'did', labelKo: '교구대회(DID) 공식 안내', labelEn: 'Days in the Dioceses (DID) official information', url: null },
+  // 2026-09-18 사장님이 직접 확인해 준 주소(운영자 확인 완료).
+  { id: 'wyd2027', labelKo: '2027 서울 세계청년대회(WYD) 공식 안내', labelEn: 'WYD Seoul 2027 official site', url: 'https://wydseoul.org/' },
+  { id: 'did', labelKo: '교구대회(DID) 공식 안내', labelEn: 'Days in the Dioceses (DID) official information', url: 'https://www.wyd2027did.org/kr' },
   { id: 'cbck', labelKo: '한국천주교주교회의', labelEn: 'Catholic Bishops’ Conference of Korea', url: 'https://cbck.or.kr' },
 ];

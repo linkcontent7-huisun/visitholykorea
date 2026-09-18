@@ -876,14 +876,6 @@ export const DICTIONARY = {
   },
 
   // 설정
-  myProfile: {
-    ko: '내 프로필',
-    en: 'My Profile',
-    es: 'Mi perfil',
-    fr: 'Mon profil',
-    pt: 'Meu perfil',
-    it: 'Il mio profilo',
-  },
   favorites: {
     ko: '즐겨찾는 성지',
     en: 'Favorite Sites',
@@ -2373,13 +2365,29 @@ export const DICTIONARY = {
     pt: 'Conta',
     it: 'Account',
   },
-  profileSub: {
-    ko: '회원정보 수정 및 관리',
-    en: 'Edit and manage your details',
-    es: 'Edita y gestiona tus datos',
-    fr: 'Modifier et gérer vos informations',
-    pt: 'Edite e gerencie seus dados',
-    it: 'Modifica e gestisci i tuoi dati',
+  accountNameLabel: {
+    ko: '이름',
+    en: 'Name',
+    es: 'Nombre',
+    fr: 'Nom',
+    pt: 'Nome',
+    it: 'Nome',
+  },
+  accountEmailLabel: {
+    ko: '이메일',
+    en: 'Email',
+    es: 'Correo electrónico',
+    fr: 'E-mail',
+    pt: 'E-mail',
+    it: 'Email',
+  },
+  accountEditPending: {
+    ko: '이름·비밀번호 수정 기능은 아직 준비 중이에요.',
+    en: 'Editing your name and password isn’t ready yet.',
+    es: 'Aún no está lista la edición de nombre y contraseña.',
+    fr: 'La modification du nom et du mot de passe n’est pas encore prête.',
+    pt: 'A edição de nome e senha ainda não está pronta.',
+    it: 'La modifica di nome e password non è ancora pronta.',
   },
   originSetting: {
     ko: '출발지',

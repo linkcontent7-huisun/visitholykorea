@@ -11,6 +11,7 @@ const HomePage = lazy(() => import('@/pages/HomePage'));
 const MapPage = lazy(() => import('@/pages/MapPage'));
 const RecordsPage = lazy(() => import('@/pages/RecordsPage'));
 const MenuPage = lazy(() => import('@/pages/MenuPage'));
+const AccountPage = lazy(() => import('@/pages/AccountPage'));
 const SiteDetailPage = lazy(() => import('@/pages/SiteDetailPage'));
 const SearchPage = lazy(() => import('@/pages/SearchPage'));
 const RoutesPage = lazy(() => import('@/pages/RoutesPage'));
@@ -99,6 +100,7 @@ export const router = createBrowserRouter([
           { path: paths.explore, element: <Navigate to={paths.search} replace /> },
           { path: paths.records, element: withSuspense(<RecordsPage />) },
           { path: paths.menu, element: withSuspense(<MenuPage />) },
+          { path: paths.account, element: withSuspense(<AccountPage />) },
           // 둘러보기 화면들 — 예전엔 전체 화면 그룹에 있어 순례 코스·마음 나침반을 누르면
           // 헤더·하단 탭이 통째로 사라져 "새 창이 뜬 것"처럼 보였다 (T-021, 2026-09-14).
           // 되돌아갈 수단이 「← 뒤로」 글자 하나뿐이라 PC 에서 특히 길을 잃었다.
