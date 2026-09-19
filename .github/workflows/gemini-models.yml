@@ -1,0 +1,54 @@
+# Gemini 모델 목록을 매일 새로 받아 ai-guide 함수에 반영한다.
+# 모델 이름이 자주 바뀌어(2026-09-19 보조 모델 404) 시크릿에 고정하지 않기로 했다 — 사장님 지시.
+# 필요한 GitHub Secrets: GEMINI_API_KEY, SUPABASE_ACCESS_TOKEN, SUPABASE_PROJECT_REF
+name: Gemini 모델 목록 갱신
+
+on:
+  schedule:
+    - cron: '17 18 * * *' # 매일 03:17 KST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 사용 가능한 모델 조회 → models.json
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/gemini-models.mjs
+
+      - name: 바뀌었으면 main 에 기록
+        id: commit
+        run: |
+          if git diff --quiet -- supabase/functions/ai-guide/models.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "gemini-models-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add supabase/functions/ai-guide/models.json
+          git commit -m "chore(ai-guide): Gemini 모델 목록 자동 갱신 ($(date -u +%Y-%m-%d))"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - uses: supabase/setup-cli@v1
+        if: steps.commit.outputs.changed == 'true'
+        with:
+          version: latest
+
+      - name: ai-guide 함수 재배포
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: supabase functions deploy ai-guide --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
