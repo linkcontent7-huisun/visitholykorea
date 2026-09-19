@@ -59,7 +59,9 @@ try {
 
     const role: Role = command === 'revoke' ? 'member' : ((roleArg as Role) ?? 'admin');
     if (!ROLES.includes(role)) {
-      console.error(`\n권한 이름이 잘못됐습니다: ${role}. ${ROLES.join(' / ')} 중 하나여야 합니다.\n`);
+      console.error(
+        `\n권한 이름이 잘못됐습니다: ${role}. ${ROLES.join(' / ')} 중 하나여야 합니다.\n`,
+      );
       process.exit(1);
     }
     // 교구는 editor 에게만 의미가 있다. admin 은 전 교구라서 비워 둔다.

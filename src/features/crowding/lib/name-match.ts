@@ -8,7 +8,10 @@
 
 /** 공백·괄호 안 내용을 걷어낸다. "경복궁(서울)" 과 "경복궁", "솔뫼 성지" 와 "솔뫼성지" 가 같아야 한다. */
 export function normalizeName(name: string): string {
-  return name.replace(/\([^)]*\)/g, '').replace(/\s+/g, '').trim();
+  return name
+    .replace(/\([^)]*\)/g, '')
+    .replace(/\s+/g, '')
+    .trim();
 }
 
 export function isSameSpot(a: string, b: string): boolean {

@@ -3,7 +3,11 @@ import { queryKeys } from '@/shared/api/query-keys';
 import { FALLBACK_CHAIN } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { fetchSiteTranslations } from '../api/holy-sites.repository';
-import { applyTranslation, resolveTranslation, type TranslatedSiteView } from '../lib/translated-site';
+import {
+  applyTranslation,
+  resolveTranslation,
+  type TranslatedSiteView,
+} from '../lib/translated-site';
 import type { HolySite } from '@/shared/types/domain';
 
 /**
@@ -17,7 +21,8 @@ export function useTranslatedSite(site: HolySite | undefined): TranslatedSiteVie
   const { language } = useSettings();
 
   // 한국어 모드면 조회 자체가 필요 없다. 그 밖에는 요청 언어 + 폴백 언어를 함께 받는다.
-  const wanted = language === 'ko' ? [] : [language, ...FALLBACK_CHAIN[language]].filter((l) => l !== 'ko');
+  const wanted =
+    language === 'ko' ? [] : [language, ...FALLBACK_CHAIN[language]].filter((l) => l !== 'ko');
 
   const { data: byLanguage = {} } = useQuery({
     queryKey: queryKeys.sites.translation(site?.id ?? '', wanted.join('+')),

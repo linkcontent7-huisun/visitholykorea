@@ -120,10 +120,15 @@ Deno.serve(async (req) => {
     // 판정은 profiles.provider 가 아니라 auth 의 user_metadata.provider 로 한다: 위 createUser 가 심는 값이
     // 그것이고, profiles.provider 는 app_metadata 기준이라 네이버로 만든 계정도 'email' 로 적혀 재로그인이 막힌다.
     if (alreadyExists) {
-      const { data: prof } = await admin.from('profiles').select('id').eq('email', naver.email).maybeSingle();
+      const { data: prof } = await admin
+        .from('profiles')
+        .select('id')
+        .eq('email', naver.email)
+        .maybeSingle();
       if (prof?.id) {
         const { data: existing } = await admin.auth.admin.getUserById(prof.id);
-        const madeBy = existing?.user?.user_metadata?.provider ?? existing?.user?.app_metadata?.provider;
+        const madeBy =
+          existing?.user?.user_metadata?.provider ?? existing?.user?.app_metadata?.provider;
         if (madeBy && madeBy !== 'naver') return 실패('account_exists_other_provider');
       }
     }

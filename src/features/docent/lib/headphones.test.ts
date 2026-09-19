@@ -33,7 +33,6 @@ describe('judgeOutputs — 이어폰 연결 판정', () => {
   });
 });
 
-
 describe('judgeInputs — 안드로이드용 마이크 이름 판정', () => {
   it('헤드셋·버즈 마이크가 잡히면 connected', () => {
     expect(judgeInputs([dev('audioinput', '헤드셋 마이크')])).toBe('connected');

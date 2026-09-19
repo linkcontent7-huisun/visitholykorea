@@ -6,7 +6,10 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
-import { usePilgrimageRoutes, useLocalizedRoutes } from '@/features/routes/hooks/use-pilgrimage-routes';
+import {
+  usePilgrimageRoutes,
+  useLocalizedRoutes,
+} from '@/features/routes/hooks/use-pilgrimage-routes';
 
 /**
  * 순례 코스 목록.

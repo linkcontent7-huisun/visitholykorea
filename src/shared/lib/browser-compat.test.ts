@@ -57,7 +57,9 @@ describe('브라우저 호환성 — iOS 16.3 이하', () => {
       }
     }
 
-    expect(offenders, `lookbehind 는 iOS 16.3 이하에서 앱 전체를 죽인다:\n${offenders.join('\n')}`)
-      .toEqual([]);
+    expect(
+      offenders,
+      `lookbehind 는 iOS 16.3 이하에서 앱 전체를 죽인다:\n${offenders.join('\n')}`,
+    ).toEqual([]);
   });
 });

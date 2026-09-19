@@ -76,7 +76,9 @@ export function matchSido(address: string, sidoList: readonly LdongCode[]): Ldon
  */
 export function matchSigngu(address: string, signguList: readonly LdongCode[]): LdongCode | null {
   return (
-    [...signguList].sort((a, b) => b.name.length - a.name.length).find((g) => address.includes(g.name)) ?? null
+    [...signguList]
+      .sort((a, b) => b.name.length - a.name.length)
+      .find((g) => address.includes(g.name)) ?? null
   );
 }
 
@@ -155,7 +157,9 @@ export function resetCongestionCaches(): void {
 }
 
 /** 성지 주소 → 시·군·구 코드. 못 찾으면 null (등급 없음으로 처리된다). API 실패는 던진다. */
-export async function districtForSite(site: Pick<HolySite, 'location'>): Promise<DistrictCode | null> {
+export async function districtForSite(
+  site: Pick<HolySite, 'location'>,
+): Promise<DistrictCode | null> {
   const address = site.location ?? '';
   const legacy = legacyDistrict(address);
   if (legacy) return legacy;
@@ -174,7 +178,9 @@ export interface CongestionLookup {
 }
 
 /** 성지의 시·군·구 집중률 행 전체. API 실패는 던진다 — 화면이 「불러오지 못했어요」를 보여야 한다. */
-export async function fetchCongestionForSite(site: Pick<HolySite, 'location'>): Promise<CongestionLookup> {
+export async function fetchCongestionForSite(
+  site: Pick<HolySite, 'location'>,
+): Promise<CongestionLookup> {
   const district = await districtForSite(site);
   if (!district) return { district: null, rates: [] };
   return { district, rates: await ratesFor(district) };

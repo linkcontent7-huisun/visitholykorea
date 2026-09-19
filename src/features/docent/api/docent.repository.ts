@@ -44,7 +44,12 @@ export function groupRows(rows: DocentScriptRow[]): DocentSiteScripts {
     if (row.kind === 'intro') {
       lang.intro = splitIntroParagraphs(row.body);
     } else {
-      lang.points.push({ seq: row.seq, title: row.title ?? '', body: row.body, lookFor: row.look_for });
+      lang.points.push({
+        seq: row.seq,
+        title: row.title ?? '',
+        body: row.body,
+        lookFor: row.look_for,
+      });
     }
   }
   for (const lang of Object.values(out)) lang.points.sort((a, b) => a.seq - b.seq);

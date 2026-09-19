@@ -14,7 +14,11 @@ import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary'
  * `t` 는 화면의 다국어 사전 함수 — 영어 모드에서도 이 문구가 한국어로
  * 나오던 것(2026-09-11 발견)을 고치면서, 문구 자체를 사전으로 옮겼다.
  */
-export function distanceLabel(t: (key: TranslationKey) => string, origin: string, km: number): string {
+export function distanceLabel(
+  t: (key: TranslationKey) => string,
+  origin: string,
+  km: number,
+): string {
   if (!Number.isFinite(km) || km < 0) return origin;
   if (km < 5) return fillPlaceholders(t('distanceWithin'), { origin });
   if (km < 10) return fillPlaceholders(t('distanceUnder10'), { origin });

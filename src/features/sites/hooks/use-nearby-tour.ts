@@ -1,6 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/shared/api/query-keys';
-import { getBarrierFreeNearby, getNearbyAttractions, getNearbyByLocation } from '@/shared/api/tour-api';
+import {
+  getBarrierFreeNearby,
+  getNearbyAttractions,
+  getNearbyByLocation,
+} from '@/shared/api/tour-api';
 import { groupNearbyFacilities } from '@/features/sites/lib/nearby-facilities';
 import type { Coordinates } from '@/shared/types/domain';
 import { useSettings } from '@/shared/i18n/use-settings';

@@ -31,28 +31,49 @@ type Row = Record<string, string>;
 function parseCsv(path: string): Row[] {
   const raw = readFileSync(path, 'utf-8').replace(/^\uFEFF/, '');
   const rows: string[][] = [];
-  let cur: string[] = [], field = '', quoted = false;
+  let cur: string[] = [],
+    field = '',
+    quoted = false;
   for (let i = 0; i < raw.length; i += 1) {
     const c = raw[i];
     if (quoted) {
-      if (c === '"') { if (raw[i + 1] === '"') { field += '"'; i += 1; } else quoted = false; }
-      else field += c;
+      if (c === '"') {
+        if (raw[i + 1] === '"') {
+          field += '"';
+          i += 1;
+        } else quoted = false;
+      } else field += c;
     } else if (c === '"') quoted = true;
-    else if (c === ',') { cur.push(field); field = ''; }
-    else if (c === '\n') { cur.push(field.replace(/\r$/, '')); rows.push(cur); cur = []; field = ''; }
-    else field += c;
+    else if (c === ',') {
+      cur.push(field);
+      field = '';
+    } else if (c === '\n') {
+      cur.push(field.replace(/\r$/, ''));
+      rows.push(cur);
+      cur = [];
+      field = '';
+    } else field += c;
   }
-  if (field || cur.length) { cur.push(field); rows.push(cur); }
+  if (field || cur.length) {
+    cur.push(field);
+    rows.push(cur);
+  }
   const [header = [], ...body] = rows;
-  return body.filter((r) => r.length === header.length).map((r) => Object.fromEntries(header.map((k, i) => [k, r[i] ?? ''])));
+  return body
+    .filter((r) => r.length === header.length)
+    .map((r) => Object.fromEntries(header.map((k, i) => [k, r[i] ?? ''])));
 }
 
-const rows: Row[] = FILES.flatMap(parseCsv).filter((r) => r.use === 'y').map((r) => ({ ...r, source: r.source || 'photokorea' }));
+const rows: Row[] = FILES.flatMap(parseCsv)
+  .filter((r) => r.use === 'y')
+  .map((r) => ({ ...r, source: r.source || 'photokorea' }));
 const bySite = new Map<string, Row>();
 for (const r of rows) {
   const id = r.site_id ?? '';
   const prev = bySite.get(id);
-  const preferThis = !prev || (PREFER_TOURINFO.has(r.site_name ?? '') ? r.source === 'tourinfo' : r.source === 'photokorea');
+  const preferThis =
+    !prev ||
+    (PREFER_TOURINFO.has(r.site_name ?? '') ? r.source === 'tourinfo' : r.source === 'photokorea');
   if (preferThis) bySite.set(id, r);
 }
 
@@ -62,13 +83,19 @@ let over = 0;
 for (const [siteId, r] of bySite) {
   const name = r.site_name ?? '';
   const source = r.source ?? 'photokorea';
-  const slug = romanizeKorean(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const slug = romanizeKorean(name)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
   const file = `public/images/sites/${slug}.jpg`;
-  if (!existsSync(file)) writeFileSync(file, Buffer.from(await (await fetch(r.gal_image_url ?? '')).arrayBuffer()));
+  if (!existsSync(file))
+    writeFileSync(file, Buffer.from(await (await fetch(r.gal_image_url ?? '')).arrayBuffer()));
   const size = statSync(file).size;
   const tooBig = size > MAX_BYTES;
   if (tooBig) over += 1;
-  console.log(`${tooBig ? '⚠ 700KB 초과' : '  '} ${(size / 1024).toFixed(0).padStart(4)}KB ${source.padEnd(10)} ${name} → ${file}`);
+  console.log(
+    `${tooBig ? '⚠ 700KB 초과' : '  '} ${(size / 1024).toFixed(0).padStart(4)}KB ${source.padEnd(10)} ${name} → ${file}`,
+  );
   if (db && !tooBig) {
     const isPk = source === 'photokorea';
     await db.query(
@@ -76,11 +103,15 @@ for (const [siteId, r] of bySite) {
       [
         siteId,
         `/images/sites/${slug}.jpg`,
-        isPk ? `한국관광공사 포토코리아 (촬영 ${r.gal_photographer ?? ''})` : `한국관광공사 TourAPI 관광정보 (contentId ${r.gal_content_id ?? ''})`,
+        isPk
+          ? `한국관광공사 포토코리아 (촬영 ${r.gal_photographer ?? ''})`
+          : `한국관광공사 TourAPI 관광정보 (contentId ${r.gal_content_id ?? ''})`,
         isPk ? '공공누리 제1유형' : '공공누리 (제1·3유형 미확인 · 원본 무변경)',
       ],
     );
   }
 }
-console.log(`\n성지 ${bySite.size}곳 · 700KB 초과 ${over}장${writeDb ? ' · DB 반영(초과분 제외)' : ' · DB 안 씀 (--db 로 반영)'}`);
+console.log(
+  `\n성지 ${bySite.size}곳 · 700KB 초과 ${over}장${writeDb ? ' · DB 반영(초과분 제외)' : ' · DB 안 씀 (--db 로 반영)'}`,
+);
 if (db) await db.end();
