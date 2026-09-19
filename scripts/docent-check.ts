@@ -52,7 +52,8 @@ function check(files: ReturnType<typeof load>, lang: Lang) {
     const chars = f.body.replace(/\s/g, '').length;
     if (f.paras.length !== 3) bad.push(`문단 ${f.paras.length}개`);
     // 영어는 같은 내용이 글자 수로 두 배 안팎이라 기준을 달리 둔다
-    if (chars > (lang === 'ko' ? 500 : 1000)) bad.push(`${chars}자`);
+    // 로망스어는 영어보다 1~2할 길다 — 내용을 깎아 맞추게 하지 않는다
+    if (chars > (lang === 'ko' ? 500 : lang === 'en' ? 1000 : 1200)) bad.push(`${chars}자`);
     if (!f.paras.every((p) => p.startsWith('"') && p.endsWith('"'))) bad.push('큰따옴표 누락');
     f.paras.forEach((p, i) => { if (!endsOk.test(p)) bad.push(`${i + 1}문단 잘림`); });
     f.paras.forEach((p, i) => { if (!hasFact.test(p)) bad.push(`${i + 1}문단 고유 사실 없음`); });
