@@ -11,8 +11,9 @@
    *   한 번에 남색이 되고, `from-brand-blue to-brand-violet` 그라데이션은 단색이 된다(보라 그라데이션 금지).
    * - 바탕: 홈은 흰색(화면이 직접 지정), 그 밖은 종이색. 선은 따뜻한 회색.
    */
-  --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
-    'Malgun Gothic', sans-serif;
+  --font-sans:
+    'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic',
+    sans-serif;
   --font-display: 'Gowun Batang', 'Noto Serif KR', 'Malgun Gothic', serif;
 
   --color-brand-blue: #1f2f55;
