@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="56" height="56" role="img" aria-label="네이버로 로그인">
+  <circle cx="12" cy="12" r="12" fill="#03C75A"/>
+  <g transform="translate(6,6) scale(0.5)">
+    <path fill="#fff" d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"/>
+  </g>
+</svg>

@@ -109,7 +109,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="relative flex h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-lg bg-white sm:h-[88vh] sm:rounded-lg"
+            className="relative flex h-[92dvh] w-full max-w-2xl flex-col overflow-hidden rounded-t-lg bg-white sm:h-[88dvh] sm:rounded-lg"
           >
             <header className="flex shrink-0 items-center justify-between bg-brand-blue px-6 py-4 text-white">
               <div className="flex items-center gap-4">
