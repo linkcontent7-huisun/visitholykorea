@@ -1669,15 +1669,6 @@ export const DICTIONARY = {
     pt: 'Buscar nome do santuário',
     it: 'Cerca il nome del santuario',
   },
-  // 실제 지도(도로·지명)로 착각했다는 피드백(2026-09-07) — 무엇을 보여주는 지도인지 밝힌다.
-  mapScopeNote: {
-    ko: '실제 도로 지도가 아닌, 208곳의 방문 현황을 한눈에 보는 조망도예요. 길찾기는 성지 상세의 「찾아가는 길」을 이용하세요.',
-    en: 'This is not a road map — it’s an overview of your progress across 208 shrines. For directions, use “Getting there” on each shrine’s page.',
-    es: 'No es un mapa de carreteras: es una vista general de tu progreso en los 208 santuarios. Para direcciones, usa "Cómo llegar" en la página de cada santuario.',
-    fr: 'Ce n’est pas une carte routière : c’est un aperçu de votre progression sur les 208 sanctuaires. Pour l’itinéraire, utilisez « S’y rendre » sur la fiche du sanctuaire.',
-    pt: 'Não é um mapa de estradas: é uma visão geral do seu progresso nos 208 santuários. Para rotas, use "Como chegar" na página de cada santuário.',
-    it: 'Non è una mappa stradale: è una panoramica dei tuoi progressi tra i 208 santuari. Per le indicazioni, usa "Come arrivare" nella pagina del santuario.',
-  },
   mapSitesErrorTitle: {
     ko: '성지 목록을 불러오지 못했어요',
     en: 'Couldn’t load the shrine list',
@@ -1751,6 +1742,14 @@ export const DICTIONARY = {
     fr: 'Votre carnet est conservé une fois connecté',
     pt: 'Seu registro é salvo depois de entrar',
     it: 'Il tuo diario viene salvato dopo l’accesso',
+  },
+  recordsLoginDescription: {
+    ko: '로그인하면 다녀온 성지와 메모가 저장돼요.',
+    en: 'Log in to save the shrines you visit and your notes.',
+    es: 'Inicia sesión para guardar los santuarios que visitas y tus notas.',
+    fr: 'Connectez-vous pour enregistrer les sanctuaires visités et vos notes.',
+    pt: 'Entre para salvar os santuários que você visita e suas notas.',
+    it: 'Accedi per salvare i santuari che visiti e le tue note.',
   },
   recordsLoginBody: {
     ko: '다녀온 성지에 스탬프를 찍고 여행기를 남기면\n나만의 순례 여권이 채워집니다.',

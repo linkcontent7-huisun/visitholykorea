@@ -1,7 +1,6 @@
 import {
   Camera,
   ChevronDown,
-  ChevronRight,
   Compass,
   Flag,
   Heart,
@@ -10,7 +9,7 @@ import {
   User,
   X,
 } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
@@ -55,6 +54,7 @@ import { BackButton } from '@/shared/components/ui/BackButton';
 import { Button } from '@/shared/components/ui/Button';
 import { Card } from '@/shared/components/ui/Card';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
+import { ScrollHintRow } from '@/shared/components/ui/ScrollHintRow';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
@@ -69,47 +69,6 @@ const HIDDEN_FACILITY_GROUPS = new Set(['레포츠', '쇼핑']);
 
 /** 순례 후기에 붙이는 사진 최대 장수(2026-09-17) — 일반 사진 추가(최대 5·10장)와는 다른 값 */
 const NOTE_PHOTO_MAX = 3;
-
-/**
- * 가로 스크롤 줄 — 더 볼 게 있으면 오른쪽에 옅은 그라디언트 + 화살표로 알려준다(2026-09-17).
- * `no-scrollbar` 라 스크롤바가 안 보여서, 더 있다는 사실 자체를 모르고 지나치는 사람이 있었다.
- */
-function ScrollHintRow({ children }: { children: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [hasMore, setHasMore] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const check = () => setHasMore(el.scrollWidth - el.clientWidth - el.scrollLeft > 8);
-    check();
-    el.addEventListener('scroll', check, { passive: true });
-    window.addEventListener('resize', check);
-    return () => {
-      el.removeEventListener('scroll', check);
-      window.removeEventListener('resize', check);
-    };
-  }, []);
-
-  return (
-    <div className="relative">
-      <div
-        ref={ref}
-        className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8"
-      >
-        {children}
-      </div>
-      {hasMore && (
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 flex w-10 items-center justify-end bg-gradient-to-l from-white to-transparent"
-          aria-hidden
-        >
-          <ChevronRight size={18} className="text-app-text-muted" />
-        </div>
-      )}
-    </div>
-  );
-}
 
 export default function SiteDetailPage() {
   const { siteId } = useParams<{ siteId: string }>();
@@ -587,7 +546,7 @@ export default function SiteDetailPage() {
                       <h3 className="mb-3 text-lg font-bold text-app-text">
                         {t(GROUP_LABEL_KEY[group])}
                       </h3>
-                      <ScrollHintRow>
+                      <ScrollHintRow className="-mx-5 flex gap-4 px-5 lg:-mx-8 lg:px-8">
                         {spots.map((spot) => (
                           <a
                             key={spot.contentid}

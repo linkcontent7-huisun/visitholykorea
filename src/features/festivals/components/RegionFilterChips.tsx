@@ -12,6 +12,7 @@
 import { localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { chipClass } from '@/shared/components/ui/class-names';
+import { ScrollHintRow } from '@/shared/components/ui/ScrollHintRow';
 import { REGIONS, type Region } from '@/shared/lib/regions';
 
 interface RegionFilterChipsProps {
@@ -31,9 +32,12 @@ export function RegionFilterChips({
 }: RegionFilterChipsProps) {
   const { language } = useSettings();
   return (
-    // 음수 마진으로 좌우 여백을 뚫어, 스크롤이 화면 끝까지 이어지게 한다
-    <div
-      className="no-scrollbar -mx-5 overflow-x-auto px-5 pb-1 lg:-mx-8 lg:px-8"
+    // 음수 마진으로 좌우 여백을 뚫어, 스크롤이 화면 끝까지 이어지게 한다.
+    // 오른쪽 끝 그라디언트 + 화살표로 더 있다는 걸 알려준다(2026-09-19 — 잘린 칩 하나만으로는
+    // 스크롤 가능함을 못 알아채는 경우가 있었다).
+    <ScrollHintRow
+      className="-mx-5 px-5 pb-1 lg:-mx-8 lg:px-8"
+      fadeFrom="from-app-bg"
       role="group"
       aria-label={groupLabel}
       data-testid="region-chips"
@@ -59,6 +63,6 @@ export function RegionFilterChips({
           </button>
         ))}
       </div>
-    </div>
+    </ScrollHintRow>
   );
 }

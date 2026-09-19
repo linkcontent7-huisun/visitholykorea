@@ -346,18 +346,14 @@ export default function MenuPage() {
           </Button>
         )}
 
-        <Button
-          variant="ghost"
-          block
-          onClick={() => {
-            if (isLoggedIn) void signOut();
-            else requireAuth();
-          }}
-          id="logout-btn"
-        >
-          {isLoggedIn ? <LogOut size={18} aria-hidden /> : <LogIn size={18} aria-hidden />}
-          {isLoggedIn ? t('logout') : t('login')}
-        </Button>
+        {/* 로그아웃 전용 — 로그인 입구는 위 프로필 카드에 이미 있다(2026-09-19: 같은 화면에
+            로그인 입구가 두 번 나오던 것을 정리). */}
+        {isLoggedIn && (
+          <Button variant="ghost" block onClick={() => void signOut()} id="logout-btn">
+            <LogOut size={18} aria-hidden />
+            {t('logout')}
+          </Button>
+        )}
       </div>
     </PageContainer>
   );

@@ -162,8 +162,6 @@ export default function MapPage() {
               ? t('loading')
               : fillPlaceholders(t('mapProgress'), { n: totalVisited, total: sites.length })}
           </p>
-          {/* 실제 도로 지도로 착각했다는 피드백(2026-09-07) — 무엇을 보여주는 지도인지 밝힌다 */}
-          <p className="mt-1.5 text-sm leading-relaxed text-app-text-muted">{t('mapScopeNote')}</p>
 
           {nudge && (
             <p className="mt-3 rounded-lg bg-brand-soft px-4 py-3 text-sm font-bold text-brand-blue">

@@ -205,7 +205,7 @@ export default function RecordsPage() {
           <EmptyState
             icon={PenLine}
             title={t('recordsLoginTitle')}
-            description={t('recordsMinimalSub')}
+            description={t('recordsLoginDescription')}
             action={
               <>
                 <ButtonLink to={paths.login} id="records-login-btn">

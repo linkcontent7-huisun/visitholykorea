@@ -148,16 +148,18 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
               }}
             />
             <div className="absolute inset-x-5 bottom-7 text-white [text-shadow:0_1px_8px_rgba(0,0,0,.45)] lg:inset-x-8 lg:bottom-10">
-              <p className="text-sm font-bold tracking-wide opacity-95">{slide.caption}</p>
+              {/* 캡션과 출처를 한 줄에 — 성지 이름(h2)과는 흐름이 분리돼 있어 긴 이름이어도
+                  출처 배지에 가려 잘리지 않는다(2026-09-19 실측: "명동대성당"이 배지에 가려 "명동대성다"로 보였다). */}
+              <div className="flex items-baseline justify-between gap-2">
+                <p className="min-w-0 truncate text-sm font-bold tracking-wide opacity-95">{slide.caption}</p>
+                <span className="max-w-[55%] shrink-0 truncate rounded bg-black/40 px-2 py-0.5 text-xs text-white/85 backdrop-blur-sm">
+                  {slide.credit}
+                </span>
+              </div>
               <h2 className="mt-1 font-display text-[1.75rem] leading-tight lg:text-[2.5rem]">
                 {slide.name}
               </h2>
             </div>
-            {/* CC 계열 라이선스 — 출처 표기는 의무. 우하단(2026-09-17) — 캡션과 같은 높이,
-                맨 아래 넘김 점과는 겹치지 않게 살짝 위에 둔다 */}
-            <span className="absolute bottom-7 right-3 max-w-[60%] truncate rounded bg-black/40 px-2 py-0.5 text-xs text-white/85 backdrop-blur-sm lg:bottom-10">
-              {slide.credit}
-            </span>
           </Link>
         ))}
       </div>
