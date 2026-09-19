@@ -179,7 +179,7 @@ export default function HomePage() {
           md 부터는 화면이 넓어 그대로 격자로 4장을 편다. */}
       <PageContainer className="pt-8 lg:pt-12">
         <SectionHeading title={t('homeFirstVisitTitle')} />
-        <ScrollHintRow className="-mx-4 flex gap-3 px-4 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 lg:gap-5">
+        <ScrollHintRow className="-mx-3 flex gap-3 px-3 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 lg:gap-5">
           {firstVisit.length > 0
             ? firstVisit.map((site) => (
                 <div key={site.id} className="w-[180px] shrink-0 md:w-auto">
@@ -202,7 +202,7 @@ export default function HomePage() {
             title={t('routesTitle')}
             action={{ to: paths.routes, label: t('seeAll') }}
           />
-          <div className="no-scrollbar -mx-4 flex gap-4 overflow-x-auto px-4 lg:-mx-6 lg:px-6">
+          <div className="no-scrollbar -mx-3 flex gap-4 overflow-x-auto px-3 lg:-mx-5 lg:px-5">
             {routes.slice(0, 6).map((route) => (
               <Link
                 key={route.id}

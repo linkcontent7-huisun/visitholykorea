@@ -146,7 +146,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                   'linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 45%, rgba(0,0,0,.05) 100%)',
               }}
             />
-            <div className="absolute inset-x-4 bottom-7 text-white [text-shadow:0_1px_8px_rgba(0,0,0,.45)] lg:inset-x-6 lg:bottom-10">
+            <div className="absolute inset-x-3 bottom-7 text-white [text-shadow:0_1px_8px_rgba(0,0,0,.45)] lg:inset-x-5 lg:bottom-10">
               <p className="min-w-0 truncate text-sm font-bold tracking-wide opacity-95">{slide.caption}</p>
               <h2 className="mt-1 font-display text-[1.75rem] leading-tight lg:text-[2.5rem]">
                 {slide.name}
