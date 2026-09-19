@@ -1,0 +1,16 @@
+{
+  "siteId": "933c7006-8bb5-4ff0-85d3-ac5146f47372",
+  "siteName": "용수성지 (성 김대건 신부 제주 표착 기념관)",
+  "slug": "yongsu-seongji-kim-daegun-memorial",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "용수성지는 성 김대건 신부 일행이 풍랑 끝에 제주에 닿은 일을 기억하는 곳입니다. 기념관과 성당, 라파엘호와 동상을 따라 그 귀국 여정을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "표착기념관 — 바닷길의 기억", "location": "성지 마당의 기념관", "narration": "성지 안에는 성 김대건 신부 제주 표착기념관이 있습니다. 제주교구는 김대건 신부 일행의 표착을 기념해 이 건물을 마련했습니다. 전시를 통해 사제품을 받고 귀국하던 항해와 제주 표착의 의미를 만나실 수 있습니다.", "lookFor": "표착기념관 출입구", "forEveryone": "한 번의 위험한 항해가 한국 교회사의 중요한 장면으로 남았습니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2371; https://www.diocesejeju.or.kr/?document_srl=56501&listStyle=viewer&mid=board_diocese&page=8; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003785&gubun=16"},
+    {"seq": 2, "title": "기념성당 — 표착을 감사하는 자리", "location": "기념관 바로 옆", "narration": "기념관 옆에는 성 김대건 신부 제주표착기념성당이 서 있습니다. 이 성당은 표착과 제주에서의 첫 미사를 기념해 세워졌습니다. 바다를 건넌 일행의 고난과 무사 귀환에 대한 감사를 이곳에서 되새겨 보세요.", "lookFor": "기념관 옆 성당 건물", "forEveryone": "역사적 사건을 오늘의 전례와 기도로 이어 주는 공간입니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2371; https://www.diocesejeju.or.kr/?document_srl=56501&listStyle=viewer&mid=board_diocese&page=8"},
+    {"seq": 3, "title": "라파엘호 — 귀국 항해를 보여주는 배", "location": "기념관 앞 잔디광장", "narration": "잔디광장에는 복원된 라파엘호가 놓여 있습니다. 김대건 신부 일행은 이 배를 타고 상하이에서 조선으로 돌아오다가 용수리 포구에 표착했습니다. 배의 크기와 형태를 바라보며 당시 항해의 위험을 떠올려 보세요.", "lookFor": "잔디광장에 놓인 라파엘호", "forEveryone": "실물 크기의 배는 글로 읽은 항해를 눈앞의 경험으로 바꾸어 줍니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2371; https://www.diocesejeju.or.kr/?document_srl=56501&listStyle=viewer&mid=board_diocese&page=8"},
+    {"seq": 4, "title": "김대건 신부 동상 — 시련을 건넌 사제", "location": "성지 마당", "narration": "성지 마당에는 김대건 신부 동상이 있습니다. 제주교구 안내는 기념관과 성당, 라파엘호와 함께 이 동상을 성지의 주요 시설로 소개합니다. 동상 앞에서 온갖 시련을 이겨 내고 사명을 이어 간 첫 한국인 사제를 기억해 보세요.", "lookFor": "김대건 신부 동상", "forEveryone": "인물상은 한 사람의 선택과 용기를 지금의 방문객에게 전합니다.", "photos": [], "sourceNote": "https://www.diocesejeju.or.kr/?document_srl=56501&listStyle=viewer&mid=board_diocese&page=8"}
+  ],
+  "outro": {"narration": "기념관과 성당, 배와 동상을 한자리에서 만나며 김대건 신부의 귀국길과 제주 표착을 함께 기억해 보세요.", "photos": []}
+}

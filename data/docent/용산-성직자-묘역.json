@@ -1,0 +1,16 @@
+{
+  "siteId": "d83c3808-9443-4a12-83b9-94217d28f34d",
+  "siteName": "용산 성직자 묘역",
+  "slug": "yongsan-seongjikja-myoyeok",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "용산 성직자 묘역에는 한국 교회 근현대사를 이끈 성직자와 수도자들의 기억이 모여 있습니다. 묘비와 생명의 길, 한국전쟁 순교 사제 기념비를 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "묘역 — 시대에 따라 달라진 묘비", "location": "성직자 묘역 중앙", "narration": "묘비의 글자는 시대에 따라 라틴어와 한문 혼용에서 한글 중심으로 변했습니다. 세로쓰기에서 가로쓰기로 바뀐 모습도 확인할 수 있습니다. 여러 시대의 묘비가 한자리에서 한국 교회의 언어 변화를 보여줍니다.", "lookFor": "묘비마다 다른 문자와 글쓰기 방향", "forEveryone": "묘비의 서체와 언어가 근현대 표기 문화의 변화를 기록합니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/news/news_view.asp?seq=199783&tbcode=SEC06"},
+    {"seq": 2, "title": "생명의 길 — 묘지 옆 돌담길", "location": "묘역 옆 돌담길", "narration": "묘지 옆에는 생명의 길이라 이름 붙인 돌담길이 있습니다. 용산본당 설립 60주년을 맞아 2002년에 조성했습니다. 순교자의 후손답게 이웃을 생명의 길로 이끌자는 뜻을 담았습니다.", "lookFor": "묘역 가장자리를 잇는 돌담길", "forEveryone": "추모 공간의 경계를 걷는 길에 공동체의 다짐을 담았습니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/news/news_view.asp?seq=199783&tbcode=SEC06"},
+    {"seq": 3, "title": "기념비 — 한국전쟁 피랍·순교 사제", "location": "묘역 안 기념비", "narration": "이 기념비는 한국전쟁 때 서울대교구 관할 지역에서 피랍되거나 순교한 사제들을 기립니다. 비석에는 윤의병 신부를 비롯한 열여덟 명의 이름이 새겨져 있습니다. 개별 무덤을 넘어 전쟁 피해를 함께 기억하는 표지입니다.", "lookFor": "기념비에 새겨진 사제들의 이름", "forEveryone": "이름을 한데 새겨 전쟁이 한 공동체에 남긴 집단적 상실을 보여줍니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/news/news_view.asp?seq=199783&tbcode=SEC06"},
+    {"seq": 4, "title": "성상과 제대 — 1973년의 조경", "location": "묘역 안 기도 공간", "narration": "묘역에는 석조 제대와 루르드 성모동굴, 예수성심상과 성 요셉상, 성 김대건 신부상이 있습니다. 이 시설들은 1973년 본당 신자들이 기증했습니다. 묘역을 단순한 매장지가 아니라 기도 공간으로 가꾼 흔적입니다.", "lookFor": "석조 제대와 여러 성상", "forEveryone": "공동체의 기증이 묘지를 예배와 추모의 공간으로 확장했습니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/news/news_view.asp?seq=199783&tbcode=SEC06"}
+  ],
+  "outro": {"narration": "묘비의 문자와 돌담길, 기념비와 성상은 이 묘역이 계속 가꾸어진 기억의 장소임을 보여줍니다.", "photos": []}
+}

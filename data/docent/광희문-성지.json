@@ -1,0 +1,15 @@
+{
+  "siteId": "3a06643c-a506-4940-aaf4-6e088f83a063",
+  "siteName": "광희문 성지",
+  "slug": "gwanghuimun-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "광희문 성지는 도성 안에서 순교한 이들의 시신이 성 밖으로 나가던 문과 그 밖의 매장지를 기억합니다. 광희문과 성곽, 순교자 현양관을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "성지 앞 — 광희문", "location": "성지 앞 도성 문", "narration": "광희문의 문루와 홍예문을 바라보세요. 이 문은 한양도성의 네 소문 가운데 하나로 세워졌습니다. 박해 시대에는 도성 안에서 숨진 순교자들의 시신이 이 문 밖으로 옮겨졌습니다.", "lookFor": "돌로 쌓은 홍예문 위의 문루", "forEveryone": "도시의 출입문이 죽은 이들의 마지막 통로이기도 했던 장소입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2286&curpage=1&menugubun=holyplace; https://maria.catholic.or.kr/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2286&ctxtSubMenu=album&curpage=1&menugubun=holyplace"},
+    {"seq": 2, "title": "문루 — 광희문 현판", "location": "광희문 위", "narration": "문루에 걸린 광희문 현판을 찾아보세요. 문은 청계천 수문 가까이에 있어 수구문이라 불렸습니다. 시신이 성 밖으로 나가는 문이라는 뜻에서 시구문이라는 이름으로도 불렸습니다.", "lookFor": "문루 중앙의 광희문 현판", "forEveryone": "한 건축물이 지형과 쓰임에 따라 여러 이름으로 불린 흔적입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2286&menugubun=holyplace"},
+    {"seq": 3, "title": "성지 안 — 순교자 현양관", "location": "광희문 성지", "narration": "작은 순교자 현양관을 살펴보세요. 이곳은 광희문 밖에 버려지고 묻힌 순교자들을 기억하도록 세운 공간입니다. 최근에는 미사 공간과 다국어 안내 입간판도 보완되었습니다.", "lookFor": "한국어와 외국어로 만든 성지 안내판", "forEveryone": "이름이 남지 않은 희생자들을 알리고 추모하는 작은 전시·예배 공간입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/board/board_view.asp?bbsgubun=pds&id=81063&infogubun=org&infoid=2286&menugubun=holyplace&orggubun=71; https://directory.cbck.or.kr/m/sResultList.asp?gubun=16"}
+  ],
+  "outro": {"narration": "광희문의 여러 이름과 현양관은 도성의 문이 순교 기억의 장소가 된 과정을 보여줍니다. 문 안과 문 밖의 방향을 번갈아 바라보세요.", "photos": []}
+}

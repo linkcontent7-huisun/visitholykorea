@@ -1,0 +1,68 @@
+{
+  "siteId": "a761a429-7b21-4328-90f3-d515302ee6c8",
+  "siteName": "행주 성당",
+  "slug": "haengju-catholic-church",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "행주 성당은 한옥의 구조를 간직한 오래된 성당입니다. 성전의 나무 구조와 바깥의 십자가의 길, 성모당과 종탑을 가까이에서 살펴보시겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "성전 — 다섯 칸 한옥 성당",
+      "location": "성당 마당에서 성전 정면",
+      "narration": "행주 성당은 다섯 칸짜리 단층 한옥으로 지어졌습니다. 2015년 복원 때 처음 지을 때 사용한 목재 대부분을 다시 썼습니다. 기둥과 보, 서까래가 나무의 생김새를 그대로 드러내는 모습이 특징입니다.",
+      "lookFor": "울퉁불퉁한 목재 기둥과 서까래",
+      "forEveryone": "한국 전통 건축을 종교 공간으로 바꾼 근대 건축 유산입니다.",
+      "photos": [],
+      "sourceNote": "https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=48&id=161282&menu=4830&num=942 ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201007916&gubun=16"
+    },
+    {
+      "seq": 2,
+      "title": "성전 안 — 나무 마루와 한지 창",
+      "location": "성전 내부",
+      "narration": "성전 마루는 옛 모습대로 나무로 깔려 있습니다. 양쪽 벽에는 한지를 바른 넓은 창이 일곱 개씩 나 있어 내부를 밝고 은은하게 만듭니다. 나무와 흰 벽, 창을 통해 들어오는 빛의 조화를 살펴보세요.",
+      "lookFor": "나무 마루와 한지를 바른 넓은 창",
+      "forEveryone": "전통 재료가 실내의 빛과 분위기를 만드는 방식을 볼 수 있습니다.",
+      "photos": [],
+      "sourceNote": "https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=48&id=161282&menu=4830&num=942"
+    },
+    {
+      "seq": 3,
+      "title": "성전 바깥 — 십자가의 길",
+      "location": "성전 양쪽 외벽",
+      "narration": "성전 양쪽 외벽에는 십자가의 길 열네 처가 장식되어 있습니다. 한옥 건물의 바깥 둘레가 기도 동선으로 이어집니다. 각 장면을 따라 천천히 걸으며 건물과 마당이 함께 쓰이는 모습을 보세요.",
+      "lookFor": "외벽을 따라 이어진 열네 장면",
+      "forEveryone": "건물 바깥을 걸으며 이야기를 순서대로 만나는 공간 구성입니다.",
+      "photos": [],
+      "sourceNote": "https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=48&id=161282&menu=4830&num=942"
+    },
+    {
+      "seq": 4,
+      "title": "마당 — 성모당",
+      "location": "성당 마당의 성모당 앞",
+      "narration": "마당에는 프랑스 루르드의 성모 발현 동굴을 재현한 성모당이 있습니다. 행주 성당이 성모 순례지 성당으로 지정된 것을 기념해 마련한 공간입니다. 돌로 만든 동굴 형태와 안쪽의 성모상을 함께 살펴보세요.",
+      "lookFor": "동굴 형태 안에 모신 성모상",
+      "forEveryone": "멀리 있는 성지를 지역의 기도 공간으로 재현한 사례입니다.",
+      "photos": [],
+      "sourceNote": "https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=48&id=161282&menu=4830&num=942"
+    },
+    {
+      "seq": 5,
+      "title": "마당 — 옛 종탑",
+      "location": "성모자상 옆",
+      "narration": "성모자상 옆에는 1912년부터 자리를 지킨 종탑이 있습니다. 한옥 성전과 함께 오랜 세월 동안 공동체의 시간을 알려 온 시설입니다. 성전의 낮은 지붕선과 종탑의 높이를 함께 비교해 보세요.",
+      "lookFor": "성모자상 옆에 선 오래된 종탑",
+      "forEveryone": "마을과 공동체에 시간을 알리던 역사적 시설입니다.",
+      "photos": [],
+      "sourceNote": "https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=48&id=161282&menu=4830&num=942"
+    }
+  ],
+  "outro": {
+    "narration": "행주 성당은 한옥의 재료와 구조 안에 가톨릭 전례 공간을 담아낸 곳입니다. 마당에서 성전과 종탑을 함께 바라보며 오래된 풍경을 다시 살펴보세요.",
+    "photos": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "siteId": "c7f09aab-c761-4145-ac38-9030030f00f7",
+  "siteName": "명례 성지",
+  "slug": "myeongrye-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "명례 성지는 복자 신석복 마르코의 고향이며 마산교구 첫 본당이 세워진 곳입니다. 한옥 성당과 생가터 제대, 부활경당을 중심으로 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "성지 마당 — 한옥 성당", "location": "성지 중앙", "narration": "마당의 한옥 성당을 바라보세요. 명례는 영남 지방의 네 번째 본당이자 오늘날 마산교구의 첫 본당이 설립된 자리입니다. 이 성당은 주변 신자들의 돌봄으로 오랜 시간을 견뎌 왔습니다.", "lookFor": "기와지붕을 얹은 한옥 성당", "forEveryone": "한국 전통 건축 안에 천주교 예배 공간을 마련한 사례입니다.", "photos": [], "sourceNote": "https://cathms.kr/mr; https://maria.catholic.or.kr/sa_ho/board/board_view.asp?bbsgubun=pds&id=83874&infogubun=org&infoid=2842&menugubun=holyplace&orggubun=71"},
+    {"seq": 2, "title": "생가터 — 야외 제대", "location": "복자 신석복 생가터", "narration": "복자 신석복 마르코의 생가터 제대를 보세요. 이곳은 명례에서 태어난 순교자의 삶을 기억하는 자리입니다. 제대 위 십자가는 부활경당 위의 십자가와 서로 마주보도록 놓여 있습니다.", "lookFor": "부활경당 십자가와 마주 보는 제대 십자가", "forEveryone": "출생지와 유해가 모셔진 곳을 두 십자가의 시선으로 연결했습니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/board/board_view.asp?bbsgubun=pds&id=83874&infogubun=org&infoid=2842&menugubun=holyplace&orggubun=71"},
+    {"seq": 3, "title": "부활경당 — 복자 유해", "location": "성지 안 경당", "narration": "부활경당에는 복자 신석복 마르코의 유해가 모셔져 있습니다. 경당 위 십자가는 생가터 제대의 십자가와 마주봅니다. 두 장소를 함께 바라보면 탄생과 순교의 기억이 한 축으로 이어집니다.", "lookFor": "경당 위 십자가", "forEveryone": "한 인물의 출생지와 유해 봉안처를 공간적으로 연결한 구성입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/board/board_view.asp?bbsgubun=pds&id=83874&infogubun=org&infoid=2842&menugubun=holyplace&orggubun=71; https://directory.cbck.or.kr/m/sResultList.asp?gubun=16"}
+  ],
+  "outro": {"narration": "한옥 성당과 두 십자가는 명례의 본당 역사와 신석복 마르코의 생애를 함께 보여줍니다. 마당에서 세 공간이 놓인 방향을 천천히 확인해 보세요.", "photos": []}
+}

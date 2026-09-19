@@ -1,0 +1,58 @@
+{
+  "siteId": "7a4090f5-1eea-4bd8-a72d-adaff10acfbb",
+  "siteName": "산막골·작은재 성지",
+  "slug": "sanmakgol-jageunjae",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "산막골과 작은재는 천방산 줄기의 교우촌과 줄무덤을 함께 기억하는 성지입니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "산막골 입구 — 산속 교우촌",
+      "location": "산막골 입구 쪽",
+      "narration": "산막골에는 기해박해 뒤 신앙 선조들이 숨어들어 공동체를 이루었습니다. 다블뤼 주교와 페롱 신부도 이 일대를 사목했습니다.",
+      "lookFor": "산으로 감싸인 교우촌 자리",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/ — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2862&menugubun=holyplace"
+    },
+    {
+      "seq": 2,
+      "title": "산막골 — 황석두 루카 성인상",
+      "location": "야외제대 쪽",
+      "narration": "황석두 루카는 가족과 함께 연풍에서 이주해 산막골에서 참회와 보속의 삶을 살았습니다. 야외제대 곁 성인상을 살펴보세요.",
+      "lookFor": "야외십자가 곁 성인상",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/ — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2862&menugubun=holyplace"
+    },
+    {
+      "seq": 3,
+      "title": "작은재 — 공소 터",
+      "location": "작은재 공소 터",
+      "narration": "작은재에는 신앙 공동체가 모였던 공소 터가 남아 있습니다. 기념비와 성모동산을 보며 산속 공동체의 생활을 떠올려 보세요.",
+      "lookFor": "공소 터 기념비와 성모동산",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/ — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2862&menugubun=holyplace"
+    },
+    {
+      "seq": 4,
+      "title": "작은재 — 줄무덤",
+      "location": "작은재 줄무덤 앞",
+      "narration": "작은재 줄무덤은 이 산골에서 신앙을 지킨 이들을 기억하는 자리입니다. 무덤 앞에서는 길과 묘역을 훼손하지 않도록 조용히 걸어 보세요.",
+      "lookFor": "이어진 줄무덤과 기념비",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/ — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2862&menugubun=holyplace"
+    }
+  ],
+  "outro": {
+    "narration": "두 장소를 잇는 산길과 공동체의 기억을 마음에 담고 돌아갑니다.",
+    "photos": []
+  }
+}

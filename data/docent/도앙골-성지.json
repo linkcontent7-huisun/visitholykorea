@@ -1,0 +1,58 @@
+{
+  "siteId": "71edd721-bea3-4c5e-a95e-082534917367",
+  "siteName": "도앙골 성지",
+  "slug": "doangol",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "도앙골은 박해 시대 하부 내포 신자들이 숨어 살며 서로를 지킨 교우촌입니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 하부 내포의 산골",
+      "location": "입구 쪽",
+      "narration": "도앙골은 홍산과 부여 일대 신자들이 박해를 피해 들어온 산골 교우촌입니다. 골짜기의 지형을 먼저 살펴보세요.",
+      "lookFor": "마을을 감싸는 산세",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 도앙골__홍산도앙골과인근교우촌그리고최양업.txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 2,
+      "title": "성지 안 — 최양업 신부의 사목",
+      "location": "성지 안",
+      "narration": "최양업 신부는 하부 내포의 교우촌들을 찾아다니며 신자들을 돌봤습니다. 도앙골은 그 순회 사목의 기억을 품은 곳입니다.",
+      "lookFor": "교우촌 사이로 이어지는 길",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 도앙골__홍산도앙골과인근교우촌그리고최양업.txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 3,
+      "title": "기도의 집 — 우애의 기억",
+      "location": "기도의 집 쪽",
+      "narration": "이곳의 기도의 집은 도앙골 공동체가 나눈 우애를 기억하게 합니다. 박해 속에서 서로 숨겨 주고 도운 삶을 생각해 보세요.",
+      "lookFor": "기도의 집",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 도앙골__홍산도앙골과인근교우촌그리고최양업.txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 4,
+      "title": "삽티 가는 쪽 — 연결된 공동체",
+      "location": "입구 쪽",
+      "narration": "도앙골은 삽티 성지와 도보 순례 구간으로 이어집니다. 두 교우촌이 따로 떨어진 점이 아니라 하나의 신앙길이었다는 뜻입니다.",
+      "lookFor": "삽티 방향 안내",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 도앙골__홍산도앙골과인근교우촌그리고최양업.txt — 대전교구 https://www.djcatholic.or.kr/"
+    }
+  ],
+  "outro": {
+    "narration": "최양업 신부가 첫 사목보고서에 적었던 가난한 교우촌이 이 골짜기였습니다. 삽티까지 이어지는 옛 산길을 걸으시려면 신발 끈을 다시 매어 보세요.",
+    "photos": []
+  }
+}

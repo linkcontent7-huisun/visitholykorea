@@ -303,3 +303,24 @@ export interface PilgrimageLogRow {
   photos: string[] | null;
   created_at: string;
 }
+
+/**
+ * 도슨트 원고 (마이그레이션 20260917090000).
+ * kind='intro' 는 상세 화면 「소개글」(큰따옴표 3문단, seq 1) · kind='point' 는 오디오 도슨트 지점
+ * (seq 0 여는 말 · 1..n 지점 · 99 맺음말). 언어별로 한 행씩이다.
+ */
+export interface DocentScriptRow {
+  id: string;
+  site_id: string;
+  language: 'ko' | 'en' | 'es' | 'fr' | 'pt' | 'it';
+  kind: 'intro' | 'point';
+  seq: number;
+  title: string | null;
+  body: string;
+  look_for: string | null;
+  sources: unknown;
+  status: 'draft' | 'reviewed' | 'verified';
+  written_by: string | null;
+  created_at: string;
+  updated_at: string;
+}

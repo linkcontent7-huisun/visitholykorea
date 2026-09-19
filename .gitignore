@@ -86,3 +86,6 @@ scripts/crawl/__pycache__/
 # 화면 분석용 스크린샷 (scripts/browser/shoot-all.ps1 결과). 문서에 남길 것만 docs/ 로 옮긴다.
 screenshots/
 .env.local.local-preview
+
+# 사진 원본(6.9GB) — 저장소에 넣지 않는다. Storage 로 올린다
+대전교구사진-크란시아자매님/

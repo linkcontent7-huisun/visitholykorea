@@ -1,0 +1,15 @@
+{
+  "siteId": "b066e847-4e51-409e-b2d2-95e4ee8ca6ed",
+  "siteName": "남양 성모 성지",
+  "slug": "namyang-marian-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "남양은 순교터를 성모 순례지로 가꾼 곳입니다. 돌 묵주알이 놓인 로사리오 길과 자비의 예수님 동산, 두 탑의 대성당을 보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "경내 — 로사리오 길", "location": "성지 안 기도길", "narration": "로사리오 길에는 큰 돌 묵주알이 기도 순서에 맞춰 놓여 있습니다. 손에 드는 묵주를 사람이 걸어가는 길의 크기로 바꾼 공간입니다. 돌알의 배열을 따라가며 길 전체가 하나의 묵주가 되는 모습을 살펴보세요.", "lookFor": "길을 따라 이어지는 화강암 묵주알", "forEveryone": "작은 기도 도구의 구조를 풍경과 동선으로 확대한 설계입니다.", "photos": [], "sourceNote": "남양 성모 성지 공식 홈페이지: http://www.namyangmaria.org"},
+    {"seq": 2, "title": "경내 — 자비의 예수님 동산", "location": "로사리오 길과 이어진 동산", "narration": "자비의 예수님 동산은 로사리오 길과 이어지는 별도의 기도 공간입니다. 성모 신심을 중심으로 한 길에 예수의 자비를 묵상하는 장소를 더했습니다. 두 공간이 나무와 길로 어떻게 연결되는지 살펴보세요.", "lookFor": "로사리오 길에서 동산으로 이어지는 길", "forEveryone": "서로 다른 신심 주제를 하나의 정원 동선으로 연결했습니다.", "photos": [], "sourceNote": "남양 성모 성지 공식 홈페이지: http://www.namyangmaria.org"},
+    {"seq": 3, "title": "경내 — 남양 성모 대성당", "location": "성지 대성당 앞", "narration": "대성당은 스위스 건축가 마리오 보타가 설계했습니다. 정면의 두 둥근 탑과 제대 쪽으로 들어오는 빛이 건물의 핵심입니다. 돌로 마감한 묵직한 외관과 내부의 자연광을 비교해 보세요.", "lookFor": "나란히 선 두 둥근 탑", "forEveryone": "기하학적인 벽과 자연광을 함께 사용하는 현대 종교 건축입니다.", "photos": [], "sourceNote": "남양 성모 성지 공식 홈페이지: http://www.namyangmaria.org"}
+  ],
+  "outro": {"narration": "남양에서는 묵주를 닮은 길과 기도 동산, 현대 대성당이 서로 다른 규모로 성모 성지의 모습을 만듭니다.", "photos": []}
+}

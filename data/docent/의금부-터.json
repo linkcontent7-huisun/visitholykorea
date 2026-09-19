@@ -1,0 +1,48 @@
+{
+  "siteId": "82de5cf4-2519-48a2-a877-92b5bb65e304",
+  "siteName": "의금부 터",
+  "slug": "uigeumbu-site",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Claude (문헌 초안 2026-09-18, 소개글 출처 기반)",
+  "status": "draft",
+  "intro": {
+    "narration": "종각역 앞, 국왕 직속으로 중죄인을 심문하던 의금부가 있던 자리입니다. 외국인 선교사들이 사형을 선고받은 곳입니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "표석 — 의금부 터",
+      "location": "종각역 1번 출구 앞",
+      "narration": "옛 건물은 없고 표석과 서울 천주교 순례길 안내가 자리를 알립니다. 1839년 앵베르 주교와 모방·샤스탕 신부, 1866년 베르뇌 주교와 브르트니에르 신부가 이곳에서 심문받고 사형을 선고받았습니다.",
+      "lookFor": "보도의 의금부 터 표석",
+      "forEveryone": "종로의 빌딩 사이에 재판 터가 숨어 있습니다.",
+      "photos": [],
+      "sourceNote": "마리아사랑넷 성지 안내(의금부 터): https://www.mariasarang.net/shrine/bbs_view.asp?bn=3&cn=&no=204"
+    },
+    {
+      "seq": 2,
+      "title": "주변 — 박해기 사법 중심지",
+      "location": "종로1가 일대",
+      "narration": "가까이에 좌·우포도청, 전옥서, 형조가 모여 있었습니다. 외국인 선교사가 체포된 뒤 국왕의 판결을 받기까지의 과정을 이 일대에서 따라갈 수 있습니다.",
+      "lookFor": "순례길 안내의 관청 위치도",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "마리아사랑넷 성지 안내(의금부 터): https://www.mariasarang.net/shrine/bbs_view.asp?bn=3&cn=&no=204"
+    },
+    {
+      "seq": 3,
+      "title": "순례길 — 2018년 교황청 승인",
+      "location": "종로 거리",
+      "narration": "이 자리는 2018년 교황청이 승인한 서울 순례길에 들어 있습니다. 전옥서 터를 지나 우포도청 터와 형조 터로 이어 걸으면 신자들이 신문과 투옥을 거쳐 형장으로 향한 동선이 보입니다.",
+      "lookFor": "순례길 표지의 다음 지점 안내",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "마리아사랑넷 성지 안내(의금부 터): https://www.mariasarang.net/shrine/bbs_view.asp?bn=3&cn=&no=204"
+    }
+  ],
+  "outro": {
+    "narration": "지하철역과 상가 사이에서 베르뇌 주교와 세 프랑스 선교사의 재판 터를 찾는 것, 그것이 이 도심 사적의 특징입니다.",
+    "photos": []
+  }
+}

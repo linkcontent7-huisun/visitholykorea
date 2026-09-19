@@ -1,0 +1,58 @@
+{
+  "siteId": "4881746c-8074-4912-9420-4d211491bd58",
+  "siteName": "여사울성지",
+  "slug": "yeosaul-seongji",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "여사울은 내포의 사도라 불린 이존창의 생가 터가 있는 곳입니다. 기념성당과 생가 터, 옛 공소에서 내포 신앙공동체의 시작을 살펴보겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "생가 터 — 이존창의 고향",
+      "location": "성지 안 생가 터",
+      "narration": "이곳은 이존창 루도비코 곤자가의 생가 터입니다. 그는 고향으로 돌아와 내포 지역에 복음을 전하고 신앙공동체를 이루었습니다. 여사울이 대전교구의 뿌리로 불리는 출발점이 바로 이 자리입니다.",
+      "lookFor": "이존창 생가 터를 알리는 표지",
+      "forEveryone": "한 인물의 고향이 지역 공동체의 출발지로 기억되는 장소입니다.",
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2308; https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19"
+    },
+    {
+      "seq": 2,
+      "title": "기념성당 — 스페인풍 기와",
+      "location": "생가 터 앞 기념성당",
+      "narration": "이 기념성당은 이존창을 기리기 위해 세워졌습니다. 굿뉴스는 지붕에 스페인풍 기와를 얹었다고 설명합니다. 2010년 10월 봉헌된 건물로, 생가 터와 마주하며 여사울의 시작을 기념합니다.",
+      "lookFor": "기념성당 지붕의 스페인풍 기와",
+      "forEveryone": "지역 인물의 기억을 독특한 지붕 형태로 드러낸 기념 건축입니다.",
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2308"
+    },
+    {
+      "seq": 3,
+      "title": "옛 공소 — 이어진 공동체의 흔적",
+      "location": "기념성당 인근 옛 공소",
+      "narration": "여사울에는 옛 공소 건물이 보존되어 있습니다. 교구는 기념성당과 이 공소를 마을 안쪽과 언덕에 자리한 두 건물로 소개합니다. 병인박해 뒤 일부 기간을 제외하고 이어진 공동체의 자취를 이 작은 건물이 전합니다.",
+      "lookFor": "마을에 보존된 옛 공소 건물",
+      "forEveryone": "대규모 기념관보다 작은 모임 공간이 공동체의 지속성을 보여줍니다.",
+      "photos": [],
+      "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19"
+    },
+    {
+      "seq": 4,
+      "title": "성지 안 — 내포 복음의 출발",
+      "location": "성지 안",
+      "narration": "이존창 루도비코 곤자가는 여사울에서 내포 지역에 복음을 전했습니다. 이곳에서 퍼진 신앙이 내포 여러 고을의 공동체로 이어졌습니다.",
+      "lookFor": "이존창을 기억하는 표상",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 여사울__여사울 성지(소개글).txt — 대전교구 https://www.djcatholic.or.kr/"
+    }
+  ],
+  "outro": {
+    "narration": "생가 터와 기념성당, 옛 공소는 여사울에서 시작해 이어진 공동체의 시간을 나란히 보여줍니다.",
+    "photos": []
+  }
+}

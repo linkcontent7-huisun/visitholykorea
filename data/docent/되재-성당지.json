@@ -1,0 +1,15 @@
+{
+  "siteId": "47589be3-145b-49d5-ba67-09e05beaa544",
+  "siteName": "되재 성당지",
+  "slug": "doejae-church-site",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "되재 성당지는 전주교구의 오랜 공소와 한옥 성당의 기억이 남은 곳입니다. 복원된 성당과 종탑, 내부 제대를 중심으로 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "성당 마당 — 한옥 성당", "location": "성당지 중앙", "narration": "마당에 선 한옥 성당의 전체 모습을 보세요. 되재 성당은 옛 모습대로 복원된 한국 최초의 한옥 성당입니다. 기와지붕과 목조 외관이 이곳 성당지의 중심을 이룹니다.", "lookFor": "기와지붕과 목조 외관", "forEveryone": "한국 전통 건축 형식으로 마련한 천주교 예배 공간입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2833&menugubun=holyplace; https://www.jcatholic.or.kr/data/jc_file/jc_ebook_list/2886733904_hSQ28ZbF_20190414.pdf; https://directory.cbck.or.kr/OnlineAddress/Catholic/DetailInfo.aspx?cgubn=g&gubn=5&gyogu=201000027&code=201005915&gubn2=all&char=all"},
+    {"seq": 2, "title": "성당 앞 — 종탑", "location": "성당 앞쪽", "narration": "성당 앞의 목조 종탑을 살펴보세요. 낮은 한옥 지붕과 수직으로 선 종탑이 대비됩니다. 출입구 앞에 따로 세운 종탑은 한옥 성당과 어울리도록 구성되었습니다.", "lookFor": "출입구 앞의 목조 종탑", "forEveryone": "수평적인 전통 지붕과 수직적인 종탑이 한 공간에 놓여 있습니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2833&menugubun=holyplace; https://mok5.com/data/board/data04/file_in_body/1/2014_03_04.pdf"},
+    {"seq": 3, "title": "성당 내부 — 자연석 제대", "location": "성당 안 정면", "narration": "성당 안의 자연석 제대를 바라보세요. 제대 앞면에는 성부의 손과 성자의 십자가, 성령의 비둘기가 새겨져 있습니다. 좌우의 알파와 오메가 부조도 함께 살펴보세요.", "lookFor": "제대 앞면의 손·십자가·비둘기 부조", "forEveryone": "돌 한 면에 삼위일체를 세 가지 상징으로 표현했습니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2833&menugubun=holyplace; https://www.jcatholic.or.kr/data/jc_file/jc_ebook_list/2886733904_hSQ28ZbF_20190414.pdf"}
+  ],
+  "outro": {"narration": "되재에서는 한옥의 지붕과 기둥, 종탑과 제대가 한 성당 안에서 만납니다. 마당으로 나와 건물 전체를 다시 바라보세요.", "photos": []}
+}

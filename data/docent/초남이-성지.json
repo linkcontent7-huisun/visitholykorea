@@ -1,0 +1,68 @@
+{
+  "siteId": "586807a3-3a63-4b89-b99d-fd994dd6d5fa",
+  "siteName": "초남이 성지",
+  "slug": "chonami-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "초남이 성지는 유항검 아우구스티노 가족의 생가가 있던 곳입니다. 생가터와 교리당, 순교자 묘소를 따라 호남 지역에 신앙이 퍼져 간 흔적을 살펴보시겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "생가터 — 유항검의 집터",
+      "location": "성지 안 생가터",
+      "narration": "이곳은 호남의 사도로 불린 유항검 아우구스티노의 생가가 있던 자리입니다. 유항검은 이곳에서 나눔을 실천하고 복음을 전했습니다. 신유박해 때 가족이 순교한 뒤 집은 헐리고 터가 파헤쳐졌습니다.",
+      "lookFor": "유항검 가족의 삶을 기억하는 생가터",
+      "forEveryone": "한 가족의 삶과 지역 공동체의 역사가 시작된 집터입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta04.php ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003779&gubun=16"
+    },
+    {
+      "seq": 2,
+      "title": "교리당 — 교리와 숙식의 공간",
+      "location": "성지 안 교리당",
+      "narration": "교리당은 유항검이 교리를 가르치고 토론하며 사람들에게 숙식을 제공하던 장소입니다. 이곳을 기점으로 전주와 김제, 금구와 영광까지 천주교가 전해졌습니다. 주문모 야고보 신부도 1795년에 이곳에 머물며 미사와 고해성사를 거행했습니다.",
+      "lookFor": "사람들이 배우고 머물던 교리당 공간",
+      "forEveryone": "배움과 환대가 지역의 새로운 사상을 퍼뜨린 장소입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta04.php"
+    },
+    {
+      "seq": 3,
+      "title": "성당 — 성 요셉성당",
+      "location": "생가터 쪽 성당",
+      "narration": "생가터에는 성 요셉성당이 마련되어 있습니다. 월요일 미사는 생가터의 이 성당에서 봉헌된다고 교구 안내에 적혀 있습니다. 가족의 신앙을 기억하는 성지에서 예배가 이어지는 공간입니다.",
+      "lookFor": "생가터에 자리한 작은 성당",
+      "forEveryone": "역사적 집터에 마련된 현재의 예배 공간입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta04.php"
+    },
+    {
+      "seq": 4,
+      "title": "교리당 — 순교자 묘소",
+      "location": "교리당의 순교자 묘소",
+      "narration": "교리당에는 윤지충 바오로와 권상연 야고보, 윤지헌 프란치스코의 유해를 모신 묘소가 있습니다. 이 유해들은 바우배기에서 2021년에 발견되었습니다. 순교한 지 오랜 시간이 흐른 뒤 다시 확인된 유해를 이곳에서 기립니다.",
+      "lookFor": "세 복자의 유해를 모신 묘소",
+      "forEveryone": "발굴과 확인을 거쳐 보존된 역사 인물들의 안식처입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta04.php"
+    },
+    {
+      "seq": 5,
+      "title": "바우배기 — 유해 발견지",
+      "location": "성지에서 안내하는 바우배기 자리",
+      "narration": "바우배기는 세 복자의 유해가 발견된 장소입니다. 유항검 가족 일곱 분의 유해도 처음에는 이곳에 묻혔다가 1914년 치명자산으로 옮겨졌습니다. 한 장소가 서로 다른 순교자들의 기억을 오랫동안 품어 온 셈입니다.",
+      "lookFor": "유해 발견지를 알리는 현장 표지",
+      "forEveryone": "매장지의 발견이 역사를 새롭게 확인하게 한 장소입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta04.php"
+    }
+  ],
+  "outro": {
+    "narration": "초남이에서는 집터와 배움의 공간, 묘소가 한 가족과 지역 공동체의 역사를 이어 줍니다. 각 장소의 거리를 천천히 걸으며 신앙이 사람 사이에서 전해진 과정을 떠올려 보세요.",
+    "photos": []
+  }
+}

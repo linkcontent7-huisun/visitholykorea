@@ -1,0 +1,16 @@
+{
+  "siteId": "73ecdbf7-9000-4f94-ac5e-002c73d94c69",
+  "siteName": "용소막성당",
+  "slug": "yongsomak-seongdang",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "용소막성당은 원주교구의 오랜 신앙 공동체와 성경 번역의 기억을 품은 곳입니다. 성당과 유물관, 교정의 기념물과 기도 길을 차례로 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "성당 — 붉은 벽돌로 세운 신앙의 집", "location": "성당 마당 정면", "narration": "마당에서 붉은 벽돌로 지은 성당을 바라보세요. 이 성당은 신자들이 직접 벽돌을 굽고 목재를 마련해 세운 건물입니다. 오랜 시간 공동체가 힘을 모아 지킨 신앙의 자리를 보여줍니다.", "lookFor": "붉은 벽돌 성당 건물", "forEveryone": "지역 공동체의 노동과 헌신이 건축물에 남아 있습니다.", "photos": [], "sourceNote": "https://app.catholic.or.kr/web/holyplace/?seq=2276; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003744&gubun=16"},
+    {"seq": 2, "title": "선종완 신부 동상 — 성경 번역을 기억하며", "location": "성당 앞마당", "narration": "성당 앞마당에는 선종완 라우렌시오 신부의 동상이 서 있습니다. 선 신부는 이 본당 출신으로 성경 번역에 큰 역할을 했습니다. 동상은 이곳에서 자란 한 사제가 한국 교회에 남긴 말씀의 결실을 기념합니다.", "lookFor": "선종완 신부 동상", "forEveryone": "한 인물의 삶을 통해 성경이 우리말로 전해진 과정을 떠올릴 수 있습니다.", "photos": [], "sourceNote": "https://app.catholic.or.kr/web/holyplace/?seq=2276"},
+    {"seq": 3, "title": "유물관 — 본당의 시간을 모은 곳", "location": "성당 곁 유물관", "narration": "성당 곁에는 본당의 역사를 보여주는 유물관이 있습니다. 이곳에는 본당과 선종완 신부에 관한 자료가 전시되어 있습니다. 작은 전시 공간에서 성당의 건물 밖 역사까지 이어서 살펴보실 수 있습니다.", "lookFor": "유물관 건물과 전시 안내", "forEveryone": "기록과 유물은 공동체의 기억을 다음 세대에 전합니다.", "photos": [], "sourceNote": "https://app.catholic.or.kr/web/holyplace/?seq=2276"},
+    {"seq": 4, "title": "십자가의 길과 묵주기도 길 — 뒷동산의 기도 자리", "location": "성당 뒤편 동산", "narration": "성당 뒤편 동산에는 십자가의 길과 묵주기도 길이 마련되어 있습니다. 길을 따라 걸으며 예수님의 수난과 성모님의 삶을 차분히 묵상할 수 있습니다. 건물 관람을 마친 뒤 자연 속에서 기도로 순례를 잇는 자리입니다.", "lookFor": "동산으로 이어지는 십자가의 길", "forEveryone": "걷기와 묵상이 함께 이루어지는 야외 기도 공간입니다.", "photos": [], "sourceNote": "https://app.catholic.or.kr/web/holyplace/?seq=2276"}
+  ],
+  "outro": {"narration": "성당에서 시작해 동상과 유물관, 기도 길을 둘러보며 이 공동체가 신앙과 말씀을 어떻게 이어 왔는지 기억해 보세요.", "photos": []}
+}

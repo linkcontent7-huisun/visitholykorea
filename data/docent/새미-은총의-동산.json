@@ -1,0 +1,16 @@
+{
+  "siteId": "9321e8ce-5d68-46e5-bd9f-e8fbde9ca2e4",
+  "siteName": "새미 은총의 동산",
+  "slug": "saemi-hill-of-grace",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "새미 은총의 동산은 성 이시돌 목장 안에 조성된 복음 테마 순례지입니다. 예수님 생애공원과 십자가의 길, 묵주기도 호수와 삼위일체 대성당을 따라가 보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "동산 입구 — 예수님 생애공원", "location": "동산 초입", "narration": "예수님 생애공원에는 탄생부터 최후의 만찬까지 주요 장면이 조각으로 펼쳐집니다. 각 작품은 예수님의 공생활을 차례로 따라가도록 놓여 있습니다. 한 장면씩 인물의 자세와 시선을 살펴보세요.", "lookFor": "예수님의 생애 장면을 재현한 조각상", "forEveryone": "성경 이야기를 야외 조각으로 풀어낸 테마 공원입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2382&curpage=&menugubun=holyplace; https://www.diocesejeju.or.kr/board_diocese/26187"},
+    {"seq": 2, "title": "산책로 — 십자가의 길", "location": "대성당과 호수 사이", "narration": "대성당과 묵주기도 호수 사이에 십자가의 길이 이어집니다. 예수님의 수난을 대형 조각상으로 재현한 열네 처입니다. 직접 십자가를 지고 걸어볼 수 있는 체험장도 따로 마련되어 있습니다.", "lookFor": "대형 조각상으로 구성된 십자가의 길 14처", "forEveryone": "수난 이야기를 몸의 이동과 조각 감상으로 경험하도록 만든 길입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2382&curpage=&menugubun=holyplace; https://www.diocesejeju.or.kr/board_diocese/26187"},
+    {"seq": 3, "title": "호수 — 묵주기도의 길", "location": "십자가의 길 끝", "narration": "십자가의 길을 지나면 묵주기도의 호수에 닿습니다. 호수 둘레에는 걸으며 기도할 수 있는 오솔길이 이어집니다. 물과 길이 한 바퀴의 기도 동선을 만듭니다.", "lookFor": "호수를 둘러싼 오솔길", "forEveryone": "자연 풍경과 반복 보행을 결합한 명상 공간입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mi_pr/missa/bbs_view.asp?id=1942599&menu=4770&num=20571; https://www.diocesejeju.or.kr/board_diocese/26187"},
+    {"seq": 4, "title": "대성당 — 켈틱 십자가", "location": "동산 안 대성당", "narration": "삼위일체 대성당의 전체 형태를 바라보세요. 건물은 아일랜드식 켈틱 십자가 모양을 취하고 있습니다. 십자가 형태의 옥상 중심에는 제단이 놓이고 사면으로 좌석이 펼쳐집니다.", "lookFor": "옥상까지 이어지는 켈틱 십자가 형태", "forEveryone": "건물 전체를 십자가 형상으로 설계한 독특한 종교 건축입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2382&curpage=&menugubun=holyplace; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003784&gubun=16"}
+  ],
+  "outro": {"narration": "조각과 길, 호수와 대성당이 예수님의 생애와 수난을 하나의 긴 동선으로 엮습니다. 마지막에는 동산의 자연과 건축이 만나는 풍경을 바라보세요.", "photos": []}
+}

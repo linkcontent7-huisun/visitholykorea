@@ -1,0 +1,15 @@
+{
+  "siteId": "08da6926-8888-4c93-9ba3-0d23be5e0111",
+  "siteName": "나바위 성지",
+  "slug": "nabawi-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "나바위는 김대건 신부 일행의 귀국 항로와 한옥 성당이 만나는 성지입니다. 성당 건축과 화산 정상의 두 기념물을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "경내 — 나바위성당", "location": "성지 안", "narration": "나바위성당은 한옥의 팔작지붕과 목조 기둥에 서양식 종탑과 아치를 결합했습니다. 안팎을 보며 전통 목조 구조와 서양 성당 요소가 만나는 부분을 찾아보세요. 김대건 신부 일행이 금강 물길로 들어온 장소 가까이에 이 성당이 세워졌습니다.", "lookFor": "한옥 지붕과 서양식 종탑의 결합", "forEveryone": "서로 다른 건축 전통을 한 건물에 조합한 근대 종교 건축입니다.", "photos": [], "sourceNote": "굿뉴스 나바위 성지 안내: https://m.catholic.or.kr/web/holyplace/"},
+    {"seq": 2, "title": "화산 정상 — 상륙 기념 표석", "location": "성당 뒤 화산 정상", "narration": "화산 정상에는 김대건 신부 일행의 상륙을 기념하는 표석이 있습니다. 성당에서 언덕을 오르면 금강 나루와 연결된 지형을 더 넓게 볼 수 있습니다. 표석은 배에서 내린 사건을 현재의 땅 위에 표시합니다.", "lookFor": "김대건 신부 일행의 상륙을 적은 표석", "forEveryone": "물길로 이동한 역사를 지형과 함께 읽게 하는 기념물입니다.", "photos": [], "sourceNote": "굿뉴스 나바위 성지 안내: https://m.catholic.or.kr/web/holyplace/"},
+    {"seq": 3, "title": "화산 정상 — 순교 백주년 기념비", "location": "상륙 기념 표석 가까이", "narration": "정상에는 순교 백주년을 기념하는 비도 함께 서 있습니다. 상륙 표석이 귀국의 시작을 가리킨다면 이 기념비는 김대건 신부의 순교를 뒤에서 되돌아봅니다. 두 기념물이 같은 언덕에 놓인 이유를 비교해 보세요.", "lookFor": "상륙 표석과 기념비의 서로 다른 문구", "forEveryone": "한 인물의 출발과 죽음을 서로 다른 기념물로 나란히 기록했습니다.", "photos": [], "sourceNote": "굿뉴스 나바위 성지 안내: https://m.catholic.or.kr/web/holyplace/"}
+  ],
+  "outro": {"narration": "나바위에서는 한옥 성당과 화산의 두 기념물이 김대건 신부의 귀국과 순교를 이어 설명합니다.", "photos": []}
+}

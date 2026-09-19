@@ -1,0 +1,48 @@
+{
+  "siteId": "3cce01bc-9ba8-46a0-aa80-0da508f6e161",
+  "siteName": "창원 웅천 왜성",
+  "slug": "ungcheon-waeseong",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Claude (문헌 초안 2026-09-18, 소개글 출처 기반)",
+  "status": "draft",
+  "intro": {
+    "narration": "임진왜란 때 일본군이 쌓은 성입니다. 1593년 조선 땅에 머문 첫 서양인 성직자, 세스페데스 신부의 자취가 있습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "성곽 — 돌축대와 산정 유구",
+      "location": "왜성 정상부",
+      "narration": "웅천 왜성은 임진왜란 때 일본군이 진해만을 내려다보며 쌓은 군사 거점입니다. 돌축대와 산정의 유구가 남아 있어 성의 규모를 짐작할 수 있습니다.",
+      "lookFor": "진해만이 내려다보이는 성곽 위 전망",
+      "forEveryone": "전쟁의 흔적과 선교의 기록이 한자리에 있습니다.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 세스페데스 기사: https://home.catholic.or.kr/pdsm/bbs_view.asp?Page=10&SORT=C&id=141934&menu=4817&num=236"
+    },
+    {
+      "seq": 2,
+      "title": "세스페데스 공원 — 1593년의 기억",
+      "location": "남문동, 성 아래 공원",
+      "narration": "예수회 세스페데스 신부는 천주교 신자였던 왜장 고니시 유키나가의 요청으로 1593년 이곳에 왔습니다. 약 일 년 동안 왜군에게 미사와 세례를 베풀었고, 창원시는 2015년 그 도착을 기념하는 공간을 열었습니다.",
+      "lookFor": "공원의 기념 조형물",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "가톨릭신문 세스페데스 기사: https://home.catholic.or.kr/pdsm/bbs_view.asp?Page=10&SORT=C&id=141934&menu=4817&num=236"
+    },
+    {
+      "seq": 3,
+      "title": "미사 — 마산교구의 기념",
+      "location": "성곽 또는 공원",
+      "narration": "침략군 진영 안에서 스페인 신부의 첫 체류와 미사가 이루어졌다는 사실 때문에 이곳의 천주교 기억에는 전쟁의 상처와 선교 기록이 함께 남습니다. 마산교구 신자들은 왜성에서 미사를 봉헌하며 1593년을 되새겼습니다.",
+      "lookFor": "성곽에서 바라본 남문동",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "가톨릭신문 세스페데스 기사: https://home.catholic.or.kr/pdsm/bbs_view.asp?Page=10&SORT=C&id=141934&menu=4817&num=236"
+    }
+  ],
+  "outro": {
+    "narration": "한국 천주교 창립보다 200년 가까이 앞선 미사의 기억입니다. 그 무게를 성곽 위에서 느껴 보세요.",
+    "photos": []
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "siteId": "96784fc3-c4c5-4266-978c-467dff83abc7",
+  "siteName": "덕산 순교 성지",
+  "slug": "deoksan",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "덕산 순교 성지는 예산군 덕산면 상가리 일대의 순교 역사를 기억하는 곳입니다. 자료로 확인되는 범위 안에서 장소를 살펴보겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 덕산의 순교 기억",
+      "location": "입구 쪽",
+      "narration": "이곳은 덕산 일대에서 이어진 박해와 순교의 역사를 기억하는 성지입니다. 먼저 성지 표지에 적힌 현장 안내를 살펴보세요.",
+      "lookFor": "성지 이름이 적힌 표지",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 가톨릭정보 덕산 굴총 사건 자료: https://maria.catholic.or.kr/sa_ho/board/board_view.asp?bbsgubun=pds&id=43170&infogubun=org&infoid=2828&menugubun=holyplace&orggubun=71"
+    },
+    {
+      "seq": 2,
+      "title": "성지 안 — 덕산 굴총 사건",
+      "location": "성지 안",
+      "narration": "덕산에서는 남연군 묘를 파헤치려다 실패한 사건 뒤 박해가 거세졌습니다. 이 지역의 역사와 신앙인들의 고난이 맞닿은 사건입니다.",
+      "lookFor": "사건을 설명하는 현장 안내",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 가톨릭정보 덕산 굴총 사건 자료: https://maria.catholic.or.kr/sa_ho/board/board_view.asp?bbsgubun=pds&id=43170&infogubun=org&infoid=2828&menugubun=holyplace&orggubun=71"
+    },
+    {
+      "seq": 3,
+      "title": "마당 — 이름이 남지 않은 이들",
+      "location": "마당",
+      "narration": "공식 자료에서 이 지점의 개별 인물과 시설 이름은 확인하지 못했습니다. 현장 안내판에 적힌 이름이 있다면 그 자리에서 한 사람씩 기억해 보세요.",
+      "lookFor": "현장 안내판",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 가톨릭정보 덕산 굴총 사건 자료: https://maria.catholic.or.kr/sa_ho/board/board_view.asp?bbsgubun=pds&id=43170&infogubun=org&infoid=2828&menugubun=holyplace&orggubun=71"
+    },
+    {
+      "seq": 4,
+      "title": "나가는 길 — 현장 확인이 필요한 성지",
+      "location": "입구 쪽",
+      "narration": "이 원고는 확인된 자료가 적어 장소의 세부 모습은 담지 않았습니다. 성지의 실제 동선과 표지는 현장에서 확인해 주세요.",
+      "lookFor": "입구와 현장 동선",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 가톨릭정보 덕산 굴총 사건 자료: https://maria.catholic.or.kr/sa_ho/board/board_view.asp?bbsgubun=pds&id=43170&infogubun=org&infoid=2828&menugubun=holyplace&orggubun=71"
+    }
+  ],
+  "outro": {
+    "narration": "확인된 사실과 아직 확인하지 못한 부분을 구분해 기억하며 나갑니다.",
+    "photos": []
+  }
+}

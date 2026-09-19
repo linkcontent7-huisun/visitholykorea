@@ -1,0 +1,78 @@
+{
+  "siteId": "bbbc941b-8c8b-4579-b11c-74228c0103d2",
+  "siteName": "홍주 순교 성지",
+  "slug": "hongju-martyrs-shrine",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "홍주 순교 성지는 심문과 고문, 감옥과 처형으로 이어진 여섯 순교터를 잇습니다. 옛 홍주성 일대를 걸으며 장소마다 남은 기억을 차례로 살펴보시겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "군청 뒤뜰 — 근민당 자리",
+      "location": "홍성군청 뒤뜰",
+      "narration": "근민당 자리는 홍주 목사의 동헌이 있던 곳입니다. 붙잡힌 신자들은 이곳에서 심문과 고문을 받으며 신앙을 증거했습니다. 현재의 관공서 공간 안에서 조선 시대 행정과 재판의 흔적을 떠올려 보세요. 홍주 목의 관아였던 이 일대는 내포 신자들이 압송되어 문초를 받던 순교 여정의 중심이었습니다.",
+      "lookFor": "근민당 자리를 알리는 현장 표지",
+      "forEveryone": "옛 지방 행정 기관에서 벌어진 종교 박해를 기억하는 장소입니다.",
+      "photos": [],
+      "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19 ; 대전교구 홍보국 제공 자료(2026-09-18): 홍주순교성지__천주교 홍성성당-(홍주 순교성지) 홈페이지 자료.txt — 공식 홈페이지 http://www.hongjushrine.com"
+    },
+    {
+      "seq": 2,
+      "title": "옛 법원 자리 — 홍주 옥터",
+      "location": "옛 검찰지청과 법원지원 자리",
+      "narration": "홍주 옥터는 붙잡힌 신자들이 갇혀 있던 감옥 자리입니다. 교구 안내는 이곳을 홍주의 순교터 가운데 가장 많은 이들이 목숨을 잃은 장소로 소개합니다. 건물은 달라졌지만 장소가 품은 감옥의 기억을 살펴보세요.",
+      "lookFor": "홍주 옥터를 알리는 표지",
+      "forEveryone": "현재의 도시 공간 아래 남은 옛 감옥의 역사 현장입니다.",
+      "photos": [],
+      "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19 ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003723&gubun=16"
+    },
+    {
+      "seq": 3,
+      "title": "옛 통신시설 자리 — 경사당 자리",
+      "location": "옛 한국통신 자리",
+      "narration": "경사당 자리는 홍주 진영장의 동헌이 있던 곳입니다. 순교자들은 이곳에서도 문초와 형벌을 받았습니다. 근민당과 함께 보면 두 관청이 박해 과정에서 맡았던 역할을 비교할 수 있습니다.",
+      "lookFor": "경사당 자리를 알리는 현장 표지",
+      "forEveryone": "옛 군사 행정 시설과 종교 박해의 관계를 보여 주는 장소입니다.",
+      "photos": [],
+      "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19"
+    },
+    {
+      "seq": 4,
+      "title": "옛 거리 — 저자거리",
+      "location": "옛 예비군중대 자리",
+      "narration": "저자거리는 순교자들이 조리돌림을 당하던 장소입니다. 사람들이 모이는 시장길을 이용해 공개적으로 모욕과 경고를 가한 것입니다. 오늘의 거리 풍경 속에서 당시 행렬이 지나간 길을 생각해 보세요.",
+      "lookFor": "저자거리 위치를 알리는 안내",
+      "forEveryone": "공공장소가 처벌과 위협의 무대로 쓰인 역사를 보여 줍니다.",
+      "photos": [],
+      "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19"
+    },
+    {
+      "seq": 5,
+      "title": "북문교 아래 — 참수터",
+      "location": "홍주성 북문 밖 북문교 아래쪽",
+      "narration": "참수터는 홍주성 북문 밖 물길 가까이에 있습니다. 감옥과 거리를 지나온 순교자들이 이곳에서 칼로 목숨을 잃었습니다. 다리와 하천의 위치를 기준으로 옛 성 밖 처형장의 자리를 살펴보세요.",
+      "lookFor": "물길 가까이에 표시된 참수터",
+      "forEveryone": "옛 성곽 바깥에 마련되었던 처형 장소입니다.",
+      "photos": [],
+      "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19"
+    },
+    {
+      "seq": 6,
+      "title": "합수머리 — 생매장터",
+      "location": "월계천과 홍성천이 만나는 곳 근처",
+      "narration": "생매장터는 홍주성 밖 두 물길이 만나는 합수머리 근처에 있습니다. 홍주의 순교 여정에서 마지막 처형 장소 가운데 하나입니다. 주변 하천 지형을 보며 성 밖 외진 곳이 형장으로 선택된 까닭을 생각해 보세요.",
+      "lookFor": "두 하천이 만나는 지점과 생매장터 표지",
+      "forEveryone": "도시의 자연 지형에 남은 비극적 역사 현장입니다.",
+      "photos": [],
+      "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19"
+    }
+  ],
+  "outro": {
+    "narration": "홍주의 여섯 장소는 재판과 감옥, 공개 모욕과 처형이 이어진 과정을 도시 안에 남겨 두고 있습니다. 이동 구간이 있으니 마지막에는 성지 안내에 따라 안전하게 동선을 마무리해 주세요.",
+    "photos": []
+  }
+}

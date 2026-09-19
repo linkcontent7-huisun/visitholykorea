@@ -1,0 +1,15 @@
+{
+  "siteId": "8da5c4d7-79a4-4235-a25c-fbf95d4cbe09",
+  "siteName": "김포 성체성지",
+  "slug": "gimpo-eucharistic-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "김포 성체성지는 본당의 옛 석조 성당을 보존해 만든 순례지입니다. 옛 성당과 새 성당, 야외 십자가의 길을 비교해 보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "언덕 — 옛 석조 성당", "location": "새 성당 오른쪽 언덕", "narration": "옛 석조 성당은 한국전쟁 뒤 신자들이 완공한 건물입니다. 새 성당이 세워진 뒤에도 철거하지 않고 피정 공간으로 고쳐 성체 성지로 보존했습니다. 돌로 쌓은 외벽과 작은 성당의 규모를 살펴보세요.", "lookFor": "옛 성당의 석조 외벽", "forEveryone": "기능을 잃은 건물을 철거하지 않고 새 역할을 준 보존 사례입니다.", "photos": [], "sourceNote": "굿뉴스 성체 순례 성지 안내: https://app.catholic.or.kr/web/holyplace/?seq=4220"},
+    {"seq": 2, "title": "아래쪽 — 새 성당과 옛 종", "location": "새 성당 앞", "narration": "새 성당은 옛 석조 성당 아래에 붉은 벽돌로 지었습니다. 옛 성당에서 사용하던 종은 새 성당 종탑으로 옮겨 다시 쓰고 있습니다. 두 건물을 함께 보며 본당의 과거와 현재가 어떻게 이어졌는지 확인해 보세요.", "lookFor": "새 성당 종탑으로 옮긴 옛 종", "forEveryone": "건물은 바뀌어도 공동체의 소리를 내던 물건은 계속 사용됩니다.", "photos": [], "sourceNote": "굿뉴스 김포 성당 안내: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=4220&menugubun=holyplace"},
+    {"seq": 3, "title": "야외동산 — 십자가의 길", "location": "성당 옆 야외동산", "narration": "야외동산에는 옛 성당을 수선할 때 새로 조성한 십자가의 길이 있습니다. 성체조배 중심의 실내 공간과 예수의 수난을 따라 걷는 바깥 동선이 나뉩니다. 각 처가 동산의 경사에 어떻게 놓였는지 살펴보세요.", "lookFor": "동산 길을 따라 놓인 십자가의 길", "forEveryone": "실내의 머무는 의식과 야외의 걷는 의식을 함께 구성한 공간입니다.", "photos": [], "sourceNote": "굿뉴스 성체 순례 성지 안내: https://app.catholic.or.kr/web/holyplace/?seq=4220"}
+  ],
+  "outro": {"narration": "김포에서는 옛 성당을 남기고 종을 옮기며 새 성당과 함께 사용하는 보존 방식을 볼 수 있습니다.", "photos": []}
+}

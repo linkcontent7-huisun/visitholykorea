@@ -32,6 +32,8 @@ import { isWydPeriod, isWydVenue, WYD_LABEL_EN, WYD_LABEL_KO } from '@/features/
 import { DocentPlayer } from '@/features/docent/components/DocentPlayer';
 import { buildChapters } from '@/features/docent/lib/chapters';
 import { getDocentScript } from '@/features/docent/data/scripts';
+import { useDocentScripts } from '@/features/docent/hooks/use-docent-script';
+import { buildDbChapters, pickIntro } from '@/features/docent/lib/db-chapters';
 import { ContactCard } from '@/features/sites/components/ContactCard';
 import { splitMassInfo } from '@/features/sites/lib/mass-info';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
@@ -131,9 +133,19 @@ export default function SiteDetailPage() {
 
   // 오디오 도슨트 — 현장조사 원고가 있으면 포인트별 투어, 없으면 소개·역사 챕터.
   // 훅(useMemo)이라 이른 return 위에서 부른다 — site 는 아직 없을 수 있어 옵셔널로 다룬다.
+  //
+  // useDocentPlayer 는 chapters 배열의 참조가 바뀌면 재생을 멈추고 처음으로 되감는다
+  // (화면을 나가거나 성지가 바뀔 때 멈추기 위한 장치). buildChapters 를 매 렌더마다
+  // 새로 부르면 이 페이지의 다른 상태(예: 방문 정보 아코디언)가 바뀔 때마다
+  // 도슨트가 끊긴다 — T-004 완료 조건("아코디언을 펼치거나 접어도 재생이 끊기지
+  // 않는다")을 만족하려면 여기서 참조를 고정해야 한다.
+  // 2026-09-18 부터 원고는 DB(docent_scripts)가 기준. DB 에 그 성지의 투어가 없거나 아직 안 왔으면
+  // 저장소 JSON → 소개·역사 순으로 폴백한다 (buildChapters 가 뒤 두 단계를 맡는다).
+  const dbScripts = useDocentScripts(site?.id);
   const docentScript = getDocentScript(site?.id);
   const docentChapters = useMemo(
     () =>
+      buildDbChapters(dbScripts, language) ??
       buildChapters(
         {
           name: view?.name ?? site?.name ?? '',
@@ -150,10 +162,13 @@ export default function SiteDetailPage() {
       site?.name,
       site?.description,
       site?.history,
+      dbScripts,
       docentScript,
       language,
     ],
   );
+  // 「소개글」 — 순교·신앙 역사 / 위치·지리 / 건축물 세 문단. 없으면 기존 description 한 줄을 그대로 보여준다.
+  const docentIntro = useMemo(() => pickIntro(dbScripts, language), [dbScripts, language]);
 
   // 순례 사진 — 첫 후기를 남기면 자동으로 생기는 "내 기록"에 붙인다
   const uploadPhotos = useUploadStampPhotos(siteId ?? '');
@@ -421,10 +436,22 @@ export default function SiteDetailPage() {
           {/* 인용문·역사 카드를 오디오 도슨트보다 위로(사장님 지적, 2026-09-19) — 무슨 이야기인지
               먼저 읽고, 더 듣고 싶으면 그 아래 도슨트로 이어진다. 장식용 아이콘도 함께 뺐다. */}
           <Card tone="panel" className="mb-6">
-            {description && (
-              <p className="mb-5 font-display text-lg leading-relaxed text-brand-blue">
-                &ldquo;{description}&rdquo;
-              </p>
+            {docentIntro ? (
+              /* 「소개글」 — DB 도슨트 원고(docent_scripts). 순교·신앙 역사 / 위치·지리 / 건축물 세 문단,
+                 문단마다 큰따옴표. 요청 언어가 없으면 영어 → 한국어(pickIntro). */
+              <div className="mb-5 space-y-4 text-center" lang={docentIntro.language}>
+                {docentIntro.paragraphs.map((paragraph, i) => (
+                  <p key={i} className="font-display text-lg leading-relaxed text-brand-blue">
+                    &ldquo;{paragraph}&rdquo;
+                  </p>
+                ))}
+              </div>
+            ) : (
+              description && (
+                <p className="mb-5 font-display text-lg leading-relaxed text-brand-blue">
+                  &ldquo;{description}&rdquo;
+                </p>
+              )
             )}
             {(view?.history ?? site.history) && (
               <p className="text-base leading-relaxed text-app-text">

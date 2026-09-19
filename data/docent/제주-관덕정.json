@@ -1,0 +1,48 @@
+{
+  "siteId": "797a93a0-caff-4d46-9060-cecf7ea1e3fb",
+  "siteName": "제주 관덕정",
+  "slug": "jeju-gwandeokjeong",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Claude (문헌 초안 2026-09-18, 소개글 출처 기반)",
+  "status": "draft",
+  "intro": {
+    "narration": "1448년 군사 훈련용으로 세운 제주에서 가장 오래된 건물, 관덕정입니다. 1901년 신축교안의 비극이 이 광장에서 벌어졌습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "누각 — 관덕정",
+      "location": "제주목 관아 앞",
+      "narration": "1448년에 세운 관덕정은 제주에서 가장 오래된 건물입니다. 앞 광장은 군사 집결과 재판, 처형이 이루어진 원도심의 공적 공간이었습니다.",
+      "lookFor": "누각의 현판과 기둥",
+      "forEveryone": "제주 원도심 역사의 중심 건물입니다.",
+      "photos": [],
+      "sourceNote": "제주교구 홈페이지: https://www.diocesejeju.or.kr"
+    },
+    {
+      "seq": 2,
+      "title": "광장 — 1901년 신축교안",
+      "location": "관덕정 앞 광장",
+      "narration": "1901년 이재수가 이끈 민군이 이 광장에 모여 제주성으로 향했습니다. 조세 갈등과 천주교에 대한 반감이 겹친 충돌로 신자와 주민 수백 명이 희생되었습니다.",
+      "lookFor": "광장의 넓이와 관아 방향",
+      "forEveryone": "교회와 지역 사회가 충돌한 아픈 역사의 현장입니다.",
+      "photos": [],
+      "sourceNote": "제주교구 홈페이지: https://www.diocesejeju.or.kr"
+    },
+    {
+      "seq": 3,
+      "title": "제주목 관아 — 사건 뒤의 처형",
+      "location": "관덕정 옆 관아 구역",
+      "narration": "사건 수습 뒤 관련자들이 관덕정 앞에서 처형되면서 광장은 갈등과 죽음을 함께 기억하는 순교 사적지가 되었습니다. 복원된 관아를 둘러보며 당시 현장을 살필 수 있습니다.",
+      "lookFor": "복원된 관아 건물들",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "제주교구 홈페이지: https://www.diocesejeju.or.kr"
+    }
+  ],
+  "outro": {
+    "narration": "희생자들은 황사평 성지에 잠들어 있습니다. 관덕정에서 황사평까지 이어 가면 신축교안의 시작과 끝을 만납니다.",
+    "photos": []
+  }
+}

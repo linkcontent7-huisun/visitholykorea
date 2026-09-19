@@ -1,0 +1,15 @@
+{
+  "siteId": "ad74fef5-1d7c-468e-a32c-03e551af7482",
+  "siteName": "왜관 성 베네딕도 수도원",
+  "slug": "waegwan-seong-benedicto-sudowon",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "왜관수도원은 전쟁과 분단을 겪은 베네딕도회 공동체가 1952년 정착한 곳입니다. 구 왜관성당과 수도원 성전, 문화영성센터를 중심으로 둘러보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "구 왜관성당 — 붉은 벽돌의 전쟁 흔적", "location": "수도원 안 구 성당", "narration": "구 왜관성당은 1928년 루르드의 성모님께 봉헌되어 세워졌습니다. 한국전쟁 때 미군 작전 본부와 북한군 병원으로 사용되었습니다. 지금도 붉은 벽돌에 전쟁의 흔적이 남아 있다고 교구가 설명합니다.", "lookFor": "전쟁 흔적이 남은 붉은 벽돌", "forEveryone": "한 종교 건물이 전시기의 군사 시설과 병원으로 쓰인 복합적인 역사를 품고 있습니다.", "photos": [], "sourceNote": "https://www.daegu-archdiocese.or.kr/page/shrine.html?idx=16&process=read&srl=&view_option="},
+    {"seq": 2, "title": "수도원 성전 — 공동체의 전례 공간", "location": "수도원 본원 성전", "narration": "왜관수도원 성전은 수도자 공동체가 전례를 거행하는 중심 공간입니다. 대구대교구의 아빠스 축복식과 사제·부제 서품식도 이 성전에서 열렸습니다. 수도원의 기도와 교구의 큰 예식이 함께 이어지는 장소입니다.", "lookFor": "수도원 중심에 자리한 성전", "forEveryone": "공동체의 일상 의식과 공식 행사가 겹쳐지는 핵심 건축물입니다.", "photos": [], "sourceNote": "https://www.daegu-archdiocese.or.kr/page/arch.html?gotopage=36&idx=5677&process=read&searchPart=&searchStr=&sections=move&srl=archmove&sub_category=arch; https://www.daegu-archdiocese.or.kr/page/news.html?idx=255340&process=read&sections=newsgallery&srl=newsgallery"},
+    {"seq": 3, "title": "문화영성센터 — 새 피정의 집", "location": "수도원 본원 안 문화영성센터", "narration": "문화영성센터는 기존 피정의 집에 이어 새로 마련된 피정 공간입니다. 2년여의 공사를 마치고 축복식과 감사미사를 거행했습니다. 기도와 쉼을 원하는 방문객이 수도원의 영성을 경험하도록 마련된 건물입니다.", "lookFor": "수도원 안 현대적인 문화영성센터", "forEveryone": "수도 공동체의 전통을 현대 방문객의 체류 공간으로 확장한 건축입니다.", "photos": [], "sourceNote": "https://news.catholic.or.kr/WZ_NP/section/view.asp?seq=197868&tbcode=SEC01"}
+  ],
+  "outro": {"narration": "구 성당의 전쟁 흔적과 현재의 전례 공간, 새 피정 공간이 왜관수도원의 시간을 함께 보여줍니다.", "photos": []}
+}

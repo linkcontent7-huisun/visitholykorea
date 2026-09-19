@@ -1,0 +1,62 @@
+{
+  "siteId": "b5c0ae5c-5913-4647-b917-2fd368518033",
+  "siteName": "계산 주교좌대성당",
+  "slug": "gyesan-cathedral",
+  "surveyedAt": "2026-09-17",
+  "surveyedBy": "Codex 문헌 조사 · 현장 확인 전",
+  "status": "draft",
+  "intro": {
+    "narration": "저와 함께 두 첨탑에서 유리화, 마당의 십자가까지 살펴보겠습니다. 건물과 빛 속에 남은 대구 신앙 공동체의 이야기를 만나 보세요.",
+    "photos": [],
+    "narrationEn": "Let me walk you from the twin spires to the stained glass and out to the cross in the courtyard — the story of Daegu's Catholic community, kept in building and light."
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "두 첨탑과 장미창",
+      "location": "성당 정면 앞",
+      "narration": "먼저 성당 정면의 두 첨탑을 올려다보세요. 한옥 성당이 불탄 뒤 공동체가 다시 지은 벽돌 성당입니다. 처음부터 지금 모습은 아니었고, 신자가 늘면서 종탑을 높이고 건물을 넓혔습니다. 저는 두 탑 사이의 둥근 장미창도 함께 보시길 권합니다. 위로 뻗는 첨탑과 꽃처럼 펼쳐진 창을 차례로 보면 건물의 다른 표정이 드러납니다.",
+      "lookFor": "두 첨탑 사이 정면의 둥근 장미창",
+      "forEveryone": "건물을 고쳐 쓰며 자란 공동체의 시간을 살펴보세요.",
+      "photos": [],
+      "sourceNote": "굿뉴스 계산 주교좌성당 소개에서 화재 뒤 벽돌 성당 재건, 종탑 증축, 장미창 확인. https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2257&menugubun=holyplace",
+      "titleEn": "Twin Spires and the Rose Window",
+      "locationEn": "In front of the church façade",
+      "lookForEn": "The round rose window set between the two spires",
+      "narrationEn": "Begin by looking up at the two spires on the façade. This brick church was rebuilt by the community after the earlier hanok church burned down. It did not start out this way: as the congregation grew, the bell towers were raised and the building widened. I also suggest you take in the round rose window between the towers. Look at the spires reaching upward, then at the window opening like a flower, and the building shows you two different faces."
+    },
+    {
+      "seq": 2,
+      "title": "바다를 건너온 유리화",
+      "location": "성당 안 제대가 보이는 신자석",
+      "narration": "제대 뒤의 긴 창들을 바라보세요. 이곳의 오래된 유리화는 프랑스 툴루즈의 제스타 공방에서 만들어 대구로 들여온 작품입니다. 저는 인물의 얼굴에서 시선을 조금 옮겨 창 위아래의 꽃과 잎 장식을 찾아보시길 권합니다. 빛을 받아 드러나는 색과 식물 무늬가 성인의 모습을 감싸고 있습니다. 먼 공방의 손길이 이곳 기도 공간에 남아 있는 셈입니다.",
+      "lookFor": "제대 뒤 긴 유리화의 인물 위아래에 표현된 식물 무늬",
+      "forEveryone": "유리화는 햇빛을 통과시켜 그림을 보여 주는 공예입니다.",
+      "photos": [],
+      "sourceNote": "평화신문 정수경의 계산주교좌성당 스테인드글라스 해설에서 제작 공방, 반입 기록, 식물 문양 확인. https://home.catholic.or.kr/pdsm/bbs_view.asp?Page=3&SORT=R&id=158841&menu=4830&num=61",
+      "titleEn": "Glass That Crossed the Sea",
+      "locationEn": "Inside, from a pew facing the altar",
+      "lookForEn": "The plant motifs above and below the figures in the tall windows behind the altar",
+      "narrationEn": "Look at the tall windows behind the altar. These old stained-glass panels were made in the Gesta workshop in Toulouse, France, and brought to Daegu. Let your eyes drift from the faces of the figures to the flowers and leaves at the top and bottom of each window. As the light comes through, the colors and plant patterns wrap around the saints. The hand of a faraway workshop still rests in this place of prayer."
+    },
+    {
+      "seq": 3,
+      "title": "마당의 기념 십자가",
+      "location": "성당 앞마당",
+      "narration": "성당 앞마당의 큰 십자가를 찾아보세요. 초대 교구장 드망즈 주교의 부임 스물다섯 해를 기념해 세운 십자가입니다. 그 시간은 대구 교구가 생기고 계산성당이 주교좌성당이 된 역사와도 이어집니다. 저는 십자가를 본 뒤 그 너머의 성당까지 함께 바라보시길 권합니다. 마당의 기념물 하나가 이곳이 지역 교회의 중심으로 자란 시간을 들려줍니다.",
+      "lookFor": "성당 정면과 함께 보이는 앞마당의 큰 십자가",
+      "forEveryone": "기념물과 건물을 함께 보면 장소의 역사가 연결됩니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 계산 주교좌성당 소개에서 앞마당 대형 십자가와 교구장 부임 및 교구 설정 이십오 주년의 관계 확인. https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2257&menugubun=holyplace",
+      "titleEn": "The Memorial Cross in the Yard",
+      "locationEn": "The front courtyard",
+      "lookForEn": "The large cross in the forecourt, seen together with the façade",
+      "narrationEn": "Find the large cross in the front yard. It was raised to mark twenty-five years since Bishop Demange, the first bishop of Daegu, took office. Those years run alongside the birth of the Diocese of Daegu and Gyesan becoming its cathedral. After you look at the cross, let your gaze carry on to the church behind it. One monument in the yard tells how this place grew into the heart of the local Church."
+    }
+  ],
+  "outro": {
+    "narration": "두 탑과 유리창, 마당의 십자가를 지나왔습니다. 골목으로 돌아서기 전에 서로 다른 손길이 남은 성당을 한 번 더 바라보세요.",
+    "photos": [],
+    "narrationEn": "We have passed the two towers, the windows and the cross in the yard. Before you turn back into the lane, look once more at a church shaped by so many different hands."
+  }
+}

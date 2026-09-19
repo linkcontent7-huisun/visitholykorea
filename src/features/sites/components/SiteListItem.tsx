@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { getDocentScript } from '@/features/docent/data/scripts';
+import { useDocentSiteIds } from '@/features/docent/hooks/use-docent-script';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
@@ -15,7 +16,8 @@ export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) 
   const { data: featured = {} } = useFeaturedPhotos();
   const { t } = useSettings();
   // 포인트별 오디오 도슨트가 준비된 성지를 목록에서 알아볼 수 있게 한다
-  const hasDocent = getDocentScript(site.id) !== null;
+  const docentIds = useDocentSiteIds();
+  const hasDocent = docentIds ? docentIds.has(site.id) : getDocentScript(site.id) !== null;
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
       <Link

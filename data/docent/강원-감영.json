@@ -1,0 +1,48 @@
+{
+  "siteId": "d50e6aaf-0e00-4083-8174-459f59910bd4",
+  "siteName": "강원 감영",
+  "slug": "gangwon-gamyeong",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "원주 강원감영은 오랜 기간 강원도의 행정 중심지였고 박해기 신자들이 심문받은 곳입니다. 정문부터 집무 공간과 복원된 후원까지 관아의 동선을 따라가겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 포정루",
+      "location": "감영 정문",
+      "narration": "포정루는 강원감영으로 들어가는 첫 문루입니다. 이 문을 지나면 중삼문과 내삼문을 거쳐 관찰사의 집무 공간으로 이어집니다. 박해 때 붙잡힌 신자들도 감영 안으로 압송되어 심문과 옥고를 겪었습니다.",
+      "lookFor": "문루 뒤로 겹쳐 보이는 여러 출입문",
+      "forEveryone": "문을 여러 겹 두어 행정 공간의 위계와 이동을 통제한 관아 구조입니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 강원 감영 안내: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2273&menugubun=holyplace"
+    },
+    {
+      "seq": 2,
+      "title": "안쪽 — 선화당",
+      "location": "감영 중심부",
+      "narration": "선화당은 관찰사가 업무를 보던 강원감영의 중심 건물입니다. 조선 시대 죄인들은 이곳에서 형벌을 받고, 박해 때 천주교 신자들도 심문을 받았습니다. 관아의 공식 집무 공간이 재판과 처벌의 현장이기도 했다는 점을 기억하며 건물을 보세요.",
+      "lookFor": "선화당으로 들어가는 내삼문과 넓은 마당",
+      "forEveryone": "행정과 사법 기능이 한 관청에 모여 있던 조선 지방 통치 구조를 보여 줍니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 강원 감영 안내: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2273&menugubun=holyplace"
+    },
+    {
+      "seq": 3,
+      "title": "뒤편 — 복원 후원",
+      "location": "선화당 뒤편",
+      "narration": "선화당 뒤편 후원은 발굴조사와 고증을 거쳐 복원되었습니다. 원래 남아 있던 선화당과 포정루에 복원 건물과 정원이 더해져 옛 감영의 넓이를 짐작하게 합니다. 다만 옥터와 참수터의 정확한 위치는 밝혀지지 않았으므로 현재 복원 공간과 혼동하지 않아야 합니다.",
+      "lookFor": "원래 남은 건물과 복원된 후원 영역의 경계",
+      "forEveryone": "유적 복원에서는 확인된 건물과 위치를 모르는 장소를 구분하는 일이 중요합니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 강원 감영 안내: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2273&menugubun=holyplace"
+    }
+  ],
+  "outro": {
+    "narration": "강원감영의 여러 문과 선화당, 복원 후원은 관아의 크기와 기능을 보여 줍니다. 옥터와 형장의 정확한 위치는 아직 확인되지 않았다는 점도 함께 기억해 주세요.",
+    "photos": []
+  }
+}

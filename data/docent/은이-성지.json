@@ -1,0 +1,16 @@
+{
+  "siteId": "db51e1aa-4101-48a8-94db-bc10f3723464",
+  "siteName": "은이 성지",
+  "slug": "euni-seongji",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "은이 성지는 성 김대건 신부가 세례를 받고 신학생으로 뽑혔으며, 사제가 된 뒤 처음 사목한 곳입니다. 복원 성당과 기념관, 야외제대와 성인상을 따라 그의 삶을 기억해 보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "복원 성당 — 김가항 성당의 모습을 잇다", "location": "성지 중심의 성당", "narration": "성지 중심에는 중국 김가항 성당의 모습을 복원한 성당이 있습니다. 김가항은 김대건 신부가 사제품을 받은 곳입니다. 이 건물은 그의 서품과 첫 사목지를 하나의 기억으로 이어 줍니다.", "lookFor": "복원 성당의 외관", "forEveryone": "다른 나라에 있던 역사적 성당의 모습을 복원해 인물의 여정을 보여줍니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2315; https://www.casuwon.or.kr/info/news/church/54415?page=266"},
+    {"seq": 2, "title": "김대건 신부 기념관 — 생애를 따라가는 전시", "location": "복원 성당 바로 옆", "narration": "복원 성당 옆에는 김대건 신부 기념관이 있습니다. 기념관은 탄생과 성장, 세례와 신학생 선발, 사목과 순교에 이르는 생애를 기억하도록 마련되었습니다. 전시를 따라가며 한 사람의 삶이 한국 교회의 시작과 어떻게 이어지는지 살펴보세요.", "lookFor": "성당 옆 기념관 입구", "forEveryone": "전시는 흩어진 사건을 한 인물의 생애 순서로 이해하도록 돕습니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2315; https://www.casuwon.or.kr/info/news/church/54415?page=266"},
+    {"seq": 3, "title": "야외제대 — 공소터를 되살린 기도 자리", "location": "성지 야외 마당", "narration": "성지 개발의 첫 단계에서 은이 공소터에 야외제대가 마련되었습니다. 이 제대는 신자들이 모여 미사를 봉헌하고 성지를 가꾸기 시작한 과정을 보여줍니다. 탁 트인 마당에서 초기 공동체의 기도 자리를 떠올려 보세요.", "lookFor": "야외 미사를 위한 제대", "forEveryone": "건물이 없어도 공동체가 모이는 중심은 제대에서 시작될 수 있습니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2315; https://www.casuwon.or.kr/info/news/diocese/66106?page=329"},
+    {"seq": 4, "title": "성 김대건 신부상 — 첫 사목자를 기억하며", "location": "야외제대 가까이", "narration": "야외제대와 함께 성 김대건 신부상이 세워졌습니다. 김대건 신부는 사제품을 받고 귀국한 뒤 은이 공소에서 처음 사목했습니다. 성인상을 바라보며 이곳에서 신자들을 만나고 돌보았던 젊은 사제의 시간을 기억해 보세요.", "lookFor": "야외제대 곁 성 김대건 신부상", "forEveryone": "인물상은 이 장소와 성인의 실제 활동을 연결해 줍니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2315"}
+  ],
+  "outro": {"narration": "성당과 기념관, 야외제대와 성인상은 김대건 신부의 성소와 첫 사목을 한자리에서 되새기게 합니다.", "photos": []}
+}

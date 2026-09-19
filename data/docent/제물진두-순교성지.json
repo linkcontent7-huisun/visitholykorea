@@ -1,0 +1,48 @@
+{
+  "siteId": "91fc480a-36af-4c5f-bbc6-e94437c3ead7",
+  "siteName": "제물진두 순교성지",
+  "slug": "jemuljindu",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Claude (문헌 초안 2026-09-18, 소개글 출처 기반)",
+  "status": "draft",
+  "intro": {
+    "narration": "인천 제물포의 옛 나루터입니다. 순교지이자, 김대건 신부가 사제가 되러 상하이로 떠난 바닷가입니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "기념경당 — 바다를 향한 성당",
+      "location": "성지 중앙",
+      "narration": "인천교구가 2011년 터를 확보하고 2014년 높이 15미터의 기념경당을 봉헌했습니다. 매립으로 옛 물길이 멀어졌지만 경당은 바다를 향해 서서 제물진두의 위치를 알립니다.",
+      "lookFor": "경당의 높이와 바다 쪽 방향",
+      "forEveryone": "개항장 인천의 옛 나루터 자리입니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 안내(제물진두): https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=4224&menugubun=holyplace"
+    },
+    {
+      "seq": 2,
+      "title": "순교자 기념물 — 1868년 네 순교자",
+      "location": "경당 앞",
+      "narration": "병인박해 때 이곳에서 신자들이 공개 처형되었습니다. 1868년 이승훈 베드로의 증손 이연구 아우구스티노와 이균구 바오로 등 네 분이 순교했습니다.",
+      "lookFor": "기념물에 새겨진 네 순교자의 이름",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 안내(제물진두): https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=4224&menugubun=holyplace"
+    },
+    {
+      "seq": 3,
+      "title": "나루터 — 김대건 신부의 출항",
+      "location": "경당 주변 안내판",
+      "narration": "1845년 김대건 안드레아 신부가 이 나루 가까이에서 배를 타고 사제 서품을 받으러 상하이로 떠났습니다. 순교의 자리와 첫 한국인 사제의 항해가 시작된 바닷가, 두 기억이 겹칩니다.",
+      "lookFor": "안내판의 출항 설명",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 안내(제물진두): https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=4224&menugubun=holyplace"
+    }
+  ],
+  "outro": {
+    "narration": "떠난 자리와 죽은 자리가 같은 바닷가라는 점, 그것이 제물진두의 이야기입니다.",
+    "photos": []
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "siteId": "d8b49c3c-d4f9-4b04-805d-4d9a575d877d",
+  "siteName": "황사영 순교순례지",
+  "slug": "hwang-sayeong",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Claude (문헌 초안 2026-09-18, 소개글 출처 기반)",
+  "status": "draft",
+  "intro": {
+    "narration": "양주 홍복산 자락, 백서를 쓴 황사영 알렉시오의 묘가 있는 순례지입니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "묘 — 황사영 알렉시오",
+      "location": "순례지 묘역",
+      "narration": "황사영은 1801년 제천 배론 토굴에서 박해 상황과 교회 재건 방안을 적은 백서를 쓰다 체포되어 서울에서 대역죄인으로 처형되었습니다. 시신은 가족에게 돌아가지 못했고, 묘는 후손의 전승을 바탕으로 1980년에 확인되었습니다.",
+      "lookFor": "묘 앞 돌십자가",
+      "forEveryone": "조선 후기 최대의 필화 사건 주인공이 잠든 곳입니다.",
+      "photos": [],
+      "sourceNote": "의정부교구 황사영 순교순례지 안내: https://sd.uca.or.kr/hsy1801/board_view?board_seq=21330&mnucd=20003487"
+    },
+    {
+      "seq": 2,
+      "title": "표지 — 은밀한 매장",
+      "location": "묘 곁 안내 표지",
+      "narration": "항아리에 비단으로 싸 보존했다는 표지가 은밀한 매장 과정을 전합니다. 대역죄인의 시신을 가족이 몰래 거두어야 했던 시대의 사정이 이 표지에 담겨 있습니다.",
+      "lookFor": "항아리와 비단 이야기를 적은 표지",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "의정부교구 황사영 순교순례지 안내: https://sd.uca.or.kr/hsy1801/board_view?board_seq=21330&mnucd=20003487"
+    },
+    {
+      "seq": 3,
+      "title": "길 — 배론과 양주",
+      "location": "순례지 입구",
+      "narration": "배론의 백서 토굴과 양주의 무덤은 그의 마지막 행적을 서로 다른 장소에서 잇습니다. 배론을 다녀오셨다면 그 토굴에서 이 묘까지의 거리를 생각해 보세요.",
+      "lookFor": "입구 안내판의 배론 언급",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "의정부교구 황사영 순교순례지 안내: https://sd.uca.or.kr/hsy1801/board_view?board_seq=21330&mnucd=20003487"
+    }
+  ],
+  "outro": {
+    "narration": "백서의 내용은 지금도 평가가 엇갈리지만, 이 묘는 한 사람의 마지막 자리로 조용히 남아 있습니다.",
+    "photos": []
+  }
+}

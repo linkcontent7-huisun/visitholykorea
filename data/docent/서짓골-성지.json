@@ -1,0 +1,58 @@
+{
+  "siteId": "05cc24b2-c528-41c4-8c9d-467ac597c3df",
+  "siteName": "서짓골 성지",
+  "slug": "seojitgol",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "서짓골은 갈매못에서 순교한 네 성인의 시신을 오랫동안 모셨던 곳입니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 깊은 골짜기",
+      "location": "입구 쪽",
+      "narration": "서짓골 신자들은 위험을 무릅쓰고 네 성인의 시신을 이 골짜기에 모셨습니다. 외진 지형이 유해를 지키는 피난처가 되었습니다.",
+      "lookFor": "골짜기로 이어지는 길",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 2,
+      "title": "사성제대 — 네 성인의 무덤",
+      "location": "사성제대 앞",
+      "narration": "사성제대는 다블뤼 주교, 오메트르 신부, 위앵 신부, 장주기 요셉의 무덤을 표시합니다. 제대 앞에서 네 사람의 이름을 차례로 기억해 보세요.",
+      "lookFor": "네 성인을 나타내는 제대",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 3,
+      "title": "무덤 자리 — 빈 무덤의 뜻",
+      "location": "사성제대 곁",
+      "narration": "유해는 뒤에 나가사키와 서울을 거쳐 절두산으로 옮겨졌습니다. 이곳은 빈 무덤이지만 시신이 흙으로 돌아간 본래의 묘입니다.",
+      "lookFor": "유해가 머물렀던 흙",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 4,
+      "title": "성지 안 — 서짓골 신자들",
+      "location": "성지 안",
+      "narration": "네 성인의 시신을 모신 일 때문에 서짓골 신자들도 박해를 겪었습니다. 사성제대는 성인들뿐 아니라 이들을 도운 공동체도 기억하게 합니다.",
+      "lookFor": "제대 주변의 고요한 터",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
+    }
+  ],
+  "outro": {
+    "narration": "네 성인의 유해가 15년 반 동안 잠들었던 옛 담배밭 자리에 서 계셨습니다. 검은 야외제대에 새겨진 네 이름을 한 번 더 읽고 내려가 보세요.",
+    "photos": []
+  }
+}

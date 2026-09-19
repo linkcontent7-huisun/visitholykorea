@@ -1,0 +1,15 @@
+{
+  "siteId": "3c5c55a8-c994-4d95-882c-19ab96beb26c",
+  "siteName": "한티 순교성지",
+  "slug": "hanti-martyrs-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "한티는 박해를 피해 온 신자들이 산중에 이룬 교우촌이자 순교자들이 살던 자리 가까이에 묻힌 성지입니다. 무덤과 복원 공소, 순례자 성당을 살펴보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "산길 — 순교자 묘", "location": "성지 산길", "narration": "한티에서 확인된 순교자 묘들은 마을과 산길 곳곳에 놓여 있습니다. 시신을 멀리 옮기기 어려워 순교한 자리 가까이에 묻은 무덤들입니다. 이름이 알려진 묘와 무명 묘가 어떻게 흩어져 있는지 안내 표지와 함께 보세요.", "lookFor": "숲과 옛 집터 가까이에 놓인 봉분", "forEveryone": "별도 공동묘지가 아니라 삶의 자리 곁에 죽음의 흔적이 남았습니다.", "photos": [], "sourceNote": "굿뉴스 한티 순교성지 안내: https://app.catholic.or.kr/web/holyplace/?seq=2255"},
+    {"seq": 2, "title": "교우촌 — 복원 공소", "location": "옛 교우촌 자리", "narration": "복원한 공소는 한티 신자들이 함께 기도하던 작은 공동체 공간을 보여 줍니다. 이곳 신자들은 움막을 짓고 사기와 숯을 구우며 살았습니다. 건물의 소박한 크기와 주변 산중 지형을 함께 살펴보세요.", "lookFor": "복원 공소의 작은 예배 공간", "forEveryone": "종교 시설이면서 산골 마을의 공동 회합 공간이었습니다.", "photos": [], "sourceNote": "한티 순교성지 공식 안내: https://www.hanti.or.kr/page/shrine.html?srl=intro&sub=24"},
+    {"seq": 3, "title": "경내 — 순례자 성당", "location": "성지 중심부", "narration": "순례자 성당은 흩어진 묘역과 복원 공소를 찾는 이들이 미사를 드리는 현재의 중심 공간입니다. 옛 교우촌 건물과 달리 많은 방문객을 맞도록 지었습니다. 성당에서 여러 묘역으로 갈라지는 길을 확인해 보세요.", "lookFor": "성당 앞에서 묘역으로 나뉘는 순례길", "forEveryone": "흩어진 역사 유적을 연결하는 방문자 거점 역할을 합니다.", "photos": [], "sourceNote": "굿뉴스 한티 순교성지 안내: https://app.catholic.or.kr/web/holyplace/?seq=2255"}
+  ],
+  "outro": {"narration": "한티에서는 흩어진 무덤과 복원 공소, 순례자 성당을 따라 교우촌의 옛 삶과 현재의 방문 공간을 구분해 볼 수 있습니다.", "photos": []}
+}

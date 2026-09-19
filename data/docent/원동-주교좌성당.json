@@ -1,0 +1,16 @@
+{
+  "siteId": "47f3c4c4-0153-454d-9052-70743a8a0d07",
+  "siteName": "원동 주교좌성당",
+  "slug": "wondong-jugyojwa-seongdang",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {"narration": "원동 주교좌성당은 원주 지역 선교의 역사와 민주화 운동의 기억이 겹쳐 있는 곳입니다. 성당과 돔형 종탑, 교육관을 살펴보며 공동체가 걸어온 시간을 만나보겠습니다.", "photos": []},
+  "points": [
+    {"seq": 1, "title": "성당 — 전쟁 뒤 다시 세운 예배 공간", "location": "성당 마당 정면", "narration": "현재의 성당은 한국전쟁으로 이전 건물이 불탄 뒤 다시 세운 건물입니다. 시멘트 벽돌로 재건된 이 성당은 오랫동안 원주교구의 주교좌 역할을 이어 왔습니다. 건물 앞에서 전쟁 뒤 공동체가 다시 일어선 시간을 떠올려 보세요.", "lookFor": "시멘트 벽돌 성당의 정면", "forEveryone": "파괴 뒤 재건된 건축물은 공동체의 회복을 보여줍니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2838; https://directory.cbck.or.kr/m/mapInfo.asp?code=201000945&gubun=4&seq=002"},
+    {"seq": 2, "title": "돔형 종탑 — 원동성당의 독특한 얼굴", "location": "성당 정면 위쪽", "narration": "성당 정면 위로 돔형 종탑이 솟아 있습니다. 이 종탑의 독특한 형태와 보존 상태는 성당이 근대문화유산으로 인정받은 중요한 이유입니다. 마당에서 위를 올려다보며 건물의 중심을 이루는 둥근 윤곽을 살펴보세요.", "lookFor": "성당 정면의 돔형 종탑", "forEveryone": "종탑은 멀리서도 성당의 위치와 정체성을 알려 주는 건축 요소입니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2838"},
+    {"seq": 3, "title": "성당 내부 — 기도와 민주화 운동의 현장", "location": "성당 내부", "narration": "이 성당에서는 부정부패 규탄대회와 시국 기도회가 열렸습니다. 특히 지학순 주교가 구속된 뒤 많은 이들이 이곳에 모여 기도했습니다. 제대와 회중석을 바라보며 예배 공간이 사회의 양심을 모으는 장소가 되었던 역사를 기억해 보세요.", "lookFor": "제대와 회중석이 놓인 성당 내부", "forEveryone": "종교 공간이 공동체의 목소리와 시민의 기억을 품을 수 있음을 보여줍니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2838"},
+    {"seq": 4, "title": "교육관 — 공동체 배움의 공간", "location": "성당 곁 교육관", "narration": "성당 곁에는 본당 설립 백주년을 준비하며 세운 교육관이 있습니다. 이 건물은 예배뿐 아니라 교육과 모임으로 공동체를 잇는 역할을 합니다. 성당과 나란히 선 모습을 보며 본당 생활의 여러 기능을 살펴보세요.", "lookFor": "성당 곁 교육관 건물", "forEveryone": "배움과 만남의 공간은 신앙 공동체의 일상을 받쳐 줍니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2838"}
+  ],
+  "outro": {"narration": "성당의 건축과 내부 공간, 교육관에는 재건과 기도, 사회 참여의 역사가 함께 남아 있습니다.", "photos": []}
+}

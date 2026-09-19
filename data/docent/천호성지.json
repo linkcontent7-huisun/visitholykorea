@@ -1,0 +1,58 @@
+{
+  "siteId": "d55432d2-ae7b-4416-9f8d-9f14815e7328",
+  "siteName": "천호성지",
+  "slug": "cheonho-shrine",
+  "surveyedAt": "2026-09-18",
+  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "status": "draft",
+  "intro": {
+    "narration": "천호성지는 순교자 묘역을 중심으로 기도와 기억의 공간이 이어지는 곳입니다. 묘역과 성당, 경당과 박물관을 차례로 살펴보시겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "묘역 — 순교자 묘역",
+      "location": "성지 안 묘역",
+      "narration": "천호성지의 중심에는 순교자 묘역이 있습니다. 이 묘역은 순교자들을 기억하며 성지를 걷는 출발점이 됩니다. 묘비와 주변 숲을 함께 바라보며 이곳이 오랫동안 지켜 온 기억을 생각해 보세요.",
+      "lookFor": "숲과 함께 자리한 순교자 묘역",
+      "forEveryone": "박해로 목숨을 잃은 이들을 기리는 추모 공간입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/data/jc_file/jc_ebook_list/2886733904_Mu075yfY_20230709.pdf ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003778&gubun=16"
+    },
+    {
+      "seq": 2,
+      "title": "성당 — 부활성당",
+      "location": "성지 안 부활성당 앞",
+      "narration": "성지 안에는 부활성당이 있습니다. 순교자의 죽음을 끝이 아니라 부활의 희망으로 바라보는 이름을 지닌 성당입니다. 묘역에서 이어져 온 순례의 의미를 이 예배 공간에서 다시 마주하게 됩니다.",
+      "lookFor": "부활의 이름을 지닌 성당 건물",
+      "forEveryone": "추모와 희망을 함께 담은 예배 공간입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/data/jc_file/jc_ebook_list/2886733904_Mu075yfY_20230709.pdf ; https://www.jcatholic.or.kr/theme/main/pages/terrasanta.php"
+    },
+    {
+      "seq": 3,
+      "title": "경당 — 봉안경당",
+      "location": "성지 안 봉안경당",
+      "narration": "이곳에는 고인을 모시는 봉안경당이 마련되어 있습니다. 성지의 순교자 기억이 오늘의 신앙 공동체가 고인을 추모하는 방식으로 이어집니다. 경당에서는 조용히 머물며 공간의 용도를 존중해 주세요.",
+      "lookFor": "고인을 모신 경당의 차분한 내부",
+      "forEveryone": "고인을 기억하고 애도하는 실내 추모 공간입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/data/jc_file/jc_ebook_list/2886733904_Mu075yfY_20230709.pdf ; https://www.jcatholic.or.kr/theme/main/pages/terrasanta.php"
+    },
+    {
+      "seq": 4,
+      "title": "박물관 — 성물박물관",
+      "location": "성지 안 박물관 건물",
+      "narration": "성물박물관은 천호성지에서 신앙 자료를 살펴보는 공간입니다. 묘역과 성당에서 만난 이야기를 물건과 기록을 통해 보완해 줍니다. 전시 관람이 가능한 시간과 내부 안내를 현장에서 확인해 주세요.",
+      "lookFor": "신앙 자료를 모아 둔 박물관 전시 공간",
+      "forEveryone": "종교 공동체가 보존해 온 물건과 기록을 만나는 곳입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/data/jc_file/jc_ebook_list/2886733904_Mu075yfY_20230709.pdf ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003778&gubun=16"
+    }
+  ],
+  "outro": {
+    "narration": "천호성지는 묘역의 추모와 부활성당의 희망을 한 동선 안에서 이어 줍니다. 돌아가는 길에는 각 공간이 서로 어떤 기억을 잇고 있는지 되짚어 보세요.",
+    "photos": []
+  }
+}

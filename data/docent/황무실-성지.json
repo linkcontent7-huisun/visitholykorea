@@ -1,0 +1,58 @@
+{
+  "siteId": "580a4c8e-2662-4a0f-afcd-110f20604bbf",
+  "siteName": "황무실 성지",
+  "slug": "hwangmusil",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "황무실은 내포의 초기 신앙 공동체와 선교사들의 활동을 기억하는 사적지입니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 초기 공동체의 터",
+      "location": "입구 쪽",
+      "narration": "황무실에는 신해박해 이전부터 신앙 공동체가 있었습니다. 여러 박해를 지나면서도 공동체는 이어졌습니다.",
+      "lookFor": "마을과 성지의 경계",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 2,
+      "title": "성지 안 — 내포의 순교자들",
+      "location": "성지 안",
+      "narration": "원시장 베드로와 복자 방 프란치스코, 복자 박취득 라우렌시오의 순교는 이 지역 공동체에 깊은 영향을 남겼습니다.",
+      "lookFor": "순교자를 기억하는 표지",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 3,
+      "title": "묘역 — 선교사들의 기억",
+      "location": "묘역 쪽",
+      "narration": "메스트르 신부와 랑드르 신부는 황무실을 중심으로 내포의 교우촌을 돌봤습니다. 두 선교사의 묘는 뒤에 합덕성당으로 옮겨졌습니다.",
+      "lookFor": "옛 묘역 자리",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 4,
+      "title": "사적지 — 남은 성물의 증언",
+      "location": "성지 안",
+      "narration": "교구 자료는 이곳에 십자고상과 묵주를 간직한 이름 없는 순교자 또는 신자들의 묘가 남아 있다고 전합니다. 눈에 잘 드러나지 않는 흔적을 조심스럽게 살펴보세요.",
+      "lookFor": "묘역에 남은 작은 흔적",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
+    }
+  ],
+  "outro": {
+    "narration": "메스트르·랑드르 두 신부가 선종한 내포의 오래된 교우촌입니다. 자연석 현양비 뒤로 예산 쪽 구릉을 한 번 바라보고 발길을 돌리시면 됩니다.",
+    "photos": []
+  }
+}

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visit Holy Korea 디자인 시스템 v1</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+  /* ── 토큰: 이 블록이 곧 globals.css 에 들어갈 값이다 ── */
+  :root{
+    --color-brand:#1F2F55;        /* 남색 — 버튼·링크·활성 탭·포커스 */
+    --color-brand-soft:#E6EAF3;   /* 남색의 연한 판 — 선택된 입구 카드 배경 등 */
+    --color-second:#6E7F5C;       /* 올리브 — 칩 켜짐·카드 표시·일정 띠 */
+    --color-second-soft:#E9EDE3;
+    --color-ink:#1E222B;          /* 본문 글자 */
+    --color-ink-muted:#5E6470;    /* 보조 글자 (대비 4.5:1 이상 유지) */
+    --color-line:#DDD8CF;         /* 선·테두리 */
+    --color-bg:#FFFFFF;           /* 홈·목록 바탕 */
+    --color-paper:#F5F3EE;        /* 상세·일정 바탕 */
+    --color-panel:#F1EEE8;        /* 바탕 위 한 단계 낮은 판 */
+    --color-ok:#3E7A4E;  --color-ok-soft:#E4EFE6;      /* 인근 한산 */
+    --color-warn:#9A6A1E; --color-warn-soft:#F5EBD7;   /* 인근 보통 */
+    --color-bad:#9A3F36;  --color-bad-soft:#F5E1DE;    /* 인근 복잡 · 오류 */
+    --font-display:'Gowun Batang','Noto Serif KR',serif;
+    --font-body:'Noto Sans KR','Malgun Gothic',sans-serif;
+    --radius-s:4px; --radius-m:8px; --radius-round:999px;
+    --shadow-lift:0 6px 24px rgba(30,34,43,.10);
+    --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#ECE9E3;color:var(--color-ink);font-family:var(--font-body);font-size:15px;line-height:1.65;padding:32px 20px 80px}
+  .wrap{max-width:1080px;margin:0 auto;display:grid;gap:48px}
+  h1{font-family:var(--font-display);font-size:2.2rem;margin:0;line-height:1.2}
+  h2{font-family:var(--font-display);font-size:1.5rem;margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid var(--color-brand)}
+  h3{font-size:1.05rem;margin:18px 0 8px}
+  p{margin:0 0 8px;max-width:74ch}
+  .eyebrow{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--color-second);font-weight:700}
+  .muted{color:var(--color-ink-muted)}
+  table{width:100%;border-collapse:collapse;background:#fff;font-size:.9rem}
+  th,td{padding:8px 10px;border-bottom:1px solid var(--color-line);text-align:left;vertical-align:top}
+  th{background:var(--color-panel);font-size:.82rem}
+  .tw{overflow-x:auto;border:1px solid var(--color-line)}
+  code{font-family:ui-monospace,Consolas,monospace;font-size:.85em;background:var(--color-panel);padding:1px 5px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  @media (max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
+  .box{background:#fff;border:1px solid var(--color-line);padding:14px 16px}
+  .rule{border-left:3px solid var(--color-second);background:#fff;padding:10px 14px;font-size:.92rem}
+  .no{border-left-color:var(--color-bad)}
+  ul{margin:0;padding-left:1.2em}li{margin:3px 0}
+
+  /* 색 견본 */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .swatch{border:1px solid var(--color-line);background:#fff;font-size:.8rem}
+  .swatch i{display:block;height:56px}
+  .swatch div{padding:6px 8px}
+  .swatch b{display:block}
+
+  /* 타이포 견본 */
+  .type-sample > div{padding:10px 0;border-bottom:1px dashed var(--color-line);display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:baseline}
+  .type-sample small{color:var(--color-ink-muted);font-size:.75rem}
+  .t-h1{font-family:var(--font-display);font-size:2rem;font-weight:700;line-height:1.2}
+  .t-h2{font-family:var(--font-display);font-size:1.5rem;font-weight:700;line-height:1.25}
+  .t-h3{font-family:var(--font-body);font-size:1.125rem;font-weight:700}
+  .t-body{font-size:1rem}
+  .t-small{font-size:.875rem}
+  .t-cap{font-size:.75rem;color:var(--color-ink-muted)}
+  .t-label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--color-second)}
+
+  /* 컴포넌트 견본 — 실제 규격 */
+  .demo{background:#fff;border:1px solid var(--color-line);padding:16px;display:grid;gap:12px}
+  .demo.paper{background:var(--color-paper)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:6px;font-weight:700;font-size:1rem;border:1.5px solid var(--color-brand);color:var(--color-brand);background:#fff;cursor:pointer}
+  .btn.primary{background:var(--color-brand);color:#fff}
+  .btn.text{border-color:transparent;background:transparent;padding:0 6px;min-height:36px}
+  .btn:focus-visible{outline:3px solid var(--color-brand);outline-offset:2px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .search{display:flex;align-items:center;gap:8px;min-height:48px;padding:0 14px;border:1.5px solid var(--color-line);border-radius:var(--radius-m);background:#fff;color:var(--color-ink-muted);font-size:1rem}
+  .search i{width:10px;height:10px;border:2px solid var(--color-brand);border-radius:50%}
+  .entry{padding:16px 14px;border:1.5px solid var(--color-brand);border-radius:var(--radius-m);color:var(--color-brand);font-weight:700;line-height:1.3}
+  .entry.fill{background:var(--color-brand);color:#fff}
+  .entry small{display:block;font-weight:400;font-size:.8rem;opacity:.85;margin-top:4px}
+  .chip{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border:1px solid var(--color-line);border-radius:var(--radius-round);font-size:.85rem;color:#444;background:#fff}
+  .chip.on{background:var(--color-second);border-color:var(--color-second);color:#fff;font-weight:700}
+  .badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:var(--radius-s);font-size:.85rem;font-weight:700}
+  .badge.ok{background:var(--color-ok-soft);color:var(--color-ok)}.badge.warn{background:var(--color-warn-soft);color:var(--color-warn)}.badge.bad{background:var(--color-bad-soft);color:var(--color-bad)}
+  .card{width:220px;border:1px solid var(--color-line);border-radius:var(--radius-m);overflow:hidden;background:#fff;font-size:.85rem}
+  .card i{display:block;aspect-ratio:4/3;background:#bbb center/cover}
+  .card .b{padding:8px 10px 10px;display:grid;gap:2px}
+  .card .t{font-weight:700;font-size:1rem;line-height:1.25;color:var(--color-ink)}
+  .card .m{color:var(--color-ink-muted)}.card .m em{font-style:normal;color:var(--color-brand);font-weight:700}
+  .card .f{display:flex;justify-content:space-between;margin-top:2px}.card .f b{color:var(--color-second)}.card .f span{color:var(--color-ink-muted)}
+  .region{display:grid;gap:6px;justify-items:center;font-size:.85rem;font-weight:500}
+  .region i{width:64px;height:64px;border-radius:50%;background:#bbb center/cover;border:2px solid var(--color-panel)}
+  .tabs{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-line);padding:8px 4px 6px;text-align:center;font-size:.75rem;color:var(--color-ink-muted);background:#fff}
+  .tabs b{color:var(--color-brand)}
+  .tabs span::before,.tabs b::before{content:"";display:block;width:22px;height:22px;margin:0 auto 4px;border:2px solid currentColor;border-radius:5px}
+  .dhead{display:grid;gap:8px}
+  .dhead .cat{font-size:.75rem;letter-spacing:.12em;color:var(--color-second);font-weight:700}
+  .dhead h4{font-family:var(--font-display);font-size:1.6rem;margin:0;line-height:1.2}
+  .plan{background:#fff;border:1px solid var(--color-line);border-left:3px solid var(--color-second);padding:10px 12px;font-size:.9rem}
+  .plan b{display:block;font-size:.75rem;color:var(--color-second);letter-spacing:.1em}
+  .hero{position:relative;aspect-ratio:16/9;background:#999 center/cover url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Korea_Haemi_Martyrdom_Holy_Ground_16_%2814031341538%29.jpg/1280px-Korea_Haemi_Martyrdom_Holy_Ground_16_%2814031341538%29.jpg');border-radius:var(--radius-m);overflow:hidden}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,.05) 55%)}
+  .hero .txt{position:absolute;left:16px;bottom:64px;color:#fff;z-index:1;font-family:var(--font-display);font-size:1.5rem;font-weight:700;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+  .hero .search{position:absolute;left:16px;right:16px;bottom:14px;z-index:1;border-color:#fff}
+  .hero .dots{position:absolute;top:12px;right:14px;z-index:1;color:#fff;letter-spacing:.3em;font-size:.7rem}
+  .brand{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .brand img{height:56px;width:auto;background:#fff;padding:6px;border:1px solid var(--color-line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header style="display:grid;gap:8px">
+  <div class="eyebrow">Visit Holy Korea · 디자인 시스템 v1 · 2026-09-16</div>
+  <h1>고요한 성지로 초대합니다.</h1>
+  <p>이 문서 하나가 <b>화면을 만드는 모든 사람의 기준</b>이다. 여기 없는 색·글꼴·모양은 쓰지 않는다. 바꾸고 싶으면 이 문서를 먼저 고치고 팀에 알린다. 위쪽 <code>&lt;style&gt;</code> 의 <code>:root</code> 블록이 그대로 <code>src/shared/styles/globals.css</code> 에 들어갈 값이다 — 견본 컴포넌트는 전부 그 변수로만 그려져 있다.</p>
+  <p class="muted">근거: 9/14 팀 피드백 12건 · 9/15 팀 검토(우선순위 문서) · 9/15~16 사장님 결정(브리핑 문서) · 기존 브랜드 자산(<code>public/brand</code>, <code>public/logo.png</code>). 상태: <b>9/16 14:00 회의에서 확정 대상.</b></p>
+</header>
+
+<section>
+  <div class="eyebrow">1</div><h2>원칙 다섯</h2>
+  <div class="grid2">
+    <div class="rule"><b>사진이 말한다.</b> 글자는 사진을 설명하는 만큼만. 사진 위에 글자를 얹을 때는 한 줄, 아래쪽, 그림자 있는 흰색.</div>
+    <div class="rule"><b>50대가 기준이다.</b> 본문 16px 이상, 누르는 것은 44px 이상, 색만으로 뜻을 전하지 않는다(글자 항상 함께). 글자 크기 3단계(소·중·대)를 모든 화면이 따른다.</div>
+    <div class="rule"><b>색은 둘, 자리는 정해져 있다.</b> 남색은 "누르는 것", 올리브는 "표시하는 것". 그 밖의 색은 신호등(붐빔)뿐이다.</div>
+    <div class="rule"><b>홈은 고르는 곳, 상세는 머무는 곳.</b> 바탕(흰/종이)·사진 크기·제목 글꼴로 분위기를 바꾸되 색은 바꾸지 않는다.</div>
+    <div class="rule"><b>없는 것은 없다고 말한다.</b> 더미 데이터·가짜 카운트·빈칸 채우기 금지. "정보 없음" · "준비 중" · 임시 이미지(문구 박힌 것)로 정직하게.</div>
+    <div class="rule no"><b>하지 않는 것.</b> 보라 그라데이션 · 알약 카드(<code>rounded-[28px]</code>) · 이모지 아이콘 · 대문자 자간 라벨을 큰 제목에 · Inter 글꼴 · 화면마다 다른 제목 스타일 · 10px 글자.</div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">2</div><h2>색</h2>
+  <p>로고의 남색을 기준으로 잡았다. 로고의 하늘색·금 십자가는 <b>로고 안에서만</b> 쓴다.</p>
+  <div class="swatches">
+    <div class="swatch"><i style="background:#1F2F55"></i><div><b>brand 남색</b>#1F2F55<br>버튼 · 링크 · 활성 탭 · 포커스 테두리 · 카드의 강조 숫자</div></div>
+    <div class="swatch"><i style="background:#E6EAF3"></i><div><b>brand-soft</b>#E6EAF3<br>남색의 연한 판 — 선택 상태 배경</div></div>
+    <div class="swatch"><i style="background:#6E7F5C"></i><div><b>second 올리브</b>#6E7F5C<br>분류 칩 켜짐 · 카드 표시(도슨트) · 상세 분류 글자 · 일정 첫 문장 띠 · 작은 라벨</div></div>
+    <div class="swatch"><i style="background:#E9EDE3"></i><div><b>second-soft</b>#E9EDE3<br>올리브의 연한 판</div></div>
+    <div class="swatch"><i style="background:#1E222B"></i><div><b>ink</b>#1E222B<br>본문 글자</div></div>
+    <div class="swatch"><i style="background:#5E6470"></i><div><b>ink-muted</b>#5E6470<br>보조 글자. 흰 바탕 대비 6.4:1</div></div>
+    <div class="swatch"><i style="background:#DDD8CF"></i><div><b>line</b>#DDD8CF<br>선 · 테두리 · 구분</div></div>
+    <div class="swatch"><i style="background:#FFFFFF;border-bottom:1px solid #ddd"></i><div><b>bg 흰색</b>#FFFFFF<br>홈 · 목록 · 검색 바탕</div></div>
+    <div class="swatch"><i style="background:#F5F3EE"></i><div><b>paper 종이색</b>#F5F3EE<br>상세 · 일정 결과 · 기록 바탕</div></div>
+    <div class="swatch"><i style="background:#F1EEE8"></i><div><b>panel</b>#F1EEE8<br>바탕 위 한 단계 낮은 판(표 머리 · 입력칸 배경)</div></div>
+    <div class="swatch"><i style="background:#3E7A4E"></i><div><b>ok 한산</b>#3E7A4E · 판 #E4EFE6<br>신호등 — 인근 붐빔만</div></div>
+    <div class="swatch"><i style="background:#9A6A1E"></i><div><b>warn 보통</b>#9A6A1E · 판 #F5EBD7</div></div>
+    <div class="swatch"><i style="background:#9A3F36"></i><div><b>bad 복잡 · 오류</b>#9A3F36 · 판 #F5E1DE</div></div>
+  </div>
+  <h3>규칙</h3>
+  <ul>
+    <li>남색 배경 위 글자는 흰색. 올리브 배경 위 글자도 흰색. 연한 판 위에는 그 색의 진한 글자.</li>
+    <li>한 화면에 남색으로 채운 버튼(primary)은 <b>하나</b>. 나머지는 테두리형이나 글자형.</li>
+    <li>붐빔 3색은 배지 안에서만. 버튼·링크·제목에 쓰지 않는다.</li>
+    <li>그라데이션은 사진 위 글자 가독용 검정 그라데이션 하나만 허용.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="eyebrow">3</div><h2>글꼴과 크기</h2>
+  <div class="grid2">
+    <div class="box"><b>제목 — Gowun Batang(고운바탕)</b><br>화면 제목(h1)·섹션 제목(h2)·상세 성지 이름·히어로 문구. "성지의 정적인 느낌". 굵기 700만.</div>
+    <div class="box"><b>본문 — Noto Sans KR</b><br>그 밖의 모든 글자. 400 · 500 · 700. 영문·숫자도 같은 글꼴(Inter 는 걷어낸다 — 한글과 섞여 튄다).</div>
+  </div>
+  <h3>크기 단계 (rem · 글자 「소」 기준 16px)</h3>
+  <div class="box type-sample">
+    <div><small>h1 · 2rem/1.2</small><span class="t-h1">순례 코스</span></div>
+    <div><small>h2 · 1.5rem/1.25</small><span class="t-h2">특색 있는 성당</span></div>
+    <div><small>h3 · 1.125rem 고딕 700</small><span class="t-h3">미사 시간</span></div>
+    <div><small>본문 · 1rem/1.65</small><span class="t-body">아산 인주면, 삼백 년 넘은 보호수가 둘러선 언덕에 고딕식 벽돌 성당이 서 있다.</span></div>
+    <div><small>작은 글 · .875rem</small><span class="t-small">충남 아산시 인주면 공세리성당길 10</span></div>
+    <div><small>캡션 · .75rem (최소)</small><span class="t-cap">관광공사 집중률 · 오늘 축제 0건 · 추정</span></div>
+    <div><small>라벨 · .75rem 자간</small><span class="t-label">성당 · 대전교구</span></div>
+  </div>
+  <ul>
+    <li>글자 「중」은 112%, 「대」는 125% — 전부 rem 이라 자동으로 따라온다. <b>px 로 못 박은 글자 금지.</b></li>
+    <li>한 줄은 70자 안쪽. 한국어 줄바꿈은 <code>break-keep</code>(단어 중간에서 안 갈림).</li>
+    <li>사진 위 글자는 흰색 + <code>text-shadow 0 1px 8px rgba(0,0,0,.5)</code>, 아래 55% 검정 그라데이션.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="eyebrow">4</div><h2>간격 · 모서리 · 그림자 · 아이콘</h2>
+  <div class="grid3">
+    <div class="box"><b>간격</b> 4 · 8 · 12 · 16 · 24 · 32 · 48px. 화면 가장자리 16px(폰) · 32px(PC). 카드 사이 8px(폰) · 16px(PC). 섹션 사이 32px.</div>
+    <div class="box"><b>모서리</b> 작은 것 4px(배지·입력칸) · 카드·버튼 6~8px · 둥근 것 999px(교구 버튼·칩·점만). <b>28px 알약 없음.</b></div>
+    <div class="box"><b>그림자</b> 하나만: <code>0 6px 24px rgba(30,34,43,.10)</code> — 바탕에서 떠야 하는 것(사진 카드 호버·시트)에만. 평소 카드는 1px 선.</div>
+    <div class="box"><b>아이콘</b> Lucide 선 아이콘 1.75px, 크기 20/24. 색은 글자색 따라감. 이모지 금지. 사장님 브랜드 아이콘(지도·하트·성당 그림)은 입구 카드와 히어로 띠에만.</div>
+    <div class="box"><b>사진 비율</b> 카드 4:3 · 히어로 4:5(폰) 16:9(PC) · 상세 16:9 · 교구 버튼 1:1 원. 비율이 다르면 잘라서 맞춘다(<code>object-cover</code>).</div>
+    <div class="box"><b>움직임</b> 넘김·페이드 0.6~0.8초, 호버 0.15초. 자동 넘김은 6초. 「동작 줄이기」면 전부 끔. 손대면 멈춤.</div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">5</div><h2>브랜드 자산 (이미 있는 것)</h2>
+  <div class="brand">
+    <img src="../../../public/logo.png" alt="로고">
+    <img src="../../../public/brand/dove.png" alt="비둘기">
+    <img src="../../../public/brand/brush-navy.png" alt="붓글씨 남색">
+    <img src="../../../public/brand/map.png" alt="지도 아이콘">
+    <img src="../../../public/brand/heart.png" alt="하트 아이콘">
+    <img src="../../../public/placeholders/ko/site-placeholder-1.webp" alt="임시 이미지">
+  </div>
+  <div class="tw"><table>
+    <tr><th>자산</th><th>어디</th><th>쓰는 자리</th></tr>
+    <tr><td>로고 (남색 글자 · 하늘색 · 금 십자가)</td><td><code>public/logo.png</code> · <code>logo-mark-88.png</code></td><td>헤더 왼쪽. 남색 외의 색은 로고 안에서만</td></tr>
+    <tr><td>비둘기 · 붓글씨 3색</td><td><code>public/brand/dove.png</code> · <code>brush-navy|pink|yellow.png</code></td><td>홈 인사 띠(한국어). 외국어는 같은 뜻의 글자로(<code>greetingBanner</code>)</td></tr>
+    <tr><td>그림 아이콘 8종</td><td><code>public/brand/*.png</code></td><td>입구 카드 왼쪽 그림. 목록·상세에는 Lucide</td></tr>
+    <tr><td>임시 이미지 6장면 × 6언어</td><td><code>public/placeholders/&lt;언어&gt;/</code></td><td>사진 없는 성지. 규칙은 그 폴더 README</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <div class="eyebrow">6</div><h2>컴포넌트 — 실제 규격으로 그린 견본</h2>
+
+  <h3>버튼</h3>
+  <div class="demo"><div class="row">
+    <button class="btn primary">▶ 오디오 도슨트</button><button class="btn">찾아가는 길</button><button class="btn text">전체 16 ›</button>
+  </div><p class="muted" style="margin:0">높이 44px · 글자 1rem 700 · 모서리 6px. 한 화면에 채운 버튼 하나. 아이콘은 글자 왼쪽 20px.</p></div>
+
+  <h3>검색창 (히어로 위 · 헤더)</h3>
+  <div class="demo"><div class="search"><i></i> 성지 이름 · 지역으로 검색</div><p class="muted" style="margin:0">높이 48px · 흰 바탕 · 안내 문구는 ink-muted. 히어로 위에서는 사진 아래쪽 16px 안쪽에 놓고 테두리 흰색.</p></div>
+
+  <h3>히어로 (홈)</h3>
+  <div class="demo"><div class="hero"><div class="dots">● ○ ○ ○ ○</div><div class="txt">고요한 성지로 초대합니다.</div><div class="search"><i></i> 성지 이름 · 지역으로 검색</div></div>
+  <p class="muted" style="margin:0">사진 5장 · 6초 · 페이드 · 누르면 상세 · 점 5개 오른쪽 위 · 문구는 한 줄 명조 · 「동작 줄이기」면 정지.</p></div>
+
+  <h3>입구 카드 (홈, 둘 나란히)</h3>
+  <div class="demo"><div class="grid2"><div class="entry fill">여기서 가까운 성지·성당 찾기<small>현재 위치 기준, 가까운 순</small></div><div class="entry">마음 상태로 고르는 오늘의 성지 일정<small>5가지만 여쭤볼게요</small></div></div>
+  <p class="muted" style="margin:0">왼쪽은 채움, 오른쪽은 테두리 — 둘 다 남색. 폰에서는 세로로 쌓임. 사장님 그림 아이콘을 왼쪽에 넣을 수 있다(48px).</p></div>
+
+  <h3>분류 칩 · 붐빔 배지</h3>
+  <div class="demo"><div class="row"><span class="chip on">전체</span><span class="chip">성당</span><span class="chip">순교성지</span><span class="chip">순례길</span><span class="chip">피정의집</span></div>
+  <div class="row"><span class="badge ok">인근이 한산합니다</span><span class="badge warn">인근이 보통입니다</span><span class="badge bad">인근이 복잡합니다</span><span class="muted" style="font-size:.8rem">관광공사 집중률 · 오늘 축제 N건 · 추정</span></div>
+  <p class="muted" style="margin:0">칩: 높이 32px · 켜짐은 올리브 채움. 배지: 주어는 항상 "인근" · 옆에 근거 한 줄 · 못 불러오면 "인근 붐빔 정보를 불러오지 못했어요".</p></div>
+
+  <h3>성지 카드 (civitatis 식 · 3×2)</h3>
+  <div class="demo"><div class="row">
+    <div class="card"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Jeondong_Cathedral.jpg/1280px-Jeondong_Cathedral.jpg')"></i><div class="b"><div class="t">전동성당</div><div class="m">전주 · <em>1시간</em></div><div class="f"><b>▶ 도슨트</b><span>순례자 42</span></div></div></div>
+    <div class="card"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Kyesan_Cathedral_Front.jpg/1280px-Kyesan_Cathedral_Front.jpg')"></i><div class="b"><div class="t">계산 주교좌대성당</div><div class="m">대구 · <em>1시간</em></div><div class="f"><b>인근 한산</b><span>순례자 18</span></div></div></div>
+    <div class="card"><i style="background-image:url('/placeholders/ko/site-placeholder-2.webp'),url('../../../public/placeholders/ko/site-placeholder-2.webp')"></i><div class="b"><div class="t">사진 없는 성지</div><div class="m">청주 · <em>정보 없음</em></div><div class="f"><b>&nbsp;</b><span>순례자 0</span></div></div></div>
+  </div><p class="muted" style="margin:0">사진 4:3 · 이름 1rem 700 · 지역 + 소요시간(남색) · 표시 한 줄(올리브) + 순례자 수. <b>네 줄을 넘기지 않는다.</b> 분류 배지·주소는 카드에 없다. 폰 2열 · PC 3열.</p></div>
+
+  <h3>교구 둥근 버튼</h3>
+  <div class="demo"><div class="row" style="gap:18px">
+    <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Myeongdong_Cathedral_02.jpg/1280px-Myeongdong_Cathedral_02.jpg')"></i>서울</div>
+    <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Daeheung_Dong-Cathedral_01.jpg/1280px-Daeheung_Dong-Cathedral_01.jpg')"></i>대전</div>
+    <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Jeondong_Cathedral.jpg/1280px-Jeondong_Cathedral.jpg')"></i>전주</div>
+    <div class="region"><i style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Dapdong_cathedral.JPG/1280px-Dapdong_cathedral.JPG')"></i>인천</div>
+    <div class="region"><i style="background:var(--color-panel);display:grid;place-items:center;color:var(--color-ink-muted);font-size:.8rem">+4</i>전체 16</div>
+  </div><p class="muted" style="margin:0">64px 원 · 대표 성당 사진 · 사진 없는 교구(광주·안동·청주·군종)는 「전체 16」 안에서 글자로. 임시 이미지는 원 안에서 안 읽혀 쓰지 않는다.</p></div>
+
+  <h3>상세 머리 (종이 바탕)</h3>
+  <div class="demo paper"><div class="dhead"><div class="cat">성당 · 대전교구</div><h4>공세리성지성당</h4><div class="muted" style="font-size:.9rem">충남 아산시 인주면 공세리성당길 10</div><div class="row"><span class="badge ok">인근이 한산합니다</span><span class="muted" style="font-size:.8rem">관광공사 집중률 · 오늘 축제 0건 · 추정</span></div></div>
+  <div class="plan"><b>오늘의 성지 일정</b>요즘 일로 마음이 많이 쓰이셨죠. 오전엔 공세리, 점심은 근처 식당, 오후는 솔뫼로.</div>
+  <div class="row"><button class="btn primary">▶ 오디오 도슨트</button><button class="btn">찾아가는 길</button></div>
+  <p class="muted" style="margin:0">순서: 사진(있는 만큼 나란히) → 분류 라벨 → 명조 이름 → 주소 → 붐빔 배지 → 미사·둘러보는 시간 상자 → 버튼 → 설명글 → 지도·교통 → 기록.</p></div>
+
+  <h3>하단 탭 (폰)</h3>
+  <div class="demo" style="padding:0"><div class="tabs"><b>홈</b><span>지도</span><span>기록</span><span>홈화면 추가</span><span>전체</span></div></div>
+  <p class="muted">활성 탭만 남색. 아이콘 24px + 글자 .75rem. 「홈화면 추가」는 폰에서만, PC 에서는 숨김. ⚠ 탭 구성은 9/16 회의에서 확정.</p>
+</section>
+
+<section>
+  <div class="eyebrow">7</div><h2>화면 틀</h2>
+  <div class="tw"><table>
+    <tr><th style="width:16%">화면</th><th>바탕</th><th>구성 (위에서 아래로)</th></tr>
+    <tr><td>홈</td><td>흰색</td><td>헤더 → 히어로(사진 위 검색창) → 입구 2개 → 교구 둥근 버튼 줄 → 분류 칩 → 특색 성당 3×2 → (여기서 가까운 · 이번 주 축제 근처 두 줄) → 하단 탭</td></tr>
+    <tr><td>목록 (검색 · 교구 · 가까운)</td><td>흰색</td><td>뒤로 + 제목(명조) → 분류 칩 → 카드 격자(폰 2열 · PC 3열) → 하단 탭</td></tr>
+    <tr><td>상세</td><td>종이색</td><td>사진(있는 만큼) → 상세 머리 → 시간 상자 → 버튼 2 → 설명글 → 지도·교통·주차 → 주변 관광(TourAPI) → 기록. 헤더·탭 없음(몰입)</td></tr>
+    <tr><td>오늘의 성지 일정</td><td>흰색 → 결과는 종이색</td><td>인사말 + 마음 이모지 5 → 질문 5개(고르면 자동 진행) → 결과: 첫 문장 띠(올리브) → 일정 2~3줄 → [다른 성지로] → 한 줄 남기기</td></tr>
+    <tr><td>기록 · 전체(더보기)</td><td>종이색</td><td>제목(명조) → 항목은 가로 나열, 배경색 판으로 묶음(세로로 길게 안 늘임)</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <div class="eyebrow">8</div><h2>접근성 — 심사 감점을 막는 최소선</h2>
+  <ul>
+    <li>글자 대비 4.5:1 이상 (ink-muted 6.4:1, 올리브 위 흰 글자 4.6:1, 남색 위 흰 글자 11:1).</li>
+    <li>누르는 것 44×44px 이상. 칩은 32px 이지만 좌우 여백으로 44px 확보.</li>
+    <li>키보드 포커스: 남색 3px 테두리, 2px 띄움(<code>:focus-visible</code>).</li>
+    <li>글자 「대」에서 잘림·겹침 없음 — 스크린샷으로 확인(<code>chrome-analyze</code> 스킬).</li>
+    <li>자동 넘김은 「동작 줄이기」 존중 + 손대면 멈춤 + 점으로 수동 이동.</li>
+    <li>이미지 alt 는 성지 이름. 임시 이미지 alt 는 "사진 준비 중 — 이름".</li>
+  </ul>
+</section>
+
+<section>
+  <div class="eyebrow">9</div><h2>코드 대응 — <code>globals.css</code> 에 이렇게 들어간다</h2>
+  <div class="tw"><table>
+    <tr><th>지금 (9/16 main)</th><th>바꿀 값</th><th>비고</th></tr>
+    <tr><td><code>--font-sans: 'Inter', …</code></td><td><code>'Noto Sans KR', 'Malgun Gothic', sans-serif</code></td><td>index.html 의 Inter 링크도 Noto Sans KR 로</td></tr>
+    <tr><td><code>--font-display: 'Gowun Batang'</code></td><td>그대로</td><td>정의만 있고 안 쓰였음 → h1·h2·상세 이름에 실제 적용(<code>PageTitle</code> 공용 부품)</td></tr>
+    <tr><td><code>--color-brand-blue: #1e3a8a</code></td><td><code>--color-brand: #1F2F55</code></td><td>이름도 바꾼다. blue/violet 둘이던 것을 하나로</td></tr>
+    <tr><td><code>--color-brand-violet: #7c3aed</code></td><td><b>삭제</b> → <code>--color-second: #6E7F5C</code></td><td>보라를 쓰던 자리를 전부 점검: 버튼이면 brand, 표시면 second</td></tr>
+    <tr><td><code>--color-app-bg: #f8f9fa</code></td><td><code>--color-bg: #FFFFFF</code> + <code>--color-paper: #F5F3EE</code></td><td>홈/목록은 bg, 상세/일정/기록은 paper</td></tr>
+    <tr><td><code>--color-app-border: #f1f3f5</code></td><td><code>--color-line: #DDD8CF</code></td><td>지금 선이 너무 연해 카드 경계가 안 보였음</td></tr>
+    <tr><td><code>--color-app-text-muted: #495057</code></td><td><code>--color-ink-muted: #5E6470</code></td><td></td></tr>
+    <tr><td>(없음)</td><td><code>--color-ok/warn/bad</code> + <code>-soft</code></td><td>붐빔 배지 전용</td></tr>
+    <tr><td><code>rounded-[28px]</code> 29개 파일</td><td><code>rounded-lg</code>(8px)</td><td>한 번에 치환. 합친 직후 30분 안에</td></tr>
+    <tr><td><code>bg-gradient-to-br from-brand-violet…</code> 4개 파일</td><td>단색 <code>bg-brand</code></td><td></td></tr>
+  </table></div>
+  <p class="muted">순서: 토큰 두 파일(<code>globals.css</code> · <code>index.html</code>) 먼저 합치고 → 반경·그라데이션 치환 → 화면별 조정. 팀 문서의 <code>design/tokens</code> 브랜치 절 그대로.</p>
+</section>
+
+<footer class="muted" style="font-size:.85rem;border-top:1px solid var(--color-line);padding-top:12px">
+  파일: <code>docs/10-product/재기획/디자인-시스템-v1-2026-09-16.html</code> · 같이 보는 것: <code>2026-09-16-홈-재설계-브리핑.html</code> · <code>2026-09-16-남색-보조색-3안.html</code>(A안) · 바뀌면 v2 로 올리고 날짜를 적는다.
+</footer>
+</div>
+</body>
+</html>
