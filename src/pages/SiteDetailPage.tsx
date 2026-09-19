@@ -1,13 +1,12 @@
-import { Camera, ChevronDown, Compass, Flag, Heart, Share2, User, X } from 'lucide-react';
+import { BookOpen, Camera, ChevronDown, Compass, Flag, Heart, User, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
-import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
 import { resolveReflectionQuestion } from '@/features/passport/lib/reflection-questions';
-import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/share-card';
 import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use-favorites';
 import {
   useAddStamp,
+  useDeleteStampPhoto,
   useMyStamp,
   useMyStamps,
   useReportNote,
@@ -17,8 +16,7 @@ import {
 import { getMyStamps, recordNoteReads } from '@/features/passport/api/stamps.repository';
 import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
-import { resolveStampMotif } from '@/features/passport/lib/stamp-motifs';
-import { isWydPeriod, isWydVenue, WYD_LABEL_EN, WYD_LABEL_KO } from '@/features/passport/lib/wyd';
+import { isWydVenue, WYD_LABEL_EN, WYD_LABEL_KO } from '@/features/passport/lib/wyd';
 import { DocentPlayer } from '@/features/docent/components/DocentPlayer';
 import { buildChapters } from '@/features/docent/lib/chapters';
 import { getDocentScript } from '@/features/docent/data/scripts';
@@ -47,6 +45,7 @@ import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { ScrollHintRow } from '@/shared/components/ui/ScrollHintRow';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { PhotoLightbox } from '@/shared/components/ui/PhotoLightbox';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
@@ -84,6 +83,11 @@ export default function SiteDetailPage() {
     const el = document.getElementById('visit-info-heading');
     el?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }, [wantsDirections, site]);
+  // 즐겨찾기 단추 옆 「기록하기」 — 순례 기록이 이 서비스의 핵심인데도 이야기·도슨트
+  // 아래로 밀려 있어 접근하기 어렵다는 지적(사장님, 2026-09-20)으로 앵커를 만든다.
+  const scrollToRecordSection = () => {
+    document.getElementById('reviews-heading')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  };
   // AI 가이드는 홈 상단에서 이리로 옮겼다 (2026-09-12) — 성지를 보다가 궁금할 때 묻는 자리다
   // 공식 사진이 없으면 순례자가 보내준(운영자 승인) 사진이 대표 자리를 채운다.
   // 훅이므로 이른 return 위에서 부른다.
@@ -97,16 +101,6 @@ export default function SiteDetailPage() {
   const { data: visitNotes = [] } = useSiteNotes(siteId, reviewsOpen ? undefined : 6);
   const addStamp = useAddStamp(siteId ?? '');
 
-  // 이 성지가 나의 몇 번째 순례인가 (오래된 순으로 센다). 안 찍었으면 null.
-  const visitOrder = (() => {
-    const asc = [...myStamps].sort(
-      (a, b) => new Date(a.visitedAt).getTime() - new Date(b.visitedAt).getTime(),
-    );
-    const idx = asc.findIndex((s) => s.siteId === siteId);
-    return idx === -1 ? null : idx + 1;
-  })();
-
-  const [shareLoading, setShareLoading] = useState(false);
   const [noteDraft, setNoteDraft] = useState('');
   // 기록 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-17).
   // 접어도 사라지지 않는다 — 줄만 남아서 다시 누르면 펼칠 수 있다.
@@ -156,17 +150,23 @@ export default function SiteDetailPage() {
 
   // 순례 사진 — 첫 기록을 남기면 자동으로 생기는 "내 기록"에 붙인다
   const uploadPhotos = useUploadStampPhotos(siteId ?? '');
+  const deletePhoto = useDeleteStampPhoto(siteId ?? '');
   const reportNote = useReportNote(siteId ?? '');
   const [reportedIds, setReportedIds] = useState<Set<string>>(new Set());
+  // 사진 확대 모달 — 「내가 남긴」·「다른 순례자」 사진 둘 다 이 상태 하나를 같이 쓴다
+  const [lightbox, setLightbox] = useState<{ photos: string[]; index: number } | null>(null);
   const handlePhotoPick = async (files: FileList | null) => {
     if (!files || !myStamp) return;
     const policy = photoPolicy();
-    const picked = Array.from(files).slice(0, policy.maxCount);
-    if (files.length > policy.maxCount)
-      window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
+    // 이미 있는 사진 뒤에 이어 붙인다 — 위치(position)가 겹치면 기존 사진을 덮어쓰므로
+    // 새로 고른 만큼만 남은 자리에서 자른다(2026-09-20, 「바꾸기」 아닌 「추가」로 고침).
+    const room = Math.max(0, policy.maxCount - myStamp.photos.length);
+    const picked = Array.from(files).slice(0, room);
+    if (files.length > room) window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
     const photos = await Promise.all(picked.map((file) => shrinkPhoto(file, policy)));
     uploadPhotos.mutate({
       stampId: myStamp.stamped ? (myStamps.find((s) => s.siteId === siteId)?.stampId ?? '') : '',
+      startPosition: myStamp.photos.length + 1,
       photos,
     });
   };
@@ -192,10 +192,6 @@ export default function SiteDetailPage() {
   };
   const removeNotePhoto = (index: number) =>
     setNotePhotos((prev) => prev.filter((_, i) => i !== index));
-
-  // 공유 카드 디자인에 쓰는 오늘의 전례색·WYD 여부 — 화면에 절차로 보여주지 않는다(2026-09-17).
-  const todayLiturgical = getLiturgicalEvent();
-  const wydNow = isWydPeriod();
 
   // "다녀온 사람의 한 줄"이 실제로 화면에 보였을 때만 읽힘 수를 올린다.
   // 성지당 한 번 — 리렌더마다 세면 조회수가 아니라 렌더 횟수가 된다.
@@ -255,32 +251,6 @@ export default function SiteDetailPage() {
         window.alert(t('saveFailedFavorite'));
       },
     });
-  };
-
-  const handleShareCard = async () => {
-    if (!site) return;
-    setShareLoading(true);
-    try {
-      const blob = await generateShareCard({
-        siteName: site.name,
-        location: site.location,
-        emotionTag: site.emotionTag,
-        // 순례자 사진이 대표가 된 성지는 카드 배경도 그 사진을 쓴다
-        imageUrl: heroPhoto.url,
-        visitedAt: new Date(),
-        liturgical: todayLiturgical,
-        visitOrder,
-        motif: resolveStampMotif(site.name, site.category),
-        wyd: isWydVenue(site.name),
-        wydLimited: wydNow,
-      });
-      await shareOrDownloadCard(blob, `visitholy-${site.name}.png`);
-    } catch (e) {
-      console.error('공유 카드 생성 실패:', e);
-      window.alert(t('shareCardFailed'));
-    } finally {
-      setShareLoading(false);
-    }
   };
 
   if (isLoading) return <LoadingSpinner />;
@@ -362,22 +332,34 @@ export default function SiteDetailPage() {
             2026-09-19: "뒤로 버튼 종류가 두 가지로 보인다") — 사진 위라 onDark 로만 다르다. */}
         <BackButton variant="onDark" className="absolute left-5 top-5" />
 
-        {!SUBMISSION_MODE && (
-          // 제출판은 본선 기능만 보이게 한다 — T-013
+        <div className="absolute right-5 top-5 flex items-center gap-2">
+          {/* 기록이 이 서비스의 핵심 기능인데도 이야기·도슨트 아래로 밀려 접근하기 어렵다는
+              지적(사장님, 2026-09-20)으로, 즐겨찾기 옆에 「기록으로 가기」 앵커를 둔다. */}
           <button
-            onClick={handleToggleFavorite}
-            disabled={toggleFavorite.isPending}
-            className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-lg border border-white/30 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45"
-            aria-label={isFavorited ? t('favoriteRemove') : t('favoriteAdd')}
-            aria-pressed={isFavorited}
+            type="button"
+            onClick={scrollToRecordSection}
+            className="flex min-h-11 items-center gap-1.5 rounded-lg border border-white/30 bg-black/30 px-3 text-base font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45"
           >
-            <Heart
-              size={22}
-              className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined}
-              aria-hidden
-            />
+            <BookOpen size={18} aria-hidden />
+            {t('siteRecordAnchor')}
           </button>
-        )}
+          {!SUBMISSION_MODE && (
+            // 제출판은 본선 기능만 보이게 한다 — T-013
+            <button
+              onClick={handleToggleFavorite}
+              disabled={toggleFavorite.isPending}
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/30 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45"
+              aria-label={isFavorited ? t('favoriteRemove') : t('favoriteAdd')}
+              aria-pressed={isFavorited}
+            >
+              <Heart
+                size={22}
+                className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined}
+                aria-hidden
+              />
+            </button>
+          )}
+        </div>
 
         <div className="absolute bottom-10 left-5 right-5 text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.55)] lg:left-8 lg:right-8">
           <span className="inline-block rounded-full bg-brand-blue px-3 py-1 text-xs font-bold">
@@ -688,60 +670,76 @@ export default function SiteDetailPage() {
                   </p>
                 </>
               )}
-              {/* 순례 사진 — 확대해서 가로로 넘겨 본다(2026-09-17, 예전엔 3열 작은 격자) */}
-              {myStamp?.photos.length ? (
-                <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
-                  {myStamp.photos.map((photo) => (
+              {/* 순례 사진 — 눌러서 확대해 보고, 각 사진에 삭제 단추가 붙는다(2026-09-20,
+                  「바꾸기」 단추 하나뿐이던 것을 사진별 수정·삭제로 바꿨다). */}
+              <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
+                {myStamp?.photos.length ? (
+                  myStamp.photos.map((photo, i) => (
+                    <div key={photo.id} className="relative shrink-0">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setLightbox({ photos: myStamp.photos.map((p) => p.url), index: i })
+                        }
+                        aria-label={t('photoEnlarge')}
+                        className="block h-40 w-40 overflow-hidden rounded-lg"
+                      >
+                        <img
+                          src={photo.url}
+                          alt={t('photoMineAlt')}
+                          className="h-full w-full object-cover"
+                        />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => deletePhoto.mutate(photo)}
+                        disabled={deletePhoto.isPending}
+                        aria-label={t('photoDelete')}
+                        className="absolute -right-1 -top-1 flex h-7 w-7 items-center justify-center rounded-full bg-black/70 text-white disabled:opacity-50"
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
+                  ))
+                ) : myStamp?.photoUrl ? (
+                  <button
+                    type="button"
+                    onClick={() => setLightbox({ photos: [myStamp.photoUrl!], index: 0 })}
+                    aria-label={t('photoEnlarge')}
+                    className="block h-40 w-40 shrink-0 overflow-hidden rounded-lg"
+                  >
                     <img
-                      key={photo.id}
-                      src={photo.url}
+                      src={myStamp.photoUrl}
                       alt={t('photoMineAlt')}
-                      className="h-40 w-40 shrink-0 rounded-lg object-cover"
+                      className="h-full w-full object-cover"
                     />
-                  ))}
-                </div>
-              ) : myStamp?.photoUrl ? (
-                <img
-                  src={myStamp.photoUrl}
-                  alt={t('photoMineAlt')}
-                  className="mt-3 h-40 w-full rounded-lg object-cover"
-                />
-              ) : null}
-              <label
-                className={`mt-3 flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg border-[1.5px] border-dashed border-brand-blue/50 text-base font-bold text-brand-blue transition-colors hover:bg-brand-soft ${
-                  uploadPhotos.isPending ? 'opacity-50' : ''
-                }`}
-              >
-                <Camera size={18} aria-hidden />
-                {uploadPhotos.isPending
-                  ? t('photoUploading')
-                  : myStamp?.photos.length
-                    ? t('photoReplace')
-                    : t('photoAdd')}
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  className="hidden"
-                  disabled={uploadPhotos.isPending}
-                  onChange={(e) => {
-                    void handlePhotoPick(e.target.files);
-                    e.target.value = '';
-                  }}
-                  data-testid="photo-input"
-                />
-              </label>
-              <Button
-                variant="secondary"
-                block
-                onClick={() => void handleShareCard()}
-                disabled={shareLoading}
-                id="share-card-button"
-                className="mt-3"
-              >
-                <Share2 size={18} aria-hidden />
-                {shareLoading ? t('shareCardMaking') : t('shareStampCard')}
-              </Button>
+                  </button>
+                ) : null}
+                {(myStamp?.photos.length ?? 0) < photoPolicy().maxCount && (
+                  <label
+                    className={`flex h-40 w-16 shrink-0 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-brand-blue/50 px-1 text-center text-brand-blue transition-colors hover:bg-brand-soft ${
+                      uploadPhotos.isPending ? 'opacity-50' : ''
+                    }`}
+                  >
+                    <Camera size={18} aria-hidden />
+                    <span className="text-xs font-bold leading-tight">
+                      {uploadPhotos.isPending ? t('photoUploading') : t('photoAdd')}
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      className="hidden"
+                      disabled={uploadPhotos.isPending}
+                      onChange={(e) => {
+                        void handlePhotoPick(e.target.files);
+                        e.target.value = '';
+                      }}
+                      data-testid="photo-input"
+                    />
+                  </label>
+                )}
+              </div>
               <p className="mt-3 text-sm leading-relaxed text-app-text-muted">
                 {t('reviewPublicNotice')}
               </p>
@@ -778,14 +776,21 @@ export default function SiteDetailPage() {
                     </div>
                     {n.photos.length > 0 && (
                       <div className="no-scrollbar mb-2 flex gap-2 overflow-x-auto">
-                        {n.photos.map((url) => (
-                          <img
+                        {n.photos.map((url, i) => (
+                          <button
                             key={url}
-                            src={url}
-                            alt={t('pilgrimPhotoAlt')}
-                            loading="lazy"
-                            className="h-36 w-36 shrink-0 rounded-lg object-cover"
-                          />
+                            type="button"
+                            onClick={() => setLightbox({ photos: n.photos, index: i })}
+                            aria-label={t('photoEnlarge')}
+                            className="block h-36 w-36 shrink-0 overflow-hidden rounded-lg"
+                          >
+                            <img
+                              src={url}
+                              alt={t('pilgrimPhotoAlt')}
+                              loading="lazy"
+                              className="h-full w-full object-cover"
+                            />
+                          </button>
                         ))}
                       </div>
                     )}
@@ -861,6 +866,13 @@ export default function SiteDetailPage() {
           <NearbyParishesCard site={site} />
         </section>
       </PageContainer>
+
+      <PhotoLightbox
+        photos={lightbox?.photos ?? null}
+        index={lightbox?.index ?? 0}
+        onIndexChange={(index) => setLightbox((prev) => (prev ? { ...prev, index } : prev))}
+        onClose={() => setLightbox(null)}
+      />
     </div>
   );
 }

@@ -3171,22 +3171,6 @@ export const DICTIONARY = {
     pt: 'Um registo dourado gravado apenas durante a JMJ',
     it: 'Un ricordo dorato inciso solo durante la GMG',
   },
-  shareStampCard: {
-    ko: '순례 스탬프 카드 공유하기',
-    en: 'Share your stamp card',
-    es: 'Comparte tu tarjeta de sello',
-    fr: 'Partager votre carte de tampon',
-    pt: 'Compartilhar o seu cartão de selo',
-    it: 'Condividi la tua card del timbro',
-  },
-  shareCardMaking: {
-    ko: '카드 만드는 중…',
-    en: 'Making the card…',
-    es: 'Creando la tarjeta…',
-    fr: 'Création de la carte…',
-    pt: 'Criando o cartão…',
-    it: 'Creazione della card…',
-  },
 
   // 성지 상세 — 순례 기록 남기기
   noteAskTitle: {
@@ -3263,13 +3247,37 @@ export const DICTIONARY = {
     pt: 'Enviando a foto…',
     it: 'Caricamento della foto…',
   },
-  photoReplace: {
-    ko: '사진 바꾸기',
-    en: 'Replace photo',
-    es: 'Cambiar la foto',
-    fr: 'Remplacer la photo',
-    pt: 'Trocar a foto',
-    it: 'Cambia foto',
+  photoDelete: {
+    ko: '사진 삭제',
+    en: 'Delete photo',
+    es: 'Eliminar foto',
+    fr: 'Supprimer la photo',
+    pt: 'Excluir foto',
+    it: 'Elimina foto',
+  },
+  photoEnlarge: {
+    ko: '사진 확대해서 보기',
+    en: 'View photo enlarged',
+    es: 'Ver foto ampliada',
+    fr: 'Voir la photo agrandie',
+    pt: 'Ver foto ampliada',
+    it: 'Vedi foto ingrandita',
+  },
+  photoPrev: {
+    ko: '이전 사진',
+    en: 'Previous photo',
+    es: 'Foto anterior',
+    fr: 'Photo précédente',
+    pt: 'Foto anterior',
+    it: 'Foto precedente',
+  },
+  photoNext: {
+    ko: '다음 사진',
+    en: 'Next photo',
+    es: 'Foto siguiente',
+    fr: 'Photo suivante',
+    pt: 'Próxima foto',
+    it: 'Foto successiva',
   },
   photoAdd: {
     ko: '순례 사진 남기기',
@@ -3436,15 +3444,6 @@ export const DICTIONARY = {
     pt: 'Não foi possível salvar o seu selo.',
     it: 'Non è stato possibile salvare il tuo timbro.',
   },
-  shareCardFailed: {
-    ko: '공유 카드를 만드는 데 실패했어요. 잠시 후 다시 시도해주세요.',
-    en: 'Couldn’t create the share card. Please try again in a moment.',
-    es: 'No se pudo crear la tarjeta para compartir. Inténtalo de nuevo en unos momentos.',
-    fr: 'Impossible de créer la carte à partager. Veuillez réessayer dans un instant.',
-    pt: 'Não foi possível criar o cartão de partilha. Tente novamente em instantes.',
-    it: 'Non è stato possibile creare la card da condividere. Riprova tra poco.',
-  },
-
   // 성지 분류 — DB 에는 한국어로 들어 있어 화면에서만 옮긴다
   categoryVillage: {
     ko: '교우촌',
@@ -4948,6 +4947,14 @@ export const DICTIONARY = {
     fr: 'Retirer des favoris',
     pt: 'Remover dos favoritos',
     it: 'Rimuovi dai preferiti',
+  },
+  siteRecordAnchor: {
+    ko: '기록하기',
+    en: 'Record',
+    es: 'Registrar',
+    fr: 'Noter',
+    pt: 'Registrar',
+    it: 'Registra',
   },
   siteAudioStoriesTitle: {
     ko: '주변 관광지 오디오 이야기',

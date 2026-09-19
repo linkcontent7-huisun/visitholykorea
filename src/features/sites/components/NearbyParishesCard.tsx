@@ -31,13 +31,12 @@ export function NearbyParishesCard({ site }: { site: HolySite }) {
             </li>
           ))}
         </ul>
-
-        {language !== 'ko' && places.some((p) => p.nameRomanized) && (
-          <p className="mt-4 text-sm italic leading-relaxed text-app-text-muted">
-            {t('directoryRomanizedNote')}
-          </p>
-        )}
       </Card>
+      {language !== 'ko' && places.some((p) => p.nameRomanized) && (
+        <p className="mt-2 text-sm italic leading-relaxed text-app-text-muted">
+          {t('directoryRomanizedNote')}
+        </p>
+      )}
       <p className="mt-2 text-sm leading-relaxed text-app-text-muted">
         {t('nearbyParishesMassTimesNote')}
       </p>
