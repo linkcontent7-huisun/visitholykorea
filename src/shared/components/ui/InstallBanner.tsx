@@ -50,7 +50,10 @@ export function InstallBanner({ pathname }: { pathname: string }) {
 
   const eligible = state === 'installable' || state === 'ios';
   const coolingDown = Date.now() - dismissedAt < COOLDOWN_MS;
-  if (!eligible || coolingDown || views < MIN_VIEWS) return null;
+  // 홈은 헤더가 `fixed` 투명으로 히어로 사진 위에 떠 있어(TopNav 참고) 배너가 헤더 뒤에 깔리고
+  // 히어로를 밀어낸다 — 홈에서는 그리지 않는다. 다른 화면은 헤더가 sticky 라 그 아래 자연스럽게 붙는다.
+  const isHome = pathname === '/';
+  if (isHome || !eligible || coolingDown || views < MIN_VIEWS) return null;
 
   const dismiss = () => {
     const now = Date.now();
