@@ -1,4 +1,5 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
+import { InstallBanner } from '@/shared/components/ui/InstallBanner';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { BottomNav } from './BottomNav';
 import { TopNav } from './TopNav';
@@ -27,6 +28,7 @@ import { TopNav } from './TopNav';
 const KEEP_BOTTOM_NAV_ON_MOBILE = true;
 
 export function AppLayout() {
+  const { pathname } = useLocation();
   const { t } = useSettings();
 
   return (
@@ -36,6 +38,8 @@ export function AppLayout() {
         {t('skipToContent')}
       </a>
       <TopNav />
+      {/* 「홈 화면에 추가」 조용한 배너 — 설치 가능한 환경·두 번째 화면부터·7일 쿨다운 */}
+      <InstallBanner pathname={pathname} />
 
       {/* 하단 탭이 가리는 만큼만 모바일에서 아래 여백을 준다 */}
       <main
