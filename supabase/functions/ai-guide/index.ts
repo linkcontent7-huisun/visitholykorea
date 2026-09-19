@@ -99,19 +99,32 @@ type Turn = { role: 'user' | 'bot'; text: string };
 /** 직전 몇 턴만 실어 보낸다 — 저장이 아니라 문맥. 오래된 대화를 통째로 보내면 토큰·한도를 먹는다. */
 const MAX_HISTORY_TURNS = 6;
 
-/** Gemini 가 과부하(503)일 때 25~75초를 끌다 실패한다(2026-09-18 실측). 이 넘게 기다리지 않고 정보 카드로 넘어간다. */
-const GEMINI_TIMEOUT_MS = 15_000;
+/** 한 번의 시도가 이보다 오래 끌면 끊는다 — 과부하(503)는 보통 1~2초 안에 오므로 이 값은 정상 응답용이다. */
+const GEMINI_ATTEMPT_TIMEOUT_MS = 12_000;
+/**
+ * 재시도 규칙 (2026-09-19 사장님: "무료 키라 최소 20번은 다시 시도").
+ * 503(과부하)·429(분당 한도)·시간 초과·네트워크 오류면 짧게 쉬었다 다시 부른다.
+ * 횟수는 20번까지, 그러나 **전체 대기는 GEMINI_TOTAL_BUDGET_MS 를 넘기지 않는다** — 사용자를 1분 넘게
+ * 세워 둘 수는 없다. 503 은 1초 안에 오므로 20번을 다 써도 예산 안에 든다. 두 번째 시도부터는
+ * 보조 모델(GEMINI_FALLBACK_MODEL)과 번갈아 부른다 — 한 모델이 막혀도 다른 모델은 비어 있을 때가 많다.
+ */
+const GEMINI_MAX_ATTEMPTS = 20;
+const GEMINI_TOTAL_BUDGET_MS = 40_000;
+const GEMINI_FALLBACK_MODEL = Deno.env.get('GEMINI_FALLBACK_MODEL') ?? 'gemini-3.6-flash-lite';
+const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
 
-async function callGemini(systemInstruction: string, userPrompt: string, history: Turn[] = []): Promise<string> {
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+async function callGeminiOnce(model: string, systemInstruction: string, userPrompt: string, history: Turn[]): Promise<string> {
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
     {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
         'x-goog-api-key': GEMINI_API_KEY!,
       },
-      signal: AbortSignal.timeout(GEMINI_TIMEOUT_MS),
+      signal: AbortSignal.timeout(GEMINI_ATTEMPT_TIMEOUT_MS),
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: systemInstruction }] },
         contents: [
@@ -123,16 +136,57 @@ async function callGemini(systemInstruction: string, userPrompt: string, history
   );
 
   if (res.status === 429) {
-    // 무료 등급 분당·일일 한도. 연속 4~5번째 호출부터 걸린다 (2026-09-17 실측) — 사용자에게 이유를 말해 준다.
+    // 무료 등급 분당·일일 한도. 재시도 루프가 잠시 쉬었다 다시 부른다.
     throw new RateLimitError();
   }
   if (!res.ok) {
-    console.error(`Gemini 호출 실패 (HTTP ${res.status}):`, (await res.text()).slice(0, 300));
+    console.error(`Gemini 호출 실패 (${model}, HTTP ${res.status}):`, (await res.text()).slice(0, 300));
     throw new GeminiHttpError(res.status);
   }
 
   const data = (await res.json()) as GeminiResponse;
-  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
+  if (!text) throw new GeminiHttpError(204); // 빈 답(안전 필터 등)도 다시 시도할 가치가 있다
+  return text;
+}
+
+function isRetryable(err: unknown): boolean {
+  if (err instanceof RateLimitError) return true;
+  if (err instanceof GeminiHttpError) return RETRYABLE_STATUS.has(err.status) || err.status === 204;
+  if (err instanceof Error && (err.name === 'TimeoutError' || err.name === 'AbortError')) return true;
+  return err instanceof TypeError; // fetch 네트워크 오류
+}
+
+async function callGemini(systemInstruction: string, userPrompt: string, history: Turn[] = []): Promise<string> {
+  const started = Date.now();
+  let lastErr: unknown = null;
+  // 이름이 틀린(404) 모델은 그 자리에서 제외한다 — 보조 모델 이름이 바뀌어도 주 모델로 계속 간다
+  const models = [GEMINI_MODEL, GEMINI_FALLBACK_MODEL].filter((m, i, a) => m && a.indexOf(m) === i);
+  for (let attempt = 1; attempt <= GEMINI_MAX_ATTEMPTS && models.length > 0; attempt++) {
+    const model = models[(attempt - 1) % models.length]!;
+    try {
+      const text = await callGeminiOnce(model, systemInstruction, userPrompt, history);
+      if (attempt > 1) console.warn(`ai-guide: ${attempt}번째 시도(${model})에서 성공`);
+      return text;
+    } catch (err) {
+      lastErr = err;
+      if (err instanceof GeminiHttpError && err.status === 404) {
+        console.warn(`ai-guide: 모델 없음 — ${model} 제외`);
+        models.splice(models.indexOf(model), 1);
+        continue;
+      }
+      if (!isRetryable(err)) throw err;
+      // 429 는 분당 한도라 좀 더 쉰다. 그 밖은 0.5초부터 배로 늘려 최대 4초.
+      const backoff = err instanceof RateLimitError ? 5_000 : Math.min(500 * 2 ** Math.min(attempt - 1, 3), 4_000);
+      const elapsed = Date.now() - started;
+      if (elapsed + backoff > GEMINI_TOTAL_BUDGET_MS) {
+        console.warn(`ai-guide: ${attempt}번 시도 뒤 시간 예산 초과 — 정보 카드로`);
+        break;
+      }
+      await sleep(backoff);
+    }
+  }
+  throw lastErr ?? new GeminiHttpError(503);
 }
 
 /**
