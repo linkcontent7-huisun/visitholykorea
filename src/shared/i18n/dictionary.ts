@@ -6002,22 +6002,6 @@ export const DICTIONARY = {
     pt: 'Próximo santuário',
     it: 'Santuario successivo',
   },
-  recordsLoggedInAs: {
-    ko: '{name} 님 · 기록 {count}건',
-    en: '{name} · {count} records',
-    es: '{name} · {count} registros',
-    fr: '{name} · {count} notes',
-    pt: '{name} · {count} registros',
-    it: '{name} · {count} appunti',
-  },
-  recordsLoggedInNote: {
-    ko: '로그인 상태 · 기록은 나에게만 보여요',
-    en: 'Signed in · records are visible only to you',
-    es: 'Sesión iniciada · los registros solo los ves tú',
-    fr: 'Connecté · vos notes ne sont visibles que par vous',
-    pt: 'Conectado · os registros só você vê',
-    it: 'Accesso effettuato · gli appunti li vedi solo tu',
-  },
   showPassword: {
     ko: '비밀번호 보기',
     en: 'Show password',

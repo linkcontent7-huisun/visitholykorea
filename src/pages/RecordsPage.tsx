@@ -12,7 +12,7 @@
  * 열이 없다는 사실을 화면에 그대로 적는다.
  */
 
-import { Calendar, MapPin, PenLine, Plus, Search, Trash2, User } from 'lucide-react';
+import { Calendar, MapPin, PenLine, Plus, Search, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -24,7 +24,7 @@ import { Card } from '@/shared/components/ui/Card';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
-import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
+import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { dioceseLabel } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 
@@ -189,15 +189,11 @@ export default function RecordsPage() {
   const { t } = useSettings();
   const { session } = useSession();
   const { data: stamps = [], isLoading } = useMyStamps();
-  const displayName =
-    (session?.user.user_metadata?.name as string | undefined) ||
-    session?.user.email ||
-    t('pilgrimDefaultName');
 
   return (
     <PageContainer width="narrow" className="min-h-page pb-16">
       {/* 2026-09-16 시안: 제목은 명조, 설명은 16px. 여권·인증서 영역은 없다(재기획에서 뺌). */}
-      <PageHeader title={t('recordsMinimalTitle')} sub={t('recordsMinimalSub')} />
+      <PageHeader title={t('recordsMinimalTitle')} />
 
       {/* 비회원: 무엇을 할 수 있는 곳인지만 보여주고 로그인으로 안내한다. 탐색은 로그인 없이 된다. */}
       {!session ? (
@@ -221,24 +217,6 @@ export default function RecordsPage() {
         </Card>
       ) : (
         <>
-          {/* 로그인 상태를 첫 줄에 — 회의(9/16) "로그인 상태를 먼저 확인한다" */}
-          <Card tone="soft" className="mb-4 flex items-center gap-3 p-4" id="records-signed-in">
-            <span
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-blue text-white"
-              aria-hidden
-            >
-              <User size={22} />
-            </span>
-            <div className="min-w-0">
-              <p className="truncate text-base font-bold text-app-text">
-                {fillPlaceholders(t('recordsLoggedInAs'), {
-                  name: displayName,
-                  count: stamps.length,
-                })}
-              </p>
-              <p className="text-sm text-app-text-muted">{t('recordsLoggedInNote')}</p>
-            </div>
-          </Card>
           <ButtonLink
             to={paths.search}
             variant="secondary"
@@ -249,7 +227,6 @@ export default function RecordsPage() {
             <Plus size={22} aria-hidden />
             {t('recordsPickSite')}
           </ButtonLink>
-          <p className="mb-4 text-sm leading-relaxed text-app-text-muted">{t('recordsPickHint')}</p>
 
           {isLoading ? (
             <div className="space-y-3" role="status" aria-live="polite">
