@@ -20,14 +20,15 @@ for f in sorted(files):
         n = p.get('narration','')
         if re.search(r'(?<![니])다\.\s|[가-힣]자\.\s', n + ' '): errs.append(f'{i}지점 반말')
     # 영어(En 접미사 필드): 하나라도 있으면 여는 말·모든 지점(제목+본문)·맺음말이 전부 있어야 하고 한글이 섞이면 안 된다
-    en_any = bool(d.get('intro',{}).get('narrationEn')) or any(p.get('narrationEn') for p in pts)
-    if en_any:
-        en_texts = [d.get('intro',{}).get('narrationEn','')] + [p.get('narrationEn','') for p in pts] + [d.get('outro',{}).get('narrationEn','')]
-        if not all(en_texts): errs.append('영어 누락(여는 말/지점/맺음말 중 빈 칸)')
-        if any(not p.get('titleEn') for p in pts): errs.append('영어 제목 누락')
-        for i, t in enumerate(en_texts + [p.get('titleEn','') or '' for p in pts] + [p.get('lookForEn','') or '' for p in pts]):
-            if re.search(r'[가-힣]', t or ''): errs.append('영어에 한글 섞임'); break
-        if any(re.search(r'Kim Dae-?geon', t or '') for t in en_texts): errs.append("영어 표기: Kim Dae-geon → Kim Taegon")
+    # 번역 필드(En/Es/It/Fr/Pt 접미사): 하나라도 있으면 여는 말·모든 지점(제목+본문)·맺음말이 전부 있어야 하고 한글이 섞이면 안 된다
+    for sfx, label in (('En','영어'),('Es','스페인어'),('It','이탈리아어'),('Fr','프랑스어'),('Pt','포르투갈어')):
+        k='narration'+sfx
+        if not (d.get('intro',{}).get(k) or any(p.get(k) for p in pts)): continue
+        tr_texts = [d.get('intro',{}).get(k,'')] + [p.get(k,'') for p in pts] + [d.get('outro',{}).get(k,'')]
+        if not all(tr_texts): errs.append(f'{label} 누락(여는 말/지점/맺음말 중 빈 칸)')
+        if any(not p.get('title'+sfx) for p in pts): errs.append(f'{label} 제목 누락')
+        if any(re.search(r'[가-힣]', t or '') for t in tr_texts + [p.get('title'+sfx,'') or '' for p in pts] + [p.get('lookFor'+sfx,'') or '' for p in pts]): errs.append(f'{label}에 한글 섞임')
+        if any(re.search(r'Kim Dae-?geon', t or '') for t in tr_texts): errs.append(f"{label} 표기: Kim Dae-geon → Kim Taegon")
     local = collections.Counter(s for t in texts for s in sentences(t))
     dup = [s for s, c in local.items() if c > 1]
     if dup: errs.append(f'파일 안 반복: {dup[0][:30]}')

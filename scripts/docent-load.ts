@@ -73,7 +73,8 @@ if (existsSync(introDir)) {
 for (const f of readdirSync(DIR).filter((n) => n.endsWith('.json') && !n.startsWith('_') && n.includes(filter))) {
   const d = JSON.parse(readFileSync(join(DIR, f), 'utf-8'));
   if (!d.siteId) { console.warn(`건너뜀 (siteId 없음): ${f}`); continue; }
-  const langs: [string, string][] = [['ko', ''], ['en', 'En'], ['es', 'Es']];
+  // 6개 국어 — JSON 필드 접미사(narrationEn·narrationIt …). 2026-09-20 사장님: 새 원고도 6개 국어로.
+  const langs: [string, string][] = [['ko', ''], ['en', 'En'], ['es', 'Es'], ['it', 'It'], ['fr', 'Fr'], ['pt', 'Pt']];
   for (const [lang, sfx] of langs) {
     const intro = d.intro?.[`narration${sfx}`]; const outro = d.outro?.[`narration${sfx}`];
     const pts = (d.points ?? []).filter((p: Record<string, unknown>) => typeof p[`narration${sfx}`] === 'string' && p[`narration${sfx}`]);
