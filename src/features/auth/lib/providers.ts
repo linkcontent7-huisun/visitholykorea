@@ -20,7 +20,7 @@
 export type SocialProvider = 'naver' | 'kakao' | 'google' | 'facebook';
 
 /** 실제로 켜져 있고 동작이 확인된 제공자만 넣는다. */
-export const ENABLED_SOCIAL_PROVIDERS: readonly SocialProvider[] = [];
+export const ENABLED_SOCIAL_PROVIDERS: readonly SocialProvider[] = ['naver', 'kakao', 'google'];
 
 export function isSocialEnabled(provider: SocialProvider): boolean {
   return ENABLED_SOCIAL_PROVIDERS.includes(provider);
