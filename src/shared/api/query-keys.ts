@@ -22,6 +22,12 @@ export const queryKeys = {
     /** 순례자가 올린 승인된 대표 사진 (site_id → url). 목록·상세가 공유한다. */
     featuredPhotos: ['sites', 'featured-photos'] as const,
   },
+  docent: {
+    /** 한 성지의 전 언어 도슨트 원고 (docent_scripts). */
+    script: (siteId: string) => ['docent', 'script', siteId] as const,
+    /** 지점 원고가 있는 성지 id 집합 — 목록 카드 표시용. */
+    siteIds: ['docent', 'site-ids'] as const,
+  },
   courses: {
     byEmotion: (emotion: EmotionTag, diocese?: string) =>
       ['courses', emotion, diocese ?? 'all'] as const,

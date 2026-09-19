@@ -3,7 +3,7 @@
  * holy_sites.image_url·image_source·image_license 를 갱신한다. 관리자 콘솔 uploadSitePhoto 와 같은 규칙.
  * 사용: npx tsx scripts/site-photo-upload.ts <목록.json>
  *   목록: [{ "siteId": "...", "file": "C:/.../사진.jpg", "source": "대전교구 홍보국 제공", "license": "..." }]
- * 미리 sharp 가 있어야 한다(없으면 원본 그대로 올린다).
+ * 파일은 미리 웹용으로 줄여 둔다 (PIL, 가로 1600px).
  */
 import { readFileSync } from 'node:fs';
 import { createClient } from '@supabase/supabase-js';
@@ -18,14 +18,9 @@ const sb = createClient(url, key, { auth: { persistSession: false } });
 type Item = { siteId: string; file: string; source: string; license: string };
 const items: Item[] = JSON.parse(readFileSync(process.argv[2]!, 'utf8'));
 
+// 줄이기는 미리 해 둔다(PIL 로 가로 1600px·품질 82). 여기서는 파일을 그대로 올린다.
 async function toWeb(file: string): Promise<Buffer> {
-  try {
-    const sharp = (await import('sharp')).default;
-    // 가로 1600px, 품질 82 — 카드·히어로 모두 충분하고 300KB 안팎
-    return await sharp(file).rotate().resize({ width: 1600, withoutEnlargement: true }).jpeg({ quality: 82, mozjpeg: true }).toBuffer();
-  } catch {
-    return readFileSync(file);
-  }
+  return readFileSync(file);
 }
 
 for (const it of items) {

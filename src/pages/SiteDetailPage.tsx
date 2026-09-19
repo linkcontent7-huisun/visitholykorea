@@ -43,6 +43,8 @@ import {
 import { DocentPlayer } from '@/features/docent/components/DocentPlayer';
 import { buildChapters } from '@/features/docent/lib/chapters';
 import { getDocentScript } from '@/features/docent/data/scripts';
+import { useDocentScripts } from '@/features/docent/hooks/use-docent-script';
+import { buildDbChapters, pickIntro } from '@/features/docent/lib/db-chapters';
 import { ContactCard } from '@/features/sites/components/ContactCard';
 import { splitMassInfo } from '@/features/sites/lib/mass-info';
 import { BarrierFreeCard } from '@/features/sites/components/BarrierFreeCard';
@@ -171,9 +173,13 @@ export default function SiteDetailPage() {
   // 새로 부르면 이 페이지의 다른 상태(예: 방문 정보 아코디언)가 바뀔 때마다
   // 도슨트가 끊긴다 — T-004 완료 조건("아코디언을 펼치거나 접어도 재생이 끊기지
   // 않는다")을 만족하려면 여기서 참조를 고정해야 한다.
+  // 2026-09-18 부터 원고는 DB(docent_scripts)가 기준. DB 에 그 성지의 투어가 없거나 아직 안 왔으면
+  // 저장소 JSON → 소개·역사 순으로 폴백한다 (buildChapters 가 뒤 두 단계를 맡는다).
+  const dbScripts = useDocentScripts(site?.id);
   const docentScript = getDocentScript(site?.id);
   const docentChapters = useMemo(
     () =>
+      buildDbChapters(dbScripts, language) ??
       buildChapters(
         {
           name: view?.name ?? site?.name ?? '',
@@ -190,10 +196,13 @@ export default function SiteDetailPage() {
       site?.name,
       site?.description,
       site?.history,
+      dbScripts,
       docentScript,
       language,
     ],
   );
+  // 「소개글」 — 순교·신앙 역사 / 위치·지리 / 건축물 세 문단. 없으면 기존 description 한 줄을 그대로 보여준다.
+  const docentIntro = useMemo(() => pickIntro(dbScripts, language), [dbScripts, language]);
 
   // 순례 사진 — 스탬프를 찍은 사람만 남길 수 있다 (실방문 인증)
   const uploadPhotos = useUploadStampPhotos(siteId ?? '');
@@ -601,10 +610,23 @@ export default function SiteDetailPage() {
               size={100}
               className="absolute -bottom-6 -right-6 rotate-12 text-brand-blue/5"
             />
-            {(view?.description ?? descriptionBody) && (
-              <p className="relative z-10 mb-6 text-lg font-bold italic leading-snug tracking-tight text-brand-blue/90">
-                &ldquo;{view?.description ?? descriptionBody}&rdquo;
-              </p>
+            {docentIntro ? (
+              <div className="relative z-10 mb-6 space-y-5 text-center" lang={docentIntro.language}>
+                {docentIntro.paragraphs.map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className="font-display text-lg font-semibold leading-relaxed tracking-tight text-brand-blue/90"
+                  >
+                    &ldquo;{paragraph}&rdquo;
+                  </p>
+                ))}
+              </div>
+            ) : (
+              (view?.description ?? descriptionBody) && (
+                <p className="relative z-10 mb-6 text-lg font-bold italic leading-snug tracking-tight text-brand-blue/90">
+                  &ldquo;{view?.description ?? descriptionBody}&rdquo;
+                </p>
+              )
             )}
             {(view?.history ?? site.history) && (
               <p className="relative z-10 text-[15px] font-medium leading-relaxed text-app-text-muted">
