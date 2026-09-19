@@ -168,10 +168,7 @@ const MOTIFS = {
   cross: {
     id: 'cross',
     label: '성지',
-    paths: [
-      { d: 'M24 50 a26 26 0 1 0 52 0 a26 26 0 1 0 -52 0' },
-      { d: 'M50 32 V72 M38 46 H62' },
-    ],
+    paths: [{ d: 'M24 50 a26 26 0 1 0 52 0 a26 26 0 1 0 -52 0' }, { d: 'M50 32 V72 M38 46 H62' }],
   },
 } satisfies Record<string, StampMotif>;
 

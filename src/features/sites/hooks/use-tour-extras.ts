@@ -5,7 +5,6 @@ import { queryKeys } from '@/shared/api/query-keys';
 import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
 
-
 /** 관광지 오디오 이야기는 지원 언어가 넷뿐이라 그 밖의 앱 언어는 영어로 안내한다. */
 function odiiLanguage(language: string): 'ko' | 'en' | 'ja' | 'zh' {
   return language === 'ko' ? 'ko' : 'en';

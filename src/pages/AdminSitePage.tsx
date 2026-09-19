@@ -157,8 +157,8 @@ function SiteEditor() {
             rows={2}
           />
           <p className="mt-1 text-[11px] font-bold leading-relaxed text-slate-400">
-            이름을 바꾸면 스탬프 문양·WYD 표시처럼 이름으로 찾는 장식이 풀릴 수 있습니다. 오타
-            수정 정도만 권합니다. 영어 등 다른 언어 이름은 번역 표에 따로 있어 같이 바뀌지 않습니다.
+            이름을 바꾸면 스탬프 문양·WYD 표시처럼 이름으로 찾는 장식이 풀릴 수 있습니다. 오타 수정
+            정도만 권합니다. 영어 등 다른 언어 이름은 번역 표에 따로 있어 같이 바뀌지 않습니다.
           </p>
         </section>
 
@@ -168,9 +168,17 @@ function SiteEditor() {
 
           <div className="overflow-hidden rounded-lg bg-slate-100">
             {pickedPhoto ? (
-              <img src={pickedPhoto.preview} alt="새 사진 미리보기" className="aspect-[4/3] w-full object-cover" />
+              <img
+                src={pickedPhoto.preview}
+                alt="새 사진 미리보기"
+                className="aspect-[4/3] w-full object-cover"
+              />
             ) : draft.imageUrl ? (
-              <img src={draft.imageUrl} alt={`${draft.name} 대표 사진`} className="aspect-[4/3] w-full object-cover" />
+              <img
+                src={draft.imageUrl}
+                alt={`${draft.name} 대표 사진`}
+                className="aspect-[4/3] w-full object-cover"
+              />
             ) : (
               <div className="flex aspect-[4/3] w-full items-center justify-center text-sm font-bold text-slate-400">
                 사진 없음
@@ -237,8 +245,8 @@ function SiteEditor() {
             rows={8}
           />
           <p className="mt-1 text-[11px] font-bold leading-relaxed text-slate-400">
-            한국어를 고쳐도 영어·스페인어 등 다른 언어 번역은 그대로 남습니다. 번역은
-            `npm run translate:status` 로 따로 확인합니다.
+            한국어를 고쳐도 영어·스페인어 등 다른 언어 번역은 그대로 남습니다. 번역은 `npm run
+            translate:status` 로 따로 확인합니다.
           </p>
         </section>
 
@@ -315,8 +323,7 @@ function SiteEditor() {
                     disabled={revert.isPending}
                     className="flex shrink-0 items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-[11px] font-bold text-slate-600 disabled:opacity-50"
                   >
-                    <RotateCcw size={12} />
-                    이 값으로
+                    <RotateCcw size={12} />이 값으로
                   </button>
                 </li>
               ))}

@@ -549,18 +549,29 @@ export function getAudioStoriesNearby(
 let allWalkingCourses: Promise<WalkingCourse[]> | null = null;
 
 async function fetchAllWalkingCourses(): Promise<WalkingCourse[]> {
-  const first = await callTourApiPage<WalkingCourse>('courseList', { brdDiv: 'DNWW', numOfRows: 50, pageNo: 1 }, 'Durunubi');
+  const first = await callTourApiPage<WalkingCourse>(
+    'courseList',
+    { brdDiv: 'DNWW', numOfRows: 50, pageNo: 1 },
+    'Durunubi',
+  );
   const pages = Math.min(6, Math.ceil(first.totalCount / 50));
   const rest = await Promise.all(
     Array.from({ length: pages - 1 }, (_, i) =>
-      callTourApi<WalkingCourse>('courseList', { brdDiv: 'DNWW', numOfRows: 50, pageNo: i + 2 }, 'Durunubi'),
+      callTourApi<WalkingCourse>(
+        'courseList',
+        { brdDiv: 'DNWW', numOfRows: 50, pageNo: i + 2 },
+        'Durunubi',
+      ),
     ),
   );
   return [...first.items, ...rest.flat()];
 }
 
 /** 시·도(짧은 이름)와 시·군·구가 모두 맞는 걷기길. 「부산 중구」와 「서울 중구」를 섞지 않는다. */
-export async function getWalkingCoursesNear(region: string, district: string): Promise<WalkingCourse[]> {
+export async function getWalkingCoursesNear(
+  region: string,
+  district: string,
+): Promise<WalkingCourse[]> {
   allWalkingCourses ??= fetchAllWalkingCourses().catch((error) => {
     allWalkingCourses = null; // 실패는 기억하지 않는다
     throw error;

@@ -1,6 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/shared/api/query-keys';
-import { fetchDocentScripts, fetchDocentSiteIds, type DocentSiteScripts } from '../api/docent.repository';
+import {
+  fetchDocentScripts,
+  fetchDocentSiteIds,
+  type DocentSiteScripts,
+} from '../api/docent.repository';
 
 /**
  * DB 도슨트 원고. 원고는 며칠에 한 번 바뀌는 자체 데이터라 길게 캐시한다(TourAPI 응답이 아니다).

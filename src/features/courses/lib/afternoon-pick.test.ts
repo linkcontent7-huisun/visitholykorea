@@ -3,7 +3,17 @@ import type { CongestionRate, TourApiSpot } from '@/shared/api/tour-api';
 import { matchCongestion, rankAfternoon, toCongestionLevel } from './afternoon-pick';
 
 const spot = (title: string, dist: number): TourApiSpot =>
-  ({ contentid: title, contenttypeid: '12', title, addr1: '', addr2: '', mapx: '0', mapy: '0', firstimage: '', dist: String(dist) }) as TourApiSpot;
+  ({
+    contentid: title,
+    contenttypeid: '12',
+    title,
+    addr1: '',
+    addr2: '',
+    mapx: '0',
+    mapy: '0',
+    firstimage: '',
+    dist: String(dist),
+  }) as TourApiSpot;
 const rate = (tAtsNm: string, cnctrRate: number, baseYmd = '20260915'): CongestionRate =>
   ({ baseYmd, areaNm: '', signguNm: '', tAtsNm, cnctrRate: String(cnctrRate) }) as CongestionRate;
 

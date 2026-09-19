@@ -48,10 +48,7 @@ if (near && !nearCoords) {
 const client = new pg.Client({ connectionString: process.env.SUPABASE_DB_URL });
 await client.connect();
 
-const where: string[] = [
-  `category = any($1)`,
-  `lat is not null and lng is not null`,
-];
+const where: string[] = [`category = any($1)`, `lat is not null and lng is not null`];
 const params: unknown[] = [Object.keys(KIND_MAP)];
 
 if (nearCoords) {
@@ -92,7 +89,9 @@ console.log(`\n새로 넣음 ${inserted} · 이미 있어 건너뜀 ${skipped}`)
 console.log('\n=== rest_places 유형별 ===');
 for (const s of summary) console.log('  ' + String(s.kind).padEnd(8), s.n);
 
-const { rows: [spots] } = await client.query(`select count(*) n from rest_spots`);
+const {
+  rows: [spots],
+} = await client.query(`select count(*) n from rest_spots`);
 console.log(`\nrest_spots: ${spots.n}곳 — 자리는 취재로 채운다(이 스크립트는 만들지 않는다).`);
 
 await client.end();

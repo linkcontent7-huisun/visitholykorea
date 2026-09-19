@@ -48,7 +48,9 @@ export function BottomNav() {
                     }`}
                   >
                     <Icon size={24} aria-hidden />
-                    <span className="text-[0.8125rem] font-bold leading-none tracking-tight">{t(tab.labelKey)}</span>
+                    <span className="text-[0.8125rem] font-bold leading-none tracking-tight">
+                      {t(tab.labelKey)}
+                    </span>
                   </span>
                 )}
               </NavLink>

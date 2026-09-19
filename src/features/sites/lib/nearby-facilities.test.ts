@@ -18,11 +18,7 @@ function titlesOf(groups: GroupedFacilities[], group: FacilityGroup): string[] {
 }
 
 /** 테스트에 필요한 필드만 채운 최소 스팟. */
-function spot(
-  title: string,
-  contenttypeid: number,
-  dist?: number | string,
-): TourApiSpot {
+function spot(title: string, contenttypeid: number, dist?: number | string): TourApiSpot {
   return {
     contentid: title,
     contenttypeid: String(contenttypeid),
@@ -77,9 +73,7 @@ describe('groupNearbyFacilities', () => {
   });
 
   it('그룹당 개수를 잘라 화면이 길어지지 않게 한다', () => {
-    const many = Array.from({ length: 20 }, (_, i) =>
-      spot(`집${i}`, CONTENT_TYPE.음식점, i),
-    );
+    const many = Array.from({ length: 20 }, (_, i) => spot(`집${i}`, CONTENT_TYPE.음식점, i));
 
     expect(titlesOf(groupNearbyFacilities(many, 3), '맛집')).toHaveLength(3);
   });

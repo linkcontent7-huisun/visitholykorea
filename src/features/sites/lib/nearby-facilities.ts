@@ -51,10 +51,7 @@ function distanceOf(spot: TourApiSpot): number {
  *
  * @param perGroup 그룹당 최대 개수. 화면이 길어지지 않게 자른다.
  */
-export function groupNearbyFacilities(
-  spots: TourApiSpot[],
-  perGroup = 6,
-): GroupedFacilities[] {
+export function groupNearbyFacilities(spots: TourApiSpot[], perGroup = 6): GroupedFacilities[] {
   const buckets = new Map<FacilityGroup, TourApiSpot[]>();
 
   for (const spot of spots) {

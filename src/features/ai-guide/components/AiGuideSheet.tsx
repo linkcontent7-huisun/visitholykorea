@@ -73,7 +73,12 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
     setIsLoading(true);
 
     const answer = await askAIGuide(question, history);
-    chatStore.append({ role: 'bot', text: answer.text, fallback: answer.fallback, sources: answer.sources });
+    chatStore.append({
+      role: 'bot',
+      text: answer.text,
+      fallback: answer.fallback,
+      sources: answer.sources,
+    });
     setIsLoading(false);
     // 로그인일 때만 저장된다(repository 가 판단). 실패해도 화면은 그대로.
     void saveChatTurns([
@@ -120,7 +125,10 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                   <h3 className="text-xl font-extrabold leading-none tracking-tight">
                     {t('aiGuideTitle')}
                   </h3>
-                  <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-emerald-400" aria-hidden />
+                  <span
+                    className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-emerald-400"
+                    aria-hidden
+                  />
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -215,9 +223,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                   disabled={!input.trim() || isLoading}
                   aria-label={t('send')}
                   className={`absolute right-2 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-lg px-4 py-3 transition-colors ${
-                    input.trim()
-                      ? 'bg-brand-blue text-white'
-                      : 'bg-app-panel text-app-text-muted'
+                    input.trim() ? 'bg-brand-blue text-white' : 'bg-app-panel text-app-text-muted'
                   }`}
                 >
                   <Send size={18} />

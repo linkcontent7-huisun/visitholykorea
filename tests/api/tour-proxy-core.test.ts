@@ -53,8 +53,7 @@ describe('buildUpstreamUrl — 허용 목록', () => {
 
   it('숫자 파라미터에 문자가 섞이거나 값이 너무 길면 거절한다', () => {
     expect(
-      buildUpstreamUrl(query({ op: 'searchKeyword2', keyword: 'x', numOfRows: '10;drop' }), KEY)
-        .ok,
+      buildUpstreamUrl(query({ op: 'searchKeyword2', keyword: 'x', numOfRows: '10;drop' }), KEY).ok,
     ).toBe(false);
     expect(
       buildUpstreamUrl(query({ op: 'searchKeyword2', keyword: 'a'.repeat(201) }), KEY).ok,
@@ -72,11 +71,12 @@ describe('handleTourProxy — 응답 분류', () => {
   });
 
   it('정상 응답은 본문을 그대로 넘기고 저장 금지 헤더를 붙인다', async () => {
-    const fetchImpl = vi.fn(async () =>
-      new Response('{"response":{"header":{"resultCode":"0000"}}}', {
-        status: 200,
-        headers: { 'content-type': 'application/json' },
-      }),
+    const fetchImpl = vi.fn(
+      async () =>
+        new Response('{"response":{"header":{"resultCode":"0000"}}}', {
+          status: 200,
+          headers: { 'content-type': 'application/json' },
+        }),
     ) as unknown as typeof fetch;
     const result = await handleTourProxy(okQuery, { serviceKey: KEY, fetchImpl });
     expect(result.status).toBe(200);

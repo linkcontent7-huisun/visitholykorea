@@ -12,8 +12,7 @@ afterEach(() => {
 describe('isIos', () => {
   it('아이폰 User-Agent 면 true', () => {
     mockNavigator({
-      userAgent:
-        'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15',
+      userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15',
       platform: 'iPhone',
       maxTouchPoints: 5,
     });
@@ -52,7 +51,11 @@ describe('isIos', () => {
 async function load(ua: string, standalone = false) {
   vi.resetModules();
   vi.stubGlobal('navigator', { ...navigator, userAgent: ua, platform: 'Linux', maxTouchPoints: 0 });
-  vi.stubGlobal('matchMedia', (q: string) => ({ matches: standalone && q.includes('standalone'), addEventListener() {}, removeEventListener() {} }));
+  vi.stubGlobal('matchMedia', (q: string) => ({
+    matches: standalone && q.includes('standalone'),
+    addEventListener() {},
+    removeEventListener() {},
+  }));
   return import('./install-prompt');
 }
 
@@ -64,7 +67,10 @@ describe('설치 상태(getInstallState)', () => {
     expect(m.getInstallState()).toBe('unsupported');
     const seen: string[] = [];
     m.subscribeInstallState(() => seen.push(m.getInstallState()));
-    const ev = Object.assign(new Event('beforeinstallprompt'), { prompt: async () => {}, userChoice: Promise.resolve({ outcome: 'accepted' }) });
+    const ev = Object.assign(new Event('beforeinstallprompt'), {
+      prompt: async () => {},
+      userChoice: Promise.resolve({ outcome: 'accepted' }),
+    });
     window.dispatchEvent(ev);
     expect(m.getInstallState()).toBe('installable');
     window.dispatchEvent(new Event('appinstalled'));
@@ -72,8 +78,14 @@ describe('설치 상태(getInstallState)', () => {
   });
 
   it('아이폰 사파리는 ios, 카카오톡 안은 in-app, 홈 화면 앱은 installed', async () => {
-    expect((await load('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) Safari')).getInstallState()).toBe('ios');
-    expect((await load('Mozilla/5.0 (Linux; Android 14) KAKAOTALK')).getInstallState()).toBe('in-app');
-    expect((await load('Mozilla/5.0 (Linux; Android 14) Chrome/140', true)).getInstallState()).toBe('installed');
+    expect((await load('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) Safari')).getInstallState()).toBe(
+      'ios',
+    );
+    expect((await load('Mozilla/5.0 (Linux; Android 14) KAKAOTALK')).getInstallState()).toBe(
+      'in-app',
+    );
+    expect((await load('Mozilla/5.0 (Linux; Android 14) Chrome/140', true)).getInstallState()).toBe(
+      'installed',
+    );
   });
 });

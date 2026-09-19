@@ -79,8 +79,7 @@ function hasFullTranslation(script: DocentScript, language: ScriptLanguage): boo
     localized(script.intro, 'narration', language) &&
       localized(script.outro, 'narration', language) &&
       script.points.every(
-        (point) =>
-          localized(point, 'narration', language) && localized(point, 'title', language),
+        (point) => localized(point, 'narration', language) && localized(point, 'title', language),
       ),
   );
 }
@@ -153,13 +152,31 @@ export function buildChapters(
   const t = TITLES[fallback];
   const body: DocentChapter[] = [];
   if (basic.description) {
-    body.push({ id: 'intro', title: t.intro, narration: basic.description, location: null, lookFor: null });
+    body.push({
+      id: 'intro',
+      title: t.intro,
+      narration: basic.description,
+      location: null,
+      lookFor: null,
+    });
   }
   if (basic.history) {
-    body.push({ id: 'history', title: t.history, narration: basic.history, location: null, lookFor: null });
+    body.push({
+      id: 'history',
+      title: t.history,
+      narration: basic.history,
+      location: null,
+      lookFor: null,
+    });
   }
   // 본문이 하나도 없으면 맺음말만 읽어줄 수는 없다.
   if (body.length === 0) return [];
-  body.push({ id: 'outro', title: t.outro, narration: CLOSING[fallback], location: null, lookFor: null });
+  body.push({
+    id: 'outro',
+    title: t.outro,
+    narration: CLOSING[fallback],
+    location: null,
+    lookFor: null,
+  });
   return body;
 }

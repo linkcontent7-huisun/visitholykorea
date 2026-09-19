@@ -68,7 +68,9 @@ function 로그인페이지(jsKey: string, callback: string, state: string): str
 
 Deno.serve(async (req) => {
   if (!KAKAO_REST_KEY || !KAKAO_JS_KEY) {
-    return new Response('KAKAO_REST_KEY / KAKAO_JS_KEY 시크릿이 설정되지 않았습니다.', { status: 500 });
+    return new Response('KAKAO_REST_KEY / KAKAO_JS_KEY 시크릿이 설정되지 않았습니다.', {
+      status: 500,
+    });
   }
   const url = new URL(req.url);
 
@@ -127,10 +129,15 @@ Deno.serve(async (req) => {
     // 같은 이메일이 다른 경로(이메일·네이버)로 만들어진 계정이면 들어가지 않는다 (naver-auth M-02 와 같다).
     // Supabase 카카오 제공자로 PC 에서 만든 계정은 app_metadata.provider 가 'kakao' 라 그대로 통과한다.
     if (alreadyExists) {
-      const { data: prof } = await admin.from('profiles').select('id').eq('email', email).maybeSingle();
+      const { data: prof } = await admin
+        .from('profiles')
+        .select('id')
+        .eq('email', email)
+        .maybeSingle();
       if (prof?.id) {
         const { data: existing } = await admin.auth.admin.getUserById(prof.id);
-        const madeBy = existing?.user?.user_metadata?.provider ?? existing?.user?.app_metadata?.provider;
+        const madeBy =
+          existing?.user?.user_metadata?.provider ?? existing?.user?.app_metadata?.provider;
         if (madeBy && madeBy !== 'kakao') return 실패('account_exists_other_provider');
       }
     }

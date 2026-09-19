@@ -59,7 +59,10 @@ describe('computeDioceseProgress — 교구별 진행', () => {
   it('많이 채운 교구가 앞에 온다', () => {
     const a = diocese('대전', 10, 9);
     const b = diocese('서울', 10, 1);
-    const progress = computeDioceseProgress([...a.sites, ...b.sites], new Set([...a.visitedIds, ...b.visitedIds]));
+    const progress = computeDioceseProgress(
+      [...a.sites, ...b.sites],
+      new Set([...a.visitedIds, ...b.visitedIds]),
+    );
 
     expect(progress[0]?.diocese).toBe('대전');
   });
