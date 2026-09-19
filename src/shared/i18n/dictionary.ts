@@ -171,7 +171,7 @@ export const DICTIONARY = {
     it: 'Aggiungi appunto',
   },
   recordsPickSite: {
-    ko: '성지 검색으로 장소 고르기',
+    ko: '「성지 찾기」로 장소 고르기',
     en: 'Pick a shrine via search',
     es: 'Elegir santuario buscando',
     fr: 'Choisir un sanctuaire via la recherche',
@@ -554,7 +554,7 @@ export const DICTIONARY = {
   },
   todayPlanShort: {
     ko: '성지 일정',
-    en: 'Today',
+    en: 'Plan',
     es: "Today's Plan",
     fr: "Today's Plan",
     pt: "Today's Plan",
