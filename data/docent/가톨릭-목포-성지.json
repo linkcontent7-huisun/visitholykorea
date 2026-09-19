@@ -7,35 +7,56 @@
   "status": "draft",
   "intro": {
     "narration": "가톨릭 목포 성지는 목포 산정동 본당과 한국 레지오 마리애의 역사를 함께 담은 곳입니다. 기념관과 역사박물관, 옛 교구청 건물을 살펴보겠습니다.",
+    "narrationEn": "The Catholic Mokpo Shrine preserves the history of Mokpo Sanjeong-dong Parish and the Legion of Mary in Korea. Let us visit the memorial hall, history museum, and former diocesan office.",
+    "narrationEs": "El Santuario Católico de Mokpo conserva la historia de la parroquia de Sanjeong-dong de Mokpo y de la Legión de María en Corea. Visitemos el salón conmemorativo, el museo de historia y la antigua curia diocesana.",
+    "narrationIt": "Il Santuario Cattolico di Mokpo custodisce la storia della parrocchia di Sanjeong-dong a Mokpo e della Legione di Maria in Corea. Visitiamo il memoriale, il museo storico e l'antica curia diocesana.",
+    "narrationPt": "O Santuário Católico de Mokpo preserva a história da Paróquia de Sanjeong-dong, em Mokpo, e da Legião de Maria na Coreia. Vamos visitar o memorial, o museu histórico e a antiga cúria diocesana.",
+    "narrationFr": "Le sanctuaire catholique de Mokpo conserve l'histoire de la paroisse de Sanjeong-dong à Mokpo et de la Légion de Marie en Corée. Visitons le mémorial, le musée historique et l'ancien évêché.",
     "photos": []
   },
   "points": [
     {
       "seq": 1,
       "title": "경내 — 한국레지오마리애기념관",
-      "location": "성지 경내",
+      "titleEn": "Grounds — Korean Legion of Mary Memorial Hall", "titleEs": "Recinto — Memorial de la Legión de María de Corea", "titleIt": "Area — Memoriale della Legione di Maria coreana", "titlePt": "Recinto — Memorial da Legião de Maria da Coreia", "titleFr": "Enceinte — Mémorial de la Légion de Marie de Corée",
+      "location": "성지 경내", "locationEn": "On the shrine grounds", "locationEs": "En el recinto del santuario", "locationIt": "Nell'area del santuario", "locationPt": "No recinto do santuário", "locationFr": "Dans l'enceinte du sanctuaire",
       "narration": "한국레지오마리애기념관을 보세요. 목포에서 시작된 한국 레지오 마리애의 활동을 기억하려고 세운 공간입니다. 전시를 통해 성모 신심을 바탕으로 한 평신도 사도직이 이곳에서 어떻게 출발했는지 확인할 수 있습니다.",
-      "lookFor": "한국 레지오 마리애의 시작을 설명하는 전시",
+      "narrationEn": "Look at the Korean Legion of Mary Memorial Hall. It was built to remember the work of the Legion of Mary in Korea, which began in Mokpo. Its exhibits show how this lay apostolate rooted in Marian devotion started here.",
+      "narrationEs": "Mire el Memorial de la Legión de María de Corea. Fue construido para recordar la labor de la Legión de María en Corea, iniciada en Mokpo. Sus exposiciones muestran cómo comenzó aquí este apostolado laical basado en la devoción mariana.",
+      "narrationIt": "Osservi il Memoriale della Legione di Maria coreana. Fu costruito per ricordare l'attività della Legione di Maria in Corea, iniziata a Mokpo. Le esposizioni mostrano come sia nato qui questo apostolato laicale fondato sulla devozione mariana.",
+      "narrationPt": "Observe o Memorial da Legião de Maria da Coreia. Ele foi construído para recordar a atuação da Legião de Maria na Coreia, iniciada em Mokpo. As exposições mostram como começou aqui este apostolado leigo baseado na devoção mariana.",
+      "narrationFr": "Regardez le Mémorial de la Légion de Marie de Corée. Il fut construit pour rappeler l'action de la Légion de Marie en Corée, née à Mokpo. Ses expositions montrent comment cet apostolat laïc fondé sur la dévotion mariale a commencé ici.",
+      "lookFor": "한국 레지오 마리애의 시작을 설명하는 전시", "lookForEn": "Exhibits explaining the beginnings of the Legion of Mary in Korea", "lookForEs": "Exposiciones sobre los inicios de la Legión de María en Corea", "lookForIt": "Esposizioni sugli inizi della Legione di Maria in Corea", "lookForPt": "Exposições sobre o início da Legião de Maria na Coreia", "lookForFr": "Expositions sur les débuts de la Légion de Marie en Corée",
       "forEveryone": "레지오 마리애는 평신도들이 함께 기도하고 봉사하는 가톨릭 단체입니다.",
       "photos": [],
       "sourceNote": "광주대교구 교회소식: https://www.gjcatholic.or.kr/nota/church/1598?page=69"
     },
     {
       "seq": 2,
-      "title": "경내 — 역사박물관",
-      "location": "기념관 가까이",
+      "title": "경내 — 역사박물관", "titleEn": "Grounds — History Museum", "titleEs": "Recinto — Museo de Historia", "titleIt": "Area — Museo storico", "titlePt": "Recinto — Museu Histórico", "titleFr": "Enceinte — Musée historique",
+      "location": "기념관 가까이", "locationEn": "Near the memorial hall", "locationEs": "Cerca del memorial", "locationIt": "Vicino al memoriale", "locationPt": "Perto do memorial", "locationFr": "Près du mémorial",
       "narration": "역사박물관에서는 광주대교구와 레지오 마리애의 자료를 함께 볼 수 있습니다. 목포 산정동이 전남 지역 교회의 중심지였던 시간을 기록과 유물로 보여 주는 곳입니다. 기념관이 단체의 활동을 다룬다면 이곳은 교구와 본당의 역사를 넓게 연결합니다.",
-      "lookFor": "광주대교구와 레지오 마리애 관련 기록물",
+      "narrationEn": "In the History Museum, you can see materials about the Archdiocese of Gwangju and the Legion of Mary. Records and artifacts show the period when Mokpo Sanjeong-dong was the center of the Church in the Jeonnam region. While the memorial hall focuses on the organization, this museum connects the broader histories of the diocese and parish.",
+      "narrationEs": "En el Museo de Historia puede ver materiales sobre la arquidiócesis de Gwangju y la Legión de María. Los documentos y objetos muestran la época en que Sanjeong-dong de Mokpo fue el centro de la Iglesia en Jeonnam. Mientras el memorial se centra en la organización, este museo enlaza la historia más amplia de la diócesis y la parroquia.",
+      "narrationIt": "Nel Museo storico può vedere materiali sull'arcidiocesi di Gwangju e sulla Legione di Maria. Documenti e reperti mostrano il periodo in cui Sanjeong-dong a Mokpo fu il centro della Chiesa nella regione di Jeonnam. Mentre il memoriale tratta l'attività dell'associazione, questo museo collega la più ampia storia della diocesi e della parrocchia.",
+      "narrationPt": "No Museu Histórico, você pode ver materiais sobre a Arquidiocese de Gwangju e a Legião de Maria. Documentos e objetos mostram a época em que Sanjeong-dong, em Mokpo, foi o centro da Igreja na região de Jeonnam. Enquanto o memorial trata da organização, este museu liga a história mais ampla da diocese e da paróquia.",
+      "narrationFr": "Dans le musée historique, vous pouvez voir des documents sur l'archidiocèse de Gwangju et la Légion de Marie. Documents et objets évoquent l'époque où Sanjeong-dong à Mokpo était le centre de l'Église dans la région de Jeonnam. Tandis que le mémorial présente l'association, ce musée relie l'histoire plus large du diocèse et de la paroisse.",
+      "lookFor": "광주대교구와 레지오 마리애 관련 기록물", "lookForEn": "Records about the Archdiocese of Gwangju and the Legion of Mary", "lookForEs": "Documentos sobre la arquidiócesis de Gwangju y la Legión de María", "lookForIt": "Documenti sull'arcidiocesi di Gwangju e la Legione di Maria", "lookForPt": "Documentos sobre a Arquidiocese de Gwangju e a Legião de Maria", "lookForFr": "Documents sur l'archidiocèse de Gwangju et la Légion de Marie",
       "forEveryone": "한 도시의 종교 공동체가 성장한 과정을 자료로 읽을 수 있습니다.",
       "photos": [],
       "sourceNote": "광주대교구 교회소식: https://www.gjcatholic.or.kr/nota/church/1598?page=69"
     },
     {
       "seq": 3,
-      "title": "경내 — 옛 교구청 건물",
-      "location": "성지 안 옛 교구청",
+      "title": "경내 — 옛 교구청 건물", "titleEn": "Grounds — Former Diocesan Office", "titleEs": "Recinto — Antigua curia diocesana", "titleIt": "Area — Antica curia diocesana", "titlePt": "Recinto — Antiga cúria diocesana", "titleFr": "Enceinte — Ancien évêché",
+      "location": "성지 안 옛 교구청", "locationEn": "At the former diocesan office", "locationEs": "En la antigua curia diocesana", "locationIt": "Presso l'antica curia diocesana", "locationPt": "Na antiga cúria diocesana", "locationFr": "À l'ancien évêché",
       "narration": "붉은 벽돌로 지은 옛 교구청 건물을 보세요. 이 건물은 산정동이 교구의 중심지였던 시기를 보여 주며 현재는 역사박물관으로 쓰입니다. 근대 목포의 도시 풍경과 지역 교회의 시작이 한 건물에 겹쳐 있습니다.",
-      "lookFor": "옛 교구청의 붉은 벽돌 외벽",
+      "narrationEn": "Look at the former diocesan office built of red brick. It recalls the period when Sanjeong-dong was the diocesan center and now houses the History Museum. The cityscape of modern Mokpo and the beginnings of the local Church overlap in this single building.",
+      "narrationEs": "Mire la antigua curia diocesana construida con ladrillo rojo. Recuerda la época en que Sanjeong-dong era el centro diocesano y hoy alberga el Museo de Historia. El paisaje urbano del Mokpo moderno y los comienzos de la Iglesia local se superponen en este edificio.",
+      "narrationIt": "Osservi l'antica curia diocesana costruita in mattoni rossi. Ricorda il periodo in cui Sanjeong-dong era il centro della diocesi e oggi ospita il Museo storico. Il paesaggio urbano della Mokpo moderna e gli inizi della Chiesa locale si sovrappongono in questo edificio.",
+      "narrationPt": "Observe a antiga cúria diocesana construída em tijolos vermelhos. Ela recorda o período em que Sanjeong-dong era o centro da diocese e hoje abriga o Museu Histórico. A paisagem urbana da Mokpo moderna e o início da Igreja local se sobrepõem neste edifício.",
+      "narrationFr": "Regardez l'ancien évêché construit en briques rouges. Il rappelle l'époque où Sanjeong-dong était le centre du diocèse et abrite aujourd'hui le musée historique. Le paysage urbain du Mokpo moderne et les débuts de l'Église locale se superposent dans ce bâtiment.",
+      "lookFor": "옛 교구청의 붉은 벽돌 외벽", "lookForEn": "The red-brick exterior of the former diocesan office", "lookForEs": "El exterior de ladrillo rojo de la antigua curia", "lookForIt": "L'esterno in mattoni rossi dell'antica curia", "lookForPt": "A fachada de tijolos vermelhos da antiga cúria", "lookForFr": "Les murs en briques rouges de l'ancien évêché",
       "forEveryone": "용도가 바뀐 근대 건축물이 지역의 기억을 보존하는 사례입니다.",
       "photos": [],
       "sourceNote": "굿뉴스 가톨릭 목포 성지 자료실: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?PSIZE=20&ctxtOrgNum=2834&ctxtSubMenu=pds&curpage=1&menugubun=holyplace"
@@ -43,6 +64,11 @@
   ],
   "outro": {
     "narration": "이곳의 세 공간은 목포 본당, 광주대교구, 한국 레지오 마리애의 역사를 한자리에서 잇습니다. 전시 관람 가능 시간은 성지 안내를 확인하세요.",
+    "narrationEn": "These three spaces connect the histories of the Mokpo parish, the Archdiocese of Gwangju, and the Legion of Mary in Korea in one place. Please check the shrine information for exhibition hours.",
+    "narrationEs": "Estos tres espacios reúnen en un solo lugar la historia de la parroquia de Mokpo, la arquidiócesis de Gwangju y la Legión de María en Corea. Consulte la información del santuario para conocer el horario de las exposiciones.",
+    "narrationIt": "Questi tre spazi riuniscono in un solo luogo la storia della parrocchia di Mokpo, dell'arcidiocesi di Gwangju e della Legione di Maria in Corea. Consulti le informazioni del santuario per gli orari delle esposizioni.",
+    "narrationPt": "Esses três espaços reúnem em um só lugar a história da paróquia de Mokpo, da Arquidiocese de Gwangju e da Legião de Maria na Coreia. Consulte as informações do santuário para saber os horários das exposições.",
+    "narrationFr": "Ces trois espaces réunissent en un même lieu l'histoire de la paroisse de Mokpo, de l'archidiocèse de Gwangju et de la Légion de Marie en Corée. Consultez les informations du sanctuaire pour connaître les horaires des expositions.",
     "photos": []
   }
 }
