@@ -2,15 +2,57 @@
   "siteId": "33e0cfff-5e24-44cd-980f-a69bfe09d4ff",
   "siteName": "신리성지",
   "slug": "sinri-seongji",
-  "surveyedAt": "2026-09-18",
-  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
   "status": "draft",
-  "intro": {"narration": "신리는 다블뤼 주교가 머물며 내포 선교를 이끈 교우촌입니다. 복원 주교관에서 순교미술관과 역사공원까지 이어지는 현장을 만나보겠습니다.", "photos": []},
+  "intro": {
+    "narration": "신리는 다블뤼 주교가 머물며 내포 선교를 이끈 교우촌입니다. 복원 주교관에서 순교미술관과 역사공원까지 이어지는 현장을 만나보겠습니다.",
+    "photos": []
+  },
   "points": [
-    {"seq": 1, "title": "주교관 — 복원된 초가집", "location": "성지 안 복원 주교관", "narration": "이 초가집은 다블뤼 주교가 머물던 주교관이자 교구청을 복원한 건물입니다. 주교는 이곳에서 선교 활동을 지휘하고 초기 순교자들의 행적을 정리했습니다. 그 기록은 한국 교회사와 순교사를 전하는 중요한 자료가 되었습니다.", "lookFor": "초가 지붕의 복원 주교관", "forEveryone": "집 한 채가 종교 공동체의 행정과 기록 작업을 함께 품었던 장소입니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2307; https://djcatholic.or.kr/home/news/djbishop_photo.php?enter=v&idx=45167&k=&page=53&s="},
-    {"seq": 2, "title": "기념성당 — 순교자 부활 부조", "location": "성지 안 기념성당", "narration": "기념성당은 성 다블뤼 안토니오와 성 손자선 토마스를 기억하는 성당입니다. 외벽에는 순교자들의 부활을 주제로 한 대형 부조상이 설치되어 있습니다. 건물과 부조를 함께 보시면 신리의 역사 표현 방식을 읽을 수 있습니다.", "lookFor": "기념성당 외벽의 대형 부조", "forEveryone": "건축 외벽을 서사적인 기념물로 활용한 사례입니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2307"},
-    {"seq": 3, "title": "순교미술관 — 신리 기록화", "location": "성 다블뤼 기념관 안", "narration": "기념관에는 신리의 성직자와 순교자 행적을 그린 기록화가 전시되어 있습니다. 교구 자료는 이종상 화백의 신리 기록화와 관련 유물을 전시한다고 설명합니다. 전망대에서는 내포 지역도 조망할 수 있습니다.", "lookFor": "신리의 순교 역사를 그린 기록화", "forEveryone": "회화와 유물을 통해 지역사를 해석하는 전시 공간입니다.", "photos": [], "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2307; https://djcatholic.or.kr/home/news/djbishop_photo.php?enter=v&idx=45167&k=&page=53&s="},
-    {"seq": 4, "title": "역사공원 — 다섯 야외 경당", "location": "기념관 주변 순교자 역사공원", "narration": "역사공원에는 신리에서 체포된 다블뤼 주교 일행과 손자선 토마스, 황석두 루카를 기억하는 야외 경당이 있습니다. 모두 다섯 개의 경당으로 조성되었습니다. 공원에는 프랑스 파카르사의 종 세 개도 설치되어 있습니다.", "lookFor": "인물별로 마련된 다섯 야외 경당", "forEveryone": "여러 인물의 기억을 독립된 작은 건축물로 나누어 배치한 공원입니다.", "photos": [], "sourceNote": "https://djcatholic.or.kr/home/news/djbishop_photo.php?enter=v&idx=45167&k=&page=53&s="}
+    {
+      "seq": 1,
+      "title": "주교관 — 복원된 초가집",
+      "location": "성지 안 복원 주교관",
+      "narration": "이 초가집은 다블뤼 주교가 머물던 주교관이자 교구청을 복원한 건물입니다. 주교는 이곳에서 선교 활동을 지휘하고 초기 순교자들의 행적을 정리했습니다. 그 기록은 한국 교회사와 순교사를 전하는 중요한 자료가 되었습니다. 이 초가집은 손자선 토마스 성인의 생가이면서 다블뤼 안토니오 주교가 머문 주교관이자 조선 교구청이었습니다.",
+      "lookFor": "초가 지붕의 복원 주교관",
+      "forEveryone": "집 한 채가 종교 공동체의 행정과 기록 작업을 함께 품었던 장소입니다.",
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2307; https://djcatholic.or.kr/home/news/djbishop_photo.php?enter=v&idx=45167&k=&page=53&s= ; 대전교구 홍보국 제공 자료(2026-09-18): 신리성지__신리성지.txt — 공식 홈페이지 https://www.sinri.or.kr/"
+    },
+    {
+      "seq": 2,
+      "title": "기념성당 — 순교자 부활 부조",
+      "location": "성지 안 기념성당",
+      "narration": "기념성당은 성 다블뤼 안토니오와 성 손자선 토마스를 기억하는 성당입니다. 외벽에는 순교자들의 부활을 주제로 한 대형 부조상이 설치되어 있습니다. 건물과 부조를 함께 보시면 신리의 역사 표현 방식을 읽을 수 있습니다.",
+      "lookFor": "기념성당 외벽의 대형 부조",
+      "forEveryone": "건축 외벽을 서사적인 기념물로 활용한 사례입니다.",
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2307"
+    },
+    {
+      "seq": 3,
+      "title": "순교미술관 — 신리 기록화",
+      "location": "성 다블뤼 기념관 안",
+      "narration": "기념관에는 신리의 성직자와 순교자 행적을 그린 기록화가 전시되어 있습니다. 교구 자료는 이종상 화백의 신리 기록화와 관련 유물을 전시한다고 설명합니다. 전망대에서는 내포 지역도 조망할 수 있습니다.",
+      "lookFor": "신리의 순교 역사를 그린 기록화",
+      "forEveryone": "회화와 유물을 통해 지역사를 해석하는 전시 공간입니다.",
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2307; https://djcatholic.or.kr/home/news/djbishop_photo.php?enter=v&idx=45167&k=&page=53&s="
+    },
+    {
+      "seq": 4,
+      "title": "역사공원 — 다섯 야외 경당",
+      "location": "기념관 주변 순교자 역사공원",
+      "narration": "역사공원에는 신리에서 체포된 다블뤼 주교 일행과 손자선 토마스, 황석두 루카를 기억하는 야외 경당이 있습니다. 모두 다섯 개의 경당으로 조성되었습니다. 공원에는 프랑스 파카르사의 종 세 개도 설치되어 있습니다.",
+      "lookFor": "인물별로 마련된 다섯 야외 경당",
+      "forEveryone": "여러 인물의 기억을 독립된 작은 건축물로 나누어 배치한 공원입니다.",
+      "photos": [],
+      "sourceNote": "https://djcatholic.or.kr/home/news/djbishop_photo.php?enter=v&idx=45167&k=&page=53&s="
+    }
   ],
-  "outro": {"narration": "신리의 초가 주교관과 현대 기념 공간은 기록하고 기억하는 방식이 시대에 따라 어떻게 달라졌는지 보여줍니다.", "photos": []}
+  "outro": {
+    "narration": "신리의 초가 주교관과 현대 기념 공간은 기록하고 기억하는 방식이 시대에 따라 어떻게 달라졌는지 보여줍니다.",
+    "photos": []
+  }
 }

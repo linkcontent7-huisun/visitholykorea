@@ -2,15 +2,57 @@
   "siteId": "da89541b-07ce-4658-b138-897fa4473977",
   "siteName": "수리치골 성모 성지",
   "slug": "surichigol-marian-shrine",
-  "surveyedAt": "2026-09-18",
-  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
   "status": "draft",
-  "intro": {"narration": "수리치골 성모 성지는 한국 교회의 성모성심 신심이 시작된 곳으로 전해집니다. 성모칠고의 길과 십자가의 길, 천주성삼상과 겟세마니 동산을 살펴보겠습니다.", "photos": []},
+  "intro": {
+    "narration": "수리치골 성모 성지는 한국 교회의 성모성심 신심이 시작된 곳으로 전해집니다. 성모칠고의 길과 십자가의 길, 천주성삼상과 겟세마니 동산을 살펴보겠습니다.",
+    "photos": []
+  },
   "points": [
-    {"seq": 1, "title": "입구 — 성모칠고의 길", "location": "성지 표지석 옆", "narration": "표지석 옆에서 시작하는 성모칠고의 길로 들어가 보세요. 길에는 성모 마리아의 일곱 고통을 나타내는 장면들이 차례로 놓여 있습니다. 이 길은 산길의 십자가의 길이 시작되기 전까지 이어집니다.", "lookFor": "길을 따라 놓인 일곱 고통의 장면", "forEveryone": "한 어머니가 겪은 슬픔을 일곱 장면으로 따라가는 길입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/album/album_view.asp?Orggubun=71&bbscount=8&bbsgubun=album&id=25270&infogubun=org&infoid=2306&menugubun=holyplace&page=1"},
-    {"seq": 2, "title": "산길 — 십자가의 길", "location": "성모칠고의 길 끝", "narration": "성모칠고의 길이 끝나는 산길에서 십자가의 길이 시작됩니다. 열네 처가 겟세마니 동산 전까지 이어집니다. 두 기도 길이 순서대로 연결되는 동선을 따라 걸어보세요.", "lookFor": "산길을 따라 이어지는 십자가의 길 14처", "forEveryone": "두 인물의 고통을 서로 이어진 보행로로 구성했습니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/album/album_view.asp?Orggubun=71&bbscount=9&bbsgubun=album&id=25272&infogubun=org&infoid=2306&menugubun=holyplace&page=1"},
-    {"seq": 3, "title": "광장 — 천주성삼상", "location": "성지 광장", "narration": "광장에 세운 천주성삼상을 바라보세요. 이 조각은 성부와 성자와 성령의 삼위일체를 한 자리에서 표현합니다. 넓은 광장 안에서 조각의 전체 구성을 살펴보세요.", "lookFor": "광장 중심의 천주성삼상", "forEveryone": "기독교의 삼위일체 개념을 입체 조각으로 표현한 작품입니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/album/album_view.asp?Orggubun=71&bbscount=7&bbsgubun=album&id=25266&infogubun=org&infoid=2306&menugubun=holyplace&page=1; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003715&gubun=16"},
-    {"seq": 4, "title": "겟세마니 동산 — 야외제대와 조각상", "location": "십자가의 길 끝", "narration": "겟세마니 동산에는 십자가와 야외제대가 마련되어 있습니다. 기도하는 예수님과 잠든 제자들의 모습도 조각으로 재현되어 있습니다. 서로 다른 자세의 인물들이 만드는 긴장감을 살펴보세요.", "lookFor": "기도하는 예수님과 졸고 있는 제자상", "forEveryone": "결정을 앞둔 고독과 곁에서 잠든 동료들의 대비를 조각으로 보여줍니다.", "photos": [], "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/album/album_view.asp?Orggubun=71&bbscount=10&bbsgubun=album&id=25277&infogubun=org&infoid=2306&menugubun=holyplace&page=1; https://www.djcatholic.or.kr/home/news/faith.php?enter=v&idx=63337&k=&page=17&s="}
+    {
+      "seq": 1,
+      "title": "입구 — 성모칠고의 길",
+      "location": "성지 표지석 옆",
+      "narration": "표지석 옆에서 시작하는 성모칠고의 길로 들어가 보세요. 길에는 성모 마리아의 일곱 고통을 나타내는 장면들이 차례로 놓여 있습니다. 이 길은 산길의 십자가의 길이 시작되기 전까지 이어집니다. 교구 자료는 수리치골을 한국에서 공식적으로 인정된 마리아 신심 단체와 티없으신 성모 성심 신심이 처음 생겨난 장소로 설명합니다.",
+      "lookFor": "길을 따라 놓인 일곱 고통의 장면",
+      "forEveryone": "한 어머니가 겪은 슬픔을 일곱 장면으로 따라가는 길입니다.",
+      "photos": [],
+      "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/album/album_view.asp?Orggubun=71&bbscount=8&bbsgubun=album&id=25270&infogubun=org&infoid=2306&menugubun=holyplace&page=1 ; 대전교구 홍보국 제공 자료(2026-09-18): 수리치골__수리치골성지소개글.txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 2,
+      "title": "산길 — 십자가의 길",
+      "location": "성모칠고의 길 끝",
+      "narration": "성모칠고의 길이 끝나는 산길에서 십자가의 길이 시작됩니다. 열네 처가 겟세마니 동산 전까지 이어집니다. 두 기도 길이 순서대로 연결되는 동선을 따라 걸어보세요.",
+      "lookFor": "산길을 따라 이어지는 십자가의 길 14처",
+      "forEveryone": "두 인물의 고통을 서로 이어진 보행로로 구성했습니다.",
+      "photos": [],
+      "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/album/album_view.asp?Orggubun=71&bbscount=9&bbsgubun=album&id=25272&infogubun=org&infoid=2306&menugubun=holyplace&page=1"
+    },
+    {
+      "seq": 3,
+      "title": "광장 — 천주성삼상",
+      "location": "성지 광장",
+      "narration": "광장에 세운 천주성삼상을 바라보세요. 이 조각은 성부와 성자와 성령의 삼위일체를 한 자리에서 표현합니다. 넓은 광장 안에서 조각의 전체 구성을 살펴보세요.",
+      "lookFor": "광장 중심의 천주성삼상",
+      "forEveryone": "기독교의 삼위일체 개념을 입체 조각으로 표현한 작품입니다.",
+      "photos": [],
+      "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/album/album_view.asp?Orggubun=71&bbscount=7&bbsgubun=album&id=25266&infogubun=org&infoid=2306&menugubun=holyplace&page=1; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003715&gubun=16"
+    },
+    {
+      "seq": 4,
+      "title": "겟세마니 동산 — 야외제대와 조각상",
+      "location": "십자가의 길 끝",
+      "narration": "겟세마니 동산에는 십자가와 야외제대가 마련되어 있습니다. 기도하는 예수님과 잠든 제자들의 모습도 조각으로 재현되어 있습니다. 서로 다른 자세의 인물들이 만드는 긴장감을 살펴보세요.",
+      "lookFor": "기도하는 예수님과 졸고 있는 제자상",
+      "forEveryone": "결정을 앞둔 고독과 곁에서 잠든 동료들의 대비를 조각으로 보여줍니다.",
+      "photos": [],
+      "sourceNote": "https://maria.catholic.or.kr/mobile/sa_ho/album/album_view.asp?Orggubun=71&bbscount=10&bbsgubun=album&id=25277&infogubun=org&infoid=2306&menugubun=holyplace&page=1; https://www.djcatholic.or.kr/home/news/faith.php?enter=v&idx=63337&k=&page=17&s="
+    }
   ],
-  "outro": {"narration": "성모칠고의 길에서 십자가의 길과 겟세마니 동산으로 이어지는 순서가 수리치골의 핵심 동선입니다. 광장의 천주성삼상까지 돌아보며 네 공간의 연결을 정리해 보세요.", "photos": []}
+  "outro": {
+    "narration": "성모칠고의 길에서 십자가의 길과 겟세마니 동산으로 이어지는 순서가 수리치골의 핵심 동선입니다. 광장의 천주성삼상까지 돌아보며 네 공간의 연결을 정리해 보세요.",
+    "photos": []
+  }
 }

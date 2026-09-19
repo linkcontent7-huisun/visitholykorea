@@ -2,8 +2,8 @@
   "siteId": "5fe15d55-cb32-4494-99c6-ad849a625f46",
   "siteName": "합덕 성당",
   "slug": "hapdeok-catholic-church",
-  "surveyedAt": "2026-09-18",
-  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
   "status": "draft",
   "intro": {
     "narration": "합덕 성당은 내포 지역 선교의 중심이 되어 온 오래된 본당입니다. 벽돌 성전과 순례자의 집, 본당 관내의 우물터를 통해 건축과 신앙 공동체의 역사를 살펴보시겠습니다.",
@@ -39,6 +39,16 @@
       "forEveryone": "생활 시설인 우물이 지역 인물의 기억을 전하는 유적으로 남은 곳입니다.",
       "photos": [],
       "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19"
+    },
+    {
+      "seq": 4,
+      "title": "성당 안 — 매괴학교와 이웃 돌봄",
+      "location": "성당 안",
+      "narration": "합덕성당은 매괴학교를 세워 지역의 교육을 도왔습니다. 또 부모를 잃은 아이들을 교우 가정에서 돌보도록 지원하며 신앙을 사회의 돌봄으로 이어 갔습니다.",
+      "lookFor": "성당 안에 남은 교육과 돌봄의 기록",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 합덕__합덕성당과 합덕유스호스텔-수정2.txt — 대전교구 https://www.djcatholic.or.kr/"
     }
   ],
   "outro": {

@@ -1,0 +1,58 @@
+{
+  "siteId": "eef91372-92ee-4b31-9314-5e9cb92946e9",
+  "siteName": "진산 성지",
+  "slug": "jinsan",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "진산 성지는 한국 천주교회의 첫 순교자 윤지충 바오로와 권상연 야고보를 기억하는 곳입니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 진산 사건의 고장",
+      "location": "입구 쪽",
+      "narration": "윤지충 바오로와 권상연 야고보는 교회의 가르침을 따르다가 체포되었습니다. 이 사건은 진산이라는 고을 이름을 한국 교회사에 남겼습니다.",
+      "lookFor": "진산 마을과 성지 표지",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 진산__진산성지.txt — 대전교구 http://jinsan.djcatholic.or.kr/"
+    },
+    {
+      "seq": 2,
+      "title": "성당 — 옛 본당의 자리",
+      "location": "성당 앞",
+      "narration": "지방리 공소는 가새벌에 있다가 교우들의 노력으로 이곳에 성당을 세웠습니다. 뒤에 공소가 되었다가 진산 성지와 성당으로 복원되었습니다.",
+      "lookFor": "복원된 성당 외관",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 진산__진산성지.txt — 대전교구 http://jinsan.djcatholic.or.kr/"
+    },
+    {
+      "seq": 3,
+      "title": "성당 안 — 두 복자의 기억",
+      "location": "성당 안",
+      "narration": "윤지충과 권상연은 신앙의 가르침에 따라 집안의 신주를 불살랐습니다. 두 사람은 끝까지 믿음을 지키며 한국 천주교회의 첫 순교자가 되었습니다.",
+      "lookFor": "두 복자를 기억하는 표상",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 진산__진산성지.txt — 대전교구 http://jinsan.djcatholic.or.kr/"
+    },
+    {
+      "seq": 4,
+      "title": "마당 — 오래 이어진 공동체",
+      "location": "마당",
+      "narration": "진산의 신앙 공동체는 두 복자의 순교 뒤에도 이어졌습니다. 성당과 마당을 보며 사건 한 번이 아니라 계속된 공동체의 시간을 생각해 보세요.",
+      "lookFor": "성당을 둘러싼 마당",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 진산__진산성지.txt — 대전교구 http://jinsan.djcatholic.or.kr/"
+    }
+  ],
+  "outro": {
+    "narration": "1791년 진산사건이 시작된 고을에서 옛 목조 성당과 새 성당을 함께 보셨습니다. 윤지충·권상연·윤지헌 세 분의 유해가 모셔진 새 성전 앞에서 순례를 마칩니다.",
+    "photos": []
+  }
+}

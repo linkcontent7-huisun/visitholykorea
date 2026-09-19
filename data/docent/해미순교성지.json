@@ -2,8 +2,8 @@
   "siteId": "aeac09d0-c5ef-4091-b1b0-b84686940659",
   "siteName": "해미순교성지",
   "slug": "haemi",
-  "surveyedAt": "2026-09-17",
-  "surveyedBy": "현장: 미조사 / 원고: Codex (문헌 검토 2026-09-17)",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
   "status": "draft",
   "intro": {
     "narration": "해미에서는 이름이 남지 않은 순교자들을 기억하는 장소를 살펴보겠습니다. 읍성의 회화나무와 여숫골의 유적은 서로 떨어져 있습니다. 현장 안내에 따라 이동하며, 돌과 건물이 전하는 이야기에 귀를 기울여 보세요.",
@@ -20,7 +20,7 @@
       "location": "해미읍성 안",
       "locationEn": "Inside Haemi Fortress",
       "locationEs": "Dentro de la fortaleza de Haemi",
-      "narration": "읍성 안의 회화나무와 감옥터를 함께 살펴보세요. 이곳에는 서해안을 지키던 군영이 있었고, 내포 지역에서 붙잡힌 신자들이 감옥에 갇혔습니다. 회화나무는 신자들을 매달아 형벌을 가했던 자리로 전해집니다. 주변의 복원된 감옥을 보면 나무가 단지 오래된 경관이 아니라는 것을 알 수 있습니다. 줄기에 보이는 흔적을 단정하기보다는, 나무와 감옥이 함께 전하는 장소의 역사를 기억해 보세요.",
+      "narration": "읍성 안의 회화나무와 감옥터를 함께 살펴보세요. 이곳에는 서해안을 지키던 군영이 있었고, 내포 지역에서 붙잡힌 신자들이 감옥에 갇혔습니다. 회화나무는 신자들을 매달아 형벌을 가했던 자리로 전해집니다. 주변의 복원된 감옥을 보면 나무가 단지 오래된 경관이 아니라는 것을 알 수 있습니다. 줄기에 보이는 흔적을 단정하기보다는, 나무와 감옥이 함께 전하는 장소의 역사를 기억해 보세요. 교구 자료는 해미읍성의 감옥 앞 회화나무가 붙잡힌 신자들을 매달아 고문하던 흔적을 지니고 있다고 전합니다.",
       "narrationEn": "Look at this old pagoda tree inside the fortress. During the persecutions, captured believers were hung from its branches with wire and tortured; beside it, the prison where they were held has been restored. Haemi housed a garrison guarding the west coast, and in Joseon it was common for executions to fall to soldiers — so believers seized across the Naepo region were sent here. The tree, still alive and still leafing, is the sole witness of that time.",
       "narrationEs": "Mire este antiguo árbol de las pagodas dentro de la fortaleza. Durante las persecuciones, las autoridades ataban con alambre a los creyentes capturados y los colgaban de este árbol para torturarlos. Junto a él se ha restaurado la prisión donde estuvieron encerrados. Haemi albergaba una guarnición que defendía la costa occidental y, en Joseon, las ejecuciones solían quedar en manos de soldados. Por eso enviaban aquí a los creyentes detenidos en toda la región de Naepo. Este árbol, que aún vive y da hojas, es el único testigo de aquel tiempo.",
       "lookFor": "회화나무와 복원 감옥의 관계",
@@ -28,7 +28,7 @@
       "lookForEs": "Las cicatrices del tronco y la prisión restaurada junto al árbol",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "성지 DB description의 군영·회화나무·감옥 복원, 가톨릭신문 2022-07-24. https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=20&id=188303&menu=4830&num=387"
+      "sourceNote": "성지 DB description의 군영·회화나무·감옥 복원, 가톨릭신문 2022-07-24. https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=20&id=188303&menu=4830&num=387 ; 대전교구 홍보국 제공 자료(2026-09-18): 해미순교자국제성지__해미성지-END.txt — 공식 홈페이지 http://www.haemi.or.kr/"
     },
     {
       "seq": 2,

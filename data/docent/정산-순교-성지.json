@@ -1,0 +1,58 @@
+{
+  "siteId": "c9b75913-f657-4efd-a847-238be4d39ce8",
+  "siteName": "정산 순교 성지",
+  "slug": "jeongsan",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "정산 순교 성지는 이도기 바오로의 삶과 순교를 기억하는 곳입니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 정산 고을",
+      "location": "입구 쪽",
+      "narration": "이도기 바오로는 정산의 신앙 공동체를 이끈 인물입니다. 이 성지는 그의 믿음살이와 순교를 고을의 역사 안에서 기억합니다.",
+      "lookFor": "정산 마을 안 성지의 자리",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 정산성지__이도기의 믿음살이 20180822(김정환).txt — 굿뉴스 https://maria.catholic.or.kr/"
+    },
+    {
+      "seq": 2,
+      "title": "마당 — 이도기 바오로",
+      "location": "마당",
+      "narration": "이도기는 주문모 야고보 신부를 도우며 교회 서적과 성물을 맡아 신앙 공동체를 섬겼습니다. 한 평신도 지도자의 책임을 생각해 보세요.",
+      "lookFor": "이도기를 기억하는 표지",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 정산성지__이도기 생애-순교터 연구(차기진).txt — 굿뉴스 https://maria.catholic.or.kr/"
+    },
+    {
+      "seq": 3,
+      "title": "성지 안 — 정산일기",
+      "location": "성지 안",
+      "narration": "이도기의 이야기는 정산일기로 전해집니다. 기록이 한 사람의 신앙과 지역 공동체의 모습을 오늘까지 이어 준다는 점을 기억해 보세요.",
+      "lookFor": "정산일기를 알리는 설명",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 정산성지__이도기의 믿음살이 20180822(김정환).txt — 굿뉴스 https://maria.catholic.or.kr/"
+    },
+    {
+      "seq": 4,
+      "title": "순교터 — 끝까지 지킨 믿음",
+      "location": "성지 안",
+      "narration": "이도기는 박해와 형벌 속에서도 신앙을 지켰습니다. 이곳에서는 그의 죽음뿐 아니라 신자들을 돌보고 기록을 남긴 삶 전체를 바라보세요.",
+      "lookFor": "순교를 기억하는 자리",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 정산성지__정산성지(02.18.홍보국요청자료).txt — 굿뉴스 https://maria.catholic.or.kr/"
+    }
+  ],
+  "outro": {
+    "narration": "이도기 바오로가 남긴 기록과 공동체의 기억을 되새기며 나갑니다.",
+    "photos": []
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "siteId": "8fb95b44-9e07-4570-9df4-54c3a315536b",
+  "siteName": "원머리 성지",
+  "slug": "wonmeori",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "원머리는 바닷물이 둘러싸던 교우촌에 두 순교자의 묘가 지켜진 성지입니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 원머리의 지형",
+      "location": "입구 쪽",
+      "narration": "원머리는 바닷가 둑을 막는 머리 부분을 뜻한 언두리가 변한 이름입니다. 옛날 밀물이 들면 섬처럼 둘러싸였던 지형을 떠올려 보세요.",
+      "lookFor": "제방과 너른 농경지",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 신평원머리_신평원머리성지 연구발표회__특별강좌_자료집.txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 2,
+      "title": "강당 — 이어진 공소 공동체",
+      "location": "강당 쪽",
+      "narration": "박해 뒤 돌아온 교우들은 공소를 중심으로 공동체를 다시 세웠습니다. 지금의 강당은 그 신앙이 끊기지 않았음을 보여 줍니다.",
+      "lookFor": "오래된 공소 강당",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 신평원머리_신평원머리성지 연구발표회__특별강좌_자료집.txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 3,
+      "title": "묘소 — 박선진과 박태진",
+      "location": "순교자 묘 앞",
+      "narration": "박선진 마르코와 박태진 마티아의 묘가 이곳에 남아 있습니다. 두 사람은 박해 때 수원 감영으로 끌려가 신앙을 지키며 순교했습니다.",
+      "lookFor": "나란히 모신 두 묘",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 신평원머리_신평원머리성지 연구발표회__특별강좌_자료집.txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 4,
+      "title": "묘소 곁 — 서덕행의 무덤",
+      "location": "순교자 묘 곁",
+      "narration": "서덕행은 두 순교자의 시신을 찾아 가족에게 전했습니다. 후손들은 그 공을 기억해 그를 순교자 묘 옆에 안장했습니다.",
+      "lookFor": "순교자 묘 곁 무덤",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 신평원머리_신평원머리성지 연구발표회__특별강좌_자료집.txt — 대전교구 https://www.djcatholic.or.kr/"
+    }
+  ],
+  "outro": {
+    "narration": "박선진·박태진 두 사촌의 무덤이 2009년 본래 자리로 돌아온 묘역입니다. 신평성당의 기념비까지 들르시면 유해가 오간 길을 다 보시는 셈입니다.",
+    "photos": []
+  }
+}

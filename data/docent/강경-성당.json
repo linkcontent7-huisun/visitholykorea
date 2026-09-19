@@ -2,8 +2,8 @@
   "siteId": "384ece39-557d-48bc-9708-ec04f1bb5e13",
   "siteName": "강경 성당",
   "slug": "ganggyeong-church",
-  "surveyedAt": "2026-09-18",
-  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
   "status": "draft",
   "intro": {
     "narration": "강경은 김대건 신부가 사제품을 받고 조선으로 돌아와 첫 사목을 시작한 포구입니다. 현재 성당과 기념관, 라파엘호 전시를 통해 그 귀국 여정을 살펴보겠습니다.",
@@ -39,6 +39,16 @@
       "forEveryone": "한 사람의 이동 경로를 실제 크기의 배 형상으로 설명하는 전시입니다.",
       "photos": [],
       "sourceNote": "가톨릭평화신문 강경본당 행사 기사: https://maria.catholic.or.kr/mobile/news/news_view.asp?seq=199505&tbcode=SEC01"
+    },
+    {
+      "seq": 4,
+      "title": "성당 안 — 김대건 신부의 첫 사목",
+      "location": "성당 안",
+      "narration": "강경은 성 김대건 안드레아 신부가 조선에 들어온 뒤 첫 사목 활동을 펼친 곳으로 전해집니다. 성당과 유숙지의 관계를 살피며 짧았던 사목 여정을 떠올려 보세요.",
+      "lookFor": "김대건 신부를 기억하는 표상",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 강경성지-성 김대건 신부 유숙지__강경첫사목지설명문-내포교회사연구소.txt — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=4417&menugubun=holyplace"
     }
   ],
   "outro": {

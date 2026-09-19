@@ -1,0 +1,58 @@
+{
+  "siteId": "b1ac6215-43e2-4a0d-8dde-44cd7d3d787a",
+  "siteName": "지석리 성지",
+  "slug": "jiseokri",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "지석리는 성 손선지 베드로와 성 정문호 바르톨로메오가 태어난 마을입니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 두 성인의 고향",
+      "location": "입구 쪽",
+      "narration": "지석리는 손선지 베드로와 정문호 바르톨로메오가 태어난 곳입니다. 한 마을에서 자란 두 사람의 이름을 함께 기억해 보세요.",
+      "lookFor": "두 성인을 알리는 성지 표지",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 지석리__지석리.txt — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2309&menugubun=holyplace"
+    },
+    {
+      "seq": 2,
+      "title": "기념비 — 손선지 베드로",
+      "location": "기념비 앞",
+      "narration": "손선지 베드로는 어려서부터 신앙을 배우고 교우들을 돌보는 회장으로 살았습니다. 후손들은 기념비를 세울 수 있도록 밭을 교회에 내놓았습니다.",
+      "lookFor": "손선지 성인 출생기념비",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 지석리__지석리.txt — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2309&menugubun=holyplace"
+    },
+    {
+      "seq": 3,
+      "title": "기념비 — 정문호 바르톨로메오",
+      "location": "기념비 앞",
+      "narration": "정문호 바르톨로메오도 이 마을에서 태어났습니다. 두 성인은 병인박해 때 전주로 끌려가 끝까지 믿음을 지켰습니다.",
+      "lookFor": "정문호 성인 출생기념비",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 지석리__지석리.txt — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2309&menugubun=holyplace"
+    },
+    {
+      "seq": 4,
+      "title": "야외제대 — 후손의 기억",
+      "location": "야외제대 앞",
+      "narration": "야외제대와 잔디밭은 후손과 교우들이 두 성인의 고향을 기억하려 마련한 공간입니다. 태어난 자리와 순교한 자리가 다르다는 점도 마음에 담아 보세요.",
+      "lookFor": "야외제대와 잔디밭",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 지석리__지석리.txt — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2309&menugubun=holyplace"
+    }
+  ],
+  "outro": {
+    "narration": "두 성인의 출발점이 된 마을을 돌아보며 순례를 마칩니다.",
+    "photos": []
+  }
+}

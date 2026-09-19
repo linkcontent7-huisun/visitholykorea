@@ -2,8 +2,8 @@
   "siteId": "4877a452-ffe2-4528-ab51-cb5ff3735d56",
   "siteName": "갈매못 순교성지",
   "slug": "galmaemot-martyrs-shrine",
-  "surveyedAt": "2026-09-18",
-  "surveyedBy": "Codex (문헌 초안 2026-09-18)",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
   "status": "draft",
   "intro": {
     "narration": "갈매못은 병인박해 때 다섯 성인과 많은 신자가 순교한 서해 바닷가입니다. 옛 형장을 알리는 기념비와 바다를 내려다보는 성당, 유물을 모은 기념관을 보겠습니다.",
@@ -39,6 +39,16 @@
       "forEveryone": "현장과 기록물을 함께 보며 사건을 입체적으로 이해할 수 있습니다.",
       "photos": [],
       "sourceNote": "굿뉴스 갈매못 순교성지 안내: https://app.catholic.or.kr/web/holyplace/?seq=2299"
+    },
+    {
+      "seq": 4,
+      "title": "주차장 쪽 — 네 성인이 처음 묻힌 자리",
+      "location": "주차장 쪽",
+      "narration": "처형 뒤 다섯 성인의 목과 몸은 칡넝쿨로 묶여 인근 모래밭에 묻혔습니다. 지금의 주차장 자리라는 교구 자료를 떠올리며, 순교 뒤 유해를 지켜 낸 이들의 수고도 기억해 보세요.",
+      "lookFor": "주차장과 바닷가 모래밭의 위치 관계",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
     }
   ],
   "outro": {

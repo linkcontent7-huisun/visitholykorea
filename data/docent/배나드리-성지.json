@@ -1,0 +1,58 @@
+{
+  "siteId": "73314e2e-1c94-4229-bafc-63049462e4ef",
+  "siteName": "배나드리 성지",
+  "slug": "baenadeuri",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "배나드리는 삽교천 물길에 둘러싸였던 교우촌입니다. 지형이 만든 이름과 이곳 신자들의 이야기를 만나 보세요.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 배나드리라는 이름",
+      "location": "입구 쪽",
+      "narration": "예전에는 홍수가 나면 사방이 물바다가 되어 배를 타고 건넜습니다. 그래서 이 마을을 배나드리라고 불렀습니다.",
+      "lookFor": "낮은 들과 물길",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 배나드리__배나드리 교우촌.txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 2,
+      "title": "마당 — 교우촌 자리",
+      "location": "마당",
+      "narration": "삽교천 물이 불면 드나들기 어려운 지형은 신앙을 조용히 지키기에 알맞았습니다. 교우촌이 언제 시작됐는지는 확인되지 않습니다.",
+      "lookFor": "마을을 에워싼 지형",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 배나드리__배나드리 교우촌.txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 3,
+      "title": "기념비 — 배나드리 순교자들",
+      "location": "기념비 앞",
+      "narration": "박해 때 이곳 신자들이 해미로 끌려갔습니다. 민 첨지 베드로와 형수 안나, 송 첨지 요셉, 손연옥 요셉, 민숙간은 형벌 속에서도 신앙을 지켰습니다.",
+      "lookFor": "순교자를 기억하는 글",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 배나드리__배나드리 교우촌.txt — 대전교구 https://www.djcatholic.or.kr/"
+    },
+    {
+      "seq": 4,
+      "title": "성지 안 — 인언민 마르티노",
+      "location": "성지 안",
+      "narration": "복자 인언민 마르티노는 이 지역에서 태어나 내포를 중심으로 교리를 전하고 가난한 이들을 도왔습니다. 그의 삶은 이 교우촌의 신앙이 이웃 돌봄으로 이어졌음을 보여 줍니다.",
+      "lookFor": "인언민을 기억하는 자리",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 배나드리__배나드리 교우촌.txt — 대전교구 https://www.djcatholic.or.kr/"
+    }
+  ],
+  "outro": {
+    "narration": "홍수 때 배를 타야 드나들던 섬 같은 마을에서 인언민 마르티노 복자의 이름을 만나셨습니다. 돌제대 앞에서 잠시 머문 뒤 삽교천 물길을 떠올리며 나가 보세요.",
+    "photos": []
+  }
+}

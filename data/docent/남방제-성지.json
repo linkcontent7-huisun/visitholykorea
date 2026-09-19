@@ -1,0 +1,58 @@
+{
+  "siteId": "36182234-42d9-4ecb-972e-00ad3cd2e74a",
+  "siteName": "남방제 성지",
+  "slug": "nambangje",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
+  "status": "draft",
+  "intro": {
+    "narration": "남방제는 박해 시대 신앙인들이 모여 살았던 교우촌입니다. 작은 성지 안에 한 가족과 공동체가 지킨 믿음의 기억이 모여 있습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 남방제의 이름",
+      "location": "입구 쪽",
+      "narration": "남방제라는 이름은 제방 둑이 기역 자로 굽은 데서 나왔습니다. 이 지형을 기억하며 교우촌으로 들어가 보세요.",
+      "lookFor": "굽은 제방을 떠올리게 하는 성지의 자리",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 남방제 성지 안내: https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=4397&menugubun=holyplace"
+    },
+    {
+      "seq": 2,
+      "title": "마당 — 순교자 신앙비",
+      "location": "마당",
+      "narration": "순교자 신앙비는 이 마을에서 신앙을 키운 사람들을 기억합니다. 위에는 성 조화서 베드로와 아들 성 조윤호 요셉의 모습이 있습니다.",
+      "lookFor": "신앙비 위 부자상",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 남방제 성지 안내: https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=4397&menugubun=holyplace"
+    },
+    {
+      "seq": 3,
+      "title": "신앙비 — 마부의 끈과 십자가",
+      "location": "신앙비 앞",
+      "narration": "조화서 베드로가 든 끈은 최양업 신부를 마부로 수행한 삶을 나타냅니다. 조윤호 요셉이 든 십자가도 함께 살펴보세요.",
+      "lookFor": "끈과 십자가",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 남방제 성지 안내: https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=4397&menugubun=holyplace"
+    },
+    {
+      "seq": 4,
+      "title": "마당 — 교우촌의 기억",
+      "location": "마당",
+      "narration": "이곳은 이름이 알려지지 않은 여러 신앙인이 죽음으로 믿음을 지킨 교우촌입니다. 성인의 이름만이 아니라 함께 살았던 공동체 전체를 기억해 보세요.",
+      "lookFor": "작은 성지에 모인 교우촌의 흔적",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 남방제 성지 안내: https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=4397&menugubun=holyplace"
+    }
+  ],
+  "outro": {
+    "narration": "남방제에서 한 가정과 공동체가 이어 준 믿음을 기억하며 천천히 나가 보세요.",
+    "photos": []
+  }
+}

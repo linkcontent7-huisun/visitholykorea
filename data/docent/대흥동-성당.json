@@ -2,8 +2,8 @@
   "siteId": "f1e25869-e3cb-40de-b4b6-da5b5b398797",
   "siteName": "천주교 대흥동 교회 (대흥동 성당)",
   "slug": "daeheung-dong",
-  "surveyedAt": "2026-09-16",
-  "surveyedBy": "현장: 미조사 / 원고: Codex (문헌 검토 2026-09-17)",
+  "surveyedAt": "2026-09-19",
+  "surveyedBy": "Codex (대전교구 자료 초안 2026-09-19)",
   "status": "draft",
   "intro": {
     "narration": "대흥동성당에 오신 것을 환영합니다. 종탑과 조각, 성당 안의 공간을 살펴보며 이곳이 대전의 일상과 어떻게 이어졌는지 함께 들어 보겠습니다.",
@@ -19,7 +19,7 @@
       "location": "성당 앞",
       "locationEn": "In front of the church",
       "locationEs": null,
-      "narration": "성당 앞에서 종탑을 올려다보세요. 높이 솟은 모습뿐 아니라 이 탑에서 퍼져 나갔던 종소리도 떠올려 보시면 좋겠습니다. 대흥동 사람들에게 종소리는 식사 때를 알리고 바쁜 하루에 잠깐 쉼을 주는 소리였습니다. 오랫동안 사람이 줄을 당겨 울리던 종은 자동 타종으로 바뀌었습니다. 건물을 보는 눈에 도시의 일상을 듣는 귀를 더해 보세요.",
+      "narration": "성당 앞에서 종탑을 올려다보세요. 높이 솟은 모습뿐 아니라 이 탑에서 퍼져 나갔던 종소리도 떠올려 보시면 좋겠습니다. 대흥동 사람들에게 종소리는 식사 때를 알리고 바쁜 하루에 잠깐 쉼을 주는 소리였습니다. 오랫동안 사람이 줄을 당겨 울리던 종은 자동 타종으로 바뀌었습니다. 건물을 보는 눈에 도시의 일상을 듣는 귀를 더해 보세요. 대흥동 성당은 대전 도심에서 교구 공동체의 역사를 이어 온 성당입니다.",
       "narrationEn": "From the front, look up at the bell tower. Beyond its height, try to imagine the sound that once rang out from it. For the people of Daeheung-dong the bell announced mealtimes and gave a brief pause to a busy day. For many years someone pulled the rope by hand; today the bell rings automatically. To the eye that studies the building, add an ear for the daily life of the city.",
       "narrationEs": null,
       "lookFor": "골목의 지붕 위로 솟은 종탑",
@@ -27,7 +27,7 @@
       "lookForEs": null,
       "forEveryone": "1960년대 한국 현대 성당 건축의 대표작. 넓은 내부에 기둥이 하나도 없는 구조가 건축사적으로 평가받는다.",
       "photos": [],
-      "sourceNote": "가톨릭신문 대흥동 종소리: https://www.catholictimes.org/article/201909240119121"
+      "sourceNote": "가톨릭신문 대흥동 종소리: https://www.catholictimes.org/article/201909240119121 ; 대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__CBCK 성지 책자(최종종합) 20180712.txt — 대전교구 https://www.djcatholic.or.kr/"
     },
     {
       "seq": 2,
