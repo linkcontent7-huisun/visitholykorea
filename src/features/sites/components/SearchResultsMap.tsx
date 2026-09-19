@@ -23,6 +23,10 @@
  * 목록이 그 줄로 스크롤되는 게 유일한 효과인데(선택 정보 카드는 옆 목록과 중복이라 삭제했다),
  * 그 목록이 아예 없는 모바일 소형 지도에서는 눌러도 점 색만 바뀔 뿐 아무 일도 안 일어나는
  * "먹통 누름"이었다 — `SearchPage.tsx` 가 데스크톱(`wideView`)에서만 `onSelect` 를 넘긴다.
+ *
+ * 데스크톱에서도 **매치된(matched) 점만** 누를 수 있다(같은 지적, "데스크탑에서도 점이
+ * 눌러진다" — 재확인해 보니 검색 전(default)·매치 안 된(unmatched) 점까지 전부 눌렸다).
+ * 왼쪽 목록엔 매치된 곳만 나오므로, 그 밖의 점을 눌러 봤자 스크롤해 갈 줄 자체가 없었다.
  */
 
 import { useMemo } from 'react';
@@ -148,7 +152,7 @@ export function SearchResultsMap({
                 r={isSelected ? 8 : style.r}
                 className={isSelected ? 'fill-brand-accent' : style.className}
               />
-              {onSelect && (
+              {onSelect && state === 'matched' && (
                 <circle
                   cx={x}
                   cy={y}

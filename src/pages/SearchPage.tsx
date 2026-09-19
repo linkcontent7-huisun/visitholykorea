@@ -26,6 +26,7 @@ import { ChevronRight, Loader2, Navigation, Search, SearchX, X } from 'lucide-re
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
+import { DirectoryEntryCard } from '@/features/sites/components/DirectoryEntryCard';
 import { SearchResultsMap } from '@/features/sites/components/SearchResultsMap';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { Button } from '@/shared/components/ui/Button';
@@ -63,11 +64,11 @@ const searchScrollCache = new Map<string, number>();
 const NEARBY_RADIUS_KM = 50;
 
 /**
- * 검색 결과 한 줄 — 208곳 성지든 본당·공소 주소록이든 같은 모양으로 그린다(사장님 지적,
- * 2026-09-19: "성지와 성당/공소의 결과 표시가 다르다. 성지 결과 표시로 통일하라"). 주소·
- * 전화 아이콘, 그리고 주소·직선거리 텍스트 자체도 뺐다(같은 날 추가 지적) — 이름·교구·
- * 분류만으로 목록을 가볍게 훑고, 자세한 내용은 상세 화면에서 본다. 본당·공소는 상세 화면이
- * 없어 `to` 없이(누를 수 없는 정보 줄로만) 그린다.
+ * 성지 검색 결과 한 줄(208곳 전용). 본당·공소 주소록은 더 이상 이 부품을 안 쓴다 — 처음엔
+ * "성지 결과 표시로 통일하라"는 지적(2026-09-19 1차)으로 같이 썼지만, 본당·공소는 상세 화면이
+ * 없어 이름·분류만 보여주면 주소도 전화도 알 길이 없는 막다른 줄이 됐다(같은 날 2차 지적) —
+ * 그쪽은 주소·전화·지도 버튼을 갖춘 `DirectoryEntryCard` 로 되돌렸다. 성지는 상세 화면(사진·
+ * 연락처·도슨트 등 전부)으로 이어지는 `to` 하나로 충분해 이름·교구·분류만 가볍게 보여준다.
  */
 function ResultRow({
   to,
@@ -80,47 +81,37 @@ function ResultRow({
   rowRef,
   onMouseEnter,
 }: {
-  to?: string;
-  id?: string;
-  imageUrl?: string | null;
-  category?: string | null;
+  to: string;
+  id: string;
+  imageUrl: string | null;
+  category: string;
   name: string;
   subtitle: string;
-  active?: boolean;
-  rowRef?: (el: HTMLLIElement | null) => void;
-  onMouseEnter?: () => void;
+  active: boolean;
+  rowRef: (el: HTMLLIElement | null) => void;
+  onMouseEnter: () => void;
 }) {
-  const cls = `flex w-full items-center gap-4 rounded-lg border bg-white p-4 text-left transition-colors ${
-    to ? 'hover:border-brand-blue' : ''
-  } ${active ? 'border-brand-blue ring-1 ring-brand-blue/20' : 'border-app-border'}`;
-
-  const inner = (
-    <>
-      <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-app-panel">
-        <SiteThumbnail
-          imageUrl={imageUrl ?? null}
-          name={name}
-          category={category}
-          className="h-full w-full object-cover"
-        />
-      </div>
-      <div className="min-w-0 flex-1">
-        <p className="truncate text-lg font-bold text-app-text">{name}</p>
-        <p className="mt-0.5 truncate text-sm text-app-text-muted">{subtitle}</p>
-      </div>
-      {to && <ChevronRight size={20} className="shrink-0 text-app-text-muted" aria-hidden />}
-    </>
-  );
+  const cls = `flex w-full items-center gap-4 rounded-lg border bg-white p-4 text-left transition-colors hover:border-brand-blue ${
+    active ? 'border-brand-blue ring-1 ring-brand-blue/20' : 'border-app-border'
+  }`;
 
   return (
     <li ref={rowRef} onMouseEnter={onMouseEnter}>
-      {to ? (
-        <Link to={to} className={cls} id={id}>
-          {inner}
-        </Link>
-      ) : (
-        <div className={cls}>{inner}</div>
-      )}
+      <Link to={to} className={cls} id={id}>
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-app-panel">
+          <SiteThumbnail
+            imageUrl={imageUrl}
+            name={name}
+            category={category}
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-lg font-bold text-app-text">{name}</p>
+          <p className="mt-0.5 truncate text-sm text-app-text-muted">{subtitle}</p>
+        </div>
+        <ChevronRight size={20} className="shrink-0 text-app-text-muted" aria-hidden />
+      </Link>
     </li>
   );
 }
@@ -425,7 +416,12 @@ export default function SearchPage() {
                   )
                 )}
 
-                {/* 208곳 성지에는 없지만 전국 본당·공소 주소록엔 있는 경우 — 성지 결과와 같은 줄 모양(사장님 지적, 2026-09-19) */}
+                {/* 208곳 성지에는 없지만 전국 본당·공소 주소록엔 있는 경우.
+                    텍스트 검색일 때만 뜬다("내 위치로 검색" 단독으로는 안 뜬다 — `hasQuery` 게이트,
+                    사장님 질문 확인 2026-09-19). 성지 결과와 줄 모양은 한 번 통일했지만(9/19 1차),
+                    본당·공소는 상세 화면이 없어 그게 유일한 정보 접점이다 — 이름·분류만 보여주고
+                    끝내면 주소도 전화도 길찾기도 알 길이 없었다(같은 날 재지적). 그래서 이 절만
+                    주소·전화·지도 버튼을 갖춘 `DirectoryEntryCard`(다른 화면들과 같은 부품)로 되돌렸다. */}
                 {hasQuery && directoryResults.length > 0 && (
                   <section className="mt-10 space-y-4">
                     <div>
@@ -440,14 +436,9 @@ export default function SearchPage() {
                     </div>
                     <ul className="space-y-3">
                       {directoryResults.map((entry: DirectoryEntry) => (
-                        <ResultRow
-                          key={entry.id}
-                          category={entry.category}
-                          name={entry.name}
-                          // catholic_directory.diocese 는 holy_sites.region 과 달리 이미 "OO교구" 형태로
-                          // 저장돼 있다(예: "인천교구") — dioceseLabel() 을 또 부르면 "인천교구교구"가 된다.
-                          subtitle={`${entry.diocese ? `${entry.diocese} · ` : ''}${localizeDomainValue(entry.category, t)}`}
-                        />
+                        <li key={entry.id}>
+                          <DirectoryEntryCard entry={entry} />
+                        </li>
                       ))}
                     </ul>
                   </section>
