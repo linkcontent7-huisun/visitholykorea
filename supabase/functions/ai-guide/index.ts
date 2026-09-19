@@ -143,6 +143,8 @@ async function callGemini(systemInstruction: string, userPrompt: string, history
 type DirRow = { name: string; category: string | null; diocese: string | null; address: string | null; phone: string | null };
 interface SiteContext {
   text: string;
+  /** 질문에 이름이 직접 맞은 성지 — 「참고한 성지」와 폴백 카드는 이것만 보여준다. 없으면 검색 1순위 하나 */
+  primary: SiteContext['sites'];
   sites: { name: string; category: string | null; diocese: string | null; location: string | null; description: string | null }[];
   dirs: DirRow[];
 }
@@ -178,7 +180,7 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
     '언제', '얼마', '얼마예', '전화', '전화번호', '연락처', '주소', '역사', '소개', '정보', '곳이에', '곳', '입장료', '사람', '명이에',
     '신부님', '신부', '성인', '순교자', '순교', '박해', '때', '것', '거', '좀', '저', '제가', '우리', '오늘', '내일', '주말']);
   const tokens = [...compactTokens].filter((t) => !STOP.has(t));
-  if (tokens.length === 0) return { text: '', sites: [], dirs: [] };
+  if (tokens.length === 0) return { text: '', primary: [], sites: [], dirs: [] };
 
   type Row = { name: string; category: string | null; diocese: string | null; location: string | null; description: string | null; history: string | null };
   const picked: Row[] = [];
@@ -193,6 +195,7 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
   const SELECT = 'name, category, diocese, location, description, history';
   // ① 이름이 맞는 곳부터 (name_compact: 공백 제거 열, 띄어쓰기 무관)
   take((await supabase.from('holy_sites').select(SELECT).or(tokens.map((t) => `name_compact.ilike.%${t}%`).join(',')).limit(5)).data);
+  const nameHits = picked.length; // 여기까지가 이름으로 맞은 곳
   // ② 그다음 주소에 지역명이 있는 곳 (천안 · 서울 …)
   if (picked.length < 5) take((await supabase.from('holy_sites').select(SELECT).or(tokens.map((t) => `location.ilike.%${t}%`).join(',')).limit(5)).data);
   // ③ 마지막으로 소개·역사에 언급된 곳 (김대건 → 솔뫼 …)
@@ -226,7 +229,9 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
     siteLines.length === 0 && dirLines.length === 0
       ? ''
       : [...siteLines, ...(dirLines.length ? ['', '[본당·공소 주소록 — 이름·주소·전화만 있음]', ...dirLines] : [])].join('\n\n');
-  return { text, sites: picked, dirs };
+  // 사용자가 여러 성지를 물은 게 아니면 하나만 앞세운다 (2026-09-19 사장님) — 이름이 맞은 곳들, 없으면 1순위 하나
+  const primary = nameHits > 0 ? picked.slice(0, nameHits) : picked.slice(0, 1);
+  return { text, primary, sites: picked, dirs };
 }
 
 /** 소개글 첫 두 문장. 폴백 카드는 DB 글자를 그대로 쓴다 — 지어내는 것이 없다. */
@@ -242,7 +247,7 @@ function firstSentences(s: string | null, n = 2): string {
 function fallbackCard(ctx: SiteContext): string | null {
   if (ctx.sites.length === 0 && ctx.dirs.length === 0) return null;
   const lines: string[] = ['미카엘이 잠시 쉬는 중이라, 찾은 정보를 그대로 보여드릴게요.', ''];
-  for (const s of ctx.sites) {
+  for (const s of ctx.primary) {
     lines.push(`**${s.name}** (${s.category ?? '성지'} · ${s.diocese ?? ''}교구)`);
     if (s.location) lines.push(s.location);
     const intro = firstSentences(s.description);
@@ -295,7 +300,7 @@ Deno.serve(async (req) => {
 
     const ctx = await buildSiteContext(question);
     const contextBlock = ctx.text || '(관련된 성지 정보를 찾지 못했습니다)';
-    const sources = ctx.sites.map((s) => s.name);
+    const sources = ctx.primary.map((s) => s.name);
     const prompt = [
       audienceLine ? `[사용자가 직접 알려준 프로필]\n${audienceLine}` : null,
       `[성지 정보]\n${contextBlock}`,
