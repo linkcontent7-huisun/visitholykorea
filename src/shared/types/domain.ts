@@ -77,20 +77,6 @@ export interface HolySite {
   fax: string | null;
 }
 
-/** 사용자가 남긴 순례 여행기. */
-export interface PilgrimageLog {
-  id: string;
-  userId: string;
-  siteId: string;
-  title: string;
-  content: string;
-  visitDate: string;
-  siteName?: string;
-  siteImage?: string;
-  /** 여행기에 붙인 사진 URL — 없으면 빈 배열 */
-  photos: string[];
-}
-
 /**
  * 순례 코스 — 박해 사건·인물의 이야기 순서로 성지를 꿴 것.
  * Gronze(산티아고 가이드)의 "구간" 개념을 가져오되, 축은 지리가 아니라 이야기다.

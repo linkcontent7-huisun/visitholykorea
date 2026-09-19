@@ -111,7 +111,7 @@ export default function SiteDetailPage() {
   // 기록 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-17).
   // 접어도 사라지지 않는다 — 줄만 남아서 다시 누르면 펼칠 수 있다.
   const [noteComposerOpen, setNoteComposerOpen] = useState(true);
-  // 기록과 함께 올릴 사진 — 최대 3장(2026-09-17, LogComposer 와 같은 미리보기 방식)
+  // 기록과 함께 올릴 사진 — 최대 3장(2026-09-17, 올리기 전 미리보기 방식)
   const [notePhotos, setNotePhotos] = useState<{ file: File; preview: string }[]>([]);
   const [notePhotoNotice, setNotePhotoNotice] = useState<string | null>(null);
 
