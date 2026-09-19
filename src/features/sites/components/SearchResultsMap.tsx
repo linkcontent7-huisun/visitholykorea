@@ -16,7 +16,13 @@
  * 본당·공소(208곳 밖 주소록)도 검색 결과에 있으면 작은 사각형으로 같이 찍는다(같은 날 질문에 대한
  * 답 — 목록에 뜨는데 지도엔 안 보이면 "이 결과는 어디 있지" 를 다시 물어야 했다). 색만으로
  * 성지·본당을 가르지 않도록 모양도 다르게 한다(원 vs 사각형) — 5,918건 전체가 아니라 지금
- * 검색으로 좁혀진 것(보통 8건 이하)만 찍으므로 지도가 붐비지 않는다.
+ * 검색으로 좁혀진 것(보통 8건 이하)만 찍으므로 지도가 붐비지 않는다. 이 사각형은 처음부터
+ * 누를 수 없다 — 본당·공소는 상세 화면이 없어 눌러도 갈 곳이 없다.
+ *
+ * 성지(원) 핀도 `onSelect` 를 안 넘기면 눌리지 않는다(2026-09-19) — 지도 핀을 누르면 왼쪽
+ * 목록이 그 줄로 스크롤되는 게 유일한 효과인데(선택 정보 카드는 옆 목록과 중복이라 삭제했다),
+ * 그 목록이 아예 없는 모바일 소형 지도에서는 눌러도 점 색만 바뀔 뿐 아무 일도 안 일어나는
+ * "먹통 누름"이었다 — `SearchPage.tsx` 가 데스크톱(`wideView`)에서만 `onSelect` 를 넘긴다.
  */
 
 import { useMemo } from 'react';
@@ -56,7 +62,8 @@ interface SearchResultsMapProps {
   /** 검색어·필터가 전혀 없으면 매치 여부를 가리지 않고 모두 톤다운한 색으로 찍는다 */
   hasActiveSearch: boolean;
   selectedId: string | null;
-  onSelect: (siteId: string) => void;
+  /** 넘기지 않으면 핀이 눌리지 않는다 — 목록과 짝지어 스크롤할 화면(데스크톱)에서만 넘긴다 */
+  onSelect?: (siteId: string) => void;
   highlightDiocese?: string | null;
   /** 208곳 밖 본당·공소 — 지금 검색으로 좁혀진 것만 넘긴다(전체 5,918건이 아니다) */
   directoryPoints?: readonly DirectoryMapPoint[];
@@ -141,22 +148,24 @@ export function SearchResultsMap({
                 r={isSelected ? 8 : style.r}
                 className={isSelected ? 'fill-brand-accent' : style.className}
               />
-              <circle
-                cx={x}
-                cy={y}
-                r={16}
-                className="cursor-pointer fill-transparent"
-                role="button"
-                tabIndex={0}
-                aria-label={site.name}
-                onClick={() => onSelect(site.id)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onSelect(site.id);
-                  }
-                }}
-              />
+              {onSelect && (
+                <circle
+                  cx={x}
+                  cy={y}
+                  r={16}
+                  className="cursor-pointer fill-transparent"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={site.name}
+                  onClick={() => onSelect(site.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onSelect(site.id);
+                    }
+                  }}
+                />
+              )}
             </g>
           );
         })}

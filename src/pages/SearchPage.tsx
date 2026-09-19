@@ -259,7 +259,9 @@ export default function SearchPage() {
       matchedIds={matchedIds}
       hasActiveSearch={active}
       selectedId={selectedId}
-      onSelect={setSelectedId}
+      // 모바일 소형 지도는 옆에 함께 스크롤할 목록이 없어 눌러도 점 색만 바뀔 뿐이었다
+      // (사장님 지적, 2026-09-19) — 데스크톱(목록과 짝지어 스크롤하는 화면)에서만 누르게 한다.
+      onSelect={wideView ? setSelectedId : undefined}
       directoryPoints={directoryPoints}
     />
   );
