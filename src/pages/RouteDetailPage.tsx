@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Check, Footprints, MapPin } from 'lucide-react';
 import { paths } from '@/app/routes/paths';
@@ -9,10 +10,15 @@ import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
-import { usePilgrimageRoute } from '@/features/routes/hooks/use-pilgrimage-routes';
+import {
+  usePilgrimageRoute,
+  useTranslatedRoute,
+  useLocalizedStopNotes,
+} from '@/features/routes/hooks/use-pilgrimage-routes';
 import { countVisitedEpisodes, toEpisodes } from '@/features/routes/lib/episodes';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
+import { useLocalizedSites } from '@/features/sites/hooks/use-sites';
 import { useWalkingCoursesNear } from '@/features/sites/hooks/use-tour-extras';
 import { WalkingCourseCard } from '@/features/sites/components/WalkingCourseCard';
 
@@ -33,6 +39,16 @@ export default function RouteDetailPage() {
   // "순례 스탬프 찍기" 버튼 삭제 이후 후기 제출이 스탬프의 유일한 입구다).
   const { data: myStamps = [] } = useMyStamps();
 
+  // 코스 제목·부제·설명 번역 겹치기 (2026-09-19, 코스 화면 전체가 번역 안 되던 것 수정)
+  const translatedRoute = useTranslatedRoute(data?.route);
+  const stopsWithNotes = useLocalizedStopNotes(data?.route?.id, data?.stops);
+  const stopSites = useMemo(() => stopsWithNotes.map((s) => s.site), [stopsWithNotes]);
+  const localizedSites = useLocalizedSites(stopSites);
+  const stops = useMemo(
+    () => stopsWithNotes.map((s, i) => ({ ...s, site: localizedSites[i] ?? s.site })),
+    [stopsWithNotes, localizedSites],
+  );
+
   if (isLoading) {
     return (
       <div className="flex min-h-page items-center justify-center">
@@ -41,7 +57,7 @@ export default function RouteDetailPage() {
     );
   }
 
-  if (!data) {
+  if (!data || !translatedRoute) {
     return (
       <PageContainer width="narrow" className="min-h-page">
         <PageHeader back title={t('routesTitle')} />
@@ -54,7 +70,7 @@ export default function RouteDetailPage() {
     );
   }
 
-  const { route, stops } = data;
+  const route = translatedRoute;
   const episodes = toEpisodes(stops);
   const visitedIds = new Set(myStamps.map((s) => s.siteId));
   const visitedCount = countVisitedEpisodes(stops, visitedIds);
