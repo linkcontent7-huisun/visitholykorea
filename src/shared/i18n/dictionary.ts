@@ -147,7 +147,7 @@ export const DICTIONARY = {
   moreTab: { ko: '더보기', en: 'More', es: 'Más', fr: 'Plus', pt: 'Mais', it: 'Altro' },
   // 내 기록 — 최소 기능(재기획 2026-09-14 §6): 장소·방문일·짧은 메모·비공개·수정·삭제
   recordsMinimalTitle: {
-    ko: '내 기록',
+    ko: '내 순례 기록',
     en: 'My records',
     es: 'Mis registros',
     fr: 'Mes notes',
@@ -161,14 +161,6 @@ export const DICTIONARY = {
     fr: 'Notez les sanctuaires visités et un court mémo. Privé par défaut ; modifiable ou supprimable à tout moment.',
     pt: 'Guarde os santuários visitados e uma nota curta. Privado por padrão; edite ou apague quando quiser.',
     it: 'Conserva i santuari visitati e una breve nota. Privato per impostazione; modifica o elimina quando vuoi.',
-  },
-  recordsPrivateNote: {
-    ko: '메모는 나에게만 보입니다. 성지 화면의 「다녀온 사람의 한 줄」은 스탬프의 한 줄(공개)과 별개예요.',
-    en: 'Notes are visible only to you.',
-    es: 'Las notas solo las ves tú.',
-    fr: 'Les notes ne sont visibles que par vous.',
-    pt: 'As notas só são visíveis para você.',
-    it: 'Le note sono visibili solo a te.',
   },
   recordsAddTitle: {
     ko: '기록 추가',
@@ -187,7 +179,7 @@ export const DICTIONARY = {
     it: 'Scegli un santuario cercando',
   },
   recordsPickHint: {
-    ko: '성지 찾기에서 성지를 열고 아래 「방문 기록 남기기」를 누르면 여기에 쌓입니다.',
+    ko: '성지 찾기에서 성지를 열고 아래 「순례 기록 남기기」를 누르면 여기에 쌓입니다.',
     en: 'Open a shrine from Find shrines and tap “Save a visit record” at the bottom — it shows up here.',
     es: 'Abre un santuario en Buscar santuarios y toca «Guardar visita» abajo; aparecerá aquí.',
     fr: 'Ouvrez un sanctuaire via Trouver un sanctuaire et touchez « Enregistrer la visite » en bas ; elle apparaîtra ici.',
@@ -282,14 +274,6 @@ export const DICTIONARY = {
     pt: 'O campo de data da visita abre após a migração (20260914130000). Por agora só aparece a data de registro.',
     it: 'Il campo data della visita si attiva dopo la migrazione (20260914130000). Per ora è mostrata solo la data di registrazione.',
   },
-  recordsMoreFeatures: {
-    ko: '인증서·공유 카드·교구별 진행률은 이번 제출 범위에서 뺐습니다.',
-    en: 'Certificates, share cards and diocese progress are outside this submission’s scope.',
-    es: 'Certificados, tarjetas para compartir y progreso por diócesis quedan fuera de esta entrega.',
-    fr: 'Certificats, cartes de partage et progression par diocèse sont hors du périmètre de cette version.',
-    pt: 'Certificados, cartões de partilha e progresso por diocese ficam fora desta entrega.',
-    it: 'Certificati, card da condividere e progresso per diocesi sono fuori da questa consegna.',
-  },
   // 로그인·가입 상태 7종
   signupDone: {
     ko: '가입이 완료됐습니다. 바로 이용할 수 있어요.',
@@ -381,7 +365,7 @@ export const DICTIONARY = {
     it: 'Link ufficiale da confermare dall’operatore',
   },
   saveVisitRecord: {
-    ko: '방문 기록 남기기',
+    ko: '순례 기록 남기기',
     en: 'Save a visit record',
     es: 'Guardar visita',
     fr: 'Enregistrer la visite',
@@ -3244,7 +3228,7 @@ export const DICTIONARY = {
     it: 'Creazione della card…',
   },
 
-  // 성지 상세 — 한 줄 남기기
+  // 성지 상세 — 순례 기록 남기기
   noteAskTitle: {
     ko: '오늘 그곳은 어땠나요?',
     en: 'How was it today?',
@@ -3278,7 +3262,7 @@ export const DICTIONARY = {
     it: 'Più tardi',
   },
   noteSubmit: {
-    ko: '한 줄 남기기',
+    ko: '순례 기록 남기기',
     en: 'Leave a line',
     es: 'Dejar una línea',
     fr: 'Laisser un mot',
@@ -3368,7 +3352,7 @@ export const DICTIONARY = {
     it: 'Le foto e il messaggio sono condivisi in modo anonimo. Evita volti visibili.',
   },
   reviewModerationNotice: {
-    ko: '이 장소와 관련 없거나 부적절한 내용·사진(저작권·초상권 문제 포함)은 관리자 판단으로 후기에 공개하지 않을 수 있습니다.',
+    ko: '이 장소와 관련 없거나 부적절한 내용·사진(저작권·초상권 문제 포함)은 관리자 판단으로 기록에 공개하지 않을 수 있습니다.',
     en: 'Notes or photos unrelated to this place, or inappropriate (including copyright or privacy issues), may not be published as reviews at the administrator’s discretion.',
     es: 'Los textos o fotos ajenos a este lugar o inapropiados (incluidos problemas de derechos de autor o de imagen) pueden no publicarse a criterio del administrador.',
     fr: 'Les textes ou photos sans rapport avec ce lieu ou inappropriés (y compris droits d’auteur ou droit à l’image) peuvent ne pas être publiés, à la discrétion de l’administrateur.',
@@ -3377,7 +3361,7 @@ export const DICTIONARY = {
   },
 
   reviewsTitle: {
-    ko: '순례 후기 ({count})',
+    ko: '순례 기록 ({count})',
     en: 'Pilgrim reviews ({count})',
     es: 'Reseñas de peregrinos ({count})',
     fr: 'Avis de pèlerins ({count})',
@@ -3385,7 +3369,7 @@ export const DICTIONARY = {
     it: 'Recensioni dei pellegrini ({count})',
   },
   reviewsShow: {
-    ko: '후기 모두 보기',
+    ko: '기록 모두 보기',
     en: 'Show all reviews',
     es: 'Ver todas las reseñas',
     fr: 'Voir tous les avis',
@@ -3401,7 +3385,7 @@ export const DICTIONARY = {
     it: 'Mostra meno',
   },
   reviewsEmpty: {
-    ko: '아직 남겨진 후기가 없어요.',
+    ko: '아직 남겨진 기록이 없어요.',
     en: 'No reviews yet.',
     es: 'Aún no hay reseñas.',
     fr: 'Aucun avis pour le moment.',
@@ -5317,7 +5301,7 @@ export const DICTIONARY = {
     it: 'Controlla l’indirizzo.',
   },
   routeVisitedUpTo: {
-    ko: '{count}화에 후기를 남기셨어요',
+    ko: '{count}화에 기록을 남기셨어요',
     en: 'You wrote a review for {count} chapters',
     es: 'Has escrito reseñas de {count} capítulos',
     fr: 'Vous avez laissé un avis pour {count} chapitres',
@@ -5325,7 +5309,7 @@ export const DICTIONARY = {
     it: 'Hai scritto recensioni per {count} capitoli',
   },
   routeNotStarted: {
-    ko: '아직 남긴 후기 없음',
+    ko: '아직 남긴 기록 없음',
     en: 'No reviews yet',
     es: 'Aún sin reseñas',
     fr: 'Pas encore d’avis',
@@ -5357,7 +5341,7 @@ export const DICTIONARY = {
     it: 'Capitolo {n}',
   },
   routeEpisodeVisited: {
-    ko: '{n}화 · 후기 남김',
+    ko: '{n}화 · 기록 남김',
     en: 'Chapter {n} · reviewed',
     es: 'Capítulo {n} · con reseña',
     fr: 'Chapitre {n} · avis laissé',
@@ -6017,22 +6001,6 @@ export const DICTIONARY = {
     fr: 'Sanctuaire suivant',
     pt: 'Próximo santuário',
     it: 'Santuario successivo',
-  },
-  recordsLoggedInAs: {
-    ko: '{name} 님 · 기록 {count}건',
-    en: '{name} · {count} records',
-    es: '{name} · {count} registros',
-    fr: '{name} · {count} notes',
-    pt: '{name} · {count} registros',
-    it: '{name} · {count} appunti',
-  },
-  recordsLoggedInNote: {
-    ko: '로그인 상태 · 기록은 나에게만 보여요',
-    en: 'Signed in · records are visible only to you',
-    es: 'Sesión iniciada · los registros solo los ves tú',
-    fr: 'Connecté · vos notes ne sont visibles que par vous',
-    pt: 'Conectado · os registros só você vê',
-    it: 'Accesso effettuato · gli appunti li vedi solo tu',
   },
   showPassword: {
     ko: '비밀번호 보기',

@@ -67,9 +67,9 @@ export function useSiteSearch(term: string) {
  * 조회가 카드 수만큼 늘어난다. 여기는 보이는 성지 전체의 이름만 한 번의 조회로
  * 받아 온다. 번역이 없는 성지는 원문 이름(한국어)이 그대로 남는다 — 빈 이름보다 낫다.
  */
-export function useLocalizedSites<
-  T extends Pick<HolySite, 'id' | 'name'> & { location?: string },
->(sites: T[] | undefined): T[] {
+export function useLocalizedSites<T extends Pick<HolySite, 'id' | 'name'> & { location?: string }>(
+  sites: T[] | undefined,
+): T[] {
   const { language } = useSettings();
   const ids = useMemo(() => (sites ?? []).map((s) => s.id), [sites]);
   const wanted =

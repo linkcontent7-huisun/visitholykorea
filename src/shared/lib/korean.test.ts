@@ -36,7 +36,7 @@ describe('directionParticle', () => {
     expect(directionParticle('천진암 성지')).toBe('로');
   });
 
-  it("'ㄹ' 받침이면 \"로\"", () => {
+  it('\'ㄹ\' 받침이면 "로"', () => {
     expect(directionParticle('서울')).toBe('로');
     expect(directionParticle('갈')).toBe('로');
   });

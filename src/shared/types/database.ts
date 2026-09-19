@@ -58,7 +58,17 @@ export interface ArticleRow {
   author: string | null;
   summary: string | null;
   excerpt: string | null;
-  topics: Array<'pilgrimage_route' | 'pilgrimage_record' | 'statue' | 'stained_glass' | 'relic' | 'sculpture' | 'artwork' | 'architecture' | 'shrine_news'>;
+  topics: Array<
+    | 'pilgrimage_route'
+    | 'pilgrimage_record'
+    | 'statue'
+    | 'stained_glass'
+    | 'relic'
+    | 'sculpture'
+    | 'artwork'
+    | 'architecture'
+    | 'shrine_news'
+  >;
   facts: Record<string, unknown>;
   fetched_at: string;
   status: 'new' | 'reviewed' | 'used' | 'skip';

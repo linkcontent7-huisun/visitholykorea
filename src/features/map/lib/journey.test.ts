@@ -19,10 +19,7 @@ describe('orderVisitsByDate — 시간순 정렬', () => {
 
   it('날짜를 모르는 기록은 가장 앞에 둔다', () => {
     // 뒤에 두면 모르는 기록이 가장 최근인 척하게 되고 선의 끝이 엉뚱해진다
-    const ordered = orderVisitsByDate([
-      visit('known', '2026-01-01'),
-      visit('unknown', null),
-    ]);
+    const ordered = orderVisitsByDate([visit('known', '2026-01-01'), visit('unknown', null)]);
 
     expect(ordered.map((v) => v.siteId)).toEqual(['unknown', 'known']);
   });

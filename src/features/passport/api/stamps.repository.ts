@@ -140,8 +140,15 @@ export async function getMyStamp(siteId: string): Promise<MyStamp> {
     console.error('getMyStamp error:', error);
     return { stamped: false, note: null, photoUrl: null, photos: [] };
   }
-  const photos = ((data?.stamp_photos ?? []) as StampPhoto[]).sort((a, b) => a.position - b.position);
-  return { stamped: Boolean(data), note: data?.note ?? null, photoUrl: data?.photo_url ?? null, photos };
+  const photos = ((data?.stamp_photos ?? []) as StampPhoto[]).sort(
+    (a, b) => a.position - b.position,
+  );
+  return {
+    stamped: Boolean(data),
+    note: data?.note ?? null,
+    photoUrl: data?.photo_url ?? null,
+    photos,
+  };
 }
 
 export interface SiteVisitNote {
@@ -233,7 +240,8 @@ export async function uploadStampPhotos(
     const { error } = await supabase.storage
       .from('pilgrim-photos')
       .upload(path, photos[index]!, { upsert: true, contentType: 'image/jpeg' });
-    if (error) return { success: false, error: '사진을 올리지 못했습니다. 잠시 후 다시 시도해주세요.' };
+    if (error)
+      return { success: false, error: '사진을 올리지 못했습니다. 잠시 후 다시 시도해주세요.' };
     const { data: pub } = supabase.storage.from('pilgrim-photos').getPublicUrl(path);
     uploaded.push({ path, url: `${pub.publicUrl}?v=${Date.now()}`, position });
   }
@@ -243,7 +251,10 @@ export async function uploadStampPhotos(
   );
   if (error) return { success: false, error: '사진 기록을 저장하지 못했습니다.' };
   // 예전 화면도 계속 같은 사진을 표시해야 하므로 첫 사진을 대표 칸에 남긴다.
-  const { error: legacyError } = await supabase.from(TABLE).update({ photo_url: uploaded[0]?.url ?? null }).eq('id', stampId);
+  const { error: legacyError } = await supabase
+    .from(TABLE)
+    .update({ photo_url: uploaded[0]?.url ?? null })
+    .eq('id', stampId);
   if (legacyError) return { success: false, error: '사진 기록을 저장하지 못했습니다.' };
   return { success: true };
 }
@@ -336,7 +347,11 @@ export async function updateStamp(
   if ('note' in patch) payload.note = patch.note ?? null;
   if ('visitedOn' in patch && visitedOnAvailable) payload.visited_on = patch.visitedOn ?? null;
 
-  const { error } = await supabase.from(TABLE).update(payload).eq('id', stampId).eq('user_id', userId);
+  const { error } = await supabase
+    .from(TABLE)
+    .update(payload)
+    .eq('id', stampId)
+    .eq('user_id', userId);
   if (error) {
     console.error('updateStamp error:', error);
     return { success: false, error: error.message };

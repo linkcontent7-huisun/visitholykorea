@@ -98,12 +98,7 @@ const NUMERIC_PARAMS = new Set([
 const MAX_PARAM_LENGTH = 200;
 
 export type TourProxyErrorKind =
-  | 'bad_request'
-  | 'not_configured'
-  | 'rate_limited'
-  | 'upstream'
-  | 'timeout'
-  | 'network';
+  'bad_request' | 'not_configured' | 'rate_limited' | 'upstream' | 'timeout' | 'network';
 
 export interface TourProxyResult {
   status: number;
@@ -126,7 +121,11 @@ const NO_STORE_HEADERS: Record<string, string> = {
   'cache-control': 'no-store',
 };
 
-function errorResult(status: number, kind: TourProxyErrorKind, extra: Record<string, unknown> = {}): TourProxyResult {
+function errorResult(
+  status: number,
+  kind: TourProxyErrorKind,
+  extra: Record<string, unknown> = {},
+): TourProxyResult {
   return {
     status,
     headers: NO_STORE_HEADERS,
@@ -210,12 +209,24 @@ export async function handleTourProxy(
       return errorResult(429, 'rate_limited');
     }
     if (res.status >= 500) {
-      log({ op: built.op, service: built.service, status: res.status, kind: 'upstream', elapsedMs });
+      log({
+        op: built.op,
+        service: built.service,
+        status: res.status,
+        kind: 'upstream',
+        elapsedMs,
+      });
       return errorResult(502, 'upstream', { status: res.status });
     }
     if (!res.ok) {
       // 4xx(403 미승인 서비스 등)는 클라이언트가 원인을 알아야 하므로 상태를 보존한다.
-      log({ op: built.op, service: built.service, status: res.status, kind: 'upstream', elapsedMs });
+      log({
+        op: built.op,
+        service: built.service,
+        status: res.status,
+        kind: 'upstream',
+        elapsedMs,
+      });
       return errorResult(res.status, 'upstream', { status: res.status });
     }
 

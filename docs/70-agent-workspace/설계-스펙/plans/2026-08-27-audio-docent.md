@@ -24,10 +24,12 @@
 ### Task 1: 챕터 빌더 (`buildChapters`)
 
 **Files:**
+
 - Create: `src/features/docent/lib/chapters.ts`
 - Test: `src/features/docent/lib/chapters.test.ts`
 
 **Interfaces:**
+
 - Produces:
 
 ```ts
@@ -62,6 +64,7 @@ export function buildChapters(
 ```
 
 동작 규칙:
+
 - `script` 가 있고 `language === 'ko'` → `여는 말(intro) → 포인트 n개 → 맺음말(outro)`
 - `script` 가 없거나 `language === 'en'` (포인트 원고는 한국어뿐이므로) →
   `여는 말(description) → 역사(history) → 맺음말(고정 맺음 문구)`.
@@ -84,7 +87,14 @@ const script: DocentScript = {
   status: 'draft',
   intro: { narration: '여는 말입니다' },
   points: [
-    { seq: 1, title: '순교자 기념상', location: '입구 왼쪽', narration: '설명', lookFor: '십자가', forEveryone: null },
+    {
+      seq: 1,
+      title: '순교자 기념상',
+      location: '입구 왼쪽',
+      narration: '설명',
+      lookFor: '십자가',
+      forEveryone: null,
+    },
   ],
   outro: { narration: '맺음말입니다' },
 };
@@ -123,10 +133,12 @@ describe('buildChapters', () => {
 ### Task 2: 원고 로더
 
 **Files:**
+
 - Create: `src/features/docent/data/scripts.ts`
 - Test: `src/features/docent/data/scripts.test.ts`
 
 **Interfaces:**
+
 - Consumes: `DocentScript` (Task 1)
 - Produces:
 
@@ -147,11 +159,13 @@ export function getDocentScript(siteId: string | undefined): DocentScript | null
 ### Task 3: 플레이어 훅 + UI
 
 **Files:**
+
 - Create: `src/features/docent/hooks/use-docent-player.ts`
 - Create: `src/features/docent/components/DocentPlayer.tsx`
 - Test: `src/features/docent/components/DocentPlayer.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `DocentChapter` (Task 1)
 - Produces:
 
@@ -180,9 +194,11 @@ UI: 챕터 목록(번호·제목·현재 챕터 강조), 챕터 행을 누르면
 ### Task 4: 성지 상세에 연결
 
 **Files:**
+
 - Modify: `src/pages/SiteDetailPage.tsx` (기존 TTS 버튼·`toggleSpeech`·`isSpeaking` 제거)
 
 **Interfaces:**
+
 - Consumes: `buildChapters`, `getDocentScript`, `DocentPlayer`
 
 - [x] **Step 1: 교체** — "성지 이야기" 섹션 헤더의 Volume2 버튼과 관련 상태·effect 를 지우고, 본문 카드 위에:
@@ -190,12 +206,16 @@ UI: 챕터 목록(번호·제목·현재 챕터 강조), 챕터 행을 누르면
 ```tsx
 const script = getDocentScript(site.id);
 const chapters = buildChapters(
-  { name: view?.name ?? site.name, description: view?.description ?? site.description, history: view?.history ?? site.history },
+  {
+    name: view?.name ?? site.name,
+    description: view?.description ?? site.description,
+    history: view?.history ?? site.history,
+  },
   script,
   language,
 );
 // ...
-<DocentPlayer chapters={chapters} isDraft={script?.status === 'draft'} language={language} />
+<DocentPlayer chapters={chapters} isDraft={script?.status === 'draft'} language={language} />;
 ```
 
 - [x] **Step 2: 전체 검증** — `npm run verify` → PASS (기존 테스트 188개 + 신규)
@@ -204,18 +224,21 @@ const chapters = buildChapters(
 ### Task 5: 초안 원고 3곳 (절두산·명동·약현)
 
 **Files:**
+
 - Create: `data/docent/절두산-순교성지.json`, `data/docent/명동대성당.json`, `data/docent/약현성당.json`
 
 **Interfaces:** 기존 `data/docent/_템플릿.json` 형식. `siteId` 는 DB 실측값(2026-08-27):
+
 - 절두산 순교성지 `3f20f0d4-e2df-4b33-9d9c-a8c77ac679cd`
 - 명동대성당 `4b4199cf-2236-4842-8996-38ee9d36e542`
 - 약현성당 (중림동성당) `59613365-3ed5-47df-a65e-7fbac90156a4`
 
 작성 규칙(스펙의 근거 제한을 그대로):
+
 - 근거는 DB 원문(`scripts/tmp-docent-sources.json` 로 내려받음) + **공식 홈페이지**(절두산 jeoldusan.or.kr, 서울대교구·굿뉴스 성지 안내, 명동대성당 mdsd.or.kr)에서 이번 세션에 실제로 확인한 내용만
 - 포인트마다 `sourceNote` 에 출처 명시, 확인 못 한 디테일은 쓰지 않는다
 - `status: "draft"`, `surveyedBy: "현장: 미조사 / 원고: Claude (문헌 기반 초안)"`, `surveyedAt: "2026-08-27"`
-- 문체: 구어체 존댓말 3~6문장 (TTS 로 읽힌다), 포인트 4~6개
+- 문체: 구어체 존댓말 3~~6문장 (TTS 로 읽힌다), 포인트 4~~6개
 - 포인트 뼈대(공식 자료에서 확인되는 범위로 조정):
   절두산 = 입구·순교자 기념상 → 잠두봉(절두산 이름의 유래) → 기념성당 → 성해실(28위) → 박물관 → 한강 전망
   명동 = 언덕길 진입 → 성당 외관(고딕·종탑 47m) → 내부·스테인드글라스 → 지하 성당(유해 안장) → 1987년 민주화 운동
@@ -229,6 +252,7 @@ const chapters = buildChapters(
 ### Task 6: 화면 확인·문서 정리
 
 **Files:**
+
 - Modify: `docs/이어서-할-일.md` (3.8 항목 갱신)
 - Delete: `scripts/tmp-fetch-docent.ts`, `scripts/tmp-docent-sources.json` (gitignore 대상 임시 파일)
 

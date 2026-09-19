@@ -10,7 +10,10 @@ import {
   type NearbyCrowding,
 } from '@/features/crowding/api/crowding-score';
 import { fetchCongestionRatesForSite } from '@/features/crowding/api/congestion-lookup';
-import { groupNearbyFacilities, type GroupedFacilities } from '@/features/sites/lib/nearby-facilities';
+import {
+  groupNearbyFacilities,
+  type GroupedFacilities,
+} from '@/features/sites/lib/nearby-facilities';
 import { rankAfternoon, type AfternoonPick } from '../lib/afternoon-pick';
 import { assignTags, type CandidateTag } from '../lib/candidate-tags';
 import type { PooledSite } from '../api/course-matching';
@@ -51,7 +54,12 @@ export function useCandidatePlans(pooled: readonly PooledSite[]): Candidate[] {
       return {
         queryKey: queryKeys.tour.facilities(lat ?? 0, lng ?? 0, language),
         queryFn: () =>
-          getNearbyByLocation(lng!, lat!, { radiusMeters: 5000, numOfRows: 50, contentTypeId: null, language }),
+          getNearbyByLocation(lng!, lat!, {
+            radiusMeters: 5000,
+            numOfRows: 50,
+            contentTypeId: null,
+            language,
+          }),
         enabled: lat != null && lng != null,
         ...REALTIME_QUERY_OPTIONS,
       };

@@ -360,7 +360,10 @@ function buildSection(folder: string, blurb: string): Section | null {
       const noteCells = row
         .map((text, i) =>
           i === candidate.cellIndex
-            ? text.replace(`\`${candidate.raw}\``, '').replace(/^[\s—·,:-]+/, '').trim()
+            ? text
+                .replace(`\`${candidate.raw}\``, '')
+                .replace(/^[\s—·,:-]+/, '')
+                .trim()
             : text,
         )
         .slice(1)
@@ -464,10 +467,7 @@ function renderTable(table: Table): string {
   return `<table><thead><tr>${header
     .map((c) => `<th>${escapeHtml(plain(c))}</th>`)
     .join('')}</tr></thead><tbody>${rows
-    .map(
-      (row) =>
-        `<tr>${row.map((c) => `<td>${escapeHtml(plain(c))}</td>`).join('')}</tr>`,
-    )
+    .map((row) => `<tr>${row.map((c) => `<td>${escapeHtml(plain(c))}</td>`).join('')}</tr>`)
     .join('')}</tbody></table>`;
 }
 
@@ -501,14 +501,10 @@ function renderSections(): string {
               .join('')}</ul>`,
         )
         .join('');
-      const blurb = section.blurb
-        ? `<p class="blurb">${escapeHtml(section.blurb)}</p>`
-        : '';
+      const blurb = section.blurb ? `<p class="blurb">${escapeHtml(section.blurb)}</p>` : '';
       return `<section class="folder" id="${escapeHtml(section.folder)}" data-folder="${escapeHtml(
         section.folder,
-      )}"><header class="folder-head"><h2>${escapeHtml(
-        section.title,
-      )}</h2><code>docs/${escapeHtml(
+      )}"><header class="folder-head"><h2>${escapeHtml(section.title)}</h2><code>docs/${escapeHtml(
         section.folder,
       )}/</code></header>${blurb}${groups}</section>`;
     })
@@ -916,7 +912,9 @@ const md: string[] = [
   '',
   '| 없는 경로 | 가리키는 곳 |',
   '| --- | --- |',
-  ...missing.map((m) => `| \`${m.path}\` | ${m.from.length}곳 — ${m.from.map((f) => `\`${f}\``).join(', ')} |`),
+  ...missing.map(
+    (m) => `| \`${m.path}\` | ${m.from.length}곳 — ${m.from.map((f) => `\`${f}\``).join(', ')} |`,
+  ),
   '',
   '---',
   '',
@@ -948,12 +946,7 @@ const md: string[] = [
   }
 }
 
-md.push(
-  '---',
-  '',
-  '`npm run docs:hub` 로 다시 만든다 · 생성기 `scripts/docs-hub.ts`',
-  '',
-);
+md.push('---', '', '`npm run docs:hub` 로 다시 만든다 · 생성기 `scripts/docs-hub.ts`', '');
 
 const markdown = md.join('\n');
 
@@ -1017,6 +1010,10 @@ if (process.argv.includes('--open')) {
   console.log(`\n브라우저로 엽니다 → ${pathToFileURL(OUT).href}`);
   openInBrowser(OUT);
 } else {
-  console.log('\n눈으로 보려면 → npm run docs   (검색·필터가 되는 docs/index.html 을 브라우저로 연다)');
-  console.log('마크다운 판(docs/DSH/문서-허브.md)은 순수 마크다운이라 GitHub·미리보기에서 표로 보인다.');
+  console.log(
+    '\n눈으로 보려면 → npm run docs   (검색·필터가 되는 docs/index.html 을 브라우저로 연다)',
+  );
+  console.log(
+    '마크다운 판(docs/DSH/문서-허브.md)은 순수 마크다운이라 GitHub·미리보기에서 표로 보인다.',
+  );
 }

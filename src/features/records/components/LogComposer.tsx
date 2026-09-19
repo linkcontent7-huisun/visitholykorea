@@ -58,9 +58,13 @@ export function LogComposer({
     const { maxCount } = photoPolicy();
     const room = Math.max(0, maxCount - photos.length);
     const picked = Array.from(files).slice(0, room);
-    if (files.length > room) setPhotoNotice(fillPlaceholders(t('logPhotoLimit'), { count: maxCount }));
+    if (files.length > room)
+      setPhotoNotice(fillPlaceholders(t('logPhotoLimit'), { count: maxCount }));
     else setPhotoNotice(null);
-    setPhotos((prev) => [...prev, ...picked.map((file) => ({ file, preview: URL.createObjectURL(file) }))]);
+    setPhotos((prev) => [
+      ...prev,
+      ...picked.map((file) => ({ file, preview: URL.createObjectURL(file) })),
+    ]);
   };
 
   const removePhoto = (index: number) => setPhotos((prev) => prev.filter((_, i) => i !== index));
@@ -160,9 +164,7 @@ export function LogComposer({
             ))}
           </datalist>
           {siteQuery !== '' && siteId === '' && (
-            <p className="mt-1.5 text-xs text-app-text-muted">
-              {t('logSitePickExact')}
-            </p>
+            <p className="mt-1.5 text-xs text-app-text-muted">{t('logSitePickExact')}</p>
           )}
         </div>
 
@@ -217,7 +219,11 @@ export function LogComposer({
           <div className="grid grid-cols-4 gap-2">
             {photos.map((p, i) => (
               <div key={p.preview} className="relative">
-                <img src={p.preview} alt="" className="aspect-square w-full rounded-lg object-cover" />
+                <img
+                  src={p.preview}
+                  alt=""
+                  className="aspect-square w-full rounded-lg object-cover"
+                />
                 <button
                   type="button"
                   onClick={() => removePhoto(i)}

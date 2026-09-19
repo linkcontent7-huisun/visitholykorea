@@ -130,17 +130,32 @@ let discovered: { at: number; models: string[] } | null = null;
 async function discoverModels(force = false): Promise<string[]> {
   if (!force && discovered && Date.now() - discovered.at < 60 * 60 * 1000) return discovered.models;
   try {
-    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200', {
-      headers: { 'x-goog-api-key': GEMINI_API_KEY! },
-      signal: AbortSignal.timeout(8_000),
-    });
+    const res = await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models?pageSize=200',
+      {
+        headers: { 'x-goog-api-key': GEMINI_API_KEY! },
+        signal: AbortSignal.timeout(8_000),
+      },
+    );
     if (!res.ok) return [];
-    const { models = [] } = (await res.json()) as { models?: { name: string; supportedGenerationMethods?: string[] }[] };
+    const { models = [] } = (await res.json()) as {
+      models?: { name: string; supportedGenerationMethods?: string[] }[];
+    };
     const names = models
       .filter((m) => (m.supportedGenerationMethods ?? []).includes('generateContent'))
       .map((m) => m.name.replace(/^models\//, ''))
-      .filter((n) => /^gemini-/.test(n) && !/(embedding|image|audio|tts|live|vision|exp|preview|thinking|robotics|computer|latest)/i.test(n))
-      .sort((a, b) => (/flash-lite/.test(a) ? 1 : /flash/.test(a) ? 0 : 2) - (/flash-lite/.test(b) ? 1 : /flash/.test(b) ? 0 : 2));
+      .filter(
+        (n) =>
+          /^gemini-/.test(n) &&
+          !/(embedding|image|audio|tts|live|vision|exp|preview|thinking|robotics|computer|latest)/i.test(
+            n,
+          ),
+      )
+      .sort(
+        (a, b) =>
+          (/flash-lite/.test(a) ? 1 : /flash/.test(a) ? 0 : 2) -
+          (/flash-lite/.test(b) ? 1 : /flash/.test(b) ? 0 : 2),
+      );
     discovered = { at: Date.now(), models: names.slice(0, 4) };
     console.warn('ai-guide: ListModels 로 모델 재발견 —', discovered.models.join(', '));
     return discovered.models;
@@ -157,7 +172,12 @@ async function candidateModels(): Promise<string[]> {
   return unique.length > 0 ? unique : await discoverModels();
 }
 
-async function callGeminiOnce(model: string, systemInstruction: string, userPrompt: string, history: Turn[]): Promise<string> {
+async function callGeminiOnce(
+  model: string,
+  systemInstruction: string,
+  userPrompt: string,
+  history: Turn[],
+): Promise<string> {
   const res = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
     {
@@ -170,7 +190,10 @@ async function callGeminiOnce(model: string, systemInstruction: string, userProm
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: systemInstruction }] },
         contents: [
-          ...history.map((h) => ({ role: h.role === 'bot' ? 'model' : 'user', parts: [{ text: h.text }] })),
+          ...history.map((h) => ({
+            role: h.role === 'bot' ? 'model' : 'user',
+            parts: [{ text: h.text }],
+          })),
           { role: 'user', parts: [{ text: userPrompt }] },
         ],
       }),
@@ -182,7 +205,10 @@ async function callGeminiOnce(model: string, systemInstruction: string, userProm
     throw new RateLimitError();
   }
   if (!res.ok) {
-    console.error(`Gemini 호출 실패 (${model}, HTTP ${res.status}):`, (await res.text()).slice(0, 300));
+    console.error(
+      `Gemini 호출 실패 (${model}, HTTP ${res.status}):`,
+      (await res.text()).slice(0, 300),
+    );
     throw new GeminiHttpError(res.status);
   }
 
@@ -195,11 +221,16 @@ async function callGeminiOnce(model: string, systemInstruction: string, userProm
 function isRetryable(err: unknown): boolean {
   if (err instanceof RateLimitError) return true;
   if (err instanceof GeminiHttpError) return RETRYABLE_STATUS.has(err.status) || err.status === 204;
-  if (err instanceof Error && (err.name === 'TimeoutError' || err.name === 'AbortError')) return true;
+  if (err instanceof Error && (err.name === 'TimeoutError' || err.name === 'AbortError'))
+    return true;
   return err instanceof TypeError; // fetch 네트워크 오류
 }
 
-async function callGemini(systemInstruction: string, userPrompt: string, history: Turn[] = []): Promise<string> {
+async function callGemini(
+  systemInstruction: string,
+  userPrompt: string,
+  history: Turn[] = [],
+): Promise<string> {
   const started = Date.now();
   let lastErr: unknown = null;
   let attempts = 0;
@@ -235,7 +266,9 @@ async function callGemini(systemInstruction: string, userPrompt: string, history
       await sleep(1_000); // 짧게 자주 — 과부하는 몇 초 안에 풀리는 일이 많다
     }
   }
-  console.warn(`ai-guide: ${attempts}회 시도 뒤 포기 (${Math.round((Date.now() - started) / 1000)}초) — 정보 카드로`);
+  console.warn(
+    `ai-guide: ${attempts}회 시도 뒤 포기 (${Math.round((Date.now() - started) / 1000)}초) — 정보 카드로`,
+  );
   throw lastErr ?? new GeminiHttpError(503);
 }
 
@@ -244,12 +277,24 @@ async function callGemini(systemInstruction: string, userPrompt: string, history
  * 성지 수가 200곳 내외라 이름·주소 부분 일치 검색으로 충분하며,
  * 콘텐츠가 늘어나면 pgvector 임베딩 검색으로 교체한다.
  */
-type DirRow = { name: string; category: string | null; diocese: string | null; address: string | null; phone: string | null };
+type DirRow = {
+  name: string;
+  category: string | null;
+  diocese: string | null;
+  address: string | null;
+  phone: string | null;
+};
 interface SiteContext {
   text: string;
   /** 질문에 이름이 직접 맞은 성지 — 「참고한 성지」와 폴백 카드는 이것만 보여준다. 없으면 검색 1순위 하나 */
   primary: SiteContext['sites'];
-  sites: { name: string; category: string | null; diocese: string | null; location: string | null; description: string | null }[];
+  sites: {
+    name: string;
+    category: string | null;
+    diocese: string | null;
+    location: string | null;
+    description: string | null;
+  }[];
   dirs: DirRow[];
 }
 
@@ -258,10 +303,33 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
 
   // 질문에서 2글자 이상 토큰만 뽑는다. 「대산성당에」처럼 조사가 붙은 채로 오므로 흔한 조사를 떼고,
   // 「대산성당」→「대산」처럼 성당/성지 같은 꼬리도 뗀 후보를 함께 만든다 (2026-09-13 사장님 실기기 보고).
-  const PARTICLES = ['에서는', '에서', '에는', '에게', '으로', '이랑', '인가요', '이에요', '은', '는', '이', '가', '을', '를', '의', '도', '로', '과', '와', '에', '요'];
+  const PARTICLES = [
+    '에서는',
+    '에서',
+    '에는',
+    '에게',
+    '으로',
+    '이랑',
+    '인가요',
+    '이에요',
+    '은',
+    '는',
+    '이',
+    '가',
+    '을',
+    '를',
+    '의',
+    '도',
+    '로',
+    '과',
+    '와',
+    '에',
+    '요',
+  ];
   const SUFFIXES = ['순교성지', '순교지', '성지', '성당', '공소', '본당', '교회', '기념관', '묘'];
   const stripParticle = (t: string) => {
-    for (const p of PARTICLES) if (t.length - p.length >= 2 && t.endsWith(p)) return t.slice(0, -p.length);
+    for (const p of PARTICLES)
+      if (t.length - p.length >= 2 && t.endsWith(p)) return t.slice(0, -p.length);
     return t;
   };
   const rawTokens = question
@@ -274,19 +342,94 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
   for (const t of rawTokens) {
     const c = t.replace(/\s+/g, '');
     compactTokens.add(c);
-    for (const s of SUFFIXES) if (c.length - s.length >= 2 && c.endsWith(s)) compactTokens.add(c.slice(0, -s.length));
+    for (const s of SUFFIXES)
+      if (c.length - s.length >= 2 && c.endsWith(s)) compactTokens.add(c.slice(0, -s.length));
   }
   // 흔한 말은 검색어에서 뺀다. 「성지」「어디」「미사」 같은 단어가 208곳 전부에 걸려
   // 물어본 성지 대신 아무 5곳이 컨텍스트에 들어갔다 (2026-09-17 실측: 10문 중 6문 "모른다").
-  const STOP = new Set(['성지', '성당', '순교성지', '순교지', '본당', '공소', '교회', '천주교', '가톨릭', '순례',
-    '어디', '어디예', '어디에', '위치', '있어', '있는', '있나', '있을까', '가는', '가요', '갈까', '갈만한', '근처', '주변', '가까운',
-    '미사', '시간', '알려', '알려줘', '알려주세', '주세', '추천', '추천해', '설명', '설명해', '간단히', '무슨', '어떤', '어떻게',
-    '언제', '얼마', '얼마예', '전화', '전화번호', '연락처', '주소', '역사', '소개', '정보', '곳이에', '곳', '입장료', '사람', '명이에',
-    '신부님', '신부', '성인', '순교자', '순교', '박해', '때', '것', '거', '좀', '저', '제가', '우리', '오늘', '내일', '주말']);
+  const STOP = new Set([
+    '성지',
+    '성당',
+    '순교성지',
+    '순교지',
+    '본당',
+    '공소',
+    '교회',
+    '천주교',
+    '가톨릭',
+    '순례',
+    '어디',
+    '어디예',
+    '어디에',
+    '위치',
+    '있어',
+    '있는',
+    '있나',
+    '있을까',
+    '가는',
+    '가요',
+    '갈까',
+    '갈만한',
+    '근처',
+    '주변',
+    '가까운',
+    '미사',
+    '시간',
+    '알려',
+    '알려줘',
+    '알려주세',
+    '주세',
+    '추천',
+    '추천해',
+    '설명',
+    '설명해',
+    '간단히',
+    '무슨',
+    '어떤',
+    '어떻게',
+    '언제',
+    '얼마',
+    '얼마예',
+    '전화',
+    '전화번호',
+    '연락처',
+    '주소',
+    '역사',
+    '소개',
+    '정보',
+    '곳이에',
+    '곳',
+    '입장료',
+    '사람',
+    '명이에',
+    '신부님',
+    '신부',
+    '성인',
+    '순교자',
+    '순교',
+    '박해',
+    '때',
+    '것',
+    '거',
+    '좀',
+    '저',
+    '제가',
+    '우리',
+    '오늘',
+    '내일',
+    '주말',
+  ]);
   const tokens = [...compactTokens].filter((t) => !STOP.has(t));
   if (tokens.length === 0) return { text: '', primary: [], sites: [], dirs: [] };
 
-  type Row = { name: string; category: string | null; diocese: string | null; location: string | null; description: string | null; history: string | null };
+  type Row = {
+    name: string;
+    category: string | null;
+    diocese: string | null;
+    location: string | null;
+    description: string | null;
+    history: string | null;
+  };
   const picked: Row[] = [];
   const seen = new Set<string>();
   const take = (rows: Row[] | null | undefined) => {
@@ -298,12 +441,38 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
   };
   const SELECT = 'name, category, diocese, location, description, history';
   // ① 이름이 맞는 곳부터 (name_compact: 공백 제거 열, 띄어쓰기 무관)
-  take((await supabase.from('holy_sites').select(SELECT).or(tokens.map((t) => `name_compact.ilike.%${t}%`).join(',')).limit(5)).data);
+  take(
+    (
+      await supabase
+        .from('holy_sites')
+        .select(SELECT)
+        .or(tokens.map((t) => `name_compact.ilike.%${t}%`).join(','))
+        .limit(5)
+    ).data,
+  );
   const nameHits = picked.length; // 여기까지가 이름으로 맞은 곳
   // ② 그다음 주소에 지역명이 있는 곳 (천안 · 서울 …)
-  if (picked.length < 5) take((await supabase.from('holy_sites').select(SELECT).or(tokens.map((t) => `location.ilike.%${t}%`).join(',')).limit(5)).data);
+  if (picked.length < 5)
+    take(
+      (
+        await supabase
+          .from('holy_sites')
+          .select(SELECT)
+          .or(tokens.map((t) => `location.ilike.%${t}%`).join(','))
+          .limit(5)
+      ).data,
+    );
   // ③ 마지막으로 소개·역사에 언급된 곳 (김대건 → 솔뫼 …)
-  if (picked.length < 5) take((await supabase.from('holy_sites').select(SELECT).or(tokens.flatMap((t) => [`description.ilike.%${t}%`, `history.ilike.%${t}%`]).join(',')).limit(5)).data);
+  if (picked.length < 5)
+    take(
+      (
+        await supabase
+          .from('holy_sites')
+          .select(SELECT)
+          .or(tokens.flatMap((t) => [`description.ilike.%${t}%`, `history.ilike.%${t}%`]).join(','))
+          .limit(5)
+      ).data,
+    );
 
   const siteLines =
     picked.length === 0
@@ -332,7 +501,12 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
   const text =
     siteLines.length === 0 && dirLines.length === 0
       ? ''
-      : [...siteLines, ...(dirLines.length ? ['', '[본당·공소 주소록 — 이름·주소·전화만 있음]', ...dirLines] : [])].join('\n\n');
+      : [
+          ...siteLines,
+          ...(dirLines.length
+            ? ['', '[본당·공소 주소록 — 이름·주소·전화만 있음]', ...dirLines]
+            : []),
+        ].join('\n\n');
   // 사용자가 여러 성지를 물은 게 아니면 하나만 앞세운다 (2026-09-19 사장님) — 이름이 맞은 곳들, 없으면 1순위 하나
   const primary = nameHits > 0 ? picked.slice(0, nameHits) : picked.slice(0, 1);
   return { text, primary, sites: picked, dirs };
@@ -341,7 +515,11 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
 /** 소개글 첫 두 문장. 폴백 카드는 DB 글자를 그대로 쓴다 — 지어내는 것이 없다. */
 function firstSentences(s: string | null, n = 2): string {
   if (!s) return '';
-  return s.split(/(?<=[.!?。])\s+/).slice(0, n).join(' ').trim();
+  return s
+    .split(/(?<=[.!?。])\s+/)
+    .slice(0, n)
+    .join(' ')
+    .trim();
 }
 
 /**
@@ -423,7 +601,14 @@ Deno.serve(async (req) => {
       const card = fallbackCard(ctx);
       if (card) {
         // reason: 한도(429) · 업스트림 상태 코드 · 그 밖(네트워크·시간 초과). 비밀값 없음.
-        const reason = err instanceof RateLimitError ? 'rate_limited' : err instanceof GeminiHttpError ? `gemini_${err.status}` : err instanceof Error && err.name === 'TimeoutError' ? 'gemini_timeout' : 'gemini_error';
+        const reason =
+          err instanceof RateLimitError
+            ? 'rate_limited'
+            : err instanceof GeminiHttpError
+              ? `gemini_${err.status}`
+              : err instanceof Error && err.name === 'TimeoutError'
+                ? 'gemini_timeout'
+                : 'gemini_error';
         console.warn('ai-guide fallback:', reason);
         return new Response(JSON.stringify({ text: card, sources, fallback: true, reason }), {
           headers: { ...corsFor(req), 'content-type': 'application/json' },
@@ -434,7 +619,10 @@ Deno.serve(async (req) => {
   } catch (err) {
     if (err instanceof RateLimitError) {
       return new Response(
-        JSON.stringify({ error: '지금 질문이 많아 미카엘 천사가 잠시 숨을 고르고 있어요. 1분 뒤에 다시 물어봐 주세요.' }),
+        JSON.stringify({
+          error:
+            '지금 질문이 많아 미카엘 천사가 잠시 숨을 고르고 있어요. 1분 뒤에 다시 물어봐 주세요.',
+        }),
         { status: 429, headers: { ...corsFor(req), 'content-type': 'application/json' } },
       );
     }

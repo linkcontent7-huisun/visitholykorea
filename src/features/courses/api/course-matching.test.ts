@@ -87,13 +87,15 @@ describe('rankByDistance — 반경 안 · 가까운 순', () => {
   });
 
   it('하루 60km · 1박2일 180km 로 넓어지고, 좌표 없는 곳은 어떤 반경에도 안 들어온다', () => {
-    expect(rankByDistance(SITES, SEOUL, RADIUS_KM_BY_TIME.하루).map((p) => p.site.name)).toEqual(['절두산']);
-    expect(rankByDistance(SITES, SEOUL, RADIUS_KM_BY_TIME['1박2일']).map((p) => p.site.name)).toEqual([
+    expect(rankByDistance(SITES, SEOUL, RADIUS_KM_BY_TIME.하루).map((p) => p.site.name)).toEqual([
       '절두산',
-      '미리내',
-      '솔뫼',
     ]);
-    expect(rankByDistance(SITES, SEOUL, Infinity).map((p) => p.site.name)).not.toContain('좌표없음');
+    expect(
+      rankByDistance(SITES, SEOUL, RADIUS_KM_BY_TIME['1박2일']).map((p) => p.site.name),
+    ).toEqual(['절두산', '미리내', '솔뫼']);
+    expect(rankByDistance(SITES, SEOUL, Infinity).map((p) => p.site.name)).not.toContain(
+      '좌표없음',
+    );
   });
 
   it('거리가 오름차순이고 최대 개수를 넘지 않는다', () => {
