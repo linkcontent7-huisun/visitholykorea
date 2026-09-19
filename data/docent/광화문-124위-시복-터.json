@@ -7,15 +7,28 @@
   "status": "draft",
   "intro": {
     "narration": "여기는 2014년 8월 16일 프란치스코 교황이 124위 순교자를 복자로 선포한 광화문광장입니다. 건물 대신 광장과 표지, 그리고 주변 관청 터를 함께 보겠습니다.",
+    "narrationEn": "This is Gwanghwamun Square, where Pope Francis declared 124 martyrs blessed on August 16, 2014. Instead of a building, let us look together at the square, its markers, and the nearby sites of government offices.",
+    "narrationEs": "Esta es la plaza Gwanghwamun, donde el papa Francisco declaró beatos a 124 mártires el 16 de agosto de 2014. En vez de un edificio, veamos juntos la plaza, sus señales y los solares cercanos de oficinas gubernamentales.",
+    "narrationIt": "Questa è piazza Gwanghwamun, dove papa Francesco proclamò beati 124 martiri il 16 agosto 2014. Invece di un edificio, osserviamo insieme la piazza, i suoi segnali e i vicini siti degli uffici governativi.",
+    "narrationPt": "Esta é a Praça Gwanghwamun, onde o papa Francisco declarou beatos 124 mártires em 16 de agosto de 2014. Em vez de um edifício, vamos observar juntos a praça, seus marcos e os locais próximos de repartições governamentais.",
+    "narrationFr": "Voici la place Gwanghwamun, où le pape François a proclamé bienheureux 124 martyrs le 16 août 2014. Plutôt qu'un bâtiment, observons ensemble la place, ses repères et les sites voisins d'anciens bureaux gouvernementaux.",
     "photos": []
   },
   "points": [
     {
       "seq": 1,
       "title": "광장 — 시복식 자리",
+      "titleEn": "Square — Beatification Ceremony Site", "titleEs": "Plaza — Lugar de la Ceremonia de Beatificación", "titleIt": "Piazza — Luogo della Cerimonia di Beatificazione", "titlePt": "Praça — Local da Cerimônia de Beatificação", "titleFr": "Place — Lieu de la Cérémonie de Béatification",
       "location": "광화문광장 한가운데",
+      "locationEn": "In the middle of Gwanghwamun Square", "locationEs": "En el centro de la plaza Gwanghwamun", "locationIt": "Al centro di piazza Gwanghwamun", "locationPt": "No centro da Praça Gwanghwamun", "locationFr": "Au centre de la place Gwanghwamun",
       "narration": "이 광장에서 2014년 8월 16일 프란치스코 교황이 윤지충 바오로와 동료 123위를 복자로 선포했습니다. 한국에서 교황이 직접 집전한 첫 시복식이었습니다. 당시 제단과 좌석은 행사 뒤 철거되어 지금은 넓은 광장만 남아 있습니다.",
+      "narrationEn": "In this square on August 16, 2014, Pope Francis declared Paul Yun Ji-chung and 123 companions blessed. It was the first beatification ceremony in Korea personally presided over by a pope. The altar and seats used then were removed after the event, leaving only the broad square today.",
+      "narrationEs": "En esta plaza, el 16 de agosto de 2014, el papa Francisco declaró beatos a Pablo Yun Ji-chung y a 123 compañeros. Fue la primera ceremonia de beatificación en Corea presidida personalmente por un papa. El altar y los asientos utilizados entonces se retiraron después del acto, y hoy solo queda la amplia plaza.",
+      "narrationIt": "In questa piazza, il 16 agosto 2014, papa Francesco proclamò beati Paolo Yun Ji-chung e 123 compagni. Fu la prima cerimonia di beatificazione in Corea presieduta personalmente da un papa. L'altare e i sedili usati allora furono rimossi dopo l'evento, e oggi rimane soltanto l'ampia piazza.",
+      "narrationPt": "Nesta praça, em 16 de agosto de 2014, o papa Francisco declarou beatos Paulo Yun Ji-chung e 123 companheiros. Foi a primeira cerimônia de beatificação na Coreia presidida pessoalmente por um papa. O altar e os assentos usados então foram retirados depois do evento, restando hoje apenas a ampla praça.",
+      "narrationFr": "Sur cette place, le 16 août 2014, le pape François a proclamé bienheureux Paul Yun Ji-chung et 123 compagnons. Ce fut la première cérémonie de béatification en Corée présidée personnellement par un pape. L'autel et les sièges utilisés alors ont été retirés après l'événement, et seule la vaste place demeure aujourd'hui.",
       "lookFor": "광장 주변의 천주교 서울 순례길 표지",
+      "lookForEn": "The Catholic Seoul Pilgrimage Route marker around the square", "lookForEs": "La señal de la Ruta Católica de Peregrinación de Seúl alrededor de la plaza", "lookForIt": "Il segnale del Cammino Cattolico di Pellegrinaggio di Seul intorno alla piazza", "lookForPt": "A placa da Rota Católica de Peregrinação de Seul ao redor da praça", "lookForFr": "Le repère du Chemin catholique de pèlerinage de Séoul autour de la place",
       "forEveryone": "2014년 교황 방한 때 세계 뉴스에 나온 바로 그 자리입니다.",
       "photos": [],
       "sourceNote": "서울 순례길 안내(명동성당): https://home.catholic.or.kr/pdsm/bbs_view.asp?Page=9&id=192854&menu=4831&num=175"
@@ -23,9 +36,17 @@
     {
       "seq": 2,
       "title": "북쪽 — 광화문과 경복궁",
+      "titleEn": "North — Gwanghwamun Gate and Gyeongbokgung Palace", "titleEs": "Norte — Puerta Gwanghwamun y Palacio Gyeongbokgung", "titleIt": "Nord — Porta Gwanghwamun e Palazzo Gyeongbokgung", "titlePt": "Norte — Portão Gwanghwamun e Palácio Gyeongbokgung", "titleFr": "Nord — Porte Gwanghwamun et Palais Gyeongbokgung",
       "location": "광장 북쪽 끝",
+      "locationEn": "At the northern end of the square", "locationEs": "En el extremo norte de la plaza", "locationIt": "All'estremità nord della piazza", "locationPt": "Na extremidade norte da praça", "locationFr": "À l'extrémité nord de la place",
       "narration": "광장 북쪽으로 조선 왕조의 정문 광화문이 보입니다. 국가 권력에 희생된 신자들을 그 정문 앞에서 공개적으로 기렸다는 점이 이 장소의 특별함입니다.",
+      "narrationEn": "To the north of the square, you can see Gwanghwamun, the main gate of the Joseon dynasty. What makes this place special is that believers who fell victim to state power were publicly honored in front of that very gate.",
+      "narrationEs": "Al norte de la plaza puede ver Gwanghwamun, la puerta principal de la dinastía Joseon. Lo especial de este lugar es que los creyentes víctimas del poder del Estado fueron honrados públicamente ante esa misma puerta.",
+      "narrationIt": "A nord della piazza può vedere Gwanghwamun, la porta principale della dinastia Joseon. La particolarità di questo luogo è che i fedeli vittime del potere statale furono onorati pubblicamente davanti a quella stessa porta.",
+      "narrationPt": "Ao norte da praça, você pode ver Gwanghwamun, o portão principal da dinastia Joseon. O que torna este lugar especial é o fato de os fiéis vitimados pelo poder do Estado terem sido homenageados publicamente diante desse mesmo portão.",
+      "narrationFr": "Au nord de la place, vous pouvez voir Gwanghwamun, la porte principale de la dynastie Joseon. Ce lieu est particulier parce que les fidèles victimes du pouvoir de l'État ont été honorés publiquement devant cette même porte.",
       "lookFor": "광화문 너머 경복궁의 지붕선",
+      "lookForEn": "The roofline of Gyeongbokgung Palace beyond Gwanghwamun Gate", "lookForEs": "La línea de los tejados del Palacio Gyeongbokgung más allá de la puerta Gwanghwamun", "lookForIt": "Il profilo dei tetti del Palazzo Gyeongbokgung oltre la porta Gwanghwamun", "lookForPt": "A linha dos telhados do Palácio Gyeongbokgung além do Portão Gwanghwamun", "lookForFr": "La ligne des toits du palais Gyeongbokgung au-delà de la porte Gwanghwamun",
       "forEveryone": "조선의 정치 중심지가 순교자를 기리는 무대가 되었습니다.",
       "photos": [],
       "sourceNote": "서울 순례길 안내(명동성당): https://home.catholic.or.kr/pdsm/bbs_view.asp?Page=9&id=192854&menu=4831&num=175"
@@ -33,9 +54,17 @@
     {
       "seq": 3,
       "title": "주변 — 형조·의금부 터",
+      "titleEn": "Nearby — Sites of the Hyeongjo and Uigeumbu", "titleEs": "Alrededores — Solares del Hyeongjo y el Uigeumbu", "titleIt": "Dintorni — Siti dello Hyeongjo e dell'Uigeumbu", "titlePt": "Arredores — Locais do Hyeongjo e do Uigeumbu", "titleFr": "Alentours — Sites du Hyeongjo et de l'Uigeumbu",
       "location": "광장 남쪽, 세종대로 보도",
+      "locationEn": "South of the square, on the Sejong-daero sidewalk", "locationEs": "Al sur de la plaza, en la acera de Sejong-daero", "locationIt": "A sud della piazza, sul marciapiede di Sejong-daero", "locationPt": "Ao sul da praça, na calçada de Sejong-daero", "locationFr": "Au sud de la place, sur le trottoir de Sejong-daero",
       "narration": "광장 가까이에는 신자들을 문초했던 형조 터와 의금부 터가 있습니다. 순례길을 따라 걸으면 박해 기관의 옛터와 시복식 자리가 한 동선으로 이어집니다.",
+      "narrationEn": "Near the square are the former sites of the Hyeongjo, the Ministry of Punishments, and the Uigeumbu, the Royal Investigation Bureau, where believers were interrogated. As you follow the pilgrimage route, the former sites of the persecution agencies and the beatification site are linked along one path.",
+      "narrationEs": "Cerca de la plaza están los antiguos solares del Hyeongjo, el Ministerio de Castigos, y del Uigeumbu, la Oficina Real de Investigación, donde se interrogaba a los creyentes. Al seguir la ruta de peregrinación, los antiguos solares de las instituciones de persecución y el lugar de la beatificación quedan unidos en un mismo recorrido.",
+      "narrationIt": "Vicino alla piazza si trovano gli antichi siti dello Hyeongjo, il Ministero delle Punizioni, e dell'Uigeumbu, l'Ufficio Reale d'Indagine, dove i fedeli venivano interrogati. Seguendo il cammino di pellegrinaggio, gli antichi siti degli organi di persecuzione e il luogo della beatificazione sono collegati in un unico percorso.",
+      "narrationPt": "Perto da praça ficam os antigos locais do Hyeongjo, o Ministério das Punições, e do Uigeumbu, o Departamento Real de Investigação, onde os fiéis eram interrogados. Ao seguir a rota de peregrinação, os antigos locais dos órgãos de perseguição e o local da beatificação ficam ligados em um único percurso.",
+      "narrationFr": "Près de la place se trouvent les anciens sites du Hyeongjo, le ministère des Châtiments, et de l'Uigeumbu, le Bureau royal d'enquête, où les fidèles étaient interrogés. En suivant le chemin de pèlerinage, les anciens sites des institutions de persécution et le lieu de la béatification se rejoignent en un seul parcours.",
       "lookFor": "세종문화회관 앞 보도의 형조 터 바닥 표지",
+      "lookForEn": "The pavement marker for the Hyeongjo site in front of the Sejong Center", "lookForEs": "La marca en el suelo del solar del Hyeongjo frente al Centro Sejong", "lookForIt": "Il segnale a pavimento del sito dello Hyeongjo davanti al Centro Sejong", "lookForPt": "O marco no piso do local do Hyeongjo em frente ao Centro Sejong", "lookForFr": "Le repère au sol du site du Hyeongjo devant le Centre Sejong",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "서울 순례길 안내(명동성당): https://home.catholic.or.kr/pdsm/bbs_view.asp?Page=9&id=192854&menu=4831&num=175"
@@ -43,6 +72,11 @@
   ],
   "outro": {
     "narration": "1925년 79위, 1968년 24위에 이어 2014년 124위까지, 이 광장은 한국 교회 시복의 역사를 완성한 자리입니다.",
+    "narrationEn": "Following 79 beatifications in 1925 and 24 in 1968, the 124 in 2014 made this square the place that completed the history of beatification in the Korean Church.",
+    "narrationEs": "Tras 79 beatificaciones en 1925 y 24 en 1968, las 124 de 2014 hicieron de esta plaza el lugar que completó la historia de la beatificación en la Iglesia coreana.",
+    "narrationIt": "Dopo 79 beatificazioni nel 1925 e 24 nel 1968, le 124 del 2014 hanno reso questa piazza il luogo che ha completato la storia delle beatificazioni nella Chiesa coreana.",
+    "narrationPt": "Depois de 79 beatificações em 1925 e 24 em 1968, as 124 de 2014 fizeram desta praça o lugar que completou a história das beatificações na Igreja coreana.",
+    "narrationFr": "Après 79 béatifications en 1925 et 24 en 1968, les 124 de 2014 ont fait de cette place le lieu qui a achevé l'histoire des béatifications dans l'Église coréenne.",
     "photos": []
   }
 }
