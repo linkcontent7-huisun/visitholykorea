@@ -21,8 +21,9 @@ export interface HeroSite {
   name: string;
   region: string;
   category: string;
-  imageSource: string;
-  imageLicense: string;
+  /** 자체 촬영 사진처럼 출처 표기 의무가 없으면 비워 둔다(CC 계열 사진만 채운다) */
+  imageSource?: string;
+  imageLicense?: string;
   /** CSS object-position. PC 히어로는 2.6:1 띠라 위아래가 잘린다 — 중요한 것이 위에 있으면 `50% 20%` 처럼 올린다. 없으면 가운데 */
   objectPosition?: string;
 }
@@ -61,9 +62,7 @@ export const HERO_SITES: readonly HeroSite[] = [
     name: '솔뫼성지',
     region: '대전',
     category: '순례길',
-    // 2026-09-17 사장님이 준 사진(입구 십자가 문)으로 교체. 위키미디어 사진은 더 이상 쓰지 않는다.
-    imageSource: '직접 촬영',
-    imageLicense: '앱 사용 동의',
+    // 2026-09-17 사장님이 준 사진(입구 십자가 문)으로 교체. 자체 촬영이라 출처 표기가 없다(2026-09-19).
     objectPosition: '50% 6%', // 십자가 셋이 위쪽에 있다 — PC 띠에서 위 여백을 남긴다
   },
   {
