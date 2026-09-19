@@ -147,7 +147,7 @@ export const DICTIONARY = {
   moreTab: { ko: '더보기', en: 'More', es: 'Más', fr: 'Plus', pt: 'Mais', it: 'Altro' },
   // 내 기록 — 최소 기능(재기획 2026-09-14 §6): 장소·방문일·짧은 메모·비공개·수정·삭제
   recordsMinimalTitle: {
-    ko: '내 기록',
+    ko: '내 순례 기록',
     en: 'My records',
     es: 'Mis registros',
     fr: 'Mes notes',
