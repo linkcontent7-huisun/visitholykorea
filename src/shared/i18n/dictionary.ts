@@ -425,14 +425,6 @@ export const DICTIONARY = {
     pt: 'Buscar perto de mim',
     it: 'Cerca vicino a me',
   },
-  searchNearMeRadius: {
-    ko: '반경 {radius}km 이내',
-    en: 'Within {radius}km',
-    es: 'Dentro de {radius}km',
-    fr: 'Dans un rayon de {radius}km',
-    pt: 'Num raio de {radius}km',
-    it: 'Entro {radius}km',
-  },
   searchMapAria: {
     ko: '검색 결과 분포 지도. 전체 {total}곳 중 {matched}곳이 지금 조건에 맞습니다.',
     en: 'Map of search results. {matched} of {total} shrines match your filters.',
@@ -4277,14 +4269,6 @@ export const DICTIONARY = {
     pt: 'A menos de 2 km em linha reta · talvez a pé (o trajeto real pode diferir)',
     it: 'Entro 2 km in linea d’aria · forse a piedi (il percorso reale può differire)',
   },
-  straightLineLabel: {
-    ko: '직선거리 {distance} · 참고값',
-    en: '{distance} straight-line · reference',
-    es: '{distance} en línea recta · referencia',
-    fr: '{distance} à vol d’oiseau · indicatif',
-    pt: '{distance} em linha reta · referência',
-    it: '{distance} in linea d’aria · indicativo',
-  },
   noStampsYetTitle: {
     ko: '아직 찍은 스탬프가 없어요',
     en: 'No stamps yet',
@@ -6003,9 +5987,30 @@ export const DICTIONARY = {
     it: 'Plan updated',
   },
   // 미카엘 대화 기록 · 폴백 · 출처 (스펙 2026-09-18)
-  aiClearChat: { ko: "대화 지우기", en: "Clear chat", es: "Clear chat", fr: "Clear chat", pt: "Clear chat", it: "Clear chat" },
-  aiFallbackNotice: { ko: "미카엘 대신 성지 정보만 보여드려요", en: "Michael is resting — showing shrine info only", es: "Michael is resting — showing shrine info only", fr: "Michael is resting — showing shrine info only", pt: "Michael is resting — showing shrine info only", it: "Michael is resting — showing shrine info only" },
-  aiSourcesLabel: { ko: "참고한 성지:", en: "Based on:", es: "Based on:", fr: "Based on:", pt: "Based on:", it: "Based on:" },
+  aiClearChat: {
+    ko: '대화 지우기',
+    en: 'Clear chat',
+    es: 'Clear chat',
+    fr: 'Clear chat',
+    pt: 'Clear chat',
+    it: 'Clear chat',
+  },
+  aiFallbackNotice: {
+    ko: '미카엘 대신 성지 정보만 보여드려요',
+    en: 'Michael is resting — showing shrine info only',
+    es: 'Michael is resting — showing shrine info only',
+    fr: 'Michael is resting — showing shrine info only',
+    pt: 'Michael is resting — showing shrine info only',
+    it: 'Michael is resting — showing shrine info only',
+  },
+  aiSourcesLabel: {
+    ko: '참고한 성지:',
+    en: 'Based on:',
+    es: 'Based on:',
+    fr: 'Based on:',
+    pt: 'Based on:',
+    it: 'Based on:',
+  },
   languageSelectAria: {
     ko: '언어 선택',
     en: 'Select language',

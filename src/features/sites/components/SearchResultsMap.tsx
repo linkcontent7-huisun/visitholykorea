@@ -9,6 +9,14 @@
  * 메인 색(brand-blue)은 **실제 검색 결과를 가리킬 때만** 쓴다(사장님 지적, 2026-09-19) —
  * 검색 전 208곳을 한꺼번에 보여줄 때 전부 메인 색으로 채우면 화면이 부담스러웠다.
  * 검색 전에는 톤다운한(옅은) 색으로, 검색 후 매치 안 된 곳은 기존처럼 테두리만 남긴다.
+ *
+ * "지금 고른 곳" 하나만 가리킬 때는 **보색**(brand-accent, 주황)을 쓴다(같은 날 지적) —
+ * 매치된 점도 전부 남색이라, 그중 하나를 고른 표시가 옅은 남색 후광만으로는 잘 안 보였다.
+ *
+ * 본당·공소(208곳 밖 주소록)도 검색 결과에 있으면 작은 사각형으로 같이 찍는다(같은 날 질문에 대한
+ * 답 — 목록에 뜨는데 지도엔 안 보이면 "이 결과는 어디 있지" 를 다시 물어야 했다). 색만으로
+ * 성지·본당을 가르지 않도록 모양도 다르게 한다(원 vs 사각형) — 5,918건 전체가 아니라 지금
+ * 검색으로 좁혀진 것(보통 8건 이하)만 찍으므로 지도가 붐비지 않는다.
  */
 
 import { useMemo } from 'react';
@@ -35,6 +43,13 @@ const PIN_STYLE: Record<PinState, { r: number; className: string }> = {
 // 뒤에 그릴수록 위에 온다 — 매치된 점이 가장 눈에 띄어야 한다.
 const DRAW_ORDER: Record<PinState, number> = { unmatched: 0, default: 1, matched: 2 };
 
+export interface DirectoryMapPoint {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+}
+
 interface SearchResultsMapProps {
   sites: HolySite[];
   matchedIds: ReadonlySet<string>;
@@ -43,6 +58,8 @@ interface SearchResultsMapProps {
   selectedId: string | null;
   onSelect: (siteId: string) => void;
   highlightDiocese?: string | null;
+  /** 208곳 밖 본당·공소 — 지금 검색으로 좁혀진 것만 넘긴다(전체 5,918건이 아니다) */
+  directoryPoints?: readonly DirectoryMapPoint[];
 }
 
 export function SearchResultsMap({
@@ -52,6 +69,7 @@ export function SearchResultsMap({
   selectedId,
   onSelect,
   highlightDiocese = null,
+  directoryPoints = [],
 }: SearchResultsMapProps) {
   const { t, language } = useSettings();
 
@@ -74,6 +92,15 @@ export function SearchResultsMap({
     return placed;
   }, [sites, matchedIds, hasActiveSearch]);
 
+  const directoryPins = useMemo(() => {
+    return directoryPoints.flatMap((p) => {
+      const point = projectToMap(p.lat, p.lng, VIEW);
+      if (!point) return [];
+      const j = jitterFor(p.id, JITTER);
+      return [{ point: p, x: point.x + j.x, y: point.y + j.y }];
+    });
+  }, [directoryPoints]);
+
   const matchedCount = pins.filter((p) => p.state === 'matched').length;
 
   return (
@@ -89,13 +116,31 @@ export function SearchResultsMap({
       >
         <DioceseLayer language={language} highlight={highlightDiocese} />
 
+        {/* 본당·공소 — 성지(원)와 모양부터 다른 작은 사각형, 올리브색 */}
+        {directoryPins.map(({ point, x, y }) => (
+          <rect
+            key={point.id}
+            x={x - 3.5}
+            y={y - 3.5}
+            width={7}
+            height={7}
+            className="fill-brand-olive/70"
+            aria-hidden
+          />
+        ))}
+
         {pins.map(({ site, x, y, state }) => {
           const isSelected = site.id === selectedId;
           const style = PIN_STYLE[state];
           return (
             <g key={site.id}>
-              {isSelected && <circle cx={x} cy={y} r={15} className="fill-brand-blue/15" />}
-              <circle cx={x} cy={y} r={style.r} className={style.className} />
+              {isSelected && <circle cx={x} cy={y} r={15} className="fill-brand-accent/20" />}
+              <circle
+                cx={x}
+                cy={y}
+                r={isSelected ? 8 : style.r}
+                className={isSelected ? 'fill-brand-accent' : style.className}
+              />
               <circle
                 cx={x}
                 cy={y}

@@ -23,13 +23,12 @@
  */
 
 import { ChevronRight, Loader2, Navigation, Search, SearchX, X } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Link, useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { SearchResultsMap } from '@/features/sites/components/SearchResultsMap';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { Button } from '@/shared/components/ui/Button';
-import { chipClass } from '@/shared/components/ui/class-names';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
@@ -42,25 +41,33 @@ import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { dioceseLabel, localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
-import { regionCoords, regionOfAddress } from '@/shared/lib/regions';
+import { regionOfAddress } from '@/shared/lib/regions';
 import type { HolySite } from '@/shared/types/domain';
 
 /**
- * "내 위치로 검색" 반경. 사장님이 5km 를 제안했지만 판단은 맡겼다 — 208곳은 5,918건
- * 본당·공소와 달리 전국에 성기게 퍼져 있어(평균 밀도로는 5km 안에 아무것도 없는 곳이 더 많다),
- * `NearbyPage` 의 본당 반경(30km)보다도 넓게 잡았다.
+ * 검색어·목록 스크롤 위치 기억 — 상세 화면에 갔다가 뒤로 왔을 때 검색 결과 화면이
+ * 그대로 있어야 한다는 지적(2026-09-19). `ScrollShell.tsx` 가 앱 전체 스크롤 상자
+ * (`#app-scroll`, 모바일이 실제로 스크롤하는 곳)는 이미 복원해 주지만, 데스크톱
+ * 분할 화면의 왼쪽 목록 패널은 그 안의 **별도** 스크롤 상자라 거기까진 안 닿는다 —
+ * 같은 패턴(`location.key` 로 여닫는 Map)을 여기서 검색어까지 함께 쓴다.
+ */
+const searchQueryCache = new Map<string, string>();
+const searchScrollCache = new Map<string, number>();
+
+/**
+ * "내 위치로 검색" 반경 — 화면에는 안 적지만(사장님 지적, 2026-09-19) 필터링 기준값으로 쓴다.
+ * 5km 를 제안받았지만 판단은 맡겼다 — 208곳은 5,918건 본당·공소와 달리 전국에 성기게
+ * 퍼져 있어(평균 밀도로는 5km 안에 아무것도 없는 곳이 더 많다), `NearbyPage` 의 본당
+ * 반경(30km)보다도 넓게 잡았다.
  */
 const NEARBY_RADIUS_KM = 50;
 
-function formatKm(km: number): string {
-  return km < 1 ? `${Math.round(km * 1000)}m` : `${km.toFixed(1)}km`;
-}
-
 /**
  * 검색 결과 한 줄 — 208곳 성지든 본당·공소 주소록이든 같은 모양으로 그린다(사장님 지적,
- * 2026-09-19: "성지와 성당/공소의 결과 표시가 다르다. 성지 결과 표시로 통일하라"). 주소 앞
- * 핀 아이콘과 전화 아이콘은 뺐다 — 같은 지적으로 삭제했다. 본당·공소는 상세 화면이 없어
- * `to` 없이(누를 수 없는 정보 줄로만) 그린다.
+ * 2026-09-19: "성지와 성당/공소의 결과 표시가 다르다. 성지 결과 표시로 통일하라"). 주소·
+ * 전화 아이콘, 그리고 주소·직선거리 텍스트 자체도 뺐다(같은 날 추가 지적) — 이름·교구·
+ * 분류만으로 목록을 가볍게 훑고, 자세한 내용은 상세 화면에서 본다. 본당·공소는 상세 화면이
+ * 없어 `to` 없이(누를 수 없는 정보 줄로만) 그린다.
  */
 function ResultRow({
   to,
@@ -69,8 +76,6 @@ function ResultRow({
   category,
   name,
   subtitle,
-  address,
-  distanceLabel,
   active,
   rowRef,
   onMouseEnter,
@@ -81,8 +86,6 @@ function ResultRow({
   category?: string | null;
   name: string;
   subtitle: string;
-  address?: string | null;
-  distanceLabel?: string | null;
   active?: boolean;
   rowRef?: (el: HTMLLIElement | null) => void;
   onMouseEnter?: () => void;
@@ -104,10 +107,6 @@ function ResultRow({
       <div className="min-w-0 flex-1">
         <p className="truncate text-lg font-bold text-app-text">{name}</p>
         <p className="mt-0.5 truncate text-sm text-app-text-muted">{subtitle}</p>
-        {address && <p className="mt-0.5 truncate text-sm text-app-text-muted">{address}</p>}
-        {distanceLabel && (
-          <p className="mt-0.5 text-sm font-bold text-brand-blue">{distanceLabel}</p>
-        )}
       </div>
       {to && <ChevronRight size={20} className="shrink-0 text-app-text-muted" aria-hidden />}
     </>
@@ -128,20 +127,21 @@ function ResultRow({
 
 export default function SearchPage() {
   const navigate = useNavigate();
-  const {
-    t,
-    language,
-    origin,
-    gpsLocation,
-    gpsStatus,
-    requestGpsLocation,
-    clearGpsLocation,
-    wideView,
-  } = useSettings();
+  const location = useLocation();
+  const navigationType = useNavigationType();
+  const { t, language, gpsLocation, gpsStatus, requestGpsLocation, clearGpsLocation, wideView } =
+    useSettings();
 
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(() =>
+    navigationType === 'POP' ? (searchQueryCache.get(location.key) ?? '') : '',
+  );
   const debouncedQuery = useDebouncedValue(query, 250);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  // 뒤로가기로 돌아왔을 때 검색어·스크롤이 그대로 있어야 한다(사장님 지적, 2026-09-19).
+  useEffect(() => {
+    searchQueryCache.set(location.key, query);
+  }, [location.key, query]);
 
   // 자체 목록 — 네트워크가 끊겨도 서비스워커 캐시(holy_sites)로 온다
   const {
@@ -159,7 +159,6 @@ export default function SearchPage() {
   // 208곳 밖의 본당·공소 주소록
   const { data: directoryResults = [] } = useDirectorySearch(debouncedQuery);
 
-  const from = gpsLocation ?? regionCoords(origin);
   const needle = normalizeSearchText(debouncedQuery.trim());
   const hasQuery = needle.length > 0;
   // "내 위치로 검색" — 출발지 추정(origin)이 아니라 실제 GPS 권한을 받았을 때만 켠다.
@@ -203,10 +202,6 @@ export default function SearchPage() {
     active && (sitesLoading || (hasQuery && serverSearching && results.length === 0));
 
   const matchedIds = useMemo(() => new Set(results.map((site) => site.id)), [results]);
-  const selectedSite = useMemo(
-    () => allSites.find((site) => site.id === selectedId) ?? null,
-    [allSites, selectedId],
-  );
 
   /**
    * 지도에서 핀을 누르면 왼쪽 목록에서도 그 성지가 보이도록 목록만 스크롤한다(MapPage 와 같은 패턴).
@@ -231,6 +226,33 @@ export default function SearchPage() {
     list.scrollTop = rowTop - list.clientHeight / 2 + row.clientHeight / 2;
   }, [selectedId, wideView]);
 
+  /**
+   * 데스크톱 왼쪽 목록 패널의 스크롤 — `ScrollShell` 은 `#app-scroll`(모바일이 실제로
+   * 쓰는 상자)만 복원하므로, 이 패널 자체의 스크롤은 `ScrollShell.tsx` 와 같은 방식으로
+   * 여기서 직접 기억·복원한다(사장님 지적, 2026-09-19).
+   */
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    if (navigationType === 'POP') {
+      list.scrollTop = searchScrollCache.get(location.key) ?? 0;
+    }
+    return () => {
+      searchScrollCache.set(location.key, list.scrollTop);
+    };
+  }, [location.key, navigationType]);
+
+  // 지도에 같이 찍을 본당·공소 — 지금 검색으로 좁혀진 것만(좌표 있는 것만)
+  const directoryPoints = useMemo(
+    () =>
+      directoryResults
+        .filter(
+          (e): e is DirectoryEntry & { lat: number; lng: number } => e.lat != null && e.lng != null,
+        )
+        .map((e) => ({ id: e.id, name: e.name, lat: e.lat, lng: e.lng })),
+    [directoryResults],
+  );
+
   const mapNode = (
     <SearchResultsMap
       sites={allSites}
@@ -238,6 +260,7 @@ export default function SearchPage() {
       hasActiveSearch={active}
       selectedId={selectedId}
       onSelect={setSelectedId}
+      directoryPoints={directoryPoints}
     />
   );
 
@@ -277,37 +300,33 @@ export default function SearchPage() {
               )}
             </div>
 
-            {/* 내 위치로 검색 — 위치 권한을 받아 반경 안 성지를 가까운 순으로 보여준다(사장님 지적, 2026-09-19) */}
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              <button
-                type="button"
-                onClick={() => (gpsLocation ? clearGpsLocation() : requestGpsLocation())}
-                aria-pressed={nearMeActive}
-                className={chipClass(nearMeActive, 'min-h-12 px-4')}
-              >
-                <Navigation size={16} aria-hidden />
-                {nearMeActive ? t('clearCurrentLocationButton') : t('searchNearMeButton')}
-              </button>
-              {gpsStatus === 'loading' && (
-                <span className="text-sm text-app-text-muted">{t('currentLocationLoading')}</span>
-              )}
-              {gpsStatus === 'denied' && (
-                <span className="text-sm text-app-text-muted">{t('currentLocationDenied')}</span>
-              )}
-              {gpsStatus === 'unsupported' && (
-                <span className="text-sm text-app-text-muted">
-                  {t('currentLocationUnsupported')}
-                </span>
-              )}
-              {gpsStatus === 'error' && (
-                <span className="text-sm text-app-text-muted">{t('currentLocationError')}</span>
-              )}
-              {nearMeActive && (
-                <span className="text-sm text-app-text-muted">
-                  {fillPlaceholders(t('searchNearMeRadius'), { radius: NEARBY_RADIUS_KM })}
-                </span>
-              )}
-            </div>
+            {/* 내 위치로 검색 — 위치 권한을 받아 반경 안 성지를 가까운 순으로 보여준다(사장님 지적,
+                2026-09-19). 검색창과 너비를 맞췄다(같은 날 추가 지적) — 반경 문구는 화면엔 안 적는다. */}
+            <button
+              type="button"
+              onClick={() => (gpsLocation ? clearGpsLocation() : requestGpsLocation())}
+              aria-pressed={nearMeActive}
+              className={`mt-3 flex min-h-12 w-full items-center justify-center gap-1.5 rounded-lg border-[1.5px] text-base font-bold transition-colors ${
+                nearMeActive
+                  ? 'border-brand-blue bg-brand-blue text-white'
+                  : 'border-app-border bg-white text-app-text hover:border-brand-blue/50'
+              }`}
+            >
+              <Navigation size={18} aria-hidden />
+              {nearMeActive ? t('clearCurrentLocationButton') : t('searchNearMeButton')}
+            </button>
+            {gpsStatus === 'loading' && (
+              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationLoading')}</p>
+            )}
+            {gpsStatus === 'denied' && (
+              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationDenied')}</p>
+            )}
+            {gpsStatus === 'unsupported' && (
+              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationUnsupported')}</p>
+            )}
+            {gpsStatus === 'error' && (
+              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationError')}</p>
+            )}
           </div>
 
           <div className="flex flex-1 flex-col py-6">
@@ -363,15 +382,6 @@ export default function SearchPage() {
                     </h2>
                     <ul className="space-y-3">
                       {results.map((site) => {
-                        const km =
-                          from && site.coordinates.lat != null && site.coordinates.lng != null
-                            ? haversineKm(
-                                from.lat,
-                                from.lng,
-                                site.coordinates.lat,
-                                site.coordinates.lng,
-                              )
-                            : null;
                         const addrRegion = regionOfAddress(site.location);
                         return (
                           <ResultRow
@@ -384,14 +394,6 @@ export default function SearchPage() {
                             subtitle={`${dioceseLabel(site.region, language)}${
                               addrRegion ? ` · ${localizeRegionName(addrRegion, language)}` : ''
                             } · ${localizeDomainValue(site.category, t)}`}
-                            address={site.location}
-                            distanceLabel={
-                              km != null
-                                ? fillPlaceholders(t('straightLineLabel'), {
-                                    distance: formatKm(km),
-                                  })
-                                : null
-                            }
                             active={site.id === selectedId}
                             rowRef={(el) => {
                               rowRefs.current[site.id] = el;
@@ -443,7 +445,6 @@ export default function SearchPage() {
                           // catholic_directory.diocese 는 holy_sites.region 과 달리 이미 "OO교구" 형태로
                           // 저장돼 있다(예: "인천교구") — dioceseLabel() 을 또 부르면 "인천교구교구"가 된다.
                           subtitle={`${entry.diocese ? `${entry.diocese} · ` : ''}${localizeDomainValue(entry.category, t)}`}
-                          address={entry.address}
                         />
                       ))}
                     </ul>
@@ -459,32 +460,6 @@ export default function SearchPage() {
       {wideView && (
         <div className="relative hidden flex-1 items-center justify-center bg-app-bg p-10 lg:flex">
           <div className="w-full max-w-[620px]">{mapNode}</div>
-
-          {selectedSite && (
-            <div className="absolute bottom-6 right-8 w-[320px] rounded-lg border border-brand-blue/40 bg-white p-5">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-app-panel">
-                <SiteThumbnail
-                  imageUrl={selectedSite.imageUrl}
-                  name={selectedSite.name}
-                  category={selectedSite.category}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <span className="mt-3 block text-sm font-bold text-brand-blue">
-                {dioceseLabel(selectedSite.region, language)} ·{' '}
-                {localizeDomainValue(selectedSite.category, t)}
-              </span>
-              <h2 className="mt-0.5 text-lg font-bold text-app-text">{selectedSite.name}</h2>
-              <p className="mt-1 text-sm text-app-text-muted">{selectedSite.location}</p>
-              <Link
-                to={paths.siteDetail(selectedSite.id)}
-                className="mt-4 flex min-h-11 w-full items-center justify-center rounded-lg bg-brand-blue text-base font-bold text-white transition-colors hover:bg-brand-blue/90"
-                id={`search-map-detail-${selectedSite.id}`}
-              >
-                {t('viewSiteDetail')}
-              </Link>
-            </div>
-          )}
         </div>
       )}
     </div>

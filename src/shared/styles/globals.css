@@ -21,6 +21,10 @@
   --color-brand-soft: #e6eaf3;
   --color-brand-olive: #6e7f5c;
   --color-brand-olive-soft: #e9ede3;
+  /* 남색의 보색(주황·호박) — 지도에서 "지금 고른 곳" 하나만 가리킬 때만 쓴다(2026-09-19,
+     성지 찾기 지도). 검색 결과 점도 전부 남색이라, 그중 하나를 고르면 같은 색 위에 옅은
+     남색 후광만 얹혀서는 잘 안 보였다 — 성지 찾기 밖에서는 쓰지 않는다. */
+  --color-brand-accent: #c2703a;
   --color-app-bg: #f5f3ee;
   --color-app-panel: #f1eee8;
   --color-app-border: #ddd8cf;
