@@ -121,7 +121,6 @@ export default function HomePage() {
         slug: h.slug,
         name: site?.name ?? h.name,
         caption: `${region} · ${category}`,
-        credit: h.imageSource && h.imageLicense ? `${h.imageSource} · ${h.imageLicense}` : undefined,
         objectPosition: h.objectPosition,
       };
     });

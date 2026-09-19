@@ -11,8 +11,6 @@ export interface HeroSlide {
   name: string;
   /** 사진 아래 작은 줄 — "서울 · 주교좌성당" */
   caption: string;
-  /** 사진 출처 — 자체 촬영처럼 표기 의무가 없는 사진은 없다(undefined) */
-  credit?: string;
   /** 사진 초점(CSS object-position). 없으면 가운데 */
   objectPosition?: string;
 }
@@ -154,14 +152,6 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 {slide.name}
               </h2>
             </div>
-            {/* 출처 — 사진 오른쪽 아래 모서리에 최대한 붙인다. 모바일은 화면을 가리지 않도록
-                폭을 최소로(작은 글자·좁은 여백·강한 말줄임). 자체 촬영 사진은 credit 자체가 없다.
-                모바일 42% 는 가운데 넘김 점과 겹쳤다(2026-09-19 실측) — 위치는 그대로 두고 폭만 더 줄였다. */}
-            {slide.credit && (
-              <span className="absolute bottom-1.5 right-1.5 max-w-[28%] truncate rounded bg-black/40 px-1.5 py-0.5 text-[10px] leading-none text-white/80 backdrop-blur-sm lg:bottom-2.5 lg:right-2.5 lg:max-w-[38%] lg:px-2 lg:py-1 lg:text-xs">
-                {slide.credit}
-              </span>
-            )}
           </Link>
         ))}
       </div>
