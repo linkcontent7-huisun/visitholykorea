@@ -781,6 +781,22 @@ export const DICTIONARY = {
     pt: 'Compartilhar link',
     it: 'Condividi link',
   },
+  addBookmark: {
+    ko: '즐겨찾기 추가',
+    en: 'Add bookmark',
+    es: 'Añadir a favoritos',
+    fr: 'Ajouter aux favoris',
+    pt: 'Adicionar aos favoritos',
+    it: 'Aggiungi ai preferiti',
+  },
+  bookmarkHint: {
+    ko: '주소를 복사했어요. Cmd+D(맥) 또는 Ctrl+D(윈도우)로 즐겨찾기에 추가해 보세요',
+    en: 'Copied the address. Press Cmd+D (Mac) or Ctrl+D (Windows) to add a bookmark',
+    es: 'Dirección copiada. Pulsa Cmd+D (Mac) o Ctrl+D (Windows) para añadirla a favoritos',
+    fr: 'Adresse copiée. Appuyez sur Cmd+D (Mac) ou Ctrl+D (Windows) pour l’ajouter aux favoris',
+    pt: 'Endereço copiado. Pressione Cmd+D (Mac) ou Ctrl+D (Windows) para adicionar aos favoritos',
+    it: 'Indirizzo copiato. Premi Cmd+D (Mac) o Ctrl+D (Windows) per aggiungerlo ai preferiti',
+  },
 
   // 공통
   search: { ko: '검색', en: 'Search', es: 'Buscar', fr: 'Rechercher', pt: 'Buscar', it: 'Cerca' },

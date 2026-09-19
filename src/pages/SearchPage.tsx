@@ -267,7 +267,7 @@ export default function SearchPage() {
         <PageContainer width="narrow" className="flex min-h-page flex-col pb-16 lg:min-h-0">
           {/* 검색 입력 */}
           <div className="border-b border-app-border pb-5">
-            <PageHeader title={t('searchPageTitle')} className="pb-4" />
+            <PageHeader back title={t('searchPageTitle')} className="pb-4" />
             <div className="flex items-center gap-3 rounded-lg border-[1.5px] border-app-border bg-white px-4 focus-within:border-brand-blue">
               <Search className="shrink-0 text-app-text-muted" size={22} aria-hidden />
               <input
@@ -361,13 +361,10 @@ export default function SearchPage() {
 
             {active && !searching && !sitesFailed && (
               <>
-                {/* 지도 — 모바일에서는 결과가 있을 때만 목록 위에 작게, 데스크톱은 오른쪽 큰 패널에 따로 있다 */}
-                {!wideView && matchedIds.size > 0 && (
-                  <div className="mb-6 rounded-lg border border-app-border bg-white p-4">
-                    {mapNode}
-                  </div>
-                )}
-
+                {/* 지도는 데스크톱 오른쪽 큰 패널에만 — 모바일 소형 지도는 뺐다(사장님 지적,
+                    2026-09-19). 핀을 눌러도 목록과 짝지어 스크롤되는 화면(desktop)이 아니면
+                    아무 효과가 없어 순수 장식이었는데, 그러면서 실제 결과 목록까지 아래로
+                    밀어냈다 — 좁은 화면에서는 득보다 실이 컸다. */}
                 {results.length > 0 ? (
                   <section className="space-y-3" aria-label={t('searchResults')}>
                     <h2 className="text-sm font-bold text-app-text-muted">

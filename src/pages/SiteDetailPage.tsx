@@ -1,7 +1,6 @@
 import {
   Camera,
   ChevronDown,
-  ChevronLeft,
   ChevronRight,
   Compass,
   Flag,
@@ -52,6 +51,7 @@ import {
 } from '@/features/sites/hooks/use-sites';
 import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';
+import { BackButton } from '@/shared/components/ui/BackButton';
 import { Button } from '@/shared/components/ui/Button';
 import { Card } from '@/shared/components/ui/Card';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
@@ -400,14 +400,9 @@ export default function SiteDetailPage() {
         */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/45 to-transparent" />
 
-        <button
-          onClick={() => navigate(-1)}
-          className="absolute left-5 top-5 flex h-11 w-11 items-center justify-center rounded-lg border border-white/30 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45"
-          id="back-button"
-          aria-label={t('back')}
-        >
-          <ChevronLeft size={24} aria-hidden />
-        </button>
+        {/* 화살표만 있는 전용 단추 대신 다른 화면과 같은 「← 뒤로」를 쓴다(사장님 지적,
+            2026-09-19: "뒤로 버튼 종류가 두 가지로 보인다") — 사진 위라 onDark 로만 다르다. */}
+        <BackButton variant="onDark" className="absolute left-5 top-5" />
 
         {!SUBMISSION_MODE && (
           // 제출판은 본선 기능만 보이게 한다 — T-013

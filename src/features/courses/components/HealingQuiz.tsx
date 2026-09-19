@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  X,
   ChevronLeft,
   ChevronRight,
   Church,
@@ -14,6 +13,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { BackButton } from '@/shared/components/ui/BackButton';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
 import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
 import { localizeRegionName } from '@/shared/i18n/domain-labels';
@@ -249,17 +249,13 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   return (
     // /compass 는 헤더·하단 탭이 있는 레이아웃 안에서 뜬다 (T-021). 스크롤은 ScrollShell 이 맡는다.
     <PageContainer width="narrow" className="flex min-h-page flex-col">
-      <div className="flex min-h-14 shrink-0 items-center justify-between border-b border-app-border">
-        <div className="w-11" aria-hidden />
+      {/* X 로 닫던 것을 다른 화면과 같은 「← 뒤로」로 바꿨다(사장님 지적, 2026-09-19 —
+          뒤로 버튼이 화면마다 다르게 보인다는 지적 + 성지 일정에 뒤로 버튼 자체가
+          없다는 지적). `handleClose` 가 하던 정리(reset)는 그대로 하고 이동만 같은
+          컴포넌트를 쓴다. */}
+      <div className="flex min-h-14 shrink-0 items-center gap-2 border-b border-app-border">
+        <BackButton onClick={handleClose} />
         <span className="text-base font-bold text-app-text">{t('compassTitle')}</span>
-        <button
-          onClick={handleClose}
-          className="-mr-2 flex h-11 w-11 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg"
-          id="quiz-close"
-          aria-label={t('compassBack')}
-        >
-          <X size={22} aria-hidden />
-        </button>
       </div>
 
       {progress > 0 && (

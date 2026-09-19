@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DICTIONARY } from '@/shared/i18n/dictionary';
 import type { TourApiSpot } from '@/shared/api/tour-api';
@@ -15,7 +16,10 @@ import type { PooledSite } from '../api/course-matching';
  * **로직**을 못 박아 둔다. TourAPI 는 훅째로 모킹 — 카드 → 일정에서 재호출이 없는 것도 여기서 확인한다.
  */
 
-const gps = { status: 'denied' as 'denied' | 'granted', location: null as { lat: number; lng: number } | null };
+const gps = {
+  status: 'denied' as 'denied' | 'granted',
+  location: null as { lat: number; lng: number } | null,
+};
 vi.mock('@/shared/i18n/use-settings', () => ({
   useSettings: () => ({
     wideView: false,
@@ -55,7 +59,17 @@ vi.mock('../hooks/use-candidate-plans', () => ({
 }));
 
 const spot = (title: string, dist: number, typeId = '12'): TourApiSpot =>
-  ({ contentid: title, contenttypeid: typeId, title, addr1: '', addr2: '', mapx: '127', mapy: '37.5', firstimage: '', dist: String(dist) }) as TourApiSpot;
+  ({
+    contentid: title,
+    contenttypeid: typeId,
+    title,
+    addr1: '',
+    addr2: '',
+    mapx: '127',
+    mapy: '37.5',
+    firstimage: '',
+    dist: String(dist),
+  }) as TourApiSpot;
 
 function pooled(name: string, distanceKm: number): PooledSite {
   return {
@@ -107,7 +121,9 @@ beforeEach(() => {
 function click(label: string | RegExp) {
   const btn = screen
     .getAllByRole('button')
-    .find((b) => (typeof label === 'string' ? b.textContent?.includes(label) : label.test(b.textContent ?? '')));
+    .find((b) =>
+      typeof label === 'string' ? b.textContent?.includes(label) : label.test(b.textContent ?? ''),
+    );
   expect(btn, `버튼 없음: ${label}`).toBeTruthy();
   fireEvent.click(btn!);
 }
@@ -134,7 +150,11 @@ async function answerAll(time: '반나절' | '하루' | '1박2일' = '하루') {
 
 describe('HealingQuiz — 전체 흐름', () => {
   it('질문이 3개다 — 마음 · 출발지 · 시간만. 관심사 · 인원 · 성별 · 참여 방식 · 자유 텍스트는 묻지 않는다', async () => {
-    render(<HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />);
+    render(
+      <MemoryRouter>
+        <HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />
+      </MemoryRouter>,
+    );
     await answerAll();
     for (const prefix of ['quiz-gender-', 'quiz-style-', 'quiz-concern-', 'quiz-party-']) {
       expect(document.querySelector(`[id^="${prefix}"]`), prefix).toBeNull();
@@ -145,7 +165,11 @@ describe('HealingQuiz — 전체 흐름', () => {
 
   it('후보 카드 3장이 거리순으로 뜨고, 카드마다 태그 1개 — 카드를 누르면 일정, 저장은 그때 1회', async () => {
     const onSelectSite = vi.fn();
-    render(<HealingQuiz isOpen onClose={vi.fn()} onSelectSite={onSelectSite} />);
+    render(
+      <MemoryRouter>
+        <HealingQuiz isOpen onClose={vi.fn()} onSelectSite={onSelectSite} />
+      </MemoryRouter>,
+    );
     await answerAll();
 
     await waitFor(() => expect(document.getElementById('plan-cards')).toBeTruthy());
@@ -173,13 +197,20 @@ describe('HealingQuiz — 전체 흐름', () => {
     expect(document.getElementById('plan-day2')).toBeNull();
     // 카드 → 일정에서 새 후보 조회가 없다 (훅은 같은 3장으로만 다시 불린다)
     for (const call of plansMock.mock.calls.slice(plansCallsBefore)) {
-      expect((call[0] as PooledSite[]).map((p) => p.site.id)).toEqual(['가까운성지', '중간성지', '먼성지']);
+      expect((call[0] as PooledSite[]).map((p) => p.site.id)).toEqual([
+        '가까운성지',
+        '중간성지',
+        '먼성지',
+      ]);
     }
     expect(poolMock).toHaveBeenCalledOnce();
 
     // 저장 — 고른 성지, 성별·참여 방식은 null
     expect(mutateMock).toHaveBeenCalledOnce();
-    const saved = mutateMock.mock.calls[0]![0] as { answers: Record<string, unknown>; matchedSiteId: string };
+    const saved = mutateMock.mock.calls[0]![0] as {
+      answers: Record<string, unknown>;
+      matchedSiteId: string;
+    };
     expect(saved.matchedSiteId).toBe('중간성지');
     expect(saved.answers.emotion).toBe('평온');
     expect(saved.answers.region).toBe('서울');
@@ -200,7 +231,11 @@ describe('HealingQuiz — 전체 흐름', () => {
   });
 
   it('반나절은 점심 줄이 없고, 1박2일은 「2일차 준비 중」이 붙는다', async () => {
-    const { unmount } = render(<HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />);
+    const { unmount } = render(
+      <MemoryRouter>
+        <HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />
+      </MemoryRouter>,
+    );
     await answerAll('반나절');
     await waitFor(() => expect(document.getElementById('plan-cards')).toBeTruthy());
     fireEvent.click(document.getElementById('plan-card-가까운성지')!);
@@ -209,7 +244,11 @@ describe('HealingQuiz — 전체 흐름', () => {
     expect(screen.getByText('동네공원')).toBeInTheDocument();
     unmount();
 
-    render(<HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />);
+    render(
+      <MemoryRouter>
+        <HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />
+      </MemoryRouter>,
+    );
     await answerAll('1박2일');
     await waitFor(() => expect(document.getElementById('plan-cards')).toBeTruthy());
     fireEvent.click(document.getElementById('plan-card-가까운성지')!);
@@ -219,7 +258,11 @@ describe('HealingQuiz — 전체 흐름', () => {
 
   it('오후 관광지가 붐빌 예정이면 안내 + 「바꾸기」, 누르면 오후 줄만 바뀐다', async () => {
     afternoonBusy = true;
-    render(<HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />);
+    render(
+      <MemoryRouter>
+        <HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />
+      </MemoryRouter>,
+    );
     await answerAll();
     await waitFor(() => expect(document.getElementById('plan-cards')).toBeTruthy());
     fireEvent.click(document.getElementById('plan-card-가까운성지')!);
@@ -240,7 +283,11 @@ describe('HealingQuiz — 전체 흐름', () => {
       pool: [pooled('a', 1), pooled('b', 2), pooled('c', 3), pooled('d', 4), pooled('e', 5)],
       moreInNextRadius: 0,
     });
-    render(<HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />);
+    render(
+      <MemoryRouter>
+        <HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />
+      </MemoryRouter>,
+    );
     await answerAll();
     await waitFor(() => expect(document.getElementById('plan-more')).toBeTruthy());
     fireEvent.click(document.getElementById('plan-more')!);
@@ -254,7 +301,11 @@ describe('HealingQuiz — 전체 흐름', () => {
 
   it('카드가 3장 미만이면 「시간을 늘리면 N곳」 안내, 시간 버튼은 질문 4로 돌아간다 — 반경을 몰래 넓히지 않는다', async () => {
     poolMock.mockResolvedValue({ pool: [pooled('하나뿐', 9)], moreInNextRadius: 4 });
-    render(<HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />);
+    render(
+      <MemoryRouter>
+        <HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />
+      </MemoryRouter>,
+    );
     await answerAll('반나절');
     await waitFor(() => expect(document.getElementById('plan-cards')).toBeTruthy());
     expect(document.querySelectorAll('#plan-cards li')).toHaveLength(1);
@@ -268,7 +319,11 @@ describe('HealingQuiz — 전체 흐름', () => {
 
   it('후보가 0곳이면 「없어요」 화면 + 두 버튼, 마음 버튼은 질문 1로', async () => {
     poolMock.mockResolvedValue({ pool: [], moreInNextRadius: 2 });
-    render(<HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />);
+    render(
+      <MemoryRouter>
+        <HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />
+      </MemoryRouter>,
+    );
     await answerAll('반나절');
     await waitFor(() => expect(document.getElementById('plan-empty')).toBeTruthy());
     expect(screen.getByText(/서울에서 20km 안에/)).toBeInTheDocument();
@@ -279,7 +334,11 @@ describe('HealingQuiz — 전체 흐름', () => {
   it('현재 위치가 허용되면 그 좌표가 출발지가 된다', async () => {
     gps.status = 'granted';
     gps.location = { lat: 36.0, lng: 127.0 };
-    render(<HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />);
+    render(
+      <MemoryRouter>
+        <HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />
+      </MemoryRouter>,
+    );
     click('시작하기');
     await waitFor(() => expect(document.getElementById('quiz-emotion-평온')).toBeTruthy());
     fireEvent.click(document.getElementById('quiz-emotion-평온')!);
@@ -297,13 +356,21 @@ describe('HealingQuiz — 전체 흐름', () => {
 
   it('닫으면 처음부터 다시 — 이전 답이 남지 않는다', async () => {
     const onClose = vi.fn();
-    const { rerender } = render(<HealingQuiz isOpen onClose={onClose} onSelectSite={vi.fn()} />);
+    const { rerender } = render(
+      <MemoryRouter>
+        <HealingQuiz isOpen onClose={onClose} onSelectSite={vi.fn()} />
+      </MemoryRouter>,
+    );
     click('시작하기');
     await waitFor(() => expect(document.getElementById('quiz-emotion-평온')).toBeTruthy());
     fireEvent.click(document.getElementById('quiz-emotion-평온')!);
-    fireEvent.click(document.getElementById('quiz-close')!);
+    fireEvent.click(document.getElementById('back-button')!);
     expect(onClose).toHaveBeenCalled();
-    rerender(<HealingQuiz isOpen onClose={onClose} onSelectSite={vi.fn()} />);
+    rerender(
+      <MemoryRouter>
+        <HealingQuiz isOpen onClose={onClose} onSelectSite={vi.fn()} />
+      </MemoryRouter>,
+    );
     await waitFor(() => expect(document.getElementById('quiz-start')).toBeTruthy());
   });
 });

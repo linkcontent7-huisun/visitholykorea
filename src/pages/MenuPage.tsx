@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 import {
+  BookmarkPlus,
   ChevronRight,
   Globe,
+  Share2,
   Smartphone,
   Info,
   LogIn,
@@ -30,6 +32,8 @@ import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
+import { copyText } from '@/shared/lib/map-links';
+import { shareApp, type ShareResult } from '@/shared/lib/share-app';
 import { OFFICIAL_LINKS } from '@/shared/config/official-links';
 
 /** GPS 상태별 부제. 성공 후 켜져 있을 때는 origin 항목 쪽이 현재 위치 안내를 맡는다. */
@@ -68,6 +72,9 @@ interface MenuItem {
   control?: ReactNode;
   /** PC 에서는 감춘다 — 「홈 화면에 추가」는 휴대폰에서만 의미가 있다 */
   mobileOnly?: boolean;
+  /** 휴대폰에서는 감춘다 — 휴대폰은 「홈 화면 추가」 시트 하나가 이 둘을 이미 갖고 있다
+   *  (사장님 지적, 2026-09-19: PC 에는 그 시트로 가는 입구조차 없었다) */
+  desktopOnly?: boolean;
 }
 
 export default function MenuPage() {
@@ -91,6 +98,12 @@ export default function MenuPage() {
   // 「홈화면 추가」(설치 + 링크 공유)는 이제 시트 하나로 — 하단 탭 넷째 자리와 같은 것
   const [installSheetOpen, setInstallSheetOpen] = useState(false);
 
+  // PC 전용 「즐겨찾기 추가」·「링크 공유」 — 브라우저 즐겨찾기는 JS 로 직접 열 수 없어
+  // (보안상 막혀 있다) 주소를 복사해 주고 단축키를 안내한다. 공유는 InstallShareSheet 와
+  // 같은 `shareApp()` 을 그대로 쓴다(2026-09-19).
+  const [bookmarkResult, setBookmarkResult] = useState<'copied' | 'error' | null>(null);
+  const [shareResult, setShareResult] = useState<ShareResult | null>(null);
+
   // 「계정 설정」 절은 없앴다(2026-09-18) — 프로필 카드의 톱니바퀴 단추(`/account`)로 옮겼다.
   const sections: { title: string; items: MenuItem[] }[] = [
     {
@@ -105,6 +118,38 @@ export default function MenuPage() {
           label: t('installTab'),
           onClick: () => setInstallSheetOpen(true),
           mobileOnly: true,
+        },
+        {
+          id: 'bookmark',
+          icon: BookmarkPlus,
+          label: t('addBookmark'),
+          sub:
+            bookmarkResult === 'copied'
+              ? t('bookmarkHint')
+              : bookmarkResult === 'error'
+                ? t('copyFailed')
+                : undefined,
+          onClick: () => {
+            void copyText(window.location.href).then((ok) =>
+              setBookmarkResult(ok ? 'copied' : 'error'),
+            );
+          },
+          desktopOnly: true,
+        },
+        {
+          id: 'share',
+          icon: Share2,
+          label: t('shareLink'),
+          sub:
+            shareResult === 'copied'
+              ? t('copied')
+              : shareResult === 'error'
+                ? t('copyFailed')
+                : t('shareApp'),
+          onClick: () => {
+            void shareApp().then(setShareResult);
+          },
+          desktopOnly: true,
         },
         {
           id: 'lang',
@@ -233,9 +278,14 @@ export default function MenuPage() {
             <h3 className="mb-3 ml-1 text-sm font-bold text-app-text-muted">{section.title}</h3>
             <div className="overflow-hidden rounded-lg border border-app-border bg-white">
               {section.items.map((item, idx) => {
-                const rowClass = `flex min-h-16 w-full items-center gap-4 px-5 py-4 ${
-                  item.mobileOnly ? 'lg:hidden ' : ''
-                }${idx !== section.items.length - 1 ? 'border-b border-app-border' : ''}`;
+                const display = item.mobileOnly
+                  ? 'flex lg:hidden'
+                  : item.desktopOnly
+                    ? 'hidden lg:flex'
+                    : 'flex';
+                const rowClass = `${display} min-h-16 w-full items-center gap-4 px-5 py-4 ${
+                  idx !== section.items.length - 1 ? 'border-b border-app-border' : ''
+                }`;
                 const body = (
                   <>
                     <div
