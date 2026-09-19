@@ -3228,7 +3228,7 @@ export const DICTIONARY = {
     it: 'Creazione della card…',
   },
 
-  // 성지 상세 — 한 줄 남기기
+  // 성지 상세 — 순례 기록 남기기
   noteAskTitle: {
     ko: '오늘 그곳은 어땠나요?',
     en: 'How was it today?',
@@ -3262,7 +3262,7 @@ export const DICTIONARY = {
     it: 'Più tardi',
   },
   noteSubmit: {
-    ko: '한 줄 남기기',
+    ko: '순례 기록 남기기',
     en: 'Leave a line',
     es: 'Dejar una línea',
     fr: 'Laisser un mot',
