@@ -6,7 +6,6 @@ import {
   Compass,
   Flag,
   Heart,
-  History,
   PartyPopper,
   Share2,
   User,
@@ -348,9 +347,7 @@ export default function SiteDetailPage() {
    * 한국어 화면에서 "▷ 미사 시간(...) — 주일: …" 원문이 인용문에 그대로 보이고 있었다.)
    */
   const description =
-    view?.description && view.description !== site.description
-      ? view.description
-      : descriptionBody;
+    view?.description && view.description !== site.description ? view.description : descriptionBody;
 
   return (
     // 상단바·하단 탭이 있는 AppLayout 안에서 뜬다(2026-09-17) — 아래 여백은 AppLayout 이 탭 높이만큼 준다.
@@ -467,25 +464,22 @@ export default function SiteDetailPage() {
             뒤집는다 — 이번 지적을 그대로 따랐다. */}
         <section>
           <SectionHeading title={t('siteStory')} />
-          {/* 오디오 도슨트 — 박물관 오디오 가이드처럼 챕터를 골라 듣는다 */}
-          <DocentPlayer chapters={docentChapters} language={language} />
-          <Card tone="panel" className="relative overflow-hidden">
-            <History
-              size={100}
-              className="absolute -bottom-6 -right-6 rotate-12 text-brand-blue/5"
-              aria-hidden
-            />
+          {/* 인용문·역사 카드를 오디오 도슨트보다 위로(사장님 지적, 2026-09-19) — 무슨 이야기인지
+              먼저 읽고, 더 듣고 싶으면 그 아래 도슨트로 이어진다. 장식용 아이콘도 함께 뺐다. */}
+          <Card tone="panel" className="mb-6">
             {description && (
-              <p className="relative z-10 mb-5 font-display text-lg leading-relaxed text-brand-blue">
+              <p className="mb-5 font-display text-lg leading-relaxed text-brand-blue">
                 &ldquo;{description}&rdquo;
               </p>
             )}
             {(view?.history ?? site.history) && (
-              <p className="relative z-10 text-base leading-relaxed text-app-text">
+              <p className="text-base leading-relaxed text-app-text">
                 {view?.history ?? site.history}
               </p>
             )}
           </Card>
+          {/* 오디오 도슨트 — 박물관 오디오 가이드처럼 챕터를 골라 듣는다 */}
+          <DocentPlayer chapters={docentChapters} language={language} />
         </section>
 
         <section aria-labelledby="visit-info-heading" className="space-y-8">
@@ -748,11 +742,7 @@ export default function SiteDetailPage() {
                   <div className="mt-3 flex flex-wrap gap-2">
                     {notePhotos.map((p, i) => (
                       <div key={p.preview} className="relative">
-                        <img
-                          src={p.preview}
-                          alt=""
-                          className="h-16 w-16 rounded-lg object-cover"
-                        />
+                        <img src={p.preview} alt="" className="h-16 w-16 rounded-lg object-cover" />
                         <button
                           type="button"
                           onClick={() => removeNotePhoto(i)}
@@ -786,11 +776,7 @@ export default function SiteDetailPage() {
                     <p className="mt-1.5 text-xs text-app-text-muted">{notePhotoNotice}</p>
                   )}
                   <div className="mt-3 flex justify-end gap-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setNoteComposerOpen(false)}
-                    >
+                    <Button variant="ghost" size="sm" onClick={() => setNoteComposerOpen(false)}>
                       {t('noteLater')}
                     </Button>
                     <Button
