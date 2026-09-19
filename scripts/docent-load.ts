@@ -63,7 +63,7 @@ if (existsSync(introDir)) {
     const f = full.slice(introDir.length + 1);
     const { meta, sources, body } = parseMd(readFileSync(full, 'utf-8'));
     if (!meta.siteId) { console.warn(`건너뜀 (siteId 없음): ${f}`); continue; }
-    rows.push({ site_id: meta.siteId, language: meta.language || 'ko', kind: 'intro', seq: 0, title: (meta.language || 'ko') === 'ko' ? '소개글' : 'Introduction',
+    rows.push({ site_id: meta.siteId, language: meta.language || 'ko', kind: 'intro', seq: 0, title: ({ ko: '소개글', en: 'Introduction', es: 'Presentación', it: 'Presentazione', pt: 'Apresentação', fr: 'Présentation' } as Record<string, string>)[meta.language || 'ko'] ?? 'Introduction',
       body, look_for: null, sources, status: meta.status || 'draft', written_by: meta.writtenBy || null });
     console.log(`소개글  ${f}  ${body.length}자`);
   }
