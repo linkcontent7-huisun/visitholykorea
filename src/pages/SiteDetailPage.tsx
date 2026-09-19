@@ -57,7 +57,7 @@ import { kakaoDirectionsUrl } from '@/shared/lib/geo';
 /** 가는 김에 둘러볼 곳 — 레포츠·쇼핑은 도보권 밖으로 벗어나는 유형이라 뺀다(사장님 지적, 2026-09-17) */
 const HIDDEN_FACILITY_GROUPS = new Set(['레포츠', '쇼핑']);
 
-/** 순례 후기에 붙이는 사진 최대 장수(2026-09-17) — 일반 사진 추가(최대 5·10장)와는 다른 값 */
+/** 순례 기록에 붙이는 사진 최대 장수(2026-09-17) — 일반 사진 추가(최대 5·10장)와는 다른 값 */
 const NOTE_PHOTO_MAX = 3;
 
 export default function SiteDetailPage() {
@@ -108,10 +108,10 @@ export default function SiteDetailPage() {
 
   const [shareLoading, setShareLoading] = useState(false);
   const [noteDraft, setNoteDraft] = useState('');
-  // 후기 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-17).
+  // 기록 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-17).
   // 접어도 사라지지 않는다 — 줄만 남아서 다시 누르면 펼칠 수 있다.
   const [noteComposerOpen, setNoteComposerOpen] = useState(true);
-  // 후기와 함께 올릴 사진 — 최대 3장(2026-09-17, LogComposer 와 같은 미리보기 방식)
+  // 기록과 함께 올릴 사진 — 최대 3장(2026-09-17, LogComposer 와 같은 미리보기 방식)
   const [notePhotos, setNotePhotos] = useState<{ file: File; preview: string }[]>([]);
   const [notePhotoNotice, setNotePhotoNotice] = useState<string | null>(null);
 
@@ -154,7 +154,7 @@ export default function SiteDetailPage() {
   // 「소개글」 — 순교·신앙 역사 / 위치·지리 / 건축물 세 문단. 없으면 기존 description 한 줄을 그대로 보여준다.
   const docentIntro = useMemo(() => pickIntro(dbScripts, language), [dbScripts, language]);
 
-  // 순례 사진 — 첫 후기를 남기면 자동으로 생기는 "내 기록"에 붙인다
+  // 순례 사진 — 첫 기록을 남기면 자동으로 생기는 "내 기록"에 붙인다
   const uploadPhotos = useUploadStampPhotos(siteId ?? '');
   const reportNote = useReportNote(siteId ?? '');
   const [reportedIds, setReportedIds] = useState<Set<string>>(new Set());
@@ -176,7 +176,7 @@ export default function SiteDetailPage() {
     reportNote.mutate(stampId);
   };
 
-  // 후기 입력 칸의 사진 — 올리기 전 미리보기 URL 은 메모리를 잡으므로 바뀔 때마다 놓아준다
+  // 기록 입력 칸의 사진 — 올리기 전 미리보기 URL 은 메모리를 잡으므로 바뀔 때마다 놓아준다
   useEffect(() => () => notePhotos.forEach((p) => URL.revokeObjectURL(p.preview)), [notePhotos]);
   const pickNotePhotos = (files: FileList | null) => {
     if (!files) return;
@@ -208,10 +208,10 @@ export default function SiteDetailPage() {
   }, [siteId, visitNotes.length]);
 
   /**
-   * 후기 저장 — 이 한 번의 호출이 "기록"(스탬프)도 함께 만든다(2026-09-17).
-   * 예전엔 "스탬프 찍기" 버튼을 먼저 눌러야 후기를 쓸 수 있었다. 그 절차가
+   * 기록 저장 — 이 한 번의 호출이 "기록"(스탬프)도 함께 만든다(2026-09-17).
+   * 예전엔 "스탬프 찍기" 버튼을 먼저 눌러야 기록을 쓸 수 있었다. 그 절차가
    * 이 화면의 유일한 "기록" 입구인데도 무겁게 느껴진다는 지적으로, 절차를 화면에
-   * 드러내지 않고 후기 쓰기 한 번으로 합쳤다 — addStamp 자체는 그대로다
+   * 드러내지 않고 기록 쓰기 한 번으로 합쳤다 — addStamp 자체는 그대로다
    * (처음 쓰면 새 기록을 만들고, 이미 있으면 한 줄만 갱신한다).
    */
   const handleSaveNote = () => {
@@ -227,7 +227,7 @@ export default function SiteDetailPage() {
           window.alert(t('saveFailedNote'));
           return;
         }
-        // 후기와 같이 고른 사진이 있으면 이어서 올린다 — stamp 는 방금 생겼으므로
+        // 기록과 같이 고른 사진이 있으면 이어서 올린다 — stamp 는 방금 생겼으므로
         // (myStamps 캐시가 아직 갱신 전일 수 있어) 직접 다시 조회해 stampId 를 얻는다.
         if (notePhotos.length > 0 && siteId) {
           const pending = notePhotos;
@@ -569,7 +569,7 @@ export default function SiteDetailPage() {
           </section>
         )}
 
-        {/* 순례 후기 — "스탬프 찍기" 절차를 없앴다(2026-09-17 사장님 지적). 로그인한 사람은
+        {/* 순례 기록 — "스탬프 찍기" 절차를 없앴다(2026-09-17 사장님 지적). 로그인한 사람은
             누구나 바로 한 줄을 남길 수 있고, 그 글이 이 성지의 첫 기록이면 스탬프(기록)가
             뒤에서 함께 남는다. 사진은 확대해서 가로로 넘겨 보고, 다른 사람 글에는 실명 대신
             일반 라벨("순례자")만 붙인다 — 누가 썼는지는 DB 조회 자체에 없다(비식별 설계 유지). */}
@@ -624,7 +624,7 @@ export default function SiteDetailPage() {
                       if (e.key === 'Enter') handleSaveNote();
                     }}
                   />
-                  {/* 사진 — 최대 3장. 후기 문장과 함께 한 번에 올라간다 */}
+                  {/* 사진 — 최대 3장. 기록 문장과 함께 한 번에 올라간다 */}
                   <div className="mt-3 flex flex-wrap gap-2">
                     {notePhotos.map((p, i) => (
                       <div key={p.preview} className="relative">

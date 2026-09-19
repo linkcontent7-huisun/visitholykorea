@@ -23,7 +23,7 @@ const ITEMS: PrivacyItem[] = [
   {
     title: { ko: '수집하는 항목', en: 'What we collect' },
     body: {
-      ko: '회원 가입 시 이메일, 비밀번호(암호화 저장), 이름 또는 닉네임. 성지 기록 작성 시 성지·방문일·메모·(선택) 사진. 접속 통계용 익명 식별자(이름·이메일과 연결하지 않음). 현재 위치는 「현재 위치 사용」을 켠 동안 기기 안에서만 쓰고 서버로 보내지 않습니다.',
+      ko: '회원 가입 시 이메일, 비밀번호(암호화 저장), 이름 또는 닉네임. 순례 기록 작성 시 성지·방문일·메모·(선택) 사진. 접속 통계용 익명 식별자(이름·이메일과 연결하지 않음). 현재 위치는 「현재 위치 사용」을 켠 동안 기기 안에서만 쓰고 서버로 보내지 않습니다.',
       en: 'On sign-up: email, password (stored hashed), and a name or nickname. When writing a visit record: shrine, visit date, note and optional photos. An anonymous identifier for usage statistics (not linked to name or email). Your current location is used on the device only while “Use current location” is on and is never sent to our server.',
     },
   },
@@ -37,7 +37,7 @@ const ITEMS: PrivacyItem[] = [
   {
     title: { ko: '이용 목적', en: 'Why we use it' },
     body: {
-      ko: '로그인과 본인 확인, 성지 기록의 저장·표시, 서비스 이용 통계. 다른 목적으로 쓰거나 동의 없이 제3자에게 제공하지 않습니다.',
+      ko: '로그인과 본인 확인, 순례 기록의 저장·표시, 서비스 이용 통계. 다른 목적으로 쓰거나 동의 없이 제3자에게 제공하지 않습니다.',
       en: 'Sign-in and identity verification, storing and showing your visit records, and usage statistics. We do not use it for other purposes or share it with third parties without consent.',
     },
   },
@@ -52,7 +52,7 @@ const ITEMS: PrivacyItem[] = [
   {
     title: { ko: '삭제 방법', en: 'How to delete' },
     body: {
-      ko: '성지 기록은 「내 기록」에서 직접 삭제할 수 있습니다. 계정 삭제는 문의 연락처로 요청하면 처리합니다. ▶ 앱 안 계정 삭제 버튼은 준비 중입니다.',
+      ko: '순례 기록은 「내 기록」에서 직접 삭제할 수 있습니다. 계정 삭제는 문의 연락처로 요청하면 처리합니다. ▶ 앱 안 계정 삭제 버튼은 준비 중입니다.',
       en: 'Visit records can be deleted directly in “My records”. Account deletion is handled on request through the contact below. ▶ An in-app account deletion button is being prepared.',
     },
     needsOperator: true,
