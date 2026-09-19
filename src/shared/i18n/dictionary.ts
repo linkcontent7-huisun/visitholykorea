@@ -417,6 +417,22 @@ export const DICTIONARY = {
     pt: '{count} santuários',
     it: '{count} santuari',
   },
+  searchNearMeButton: {
+    ko: '내 위치로 검색',
+    en: 'Search near me',
+    es: 'Buscar cerca de mí',
+    fr: 'Chercher près de moi',
+    pt: 'Buscar perto de mim',
+    it: 'Cerca vicino a me',
+  },
+  searchNearMeRadius: {
+    ko: '반경 {radius}km 이내',
+    en: 'Within {radius}km',
+    es: 'Dentro de {radius}km',
+    fr: 'Dans un rayon de {radius}km',
+    pt: 'Num raio de {radius}km',
+    it: 'Entro {radius}km',
+  },
   searchMapAria: {
     ko: '검색 결과 분포 지도. 전체 {total}곳 중 {matched}곳이 지금 조건에 맞습니다.',
     en: 'Map of search results. {matched} of {total} shrines match your filters.',
@@ -4864,14 +4880,6 @@ export const DICTIONARY = {
     fr: 'Paroisses et chapelles',
     pt: 'Paróquias e capelas',
     it: 'Parrocchie e cappelle',
-  },
-  directorySearchHint: {
-    ko: '208곳 성지 밖에서, 전국 가톨릭 본당·공소 주소록(한국천주교주교회의)을 함께 찾아드려요.',
-    en: 'Beyond our 208 curated shrines, we also search the national Catholic parish directory (Catholic Bishops’ Conference of Korea).',
-    es: 'Además de nuestros 208 santuarios seleccionados, también buscamos en el directorio nacional de parroquias católicas (Conferencia Episcopal de Corea).',
-    fr: 'Au-delà de nos 208 sanctuaires sélectionnés, nous cherchons aussi dans l’annuaire national des paroisses catholiques (Conférence épiscopale de Corée).',
-    pt: 'Além dos nossos 208 santuários selecionados, também buscamos no diretório nacional de paróquias católicas (Conferência Episcopal da Coreia).',
-    it: 'Oltre ai nostri 208 santuari selezionati, cerchiamo anche nella directory nazionale delle parrocchie cattoliche (Conferenza Episcopale Coreana).',
   },
   // 본당·공소 5,918건의 이름·주소는 사람이 번역한 게 아니라 표기법을 기계로 적용한
   // 값이다(2026-09-07) — 208곳 성지의 사람이 확인한 번역과 다르다는 것을 밝힌다.
