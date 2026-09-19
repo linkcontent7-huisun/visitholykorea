@@ -9,7 +9,10 @@
     "narration": "해미에서는 이름이 남지 않은 순교자들을 기억하는 장소를 살펴보겠습니다. 읍성의 회화나무와 여숫골의 유적은 서로 떨어져 있습니다. 현장 안내에 따라 이동하며, 돌과 건물이 전하는 이야기에 귀를 기울여 보세요.",
     "narrationEn": "Welcome to Haemi in Seosan, where a Joseon walled town survives intact — and where, around the Byeongin Persecution, countless unnamed believers were martyred. In 2021 the Holy See proclaimed Haemi an international shrine: the second in Korea after the Seoul Pilgrimage Routes, and the third in Asia. From the old tree inside the fortress, out the west gate, and on to Yeosutgol — we will follow the road along which the martyrs were led. Haemi is also an official site of World Youth Day Seoul 2027.",
     "narrationEs": "Bienvenido a Haemi, en Seosan. Esta localidad conserva intacta una fortaleza urbana de Joseon y también es la tierra donde, en torno a la persecución de Byeongin, fueron martirizados innumerables creyentes sin nombre. En 2021 la Santa Sede la proclamó santuario internacional. Es el segundo de Corea, después de las Rutas de Peregrinación de Seúl, y el tercero de Asia. Desde el árbol antiguo dentro de la fortaleza, pasando por la Puerta Oeste, hasta Yeosutgol, seguiremos el camino por el que fueron llevados los mártires. Haemi también es una sede oficial de la Jornada Mundial de la Juventud Seúl 2027.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Benvenuti a Haemi a Seosan, dove una città murata Joseon sopravvive intatta e dove, durante la persecuzione di Byeongin, innumerevoli credenti senza nome furono martirizzati. Nel 2021 la Santa Sede ha proclamato Haemi santuario internazionale: il secondo in Corea dopo le Vie di pellegrinaggio di Seul, e il terzo in Asia. Dal vecchio albero all'interno della fortezza, fuori dalla porta ovest e fino a Yeosutgol, seguiremo la strada lungo la quale furono condotti i martiri. Haemi è anche un sito ufficiale della Giornata Mondiale della Gioventù di Seul 2027.",
+    "narrationPt": "Bem-vindo a Haemi em Seosan, onde uma cidade murada de Joseon sobrevive intacta – e onde, em torno da Perseguição de Byeongin, incontáveis ​​crentes anônimos foram martirizados. Em 2021, a Santa Sé proclamou Haemi um santuário internacional: o segundo na Coreia depois das Rotas de Peregrinação de Seul, e o terceiro na Ásia. Da velha árvore dentro da fortaleza, saindo pelo portão oeste e seguindo para Yeosutgol – seguiremos a estrada pela qual os mártires foram conduzidos. Haemi também é um site oficial da Jornada Mundial da Juventude Seul 2027.",
+    "narrationFr": "Bienvenue à Haemi à Seosan, où une ville fortifiée de Joseon survit intacte et où, autour de la persécution de Byeongin, d'innombrables croyants anonymes ont été martyrisés. En 2021, le Saint-Siège a proclamé Haemi sanctuaire international : le deuxième en Corée après les chemins de pèlerinage de Séoul et le troisième en Asie. Depuis le vieil arbre à l'intérieur de la forteresse, par la porte ouest et jusqu'à Yeosutgol, nous suivrons la route le long de laquelle les martyrs ont été conduits. Haemi est également un site officiel des Journées mondiales de la jeunesse de Séoul 2027."
   },
   "points": [
     {
@@ -28,7 +31,16 @@
       "lookForEs": "Las cicatrices del tronco y la prisión restaurada junto al árbol",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "성지 DB description의 군영·회화나무·감옥 복원, 가톨릭신문 2022-07-24. https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=20&id=188303&menu=4830&num=387 ; 대전교구 홍보국 제공 자료(2026-09-18): 해미순교자국제성지__해미성지-END.txt — 공식 홈페이지 http://www.haemi.or.kr/"
+      "sourceNote": "성지 DB description의 군영·회화나무·감옥 복원, 가톨릭신문 2022-07-24. https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=20&id=188303&menu=4830&num=387 ; 대전교구 홍보국 제공 자료(2026-09-18): 해미순교자국제성지__해미성지-END.txt — 공식 홈페이지 http://www.haemi.or.kr/",
+      "titleIt": "Il vecchio albero e il sito della prigione nella fortezza di Haemi",
+      "narrationIt": "Guarda questo vecchio albero della pagoda all'interno della fortezza. Durante le persecuzioni, i credenti catturati venivano appesi ai suoi rami con del filo e torturati; accanto è stata restaurata la prigione dove furono rinchiusi. Haemi ospitava una guarnigione a guardia della costa occidentale, e a Joseon era normale che le esecuzioni avvenissero per mano dei soldati, quindi i credenti catturati nella regione di Naepo venivano inviati qui. L'albero, ancora vivo e ancora frondoso, è l'unico testimone di quel tempo.",
+      "lookForIt": "Le cicatrici sul tronco dell'albero e accanto la prigione restaurata",
+      "titlePt": "A velha árvore e prisão na fortaleza de Haemi",
+      "narrationPt": "Veja este antigo pagode dentro da fortaleza. Durante as perseguições, os crentes capturados foram pendurados em seus galhos com arame e torturados; ao lado, a prisão onde estavam detidos foi restaurada. Haemi abrigava uma guarnição que guardava a costa oeste, e em Joseon era comum que as execuções recaíssem sobre os soldados – então os crentes capturados na região de Naepo eram enviados para cá. A árvore, ainda viva e ainda com folhas, é a única testemunha daquela época.",
+      "lookForPt": "As cicatrizes no tronco da árvore e a prisão restaurada ao lado dela",
+      "titleFr": "Le vieil arbre et le site de la prison de la forteresse de Haemi",
+      "narrationFr": "Regardez ce vieil arbre pagode à l’intérieur de la forteresse. Pendant les persécutions, les croyants capturés étaient pendus à ses branches avec du fil de fer et torturés ; à côté, la prison où ils étaient détenus a été restaurée. Haemi abritait une garnison gardant la côte ouest, et à Joseon, il était courant que les exécutions incombaient aux soldats – c'est pourquoi les croyants capturés dans toute la région de Naepo étaient envoyés ici. L'arbre, encore vivant et encore feuillu, est le seul témoin de cette époque.",
+      "lookForFr": "Les cicatrices sur le tronc de l'arbre et la prison restaurée à côté"
     },
     {
       "seq": 2,
@@ -46,7 +58,16 @@
       "lookForEs": "El tamaño y la superficie de la piedra",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "가톨릭신문 2022-07-24의 원래 용도·2009년 이전·서문 밖 모형 설명. https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=20&id=188303&menu=4830&num=387"
+      "sourceNote": "가톨릭신문 2022-07-24의 원래 용도·2009년 이전·서문 밖 모형 설명. https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=20&id=188303&menu=4830&num=387",
+      "titleIt": "Fuori dalla Porta Ovest: la Pietra Jarigae",
+      "narrationIt": "Le esecuzioni hanno avuto luogo fuori dalla porta ovest. Qui è conservata la pietra Jarigae, una larga lastra lunga più di quattro metri, sulla quale si dice che i credenti venissero gettati a morte. Dall'interno della fortezza attraverso la porta ovest - lungo quella breve strada furono condotti i martiri, sono disposte le quattordici stazioni della Via Crucis. Cammina stazione per stazione.",
+      "lookForIt": "La dimensione e la superficie della pietra",
+      "titlePt": "Fora do Portão Oeste – A Pedra Jarigae",
+      "narrationPt": "As execuções ocorreram fora do portão oeste. Preservada aqui está a pedra Jarigae, uma laje larga com mais de quatro metros de comprimento, sobre a qual os crentes teriam sido atirados para a morte. Do interior da fortaleza através do portão oeste - por aquela pequena estrada que os mártires foram conduzidos, estão dispostas as quatorze Estações da Via Sacra. Caminhe estação por estação.",
+      "lookForPt": "O tamanho e a superfície da pedra",
+      "titleFr": "À l’extérieur de la porte ouest – La pierre Jarigae",
+      "narrationFr": "Les exécutions ont eu lieu devant la porte ouest. Ici est conservée la pierre Jarigae, une large dalle de plus de quatre mètres de long, sur laquelle les croyants auraient été jetés à mort. De l'intérieur de la forteresse jusqu'à la porte ouest, le long de ce court chemin où les martyrs étaient conduits, sont disposés les quatorze chemins de croix. Parcourez-le station par station.",
+      "lookForFr": "La taille et la surface de la pierre"
     },
     {
       "seq": 3,
@@ -64,7 +85,16 @@
       "lookForEs": "El estanque y la torre de los mártires",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "성지 DB description의 무명 순교자, 가톨릭신문 2022-07-24의 진둠벙 수장 기록. https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=20&id=188303&menu=4830&num=387"
+      "sourceNote": "성지 DB description의 무명 순교자, 가톨릭신문 2022-07-24의 진둠벙 수장 기록. https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=20&id=188303&menu=4830&num=387",
+      "titleIt": "Yeosutgol e lo stagno che annega - Luogo dei Senza Nome",
+      "narrationIt": "Passando dalla fortezza a Yeosutgol, l'aria cambia. Durante la persecuzione di Byeongin, quando c'erano troppi credenti da giustiziare, le autorità li annegavano nei ruscelli e negli stagni qui, o li seppellivano vivi. Lo stagno chiamato Jindumbeong esiste ancora oggi. La maggior parte di coloro che sono morti qui non hanno lasciato nomi. Che ciò che non viene registrato supera di gran lunga quello registrato: questa è la verità più dolorosa che distingue Haemi.",
+      "lookForIt": "Lo stagno e la torre dei martiri",
+      "titlePt": "Yeosutgol e o Lago dos Afogamentos – Lugar dos Inomináveis",
+      "narrationPt": "Atravessando a fortaleza até Yeosutgol, o ar muda. Durante a perseguição de Byeongin, quando havia muitos crentes para serem executados, as autoridades os afogaram no riacho e nos lagos daqui, ou os enterraram vivos. A lagoa chamada Jindumbeong permanece até hoje. A maioria dos que morreram aqui não deixou nomes. Que o número não registrado supera em muito o registrado - essa é a verdade mais dolorosa que diferencia Haemi.",
+      "lookForPt": "O lago e a torre dos mártires",
+      "titleFr": "Yeosutgol et l'étang de noyade - Lieu des sans nom",
+      "narrationFr": "En passant de la forteresse à Yeosutgol, l'air change. Durant la persécution de Byeongin, lorsqu'il y avait trop de croyants à exécuter, les autorités les noyaient dans le ruisseau et les étangs, ou les enterraient vivants. L'étang appelé Jindumbeong existe encore aujourd'hui. La plupart de ceux qui sont morts ici n’ont laissé aucun nom. Que les non-enregistrés soient de loin plus nombreux que les enregistrés – c’est la vérité la plus douloureuse qui distingue Haemi.",
+      "lookForFr": "L'étang et la tour des martyrs"
     },
     {
       "seq": 4,
@@ -82,7 +112,16 @@
       "lookForEs": "Los monumentos que recuerdan la proclamación y la visita del papa",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "가톨릭신문 2022-07-24의 기념성당 원형과 제단 벽 돌의 상징 설명. https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=20&id=188303&menu=4830&num=387"
+      "sourceNote": "가톨릭신문 2022-07-24의 기념성당 원형과 제단 벽 돌의 상징 설명. https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=20&id=188303&menu=4830&num=387",
+      "titleIt": "Un Santuario Internazionale Riconosciuto dalla Santa Sede",
+      "narrationIt": "Nel novembre 2020 la Santa Sede ha approvato Haemi come santuario internazionale e il 1° marzo 2021 è stato formalmente proclamato: il terzo in Asia e il primo santuario internazionale con un unico sito in Corea. In precedenza, nell'agosto 2014, Papa Francesco in persona si era recato in questa fortezza per celebrare la messa di chiusura della Giornata asiatica della gioventù. La terra dei martiri senza nome divenne luogo di pellegrinaggio riconosciuto dalla Chiesa universale.",
+      "lookForIt": "I segni della proclamazione e della visita papale",
+      "titlePt": "Um Santuário Internacional Reconhecido pela Santa Sé",
+      "narrationPt": "Em novembro de 2020, a Santa Sé aprovou Haemi como santuário internacional e, em 1 de março de 2021, foi formalmente proclamado — o terceiro na Ásia e o primeiro santuário internacional de local único da Coreia. Anteriormente, em agosto de 2014, o próprio Papa Francisco veio a esta fortaleza para celebrar a missa de encerramento do Dia da Juventude Asiática. A terra dos mártires sem nome tornou-se um local de peregrinação reconhecido pela Igreja universal.",
+      "lookForPt": "Os marcos da proclamação e da visita papal",
+      "titleFr": "Un sanctuaire international reconnu par le Saint-Siège",
+      "narrationFr": "En novembre 2020, le Saint-Siège a approuvé Haemi comme sanctuaire international, et le 1er mars 2021, il a été officiellement proclamé – le troisième en Asie et le premier sanctuaire international à site unique de Corée. Plus tôt, en août 2014, le pape François lui-même était venu dans cette forteresse pour célébrer la messe de clôture de la Journée de la jeunesse asiatique. La terre des martyrs anonymes est devenue un lieu de pèlerinage reconnu par l'Église universelle.",
+      "lookForFr": "Les marqueurs de la proclamation et de la visite papale"
     },
     {
       "seq": 5,
@@ -100,13 +139,25 @@
       "lookForEs": "El paisaje del pueblo visto desde lo alto de las murallas",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "가톨릭신문 2022-07-24의 원형 기념관·발굴 유해·사진 및 자료 설명. https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=20&id=188303&menu=4830&num=387"
+      "sourceNote": "가톨릭신문 2022-07-24의 원형 기념관·발굴 유해·사진 및 자료 설명. https://pds.catholic.or.kr/pdsm/bbs_view.asp?Page=20&id=188303&menu=4830&num=387",
+      "titleIt": "Oltre il Santuario: la Fortezza e il Tempio di Gaesimsa",
+      "narrationIt": "Una volta terminato il pellegrinaggio, percorri l'intero circuito della Fortezza di Haemi. Vecchio di seicento anni e straordinariamente ben conservato, ospita ogni anno il Festival della Fortezza di Haemi dentro e intorno alle sue mura. Un po' più lontano c'è Gaesimsa, un tempio fondato nell'era di Baekje e famoso per i suoi fiori primaverili. Un luogo di martirio, una fortezza della storia, la quiete di un tempio di montagna: a Haemi, un giorno si approfondisce a strati.",
+      "lookForIt": "Il borgo visto dall'alto delle mura della fortezza",
+      "titlePt": "Além do Santuário – A Fortaleza e o Templo Gaesimsa",
+      "narrationPt": "Quando sua peregrinação terminar, percorra todo o circuito da Fortaleza Haemi. Com seiscentos anos de idade e notavelmente bem preservada, ela acolhe anualmente o Festival da Fortaleza de Haemi dentro e ao redor de suas muralhas. Um pouco mais longe fica Gaesimsa, um templo fundado na era Baekje e famoso por suas flores primaveris. Um lugar de martírio, uma fortaleza de história, a tranquilidade de um templo na montanha — em Haemi, um dia se aprofunda em camadas.",
+      "lookForPt": "A aldeia vista do alto das muralhas da fortaleza",
+      "titleFr": "Au-delà du sanctuaire – La forteresse et le temple Gaesimsa",
+      "narrationFr": "Une fois votre pèlerinage terminé, parcourez le circuit complet de la forteresse de Haemi. Vieille de six cents ans et remarquablement bien conservée, elle accueille chaque année le festival de la forteresse de Haemi dans et autour de ses murs. Un peu plus loin se trouve Gaesimsa, un temple fondé à l'époque de Baekje et célèbre pour ses fleurs printanières. Un lieu de martyre, une forteresse d'histoire, le calme d'un temple de montagne — à Haemi, un jour s'approfondit en couches.",
+      "lookForFr": "Le village vu du haut des murs de la forteresse"
     }
   ],
   "outro": {
     "narration": "해미의 순교자 가운데 김진후 비오는 김대건 신부의 증조부입니다. 이름이 전해지는 사람과 이름조차 남지 않은 사람을 함께 기억하며, 오늘 걸어온 자리를 돌아보세요.",
     "narrationEn": "Thank you for walking Haemi with us. Pius Kim Chin-hu, martyred here, was the great-grandfather of St. Andrew Kim Taegon, born at Solmoe. Continue to Solmoe in the same Naepo country, and the pilgrimage runs whole — from the great-grandfather's place of martyrdom to the great-grandson's birthplace. May your journey be peaceful.",
     "narrationEs": "Gracias por acompañarnos en esta peregrinación por Haemi. Pío Kim Jinhu, martirizado aquí, fue el bisabuelo de San Andrés Kim Taegon, nacido en Solmoe. Si continúa hasta el santuario de Solmoe, en la misma tierra de Naepo, completará la ruta de peregrinación de Naepo, que une el lugar de martirio del bisabuelo con el lugar de nacimiento del bisnieto. Le deseamos un viaje en paz.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Grazie per aver portato Haemi con noi. Pio Kim Chin-hu, qui martirizzato, era il bisnonno di sant'Andrea Kim Taegon, nato a Solmoe. Prosegui fino a Solmoe, nello stesso paese di Naepo, e il pellegrinaggio si svolgerà per intero: dal luogo del martirio del bisnonno al luogo di nascita del pronipote. Possa il tuo viaggio essere sereno.",
+    "narrationPt": "Obrigado por levar Haemi conosco. Pio Kim Chin-hu, aqui martirizado, era bisavô de Santo André Kim Taegon, nascido em Solmoe. Continue até Solmoe, no mesmo país de Naepo, e a peregrinação ocorre por inteiro - desde o local do martírio do bisavô até o local de nascimento do bisneto. Que sua jornada seja tranquila.",
+    "narrationFr": "Merci d'avoir accompagné Haemi avec nous. Pie Kim Chin-hu, martyrisé ici, était l'arrière-grand-père de saint André Kim Taegon, né à Solmoe. Continuez vers Solmoe, dans le même pays Naepo, et le pèlerinage se déroule dans son intégralité, depuis le lieu du martyre de l'arrière-grand-père jusqu'au lieu de naissance de l'arrière-petit-fils. Que votre voyage soit paisible."
   }
 }

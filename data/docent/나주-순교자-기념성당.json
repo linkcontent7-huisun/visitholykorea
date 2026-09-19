@@ -9,7 +9,10 @@
     "narration": "나주 순교자 기념성당에 오신 것을 환영합니다. 광주대교구에서 유일한 순교터를 품은 성당입니다. 오늘 보실 것은 웅장한 건물이 아니라 마당 한켠에 놓인 오래된 받침돌 몇 개입니다. 그 돌들이 백오십 년 전 이 고장에서 있었던 일을 기억하는 거의 유일한 물증입니다. 작은 것에서 시작하겠습니다.",
     "narrationEn": "Welcome to the Martyrs' Memorial Church of Naju, the church that holds the only martyrdom site in the Archdiocese of Gwangju. What you will see today is not a grand building but a few old foundation stones set in a corner of the yard. Those stones are almost the only physical witness to what happened in this town a hundred and fifty years ago. We begin with small things.",
     "narrationEs": "Bienvenidos a la iglesia conmemorativa de los mártires de Naju. Es el único templo de la arquidiócesis de Gwangju que guarda en su recinto un lugar de martirio. Lo que verán hoy no es un edificio imponente, sino unas viejas piedras de cimiento colocadas en un rincón del patio. Esas piedras son casi la única prueba material de lo que ocurrió en esta tierra hace ciento cincuenta años. Empecemos por lo pequeño.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Benvenuti alla Chiesa commemorativa dei Martiri di Naju, la chiesa che ospita l'unico luogo di martirio nell'arcidiocesi di Gwangju. Quello che vedrai oggi non è un grande edificio ma alcune vecchie pietre di fondazione poste in un angolo del cortile. Quelle pietre sono quasi l'unica testimonianza fisica di ciò che accadde in questa cittadina centocinquanta anni fa. Iniziamo dalle piccole cose.",
+    "narrationPt": "Bem-vindo à Igreja Memorial dos Mártires de Naju, a igreja que abriga o único local de martírio na Arquidiocese de Gwangju. O que você verá hoje não é um grande edifício, mas algumas pedras antigas colocadas em um canto do quintal. Essas pedras são quase a única testemunha física do que aconteceu nesta cidade há cento e cinquenta anos. Começamos com pequenas coisas.",
+    "narrationFr": "Bienvenue à l'Église du Souvenir des Martyrs de Naju, l'église qui abrite le seul lieu de martyre de l'archidiocèse de Gwangju. Ce que vous verrez aujourd’hui n’est pas un grand bâtiment mais quelques vieilles pierres posées dans un coin de la cour. Ces pierres sont presque le seul témoignage physique de ce qui s'est passé dans cette ville il y a cent cinquante ans. Nous commençons par de petites choses."
   },
   "points": [
     {
@@ -28,7 +31,16 @@
       "lookForEs": "La disposición de las ocho piedras que forman el monumento",
       "forEveryone": "조선 후기 지방 군영 건축의 초석이 원형 그대로 남은 드문 사례입니다.",
       "photos": [],
-      "sourceNote": "주교회의 성지 안내(cbck.or.kr) — 무학당은 나주 진영 사열대, 1907 나주초등학교 개교, 2001.11.7 주춧돌 10개 이전(8개 조형물·2개 십자가의 길 입구)"
+      "sourceNote": "주교회의 성지 안내(cbck.or.kr) — 무학당은 나주 진영 사열대, 1907 나주초등학교 개교, 2001.11.7 주춧돌 10개 이전(8개 조형물·2개 십자가의 길 입구)",
+      "titleIt": "Le Pietre Muhakdang - Pietre provenienti da un luogo di esecuzione",
+      "narrationIt": "Inizia con le pietre di fondazione nel cortile. Appartenevano a un edificio chiamato Muhakdang, la tribuna della guarnigione di Naju, una sala rialzata dove venivano ispezionate le truppe e, a volte, si trattavano i prigionieri. L'edificio scomparve e quando sul sito fu costruita una scuola nel 1907 le tracce scomparvero quasi del tutto. Eppure una manciata di pietre di fondazione resistettero centotrenta anni nel giardino della scuola. Nel novembre del 2001 dieci dei dodici restanti furono trasferiti qui: otto formano la struttura commemorativa davanti a voi e due si trovano all'ingresso della Via Crucis.",
+      "lookForIt": "Come sono disposte le otto pietre nel memoriale",
+      "titlePt": "As Pedras Muhakdang – Pedras de um Campo de Execução",
+      "narrationPt": "Comece com as pedras fundamentais do quintal. Eles pertenciam a um prédio chamado Muhakdang – o posto de revisão da guarnição de Naju, um salão elevado onde as tropas eram inspecionadas e, às vezes, os prisioneiros eram tratados. O edifício desapareceu e quando uma escola foi construída no local em 1907, os vestígios praticamente desapareceram. No entanto, um punhado de pedras fundamentais resistiram cento e trinta anos na horta da escola. Em novembro de 2001, dez dos doze restantes foram transferidos para cá: oito formam a estrutura memorial diante de vocês e dois ficam na entrada da Via Sacra.",
+      "lookForPt": "Como as oito pedras estão dispostas no memorial",
+      "titleFr": "Les pierres de Muhakdang - Pierres d'un terrain d'exécution",
+      "narrationFr": "Commencez par les premières pierres de la cour. Ils appartenaient à un bâtiment appelé Muhakdang – la tribune de revue de la garnison de Naju, une salle surélevée où les troupes étaient inspectées et, parfois, les prisonniers étaient traités. Le bâtiment a disparu et lorsqu'une école a été construite sur le site en 1907, les traces ont pratiquement disparu. Pourtant, une poignée de premières pierres ont résisté cent trente ans dans le jardin de l’école. En novembre 2001, dix des douze restants ont été déplacés ici : huit forment la structure commémorative devant vous et deux se trouvent à l'entrée du chemin de croix.",
+      "lookForFr": "Comment les huit pierres sont disposées dans le mémorial"
     },
     {
       "seq": 2,
@@ -46,7 +58,16 @@
       "lookForEs": "La altura de la plataforma, que se percibe al ponerse de pie sobre las piedras",
       "forEveryone": "유치성의 최후에 대해서는 태형 뒤 백지사형이라는 기록과 돌에 맞아 숨졌다는 기록이 함께 전해집니다.",
       "photos": [],
-      "sourceNote": "주교회의 안내 — 1871 체포, 1872.3 유문보 옥사, 1872.4 강영원·유치성 백지사형. 성지순례후원회 해설 — 유치성 최후는 기록이 갈린다"
+      "sourceNote": "주교회의 안내 — 1871 체포, 1872.3 유문보 옥사, 1872.4 강영원·유치성 백지사형. 성지순례후원회 해설 — 유치성 최후는 기록이 갈린다",
+      "titleIt": "Primavera 1872 — Martiri alla fine della persecuzione",
+      "narrationIt": "Lascia che ti racconti cosa è successo su queste pietre. Nel 1871, con la fine della grande persecuzione, tre uomini furono portati prigionieri a Naju. Paul Yu Mun-bo morì in prigione nel marzo 1872. Paul Kang Yeong-won e Andrew Yu Chi-seong furono giustiziati prima di Muhakdang quell'aprile. Il metodo era baekjisa: fogli di carta bagnata stesi uno ad uno sul viso finché non si fermava il respiro: una morte senza lama né corda, silenziosa e crudele. Al limite della persecuzione questi erano uomini che avrebbero potuto semplicemente essere rilasciati. Sono morti perché non volevano rinunciare alla fede.",
+      "lookForIt": "L'altezza della piattaforma, percepita quando ti trovi vicino alle pietre",
+      "titlePt": "Primavera de 1872 – Mártires no Fim da Perseguição",
+      "narrationPt": "Deixe-me contar o que aconteceu nessas pedras. Em 1871, com o fim da grande perseguição, três homens foram levados cativos para Naju. Paul Yu Mun-bo morreu na prisão em março de 1872. Paul Kang Yeong-won e Andrew Yu Chi-seong foram executados antes de Muhakdang naquele abril. O método era baekjisa: folhas de papel molhado colocadas uma a uma sobre o rosto até a respiração parar – uma morte sem lâmina ou corda, silenciosa e cruel. No limite da perseguição, estes eram homens que poderiam simplesmente ter sido libertados. Eles morreram porque não desistiram da fé.",
+      "lookForPt": "A altura da plataforma, sentida quando você fica perto das pedras",
+      "titleFr": "Printemps 1872 — Martyrs à la fin de la persécution",
+      "narrationFr": "Laissez-moi vous raconter ce qui s'est passé sur ces pierres. En 1871, alors que la grande persécution touchait à sa fin, trois hommes furent emmenés captifs à Naju. Paul Yu Mun-bo mourut en prison en mars 1872. Paul Kang Yeong-won et Andrew Yu Chi-seong furent exécutés avant Muhakdang en avril de cette même année. La méthode était le baekjisa : des feuilles de papier mouillées étaient posées une à une sur le visage jusqu'à ce que le souffle s'arrête – une mort sans lame ni corde, silencieuse et cruelle. À la limite de la persécution, il s’agissait d’hommes qui auraient tout simplement pu être libérés. Ils sont morts parce qu’ils ne voulaient pas abandonner la foi.",
+      "lookForFr": "La hauteur de la plateforme, ressentie lorsque l'on se tient près des pierres"
     },
     {
       "seq": 3,
@@ -64,7 +85,16 @@
       "lookForEs": "La tumba conmemorativa, que guarda solo los nombres y ningún cuerpo",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "성지 DB 원문 — 이춘화 베드로 포함 네 순교자. 주교회의 안내 — 기해박해 때 나주 순교, 경내 순교자 기념 경당·기념 가묘"
+      "sourceNote": "성지 DB 원문 — 이춘화 베드로 포함 네 순교자. 주교회의 안내 — 기해박해 때 나주 순교, 경내 순교자 기념 경당·기념 가묘",
+      "titleIt": "Il quarto nome: Peter Yi Chun-hwa",
+      "narrationIt": "Questa chiesa onora quattro martiri. Una generazione prima dei tre che avete appena incontrato, Peter Yi Chun-hwa fu martirizzato a Naju durante la persecuzione del 1839. Quattro persone di una città, a trent'anni di distanza, morirono per lo stesso motivo. Nella cappella è conservata per loro una tomba commemorativa: le loro tombe reali non sono mai state ritrovate, quindi al loro posto c'è una tomba vuota.",
+      "lookForIt": "La tomba commemorativa: una tomba che contiene nomi, non resti",
+      "titlePt": "O Quarto Nome - Peter Yi Chun-hwa",
+      "narrationPt": "Esta igreja homenageia quatro mártires. Uma geração antes dos três que acabaste de conhecer, Peter Yi Chun-hwa foi martirizado em Naju durante a perseguição de 1839. Quatro pessoas de uma cidade, com trinta anos de diferença, morreram pela mesma razão. Na capela é mantido um túmulo memorial para eles – seus túmulos reais nunca foram encontrados, então um túmulo vazio fica em seu lugar.",
+      "lookForPt": "O túmulo memorial – um túmulo contendo nomes, não restos mortais",
+      "titleFr": "Le Quatrième Nom — Peter Yi Chun-hwa",
+      "narrationFr": "Cette église honore quatre martyrs. Une génération avant les trois que vous venez de rencontrer, Peter Yi Chun-hwa fut martyrisé à Naju lors de la persécution de 1839. Quatre habitants d'une même ville, à trente ans d'intervalle, moururent pour la même raison. Dans la chapelle, un tombeau commémoratif est conservé pour eux. Leurs tombes réelles n'ont jamais été retrouvées, c'est pourquoi un tombeau vide se trouve à leur place.",
+      "lookForFr": "Le tombeau commémoratif : une tombe contenant des noms, pas des restes"
     },
     {
       "seq": 4,
@@ -82,7 +112,16 @@
       "lookForEs": "Los nombres de bautismo de los mártires escritos en la capilla",
       "forEveryone": "시복·시성은 가톨릭교회가 모범적 신앙인을 공적으로 공경 대상으로 선포하는 절차로, 역사 기록 검증이 핵심입니다.",
       "photos": [],
-      "sourceNote": "주교회의 안내 — 유문보·유치성·강영원은 '조선 왕조 치하 순교 133위' 시복 대상자로 등재. 133위 시복은 2026-08 현재 진행 중(완료 여부는 추후 확인 필요)"
+      "sourceNote": "주교회의 안내 — 유문보·유치성·강영원은 '조선 왕조 치하 순교 133위' 시복 대상자로 등재. 133위 시복은 2026-08 현재 진행 중(완료 여부는 추후 확인 필요)",
+      "titleIt": "Un processo incompiuto: nomi in attesa di beatificazione",
+      "narrationIt": "Ecco qualcosa che vale la pena sapere: i tre martiri di questo luogo – Yu Mun-bo, Yu Chi-seong e Kang Yeong-won – non sono ancora santi o beati. Sono tra i 133 martiri della dinastia Joseon la cui causa di beatificazione è in corso a Roma, il terzo elenco dopo i 103 santi canonizzati nel 1984 e i 124 beatificati nel 2014. Per dichiarare santa una persona ci vogliono decenni di documenti raccolti e verificati, a volte più di un secolo. Questo santuario è, in un certo senso, un'aula di tribunale dove il caso è ancora aperto.",
+      "lookForIt": "I nomi di battesimo iscritti nella cappella",
+      "titlePt": "Um processo inacabado – Nomes aguardando beatificação",
+      "narrationPt": "Aqui está algo que vale a pena saber: os três mártires deste lugar – Yu Mun-bo, Yu Chi-seong e Kang Yeong-won – ainda não são santos ou beatos. Eles estão entre os 133 mártires da dinastia Joseon cuja causa de beatificação está em andamento em Roma, a terceira lista depois dos 103 santos canonizados em 1984 e dos 124 beatificados em 2014. Declarar uma pessoa santa leva décadas de registros coletados e verificados, às vezes mais de um século. Este santuário é, em certo sentido, um tribunal onde o caso ainda está aberto.",
+      "lookForPt": "Os nomes de batismo inscritos na capela",
+      "titleFr": "Un processus inachevé : des noms en attente de béatification",
+      "narrationFr": "Voici quelque chose à savoir : les trois martyrs de ce lieu — Yu Mun-bo, Yu Chi-seong et Kang Yeong-won — ne sont pas encore des saints ou des bienheureux. Ils font partie des 133 martyrs de la dynastie Joseon dont la cause de béatification est en cours à Rome, la troisième liste après les 103 saints canonisés en 1984 et les 124 béatifiés en 2014. Déclarer une personne sainte prend des décennies de documents rassemblés et vérifiés, parfois plus d'un siècle. Ce sanctuaire est en quelque sorte une salle d’audience où l’affaire est encore ouverte.",
+      "lookForFr": "Les noms de baptême inscrits dans la chapelle"
     },
     {
       "seq": 5,
@@ -100,13 +139,25 @@
       "lookForEs": "Las dos piedras de cimiento a ambos lados de la entrada",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "주교회의 안내 — 주춧돌 10개 중 2개는 십자가의 길 입구 배치"
+      "sourceNote": "주교회의 안내 — 주춧돌 10개 중 2개는 십자가의 길 입구 배치",
+      "titleIt": "Via Crucis: recintata dalle pietre dell'esecuzione",
+      "narrationIt": "Per ultime arriva la Via Crucis. Al suo ingresso riposano le due pietre Muhakdang rimanenti. Il cammino percorso in meditazione sulla Passione inizia così sulle pietre effettivamente calcate dai martiri: la strada di Gerusalemme duemila anni fa e la strada di Naju centocinquanta anni fa si sovrappongono a questa porta. Cammina lentamente e, quando hai finito, guarda ancora una volta le otto pietre nel cortile.",
+      "lookForIt": "Le due pietre di fondazione che fiancheggiano l'ingresso",
+      "titlePt": "Estações da Cruz - Fechadas por Pedras de Execução",
+      "narrationPt": "Por último vem a Via Sacra. Na sua entrada repousam as duas pedras Muhakdang restantes. O caminho percorrido na meditação da Paixão começa assim nas pedras que os mártires realmente pisaram – a estrada de Jerusalém há dois mil anos e a estrada de Naju há cento e cinquenta anos atrás sobrepõem-se nesta porta. Caminhe devagar e, ao terminar, olhe mais uma vez para as oito pedras do quintal.",
+      "lookForPt": "As duas pedras fundamentais que flanqueiam a entrada",
+      "titleFr": "Chemin de croix – fermé par des pierres d'exécution",
+      "narrationFr": "Vient enfin le chemin de croix. A son entrée reposent les deux pierres Muhakdang restantes. Le chemin parcouru en méditation sur la Passion commence ainsi sur des pierres que les martyrs ont réellement foulées : à cette porte se chevauchent la route de Jérusalem il y a deux mille ans et la route de Naju il y a cent cinquante ans. Marchez lentement et lorsque vous avez terminé, regardez à nouveau les huit pierres de la cour.",
+      "lookForFr": "Les deux premières pierres flanquant l'entrée"
     }
   ],
   "outro": {
     "narration": "나주 순례에 함께해 주셔서 감사합니다. 광주와 전남 지역의 신앙은 순교의 피가 아니라 이 작은 돌 몇 개와 네 개의 이름 위에서 자라났습니다. 목포 산정동 순교자기념성당도 이 앱에서 찾아보실 수 있습니다. 전남 천주교의 뿌리가 궁금하시다면 다음 걸음으로 좋겠습니다. 평화를 빕니다.",
     "narrationEn": "Thank you for walking Naju with us. The faith of Gwangju and Jeonnam grew not from rivers of blood but from these few stones and four names. You can also find the Sanjeong-dong Martyrs' Memorial Church of Mokpo in this app — a good next step if you wish to trace the roots of Catholicism in Jeonnam. Peace be with you.",
     "narrationEs": "Gracias por acompañarnos en esta peregrinación por Naju. La fe de Gwangju y de la provincia de Jeonnam no creció sobre ríos de sangre, sino sobre estas pocas piedras pequeñas y cuatro nombres. En esta aplicación también encontrarán la iglesia conmemorativa de los mártires de Sanjeong-dong, en Mokpo. Si desean conocer la raíz del catolicismo en Jeonnam, será un buen paso siguiente. La paz sea con ustedes.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Grazie per aver accompagnato Naju con noi. La fede di Gwangju e Jeonnam non è cresciuta da fiumi di sangue ma da queste poche pietre e quattro nomi. In questa app puoi anche trovare la Chiesa commemorativa dei martiri di Sanjeong-dong di Mokpo: un buon passo successivo se desideri rintracciare le radici del cattolicesimo a Jeonnam. La pace sia con te.",
+    "narrationPt": "Obrigado por caminhar com Naju conosco. A fé de Gwangju e Jeonnam não cresceu a partir de rios de sangue, mas destas poucas pedras e quatro nomes. Você também pode encontrar a Igreja Memorial dos Mártires de Sanjeong-dong de Mokpo neste aplicativo - um bom próximo passo se você deseja rastrear as raízes do catolicismo em Jeonnam. A paz esteja com você.",
+    "narrationFr": "Merci d'avoir accompagné Naju avec nous. La foi de Gwangju et de Jeonnam n'est pas née de rivières de sang mais de ces quelques pierres et de ces quatre noms. Vous pouvez également trouver l'église commémorative des martyrs Sanjeong-dong de Mokpo dans cette application – une bonne étape si vous souhaitez retracer les racines du catholicisme à Jeonnam. La paix soit avec toi."
   }
 }

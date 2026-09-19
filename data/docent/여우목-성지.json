@@ -9,7 +9,10 @@
     "narration": "문경 여우목 성지에 오신 것을 환영합니다. 문경읍과 동로면 사이, 소백산 자락을 넘는 고갯길입니다. 이 산골에 박해를 피해 온 사람들이 삼십여 명의 마을을 이루었고, 1866년 어느 날 그 마을 전체가 한꺼번에 끌려갔습니다. 미리 한 가지 말씀드립니다. 여기서 나온 성인의 유해는 이곳에 없습니다. 왜 없는지가 오늘 순례의 이야기입니다.",
     "narrationEn": "Welcome to the Yeoumok shrine in Mungyeong. This is a pass over the flank of Sobaeksan, between Mungyeong town and Dongno-myeon. In these hills people fleeing persecution built a village of some thirty souls, and one day in 1866 the whole village was taken away at once. One thing first: the relics of the saint who came from here are not kept here. Why they are not is the story of today's walk.",
     "narrationEs": "Bienvenidos al santuario de Yeoumok, en Mungyeong. Es un puerto de montaña que cruza las estribaciones del Sobaeksan, entre el pueblo de Mungyeong y el término de Dongno. En este rincón agreste, quienes huían de la persecución formaron una aldea de unas treinta personas, y un día de 1866 se llevaron a la aldea entera de una sola vez. Les advierto algo de antemano: los restos del santo que salió de aquí no están aquí. Por qué no están es la historia de la peregrinación de hoy.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Benvenuti al santuario Yeoumok a Mungyeong. Questo è un passaggio sul fianco di Sobaeksan, tra la città di Mungyeong e Dongno-myeon. Su queste colline gente in fuga dalle persecuzioni costruì un villaggio di una trentina di anime, e un giorno del 1866 l'intero villaggio fu portato via d'un tratto. Innanzitutto una cosa: le reliquie del santo venuto da qui non sono conservate qui. Perché non lo sono è la storia della passeggiata di oggi.",
+    "narrationPt": "Bem-vindo ao santuário Yeoumok em Mungyeong. Esta é uma passagem pelo flanco de Sobaeksan, entre a cidade de Mungyeong e Dongno-myeon. Nestas colinas, as pessoas que fugiam da perseguição construíram uma aldeia com cerca de trinta almas, e um dia, em 1866, toda a aldeia foi tomada de uma só vez. Primeiro uma coisa: as relíquias do santo que veio daqui não estão guardadas aqui. Por que não o são é a história da caminhada de hoje.",
+    "narrationFr": "Bienvenue au sanctuaire Yeoumok à Mungyeong. Il s'agit d'un passage sur le flanc de Sobaeksan, entre la ville de Mungyeong et Dongno-myeon. Dans ces collines, les gens fuyant les persécutions ont construit un village d'une trentaine d'âmes, et un jour de 1866, tout le village a été enlevé d'un seul coup. Une chose d'abord : les reliques du saint venu d'ici ne sont pas conservées ici. Pourquoi ils ne le sont pas, c'est l'histoire de la marche d'aujourd'hui."
   },
   "points": [
     {
@@ -28,7 +31,16 @@
       "lookForEs": "Lo empinado que es el puerto: esa dureza era justamente la seguridad",
       "forEveryone": "조선 후기 산간 교우촌은 화전과 옹기로 생계를 잇던 독특한 마을 형태였습니다.",
       "photos": [],
-      "sourceNote": "성지 DB 원문 — 1839 기해박해 무렵 이윤일 일가·서치보 일가 이주. 위키백과 여우목고개 — 문경읍과 동로면 사이 고갯길"
+      "sourceNote": "성지 DB 원문 — 1839 기해박해 무렵 이윤일 일가·서치보 일가 이주. 위키백과 여우목고개 — 문경읍과 동로면 사이 고갯길",
+      "titleIt": "Passo Yeoumok: perché questa strada di montagna",
+      "narrationIt": "Guarda il passo. Questa era un'antica strada che i viaggiatori prendevano verso Seoul. Intorno alla persecuzione del 1839, la famiglia di John Yi Yun-il di Sangju e la famiglia di Joseph Seo Chi-bo di Cheongpung a Chungcheong si stabilirono proprio all'interno di questa cresta. Non perché il terreno agricolo fosse buono. Perché era lontano dal magistrato, difficile da raggiungere e poco visitato. Non scelsero un buon posto in cui vivere; hanno scelto un posto dove non avrebbero potuto morire.",
+      "lookForIt": "Quanto è ripido il passo: questa difficoltà era la loro sicurezza",
+      "titlePt": "Yeoumok Pass – Por que esta estrada na montanha",
+      "narrationPt": "Olhe para a passagem. Esta era uma antiga estrada que os viajantes percorriam em direção a Seul. Por volta da perseguição de 1839, a família de John Yi Yun-il de Sangju e a família de Joseph Seo Chi-bo de Cheongpung em Chungcheong estabeleceram-se dentro desta cordilheira. Não porque as terras agrícolas fossem boas. Porque ficava longe do magistrado, era de difícil acesso e raramente visitado. Eles não escolheram um bom lugar para morar; eles escolheram um lugar onde não poderiam morrer.",
+      "lookForPt": "Quão íngreme é a passagem - essa dificuldade era a segurança deles",
+      "titleFr": "Col Yeoumok – Pourquoi cette route de montagne",
+      "narrationFr": "Regardez le col. C'était une ancienne route empruntée par les voyageurs en direction de Séoul. Autour de la persécution de 1839, la famille de John Yi Yun-il de Sangju et la famille de Joseph Seo Chi-bo de Cheongpung à Chungcheong se sont installées juste à l'intérieur de cette crête. Non pas parce que les terres agricoles étaient bonnes. Parce qu'il était loin du magistrat, difficile d'accès et rarement visité. Ils n’ont pas choisi un bon endroit pour vivre ; ils ont choisi un endroit où ils ne mourraient pas.",
+      "lookForFr": "Comme le col est raide – cette épreuve était leur sécurité"
     },
     {
       "seq": 2,
@@ -46,7 +58,16 @@
       "lookForEs": "El tamaño del terreno llano donde pudo estar la aldea",
       "forEveryone": "회장 제도는 성직자가 절대적으로 부족했던 조선 교회의 특징적인 조직 방식입니다.",
       "photos": [],
-      "sourceNote": "위키백과 이윤일 — 1823 홍주 출생·태중 교우·문경 여호목골 거주·회장 활동"
+      "sourceNote": "위키백과 이윤일 — 1823 홍주 출생·태중 교우·문경 여호목골 거주·회장 활동",
+      "titleIt": "John Yi Yun-il, il capo del villaggio",
+      "narrationIt": "L’uomo che guidò questo villaggio era John Yi Yun-il, nato nel 1823 a Hongju, Chungcheong, da genitori già cattolici – quello che i coreani chiamano un credente fin dal grembo materno. Non ha scelto la fede; è nato al suo interno. Qui coltivava e serviva come hoejang, il leader laico che riuniva un villaggio senza sacerdoti per la preghiera e insegnava il catechismo. In quegli anni la Corea aveva meno di dieci sacerdoti. Erano persone come lui che effettivamente sostenevano la fede.",
+      "lookForIt": "La dimensione del terreno pianeggiante dove avrebbe potuto sorgere un villaggio",
+      "titlePt": "John Yi Yun-il, o líder da aldeia",
+      "narrationPt": "O homem que liderou esta aldeia foi John Yi Yun-il, nascido em 1823 em Hongju, Chungcheong, filho de pais já católicos – o que os coreanos chamam de crente desde o ventre. Ele não escolheu a fé; ele nasceu dentro dela. Aqui ele cultivava e servia como hoejang, o líder leigo que reunia uma aldeia sem sacerdotes para oração e ensinava o catecismo. A Coreia tinha menos de dez padres naqueles anos. Foram pessoas como ele que realmente mantiveram a fé.",
+      "lookForPt": "O tamanho do terreno plano onde uma aldeia poderia estar",
+      "titleFr": "John Yi Yun-il, le chef du village",
+      "narrationFr": "L'homme qui dirigeait ce village était John Yi Yun-il, né en 1823 à Hongju, Chungcheong, de parents déjà catholiques – ce que les Coréens appellent un croyant dès le ventre maternel. Il n'a pas choisi la foi ; il est né à l'intérieur. Ici, il cultivait et servait de hoejang, le chef laïc qui rassemblait un village sans prêtres pour la prière et enseignait le catéchisme. La Corée comptait moins de dix prêtres à cette époque. Ce sont des gens comme lui qui ont réellement maintenu la foi.",
+      "lookForFr": "La taille du terrain plat où aurait pu se dresser un village"
     },
     {
       "seq": 3,
@@ -64,7 +85,16 @@
       "lookForEs": "La dirección del puerto por donde llegaron los alguaciles",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "위키백과 이윤일 — 30여 명 체포·상주 9차례 문초·1867.1.4 사형 선고. 체포 시점은 자료마다 1866년 10월과 11월로 갈려 '늦가을'로 적었다"
+      "sourceNote": "위키백과 이윤일 — 30여 명 체포·상주 9차례 문초·1867.1.4 사형 선고. 체포 시점은 자료마다 1866년 10월과 11월로 갈려 '늦가을'로 적었다",
+      "titleIt": "Il giorno in cui il villaggio fu preso",
+      "narrationIt": "Nel tardo autunno del 1866 i poliziotti attraversarono questo passo. Il leader Yi Yun-il e una trentina di abitanti del villaggio furono catturati contemporaneamente: non uno o due, ma l'intero villaggio. Sono stati portati a Sangju e interrogati nove volte: nove percosse, nove richieste di rinuncia. Le autorità poi spartirono i prigionieri: morte per i leader, esilio o rilascio per gli altri. Il 4 gennaio 1867 Yi Yun-il fu condannato a morte.",
+      "lookForIt": "Dalla direzione del passo sono arrivati gli agenti",
+      "titlePt": "O dia em que a vila foi tomada",
+      "narrationPt": "No final do outono de 1866, os policiais passaram por esta passagem. O líder Yi Yun-il e cerca de trinta aldeões foram capturados de uma só vez – não um ou dois, mas toda a aldeia. Foram levados para Sangju e interrogados nove vezes: nove espancamentos, nove exigências de renúncia. As autoridades então separaram os prisioneiros – morte para os líderes, exílio ou libertação para os restantes. Em 4 de janeiro de 1867, Yi Yun-il foi condenado à morte.",
+      "lookForPt": "A direção da passagem que os policiais vieram",
+      "titleFr": "Le jour où le village a été pris",
+      "narrationFr": "À la fin de l'automne 1866, les agents de police passèrent ce col. Le chef Yi Yun-il et une trentaine de villageois furent capturés en même temps, non pas un ou deux, mais tout le village. Ils ont été emmenés à Sangju et interrogés neuf fois : neuf passages à tabac, neuf demandes de renonciation. Les autorités ont ensuite trié les prisonniers : mort pour les dirigeants, exil ou libération pour les autres. Le 4 janvier 1867, Yi Yun-il fut condamné à mort.",
+      "lookForFr": "La direction du col que les agents sont venus"
     },
     {
       "seq": 4,
@@ -82,7 +112,16 @@
       "lookForEs": "El parentesco de los dos hombres escrito en la lápida: padre e hijo",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "검색 확인 — 안동교구가 여우목 교우촌 부근에 터를 마련해 2002년 조성, 서치보와 장남 서인순의 묘 안치"
+      "sourceNote": "검색 확인 — 안동교구가 여우목 교우촌 부근에 터를 마련해 2002년 조성, 서치보와 장남 서인순의 묘 안치",
+      "titleIt": "Le tombe che rimangono - Joseph Seo e Simon Seo",
+      "narrationIt": "All'interno del santuario ci sono le tombe: quelle di Joseph Seo Chi-bo, che era venuto da Cheongpung, e di suo figlio maggiore Simon Seo In-sun. Erano vicini di Yi Yun-il, uomini dello stesso villaggio. Potresti essere venuto a cercare la tomba di un santo e ritrovarti invece davanti a due nomi meno conosciuti. Penso che sia adatto a questo posto. Ciò che è successo qui non è la storia di un grande uomo, ma di un villaggio.",
+      "lookForIt": "La relazione scolpita sulle pietre: padre e figlio",
+      "titlePt": "Os túmulos que permanecem - Joseph Seo e Simon Seo",
+      "narrationPt": "Dentro do santuário há túmulos – os de Joseph Seo Chi-bo, que veio de Cheongpung, e de seu filho mais velho, Simon Seo In-sun. Eram vizinhos de Yi Yun-il, homens da mesma aldeia. Você pode ter procurado o túmulo de um santo e, em vez disso, se deparar com dois nomes menos conhecidos. Eu acho que combina com este lugar. O que aconteceu aqui não foi a história de um grande homem, mas de uma aldeia.",
+      "lookForPt": "A relação gravada nas pedras — pai e filho",
+      "titleFr": "Les tombes qui restent - Joseph Seo et Simon Seo",
+      "narrationFr": "À l'intérieur du sanctuaire se trouvent les tombes de Joseph Seo Chi-bo, venu de Cheongpung, et de son fils aîné Simon Seo In-sun. C'étaient les voisins de Yi Yun-il, des hommes du même village. Vous êtes peut-être venu chercher le tombeau d'un saint et vous vous retrouvez plutôt devant deux noms moins connus. Je pense que cela convient à cet endroit. Ce qui s'est passé ici n'est pas l'histoire d'un grand homme mais celle d'un village.",
+      "lookForFr": "La relation gravée sur les pierres – père et fils"
     },
     {
       "seq": 5,
@@ -100,13 +139,25 @@
       "lookForEs": "La distancia entre esta aldea y Daegu, el camino que recorrió preso y a pie",
       "forEveryone": "이윤일 요한은 1968년 24위 시복, 1984년 103위 시성으로 성인이 되었으며 축일은 9월 20일입니다.",
       "photos": [],
-      "sourceNote": "위키백과 이윤일 — 1867.1.21 대구 참수·향년 44세·유언·1968 시복·1984 시성·축일 9.20. 검색 확인(대구대교구 자료) — 날뫼·묵리·1976 미리내·1986.12.21 교구청 경당·1987.1.21 성모당·1991.1.20 관덕정 봉안"
+      "sourceNote": "위키백과 이윤일 — 1867.1.21 대구 참수·향년 44세·유언·1968 시복·1984 시성·축일 9.20. 검색 확인(대구대교구 자료) — 날뫼·묵리·1976 미리내·1986.12.21 교구청 경당·1987.1.21 성모당·1991.1.20 관덕정 봉안",
+      "titleIt": "Perché le reliquie del Santo non sono qui",
+      "narrationIt": "John Yi Yun-il fu decapitato il 21 gennaio 1867 a Gwandeokjeong a Daegu. Aveva quarantaquattro anni. Prima di morire si dice che abbia detto ai suoi figli: ora vado a essere martire; vai a casa, adora Dio fedelmente e, quando sarai cresciuto, seguimi. In seguito i suoi resti continuarono a spostarsi: attraverso Nalmoe e Mungni, fino alle tombe dei martiri senza nome a Mirinae nel 1976, poi dopo la sua canonizzazione nel 1984 nella cappella dell'ufficio arcidiocesano di Daegu, a Seongmodang nel giorno del suo martirio nel 1987, e infine nel 1991 all'altare del Memoriale dei martiri di Gwandeokjeong. Braccato in vita, fu commosso per centoventi anni nella morte. Le reliquie sono assenti da questo santuario non per supervisione: quell'assenza è la forma della sua vita.",
+      "lookForIt": "La distanza da questo villaggio a Daegu è una strada percorsa in catene",
+      "titlePt": "Por que as relíquias do santo não estão aqui",
+      "narrationPt": "John Yi Yun-il foi decapitado em 21 de janeiro de 1867 em Gwandeokjeong em Daegu. Ele tinha quarenta e quatro anos. Antes de morrer, ele disse aos filhos: agora vou ser mártir; vá para casa, adore a Deus fielmente e, quando crescer, siga-me. Seus restos mortais continuaram se movendo depois - através de Nalmoe e Mungni, para os túmulos dos mártires anônimos em Mirinae em 1976, depois de sua canonização em 1984 para a capela do escritório arquidiocesano de Daegu, para Seongmodang no dia de seu martírio em 1987 e, finalmente, em 1991, para o altar do Memorial dos Mártires de Gwandeokjeong. Caçado em vida, ele ficou comovido por cento e vinte anos na morte. As relíquias estão ausentes deste santuário não por descuido – essa ausência é a forma de sua vida.",
+      "lookForPt": "A distância desta vila até Daegu — uma estrada percorrida acorrentada",
+      "titleFr": "Pourquoi les reliques du saint ne sont pas là",
+      "narrationFr": "John Yi Yun-il fut décapité le 21 janvier 1867 à Gwandeokjeong à Daegu. Il avait quarante-quatre ans. Avant de mourir, il aurait dit à ses enfants : Je vais maintenant être un martyr ; rentrez chez vous, adorez Dieu fidèlement, et quand vous serez grand, suivez-moi. Ses restes ont continué à se déplacer par la suite — à travers Nalmoe et Mungni, vers les tombes des martyrs anonymes à Mirinae en 1976, puis après sa canonisation en 1984 vers la chapelle de l'archidiocèse de Daegu, à Seongmodang le jour de son martyre en 1987, et enfin en 1991 vers l'autel du mémorial des martyrs de Gwandeokjeong. Pourchassé durant sa vie, il fut ému pendant cent vingt ans dans la mort. Les reliques sont absentes de ce sanctuaire, ce n’est pas par inadvertance – cette absence est la forme de sa vie.",
+      "lookForFr": "La distance de ce village à Daegu — une route parcourue par des chaînes"
     }
   ],
   "outro": {
     "narration": "여우목 순례에 함께해 주셔서 감사합니다. 이 마을에서 시작된 길은 상주의 옥과 대구 관덕정으로 이어집니다. 관덕정 순교성지와 상주 옥 터도 이 앱에 있으니, 잡혀간 자리와 죽은 자리와 지금 누워 있는 자리를 차례로 걸어보셔도 좋겠습니다. 돌아가는 길에 고개를 한 번 올려다봐 주십시오. 평화를 빕니다.",
     "narrationEn": "Thank you for walking Yeoumok with us. The road that began in this village runs on to the prison at Sangju and to Gwandeokjeong in Daegu. The Gwandeokjeong Martyrs' Memorial is in this app too, so you may wish to walk in turn the place of arrest, the place of death, and the place of rest. As you leave, look up once at the pass. Peace be with you.",
     "narrationEs": "Gracias por acompañarnos en esta peregrinación por Yeoumok. El camino que empezó en esta aldea sigue hasta la cárcel de Sangju y hasta Gwandeokjeong, en Daegu. En esta aplicación encontrarán también el santuario de Gwandeokjeong y el solar de la cárcel de Sangju, de modo que pueden recorrer por orden el lugar donde lo apresaron, el lugar donde murió y el lugar donde ahora reposa. Al marcharse, levanten una vez la vista hacia el puerto. La paz sea con ustedes.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Grazie per aver camminato con noi su Yeoumok. La strada che inizia in questo villaggio prosegue fino alla prigione di Sangju e a Gwandeokjeong a Daegu. Anche il Memoriale dei martiri di Gwandeokjeong è in questa app, quindi potresti voler camminare alternativamente nel luogo dell'arresto, nel luogo della morte e nel luogo del riposo. Mentre esci, guarda una volta verso il passo. La pace sia con te.",
+    "narrationPt": "Obrigado por levar Yeoumok conosco. A estrada que começou nesta aldeia segue para a prisão de Sangju e para Gwandeokjeong em Daegu. O Memorial dos Mártires de Gwandeokjeong também está neste aplicativo, então você pode querer caminhar sucessivamente pelo local da prisão, pelo local da morte e pelo local de descanso. Ao sair, olhe uma vez para a passagem. A paz esteja com você.",
+    "narrationFr": "Merci d'avoir accompagné Yeoumok avec nous. La route qui part de ce village mène à la prison de Sangju et à Gwandeokjeong à Daegu. Le mémorial des martyrs de Gwandeokjeong se trouve également dans cette application, vous souhaiterez donc peut-être parcourir tour à tour le lieu d'arrestation, le lieu de décès et le lieu de repos. En partant, levez les yeux une fois au col. La paix soit avec toi."
   }
 }

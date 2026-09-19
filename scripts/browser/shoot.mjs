@@ -12,6 +12,8 @@
  *   node scripts/browser/shoot.mjs --width 1440 --height 1000       # PC 폭
  *   node scripts/browser/shoot.mjs --only home,records --full       # 일부만 · 전체 길이
  *   node scripts/browser/shoot.mjs --out /tmp/shots
+ *   node scripts/browser/shoot.mjs --js "document.querySelector('button').click()" --js-wait 1500
+ *     # 찍기 전에 페이지 안에서 실행할 JS (설치 배너 닫기·패널 열기 등). --js-wait 는 그 뒤 기다릴 ms
  *
  * 결과: <out>/<화면이름>-<폭>.png  (기본 out 은 screenshots/<날짜-시각>/ — git 에 올리지 않는다)
  */
@@ -36,6 +38,8 @@ const WAIT = Number(opt('wait', 4000));
 const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
 const OUT = opt('out', join('screenshots', stamp));
 const PORT = Number(opt('port', 9333));
+const JS = opt('js', '');
+const JS_WAIT = Number(opt('js-wait', 1200));
 
 // 화면 목록. 경로의 기준은 src/app/routes/paths.ts — 새 화면이 생기면 여기도 더한다.
 const PAGES = {
@@ -153,6 +157,10 @@ try {
     const url = `${BASE}${path.startsWith('/') ? path : `/${path}`}`;
     await cdp.send('Page.navigate', { url });
     await sleep(WAIT);
+    if (JS) {
+      await cdp.send('Runtime.evaluate', { expression: JS, awaitPromise: true, returnByValue: true });
+      await sleep(JS_WAIT);
+    }
     let clip;
     if (FULL) {
       const { result } = await cdp.send('Runtime.evaluate', {

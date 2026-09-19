@@ -9,7 +9,10 @@
     "narration": "진천 백곡면, 배티고개에 오신 것을 환영합니다. 돌배나무가 많아 배나무 고개, 배티라 불린 곳입니다. 박해를 피해 온 신자들이 이 골짜기마다 숨어 살아 사람들은 이 일대를 한국의 카타콤바라 부릅니다. 오늘은 한국인 두 번째 사제 최양업 토마스 신부가 사목의 근거지로 삼았던 이 땅을, 신학교 터와 순교자 묘역을 따라 함께 걷겠습니다.",
     "narrationEn": "Welcome to Baetti Pass in Baekgok-myeon, Jincheon. Its name means 'pear tree pass,' for the wild pear trees that once filled these hills. Believers fleeing persecution hid in every valley here, and people came to call this land the catacombs of Korea. Today we will walk the ground that Fr. Thomas Choe Yang-eop, Korea's second priest, made the base of his ministry — past the seminary site and the martyrs' graves.",
     "narrationEs": "Bienvenidos a Baeti, el puerto de montaña de Baekgok, en Jincheon. Se llamó así por los muchos perales silvestres que crecían aquí: Baeti significa el paso de los perales. Los cristianos que huían de la persecución se escondieron en cada uno de estos barrancos, y por eso la gente llama a esta zona las catacumbas de Corea. Hoy recorreremos la tierra que el padre Tomás Choe Yang-eop, segundo sacerdote coreano, tomó como base de su ministerio, siguiendo el solar del seminario y el cementerio de los mártires.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Benvenuti al Passo Baetti a Baekgok-myeon, Jincheon. Il suo nome significa 'passo del pero', per i peri selvatici che un tempo riempivano queste colline. I credenti in fuga dalle persecuzioni si nascondevano qui in ogni valle e la gente arrivò a chiamare questa terra le catacombe della Corea. Oggi cammineremo sul terreno su cui p. Thomas Choe Yang-eop, il secondo sacerdote coreano, ha stabilito la base del suo ministero, oltre il sito del seminario e le tombe dei martiri.",
+    "narrationPt": "Bem-vindo ao Baetti Pass em Baekgok-myeon, Jincheon. Seu nome significa 'passagem da pereira', em homenagem às pereiras selvagens que outrora enchiam essas colinas. Os crentes que fugiam da perseguição esconderam-se em todos os vales daqui, e as pessoas passaram a chamar esta terra de catacumbas da Coreia. Hoje caminharemos pelo terreno que Pe. Thomas Choe Yang-eop, o segundo sacerdote da Coreia, estabeleceu a base do seu ministério – passando pelo local do seminário e pelos túmulos dos mártires.",
+    "narrationFr": "Bienvenue au col Baetti à Baekgok-myeon, Jincheon. Son nom signifie « col des poiriers », en référence aux poiriers sauvages qui remplissaient autrefois ces collines. Les croyants fuyant la persécution se cachaient dans chaque vallée et les gens en sont venus à appeler cette terre les catacombes de Corée. Aujourd'hui, nous marcherons sur le terrain que le Père. Thomas Choe Yang-eop, le deuxième prêtre de Corée, a établi la base de son ministère, devant le site du séminaire et les tombes des martyrs."
   },
   "points": [
     {
@@ -28,7 +31,16 @@
       "lookForEs": "Cómo el valle se ramifica en varios brazos, la razón de que fuera buen escondite",
       "forEveryone": "교우촌은 조선 후기 사회사의 독특한 마을 형태입니다. 옹기·화전 같은 생업과 신앙 공동체가 결합돼 있었습니다.",
       "photos": [],
-      "sourceNote": "성지 DB 원문 — 교우촌 이름·형성 시기. 주교회의 성지 안내(cbck.or.kr) — 기록상 15곳·삼박골. 개별 교우촌의 현재 위치는 현장 확인 필요"
+      "sourceNote": "성지 DB 원문 — 교우촌 이름·형성 시기. 주교회의 성지 안내(cbck.or.kr) — 기록상 15곳·삼박골. 개별 교우촌의 현재 위치는 현장 확인 필요",
+      "titleIt": "Passo Baetti — Valle dei Quindici Borghi Nascosti",
+      "narrationIt": "Guarda prima la valle. Sambakgol, Jeolgol, Yongjingol, Ballaegi, Saeul: almeno quindici villaggi cattolici nascosti erano sparsi su questi pendii. Cominciarono a formarsi intorno al 1830 e, mentre la persecuzione continuava a colpire, i credenti scacciati dalla regione di Naepo si radunarono qui in numero maggiore. Erano villaggi destinati a non essere trovati: assenti dalle mappe, sconosciuti ai magistrati. Le tranquille colline che vedi adesso erano un tempo l'ultimo rifugio di un popolo.",
+      "lookForIt": "Come la valle si ramifica in molte direzioni: il motivo per cui era utile nascondersi",
+      "titlePt": "Passo Baetti – Vale das Quinze Aldeias Escondidas",
+      "narrationPt": "Olhe primeiro para o vale. Sambakgol, Jeolgol, Yongjingol, Ballaegi, Saeul – pelo menos quinze aldeias católicas escondidas estavam espalhadas por estas encostas. Eles começaram a se formar por volta de 1830 e, à medida que a perseguição atacava repetidas vezes, os crentes expulsos da região de Naepo reuniram-se aqui em maior número. Eram aldeias que não deveriam ser encontradas: ausentes dos mapas, desconhecidas dos magistrados. As colinas tranquilas que você vê agora já foram o último refúgio de um povo.",
+      "lookForPt": "Como o vale se ramifica em muitas direções – a razão pela qual era bom para se esconder",
+      "titleFr": "Col Baetti — Vallée des Quinze Villages Cachés",
+      "narrationFr": "Regardez d'abord la vallée. Sambakgol, Jeolgol, Yongjingol, Ballaegi, Saeul — au moins quinze villages catholiques cachés étaient disséminés sur ces pentes. Ils ont commencé à se former vers 1830 et, à mesure que les persécutions se multipliaient, les croyants chassés de la région de Naepo se sont rassemblés ici en plus grand nombre. Il s'agissait de villages voués à être introuvables : absents des cartes, inconnus des magistrats. Les collines tranquilles que vous voyez aujourd’hui étaient autrefois le dernier refuge d’un peuple.",
+      "lookForFr": "Comment la vallée se divise dans de nombreuses directions – la raison pour laquelle elle était bonne pour se cacher"
     },
     {
       "seq": 2,
@@ -46,7 +58,16 @@
       "lookForEs": "El tamaño de la casa de paja, dos cuartos que parecen demasiado poco para un seminario",
       "forEveryone": "이곳은 조선 최초의 근대식 신학 교육 기관 중 하나로 평가받습니다.",
       "photos": [],
-      "sourceNote": "주교회의 성지 안내(cbck.or.kr) — 1850 다블뤼 신부 건물 마련, 1853 최양업 지도, 1854.3 페낭 유학 후 폐교. 복원 건물의 형태·규모는 현장 확인 필요"
+      "sourceNote": "주교회의 성지 안내(cbck.or.kr) — 1850 다블뤼 신부 건물 마련, 1853 최양업 지도, 1854.3 페낭 유학 후 폐교. 복원 건물의 형태·규모는 현장 확인 필요",
+      "titleIt": "Il seminario che chiuse dopo quattro mesi",
+      "narrationIt": "Questa casa dal tetto di paglia è il seminario del vicariato coreano. Fr. Daveluy preparò qui l'edificio nel 1850, e dal 1853 p. Choe Yang-eop lo ha diretto. La sua vita fu breve. Nel marzo 1854 tre studenti furono scelti e mandati a studiare a Penang, in Malesia, e la scuola chiuse. Un seminario semplicemente non poteva essere sostenuto a Joseon. C’erano quelli disposti a imparare e quelli disposti a insegnare, ma non c’era un paese che lo permettesse.",
+      "lookForIt": "Le dimensioni della casa dal tetto di paglia: solo due stanze, piccole per un seminario",
+      "titlePt": "O seminário que fechou após quatro meses",
+      "narrationPt": "Esta casa de colmo é o seminário do vicariato coreano. Pe. Daveluy preparou o edifício aqui em 1850, e a partir de 1853 pe. Choe Yang-eop dirigiu. Sua vida foi curta. Em março de 1854, três alunos foram escolhidos e enviados para estudar em Penang, na Malásia, e a escola foi fechada. Um seminário simplesmente não poderia ser sustentado dentro de Joseon. Havia aqueles dispostos a aprender e aqueles dispostos a ensinar – mas não havia um país que permitisse isso.",
+      "lookForPt": "O tamanho da casa de palha – apenas dois quartos, pequena para um seminário",
+      "titleFr": "Le séminaire fermé après quatre mois",
+      "narrationFr": "Cette maison au toit de chaume est le séminaire du vicariat coréen. Le P. Daveluy y prépara le bâtiment en 1850 et à partir de 1853 le P. Choe Yang-eop l'a réalisé. Sa vie fut courte. En mars 1854, trois étudiants furent choisis et envoyés étudier à Penang, en Malaisie, et l'école ferma. Un séminaire ne pouvait tout simplement pas être maintenu à Joseon. Il y avait ceux qui voulaient apprendre et ceux qui voulaient enseigner – mais aucun pays ne le permettrait.",
+      "lookForFr": "La taille de la maison au toit de chaume : seulement deux pièces, petite pour un séminaire"
     },
     {
       "seq": 3,
@@ -64,7 +85,16 @@
       "lookForEs": "Lo que sostiene la estatua y la postura de quien camina",
       "forEveryone": "그가 한글로 남긴 기도서와 교리서는 국어사 자료로도 가치가 있습니다.",
       "photos": [],
-      "sourceNote": "성지 DB 원문 — 1849 서품·12년 순방·1861 선종·백색 순교자. 주교회의 안내 — 다섯 개 도 순방, 여름에 한글 기도서·교리서 편찬"
+      "sourceNote": "성지 DB 원문 — 1849 서품·12년 순방·1861 선종·백색 순교자. 주교회의 안내 — 다섯 개 도 순방, 여름에 한글 기도서·교리서 편찬",
+      "titleIt": "p. Choe Yang-eop - Il pastore che morì sulla strada",
+      "narrationIt": "Qui si trova la statua di p. Thomas Choe Yang-eop, il secondo sacerdote coreano dopo Kim Taegon, ordinato a Shanghai nel 1849. Facendo base a Baetti, viaggiò a piedi attraverso cinque province, percorrendo migliaia di chilometri all'anno per dodici anni. D'estate soggiornava qui e compilava libri di preghiere e catechismi in coreano. Poi nel 1861 morì di sfinimento sulla strada. Non ha sanguinato sul luogo dell'esecuzione; si stancava camminando - e per questo è chiamato un martire bianco. La sua è stata una vita completata non da una morte drammatica ma da passi decisi.",
+      "lookForIt": "Cosa tiene la statua e la sua postura mentre cammina",
+      "titlePt": "Pe. Choe Yang-eop – O pastor que morreu na estrada",
+      "narrationPt": "Aqui está a estátua do Pe. Thomas Choe Yang-eop, o segundo sacerdote da Coreia depois de Kim Taegon, ordenado em Xangai em 1849. Fazendo de Baetti sua base, ele viajou a pé por cinco províncias, caminhando milhares de quilômetros por ano durante doze anos. No verão, ele ficava aqui e compilava livros de orações e catecismos em coreano. Então, em 1861, ele morreu de exaustão na estrada. Ele não sangrou num local de execução; ele se cansou de caminhar - e por isso é chamado de mártir branco. A sua vida foi completada não por uma morte dramática, mas por passos firmes.",
+      "lookForPt": "O que a estátua contém e sua postura ao caminhar",
+      "titleFr": "Le P. Choe Yang-eop - Le berger mort sur la route",
+      "narrationFr": "Ici se dresse la statue du P. Thomas Choe Yang-eop, deuxième prêtre de Corée après Kim Taegon, fut ordonné prêtre à Shanghai en 1849. Faisant de Baetti sa base, il parcourut à pied cinq provinces, parcourant des milliers de kilomètres par an pendant douze ans. L'été, il séjournait ici et rédigeait des livres de prières et des catéchismes en coréen. Puis, en 1861, il mourut d'épuisement sur la route. Il n'a pas saigné sur un terrain d'exécution ; il s'est épuisé à marcher — c'est pourquoi on l'appelle un martyr blanc. Sa vie ne s’est pas terminée par une mort dramatique mais par des pas résolus.",
+      "lookForFr": "Ce que contient la statue et sa posture de marche"
     },
     {
       "seq": 4,
@@ -82,7 +112,16 @@
       "lookForEs": "Cómo están dispuestas las tumbas con nombre y las anónimas",
       "forEveryone": "역사에 이름을 남기지 못한 보통 사람들의 자리라는 점에서, 신앙과 무관하게 울림이 있는 공간입니다.",
       "photos": [],
-      "sourceNote": "성지 DB 원문 — 순교자 55명·기록 29명·무명 26기. 주교회의 안내 — 2014 시복(장 토마스·송 베네딕토·송 베드로·이 안나)"
+      "sourceNote": "성지 DB 원문 — 순교자 55명·기록 29명·무명 26기. 주교회의 안내 — 2014 시복(장 토마스·송 베네딕토·송 베드로·이 안나)",
+      "titleIt": "Le tombe dei martiri: con nome e senza nome",
+      "narrationIt": "Le persecuzioni del 1866 e del 1868 produssero in questa zona cinquantacinque martiri. Ventinove hanno lasciato i loro nomi nei registri; i restanti ventisei giacciono in tombe senza nome. I martiri di Baetti sono stati beatificati nel 2014: il beato Thomas Jang, decapitato a Cheongju nel 1866, e le tre generazioni di una famiglia martirizzate a Seoul nel 1867: Benedict Song, Peter Song e Anna Yi. Una famiglia ha percorso la stessa strada per tre generazioni. Fermatevi un attimo davanti alle ventisei tombe che non portano nome.",
+      "lookForIt": "Come sono disposte insieme le tombe con nome e senza nome",
+      "titlePt": "Os túmulos dos mártires – nomeados e sem nome",
+      "narrationPt": "As perseguições de 1866 e 1868 produziram cinquenta e cinco mártires nesta área. Vinte e nove deixaram seus nomes nos registros; os vinte e seis restantes jazem em sepulturas sem nome. Os mártires de Baetti foram beatificados em 2014 – o Beato Thomas Jang, decapitado em Cheongju em 1866, e as três gerações de uma família martirizada em Seul em 1867: Benedict Song, Peter Song e Anna Yi. Uma família percorreu o mesmo caminho ao longo de três gerações. Pare um momento diante dos vinte e seis túmulos que não têm nome.",
+      "lookForPt": "Como as sepulturas nomeadas e não nomeadas são dispostas juntas",
+      "titleFr": "Les tombes des martyrs – nommées et anonymes",
+      "narrationFr": "Les persécutions de 1866 et 1868 produisirent cinquante-cinq martyrs dans cette région. Vingt-neuf ont laissé leur nom dans les archives ; les vingt-six autres reposent dans des tombes anonymes. Les martyrs de Baetti ont été béatifiés en 2014 : le bienheureux Thomas Jang, décapité à Cheongju en 1866, et les trois générations d'une même famille martyrisée à Séoul en 1867 : Benedict Song, Peter Song et Anna Yi. Un ménage a parcouru le même chemin sur trois générations. Arrêtez-vous un instant devant les vingt-six tombes qui ne portent aucun nom.",
+      "lookForFr": "Comment les tombes nommées et anonymes sont disposées ensemble"
     },
     {
       "seq": 5,
@@ -100,13 +139,25 @@
       "lookForEs": "Los nombres grabados en la escalera de los ciento tres santos",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "검색 확인 — 1977 개발 착수·1978 순교자묘 단장·1997 기념성당·2001 신학교 재현. 주교회의 안내 — 십자가의 길·성모 동산·야외 제대·103위 성인 계단·무명 순교자 묘소"
+      "sourceNote": "검색 확인 — 1977 개발 착수·1978 순교자묘 단장·1997 기념성당·2001 신학교 재현. 주교회의 안내 — 십자가의 길·성모 동산·야외 제대·103위 성인 계단·무명 순교자 묘소",
+      "titleIt": "Chiesa della Memoria e Via Crucis",
+      "narrationIt": "La diocesi di Cheongju ha iniziato a sviluppare il santuario nel 1977, restaurando le tombe dei martiri nel 1978 e costruendo la chiesa commemorativa di p. Choe Yang-eop nel 1997. Il terreno ospita la Via Crucis, un giardino mariano, un altare all'aperto e una scalinata su cui sono incisi i nomi dei 103 santi coreani. Salitelo passo dopo passo, leggendo i nomi, e il numero 103 diventa quello che è sempre stato: centotre persone.",
+      "lookForIt": "I nomi incisi sui gradini dei 103 Santi",
+      "titlePt": "Igreja Memorial e a Via Sacra",
+      "narrationPt": "A Diocese de Cheongju começou a desenvolver o santuário em 1977, restaurando os túmulos dos mártires em 1978 e construindo a igreja memorial do Pe. Choe Yang-eop em 1997. O terreno abriga a Via Sacra, um jardim mariano, um altar ao ar livre e uma escada com os nomes dos 103 santos da Coreia inscritos. Suba passo a passo, lendo os nomes, e o número 103 se torna o que sempre foi – cento e três pessoas.",
+      "lookForPt": "Os nomes gravados nos degraus dos 103 Santos",
+      "titleFr": "Église du Souvenir et chemin de croix",
+      "narrationFr": "Le diocèse de Cheongju a commencé à développer le sanctuaire en 1977, à restaurer les tombes des martyrs en 1978 et à construire l'église commémorative du Père. Choe Yang-eop en 1997. Le terrain abrite le chemin de croix, un jardin marial, un autel extérieur et un escalier portant les noms des 103 saints de Corée. Montez-le pas à pas, en lisant les noms, et le nombre 103 devient ce qu'il a toujours été : cent trois personnes.",
+      "lookForFr": "Les noms gravés sur les marches des 103 Saints"
     }
   ],
   "outro": {
     "narration": "배티 순례에 함께해 주셔서 감사합니다. 이 골짜기에서 시작한 최양업 신부의 길은 제천 배론성지의 그의 묘소로 이어지고, 그가 편찬한 한글 교리서는 이 땅의 말로 신앙을 옮긴 첫 시도로 남았습니다. 돌아가는 길, 배나무 고개를 한 번 돌아봐 주시기 바랍니다. 평화를 빕니다.",
     "narrationEn": "Thank you for walking Baetti with us. The road Fr. Choe Yang-eop began in this valley leads on to his grave at the Baeron shrine in Jecheon, and the Korean-language catechisms he compiled remain the first attempt to carry this faith in the language of this land. As you leave, turn once more toward the pear tree pass. Peace be with you.",
     "narrationEs": "Gracias por acompañarnos en esta peregrinación por Baeti. El camino del padre Choe Yang-eop, que empezó en este valle, continúa hasta su sepultura en el santuario de Baeron, en Jecheon, y los catecismos que compuso en alfabeto coreano quedaron como el primer intento de traer la fe a la lengua de esta tierra. Al marcharse, vuelvan una vez la mirada hacia el paso de los perales. La paz sea con ustedes.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Grazie per aver portato Baetti con noi. La strada p. Choe Yang-eop iniziò in questa valle e porta alla sua tomba nel santuario di Baeron a Jecheon, e i catechismi in lingua coreana da lui compilati rimangono il primo tentativo di trasmettere questa fede nella lingua di questa terra. Uscendo, girate ancora una volta verso il passo dei peri. La pace sia con te.",
+    "narrationPt": "Obrigado por levar Baetti conosco. A estrada Pe. Choe Yang-eop começou neste vale e leva ao seu túmulo no santuário Baeron em Jecheon, e os catecismos em língua coreana que ele compilou continuam sendo a primeira tentativa de transmitir esta fé na língua desta terra. Ao sair, vire mais uma vez em direção à passagem da pereira. A paz esteja com você.",
+    "narrationFr": "Merci d'avoir accompagné Baetti avec nous. La route Fr. Choe Yang-eop a commencé dans cette vallée et mène à sa tombe au sanctuaire Baeron à Jecheon, et les catéchismes en coréen qu'il a compilés restent la première tentative de transmettre cette foi dans la langue de ce pays. En sortant, tournez à nouveau vers le col du poirier. La paix soit avec toi."
   }
 }

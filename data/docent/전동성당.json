@@ -9,7 +9,10 @@
     "narration": "전동성당에서 순교자들을 기억하는 조각과 오래된 성벽의 돌, 빛을 담은 유리창을 함께 살펴보겠습니다. 한옥마을 입구에 이 성당이 자리한 이유가 건물 곳곳에 남아 있습니다.",
     "narrationEn": "Welcome to Jeondong Cathedral in Jeonju. Standing at the entrance to the Hanok Village, opposite the royal shrine of Gyeonggijeon, it is often called one of the most beautiful churches in Korea. But today's story does not begin with beauty. The ground beneath this cathedral is where, in 1791, Korea's first two Catholic martyrs were executed. Why the church was built precisely here — that is today's story.",
     "narrationEs": "Le doy la bienvenida a la catedral de Jeondong en Jeonju. Situada a la entrada de la aldea Hanok, frente al santuario real de Gyeonggijeon, suele considerarse una de las iglesias más hermosas de Corea. Pero la historia de hoy no empieza con la belleza. Bajo esta catedral está el lugar donde, en 1791, fueron ejecutados los dos primeros mártires católicos de Corea. Por qué se construyó la iglesia precisamente aquí es la historia de hoy.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Benvenuti alla Cattedrale Jeondong a Jeonju. Situata all'ingresso del villaggio Hanok, di fronte al santuario reale di Gyeonggijeon, è spesso definita una delle chiese più belle della Corea. Ma la storia di oggi non inizia con la bellezza. Il terreno sotto questa cattedrale è il luogo dove, nel 1791, furono giustiziati i primi due martiri cattolici coreani. Perché la chiesa è stata costruita proprio qui: questa è la storia di oggi.",
+    "narrationPt": "Bem-vindo à Catedral de Jeondong em Jeonju. Situada na entrada da Vila Hanok, em frente ao santuário real de Gyeonggijeon, é frequentemente chamada de uma das mais belas igrejas da Coreia. Mas a história de hoje não começa com a beleza. O terreno abaixo desta catedral é onde, em 1791, os dois primeiros mártires católicos da Coreia foram executados. Por que a igreja foi construída precisamente aqui — essa é a história de hoje.",
+    "narrationFr": "Bienvenue à la cathédrale de Jeondong à Jeonju. Située à l'entrée du village Hanok, face au sanctuaire royal de Gyeonggijeon, elle est souvent considérée comme l'une des plus belles églises de Corée. Mais l’histoire d’aujourd’hui ne commence pas par la beauté. C'est sous cette cathédrale que furent exécutés, en 1791, les deux premiers martyrs catholiques de Corée. Pourquoi l'église a été construite précisément ici, c'est l'histoire d'aujourd'hui."
   },
   "points": [
     {
@@ -28,7 +31,16 @@
       "lookForEs": "La distancia entre la catedral y la puerta, el lugar de ejecución estaba a cien pasos",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "주교회의 순교 역사: https://cbck.or.kr/koreanmartyrs/Shrines/53?page=8 ; 굿뉴스 순교자상 사진·형태: https://maria.catholic.or.kr/mobile/sa_ho/album/album_view.asp?Orggubun=71&bbsgubun=album&id=38994&infogubun=org&infoid=2361&menugubun=holyplace ; 정확한 현재 위치는 현장 확인 필요."
+      "sourceNote": "주교회의 순교 역사: https://cbck.or.kr/koreanmartyrs/Shrines/53?page=8 ; 굿뉴스 순교자상 사진·형태: https://maria.catholic.or.kr/mobile/sa_ho/album/album_view.asp?Orggubun=71&bbsgubun=album&id=38994&infogubun=org&infoid=2361&menugubun=holyplace ; 정확한 현재 위치는 현장 확인 필요.",
+      "titleIt": "Fuori dalla Porta di Pungnam, 1791 – Il primo martirio",
+      "narrationIt": "Rivolgiti verso la Porta di Pungnam. Nel dicembre 1791, sul luogo dell'esecuzione appena fuori quel cancello, Paul Yun Ji-chung e suo cugino James Kwon Sang-yeon furono decapitati. L'accusa: dopo la morte di sua madre, Yun aveva bruciato le tavolette ancestrali e rifiutato i riti confuciani – una negazione della pietà filiale, il fondamento stesso di Joseon. Era, in effetti, un prigioniero di coscienza. Il cattolicesimo coreano non aveva ancora dieci anni; questo fu il primo martirio su questa terra. La cattedrale fu costruita deliberatamente su quel luogo di esecuzione: una casa innalzata sul luogo della morte.",
+      "lookForIt": "La distanza tra la cattedrale e la porta: il luogo dell'esecuzione era a un centinaio di passi",
+      "titlePt": "Fora do Portão Pungnam, 1791 - O Primeiro Martírio",
+      "narrationPt": "Fique de frente para o Portão Pungnam. Em dezembro de 1791, no campo de execução do lado de fora daquele portão, Paul Yun Ji-chung e seu primo James Kwon Sang-yeon foram decapitados. A acusação: após a morte de sua mãe, Yun queimou as tábuas ancestrais e recusou os ritos confucionistas – uma negação da piedade filial, o próprio fundamento de Joseon. Ele era, na verdade, um prisioneiro de consciência. O catolicismo coreano ainda não tinha dez anos; este foi o primeiro martírio neste solo. A catedral foi construída deliberadamente naquele local de execução – uma casa erguida no local da morte.",
+      "lookForPt": "A distância entre a catedral e o portão – o local da execução ficava a cem passos de distância",
+      "titleFr": "Devant la porte de Pungnam, 1791 – Le premier martyre",
+      "narrationFr": "Faites face à la porte Pungnam. En décembre 1791, sur le terrain d'exécution juste devant cette porte, Paul Yun Ji-chung et son cousin James Kwon Sang-yeon furent décapités. L'accusation : après la mort de sa mère, Yun avait brûlé les tablettes ancestrales et refusé les rites confucéens – un déni de la piété filiale, fondement même de Joseon. Il était en fait un prisonnier d’opinion. Le catholicisme coréen n'avait pas encore dix ans ; ce fut le premier martyre sur ce sol. La cathédrale a été construite délibérément sur ce terrain d'exécution – une maison élevée sur le lieu de la mort.",
+      "lookForFr": "La distance entre la cathédrale et la porte – le terrain d'exécution était à cent pas"
     },
     {
       "seq": 2,
@@ -46,7 +58,16 @@
       "lookForEs": "Los nombres de los mártires grabados en el monumento",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "가톨릭신문 · 프와넬 설계·1914년 외형 완공·로마네스크와 비잔틴 돔: https://www.catholictimes.org/article/201104120003547"
+      "sourceNote": "가톨릭신문 · 프와넬 설계·1914년 외형 완공·로마네스크와 비잔틴 돔: https://www.catholictimes.org/article/201104120003547",
+      "titleIt": "Yu Hang-geom - Apostolo di Honam",
+      "narrationIt": "Dieci anni dopo, nella persecuzione del 1801, un altro uomo fu giustiziato qui vicino: Agostino Yu Hang-geom, chiamato l'Apostolo di Honam. Un ricco nobile che per primo portò il Vangelo nella provincia di Jeolla, fu condannato non alla decapitazione ma al neungji-cheocham - lo smembramento, la pena più pesante che Joseon riservò per alto tradimento. Il peso della sentenza dice quanto lo Stato giudicasse pericolosa questa fede. La maggior parte della sua famiglia fu martirizzata o esiliata, le sue proprietà confiscate, la sua casa dissotterrata e rasa al suolo.",
+      "lookForIt": "I nomi dei martiri incisi sul memoriale",
+      "titlePt": "Yu Hang-geom — Apóstolo de Honam",
+      "narrationPt": "Dez anos depois, na perseguição de 1801, outro homem foi executado perto daqui: Augustine Yu Hang-geom, chamado Apóstolo de Honam. Sendo um nobre rico que primeiro levou o Evangelho à província de Jeolla, ele foi condenado não à decapitação, mas ao neungji-cheocham – desmembramento, a pena mais pesada que Joseon reservou para alta traição. O peso da sentença mostra o quão perigosa o Estado considerou esta fé. A maior parte de sua família foi martirizada ou exilada, suas propriedades confiscadas e sua casa desenterrada e arrasada.",
+      "lookForPt": "Os nomes dos mártires gravados no memorial",
+      "titleFr": "Yu Hang-geom - Apôtre de Honam",
+      "narrationFr": "Dix ans plus tard, lors de la persécution de 1801, un autre homme fut exécuté près d'ici : Augustin Yu Hang-geom, surnommé l'Apôtre de Honam. Riche noble qui fut le premier à apporter l'Évangile dans la province de Jeolla, il fut condamné non pas à la décapitation mais au neungji-cheocham – le démembrement, la peine la plus lourde que Joseon réservait pour haute trahison. Le poids de la sentence vous dit à quel point l’État jugeait cette foi dangereuse. La plupart des membres de sa famille furent martyrisés ou exilés, ses biens confisqués, son terrain d'habitation déterré et rasé.",
+      "lookForFr": "Les noms des martyrs gravés sur le mémorial"
     },
     {
       "seq": 3,
@@ -64,7 +85,16 @@
       "lookForEs": "La alternancia de ladrillos grises y rojos, y las cúpulas bizantinas de las torres",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "굿뉴스 전동성당 · 성벽 재료 사용: https://m.catholic.or.kr/web/holyplace/?seq=2361 ; 특정 돌의 피 흔적은 단정하지 않음."
+      "sourceNote": "굿뉴스 전동성당 · 성벽 재료 사용: https://m.catholic.or.kr/web/holyplace/?seq=2361 ; 특정 돌의 피 흔적은 단정하지 않음.",
+      "titleIt": "Una cattedrale costruita con le pietre delle mura della città",
+      "narrationIt": "Ora guarda l'edificio stesso. Fr. Baudounet acquistò questo terreno nel 1889; Fr. Poisnel, che aveva terminato gli interni della cattedrale di Myeongdong a Seoul, disegnò il progetto e la costruzione iniziò nel 1908. L'esterno fu completato nel 1914, l'interno solo nel 1931: ventitré anni di lavoro. Nelle fondamenta si trovano pietre speciali: pietre provenienti dalle mura della Porta Pungnam, prese quando il governo coloniale giapponese demolì la fortezza di Jeonju. Le pietre della stessa porta fuori dalla quale morirono i martiri divennero i piedi della chiesa che li onora. Costruito in mattoni grigi e rossi in stile romanico, è stato il primo edificio occidentale nella regione di Honam ed è stato designato sito storico nel 1981.",
+      "lookForIt": "L'alternanza di mattoni grigi e rossi e le cupole bizantine delle torri",
+      "titlePt": "Uma catedral construída com as pedras da muralha da cidade",
+      "narrationPt": "Agora olhe para o próprio edifício. Pe. Baudounet comprou este terreno em 1889; Pe. Poisnel, que terminou o interior da Catedral de Myeongdong em Seul, desenhou o projeto, e a construção começou em 1908. O exterior foi concluído em 1914, o interior apenas em 1931 – vinte e três anos de trabalho. Na fundação encontram-se pedras especiais: pedras das paredes do Portão Pungnam, retiradas quando o governo colonial japonês derrubou a fortaleza de Jeonju. As pedras do próprio portão fora do qual os mártires morreram tornaram-se a base da igreja que os homenageia. Construído em tijolo cinza e vermelho em estilo românico, foi o primeiro edifício ocidental na região de Honam e foi declarado Patrimônio Histórico em 1981.",
+      "lookForPt": "A alternância de alvenaria cinza e vermelha e as cúpulas bizantinas das torres",
+      "titleFr": "Une cathédrale construite avec les pierres des remparts de la ville",
+      "narrationFr": "Regardez maintenant le bâtiment lui-même. Le P. Baudounet acheta ce terrain en 1889 ; Le P. Poisnel, qui avait terminé l'intérieur de la cathédrale de Myeongdong à Séoul, en a dessiné les plans et la construction a commencé en 1908. L'extérieur a été achevé en 1914, l'intérieur seulement en 1931, soit vingt-trois ans de travail. Dans les fondations se trouvent des pierres spéciales : des pierres provenant des murs de la porte de Pungnam, récupérées lorsque le gouvernement colonial japonais a démoli la forteresse de Jeonju. Les pierres de la porte devant laquelle les martyrs sont morts sont devenues le socle de l'église qui les honore. Construit en briques grises et rouges dans le style roman, il fut le premier édifice occidental de la région de Honam et fut désigné site historique en 1981.",
+      "lookForFr": "L'alternance de briques grises et rouges et les dômes byzantins des tours"
     },
     {
       "seq": 4,
@@ -82,7 +112,16 @@
       "lookForEs": "Las ventanas que muestran a los mártires con vestimenta tradicional coreana",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "주교회의 · 전동성당 내부 윤지충·권상연 유리화 사진: https://cbck.or.kr/koreanmartyrs/Shrines/53?page=8 ; 기존 창 개수 18은 별도 확인하지 못해 제외."
+      "sourceNote": "주교회의 · 전동성당 내부 윤지충·권상연 유리화 사진: https://cbck.or.kr/koreanmartyrs/Shrines/53?page=8 ; 기존 창 개수 18은 별도 확인하지 못해 제외.",
+      "titleIt": "I martiri nella vetrata",
+      "narrationIt": "Entra e guarda il vetro colorato. Diciotto finestre lasciano entrare la luce e non contengono solo scene bibliche come in una chiesa europea. Yun Ji-chung e Kwon Sang-yeon sono raffigurati lì nell'hanbok coreano, insieme ad altri martiri di questa regione: i volti di Joseon incastonati in un'architettura proveniente dall'Occidente. Se la Messa non è in corso, percorri lentamente la navata e scopri chi è ritratto in ogni finestra.",
+      "lookForIt": "Le finestre mostrano martiri in abiti tradizionali coreani",
+      "titlePt": "Os Mártires no Vitral",
+      "narrationPt": "Entre e observe o vitral. Dezoito janelas deixam entrar luz e não guardam apenas cenas bíblicas como numa igreja europeia. Yun Ji-chung e Kwon Sang-yeon são retratados lá em hanbok coreano, junto com outros mártires desta região – rostos de Joseon inseridos em uma arquitetura que veio do Ocidente. Se a missa não estiver em andamento, caminhe lentamente pelo corredor e descubra quem está retratado em cada janela.",
+      "lookForPt": "As janelas mostrando mártires em trajes tradicionais coreanos",
+      "titleFr": "Les martyrs dans les vitraux",
+      "narrationFr": "Entrez et regardez les vitraux. Dix-huit fenêtres laissent entrer la lumière, et elles ne contiennent pas que des scènes bibliques comme dans une église européenne. Yun Ji-chung et Kwon Sang-yeon y sont représentés en hanbok coréen, aux côtés d'autres martyrs de cette région – des visages Joseon inscrits dans une architecture venue d'Occident. Si la messe n'est pas en cours, parcourez lentement l'allée et trouvez qui est représenté dans chaque fenêtre.",
+      "lookForFr": "Les fenêtres montrant des martyrs en costume traditionnel coréen"
     },
     {
       "seq": 5,
@@ -100,13 +139,25 @@
       "lookForEs": "Cualquier aviso que relate la identificación de los restos",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "가톨릭신문 · 팔각 석조 열주와 반원형 아치·내부 공간 구성: https://www.catholictimes.org/article/201104120003547"
+      "sourceNote": "가톨릭신문 · 팔각 석조 열주와 반원형 아치·내부 공간 구성: https://www.catholictimes.org/article/201104120003547",
+      "titleIt": "Resti restituiti dopo 230 anni",
+      "narrationIt": "L’ultimo capitolo di questa storia è recentissimo. Nel marzo 2021, sono state scavate tombe a Baubaegi nel santuario Chonami a Wanju e l'analisi scientifica ha confermato che i resti erano quelli di Yun Ji-chung e Kwon Sang-yeon: segni di taglio sulle ossa del collo corrispondenti alle registrazioni della loro decapitazione. Duecentotrenta anni dopo la loro esecuzione, i corpi riacquistarono i loro nomi. Entrambi gli uomini sono stati beatificati da Papa Francesco nel 2014, nel gruppo di 124 conosciuti come \"Paolo Yun Ji-chung e compagni\". L'uomo morto in questo posto è il primo nome sulla lista.",
+      "lookForIt": "Qualsiasi avviso che riporti l'identificazione dei resti",
+      "titlePt": "Restos mortais devolvidos após 230 anos",
+      "narrationPt": "O último capítulo desta história é muito recente. Em Março de 2021, foram escavadas sepulturas em Baubaegi, no santuário Chonami, em Wanju, e análises científicas confirmaram que os restos mortais eram de Yun Ji-chung e Kwon Sang-yeon – marcas de corte nos ossos do pescoço que correspondem aos registos da sua decapitação. Duzentos e trinta anos após a sua execução, os corpos recuperaram os seus nomes. Ambos os homens foram beatificados pelo Papa Francisco em 2014, no grupo de 124 conhecidos como “Paul Yun Ji-chung e companheiros”. O homem que morreu neste local é o primeiro nome da lista.",
+      "lookForPt": "Qualquer aviso relatando a identificação dos restos mortais",
+      "titleFr": "Les restes restitués après 230 ans",
+      "narrationFr": "Le dernier chapitre de cette histoire est très récent. En mars 2021, des tombes ont été fouillées à Baubaegi, dans le sanctuaire Chonami à Wanju, et une analyse scientifique a confirmé qu'il s'agissait de restes de Yun Ji-chung et de Kwon Sang-yeon – des marques de coupures sur les os du cou correspondant aux archives de leur décapitation. Deux cent trente ans après leur exécution, les corps ont retrouvé leur nom. Les deux hommes ont été béatifiés par le pape François en 2014, dans le groupe de 124 personnes connues sous le nom de « Paul Yun Ji-chung et ses compagnons ». L'homme qui est mort à cet endroit est le premier nom sur cette liste.",
+      "lookForFr": "Toute notice relatant l'identification de la dépouille"
     }
   ],
   "outro": {
     "narration": "전동성당의 돌과 유리창에는 전주의 역사와 순교자들의 기억이 함께 담겨 있습니다. 한옥마을로 다시 걸음을 옮길 때에도 이곳이 간직한 사람들의 이야기를 떠올려 보세요.",
     "narrationEn": "Thank you for walking Jeondong Cathedral with us. Within walking or short driving distance the road of the martyrs continues — the Chonami shrine where the remains were found, Chimyeongjasan where Yu Hang-geom's family lies, and the Supjeongi shrine of Jeonju, all in this app. Walk the busy Hanok Village streets remembering why this cathedral stands here, and the same streets will look different. Peace be with you.",
     "narrationEs": "Gracias por recorrer con nosotros la catedral de Jeondong. A pie o con un breve trayecto en coche, el camino de los mártires continúa. En esta aplicación encontrará el santuario de Chonami, donde se hallaron los restos, el santuario de Chimyeongjasan, donde está enterrada la familia de Yu Hang-geom, y el santuario de Supjeongi en Jeonju. Camine por las animadas calles de la aldea Hanok recordando por qué se alza aquí esta catedral, y las mismas calles le parecerán distintas. Que la paz le acompañe.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Grazie per aver camminato con noi nella Cattedrale di Jeondong. A piedi o a breve distanza in auto la strada dei martiri continua: il santuario Chonami dove sono stati trovati i resti, Chimyeongjasan dove giace la famiglia di Yu Hang-geom e il santuario Supjeongi di Jeonju, tutto in questa app. Cammina per le trafficate strade del villaggio di Hanok ricordando perché questa cattedrale si trova qui e le stesse strade sembreranno diverse. La pace sia con te.",
+    "narrationPt": "Obrigado por caminhar pela Catedral de Jeondong conosco. A uma curta distância a pé ou de carro, a estrada dos mártires continua - o santuário Chonami, onde os restos mortais foram encontrados, Chimyeongjasan, onde reside a família de Yu Hang-geom, e o santuário Supjeongi de Jeonju, tudo neste aplicativo. Caminhe pelas movimentadas ruas da vila de Hanok lembrando por que esta catedral está aqui, e as mesmas ruas parecerão diferentes. A paz esteja com você.",
+    "narrationFr": "Merci d'avoir parcouru la cathédrale de Jeondong avec nous. À distance de marche ou en voiture, la route des martyrs continue : le sanctuaire Chonami où les restes ont été retrouvés, Chimyeongjasan où repose la famille de Yu Hang-geom et le sanctuaire Supjeongi de Jeonju, le tout dans cette application. Promenez-vous dans les rues animées du village de Hanok en vous rappelant pourquoi cette cathédrale se trouve ici, et les mêmes rues seront différentes. La paix soit avec toi."
   }
 }

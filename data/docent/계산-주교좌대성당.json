@@ -8,7 +8,11 @@
   "intro": {
     "narration": "저와 함께 두 첨탑에서 유리화, 마당의 십자가까지 살펴보겠습니다. 건물과 빛 속에 남은 대구 신앙 공동체의 이야기를 만나 보세요.",
     "photos": [],
-    "narrationEn": "Let me walk you from the twin spires to the stained glass and out to the cross in the courtyard — the story of Daegu's Catholic community, kept in building and light."
+    "narrationEn": "Let me walk you from the twin spires to the stained glass and out to the cross in the courtyard — the story of Daegu's Catholic community, kept in building and light.",
+    "narrationEs": "Permítanme acompañarles desde las agujas gemelas hasta los vitrales y hasta la cruz en el patio: la historia de la comunidad católica de Daegu, mantenida en edificios y luz.",
+    "narrationIt": "Lascia che ti accompagni dalle guglie gemelle alle vetrate colorate e fino alla croce nel cortile: la storia della comunità cattolica di Daegu, mantenuta nell'edificio e nella luce.",
+    "narrationPt": "Deixe-me acompanhá-lo desde as torres gêmeas até o vitral e até a cruz no pátio – a história da comunidade católica de Daegu, mantida em construção e luz.",
+    "narrationFr": "Laissez-moi vous guider depuis les flèches jumelles jusqu'aux vitraux et jusqu'à la croix dans la cour – l'histoire de la communauté catholique de Daegu, préservée dans la construction et la lumière."
   },
   "points": [
     {
@@ -23,7 +27,19 @@
       "titleEn": "Twin Spires and the Rose Window",
       "locationEn": "In front of the church façade",
       "lookForEn": "The round rose window set between the two spires",
-      "narrationEn": "Begin by looking up at the two spires on the façade. This brick church was rebuilt by the community after the earlier hanok church burned down. It did not start out this way: as the congregation grew, the bell towers were raised and the building widened. I also suggest you take in the round rose window between the towers. Look at the spires reaching upward, then at the window opening like a flower, and the building shows you two different faces."
+      "narrationEn": "Begin by looking up at the two spires on the façade. This brick church was rebuilt by the community after the earlier hanok church burned down. It did not start out this way: as the congregation grew, the bell towers were raised and the building widened. I also suggest you take in the round rose window between the towers. Look at the spires reaching upward, then at the window opening like a flower, and the building shows you two different faces.",
+      "titleEs": "Agujas gemelas y el rosetón",
+      "narrationEs": "Comience mirando las dos agujas de la fachada. Esta iglesia de ladrillo fue reconstruida por la comunidad después de que se incendiara la iglesia hanok anterior. No empezó así: a medida que la congregación crecía, se levantaban los campanarios y se ampliaba el edificio. También te sugiero que admires el rosetón redondo entre las torres. Mire las agujas que se elevan hacia arriba, luego la ventana que se abre como una flor y el edificio le muestra dos caras diferentes.",
+      "lookForEs": "El rosetón redondo situado entre las dos agujas.",
+      "titleIt": "Guglie Gemelle e il Rosone",
+      "narrationIt": "Inizia guardando le due guglie sulla facciata. Questa chiesa in mattoni è stata ricostruita dalla comunità dopo che la precedente chiesa hanok era stata distrutta da un incendio. Non cominciò così: man mano che la congregazione cresceva, furono innalzati i campanili e ampliato l'edificio. Ti consiglio anche di ammirare il rosone rotondo tra le torri. Guarda le guglie che si protendono verso l'alto, poi la finestra che si apre come un fiore, e l'edificio ti mostra due volti diversi.",
+      "lookForIt": "Il rosone rotondo incastonato tra le due guglie",
+      "titlePt": "Torres Gêmeas e a Rosácea",
+      "narrationPt": "Comece olhando para as duas torres da fachada. Esta igreja de tijolos foi reconstruída pela comunidade depois que a antiga igreja hanok foi incendiada. Não começou assim: à medida que a congregação crescia, as torres sineiras foram erguidas e o edifício foi ampliado. Sugiro também que você observe a rosácea redonda entre as torres. Olhe para as torres que se estendem para cima, depois para a janela que se abre como uma flor, e o edifício mostra duas faces diferentes.",
+      "lookForPt": "A rosácea redonda situada entre as duas torres",
+      "titleFr": "Flèches jumelles et rosace",
+      "narrationFr": "Commencez par regarder les deux flèches de la façade. Cette église en brique a été reconstruite par la communauté après l'incendie de l'ancienne église hanok. Les choses n'ont pas commencé ainsi : à mesure que la congrégation grandissait, les clochers s'élevaient et le bâtiment s'élargissait. Je vous propose également d'admirer la rosace ronde située entre les tours. Regardez les flèches qui s'élèvent vers le haut, puis la fenêtre qui s'ouvre comme une fleur, et le bâtiment vous montre deux visages différents.",
+      "lookForFr": "La rosace ronde située entre les deux flèches"
     },
     {
       "seq": 2,
@@ -37,7 +53,19 @@
       "titleEn": "Glass That Crossed the Sea",
       "locationEn": "Inside, from a pew facing the altar",
       "lookForEn": "The plant motifs above and below the figures in the tall windows behind the altar",
-      "narrationEn": "Look at the tall windows behind the altar. These old stained-glass panels were made in the Gesta workshop in Toulouse, France, and brought to Daegu. Let your eyes drift from the faces of the figures to the flowers and leaves at the top and bottom of each window. As the light comes through, the colors and plant patterns wrap around the saints. The hand of a faraway workshop still rests in this place of prayer."
+      "narrationEn": "Look at the tall windows behind the altar. These old stained-glass panels were made in the Gesta workshop in Toulouse, France, and brought to Daegu. Let your eyes drift from the faces of the figures to the flowers and leaves at the top and bottom of each window. As the light comes through, the colors and plant patterns wrap around the saints. The hand of a faraway workshop still rests in this place of prayer.",
+      "titleEs": "Vidrio que cruzó el mar",
+      "narrationEs": "Mire las altas ventanas detrás del altar. Estos viejos paneles de vidrieras se fabricaron en el taller de Gesta en Toulouse, Francia, y se llevaron a Daegu. Deja que tus ojos pasen de los rostros de las figuras a las flores y hojas en la parte superior e inferior de cada ventana. A medida que pasa la luz, los colores y los patrones de plantas envuelven a los santos. La mano de un taller lejano aún descansa en este lugar de oración.",
+      "lookForEs": "Los motivos vegetales encima y debajo de las figuras en los altos ventanales detrás del altar.",
+      "titleIt": "Il vetro che attraversò il mare",
+      "narrationIt": "Guarda le alte finestre dietro l'altare. Questi vecchi pannelli di vetro colorato sono stati realizzati nel laboratorio Gesta a Tolosa, in Francia, e portati a Daegu. Lascia che i tuoi occhi si spostino dai volti delle figure ai fiori e alle foglie nella parte superiore e inferiore di ogni finestra. Mentre la luce filtra, i colori e i motivi vegetali avvolgono i santi. La mano di una bottega lontana riposa ancora in questo luogo di preghiera.",
+      "lookForIt": "I motivi vegetali sopra e sotto le figure nelle alte finestre dietro l'altare",
+      "titlePt": "Vidro que atravessou o mar",
+      "narrationPt": "Observe as janelas altas atrás do altar. Estes antigos vitrais foram feitos na oficina Gesta em Toulouse, França, e trazidos para Daegu. Deixe seus olhos vagarem dos rostos das figuras para as flores e folhas na parte superior e inferior de cada janela. À medida que a luz passa, as cores e os padrões das plantas envolvem os santos. A mão de uma oficina distante ainda repousa neste lugar de oração.",
+      "lookForPt": "Os motivos vegetalistas acima e abaixo das figuras nas altas janelas atrás do altar",
+      "titleFr": "Du verre qui a traversé la mer",
+      "narrationFr": "Regardez les hautes fenêtres derrière l'autel. Ces anciens panneaux de vitraux ont été réalisés dans l'atelier Gesta à Toulouse, en France, et apportés à Daegu. Laissez vos yeux dériver des visages des personnages vers les fleurs et les feuilles en haut et en bas de chaque fenêtre. À mesure que la lumière passe, les couleurs et les motifs végétaux enveloppent les saints. La main d'un atelier lointain repose encore dans ce lieu de prière.",
+      "lookForFr": "Les motifs végétaux au-dessus et au-dessous des personnages des hautes fenêtres derrière l'autel"
     },
     {
       "seq": 3,
@@ -51,12 +79,28 @@
       "titleEn": "The Memorial Cross in the Yard",
       "locationEn": "The front courtyard",
       "lookForEn": "The large cross in the forecourt, seen together with the façade",
-      "narrationEn": "Find the large cross in the front yard. It was raised to mark twenty-five years since Bishop Demange, the first bishop of Daegu, took office. Those years run alongside the birth of the Diocese of Daegu and Gyesan becoming its cathedral. After you look at the cross, let your gaze carry on to the church behind it. One monument in the yard tells how this place grew into the heart of the local Church."
+      "narrationEn": "Find the large cross in the front yard. It was raised to mark twenty-five years since Bishop Demange, the first bishop of Daegu, took office. Those years run alongside the birth of the Diocese of Daegu and Gyesan becoming its cathedral. After you look at the cross, let your gaze carry on to the church behind it. One monument in the yard tells how this place grew into the heart of the local Church.",
+      "titleEs": "La cruz conmemorativa en el patio",
+      "narrationEs": "Encuentra la cruz grande en el patio delantero. Se levantó para conmemorar los veinticinco años desde que asumió el cargo el obispo Demange, el primer obispo de Daegu. Esos años coinciden con el nacimiento de la Diócesis de Daegu y Gyesan convirtiéndose en su catedral. Después de mirar la cruz, deja que tu mirada se dirija a la iglesia detrás de ella. Un monumento en el patio cuenta cómo este lugar creció hasta convertirse en el corazón de la Iglesia local.",
+      "lookForEs": "La gran cruz del patio, vista junto con la fachada",
+      "titleIt": "La croce commemorativa nel cortile",
+      "narrationIt": "Trova la grande croce nel cortile. È stato innalzato per celebrare i venticinque anni da quando mons. Demange, il primo vescovo di Daegu, è entrato in carica. Quegli anni coincidono con la nascita della diocesi di Daegu e Gyesan che ne diventa la cattedrale. Dopo aver guardato la croce, lascia che il tuo sguardo si spinga sulla chiesa dietro di essa. Un monumento nel cortile racconta come questo luogo sia diventato il cuore della Chiesa locale.",
+      "lookForIt": "La grande croce sul piazzale, vista insieme alla facciata",
+      "titlePt": "A cruz memorial no quintal",
+      "narrationPt": "Encontre a grande cruz no jardim da frente. Foi criado para marcar vinte e cinco anos desde que o Bispo Demange, o primeiro bispo de Daegu, assumiu o cargo. Esses anos coincidem com o nascimento da Diocese de Daegu e Gyesan, tornando-se sua catedral. Depois de olhar para a cruz, deixe seu olhar seguir para a igreja atrás dela. Um monumento no pátio conta como este lugar se tornou o coração da Igreja local.",
+      "lookForPt": "A grande cruz no átrio, vista em conjunto com a fachada",
+      "titleFr": "La Croix du Souvenir dans la cour",
+      "narrationFr": "Trouvez la grande croix dans la cour avant. Il a été érigé pour marquer le vingt-cinqième anniversaire de l'entrée en fonction de Mgr Demange, premier évêque de Daegu. Ces années coïncident avec la naissance du diocèse de Daegu et Gyesan, qui en devient la cathédrale. Après avoir regardé la croix, laissez votre regard se porter sur l’église située derrière elle. Un monument dans la cour raconte comment ce lieu est devenu le cœur de l'Église locale.",
+      "lookForFr": "La grande croix du parvis vue avec la façade"
     }
   ],
   "outro": {
     "narration": "두 탑과 유리창, 마당의 십자가를 지나왔습니다. 골목으로 돌아서기 전에 서로 다른 손길이 남은 성당을 한 번 더 바라보세요.",
     "photos": [],
-    "narrationEn": "We have passed the two towers, the windows and the cross in the yard. Before you turn back into the lane, look once more at a church shaped by so many different hands."
+    "narrationEn": "We have passed the two towers, the windows and the cross in the yard. Before you turn back into the lane, look once more at a church shaped by so many different hands.",
+    "narrationEs": "Hemos pasado por las dos torres, las ventanas y la cruz del patio. Antes de volver a la calle, mire una vez más esta iglesia moldeada por tantas manos diferentes.",
+    "narrationIt": "Abbiamo superato le due torri, le finestre e la croce del cortile. Prima di tornare sulla strada, osserva ancora una volta la chiesa plasmata da tante mani diverse.",
+    "narrationPt": "Passamos pelas duas torres, pelas janelas e pela cruz do pátio. Antes de voltar para a rua, olhe mais uma vez para uma igreja moldada por tantas mãos diferentes.",
+    "narrationFr": "Nous avons dépassé les deux tours, les fenêtres et la croix dans la cour. Avant de retourner dans la ruelle, contemplez une fois de plus une église façonnée par tant de mains différentes."
   }
 }

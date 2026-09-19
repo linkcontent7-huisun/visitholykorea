@@ -9,7 +9,10 @@
     "narration": "명동대성당의 언덕부터 성당 안과 지하성당까지 함께 살펴보겠습니다. 벽돌과 유리창, 순교자들의 묘역에 담긴 이야기를 들려드리겠습니다.",
     "narrationEn": "One small lane up from the busy Myeongdong shopping streets, a quiet hill suddenly opens before you. This is Myeongdong Cathedral, often called the heart of the Catholic Church in Korea. On this hill, in 1784, Korea's first community of baptized believers gathered in what was then the Myeongnyebang district. Today we will look at the cathedral from the outside in — down to the crypt below.",
     "narrationEs": "Al subir por una pequeña calle desde las animadas calles comerciales de Myeongdong, se abre de pronto una colina silenciosa. Esta es la catedral de Myeongdong, llamada a menudo el corazón de la Iglesia católica en Corea. En esta colina se reunió en 1784 la primera comunidad coreana de creyentes bautizados, en el entonces barrio de Myeongnyebang. Hoy recorreremos la catedral desde el exterior hasta la cripta subterránea.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Una piccola stradina dalle trafficate vie dello shopping di Myeongdong, una collina tranquilla si apre improvvisamente davanti a te. Questa è la cattedrale di Myeongdong, spesso definita il cuore della Chiesa cattolica in Corea. Su questa collina, nel 1784, si riunì la prima comunità coreana di credenti battezzati in quello che allora era il distretto di Myeongnyebang. Oggi guarderemo la cattedrale dall'esterno verso l'interno, fino alla cripta sottostante.",
+    "narrationPt": "Uma pequena faixa acima das movimentadas ruas comerciais de Myeongdong, uma colina tranquila se abre de repente diante de você. Esta é a Catedral de Myeongdong, muitas vezes chamada de coração da Igreja Católica na Coreia. Nesta colina, em 1784, a primeira comunidade de crentes batizados da Coreia reuniu-se no que era então o distrito de Myeongnyebang. Hoje veremos a catedral de fora para dentro – até a cripta abaixo.",
+    "narrationFr": "À une petite ruelle des rues commerçantes animées de Myeongdong, une colline tranquille s'ouvre soudainement devant vous. Il s'agit de la cathédrale de Myeongdong, souvent appelée le cœur de l'Église catholique en Corée. Sur cette colline, en 1784, la première communauté coréenne de croyants baptisés s'est rassemblée dans ce qui était alors le district de Myeongnyebang. Aujourd’hui, nous allons regarder la cathédrale de l’extérieur vers l’intérieur, jusqu’à la crypte en contrebas."
   },
   "points": [
     {
@@ -28,7 +31,16 @@
       "lookForEs": "El campanario que se alza sobre la colina",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "주교회의 명례방 공동체 설명: https://cbck.or.kr/koreanmartyrs/Shrines/71 ; 정확한 김범우 집터를 현재 성당 터로 단정하지 않음."
+      "sourceNote": "주교회의 명례방 공동체 설명: https://cbck.or.kr/koreanmartyrs/Shrines/71 ; 정확한 김범우 집터를 현재 성당 터로 단정하지 않음.",
+      "titleIt": "La collina: sede della prima comunità",
+      "narrationIt": "Soffermatevi un attimo su questo pendio. Un secolo prima della costruzione della cattedrale, nel 1784, la prima comunità cattolica coreana si riunì proprio su questa collina. Sorprendentemente – quasi un caso unico nella storia della Chiesa – i coreani abbracciarono la fede da soli, attraverso i libri, prima che arrivasse qualsiasi missionario. La cattedrale che poi sorse qui sorge sulle radici stesse della Chiesa coreana.",
+      "lookForIt": "Il campanile svetta sopra la collina",
+      "titlePt": "The Hill - Casa da Primeira Comunidade",
+      "narrationPt": "Pare por um momento nesta encosta. Um século antes da construção da catedral, em 1784, a primeira comunidade católica da Coreia reuniu-se nesta mesma colina. Notavelmente – quase exclusivamente na história da igreja – os coreanos abraçaram a fé por conta própria, através de livros, antes da chegada de qualquer missionário. A catedral que mais tarde foi erguida aqui está nas próprias raízes da Igreja Coreana.",
+      "lookForPt": "A torre sineira erguendo-se acima da colina",
+      "titleFr": "La Colline – Maison de la première communauté",
+      "narrationFr": "Arrêtez-vous un instant sur cette pente. Un siècle avant la construction de la cathédrale, en 1784, la première communauté catholique de Corée s'est rassemblée sur cette même colline. Fait remarquable – presque unique dans l’histoire de l’Église – les Coréens ont embrassé la foi d’eux-mêmes, à travers les livres, avant l’arrivée des missionnaires. La cathédrale qui fut érigée ici plus tard se dresse sur les racines mêmes de l'Église coréenne.",
+      "lookForFr": "Le clocher s'élevant au dessus de la colline"
     },
     {
       "seq": 2,
@@ -46,7 +58,16 @@
       "lookForEs": "El dibujo de los muros construidos con ladrillos grises y rojos",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "굿뉴스 명동 주교좌성당 건립 경위·고딕 양식: https://m.catholic.or.kr/web/holyplace/?seq=2289 ; 높이는 자료 차이가 있어 제외."
+      "sourceNote": "굿뉴스 명동 주교좌성당 건립 경위·고딕 양식: https://m.catholic.or.kr/web/holyplace/?seq=2289 ; 높이는 자료 차이가 있어 제외.",
+      "titleIt": "La facciata: la prima chiesa gotica in mattoni della Corea",
+      "narrationIt": "La cattedrale davanti a voi, iniziata nel 1892 e consacrata nel 1898, è la prima chiesa coreana in puro stile gotico in mattoni. È stato progettato e supervisionato da p. Eugène Coste di Francia; quando morì prima del suo completamento, p. Victor Poisnel ha terminato il lavoro. La sua guglia, alta oltre quaranta metri, era la silhouette più sorprendente di Seoul quando fu costruita e rimane ancora oggi un punto di riferimento. La cattedrale è designata sito storico n. 258.",
+      "lookForIt": "Le pareti modellate di mattoni grigi e rossi",
+      "titlePt": "A fachada – a primeira igreja gótica de tijolos da Coreia",
+      "narrationPt": "A catedral diante de você, iniciada em 1892 e consagrada em 1898, é a primeira igreja de tijolos puramente gótica da Coreia. Foi projetado e supervisionado pelo Pe. Eugène Coste da França; quando ele morreu antes de sua conclusão, pe. Victor Poisnel finalizou o trabalho. Sua torre, com mais de quarenta metros de altura, era a silhueta mais marcante de Seul quando foi construída e continua sendo um marco até hoje. A catedral foi designada como Sítio Histórico nº 258.",
+      "lookForPt": "As paredes estampadas de tijolo cinza e vermelho",
+      "titleFr": "La façade – la première église gothique en brique de Corée",
+      "narrationFr": "La cathédrale devant vous, commencée en 1892 et consacrée en 1898, est la première église en briques de style gothique pur de Corée. Il a été conçu et supervisé par le P. Eugène Coste de France ; lorsqu'il mourut avant son achèvement, le P. Victor Poisnel a terminé les travaux. Sa flèche, s'élevant sur plus de quarante mètres, était la silhouette la plus frappante de Séoul lors de sa construction et reste aujourd'hui un point de repère. La cathédrale est désignée site historique n°258.",
+      "lookForFr": "Les murs à motifs de briques grises et rouges"
     },
     {
       "seq": 3,
@@ -64,7 +85,16 @@
       "lookForEs": "El ritmo de los arcos hacia el altar y la luz de las ventanas",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "서울대교구 성미술 담당 정웅모 신부 글 · 제단 유리화: https://pds.catholic.or.kr/pdsm/bbs_view.asp?id=183018&menu=4830&num=479"
+      "sourceNote": "서울대교구 성미술 담당 정웅모 신부 글 · 제단 유리화: https://pds.catholic.or.kr/pdsm/bbs_view.asp?id=183018&menu=4830&num=479",
+      "titleIt": "L'interno: luce e vetrate",
+      "narrationIt": "Entra e gli archi a sesto acuto attirano lo sguardo verso l'alto soffitto. Il riverente bagliore della luce attraverso le vetrate colorate riempie questo spazio da più di centoventi anni. La cattedrale è un luogo di preghiera: muoviti con silenzio per coloro che partecipano alla Messa o in preghiera e segui le indicazioni pubblicate sulla fotografia.",
+      "lookForIt": "Il ritmo degli archi verso l'altare e la luce nelle finestre",
+      "titlePt": "O Interior – Luz e Vitrais",
+      "narrationPt": "Entre e os arcos pontiagudos atraem seus olhos para o teto alto. O brilho reverente da luz através dos vitrais preenche este espaço há mais de cento e vinte anos. A catedral é um local de oração – por favor, mova-se silenciosamente para aqueles que estão na missa ou em oração e siga as orientações publicadas sobre fotografia.",
+      "lookForPt": "O ritmo dos arcos em direção ao altar e a luz nas janelas",
+      "titleFr": "L'intérieur — Lumière et vitraux",
+      "narrationFr": "Entrez et les arcs brisés attirent votre regard vers le haut plafond. La lueur respectueuse de la lumière à travers les vitraux remplit cet espace depuis plus de cent vingt ans. La cathédrale est un lieu de prière – veuillez vous déplacer tranquillement pour ceux qui assistent à la messe ou en prière, et suivez les conseils affichés sur la photographie.",
+      "lookForFr": "Le rythme des arcs vers l'autel et la lumière des fenêtres"
     },
     {
       "seq": 4,
@@ -82,7 +112,16 @@
       "lookForEs": "Los nichos que guardan las reliquias y los nombres de los mártires",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "주교회의 · 지하성당 안치 명단과 유해 이장 경위: https://cbck.or.kr/koreanmartyrs/Shrines/71"
+      "sourceNote": "주교회의 · 지하성당 안치 명단과 유해 이장 경위: https://cbck.or.kr/koreanmartyrs/Shrines/71",
+      "titleIt": "La Cripta: dove riposano i martiri",
+      "narrationIt": "Sotto la navata si trova una cripta che custodisce le reliquie dei martiri. Vescovo Laurent Imbert, p. Pierre Maubant e p. Jacques Chastan, martire nella persecuzione di Gihae del 1839, fu sepolto qui nel 1901, insieme a san Francesco Choe Kyong-hwan, sant'Antonio Kim Song-u, i padri Pourthié e Petitnicolas della persecuzione di Byeongin e un martire il cui nome è perduto. Bassa e silenziosa, quindi diversa dalla grande chiesa sopra, questa stanza ti dice su cosa è veramente costruita la cattedrale.",
+      "lookForIt": "Le nicchie custodiscono le reliquie ed i nomi dei martiri",
+      "titlePt": "A Cripta – Onde Repousam os Mártires",
+      "narrationPt": "Abaixo da nave encontra-se uma cripta que contém as relíquias dos mártires. Bispo Laurent Imbert, Pe. Pierre Maubant e Pe. Jacques Chastan, martirizado na Perseguição de Gihae de 1839, foi colocado aqui em 1901, junto com São Francisco Choe Kyong-hwan, Santo Antônio Kim Song-u, Padres Pourthié e Petitnicolas da Perseguição de Byeongin, e um mártir cujo nome está perdido. Baixa e silenciosa, tão diferente da grande igreja acima, esta sala mostra sobre o que a catedral realmente foi construída.",
+      "lookForPt": "Os nichos que guardam as relíquias e os nomes dos mártires",
+      "titleFr": "La crypte – Où reposent les martyrs",
+      "narrationFr": "Sous la nef se trouve une crypte abritant les reliques des martyrs. Mgr Laurent Imbert, le P. Pierre Maubant et le P. Jacques Chastan, martyrisé lors de la persécution de Gihae en 1839, fut enterré ici en 1901, avec saint François Choe Kyong-hwan, saint Antoine Kim Song-u, les pères Pourthié et Petitnicolas de la persécution de Byeongin et un martyr dont le nom est perdu. Basse et calme, contrairement à la grande église située au-dessus, cette pièce vous indique sur quoi la cathédrale est véritablement construite.",
+      "lookForFr": "Les niches abritant les reliques et les noms des martyrs"
     },
     {
       "seq": 5,
@@ -100,7 +139,16 @@
       "lookForEs": "La vista de las calles de Myeongdong desde el patio",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "가톨릭평화방송 · 6·10 민주항쟁, 엿새간 이어진 명동성당 농성: https://program.cpbc.co.kr/tv/cpbcnews/vod/871946/22000553598"
+      "sourceNote": "가톨릭평화방송 · 6·10 민주항쟁, 엿새간 이어진 명동성당 농성: https://program.cpbc.co.kr/tv/cpbcnews/vod/871946/22000553598",
+      "titleIt": "Il Cortile – Memoria del 1987",
+      "narrationIt": "La cattedrale di Myeongdong è un luogo di fede e anche un punto di riferimento della storia coreana moderna. Durante la rivolta democratica di giugno del 1987, i cittadini si riunirono qui e la cattedrale divenne un santuario del movimento democratico. La sua storia di rifugio per i sofferenti, oltre le mura della religione, è il motivo per cui questa chiesa rimane speciale per così tanti coreani oggi.",
+      "lookForIt": "La vista delle strade di Myeongdong sotto il cortile",
+      "titlePt": "O Pátio – Memória de 1987",
+      "narrationPt": "A Catedral de Myeongdong é um lugar de fé e também um marco da história coreana moderna. Durante a Revolta Democrática de Junho de 1987, os cidadãos reuniram-se aqui e a catedral tornou-se um santuário do movimento democrático. A sua história de abrigar o sofrimento, para além dos muros da religião, é a razão pela qual esta igreja continua a ser especial para tantos coreanos hoje.",
+      "lookForPt": "A vista das ruas de Myeongdong abaixo do pátio",
+      "titleFr": "La Cour — Mémoire de 1987",
+      "narrationFr": "La cathédrale de Myeongdong est un lieu de foi et également un monument de l'histoire moderne de la Corée. Lors du soulèvement démocratique de juin 1987, les citoyens se sont rassemblés ici et la cathédrale est devenue un sanctuaire du mouvement démocratique. Son histoire consistant à abriter les souffrants, au-delà des murs de la religion, est la raison pour laquelle cette église reste aujourd'hui spéciale pour tant de Coréens.",
+      "lookForFr": "La vue sur les rues de Myeongdong en contrebas de la cour"
     }
   ],
   "outro": {
@@ -108,6 +156,9 @@
     "narrationEn": "Thank you for walking Myeongdong Cathedral with us. One more thing worth knowing: the Archdiocese of Seoul runs a guided docent programme here, in which a trained guide explains the cathedral's history, its architecture and its Catholic artworks over about an hour. It is free of charge and open to anyone, regardless of faith, though it requires booking in advance — and an English-language tour is being introduced. If you can return another day, look up the Myeongdong Cathedral docent programme; you will meet something different from what I have told you. Step outside and Myeongdong is busy again — carry a little of this hill's quiet with you. Peace be with you.",
     "narrationEs": "Gracias por recorrer con nosotros la catedral de Myeongdong. Hay algo más que conviene saber. La archidiócesis de Seúl ofrece aquí un programa de visitas guiadas por una persona, en el que se explican durante aproximadamente una hora la historia, la arquitectura y las obras de arte católico de la catedral. Es gratuito y está abierto a cualquier persona, sea creyente o no, pero requiere reserva previa. Si puede regresar otro día, busque la información sobre las visitas guiadas de la catedral de Myeongdong. Encontrará algo diferente de lo que yo le he contado. Al salir, Myeongdong vuelve a estar lleno de movimiento. Llévese por un momento la quietud de esta colina. Que la paz le acompañe.",
     "photos": [],
-    "sourceNote": "검색 확인(뉴시스 2026-08-10) — 서울대교구 \"2026년 하반기 명동대성당 가톨릭미술이야기\" 도슨트, 2026.9.10~11.28 운영·약 1시간·무료·종교 무관·사전 선착순 예약, 영어 해설 신설. 구체적 일정과 신청처는 바뀔 수 있어 원고에서는 날짜를 말하지 않는다"
+    "sourceNote": "검색 확인(뉴시스 2026-08-10) — 서울대교구 \"2026년 하반기 명동대성당 가톨릭미술이야기\" 도슨트, 2026.9.10~11.28 운영·약 1시간·무료·종교 무관·사전 선착순 예약, 영어 해설 신설. 구체적 일정과 신청처는 바뀔 수 있어 원고에서는 날짜를 말하지 않는다",
+    "narrationIt": "Grazie per aver camminato con noi nella Cattedrale di Myeongdong. Un'altra cosa che vale la pena sapere: l'arcidiocesi di Seoul organizza qui un programma di docenti guidati, in cui una guida esperta spiega la storia della cattedrale, la sua architettura e le sue opere d'arte cattoliche per circa un'ora. È gratuito e aperto a chiunque, indipendentemente dalla fede, anche se richiede la prenotazione in anticipo e viene introdotto un tour in lingua inglese. Se puoi tornare un altro giorno, consulta il programma dei docenti della Cattedrale di Myeongdong; incontrerai qualcosa di diverso da quello che ti ho detto. Esci e Myeongdong sarà di nuovo occupato: porta con te un po' della quiete di questa collina. La pace sia con te.",
+    "narrationPt": "Obrigado por caminhar pela Catedral de Myeongdong conosco. Mais uma coisa que vale a pena saber: a Arquidiocese de Seul mantém aqui um programa de docentes guiados, no qual um guia treinado explica a história da catedral, sua arquitetura e suas obras de arte católicas durante cerca de uma hora. É gratuito e aberto a qualquer pessoa, independentemente da religião, embora exija reserva antecipada – e um tour em inglês está sendo introduzido. Se você puder voltar outro dia, procure o programa docente da Catedral de Myeongdong; você encontrará algo diferente do que eu lhe disse. Saia e Myeongdong estará ocupado novamente - leve um pouco da tranquilidade desta colina com você. A paz esteja com você.",
+    "narrationFr": "Merci d'avoir parcouru la cathédrale de Myeongdong avec nous. Une autre chose à savoir : l'archidiocèse de Séoul propose ici un programme de documentation guidée, dans lequel un guide qualifié explique l'histoire de la cathédrale, son architecture et ses œuvres d'art catholiques pendant environ une heure. Il est gratuit et ouvert à tous, quelle que soit sa confession, même s'il nécessite une réservation à l'avance – et une visite en anglais est en cours d'introduction. Si vous pouvez revenir un autre jour, consultez le programme pédagogique de la cathédrale de Myeongdong ; vous rencontrerez quelque chose de différent de ce que je vous ai dit. Sortez et Myeongdong est à nouveau occupé – emportez avec vous un peu du calme de cette colline. La paix soit avec toi."
   }
 }

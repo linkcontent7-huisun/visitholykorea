@@ -9,7 +9,10 @@
     "narrationEs": "Esta modesta iglesia de ladrillo rojo en la colina es la iglesia de Yakhyeon, la primera iglesia de estilo occidental de Corea, construida en 1892, seis años antes que la catedral de Myeongdong. No es grande ni suntuosa, pero cuando se sabe por qué se alza en esta colina concreta, se la recorre de otra manera. Miremos alrededor despacio.",
     "narration": "중림동 언덕 위 약현성당을 함께 둘러보겠습니다. 붉은 벽돌 성당의 아치와 서소문 순교자들을 기억하는 공간을 살펴보세요.",
     "narrationEn": "This modest red-brick church on the hill is Yakhyeon Church, the first Western-style church in Korea, built in 1892 — six years before Myeongdong Cathedral. It is neither large nor grand, but once you know why it stands on this particular hill, you will walk it differently. Let us look around slowly.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Questa modesta chiesa in mattoni rossi sulla collina è la Yakhyeon Church, la prima chiesa in stile occidentale in Corea, costruita nel 1892, sei anni prima della cattedrale di Myeongdong. Non è né grande né grandioso, ma una volta che sai perché si trova su questa particolare collina, lo percorrerai in modo diverso. Guardiamoci intorno lentamente.",
+    "narrationPt": "Esta modesta igreja de tijolos vermelhos na colina é a Igreja Yakhyeon, a primeira igreja de estilo ocidental na Coreia, construída em 1892 – seis anos antes da Catedral de Myeongdong. Não é grande nem grandioso, mas quando você souber por que fica nesta colina em particular, você caminhará por ela de maneira diferente. Vamos olhar ao redor lentamente.",
+    "narrationFr": "Cette modeste église en briques rouges située sur la colline est l'église de Yakhyeon, la première église de style occidental en Corée, construite en 1892, six ans avant la cathédrale de Myeongdong. Ce n'est ni grand ni grandiose, mais une fois que vous saurez pourquoi il se trouve sur cette colline particulière, vous le parcourrez différemment. Regardons lentement autour de nous."
   },
   "points": [
     {
@@ -28,7 +31,16 @@
       "lookForEn": "The open view from the churchyard toward Seosomun",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "국가유산청 · 성당 입지: https://www.heritage.go.kr/heri/cul/culGuidePostDetail.do?ccbaCpno=1331102520000&ccgbGbtype=IND&ccgbGbtypeNo=1&pageNo=1_5_0_0 ; 굿뉴스 · 서소문 순교 역사: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2292&menugubun=holyplace ; 기존 44명은 전체 순교자 수가 아니므로 제외. 현재 조망은 현장 확인 필요."
+      "sourceNote": "국가유산청 · 성당 입지: https://www.heritage.go.kr/heri/cul/culGuidePostDetail.do?ccbaCpno=1331102520000&ccgbGbtype=IND&ccgbGbtypeNo=1&pageNo=1_5_0_0 ; 굿뉴스 · 서소문 순교 역사: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2292&menugubun=holyplace ; 기존 44명은 전체 순교자 수가 아니므로 제외. 현재 조망은 현장 확인 필요.",
+      "titleIt": "La collina - Affacciato su Seosomun",
+      "narrationIt": "Guarda in basso verso la città dal sagrato. Sotto questa collina si trova Seosomun, il luogo ufficiale dell'esecuzione della dinastia Joseon. Durante le persecuzioni del 1801, 1839 e 1866, quarantaquattro cattolici furono martirizzati laggiù. La chiesa di Yakhyeon fu costruita su questa collina proprio per poter guardare e ricordare per sempre quel luogo di martirio. La sua stessa posizione è un monumento.",
+      "lookForIt": "La vista aperta dal sagrato verso Seosomun",
+      "titlePt": "O topo da colina – com vista para Seosomun",
+      "narrationPt": "Olhe para a cidade a partir do cemitério. Abaixo desta colina fica Seosomun, o local oficial de execução da dinastia Joseon. Durante as perseguições de 1801, 1839 e 1866, quarenta e quatro católicos foram martirizados ali. A Igreja Yakhyeon foi construída nesta colina precisamente para que pudesse sempre contemplar e lembrar aquele lugar de martírio. A sua própria localização é um monumento.",
+      "lookForPt": "A vista aberta do cemitério em direção a Seosomun",
+      "titleFr": "Le sommet de la colline – surplombant Seosomun",
+      "narrationFr": "Regardez vers la ville depuis le cimetière. Au-dessous de cette colline se trouve Seosomun, le lieu d'exécution officiel de la dynastie Joseon. Lors des persécutions de 1801, 1839 et 1866, quarante-quatre catholiques y furent martyrisés. L'église de Yakhyeon a été construite sur cette colline précisément pour qu'elle puisse toujours contempler et se souvenir de ce lieu de martyre. Son emplacement même est un monument.",
+      "lookForFr": "La vue dégagée depuis le cimetière vers Seosomun"
     },
     {
       "seq": 2,
@@ -46,7 +58,16 @@
       "lookForEn": "The red-brick walls and the curves of the arched windows",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "국가유산청 · 건립연도·코스트·벽돌 성당의 표본·아치 구성: https://www.heritage.go.kr/heri/cul/culGuidePostDetail.do?ccbaCpno=1331102520000&ccgbGbtype=IND&ccgbGbtypeNo=1&pageNo=1_5_0_0"
+      "sourceNote": "국가유산청 · 건립연도·코스트·벽돌 성당의 표본·아치 구성: https://www.heritage.go.kr/heri/cul/culGuidePostDetail.do?ccbaCpno=1331102520000&ccgbGbtype=IND&ccgbGbtypeNo=1&pageNo=1_5_0_0",
+      "titleIt": "La facciata: la prima chiesa in stile occidentale della Corea",
+      "narrationIt": "p. Doucet assicurò questo terreno nel 1891 e p. Eugène Coste, l'architetto della cattedrale di Myeongdong, progettò e supervisionò l'edificio, completato nel 1892. Si tratta della prima architettura ecclesiastica in stile occidentale della Corea, designata sito storico n. 252. Una chiesa in mattoni che mescola tocchi gotici e romanici, questo modesto edificio divenne il modello per l'architettura sacra coreana che seguì. Consideralo il tranquillo fratello maggiore della grande cattedrale di Myeongdong.",
+      "lookForIt": "Le pareti di mattoni rossi e le curve delle finestre ad arco",
+      "titlePt": "A Fachada – A Primeira Igreja de Estilo Ocidental da Coreia",
+      "narrationPt": "Pe. Doucet garantiu este terreno em 1891, e pe. Eugène Coste - o arquiteto da Catedral de Myeongdong - projetou e supervisionou o edifício, concluído em 1892. É a primeira igreja de arquitetura de estilo ocidental da Coreia, designada Local Histórico nº 252. Uma igreja de tijolos que combina toques góticos e românicos, este edifício modesto tornou-se o modelo para a arquitetura de igreja coreana que se seguiu. Pense nele como o irmão mais velho e quieto da grande Catedral de Myeongdong.",
+      "lookForPt": "As paredes de tijolos vermelhos e as curvas das janelas em arco",
+      "titleFr": "La Façade — La première église de style occidental de Corée",
+      "narrationFr": "Le P. Doucet obtint ce terrain en 1891, et le P. Eugène Coste, l'architecte de la cathédrale de Myeongdong, a conçu et supervisé le bâtiment, achevé en 1892. Il s'agit de la première église de style occidental de Corée, désignée site historique n° 252. Église en brique mêlant des touches gothiques et romanes, ce modeste bâtiment est devenu le modèle de l'architecture des églises coréennes qui a suivi. Considérez-le comme le frère aîné tranquille de la grande cathédrale de Myeongdong.",
+      "lookForFr": "Les murs de briques rouges et les courbes des fenêtres cintrées"
     },
     {
       "seq": 3,
@@ -64,7 +85,16 @@
       "lookForEn": "How the cross-shaped space gathers toward the altar",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "국가유산청 아치 구성: https://www.heritage.go.kr/heri/cul/culGuidePostDetail.do?ccbaCpno=1331102520000&ccgbGbtype=IND&ccgbGbtypeNo=1&pageNo=1_5_0_0 ; 굿뉴스 화재·복원·2000년 축복식: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2292&menugubun=holyplace"
+      "sourceNote": "국가유산청 아치 구성: https://www.heritage.go.kr/heri/cul/culGuidePostDetail.do?ccbaCpno=1331102520000&ccgbGbtype=IND&ccgbGbtypeNo=1&pageNo=1_5_0_0 ; 굿뉴스 화재·복원·2000년 축복식: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2292&menugubun=holyplace",
+      "titleIt": "L'interno: una piccola pianta a forma di croce",
+      "narrationIt": "L'interno è un'intima pianta a forma di croce, lunga circa trentadue metri e larga dodici: visto dall'alto, l'edificio stesso forma una croce, nella lunga tradizione dell'architettura sacra. Per quanto piccolo, qui si celebra la Messa da oltre centotrent'anni. Per favore, guardatevi attorno in silenzio, per coloro che sono in preghiera.",
+      "lookForIt": "Come lo spazio cruciforme si raccoglie verso l'altare",
+      "titlePt": "O Interior – Uma Pequena Planta em Forma de Cruz",
+      "narrationPt": "O interior é uma planta intimista em forma de cruz, com cerca de trinta e dois metros de comprimento e doze metros de largura - visto de cima, o próprio edifício forma uma cruz, na longa tradição da arquitetura da igreja. Por menor que seja, a missa é celebrada aqui há mais de cento e trinta anos. Por favor, olhe ao redor em silêncio, para aqueles que estão orando.",
+      "lookForPt": "Como o espaço em forma de cruz se reúne em direção ao altar",
+      "titleFr": "L'intérieur — Un petit plan en forme de croix",
+      "narrationFr": "L'intérieur est un plan intime en forme de croix, d'environ trente-deux mètres de long et douze mètres de large. Vu d'en haut, le bâtiment lui-même forme une croix, dans la longue tradition de l'architecture des églises. Aussi petite soit-elle, la messe est célébrée ici depuis plus de cent trente ans. S'il vous plaît, regardez autour de vous tranquillement, pour ceux qui prient.",
+      "lookForFr": "Comment l'espace en forme de croix se rassemble vers l'autel"
     },
     {
       "seq": 4,
@@ -82,13 +112,25 @@
       "lookForEn": "The church seen over your shoulder as you descend the hill",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "굿뉴스 · 1991년 구내 서소문 순교자 기념관 건립: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2292&menugubun=holyplace ; 개방 여부와 내부 관람 동선은 현장 확인 필요."
+      "sourceNote": "굿뉴스 · 1991년 구내 서소문 순교자 기념관 건립: https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=2292&menugubun=holyplace ; 개방 여부와 내부 관람 동선은 현장 확인 필요.",
+      "titleIt": "La passeggiata verso Seosomun",
+      "narrationIt": "Una volta arrivato fin qui, scendi dalla collina fino al luogo del martirio di Seosomun, il terreno stesso che questa chiesa veglia e ricorda da centotrenta anni. Ripercorrere a ritroso la strada percorsa dai martiri e arrivare alla chiesa è la parte più commovente del pellegrinaggio a Yakhyeon.",
+      "lookForIt": "La chiesa vista alle tue spalle mentre scendi dalla collina",
+      "titlePt": "A caminhada até Seosomun",
+      "narrationPt": "Depois de chegar até aqui, desça a colina até o local do martírio de Seosomun – o mesmo terreno que esta igreja tem vigiado e lembrado por cento e trinta anos. Refazer ao contrário a estrada que os mártires percorreram e chegar de volta à igreja é a parte mais comovente de uma peregrinação Yakhyeon.",
+      "lookForPt": "A igreja vista por cima do seu ombro enquanto você desce a colina",
+      "titleFr": "La descente vers Seosomun",
+      "narrationFr": "Une fois arrivé jusqu'ici, descendez la colline jusqu'au site du martyre de Seosomun, le terrain même que cette église a veillé et dont elle se souvient depuis cent trente ans. Revenir en sens inverse sur le chemin parcouru autrefois par les martyrs et revenir à l'église est la partie la plus émouvante d'un pèlerinage à Yakhyeon.",
+      "lookForFr": "L'église vue par-dessus votre épaule lorsque vous descendez la colline"
     }
   ],
   "outro": {
     "narrationEs": "Gracias por visitar la iglesia de Yakhyeon con nosotros. Esta colina muestra que la iglesia más antigua no es la más grandiosa, sino la que ha recordado durante más tiempo. Que tenga un día de paz.",
     "narration": "약초밭이 있던 언덕과 순교지를 기억하는 성당이 오늘의 중림동 안에 함께 남아 있습니다. 내려가는 길에도 이 장소의 이야기를 잠시 떠올려 보세요.",
     "narrationEn": "Thank you for visiting Yakhyeon Church with us. This hill shows that the oldest church is not the grandest one, but the one that has remembered the longest. May your day be peaceful.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Grazie per aver visitato la chiesa Yakhyeon con noi. Questa collina dimostra che la chiesa più antica non è quella più grandiosa, ma quella che si ricorda da più tempo. Possa la tua giornata essere serena.",
+    "narrationPt": "Obrigado por visitar a Igreja Yakhyeon conosco. Esta colina mostra que a igreja mais antiga não é a mais grandiosa, mas sim a que há mais tempo é lembrada. Que seu dia seja tranquilo.",
+    "narrationFr": "Merci d'avoir visité l'église de Yakhyeon avec nous. Cette colline montre que l'église la plus ancienne n'est pas la plus grande, mais celle dont on se souvient le plus longtemps. Que ta journée soit paisible."
   }
 }
