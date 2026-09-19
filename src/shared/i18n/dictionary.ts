@@ -2930,22 +2930,6 @@ export const DICTIONARY = {
     pt: 'Abrir num app de mapas',
     it: 'Apri in un’app di mappe',
   },
-  googleNote: {
-    ko: '한국에서는 자동차 길찾기가 나오지 않아요. 대중교통·도보는 됩니다',
-    en: 'Car directions are unavailable in Korea by law. Transit and walking work',
-    es: 'En Corea no hay indicaciones para coche por ley. Sí funcionan transporte público y a pie',
-    fr: 'En Corée, l’itinéraire en voiture est indisponible par la loi. Transports et marche fonctionnent',
-    pt: 'Na Coreia, rotas de carro são indisponíveis por lei. Transporte público e a pé funcionam',
-    it: 'In Corea le indicazioni in auto non sono disponibili per legge. Mezzi pubblici e a piedi funzionano',
-  },
-  appleNote: {
-    ko: 'iPhone 기본 지도',
-    en: 'Default map app on iPhone',
-    es: 'App de mapas por defecto en iPhone',
-    fr: 'App de cartes par défaut sur iPhone',
-    pt: 'App de mapas padrão no iPhone',
-    it: 'App mappe predefinita su iPhone',
-  },
   kakaoNote: {
     ko: '한국에서 가장 정확해요',
     en: 'Most accurate in Korea — the app is worth installing',

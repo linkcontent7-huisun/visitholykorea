@@ -9,15 +9,10 @@ import { QuickDirectionsButtons } from './QuickDirectionsButtons';
 /**
  * 찾아가는 길.
  *
- * 외국인 방문자를 기준으로 설계했다. 한국에서 길을 찾는 데 실제로 막히는 지점은 셋이다.
- *
- *  1. 구글 지도로 자동차 길찾기가 안 나온다 (국내 지도 반출 규제)
- *  2. 카카오·네이버가 정확한데 앱이 깔려 있지 않다
- *  3. 택시를 타면 영어 주소가 통하지 않는다
- *
- * 그래서 지도 앱을 하나로 몰지 않고 나란히 두고(`QuickDirectionsButtons` — 주변 본당
- * 목록과 같은 작은 단추), 무엇보다 **한국어 주소를 크게 보여준다.** 택시 기사에게
- * 화면을 보여주는 것이 외국인에게는 가장 확실한 길찾기다.
+ * 지도 앱을 하나로 몰지 않고 나란히 두고(`QuickDirectionsButtons` — 주변 본당
+ * 목록과 같은 작은 단추: 카카오맵·티맵·네이버지도, 국내 실사용 순), 무엇보다
+ * **한국어 주소를 크게 보여준다.** 구글·애플 지도는 국내에서는 거의 안 쓰여
+ * 코드 전체에서 뺐다(사장님 지적, 2026-09-19 — `shared/lib/map-links.ts` 참고).
  *
  * 한국어·영문 주소를 언어 설정과 무관하게 늘 함께 보여준다(2026-09-17) — 영어 화면에서만
  * 영문 주소를 보여주면, 한국어 화면을 쓰는 한국인이 외국인 동행에게 영문 표기를 보여줄
@@ -86,13 +81,7 @@ export function DirectionsCard({
       {/* 지도 앱 — 주변 본당 목록과 같은 작은 단추로(2026-09-17). 앱 이름만 보이고
           설명은 길게 누르면(title) 나온다 — 큰 상자·화살표 아이콘 같은 군더더기를 뺐다 */}
       {hasCoordinates ? (
-        // 구글·애플은 뺀다(사장님 지적, 2026-09-17) — 주변 본당 카드(NearbyParishesCard)와
-        // 같은 기준: 카카오·티맵·네이버만 실제로 쓰인다.
-        <QuickDirectionsButtons
-          destination={{ name: site.name, lat, lng }}
-          siteName={site.name}
-          providers={['kakao', 'tmap', 'naver']}
-        />
+        <QuickDirectionsButtons destination={{ name: site.name, lat, lng }} siteName={site.name} />
       ) : (
         <div className="flex items-center gap-3 rounded-lg border border-dashed border-app-border bg-white px-5 py-4">
           <MapPin size={20} className="shrink-0 text-app-text-muted" aria-hidden />

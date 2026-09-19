@@ -128,7 +128,8 @@ export default function MapPage() {
       </div>
 
       {/* 이 지도는 조망용이라 실제 길찾기가 없다는 피드백(2026-09-07) — 여기서 바로 연결한다.
-          구글(안드로이드)·애플(iOS) 두 버튼을 함께 준다(WYD 외국인 방문자 요청, 09-07). */}
+          🔴 구글(안드로이드)·애플(iOS) 버튼도 함께 줬었다(WYD 외국인 방문자 요청, 09-07) —
+          국내에서는 안 쓰인다는 사장님 지적(2026-09-19)으로 `map-links.ts` 에서 전부 뺐다. */}
       {selectedSite.coordinates.lat != null && selectedSite.coordinates.lng != null && (
         <div className="mt-3 flex justify-center border-t border-app-border pt-3">
           <QuickDirectionsButtons

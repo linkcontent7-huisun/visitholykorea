@@ -78,6 +78,14 @@
     touch-action: manipulation;
   }
 
+  /* type="search" 입력창은 글자가 있으면 브라우저(Chrome·Safari)가 자기 X 단추를 따로 그린다.
+     화면마다 직접 그린 X 단추와 겹쳐 X 가 두 개로 보였다(성지 찾기, 사장님 지적 2026-09-19) —
+     브라우저 기본 단추만 지운다. */
+  input[type='search']::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
   /*
    * 스크롤은 body 가 아니라 앱 상자(#app-scroll, ScrollShell)가 한다.
    * body 가 스크롤되면 휴대폰 브라우저가 주소창을 접었다 펴며 하단 탭이 출렁인다.

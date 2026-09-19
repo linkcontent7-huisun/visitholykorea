@@ -2,7 +2,6 @@ import { Phone } from 'lucide-react';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { Card } from '@/shared/components/ui/Card';
-import type { MapProvider } from '@/shared/lib/map-links';
 import type { DirectoryEntry } from '../api/directory.repository';
 import {
   directoryDisplayAddress,
@@ -28,7 +27,6 @@ export function DirectoryEntryCard({
   bare = false,
   hideDistance = false,
   hideCategory = false,
-  mapProviders,
 }: {
   /** 반경 검색 결과(`NearbyPlace`, 거리 있음)든 검색 결과(`DirectoryEntry`)든 같은 줄로 그린다 */
   entry: DirectoryEntry | NearbyPlace;
@@ -41,13 +39,13 @@ export function DirectoryEntryCard({
   /** 분류 칩을 안 보여준다. 목록이 전부 같은 분류(예: 본당·공소)일 때, 줄마다 같은 말이
    *  반복되는 게 정보가 아니라 피로였다(사장님 지적, 2026-09-17) */
   hideCategory?: boolean;
-  /** 넘기면 길찾기 단추를 이 지도 앱들로만 좁힌다 */
-  mapProviders?: readonly MapProvider[];
 }) {
   const { t, language } = useSettings();
   const displayName = directoryDisplayName(entry, language);
   const displayAddress = directoryDisplayAddress(entry, language);
-  const km = hideDistance ? null : (distanceKm ?? ('distanceKm' in entry ? entry.distanceKm : null));
+  const km = hideDistance
+    ? null
+    : (distanceKm ?? ('distanceKm' in entry ? entry.distanceKm : null));
   const hasCoords = entry.lat != null && entry.lng != null;
 
   const body = (
@@ -88,7 +86,6 @@ export function DirectoryEntryCard({
           <QuickDirectionsButtons
             destination={{ name: displayName, lat: entry.lat as number, lng: entry.lng as number }}
             siteName={displayName}
-            providers={mapProviders}
           />
         </div>
       )}

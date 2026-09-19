@@ -89,9 +89,19 @@ export function directoryDisplayName(
   return language !== 'ko' && entry.nameRomanized ? entry.nameRomanized : entry.name;
 }
 
+/**
+ * 우편번호를 뗀다. `catholic_directory` 원본 주소 앞에 "23105 " 또는 "(42472) " 형태로
+ * 붙어 있는데, 화면에서는 필요 없는 정보다(사장님 지적, 2026-09-19). 못 찾으면 원문 그대로.
+ */
+function stripPostalCode(address: string): string {
+  return address.replace(/^(?:\d{5}|\(\d{5}\))\s*/, '');
+}
+
 export function directoryDisplayAddress(
   entry: { address: string | null; addressRomanized: string | null },
   language: string,
 ): string | null {
-  return language !== 'ko' && entry.addressRomanized ? entry.addressRomanized : entry.address;
+  const address =
+    language !== 'ko' && entry.addressRomanized ? entry.addressRomanized : entry.address;
+  return address ? stripPostalCode(address) : address;
 }
