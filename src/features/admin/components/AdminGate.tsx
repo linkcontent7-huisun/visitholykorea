@@ -47,12 +47,12 @@ function AdminLoginForm() {
   };
 
   const inputClass =
-    'w-full rounded-2xl border border-slate-200 bg-slate-50 py-4 pl-12 pr-4 text-base font-bold text-slate-900 focus:border-slate-900 focus:outline-none';
+    'w-full rounded-lg border border-slate-200 bg-slate-50 py-4 pl-12 pr-4 text-base font-bold text-slate-900 focus:border-slate-900 focus:outline-none';
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-8">
       <div className="mb-8">
-        <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-900 text-white">
+        <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-lg bg-slate-900 text-white">
           <KeyRound size={26} />
         </div>
         <h1 className="text-2xl font-black tracking-tight text-slate-900">관리자 로그인</h1>
@@ -98,7 +98,7 @@ function AdminLoginForm() {
         <button
           type="submit"
           disabled={loading}
-          className="mt-2 rounded-2xl bg-slate-900 py-4 text-base font-bold text-white disabled:opacity-50"
+          className="mt-2 rounded-lg bg-slate-900 py-4 text-base font-bold text-white disabled:opacity-50"
         >
           {loading ? '확인 중…' : '로그인'}
         </button>
@@ -127,13 +127,13 @@ function NoPermission({ role }: { role: string }) {
       <div className="mt-2 flex gap-3">
         <button
           onClick={() => void signOut()}
-          className="rounded-2xl border border-slate-200 px-5 py-3 text-sm font-bold text-slate-700"
+          className="rounded-lg border border-slate-200 px-5 py-3 text-sm font-bold text-slate-700"
         >
           다른 계정으로 로그인
         </button>
         <Link
           to={paths.home}
-          className="rounded-2xl bg-slate-900 px-5 py-3 text-sm font-bold text-white"
+          className="rounded-lg bg-slate-900 px-5 py-3 text-sm font-bold text-white"
         >
           앱으로 돌아가기
         </Link>

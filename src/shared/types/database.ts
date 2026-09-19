@@ -180,6 +180,29 @@ export interface PilgrimageRouteSiteRow {
   note: string | null;
 }
 
+/** 순례 코스 본문 번역 (마이그레이션 20260919100000). holy_site_translations 와 같은 구조다. */
+export interface PilgrimageRouteTranslationRow {
+  id: string;
+  route_id: string;
+  language: string;
+  title: string | null;
+  subtitle: string | null;
+  description: string | null;
+  translation_status: 'machine' | 'reviewed';
+  created_at: string;
+}
+
+/** 경유지가 이 코스에서 갖는 의미(note)의 번역. */
+export interface PilgrimageRouteSiteTranslationRow {
+  id: string;
+  route_id: string;
+  site_id: string;
+  language: string;
+  note: string | null;
+  translation_status: 'machine' | 'reviewed';
+  created_at: string;
+}
+
 export interface PilgrimageStampRow {
   id: string;
   user_id: string;

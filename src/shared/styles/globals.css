@@ -3,16 +3,33 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
-  /* 섹션 제목용 명조체 — 본문(고딕)과 대비를 줘서 「고요 속으로」 같은 제목에 성지의 정적인 느낌을 싣는다 */
+  /*
+   * 디자인 재정돈(2026-09-16 회의 · 시안 확정). 기준은 `docs/이어서-할-일.md` 9/16(저녁) 항목.
+   * - 글꼴: 본문 Noto Sans KR(한글 가독성 — 50대 이상 기준), 제목 Gowun Batang 명조.
+   * - 색: 남색 #1F2F55 하나가 「누르는 것」(버튼·링크·활성 탭·포커스). 올리브는 「표시하는 것」(칩 켜짐·작은 라벨).
+   *   예전 보라(brand-violet)는 이름을 남기되 남색과 같은 값으로 둔다 — 화면 곳곳의 `text-brand-violet` 이
+   *   한 번에 남색이 되고, `from-brand-blue to-brand-violet` 그라데이션은 단색이 된다(보라 그라데이션 금지).
+   * - 바탕: 홈은 흰색(화면이 직접 지정), 그 밖은 종이색. 선은 따뜻한 회색.
+   */
+  --font-sans:
+    'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic',
+    sans-serif;
   --font-display: 'Gowun Batang', 'Noto Serif KR', 'Malgun Gothic', serif;
 
-  --color-brand-blue: #1e3a8a;
-  --color-brand-violet: #7c3aed;
-  --color-app-bg: #f8f9fa;
-  --color-app-border: #f1f3f5;
-  --color-app-text: #1a1a1a;
-  --color-app-text-muted: #495057;
+  --color-brand-blue: #1f2f55;
+  --color-brand-violet: #1f2f55;
+  --color-brand-soft: #e6eaf3;
+  --color-brand-olive: #6e7f5c;
+  --color-brand-olive-soft: #e9ede3;
+  /* 남색의 보색(주황·호박) — 지도에서 "지금 고른 곳" 하나만 가리킬 때만 쓴다(2026-09-19,
+     성지 찾기 지도). 검색 결과 점도 전부 남색이라, 그중 하나를 고르면 같은 색 위에 옅은
+     남색 후광만 얹혀서는 잘 안 보였다 — 성지 찾기 밖에서는 쓰지 않는다. */
+  --color-brand-accent: #c2703a;
+  --color-app-bg: #f5f3ee;
+  --color-app-panel: #f1eee8;
+  --color-app-border: #ddd8cf;
+  --color-app-text: #1e222b;
+  --color-app-text-muted: #5e6470;
 }
 
 /*
@@ -31,10 +48,42 @@
   html {
     /* iOS 노치·홈 인디케이터 대응 (Capacitor 네이티브 빌드) */
     -webkit-tap-highlight-color: transparent;
+    /* 앱은 밝은 화면만 있다 — 안드로이드 다크 모드에서 select·input 만 검게 바뀌는 일을 막는다 */
+    color-scheme: light;
   }
 
   body {
     @apply bg-app-bg text-app-text font-sans selection:bg-brand-violet/20;
+    /* 한국어 낱말을 글자 중간에서 끊지 않는다(keep-all). 긴 주소·영어 URL 은 anywhere 로 넘친 만큼만 접는다.
+       화면마다 break-keep 을 붙이던 것을 여기서 한 번에 — 50대 이상 가독성의 기본값이다 (2026-09-17). */
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  /* 제목은 마지막 줄에 낱말 하나만 남지 않게 줄을 고르게 나눈다 */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  /* 두 번 두드림 확대 지연(300ms)을 없앤다 — 누른 뒤 반응이 늦으면 한 번 더 눌러 두 번 실행된다 */
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  label,
+  summary {
+    touch-action: manipulation;
+  }
+
+  /* type="search" 입력창은 글자가 있으면 브라우저(Chrome·Safari)가 자기 X 단추를 따로 그린다.
+     화면마다 직접 그린 X 단추와 겹쳐 X 가 두 개로 보였다(성지 찾기, 사장님 지적 2026-09-19) —
+     브라우저 기본 단추만 지운다. */
+  input[type='search']::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
   }
 
   /*

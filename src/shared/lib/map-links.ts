@@ -1,49 +1,33 @@
 /**
  * 지도 앱 길찾기 링크.
  *
- * 한국에서 외국인 여행자가 겪는 실제 문제를 전제로 만들었다.
- *
- *  - 구글 지도는 한국에서 **자동차 길찾기가 나오지 않는다.** 국내 지도 데이터 반출 규제 때문이다.
- *    대중교통·도보는 대체로 동작하고, 위치를 찾아 보는 데는 문제가 없다.
- *  - 카카오맵·티맵·네이버지도는 한국에서 가장 정확하지만 **외국인은 앱이 깔려 있지 않다.**
- *  - 그래서 한 곳으로 몰지 않고 **선택지를 나란히 주고, 각각 무엇을 잘하는지 밝힌다.**
+ * 🔴 예전엔 구글·애플 지도도 함께 줬다(외국인 여행자용, 2026-09-07~08) — 국내 사용자에게는
+ * 안 쓰인다는 사장님 지적(2026-09-19)으로 전부 뺐다. 이미 「주변 본당」 카드는 2026-09-17에
+ * 같은 이유로 구글·애플을 뺀 전례가 있었는데(`PARISH_MAP_PROVIDERS`, 이제 삭제), 이번엔
+ * 성지 상세의 길찾기 버튼을 포함해 코드 전체에서 뺐다 — 카카오맵·티맵·네이버지도만 남는다.
+ * 외국인 방문자에게 필요한 대안(구글·애플)이 다시 필요해지면 이 파일을 참고해 되살릴 것.
  *
  * 그리고 가장 중요한 것은 지도가 아니라 **한국어 주소 그 자체**다.
  * 택시 기사에게 화면을 보여주는 것이 외국인에게는 가장 확실한 길찾기다.
  *
  * **한국어 화면 순서(2026-09-08, 실기기 테스트 피드백)** — 한국 사용자가
- * 실제로 쓰는 순서(카카오맵 → 티맵 → 네이버지도)를 앞에 두고, 구글을 마지막에
- * 둔다. 애플 지도는 그 뒤에 남겨 둔다 — iPhone 은 구글 지도로도 대부분
- * 커버되지만, 애플 지도를 특별히 원하는 사람까지 막지는 않는다.
+ * 실제로 쓰는 순서(카카오맵 → 티맵 → 네이버지도).
  */
 
-export type MapProvider = 'google' | 'apple' | 'kakao' | 'tmap' | 'naver';
+export type MapProvider = 'kakao' | 'tmap' | 'naver';
 
 export interface MapLink {
   provider: MapProvider;
   label: string;
   url: string;
   /** 이 앱이 한국에서 무엇을 잘하고 못하는지 */
-  noteKey: 'googleNote' | 'appleNote' | 'kakaoNote' | 'tmapNote' | 'naverNote';
+  noteKey: 'kakaoNote' | 'tmapNote' | 'naverNote';
 }
 
 export interface Destination {
   name: string;
   lat: number;
   lng: number;
-}
-
-/**
- * 구글 지도 — 외국인의 기본값.
- * 공식 URL 스킴(`api=1`)이라 앱이 있으면 앱으로, 없으면 웹으로 열린다.
- */
-function googleUrl({ lat, lng }: Destination): string {
-  return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=transit`;
-}
-
-/** 애플 지도 — iOS 기본 지도 앱 */
-function appleUrl({ name, lat, lng }: Destination): string {
-  return `https://maps.apple.com/?daddr=${lat},${lng}&q=${encodeURIComponent(name)}`;
 }
 
 /** 카카오맵 — 한국에서 가장 정확한 길찾기 */
@@ -69,25 +53,11 @@ function naverUrl({ name }: Destination): string {
 }
 
 /**
- * 길찾기 링크 묶음.
- *
- * 순서가 곧 추천 순서다. 외국어 화면에서는 구글·애플을 앞에,
- * 한국어 화면에서는 카카오·티맵·네이버(실사용 순)를 앞에 둔다 —
- * 실제로 쓸 수 있는 것이 먼저 와야 한다.
+ * 길찾기 링크 묶음. 실사용 순(카카오맵 → 티맵 → 네이버지도)으로 고정한다 —
+ * 구글·애플을 빼면서 언어별로 순서를 바꿀 이유도 같이 없어졌다. `preferKorean`
+ * 은 브랜드명 라벨(카카오맵/KakaoMap 등)에만 쓴다.
  */
 export function buildMapLinks(destination: Destination, preferKorean: boolean): MapLink[] {
-  const google: MapLink = {
-    provider: 'google',
-    label: 'Google Maps',
-    url: googleUrl(destination),
-    noteKey: 'googleNote',
-  };
-  const apple: MapLink = {
-    provider: 'apple',
-    label: 'Apple Maps',
-    url: appleUrl(destination),
-    noteKey: 'appleNote',
-  };
   // 브랜드명이라 번역하지 않는다 — 한국어 화면 밖에서는 로마자 표기로 통일한다.
   const kakao: MapLink = {
     provider: 'kakao',
@@ -108,9 +78,7 @@ export function buildMapLinks(destination: Destination, preferKorean: boolean): 
     noteKey: 'naverNote',
   };
 
-  return preferKorean
-    ? [kakao, tmap, naver, google, apple]
-    : [google, apple, kakao, tmap, naver];
+  return [kakao, tmap, naver];
 }
 
 /** 좌표를 보기 좋게. 지도 앱에 직접 붙여넣을 수 있는 형식이다. */

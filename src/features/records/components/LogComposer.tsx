@@ -124,7 +124,7 @@ export function LogComposer({
   };
 
   return (
-    <div className="rounded-[32px] border border-app-border bg-white p-7 shadow-xl shadow-gray-200/40">
+    <div className="rounded-lg border border-app-border bg-white p-7 shadow-xl shadow-gray-200/40">
       <div className="mb-5 flex items-center gap-2 text-brand-violet">
         <PenLine size={16} />
         <h2 className="text-sm font-extrabold uppercase tracking-widest">{t('logNewTitle')}</h2>
@@ -149,7 +149,7 @@ export function LogComposer({
               const matched = sites.find((s) => s.name === value);
               setSiteId(matched ? matched.id : '');
             }}
-            className="w-full rounded-2xl border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
+            className="w-full rounded-lg border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
           />
           <datalist id="log-site-options">
             {stampedSites.map((s) => (
@@ -176,7 +176,7 @@ export function LogComposer({
             value={visitDate}
             max={todayISO()}
             onChange={(e) => setVisitDate(e.target.value)}
-            className="w-full rounded-2xl border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
+            className="w-full rounded-lg border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
           />
         </div>
 
@@ -191,7 +191,7 @@ export function LogComposer({
             placeholder={t('logTitlePlaceholder')}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full rounded-2xl border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
+            className="w-full rounded-lg border border-app-border bg-app-bg px-4 py-3 text-sm text-app-text focus:border-brand-violet focus:outline-none"
           />
         </div>
 
@@ -208,7 +208,7 @@ export function LogComposer({
             placeholder={t('logContentPlaceholder')}
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="w-full resize-none rounded-2xl border border-app-border bg-app-bg px-4 py-3 text-sm leading-relaxed text-app-text focus:border-brand-violet focus:outline-none"
+            className="w-full resize-none rounded-lg border border-app-border bg-app-bg px-4 py-3 text-sm leading-relaxed text-app-text focus:border-brand-violet focus:outline-none"
           />
         </div>
 
@@ -217,7 +217,7 @@ export function LogComposer({
           <div className="grid grid-cols-4 gap-2">
             {photos.map((p, i) => (
               <div key={p.preview} className="relative">
-                <img src={p.preview} alt="" className="aspect-square w-full rounded-xl object-cover" />
+                <img src={p.preview} alt="" className="aspect-square w-full rounded-lg object-cover" />
                 <button
                   type="button"
                   onClick={() => removePhoto(i)}
@@ -229,7 +229,7 @@ export function LogComposer({
               </div>
             ))}
             <label
-              className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-brand-violet/40 text-brand-violet"
+              className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-brand-violet/40 text-brand-violet"
               id="log-photo-picker"
             >
               <Camera size={20} aria-hidden />
@@ -253,7 +253,7 @@ export function LogComposer({
           {!persistent && (
             <button
               onClick={onDone}
-              className="rounded-xl px-5 py-2.5 text-sm font-bold text-app-text-muted"
+              className="rounded-lg px-5 py-2.5 text-sm font-bold text-app-text-muted"
             >
               {t('cancel')}
             </button>
@@ -261,7 +261,7 @@ export function LogComposer({
           <button
             onClick={() => void handleSubmit()}
             disabled={!canSubmit}
-            className="rounded-xl bg-brand-violet px-5 py-2.5 text-sm font-bold text-white disabled:opacity-40"
+            className="rounded-lg bg-brand-violet px-5 py-2.5 text-sm font-bold text-white disabled:opacity-40"
           >
             {createLog.isPending ? t('logSaving') : t('logSave')}
           </button>

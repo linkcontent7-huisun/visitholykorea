@@ -3,37 +3,21 @@ import { buildMapLinks, formatCoordinates, type Destination } from './map-links'
 
 const HAEMI: Destination = { name: '해미순교성지', lat: 36.7137, lng: 126.5433 };
 
-describe('buildMapLinks — 실제로 쓸 수 있는 것을 먼저 보여준다', () => {
-  it('외국어 화면에서는 구글·애플이 앞에 온다', () => {
-    const links = buildMapLinks(HAEMI, false);
-    expect(links.map((l) => l.provider)).toEqual(['google', 'apple', 'kakao', 'tmap', 'naver']);
+describe('buildMapLinks — 국내 실사용 순, 구글·애플은 안 준다(2026-09-19)', () => {
+  it('언어와 무관하게 카카오·티맵·네이버 순서로 고정한다', () => {
+    expect(buildMapLinks(HAEMI, false).map((l) => l.provider)).toEqual(['kakao', 'tmap', 'naver']);
+    expect(buildMapLinks(HAEMI, true).map((l) => l.provider)).toEqual(['kakao', 'tmap', 'naver']);
   });
 
-  it('한국어 화면에서는 실사용 순(카카오·티맵·네이버)이 앞에 오고 구글·애플은 뒤에 온다', () => {
-    const links = buildMapLinks(HAEMI, true);
-    expect(links.map((l) => l.provider)).toEqual(['kakao', 'tmap', 'naver', 'google', 'apple']);
-  });
-
-  it('어느 쪽이든 다섯 개를 모두 준다 — 하나만 주면 앱이 없는 사람이 막힌다', () => {
-    expect(buildMapLinks(HAEMI, true)).toHaveLength(5);
-    expect(buildMapLinks(HAEMI, false)).toHaveLength(5);
+  it('세 개만 준다 — 구글·애플은 국내에서 안 쓰여 뺐다', () => {
+    expect(buildMapLinks(HAEMI, true)).toHaveLength(3);
+    expect(buildMapLinks(HAEMI, false)).toHaveLength(3);
   });
 });
 
 describe('링크 형식', () => {
   const links = buildMapLinks(HAEMI, false);
   const byProvider = Object.fromEntries(links.map((l) => [l.provider, l.url]));
-
-  it('구글은 공식 스킴을 쓰고 대중교통을 기본으로 한다 (한국에서 자동차 길찾기가 안 나온다)', () => {
-    expect(byProvider.google).toContain('google.com/maps/dir/?api=1');
-    expect(byProvider.google).toContain('destination=36.7137,126.5433');
-    expect(byProvider.google).toContain('travelmode=transit');
-  });
-
-  it('애플 지도는 목적지 좌표를 넘긴다', () => {
-    expect(byProvider.apple).toContain('maps.apple.com');
-    expect(byProvider.apple).toContain('daddr=36.7137,126.5433');
-  });
 
   it('카카오맵은 이름을 URL 인코딩해 넣는다', () => {
     expect(byProvider.kakao).toContain('map.kakao.com/link/to/');

@@ -1,5 +1,6 @@
-import { ChevronLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { PageHeader } from '@/shared/components/ui/PageHeader';
+import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 /**
@@ -96,31 +97,25 @@ const 약관 = [
 ];
 
 export default function TermsPage() {
-  const navigate = useNavigate();
-  const { wideView } = useSettings();
-  const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
-
+  const { t } = useSettings();
   return (
-    <div className={`mx-auto flex min-h-page ${widthClass} flex-col bg-white`}>
-      <div className="flex h-16 shrink-0 items-center px-4">
-        <button onClick={() => navigate(-1)} className="p-2 text-slate-800" aria-label="뒤로 가기">
-          <ChevronLeft size={28} />
-        </button>
-      </div>
+    <PageContainer width="narrow" className="min-h-page pb-16">
+      <PageHeader
+        back
+        title={t('termsPageTitle')}
+        sub={fillPlaceholders(t('termsEffectiveDate'), { date: 시행일 })}
+      />
 
-      <div className="flex-1 overflow-y-auto px-8 pb-16">
-        <h1 className="mb-2 text-3xl font-black tracking-tight text-slate-900">이용약관</h1>
-        <p className="mb-10 text-sm font-medium text-slate-400">시행일: {시행일}</p>
-
+      <div className="mt-2">
         {약관.map((장) => (
           <section key={장.장} className="mb-10">
-            <h2 className="mb-4 border-b border-slate-100 pb-2 text-lg font-extrabold text-slate-900">
+            <h2 className="mb-4 border-b border-app-border pb-2 text-lg font-bold text-app-text">
               {장.장}
             </h2>
             {장.조항.map((조) => (
               <article key={조.제목} className="mb-6">
-                <h3 className="mb-2 text-[15px] font-bold text-slate-800">{조.제목}</h3>
-                <p className="whitespace-pre-line text-sm leading-relaxed text-slate-500">
+                <h3 className="mb-2 text-base font-bold text-app-text">{조.제목}</h3>
+                <p className="whitespace-pre-line text-base leading-relaxed text-app-text-muted">
                   {조.내용}
                 </p>
               </article>
@@ -128,6 +123,6 @@ export default function TermsPage() {
           </section>
         ))}
       </div>
-    </div>
+    </PageContainer>
   );
 }

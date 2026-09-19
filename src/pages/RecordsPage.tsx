@@ -12,16 +12,19 @@
  * 열이 없다는 사실을 화면에 그대로 적는다.
  */
 
-import { Calendar, MapPin, PenLine, Search, Trash2 } from 'lucide-react';
+import { Calendar, MapPin, PenLine, Plus, Search, Trash2, User } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { isVisitedOnAvailable, type StampedSite } from '@/features/passport/api/stamps.repository';
 import { useDeleteStamp, useMyStamps, useUpdateStamp } from '@/features/passport/hooks/use-stamps';
+import { Button, ButtonLink } from '@/shared/components/ui/Button';
+import { Card } from '@/shared/components/ui/Card';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
-import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
+import { PageHeader } from '@/shared/components/ui/PageHeader';
+import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { dioceseLabel } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 
@@ -63,23 +66,23 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
   };
 
   return (
-    <li className="rounded-[24px] border border-app-border bg-white p-5">
+    <li className="rounded-lg border border-app-border bg-white p-5">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <Link
             to={paths.siteDetail(stamp.siteId)}
-            className="block truncate text-base font-extrabold text-app-text hover:text-brand-blue"
+            className="block truncate text-lg font-bold text-app-text hover:text-brand-blue"
           >
             {stamp.siteName}
           </Link>
           {stamp.diocese && (
-            <p className="mt-0.5 flex items-center gap-1 text-xs text-app-text-muted">
-              <MapPin size={11} aria-hidden />
+            <p className="mt-0.5 flex items-center gap-1 text-sm text-app-text-muted">
+              <MapPin size={14} aria-hidden />
               {dioceseLabel(stamp.diocese, language)}
             </p>
           )}
-          <p className="mt-2 flex items-center gap-1.5 text-xs text-app-text-muted">
-            <Calendar size={12} aria-hidden />
+          <p className="mt-2 flex items-center gap-1.5 text-sm text-app-text-muted">
+            <Calendar size={14} aria-hidden />
             {stamp.visitedOn
               ? `${t('recordsVisitedOn')} · ${formatDate(stamp.visitedOn, locale)}`
               : `${t('recordsRecordedOn')} · ${formatDate(stamp.visitedAt, locale)}`}
@@ -90,19 +93,19 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
             <button
               type="button"
               onClick={() => setEditing(true)}
-              className="flex min-h-11 min-w-11 items-center justify-center rounded-xl text-app-text-muted hover:bg-app-bg"
+              className="flex h-11 w-11 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg hover:text-app-text"
               aria-label={t('recordsEdit')}
             >
-              <PenLine size={16} aria-hidden />
+              <PenLine size={20} aria-hidden />
             </button>
             <button
               type="button"
               onClick={() => void confirmDelete()}
               disabled={remove.isPending}
-              className="flex min-h-11 min-w-11 items-center justify-center rounded-xl text-app-text-muted hover:bg-app-bg hover:text-red-600"
+              className="flex h-11 w-11 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg hover:text-red-600"
               aria-label={t('recordsDelete')}
             >
-              <Trash2 size={16} aria-hidden />
+              <Trash2 size={20} aria-hidden />
             </button>
           </div>
         )}
@@ -117,64 +120,64 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
           }}
         >
           {canEditDate ? (
-            <label className="block text-xs font-bold text-app-text-muted">
+            <label className="block text-sm font-bold text-app-text-muted">
               {t('recordsVisitedOn')}
               <input
                 type="date"
+                name="visitedOn"
                 value={visitedOn}
                 onChange={(e) => setVisitedOn(e.target.value)}
                 max={new Date().toISOString().slice(0, 10)}
-                className="mt-1 block min-h-11 w-full rounded-xl border border-app-border bg-app-bg px-3 text-sm font-medium text-app-text"
+                className="mt-1 block min-h-12 w-full rounded-lg border border-app-border bg-white px-3 text-base text-app-text"
               />
             </label>
           ) : (
-            <p className="text-xs leading-relaxed text-app-text-muted">{t('recordsVisitDateUnavailable')}</p>
+            <p className="text-sm leading-relaxed text-app-text-muted">
+              {t('recordsVisitDateUnavailable')}
+            </p>
           )}
-          <label className="block text-xs font-bold text-app-text-muted">
+          <label className="block text-sm font-bold text-app-text-muted">
             {t('recordsMemo')}
             <textarea
               value={note}
+              name="note"
               onChange={(e) => setNote(e.target.value.slice(0, 120))}
               rows={3}
               maxLength={120}
-              className="mt-1 block w-full rounded-xl border border-app-border bg-app-bg px-3 py-2 text-sm font-medium text-app-text"
+              className="mt-1 block w-full rounded-lg border border-app-border bg-white px-3 py-2 text-base text-app-text"
             />
           </label>
           {failed && (
-            <p className="text-xs font-bold text-red-600" role="alert">
+            <p className="text-sm font-bold text-red-600" role="alert">
               {t('recordsSaveFailed')}
             </p>
           )}
           <div className="flex gap-2">
-            <button
-              type="submit"
-              disabled={update.isPending}
-              className="min-h-11 rounded-full bg-brand-blue px-5 text-sm font-bold text-white disabled:opacity-50"
-            >
+            <Button type="submit" size="sm" disabled={update.isPending}>
               {t('recordsSave')}
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
+              variant="neutral"
+              size="sm"
               onClick={() => {
                 setEditing(false);
                 setNote(stamp.note ?? '');
                 setVisitedOn(stamp.visitedOn ?? '');
               }}
-              className="min-h-11 rounded-full border border-app-border px-5 text-sm font-bold text-app-text"
             >
               {t('recordsCancel')}
-            </button>
+            </Button>
           </div>
         </form>
       ) : (
         stamp.note && (
-          <p className="mt-3 rounded-2xl bg-app-bg px-4 py-3 text-sm leading-relaxed text-app-text">
+          <p className="mt-3 rounded-lg bg-app-bg px-4 py-3 text-base leading-relaxed text-app-text">
             {stamp.note}
           </p>
         )
       )}
       {failed && !editing && (
-        <p className="mt-2 text-xs font-bold text-red-600" role="alert">
+        <p className="mt-2 text-sm font-bold text-red-600" role="alert">
           {t('recordsSaveFailed')}
         </p>
       )}
@@ -186,64 +189,82 @@ export default function RecordsPage() {
   const { t } = useSettings();
   const { session } = useSession();
   const { data: stamps = [], isLoading } = useMyStamps();
+  const displayName =
+    (session?.user.user_metadata?.name as string | undefined) ||
+    session?.user.email ||
+    t('pilgrimDefaultName');
 
   return (
-    <PageContainer className="min-h-page pb-12 pt-8">
-      <header className="mb-6">
-        <h1 className="text-3xl font-extrabold tracking-tight text-app-text">{t('recordsMinimalTitle')}</h1>
-        <p className="mt-2 text-sm leading-relaxed text-app-text-muted">{t('recordsMinimalSub')}</p>
-      </header>
+    <PageContainer width="narrow" className="min-h-page pb-16">
+      {/* 2026-09-16 시안: 제목은 명조, 설명은 16px. 여권·인증서 영역은 없다(재기획에서 뺌). */}
+      <PageHeader title={t('recordsMinimalTitle')} sub={t('recordsMinimalSub')} />
 
       {/* 비회원: 무엇을 할 수 있는 곳인지만 보여주고 로그인으로 안내한다. 탐색은 로그인 없이 된다. */}
       {!session ? (
-        <div className="rounded-[28px] border border-app-border bg-white">
+        <Card padded={false}>
           <EmptyState
             icon={PenLine}
             title={t('recordsLoginTitle')}
-            description={t('recordsMinimalSub')}
+            description={t('recordsLoginDescription')}
+            action={
+              <>
+                <ButtonLink to={paths.login} id="records-login-btn">
+                  {t('login')}
+                </ButtonLink>
+                <ButtonLink to={paths.search} variant="secondary">
+                  <Search size={18} aria-hidden />
+                  {t('findShrines')}
+                </ButtonLink>
+              </>
+            }
           />
-          <div className="flex flex-wrap justify-center gap-3 px-8 pb-10">
-            <Link
-              to={paths.login}
-              className="inline-flex min-h-12 items-center rounded-full bg-brand-blue px-6 text-sm font-bold text-white"
-              id="records-login-btn"
-            >
-              {t('login')}
-            </Link>
-            <Link
-              to={paths.search}
-              className="inline-flex min-h-12 items-center gap-2 rounded-full border border-app-border px-6 text-sm font-bold text-app-text"
-            >
-              <Search size={16} aria-hidden />
-              {t('findShrines')}
-            </Link>
-          </div>
-        </div>
+        </Card>
       ) : (
         <>
-          <section className="mb-6 rounded-[24px] border border-dashed border-app-border bg-white p-5">
-            <h2 className="text-sm font-extrabold text-app-text">{t('recordsAddTitle')}</h2>
-            <p className="mt-1 text-xs leading-relaxed text-app-text-muted">{t('recordsPickHint')}</p>
-            <Link
-              to={paths.search}
-              className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-blue px-5 text-sm font-bold text-white"
-              id="records-pick-site"
+          {/* 로그인 상태를 첫 줄에 — 회의(9/16) "로그인 상태를 먼저 확인한다" */}
+          <Card tone="soft" className="mb-4 flex items-center gap-3 p-4" id="records-signed-in">
+            <span
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-blue text-white"
+              aria-hidden
             >
-              <Search size={16} aria-hidden />
-              {t('recordsPickSite')}
-            </Link>
-          </section>
+              <User size={22} />
+            </span>
+            <div className="min-w-0">
+              <p className="truncate text-base font-bold text-app-text">
+                {fillPlaceholders(t('recordsLoggedInAs'), {
+                  name: displayName,
+                  count: stamps.length,
+                })}
+              </p>
+              <p className="text-sm text-app-text-muted">{t('recordsLoggedInNote')}</p>
+            </div>
+          </Card>
+          <ButtonLink
+            to={paths.search}
+            variant="secondary"
+            block
+            className="mb-3 min-h-14 text-lg"
+            id="records-pick-site"
+          >
+            <Plus size={22} aria-hidden />
+            {t('recordsPickSite')}
+          </ButtonLink>
+          <p className="mb-4 text-sm leading-relaxed text-app-text-muted">{t('recordsPickHint')}</p>
 
           {isLoading ? (
             <div className="space-y-3" role="status" aria-live="polite">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="h-24 animate-pulse rounded-[24px] bg-white" />
+                <div key={i} className="h-24 animate-pulse rounded-lg bg-white" />
               ))}
             </div>
           ) : stamps.length === 0 ? (
-            <div className="rounded-[28px] border border-app-border bg-white">
-              <EmptyState icon={Calendar} title={t('recordsEmptyTitle')} description={t('recordsPickHint')} />
-            </div>
+            <Card padded={false}>
+              <EmptyState
+                icon={Calendar}
+                title={t('recordsEmptyTitle')}
+                description={t('recordsPickHint')}
+              />
+            </Card>
           ) : (
             <ul className="space-y-3" aria-label={t('recordsMinimalTitle')}>
               {stamps.map((stamp) => (
@@ -252,8 +273,12 @@ export default function RecordsPage() {
             </ul>
           )}
 
-          <p className="mt-6 text-xs leading-relaxed text-app-text-muted">{t('recordsPrivateNote')}</p>
-          <p className="mt-1 text-xs leading-relaxed text-app-text-muted">{t('recordsMoreFeatures')}</p>
+          <p className="mt-6 text-sm leading-relaxed text-app-text-muted">
+            {t('recordsPrivateNote')}
+          </p>
+          <p className="mt-1 text-sm leading-relaxed text-app-text-muted">
+            {t('recordsMoreFeatures')}
+          </p>
         </>
       )}
     </PageContainer>

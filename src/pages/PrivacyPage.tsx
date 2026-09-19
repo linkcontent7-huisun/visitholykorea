@@ -1,5 +1,5 @@
-import { ChevronLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { PageHeader } from '@/shared/components/ui/PageHeader';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 /**
@@ -25,6 +25,13 @@ const ITEMS: PrivacyItem[] = [
     body: {
       ko: '회원 가입 시 이메일, 비밀번호(암호화 저장), 이름 또는 닉네임. 방문 기록 작성 시 성지·방문일·메모·(선택) 사진. 접속 통계용 익명 식별자(이름·이메일과 연결하지 않음). 현재 위치는 「현재 위치 사용」을 켠 동안 기기 안에서만 쓰고 서버로 보내지 않습니다.',
       en: 'On sign-up: email, password (stored hashed), and a name or nickname. When writing a visit record: shrine, visit date, note and optional photos. An anonymous identifier for usage statistics (not linked to name or email). Your current location is used on the device only while “Use current location” is on and is never sent to our server.',
+    },
+  },
+  {
+    title: { ko: 'AI 가이드(미카엘) 대화', en: 'AI guide (Michael) conversations' },
+    body: {
+      ko: '로그인한 상태에서 미카엘에게 한 질문과 답은 계정에 저장되어 다음에 열어도 이어서 볼 수 있습니다. 본인만 볼 수 있고, 대화창의 「대화 지우기」로 언제든 전부 삭제됩니다. 로그인하지 않으면 저장하지 않습니다. 질문에 이름·연락처 같은 개인정보를 넣지 마세요. 답변 생성에는 Google Gemini 를 사용하며 질문 내용이 그 서비스로 전송됩니다.',
+      en: 'While signed in, your questions to Michael and its answers are saved to your account so the conversation continues next time. Only you can see them, and "Clear chat" in the chat window deletes them all at any time. Nothing is saved when you are not signed in. Please do not include personal details such as names or contact information in questions. Answers are generated with Google Gemini, so question text is sent to that service.',
     },
   },
   {
@@ -68,49 +75,38 @@ const ITEMS: PrivacyItem[] = [
 ];
 
 export default function PrivacyPage() {
-  const navigate = useNavigate();
-  const { wideView, language, t } = useSettings();
-  const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
+  const { language } = useSettings();
   const lang: 'ko' | 'en' = language === 'ko' ? 'ko' : 'en';
 
   return (
-    <div className={`mx-auto flex min-h-page ${widthClass} flex-col bg-white`}>
-      <div className="flex h-16 shrink-0 items-center px-4">
-        <button
-          onClick={() => navigate(-1)}
-          className="min-h-11 min-w-11 p-2 text-slate-800"
-          aria-label={t('backAria')}
-        >
-          <ChevronLeft size={28} />
-        </button>
-      </div>
-
-      <div className="flex-1 px-8 pb-16">
-        <h1 className="mb-2 text-3xl font-black tracking-tight text-slate-900">
-          {lang === 'ko' ? '개인정보 안내' : 'Privacy notice'}
-        </h1>
-        <p className="mb-8 text-sm leading-relaxed text-slate-500">
-          {lang === 'ko'
+    <PageContainer width="narrow" className="min-h-page pb-16">
+      <PageHeader
+        back
+        title={lang === 'ko' ? '개인정보 안내' : 'Privacy notice'}
+        sub={
+          lang === 'ko'
             ? '이 안내는 초안입니다. ▶ 표시가 있는 항목은 운영자가 값을 확정한 뒤 갱신됩니다.'
-            : 'This notice is a draft. Items marked ▶ will be updated once the operator confirms the values.'}
-        </p>
+            : 'This notice is a draft. Items marked ▶ will be updated once the operator confirms the values.'
+        }
+      />
 
+      <div className="mt-2">
         {ITEMS.map((item) => (
           <article key={item.title.en} className="mb-8">
-            <h2 className="mb-2 flex items-center gap-2 text-base font-extrabold text-slate-900">
+            <h2 className="mb-2 flex flex-wrap items-center gap-2 text-lg font-bold text-app-text">
               {item.title[lang]}
               {item.needsOperator && (
-                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[0.6875rem] font-bold text-amber-800">
+                <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-800">
                   {lang === 'ko' ? '운영자 확인 필요' : 'Operator to confirm'}
                 </span>
               )}
             </h2>
-            <p className="whitespace-pre-line text-sm leading-relaxed text-slate-600">
+            <p className="whitespace-pre-line text-base leading-relaxed text-app-text-muted">
               {item.body[lang]}
             </p>
           </article>
         ))}
       </div>
-    </div>
+    </PageContainer>
   );
 }

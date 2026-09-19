@@ -11,11 +11,12 @@ const HomePage = lazy(() => import('@/pages/HomePage'));
 const MapPage = lazy(() => import('@/pages/MapPage'));
 const RecordsPage = lazy(() => import('@/pages/RecordsPage'));
 const MenuPage = lazy(() => import('@/pages/MenuPage'));
+const AccountPage = lazy(() => import('@/pages/AccountPage'));
 const SiteDetailPage = lazy(() => import('@/pages/SiteDetailPage'));
 const SearchPage = lazy(() => import('@/pages/SearchPage'));
 const RoutesPage = lazy(() => import('@/pages/RoutesPage'));
 const RouteDetailPage = lazy(() => import('@/pages/RouteDetailPage'));
-const QuietPage = lazy(() => import('@/pages/QuietPage'));
+const CompassPage = lazy(() => import('@/pages/CompassPage'));
 const RetiredFeaturePage = lazy(() => import('@/pages/RetiredFeaturePage'));
 const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
 const FestivalsPage = lazy(() => import('@/pages/FestivalsPage'));
@@ -44,19 +45,24 @@ function RouteErrorPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-app-bg px-8 text-center">
       <p className="text-4xl">🕯️</p>
-      <h1 className="text-lg font-extrabold text-app-text">화면을 여는 데 문제가 생겼어요</h1>
-      <p className="text-sm leading-relaxed text-app-text-muted">
+      <h1 className="font-display text-[1.625rem] leading-tight text-app-text">
+        화면을 여는 데 문제가 생겼어요
+      </h1>
+      <p className="text-base leading-relaxed text-app-text-muted">
         새 버전이 방금 배포되었을 수 있어요.
         <br />
         새로고침하면 대부분 해결됩니다.
       </p>
       <button
         onClick={() => window.location.reload()}
-        className="rounded-[16px] bg-brand-violet px-6 py-3 text-sm font-bold text-white"
+        className="inline-flex min-h-12 items-center justify-center rounded-lg bg-brand-blue px-6 text-base font-bold text-white transition-colors hover:bg-brand-blue/90"
       >
         새로고침
       </button>
-      <a href="/" className="text-xs font-bold text-app-text-muted underline underline-offset-4">
+      <a
+        href="/"
+        className="inline-flex min-h-11 items-center text-base font-bold text-app-text-muted underline underline-offset-4"
+      >
         홈으로 돌아가기
       </a>
     </div>
@@ -94,16 +100,18 @@ export const router = createBrowserRouter([
           { path: paths.explore, element: <Navigate to={paths.search} replace /> },
           { path: paths.records, element: withSuspense(<RecordsPage />) },
           { path: paths.menu, element: withSuspense(<MenuPage />) },
+          { path: paths.account, element: withSuspense(<AccountPage />) },
           // 둘러보기 화면들 — 예전엔 전체 화면 그룹에 있어 순례 코스·마음 나침반을 누르면
           // 헤더·하단 탭이 통째로 사라져 "새 창이 뜬 것"처럼 보였다 (T-021, 2026-09-14).
           // 되돌아갈 수단이 「← 뒤로」 글자 하나뿐이라 PC 에서 특히 길을 잃었다.
           { path: paths.routes, element: withSuspense(<RoutesPage />) },
           { path: paths.routeDetailPattern, element: withSuspense(<RouteDetailPage />) },
           { path: paths.search, element: withSuspense(<SearchPage />) },
-          { path: paths.quiet, element: withSuspense(<QuietPage />) },
-          // 옛 이름·옛 기능의 주소는 버리지 않고 안내한다 — 밖에 퍼진 링크가 죽으면 안 된다
-          { path: paths.alternatives, element: <Navigate to={paths.quiet} replace /> },
-          { path: paths.compass, element: withSuspense(<RetiredFeaturePage feature="compass" />) },
+          { path: paths.compass, element: withSuspense(<CompassPage />) },
+          // 옛 이름·옛 기능의 주소는 버리지 않고 안내한다 — 밖에 퍼진 링크가 죽으면 안 된다.
+          // 고요 속으로(/quiet)는 「오늘의 성지 일정」이 자리를 이어받았다 (2026-09-15 팀 결정).
+          { path: paths.quiet, element: <Navigate to={paths.compass} replace /> },
+          { path: paths.alternatives, element: <Navigate to={paths.compass} replace /> },
           { path: paths.aiGuide, element: withSuspense(<RetiredFeaturePage feature="ai" />) },
           { path: paths.privacy, element: withSuspense(<PrivacyPage />) },
           { path: paths.festivals, element: withSuspense(<FestivalsPage />) },
@@ -111,10 +119,12 @@ export const router = createBrowserRouter([
           { path: paths.nearby, element: withSuspense(<NearbyPage />) },
           { path: paths.faq, element: withSuspense(<FaqPage />) },
           { path: paths.terms, element: withSuspense(<TermsPage />) },
+          // 성지 상세도 상단바·하단 탭 안에서 뜬다 (2026-09-17 사장님 지시). 전엔 큰 사진 히어로를 위해
+          // 전체 화면이었는데, 상세에서 다른 탭으로 못 가고 헤더가 사라져 길을 잃었다.
+          { path: paths.siteDetailPattern, element: withSuspense(<SiteDetailPage />) },
         ],
       },
-      // 하단 탭 없이 전체 화면으로 뜨는 화면들 — 성지 상세(큰 사진 히어로)·로그인·관리자·404 만
-      { path: paths.siteDetailPattern, element: withSuspense(<SiteDetailPage />) },
+      // 하단 탭 없이 전체 화면으로 뜨는 화면들 — 로그인·관리자·404 만
       { path: paths.login, element: withSuspense(<LoginPage />) },
       // 제출판은 본선 기능만 보이게 하므로 직접 주소로도 관리자 화면에 닿지 못하게 한다 — T-013
       ...(SUBMISSION_MODE

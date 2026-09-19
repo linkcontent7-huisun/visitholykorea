@@ -29,12 +29,20 @@ export const queryKeys = {
     siteIds: ['docent', 'site-ids'] as const,
   },
   courses: {
-    byEmotion: (emotion: EmotionTag, diocese?: string) =>
-      ['courses', emotion, diocese ?? 'all'] as const,
+    /** 마음(감정 태그)별 성지 전체 — 「오늘의 성지 일정」 후보 pool 의 입력. DB 만이라 캐시해도 된다. */
+    byEmotion: (emotion: EmotionTag, language: string) => ['courses', emotion, language] as const,
   },
   routes: {
     all: ['routes'] as const,
     detail: (slug: string) => ['routes', 'detail', slug] as const,
+    /** 목록 카드용 제목·부제·설명 일괄 번역. */
+    listTranslations: (ids: string[], lang: string) =>
+      ['routes', 'list-translations', ids, lang] as const,
+    /** 코스 1곳의 전문 번역 — 상세 화면이 폴백까지 겹쳐 쓴다. */
+    translation: (routeId: string, lang: string) => ['routes', 'translation', routeId, lang] as const,
+    /** 경유지 메모 번역 — 코스 1곳 전체를 한 번에 받는다. */
+    stopTranslations: (routeId: string, lang: string) =>
+      ['routes', 'stop-translations', routeId, lang] as const,
   },
   passport: {
     stamps: ['passport', 'stamps'] as const,
@@ -69,23 +77,14 @@ export const queryKeys = {
     barrierFree: (lat: number, lng: number) => ['tour', 'barrier-free', lat, lng] as const,
     festivals: (coords: string, language = 'ko') =>
       ['tour', 'festivals', coords, language] as const,
-    congestion: (areaCd: string, sigunguName: string) =>
-      ['tour', 'congestion', areaCd, sigunguName] as const,
+    /** 성지의 시·군·구 관광지 집중률 예측 — 성지 id 로 키를 잡는다(주소 → 코드는 조회 계층이 한다). */
+    congestion: (siteId: string) => ['tour', 'congestion', siteId] as const,
     hubSpots: (areaCd: string, signguCd: string, baseYm: string) =>
       ['tour', 'hub-spots', areaCd, signguCd, baseYm] as const,
     audioStories: (lat: number, lng: number, langCode: string) =>
       ['tour', 'audio-stories', lat, lng, langCode] as const,
     walkingCourses: (sigunguName: string) => ['tour', 'walking-courses', sigunguName] as const,
     searchKeyword: (keyword: string) => ['tour', 'search', keyword] as const,
-  },
-  quiet: {
-    /** 오늘 조용한 성지. 날짜가 바뀌면 키가 바뀌어 자동으로 다시 계산된다. */
-    today: (date: string, limit: number) => ['quiet', 'today', date, limit] as const,
-    site: (date: string, siteId: string) => ['quiet', 'site', date, siteId] as const,
-  },
-  alternatives: {
-    /** 붐비는 관광지의 대체 성지. TourAPI contentid 기준. */
-    forAttraction: (contentId: string, date: string) => ['alternatives', contentId, date] as const,
   },
   festivals: {
     /**

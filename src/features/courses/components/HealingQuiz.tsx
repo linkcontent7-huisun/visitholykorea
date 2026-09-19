@@ -1,40 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
-  X,
   ChevronLeft,
   ChevronRight,
-  VolumeX,
-  MessageCircle,
-  Footprints,
-  MapPin,
-  ExternalLink,
   Church,
-  Phone,
+  Compass,
+  Feather,
+  HandHeart,
+  Leaf,
+  LocateFixed,
+  Sparkles,
+  Sprout,
+  type LucideIcon,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { BackButton } from '@/shared/components/ui/BackButton';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
 import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
-import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
+import { localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { getRecommendedCourses, type CourseCard } from '../api/course-matching';
+import {
+  buildCandidatePool,
+  CARD_PAGE_SIZE,
+  RADIUS_KM_BY_TIME,
+  TIME_BUDGETS,
+  type Origin,
+  type PooledSite,
+  type TimeBudget,
+} from '../api/course-matching';
 import { useCompassMemory, useSaveCompassResponse } from '../hooks/use-compass-memory';
-import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirectionsButtons';
-import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
+import { useCandidatePlans } from '../hooks/use-candidate-plans';
+import { CandidateCards } from './CandidateCards';
+import { PlanResult } from './PlanResult';
+import { DirectoryEntryCard } from '@/features/sites/components/DirectoryEntryCard';
 import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
-import {
-  directoryDisplayAddress,
-  directoryDisplayName,
-  formatDistanceKm,
-} from '@/features/sites/lib/nearby-directory';
+import { Button } from '@/shared/components/ui/Button';
+import { Card } from '@/shared/components/ui/Card';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { REGIONS, regionCoords, type Region } from '@/shared/lib/regions';
-import { useNearbyFacilities } from '@/features/sites/hooks/use-nearby-tour';
-import {
-  buildItineraryStops,
-  type FacilityGroup,
-} from '@/features/sites/lib/nearby-facilities';
-import { kakaoPlaceUrl } from '@/shared/lib/geo';
 
-type Gender = '여성' | '남성' | '응답 안 함';
+/**
+ * 「오늘의 성지 일정」 — 질문 3개(마음 · 출발지 · 시간) → 후보 카드 최대 3장(태그 1개씩) → 카드를 누르면 하루 일정.
+ *
+ * 마음 질문은 후보 집합만 고르고, 순서는 거리가 정한다. 답을 다시 하지 않고 카드로
+ * 돌아가 다른 곳을 고를 수 있다. 스펙: docs/10-product/재기획/2026-09-15-오늘의-성지-일정-스펙.md
+ */
 
 interface HealingQuizProps {
   isOpen: boolean;
@@ -42,12 +52,13 @@ interface HealingQuizProps {
   onSelectSite: (id: string) => void;
 }
 
-const EMOTION_EMOJI: Record<EmotionTag, string> = {
-  위로: '🕊️',
-  새출발: '🌱',
-  평온: '🍃',
-  치유: '✨',
-  감사: '🙏',
+// 이모지 대신 선 아이콘 — 디자인 원칙(2026-09-16): 이모지 아이콘 안 씀.
+const EMOTION_ICON: Record<EmotionTag, LucideIcon> = {
+  위로: Feather,
+  새출발: Sprout,
+  평온: Leaf,
+  치유: Sparkles,
+  감사: HandHeart,
 };
 
 /** 표시 문구는 사전에서 온다. 여기 값은 사전 키다 — 내부 감정 코드(위로·치유…)는 그대로 쓴다. */
@@ -61,46 +72,11 @@ const EMOTION_LABEL: Record<EmotionTag, TranslationKey> = {
 
 // 색으로 직관적으로 고를 수 있도록 감정마다 고유한 색을 지정한다.
 const EMOTION_COLOR: Record<EmotionTag, { bg: string; ring: string }> = {
-  위로: { bg: 'bg-indigo-200', ring: 'ring-indigo-400' },
+  위로: { bg: 'bg-brand-soft', ring: 'ring-brand-blue' },
   새출발: { bg: 'bg-emerald-200', ring: 'ring-emerald-400' },
   평온: { bg: 'bg-cyan-200', ring: 'ring-cyan-400' },
   치유: { bg: 'bg-rose-200', ring: 'ring-rose-400' },
   감사: { bg: 'bg-amber-200', ring: 'ring-amber-400' },
-};
-
-const CONCERNS = [
-  '일과 진로',
-  '육아와 가족',
-  '사람들과의 관계',
-  '나 자신을 돌보는 일',
-  '뚜렷한 이유는 없어요',
-] as const;
-type Concern = (typeof CONCERNS)[number];
-
-type Style = '침묵형' | '나눔형';
-
-const TIME_BUDGETS = ['반나절', '하루', '1박2일'] as const;
-type TimeBudget = (typeof TIME_BUDGETS)[number];
-
-const CONCERN_LABEL: Record<Concern, TranslationKey> = {
-  '일과 진로': 'compassReasonWork',
-  '육아와 가족': 'compassReasonFamily',
-  '사람들과의 관계': 'compassReasonPeople',
-  '나 자신을 돌보는 일': 'compassReasonSelf',
-  '뚜렷한 이유는 없어요': 'compassReasonNone',
-};
-
-const CONCERN_OPENER: Record<Concern, TranslationKey> = {
-  '일과 진로': 'compassReasonWorkReply',
-  '육아와 가족': 'compassReasonFamilyReply',
-  '사람들과의 관계': 'compassReasonPeopleReply',
-  '나 자신을 돌보는 일': 'compassReasonSelfReply',
-  '뚜렷한 이유는 없어요': 'compassReasonNoneReply',
-};
-
-const STYLE_ACTIVITY: Record<Style, TranslationKey> = {
-  침묵형: 'compassSilentAdvice',
-  나눔형: 'compassSharingAdvice',
 };
 
 const TIME_LABEL: Record<TimeBudget, TranslationKey> = {
@@ -109,116 +85,91 @@ const TIME_LABEL: Record<TimeBudget, TranslationKey> = {
   '1박2일': 'compassStayOvernight',
 };
 
-const TIME_NOTE: Record<TimeBudget, TranslationKey> = {
-  반나절: 'compassStayHalfDayNote',
-  하루: 'compassStayDayNote',
-  '1박2일': 'compassStayOvernightNote',
-};
-
-/** 몇 명이 가는가 — 웰니스 실측 동반자 95.5%. 혼자만 전제하지 않는다. */
-const PARTY_SIZES = ['혼자', '둘이서', '3~4명', '5명 이상'] as const;
-type PartySize = (typeof PARTY_SIZES)[number];
-
-const PARTY_EMOJI: Record<PartySize, string> = {
-  혼자: '🚶',
-  둘이서: '👥',
-  '3~4명': '👨‍👩‍👧',
-  '5명 이상': '🚌',
-};
-
-const GENDER_LABEL: Record<Gender, TranslationKey> = {
-  여성: 'compassFemale',
-  남성: 'compassMale',
-  '응답 안 함': 'compassNoAnswer',
-};
-
-const PARTY_LABEL: Record<PartySize, TranslationKey> = {
-  혼자: 'compassAlone',
-  둘이서: 'compassGroupTwo',
-  '3~4명': 'compassGroupFew',
-  '5명 이상': 'compassGroupMany',
-};
-
-const PARTY_NOTE: Record<PartySize, TranslationKey> = {
-  혼자: 'compassSilentAdvice',
-  둘이서: 'compassWalkTogetherAdvice',
-  '3~4명': 'compassSilentStretchAdvice',
-  '5명 이상': 'compassGroupNote',
-};
-
-/**
- * 시간 예산에 따라 일정에 넣을 편의시설 묶음.
- * 반나절엔 숙박을 권하지 않는다 — 시간을 물어놓고 답을 안 쓰면 묻지 않은 것과 같다.
- */
-const ITINERARY_GROUPS: Record<TimeBudget, FacilityGroup[]> = {
-  반나절: ['맛집'],
-  하루: ['맛집', '볼거리'],
-  '1박2일': ['맛집', '볼거리', '숙박'],
-};
-
-/** 일정 항목에 붙는 한 줄 — 왜 이 순서인지가 문구에 담긴다. */
-const ITINERARY_STEP_LABEL: Record<FacilityGroup, TranslationKey> = {
-  맛집: 'nearbyMeal',
-  볼거리: 'nearbyTogether',
-  숙박: 'nearbyOvernight',
-  레포츠: 'nearbyAlong',
-  쇼핑: 'nearbyAlong',
-};
-
-/** 거리를 사람이 읽는 형태로. */
-function formatDistance(dist: string | undefined): string | null {
-  const m = Number(dist);
-  if (!Number.isFinite(m) || m <= 0) return null;
-  return m < 1000 ? `${Math.round(m)}m` : `${(m / 1000).toFixed(1)}km`;
-}
-
-// 1=감정 2=관심사 3=출발지역 4=성별 5=참여방식 6=시간 7=인원 8=자유텍스트
-const TOTAL_QUESTIONS = 8;
+// 1=마음 2=출발지 3=시간 — 결과를 실제로 바꾸는 답만 남겼다. 성별·참여 방식(9/15), 자유 텍스트·관심사·인원(9/16)은
+// 결과 성지나 일정을 바꾸지 않고 문장 한 줄만 바꿔서 뺐다. 50대 이용자에게 결과가 안 바뀌는 질문은 손가락 품이다.
+const TOTAL_QUESTIONS = 3;
 const RESULT_STEP = TOTAL_QUESTIONS + 1;
+const STEP_ORIGIN = 2;
+const STEP_TIME = 3;
+
+const fade = {
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0 },
+};
 
 export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps) {
-  const { wideView, origin, setOrigin, t, language } = useSettings();
-  const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
-  const [step, setStep] = useState(0); // 0=intro, 1~8=질문, 9=결과
+  const {
+    origin: storedRegion,
+    setOrigin: setStoredRegion,
+    gpsLocation,
+    gpsStatus,
+    requestGpsLocation,
+    t,
+    language,
+  } = useSettings();
+
+  const [step, setStep] = useState(0); // 0=intro, 1~3=질문, 4=결과
   const [emotion, setEmotion] = useState<EmotionTag | null>(null);
-  const [concern, setConcern] = useState<Concern | null>(null);
-  // 이미 출발지를 정해 둔 사람에게 같은 질문을 또 하지 않는다. 바꾸고 싶으면 이 자리에서 바꾼다.
-  const [region, setRegion] = useState<Region | null>(origin);
-  const [gender, setGender] = useState<Gender | null>(null);
-  const [style, setStyle] = useState<Style | null>(null);
+  const [region, setRegion] = useState<Region | null>(storedRegion);
+  // null = 아직 안 정함(GPS 가 되면 자동으로 GPS) · true = 현재 위치 · false = 시·도를 직접 골랐음
+  const [useGps, setUseGps] = useState<boolean | null>(null);
   const [timeBudget, setTimeBudget] = useState<TimeBudget | null>(null);
-  const [party, setParty] = useState<PartySize | null>(null);
-  const [note, setNote] = useState('');
-  const [result, setResult] = useState<CourseCard | null>(null);
-  const [resultLoading, setResultLoading] = useState(false);
+
+  // 결과 — 반경 안 후보 전부(거리순)와 지금 보이는 페이지 · 고른 카드
+  const [pool, setPool] = useState<PooledSite[]>([]);
+  const [moreInNextRadius, setMoreInNextRadius] = useState(0);
+  const [page, setPage] = useState(0);
+  const [selected, setSelected] = useState<number | null>(null);
+  const [afternoonIndex, setAfternoonIndex] = useState<Record<string, number>>({});
+  const [poolLoading, setPoolLoading] = useState(false);
+  const [poolError, setPoolError] = useState(false);
+  // 카드에서 성지를 처음 고른 때 1회만 저장. 「처음부터 다시」 하면 다시 1회.
+  const savedRef = useRef(false);
+
   const saveResponse = useSaveCompassResponse();
   const { data: memory } = useCompassMemory();
-  // 결과 성지 주변 편의시설 — 답한 시간 예산에 맞춰 하루 일정을 조립한다.
-  // 결과 화면에 도달했을 때만 좌표가 넘어가므로 그전에는 호출되지 않는다.
-  const { data: facilityGroups = [] } = useNearbyFacilities(
-    step === RESULT_STEP ? result?.site.coordinates : undefined,
-  );
-  // 감정 매칭엔 안 섞는다 — 본당·공소는 감정 태그가 없어 억지 매칭이 된다.
-  // 대신 결과 화면 아래에 "이 지역 본당" 보조 정보로만 보여준다(2026-09-07 결정).
-  const { data: nearbyParishes = [] } = useNearbyDirectory(
-    step === RESULT_STEP ? result?.site.coordinates : undefined,
-    5,
-    3,
-  );
+
+  const pageSites = pool.slice(page * CARD_PAGE_SIZE, page * CARD_PAGE_SIZE + CARD_PAGE_SIZE);
+  const candidates = useCandidatePlans(step === RESULT_STEP ? pageSites : []);
+  const chosen = selected == null ? null : (candidates[selected] ?? null);
+
+  // 이 지역 본당·공소 — 감정 매칭 결과가 아니라 실제로 미사 참례가 가능한 가까운 본당 정보(2026-09-07 결정).
+  const { data: nearbyParishes = [] } = useNearbyDirectory(chosen?.site.coordinates, 5, 3);
+
+  // 출발지 질문에 들어오면 곧바로 위치 권한을 묻는다 — 시·도 중심점 + 반나절 20km 는 거의 「없어요」다(스펙 6절).
+  useEffect(() => {
+    if (step === STEP_ORIGIN && gpsStatus === 'idle') requestGpsLocation();
+  }, [step, gpsStatus, requestGpsLocation]);
+  // 위치가 허용됐고 사용자가 아직 시·도를 직접 고르지 않았으면 현재 위치가 기본.
+  useEffect(() => {
+    if (step === STEP_ORIGIN && gpsStatus === 'granted' && gpsLocation && useGps === null)
+      setUseGps(true);
+  }, [step, gpsStatus, gpsLocation, useGps]);
 
   if (!isOpen) return null;
+
+  const regionCoord = region ? regionCoords(region) : null;
+  const origin: Origin | null =
+    useGps && gpsLocation
+      ? { ...gpsLocation, label: t('currentLocationLabel'), kind: 'gps' }
+      : region && regionCoord
+        ? { ...regionCoord, label: localizeRegionName(region, language), kind: 'region' }
+        : null;
 
   const reset = () => {
     setStep(0);
     setEmotion(null);
-    setConcern(null);
     setRegion(null);
-    setGender(null);
-    setStyle(null);
+    setUseGps(null);
     setTimeBudget(null);
-    setParty(null);
-    setNote('');
-    setResult(null);
+    setPool([]);
+    setMoreInNextRadius(0);
+    setPage(0);
+    setSelected(null);
+    setAfternoonIndex({});
+    setPoolError(false);
+    savedRef.current = false;
   };
 
   const handleClose = () => {
@@ -227,80 +178,88 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   };
 
   const goToResult = async () => {
-    if (!emotion) return;
+    if (!emotion || !origin || !timeBudget) return;
     setStep(RESULT_STEP);
-    setResultLoading(true);
-    const originCoords = regionCoords(region) ?? undefined;
-    const courses = await getRecommendedCourses(emotion, undefined, 1, originCoords, language);
-    const top = courses[0] ?? null;
-    setResult(top);
-    setResultLoading(false);
-    // 결과에 도달한 시점의 답을 남긴다. 비로그인·실패 시 조용히 넘어간다 (repository 참조).
-    saveResponse.mutate({
-      answers: {
-        emotion,
-        concern,
-        gender,
-        region,
-        style,
-        timeBudget,
-        party,
-        note: note.trim() || null,
-      },
-      matchedSiteId: top?.site.id ?? null,
-      matchedSiteName: top?.site.name ?? null,
-    });
+    setPage(0);
+    setSelected(null);
+    setPoolLoading(true);
+    setPoolError(false);
+    try {
+      const result = await buildCandidatePool(emotion, origin, timeBudget, language);
+      setPool(result.pool);
+      setMoreInNextRadius(result.moreInNextRadius);
+    } catch (e) {
+      console.error('후보 조회 실패:', e);
+      setPoolError(true);
+    } finally {
+      setPoolLoading(false);
+    }
+  };
+
+  /** 카드에서 성지를 처음 고른 때 1회 저장. 카드만 보고 나가면 저장하지 않는다. 비로그인은 조용히 건너뜀. */
+  const selectCard = (index: number) => {
+    setSelected(index);
+    const site = pageSites[index]?.site;
+    if (!site || !emotion || !origin) return;
+    if (!savedRef.current) {
+      savedRef.current = true;
+      saveResponse.mutate({
+        answers: {
+          emotion,
+          concern: null,
+          origin: { kind: origin.kind, label: origin.label },
+          region: origin.kind === 'region' ? region : null,
+          gender: null,
+          style: null,
+          timeBudget,
+          party: null,
+          note: null,
+        },
+        matchedSiteId: site.id,
+        matchedSiteName: site.name,
+      });
+    }
+  };
+
+  const goToQuestion = (q: number) => {
+    setSelected(null);
+    setPool([]);
+    setStep(q);
   };
 
   const progress =
     step >= 1 && step <= TOTAL_QUESTIONS ? step / TOTAL_QUESTIONS : step === RESULT_STEP ? 1 : 0;
 
   const canProceed =
-    step === 1
-      ? emotion != null
-      : step === 2
-        ? concern != null
-        : step === 3
-          ? region != null
-          : step === 4
-            ? gender != null
-            : step === 5
-              ? style != null
-              : step === 6
-                ? timeBudget != null
-                : step === 7
-                  ? party != null
-                  : true; // step 8(자유 텍스트)는 건너뛰어도 됨
+    step === 1 ? emotion != null : step === STEP_ORIGIN ? origin != null : timeBudget != null;
 
   const handleNext = () => {
-    if (step === TOTAL_QUESTIONS) {
-      goToResult();
-    } else if (canProceed) {
-      setStep(step + 1);
-    }
+    if (step === TOTAL_QUESTIONS) void goToResult();
+    else setStep(step + 1);
   };
 
   const isQuestionStep = step >= 1 && step <= TOTAL_QUESTIONS;
+  const optionClass = (active: boolean) =>
+    `flex min-h-14 w-full items-center rounded-lg border-2 px-5 py-3 text-left text-base font-bold transition-colors ${
+      active
+        ? 'border-brand-blue bg-brand-soft text-brand-blue'
+        : 'border-app-border bg-white text-app-text hover:border-brand-blue/50'
+    }`;
 
   return (
-    // 예전엔 화면 전체를 덮는 오버레이(fixed)였다. 이제 /compass 는 헤더·하단 탭이 있는
-    // 레이아웃 안에서 뜨므로 보통 페이지처럼 흐름에 둔다 (T-021). 높이는 헤더(61/73px)와
-    // 모바일 하단 탭(70px)을 뺀 나머지 — 인트로처럼 짧은 화면에서도 버튼 바가 바닥에 붙는다.
-    <div
-      className={`mx-auto flex w-full ${widthClass} min-h-page flex-col bg-white`}
-    >
-      {/* Header */}
-      <div className="h-16 flex items-center justify-between px-6 border-b border-app-border shrink-0">
-        <div className="w-9" />
-        <span className="text-xs font-bold text-app-text-muted">{t('compassTitle')}</span>
-        <button onClick={handleClose} className="p-2 text-app-text-muted" id="quiz-close">
-          <X size={22} />
-        </button>
+    // /compass 는 헤더·하단 탭이 있는 레이아웃 안에서 뜬다 (T-021). 스크롤은 ScrollShell 이 맡는다.
+    <PageContainer width="narrow" className="flex min-h-page flex-col">
+      {/* X 로 닫던 것을 다른 화면과 같은 「← 뒤로」로 바꿨다(사장님 지적, 2026-09-19 —
+          뒤로 버튼이 화면마다 다르게 보인다는 지적 + 성지 일정에 뒤로 버튼 자체가
+          없다는 지적). `handleClose` 가 하던 정리(reset)는 그대로 하고 이동만 같은
+          컴포넌트를 쓴다. */}
+      <div className="flex min-h-14 shrink-0 items-center gap-2 border-b border-app-border">
+        <BackButton onClick={handleClose} />
+        <span className="text-base font-bold text-app-text">{t('compassTitle')}</span>
       </div>
 
-      {/* Progress bar */}
       {progress > 0 && (
-        <div className="h-1 bg-app-bg shrink-0">
+        <div className="h-1 shrink-0 bg-app-panel">
           <motion.div
             className="h-full bg-brand-blue"
             animate={{ width: `${progress * 100}%` }}
@@ -309,46 +268,37 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
         </div>
       )}
 
-      {/* 스크롤은 ScrollShell(#app-scroll)이 맡는다 — 여기서 또 스크롤시키면 이중 스크롤이 된다 */}
-      <div className="flex-1 p-8">
+      <div className="flex-1 py-6">
         <AnimatePresence mode="wait">
-          {/* 인트로 */}
           {step === 0 && (
-            <motion.div
-              key="intro"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="pt-10 text-center"
-            >
-              <div className="text-5xl mb-6">🧭</div>
-              <h2 className="text-2xl font-extrabold text-app-text mb-4 tracking-tight">
+            <motion.div key="intro" {...fade} className="pt-10 text-center">
+              {/* 이모지 대신 선 아이콘 — 디자인 원칙(2026-09-16): 이모지 아이콘 안 씀 */}
+              <div
+                className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-brand-soft text-brand-blue"
+                aria-hidden
+              >
+                <Compass size={32} />
+              </div>
+              <h2 className="mb-4 font-display text-[1.625rem] leading-tight text-app-text lg:text-3xl">
                 {t('compassIntroLine1')}
                 <br />
                 {t('compassIntroLine2')}
               </h2>
-              <p className="text-app-text-muted text-sm leading-relaxed mb-10">
+              <p className="mb-10 text-base leading-relaxed text-app-text-muted">
                 {t('compassIntroBody')}
-                <br />
               </p>
-              <button
-                onClick={() => setStep(1)}
-                className="w-full bg-brand-blue text-white py-4 rounded-[20px] font-bold text-sm shadow-lg shadow-brand-blue/20"
-                id="quiz-start"
-              >
+              <Button block onClick={() => setStep(1)} className="min-h-14 text-lg" id="quiz-start">
                 {t('compassStart')}
-              </button>
-
-              {/* 지난번 결과 — 응답 저장(로드맵 3단계)이 처음으로 화면에 돌아오는 자리 */}
+              </Button>
               {memory?.matchedSiteId && memory.matchedSiteName && (
                 <button
                   onClick={() => onSelectSite(memory.matchedSiteId!)}
-                  className="mt-4 w-full rounded-[20px] border border-app-border bg-white px-5 py-3 text-left"
+                  className="mt-4 flex min-h-14 w-full flex-col justify-center rounded-lg border border-app-border bg-white px-5 py-3 text-left transition-colors hover:border-brand-blue"
                 >
-                  <span className="block text-xs text-app-text-muted">
+                  <span className="block text-sm text-app-text-muted">
                     {t('compassLastRecommendation')}
                   </span>
-                  <span className="mt-0.5 block text-sm font-bold text-brand-violet">
+                  <span className="mt-0.5 block text-base font-bold text-brand-blue">
                     {memory.matchedSiteName} →
                   </span>
                 </button>
@@ -356,100 +306,104 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             </motion.div>
           )}
 
-          {/* Q1: 감정 — 색으로 직관적으로 고르기 */}
+          {/* Q1: 마음 — 색으로 직관적으로 고르기. 후보 집합을 정한다 */}
           {step === 1 && (
-            <motion.div
-              key="q1"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">
+            <motion.div key="q1" {...fade}>
+              <h3 className="mb-2 font-display text-[1.375rem] leading-tight text-app-text lg:text-2xl">
                 {t('compassQ1TitleLine1')}
                 <br />
                 {t('compassQ1TitleLine2')}
               </h3>
-              <p className="text-xs text-app-text-muted mb-8">{t('compassPickColor')}</p>
-              {/* 5개라 3+2 로 줄이 갈린다 — 아래 2개가 왼쪽에 붙지 않게 가운데 정렬 (2026-09-12) */}
+              <p className="mb-8 text-sm text-app-text-muted">{t('compassPickColor')}</p>
               <div className="flex flex-wrap justify-center gap-5">
-                {EMOTION_TAGS.map((tag) => (
-                  <button
-                    key={tag}
-                    onClick={() => setEmotion(tag)}
-                    className="flex w-[28%] flex-col items-center gap-3"
-                    id={`quiz-emotion-${tag}`}
-                  >
-                    <span
-                      className={`w-20 h-20 rounded-full flex items-center justify-center text-3xl shadow-sm transition-all ${EMOTION_COLOR[tag].bg} ${
-                        emotion === tag ? `ring-4 ${EMOTION_COLOR[tag].ring} scale-105` : ''
-                      }`}
+                {EMOTION_TAGS.map((tag) => {
+                  const Icon = EMOTION_ICON[tag];
+                  return (
+                    <button
+                      key={tag}
+                      onClick={() => setEmotion(tag)}
+                      className="flex w-[28%] flex-col items-center gap-3 rounded-lg py-2"
+                      aria-pressed={emotion === tag}
+                      id={`quiz-emotion-${tag}`}
                     >
-                      {EMOTION_EMOJI[tag]}
-                    </span>
-                    <span className="text-[0.6875rem] font-bold text-app-text-muted text-center leading-tight">
-                      {t(EMOTION_LABEL[tag])}
-                    </span>
-                  </button>
-                ))}
+                      <span
+                        className={`flex h-20 w-20 items-center justify-center rounded-full transition-[transform,box-shadow] ${EMOTION_COLOR[tag].bg} ${
+                          emotion === tag ? `ring-4 ${EMOTION_COLOR[tag].ring} scale-105` : ''
+                        }`}
+                        aria-hidden
+                      >
+                        <Icon
+                          size={30}
+                          strokeWidth={1.75}
+                          className={emotion === tag ? 'text-brand-blue' : 'text-app-text'}
+                        />
+                      </span>
+                      <span
+                        className={`text-center text-sm font-bold leading-tight ${emotion === tag ? 'text-brand-blue' : 'text-app-text-muted'}`}
+                      >
+                        {t(EMOTION_LABEL[tag])}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </motion.div>
           )}
 
-          {/* Q2: 관심사 */}
-          {step === 2 && (
-            <motion.div
-              key="q2"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
-                {t('compassQ2TitleLine1')}
-                <br />
-                {t('compassQ2TitleLine2')}
-              </h3>
-              <div className="space-y-3">
-                {CONCERNS.map((c) => (
-                  <button
-                    key={c}
-                    onClick={() => setConcern(c)}
-                    className={`w-full p-5 rounded-[20px] border text-left font-bold text-sm transition-all ${
-                      concern === c
-                        ? 'border-brand-blue bg-brand-blue/5 text-brand-blue'
-                        : 'border-app-border bg-white text-app-text'
-                    }`}
-                    id={`quiz-concern-${c}`}
-                  >
-                    {t(CONCERN_LABEL[c])}
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Q3: 출발 지역 — 시간 맞춘 일정을 짜려면 출발지가 있어야 거리를 잴 수 있다 */}
-          {step === 3 && (
-            <motion.div
-              key="q3-region"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">
+          {/* Q2: 출발지 — 현재 위치가 첫 선택지, 시·도는 GPS 를 못 쓸 때의 대안 */}
+          {step === STEP_ORIGIN && (
+            <motion.div key="q3-origin" {...fade}>
+              <h3 className="mb-2 font-display text-[1.375rem] leading-tight text-app-text lg:text-2xl">
                 {t('compassQ3TitleLine1')}
                 <br />
                 {t('compassQ3TitleLine2')}
               </h3>
-              <p className="text-xs text-app-text-muted mb-8">{t('compassNearbyNote')}</p>
+              <p className="mb-6 text-sm text-app-text-muted">{t('compassNearbyNote')}</p>
+
+              {gpsStatus === 'granted' && gpsLocation ? (
+                <button
+                  type="button"
+                  onClick={() => setUseGps(true)}
+                  className={optionClass(useGps === true)}
+                  id="quiz-gps"
+                >
+                  <span className="flex items-center gap-2">
+                    <LocateFixed size={18} aria-hidden />
+                    {t('fromCurrentLocation')}
+                  </span>
+                </button>
+              ) : gpsStatus === 'loading' || gpsStatus === 'idle' ? (
+                <button type="button" disabled className={optionClass(false)} id="quiz-gps">
+                  <span className="flex items-center gap-2 opacity-60">
+                    <LocateFixed size={18} aria-hidden />
+                    {t('locatingNow')}
+                  </span>
+                </button>
+              ) : (
+                <p
+                  className="rounded-lg bg-app-panel p-4 text-sm font-bold text-app-text-muted"
+                  id="quiz-gps-unavailable"
+                >
+                  {t('locationUnavailable')}
+                </p>
+              )}
+
+              <label
+                className="mb-2 mt-6 block text-sm font-bold text-app-text-muted"
+                htmlFor="quiz-region"
+              >
+                {t('pickRegionInstead')}
+              </label>
               <select
-                value={region ?? ''}
+                value={useGps === true ? '' : (region ?? '')}
                 onChange={(e) => {
                   const next = (e.target.value || null) as Region | null;
                   setRegion(next);
+                  setUseGps(false);
                   // 여기서 고른 출발지를 앱 전체가 쓴다 — 홈·탐색도 이 기준으로 가까운 순이 된다
-                  setOrigin(next);
+                  setStoredRegion(next);
                 }}
-                className="w-full bg-app-bg rounded-[20px] p-5 text-sm font-bold text-app-text outline-none border border-app-border appearance-none"
+                className="min-h-14 w-full rounded-lg border border-app-border bg-white px-5 text-base font-bold text-app-text"
                 id="quiz-region"
               >
                 <option value="" disabled>
@@ -464,102 +418,10 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             </motion.div>
           )}
 
-          {/* Q4: 성별 — 성별 특정 프로그램(피정 등) 안내 시 활용 */}
-          {step === 4 && (
-            <motion.div
-              key="q4-gender"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              <h3 className="text-xl font-extrabold text-app-text mb-2 tracking-tight">
-                {t('compassQ4TitleLine1')}
-                <br />
-                {t('compassQ4TitleLine2')}
-              </h3>
-              <p className="text-xs text-app-text-muted mb-8">{t('compassQ4Subtitle')}</p>
-              <div className="space-y-3">
-                {(['여성', '남성', '응답 안 함'] as Gender[]).map((g) => (
-                  <button
-                    key={g}
-                    onClick={() => setGender(g)}
-                    className={`w-full p-5 rounded-[20px] border text-left font-bold text-sm transition-all ${
-                      gender === g
-                        ? 'border-brand-blue bg-brand-blue/5 text-brand-blue'
-                        : 'border-app-border bg-white text-app-text'
-                    }`}
-                    id={`quiz-gender-${g}`}
-                  >
-                    {t(GENDER_LABEL[g])}
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Q5: 참여 방식 */}
-          {step === 5 && (
-            <motion.div
-              key="q5-style"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
-                {t('compassQ5TitleLine1')}
-                <br />
-                {t('compassQ5TitleLine2')}
-              </h3>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  {
-                    key: '침묵형' as Style,
-                    icon: VolumeX,
-                    label: t('compassAlone'),
-                    bg: 'bg-slate-200',
-                    ring: 'ring-slate-400',
-                    iconColor: 'text-slate-600',
-                  },
-                  {
-                    key: '나눔형' as Style,
-                    icon: MessageCircle,
-                    label: t('compassTogether'),
-                    bg: 'bg-orange-200',
-                    ring: 'ring-orange-400',
-                    iconColor: 'text-orange-600',
-                  },
-                ].map(({ key, icon: Icon, label, bg, ring, iconColor }) => (
-                  <button
-                    key={key}
-                    onClick={() => setStyle(key)}
-                    className="flex flex-col items-center gap-4"
-                    id={`quiz-style-${key}`}
-                  >
-                    <span
-                      className={`w-20 h-20 rounded-[28px] flex items-center justify-center shadow-sm transition-all ${bg} ${
-                        style === key ? `ring-4 ${ring} scale-105` : ''
-                      }`}
-                    >
-                      <Icon size={28} className={iconColor} />
-                    </span>
-                    <span className="font-bold text-app-text text-xs leading-snug text-center">
-                      {label}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Q6: 시간 */}
-          {step === 6 && (
-            <motion.div
-              key="q6-time"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
+          {/* Q3: 시간 — 반경과 일정 줄 수를 정한다 */}
+          {step === STEP_TIME && (
+            <motion.div key="q4-time" {...fade}>
+              <h3 className="mb-8 font-display text-[1.375rem] leading-tight text-app-text lg:text-2xl">
                 {t('compassQ6TitleLine1')}
                 <br />
                 {t('compassQ6TitleLine2')}
@@ -569,11 +431,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   <button
                     key={tb}
                     onClick={() => setTimeBudget(tb)}
-                    className={`w-full p-5 rounded-[20px] border text-left font-bold text-sm transition-all ${
-                      timeBudget === tb
-                        ? 'border-brand-blue bg-brand-blue/5 text-brand-blue'
-                        : 'border-app-border bg-white text-app-text'
-                    }`}
+                    className={optionClass(timeBudget === tb)}
                     id={`quiz-time-${tb}`}
                   >
                     {t(TIME_LABEL[tb])}
@@ -583,301 +441,126 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             </motion.div>
           )}
 
-          {/* Q7: 인원 — 동반자 95.5%(웰니스 실측). 일정과 안내 문구가 여기 따라 달라진다 */}
-          {step === 7 && (
-            <motion.div
-              key="q7-party"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              <h3 className="text-xl font-extrabold text-app-text mb-8 tracking-tight">
-                {t('compassQ7TitleLine1')}
-                <br />
-                {t('compassQ7TitleLine2')}
-              </h3>
-              <div className="grid grid-cols-2 gap-4">
-                {PARTY_SIZES.map((p) => (
-                  <button
-                    key={p}
-                    onClick={() => setParty(p)}
-                    className={`p-5 rounded-[20px] border text-center transition-all ${
-                      party === p
-                        ? 'border-brand-blue bg-brand-blue/5'
-                        : 'border-app-border bg-white'
-                    }`}
-                    id={`quiz-party-${p}`}
-                  >
-                    <span className="block text-3xl mb-2">{PARTY_EMOJI[p]}</span>
-                    <span
-                      className={`block font-bold text-sm ${
-                        party === p ? 'text-brand-blue' : 'text-app-text'
-                      }`}
-                    >
-                      {t(PARTY_LABEL[p])}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Q8: 자유 텍스트 */}
-          {step === 8 && (
-            <motion.div
-              key="q8-note"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              <h3 className="text-xl font-extrabold text-app-text mb-4 tracking-tight">
-                {t('compassQ8TitleLine1')}
-                <br />
-                {t('compassQ8TitleLine2')}
-              </h3>
-              <p className="text-xs text-app-text-muted mb-6">{t('compassQ8Subtitle')}</p>
-              <textarea
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-                rows={5}
-                placeholder={t('compassFreeText')}
-                className="w-full bg-app-bg rounded-[20px] p-5 text-sm outline-none border border-app-border resize-none"
-                id="quiz-note"
-              />
-            </motion.div>
-          )}
-
-          {/* 결과 */}
+          {/* 결과 — 후보 카드 → 일정 */}
           {step === RESULT_STEP && (
-            <motion.div
-              key="result"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              {resultLoading ? (
-                <div className="pt-20 flex flex-col items-center gap-4">
-                  <div className="w-10 h-10 border-4 border-brand-blue border-t-transparent rounded-full animate-spin" />
-                  <p className="text-app-text-muted text-sm font-bold">
+            <motion.div key="result" {...fade}>
+              {poolLoading ? (
+                <div
+                  className="flex flex-col items-center gap-4 pt-20"
+                  role="status"
+                  aria-live="polite"
+                >
+                  <div className="h-12 w-12 animate-spin rounded-full border-4 border-brand-blue border-t-transparent" />
+                  <p className="text-base font-bold text-app-text-muted">
                     {t('compassFindingResult')}
                   </p>
                 </div>
-              ) : result ? (
-                <div>
-                  <h3 className="text-xl font-extrabold text-app-text mb-6 tracking-tight text-center">
-                    {t('compassResultTitleLine1')}
-                    <br />
-                    {t('compassResultTitleLine2')}
+              ) : poolError ? (
+                <div className="py-20 text-center" role="alert">
+                  <p className="mb-6 text-base font-bold text-app-text-muted">
+                    {t('planNearbyFailed')}
+                  </p>
+                  <Button variant="neutral" onClick={() => void goToResult()} id="quiz-retry-pool">
+                    {t('retry')}
+                  </Button>
+                </div>
+              ) : pool.length === 0 ? (
+                <div className="py-10 text-center" id="plan-empty">
+                  <h3 className="mb-3 font-display text-[1.375rem] leading-tight text-app-text lg:text-2xl">
+                    {t('planEmptyTitle')}
                   </h3>
-
-                  <div className="rounded-[28px] overflow-hidden bg-white border border-app-border shadow-sm mb-6">
-                    <div className="h-44 overflow-hidden bg-app-bg flex items-center justify-center">
-                      <SiteThumbnail
-                        imageUrl={result.site.imageUrl}
-                        name={result.site.name}
-                        category={result.site.category}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h4 className="font-extrabold text-app-text text-lg mb-1">
-                        {result.site.name}
-                      </h4>
-                      <p className="text-xs text-app-text-muted font-bold mb-4">
-                        {result.site.location}
-                      </p>
-                      <div className="space-y-2 text-sm text-app-text-muted leading-relaxed">
-                        {concern && <p>{t(CONCERN_OPENER[concern])}</p>}
-                        {timeBudget && <p>{t(TIME_NOTE[timeBudget])}</p>}
-                        {party && <p>{t(PARTY_NOTE[party])}</p>}
-                        {style && (
-                          <p className="text-brand-blue font-bold">{t(STYLE_ACTIVITY[style])}</p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/*
-                    답한 시간에 맞춘 하루 일정 — 성지에서 시작해 맛집·볼거리·숙박을 잇는다.
-                    편의시설은 TourAPI 실시간 조회(저장하지 않는다). 해당 유형이 근처에
-                    없으면 그 줄은 조용히 빠진다 — 없는 것을 있는 척하지 않는다.
-                  */}
-                  {timeBudget &&
-                    (() => {
-                      const stops = buildItineraryStops(
-                        facilityGroups,
-                        ITINERARY_GROUPS[timeBudget],
-                      );
-                      if (stops.length === 0) return null;
-                      return (
-                        <div className="mb-6 rounded-[28px] border border-app-border bg-white p-6 shadow-sm">
-                          <div className="mb-4 flex items-baseline justify-between">
-                            <h4 className="font-extrabold text-app-text text-sm">
-                              {fillPlaceholders(t('compassItineraryTitle'), {
-                                timeBudget: t(TIME_LABEL[timeBudget]),
-                              })}
-                            </h4>
-                            <span className="text-[0.5625rem] font-bold text-app-text-muted">
-                              {t('compassRealtimeSource')}
-                            </span>
-                          </div>
-                          <ol className="space-y-3">
-                            <li className="flex items-start gap-3">
-                              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-blue text-[0.6875rem] font-extrabold text-white">
-                                1
-                              </span>
-                              <div className="min-w-0">
-                                <p className="truncate text-sm font-extrabold text-app-text">
-                                  {result.site.name}
-                                </p>
-                                <p className="text-[0.6875rem] font-bold text-app-text-muted">
-                                  {t('compassQuietTime')}
-                                </p>
-                              </div>
-                            </li>
-                            {stops.map(({ group: groupName, spot }, i) => {
-                              const dist = formatDistance(spot.dist);
-                              return (
-                                <li key={spot.contentid} className="flex items-start gap-3">
-                                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-app-bg text-[0.6875rem] font-extrabold text-app-text">
-                                    {i + 2}
-                                  </span>
-                                  <a
-                                    href={kakaoPlaceUrl(
-                                      spot.title,
-                                      Number(spot.mapy),
-                                      Number(spot.mapx),
-                                    )}
-                                    target="_blank"
-                                    rel="noreferrer noopener"
-                                    className="group min-w-0 flex-1"
-                                    aria-label={fillPlaceholders(t('viewOnKakaoMap'), {
-                                      title: spot.title,
-                                    })}
-                                  >
-                                    <p className="flex items-center gap-1 truncate text-sm font-extrabold text-app-text group-hover:text-brand-blue">
-                                      <span className="truncate">{spot.title}</span>
-                                      <ExternalLink
-                                        size={11}
-                                        className="shrink-0 text-app-text-muted"
-                                      />
-                                    </p>
-                                    <p className="flex items-center gap-1 text-[0.6875rem] font-bold text-app-text-muted">
-                                      <MapPin size={10} className="shrink-0" />
-                                      {t(ITINERARY_STEP_LABEL[groupName])}
-                                      {dist && <span>· {dist}</span>}
-                                    </p>
-                                  </a>
-                                </li>
-                              );
-                            })}
-                          </ol>
-                        </div>
-                      );
-                    })()}
-
-                  {/* 이 지역 본당·공소 — 감정 매칭 결과가 아니라 실제로 미사 참례가 가능한
-                      가까운 본당 정보다. catholic_directory(5,918건) 조회, 성지와 별개 표시. */}
-                  {nearbyParishes.length > 0 && (
-                    <div className="mb-6 rounded-[28px] border border-app-border bg-white p-6 shadow-sm">
-                      <div className="mb-3 flex items-center gap-2">
-                        <Church size={16} className="text-brand-violet" aria-hidden />
-                        <h4 className="text-sm font-extrabold text-app-text">
-                          {t('regionParishesTitle')}
-                        </h4>
-                      </div>
-                      <p className="mb-1 text-[0.6875rem] leading-relaxed text-app-text-muted">
-                        {t('regionParishesBody')}
-                      </p>
-                      {language !== 'ko' && nearbyParishes.some((p) => p.nameRomanized) && (
-                        <p className="mb-4 text-[0.625rem] italic text-app-text-muted opacity-70">
-                          {t('directoryRomanizedNote')}
-                        </p>
-                      )}
-                      <ul className="mt-4 space-y-4">
-                        {nearbyParishes.map((p) => {
-                          const displayName = directoryDisplayName(p, language);
-                          const displayAddress = directoryDisplayAddress(p, language);
-                          return (
-                          <li key={p.id}>
-                            <div className="flex items-start justify-between gap-3">
-                              <div className="min-w-0">
-                                <p className="flex flex-wrap items-center gap-2">
-                                  <span className="truncate text-sm font-bold text-app-text">
-                                    {displayName}
-                                  </span>
-                                  <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[0.625rem] font-bold text-app-text-muted">
-                                    {localizeDomainValue(p.category, t)}
-                                  </span>
-                                </p>
-                                {displayAddress && (
-                                  <p className="mt-0.5 truncate text-xs text-app-text-muted">
-                                    {displayAddress}
-                                  </p>
-                                )}
-                              </div>
-                              <div className="flex shrink-0 items-center gap-2">
-                                <span className="text-xs font-bold tabular-nums text-app-text-muted">
-                                  {formatDistanceKm(p.distanceKm)}
-                                </span>
-                                {p.phone && (
-                                  <a
-                                    href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}
-                                    aria-label={`${p.name} ${t('callPhone')}`}
-                                    className="rounded-xl bg-app-bg p-2 text-brand-violet"
-                                  >
-                                    <Phone size={14} />
-                                  </a>
-                                )}
-                              </div>
-                            </div>
-                            <div className="mt-2">
-                              <QuickDirectionsButtons
-                                destination={{ name: displayName, lat: p.lat, lng: p.lng }}
-                                siteName={displayName}
-                              />
-                            </div>
-                          </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  )}
-
+                  <p className="mb-8 text-base leading-relaxed text-app-text-muted">
+                    {fillPlaceholders(t('planEmptyBody'), {
+                      origin: origin?.label ?? '',
+                      km: timeBudget ? RADIUS_KM_BY_TIME[timeBudget] : '',
+                      mood: emotion ? t(EMOTION_LABEL[emotion]) : '',
+                    })}
+                  </p>
                   <div className="flex gap-3">
-                    <button
-                      onClick={reset}
-                      className="flex-1 bg-app-bg text-app-text border border-app-border py-4 rounded-[20px] font-bold text-sm"
-                      id="quiz-retry"
+                    <Button
+                      onClick={() => goToQuestion(STEP_TIME)}
+                      className="flex-1"
+                      id="plan-widen-time"
                     >
-                      {t('compassRetry')}
-                    </button>
-                    <button
-                      onClick={() => {
-                        // 이동만 한다. 예전엔 여기서 handleClose(뒤로가기)까지 불러
-                        // 상세로 간 직후 나침반으로 되돌아왔다 (2026-09-12 사장님 보고).
-                        onSelectSite(result.site.id);
-                      }}
-                      className="flex-1 bg-brand-blue text-white py-4 rounded-[20px] font-bold text-sm shadow-lg shadow-brand-blue/20"
-                      id="quiz-go"
+                      {t('planWidenTime')}
+                    </Button>
+                    <Button
+                      variant="neutral"
+                      onClick={() => goToQuestion(1)}
+                      className="flex-1"
+                      id="plan-change-mood"
                     >
-                      {t('compassGoWithCourse')}
-                    </button>
+                      {t('planChangeMood')}
+                    </Button>
                   </div>
                 </div>
+              ) : chosen ? (
+                <div>
+                  <PlanResult
+                    candidate={chosen}
+                    timeBudget={timeBudget ?? '하루'}
+                    afternoonIndex={afternoonIndex[chosen.site.id] ?? 0}
+                    onSwapAfternoon={() =>
+                      setAfternoonIndex((m) => ({
+                        ...m,
+                        [chosen.site.id]: (m[chosen.site.id] ?? 0) + 1,
+                      }))
+                    }
+                    onBack={() => setSelected(null)}
+                    // 이동만 한다. 예전엔 여기서 닫기까지 불러 상세로 간 직후 나침반으로 되돌아왔다 (2026-09-12).
+                    onGo={() => onSelectSite(chosen.site.id)}
+                  />
+
+                  {nearbyParishes.length > 0 && (
+                    <Card className="mt-6">
+                      <SectionHeading
+                        as="h3"
+                        size="md"
+                        title={
+                          <span className="inline-flex items-center gap-2">
+                            <Church size={20} className="text-brand-blue" aria-hidden />
+                            {t('regionParishesTitle')}
+                          </span>
+                        }
+                        sub={
+                          <>
+                            {t('regionParishesBody')}
+                            {language !== 'ko' && nearbyParishes.some((p) => p.nameRomanized) && (
+                              <span className="mt-1 block italic">
+                                {t('directoryRomanizedNote')}
+                              </span>
+                            )}
+                          </>
+                        }
+                      />
+                      <ul className="divide-y divide-app-border">
+                        {nearbyParishes.map((p) => (
+                          <li key={p.id} className="py-3 first:pt-0 last:pb-0">
+                            <DirectoryEntryCard entry={p} bare />
+                          </li>
+                        ))}
+                      </ul>
+                    </Card>
+                  )}
+                </div>
               ) : (
-                <div className="text-center py-20">
-                  <Footprints size={40} className="mx-auto mb-4 text-app-text-muted opacity-30" />
-                  <p className="text-app-text-muted text-sm font-bold mb-6">
-                    {t('compassNoCourseYet')}
-                  </p>
-                  <button
-                    onClick={reset}
-                    className="text-brand-blue font-bold text-sm"
-                    id="quiz-retry-empty"
-                  >
-                    {t('compassRetry')}
-                  </button>
+                <CandidateCards
+                  candidates={candidates}
+                  moodLabel={emotion ? t(EMOTION_LABEL[emotion]) : ''}
+                  hasMore={(page + 1) * CARD_PAGE_SIZE < pool.length}
+                  moreInNextRadius={moreInNextRadius}
+                  onSelect={selectCard}
+                  onMore={() => setPage((p) => p + 1)}
+                  onWidenTime={() => goToQuestion(STEP_TIME)}
+                  onChangeMood={() => goToQuestion(1)}
+                />
+              )}
+
+              {!poolLoading && (
+                <div className="mt-8 text-center">
+                  <Button variant="ghost" onClick={reset} id="quiz-retry">
+                    {t('planStartOver')}
+                  </Button>
                 </div>
               )}
             </motion.div>
@@ -885,30 +568,29 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
         </AnimatePresence>
       </div>
 
-      {/* 화면 아래 붙는 이전/다음 버튼 — 스크롤해도 항상 보인다.
-          sticky 라 흐름 안에 있으면서도 스크롤 상자 바닥에 붙고, 모바일에선 하단 탭(70px) 위에 앉는다.
-          z 는 헤더(z-40)·하단 탭(z-50)보다 낮게 — 이 바가 그 둘을 덮으면 안 된다. */}
+      {/* 화면 아래 붙는 이전/다음 버튼 — 스크롤해도 항상 보인다. 모바일에선 하단 탭(70px) 위. */}
       {isQuestionStep && (
-        <div className="sticky bottom-[70px] z-30 flex w-full gap-3 border-t border-app-border bg-white/95 p-6 pt-4 backdrop-blur-md lg:bottom-0">
-          <button
+        <div className="sticky bottom-[70px] z-30 -mx-5 flex gap-3 border-t border-app-border bg-white/95 px-5 py-4 backdrop-blur-md lg:-mx-8 lg:bottom-0 lg:px-8">
+          <Button
+            variant="neutral"
             onClick={() => setStep(step - 1)}
-            className="w-16 h-14 bg-app-bg text-app-text border border-app-border rounded-[18px] flex items-center justify-center shrink-0"
+            className="min-h-14 w-16 shrink-0 px-0"
             id="quiz-prev"
             aria-label={t('compassBack')}
           >
-            <ChevronLeft size={22} />
-          </button>
-          <button
+            <ChevronLeft size={24} aria-hidden />
+          </Button>
+          <Button
             onClick={handleNext}
             disabled={!canProceed}
-            className="flex-1 bg-brand-blue text-white rounded-[18px] font-bold text-sm shadow-lg shadow-brand-blue/20 flex items-center justify-center gap-2 disabled:opacity-30 disabled:shadow-none"
+            className="min-h-14 flex-1 text-lg"
             id="quiz-next"
           >
             {step === TOTAL_QUESTIONS ? t('compassSeeResult') : t('compassNext')}
-            <ChevronRight size={18} />
-          </button>
+            <ChevronRight size={20} aria-hidden />
+          </Button>
         </div>
       )}
-    </div>
+    </PageContainer>
   );
 }

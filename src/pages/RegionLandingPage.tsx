@@ -1,19 +1,21 @@
 import { useEffect, useMemo } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Church, MapPin, Phone } from 'lucide-react';
+import { Link, useParams } from 'react-router-dom';
+import { Church, MapPin } from 'lucide-react';
 import { paths } from '@/app/routes/paths';
+import { ButtonLink } from '@/shared/components/ui/Button';
+import { Card } from '@/shared/components/ui/Card';
+import { chipClass } from '@/shared/components/ui/class-names';
+import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
-import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirectionsButtons';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { PageHeader } from '@/shared/components/ui/PageHeader';
+import { SectionHeading } from '@/shared/components/ui/SectionHeading';
+import { DirectoryEntryCard } from '@/features/sites/components/DirectoryEntryCard';
 import { SiteListItem } from '@/features/sites/components/SiteListItem';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
-import {
-  directoryDisplayAddress,
-  directoryDisplayName,
-  formatDistanceKm,
-} from '@/features/sites/lib/nearby-directory';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
-import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
+import { localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
 import { isRegion, regionCoords, REGIONS } from '@/shared/lib/regions';
@@ -36,7 +38,6 @@ const DIRECTORY_LIMIT = 30;
  * 계산한 직선거리뿐이다. 없는 순례 코스를 만들어 넣지 않는다.
  */
 export default function RegionLandingPage() {
-  const navigate = useNavigate();
   const { region: raw } = useParams<{ region: string }>();
   const { origin, setOrigin, t, language } = useSettings();
   const region = isRegion(raw) ? raw : null;
@@ -74,61 +75,54 @@ export default function RegionLandingPage() {
 
   if (!region) {
     return (
-      <div className="mx-auto min-h-page max-w-2xl bg-white p-8">
-        <h1 className="mb-3 text-2xl font-extrabold text-app-text">{t('regionNotFoundTitle')}</h1>
-        <p className="mb-6 text-sm font-medium text-app-text-muted">{t('regionNotFoundBody')}</p>
+      <PageContainer width="narrow" className="min-h-page pb-16">
+        <PageHeader
+          back={paths.home}
+          title={t('regionNotFoundTitle')}
+          sub={t('regionNotFoundBody')}
+        />
         <div className="flex flex-wrap gap-2">
           {REGIONS.map((r) => (
-            <Link
-              key={r}
-              to={paths.region(r)}
-              className="rounded-full border border-app-border bg-app-bg px-4 py-2 text-sm font-bold text-app-text"
-            >
+            <Link key={r} to={paths.region(r)} className={chipClass(false)}>
               {localizeRegionName(r, language)}
             </Link>
           ))}
         </div>
-      </div>
+      </PageContainer>
     );
   }
 
   return (
-    <div className="mx-auto min-h-page max-w-2xl bg-white pb-16">
-      <header className="p-8 pb-4">
-        <button
-          onClick={() => navigate(paths.home)}
-          className="mb-6 flex items-center gap-1 text-sm font-bold text-app-text-muted"
-          aria-label={t('backToHome')}
-        >
-          <ArrowLeft size={18} /> {t('backToHome')}
-        </button>
-        <p className="mb-2 text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-brand-violet">
-          Visit Holy Korea
-        </p>
-        <h1 className="mb-3 text-3xl font-extrabold leading-tight tracking-tight text-app-text">
-          {fillPlaceholders(t('regionHeroTitle'), { region: regionLabel })}
-          <br />
-          {fillPlaceholders(t('regionHeroTitleLine2'), { region: regionLabel })}
-        </h1>
-        <p className="text-sm font-medium leading-relaxed text-app-text-muted">
-          {fillPlaceholders(t('regionHeroSubtitle'), { region: regionLabel, radius: RADIUS_KM })}
-        </p>
-      </header>
+    <PageContainer width="narrow" className="min-h-page pb-16">
+      <PageHeader
+        back={{ to: paths.home, label: t('backToHome') }}
+        title={
+          <>
+            {fillPlaceholders(t('regionHeroTitle'), { region: regionLabel })}
+            <br />
+            {fillPlaceholders(t('regionHeroTitleLine2'), { region: regionLabel })}
+          </>
+        }
+        sub={fillPlaceholders(t('regionHeroSubtitle'), { region: regionLabel, radius: RADIUS_KM })}
+      />
 
-      <div className="px-8 py-4">
+      <div>
         {isLoading && <LoadingSpinner label={t('loadingSites')} />}
 
         {!isLoading && (
           <>
-            <div className="mb-6 flex items-center gap-4 rounded-[20px] bg-app-bg p-6">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-violet/10 text-brand-violet">
-                <MapPin size={22} />
+            <Card className="mb-6 flex items-center gap-4">
+              <div
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand-blue"
+                aria-hidden
+              >
+                <MapPin size={24} />
               </div>
               <div>
-                <p className="text-2xl font-extrabold text-app-text">
+                <p className="text-2xl font-bold tabular-nums text-app-text">
                   {fillPlaceholders(t('siteCountUnit'), { count: nearby.length })}
                 </p>
-                <p className="text-[0.75rem] font-medium text-app-text-muted">
+                <p className="text-sm text-app-text-muted">
                   {fillPlaceholders(t('regionSiteCountLabel'), {
                     region: regionLabel,
                     radius: RADIUS_KM,
@@ -136,14 +130,20 @@ export default function RegionLandingPage() {
                   })}
                 </p>
               </div>
-            </div>
+            </Card>
 
             {nearby.length === 0 ? (
-              <p className="rounded-[20px] bg-app-bg p-6 text-center text-sm font-medium text-app-text-muted">
-                {fillPlaceholders(t('regionEmptyBody'), { region: regionLabel, radius: RADIUS_KM })}
-                <br />
-                {t('regionEmptyHint')}
-              </p>
+              <Card tone="dashed" padded={false}>
+                <EmptyState
+                  compact
+                  role="status"
+                  title={fillPlaceholders(t('regionEmptyBody'), {
+                    region: regionLabel,
+                    radius: RADIUS_KM,
+                  })}
+                  description={t('regionEmptyHint')}
+                />
+              </Card>
             ) : (
               <ul className="flex flex-col gap-3">
                 {nearby.map(({ site, km }) => (
@@ -158,91 +158,50 @@ export default function RegionLandingPage() {
               </ul>
             )}
 
-            <p className="mt-6 text-[0.6875rem] leading-relaxed text-app-text-muted opacity-70">
+            <p className="mt-6 text-sm leading-relaxed text-app-text-muted">
               {fillPlaceholders(t('regionDistanceDisclaimer'), { region: regionLabel })}
             </p>
 
             {nearbyParishes.length > 0 && (
-              <div className="mt-10">
-                <h2 className="mb-1 flex items-center gap-2 text-base font-extrabold text-app-text">
-                  <Church size={18} className="text-brand-violet" aria-hidden />
-                  {t('regionParishesTitle')}
-                </h2>
-                <p className="mb-1 text-xs leading-relaxed text-app-text-muted">
-                  {t('regionParishesBody')}
-                </p>
-                {language !== 'ko' && nearbyParishes.some((p) => p.nameRomanized) && (
-                  <p className="mb-4 text-[0.6875rem] italic text-app-text-muted opacity-70">
-                    {t('directoryRomanizedNote')}
-                  </p>
-                )}
-                <ul className="mt-4 flex flex-col gap-3">
-                  {nearbyParishes.map((p) => {
-                    const displayName = directoryDisplayName(p, language);
-                    const displayAddress = directoryDisplayAddress(p, language);
-                    return (
-                    <li
-                      key={p.id}
-                      className="rounded-[20px] border border-app-border bg-white p-4"
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0 flex-1">
-                          <p className="flex flex-wrap items-center gap-2">
-                            <span className="truncate text-sm font-bold text-app-text">{displayName}</span>
-                            <span className="shrink-0 rounded-full bg-app-bg px-2 py-0.5 text-[0.625rem] font-bold text-app-text-muted">
-                              {localizeDomainValue(p.category, t)}
-                            </span>
-                          </p>
-                          {displayAddress && (
-                            <p className="mt-0.5 truncate text-xs text-app-text-muted">{displayAddress}</p>
-                          )}
-                        </div>
-                        <div className="flex shrink-0 items-center gap-2">
-                          <span className="text-xs font-bold tabular-nums text-app-text-muted">
-                            {formatDistanceKm(p.distanceKm)}
-                          </span>
-                          {p.phone && (
-                            <a
-                              href={`tel:${p.phone.replace(/[^0-9+]/g, '')}`}
-                              aria-label={`${p.name} ${t('callPhone')}`}
-                              className="rounded-xl bg-app-bg p-2 text-brand-violet"
-                            >
-                              <Phone size={14} />
-                            </a>
-                          )}
-                        </div>
-                      </div>
+              <section className="mt-10">
+                <SectionHeading
+                  title={
+                    <span className="inline-flex items-center gap-2">
+                      <Church size={22} className="text-brand-blue" aria-hidden />
+                      {t('regionParishesTitle')}
+                    </span>
+                  }
+                  sub={
+                    <>
+                      {t('regionParishesBody')}
+                      {language !== 'ko' && nearbyParishes.some((p) => p.nameRomanized) && (
+                        <span className="mt-1 block italic">{t('directoryRomanizedNote')}</span>
+                      )}
+                    </>
+                  }
+                />
+                <ul className="flex flex-col gap-3">
+                  {nearbyParishes.map((p) => (
+                    <li key={p.id}>
                       {/* 외국인 순례자가 직접 찾아갈 수 있게 — 개별 홈페이지 대신 실제 길찾기로 연결한다 */}
-                      <div className="mt-3 border-t border-app-border pt-3">
-                        <QuickDirectionsButtons
-                          destination={{ name: displayName, lat: p.lat, lng: p.lng }}
-                          siteName={displayName}
-                        />
-                      </div>
+                      <DirectoryEntryCard entry={p} />
                     </li>
-                    );
-                  })}
+                  ))}
                 </ul>
-              </div>
+              </section>
             )}
 
             <div className="mt-8 flex flex-col gap-3">
-              <Link
-                to={paths.home}
-                className="rounded-[20px] bg-brand-violet px-6 py-4 text-center text-sm font-bold text-white"
-              >
+              <ButtonLink to={paths.home} block>
                 {fillPlaceholders(t('regionStartHere'), { region: regionLabel })}
-              </Link>
-              <Link
-                to={paths.map}
-                className="rounded-[20px] border border-app-border px-6 py-4 text-center text-sm font-bold text-app-text"
-              >
+              </ButtonLink>
+              <ButtonLink to={paths.map} variant="neutral" block>
                 {t('viewNationalMap')}
-              </Link>
+              </ButtonLink>
             </div>
           </>
         )}
       </div>
-    </div>
+    </PageContainer>
   );
 }

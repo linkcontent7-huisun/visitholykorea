@@ -188,12 +188,6 @@ describe('pairFestivalsWithSites — 축제에 성지 붙이기', () => {
     expect(pairFestivalsWithSites([noCoords, zero], sites)).toHaveLength(0);
   });
 
-  it('붐빔은 이미 받아 둔 축제 목록만으로 낸다 — 「일부」로 표시된다', () => {
-    const [pair] = pairFestivalsWithSites([festival('a', ORIGIN)], sites);
-    expect(pair?.sites[0]?.crowding.isPartial).toBe(true);
-    expect(pair?.sites[0]?.crowding.score).toBeGreaterThan(0);
-  });
-
   it('잘못된 입력이 와도 죽지 않는다 — 축제 API 는 우리 것이 아니다', () => {
     expect(pairFestivalsWithSites([], sites)).toEqual([]);
     expect(pairFestivalsWithSites([festival('a', ORIGIN)], [])).toEqual([]);

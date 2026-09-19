@@ -1,15 +1,24 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Check, Footprints, MapPin } from 'lucide-react';
+import { useMemo } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { Check, Footprints, MapPin } from 'lucide-react';
 import { paths } from '@/app/routes/paths';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { PageHeader } from '@/shared/components/ui/PageHeader';
+import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
-import { usePilgrimageRoute } from '@/features/routes/hooks/use-pilgrimage-routes';
+import {
+  usePilgrimageRoute,
+  useTranslatedRoute,
+  useLocalizedStopNotes,
+} from '@/features/routes/hooks/use-pilgrimage-routes';
 import { countVisitedEpisodes, toEpisodes } from '@/features/routes/lib/episodes';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
+import { useLocalizedSites } from '@/features/sites/hooks/use-sites';
 import { useWalkingCoursesNear } from '@/features/sites/hooks/use-tour-extras';
 import { WalkingCourseCard } from '@/features/sites/components/WalkingCourseCard';
 
@@ -24,76 +33,77 @@ export default function RouteDetailPage() {
   // 공식 사진이 없는 성지는 순례자가 보내준(승인된) 사진으로 채운다
   const { data: featured = {} } = useFeaturedPhotos();
   const { routeSlug = '' } = useParams();
-  const navigate = useNavigate();
   const { data, isLoading } = usePilgrimageRoute(routeSlug);
   const { data: walkingCourses = [] } = useWalkingCoursesNear(data?.stops[0]?.site);
-  // 이 코스에서 내가 몇 화까지 다녀왔는지 — 여권의 스탬프가 곧 진행도다
+  // 이 코스 중 몇 화에 후기를 남겼는지 — 스탬프는 후기를 쓸 때만 찍힌다(2026-09-17,
+  // "순례 스탬프 찍기" 버튼 삭제 이후 후기 제출이 스탬프의 유일한 입구다).
   const { data: myStamps = [] } = useMyStamps();
+
+  // 코스 제목·부제·설명 번역 겹치기 (2026-09-19, 코스 화면 전체가 번역 안 되던 것 수정)
+  const translatedRoute = useTranslatedRoute(data?.route);
+  const stopsWithNotes = useLocalizedStopNotes(data?.route?.id, data?.stops);
+  const stopSites = useMemo(() => stopsWithNotes.map((s) => s.site), [stopsWithNotes]);
+  const localizedSites = useLocalizedSites(stopSites);
+  const stops = useMemo(
+    () => stopsWithNotes.map((s, i) => ({ ...s, site: localizedSites[i] ?? s.site })),
+    [stopsWithNotes, localizedSites],
+  );
 
   if (isLoading) {
     return (
-      <div className="flex min-h-page items-center justify-center bg-white">
+      <div className="flex min-h-page items-center justify-center">
         <LoadingSpinner label={t('routeLoading')} />
       </div>
     );
   }
 
-  if (!data) {
+  if (!data || !translatedRoute) {
     return (
-      <div className="mx-auto min-h-page max-w-2xl bg-white p-8">
+      <PageContainer width="narrow" className="min-h-page">
+        <PageHeader back title={t('routesTitle')} />
         <EmptyState
           icon={Footprints}
           title={t('routeNotFoundTitle')}
           description={t('routeNotFoundBody')}
         />
-      </div>
+      </PageContainer>
     );
   }
 
-  const { route, stops } = data;
+  const route = translatedRoute;
   const episodes = toEpisodes(stops);
   const visitedIds = new Set(myStamps.map((s) => s.siteId));
   const visitedCount = countVisitedEpisodes(stops, visitedIds);
 
   return (
-    <div className="mx-auto min-h-page max-w-2xl bg-white pb-16">
-      <header className="p-8 pb-2">
-        <button
-          onClick={() => navigate(-1)}
-          className="mb-6 flex items-center gap-1 text-sm font-bold text-app-text-muted"
-          aria-label={t('backAria')}
-        >
-          <ArrowLeft size={18} /> {t('back')}
-        </button>
-        <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-app-text">{route.title}</h1>
-        {route.subtitle && (
-          <p className="mb-4 text-sm font-bold text-brand-violet">{route.subtitle}</p>
-        )}
-        {route.description && (
-          <p className="text-[15px] leading-relaxed text-app-text-muted">{route.description}</p>
-        )}
+    <PageContainer width="narrow" className="min-h-page pb-16">
+      <PageHeader back title={route.title} sub={route.subtitle} />
+      {route.description && (
+        <p className="text-base leading-relaxed text-app-text-muted">{route.description}</p>
+      )}
 
-        {/* 연재 진행도 — 스탬프가 곧 "몇 화까지 봤는가"다 */}
-        <div className="mt-5 rounded-[20px] border border-app-border bg-app-bg p-4">
-          <div className="mb-2 flex items-center justify-between text-xs font-extrabold">
-            <span className="text-app-text">
-              전 {stops.length}화 ·{' '}
-              {visitedCount > 0 ? fillPlaceholders(t('routeVisitedUpTo'), { count: visitedCount }) : t('routeNotStarted')}
-            </span>
-            <span className="text-app-text-muted">
-              {visitedCount} / {stops.length}
-            </span>
-          </div>
-          <div className="h-1.5 overflow-hidden rounded-full bg-white">
-            <div
-              className="h-full rounded-full bg-brand-violet transition-all duration-500"
-              style={{ width: `${stops.length > 0 ? (visitedCount / stops.length) * 100 : 0}%` }}
-            />
-          </div>
+      {/* 연재 진행도 — "몇 화에 후기를 남겼는가"다(방문 여부가 아니다, 사장님 확인 2026-09-18) */}
+      <div className="mt-5 rounded-lg border border-app-border bg-white p-4">
+        <div className="mb-2 flex items-center justify-between text-sm font-bold">
+          <span className="text-app-text">
+            {fillPlaceholders(t('routeTotalEpisodes'), { count: stops.length })} ·{' '}
+            {visitedCount > 0
+              ? fillPlaceholders(t('routeVisitedUpTo'), { count: visitedCount })
+              : t('routeNotStarted')}
+          </span>
+          <span className="tabular-nums text-app-text-muted">
+            {visitedCount} / {stops.length}
+          </span>
         </div>
-      </header>
+        <div className="h-2 overflow-hidden rounded-full bg-app-panel">
+          <div
+            className="h-full rounded-full bg-brand-blue transition-[width] duration-500"
+            style={{ width: `${stops.length > 0 ? (visitedCount / stops.length) * 100 : 0}%` }}
+          />
+        </div>
+      </div>
 
-      <ol className="px-8 py-6">
+      <ol className="py-6">
         {stops.map((stop, i) => {
           const ep = episodes[i]!;
           const visited = visitedIds.has(stop.site.id);
@@ -101,22 +111,27 @@ export default function RouteDetailPage() {
             <li key={stop.position} className="relative flex gap-4 pb-8 last:pb-0">
               {/* 세로 연결선 — 마지막 경유지에는 그리지 않는다 */}
               {i < stops.length - 1 && (
-                <span className="absolute left-[15px] top-10 h-full w-px bg-gray-200" aria-hidden />
+                <span
+                  className="absolute left-[15px] top-10 h-full w-px bg-app-border"
+                  aria-hidden
+                />
               )}
               <span
                 className={`z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-extrabold text-white ${
-                  visited ? 'bg-emerald-500' : 'bg-brand-violet'
+                  visited ? 'bg-emerald-600' : 'bg-brand-blue'
                 }`}
-                aria-label={fillPlaceholders(t(visited ? 'routeEpisodeVisited' : 'routeEpisode'), { n: ep.episode })}
+                aria-label={fillPlaceholders(t(visited ? 'routeEpisodeVisited' : 'routeEpisode'), {
+                  n: ep.episode,
+                })}
               >
                 {visited ? <Check size={16} aria-hidden /> : ep.episode}
               </span>
               <div className="flex-1">
                 <Link
                   to={paths.siteDetail(stop.site.id)}
-                  className="group block overflow-hidden rounded-[16px] border border-gray-100 bg-app-bg transition-all hover:border-brand-violet"
+                  className="group block overflow-hidden rounded-lg border border-app-border bg-white transition-colors hover:border-brand-blue"
                 >
-                  <div className="relative flex h-36 items-center justify-center overflow-hidden bg-white">
+                  <div className="relative flex h-36 items-center justify-center overflow-hidden bg-app-panel">
                     <SiteThumbnail
                       imageUrl={stop.site.imageUrl}
                       pilgrimUrl={featured[stop.site.id] ?? null}
@@ -127,17 +142,19 @@ export default function RouteDetailPage() {
                     />
                   </div>
                   <div className="p-4">
-                    <p className="mb-1 text-[0.625rem] font-extrabold uppercase tracking-widest text-brand-violet">
-                      {fillPlaceholders(t(ep.isFinale ? 'routeEpisodeFinale' : 'routeEpisode'), { n: ep.episode })}
+                    <p className="mb-1 text-xs font-bold text-brand-blue">
+                      {fillPlaceholders(t(ep.isFinale ? 'routeEpisodeFinale' : 'routeEpisode'), {
+                        n: ep.episode,
+                      })}
                     </p>
-                    <h2 className="mb-1 text-lg font-extrabold text-app-text group-hover:text-brand-violet">
+                    <h2 className="mb-1 text-lg font-bold text-app-text group-hover:text-brand-blue">
                       {stop.site.name}
                     </h2>
                     {stop.note && (
-                      <p className="mb-2 text-sm font-medium text-brand-violet">{stop.note}</p>
+                      <p className="mb-2 text-sm font-medium text-brand-blue">{stop.note}</p>
                     )}
-                    <p className="flex items-center gap-1 text-xs text-app-text-muted">
-                      <MapPin size={12} aria-hidden /> {stop.site.location}
+                    <p className="flex items-center gap-1 text-sm text-app-text-muted">
+                      <MapPin size={14} aria-hidden /> {stop.site.location}
                     </p>
                   </div>
                 </Link>
@@ -145,9 +162,12 @@ export default function RouteDetailPage() {
                 {/* 다음 화 예고 — 연재물이 다음 편을 보게 만드는 장치.
                   예고 문구는 다음 경유지의 note 를 그대로 쓴다(없는 사연을 짓지 않는다). */}
                 {ep.next && (
-                  <p className="mt-3 border-l-2 border-brand-violet/30 pl-3 text-xs leading-relaxed text-app-text-muted">
-                    <span className="font-extrabold text-brand-violet">
-                      다음 {ep.episode + 1}화 · {ep.next.siteName}
+                  <p className="mt-3 border-l-2 border-brand-blue/30 pl-3 text-sm leading-relaxed text-app-text-muted">
+                    <span className="font-bold text-brand-blue">
+                      {fillPlaceholders(t('routeNextEpisode'), {
+                        n: ep.episode + 1,
+                        name: ep.next.siteName,
+                      })}
                     </span>
                     {ep.next.teaser && <span className="block mt-0.5">{ep.next.teaser}</span>}
                   </p>
@@ -158,15 +178,15 @@ export default function RouteDetailPage() {
         })}
       </ol>
       {walkingCourses.length > 0 && (
-        <section className="px-8 pb-8">
-          <h2 className="mb-3 text-lg font-extrabold text-app-text">{t('routeNearbyTrails')}</h2>
-          <div className="space-y-2">
+        <section className="pb-8">
+          <SectionHeading title={t('routeNearbyTrails')} />
+          <div className="space-y-3">
             {walkingCourses.slice(0, 3).map((course, index) => (
               <WalkingCourseCard key={course.crsIdx ?? index} course={course} />
             ))}
           </div>
         </section>
       )}
-    </div>
+    </PageContainer>
   );
 }

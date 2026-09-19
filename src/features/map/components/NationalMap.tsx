@@ -29,10 +29,11 @@ const JITTER = 6;
 const PIN_STYLE: Record<PinState, { r: number; className: string }> = {
   // 다녀온 곳 — 채워서 또렷하게
   visited: { r: 7, className: 'fill-brand-blue' },
-  // 거의 다 찬 교구에 남은 곳 — 이게 눈에 띄어야 한다
-  almost: { r: 8, className: 'fill-white stroke-brand-violet [stroke-width:3.5]' },
+  // 거의 다 찬 교구에 남은 곳 — 이게 눈에 띄어야 한다. 다녀온 곳(남색)과 색부터
+  // 다르게 두 번째 톤(올리브)을 쓴다 — brand-violet 은 남색과 같은 값이라 구분이 안 됐다.
+  almost: { r: 8, className: 'fill-white stroke-brand-olive [stroke-width:3.5]' },
   // 아직 안 간 곳 — 흐리되 없는 것처럼 보이면 안 된다
-  remaining: { r: 5, className: 'fill-none stroke-gray-300 [stroke-width:2]' },
+  remaining: { r: 5, className: 'fill-none stroke-app-border [stroke-width:2]' },
 };
 
 interface NationalMapProps {
@@ -132,7 +133,7 @@ export function NationalMap({
           return (
             <g key={site.id}>
               {isSelected && (
-                <circle cx={x} cy={y} r={style.r + 8} className="fill-brand-violet/15" />
+                <circle cx={x} cy={y} r={style.r + 8} className="fill-brand-blue/15" />
               )}
               <circle cx={x} cy={y} r={style.r} className={style.className} />
               {/* 손가락으로 누를 수 있게 실제 핀보다 넉넉한 영역을 겹쳐 둔다 */}
@@ -177,13 +178,13 @@ export function MapLegend() {
       </li>
       <li className="flex items-center gap-1.5">
         <span
-          className="inline-block size-3 rounded-full border-[3px] border-brand-violet bg-white"
+          className="inline-block size-3 rounded-full border-[3px] border-brand-olive bg-white"
           aria-hidden
         />
         {t('legendAlmost')}
       </li>
       <li className="flex items-center gap-1.5">
-        <span className="inline-block size-3 rounded-full border-2 border-gray-300" aria-hidden />
+        <span className="inline-block size-3 rounded-full border-2 border-app-border" aria-hidden />
         {t('legendNotYet')}
       </li>
       <li className="flex items-center gap-1.5">

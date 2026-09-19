@@ -15,18 +15,24 @@ export function WalkingCourseCard({ course }: { course: WalkingCourse }) {
           .replace('{h}', String(Math.floor(minutes / 60)))
           .replace('{m}', String(minutes % 60))
       : null;
-  const level = { '1': t('walkingLevelEasy'), '2': t('walkingLevelNormal'), '3': t('walkingLevelHard') }[
-    course.crsLevel ?? ''
-  ];
-  const meta = [course.crsDstnc ? `${course.crsDstnc}km` : null, time, level].filter(Boolean).join(' · ');
+  const level = {
+    '1': t('walkingLevelEasy'),
+    '2': t('walkingLevelNormal'),
+    '3': t('walkingLevelHard'),
+  }[course.crsLevel ?? ''];
+  const meta = [course.crsDstnc ? `${course.crsDstnc}km` : null, time, level]
+    .filter(Boolean)
+    .join(' · ');
   return (
-    <div className="rounded-2xl border border-app-border bg-app-bg p-4">
-      <p className="text-sm font-extrabold text-app-text">{course.crsKorNm}</p>
-      {meta && <p className="mt-1 text-xs text-app-text-muted">{meta}</p>}
+    <div className="rounded-lg border border-app-border bg-app-bg p-5">
+      <p className="text-base font-bold text-app-text">{course.crsKorNm}</p>
+      {meta && <p className="mt-1 text-sm text-app-text-muted">{meta}</p>}
       {course.crsSummary && (
-        <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-app-text-muted">{course.crsSummary}</p>
+        <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-app-text-muted">
+          {course.crsSummary}
+        </p>
       )}
-      <p className="mt-2 text-[0.625rem] font-bold text-app-text-muted">{t('walkingCourseSource')}</p>
+      <p className="mt-2 text-xs font-bold text-app-text-muted">{t('walkingCourseSource')}</p>
     </div>
   );
 }

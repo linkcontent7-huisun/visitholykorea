@@ -11,6 +11,8 @@
 
 import { localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { chipClass } from '@/shared/components/ui/class-names';
+import { ScrollHintRow } from '@/shared/components/ui/ScrollHintRow';
 import { REGIONS, type Region } from '@/shared/lib/regions';
 
 interface RegionFilterChipsProps {
@@ -22,10 +24,6 @@ interface RegionFilterChipsProps {
   groupLabel: string;
 }
 
-const BASE = 'shrink-0 rounded-full border px-4 py-2 text-sm font-bold transition-colors min-h-11';
-const ON = 'border-brand-violet bg-brand-violet text-white';
-const OFF = 'border-app-border bg-white text-app-text';
-
 export function RegionFilterChips({
   value,
   onChange,
@@ -34,9 +32,12 @@ export function RegionFilterChips({
 }: RegionFilterChipsProps) {
   const { language } = useSettings();
   return (
-    // 음수 마진으로 좌우 여백을 뚫어, 스크롤이 화면 끝까지 이어지게 한다
-    <div
-      className="-mx-6 overflow-x-auto px-6 pb-1"
+    // 음수 마진으로 좌우 여백을 뚫어, 스크롤이 화면 끝까지 이어지게 한다.
+    // 오른쪽 끝 그라디언트 + 화살표로 더 있다는 걸 알려준다(2026-09-19 — 잘린 칩 하나만으로는
+    // 스크롤 가능함을 못 알아채는 경우가 있었다).
+    <ScrollHintRow
+      className="-mx-5 px-5 pb-1 lg:-mx-8 lg:px-8"
+      fadeFrom="from-app-bg"
       role="group"
       aria-label={groupLabel}
       data-testid="region-chips"
@@ -46,7 +47,7 @@ export function RegionFilterChips({
           type="button"
           onClick={() => onChange(null)}
           aria-pressed={value === null}
-          className={`${BASE} ${value === null ? ON : OFF}`}
+          className={chipClass(value === null)}
         >
           {allLabel}
         </button>
@@ -56,12 +57,12 @@ export function RegionFilterChips({
             type="button"
             onClick={() => onChange(region)}
             aria-pressed={value === region}
-            className={`${BASE} ${value === region ? ON : OFF}`}
+            className={chipClass(value === region)}
           >
             {localizeRegionName(region, language)}
           </button>
         ))}
       </div>
-    </div>
+    </ScrollHintRow>
   );
 }

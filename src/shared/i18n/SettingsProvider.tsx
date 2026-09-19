@@ -33,11 +33,14 @@ function readStoredLanguage(): Language {
 }
 
 /** 저장된 출발지. 값이 시·도 목록에 없으면(이전 버전·손댄 값) 안 고른 것으로 본다. */
-/** 저장된 글자 크기. 예전 켬/끔('true'/'false') 값도 읽어 준다. */
+/**
+ * 저장된 글자 크기. 예전 켬/끔('true'/'false') 값도 읽어 준다.
+ * 아무것도 저장돼 있지 않으면(첫 방문) 기본을 '중'으로 — 예전엔 '소'였다(사장님 지적, 2026-09-18).
+ */
 function readStoredTextSize(): TextSize {
   const raw = localStorage.getItem(STORAGE_KEY_TEXT);
   if (raw === 'sm' || raw === 'md' || raw === 'lg') return raw;
-  return raw === 'true' ? 'lg' : 'sm';
+  return raw === 'true' ? 'lg' : 'md';
 }
 
 function readStoredOrigin(): Region | null {

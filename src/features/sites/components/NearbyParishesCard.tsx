@@ -6,16 +6,11 @@
  * 바뀌므로 적지 않는다 — 전화로 확인하게 안내하는 것이 정직하다.
  */
 
-import { Church, Phone } from 'lucide-react';
 import type { HolySite } from '@/shared/types/domain';
-import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { QuickDirectionsButtons } from './QuickDirectionsButtons';
-import {
-  directoryDisplayAddress,
-  directoryDisplayName,
-  formatDistanceKm,
-} from '../lib/nearby-directory';
+import { Card } from '@/shared/components/ui/Card';
+import { SectionHeading } from '@/shared/components/ui/SectionHeading';
+import { DirectoryEntryCard } from './DirectoryEntryCard';
 import { useNearbyDirectory } from '../hooks/use-nearby-directory';
 
 export function NearbyParishesCard({ site }: { site: HolySite }) {
@@ -26,64 +21,26 @@ export function NearbyParishesCard({ site }: { site: HolySite }) {
   if (isLoading || places.length === 0) return null;
 
   return (
-    <div className="rounded-[20px] border border-app-border bg-white p-5">
-      <div className="mb-3 flex items-center gap-2">
-        <Church size={16} className="text-brand-violet" aria-hidden />
-        <h3 className="text-sm font-bold text-app-text">{t('regionParishesTitle')}</h3>
-      </div>
+    <section>
+      <SectionHeading as="h3" size="md" title={t('regionParishesTitle')} />
+      <Card>
+        <ul className="divide-y divide-app-border">
+          {places.map((p) => (
+            <li key={p.id} className="py-3 first:pt-0 last:pb-0">
+              <DirectoryEntryCard entry={p} bare hideDistance hideCategory />
+            </li>
+          ))}
+        </ul>
 
-      <ul className="space-y-4">
-        {places.map((p) => {
-          const displayName = directoryDisplayName(p, language);
-          const displayAddress = directoryDisplayAddress(p, language);
-          return (
-          <li key={p.id}>
-            <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <p className="truncate text-sm font-medium text-app-text">
-                  {displayName}
-                  <span className="ml-2 inline-block rounded-full bg-app-bg px-2 py-0.5 text-xs text-app-text-muted">
-                    {localizeDomainValue(p.category, t)}
-                  </span>
-                </p>
-                {displayAddress && (
-                  <p className="mt-0.5 truncate text-xs text-app-text-muted">{displayAddress}</p>
-                )}
-              </div>
-              <div className="flex shrink-0 items-center gap-2">
-                <span className="text-xs font-bold tabular-nums text-app-text-muted">
-                  {formatDistanceKm(p.distanceKm)}
-                </span>
-                {p.phone && (
-                  <a
-                    href={`tel:${p.phone}`}
-                    aria-label={`${p.name} ${t('callPhone')}`}
-                    className="rounded-xl bg-app-bg p-2 text-brand-violet"
-                  >
-                    <Phone size={14} />
-                  </a>
-                )}
-              </div>
-            </div>
-            <div className="mt-2">
-              <QuickDirectionsButtons
-                destination={{ name: displayName, lat: p.lat, lng: p.lng }}
-                siteName={displayName}
-              />
-            </div>
-          </li>
-          );
-        })}
-      </ul>
-
-      {language !== 'ko' && places.some((p) => p.nameRomanized) && (
-        <p className="mt-3 text-xs italic leading-relaxed text-app-text-muted opacity-70">
-          {t('directoryRomanizedNote')}
+        {language !== 'ko' && places.some((p) => p.nameRomanized) && (
+          <p className="mt-4 text-sm italic leading-relaxed text-app-text-muted">
+            {t('directoryRomanizedNote')}
+          </p>
+        )}
+        <p className="mt-2 text-sm leading-relaxed text-app-text-muted">
+          {t('nearbyParishesMassTimesNote')}
         </p>
-      )}
-      <p className="mt-2 text-xs leading-relaxed text-app-text-muted">
-        {t('nearbyParishesMassTimesNote')}
-      </p>
-    </div>
+      </Card>
+    </section>
   );
 }

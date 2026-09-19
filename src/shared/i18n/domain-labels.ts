@@ -106,11 +106,9 @@ export function dioceseLabel(diocese: string, language: Language): string {
 
 /** 붐빔 등급(`CrowdingLevel`)을 지금 언어로. 모르는 값은 원문 그대로. */
 export const CROWDING_LEVEL_KEY: Record<string, TranslationKey> = {
-  '아주 조용': 'crowdingLevelVeryQuiet',
   조용: 'crowdingLevelQuiet',
   보통: 'crowdingLevelNormal',
   붐빔: 'crowdingLevelBusy',
-  '매우 붐빔': 'crowdingLevelVeryBusy',
 };
 
 export function localizeCrowdingLevel(value: string, t: (key: TranslationKey) => string): string {

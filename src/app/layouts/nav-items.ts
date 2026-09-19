@@ -1,4 +1,4 @@
-import { BookOpen, Home, Menu, Search, Wind } from 'lucide-react';
+import { BookOpen, CalendarHeart, Home, Menu, Search } from 'lucide-react';
 import type { ComponentType } from 'react';
 import { paths } from '@/app/routes/paths';
 import type { TranslationKey } from '@/shared/i18n/dictionary';
@@ -18,24 +18,28 @@ export interface NavItem {
 }
 
 /**
- * 하단 탭 5개 — 재기획(2026-09-14) 정보 구조 그대로.
+ * 하단 탭 5개 — 2026-09-16 회의 · 시안 확정.
  *
- *   홈 · 성지 찾기 · 고요 속으로 · 내 기록 · 더보기
+ *   홈 · 성지 찾기 · 기록 · 성지 일정 · 더보기
  *
- * 「지도」는 배경 없는 점 지도라 주 탐색 수단이 못 되어 더보기 안 「전국 성지 분포 개요」로,
- * 「홈화면 추가」는 더보기 안으로 옮겼다. 「고요 속으로」와 「붐빔 피하기」처럼 같은 기능이
- * 두 이름으로 보이던 것은 하나로 합쳤다.
+ * 「기록」이 이 서비스의 중심이라(사장님, 9/16) 가운데에 두고 `BottomNav` 가 솟은 둥근 단추로 키운다 —
+ * 재기획 이전(9/13, `908543a`) 방식. 회의록의 「지도」 대신 「성지 일정」을 남겼다(사장님 결정, 같은 날).
+ * 세 번째 라벨은 「성지 일정」 — 「오늘의 성지 일정」은 390px 폭에서 잘린다(시안 렌더로 확인).
+ * 「지도」는 더보기 안 「전국 성지 분포 개요」로, 「홈화면 추가」도 더보기 안에 있다.
  */
 export const NAV_ITEMS: readonly NavItem[] = [
   { id: 'home', to: paths.home, icon: Home, labelKey: 'home', end: true },
   { id: 'search', to: paths.search, icon: Search, labelKey: 'findShrines', end: false },
-  { id: 'quiet', to: paths.quiet, icon: Wind, labelKey: 'quietHeroTitle', end: false },
-  { id: 'record', to: paths.records, icon: BookOpen, labelKey: 'myRecords', end: false },
+  { id: 'record', to: paths.records, icon: BookOpen, labelKey: 'record', end: false },
+  { id: 'plan', to: paths.compass, icon: CalendarHeart, labelKey: 'todayPlanShort', end: false },
   { id: 'menu', to: paths.menu, icon: Menu, labelKey: 'moreTab', end: false },
 ];
 
 /**
- * 데스크톱 상단 내비 — 로고가 홈을 대신하므로 `home` 만 빼고 하단 탭과 같다.
- * 넓은 화면이라고 다른 구조를 주면 휴대폰과 PC 를 오가는 사람이 길을 잃는다.
+ * 「기록·성지 일정·더보기」 세 개 — 로고가 홈을 대신하므로 `home`, 홈 입구 카드와 겹치는
+ * `search` 를 뺀다. 상단바(`TopNav`)는 이 셋도 로그인해야 의미가 있다는 이유로 헤더에서
+ * 완전히 뺐고(2026-09-17 오후), 지금은 더보기 화면(`MenuPage`)의 「전체 서비스」 목록에만 쓰인다.
  */
-export const TOP_NAV_ITEMS: readonly NavItem[] = NAV_ITEMS.filter((item) => item.id !== 'home');
+export const TOP_NAV_ITEMS: readonly NavItem[] = NAV_ITEMS.filter(
+  (item) => item.id !== 'home' && item.id !== 'search',
+);

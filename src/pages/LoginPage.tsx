@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronLeft, Lock, Mail, ShieldCheck, User as UserIcon } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, ShieldCheck, User as UserIcon } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -9,17 +9,20 @@ import {
   signUpWithEmail,
 } from '@/features/auth/api/auth';
 import { HAS_ANY_SOCIAL } from '@/features/auth/lib/providers';
+import { BackButton } from '@/shared/components/ui/BackButton';
+import { Button } from '@/shared/components/ui/Button';
+import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { wideView, t } = useSettings();
-  const widthClass = wideView ? 'max-w-4xl' : 'max-w-lg';
+  const { t } = useSettings();
 
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState('');
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -38,9 +41,7 @@ export default function LoginPage() {
         const 미확인 = `${error.message}`.toLowerCase().includes('not confirmed');
         setMessage({
           type: 'error',
-          text: 미확인
-            ? t('signupMailPending')
-            : t('loginBadCredentials'),
+          text: 미확인 ? t('signupMailPending') : t('loginBadCredentials'),
         });
         return;
       }
@@ -58,7 +59,11 @@ export default function LoginPage() {
     if (error) {
       // 상태를 구분해 안내한다(재기획 §12): 기존 계정 / 약한 비밀번호 / 일시 오류 — 원문 영어 메시지를 그대로 보여주지 않는다.
       const msg = error.message.toLowerCase();
-      if (msg.includes('already') || msg.includes('registered') || error.status === 422 && msg.includes('exist')) {
+      if (
+        msg.includes('already') ||
+        msg.includes('registered') ||
+        (error.status === 422 && msg.includes('exist'))
+      ) {
         setMessage({ type: 'error', text: t('signupExisting') });
         setIsLogin(true);
       } else if (msg.includes('password')) {
@@ -100,28 +105,27 @@ export default function LoginPage() {
   };
 
   const inputClass =
-    'w-full rounded-2xl border border-slate-100 bg-slate-50 py-4 pl-12 pr-4 font-bold transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20';
+    'min-h-14 w-full rounded-lg border border-app-border bg-white pl-12 pr-4 text-base font-bold text-app-text transition-colors focus:border-brand-blue';
 
   return (
-    <div className={`mx-auto flex min-h-screen ${widthClass} flex-col bg-white`}>
-      <div className="flex h-16 shrink-0 items-center px-4">
-        <button onClick={() => navigate(-1)} className="p-2 text-slate-800" aria-label={t('backAria')}>
-          <ChevronLeft size={28} />
-        </button>
+    <PageContainer width="narrow" className="flex min-h-screen flex-col bg-white pb-10">
+      <div className="pt-4">
+        <BackButton />
       </div>
 
-      <div className="flex-1 overflow-y-auto px-8 pb-10">
-        <div className="mb-12 mt-10">
-          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-blue-600 text-white shadow-xl shadow-blue-100">
+      <div className="flex-1">
+        <div className="mb-10 mt-8">
+          <div
+            className="mb-6 flex h-16 w-16 items-center justify-center rounded-lg bg-brand-blue text-white"
+            aria-hidden
+          >
             <ShieldCheck size={32} />
           </div>
-          <h1 className="mb-2 whitespace-pre-line text-3xl font-black tracking-tight text-slate-900">
+          <h1 className="mb-2 whitespace-pre-line font-display text-[1.625rem] leading-tight text-app-text lg:text-3xl">
             {isLogin ? t('loginWelcomeBack') : t('signupTitle')}
           </h1>
-          <p className="whitespace-pre-line font-medium text-slate-400">
-            {isLogin
-              ? t('loginWelcomeBackSub')
-              : t('signupSub')}
+          <p className="whitespace-pre-line text-base leading-relaxed text-app-text-muted">
+            {isLogin ? t('loginWelcomeBackSub') : t('signupSub')}
           </p>
         </div>
 
@@ -129,11 +133,12 @@ export default function LoginPage() {
           {!isLogin && (
             <div className="group relative">
               <UserIcon
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 transition-colors group-focus-within:text-blue-500"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
                 size={20}
               />
               <input
                 type="text"
+                name="name"
                 placeholder={t('nameField')}
                 aria-label={t('nameField')}
                 autoComplete="name"
@@ -146,11 +151,14 @@ export default function LoginPage() {
 
           <div className="group relative">
             <Mail
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 transition-colors group-focus-within:text-blue-500"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
               size={20}
             />
             <input
               type="email"
+              name="email"
+              inputMode="email"
+              spellCheck={false}
               placeholder={t('emailField')}
               aria-label={t('emailField')}
               autoComplete="email"
@@ -163,28 +171,42 @@ export default function LoginPage() {
 
           <div className="group relative">
             <Lock
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 transition-colors group-focus-within:text-blue-500"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
               size={20}
             />
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
+              name="password"
               placeholder={t('passwordField')}
               aria-label={t('passwordField')}
               autoComplete={isLogin ? 'current-password' : 'new-password'}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={inputClass}
+              className={`${inputClass} pr-14`}
             />
+            {/* 비밀번호 보기 — 브라우저 기본 기능이 아니다(Chrome·Safari 에 없음). 오타로 로그인에 실패하는
+                50대 이상 사용자를 위해 둔다 (2026-09-16 회의). */}
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg hover:text-brand-blue"
+              aria-label={showPassword ? t('hidePassword') : t('showPassword')}
+              aria-pressed={showPassword}
+              id="toggle-password"
+            >
+              {showPassword ? <EyeOff size={20} aria-hidden /> : <Eye size={20} aria-hidden />}
+            </button>
           </div>
 
           {!isLogin && (
-            <label className="flex cursor-pointer items-start gap-2.5 px-1 text-xs font-medium text-slate-500">
+            <label className="flex min-h-11 cursor-pointer items-start gap-3 px-1 text-sm text-app-text-muted">
               <input
                 type="checkbox"
+                name="agreed"
                 checked={agreed}
                 onChange={(e) => setAgreed(e.target.checked)}
-                className="mt-0.5 size-4 shrink-0 accent-blue-600"
+                className="mt-0.5 size-5 shrink-0 accent-brand-blue"
               />
               <span>{t('signupConsentLabel')}</span>
             </label>
@@ -192,25 +214,24 @@ export default function LoginPage() {
 
           {message && (
             <p
-              className={`px-1 text-sm font-bold ${
-                message.type === 'error' ? 'text-red-500' : 'text-blue-600'
+              className={`px-1 text-base font-bold ${
+                message.type === 'error' ? 'text-red-600' : 'text-brand-blue'
               }`}
               role="status"
+              aria-live="polite"
             >
               {message.text}
             </p>
           )}
 
-          <button
+          <Button
             type="submit"
+            block
             disabled={loading || (!isLogin && !agreed)}
-            className="group mt-8 flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 py-5 font-black text-white shadow-xl shadow-blue-100 transition-all hover:bg-blue-700 active:scale-95 disabled:opacity-50"
+            className="mt-8 min-h-14 text-lg"
           >
             {loading ? t('processing') : isLogin ? t('login') : t('signup')}
-            {!loading && (
-              <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
-            )}
-          </button>
+          </Button>
         </form>
 
         {/* 소셜 로그인 — 투어원패스처럼 안내 문구 + 원형 아이콘 가로 배열.
@@ -223,93 +244,91 @@ export default function LoginPage() {
               features/auth/lib/providers.ts 목록에 추가하면 되살아난다. */}
           {HAS_ANY_SOCIAL && (
             <>
-          <div className="mb-6 flex items-center gap-4" aria-hidden>
-            <span className="h-px flex-1 bg-slate-100" />
-            <span className="text-xs font-bold text-slate-300">{t('socialLogin')}</span>
-            <span className="h-px flex-1 bg-slate-100" />
-          </div>
-          <p className="mb-6 text-sm font-medium text-slate-400">
-            {t('socialLoginHint')}
-          </p>
+              <div className="mb-6 flex items-center gap-4" aria-hidden>
+                <span className="h-px flex-1 bg-app-panel" />
+                <span className="text-xs font-bold text-app-text-muted">{t('socialLogin')}</span>
+                <span className="h-px flex-1 bg-app-panel" />
+              </div>
+              <p className="mb-6 text-base text-app-text-muted">{t('socialLoginHint')}</p>
 
-          <div className="flex items-center justify-center gap-5">
-            <button
-              type="button"
-              onClick={() => signInWithNaver()}
-              disabled={loading}
-              aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerNaver') })}
-              title={fillPlaceholders(t('loginWith'), { provider: t('providerNaver') })}
-              className="flex h-14 w-14 items-center justify-center rounded-full bg-[#03C75A] shadow-md transition-all hover:brightness-95 active:scale-95 disabled:opacity-50"
-            >
-              {/* 네이버 N 심볼 */}
-              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden>
-                <path fill="#fff" d="M15.1 4v8.2L8.9 4H4v16h4.9v-8.2l6.2 8.2H20V4h-4.9Z" />
-              </svg>
-            </button>
+              <div className="flex items-center justify-center gap-5">
+                <button
+                  type="button"
+                  onClick={() => signInWithNaver()}
+                  disabled={loading}
+                  aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerNaver') })}
+                  title={fillPlaceholders(t('loginWith'), { provider: t('providerNaver') })}
+                  className="flex h-14 w-14 items-center justify-center rounded-full bg-[#03C75A] transition-[filter] hover:brightness-95 disabled:opacity-50"
+                >
+                  {/* 네이버 N 심볼 */}
+                  <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden>
+                    <path fill="#fff" d="M15.1 4v8.2L8.9 4H4v16h4.9v-8.2l6.2 8.2H20V4h-4.9Z" />
+                  </svg>
+                </button>
 
-            <button
-              type="button"
-              onClick={() => handleOAuth('kakao')}
-              disabled={loading}
-              aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerKakao') })}
-              title={fillPlaceholders(t('loginWith'), { provider: t('providerKakao') })}
-              className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FEE500] shadow-md transition-all hover:brightness-95 active:scale-95 disabled:opacity-50"
-            >
-              {/* 카카오 말풍선 심볼 */}
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path
-                  fill="#191919"
-                  d="M12 3C6.9 3 2.8 6.2 2.8 10.1c0 2.5 1.7 4.7 4.2 6l-1 3.8c-.1.3.3.6.6.4l4.4-2.9c.3 0 .7.1 1 .1 5.1 0 9.2-3.2 9.2-7.3S17.1 3 12 3Z"
-                />
-              </svg>
-            </button>
+                <button
+                  type="button"
+                  onClick={() => handleOAuth('kakao')}
+                  disabled={loading}
+                  aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerKakao') })}
+                  title={fillPlaceholders(t('loginWith'), { provider: t('providerKakao') })}
+                  className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FEE500] transition-[filter] hover:brightness-95 disabled:opacity-50"
+                >
+                  {/* 카카오 말풍선 심볼 */}
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path
+                      fill="#191919"
+                      d="M12 3C6.9 3 2.8 6.2 2.8 10.1c0 2.5 1.7 4.7 4.2 6l-1 3.8c-.1.3.3.6.6.4l4.4-2.9c.3 0 .7.1 1 .1 5.1 0 9.2-3.2 9.2-7.3S17.1 3 12 3Z"
+                    />
+                  </svg>
+                </button>
 
-            <button
-              type="button"
-              onClick={() => handleOAuth('google')}
-              disabled={loading}
-              aria-label={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
-              title={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
-              className="flex h-14 w-14 items-center justify-center rounded-full border border-slate-200 bg-white shadow-md transition-all hover:bg-slate-50 active:scale-95 disabled:opacity-50"
-            >
-              {/* 구글 G 심볼 */}
-              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden>
-                <path
-                  fill="#4285F4"
-                  d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.8Z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.2v3.1C3.2 21.3 7.3 24 12 24Z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M5.3 14.3c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3V6.6H1.2C.4 8.2 0 10 0 12s.4 3.8 1.2 5.4l4.1-3.1Z"
-                />
-                <path
-                  fill="#EA4335"
-                  d="M12 4.7c1.8 0 3.3.6 4.6 1.8L20 3C18 1.1 15.2 0 12 0 7.3 0 3.2 2.7 1.2 6.6l4.1 3.1c.9-2.9 3.6-5 6.7-5Z"
-                />
-              </svg>
-            </button>
+                <button
+                  type="button"
+                  onClick={() => handleOAuth('google')}
+                  disabled={loading}
+                  aria-label={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
+                  title={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
+                  className="flex h-14 w-14 items-center justify-center rounded-full border border-app-border bg-white transition-colors hover:bg-app-bg disabled:opacity-50"
+                >
+                  {/* 구글 G 심볼 */}
+                  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden>
+                    <path
+                      fill="#4285F4"
+                      d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.8Z"
+                    />
+                    <path
+                      fill="#34A853"
+                      d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.2v3.1C3.2 21.3 7.3 24 12 24Z"
+                    />
+                    <path
+                      fill="#FBBC05"
+                      d="M5.3 14.3c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3V6.6H1.2C.4 8.2 0 10 0 12s.4 3.8 1.2 5.4l4.1-3.1Z"
+                    />
+                    <path
+                      fill="#EA4335"
+                      d="M12 4.7c1.8 0 3.3.6 4.6 1.8L20 3C18 1.1 15.2 0 12 0 7.3 0 3.2 2.7 1.2 6.6l4.1 3.1c.9-2.9 3.6-5 6.7-5Z"
+                    />
+                  </svg>
+                </button>
 
-            <button
-              type="button"
-              onClick={() => handleOAuth('facebook')}
-              disabled={loading}
-              aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerFacebook') })}
-              title={fillPlaceholders(t('loginWith'), { provider: t('providerFacebook') })}
-              className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1877F2] shadow-md transition-all hover:brightness-95 active:scale-95 disabled:opacity-50"
-            >
-              {/* 페이스북 f 심볼 */}
-              <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden>
-                <path
-                  fill="#fff"
-                  d="M13.5 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.3v3.2h2.8V21h3.4Z"
-                />
-              </svg>
-            </button>
-          </div>
+                <button
+                  type="button"
+                  onClick={() => handleOAuth('facebook')}
+                  disabled={loading}
+                  aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerFacebook') })}
+                  title={fillPlaceholders(t('loginWith'), { provider: t('providerFacebook') })}
+                  className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1877F2] transition-[filter] hover:brightness-95 disabled:opacity-50"
+                >
+                  {/* 페이스북 f 심볼 */}
+                  <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden>
+                    <path
+                      fill="#fff"
+                      d="M13.5 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.3v3.2h2.8V21h3.4Z"
+                    />
+                  </svg>
+                </button>
+              </div>
             </>
           )}
 
@@ -319,7 +338,7 @@ export default function LoginPage() {
               to={paths.terms}
               target="_blank"
               rel="noopener"
-              className="min-h-11 text-xs font-bold text-slate-400 underline underline-offset-2"
+              className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
             >
               {t('viewTerms')}
             </Link>
@@ -327,7 +346,7 @@ export default function LoginPage() {
               to={paths.privacy}
               target="_blank"
               rel="noopener"
-              className="min-h-11 text-xs font-bold text-slate-400 underline underline-offset-2"
+              className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
             >
               {t('privacyNotice')}
             </Link>
@@ -335,21 +354,25 @@ export default function LoginPage() {
               to={paths.faq}
               target="_blank"
               rel="noopener"
-              className="min-h-11 text-xs font-bold text-slate-400 underline underline-offset-2"
+              className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
             >
               {t('viewFaq')}
             </Link>
           </div>
-          <p className="mt-2 text-center text-[0.6875rem] text-slate-400">{t('termsOpensNewTab')}</p>
+          <p className="mt-2 text-center text-sm text-app-text-muted">{t('termsOpensNewTab')}</p>
         </div>
 
         <div className="mt-10 text-center">
-          <button onClick={() => setIsLogin(!isLogin)} className="text-sm font-bold text-slate-400">
+          <button
+            type="button"
+            onClick={() => setIsLogin(!isLogin)}
+            className="min-h-11 rounded-lg px-3 text-base font-bold text-app-text-muted transition-colors hover:bg-app-bg"
+          >
             {isLogin ? t('noAccountYet') : t('alreadyHaveAccount')}
-            <span className="text-blue-600">{isLogin ? t('signup') : t('login')}</span>
+            <span className="text-brand-blue">{isLogin ? t('signup') : t('login')}</span>
           </button>
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 }

@@ -23,7 +23,6 @@
     "cap:android": "npm run cap:sync && cap open android",
     "cap:ios": "npm run cap:sync && cap open ios",
     "icons": "node scripts/generate-icons.mjs",
-    "crowding": "tsx scripts/crowding-report.ts",
     "congestion:coverage": "tsx scripts/congestion-coverage.ts",
     "content": "tsx scripts/content-report.ts",
     "docs": "tsx scripts/docs-hub.ts --open",
