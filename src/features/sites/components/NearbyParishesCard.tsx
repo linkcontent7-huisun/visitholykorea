@@ -37,10 +37,10 @@ export function NearbyParishesCard({ site }: { site: HolySite }) {
             {t('directoryRomanizedNote')}
           </p>
         )}
-        <p className="mt-2 text-sm leading-relaxed text-app-text-muted">
-          {t('nearbyParishesMassTimesNote')}
-        </p>
       </Card>
+      <p className="mt-2 text-sm leading-relaxed text-app-text-muted">
+        {t('nearbyParishesMassTimesNote')}
+      </p>
     </section>
   );
 }
