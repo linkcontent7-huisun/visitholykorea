@@ -30,30 +30,30 @@ export interface HeroSite {
 export const HERO_SITES: readonly HeroSite[] = [
   {
     id: '4b4199cf-2236-4842-8996-38ee9d36e542',
-    slug: 'myeongdong',
+    slug: 'myeongdong-nave', // 9/19 사장님 사진(내부 회중석)으로 교체 — 캐시 때문에 이름을 바꿨다
     name: '명동대성당',
     region: '서울',
     category: '주교좌성당',
-    imageSource: 'Wikimedia Commons (Exj)',
-    imageLicense: 'CC BY-SA 4.0',
+    imageSource: '직접 촬영',
+    imageLicense: '앱 사용 동의',
   },
   {
     id: 'f1e25869-e3cb-40de-b4b6-da5b5b398797',
-    slug: 'daeheung',
+    slug: 'daeheung-nave', // 9/19 사장님 사진(내부 제대)으로 교체
     name: '대흥동 성당',
     region: '대전',
     category: '주교좌성당',
-    imageSource: 'Wikimedia Commons (Exj)',
-    imageLicense: 'CC BY-SA 4.0',
+    imageSource: '직접 촬영',
+    imageLicense: '앱 사용 동의',
   },
   {
     id: '66e08f67-b761-40aa-9c6e-db6bd6efb6d6',
-    slug: 'gongseri',
+    slug: 'gongseri-facade', // 9/19 사장님 사진(정면 계단)으로 교체
     name: '공세리성지성당',
     region: '대전',
     category: '성당',
-    imageSource: 'Wikimedia Commons',
-    imageLicense: 'CC BY-SA 3.0',
+    imageSource: '직접 촬영',
+    imageLicense: '앱 사용 동의',
   },
   {
     id: '7e9b0733-1c97-4d1c-beb0-fd7e9c6ab8c0',
