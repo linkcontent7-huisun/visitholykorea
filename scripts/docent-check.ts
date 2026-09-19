@@ -30,7 +30,10 @@ function load(dir: string) {
   });
 }
 
-function check(files: ReturnType<typeof load>, lang: 'ko' | 'en') {
+type Lang = 'ko' | 'en' | 'es' | 'it' | 'fr' | 'pt';
+// 번역본은 문단 구조·따옴표·길이·한글 섞임·틀 문장만 본다 (고유 사실은 원문 검사에서 이미 확인됨)
+const LATIN_FACT = /\d{3,4}|\p{Lu}[\p{L}]+/u;
+function check(files: ReturnType<typeof load>, lang: Lang) {
   const sentenceOwners = new Map<string, Set<string>>();
   for (const f of files) {
     for (const s of f.body.split(/(?<=[.。!?"])\s+/)) {
@@ -43,7 +46,7 @@ function check(files: ReturnType<typeof load>, lang: 'ko' | 'en') {
   const template = new Set([...sentenceOwners.entries()].filter(([, o]) => o.size >= 3).map(([k]) => k));
   const problems: string[] = [];
   const endsOk = lang === 'ko' ? /(니다|요)\."$/ : /[.!?]"$/; // 한국어는 존댓말로 끝나야 한다 — "~자리다." 같은 반말 금지
-  const hasFact = lang === 'ko' ? /\d{3,4}|신부|성인|주교|성당|양식|벽돌|고딕|로마네스크|순교|성지|공소|교우촌|박해|주교좌|수도원|기념/ : /\d{3,4}|Father|Bishop|Saint|St\.|martyr|Gothic|Romanesque|brick|church|cathedral|shrine|hill|village|gate|parish|persecution|mission/i;
+  const hasFact = lang === 'ko' ? /\d{3,4}|신부|성인|주교|성당|양식|벽돌|고딕|로마네스크|순교|성지|공소|교우촌|박해|주교좌|수도원|기념/ : lang === 'en' ? /\d{3,4}|Father|Bishop|Saint|St\.|martyr|Gothic|Romanesque|brick|church|cathedral|shrine|hill|village|gate|parish|persecution|mission/i : LATIN_FACT;
   for (const f of files) {
     const bad: string[] = [];
     const chars = f.body.replace(/\s/g, '').length;
@@ -54,6 +57,7 @@ function check(files: ReturnType<typeof load>, lang: 'ko' | 'en') {
     f.paras.forEach((p, i) => { if (!endsOk.test(p)) bad.push(`${i + 1}문단 잘림`); });
     f.paras.forEach((p, i) => { if (!hasFact.test(p)) bad.push(`${i + 1}문단 고유 사실 없음`); });
     if (!/^\s+url:\s*https?:\/\//m.test(f.head)) bad.push('출처 url 없음');
+    if (lang !== 'ko' && /[가-힣]/.test(f.body)) bad.push('한글 섞임');
     const t = [...template].filter((k) => f.body.replace(/\s+/g, ' ').includes(k));
     if (t.length) bad.push(`틀 문장 ${t.length}개: "${(t[0] ?? '').slice(0, 30)}…"`);
     // 한 파일 안에서 같은 문장이 두 번 이상 — 9/18 실측(강경·경상감영·곡성)
@@ -68,9 +72,18 @@ function check(files: ReturnType<typeof load>, lang: 'ko' | 'en') {
 }
 
 const ko = check(load(DIR), 'ko');
-const en = check(load(join(DIR, 'en')), 'en');
 console.log(`한국어 ${ko.n}곳 · 실패 ${ko.problems.length} · 틀 문장 ${ko.template.size}종`);
 ko.problems.forEach((p) => console.log(p));
-if (en.n) { console.log(`영어 ${en.n}곳 · 실패 ${en.problems.length} · 틀 문장 ${en.template.size}종`); en.problems.forEach((p) => console.log(p)); }
 if (ko.template.size) { console.log('틀 문장:'); [...ko.template].slice(0, 5).forEach((t) => console.log(`  - ${t.slice(0, 60)}`)); }
-process.exit(ko.problems.length + en.problems.length ? 1 : 0);
+const NAMES: Record<Exclude<Lang, 'ko'>, string> = { en: '영어', es: '스페인어', it: '이탈리아어', fr: '프랑스어', pt: '포르투갈어' };
+let fails = ko.problems.length;
+for (const lang of ['en', 'es', 'it', 'fr', 'pt'] as const) {
+  let files: ReturnType<typeof load> = [];
+  try { files = load(join(DIR, lang)); } catch { continue; }
+  if (!files.length) continue;
+  const r = check(files, lang);
+  console.log(`${NAMES[lang]} ${r.n}곳 · 실패 ${r.problems.length} · 틀 문장 ${r.template.size}종`);
+  r.problems.forEach((p) => console.log(p));
+  fails += r.problems.length;
+}
+process.exit(fails ? 1 : 0);
