@@ -148,16 +148,17 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                   'linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 45%, rgba(0,0,0,.05) 100%)',
               }}
             />
-            <div className="absolute inset-x-5 bottom-7 text-white [text-shadow:0_1px_8px_rgba(0,0,0,.45)] lg:inset-x-8 lg:bottom-10">
+            <div className="absolute inset-x-4 bottom-7 text-white [text-shadow:0_1px_8px_rgba(0,0,0,.45)] lg:inset-x-6 lg:bottom-10">
               <p className="min-w-0 truncate text-sm font-bold tracking-wide opacity-95">{slide.caption}</p>
               <h2 className="mt-1 font-display text-[1.75rem] leading-tight lg:text-[2.5rem]">
                 {slide.name}
               </h2>
             </div>
             {/* 출처 — 사진 오른쪽 아래 모서리에 최대한 붙인다. 모바일은 화면을 가리지 않도록
-                폭을 최소로(작은 글자·좁은 여백·강한 말줄임). 자체 촬영 사진은 credit 자체가 없다. */}
+                폭을 최소로(작은 글자·좁은 여백·강한 말줄임). 자체 촬영 사진은 credit 자체가 없다.
+                모바일 42% 는 가운데 넘김 점과 겹쳤다(2026-09-19 실측) — 위치는 그대로 두고 폭만 더 줄였다. */}
             {slide.credit && (
-              <span className="absolute bottom-1.5 right-1.5 max-w-[42%] truncate rounded bg-black/40 px-1.5 py-0.5 text-[10px] leading-none text-white/80 backdrop-blur-sm lg:bottom-2.5 lg:right-2.5 lg:max-w-[38%] lg:px-2 lg:py-1 lg:text-xs">
+              <span className="absolute bottom-1.5 right-1.5 max-w-[28%] truncate rounded bg-black/40 px-1.5 py-0.5 text-[10px] leading-none text-white/80 backdrop-blur-sm lg:bottom-2.5 lg:right-2.5 lg:max-w-[38%] lg:px-2 lg:py-1 lg:text-xs">
                 {slide.credit}
               </span>
             )}

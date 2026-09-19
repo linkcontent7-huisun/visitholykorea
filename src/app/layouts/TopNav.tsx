@@ -83,7 +83,7 @@ export function TopNav() {
       >
         {/* 상단바는 내용이 아니라 틀이다 — 글자 크기를 키워도 틀의 간격은 px 로 고정해
           「대」에서 버튼들이 오른쪽으로 밀려 잘리지 않게 한다 (2026-09-12). */}
-        <div className="mx-auto flex h-[60px] w-full max-w-[1200px] items-center gap-[12px] px-[20px] lg:h-[72px] lg:gap-[24px] lg:px-[32px]">
+        <div className="mx-auto flex h-[60px] w-full max-w-[1200px] items-center gap-[12px] px-[16px] lg:h-[72px] lg:gap-[24px] lg:px-[24px]">
           {/* 로고 — 사장님이 만든 비둘기·십자가 마크 + 글자 (2026-09-12). 글자는 이미지가 아니라
             텍스트라 작은 화면에서도 선명하고, 마크 색(#04377C)에 맞췄다. 홈에서 사진 위에 뜰 때는
             마크에 옅은 그림자를, 글자는 흰색 + 그림자로 바꿔 사진이 밝아도 윤곽이 보이게 한다. */}

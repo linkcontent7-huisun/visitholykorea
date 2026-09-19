@@ -531,7 +531,7 @@ export default function SiteDetailPage() {
               <SectionHeading title={t('siteNearbyTitle')} />
 
               {facilitiesLoading ? (
-                <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
+                <div className="no-scrollbar -mx-4 flex gap-4 overflow-x-auto px-4 lg:-mx-6 lg:px-6">
                   {[1, 2, 3].map((i) => (
                     <div
                       key={i}
@@ -546,7 +546,7 @@ export default function SiteDetailPage() {
                       <h3 className="mb-3 text-lg font-bold text-app-text">
                         {t(GROUP_LABEL_KEY[group])}
                       </h3>
-                      <ScrollHintRow className="-mx-5 flex gap-4 px-5 lg:-mx-8 lg:px-8">
+                      <ScrollHintRow className="-mx-4 flex gap-4 px-4 lg:-mx-6 lg:px-6">
                         {spots.map((spot) => (
                           <a
                             key={spot.contentid}
@@ -898,7 +898,7 @@ export default function SiteDetailPage() {
                 diocese: localizeRegionName(site.region, language),
               })}
             />
-            <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
+            <div className="no-scrollbar -mx-4 flex gap-4 overflow-x-auto px-4 lg:-mx-6 lg:px-6">
               {nearbySites.map((nearby) => (
                 <Link
                   key={nearby.id}

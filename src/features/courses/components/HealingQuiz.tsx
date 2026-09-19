@@ -570,7 +570,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
 
       {/* 화면 아래 붙는 이전/다음 버튼 — 스크롤해도 항상 보인다. 모바일에선 하단 탭(70px) 위. */}
       {isQuestionStep && (
-        <div className="sticky bottom-[70px] z-30 -mx-5 flex gap-3 border-t border-app-border bg-white/95 px-5 py-4 backdrop-blur-md lg:-mx-8 lg:bottom-0 lg:px-8">
+        <div className="sticky bottom-[70px] z-30 -mx-4 flex gap-3 border-t border-app-border bg-white/95 px-4 py-4 backdrop-blur-md lg:-mx-6 lg:bottom-0 lg:px-6">
           <Button
             variant="neutral"
             onClick={() => setStep(step - 1)}

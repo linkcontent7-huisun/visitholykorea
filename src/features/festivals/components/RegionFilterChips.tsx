@@ -36,7 +36,7 @@ export function RegionFilterChips({
     // 오른쪽 끝 그라디언트 + 화살표로 더 있다는 걸 알려준다(2026-09-19 — 잘린 칩 하나만으로는
     // 스크롤 가능함을 못 알아채는 경우가 있었다).
     <ScrollHintRow
-      className="-mx-5 px-5 pb-1 lg:-mx-8 lg:px-8"
+      className="-mx-4 px-4 pb-1 lg:-mx-6 lg:px-6"
       fadeFrom="from-app-bg"
       role="group"
       aria-label={groupLabel}

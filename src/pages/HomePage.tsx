@@ -191,7 +191,7 @@ export default function HomePage() {
             title={t('routesTitle')}
             action={{ to: paths.routes, label: t('seeAll') }}
           />
-          <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
+          <div className="no-scrollbar -mx-4 flex gap-4 overflow-x-auto px-4 lg:-mx-6 lg:px-6">
             {routes.slice(0, 6).map((route) => (
               <Link
                 key={route.id}
