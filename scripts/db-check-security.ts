@@ -18,8 +18,13 @@ try {
       where table_schema='public' and table_name='profiles' and privilege_type='UPDATE'
         and grantee in ('anon','authenticated') group by grantee`,
   );
-  console.log('profiles UPDATE 가능 열:', g.rows.length ? g.rows.map((r) => `${r.grantee}: ${r.cols}`).join(' | ') : '(없음)');
-  const tg = await client.query(`select tgname from pg_trigger where tgrelid='public.profiles'::regclass and not tgisinternal`);
+  console.log(
+    'profiles UPDATE 가능 열:',
+    g.rows.length ? g.rows.map((r) => `${r.grantee}: ${r.cols}`).join(' | ') : '(없음)',
+  );
+  const tg = await client.query(
+    `select tgname from pg_trigger where tgrelid='public.profiles'::regclass and not tgisinternal`,
+  );
   console.log('profiles 트리거:', tg.rows.map((r) => r.tgname).join(', ') || '(없음)');
   const cd = await client.query(
     `select string_agg(column_name, ', ' order by column_name) as cols from information_schema.column_privileges
@@ -34,13 +39,22 @@ try {
     `select c.relname, c.relrowsecurity from pg_class c join pg_namespace n on n.oid=c.relnamespace
       where n.nspname='public' and c.relkind='r' order by 1`,
   );
-  console.log('RLS 꺼진 표:', rls.rows.filter((r) => !r.relrowsecurity).map((r) => r.relname).join(', ') || '(없음)');
+  console.log(
+    'RLS 꺼진 표:',
+    rls.rows
+      .filter((r) => !r.relrowsecurity)
+      .map((r) => r.relname)
+      .join(', ') || '(없음)',
+  );
   const pol = await client.query(
     `select c.relname, count(p.polname) as n from pg_class c join pg_namespace ns on ns.oid=c.relnamespace
        left join pg_policy p on p.polrelid=c.oid where ns.nspname='public' and c.relkind='r' group by c.relname having count(p.polname)=0 order by 1`,
   );
   console.log('정책이 하나도 없는 표:', pol.rows.map((r) => r.relname).join(', ') || '(없음)');
-  console.log('anon 이 INSERT/UPDATE/DELETE 권한을 가진 표:', tbl.rows.map((r) => `${r.table_name}(${r.p})`).join(', '));
+  console.log(
+    'anon 이 INSERT/UPDATE/DELETE 권한을 가진 표:',
+    tbl.rows.map((r) => `${r.table_name}(${r.p})`).join(', '),
+  );
 
   // --- pilgrimage_stamps (20260914130000) — 회원이 hidden·photo_featured 를 못 건드리는지 ---
   const sg = await client.query(
@@ -51,10 +65,17 @@ try {
   );
   console.log(
     'pilgrimage_stamps INSERT/UPDATE 가능 열:',
-    sg.rows.length ? sg.rows.map((r) => `${r.grantee} ${r.privilege_type}: ${r.cols}`).join(' | ') : '(없음)',
+    sg.rows.length
+      ? sg.rows.map((r) => `${r.grantee} ${r.privilege_type}: ${r.cols}`).join(' | ')
+      : '(없음)',
   );
   const leaked = sg.rows.filter((r) => /\b(hidden|photo_featured)\b/.test(r.cols));
-  console.log('  → hidden·photo_featured 쓰기 권한:', leaked.length ? `있음 (${leaked.map((r) => r.grantee).join(', ')}) ← 마이그레이션 미적용` : '없음 (정상)');
+  console.log(
+    '  → hidden·photo_featured 쓰기 권한:',
+    leaked.length
+      ? `있음 (${leaked.map((r) => r.grantee).join(', ')}) ← 마이그레이션 미적용`
+      : '없음 (정상)',
+  );
   const stg = await client.query(
     `select tgname from pg_trigger where tgrelid='public.pilgrimage_stamps'::regclass and not tgisinternal order by 1`,
   );
@@ -67,7 +88,9 @@ try {
   );
   console.log('stamp_photos 정책:');
   for (const r of spp.rows) {
-    console.log(`  ${r.polname} [${r.polcmd}] using=${r.qual ?? '-'} with_check=${r.with_check ?? '-'}`);
+    console.log(
+      `  ${r.polname} [${r.polcmd}] using=${r.qual ?? '-'} with_check=${r.with_check ?? '-'}`,
+    );
   }
 
   // --- 스토리지 pilgrim-photos 정책 — update 에 with_check 가 있는지 ---
@@ -79,7 +102,9 @@ try {
   );
   console.log('storage.objects pilgrim-photos 정책:');
   for (const r of sto.rows) {
-    console.log(`  ${r.polname} [${r.polcmd}] using=${r.qual ?? '-'} with_check=${r.with_check ?? '-'}`);
+    console.log(
+      `  ${r.polname} [${r.polcmd}] using=${r.qual ?? '-'} with_check=${r.with_check ?? '-'}`,
+    );
   }
 
   // --- 공개 뷰 — 소유자 권한 뷰(security_invoker 없음)에 앱 역할의 쓰기 권한이 남아 있으면 RLS 우회 통로다 ---

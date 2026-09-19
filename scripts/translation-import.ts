@@ -32,7 +32,9 @@ const reviewed = args.includes('--reviewed');
 const pathArg = args.find((a) => !a.startsWith('--'));
 
 if (!pathArg) {
-  console.error('번역 파일 경로를 주세요.\n  npm run translate:import -- data/translations/en-대전.todo.json');
+  console.error(
+    '번역 파일 경로를 주세요.\n  npm run translate:import -- data/translations/en-대전.todo.json',
+  );
   process.exit(1);
 }
 

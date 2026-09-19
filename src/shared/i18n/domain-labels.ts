@@ -39,10 +39,7 @@ export const CATEGORY_KEY: Record<string, TranslationKey> = {
 };
 
 /** 분류·태그를 지금 언어로. 모르는 값은 원래 한국어를 그대로 돌려준다. */
-export function localizeDomainValue(
-  value: string,
-  t: (key: TranslationKey) => string,
-): string {
+export function localizeDomainValue(value: string, t: (key: TranslationKey) => string): string {
   const key = CATEGORY_KEY[value] ?? EMOTION_TAG_KEY[value as EmotionTag];
   return key ? t(key) : value;
 }
@@ -137,10 +134,7 @@ export const STAMP_MOTIF_KEY: Record<string, TranslationKey> = {
   cross: 'motifCross',
 };
 
-export function localizeMotifLabel(
-  motifId: string,
-  t: (key: TranslationKey) => string,
-): string {
+export function localizeMotifLabel(motifId: string, t: (key: TranslationKey) => string): string {
   const key = STAMP_MOTIF_KEY[motifId];
   return key ? t(key) : motifId;
 }

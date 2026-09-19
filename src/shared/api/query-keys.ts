@@ -39,7 +39,8 @@ export const queryKeys = {
     listTranslations: (ids: string[], lang: string) =>
       ['routes', 'list-translations', ids, lang] as const,
     /** 코스 1곳의 전문 번역 — 상세 화면이 폴백까지 겹쳐 쓴다. */
-    translation: (routeId: string, lang: string) => ['routes', 'translation', routeId, lang] as const,
+    translation: (routeId: string, lang: string) =>
+      ['routes', 'translation', routeId, lang] as const,
     /** 경유지 메모 번역 — 코스 1곳 전체를 한 번에 받는다. */
     stopTranslations: (routeId: string, lang: string) =>
       ['routes', 'stop-translations', routeId, lang] as const,

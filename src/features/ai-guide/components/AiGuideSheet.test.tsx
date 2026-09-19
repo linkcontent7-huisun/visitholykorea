@@ -41,7 +41,11 @@ beforeEach(() => {
   session.current = null;
   chatStore.set([]);
   chatStore.markLoaded(undefined);
-  askMock.mockResolvedValue({ text: '절두산은 마포구에 있어요.', fallback: false, sources: ['절두산 순교성지'] });
+  askMock.mockResolvedValue({
+    text: '절두산은 마포구에 있어요.',
+    fallback: false,
+    sources: ['절두산 순교성지'],
+  });
   fetchHistoryMock.mockResolvedValue([]);
   clearMock.mockResolvedValue(true);
 });
@@ -96,9 +100,15 @@ describe('AiGuideSheet', () => {
   });
 
   it('서버가 폴백(정보 카드)을 주면 띠로 알린다', async () => {
-    askMock.mockResolvedValue({ text: '**절두산 순교성지**\n서울시 마포구', fallback: true, sources: ['절두산 순교성지'] });
+    askMock.mockResolvedValue({
+      text: '**절두산 순교성지**\n서울시 마포구',
+      fallback: true,
+      sources: ['절두산 순교성지'],
+    });
     render(<AiGuideSheet isOpen onClose={vi.fn()} />);
     await send('절두산');
-    await waitFor(() => expect(screen.getByText(DICTIONARY.aiFallbackNotice.ko)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText(DICTIONARY.aiFallbackNotice.ko)).toBeInTheDocument(),
+    );
   });
 });

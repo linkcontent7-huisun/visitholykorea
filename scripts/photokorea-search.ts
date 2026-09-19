@@ -107,10 +107,23 @@ function keywordsFor(site: SiteRow): string[] {
 function provinceOf(text: string | null | undefined): string | null {
   if (!text) return null;
   const map: Array<[RegExp, string]> = [
-    [/^서울/, '서울'], [/^부산/, '부산'], [/^대구/, '대구'], [/^인천/, '인천'], [/^광주/, '광주'],
-    [/^대전/, '대전'], [/^울산/, '울산'], [/^세종/, '세종'], [/^경기/, '경기'], [/^강원/, '강원'],
-    [/^충청북도|^충북/, '충북'], [/^충청남도|^충남/, '충남'], [/^전라북도|^전북/, '전북'],
-    [/^전라남도|^전남/, '전남'], [/^경상북도|^경북/, '경북'], [/^경상남도|^경남/, '경남'], [/^제주/, '제주'],
+    [/^서울/, '서울'],
+    [/^부산/, '부산'],
+    [/^대구/, '대구'],
+    [/^인천/, '인천'],
+    [/^광주/, '광주'],
+    [/^대전/, '대전'],
+    [/^울산/, '울산'],
+    [/^세종/, '세종'],
+    [/^경기/, '경기'],
+    [/^강원/, '강원'],
+    [/^충청북도|^충북/, '충북'],
+    [/^충청남도|^충남/, '충남'],
+    [/^전라북도|^전북/, '전북'],
+    [/^전라남도|^전남/, '전남'],
+    [/^경상북도|^경북/, '경북'],
+    [/^경상남도|^경남/, '경남'],
+    [/^제주/, '제주'],
   ];
   const head = text.trim();
   for (const [re, name] of map) if (re.test(head)) return name;
@@ -119,7 +132,11 @@ function provinceOf(text: string | null | undefined): string | null {
 
 const RELIGIOUS = /성당|성지|천주교|순교|공소|수도원|가톨릭|카톨릭|성모|신부|추기경|순례/;
 
-function scoreItem(site: SiteRow, keyword: string, item: GalleryItem): { score: number; reason: string } | null {
+function scoreItem(
+  site: SiteRow,
+  keyword: string,
+  item: GalleryItem,
+): { score: number; reason: string } | null {
   const title = item.galTitle ?? '';
   const tags = item.galSearchKeyword ?? '';
   const text = `${title} ${tags}`;
@@ -128,21 +145,38 @@ function scoreItem(site: SiteRow, keyword: string, item: GalleryItem): { score: 
   let score = 0;
 
   const religious = RELIGIOUS.test(text);
-  if (title.replace(/\s+/g, '').includes(compact)) { score += 5; reasons.push('제목=이름'); }
-  else if (text.replace(/\s+/g, '').includes(compact)) { score += 3; reasons.push('검색어=이름'); }
+  if (title.replace(/\s+/g, '').includes(compact)) {
+    score += 5;
+    reasons.push('제목=이름');
+  } else if (text.replace(/\s+/g, '').includes(compact)) {
+    score += 3;
+    reasons.push('검색어=이름');
+  }
   // 이름 전체가 아니라 지명 조각만 맞을 때는 종교어가 같이 있어야 후보로 본다
   // ("목포" 만으로는 목포 시내 사진 전부가 걸린다 — 9/15 시험에서 확인)
-  else if (religious && title.includes(keyword)) { score += 2; reasons.push('제목⊃검색어'); }
-  else if (religious && tags.includes(keyword)) { score += 1; reasons.push('검색어⊃검색어'); }
-  else return null;
+  else if (religious && title.includes(keyword)) {
+    score += 2;
+    reasons.push('제목⊃검색어');
+  } else if (religious && tags.includes(keyword)) {
+    score += 1;
+    reasons.push('검색어⊃검색어');
+  } else return null;
 
-  if (religious) { score += 2; reasons.push('종교어'); }
+  if (religious) {
+    score += 2;
+    reasons.push('종교어');
+  }
 
   const sp = provinceOf(site.location);
   const ip = provinceOf(item.galPhotographyLocation);
   if (sp && ip) {
-    if (sp === ip) { score += 2; reasons.push('같은 도'); }
-    else { score -= 3; reasons.push(`다른 도(${ip})`); }
+    if (sp === ip) {
+      score += 2;
+      reasons.push('같은 도');
+    } else {
+      score -= 3;
+      reasons.push(`다른 도(${ip})`);
+    }
   }
   // 종교어도 없고 제목도 이름이 아니면 우연한 부분 일치일 가능성이 높다 ("해미"→"김해미술관")
   if (score < 3) return null;
@@ -160,16 +194,24 @@ async function search(keyword: string): Promise<GalleryItem[]> {
     _type: 'json',
     keyword,
   });
-  const res = await fetch(`https://apis.data.go.kr/B551011/PhotoGalleryService1/gallerySearchList1?${q}`);
+  const res = await fetch(
+    `https://apis.data.go.kr/B551011/PhotoGalleryService1/gallerySearchList1?${q}`,
+  );
   const text = await res.text();
-  let data: { response?: { header?: { resultCode?: string; resultMsg?: string }; body?: { items?: { item?: GalleryItem[] } | '' } } };
+  let data: {
+    response?: {
+      header?: { resultCode?: string; resultMsg?: string };
+      body?: { items?: { item?: GalleryItem[] } | '' };
+    };
+  };
   try {
     data = JSON.parse(text);
   } catch {
     throw new Error(`JSON 아님(한도 초과·서버 오류 가능): ${text.slice(0, 120)}`);
   }
   const header = data.response?.header;
-  if (header?.resultCode && header.resultCode !== '0000') throw new Error(`${header.resultCode} ${header.resultMsg}`);
+  if (header?.resultCode && header.resultCode !== '0000')
+    throw new Error(`${header.resultCode} ${header.resultMsg}`);
   const items = data.response?.body?.items;
   return items && typeof items === 'object' ? (items.item ?? []) : [];
 }
@@ -188,14 +230,20 @@ async function searchTourInfo(keyword: string): Promise<GalleryItem[]> {
   });
   const res = await fetch(`https://apis.data.go.kr/B551011/KorService2/searchKeyword2?${q}`);
   const text = await res.text();
-  let data: { response?: { header?: { resultCode?: string; resultMsg?: string }; body?: { items?: { item?: TourInfoItem[] } | '' } } };
+  let data: {
+    response?: {
+      header?: { resultCode?: string; resultMsg?: string };
+      body?: { items?: { item?: TourInfoItem[] } | '' };
+    };
+  };
   try {
     data = JSON.parse(text);
   } catch {
     throw new Error(`JSON 아님(한도 초과·서버 오류 가능): ${text.slice(0, 120)}`);
   }
   const header = data.response?.header;
-  if (header?.resultCode && header.resultCode !== '0000') throw new Error(`${header.resultCode} ${header.resultMsg}`);
+  if (header?.resultCode && header.resultCode !== '0000')
+    throw new Error(`${header.resultCode} ${header.resultMsg}`);
   const items = data.response?.body?.items;
   const list = items && typeof items === 'object' ? (items.item ?? []) : [];
   return list
@@ -282,17 +330,46 @@ const dir = join(ROOT, 'data', 'research');
 mkdirSync(dir, { recursive: true });
 
 const header = [
-  'use', 'site_id', 'site_name', 'diocese', 'site_location', 'source', 'keyword', 'score', 'reason',
-  'gal_content_id', 'gal_title', 'gal_image_url', 'gal_location', 'gal_photographer', 'gal_month', 'gal_keywords',
+  'use',
+  'site_id',
+  'site_name',
+  'diocese',
+  'site_location',
+  'source',
+  'keyword',
+  'score',
+  'reason',
+  'gal_content_id',
+  'gal_title',
+  'gal_image_url',
+  'gal_location',
+  'gal_photographer',
+  'gal_month',
+  'gal_keywords',
 ];
 const lines = [header.join(',')];
 for (const c of candidates) {
   lines.push(
     [
-      '', c.site.id, c.site.name, c.site.diocese, c.site.location, c.item.source, c.keyword, c.score, c.reason,
-      c.item.galContentId, c.item.galTitle, c.item.galWebImageUrl, c.item.galPhotographyLocation,
-      c.item.galPhotographer, c.item.galPhotographyMonth, c.item.galSearchKeyword,
-    ].map(csvCell).join(','),
+      '',
+      c.site.id,
+      c.site.name,
+      c.site.diocese,
+      c.site.location,
+      c.item.source,
+      c.keyword,
+      c.score,
+      c.reason,
+      c.item.galContentId,
+      c.item.galTitle,
+      c.item.galWebImageUrl,
+      c.item.galPhotographyLocation,
+      c.item.galPhotographer,
+      c.item.galPhotographyMonth,
+      c.item.galSearchKeyword,
+    ]
+      .map(csvCell)
+      .join(','),
   );
 }
 const suffix = only === 'both' ? '' : `_${only}`;
@@ -328,6 +405,8 @@ if (errors.length) md.push('', '## 오류', '', ...errors.map((e) => `- ${e}`));
 const mdPath = join(dir, `photokorea_summary_${today}${suffix}.md`);
 writeFileSync(mdPath, md.join('\n') + '\n');
 
-console.log(`\n후보 있는 성지 ${withCandidates.size}/${targets.length}, 후보 ${candidates.length}장, 호출 ${calls}회, 오류 ${errors.length}`);
+console.log(
+  `\n후보 있는 성지 ${withCandidates.size}/${targets.length}, 후보 ${candidates.length}장, 호출 ${calls}회, 오류 ${errors.length}`,
+);
 console.log(csvPath);
 console.log(mdPath);

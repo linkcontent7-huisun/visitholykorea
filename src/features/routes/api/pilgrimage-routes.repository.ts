@@ -135,7 +135,11 @@ export async function fetchRouteListTranslations(
     const rank = priority.get(row.language) ?? Number.MAX_SAFE_INTEGER;
     const current = best.get(row.route_id) ?? {
       value: { title: null, subtitle: null, description: null },
-      rank: { title: Number.MAX_SAFE_INTEGER, subtitle: Number.MAX_SAFE_INTEGER, description: Number.MAX_SAFE_INTEGER },
+      rank: {
+        title: Number.MAX_SAFE_INTEGER,
+        subtitle: Number.MAX_SAFE_INTEGER,
+        description: Number.MAX_SAFE_INTEGER,
+      },
     };
     (['title', 'subtitle', 'description'] as Field[]).forEach((field) => {
       const value = (row[field] ?? '').trim() || null;
@@ -174,7 +178,10 @@ export async function fetchRouteStopTranslations(
   const priority = new Map(languages.map((lang, i) => [lang, i]));
   const best = new Map<string, { note: string; rank: number }>();
 
-  for (const row of (data ?? []) as Pick<PilgrimageRouteSiteTranslationRow, 'site_id' | 'language' | 'note'>[]) {
+  for (const row of (data ?? []) as Pick<
+    PilgrimageRouteSiteTranslationRow,
+    'site_id' | 'language' | 'note'
+  >[]) {
     const rank = priority.get(row.language) ?? Number.MAX_SAFE_INTEGER;
     const note = (row.note ?? '').trim();
     const current = best.get(row.site_id);

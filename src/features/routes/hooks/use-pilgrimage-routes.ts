@@ -45,7 +45,12 @@ export function useLocalizedRoutes(routes: PilgrimageRoute[] | undefined): Pilgr
     return routes.map((r) => {
       const tr = byId[r.id];
       if (!tr) return r;
-      return { ...r, title: tr.title ?? r.title, subtitle: tr.subtitle ?? r.subtitle, description: tr.description ?? r.description };
+      return {
+        ...r,
+        title: tr.title ?? r.title,
+        subtitle: tr.subtitle ?? r.subtitle,
+        description: tr.description ?? r.description,
+      };
     });
   }, [routes, byId]);
 }
@@ -65,7 +70,8 @@ export function usePilgrimageRoute(slug: string) {
  */
 export function useTranslatedRoute(route: PilgrimageRoute | undefined) {
   const { language } = useSettings();
-  const wanted = language === 'ko' ? [] : [language, ...FALLBACK_CHAIN[language]].filter((l) => l !== 'ko');
+  const wanted =
+    language === 'ko' ? [] : [language, ...FALLBACK_CHAIN[language]].filter((l) => l !== 'ko');
 
   const { data: byLanguage = {} } = useQuery({
     queryKey: queryKeys.routes.translation(route?.id ?? '', wanted.join('+')),
@@ -84,7 +90,8 @@ export function useLocalizedStopNotes(
   stops: PilgrimageRouteStop[] | undefined,
 ): PilgrimageRouteStop[] {
   const { language } = useSettings();
-  const wanted = language === 'ko' ? [] : [language, ...FALLBACK_CHAIN[language]].filter((l) => l !== 'ko');
+  const wanted =
+    language === 'ko' ? [] : [language, ...FALLBACK_CHAIN[language]].filter((l) => l !== 'ko');
 
   const { data: notesBySite = {} } = useQuery({
     queryKey: queryKeys.routes.stopTranslations(routeId ?? '', language),

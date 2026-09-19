@@ -68,7 +68,10 @@ export interface FestivalPressure {
 }
 
 /** 오늘 열리는 행사들과의 거리로 축제 압력을 낸다. 가까울수록 크고(선형 감쇠), 여러 개면 합산 뒤 포화. */
-export function festivalPressure(site: Coordinates, festivals: readonly TourApiSpot[]): FestivalPressure {
+export function festivalPressure(
+  site: Coordinates,
+  festivals: readonly TourApiSpot[],
+): FestivalPressure {
   const { lat, lng } = site;
   if (lat == null || lng == null) return { score: 0, count: 0, nearest: null };
 
@@ -82,7 +85,8 @@ export function festivalPressure(site: Coordinates, festivals: readonly TourApiS
     if (!Number.isFinite(fLat) || !Number.isFinite(fLng) || fLat === 0 || fLng === 0) continue;
 
     const distanceKm = haversineKm(lat, lng, fLat, fLng);
-    if (!nearest || distanceKm < nearest.distanceKm) nearest = { title: festival.title, distanceKm };
+    if (!nearest || distanceKm < nearest.distanceKm)
+      nearest = { title: festival.title, distanceKm };
 
     if (distanceKm <= FESTIVAL_RADIUS_KM) {
       count += 1;
@@ -131,7 +135,10 @@ function clampRate(value: string): number {
  * ① 성지 이름이 관광지 이름과 맞으면 그 값(kind=site) ② 아니면 그날 관광지들의 중앙값(kind=district).
  * 최댓값은 쓰지 않는다 — 2026-09-14 감사에서 과대추정으로 판명. ③ 행이 없으면 null.
  */
-export function pickCongestion(siteName: string, rates: readonly CongestionRate[]): CongestionSignal | null {
+export function pickCongestion(
+  siteName: string,
+  rates: readonly CongestionRate[],
+): CongestionSignal | null {
   const valid = rates.filter((r) => r.baseYmd && Number.isFinite(Number(r.cnctrRate)));
   if (valid.length === 0) return null;
 
@@ -142,11 +149,27 @@ export function pickCongestion(siteName: string, rates: readonly CongestionRate[
   const matched = rows.find((r) => isSameSpot(siteName, r.tAtsNm));
   if (matched) {
     const rate = clampRate(matched.cnctrRate);
-    return { kind: 'site', name: matched.tAtsNm, district, rate, level: toCrowdingLevel(rate), count: rows.length, baseYmd: today };
+    return {
+      kind: 'site',
+      name: matched.tAtsNm,
+      district,
+      rate,
+      level: toCrowdingLevel(rate),
+      count: rows.length,
+      baseYmd: today,
+    };
   }
 
   const rate = median(rows.map((r) => clampRate(r.cnctrRate)));
-  return { kind: 'district', name: null, district, rate, level: toCrowdingLevel(rate), count: rows.length, baseYmd: today };
+  return {
+    kind: 'district',
+    name: null,
+    district,
+    rate,
+    level: toCrowdingLevel(rate),
+    count: rows.length,
+    baseYmd: today,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -184,7 +207,11 @@ export function combineNearbyCrowding(
   if (congestion?.kind === 'site') {
     reasons.push({ key: 'crowdingReasonSite', level: congestion.level });
   } else if (congestion) {
-    reasons.push({ key: 'crowdingReasonDistrict', params: { district: congestion.district }, level: congestion.level });
+    reasons.push({
+      key: 'crowdingReasonDistrict',
+      params: { district: congestion.district },
+      level: congestion.level,
+    });
   } else {
     reasons.push({ key: 'crowdingReasonNoData' });
   }

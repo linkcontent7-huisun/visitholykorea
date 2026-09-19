@@ -8,11 +8,7 @@ import { fetchNearbyDirectory, searchDirectory } from '../api/directory.reposito
  * 기본값(반경 5km·5곳)은 성지 상세의 "주변 본당" 카드용. 시·도 랜딩처럼
  * 더 넓게 봐야 하는 화면은 radiusKm·limit 을 넘긴다.
  */
-export function useNearbyDirectory(
-  coords: Coordinates | undefined,
-  radiusKm = 5,
-  limit = 5,
-) {
+export function useNearbyDirectory(coords: Coordinates | undefined, radiusKm = 5, limit = 5) {
   const lat = coords?.lat ?? null;
   const lng = coords?.lng ?? null;
 

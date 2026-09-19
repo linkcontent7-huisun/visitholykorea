@@ -82,7 +82,8 @@ export function judgeInputs(devices: Pick<MediaDeviceInfo, 'kind' | 'label'>[]):
  * 마이크 없는 유선 이어폰 사용자를 잠그면 안 되기 때문이다.
  */
 export async function verifyWithMicPermission(
-  media: Pick<MediaDevices, 'getUserMedia' | 'enumerateDevices'> | undefined = navigator.mediaDevices,
+  media:
+    Pick<MediaDevices, 'getUserMedia' | 'enumerateDevices'> | undefined = navigator.mediaDevices,
 ): Promise<HeadphoneState> {
   if (!media?.getUserMedia || !media.enumerateDevices) return 'unknown';
   try {
