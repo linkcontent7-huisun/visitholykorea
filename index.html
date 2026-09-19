@@ -22,6 +22,15 @@
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <!--
+      사파리는 beforeinstallprompt 가 없고 manifest 의 display:standalone 도 iOS 16.4 미만에서는
+      안 먹는다(순례자 중 구형 아이폰이 많다는 vite.config.ts 의 기록과 같은 사정). 이 태그들이
+      없으면 "홈 화면에 추가"는 되지만 아이콘을 눌러도 사파리 주소창이 그대로 뜬 채 열려
+      "앱처럼" 안 느껴진다 — 별도로 챙겨야 한다.
+    -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="VisitHolyKorea" />
 
     <title>Visit Holy Korea - 길 위에서 나를 만나는 성지순례</title>
     <meta
@@ -37,6 +46,23 @@
       content="붐비는 관광지 대신 마음에 필요한 쉼표 하나. 감정 기반 한국 가톨릭 성지순례 추천."
     />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!--
+      새 서비스워커가 활성화되면(vite.config.ts 의 workbox.skipWaiting/clientsClaim) 이미 열려 있는
+      탭도 그 즉시 컨트롤러가 바뀐다 — 그때 한 번 새로고침해야 새 번들이 실제로 반영된다.
+      vite-plugin-pwa 의 등록 스크립트(`injectRegister: 'inline'`)는 register() 만 하고 이 처리를
+      안 해줘서 따로 붙였다(2026-09-19).
+    -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        var vhkSwRefreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', function () {
+          if (vhkSwRefreshing) return;
+          vhkSwRefreshing = true;
+          window.location.reload();
+        });
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

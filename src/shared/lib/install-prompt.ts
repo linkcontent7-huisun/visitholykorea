@@ -70,7 +70,11 @@ export function isInAppBrowser(): boolean {
 
 export function isIos(): boolean {
   if (typeof navigator === 'undefined') return false;
-  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) return true;
+  // 사파리에서 "데스크톱 웹사이트로 보기"를 켜면 아이폰도 User-Agent 가 macOS 로 바뀌어
+  // 위 검사를 그냥 통과해 버린다 — 애플 터치스크린 기기만 maxTouchPoints > 1 인 걸로 구분한다
+  // (2026-09-19: 실기기에서 이 때문에 아이폰인데도 설치 안내가 데스크톱용으로 잘못 떴다).
+  return navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
 }
 
 /** 설치를 시도한다. 브라우저 창을 띄울 수 없으면 왜 안 되는지를 돌려준다. */

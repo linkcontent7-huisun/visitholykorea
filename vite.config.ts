@@ -81,6 +81,13 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
+        // `injectRegister: 'inline'` 을 쓰면 vite-plugin-pwa 가 `registerType: 'autoUpdate'` 용
+        // skipWaiting/clientsClaim 을 자동으로 넣어주지 않는다(플러그인이 'auto' 등록 방식일 때만
+        // 자동 설정 — node_modules/vite-plugin-pwa/dist/index.js 의 injectRegister==='auto' 분기).
+        // 그래서 명시하지 않으면 새 배포가 이미 접속했던 기기에 영영 반영 안 되는 문제가 있었다
+        // (2026-09-19 「홈 화면에 추가」 버그 조사 중 발견 — index.html 의 controllerchange 리스너와 짝).
+        skipWaiting: true,
+        clientsClaim: true,
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
         // /api/* 는 화면이 아니라 중계 함수다. 내비게이션 폴백이 index.html 을 돌려주면 안 된다.
         navigateFallbackDenylist: [/^\/api\//],

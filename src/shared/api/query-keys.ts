@@ -75,8 +75,6 @@ export const queryKeys = {
       ['tour', 'facilities', lat, lng, language] as const,
     /** 성지 주변 무장애 여행 정보 (열린관광 축). */
     barrierFree: (lat: number, lng: number) => ['tour', 'barrier-free', lat, lng] as const,
-    festivals: (coords: string, language = 'ko') =>
-      ['tour', 'festivals', coords, language] as const,
     /** 성지의 시·군·구 관광지 집중률 예측 — 성지 id 로 키를 잡는다(주소 → 코드는 조회 계층이 한다). */
     congestion: (siteId: string) => ['tour', 'congestion', siteId] as const,
     hubSpots: (areaCd: string, signguCd: string, baseYm: string) =>

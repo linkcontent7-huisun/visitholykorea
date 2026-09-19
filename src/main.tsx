@@ -2,6 +2,10 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from '@/app/App';
 import '@/shared/styles/globals.css';
+// beforeinstallprompt 는 페이지가 뜨는 순간 한 번만 오고, 그때 리스너가 없으면 사라진다.
+// install-prompt 모듈이 「더보기」 탭(lazy 라우트)을 통해서만 로드되면 항상 놓치므로
+// 여기서 앱 시작과 동시에 즉시 import 해 리스너를 붙여 둔다(2026-09-19 원인 확인).
+import '@/shared/lib/install-prompt';
 
 /**
  * 배포 직후 "Failed to fetch dynamically imported module" 대응.
