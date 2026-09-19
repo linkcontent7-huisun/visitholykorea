@@ -488,32 +488,6 @@ function todayYYYYMMDD(): string {
 }
 
 /**
- * 성지 주변에서 오늘 이후 열리는 축제·행사.
- * 매일 바뀌는 데이터라 캐싱이 원천적으로 불가능하므로, 실시간 활용을 보여주기 가장 좋은 지점이다.
- */
-export function getNearbyFestivals(
-  mapX: number,
-  mapY: number,
-  radiusMeters = 10000,
-  numOfRows = 10,
-  language: Language = 'ko',
-): Promise<TourApiSpot[]> {
-  return callLocalized(
-    'searchFestival2',
-    {
-      eventStartDate: todayYYYYMMDD(),
-      mapX,
-      mapY,
-      radius: radiusMeters,
-      numOfRows,
-      pageNo: 1,
-      arrange: 'E', // 거리순
-    },
-    language,
-  );
-}
-
-/**
  * 시·군·구의 관광지 집중률 예측(오늘부터 30일). `areaCd`·`signguCd` 둘 다 필수 —
  * 시·도만 넘기면 API 가 거절한다(2026-09-16 실측). 메모리에서만 잠깐 쓴다.
  */

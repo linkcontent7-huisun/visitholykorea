@@ -1,14 +1,4 @@
-import {
-  Camera,
-  ChevronDown,
-  Compass,
-  Flag,
-  Heart,
-  PartyPopper,
-  Share2,
-  User,
-  X,
-} from 'lucide-react';
+import { Camera, ChevronDown, Compass, Flag, Heart, Share2, User, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -40,10 +30,8 @@ import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCa
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { sizedImageUrl } from '@/shared/lib/image-url';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
-import { useNearbyFacilities, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
+import { useNearbyFacilities } from '@/features/sites/hooks/use-nearby-tour';
 import { NearbyCrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
-import { useWalkingCoursesNear } from '@/features/sites/hooks/use-tour-extras';
-import { WalkingCourseCard } from '@/features/sites/components/WalkingCourseCard';
 import { GROUP_LABEL_KEY } from '@/features/sites/lib/nearby-facilities';
 import {
   useLocalizedSites,
@@ -87,10 +75,6 @@ export default function SiteDetailPage() {
     isError: facilitiesError,
   } = useNearbyFacilities(site?.coordinates);
   const facilityGroups = facilityGroupsRaw.filter((g) => !HIDDEN_FACILITY_GROUPS.has(g.group));
-  const { data: festivals = [], isFetching: festivalsLoading } = useNearbyFestivals(
-    site?.coordinates,
-  );
-  const { data: walkingCourses = [] } = useWalkingCoursesNear(site);
   const location = useLocation();
   // 마음 나침반에서 「이 코스로 가볼게요」로 오면 #directions — 「방문 정보」로 스크롤한다
   const wantsDirections = location.hash === '#directions';
@@ -503,166 +487,87 @@ export default function SiteDetailPage() {
           <DirectionsCard site={site} addressEnglish={view?.addressRomanized ?? null} />
         </section>
 
-        {/* 성지 사무실·운영자가 직접 적은 주변 안내. TourAPI 목록과 달리 우리 DB 값이라
-            관리자 콘솔에서 고칠 수 있다. 둘 다 비어 있으면 절 자체를 그리지 않는다. */}
-        {(site.nearbyAttractions || site.nearbyLodging) && (
-          <section>
-            <SectionHeading title={t('siteCuratedNearbyTitle')} />
-            <div className="space-y-3">
-              {site.nearbyAttractions && (
-                <Card tone="panel">
-                  <div className="mb-1 text-sm font-bold text-app-text-muted">
-                    {t('siteCuratedAttractions')}
-                  </div>
-                  <p className="whitespace-pre-line text-base leading-relaxed text-app-text">
-                    {site.nearbyAttractions}
-                  </p>
-                </Card>
-              )}
-              {site.nearbyLodging && (
-                <Card tone="panel">
-                  <div className="mb-1 text-sm font-bold text-app-text-muted">
-                    {t('siteCuratedLodging')}
-                  </div>
-                  <p className="whitespace-pre-line text-base leading-relaxed text-app-text">
-                    {site.nearbyLodging}
-                  </p>
-                </Card>
-              )}
-            </div>
-          </section>
+        {/* 「주변 정보」 절은 「둘러볼 곳」(TourAPI 편의시설) 하나만 남긴다(사장님 지시, 2026-09-19)
+            — 「성지가 알려주는 주변」(DB 큐레이션)·「지금 근처에서 열리는 행사」·「이 근처 걷기길」
+            (둘 다 TourAPI 다른 엔드포인트) 세 절은 화면에서 뺐다. 관련 hook 호출도 위에서 지웠다 —
+            죽여 둔 코드가 없다. 되살릴 땐 이 커밋 이전 `SiteDetailPage.tsx`를 참고할 것. */}
+        {!facilitiesLoading && !facilitiesError && facilityGroups.length === 0 && (
+          <p className="rounded-lg border border-dashed border-app-border bg-white p-5 text-base text-app-text-muted">
+            {t('siteNearbyTourismEmpty')}
+          </p>
         )}
 
-        {/* 「주변 관광 정보」라는 상위 제목·설명 문구는 뺀다(사장님 지적, 2026-09-17) —
-            아래 세 절(둘러볼 곳·오늘의 행사·도보 코스)은 각자 제목이 있어 그것으로 충분하고,
-            묶는 제목이 오히려 한 겹 더 얹힌 것처럼 느껴졌다. 절 자체(하위 구조·오류 카드)는
-            그대로 두고 감싸던 제목만 없앤다. 역사·방문 정보보다 아래에 둔 이유는 그대로다
-            (재기획 §4-1: 주변 음식점이 기본 방문 정보보다 먼저 나오지 않게). */}
-        <div className="space-y-8">
-          {/* 한국관광공사 오류 카드는 없앴다(사장님 지적, 2026-09-17) — 축제 API 가 늘 실패해서
-              (9/17 밤 기록: searchFestival2 는 좌표 반경 검색을 지원하지 않음) 이 카드가 거의
-              항상 떠 있었다. 실패해도 아래 절들은 조용히 안 그려질 뿐 — 빈 화면이 오류보다 낫다. */}
-          {!facilitiesLoading && !facilitiesError && facilityGroups.length === 0 && (
-            <p className="rounded-lg border border-dashed border-app-border bg-white p-5 text-base text-app-text-muted">
-              {t('siteNearbyTourismEmpty')}
-            </p>
-          )}
-
-          {/*
+        {/*
           주변 편의시설 — 맛집·숙박·볼거리를 한 화면에서 본다(관광공사 유형 그대로, 레포츠·쇼핑은 뺐다).
           TourAPI 를 한 번만 부르고 유형으로 나눈다(저장하지 않는다).
           빈 유형은 아예 그리지 않는다 — 시골 성지의 빈 탭은 정보가 없는 앱으로 보인다.
         */}
-          {(facilitiesLoading || facilityGroups.length > 0) && (
-            <section>
-              <SectionHeading title={t('siteNearbyTitle')} />
+        {(facilitiesLoading || facilityGroups.length > 0) && (
+          <section>
+            <SectionHeading title={t('siteNearbyTitle')} />
 
-              {facilitiesLoading ? (
-                <div className="no-scrollbar -mx-3 flex gap-4 overflow-x-auto px-3 lg:-mx-5 lg:px-5">
-                  {[1, 2, 3].map((i) => (
-                    <div
-                      key={i}
-                      className="h-64 w-44 flex-shrink-0 animate-pulse rounded-lg bg-app-bg"
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="space-y-8">
-                  {facilityGroups.map(({ group, spots }) => (
-                    <div key={group}>
-                      <h3 className="mb-3 text-lg font-bold text-app-text">
-                        {t(GROUP_LABEL_KEY[group])}
-                      </h3>
-                      <ScrollHintRow className="-mx-3 flex gap-4 px-3 lg:-mx-5 lg:px-5">
-                        {spots.map((spot) => (
-                          <a
-                            key={spot.contentid}
-                            // 이름 검색은 정확한 장소로 안 이어질 때가 있었다(사장님 지적,
-                            // 2026-09-17) — 좌표가 있으니 길찾기로 보낸다. 목적지가 곧 정답이다.
-                            href={kakaoDirectionsUrl(
-                              spot.title,
-                              Number(spot.mapy),
-                              Number(spot.mapx),
-                            )}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                            aria-label={`${spot.title} 길찾기`}
-                            className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left transition-colors hover:border-brand-blue"
-                          >
-                            <div className="relative flex h-36 items-center justify-center overflow-hidden bg-app-panel">
-                              {spot.firstimage ? (
-                                <img
-                                  src={spot.firstimage}
-                                  alt={spot.title}
-                                  className="h-full w-full object-cover"
-                                  loading="lazy"
-                                />
-                              ) : (
-                                <Compass
-                                  size={28}
-                                  className="text-app-text-muted opacity-30"
-                                  aria-hidden
-                                />
-                              )}
-                            </div>
-                            <div className="p-4">
-                              <h4 className="truncate text-base font-bold text-app-text group-hover:text-brand-blue">
-                                {spot.title}
-                              </h4>
-                            </div>
-                          </a>
-                        ))}
-                      </ScrollHintRow>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </section>
-          )}
-
-          {/* 오늘 열리는 행사 — 매일 바뀌므로 캐싱이 원천적으로 불가능한 데이터 */}
-          {(festivalsLoading || festivals.length > 0) && (
-            <section>
-              <SectionHeading title={t('siteFestivalsTitle')} meta={t('siteLiveSource')} />
-              <div className="space-y-3">
-                {festivalsLoading
-                  ? [1, 2].map((i) => (
-                      <div key={i} className="h-16 animate-pulse rounded-lg bg-app-bg" />
-                    ))
-                  : festivals.map((spot) => (
-                      <div
-                        key={spot.contentid}
-                        className="flex items-center gap-4 rounded-lg border border-app-border bg-white p-4"
-                      >
-                        <div
-                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand-blue"
-                          aria-hidden
-                        >
-                          <PartyPopper size={20} />
-                        </div>
-                        <div className="min-w-0">
-                          <h3 className="truncate text-base font-bold text-app-text">
-                            {spot.title}
-                          </h3>
-                          <p className="truncate text-sm text-app-text-muted">{spot.addr1}</p>
-                        </div>
-                      </div>
-                    ))}
-              </div>
-            </section>
-          )}
-
-          {walkingCourses.length > 0 && (
-            <section>
-              <SectionHeading title={t('siteWalkingCoursesTitle')} />
-              <div className="space-y-3">
-                {walkingCourses.slice(0, 3).map((course, index) => (
-                  <WalkingCourseCard key={course.crsIdx ?? index} course={course} />
+            {facilitiesLoading ? (
+              <div className="no-scrollbar -mx-3 flex gap-4 overflow-x-auto px-3 lg:-mx-5 lg:px-5">
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="h-64 w-44 flex-shrink-0 animate-pulse rounded-lg bg-app-bg"
+                  />
                 ))}
               </div>
-            </section>
-          )}
-        </div>
+            ) : (
+              <div className="space-y-8">
+                {facilityGroups.map(({ group, spots }) => (
+                  <div key={group}>
+                    <h3 className="mb-3 text-lg font-bold text-app-text">
+                      {t(GROUP_LABEL_KEY[group])}
+                    </h3>
+                    <ScrollHintRow className="-mx-3 flex gap-4 px-3 lg:-mx-5 lg:px-5">
+                      {spots.map((spot) => (
+                        <a
+                          key={spot.contentid}
+                          // 이름 검색은 정확한 장소로 안 이어질 때가 있었다(사장님 지적,
+                          // 2026-09-17) — 좌표가 있으니 길찾기로 보낸다. 목적지가 곧 정답이다.
+                          href={kakaoDirectionsUrl(
+                            spot.title,
+                            Number(spot.mapy),
+                            Number(spot.mapx),
+                          )}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          aria-label={`${spot.title} 길찾기`}
+                          className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left transition-colors hover:border-brand-blue"
+                        >
+                          <div className="relative flex h-36 items-center justify-center overflow-hidden bg-app-panel">
+                            {spot.firstimage ? (
+                              <img
+                                src={spot.firstimage}
+                                alt={spot.title}
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <Compass
+                                size={28}
+                                className="text-app-text-muted opacity-30"
+                                aria-hidden
+                              />
+                            )}
+                          </div>
+                          <div className="p-4">
+                            <h4 className="truncate text-base font-bold text-app-text group-hover:text-brand-blue">
+                              {spot.title}
+                            </h4>
+                          </div>
+                        </a>
+                      ))}
+                    </ScrollHintRow>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
 
         {/* 순례 후기 — "스탬프 찍기" 절차를 없앴다(2026-09-17 사장님 지적). 로그인한 사람은
             누구나 바로 한 줄을 남길 수 있고, 그 글이 이 성지의 첫 기록이면 스탬프(기록)가

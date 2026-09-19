@@ -3231,46 +3231,6 @@ export const DICTIONARY = {
     pt: 'Num raio de 5 km · ao vivo · Organização de Turismo da Coreia',
     it: 'Entro 5 km · in tempo reale · Ente del Turismo Coreano',
   },
-  siteCuratedNearbyTitle: {
-    ko: '성지가 알려주는 주변',
-    en: 'Nearby, from the shrine',
-    es: 'Alrededores, según el santuario',
-    fr: 'Les environs, selon le sanctuaire',
-    pt: 'Arredores, segundo o santuário',
-    it: 'Dintorni, secondo il santuario',
-  },
-  siteCuratedAttractions: {
-    ko: '주변 볼거리',
-    en: 'Things to see nearby',
-    es: 'Qué ver cerca',
-    fr: 'À voir à proximité',
-    pt: 'O que ver por perto',
-    it: 'Da vedere nei dintorni',
-  },
-  siteCuratedLodging: {
-    ko: '숙박 안내',
-    en: 'Where to stay',
-    es: 'Dónde alojarse',
-    fr: 'Où loger',
-    pt: 'Onde ficar',
-    it: 'Dove alloggiare',
-  },
-  siteFestivalsTitle: {
-    ko: '지금 근처에서 열리는 행사',
-    en: 'Events happening nearby now',
-    es: 'Eventos cerca ahora mismo',
-    fr: 'Événements en cours à proximité',
-    pt: 'Eventos acontecendo por perto agora',
-    it: 'Eventi in corso nelle vicinanze',
-  },
-  siteLiveSource: {
-    ko: '한국관광공사 관광데이터 · 지금 불러온 정보',
-    en: 'Korea Tourism Organization data · fetched just now',
-    es: 'en directo · Organización de Turismo de Corea',
-    fr: 'en direct · Office du tourisme coréen',
-    pt: 'ao vivo · Organização de Turismo da Coreia',
-    it: 'in tempo reale · Ente del Turismo Coreano',
-  },
   // 한국어만 교구 이름을 넣는다. 다른 언어에서 "the 서울 diocese" 는 읽기 어려워
   // 이름을 빼고 "같은 교구"로 쓴다 — 자리표시자가 없는 문장은 그대로 나간다.
   siteOtherInDiocese: {
@@ -5140,14 +5100,6 @@ export const DICTIONARY = {
     fr: 'Fourni par l’Organisation du tourisme de Corée',
     pt: 'Fornecido pela Organização de Turismo da Coreia',
     it: 'Fornito dall’Organizzazione del Turismo della Corea',
-  },
-  siteWalkingCoursesTitle: {
-    ko: '이 근처 걷기길',
-    en: 'Walking trails nearby',
-    es: 'Senderos cercanos',
-    fr: 'Sentiers à proximité',
-    pt: 'Caminhos próximos',
-    it: 'Sentieri vicini',
   },
   quietEmptyTitle: {
     ko: '아직 계산할 성지가 없어요',
