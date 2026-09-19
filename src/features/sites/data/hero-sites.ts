@@ -48,12 +48,12 @@ export const HERO_SITES: readonly HeroSite[] = [
   },
   {
     id: '66e08f67-b761-40aa-9c6e-db6bd6efb6d6',
-    slug: 'gongseri-facade', // 9/19 사장님 사진(정면 계단)으로 교체
+    slug: 'gongseri-spring', // 9/19 대전교구 홍보국 제공 사진(봄 전경)으로 교체
     name: '공세리성지성당',
     region: '대전',
     category: '성당',
-    imageSource: '직접 촬영',
-    imageLicense: '앱 사용 동의',
+    imageSource: '대전교구 홍보국 제공',
+    imageLicense: '앱 사용 허락',
   },
   {
     id: '7e9b0733-1c97-4d1c-beb0-fd7e9c6ab8c0',
@@ -68,12 +68,12 @@ export const HERO_SITES: readonly HeroSite[] = [
   },
   {
     id: 'aeac09d0-c5ef-4091-b1b0-b84686940659',
-    slug: 'haemi',
+    slug: 'haemi-stone', // 9/19 대전교구 홍보국 제공 사진(표지석·기념관)으로 교체
     name: '해미순교성지',
     region: '대전',
     category: '순교성지',
-    imageSource: 'Wikimedia Commons (Korea.net / KOCIS, Jeon Han)',
-    imageLicense: 'CC BY-SA 2.0',
+    imageSource: '대전교구 홍보국 제공',
+    imageLicense: '앱 사용 허락',
   },
 ];
 
