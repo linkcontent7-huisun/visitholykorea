@@ -1018,13 +1018,14 @@ export const DICTIONARY = {
     pt: 'Busque uma atração para ver o movimento de hoje e santuários tranquilos por perto',
     it: 'Cerca un’attrazione per vedere l’affluenza di oggi e i santuari tranquilli vicini',
   },
+  // 대화 시트 헤더 제목 — 「AI」 대신 이름을 앞세운다 (2026-09-18 사장님)
   aiGuideTitle: {
-    ko: 'AI 순례 가이드',
-    en: 'AI Pilgrimage Guide',
-    es: 'Guía de peregrinación con IA',
-    fr: 'Guide de pèlerinage IA',
-    pt: 'Guia de peregrinação com IA',
-    it: 'Guida al pellegrinaggio con IA',
+    ko: '순례 가이드 미카엘',
+    en: 'Michael, Pilgrimage Guide',
+    es: 'Miguel, guía de peregrinación',
+    fr: 'Michel, guide de pèlerinage',
+    pt: 'Miguel, guia de peregrinação',
+    it: 'Michele, guida al pellegrinaggio',
   },
   // 헤더의 작은 버튼용 — 인사말(aiGreeting)과 같은 이름을 언어별로 음역해 짧게 쓴다
   aiGuideNavLabel: {
@@ -5553,12 +5554,12 @@ export const DICTIONARY = {
     it: 'Parlami di "{query}".',
   },
   aiGreeting: {
-    ko: '안녕하세요, 순례자님. 성지순례를 돕는 미카엘입니다. 가고 싶은 지역이나 마음에 걸리는 것이 있다면 편히 말씀해 주세요.',
-    en: 'Hello, pilgrim. I’m Michael, here to help with your pilgrimage. Tell me where you’d like to go or what’s on your mind.',
-    es: 'Hola, peregrino. Soy Miguel y te ayudo con tu peregrinación. Cuéntame adónde quieres ir o qué te preocupa.',
-    fr: 'Bonjour, pèlerin. Je suis Michel, votre guide de pèlerinage. Dites-moi où vous voulez aller ou ce qui vous préoccupe.',
-    pt: 'Olá, peregrino. Sou Miguel e ajudo na sua peregrinação. Diga-me aonde quer ir ou o que está em seu coração.',
-    it: 'Ciao, pellegrino. Sono Michele e ti aiuto nel pellegrinaggio. Dimmi dove vuoi andare o cosa ti sta a cuore.',
+    ko: '안녕하세요, 순례자님! 성지순례를 돕는 미카엘이에요. 가고 싶은 지역이나 궁금한 성지가 있다면 편히 물어봐 주세요.',
+    en: 'Hello, pilgrim! I’m Michael, happy to help with your pilgrimage. Ask me about any region or shrine you’re curious about.',
+    es: '¡Hola, peregrino! Soy Miguel y te ayudo con tu peregrinación. Pregúntame por cualquier región o santuario que te interese.',
+    fr: 'Bonjour, pèlerin ! Je suis Michel, ravi de vous guider. Demandez-moi une région ou un sanctuaire qui vous intéresse.',
+    pt: 'Olá, peregrino! Sou Miguel e ajudo na sua peregrinação. Pergunte-me sobre qualquer região ou santuário que lhe interesse.',
+    it: 'Ciao, pellegrino! Sono Michele e ti aiuto nel pellegrinaggio. Chiedimi di una regione o di un santuario che ti incuriosisce.',
   },
   aiSheetAria: {
     ko: 'AI 순례 가이드',
@@ -6001,6 +6002,10 @@ export const DICTIONARY = {
     pt: 'Plan updated',
     it: 'Plan updated',
   },
+  // 미카엘 대화 기록 · 폴백 · 출처 (스펙 2026-09-18)
+  aiClearChat: { ko: "대화 지우기", en: "Clear chat", es: "Clear chat", fr: "Clear chat", pt: "Clear chat", it: "Clear chat" },
+  aiFallbackNotice: { ko: "미카엘 대신 성지 정보만 보여드려요", en: "Michael is resting — showing shrine info only", es: "Michael is resting — showing shrine info only", fr: "Michael is resting — showing shrine info only", pt: "Michael is resting — showing shrine info only", it: "Michael is resting — showing shrine info only" },
+  aiSourcesLabel: { ko: "참고한 성지:", en: "Based on:", es: "Based on:", fr: "Based on:", pt: "Based on:", it: "Based on:" },
   languageSelectAria: {
     ko: '언어 선택',
     en: 'Select language',

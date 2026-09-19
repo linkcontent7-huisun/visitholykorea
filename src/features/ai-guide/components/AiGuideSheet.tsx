@@ -1,10 +1,13 @@
 import { AnimatePresence, motion } from 'motion/react';
-import { Bot, Loader2, Send, X } from 'lucide-react';
+import { Bot, Loader2, Send, Trash2, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { useSession } from '@/features/auth/hooks/use-session';
 import { askAIGuide } from '../api/ai-guide.client';
+import { clearChatHistory, fetchChatHistory, saveChatTurns } from '../api/ai-chat.repository';
+import { chatStore, useChatMessages } from '../lib/chat-store';
 
 /**
  * 미카엘의 답변은 마크다운(표·불릿·굵게)으로 온다. 채팅 말풍선 안에서 읽히도록
@@ -13,25 +16,45 @@ import { askAIGuide } from '../api/ai-guide.client';
 const MARKDOWN_CLASS =
   'space-y-2 [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:border-app-border [&_th]:px-2 [&_th]:py-1 [&_td]:border [&_td]:border-app-border [&_td]:px-2 [&_td]:py-1 [&_ul]:list-disc [&_ul]:pl-4 [&_ol]:list-decimal [&_ol]:pl-4 [&_p]:mb-1 [&_strong]:font-bold';
 
-interface Message {
-  role: 'user' | 'bot';
-  text: string;
-}
-
-
 interface AiGuideSheetProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-/** 하단에서 올라오는 AI 가이드 대화 시트. */
+/**
+ * 하단에서 올라오는 AI 가이드 대화 시트.
+ *
+ * 대화는 앱에 한 줄기(chat-store) — 헤더 · 홈 카드 어디서 열어도 같다. 로그인이면 열 때 DB 에서
+ * 최근 대화를 채우고 질문 · 답을 쌍으로 저장한다(스펙 7절). 비로그인은 세션 안에서만.
+ */
 export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
   const { t } = useSettings();
-  // 첫 인사는 고른 언어로 — 외국인에게 한국어 인사가 먼저 뜨면 답도 한국어로 올 것처럼 보인다
-  const [messages, setMessages] = useState<Message[]>(() => [{ role: 'bot', text: t('aiGreeting') }]);
+  const { session } = useSession();
+  const userId = session?.user.id ?? null;
+  const messages = useChatMessages();
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  // 첫 인사는 고른 언어로 — 외국인에게 한국어 인사가 먼저 뜨면 답도 한국어로 올 것처럼 보인다
+  const greeting = t('aiGreeting');
+
+  // 열 때: 로그인이면 DB 기록을 한 번 채운다. 로그인 상태가 바뀌면 다시 채운다.
+  useEffect(() => {
+    if (!isOpen || chatStore.loadedFor() === userId) return;
+    chatStore.markLoaded(userId);
+    if (!userId) {
+      if (chatStore.get().length === 0) chatStore.set([{ role: 'bot', text: greeting }]);
+      return;
+    }
+    let active = true;
+    void fetchChatHistory().then((history) => {
+      if (!active) return;
+      chatStore.set(history.length ? history : [{ role: 'bot', text: greeting }]);
+    });
+    return () => {
+      active = false;
+    };
+  }, [isOpen, userId, greeting]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -44,12 +67,24 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
     if (!question || isLoading) return;
 
     setInput('');
-    setMessages((prev) => [...prev, { role: 'user', text: question }]);
+    // 문맥은 실제 대화만 — 첫 인사(greeting)는 뺀다
+    const history = chatStore.get().filter((m) => m.text !== greeting);
+    chatStore.append({ role: 'user', text: question });
     setIsLoading(true);
 
-    const response = await askAIGuide(question);
-    setMessages((prev) => [...prev, { role: 'bot', text: response }]);
+    const answer = await askAIGuide(question, history);
+    chatStore.append({ role: 'bot', text: answer.text, fallback: answer.fallback, sources: answer.sources });
     setIsLoading(false);
+    // 로그인일 때만 저장된다(repository 가 판단). 실패해도 화면은 그대로.
+    void saveChatTurns([
+      { role: 'user', text: question },
+      { role: 'bot', text: answer.text },
+    ]);
+  };
+
+  const handleClear = async () => {
+    if (userId) await clearChatHistory();
+    chatStore.set([{ role: 'bot', text: greeting }]);
   };
 
   return (
@@ -74,9 +109,9 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="relative flex h-[85vh] w-full max-w-lg flex-col overflow-hidden rounded-t-lg bg-white sm:h-[70vh] sm:rounded-lg"
+            className="relative flex h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-lg bg-white sm:h-[88vh] sm:rounded-lg"
           >
-            <header className="flex shrink-0 items-center justify-between bg-brand-blue p-8 text-white">
+            <header className="flex shrink-0 items-center justify-between bg-brand-blue px-6 py-4 text-white">
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-white/10 backdrop-blur-xl">
                   <Bot size={28} />
@@ -88,18 +123,31 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                   <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-emerald-400" aria-hidden />
                 </div>
               </div>
-              <button
-                onClick={onClose}
-                className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 bg-white/10 transition-colors hover:bg-white/20"
-                aria-label={t('close')}
-              >
-                <X size={22} />
-              </button>
+              <div className="flex items-center gap-2">
+                {messages.some((m) => m.role === 'user') && (
+                  <button
+                    onClick={() => void handleClear()}
+                    className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 bg-white/10 transition-colors hover:bg-white/20"
+                    aria-label={t('aiClearChat')}
+                    title={t('aiClearChat')}
+                    id="ai-clear-chat"
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                )}
+                <button
+                  onClick={onClose}
+                  className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 bg-white/10 transition-colors hover:bg-white/20"
+                  aria-label={t('close')}
+                >
+                  <X size={22} />
+                </button>
+              </div>
             </header>
 
             <div
               ref={scrollRef}
-              className="no-scrollbar flex-1 space-y-6 overflow-y-auto bg-white p-8"
+              className="no-scrollbar flex-1 space-y-5 overflow-y-auto bg-white p-6"
             >
               {messages.map((msg, i) => (
                 <motion.div
@@ -109,15 +157,27 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] rounded-lg p-5 text-sm font-medium leading-relaxed ${
+                    className={`max-w-[90%] rounded-lg p-5 text-base font-medium leading-relaxed ${
                       msg.role === 'user'
                         ? 'rounded-tr-none bg-brand-blue text-white'
                         : 'rounded-tl-none border border-app-border bg-app-bg text-app-text'
                     }`}
                   >
                     {msg.role === 'bot' ? (
-                      <div className={MARKDOWN_CLASS}>
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown>
+                      <div>
+                        {msg.fallback && (
+                          <p className="mb-2 rounded bg-app-panel px-2 py-1 text-[0.6875rem] font-bold text-app-text-muted">
+                            {t('aiFallbackNotice')}
+                          </p>
+                        )}
+                        <div className={MARKDOWN_CLASS}>
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown>
+                        </div>
+                        {msg.sources && msg.sources.length > 0 && (
+                          <p className="mt-2 text-[0.6875rem] text-app-text-muted">
+                            {t('aiSourcesLabel')} {msg.sources.join(' · ')}
+                          </p>
+                        )}
                       </div>
                     ) : (
                       <p className="whitespace-pre-wrap">{msg.text}</p>
@@ -137,7 +197,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
               )}
             </div>
 
-            <div className="flex shrink-0 items-center gap-4 border-t border-app-border bg-white p-8">
+            <div className="flex shrink-0 items-center gap-4 border-t border-app-border bg-white p-5">
               <div className="relative flex-1">
                 <input
                   type="text"
@@ -148,7 +208,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                   }}
                   placeholder={t('aiInputPlaceholder')}
                   aria-label={t('aiInputAria')}
-                  className="w-full rounded-lg border border-app-border bg-app-bg px-7 py-5 pr-16 text-sm font-bold text-app-text outline-none transition-colors placeholder:text-app-text-muted focus:border-brand-blue"
+                  className="w-full rounded-lg border border-app-border bg-app-bg px-6 py-4 pr-16 text-base font-bold text-app-text outline-none transition-colors placeholder:text-app-text-muted focus:border-brand-blue"
                 />
                 <button
                   onClick={() => void handleSend()}
