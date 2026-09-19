@@ -187,7 +187,7 @@ export const DICTIONARY = {
     it: 'Scegli un santuario cercando',
   },
   recordsPickHint: {
-    ko: '성지 찾기에서 성지를 열고 아래 「방문 기록 남기기」를 누르면 여기에 쌓입니다.',
+    ko: '성지 찾기에서 성지를 열고 아래 「성지 기록 남기기」를 누르면 여기에 쌓입니다.',
     en: 'Open a shrine from Find shrines and tap “Save a visit record” at the bottom — it shows up here.',
     es: 'Abre un santuario en Buscar santuarios y toca «Guardar visita» abajo; aparecerá aquí.',
     fr: 'Ouvrez un sanctuaire via Trouver un sanctuaire et touchez « Enregistrer la visite » en bas ; elle apparaîtra ici.',
@@ -282,14 +282,6 @@ export const DICTIONARY = {
     pt: 'O campo de data da visita abre após a migração (20260914130000). Por agora só aparece a data de registro.',
     it: 'Il campo data della visita si attiva dopo la migrazione (20260914130000). Per ora è mostrata solo la data di registrazione.',
   },
-  recordsMoreFeatures: {
-    ko: '인증서·공유 카드·교구별 진행률은 이번 제출 범위에서 뺐습니다.',
-    en: 'Certificates, share cards and diocese progress are outside this submission’s scope.',
-    es: 'Certificados, tarjetas para compartir y progreso por diócesis quedan fuera de esta entrega.',
-    fr: 'Certificats, cartes de partage et progression par diocèse sont hors du périmètre de cette version.',
-    pt: 'Certificados, cartões de partilha e progresso por diocese ficam fora desta entrega.',
-    it: 'Certificati, card da condividere e progresso per diocesi sono fuori da questa consegna.',
-  },
   // 로그인·가입 상태 7종
   signupDone: {
     ko: '가입이 완료됐습니다. 바로 이용할 수 있어요.',
@@ -381,7 +373,7 @@ export const DICTIONARY = {
     it: 'Link ufficiale da confermare dall’operatore',
   },
   saveVisitRecord: {
-    ko: '방문 기록 남기기',
+    ko: '성지 기록 남기기',
     en: 'Save a visit record',
     es: 'Guardar visita',
     fr: 'Enregistrer la visite',

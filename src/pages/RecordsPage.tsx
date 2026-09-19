@@ -7,7 +7,7 @@
  * 코드(`features/passport/lib/*`)는 남아 있어 나중에 다시 붙일 수 있다.
  *
  * 기록의 정체는 `pilgrimage_stamps` 행 하나다. 장소를 고르는 입구는 성지 상세의
- * 「방문 기록 남기기」 버튼이고, 여기서는 목록·수정·삭제만 한다. 방문일(`visited_on`)은
+ * 「성지 기록 남기기」 버튼이고, 여기서는 목록·수정·삭제만 한다. 방문일(`visited_on`)은
  * 마이그레이션 20260914130000 이 운영 DB 에 적용된 뒤에만 편집할 수 있다 — 그 전에는
  * 열이 없다는 사실을 화면에 그대로 적는다.
  */
@@ -275,9 +275,6 @@ export default function RecordsPage() {
 
           <p className="mt-6 text-sm leading-relaxed text-app-text-muted">
             {t('recordsPrivateNote')}
-          </p>
-          <p className="mt-1 text-sm leading-relaxed text-app-text-muted">
-            {t('recordsMoreFeatures')}
           </p>
         </>
       )}
