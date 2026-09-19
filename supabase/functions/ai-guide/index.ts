@@ -25,6 +25,12 @@ const CLAUDE_MODEL = Deno.env.get('CLAUDE_MODEL') ?? 'claude-haiku-4-5-20251001'
 /** Claude 가 준비돼 있으면 Gemini 를 오래 두드릴 이유가 줄어든다. 'true' 면 Gemini 는 3회만 보고 Claude 로. 기본은 사장님 지시대로 20~30회. */
 const GEMINI_QUICK_HANDOFF =
   Deno.env.get('GEMINI_QUICK_HANDOFF') === 'true' && Boolean(ANTHROPIC_API_KEY);
+/**
+ * 1순위 답변자. 'claude' 면 Claude 가 먼저 답하고 Gemini 가 예비, 그 밖(기본)은 Gemini 먼저.
+ * 2026-09-19: Gemini 무료 한도가 시연에 불안해 Claude 유료(API 크레딧)를 1순위로 두기로 함. 시크릿 하나로 바꾼다.
+ */
+const AI_PRIMARY =
+  Deno.env.get('AI_PRIMARY') === 'claude' && Boolean(ANTHROPIC_API_KEY) ? 'claude' : 'gemini';
 // 모델은 환경변수로 갈아끼울 수 있게 둔다(모델 교체 때 코드 수정이 필요 없도록).
 const GEMINI_MODEL = Deno.env.get('GEMINI_MODEL') ?? 'gemini-3.6-flash';
 
@@ -581,43 +587,53 @@ Deno.serve(async (req) => {
       .filter(Boolean)
       .join('\n\n');
 
-    try {
-      // 검증·비교용: 요청에 provider:'claude' 가 오면 Gemini 를 건너뛴다 (키 없으면 무시)
-      if (payload.provider === 'claude' && ANTHROPIC_API_KEY) throw new GeminiHttpError(0);
-      const text = await callGemini(MICHAEL_SYSTEM_INSTRUCTION, prompt, history);
-      return new Response(JSON.stringify({ text, sources, provider: 'gemini' }), {
+    // 답변자 순서: AI_PRIMARY 가 먼저, 다른 쪽이 예비. 요청의 provider 로 검증용 강제 지정도 된다.
+    const wantClaudeFirst =
+      (payload.provider === 'claude' || AI_PRIMARY === 'claude') && Boolean(ANTHROPIC_API_KEY);
+    const order: ('gemini' | 'claude')[] = wantClaudeFirst
+      ? ['claude', 'gemini']
+      : ['gemini', 'claude'];
+    const json = (body: Record<string, unknown>) =>
+      new Response(JSON.stringify(body), {
         headers: { ...corsFor(req), 'content-type': 'application/json' },
       });
-    } catch (err) {
-      // reason: 한도(429) · 업스트림 상태 코드 · 그 밖(네트워크·시간 초과). 비밀값 없음.
-      const reason =
-        err instanceof RateLimitError
-          ? 'rate_limited'
-          : err instanceof GeminiHttpError
-            ? `gemini_${err.status}`
-            : err instanceof Error && err.name === 'TimeoutError'
-              ? 'gemini_timeout'
-              : 'gemini_error';
-
-      // 1) Gemini 가 못 답하면 Claude 가 같은 프롬프트로 답한다
-      if (ANTHROPIC_API_KEY) {
-        try {
-          const text = await callClaude(MICHAEL_SYSTEM_INSTRUCTION, prompt, history);
-          console.warn(`ai-guide: Gemini 실패(${reason}) → Claude 가 답함`);
-          return new Response(
-            JSON.stringify({ text, sources, provider: 'claude', geminiReason: reason }),
-            {
-              headers: { ...corsFor(req), 'content-type': 'application/json' },
-            },
-          );
-        } catch (claudeErr) {
-          console.error(
-            'ai-guide: Claude 도 실패',
-            claudeErr instanceof Error ? claudeErr.message : claudeErr,
-          );
+    let firstErr: unknown = null;
+    let firstReason = '';
+    for (const provider of order) {
+      if (provider === 'claude' && !ANTHROPIC_API_KEY) continue;
+      try {
+        const text =
+          provider === 'claude'
+            ? await callClaude(MICHAEL_SYSTEM_INSTRUCTION, prompt, history)
+            : await callGemini(MICHAEL_SYSTEM_INSTRUCTION, prompt, history);
+        if (firstErr)
+          console.warn(`ai-guide: ${order[0]} 실패(${firstReason}) → ${provider} 가 답함`);
+        return json(
+          firstErr
+            ? { text, sources, provider, fallbackFrom: order[0], reason: firstReason }
+            : { text, sources, provider },
+        );
+      } catch (err) {
+        const reason =
+          err instanceof RateLimitError
+            ? 'rate_limited'
+            : err instanceof GeminiHttpError
+              ? `gemini_${err.status}`
+              : err instanceof ClaudeHttpError
+                ? `claude_${err.status}`
+                : err instanceof Error && err.name === 'TimeoutError'
+                  ? `${provider}_timeout`
+                  : `${provider}_error`;
+        if (!firstErr) {
+          firstErr = err;
+          firstReason = reason;
         }
+        console.error(`ai-guide: ${provider} 실패 (${reason})`);
       }
-
+    }
+    {
+      const err = firstErr;
+      const reason = firstReason;
       // 2) 둘 다 못 답해도 검색 결과가 있으면 정보 카드로 답한다 (200). 없을 때만 오류로.
       const card = fallbackCard(ctx);
       if (card) {
