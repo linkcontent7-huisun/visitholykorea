@@ -3,7 +3,10 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
-import { usePilgrimageRoutes, useLocalizedRoutes } from '@/features/routes/hooks/use-pilgrimage-routes';
+import {
+  usePilgrimageRoutes,
+  useLocalizedRoutes,
+} from '@/features/routes/hooks/use-pilgrimage-routes';
 import { HeroCarousel, type HeroSlide } from '@/features/sites/components/HeroCarousel';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { HERO_SITES } from '@/features/sites/data/hero-sites';
@@ -213,7 +216,9 @@ export default function HomePage() {
                 <div className="mb-1 flex items-center gap-2 text-sm font-bold text-app-text-muted">
                   <Footprints size={14} aria-hidden />
                   {route.stopCount != null && (
-                    <span>{fillPlaceholders(t('routeStopsCount'), { count: route.stopCount })}</span>
+                    <span>
+                      {fillPlaceholders(t('routeStopsCount'), { count: route.stopCount })}
+                    </span>
                   )}
                 </div>
                 <h3 className="mb-1 text-lg font-bold text-app-text group-hover:text-brand-blue">

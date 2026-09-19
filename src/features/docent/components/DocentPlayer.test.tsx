@@ -48,7 +48,7 @@ const chapters: DocentChapter[] = [
     narration: '설명',
     location: '입구 왼쪽',
     lookFor: '십자가 부조',
-    },
+  },
   { id: 'outro', title: '맺음말', narration: '맺음말 본문', location: null, lookFor: null },
 ];
 

@@ -32,8 +32,21 @@ function north(km: number) {
   return { mapy: String(HAEMI.lat + km / 111), mapx: String(HAEMI.lng) };
 }
 
-function rate(tAtsNm: string, cnctrRate: number, baseYmd = '20260916', signguNm = '당진시'): CongestionRate {
-  return { baseYmd, areaCd: '44', areaNm: '충청남도', signguCd: '44270', signguNm, tAtsNm, cnctrRate: String(cnctrRate) };
+function rate(
+  tAtsNm: string,
+  cnctrRate: number,
+  baseYmd = '20260916',
+  signguNm = '당진시',
+): CongestionRate {
+  return {
+    baseYmd,
+    areaCd: '44',
+    areaNm: '충청남도',
+    signguCd: '44270',
+    signguNm,
+    tAtsNm,
+    cnctrRate: String(cnctrRate),
+  };
 }
 
 describe('saturate — 포화 곡선', () => {
@@ -71,7 +84,10 @@ describe('festivalPressure — 오늘 축제 압력 (0~100)', () => {
     const near = festivalPressure(HAEMI, [spot(north(1))]).score;
     const far = festivalPressure(HAEMI, [spot(north(12))]).score;
     expect(near).toBeGreaterThan(far);
-    const many = festivalPressure(HAEMI, Array.from({ length: 30 }, () => spot(north(0.5))));
+    const many = festivalPressure(
+      HAEMI,
+      Array.from({ length: 30 }, () => spot(north(0.5))),
+    );
     expect(many.score).toBeLessThanOrEqual(100);
   });
   it('좌표 없는 성지·좌표 0 인 행사는 계산하지 않는다', () => {
@@ -85,17 +101,36 @@ describe('pickCongestion — 집중률에서 성지 신호 고르기', () => {
     expect(pickCongestion('솔뫼성지', [])).toBeNull();
   });
   it('가장 이른 날짜(오늘) 행만 쓴다 — 30일 뒤 예측을 오늘 값으로 쓰지 않는다', () => {
-    const picked = pickCongestion('솔뫼성지', [rate('솔뫼성지', 80, '20261010'), rate('솔뫼성지', 20, '20260916')]);
+    const picked = pickCongestion('솔뫼성지', [
+      rate('솔뫼성지', 80, '20261010'),
+      rate('솔뫼성지', 20, '20260916'),
+    ]);
     expect(picked?.baseYmd).toBe('20260916');
     expect(picked?.rate).toBe(20);
   });
   it('성지 이름이 관광지로 올라 있으면 그 값 (kind=site)', () => {
     const picked = pickCongestion('솔뫼성지', [rate('삽교호', 90), rate('솔뫼 성지', 35)]);
-    expect(picked).toMatchObject({ kind: 'site', name: '솔뫼 성지', rate: 35, level: '보통', district: '당진시' });
+    expect(picked).toMatchObject({
+      kind: 'site',
+      name: '솔뫼 성지',
+      rate: 35,
+      level: '보통',
+      district: '당진시',
+    });
   });
   it('이름이 없으면 같은 시·군·구 관광지 중앙값 (kind=district) — 최댓값이 아니다', () => {
-    const picked = pickCongestion('신리성지', [rate('삽교호', 90), rate('왜목마을', 10), rate('아미미술관', 30)]);
-    expect(picked).toMatchObject({ kind: 'district', name: null, rate: 30, level: '보통', count: 3 });
+    const picked = pickCongestion('신리성지', [
+      rate('삽교호', 90),
+      rate('왜목마을', 10),
+      rate('아미미술관', 30),
+    ]);
+    expect(picked).toMatchObject({
+      kind: 'district',
+      name: null,
+      rate: 30,
+      level: '보통',
+      count: 3,
+    });
   });
   it('짝수 개면 가운데 두 값의 평균', () => {
     expect(pickCongestion('x', [rate('a', 10), rate('b', 50)])?.rate).toBe(30);
@@ -112,7 +147,10 @@ describe('combineNearbyCrowding — 합산과 근거', () => {
     const r = combineNearbyCrowding(noFestival, null);
     expect(r.level).toBeNull();
     expect(r.score).toBeNull();
-    expect(r.reasons.map((x) => x.key)).toEqual(['crowdingReasonNoData', 'crowdingReasonFestivalNo']);
+    expect(r.reasons.map((x) => x.key)).toEqual([
+      'crowdingReasonNoData',
+      'crowdingReasonFestivalNo',
+    ]);
   });
 
   it('집중률 0.7 + 축제 0.3 으로 합친다', () => {
@@ -124,11 +162,21 @@ describe('combineNearbyCrowding — 합산과 근거', () => {
   });
 
   it('성지 이름이 매칭되면 「이 성지」 근거, 아니면 시·군·구 근거 — 숫자는 어디에도 없다', () => {
-    const site = combineNearbyCrowding(noFestival, pickCongestion('솔뫼성지', [rate('솔뫼성지', 20)])!);
+    const site = combineNearbyCrowding(
+      noFestival,
+      pickCongestion('솔뫼성지', [rate('솔뫼성지', 20)])!,
+    );
     expect(site.reasons[0]).toEqual({ key: 'crowdingReasonSite', level: '조용' });
 
-    const district = combineNearbyCrowding(noFestival, pickCongestion('신리성지', [rate('삽교호', 70)])!);
-    expect(district.reasons[0]).toEqual({ key: 'crowdingReasonDistrict', params: { district: '당진시' }, level: '붐빔' });
+    const district = combineNearbyCrowding(
+      noFestival,
+      pickCongestion('신리성지', [rate('삽교호', 70)])!,
+    );
+    expect(district.reasons[0]).toEqual({
+      key: 'crowdingReasonDistrict',
+      params: { district: '당진시' },
+      level: '붐빔',
+    });
     for (const reason of [...site.reasons, ...district.reasons]) {
       expect(JSON.stringify(reason.params ?? {})).not.toMatch(/\d/);
     }
@@ -137,6 +185,9 @@ describe('combineNearbyCrowding — 합산과 근거', () => {
   it('오늘 인근 행사가 있으면 가장 가까운 행사 이름을 근거로 남긴다', () => {
     const festival = festivalPressure(HAEMI, [spot({ title: '해미읍성 축제', ...north(2) })]);
     const r = combineNearbyCrowding(festival, pickCongestion('x', [rate('a', 10)]));
-    expect(r.reasons[1]).toEqual({ key: 'crowdingReasonFestivalYes', params: { title: '해미읍성 축제' } });
+    expect(r.reasons[1]).toEqual({
+      key: 'crowdingReasonFestivalYes',
+      params: { title: '해미읍성 축제' },
+    });
   });
 });

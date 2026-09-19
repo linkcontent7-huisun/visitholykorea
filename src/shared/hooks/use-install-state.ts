@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getInstallState, subscribeInstallState, type InstallState } from '@/shared/lib/install-prompt';
+import {
+  getInstallState,
+  subscribeInstallState,
+  type InstallState,
+} from '@/shared/lib/install-prompt';
 
 /** 설치 상태를 구독한다. beforeinstallprompt 가 늦게 오거나 설치가 끝나면 다시 계산한다. */
 export function useInstallState(): InstallState {

@@ -40,7 +40,8 @@ const ROUTES: RouteTranslation[] = [
   {
     slug: 'naepo-walk-solmoe-haemi',
     title: 'Naepo Walking Pilgrimage ① Solmoe to Haemi',
-    subtitle: "40.0km · 9–10 hrs — on foot from Fr. Kim Dae-geon's birthplace to the Haemi martyrs' site",
+    subtitle:
+      "40.0km · 9–10 hrs — on foot from Fr. Kim Dae-geon's birthplace to the Haemi martyrs' site",
     description:
       'The main route of the "Naepo Walking Pilgrimage Guide" published by Solmoe Shrine. Starting from Solmoe, birthplace of St. Andrew Kim Dae-geon, it passes Hapdeok Church (4.0km), Bishop Daveluy\'s Silli Shrine (4.0km), Baenadeuri Shrine (8.4km), and Deoksan Martyrdom Shrine (5.6km) before reaching Haemi Martyrdom Shrine (18.0km). Well suited to walking the Naepo fields over two days; distances and times are the guide\'s measured values.',
     stopNotes: [
@@ -70,8 +71,12 @@ const ROUTES: RouteTranslation[] = [
     title: 'Naepo Walking Pilgrimage ③ Hongju Eupseong to Galmaemot and Darakgol',
     subtitle: "55.5km · 13–15 hrs — a 2-night, 3-day link between the southern martyrs' sites",
     description:
-      'From Hongju Eupseong down to the seaside Galmaemot Martyrdom Shrine (30.0km), then up to the row graves of Darakgol Shrine in Cheongyang (25.5km). A long route joining three Byeongin-persecution martyrs\' sites, best split over two nights and three days. In the spirit of the guide\'s "mindset at the shrine" — walk in prayer, in reflection on one\'s own life, and in meditation on the martyrs\' lives.',
-    stopNotes: ['Start', "30.0km · 7–8 hrs — seaside martyrs' site", '25.5km · 6–7 hrs — the row graves, arrival'],
+      "From Hongju Eupseong down to the seaside Galmaemot Martyrdom Shrine (30.0km), then up to the row graves of Darakgol Shrine in Cheongyang (25.5km). A long route joining three Byeongin-persecution martyrs' sites, best split over two nights and three days. In the spirit of the guide's \"mindset at the shrine\" — walk in prayer, in reflection on one's own life, and in meditation on the martyrs' lives.",
+    stopNotes: [
+      'Start',
+      "30.0km · 7–8 hrs — seaside martyrs' site",
+      '25.5km · 6–7 hrs — the row graves, arrival',
+    ],
   },
   {
     slug: 'naepo-walk-gongseri-yeosaul',
@@ -103,9 +108,10 @@ const ROUTES: RouteTranslation[] = [
   {
     slug: 'seoul-1-word',
     title: 'Seoul Camino Route 1 — The Way of the Word',
-    subtitle: 'Myeongdong to Gahoe-dong, 8.7km · 3 hrs 40 min — walking the beginning of Korean Catholicism',
+    subtitle:
+      'Myeongdong to Gahoe-dong, 8.7km · 3 hrs 40 min — walking the beginning of Korean Catholicism',
     description:
-      'The first course of the "Catholic Pilgrimage Route of Seoul," the international pilgrimage site the Holy See approved in September 2018 — the first of its kind in Asia. It begins at the former home of Thomas Kim Beom-u, recorded as Korea\'s first confessor of the faith, and the birthplace of the Catholic Church in Korea at Yi Byeok\'s house, where the first baptism took place in 1785, retracing the resolve of a lay community that embraced the Gospel on its own. Along the way it passes Seokjeong Boreum Well, said to have been used for holy water by Fr. Zhou Wenmo, the first foreign missionary of the Korean Church, and Gahoe-dong Catholic Church in the Gyedong area where he was active — an invitation to reflect on the sacrifice of a man who chose martyrdom far from home. (Based on the Archdiocese of Seoul\'s pilgrimage route guidebook.)',
+      "The first course of the \"Catholic Pilgrimage Route of Seoul,\" the international pilgrimage site the Holy See approved in September 2018 — the first of its kind in Asia. It begins at the former home of Thomas Kim Beom-u, recorded as Korea's first confessor of the faith, and the birthplace of the Catholic Church in Korea at Yi Byeok's house, where the first baptism took place in 1785, retracing the resolve of a lay community that embraced the Gospel on its own. Along the way it passes Seokjeong Boreum Well, said to have been used for holy water by Fr. Zhou Wenmo, the first foreign missionary of the Korean Church, and Gahoe-dong Catholic Church in the Gyedong area where he was active — an invitation to reflect on the sacrifice of a man who chose martyrdom far from home. (Based on the Archdiocese of Seoul's pilgrimage route guidebook.)",
     stopNotes: [
       "Start — the heart of Korean Catholicism; martyrs' relics rest in the crypt",
       "The first gathering of faith in 1784; Korea's first confessor",
@@ -134,7 +140,8 @@ const ROUTES: RouteTranslation[] = [
   {
     slug: 'seoul-2-life',
     title: 'Seoul Camino Route 2 — The Way of Life',
-    subtitle: 'Gahoe-dong to Yakhyeon, 5.9km · 2 hrs 30 min — through the sites of persecution toward eternal life',
+    subtitle:
+      'Gahoe-dong to Yakhyeon, 5.9km · 2 hrs 30 min — through the sites of persecution toward eternal life',
     description:
       'The Joseon dynasty branded Catholicism, which placed God\'s word above the king\'s command, a heterodox teaching and carried out repeated persecutions. The "Way of Life" holds that history — passing Seosomun Martyrdom Shrine, where more believers were beheaded than at any other site, and the sites of the Hyeongjo (Ministry of Justice), the Right Police Bureau, and the Gyeonggi Provincial Office, where arrested Catholics were tortured and martyred. It is named the "Way of Life" because it was both the road to martyrdom and the road to eternal life. Walking over sites whose forms no longer survive, it invites reflection on what the martyrs valued above their own lives. (Based on the Archdiocese of Seoul\'s pilgrimage route guidebook.)',
     stopNotes: [
@@ -152,9 +159,10 @@ const ROUTES: RouteTranslation[] = [
   {
     slug: 'seoul-3-unity',
     title: 'Seoul Camino Route 3 — The Way of Unity',
-    subtitle: 'Yakhyeon to Samseongsan, 29.5km · 8 hrs — martyrs\' shrines linked along the Han River',
+    subtitle:
+      "Yakhyeon to Samseongsan, 29.5km · 8 hrs — martyrs' shrines linked along the Han River",
     description:
-      'This route linking Seoul\'s foremost martyrs\' shrines is named the "Way of Unity" for its purpose — that believers might follow the martyrs\' faith and live out God\'s will. It passes Danggogae Martyrdom Shrine, which produced Korea\'s third-largest number of canonized martyrs, and Saenamteo, where the first foreign missionary Fr. Jacques Zhou Wenmo and Korea\'s first priest St. Andrew Kim Dae-geon were martyred, before meeting the Han River. Following the riverbank it reaches Jeoldusan, "the hill where Catholics were beheaded" — the relics of 27 canonized martyrs and one unnamed martyr rest in the crypt of its memorial church — then passes Waegogae, where ten martyrs lay buried for decades, on to Samseongsan. Along the way it asks what it looks like to live out the martyrs\' faith. (Based on the Archdiocese of Seoul\'s pilgrimage route guidebook.)',
+      "This route linking Seoul's foremost martyrs' shrines is named the \"Way of Unity\" for its purpose — that believers might follow the martyrs' faith and live out God's will. It passes Danggogae Martyrdom Shrine, which produced Korea's third-largest number of canonized martyrs, and Saenamteo, where the first foreign missionary Fr. Jacques Zhou Wenmo and Korea's first priest St. Andrew Kim Dae-geon were martyred, before meeting the Han River. Following the riverbank it reaches Jeoldusan, \"the hill where Catholics were beheaded\" — the relics of 27 canonized martyrs and one unnamed martyr rest in the crypt of its memorial church — then passes Waegogae, where ten martyrs lay buried for decades, on to Samseongsan. Along the way it asks what it looks like to live out the martyrs' faith. (Based on the Archdiocese of Seoul's pilgrimage route guidebook.)",
     stopNotes: [
       'Start',
       "9 canonized martyrs — Korea's third-largest number of saints",
@@ -171,13 +179,13 @@ const ROUTES: RouteTranslation[] = [
     title: 'The Way of Venerable Fr. Choi Yang-eop',
     subtitle: 'From Darakgol to Baeron — praying for the beatification of the Sweat-Stained Martyr',
     description:
-      'This route follows the life of Venerable Fr. Thomas Choi Yang-eop (1821–1861), Korea\'s second priest. Born at Saeteo in Darakgol, Cheongyang, he grew up in the Catholic village of Jinsan and, in 1836, was chosen as one of Korea\'s first seminarians and sent abroad to study. During that time, the Gihae persecution (1839) claimed his father, St. Francis Choi Kyung-hwan, martyred at Surisan, and his mother, Maria Yi Seong-nye, martyred at Danggogae. Ordained a priest in 1849 and returning home, he spent twelve years walking thousands of ri every year to reach Catholic villages across the country — earning the name "the Sweat-Stained Martyr" — before dying at Jinan-ri, Mungyeong, on June 15, 1861, and being buried at Baeron. Pope Francis declared him Venerable in April 2016, and this pilgrimage route prays for his beatification and canonization. (Links the sites, among the 30 listed in the pilgrimage passport booklet, that are in the app\'s shrine data.)',
+      "This route follows the life of Venerable Fr. Thomas Choi Yang-eop (1821–1861), Korea's second priest. Born at Saeteo in Darakgol, Cheongyang, he grew up in the Catholic village of Jinsan and, in 1836, was chosen as one of Korea's first seminarians and sent abroad to study. During that time, the Gihae persecution (1839) claimed his father, St. Francis Choi Kyung-hwan, martyred at Surisan, and his mother, Maria Yi Seong-nye, martyred at Danggogae. Ordained a priest in 1849 and returning home, he spent twelve years walking thousands of ri every year to reach Catholic villages across the country — earning the name \"the Sweat-Stained Martyr\" — before dying at Jinan-ri, Mungyeong, on June 15, 1861, and being buried at Baeron. Pope Francis declared him Venerable in April 2016, and this pilgrimage route prays for his beatification and canonization. (Links the sites, among the 30 listed in the pilgrimage passport booklet, that are in the app's shrine data.)",
     stopNotes: [
       'Born March 1, 1821 at Saeteo — the row graves',
       'The Catholic village where his family lived, 1828–1835',
       'Martyrdom (died in prison, September 12, 1839) and grave of his father, St. Francis Choi Kyung-hwan',
       'The Catholic village where his family took refuge',
-      "Martyrdom of his mother, Maria Yi Seong-nye (January 31, 1840)",
+      'Martyrdom of his mother, Maria Yi Seong-nye (January 31, 1840)',
       'The church commemorating the Seosomun martyrdom site',
       'Where the relics of his parents and other martyrs rest',
       'His father Choi Kyung-hwan was canonized in 1984',

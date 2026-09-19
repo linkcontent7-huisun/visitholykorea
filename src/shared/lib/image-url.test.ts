@@ -22,7 +22,8 @@ describe('sizedImageUrl — Wikimedia 썸네일 크기 맞추기', () => {
   });
 
   it('Wikimedia 가 아닌 주소는 그대로 둔다', () => {
-    const own = 'https://kaahuoqzkgshihypzzyh.supabase.co/storage/v1/object/public/site-photos/a.jpg';
+    const own =
+      'https://kaahuoqzkgshihypzzyh.supabase.co/storage/v1/object/public/site-photos/a.jpg';
     expect(sizedImageUrl(own, 800)).toBe(own);
     expect(sizedImageUrl('/placeholders/site-placeholder-1.webp', 800)).toBe(
       '/placeholders/site-placeholder-1.webp',

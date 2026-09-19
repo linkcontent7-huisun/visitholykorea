@@ -15,10 +15,13 @@
  * 그래서 홈·검색 카드(800 요청)만 "사진을 불러오지 못했어요" 가 뜨고 상세(960 요청)는 멀쩡했다.
  * 요청 폭은 표준 폭 가운데 그 이상인 가장 작은 값으로 올린다.
  */
-const WIKIMEDIA_THUMB = /^(https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/thumb\/[^/]+\/[^/]+\/[^/]+\/)(\d+)(px-[^/?#]+)(.*)$/;
+const WIKIMEDIA_THUMB =
+  /^(https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/thumb\/[^/]+\/[^/]+\/[^/]+\/)(\d+)(px-[^/?#]+)(.*)$/;
 
 /** Wikimedia 가 핫링크에 허용하는 썸네일 폭. 오름차순이어야 한다. */
-export const WIKIMEDIA_THUMB_WIDTHS = [20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920, 3840] as const;
+export const WIKIMEDIA_THUMB_WIDTHS = [
+  20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920, 3840,
+] as const;
 
 /** 요청 폭 이상인 표준 폭 가운데 가장 작은 값. 최대치를 넘으면 최대치. */
 export function wikimediaStandardWidth(width: number): number {

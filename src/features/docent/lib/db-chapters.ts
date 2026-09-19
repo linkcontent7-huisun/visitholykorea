@@ -16,11 +16,19 @@ function isCompleteTour(script: DocentLanguageScript | undefined): script is Doc
   if (!script) return false;
   const seqs = new Set(script.points.map((p) => p.seq));
   // 여는 말(0)·맺음말(99)이 있고 실제 지점이 하나 이상, 본문이 비지 않아야 한다
-  return seqs.has(0) && seqs.has(99) && script.points.some((p) => p.seq > 0 && p.seq < 99) && script.points.every((p) => p.body.length > 0);
+  return (
+    seqs.has(0) &&
+    seqs.has(99) &&
+    script.points.some((p) => p.seq > 0 && p.seq < 99) &&
+    script.points.every((p) => p.body.length > 0)
+  );
 }
 
 /** 투어를 낼 언어. 없으면 null — 화면은 소개·역사 폴백(`buildChapters`)으로 간다. */
-export function pickTourLanguage(scripts: DocentSiteScripts | undefined, requested: Language): Language | null {
+export function pickTourLanguage(
+  scripts: DocentSiteScripts | undefined,
+  requested: Language,
+): Language | null {
   if (!scripts) return null;
   for (const lang of [requested, ...FALLBACK]) {
     if (isCompleteTour(scripts[lang])) return lang;
@@ -28,7 +36,10 @@ export function pickTourLanguage(scripts: DocentSiteScripts | undefined, request
   return null;
 }
 
-export function buildDbChapters(scripts: DocentSiteScripts | undefined, requested: Language): DocentChapter[] | null {
+export function buildDbChapters(
+  scripts: DocentSiteScripts | undefined,
+  requested: Language,
+): DocentChapter[] | null {
   const lang = pickTourLanguage(scripts, requested);
   if (!lang) return null;
   return scripts![lang]!.points.map((p) => ({
@@ -41,7 +52,10 @@ export function buildDbChapters(scripts: DocentSiteScripts | undefined, requeste
 }
 
 /** 「소개글」 세 문단. 요청 언어 → 영어 → 한국어 순으로 있는 것을 쓴다. 없으면 null. */
-export function pickIntro(scripts: DocentSiteScripts | undefined, requested: Language): { language: Language; paragraphs: string[] } | null {
+export function pickIntro(
+  scripts: DocentSiteScripts | undefined,
+  requested: Language,
+): { language: Language; paragraphs: string[] } | null {
   if (!scripts) return null;
   for (const lang of [requested, ...FALLBACK]) {
     const intro = scripts[lang]?.intro;

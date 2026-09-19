@@ -300,7 +300,9 @@ export default function LoginPage() {
                     type="button"
                     onClick={() => handleOAuth('facebook')}
                     disabled={loading}
-                    aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerFacebook') })}
+                    aria-label={fillPlaceholders(t('loginWith'), {
+                      provider: t('providerFacebook'),
+                    })}
                     title={fillPlaceholders(t('loginWith'), { provider: t('providerFacebook') })}
                     className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1877F2] transition-[filter] hover:brightness-95 disabled:opacity-50"
                   >

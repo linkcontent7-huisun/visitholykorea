@@ -21,7 +21,7 @@ import { loadEnvLocal } from './lib/env';
 
 loadEnvLocal({ supabasePlaceholder: true });
 
-const KEY = (process.env.TOUR_API_SERVICE_KEY ?? process.env.VITE_TOUR_API_SERVICE_KEY);
+const KEY = process.env.TOUR_API_SERVICE_KEY ?? process.env.VITE_TOUR_API_SERVICE_KEY;
 const MOBILE_APP = 'VisitHolyKorea';
 
 /** 절두산 순교성지 좌표 — 서울 도심이라 주변 데이터가 가장 풍부하다. */
@@ -63,7 +63,11 @@ async function call(baseUrl: string, endpoint: string, params: Record<string, st
     }
     const item = json.response?.body?.items?.item;
     const count = Array.isArray(item) ? item.length : item ? 1 : 0;
-    return { ok: true as const, detail: `${count}건 (전체 ${json.response?.body?.totalCount ?? '?'})`, raw: '' };
+    return {
+      ok: true as const,
+      detail: `${count}건 (전체 ${json.response?.body?.totalCount ?? '?'})`,
+      raw: '',
+    };
   } catch {
     // XML 오류 응답이 오는 경우가 많다 — 경로 자체가 없을 때의 전형적인 신호다.
     return { ok: false as const, detail: 'JSON 이 아닌 응답', raw: text.slice(0, 200) };

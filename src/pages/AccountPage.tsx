@@ -78,9 +78,7 @@ export default function AccountPage() {
         )}
       </Card>
 
-      <p className="mt-4 text-sm leading-relaxed text-app-text-muted">
-        {t('accountEditPending')}
-      </p>
+      <p className="mt-4 text-sm leading-relaxed text-app-text-muted">{t('accountEditPending')}</p>
 
       <Button variant="ghost" block className="mt-8" onClick={() => void handleLogout()}>
         <LogOut size={18} aria-hidden />

@@ -22,21 +22,82 @@ const JONGSEONG_COUNT = 28;
 
 /** 초성 19자 — 유니코드 순서. */
 const CHOSEONG = [
-  'g', 'kk', 'n', 'd', 'tt', 'r', 'm', 'b', 'pp', 's',
-  'ss', '', 'j', 'jj', 'ch', 'k', 't', 'p', 'h',
+  'g',
+  'kk',
+  'n',
+  'd',
+  'tt',
+  'r',
+  'm',
+  'b',
+  'pp',
+  's',
+  'ss',
+  '',
+  'j',
+  'jj',
+  'ch',
+  'k',
+  't',
+  'p',
+  'h',
 ] as const;
 
 /** 중성 21자 — 유니코드 순서. */
 const JUNGSEONG = [
-  'a', 'ae', 'ya', 'yae', 'eo', 'e', 'yeo', 'ye', 'o', 'wa',
-  'wae', 'oe', 'yo', 'u', 'wo', 'we', 'wi', 'yu', 'eu', 'ui', 'i',
+  'a',
+  'ae',
+  'ya',
+  'yae',
+  'eo',
+  'e',
+  'yeo',
+  'ye',
+  'o',
+  'wa',
+  'wae',
+  'oe',
+  'yo',
+  'u',
+  'wo',
+  'we',
+  'wi',
+  'yu',
+  'eu',
+  'ui',
+  'i',
 ] as const;
 
 /** 종성 28자(받침 없음 포함) — 음절 끝·자음 앞에서 실제로 나는 소리. */
 const JONGSEONG_FINAL = [
-  '', 'k', 'k', 'k', 'n', 'n', 'n', 't', 'l', 'k',
-  'm', 'l', 'l', 'l', 'p', 'l', 'm', 'p', 'p', 't', 't',
-  'ng', 't', 't', 'k', 't', 'p', 't',
+  '',
+  'k',
+  'k',
+  'k',
+  'n',
+  'n',
+  'n',
+  't',
+  'l',
+  'k',
+  'm',
+  'l',
+  'l',
+  'l',
+  'p',
+  'l',
+  'm',
+  'p',
+  'p',
+  't',
+  't',
+  'ng',
+  't',
+  't',
+  'k',
+  't',
+  'p',
+  't',
 ] as const;
 
 /**
@@ -98,7 +159,10 @@ export function romanizeKorean(text: string): string {
   }
 
   // 단어 첫 글자 대문자화 — "mangudong 13" → "Mangudong 13"
-  return result.replace(/(^|\s)([a-z])/g, (_, boundary: string, letter: string) => boundary + letter.toUpperCase());
+  return result.replace(
+    /(^|\s)([a-z])/g,
+    (_, boundary: string, letter: string) => boundary + letter.toUpperCase(),
+  );
 }
 
 /** 문자열에 로마자로 바꿀 한글이 하나라도 있는지. 이미 영문뿐이면 다시 돌릴 필요가 없다. */

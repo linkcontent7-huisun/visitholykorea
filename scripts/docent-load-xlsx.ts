@@ -29,17 +29,32 @@ const enTitle = new Map(en.rows.map((r) => [`${r.site_id}:${r.seq}`, r]));
 let n = 0;
 for (const r of rows) {
   const base = enTitle.get(`${r.siteId}:${r.seq}`);
-  const title = r.seq === 0 ? FIXED[r.lang].intro : r.seq === 99 ? FIXED[r.lang].outro : (base?.title ?? `${r.seq}`);
+  const title =
+    r.seq === 0
+      ? FIXED[r.lang].intro
+      : r.seq === 99
+        ? FIXED[r.lang].outro
+        : (base?.title ?? `${r.seq}`);
   await c.query(
     `insert into docent_scripts (site_id, language, kind, seq, title, body, look_for, sources, status, written_by)
      values ($1, $2, 'point', $3, $4, $5, null, $6, 'draft', $7)
      on conflict (site_id, language, kind, seq) do update
        set title = excluded.title, body = excluded.body, sources = excluded.sources, written_by = excluded.written_by, updated_at = now()`,
-    [r.siteId, r.lang, r.seq, title, r.body, JSON.stringify(base?.sources ?? []), '사장님 번역(AI) + Claude 검수 2026-09-19'],
+    [
+      r.siteId,
+      r.lang,
+      r.seq,
+      title,
+      r.body,
+      JSON.stringify(base?.sources ?? []),
+      '사장님 번역(AI) + Claude 검수 2026-09-19',
+    ],
   );
   n++;
 }
-const cnt = await c.query(`select language, count(*)::int n, count(distinct site_id)::int sites from docent_scripts where kind='point' group by 1 order by 1`);
+const cnt = await c.query(
+  `select language, count(*)::int n, count(distinct site_id)::int sites from docent_scripts where kind='point' group by 1 order by 1`,
+);
 await c.end();
 console.log(`적재 ${n}행`);
 for (const x of cnt.rows) console.log(`  ${x.language} point: ${x.n}행 · 성지 ${x.sites}곳`);

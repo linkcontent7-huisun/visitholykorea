@@ -50,7 +50,9 @@ function AdminConsole() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-lg font-black tracking-tight text-slate-900">관리자 콘솔</h1>
-            <p className="text-xs font-bold text-slate-400">{role === 'admin' ? '운영자' : '편집자'}</p>
+            <p className="text-xs font-bold text-slate-400">
+              {role === 'admin' ? '운영자' : '편집자'}
+            </p>
           </div>
           <button
             onClick={() => void signOut()}
@@ -177,7 +179,9 @@ function QueueTab() {
             >
               <div className="min-w-0 flex-1">
                 <p className="truncate text-base font-bold text-slate-900">{site.name}</p>
-                <p className="mt-0.5 text-xs font-bold text-slate-400">{site.diocese || '교구 미상'}</p>
+                <p className="mt-0.5 text-xs font-bold text-slate-400">
+                  {site.diocese || '교구 미상'}
+                </p>
                 <div className="mt-2 flex flex-wrap gap-1">
                   {!site.hasPhoto && <MissingTag>사진</MissingTag>}
                   {!site.hasDescription && <MissingTag>소개글</MissingTag>}
@@ -229,8 +233,8 @@ function PhotoReviewTab() {
   return (
     <div className="px-5 py-5">
       <p className="mb-3 px-1 text-xs font-bold leading-relaxed text-slate-400">
-        승인한 사진만 성지의 대표 사진으로 쓰입니다. 얼굴이 크게 나오거나 성지와 무관한
-        사진은 「내리기」로 즉시 감출 수 있습니다.
+        승인한 사진만 성지의 대표 사진으로 쓰입니다. 얼굴이 크게 나오거나 성지와 무관한 사진은
+        「내리기」로 즉시 감출 수 있습니다.
       </p>
 
       <ul className="flex flex-col gap-4">
@@ -256,9 +260,7 @@ function PhotoReviewTab() {
                   }
                   disabled={feature.isPending}
                   className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg py-3 text-sm font-bold disabled:opacity-50 ${
-                    photo.featured
-                      ? 'bg-amber-100 text-amber-700'
-                      : 'bg-slate-900 text-white'
+                    photo.featured ? 'bg-amber-100 text-amber-700' : 'bg-slate-900 text-white'
                   }`}
                 >
                   <Star size={15} fill={photo.featured ? 'currentColor' : 'none'} />
