@@ -59,13 +59,13 @@ function EntryCard({
   sub?: string;
   filled?: boolean;
 }) {
-  const className = `flex min-h-[84px] w-full items-center gap-3.5 rounded-lg border-[1.5px] border-brand-blue p-4 text-left transition-transform active:scale-[0.99] lg:min-h-24 lg:px-5 ${
+  const className = `flex min-h-[68px] w-full items-center gap-3 rounded-lg border-[1.5px] border-brand-blue p-3 text-left transition-transform active:scale-[0.99] lg:min-h-[76px] lg:px-4 lg:py-3.5 ${
     filled ? 'bg-brand-blue text-white' : 'bg-white text-brand-blue'
   }`;
   const inner = (
     <>
       <span
-        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg ${filled ? 'bg-white/15' : 'bg-brand-soft'}`}
+        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${filled ? 'bg-white/15' : 'bg-brand-soft'}`}
         aria-hidden
       >
         {icon}
@@ -76,7 +76,7 @@ function EntryCard({
         </span>
         {sub && (
           <span
-            className={`mt-0.5 block text-sm leading-snug ${filled ? 'text-white/90' : 'text-app-text-muted'}`}
+            className={`mt-0 block text-xs leading-snug ${filled ? 'text-white/90' : 'text-app-text-muted'}`}
           >
             {sub}
           </span>
@@ -145,8 +145,8 @@ export default function HomePage() {
 
       {/* 2. 입구 3개 — 성지 찾기 · 미카엘 AI · 오늘의 성지 일정 순서(사장님 지적, 2026-09-18).
           미카엘은 화면 이동이 아니라 그 자리에서 시트를 연다 — `to` 대신 `onClick`. */}
-      <PageContainer className="pt-4 lg:pt-5">
-        <div className="grid gap-3 lg:grid-cols-3">
+      <PageContainer className="pt-3 lg:pt-4">
+        <div className="grid gap-2.5 lg:grid-cols-3">
           <EntryCard
             to={paths.search}
             id="entry-search"
