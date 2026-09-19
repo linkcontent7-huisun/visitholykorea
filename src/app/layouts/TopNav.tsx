@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
+import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
 
@@ -140,10 +141,13 @@ export function TopNav() {
               {t('aiGuideNavLabel')}
             </button>
 
-            {/* 언어 선택 버튼을 헤더에서 뺐다(사장님 지적, 2026-09-18) — 더보기(`MenuPage`)의
-              「언어 설정」에서 그대로 바꿀 수 있다. ⚠️ 2026-09-08 "모바일에서도 바로 바꿀 수
-              있어야 한다"는 결정을 뒤집는 변경이니, WYD 외국인 방문자 피드백이 다시 나오면
-              참고할 것. */}
+            {/* 언어 선택 — 2026-09-18에 "더보기에서도 바꿀 수 있다"는 이유로 뺐던 것을
+              되살린다(2026-09-19, 다국어화 재착수 4-1) — 헤더·더보기 양쪽에서 바로 바꿀 수
+              있어야 한다는 2026-09-08 원래 결정으로 되돌아간다. 지금은 ENABLED_LANGUAGES가
+              ko/en뿐이라 목록엔 두 개만 보인다 — es/fr/pt/it 콘텐츠 번역이 채워지면 이 배열만
+              늘리면 된다(4-3). 모바일에서도 삼선 메뉴를 열지 않고 바로 바꿀 수 있어야 해서
+              데스크톱 전용(`lg:flex`) 밖, 늘 보이는 자리에 둔다. */}
+            <LanguagePicker variant={transparent ? 'onDark' : 'default'} />
 
             {/* PC 「더보기」(햄버거) — 로그인 여부와 무관하게 항상 보인다(사장님 지적,
               2026-09-19). 하단 탭은 PC 에서 스스로 숨고(`lg:hidden`, `BottomNav.tsx`) 그
