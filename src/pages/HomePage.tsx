@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
-import { usePilgrimageRoutes } from '@/features/routes/hooks/use-pilgrimage-routes';
+import { usePilgrimageRoutes, useLocalizedRoutes } from '@/features/routes/hooks/use-pilgrimage-routes';
 import { HeroCarousel, type HeroSlide } from '@/features/sites/components/HeroCarousel';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { HERO_SITES } from '@/features/sites/data/hero-sites';
@@ -105,7 +105,8 @@ export default function HomePage() {
 
   const { data: allSitesRaw = [] } = useSites({ limit: 300 });
   const allSites = useLocalizedSites(allSitesRaw);
-  const { data: routes = [] } = usePilgrimageRoutes();
+  const { data: routesRaw = [] } = usePilgrimageRoutes();
+  const routes = useLocalizedRoutes(routesRaw);
 
   /** 히어로 5곳 — DB 행(번역 포함)이 있으면 그것을, 아직 없으면 고정표의 대체 표기를 쓴다. 사진은 항상 자체 파일. */
   const heroSlides = useMemo<HeroSlide[]>(() => {
