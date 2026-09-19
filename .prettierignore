@@ -15,3 +15,13 @@ docs/50-research/
 docs/30-content-ops/
 data/
 supabase/seed/
+# 문서(md)는 사람이 쓰는 글이라 prettier 로 줄바꿈을 강제하지 않는다 — CI format:check 가 213개 문서에서 실패하던 원인(2026-09-19)
+**/*.md
+# 에이전트 설정·기록 폴더
+.claude/
+.agents/
+.codex/
+# 빌드·의존성
+dist/
+node_modules/
+coverage/
