@@ -16,8 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main
 
       - uses: actions/setup-node@v4
         with:
@@ -39,7 +37,8 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add supabase/functions/ai-guide/models.json
           git commit -m "chore(ai-guide): Gemini 모델 목록 자동 갱신 ($(date -u +%Y-%m-%d))"
-          git push origin HEAD:main
+          # 예약 실행은 main 에서 돌므로 main 에 기록된다. 브랜치에서 수동 실행하면 그 브랜치에 기록한다.
+          git push origin HEAD:${{ github.ref_name }}
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - uses: supabase/setup-cli@v1
