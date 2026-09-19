@@ -83,8 +83,7 @@ export function judgeInputs(devices: Pick<MediaDeviceInfo, 'kind' | 'label'>[]):
  */
 export async function verifyWithMicPermission(
   media:
-    | Pick<MediaDevices, 'getUserMedia' | 'enumerateDevices'>
-    | undefined = navigator.mediaDevices,
+    Pick<MediaDevices, 'getUserMedia' | 'enumerateDevices'> | undefined = navigator.mediaDevices,
 ): Promise<HeadphoneState> {
   if (!media?.getUserMedia || !media.enumerateDevices) return 'unknown';
   try {

@@ -77,10 +77,10 @@ function hasFullTranslation(script: DocentScript, language: ScriptLanguage): boo
   if (language === 'ko') return true; // 한국어는 원고 원본이라 언제나 있다
   return Boolean(
     localized(script.intro, 'narration', language) &&
-      localized(script.outro, 'narration', language) &&
-      script.points.every(
-        (point) => localized(point, 'narration', language) && localized(point, 'title', language),
-      ),
+    localized(script.outro, 'narration', language) &&
+    script.points.every(
+      (point) => localized(point, 'narration', language) && localized(point, 'title', language),
+    ),
   );
 }
 

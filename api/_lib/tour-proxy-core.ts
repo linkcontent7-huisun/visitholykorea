@@ -98,12 +98,7 @@ const NUMERIC_PARAMS = new Set([
 const MAX_PARAM_LENGTH = 200;
 
 export type TourProxyErrorKind =
-  | 'bad_request'
-  | 'not_configured'
-  | 'rate_limited'
-  | 'upstream'
-  | 'timeout'
-  | 'network';
+  'bad_request' | 'not_configured' | 'rate_limited' | 'upstream' | 'timeout' | 'network';
 
 export interface TourProxyResult {
   status: number;

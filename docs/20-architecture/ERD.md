@@ -14,7 +14,7 @@
 | **순례 기록** (회원 데이터)     | `profiles` · `pilgrimage_stamps` · `stamp_photos` · `pilgrimage_logs` · `favorites` · `compass_responses` | 스탬프(방문 도장)가 중심. 사진·신고·읽음수가 스탬프에 매달림 |
 | **순례 코스**                   | `pilgrimage_routes` · `pilgrimage_route_sites`                                                            | 박해 사건·인물 축으로 성지를 순서대로 잇는 길                |
 | **주변 시설**                   | `catholic_directory` · `rest_places` · `rest_spots` · `rest_spot_reports`                                 | 성당·수도원 주소록과 그 안의 쉼터(화장실·의자)               |
-| **매체·운영**                   | `articles` · `article_sites` · `events` · `visit_note_reports` · `note_read_counts`                       | 언론 기사 ↔ 성지 연결, 접속 기록, 신고                      |
+| **매체·운영**                   | `articles` · `article_sites` · `events` · `visit_note_reports` · `note_read_counts`                       | 언론 기사 ↔ 성지 연결, 접속 기록, 신고                       |
 
 TourAPI 응답은 **어느 표에도 저장하지 않는다** (ADR 0002). 매 요청 실시간 호출.
 

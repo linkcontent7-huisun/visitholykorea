@@ -138,13 +138,7 @@ export interface WalkingCourse {
  *   api            그 밖의 TourAPI 오류 코드
  */
 export type TourApiErrorKind =
-  | 'quota'
-  | 'rate_limited'
-  | 'upstream'
-  | 'timeout'
-  | 'network'
-  | 'not_configured'
-  | 'api';
+  'quota' | 'rate_limited' | 'upstream' | 'timeout' | 'network' | 'not_configured' | 'api';
 
 /** resultCode·종류를 들고 있는 에러. 어떤 종류의 실패인지 화면이 구분할 수 있게 한다. */
 export class TourApiError extends Error {
