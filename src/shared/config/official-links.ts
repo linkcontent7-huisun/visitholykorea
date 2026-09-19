@@ -17,6 +17,9 @@ export interface OfficialLink {
 export const OFFICIAL_LINKS: readonly OfficialLink[] = [
   // 2026-09-18 사장님이 직접 확인해 준 주소(운영자 확인 완료).
   { id: 'wyd2027', labelKo: '2027 서울 세계청년대회(WYD) 공식 안내', labelEn: 'WYD Seoul 2027 official site', url: 'https://wydseoul.org/' },
-  { id: 'did', labelKo: '교구대회(DID) 공식 안내', labelEn: 'Days in the Dioceses (DID) official information', url: 'https://www.wyd2027did.org/kr' },
+  // labelEn 은 2026-09-19 에 줄였다 — 영어 화면에서 푸터 6개 항목(약관·개인정보·FAQ·WYD·DID·주교회의)이
+  // 한 줄에 안 들어가 줄바꿈됐다(실측). "Days in the Dioceses (DID)" 는 이미 괄호 안에 약어(DID)를
+  // 병기하고 있어 풀어쓴 이름을 빼도 뜻이 그대로 통한다.
+  { id: 'did', labelKo: '교구대회(DID) 공식 안내', labelEn: 'DID official information', url: 'https://www.wyd2027did.org/kr' },
   { id: 'cbck', labelKo: '한국천주교주교회의', labelEn: 'Catholic Bishops’ Conference of Korea', url: 'https://cbck.or.kr' },
 ];

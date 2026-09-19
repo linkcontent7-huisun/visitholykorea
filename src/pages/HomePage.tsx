@@ -9,6 +9,7 @@ import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { HERO_SITES } from '@/features/sites/data/hero-sites';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { ScrollHintRow } from '@/shared/components/ui/ScrollHintRow';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { OFFICIAL_LINKS } from '@/shared/config/official-links';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
@@ -173,16 +174,26 @@ export default function HomePage() {
         </div>
       </PageContainer>
 
-      {/* 3. 처음 방문하기 좋은 성지 */}
+      {/* 3. 처음 방문하기 좋은 성지 — 모바일은 가로 슬라이드(2026-09-19, 2×2 격자에서 바꿈).
+          영어 등 이름이 긴 언어에서 2열 격자 폭(카드 하나 ~170px)에 이름이 잘려 보였다
+          (2026-09-19 실측). 카드 폭을 180px 로 넓혀 가로로 넘기면 대부분 한 줄에 다 들어간다.
+          md 부터는 화면이 넓어 그대로 격자로 4장을 편다. */}
       <PageContainer className="pt-8 lg:pt-12">
         <SectionHeading title={t('homeFirstVisitTitle')} />
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:gap-5">
+        <ScrollHintRow className="-mx-4 flex gap-3 px-4 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 lg:gap-5">
           {firstVisit.length > 0
-            ? firstVisit.map((site) => <SiteGridCard key={site.id} site={site} />)
+            ? firstVisit.map((site) => (
+                <div key={site.id} className="w-[180px] shrink-0 md:w-auto">
+                  <SiteGridCard site={site} />
+                </div>
+              ))
             : [1, 2, 3, 4].map((i) => (
-                <div key={i} className="aspect-[4/3] animate-pulse rounded-lg bg-app-panel" />
+                <div
+                  key={i}
+                  className="aspect-[4/3] w-[180px] shrink-0 animate-pulse rounded-lg bg-app-panel md:w-auto"
+                />
               ))}
-        </div>
+        </ScrollHintRow>
       </PageContainer>
 
       {/* 3.5 순례 코스 — 오늘 방문하기 좋은 성지 아래, 「모두 보기」 링크 포함(사장님 지적, 2026-09-18) */}

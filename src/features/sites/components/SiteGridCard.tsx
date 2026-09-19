@@ -27,7 +27,12 @@ export function SiteGridCard({ site }: { site: HolySite }) {
         />
       </div>
       <div className="px-3 py-3">
-        <h3 className="truncate text-base font-bold text-app-text">{site.name}</h3>
+        {/* 2줄까지 허용 — 영어 등 이름이 긴 언어에서 1줄 말줄임(truncate)이 이름을
+            심하게 잘라 보이게 했다(2026-09-19 실측). min-h 로 1줄짜리 이름과 카드
+            높이를 맞춘다. */}
+        <h3 className="line-clamp-2 min-h-[2.5rem] text-base font-bold leading-tight text-app-text">
+          {site.name}
+        </h3>
       </div>
     </Link>
   );

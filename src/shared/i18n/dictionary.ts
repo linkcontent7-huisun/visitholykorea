@@ -124,6 +124,18 @@ export const DICTIONARY = {
     pt: 'Encontrar santuários',
     it: 'Trova santuari',
   },
+  /** 하단 탭 전용 짧은 표기 — `findShrines` 는 입구 카드 제목·기록 화면 버튼처럼 폭이
+   * 넉넉한 자리에도 같이 쓰여 줄이지 못한다. 영어 "Find shrines" 가 탭 폭(~80px)에서
+   * 줄임표로 잘려(2026-09-19 실측) 탭 전용으로 짧은 키를 따로 뒀다(`todayPlanShort`
+   * 와 같은 방식). */
+  findShrinesShort: {
+    ko: '성지 찾기',
+    en: 'Shrines',
+    es: 'Santuarios',
+    fr: 'Sanctuaires',
+    pt: 'Santuários',
+    it: 'Santuari',
+  },
   myRecords: {
     ko: '내 기록',
     en: 'My records',
@@ -558,7 +570,7 @@ export const DICTIONARY = {
   },
   todayPlanShort: {
     ko: '성지 일정',
-    en: "Today's Plan",
+    en: 'Today',
     es: "Today's Plan",
     fr: "Today's Plan",
     pt: "Today's Plan",

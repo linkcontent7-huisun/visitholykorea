@@ -29,7 +29,7 @@ export interface NavItem {
  */
 export const NAV_ITEMS: readonly NavItem[] = [
   { id: 'home', to: paths.home, icon: Home, labelKey: 'home', end: true },
-  { id: 'search', to: paths.search, icon: Search, labelKey: 'findShrines', end: false },
+  { id: 'search', to: paths.search, icon: Search, labelKey: 'findShrinesShort', end: false },
   { id: 'record', to: paths.records, icon: BookOpen, labelKey: 'record', end: false },
   { id: 'plan', to: paths.compass, icon: CalendarHeart, labelKey: 'todayPlanShort', end: false },
   { id: 'menu', to: paths.menu, icon: Menu, labelKey: 'moreTab', end: false },
