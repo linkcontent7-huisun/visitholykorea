@@ -6,7 +6,8 @@ import {
   Globe,
   Share2,
   Smartphone,
-  Info,
+  FileText,
+  Lock,
   LogIn,
   LogOut,
   Navigation,
@@ -33,6 +34,15 @@ import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { copyText } from '@/shared/lib/map-links';
 import { shareApp, type ShareResult } from '@/shared/lib/share-app';
 import { OFFICIAL_LINKS } from '@/shared/config/official-links';
+
+/** 외부 링크의 부제 — `https://www.` 와 끝 `/` 를 뗀 도메인만. 어디로 가는지는 알리되 줄을 넘기지 않는다. */
+function officialLinkDomain(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
+}
 
 /** GPS 상태별 부제. 켜진 뒤에는 스위치가 현재 위치 사용 여부를 맡는다. */
 function gpsLocationSub(
@@ -210,15 +220,16 @@ export default function MenuPage() {
           sub: t('customerSupportSub'),
           onClick: () => navigate(paths.faq),
         },
+        // 약관·개인정보가 둘 다 ⓘ 라 구분이 안 됐다(디자인 비평, 2026-09-21) — 문서·자물쇠로
         {
           id: 'terms',
-          icon: Info,
+          icon: FileText,
           label: t('viewTerms'),
           onClick: () => navigate(paths.terms),
         },
         {
           id: 'privacy',
-          icon: Info,
+          icon: Lock,
           label: t('privacyNotice'),
           onClick: () => navigate(paths.privacy),
         },
@@ -230,7 +241,8 @@ export default function MenuPage() {
         id: `official-${link.id}`,
         icon: Globe,
         label: language === 'ko' ? link.labelKo : link.labelEn,
-        sub: link.url ? link.url : t('officialLinkPending'),
+        // 주소 원문은 390px 에서 낱말 중간에 끊겼다("wyd2027did.or / g/kr") — 도메인만 보여 준다(2026-09-21)
+        sub: link.url ? officialLinkDomain(link.url) : t('officialLinkPending'),
         onClick: link.url ? () => window.open(link.url!, '_blank', 'noopener') : undefined,
       })),
     },
@@ -300,7 +312,9 @@ export default function MenuPage() {
                 const body = (
                   <>
                     <div
-                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-app-panel text-app-text-muted"
+                      // 홈 입구 카드·위 프로필 카드와 같은 연남색 타일 — 회색이던 것을 맞췄다(디자인 비평, 2026-09-21).
+                      // 누르는 것은 남색 하나(화면 규칙)이고, 이 줄들도 전부 누르는 입구다.
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand-blue"
                       aria-hidden
                     >
                       <item.icon size={20} />

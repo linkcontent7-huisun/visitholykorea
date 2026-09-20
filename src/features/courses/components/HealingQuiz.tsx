@@ -278,7 +278,8 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
             <motion.div key="intro" {...fade} className="pt-2 text-center">
               {/* 이모지 대신 선 아이콘 — 디자인 원칙(2026-09-16): 이모지 아이콘 안 씀 */}
               <div
-                className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-brand-soft text-brand-blue"
+                // 검색·기록의 빈 상태(`EmptyState`)와 같은 회색 원 — 이 화면만 연남색이었다(디자인 비평, 2026-09-21).
+                className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-app-panel text-app-text-muted"
                 aria-hidden
               >
                 <Compass size={32} />
