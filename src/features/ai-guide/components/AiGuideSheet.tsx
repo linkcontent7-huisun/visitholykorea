@@ -121,14 +121,10 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-white/10 backdrop-blur-xl">
                   <Bot size={28} />
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center">
                   <h3 className="text-xl font-extrabold leading-none tracking-tight">
                     {t('aiGuideTitle')}
                   </h3>
-                  <span
-                    className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-emerald-400"
-                    aria-hidden
-                  />
                 </div>
               </div>
               <div className="flex items-center gap-2">

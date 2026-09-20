@@ -22,7 +22,6 @@ import { paths } from '@/app/routes/paths';
 import { useAdminAccess } from '@/features/admin/hooks/use-admin';
 import { signOut } from '@/features/auth/api/auth';
 import { useSession } from '@/features/auth/hooks/use-session';
-import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { LANGUAGE_LABEL, type TranslationKey } from '@/shared/i18n/dictionary';
 import { Button } from '@/shared/components/ui/Button';
 import { InstallShareSheet } from '@/shared/components/ui/InstallShareSheet';
@@ -83,7 +82,6 @@ export default function MenuPage() {
   const { canEnter: canEnterAdmin } = useAdminAccess();
   const { language, gpsLocation, gpsStatus, requestGpsLocation, clearGpsLocation, t } =
     useSettings();
-  const { data: stamps = [] } = useMyStamps();
 
   const isLoggedIn = Boolean(session);
   const displayName =
@@ -286,11 +284,6 @@ export default function MenuPage() {
               <Settings size={22} aria-hidden />
             </button>
           )}
-        </div>
-
-        <div className="mt-5 flex items-center justify-between border-t border-app-border pt-5">
-          <p className="text-sm font-bold text-app-text-muted">{t('countShrines')}</p>
-          <p className="text-2xl font-bold tabular-nums text-app-text">{stamps.length}</p>
         </div>
       </div>
 

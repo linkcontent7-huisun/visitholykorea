@@ -168,24 +168,28 @@ export function PlanResult({
                   </p>
                 )}
                 {pick.level === 'busy' && (
-                  <p className="mt-2 flex items-start gap-1.5 rounded-lg bg-orange-50 p-3 text-sm font-bold text-orange-900">
+                  <div className="mt-2 flex items-start gap-1.5 rounded-lg bg-orange-50 p-3 text-sm font-bold text-orange-900">
                     <AlertTriangle size={16} className="mt-0.5 shrink-0" aria-hidden />
-                    <span>
-                      {nextPick
-                        ? fillPlaceholders(t('planCrowdedAfternoon'), { name: nextPick.spot.title })
-                        : t('planCrowdedAfternoonNoAlt')}
+                    <div className="min-w-0 flex-1">
+                      <p>
+                        {nextPick
+                          ? fillPlaceholders(t('planCrowdedAfternoon'), {
+                              name: nextPick.spot.title,
+                            })
+                          : t('planCrowdedAfternoonNoAlt')}
+                      </p>
                       {nextPick && (
                         <button
                           type="button"
                           onClick={onSwapAfternoon}
-                          className="ml-2 min-h-11 underline underline-offset-2"
+                          className="mt-2 inline-flex min-h-11 items-center text-left underline underline-offset-2"
                           id="plan-swap-afternoon"
                         >
                           {t('planSwap')}
                         </button>
                       )}
-                    </span>
-                  </p>
+                    </div>
+                  </div>
                 )}
               </>
             ) : (
