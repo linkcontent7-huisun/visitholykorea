@@ -3,19 +3,19 @@
  *
  * Supabase 의 카카오 제공자는 표준 웹 로그인(REST)만 열어서 스마트폰에서도 아이디·비밀번호를
  * 쳐야 한다. 카카오톡 앱으로 한 번에 들어가는 간편로그인은 카카오 JS SDK 의 `throughTalk` 로만
- * 열린다(공식 문서 확인, 2026-09-19). 그래서 스마트폰에서는 이 함수가 SDK 를 실은 작은 페이지를
- * 내려 카카오톡을 띄우고, 돌아온 코드를 직접 처리해 Supabase 세션을 발급한다. PC 는 그대로
+ * 열린다(공식 문서 확인, 2026-09-19). 스마트폰에서는 이 함수가 state 쿠키를 발급하고
+ * 앱의 로그인 페이지로 돌려보낸다. 앱에서 SDK 를 실행한 뒤 돌아온 코드를 처리한다. PC 는 그대로
  * Supabase 제공자를 쓴다(`src/features/auth/api/auth.ts`).
  *
  * 흐름 (naver-auth 와 같은 뼈대):
- *   1. GET /kakao-auth/login    → state 쿠키 발급 + SDK 페이지 (카카오톡 앱 → 동의 → callback)
+ *   1. GET /kakao-auth/login    → state 쿠키 발급 + 앱의 SDK 페이지로 이동 (카카오톡 앱 → 동의 → callback)
  *   2. GET /kakao-auth/callback → code 를 토큰으로 교환 → 프로필 → 사용자 생성/조회 → 매직링크 verify 로 세션
  *
  * 배포:
  *   supabase secrets set KAKAO_REST_KEY=... KAKAO_JS_KEY=... KAKAO_CLIENT_SECRET=... APP_URL=https://visitholykorea-app.vercel.app
  *   supabase functions deploy kakao-auth --no-verify-jwt
  *   카카오 콘솔 → 카카오 로그인 → Redirect URI 에 <프로젝트>.supabase.co/functions/v1/kakao-auth/callback 추가,
- *   앱 → 플랫폼 → Web 에 <프로젝트>.supabase.co 와 앱 도메인 등록 (SDK 는 등록된 도메인에서만 돈다).
+ *   앱 → 플랫폼 → Web 에 실제 접속 도메인(www.visitholykorea.com 포함) 등록.
  */
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
@@ -49,23 +49,6 @@ function 쿠키값(req: Request, name: string): string | null {
   return m ? m[1] : null;
 }
 
-/** 카카오톡 앱을 띄우는 한 페이지. SDK 가 없거나 카카오톡이 없으면 SDK 가 알아서 계정 로그인으로 넘긴다. */
-function 로그인페이지(jsKey: string, callback: string, state: string): string {
-  return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>카카오 로그인</title>
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"></script>
-<style>body{font-family:sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0;background:#fff;color:#333}p{font-size:1rem}</style>
-</head><body><p>카카오톡으로 이동합니다…</p>
-<script>
-  try {
-    Kakao.init(${JSON.stringify(jsKey)});
-    Kakao.Auth.authorize({ redirectUri: ${JSON.stringify(callback)}, state: ${JSON.stringify(state)}, throughTalk: true });
-  } catch (e) {
-    document.querySelector('p').textContent = '카카오 로그인을 열지 못했습니다. 앱으로 돌아가 다시 시도해 주세요.';
-  }
-</script></body></html>`;
-}
-
 Deno.serve(async (req) => {
   if (!KAKAO_REST_KEY || !KAKAO_JS_KEY) {
     return new Response('KAKAO_REST_KEY / KAKAO_JS_KEY 시크릿이 설정되지 않았습니다.', {
@@ -77,10 +60,18 @@ Deno.serve(async (req) => {
   // ── 1단계: 카카오톡 앱으로 ───────────────────────────────
   if (url.pathname.endsWith('/login')) {
     const state = crypto.randomUUID();
-    return new Response(로그인페이지(KAKAO_JS_KEY, 콜백주소(req), state), {
-      status: 200,
+    // Edge Function 의 GET HTML 은 일반 텍스트로 바뀌므로 SDK 페이지는 앱 도메인에서 연다.
+    const to = new URL('/kakao-login.html', APP_URL);
+    // 쿼리가 붙으면 설치형 앱의 서비스워커가 로그인 페이지를 앱의 404 화면으로 바꾼다.
+    to.hash = new URLSearchParams({
+      state,
+      js_key: KAKAO_JS_KEY,
+      redirect_uri: 콜백주소(req),
+    }).toString();
+    return new Response(null, {
+      status: 302,
       headers: {
-        'content-type': 'text/html; charset=utf-8',
+        location: to.toString(),
         'cache-control': 'no-store',
         'set-cookie': `kakao_oauth_state=${state}; Path=/; Max-Age=600; HttpOnly; Secure; SameSite=Lax`,
       },
