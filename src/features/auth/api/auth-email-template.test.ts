@@ -25,14 +25,14 @@ describe.each(FILES)('인증 메일 서식 — %s', (file) => {
 
   it('켜 둔 언어마다 분기가 있다 — 영어는 else 로 받는다', () => {
     for (const lang of ENABLED_LANGUAGES.filter((l) => l !== 'en')) {
-      expect(html).toContain(`.Data.lang "${lang}"`);
+      expect(html).toContain(`eq $lang "${lang}"`);
     }
     expect(html).toMatch(/\{\{\s*else\s*\}\}/);
   });
 
   it('한국어 분기가 가장 먼저 온다 — 이용자 대부분이 한국인이다', () => {
-    expect(html.indexOf('.Data.lang "ko"')).toBeGreaterThan(0);
-    expect(html.indexOf('.Data.lang "ko"')).toBeLessThan(html.indexOf('.Data.lang "es"'));
+    expect(html.indexOf('eq $lang "ko"')).toBeGreaterThan(0);
+    expect(html.indexOf('eq $lang "ko"')).toBeLessThan(html.indexOf('eq $lang "es"'));
   });
 
   it('분기 수만큼 확인 링크가 있다 — 한 언어라도 링크가 빠지면 가입을 못 끝낸다', () => {
