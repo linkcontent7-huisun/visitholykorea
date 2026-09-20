@@ -45,7 +45,9 @@ const headers = { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application
 const now = await (await fetch(url, { headers })).json();
 const show = (c) => {
   console.log(`  발송 서버   ${c.smtp_host ?? '(없음 — Supabase 기본, 팀원에게만 감)'}`);
-  console.log(`  보내는 주소 ${c.smtp_admin_email ?? '(없음)'} / 이름 ${c.smtp_sender_name ?? '(없음)'}`);
+  console.log(
+    `  보내는 주소 ${c.smtp_admin_email ?? '(없음)'} / 이름 ${c.smtp_sender_name ?? '(없음)'}`,
+  );
   console.log(`  시간당 한도 ${c.rate_limit_email_sent}통`);
   console.log(`  가입 즉시 승인(메일 확인 생략) ${c.mailer_autoconfirm ? '켬' : '끔'}`);
 };
@@ -58,7 +60,14 @@ if (TURN_OFF) {
   const res = await fetch(url, {
     method: 'PATCH',
     headers,
-    body: JSON.stringify({ smtp_host: null, smtp_port: null, smtp_user: null, smtp_pass: null, smtp_admin_email: null, smtp_sender_name: null }),
+    body: JSON.stringify({
+      smtp_host: null,
+      smtp_port: null,
+      smtp_user: null,
+      smtp_pass: null,
+      smtp_admin_email: null,
+      smtp_sender_name: null,
+    }),
   });
   console.log(res.ok ? '\nSMTP 를 껐다 (기본 서비스로 되돌림).' : `\n실패: HTTP ${res.status}`);
   process.exit(res.ok ? 0 : 1);
@@ -67,7 +76,9 @@ if (TURN_OFF) {
 const need = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'SMTP_SENDER_EMAIL'];
 const missing = need.filter((k) => !process.env[k]);
 if (missing.length > 0) {
-  console.error(`\n.env.local 에 없는 값: ${missing.join(', ')}\n위 주석의 보기를 참고해 넣고 다시 실행한다.`);
+  console.error(
+    `\n.env.local 에 없는 값: ${missing.join(', ')}\n위 주석의 보기를 참고해 넣고 다시 실행한다.`,
+  );
   process.exit(1);
 }
 
