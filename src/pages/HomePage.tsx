@@ -1,4 +1,4 @@
-import { CalendarHeart, ChevronRight, Footprints, Search, Sparkles } from 'lucide-react';
+import { CalendarHeart, ChevronRight, Footprints, Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -13,6 +13,7 @@ import { HeroCarousel, type HeroSlide } from '@/features/sites/components/HeroCa
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { HERO_SITES } from '@/features/sites/data/hero-sites';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
+import { MichaelIcon } from '@/shared/components/icons/MichaelIcon';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { ScrollHintRow } from '@/shared/components/ui/ScrollHintRow';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
@@ -176,7 +177,7 @@ export default function HomePage() {
           <EntryCard
             onClick={() => setAiOpen(true)}
             id="entry-ai-guide"
-            icon={<Sparkles size={24} aria-hidden />}
+            icon={<MichaelIcon size={24} aria-hidden />}
             title={t('aiGuideEntryTitle')}
             sub={t('aiGuideEntrySub')}
           />

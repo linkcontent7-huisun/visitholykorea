@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from 'motion/react';
-import { Bot, Loader2, Send, Trash2, X } from 'lucide-react';
+import { Loader2, Send, Trash2, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { MichaelIcon } from '@/shared/components/icons/MichaelIcon';
 import { useModalFocus } from '@/shared/hooks/use-modal-focus';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { useSession } from '@/features/auth/hooks/use-session';
@@ -123,7 +124,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
             <header className="flex shrink-0 items-center justify-between bg-brand-blue px-6 py-4 text-white">
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-white/10 backdrop-blur-xl">
-                  <Bot size={28} />
+                  <MichaelIcon size={28} aria-hidden />
                 </div>
                 <div className="flex items-center">
                   <h3 className="text-xl font-extrabold leading-none tracking-tight">

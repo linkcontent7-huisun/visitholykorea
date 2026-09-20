@@ -1,9 +1,10 @@
-import { BookOpen, Menu, Sparkles } from 'lucide-react';
+import { BookOpen, Menu } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
+import { MichaelIcon } from '@/shared/components/icons/MichaelIcon';
 import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -139,7 +140,7 @@ export function TopNav() {
               }
               id="ai-guide-toggle"
             >
-              <Sparkles size={16} aria-hidden />
+              <MichaelIcon size={18} aria-hidden />
               {t('aiGuideNavLabel')}
             </button>
 
