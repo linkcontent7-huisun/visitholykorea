@@ -53,7 +53,6 @@ const PAGES = {
   map: '/map',
   nearby: '/nearby',
   routes: '/routes',
-  festivals: '/festivals',
   faq: '/faq',
 };
 const only = opt('only', '')
