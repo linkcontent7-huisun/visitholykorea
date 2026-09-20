@@ -7,7 +7,12 @@
   "status": "draft",
   "intro": {
     "narration": "숲이 우거져 숲의 머리라 불리던 전주의 군사 훈련장이자 형장입니다. 1801년부터 1866년까지 신자들이 이곳에서 처형되었습니다.",
-    "photos": []
+    "photos": [],
+    "narrationEn": "A military training ground and execution site in Jeonju, once called the Head of the Forest for its dense woods. Believers were executed here from 1801 to 1866.",
+    "narrationEs": "Campo de entrenamiento militar y lugar de ejecución de Jeonju, llamado Cabeza del Bosque por su frondosidad. Aquí fueron ejecutados creyentes entre 1801 y 1866.",
+    "narrationIt": "Campo di addestramento militare e luogo di esecuzione di Jeonju, detto Testa del Bosco per la fitta vegetazione. Qui furono giustiziati fedeli dal 1801 al 1866.",
+    "narrationPt": "Campo de treinamento militar e local de execução de Jeonju, chamado Cabeça da Floresta por sua mata densa. Fiéis foram executados aqui de 1801 a 1866.",
+    "narrationFr": "Terrain d’entraînement militaire et lieu d’exécution de Jeonju, appelé la Tête de la Forêt pour ses bois épais. Des fidèles y furent exécutés de 1801 à 1866."
   },
   "points": [
     {
@@ -18,7 +23,27 @@
       "lookFor": "1935년 기념 십자가",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "굿뉴스 성지 안내(전주 숲정이): https://m.catholic.or.kr/web/holyplace/?seq=2359"
+      "sourceNote": "굿뉴스 성지 안내(전주 숲정이): https://m.catholic.or.kr/web/holyplace/?seq=2359",
+      "titleEn": "Entrance — Memorial Cross and Monument",
+      "locationEn": "Shrine entrance",
+      "narrationEn": "The Church purchased and preserved this site in the 1930s, erecting a memorial cross in 1935 and a monument in 1968. Though moved here in 1992 during urban development, they remain the shrine’s landmarks.",
+      "lookForEn": "The 1935 memorial cross",
+      "titleEs": "Entrance — Memorial Cross and Monument",
+      "locationEs": "Entrada del santuario",
+      "narrationEs": "La Iglesia compró y preservó este lugar en los años treinta, erigió una cruz en 1935 y un monumento en 1968. Tras su traslado aquí en 1992, siguen siendo los emblemas del santuario.",
+      "lookForEs": "La cruz conmemorativa de 1935",
+      "titleIt": "Entrance — Memorial Cross and Monument",
+      "locationIt": "Ingresso del santuario",
+      "narrationIt": "La Chiesa acquistò e preservò il sito negli anni Trenta, erigendo una croce nel 1935 e un monumento nel 1968. Trasferiti qui nel 1992, restano i simboli del santuario.",
+      "lookForIt": "La croce commemorativa del 1935",
+      "titlePt": "Entrance — Memorial Cross and Monument",
+      "locationPt": "Entrada do santuário",
+      "narrationPt": "A Igreja comprou e preservou este local nos anos 1930, erguendo uma cruz em 1935 e um monumento em 1968. Transferidos para cá em 1992, continuam sendo os marcos do santuário.",
+      "lookForPt": "A cruz memorial de 1935",
+      "titleFr": "Entrance — Memorial Cross and Monument",
+      "locationFr": "Entrée du sanctuaire",
+      "narrationFr": "L’Église acheta et préserva ce lieu dans les années 1930, érigeant une croix en 1935 et un monument en 1968. Déplacés ici en 1992, ils restent les emblèmes du sanctuaire.",
+      "lookForFr": "La croix commémorative de 1935"
     },
     {
       "seq": 2,
@@ -28,7 +53,27 @@
       "lookFor": "야외제대 곁 순교자 명단",
       "forEveryone": "남매처럼 살기로 한 부부의 이야기가 전해지는 곳입니다.",
       "photos": [],
-      "sourceNote": "굿뉴스 성지 안내(전주 숲정이): https://m.catholic.or.kr/web/holyplace/?seq=2359"
+      "sourceNote": "굿뉴스 성지 안내(전주 숲정이): https://m.catholic.or.kr/web/holyplace/?seq=2359",
+      "titleEn": "Outdoor Altar — The Virginal Couple and the Martyrs",
+      "locationEn": "Outdoor altar",
+      "narrationEn": "In 1801, John Yu Jung-cheol and Lutgarda Yi Sun-i, a virginal couple, were martyred here. Seven people, including Yi Sun-i and Yu Jung-seong, were beatified in 2014; six, including Jeong Mun-ho and Son Seon-ji, were canonized in 1984.",
+      "lookForEn": "List of martyrs beside the outdoor altar",
+      "titleEs": "Altar exterior — La pareja virginal y los mártires",
+      "locationEs": "Altar exterior",
+      "narrationEs": "En 1801, Juan Yu Jung-cheol y Lutgarda Yi Sun-i, un matrimonio virginal, fueron martirizados aquí. Siete personas fueron beatificadas en 2014 y seis canonizadas en 1984.",
+      "lookForEs": "Lista de mártires junto al altar",
+      "titleIt": "Altare esterno — La coppia verginale e i martiri",
+      "locationIt": "Altare esterno",
+      "narrationIt": "Nel 1801 Giovanni Yu Jung-cheol e Lutgarda Yi Sun-i, coppia verginale, subirono qui il martirio. Sette persone furono beatificate nel 2014 e sei canonizzate nel 1984.",
+      "lookForIt": "Elenco dei martiri accanto all’altare",
+      "titlePt": "Altar ao ar livre — O casal virginal e os mártires",
+      "locationPt": "Altar ao ar livre",
+      "narrationPt": "Em 1801, João Yu Jung-cheol e Lutgarda Yi Sun-i, um casal virginal, foram martirizados aqui. Sete pessoas foram beatificadas em 2014 e seis canonizadas em 1984.",
+      "lookForPt": "Lista de mártires junto ao altar",
+      "titleFr": "Autel extérieur — Le couple virginal et les martyrs",
+      "locationFr": "Autel extérieur",
+      "narrationFr": "En 1801, Jean Yu Jung-cheol et Lutgarde Yi Sun-i, couple virginal, furent martyrisés ici. Sept personnes furent béatifiées en 2014 et six canonisées en 1984.",
+      "lookForFr": "Liste des martyrs près de l’autel"
     },
     {
       "seq": 3,
@@ -38,11 +83,36 @@
       "lookFor": "성모상",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "굿뉴스 성지 안내(전주 숲정이): https://m.catholic.or.kr/web/holyplace/?seq=2359"
+      "sourceNote": "굿뉴스 성지 안내(전주 숲정이): https://m.catholic.or.kr/web/holyplace/?seq=2359",
+      "titleEn": "Stations of the Cross — Created in 2004",
+      "locationEn": "Around the grounds",
+      "narrationEn": "An outdoor altar, a statue of Mary, and the Stations of the Cross were added in 2004. Though relocated, the shrine invites visitors to circle the grounds and remember Supjeongi.",
+      "lookForEn": "Statue of Mary",
+      "titleEs": "Vía crucis — Creado en 2004",
+      "locationEs": "Alrededor del recinto",
+      "narrationEs": "En 2004 se añadieron un altar exterior, una imagen de María y el vía crucis. Aunque trasladado, el santuario invita a recorrerlo y recordar Supjeongi.",
+      "lookForEs": "Imagen de María",
+      "titleIt": "Via Crucis — Realizzata nel 2004",
+      "locationIt": "Lungo il perimetro",
+      "narrationIt": "Nel 2004 furono aggiunti un altare esterno, una statua di Maria e la Via Crucis. Pur trasferito, il santuario invita a percorrerlo ricordando Supjeongi.",
+      "lookForIt": "Statua di Maria",
+      "titlePt": "Via-sacra — Criada em 2004",
+      "locationPt": "Ao redor do recinto",
+      "narrationPt": "Em 2004 foram acrescentados um altar ao ar livre, uma imagem de Maria e a via-sacra. Embora transferido, o santuário convida a percorrê-lo e recordar Supjeongi.",
+      "lookForPt": "Imagem de Maria",
+      "titleFr": "Chemin de croix — Créé en 2004",
+      "locationFr": "Autour du site",
+      "narrationFr": "En 2004 furent ajoutés un autel extérieur, une statue de Marie et le chemin de croix. Malgré son déplacement, le sanctuaire invite à en faire le tour et à se souvenir de Supjeongi.",
+      "lookForFr": "Statue de Marie"
     }
   ],
   "outro": {
     "narration": "기해·병인박해까지 세 차례 박해의 형장이었던 곳입니다. 기념탑 앞에서 잠시 머물러 보세요.",
-    "photos": []
+    "photos": [],
+    "narrationEn": "This was an execution site during three persecutions, through the Gihae and Byeongin Persecutions. Pause for a moment before the monument.",
+    "narrationEs": "Fue lugar de ejecución durante tres persecuciones, hasta las de Gihae y Byeongin. Deténgase un momento ante el monumento.",
+    "narrationIt": "Fu luogo di esecuzione durante tre persecuzioni, fino a quelle di Gihae e Byeongin. Sostate un momento davanti al monumento.",
+    "narrationPt": "Foi local de execução durante três perseguições, até as de Gihae e Byeongin. Pare por um momento diante do monumento.",
+    "narrationFr": "Ce fut un lieu d’exécution durant trois persécutions, jusqu’à celles de Gihae et Byeongin. Arrêtez-vous un instant devant le monument."
   }
 }

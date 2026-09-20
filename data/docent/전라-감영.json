@@ -7,6 +7,11 @@
   "status": "draft",
   "intro": {
     "narration": "전라도 관찰사가 다스리던 전라감영입니다. 1791년 한국 교회 첫 순교자 윤지충과 권상연이 이곳에서 심문을 받았습니다.",
+    "narrationEn": "This is Jeolla Gamyeong, where the governor of Jeolla Province administered the region. In 1791, Yun Ji-chung and Gwon Sang-yeon, the first martyrs of the Korean Church, were interrogated here.",
+    "narrationEs": "Este es Jeolla Gamyeong, desde donde el gobernador de la provincia de Jeolla administraba la región. En 1791, Yun Ji-chung y Gwon Sang-yeon, los primeros mártires de la Iglesia coreana, fueron interrogados aquí.",
+    "narrationIt": "Questo è Jeolla Gamyeong, da dove il governatore della provincia di Jeolla amministrava la regione. Nel 1791 Yun Ji-chung e Gwon Sang-yeon, i primi martiri della Chiesa coreana, furono interrogati qui.",
+    "narrationPt": "Este é Jeolla Gamyeong, de onde o governador da província de Jeolla administrava a região. Em 1791, Yun Ji-chung e Gwon Sang-yeon, os primeiros mártires da Igreja coreana, foram interrogados aqui.",
+    "narrationFr": "Voici Jeolla Gamyeong, d’où le gouverneur de la province de Jeolla administrait la région. En 1791, Yun Ji-chung et Gwon Sang-yeon, premiers martyrs de l’Église coréenne, y furent interrogés.",
     "photos": []
   },
   "points": [
@@ -18,6 +23,10 @@
       "lookFor": "선화당 현판",
       "forEveryone": "조선 지방 행정의 중심이 그대로 복원된 공간입니다.",
       "photos": [],
+      "titleEn": "Seonhwadang — The Restored Provincial Office", "titleEs": "Seonhwadang — La oficina provincial restaurada", "titleIt": "Seonhwadang — L’ufficio provinciale restaurato", "titlePt": "Seonhwadang — A sede provincial restaurada", "titleFr": "Seonhwadang — Le siège provincial restauré",
+      "locationEn": "Former Jeonbuk Provincial Office site, main building of the restored complex", "locationEs": "Antiguo recinto de la administración provincial de Jeonbuk, edificio principal restaurado", "locationIt": "Ex sede dell’amministrazione provinciale di Jeonbuk, edificio principale restaurato", "locationPt": "Antiga sede do governo provincial de Jeonbuk, edifício principal restaurado", "locationFr": "Ancien siège de l’administration provinciale de Jeonbuk, bâtiment principal restauré",
+      "narrationEn": "In 2020, part of the complex was restored around Seonhwadang. Believers were repeatedly interrogated before this building, where the governor worked.", "narrationEs": "En 2020 se restauró parte del conjunto alrededor de Seonhwadang. Ante este edificio, donde trabajaba el gobernador, los creyentes fueron interrogados repetidamente.", "narrationIt": "Nel 2020 parte del complesso fu restaurata attorno a Seonhwadang. Davanti a questo edificio, sede del governatore, i fedeli furono interrogati ripetutamente.", "narrationPt": "Em 2020, parte do complexo foi restaurada em torno de Seonhwadang. Diante deste edifício, onde trabalhava o governador, os fiéis foram interrogados repetidamente.", "narrationFr": "En 2020, une partie du complexe a été restaurée autour de Seonhwadang. Devant ce bâtiment où travaillait le gouverneur, les fidèles furent interrogés à plusieurs reprises.",
+      "lookForEn": "The Seonhwadang signboard", "lookForEs": "El letrero de Seonhwadang", "lookForIt": "L’insegna di Seonhwadang", "lookForPt": "A placa de Seonhwadang", "lookForFr": "L’enseigne de Seonhwadang",
       "sourceNote": "전주교구 순례 안내 e-book(2024): https://www.jcatholic.or.kr/data/jc_file/jc_ebook_list/2886733904_cHRVONsT_20240630.pdf"
     },
     {
@@ -28,6 +37,10 @@
       "lookFor": "복원 건물 안 감영 역사 전시",
       "forEveryone": null,
       "photos": [],
+      "titleEn": "Courtyard — Interrogation of the First Martyrs", "titleEs": "Patio — Interrogatorio de los primeros mártires", "titleIt": "Cortile — L’interrogatorio dei primi martiri", "titlePt": "Pátio — Interrogatório dos primeiros mártires", "titleFr": "Cour — L’interrogatoire des premiers martyrs",
+      "locationEn": "Courtyard before Seonhwadang", "locationEs": "Patio frente a Seonhwadang", "locationIt": "Cortile davanti a Seonhwadang", "locationPt": "Pátio diante de Seonhwadang", "locationFr": "Cour devant Seonhwadang",
+      "narrationEn": "During the Sinhae Persecution of 1791, Paul Yun Ji-chung and James Gwon Sang-yeon were interrogated here and became the Korean Church’s first martyrs. Augustine Yu Hang-geom’s family and Francis Yun Ji-heon passed through in 1801, as did Paul Yi Gyeong-eon in 1827.", "narrationEs": "Durante la persecución de Sinhae de 1791, Pablo Yun Ji-chung y Santiago Gwon Sang-yeon fueron interrogados aquí y se convirtieron en los primeros mártires de la Iglesia coreana. La familia de Agustín Yu Hang-geom y Francisco Yun Ji-heon pasaron por aquí en 1801, y Pablo Yi Gyeong-eon en 1827.", "narrationIt": "Durante la persecuzione di Sinhae del 1791, Paolo Yun Ji-chung e Giacomo Gwon Sang-yeon furono interrogati qui e divennero i primi martiri della Chiesa coreana. La famiglia di Agostino Yu Hang-geom e Francesco Yun Ji-heon passarono di qui nel 1801, e Paolo Yi Gyeong-eon nel 1827.", "narrationPt": "Durante a perseguição de Sinhae de 1791, Paulo Yun Ji-chung e Tiago Gwon Sang-yeon foram interrogados aqui e tornaram-se os primeiros mártires da Igreja coreana. A família de Agostinho Yu Hang-geom e Francisco Yun Ji-heon passaram por aqui em 1801, e Paulo Yi Gyeong-eon em 1827.", "narrationFr": "Pendant la persécution de Sinhae en 1791, Paul Yun Ji-chung et Jacques Gwon Sang-yeon furent interrogés ici et devinrent les premiers martyrs de l’Église coréenne. La famille d’Augustin Yu Hang-geom et François Yun Ji-heon y passèrent en 1801, puis Paul Yi Gyeong-eon en 1827.",
+      "lookForEn": "Exhibition on the provincial office’s history inside the restored building", "lookForEs": "Exposición sobre la historia de la oficina provincial dentro del edificio restaurado", "lookForIt": "Mostra sulla storia dell’ufficio provinciale nell’edificio restaurato", "lookForPt": "Exposição sobre a história da sede provincial no edifício restaurado", "lookForFr": "L’exposition sur l’histoire du siège provincial dans le bâtiment restauré",
       "sourceNote": "전주교구 순례 안내 e-book(2024): https://www.jcatholic.or.kr/data/jc_file/jc_ebook_list/2886733904_cHRVONsT_20240630.pdf"
     },
     {
@@ -38,11 +51,20 @@
       "lookFor": "풍남문 쪽으로 이어지는 순례 동선",
       "forEveryone": null,
       "photos": [],
+      "titleEn": "Road — Toward Jeonju Prison and the Execution Ground", "titleEs": "Camino — Hacia la prisión de Jeonju y el lugar de ejecución", "titleIt": "Strada — Verso la prigione di Jeonju e il luogo dell’esecuzione", "titlePt": "Caminho — Rumo à prisão de Jeonju e ao local de execução", "titleFr": "Chemin — Vers la prison de Jeonju et le lieu d’exécution",
+      "locationEn": "From the provincial office toward Pungnammun Gate", "locationEs": "Desde la oficina provincial hacia la puerta Pungnammun", "locationIt": "Dall’ufficio provinciale verso la porta Pungnammun", "locationPt": "Da sede provincial em direção ao portão Pungnammun", "locationFr": "Du siège provincial vers la porte Pungnammun",
+      "narrationEn": "Believers interrogated here were confined in Jeonju Prison, then taken to the execution ground outside Pungnammun Gate. Peter Sin Tae-bo in 1839 and Peter Son Seon-ji in 1866 also walked this road.", "narrationEs": "Los creyentes interrogados aquí eran recluidos en la prisión de Jeonju y luego llevados al lugar de ejecución fuera de la puerta Pungnammun. Pedro Sin Tae-bo en 1839 y Pedro Son Seon-ji en 1866 también recorrieron este camino.", "narrationIt": "I fedeli interrogati qui venivano rinchiusi nella prigione di Jeonju e poi condotti al luogo dell’esecuzione fuori dalla porta Pungnammun. Anche Pietro Sin Tae-bo nel 1839 e Pietro Son Seon-ji nel 1866 percorsero questa strada.", "narrationPt": "Os fiéis interrogados aqui eram presos na prisão de Jeonju e depois levados ao local de execução fora do portão Pungnammun. Pedro Sin Tae-bo, em 1839, e Pedro Son Seon-ji, em 1866, também percorreram este caminho.", "narrationFr": "Les fidèles interrogés ici étaient enfermés dans la prison de Jeonju, puis conduits au lieu d’exécution hors de la porte Pungnammun. Pierre Sin Tae-bo en 1839 et Pierre Son Seon-ji en 1866 empruntèrent aussi ce chemin.",
+      "lookForEn": "Pilgrimage route leading toward Pungnammun Gate", "lookForEs": "Ruta de peregrinación hacia la puerta Pungnammun", "lookForIt": "Percorso di pellegrinaggio verso la porta Pungnammun", "lookForPt": "Rota de peregrinação até o portão Pungnammun", "lookForFr": "L’itinéraire de pèlerinage vers la porte Pungnammun",
       "sourceNote": "전주교구 순례 안내 e-book(2024): https://www.jcatholic.or.kr/data/jc_file/jc_ebook_list/2886733904_cHRVONsT_20240630.pdf"
     }
   ],
   "outro": {
     "narration": "감영에서 옥, 그리고 형장으로 — 전주 순교사의 출발점이 이 마당입니다.",
+    "narrationEn": "From the provincial office to prison and then the execution ground—this courtyard is where Jeonju’s story of martyrdom begins.",
+    "narrationEs": "De la oficina provincial a la prisión y luego al lugar de ejecución: en este patio comienza la historia del martirio en Jeonju.",
+    "narrationIt": "Dall’ufficio provinciale alla prigione e poi al luogo dell’esecuzione: da questo cortile inizia la storia del martirio a Jeonju.",
+    "narrationPt": "Da sede provincial à prisão e depois ao local de execução: neste pátio começa a história do martírio em Jeonju.",
+    "narrationFr": "Du siège provincial à la prison, puis au lieu d’exécution : cette cour marque le début de l’histoire des martyrs de Jeonju.",
     "photos": []
   }
 }

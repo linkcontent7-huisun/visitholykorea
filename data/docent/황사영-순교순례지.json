@@ -7,7 +7,12 @@
   "status": "draft",
   "intro": {
     "narration": "양주 홍복산 자락, 백서를 쓴 황사영 알렉시오의 묘가 있는 순례지입니다.",
-    "photos": []
+    "photos": [],
+    "narrationEn": "This pilgrimage site lies on the slopes of Hongboksan Mountain in Yangju and holds the grave of Alexius Hwang Sa-yeong, who wrote the Silk Letter.",
+    "narrationEs": "Este lugar de peregrinación se encuentra en las laderas del monte Hongboksan, en Yangju, y alberga la tumba de Alejo Hwang Sa-yeong, autor de la Carta de Seda.",
+    "narrationIt": "Questo luogo di pellegrinaggio si trova sulle pendici del monte Hongboksan, a Yangju, e custodisce la tomba di Alessio Hwang Sa-yeong, autore della Lettera di Seta.",
+    "narrationPt": "Este local de peregrinação fica nas encostas do monte Hongboksan, em Yangju, e abriga o túmulo de Aleixo Hwang Sa-yeong, autor da Carta de Seda.",
+    "narrationFr": "Ce lieu de pèlerinage se trouve sur les pentes du mont Hongboksan, à Yangju, et abrite la tombe d’Alexis Hwang Sa-yeong, auteur de la Lettre de Soie."
   },
   "points": [
     {
@@ -18,7 +23,27 @@
       "lookFor": "묘 앞 돌십자가",
       "forEveryone": "조선 후기 최대의 필화 사건 주인공이 잠든 곳입니다.",
       "photos": [],
-      "sourceNote": "의정부교구 황사영 순교순례지 안내: https://sd.uca.or.kr/hsy1801/board_view?board_seq=21330&mnucd=20003487"
+      "sourceNote": "의정부교구 황사영 순교순례지 안내: https://sd.uca.or.kr/hsy1801/board_view?board_seq=21330&mnucd=20003487",
+      "titleEn": "Grave — Alexius Hwang Sa-yeong",
+      "locationEn": "Pilgrimage site burial ground",
+      "narrationEn": "Hwang Sa-yeong was arrested while writing the Silk Letter in a cave at Baeron, Jecheon, in 1801. The letter described the persecution and proposed ways to rebuild the Church. He was executed in Seoul for high treason. His body was not returned to his family, and his grave was identified in 1980 based on traditions passed down by his descendants.",
+      "lookForEn": "The stone cross in front of the grave",
+      "titleEs": "Tumba — Alejo Hwang Sa-yeong",
+      "locationEs": "Cementerio del lugar de peregrinación",
+      "narrationEs": "Hwang Sa-yeong fue detenido mientras escribía la Carta de Seda en una cueva de Baeron, Jecheon, en 1801. La carta describía la persecución y proponía maneras de reconstruir la Iglesia. Fue ejecutado en Seúl por alta traición. Su cuerpo no fue devuelto a la familia, y la tumba fue identificada en 1980 a partir de la tradición transmitida por sus descendientes.",
+      "lookForEs": "La cruz de piedra frente a la tumba",
+      "titleIt": "Tomba — Alessio Hwang Sa-yeong",
+      "locationIt": "Area delle tombe del luogo di pellegrinaggio",
+      "narrationIt": "Hwang Sa-yeong fu arrestato mentre scriveva la Lettera di Seta in una grotta a Baeron, Jecheon, nel 1801. La lettera descriveva la persecuzione e proponeva modi per ricostruire la Chiesa. Fu giustiziato a Seul per alto tradimento. Il corpo non fu restituito alla famiglia e la tomba fu identificata nel 1980 sulla base della tradizione tramandata dai discendenti.",
+      "lookForIt": "La croce di pietra davanti alla tomba",
+      "titlePt": "Túmulo — Aleixo Hwang Sa-yeong",
+      "locationPt": "Área dos túmulos do local de peregrinação",
+      "narrationPt": "Hwang Sa-yeong foi preso enquanto escrevia a Carta de Seda numa gruta em Baeron, Jecheon, em 1801. A carta descrevia a perseguição e propunha maneiras de reconstruir a Igreja. Ele foi executado em Seul por alta traição. Seu corpo não foi devolvido à família, e o túmulo foi identificado em 1980 com base na tradição transmitida por seus descendentes.",
+      "lookForPt": "A cruz de pedra diante do túmulo",
+      "titleFr": "Tombe — Alexis Hwang Sa-yeong",
+      "locationFr": "Cimetière du lieu de pèlerinage",
+      "narrationFr": "Hwang Sa-yeong fut arrêté alors qu’il écrivait la Lettre de Soie dans une grotte à Baeron, Jecheon, en 1801. La lettre décrivait la persécution et proposait des moyens de reconstruire l’Église. Il fut exécuté à Séoul pour haute trahison. Son corps ne fut pas rendu à sa famille, et sa tombe fut identifiée en 1980 à partir de la tradition transmise par ses descendants.",
+      "lookForFr": "La croix de pierre devant la tombe"
     },
     {
       "seq": 2,
@@ -28,7 +53,27 @@
       "lookFor": "항아리와 비단 이야기를 적은 표지",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "의정부교구 황사영 순교순례지 안내: https://sd.uca.or.kr/hsy1801/board_view?board_seq=21330&mnucd=20003487"
+      "sourceNote": "의정부교구 황사영 순교순례지 안내: https://sd.uca.or.kr/hsy1801/board_view?board_seq=21330&mnucd=20003487",
+      "titleEn": "Marker — A Secret Burial",
+      "locationEn": "Beside the grave marker",
+      "narrationEn": "A marker recounts that his body was wrapped in silk and preserved in a jar, conveying the secrecy of the burial. It reflects an era when the family of a person convicted of high treason had to recover his body in secret.",
+      "lookForEn": "The marker describing the jar and silk",
+      "titleEs": "Marcador — Un entierro secreto",
+      "locationEs": "Junto al marcador de la tumba",
+      "narrationEs": "Un marcador relata que su cuerpo fue envuelto en seda y conservado en una vasija, y transmite el carácter secreto del entierro. Refleja una época en la que la familia de un condenado por alta traición tenía que recuperar su cuerpo en secreto.",
+      "lookForEs": "El marcador que cuenta la historia de la vasija y la seda",
+      "titleIt": "Segnale — Una sepoltura segreta",
+      "locationIt": "Accanto al segnale della tomba",
+      "narrationIt": "Un segnale racconta che il corpo fu avvolto nella seta e conservato in un vaso, trasmettendo la segretezza della sepoltura. Esso riflette un’epoca in cui la famiglia di un condannato per alto tradimento doveva recuperarne il corpo in segreto.",
+      "lookForIt": "Il segnale che racconta del vaso e della seta",
+      "titlePt": "Marco — Um sepultamento secreto",
+      "locationPt": "Ao lado do marco do túmulo",
+      "narrationPt": "Um marco relata que seu corpo foi envolvido em seda e preservado num pote, transmitindo o caráter secreto do sepultamento. Ele reflete uma época em que a família de um condenado por alta traição precisava recuperar seu corpo em segredo.",
+      "lookForPt": "O marco que conta a história do pote e da seda",
+      "titleFr": "Repère — Une sépulture secrète",
+      "locationFr": "À côté du repère de la tombe",
+      "narrationFr": "Un repère raconte que son corps fut enveloppé de soie et conservé dans une jarre, évoquant le caractère secret de l’inhumation. Il témoigne d’une époque où la famille d’un condamné pour haute trahison devait récupérer son corps en secret.",
+      "lookForFr": "Le repère racontant l’histoire de la jarre et de la soie"
     },
     {
       "seq": 3,
@@ -38,11 +83,36 @@
       "lookFor": "입구 안내판의 배론 언급",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "의정부교구 황사영 순교순례지 안내: https://sd.uca.or.kr/hsy1801/board_view?board_seq=21330&mnucd=20003487"
+      "sourceNote": "의정부교구 황사영 순교순례지 안내: https://sd.uca.or.kr/hsy1801/board_view?board_seq=21330&mnucd=20003487",
+      "titleEn": "Path — Baeron and Yangju",
+      "locationEn": "Entrance to the pilgrimage site",
+      "narrationEn": "The Silk Letter cave at Baeron and the grave in Yangju connect the final stages of his life across two different places. If you have visited Baeron, consider the distance from that cave to this grave.",
+      "lookForEn": "The mention of Baeron on the entrance information board",
+      "titleEs": "Camino — Baeron y Yangju",
+      "locationEs": "Entrada del lugar de peregrinación",
+      "narrationEs": "La cueva de la Carta de Seda en Baeron y la tumba de Yangju conectan las últimas etapas de su vida en dos lugares distintos. Si ha visitado Baeron, piense en la distancia desde aquella cueva hasta esta tumba.",
+      "lookForEs": "La mención de Baeron en el panel informativo de la entrada",
+      "titleIt": "Sentiero — Baeron e Yangju",
+      "locationIt": "Ingresso del luogo di pellegrinaggio",
+      "narrationIt": "La grotta della Lettera di Seta a Baeron e la tomba di Yangju collegano le ultime tappe della sua vita in due luoghi diversi. Se ha visitato Baeron, consideri la distanza da quella grotta a questa tomba.",
+      "lookForIt": "Il riferimento a Baeron sul pannello informativo all’ingresso",
+      "titlePt": "Caminho — Baeron e Yangju",
+      "locationPt": "Entrada do local de peregrinação",
+      "narrationPt": "A gruta da Carta de Seda em Baeron e o túmulo em Yangju ligam os últimos passos de sua vida em dois lugares diferentes. Se você visitou Baeron, pense na distância daquela gruta até este túmulo.",
+      "lookForPt": "A menção a Baeron no painel informativo da entrada",
+      "titleFr": "Chemin — Baeron et Yangju",
+      "locationFr": "Entrée du lieu de pèlerinage",
+      "narrationFr": "La grotte de la Lettre de Soie à Baeron et la tombe de Yangju relient les dernières étapes de sa vie en deux lieux différents. Si vous avez visité Baeron, pensez à la distance entre cette grotte et cette tombe.",
+      "lookForFr": "La mention de Baeron sur le panneau d’information à l’entrée"
     }
   ],
   "outro": {
     "narration": "백서의 내용은 지금도 평가가 엇갈리지만, 이 묘는 한 사람의 마지막 자리로 조용히 남아 있습니다.",
-    "photos": []
+    "photos": [],
+    "narrationEn": "The contents of the Silk Letter still draw differing assessments, but this grave quietly remains as one person’s final resting place.",
+    "narrationEs": "El contenido de la Carta de Seda sigue recibiendo valoraciones diferentes, pero esta tumba permanece en silencio como el lugar de descanso final de una persona.",
+    "narrationIt": "Il contenuto della Lettera di Seta riceve ancora valutazioni diverse, ma questa tomba rimane in silenzio come ultimo luogo di riposo di una persona.",
+    "narrationPt": "O conteúdo da Carta de Seda ainda recebe avaliações diferentes, mas este túmulo permanece em silêncio como o lugar de descanso final de uma pessoa.",
+    "narrationFr": "Le contenu de la Lettre de Soie fait encore l’objet d’appréciations divergentes, mais cette tombe demeure silencieusement le dernier lieu de repos d’une personne."
   }
 }
