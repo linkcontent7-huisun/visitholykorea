@@ -1,4 +1,4 @@
-import { ChevronDown, Eye, EyeOff, Lock, Mail, ShieldCheck, User as UserIcon } from 'lucide-react';
+import { ChevronDown, Eye, EyeOff, Lock, Mail, User as UserIcon } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -126,12 +126,6 @@ export default function LoginPage() {
 
       <div className="flex-1">
         <div className="mb-10 mt-8">
-          <div
-            className="mb-6 flex h-16 w-16 items-center justify-center rounded-lg bg-brand-blue text-white"
-            aria-hidden
-          >
-            <ShieldCheck size={32} />
-          </div>
           <h1 className="mb-2 whitespace-pre-line font-display text-[1.625rem] leading-tight text-app-text lg:text-3xl">
             {isLogin ? t('loginWelcomeBack') : t('signupTitle')}
           </h1>
@@ -250,7 +244,6 @@ export default function LoginPage() {
               <span id="email-auth-heading" className="block text-base font-bold text-app-text">
                 {t('emailAuth')}
               </span>
-              <span className="mt-1 block text-sm text-app-text-muted">{t('emailAuthHint')}</span>
             </span>
             <ChevronDown
               size={22}
@@ -424,7 +417,6 @@ export default function LoginPage() {
             {t('viewFaq')}
           </Link>
         </div>
-        <p className="mt-2 text-center text-sm text-app-text-muted">{t('termsOpensNewTab')}</p>
       </div>
     </PageContainer>
   );
