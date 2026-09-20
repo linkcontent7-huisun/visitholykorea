@@ -6,8 +6,11 @@
  * 돌 코드를 밖에서 한 번 더 확인하는 셈이다 — 한국어 가입자가 영어 편지를 받는 사고를
  * 코드로 막는다(2026-09-20).
  *
- * 흉내 내는 문법은 서식이 쓰는 것뿐이다: {{ if eq .Data.lang "ko" }} / {{ else if ... }} /
- * {{ else }} / {{ end }} 와 {{ .ConfirmationURL }}.
+ * 흉내 내는 문법은 서식이 쓰는 것뿐이다:
+ *   {{ $lang := printf "%v" (index .Data "lang") }} / {{ if eq $lang "ko" }} / {{ else if ... }} /
+ *   {{ else }} / {{ end }} / {{ .ConfirmationURL }}
+ * `printf "%v"` 는 값이 없을 때 "<nil>" 이라는 문자열이 된다 — Go 가 nil 과 문자열을 비교하다
+ * 죽는 것을 막는 장치라, 흉내에서도 그대로 재현한다(그래야 검사가 진짜 검사가 된다).
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -20,6 +23,8 @@ const LINK = 'https://example.test/confirm?token=abc';
 export function renderGoTemplate(tpl: string, data: { lang?: string; url: string }): string {
   const tokens = tpl.split(/(\{\{[^}]*\}\})/);
   let out = '';
+  /** 서식이 먼저 만들어 두는 변수. 아직 안 만들었으면 비교가 성립하지 않는다. */
+  let lang: string | null = null;
   // 분기 상태: 지금 블록을 출력할지, 이 분기에서 이미 참이 나왔는지
   const stack: { emitting: boolean; taken: boolean }[] = [];
   const emitting = () => stack.every((s) => s.emitting);
@@ -31,16 +36,22 @@ export function renderGoTemplate(tpl: string, data: { lang?: string; url: string
       continue;
     }
     const expr = m[1] ?? '';
-    const cond = /^(?:else\s+)?if\s+eq\s+\.Data\.lang\s+"([a-z]{2})"$/.exec(expr);
+    // {{ $lang := printf "%v" (index .Data "lang") }} — Go 와 같이 없는 값은 "<nil>" 이 된다
+    if (/^\$lang\s*:=\s*printf\s+"%v"\s+\(index \.Data "lang"\)$/.test(expr)) {
+      lang = data.lang === undefined ? '<nil>' : String(data.lang);
+      continue;
+    }
+    const cond = /^(?:else\s+)?if\s+eq\s+\$lang\s+"([a-z]{2})"$/.exec(expr);
     if (/^if\s/.test(expr)) {
       if (!cond) throw new Error(`모르는 조건: ${expr}`);
-      const hit = data.lang === cond[1];
+      if (lang === null) throw new Error('$lang 을 만들기 전에 비교했다');
+      const hit = lang === cond[1];
       stack.push({ emitting: hit, taken: hit });
     } else if (/^else\s+if\s/.test(expr)) {
       if (!cond) throw new Error(`모르는 조건: ${expr}`);
       const top = stack.at(-1);
       if (!top) throw new Error('else if 앞에 if 가 없다');
-      const hit = !top.taken && data.lang === cond[1];
+      const hit = !top.taken && lang === cond[1];
       top.emitting = hit;
       top.taken = top.taken || hit;
     } else if (expr === 'else') {
@@ -84,11 +95,29 @@ describe('가입 인증 메일 — 언어별 실제 결과', () => {
     expect(html).not.toContain('이메일 주소를 확인해 주세요');
   });
 
-  it('언어를 모르면(옛 가입자·값 없음) 영어로 간다 — 빈 편지가 되지 않는다', () => {
+  it('값이 없으면 비교가 "<nil>" 로 이뤄진다 — Go 가 nil 비교로 죽지 않게 한 장치', () => {
+    // 이 장치가 빠지면 값 없는 가입에서 편지가 아예 안 나간다(2026-09-20 위험 제거)
+    expect(tpl).toContain('printf "%v" (index .Data "lang")');
+    expect(tpl).not.toContain('eq .Data.lang');
+  });
+
+  it('언어를 모르면(값 없음·옛 가입자·미지원 언어) 한국어로 간다', () => {
+    // 이용자 대부분이 한국인이고, 배포본이 lang 을 보내기 전에도 한국어여야 한다(9/20 사장님 지시).
     for (const lang of [undefined, '', 'zh']) {
       const html = render(lang);
-      expect(html).toContain('Confirm your email address');
+      expect(html).toContain('이메일 주소를 확인해 주세요');
+      expect(html).not.toContain('Confirm your email address');
       expect(html).toContain(LINK);
+    }
+  });
+
+  it('한국어 편지에 성지순례 안내와 주소가 함께 간다 (9/20 사장님 지시)', () => {
+    for (const lang of ['ko', undefined]) {
+      const html = render(lang);
+      expect(html).toContain('길 위에서 나를 만나는 성지순례');
+      expect(html).toContain('오늘의 성지 일정');
+      expect(html).toContain('오디오 가이드');
+      expect(html).toContain('www.visitholykorea.com');
     }
   });
 
@@ -108,10 +137,10 @@ describe('가입 인증 메일 — 언어별 실제 결과', () => {
 
 describe('비밀번호 재설정 메일 — 언어별 실제 결과', () => {
   const tpl = readFileSync(join(DIR, 'recovery.html'), 'utf8');
-  it('한국어 계정은 한국어로, 모르면 영어로', () => {
-    expect(renderGoTemplate(tpl, { lang: 'ko', url: LINK })).toContain(
-      '비밀번호를 새로 정하시겠어요?',
-    );
-    expect(renderGoTemplate(tpl, { lang: undefined, url: LINK })).toContain('Reset your password');
+  it('한국어 계정은 한국어로, 값이 없어도 한국어로 (영어는 en 일 때만)', () => {
+    for (const lang of ['ko', undefined]) {
+      expect(renderGoTemplate(tpl, { lang, url: LINK })).toContain('비밀번호를 새로 정하시겠어요?');
+    }
+    expect(renderGoTemplate(tpl, { lang: 'en', url: LINK })).toContain('Reset your password');
   });
 });

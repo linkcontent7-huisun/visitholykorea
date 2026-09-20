@@ -23,16 +23,18 @@ describe.each(FILES)('인증 메일 서식 — %s', (file) => {
     expect(ends).toBe(opens);
   });
 
-  it('켜 둔 언어마다 분기가 있다 — 영어는 else 로 받는다', () => {
-    for (const lang of ENABLED_LANGUAGES.filter((l) => l !== 'en')) {
-      expect(html).toContain(`.Data.lang "${lang}"`);
+  it('켜 둔 언어마다 분기가 있다 — 한국어는 else(기본)로 받는다', () => {
+    // 값이 없으면 한국어로 가야 하므로 ko 만 분기가 없고 else 자리에 있다
+    for (const lang of ENABLED_LANGUAGES.filter((l) => l !== 'ko')) {
+      expect(html).toContain(`eq $lang "${lang}"`);
     }
+    expect(html).not.toContain('eq $lang "ko"');
     expect(html).toMatch(/\{\{\s*else\s*\}\}/);
   });
 
-  it('한국어 분기가 가장 먼저 온다 — 이용자 대부분이 한국인이다', () => {
-    expect(html.indexOf('.Data.lang "ko"')).toBeGreaterThan(0);
-    expect(html.indexOf('.Data.lang "ko"')).toBeLessThan(html.indexOf('.Data.lang "es"'));
+  it('한국어가 기본(else)이다 — 값이 없어도 한국어로 나간다', () => {
+    const elseAt = html.search(/\{\{\s*else\s*\}\}/);
+    expect(elseAt).toBeGreaterThan(html.indexOf('eq $lang "es"'));
   });
 
   it('분기 수만큼 확인 링크가 있다 — 한 언어라도 링크가 빠지면 가입을 못 끝낸다', () => {
