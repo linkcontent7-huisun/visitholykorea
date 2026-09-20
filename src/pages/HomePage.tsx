@@ -3,10 +3,12 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
+import { useSession } from '@/features/auth/hooks/use-session';
 import {
   usePilgrimageRoutes,
   useLocalizedRoutes,
 } from '@/features/routes/hooks/use-pilgrimage-routes';
+import { homeRotationDay, selectDailyRotation, sortByDistance } from '@/features/sites/lib/nearest';
 import { HeroCarousel, type HeroSlide } from '@/features/sites/components/HeroCarousel';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { HERO_SITES } from '@/features/sites/data/hero-sites';
@@ -104,7 +106,8 @@ function EntryCard({
 }
 
 export default function HomePage() {
-  const { language, t } = useSettings();
+  const { language, t, gpsLocation } = useSettings();
+  const { session } = useSession();
   const [aiOpen, setAiOpen] = useState(false);
 
   const { data: allSitesRaw = [] } = useSites({ limit: 300 });
@@ -129,15 +132,27 @@ export default function HomePage() {
     });
   }, [allSites, language, t]);
 
-  /** 사진·연락처·좌표가 모두 있는 성지 중 이름순 4곳. 날짜로 돌리지 않는다 — 심사·시연 때 매번 같아야 한다. */
-  const firstVisit = useMemo(
+  /** 원문 이름순을 순위로 삼아 언어를 바꿔도 같은 날짜에는 같은 성지가 보이게 한다. */
+  const readySites = useMemo(
     () =>
-      [...allSites]
+      [...allSitesRaw]
         .filter(isFirstVisitReady)
-        .sort((a, b) => a.name.localeCompare(b.name, 'ko'))
-        .slice(0, 4),
-    [allSites],
+        .sort((a, b) => a.name.localeCompare(b.name, 'ko')),
+    [allSitesRaw],
   );
+
+  /**
+   * 비로그인·위치 미허용 사용자는 한국 날짜별 순환, 로그인·위치 허용 사용자는 가까운 순이다.
+   * 위치 권한을 홈 진입 때 새로 요청하지 않는 것은 기존 T-011 정책을 따른다.
+   */
+  const firstVisit = useMemo(() => {
+    const ranked =
+      session && gpsLocation
+        ? sortByDistance(readySites, gpsLocation).measured.map(({ site }) => site).slice(0, 4)
+        : selectDailyRotation(readySites, homeRotationDay());
+    const localizedById = new Map(allSites.map((site) => [site.id, site]));
+    return ranked.map((site) => localizedById.get(site.id) ?? site);
+  }, [allSites, gpsLocation, readySites, session]);
 
   return (
     <div className="bg-white pb-10">

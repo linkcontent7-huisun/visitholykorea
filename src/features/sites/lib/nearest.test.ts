@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { driveMinutes, formatDuration } from '@/shared/lib/geo';
 import type { HolySite } from '@/shared/types/domain';
-import { sortByDistance } from './nearest';
+import { homeRotationDay, koreaDayIndex, selectDailyRotation, sortByDistance } from './nearest';
 
 /** 테스트에 필요한 최소한의 성지를 만든다. */
 function site(name: string, lat: number | null, lng: number | null): HolySite {
@@ -39,6 +39,35 @@ describe('sortByDistance', () => {
     const { measured, unmeasured } = sortByDistance([], SEOUL);
     expect(measured).toEqual([]);
     expect(unmeasured).toEqual([]);
+  });
+});
+
+describe('selectDailyRotation', () => {
+  const ranked = ['1위', '2위', '3위', '4위', '5위', '6위', '7위', '8위', '9위', '10위'];
+
+  it('날짜 순서대로 다음 순위 4곳을 보여주고 마지막에는 목록 처음으로 잇는다', () => {
+    expect(selectDailyRotation(ranked, 0)).toEqual(['1위', '2위', '3위', '4위']);
+    expect(selectDailyRotation(ranked, 1)).toEqual(['5위', '6위', '7위', '8위']);
+    expect(selectDailyRotation(ranked, 2)).toEqual(['9위', '10위', '1위', '2위']);
+    expect(selectDailyRotation(ranked, 3)).toEqual(['1위', '2위', '3위', '4위']);
+  });
+
+  it('같은 날짜 인덱스에서는 호출 시점과 관계없이 결과가 같다', () => {
+    expect(selectDailyRotation(ranked, 17)).toEqual(selectDailyRotation(ranked, 17));
+  });
+
+  it('한국 자정 전후에만 날짜 인덱스가 바뀐다', () => {
+    expect(koreaDayIndex(new Date('2026-09-20T14:59:59.999Z'))).toBe(
+      koreaDayIndex(new Date('2026-09-20T00:00:00.000Z')),
+    );
+    expect(koreaDayIndex(new Date('2026-09-20T15:00:00.000Z'))).toBe(
+      koreaDayIndex(new Date('2026-09-20T14:59:59.999Z')) + 1,
+    );
+  });
+
+  it('규칙 적용일은 0일차라서 기존 상위 순위부터 시작한다', () => {
+    expect(homeRotationDay(new Date('2026-09-20T00:00:00.000+09:00'))).toBe(0);
+    expect(homeRotationDay(new Date('2026-09-21T00:00:00.000+09:00'))).toBe(1);
   });
 });
 
