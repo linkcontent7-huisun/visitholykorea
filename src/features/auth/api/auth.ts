@@ -68,6 +68,34 @@ export function signInWithNaver() {
   window.location.href = `${base}/functions/v1/naver-auth/login`;
 }
 
+/**
+ * 표시 이름 바꾸기 — `user_metadata.name`. 성공하면 Supabase 가 USER_UPDATED 를 보내
+ * `useSession` 이 새 이름을 받는다 (2026-09-21, 계정 설정 「준비 중」 해소).
+ */
+export async function updateMyName(name: string): Promise<{ success: boolean }> {
+  const trimmed = name.trim();
+  if (!trimmed) return { success: false };
+  const { error } = await supabase.auth.updateUser({ data: { name: trimmed } });
+  return { success: !error };
+}
+
+/** 비밀번호 바꾸기 — 이메일 가입자용. 6자 미만은 Supabase 가 거절한다. */
+export async function updateMyPassword(password: string): Promise<{ success: boolean }> {
+  if (password.length < 6) return { success: false };
+  const { error } = await supabase.auth.updateUser({ password });
+  return { success: !error };
+}
+
+/**
+ * 비밀번호 칸을 보여 줄 계정인가 — 이메일로 가입한 계정만. 카카오·구글·네이버 계정은
+ * 비밀번호가 없으므로 그 칸을 그리지 않는다(없는 기능을 보여 주지 않는 원칙).
+ */
+export function hasEmailPassword(
+  user: { identities?: { provider?: string }[] | null } | null | undefined,
+): boolean {
+  return Boolean(user?.identities?.some((identity) => identity.provider === 'email'));
+}
+
 export async function signOut() {
   return supabase.auth.signOut();
 }
