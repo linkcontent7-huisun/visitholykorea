@@ -39,7 +39,6 @@ import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { dioceseLabel } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { useUnsavedChangesGuard } from '@/shared/hooks/use-unsaved-changes-guard';
-import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 
 function formatDate(value: string, locale: string): string {
@@ -367,7 +366,7 @@ export default function RecordsPage() {
             {t('recordsPickSite')}
           </ButtonLink>
 
-          {!SUBMISSION_MODE && favoriteSites.length > 0 && (
+          {favoriteSites.length > 0 && (
             // 즐겨찾기는 아직 방문하지 않은 성지를 기록 화면에서 바로 다시 찾는 입구다.
             <section className="mb-6" aria-labelledby="records-favorites-heading">
               <div className="mb-3 flex items-center gap-2">
