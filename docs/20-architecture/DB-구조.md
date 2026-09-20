@@ -26,7 +26,7 @@ TourAPI(관광공사) 응답은 **저장하지 않는다** — ADR 0002. 여기 
 | `pilgrimage_stamps`                       | 스탬프(사용자 × 성지 유일) · 한 줄 감상 · 사진 1장 · 이동수단  | 본인 읽기/쓰기. 한 줄·사진은 뷰로 익명 공개 |
 | `stamp_photos` (T-017)                    | 스탬프당 사진 여러 장(모바일 5·PC 10)                          | 읽기 공개, 쓰기 본인                        |
 | 뷰 `site_visit_notes`                     | 성지별 후기(한 줄·사진·날짜) — 이름·user_id 없음, 숨김 글 제외 | 누구나                                      |
-| `pilgrimage_logs`                         | 여행기(긴 글)                                                  | 본인                                        |
+| `pilgrimage_logs`                         | 여행기(긴 글). **2026-09-20: 앱 코드에서 뺐다** — 쓰는 화면이 없다. 테이블·데이터는 유지 | 본인                                        |
 | `favorites`                               | 즐겨찾기                                                       | 본인                                        |
 | `compass_responses`                       | 마음 나침반 답                                                 | 본인                                        |
 | `visit_note_reports` · `note_read_counts` | 후기 신고 · 읽힌 횟수                                          | 신고 본인 / 집계                            |

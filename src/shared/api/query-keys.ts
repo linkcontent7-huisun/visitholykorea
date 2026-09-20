@@ -53,9 +53,6 @@ export const queryKeys = {
     /** 내 한 줄들이 읽힌 횟수 (stampId → count). */
     noteReads: ['passport', 'note-reads'] as const,
   },
-  records: {
-    logs: ['records', 'logs'] as const,
-  },
   compass: {
     latest: (userId: string) => ['compass', 'latest', userId] as const,
   },

@@ -19,8 +19,11 @@ export function PageHeader({
 }: {
   title: ReactNode;
   sub?: ReactNode;
-  /** `true` 면 브라우저 뒤로가기, 문자열이면 그 경로로. `{ to, label }` 로 문구도 바꿀 수 있다 */
-  back?: boolean | string | { to?: string; label?: string };
+  /**
+   * `true` 면 브라우저 뒤로가기, 문자열이면 그 경로로. `{ to, label }` 로 문구도 바꿀 수 있다.
+   * `{ onClick }` 은 이동 전에 정리(reset)가 필요한 화면(예: 나침반 질문 상태 초기화)에서만 쓴다.
+   */
+  back?: boolean | string | { to?: string; label?: string; onClick?: () => void };
   action?: ReactNode;
   className?: string;
 }) {
