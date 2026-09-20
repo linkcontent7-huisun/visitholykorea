@@ -71,7 +71,12 @@ for (const item of file.items) {
     const v = t[f];
     if (!v || v.trim() === '') continue;
     const e = en[f];
-    if (e && v.trim() === e.trim()) problems.push(`[영어 그대로] ${label} · ${f}`);
+    // 이름은 고유명사만으로 된 것(예: "Gangwon Gamyeong")이면 여섯 언어가 같아도 정상 —
+    // 영어 일반 낱말(Church·Shrine…)이 든 이름만 "번역 안 됨"으로 본다
+    const generic =
+      /(church|shrine|site|tomb|hall|cathedral|station|village|holy|martyr|memorial|house|way|hill|prison|cave|museum)/i;
+    if (e && v.trim() === e.trim() && (f !== 'name' || generic.test(v)))
+      problems.push(`[영어 그대로] ${label} · ${f}`);
     if (/[가-힣]/.test(v))
       problems.push(
         `[한글 섞임] ${label} · ${f}: ${v
@@ -87,7 +92,8 @@ for (const item of file.items) {
     // 이름은 짧아 판별이 안 되므로 본문만 본다
     if (f !== 'name' && v.length > 120) {
       const g = guessLanguage(v);
-      if (g !== '?' && g !== lang)
+      // 로망스어끼리(es·fr·pt·it)는 관사가 겹쳐 오판이 잦다 — 영어가 통째로 들어온 경우만 잡는다
+      if (g === 'en' && lang !== 'en')
         problems.push(`[언어 의심 ${g}] ${label} · ${f}: ${v.slice(0, 60)}`);
     }
   }
