@@ -52,6 +52,25 @@ describe('카카오 모바일 로그인 화면', () => {
     expect(authorize).toHaveBeenCalledTimes(2);
   });
 
+  it('카카오톡이 열리지 않으면 카카오 웹 로그인으로 넘어간다', () => {
+    // 크롬은 사용자가 직접 누르지 않은 intent(카카오톡 실행)를 조용히 막는다.
+    // 이 화면은 이동해 온 화면이라 늘 그 경우다 — 그대로 두면 사용자가 멈춰 선다.
+    vi.useFakeTimers();
+    try {
+      const authorize = vi.fn();
+      openPage(
+        '?state=test-state&js_key=public-key&redirect_uri=https%3A%2F%2Fproject.supabase.co%2Ffunctions%2Fv1%2Fkakao-auth%2Fcallback',
+        authorize,
+      );
+
+      expect(authorize).toHaveBeenLastCalledWith(expect.objectContaining({ throughTalk: true }));
+      vi.advanceTimersByTime(1600);
+      expect(authorize).toHaveBeenLastCalledWith(expect.objectContaining({ throughTalk: false }));
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it('잘못된 콜백 주소로는 인증을 시작하지 않는다', () => {
     const authorize = vi.fn();
     const { page } = openPage(

@@ -44,7 +44,7 @@
       const callback = params.get('redirect_uri');
       const message = document.getElementById('message');
 
-      function authorize() {
+      function authorize(throughTalk) {
         try {
           const url = new URL(callback);
           if (
@@ -57,15 +57,29 @@
             throw new Error('로그인 정보가 올바르지 않습니다.');
           }
           if (!Kakao.isInitialized()) Kakao.init(key);
-          Kakao.Auth.authorize({ redirectUri: callback, state, throughTalk: true });
+          Kakao.Auth.authorize({ redirectUri: callback, state, throughTalk });
+          return true;
         } catch {
           message.textContent =
             '카카오 로그인을 열지 못했습니다. 앱으로 돌아가 다시 시도해 주세요.';
+          return false;
         }
       }
 
-      document.getElementById('retry').addEventListener('click', authorize);
-      authorize();
+      // 카카오톡은 intent: 주소로 여는데, 크롬은 **사용자가 직접 누른 직후가 아닌** intent 를
+      // 조용히 무시한다. 이 화면은 로그인 단추 → 함수(302) → 여기로 "이동해 온" 화면이라
+      // 그 누름이 이어지지 않아 자동 실행이 막힌다 (2026-09-20 안드로이드 실측: 오류도 없이
+      // 화면만 그대로 남았다). intent 안의 browser_fallback_url 도 함께 무시된다.
+      // 그래서 잠깐 기다려 보고, 카카오톡이 안 열렸으면 카카오 웹 로그인으로 넘긴다.
+      function 카카오톡이안열렸으면웹으로() {
+        if (document.visibilityState === 'hidden') return; // 카카오톡이 열렸다 — 그대로 둔다
+        message.textContent = '카카오 로그인 화면으로 이동합니다…';
+        authorize(false);
+      }
+
+      // 노란 단추는 사용자가 직접 누르는 것이라 카카오톡이 확실히 열린다.
+      document.getElementById('retry').addEventListener('click', () => authorize(true));
+      if (authorize(true)) setTimeout(카카오톡이안열렸으면웹으로, 1500);
     </script>
   </body>
 </html>
