@@ -61,7 +61,8 @@ const only = opt('only', '')
   .map((s) => s.trim())
   .filter(Boolean);
 const targets = Object.entries(PAGES).filter(([k]) => only.length === 0 || only.includes(k));
-for (const extra of args.filter((a, i) => args[i - 1] === '--extra')) targets.push([extra.replace(/\W+/g, '_'), extra]);
+for (const extra of args.filter((a, i) => args[i - 1] === '--extra'))
+  targets.push([extra.replace(/\W+/g, '_'), extra]);
 
 const CHROME_CANDIDATES = [
   process.env.CHROME_PATH,
@@ -138,7 +139,9 @@ function connect(wsUrl) {
 
 try {
   await waitForPort();
-  const targetsRes = await fetch(`http://127.0.0.1:${PORT}/json/new?about:blank`, { method: 'PUT' });
+  const targetsRes = await fetch(`http://127.0.0.1:${PORT}/json/new?about:blank`, {
+    method: 'PUT',
+  });
   const target = await targetsRes.json();
   const cdp = connect(target.webSocketDebuggerUrl);
   await cdp.ready;
@@ -159,7 +162,11 @@ try {
     await cdp.send('Page.navigate', { url });
     await sleep(WAIT);
     if (JS) {
-      await cdp.send('Runtime.evaluate', { expression: JS, awaitPromise: true, returnByValue: true });
+      await cdp.send('Runtime.evaluate', {
+        expression: JS,
+        awaitPromise: true,
+        returnByValue: true,
+      });
       await sleep(JS_WAIT);
     }
     let clip;
@@ -179,12 +186,20 @@ try {
       await sleep(400);
       clip = { x: 0, y: 0, width: WIDTH, height: h, scale: 1 };
     }
-    const { data } = await cdp.send('Page.captureScreenshot', { format: 'png', ...(clip ? { clip } : {}) });
+    const { data } = await cdp.send('Page.captureScreenshot', {
+      format: 'png',
+      ...(clip ? { clip } : {}),
+    });
     const file = join(OUT, `${name}-${WIDTH}.png`);
     writeFileSync(file, Buffer.from(data, 'base64'));
     console.log(`${file}  ←  ${url}`);
     if (FULL) {
-      await cdp.send('Emulation.setDeviceMetricsOverride', { width: WIDTH, height: HEIGHT, deviceScaleFactor: 2, mobile: MOBILE });
+      await cdp.send('Emulation.setDeviceMetricsOverride', {
+        width: WIDTH,
+        height: HEIGHT,
+        deviceScaleFactor: 2,
+        mobile: MOBILE,
+      });
     }
   }
   cdp.close();
