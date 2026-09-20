@@ -149,7 +149,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
               aria-hidden
               style={{
                 background:
-                  'linear-gradient(to bottom, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 22%), linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 45%, rgba(0,0,0,.05) 100%)',
+                  'linear-gradient(to bottom, rgba(0,0,0,.72) 0%, rgba(0,0,0,.3) 12%, rgba(0,0,0,0) 26%), linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 45%, rgba(0,0,0,.05) 100%)',
               }}
             />
             {/* 오른쪽 여백(pr-14)은 「멈춤」 단추 자리 */}
