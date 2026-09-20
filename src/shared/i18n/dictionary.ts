@@ -5756,6 +5756,22 @@ export const DICTIONARY = {
     pt: 'Próximo santuário',
     it: 'Santuario successivo',
   },
+  heroPause: {
+    ko: '자동 넘김 멈춤',
+    en: 'Pause slideshow',
+    es: 'Pausar la presentación',
+    fr: 'Mettre le diaporama en pause',
+    pt: 'Pausar a apresentação',
+    it: 'Metti in pausa la presentazione',
+  },
+  heroPlay: {
+    ko: '자동 넘김 다시 시작',
+    en: 'Resume slideshow',
+    es: 'Reanudar la presentación',
+    fr: 'Reprendre le diaporama',
+    pt: 'Retomar a apresentação',
+    it: 'Riprendi la presentazione',
+  },
   showPassword: {
     ko: '비밀번호 보기',
     en: 'Show password',

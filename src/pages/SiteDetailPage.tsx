@@ -674,8 +674,8 @@ export default function SiteDetailPage() {
                     {t('noteHint')}
                   </p>
                   <SquircleSurface
-                    borderColor="var(--color-app-border)"
-                    borderClassName="transition-colors group-focus-within:stroke-brand-blue"
+                    borderColor="var(--color-app-input-border)"
+                    borderClassName="transition-colors group-focus-within:stroke-brand-blue group-focus-within:stroke-[6px]"
                     className="group mt-3 overflow-hidden bg-white"
                   >
                     <input
@@ -685,7 +685,7 @@ export default function SiteDetailPage() {
                       maxLength={NOTE_MAX_LENGTH}
                       placeholder={t('notePlaceholder')}
                       aria-label={t('noteAriaLabel')}
-                      className="min-h-12 w-full bg-transparent px-4 text-base text-app-text focus:outline-none"
+                      className="min-h-12 w-full bg-transparent px-4 text-base text-app-text focus-visible:outline-none"
                       value={noteDraft}
                       onChange={(e) => setNoteDraft(e.target.value)}
                       onKeyDown={(e) => {
@@ -802,8 +802,8 @@ export default function SiteDetailPage() {
                         <label className="block text-sm font-bold text-app-text-muted">
                           {t('recordsMemo')}
                           <SquircleSurface
-                            borderColor="var(--color-app-border)"
-                            borderClassName="transition-colors group-focus-within:stroke-brand-blue"
+                            borderColor="var(--color-app-input-border)"
+                            borderClassName="transition-colors group-focus-within:stroke-brand-blue group-focus-within:stroke-[6px]"
                             className="group mt-1 overflow-hidden bg-white"
                           >
                             <input
@@ -811,7 +811,7 @@ export default function SiteDetailPage() {
                               maxLength={NOTE_MAX_LENGTH}
                               value={myNoteDraft}
                               onChange={(e) => setMyNoteDraft(e.target.value)}
-                              className="block min-h-12 w-full bg-transparent px-3 text-base text-app-text focus:outline-none"
+                              className="block min-h-12 w-full bg-transparent px-3 text-base text-app-text focus-visible:outline-none"
                             />
                           </SquircleSurface>
                         </label>
@@ -819,8 +819,9 @@ export default function SiteDetailPage() {
                           <label className="mt-3 block text-sm font-bold text-app-text-muted">
                             {t('recordsVisitedOn')}
                             <SquircleSurface
-                              borderColor="var(--color-app-border)"
-                              className="mt-1 overflow-hidden bg-white"
+                              borderColor="var(--color-app-input-border)"
+                              borderClassName="transition-colors group-focus-within:stroke-brand-blue group-focus-within:stroke-[6px]"
+                              className="group mt-1 overflow-hidden bg-white"
                             >
                               <input
                                 type="date"

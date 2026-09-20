@@ -41,7 +41,7 @@ export function useModalFocus<T extends HTMLElement>(open: boolean, onClose: () 
 
     // 4. 바깥을 inert 로 — 모달의 조상을 따라 올라가며 그 형제들만 막는다(모달 자신의 줄기는 남긴다)
     const inerted: Element[] = [];
-    for (let node: HTMLElement | null = el; node && node !== document.body; ) {
+    for (let node: HTMLElement | null = el; node && node !== document.body;) {
       const parent: HTMLElement | null = node.parentElement;
       if (!parent) break;
       for (const sibling of Array.from(parent.children)) {
@@ -55,8 +55,7 @@ export function useModalFocus<T extends HTMLElement>(open: boolean, onClose: () 
 
     // 1. 첫 포커스 — 열림 애니메이션(motion)이 요소를 아직 그리는 중일 수 있어 한 프레임 뒤에
     const frame = requestAnimationFrame(() => {
-      const target =
-        el.querySelector<HTMLElement>('[data-autofocus]') ?? focusables()[0] ?? el;
+      const target = el.querySelector<HTMLElement>('[data-autofocus]') ?? focusables()[0] ?? el;
       if (target === el && !el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
       target.focus({ preventScroll: true });
     });

@@ -1,5 +1,6 @@
 import { Share2, Smartphone, X } from 'lucide-react';
 import { useState } from 'react';
+import { useModalFocus } from '@/shared/hooks/use-modal-focus';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { promptInstall, type InstallResult } from '@/shared/lib/install-prompt';
 import { shareApp, type ShareResult } from '@/shared/lib/share-app';
@@ -18,6 +19,8 @@ export function InstallShareSheet({ open, onClose }: { open: boolean; onClose: (
   const { t } = useSettings();
   const [installResult, setInstallResult] = useState<InstallResult | null>(null);
   const [shareResult, setShareResult] = useState<ShareResult | null>(null);
+  // Esc·포커스 가두기·되돌리기(2026-09-20 접근성 감사). 배경 단추도 이 상자 안에 있어야 inert 에 안 막힌다.
+  const dialogRef = useModalFocus<HTMLDivElement>(open, onClose);
 
   if (!open) return null;
 
@@ -63,7 +66,7 @@ export function InstallShareSheet({ open, onClose }: { open: boolean; onClose: (
   ];
 
   return (
-    <>
+    <div ref={dialogRef}>
       {/* 뒤를 눌러도 닫히게 — 시트 밖을 누르는 습관을 존중한다 */}
       <button
         type="button"
@@ -83,6 +86,7 @@ export function InstallShareSheet({ open, onClose }: { open: boolean; onClose: (
             type="button"
             onClick={onClose}
             aria-label={t('close')}
+            data-autofocus
             className="flex h-11 w-11 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg"
           >
             <X size={22} aria-hidden />
@@ -110,6 +114,6 @@ export function InstallShareSheet({ open, onClose }: { open: boolean; onClose: (
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

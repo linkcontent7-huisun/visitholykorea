@@ -40,7 +40,8 @@ export function SquircleSurface<T extends ElementType = 'div'>({
     <Component
       ref={ref as Ref<HTMLElement>}
       style={style}
-      className={`relative ${className}`.trim()}
+      // focus-inset: clip-path 가 바깥 outline 을 잘라내므로 단추로 쓰일 때 안쪽 그림자로 포커스를 그린다
+      className={`focus-inset relative ${className}`.trim()}
       {...rest}
     >
       {children}
