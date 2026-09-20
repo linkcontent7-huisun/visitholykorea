@@ -419,6 +419,34 @@ export async function updateStamp(
 export async function deleteStamp(stampId: string): Promise<{ success: boolean; error?: string }> {
   const userId = await getCurrentUserId();
   if (!userId) return { success: false, error: 'UNAUTHENTICATED' };
+
+  const { data, error: readError } = await supabase
+    .from(TABLE)
+    .select('photo_url, stamp_photos(url)')
+    .eq('id', stampId)
+    .eq('user_id', userId)
+    .maybeSingle();
+  if (readError) return { success: false, error: readError.message };
+
+  const row = data as { photo_url: string | null; stamp_photos: { url: string }[] | null } | null;
+  const urls = [row?.photo_url, ...(row?.stamp_photos ?? []).map((photo) => photo.url)];
+  const paths = new Set<string>();
+  for (const url of urls) {
+    if (!url) continue;
+    try {
+      const path = new URL(url).pathname.split('/object/public/pilgrim-photos/')[1];
+      if (path && decodeURIComponent(path).startsWith(`${userId}/`)) paths.add(decodeURIComponent(path));
+    } catch {
+      // 외부 URL 은 우리 저장소의 사진이 아니므로 여기에서 삭제하지 않는다.
+    }
+  }
+  if (paths.size > 0) {
+    const { error: storageError } = await supabase.storage
+      .from('pilgrim-photos')
+      .remove([...paths]);
+    if (storageError) return { success: false, error: '사진을 삭제하지 못했습니다.' };
+  }
+
   const { error } = await supabase.from(TABLE).delete().eq('id', stampId).eq('user_id', userId);
   if (error) {
     console.error('deleteStamp error:', error);
