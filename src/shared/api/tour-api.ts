@@ -469,11 +469,15 @@ export function getBarrierFreeNearby(
 /**
  * 시·군·구의 관광지 집중률 예측(오늘부터 30일). `areaCd`·`signguCd` 둘 다 필수 —
  * 시·도만 넘기면 API 가 거절한다(2026-09-16 실측). 메모리에서만 잠깐 쓴다.
+ *
+ * 응답은 관광지별 30일치가 연달아 온다. 300행이면 관광지 약 10곳만 받아 서울 중구처럼
+ * 1,650행이 필요한 지역에서 성지 이름 매칭이 잘린다. 현재 최대치를 한 번에 받아야
+ * "정보 없음"을 실제 데이터 부재와 구분할 수 있다.
  */
 export function getCongestionRates(areaCd: string, signguCd: string): Promise<CongestionRate[]> {
   return callTourApi<CongestionRate>(
     'tatsCnctrRatedList',
-    { areaCd, signguCd, numOfRows: 300, pageNo: 1 },
+    { areaCd, signguCd, numOfRows: 2000, pageNo: 1 },
     'TatsCnctrRateService',
   );
 }
