@@ -13,6 +13,7 @@
  */
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
+import modelList from './models.json' with { type: 'json' };
 
 const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
 /**
@@ -32,7 +33,13 @@ const GEMINI_QUICK_HANDOFF =
 const AI_PRIMARY =
   Deno.env.get('AI_PRIMARY') === 'claude' && Boolean(ANTHROPIC_API_KEY) ? 'claude' : 'gemini';
 // 모델은 환경변수로 갈아끼울 수 있게 둔다(모델 교체 때 코드 수정이 필요 없도록).
-const GEMINI_MODEL = Deno.env.get('GEMINI_MODEL') ?? 'gemini-3.6-flash';
+/**
+ * 모델 후보 순서. 이름은 시크릿에 박지 않는다 — `models.json` 을 GitHub Actions 가 매일 ListModels 로
+ * 갱신하고 재배포한다(사장님 지시 2026-09-19, 모델명 변동이 심해서). `GEMINI_MODEL` 시크릿은 급할 때
+ * 맨 앞에 끼워 넣는 임시 덮어쓰기용이다.
+ */
+const GEMINI_MODEL_OVERRIDE = Deno.env.get('GEMINI_MODEL');
+const BUNDLED_MODELS: string[] = (modelList as { models?: string[] }).models ?? [];
 
 // H-01(보안 진단 2026-09-13): '*' 대신 허용 도메인만. 프리뷰 도메인이 필요하면 ALLOWED_ORIGINS 시크릿에 쉼표로 추가.
 const ALLOWED_ORIGINS = (Deno.env.get('ALLOWED_ORIGINS') ?? 'https://visitholykorea-app.vercel.app')
@@ -116,20 +123,70 @@ type Turn = { role: 'user' | 'bot'; text: string };
 const MAX_HISTORY_TURNS = 6;
 
 /** 한 번의 시도가 이보다 오래 끌면 끊는다 — 과부하(503)는 보통 1~2초 안에 오므로 이 값은 정상 응답용이다. */
-const GEMINI_ATTEMPT_TIMEOUT_MS = 12_000;
+const GEMINI_ATTEMPT_TIMEOUT_MS = 6_000;
 /**
- * 재시도 규칙 (2026-09-19 사장님: "무료 키라 최소 20번은 다시 시도").
- * 503(과부하)·429(분당 한도)·시간 초과·네트워크 오류면 짧게 쉬었다 다시 부른다.
- * 횟수는 20번까지, 그러나 **전체 대기는 GEMINI_TOTAL_BUDGET_MS 를 넘기지 않는다** — 사용자를 1분 넘게
- * 세워 둘 수는 없다. 503 은 1초 안에 오므로 20번을 다 써도 예산 안에 든다. 두 번째 시도부터는
- * 보조 모델(GEMINI_FALLBACK_MODEL)과 번갈아 부른다 — 한 모델이 막혀도 다른 모델은 비어 있을 때가 많다.
+ * 재시도 규칙 (2026-09-19 사장님: "최소 20회, 최대 30회. 정확하게 지켜라").
+ * 503(과부하)·429(분당 한도)·5xx·시간 초과·네트워크 오류·빈 답이면 다시 부른다.
+ * - 20회까지는 시간에 관계없이 **반드시** 시도한다.
+ * - 21~30회는 전체 경과가 GEMINI_EXTRA_BUDGET_MS 안일 때만 이어 간다 — Edge Function 은 150초를 넘기면
+ *   플랫폼이 끊어 버려 답을 아예 못 돌려준다. 시도당 최대 6초 + 쉬는 시간 1초라 20회는 그 안에 든다.
+ * - models.json 의 모델을 순서대로 번갈아 부른다. 이름이 없는(404) 모델은 그 자리에서 제외, 전부 없으면 ListModels 로 재발견.
  */
-const GEMINI_MAX_ATTEMPTS = 20;
-const GEMINI_TOTAL_BUDGET_MS = 40_000;
-const GEMINI_FALLBACK_MODEL = Deno.env.get('GEMINI_FALLBACK_MODEL') ?? 'gemini-3.6-flash-lite';
+const GEMINI_MIN_ATTEMPTS = 20;
+const GEMINI_MAX_ATTEMPTS = 30;
+const GEMINI_EXTRA_BUDGET_MS = 110_000;
+/** 429(한도)는 재시도해도 한도만 더 깎인다 — 몇 번만 보고 정보 카드로 */
+const RATE_LIMIT_MAX_RETRIES = 3;
 const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/** ListModels 결과(1시간 캐시). CI 가 갱신하는 models.json 이 전부 죽었을 때만 쓰는 비상용. */
+let discovered: { at: number; models: string[] } | null = null;
+async function discoverModels(force = false): Promise<string[]> {
+  if (!force && discovered && Date.now() - discovered.at < 60 * 60 * 1000) return discovered.models;
+  try {
+    const res = await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models?pageSize=200',
+      {
+        headers: { 'x-goog-api-key': GEMINI_API_KEY! },
+        signal: AbortSignal.timeout(8_000),
+      },
+    );
+    if (!res.ok) return [];
+    const { models = [] } = (await res.json()) as {
+      models?: { name: string; supportedGenerationMethods?: string[] }[];
+    };
+    const names = models
+      .filter((m) => (m.supportedGenerationMethods ?? []).includes('generateContent'))
+      .map((m) => m.name.replace(/^models\//, ''))
+      .filter(
+        (n) =>
+          /^gemini-/.test(n) &&
+          !/(embedding|image|audio|tts|live|vision|exp|preview|thinking|robotics|computer|latest)/i.test(
+            n,
+          ),
+      )
+      .sort(
+        (a, b) =>
+          (/flash-lite/.test(a) ? 1 : /flash/.test(a) ? 0 : 2) -
+          (/flash-lite/.test(b) ? 1 : /flash/.test(b) ? 0 : 2),
+      );
+    discovered = { at: Date.now(), models: names.slice(0, 4) };
+    console.warn('ai-guide: ListModels 로 모델 재발견 —', discovered.models.join(', '));
+    return discovered.models;
+  } catch (err) {
+    console.error('ai-guide: ListModels 실패', err);
+    return [];
+  }
+}
+
+/** 시도할 모델 순서: 시크릿 덮어쓰기 → models.json → (둘 다 비면) ListModels. */
+async function candidateModels(): Promise<string[]> {
+  const list = [GEMINI_MODEL_OVERRIDE, ...BUNDLED_MODELS].filter((m): m is string => Boolean(m));
+  const unique = list.filter((m, i) => list.indexOf(m) === i);
+  return unique.length > 0 ? unique : await discoverModels();
+}
 
 class ClaudeHttpError extends Error {
   constructor(public status: number) {
@@ -236,10 +293,13 @@ async function callGemini(
 ): Promise<string> {
   const started = Date.now();
   let lastErr: unknown = null;
-  // 이름이 틀린(404) 모델은 그 자리에서 제외한다 — 보조 모델 이름이 바뀌어도 주 모델로 계속 간다
-  const models = [GEMINI_MODEL, GEMINI_FALLBACK_MODEL].filter((m, i, a) => m && a.indexOf(m) === i);
+  let attempts = 0;
+  let rateLimited = 0;
+  // 이름이 틀린(404) 모델은 그 자리에서 제외한다. 전부 없어지면 ListModels 로 스스로 다시 채운다.
+  let models = await candidateModels();
   for (let attempt = 1; attempt <= GEMINI_MAX_ATTEMPTS && models.length > 0; attempt++) {
     const model = models[(attempt - 1) % models.length]!;
+    attempts = attempt;
     try {
       const text = await callGeminiOnce(model, systemInstruction, userPrompt, history);
       if (attempt > 1) console.warn(`ai-guide: ${attempt}번째 시도(${model})에서 성공`);
@@ -248,23 +308,27 @@ async function callGemini(
       lastErr = err;
       if (err instanceof GeminiHttpError && err.status === 404) {
         console.warn(`ai-guide: 모델 없음 — ${model} 제외`);
-        models.splice(models.indexOf(model), 1);
+        models = models.filter((m) => m !== model);
+        if (models.length === 0) models = await discoverModels(true); // 목록이 낡았다 — 살아 있는 모델을 직접 찾는다
         continue;
       }
       if (!isRetryable(err)) throw err;
-      // 429 는 분당 한도라 좀 더 쉰다. 그 밖은 0.5초부터 배로 늘려 최대 4초.
-      const backoff =
-        err instanceof RateLimitError
-          ? 5_000
-          : Math.min(500 * 2 ** Math.min(attempt - 1, 3), 4_000);
-      const elapsed = Date.now() - started;
-      if (elapsed + backoff > GEMINI_TOTAL_BUDGET_MS) {
-        console.warn(`ai-guide: ${attempt}번 시도 뒤 시간 예산 초과 — 정보 카드로`);
-        break;
+      // 429 는 "한도 소진"이라 계속 두드리면 한도만 더 깎는다 (2026-09-19 실측: 20회 재시도가 100초를 끌고도 실패).
+      // 한도는 3번만 더 보고 정보 카드로 넘어간다. 20~30회 규칙은 과부하(503)·일시 오류에 적용한다.
+      if (err instanceof RateLimitError) {
+        rateLimited++;
+        if (rateLimited >= RATE_LIMIT_MAX_RETRIES) break;
+        await sleep(5_000);
+        continue;
       }
-      await sleep(backoff);
+      // 20회를 채운 뒤에는 시간이 남을 때만 30회까지 더 간다
+      if (attempt >= GEMINI_MIN_ATTEMPTS && Date.now() - started > GEMINI_EXTRA_BUDGET_MS) break;
+      await sleep(1_000); // 짧게 자주 — 과부하는 몇 초 안에 풀리는 일이 많다
     }
   }
+  console.warn(
+    `ai-guide: ${attempts}회 시도 뒤 포기 (${Math.round((Date.now() - started) / 1000)}초) — 정보 카드로`,
+  );
   throw lastErr ?? new GeminiHttpError(503);
 }
 
