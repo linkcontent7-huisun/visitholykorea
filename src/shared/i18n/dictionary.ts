@@ -7,10 +7,11 @@ export type Language = 'ko' | 'en' | 'es' | 'fr' | 'pt' | 'it';
 export const LANGUAGES: Language[] = ['ko', 'en', 'es', 'fr', 'pt', 'it'];
 
 /**
- * 지금 화면에서 고를 수 있는 언어. 이번 제출(2026-09-21)은 한국어·영어 핵심 흐름만
- * 검수했으므로 나머지 넷은 사전은 남기되 선택기에서 숨긴다. 검수가 끝나면 여기만 늘리면 된다.
+ * 지금 화면에서 고를 수 있는 언어. 9/14 재기획 때 한국어·영어만 남겼다가, 성지 이야기 206곳과
+ * 오디오 가이드 108곳의 es·fr·pt·it 번역이 DB 에 다 들어간 2026-09-20 에 여섯 개를 모두 켰다
+ * (사장님 결정 — 6개 국어가 이 서비스의 강점). 언어를 잠시 내려야 하면 여기서만 뺀다.
  */
-export const ENABLED_LANGUAGES: Language[] = ['ko', 'en'];
+export const ENABLED_LANGUAGES: Language[] = [...LANGUAGES];
 
 /**
  * 저장된 값이 지금 지원하는 언어인지 본다.
