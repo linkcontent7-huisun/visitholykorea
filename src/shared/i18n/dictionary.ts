@@ -5642,6 +5642,47 @@ export const DICTIONARY = {
     it: 'moderata',
   },
   crowdingWordHigh: { ko: '높음', en: 'high', es: 'alta', fr: 'élevée', pt: 'alta', it: 'alta' },
+  // 순례 기록 「그날 붐볐나요?」 — 관광공사 예측을 검증할 실측 한 칸(2026-09-21). 안 골라도 저장된다.
+  recordsCrowdTitle: {
+    ko: '그날 붐볐나요?',
+    en: 'How crowded was it?',
+    es: '¿Había mucha gente?',
+    fr: 'Y avait-il du monde ?',
+    pt: 'Estava cheio?',
+    it: 'C’era molta gente?',
+  },
+  recordsCrowdOptional: {
+    ko: '안 골라도 저장돼요',
+    en: 'Optional',
+    es: 'Opcional',
+    fr: 'Facultatif',
+    pt: 'Opcional',
+    it: 'Facoltativo',
+  },
+  crowdQuiet: {
+    ko: '한적했어요',
+    en: 'Quiet',
+    es: 'Tranquilo',
+    fr: 'Calme',
+    pt: 'Tranquilo',
+    it: 'Tranquillo',
+  },
+  crowdModerate: {
+    ko: '보통이었어요',
+    en: 'Moderate',
+    es: 'Normal',
+    fr: 'Moyen',
+    pt: 'Normal',
+    it: 'Normale',
+  },
+  crowdCrowded: {
+    ko: '붐볐어요',
+    en: 'Crowded',
+    es: 'Lleno',
+    fr: 'Bondé',
+    pt: 'Cheio',
+    it: 'Affollato',
+  },
   // 「한적한 날」 — 이름 등재 성지의 앞으로 30일 중 조용한 날짜(2026-09-21). 숫자·퍼센트는 없다.
   quietDaysTitle: {
     ko: '한적한 날',

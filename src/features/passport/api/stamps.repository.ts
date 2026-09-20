@@ -26,16 +26,28 @@ export interface StampedSite {
   visitedOn: string | null;
   /** 내가 남긴 방문 한 줄. 없으면 null. */
   note: string | null;
+  /** 방문 당시 체감 붐빔(20260921120000 의 `crowd_level`). 안 골랐거나 열이 없는 DB 면 null. */
+  crowdLevel: CrowdLevel | null;
   photos: StampPhoto[];
 }
 
 /**
- * `visited_on` 열이 운영 DB 에 있는지. 처음 조회에서 42703(열 없음)이 오면 false 로 기억해
- * 이후 조회·수정은 열 없이 보낸다 — 마이그레이션 적용 전에도 화면이 깨지지 않는다.
+ * 방문 당시 체감 붐빔. 관광공사 집중률은 예측값이라 실제와 맞는지 대조할 실측이 필요하다 —
+ * 그 실측을 다녀온 사람에게 한 칸으로 받는다(2026-09-21). 순서는 화면 단추 순서와 같다.
  */
-let visitedOnAvailable = true;
+export const CROWD_LEVELS = ['quiet', 'moderate', 'crowded'] as const;
+export type CrowdLevel = (typeof CROWD_LEVELS)[number];
+
+/**
+ * 나중에 더한 열(`visited_on` 20260914130000 · `crowd_level` 20260921120000)이 운영 DB 에 있는지.
+ * 처음 조회에서 42703(열 없음)이 오면 false 로 기억해 이후 조회·수정은 두 열 없이 보낸다 —
+ * 마이그레이션 적용 전에도 화면이 깨지지 않는다. 두 열을 한 묶음으로 다루는 이유: 운영 DB 는
+ * 마이그레이션을 순서대로 적용하므로(`npm run db:migrate`) 하나만 있는 상태가 오래가지 않는다.
+ */
+let extraColumnsAvailable = true;
+const EXTRA_COLUMNS = 'visited_on, crowd_level';
 export function isVisitedOnAvailable(): boolean {
-  return visitedOnAvailable;
+  return extraColumnsAvailable;
 }
 
 export interface CertificateLevel {
@@ -82,18 +94,20 @@ export async function addStamp(
   note: string | null = null,
   transportMode: TransportMode | null = null,
   visitedOn: string | null = null,
+  crowdLevel: CrowdLevel | null = null,
 ): Promise<{ success: boolean; error?: string }> {
   const userId = await getCurrentUserId();
   if (!userId) {
     return { success: false, error: 'UNAUTHENTICATED' };
   }
 
+  const extra = extraColumnsAvailable ? { visited_on: visitedOn, crowd_level: crowdLevel } : {};
   const { error } = await supabase.from(TABLE).insert({
     user_id: userId,
     site_id: siteId,
     note,
     transport_mode: transportMode,
-    ...(visitedOnAvailable ? { visited_on: visitedOn } : {}),
+    ...extra,
   });
 
   if (error) {
@@ -102,7 +116,7 @@ export async function addStamp(
       if (note === null) return { success: true };
       const { error: updateError } = await supabase
         .from(TABLE)
-        .update({ note })
+        .update({ note, ...extra })
         .eq('user_id', userId)
         .eq('site_id', siteId);
       if (updateError) {
@@ -127,6 +141,8 @@ export interface MyStamp {
   visitedOn: string | null;
   /** 기록한 시각(created_at) — visitedOn 이 없을 때 기본값으로 쓴다. */
   visitedAt: string | null;
+  /** 방문 당시 체감 붐빔. 안 골랐거나 마이그레이션 전 DB 면 null. */
+  crowdLevel: CrowdLevel | null;
   /** 내가 올린 순례 사진. */
   photoUrl: string | null;
   photos: StampPhoto[];
@@ -147,23 +163,24 @@ export async function getMyStamp(siteId: string): Promise<MyStamp> {
       note: null,
       visitedOn: null,
       visitedAt: null,
+      crowdLevel: null,
       photoUrl: null,
       photos: [],
     };
 
   const baseColumns = 'id, note, created_at, photo_url, stamp_photos(id, url, position)';
-  const select = (withVisitedOn: boolean) =>
+  const select = (withExtra: boolean) =>
     supabase
       .from(TABLE)
-      .select(withVisitedOn ? `${baseColumns}, visited_on` : baseColumns)
+      .select(withExtra ? `${baseColumns}, ${EXTRA_COLUMNS}` : baseColumns)
       .eq('user_id', userId)
       .eq('site_id', siteId)
       .maybeSingle();
 
-  let { data, error } = await select(visitedOnAvailable);
+  let { data, error } = await select(extraColumnsAvailable);
   // 42703 = 열 없음. 마이그레이션 전 DB 라면 열 없이 다시 받는다.
-  if (error && visitedOnAvailable && error.code === '42703') {
-    visitedOnAvailable = false;
+  if (error && extraColumnsAvailable && error.code === '42703') {
+    extraColumnsAvailable = false;
     ({ data, error } = await select(false));
   }
 
@@ -175,6 +192,7 @@ export async function getMyStamp(siteId: string): Promise<MyStamp> {
       note: null,
       visitedOn: null,
       visitedAt: null,
+      crowdLevel: null,
       photoUrl: null,
       photos: [],
     };
@@ -183,6 +201,7 @@ export async function getMyStamp(siteId: string): Promise<MyStamp> {
     id: string;
     note: string | null;
     visited_on?: string | null;
+    crowd_level?: CrowdLevel | null;
     created_at: string;
     photo_url: string | null;
     stamp_photos: StampPhoto[] | null;
@@ -194,6 +213,7 @@ export async function getMyStamp(siteId: string): Promise<MyStamp> {
     note: row?.note ?? null,
     visitedOn: row?.visited_on ?? null,
     visitedAt: row?.created_at ?? null,
+    crowdLevel: row?.crowd_level ?? null,
     photoUrl: row?.photo_url ?? null,
     photos,
   };
@@ -343,6 +363,7 @@ interface StampJoinRow {
   id: string;
   created_at: string;
   visited_on?: string | null;
+  crowd_level?: CrowdLevel | null;
   site_id: string;
   note: string | null;
   stamp_photos: StampPhoto[] | null;
@@ -356,17 +377,17 @@ export async function getMyStamps(): Promise<StampedSite[]> {
 
   const baseColumns =
     'id, created_at, site_id, note, stamp_photos(id, url, position), holy_sites(name, diocese, category)';
-  const select = (withVisitedOn: boolean) =>
+  const select = (withExtra: boolean) =>
     supabase
       .from(TABLE)
-      .select(withVisitedOn ? `${baseColumns}, visited_on` : baseColumns)
+      .select(withExtra ? `${baseColumns}, ${EXTRA_COLUMNS}` : baseColumns)
       .eq('user_id', userId)
       .order('created_at', { ascending: false });
 
-  let { data, error } = await select(visitedOnAvailable);
+  let { data, error } = await select(extraColumnsAvailable);
   // 42703 = 열 없음. 마이그레이션 전 DB 라면 열 없이 다시 받는다.
-  if (error && visitedOnAvailable && error.code === '42703') {
-    visitedOnAvailable = false;
+  if (error && extraColumnsAvailable && error.code === '42703') {
+    extraColumnsAvailable = false;
     ({ data, error } = await select(false));
   }
 
@@ -384,24 +405,26 @@ export async function getMyStamps(): Promise<StampedSite[]> {
     visitedAt: row.created_at,
     visitedOn: row.visited_on ?? null,
     note: row.note,
+    crowdLevel: row.crowd_level ?? null,
     photos: (row.stamp_photos ?? []).sort((a, b) => a.position - b.position),
   }));
 }
 
 /**
- * 내 기록 하나를 고친다 — 메모와(열이 있으면) 방문일만. hidden·photo_featured 는 절대 보내지 않는다
- * (DB 도 마이그레이션 20260914130000 으로 막는다).
+ * 내 기록 하나를 고친다 — 메모와(열이 있으면) 방문일·체감 붐빔만. hidden·photo_featured 는 절대
+ * 보내지 않는다(DB 도 마이그레이션 20260914130000 으로 막는다).
  */
 export async function updateStamp(
   stampId: string,
-  patch: { note?: string | null; visitedOn?: string | null },
+  patch: { note?: string | null; visitedOn?: string | null; crowdLevel?: CrowdLevel | null },
 ): Promise<{ success: boolean; error?: string }> {
   const userId = await getCurrentUserId();
   if (!userId) return { success: false, error: 'UNAUTHENTICATED' };
 
   const payload: Record<string, string | null> = {};
   if ('note' in patch) payload.note = patch.note ?? null;
-  if ('visitedOn' in patch && visitedOnAvailable) payload.visited_on = patch.visitedOn ?? null;
+  if ('visitedOn' in patch && extraColumnsAvailable) payload.visited_on = patch.visitedOn ?? null;
+  if ('crowdLevel' in patch && extraColumnsAvailable) payload.crowd_level = patch.crowdLevel ?? null;
 
   const { error } = await supabase
     .from(TABLE)

@@ -28,7 +28,10 @@ import {
   getMyStamps,
   isVisitedOnAvailable,
   recordNoteReads,
+  type CrowdLevel,
 } from '@/features/passport/api/stamps.repository';
+import { CrowdLevelPicker } from '@/features/passport/components/CrowdLevelPicker';
+import { koreaTodayIso } from '@/shared/lib/korea-date';
 import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
 import { isWydVenue, WYD_LABEL } from '@/features/passport/lib/wyd';
@@ -127,7 +130,9 @@ export default function SiteDetailPage() {
   const [noteDraft, setNoteDraft] = useState('');
   // 방문일 — 기본값은 오늘(기록하는 날)이지만, 지난 방문을 나중에 적는 경우도 있어
   // 날짜 선택을 열어둔다(사장님 지적, 2026-09-20: "무조건 기록한 날짜로 고정이다").
-  const [visitedOnDraft, setVisitedOnDraft] = useState(() => new Date().toISOString().slice(0, 10));
+  const [visitedOnDraft, setVisitedOnDraft] = useState(() => koreaTodayIso());
+  // 그날 붐볐나요 — 관광공사 예측을 검증할 실측 한 칸. 안 골라도(null) 저장된다(2026-09-21).
+  const [crowdLevelDraft, setCrowdLevelDraft] = useState<CrowdLevel | null>(null);
   // 기록 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-17).
   // 접어도 사라지지 않는다 — 줄만 남아서 다시 누르면 펼칠 수 있다.
   const [noteComposerOpen, setNoteComposerOpen] = useState(true);
@@ -188,15 +193,18 @@ export default function SiteDetailPage() {
   const [editingMyNote, setEditingMyNote] = useState(false);
   const [myNoteDraft, setMyNoteDraft] = useState('');
   const [myVisitedOnDraft, setMyVisitedOnDraft] = useState('');
+  const [myCrowdLevelDraft, setMyCrowdLevelDraft] = useState<CrowdLevel | null>(null);
   const startEditingMyNote = () => {
     setMyNoteDraft(myStamp?.note ?? '');
     setMyVisitedOnDraft((myStamp?.visitedOn ?? myStamp?.visitedAt ?? '').slice(0, 10));
+    setMyCrowdLevelDraft(myStamp?.crowdLevel ?? null);
     setEditingMyNote(true);
   };
   const isMyNoteDirty =
     editingMyNote &&
     (myNoteDraft !== (myStamp?.note ?? '') ||
-      myVisitedOnDraft !== (myStamp?.visitedOn ?? myStamp?.visitedAt ?? '').slice(0, 10));
+      myVisitedOnDraft !== (myStamp?.visitedOn ?? myStamp?.visitedAt ?? '').slice(0, 10) ||
+      myCrowdLevelDraft !== (myStamp?.crowdLevel ?? null));
   useUnsavedChangesGuard(isMyNoteDirty);
   const handleUpdateMyNote = () => {
     if (!myStamp?.id) return;
@@ -204,7 +212,9 @@ export default function SiteDetailPage() {
       {
         stampId: myStamp.id,
         note: normalizeNote(myNoteDraft),
-        ...(isVisitedOnAvailable() ? { visitedOn: myVisitedOnDraft || null } : {}),
+        ...(isVisitedOnAvailable()
+          ? { visitedOn: myVisitedOnDraft || null, crowdLevel: myCrowdLevelDraft }
+          : {}),
       },
       { onSuccess: (result) => result.success && setEditingMyNote(false) },
     );
@@ -269,7 +279,11 @@ export default function SiteDetailPage() {
     const note = normalizeNote(noteDraft);
     if (!note) return;
     addStamp.mutate(
-      { note, visitedOn: isVisitedOnAvailable() ? visitedOnDraft : null },
+      {
+        note,
+        visitedOn: isVisitedOnAvailable() ? visitedOnDraft : null,
+        crowdLevel: isVisitedOnAvailable() ? crowdLevelDraft : null,
+      },
       {
         onSuccess: async (result) => {
           if (!result.success) {
@@ -708,12 +722,15 @@ export default function SiteDetailPage() {
                         <input
                           type="date"
                           value={visitedOnDraft}
-                          max={new Date().toISOString().slice(0, 10)}
+                          max={koreaTodayIso()}
                           onChange={(e) => setVisitedOnDraft(e.target.value)}
                           className="block min-h-12 w-full bg-transparent px-3 text-base text-app-text"
                         />
                       </SquircleSurface>
                     </label>
+                  )}
+                  {isVisitedOnAvailable() && (
+                    <CrowdLevelPicker value={crowdLevelDraft} onChange={setCrowdLevelDraft} />
                   )}
                   {/* 사진 — 최대 3장. 기록 문장과 함께 한 번에 올라간다 */}
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -830,12 +847,19 @@ export default function SiteDetailPage() {
                               <input
                                 type="date"
                                 value={myVisitedOnDraft}
-                                max={new Date().toISOString().slice(0, 10)}
+                                max={koreaTodayIso()}
                                 onChange={(e) => setMyVisitedOnDraft(e.target.value)}
                                 className="block min-h-12 w-full bg-transparent px-3 text-base text-app-text"
                               />
                             </SquircleSurface>
                           </label>
+                        )}
+                        {isVisitedOnAvailable() && (
+                          <CrowdLevelPicker
+                            value={myCrowdLevelDraft}
+                            onChange={setMyCrowdLevelDraft}
+                            name="myCrowdLevel"
+                          />
                         )}
                         <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
                           {myStamp?.photos.map((photo, i) => (
