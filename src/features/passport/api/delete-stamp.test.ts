@@ -12,7 +12,12 @@ vi.mock('@/shared/api/supabase', () => ({
         eq: () => ({ eq: () => ({ maybeSingle: () => selectResult() }) }),
       }),
       delete: () => ({
-        eq: () => ({ eq: async () => { calls.push('delete-row'); return { error: null }; } }),
+        eq: () => ({
+          eq: async () => {
+            calls.push('delete-row');
+            return { error: null };
+          },
+        }),
       }),
     }),
   },
@@ -28,14 +33,19 @@ describe('순례 기록 삭제', () => {
     selectResult.mockResolvedValue({
       data: {
         photo_url: 'https://example.com/storage/v1/object/public/pilgrim-photos/user/site.jpg',
-        stamp_photos: [{ url: 'https://example.com/storage/v1/object/public/pilgrim-photos/user/site/1.jpg' }],
+        stamp_photos: [
+          { url: 'https://example.com/storage/v1/object/public/pilgrim-photos/user/site/1.jpg' },
+        ],
       },
       error: null,
     });
   });
 
   it('공개 사진 원본을 먼저 지운 뒤 기록을 삭제한다', async () => {
-    remove.mockImplementation(async () => { calls.push('remove-photos'); return { error: null }; });
+    remove.mockImplementation(async () => {
+      calls.push('remove-photos');
+      return { error: null };
+    });
     expect((await deleteStamp('stamp')).success).toBe(true);
     expect(remove).toHaveBeenCalledWith(['user/site.jpg', 'user/site/1.jpg']);
     expect(calls).toEqual(['remove-photos', 'delete-row']);

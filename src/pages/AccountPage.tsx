@@ -55,7 +55,9 @@ export default function AccountPage() {
       }
       clearLocalVisits();
       window.alert(
-        ko ? '계정과 연결 기록을 삭제했습니다.' : 'Your account and linked records have been deleted.',
+        ko
+          ? '계정과 연결 기록을 삭제했습니다.'
+          : 'Your account and linked records have been deleted.',
       );
       navigate(paths.home);
     } catch {
@@ -118,9 +120,7 @@ export default function AccountPage() {
       </Button>
 
       <div className="mt-8 border-t border-app-border pt-6">
-        <h2 className="text-lg font-bold text-app-text">
-          {ko ? '계정 삭제' : 'Delete account'}
-        </h2>
+        <h2 className="text-lg font-bold text-app-text">{ko ? '계정 삭제' : 'Delete account'}</h2>
         <p className="mt-2 text-base leading-relaxed text-app-text-muted">
           {ko
             ? '계정과 연결된 순례 기록, 공개 후기, 사진, AI 대화가 삭제됩니다. 로그인이 어렵다면 visitholykorea@gmail.com으로 요청해 주세요.'
@@ -142,9 +142,7 @@ export default function AccountPage() {
           id="account-delete-btn"
         >
           <Trash2 size={18} aria-hidden />
-          {deleting
-            ? ko ? '삭제 중…' : 'Deleting…'
-            : ko ? '계정 삭제' : 'Delete account'}
+          {deleting ? (ko ? '삭제 중…' : 'Deleting…') : ko ? '계정 삭제' : 'Delete account'}
         </Button>
       </div>
     </PageContainer>
