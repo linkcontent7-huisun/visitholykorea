@@ -5552,7 +5552,7 @@ export const DICTIONARY = {
     it: 'Densità nei dintorni: alta',
   },
   nearbyDensityLoading: {
-    ko: '실시간 밀집도 분석중',
+    ko: '주변 밀집도 확인 중',
     en: 'Analyzing nearby density',
     es: 'Analizando la densidad cercana',
     fr: 'Analyse de la densité à proximité',
