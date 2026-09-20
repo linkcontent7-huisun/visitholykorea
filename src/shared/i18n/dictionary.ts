@@ -2660,6 +2660,22 @@ export const DICTIONARY = {
     pt: 'Continuar com login social',
     it: 'Continua con l’accesso social',
   },
+  emailAuth: {
+    ko: '이메일로 로그인·회원가입',
+    en: 'Log in or sign up with email',
+    es: 'Iniciar sesión o registrarse con correo',
+    fr: 'Se connecter ou s’inscrire par e-mail',
+    pt: 'Entrar ou cadastrar-se com e-mail',
+    it: 'Accedi o registrati con l’e-mail',
+  },
+  emailAuthHint: {
+    ko: '이메일 로그인·회원가입은 필요할 때 열어보세요.',
+    en: 'Open email login or sign-up when you need it.',
+    es: 'Abre el acceso o registro por correo cuando lo necesites.',
+    fr: 'Ouvrez la connexion ou l’inscription par e-mail si nécessaire.',
+    pt: 'Abra o login ou cadastro por e-mail quando precisar.',
+    it: 'Apri l’accesso o la registrazione via e-mail quando serve.',
+  },
   noAccountYet: {
     ko: '계정이 없으신가요? ',
     en: 'Don’t have an account? ',
@@ -2731,12 +2747,12 @@ export const DICTIONARY = {
 
   // 로그인 화면 하단
   socialLoginHint: {
-    ko: '간편 로그인으로 빠르게 시작할 수 있어요.',
-    en: 'You can start quickly with a social account.',
-    es: 'Puedes empezar rápido con una cuenta social.',
-    fr: 'Vous pouvez commencer rapidement avec un compte social.',
-    pt: 'Você pode começar rapidamente com uma conta social.',
-    it: 'Puoi iniziare rapidamente con un account social.',
+    ko: '간편 로그인으로 회원가입과 로그인을 모두 할 수 있어요.',
+    en: 'Use social login to sign up and log in.',
+    es: 'Usa el inicio de sesión social para registrarte y entrar.',
+    fr: 'Utilisez la connexion sociale pour vous inscrire et vous connecter.',
+    pt: 'Use o login social para se cadastrar e entrar.',
+    it: 'Usa l’accesso social per registrarti e accedere.',
   },
   viewTerms: {
     ko: '이용약관 보기',
@@ -4979,6 +4995,22 @@ export const DICTIONARY = {
     fr: 'Mot de passe',
     pt: 'Senha',
     it: 'Password',
+  },
+  passwordConfirmation: {
+    ko: '비밀번호 재입력',
+    en: 'Re-enter password',
+    es: 'Repite la contraseña',
+    fr: 'Confirmez le mot de passe',
+    pt: 'Digite a senha novamente',
+    it: 'Reinserisci la password',
+  },
+  passwordMismatch: {
+    ko: '비밀번호가 일치하지 않습니다. 다시 확인해주세요.',
+    en: 'Passwords do not match. Please check them again.',
+    es: 'Las contraseñas no coinciden. Compruébalas de nuevo.',
+    fr: 'Les mots de passe ne correspondent pas. Vérifiez-les.',
+    pt: 'As senhas não coincidem. Confira novamente.',
+    it: 'Le password non corrispondono. Controllale di nuovo.',
   },
   loginWith: {
     ko: '{provider}로 로그인',
