@@ -39,7 +39,7 @@ import { Card } from '@/shared/components/ui/Card';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
-import { PhotoLightbox } from '@/shared/components/ui/PhotoLightbox';
+import { PhotoCardViewer } from '@/shared/components/ui/PhotoCardViewer';
 import { SquircleSurface } from '@/shared/components/ui/SquircleSurface';
 import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { dioceseLabel } from '@/shared/i18n/domain-labels';
@@ -318,7 +318,8 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
           {t('recordsSaveFailed')}
         </p>
       )}
-      <PhotoLightbox
+      {/* 사진을 누르면 전체 화면 모달이 아니라 이 카드 영역을 사진으로 채운다 */}
+      <PhotoCardViewer
         photos={lightbox !== null ? stamp.photos.map((p) => p.url) : null}
         index={lightbox ?? 0}
         onIndexChange={setLightbox}
