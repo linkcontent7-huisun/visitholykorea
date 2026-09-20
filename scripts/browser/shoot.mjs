@@ -12,11 +12,14 @@
  *   node scripts/browser/shoot.mjs --width 1440 --height 1000       # PC 폭
  *   node scripts/browser/shoot.mjs --only home,records --full       # 일부만 · 전체 길이
  *   node scripts/browser/shoot.mjs --out /tmp/shots
+ *   node scripts/browser/shoot.mjs --js "document.querySelector('button').click()" --js-wait 1500
+ *   node scripts/browser/shoot.mjs --js-file scripts/browser/plan.js   # 긴 JS 는 파일로
+ *     # 찍기 전에 페이지 안에서 실행할 JS (설치 배너 닫기·패널 열기 등). --js-wait 는 그 뒤 기다릴 ms
  *
  * 결과: <out>/<화면이름>-<폭>.png  (기본 out 은 screenshots/<날짜-시각>/ — git 에 올리지 않는다)
  */
 import { spawn } from 'node:child_process';
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -36,6 +39,8 @@ const WAIT = Number(opt('wait', 4000));
 const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
 const OUT = opt('out', join('screenshots', stamp));
 const PORT = Number(opt('port', 9333));
+const JS = opt('js-file', '') ? readFileSync(opt('js-file', ''), 'utf8') : opt('js', '');
+const JS_WAIT = Number(opt('js-wait', 1200));
 
 // 화면 목록. 경로의 기준은 src/app/routes/paths.ts — 새 화면이 생기면 여기도 더한다.
 const PAGES = {
@@ -56,7 +61,8 @@ const only = opt('only', '')
   .map((s) => s.trim())
   .filter(Boolean);
 const targets = Object.entries(PAGES).filter(([k]) => only.length === 0 || only.includes(k));
-for (const extra of args.filter((a, i) => args[i - 1] === '--extra')) targets.push([extra.replace(/\W+/g, '_'), extra]);
+for (const extra of args.filter((a, i) => args[i - 1] === '--extra'))
+  targets.push([extra.replace(/\W+/g, '_'), extra]);
 
 const CHROME_CANDIDATES = [
   process.env.CHROME_PATH,
@@ -133,7 +139,9 @@ function connect(wsUrl) {
 
 try {
   await waitForPort();
-  const targetsRes = await fetch(`http://127.0.0.1:${PORT}/json/new?about:blank`, { method: 'PUT' });
+  const targetsRes = await fetch(`http://127.0.0.1:${PORT}/json/new?about:blank`, {
+    method: 'PUT',
+  });
   const target = await targetsRes.json();
   const cdp = connect(target.webSocketDebuggerUrl);
   await cdp.ready;
@@ -153,6 +161,14 @@ try {
     const url = `${BASE}${path.startsWith('/') ? path : `/${path}`}`;
     await cdp.send('Page.navigate', { url });
     await sleep(WAIT);
+    if (JS) {
+      await cdp.send('Runtime.evaluate', {
+        expression: JS,
+        awaitPromise: true,
+        returnByValue: true,
+      });
+      await sleep(JS_WAIT);
+    }
     let clip;
     if (FULL) {
       const { result } = await cdp.send('Runtime.evaluate', {
@@ -170,12 +186,20 @@ try {
       await sleep(400);
       clip = { x: 0, y: 0, width: WIDTH, height: h, scale: 1 };
     }
-    const { data } = await cdp.send('Page.captureScreenshot', { format: 'png', ...(clip ? { clip } : {}) });
+    const { data } = await cdp.send('Page.captureScreenshot', {
+      format: 'png',
+      ...(clip ? { clip } : {}),
+    });
     const file = join(OUT, `${name}-${WIDTH}.png`);
     writeFileSync(file, Buffer.from(data, 'base64'));
     console.log(`${file}  ←  ${url}`);
     if (FULL) {
-      await cdp.send('Emulation.setDeviceMetricsOverride', { width: WIDTH, height: HEIGHT, deviceScaleFactor: 2, mobile: MOBILE });
+      await cdp.send('Emulation.setDeviceMetricsOverride', {
+        width: WIDTH,
+        height: HEIGHT,
+        deviceScaleFactor: 2,
+        mobile: MOBILE,
+      });
     }
   }
   cdp.close();

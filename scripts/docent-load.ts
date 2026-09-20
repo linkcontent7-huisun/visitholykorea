@@ -127,10 +127,14 @@ for (const f of readdirSync(DIR).filter(
     console.warn(`건너뜀 (siteId 없음): ${f}`);
     continue;
   }
+  // 6개 국어 — JSON 필드 접미사(narrationEn·narrationIt …). 2026-09-20 사장님: 새 원고도 6개 국어로.
   const langs: [string, string][] = [
     ['ko', ''],
     ['en', 'En'],
     ['es', 'Es'],
+    ['it', 'It'],
+    ['fr', 'Fr'],
+    ['pt', 'Pt'],
   ];
   for (const [lang, sfx] of langs) {
     const intro = d.intro?.[`narration${sfx}`];

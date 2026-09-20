@@ -16,6 +16,22 @@ import { createClient } from 'jsr:@supabase/supabase-js@2';
 import modelList from './models.json' with { type: 'json' };
 
 const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
+/**
+ * Gemini 가 끝내 못 답하면 Claude 로 넘어간다 (2026-09-19 사장님 결정). 같은 시스템 프롬프트·같은 성지
+ * 컨텍스트·같은 대화 이력을 그대로 보내므로 "컨텍스트 밖은 모른다" 규칙(CLAUDE.md)은 그대로 지켜진다.
+ * 키가 없으면 이 단계는 건너뛰고 예전처럼 정보 카드로 간다.
+ */
+const ANTHROPIC_API_KEY = Deno.env.get('ANTHROPIC_API_KEY');
+const CLAUDE_MODEL = Deno.env.get('CLAUDE_MODEL') ?? 'claude-haiku-4-5-20251001';
+/** Claude 가 준비돼 있으면 Gemini 를 오래 두드릴 이유가 줄어든다. 'true' 면 Gemini 는 3회만 보고 Claude 로. 기본은 사장님 지시대로 20~30회. */
+const GEMINI_QUICK_HANDOFF =
+  Deno.env.get('GEMINI_QUICK_HANDOFF') === 'true' && Boolean(ANTHROPIC_API_KEY);
+/**
+ * 1순위 답변자. 'claude' 면 Claude 가 먼저 답하고 Gemini 가 예비, 그 밖(기본)은 Gemini 먼저.
+ * 2026-09-19: Gemini 무료 한도가 시연에 불안해 Claude 유료(API 크레딧)를 1순위로 두기로 함. 시크릿 하나로 바꾼다.
+ */
+const AI_PRIMARY =
+  Deno.env.get('AI_PRIMARY') === 'claude' && Boolean(ANTHROPIC_API_KEY) ? 'claude' : 'gemini';
 // 모델은 환경변수로 갈아끼울 수 있게 둔다(모델 교체 때 코드 수정이 필요 없도록).
 /**
  * 모델 후보 순서. 이름은 시크릿에 박지 않는다 — `models.json` 을 GitHub Actions 가 매일 ListModels 로
@@ -170,6 +186,50 @@ async function candidateModels(): Promise<string[]> {
   const list = [GEMINI_MODEL_OVERRIDE, ...BUNDLED_MODELS].filter((m): m is string => Boolean(m));
   const unique = list.filter((m, i) => list.indexOf(m) === i);
   return unique.length > 0 ? unique : await discoverModels();
+}
+
+class ClaudeHttpError extends Error {
+  constructor(public status: number) {
+    super(`Claude HTTP ${status}`);
+  }
+}
+const CLAUDE_TIMEOUT_MS = 20_000;
+
+/** Gemini 실패 뒤의 두 번째 답변자. 프롬프트·이력 구성은 Gemini 와 같다. */
+async function callClaude(
+  systemInstruction: string,
+  userPrompt: string,
+  history: Turn[] = [],
+): Promise<string> {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': ANTHROPIC_API_KEY!,
+      'anthropic-version': '2023-06-01',
+    },
+    signal: AbortSignal.timeout(CLAUDE_TIMEOUT_MS),
+    body: JSON.stringify({
+      model: CLAUDE_MODEL,
+      max_tokens: 800,
+      system: systemInstruction,
+      messages: [
+        ...history.map((h) => ({ role: h.role === 'bot' ? 'assistant' : 'user', content: h.text })),
+        { role: 'user', content: userPrompt },
+      ],
+    }),
+  });
+  if (!res.ok) {
+    console.error(
+      `Claude 호출 실패 (${CLAUDE_MODEL}, HTTP ${res.status}):`,
+      (await res.text()).slice(0, 300),
+    );
+    throw new ClaudeHttpError(res.status);
+  }
+  const data = (await res.json()) as { content?: { type: string; text?: string }[] };
+  const text = data.content?.find((c) => c.type === 'text')?.text ?? '';
+  if (!text) throw new ClaudeHttpError(204);
+  return text;
 }
 
 async function callGeminiOnce(
@@ -591,24 +651,56 @@ Deno.serve(async (req) => {
       .filter(Boolean)
       .join('\n\n');
 
-    try {
-      const text = await callGemini(MICHAEL_SYSTEM_INSTRUCTION, prompt, history);
-      return new Response(JSON.stringify({ text, sources }), {
+    // 답변자 순서: AI_PRIMARY 가 먼저, 다른 쪽이 예비. 요청의 provider 로 검증용 강제 지정도 된다.
+    const wantClaudeFirst =
+      (payload.provider === 'claude' || AI_PRIMARY === 'claude') && Boolean(ANTHROPIC_API_KEY);
+    const order: ('gemini' | 'claude')[] = wantClaudeFirst
+      ? ['claude', 'gemini']
+      : ['gemini', 'claude'];
+    const json = (body: Record<string, unknown>) =>
+      new Response(JSON.stringify(body), {
         headers: { ...corsFor(req), 'content-type': 'application/json' },
       });
-    } catch (err) {
-      // Gemini 가 못 답해도 검색 결과가 있으면 정보 카드로 답한다 (200). 없을 때만 오류로.
-      const card = fallbackCard(ctx);
-      if (card) {
-        // reason: 한도(429) · 업스트림 상태 코드 · 그 밖(네트워크·시간 초과). 비밀값 없음.
+    let firstErr: unknown = null;
+    let firstReason = '';
+    for (const provider of order) {
+      if (provider === 'claude' && !ANTHROPIC_API_KEY) continue;
+      try {
+        const text =
+          provider === 'claude'
+            ? await callClaude(MICHAEL_SYSTEM_INSTRUCTION, prompt, history)
+            : await callGemini(MICHAEL_SYSTEM_INSTRUCTION, prompt, history);
+        if (firstErr)
+          console.warn(`ai-guide: ${order[0]} 실패(${firstReason}) → ${provider} 가 답함`);
+        return json(
+          firstErr
+            ? { text, sources, provider, fallbackFrom: order[0], reason: firstReason }
+            : { text, sources, provider },
+        );
+      } catch (err) {
         const reason =
           err instanceof RateLimitError
             ? 'rate_limited'
             : err instanceof GeminiHttpError
               ? `gemini_${err.status}`
-              : err instanceof Error && err.name === 'TimeoutError'
-                ? 'gemini_timeout'
-                : 'gemini_error';
+              : err instanceof ClaudeHttpError
+                ? `claude_${err.status}`
+                : err instanceof Error && err.name === 'TimeoutError'
+                  ? `${provider}_timeout`
+                  : `${provider}_error`;
+        if (!firstErr) {
+          firstErr = err;
+          firstReason = reason;
+        }
+        console.error(`ai-guide: ${provider} 실패 (${reason})`);
+      }
+    }
+    {
+      const err = firstErr;
+      const reason = firstReason;
+      // 2) 둘 다 못 답해도 검색 결과가 있으면 정보 카드로 답한다 (200). 없을 때만 오류로.
+      const card = fallbackCard(ctx);
+      if (card) {
         console.warn('ai-guide fallback:', reason);
         return new Response(JSON.stringify({ text: card, sources, fallback: true, reason }), {
           headers: { ...corsFor(req), 'content-type': 'application/json' },

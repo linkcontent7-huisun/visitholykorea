@@ -9,7 +9,10 @@
     "narration": "양화진 나루 위, 한강을 내려다보는 이 봉우리에 오신 것을 환영합니다. 이곳은 원래 누에가 머리를 든 모양을 닮았다 하여 잠두봉이라 불리던, 경치 좋기로 이름난 자리였습니다. 그러나 1866년 병인박해 때 수많은 천주교 신자가 이곳에서 처형되면서, 머리가 잘린 산이라는 뜻의 절두산이라는 이름을 얻게 되었습니다. 오늘은 야외 조형물과 기념성당, 그리고 박물관을 차례로 둘러보며 그 이야기를 들려드리겠습니다.",
     "narrationEn": "Welcome to this peak above the old Yanghwajin ferry landing, overlooking the Han River. It was once called Jamdubong, a scenic spot said to resemble a silkworm raising its head. But in 1866, during the Byeongin Persecution, countless Catholics were executed here, and the hill earned the name Jeoldusan — the mountain of beheading. Today we will walk past the outdoor memorials, the memorial church, and the museum, and I will tell you their story.",
     "narrationEs": "Le doy la bienvenida a esta colina sobre el antiguo embarcadero de Yanghwajin, con vistas al río Han. Antes se llamaba Jamdubong, un lugar célebre por su paisaje que, según se decía, se parecía a un gusano de seda levantando la cabeza. Pero en 1866, durante la persecución de Byeongin, innumerables católicos fueron ejecutados aquí, y la colina recibió el nombre de Jeoldusan, la montaña de las decapitaciones. Hoy recorreremos los monumentos al aire libre, la iglesia conmemorativa y el museo para conocer su historia.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Benvenuti su questo picco sopra il vecchio approdo dei traghetti di Yanghwajin, con vista sul fiume Han. Un tempo si chiamava Jamdubong, un punto panoramico che si dice somigliasse a un baco da seta che alza la testa. Ma nel 1866, durante la persecuzione di Byeongin, innumerevoli cattolici furono giustiziati qui, e la collina si guadagnò il nome Jeoldusan, la montagna della decapitazione. Oggi passeremo davanti ai memoriali all'aperto, alla chiesa commemorativa e al museo e vi racconterò la loro storia.",
+    "narrationPt": "Bem-vindo a este pico acima do antigo cais da balsa de Yanghwajin, com vista para o rio Han. Já foi chamado de Jamdubong, um local pitoresco que se assemelha a um bicho-da-seda levantando a cabeça. Mas em 1866, durante a perseguição de Byeongin, inúmeros católicos foram executados aqui, e a colina ganhou o nome de Jeoldusan – a montanha da decapitação. Hoje passaremos pelos memoriais ao ar livre, pela igreja memorial e pelo museu, e contarei a história deles.",
+    "narrationFr": "Bienvenue sur ce sommet au-dessus de l'ancien débarcadère du ferry de Yanghwajin, surplombant la rivière Han. On l'appelait autrefois Jamdubong, un endroit pittoresque qui ressemble à un ver à soie levant la tête. Mais en 1866, pendant la persécution de Byeongin, d'innombrables catholiques furent exécutés ici, et la colline reçut le nom de Jeoldusan, la montagne de la décapitation. Aujourd'hui, nous passerons devant les mémoriaux extérieurs, l'église commémorative et le musée, et je vous raconterai leur histoire."
   },
   "points": [
     {
@@ -28,7 +31,16 @@
       "lookForEs": "La dirección hacia la que mira la estatua, el río Han, donde fueron ejecutados los creyentes",
       "forEveryone": "김대건 신부는 한국인 최초의 가톨릭 사제로, 종교를 떠나 조선 후기 역사의 중요한 인물입니다.",
       "photos": [],
-      "sourceNote": "한국천주교주교회의 성지 안내(cbck.or.kr, 김대건 신부 동상 확인), 성지 DB 원문. 동상 위치·방향은 현장 확인 필요"
+      "sourceNote": "한국천주교주교회의 성지 안내(cbck.or.kr, 김대건 신부 동상 확인), 성지 DB 원문. 동상 위치·방향은 현장 확인 필요",
+      "titleIt": "Statua di Sant'Andrea Kim Taegon",
+      "narrationIt": "Quando entri nel santuario, una statua di Sant'Andrea Kim Taegon, il primo prete cattolico coreano, saluta i pellegrini. Fu martirizzato a Saenamteo all'età di venticinque anni ed è il santo patrono della Giornata Mondiale della Gioventù di Seul 2027. Fermatevi qui per un momento e pensate alle persone che questo santuario ricorda.",
+      "lookForIt": "La direzione in cui è rivolta la statua è verso il fiume Han, dove i fedeli furono giustiziati",
+      "titlePt": "Estátua de Santo André Kim Taegon",
+      "narrationPt": "Ao entrar no santuário, uma estátua de Santo André Kim Taegon, o primeiro padre católico da Coreia, cumprimenta os peregrinos. Ele foi martirizado em Saenamteo aos vinte e cinco anos e é um santo padroeiro da Jornada Mundial da Juventude de Seul 2027. Pare aqui por um momento e pense nas pessoas que este santuário lembra.",
+      "lookForPt": "A direção voltada para a estátua – em direção ao rio Han, onde os fiéis foram executados",
+      "titleFr": "Statue de Saint-André Kim Taegon",
+      "narrationFr": "En entrant dans le sanctuaire, une statue de saint André Kim Taegon, le premier prêtre catholique de Corée, accueille les pèlerins. Il a été martyrisé à Saenamteo à l'âge de vingt-cinq ans et il est le saint patron des Journées mondiales de la jeunesse de Séoul 2027. Arrêtez-vous un instant et pensez aux personnes dont ce sanctuaire se souvient.",
+      "lookForFr": "La direction dans laquelle la statue est tournée : vers la rivière Han, où les fidèles ont été exécutés"
     },
     {
       "seq": 2,
@@ -46,7 +58,16 @@
       "lookForEs": "La vista del río Han y del antiguo embarcadero de Yanghwajin al pie del acantilado",
       "forEveryone": "1866년 병인박해와 프랑스 함대의 침입(병인양요)은 같은 해에 얽혀 있는 사건입니다.",
       "photos": [],
-      "sourceNote": "한국천주교주교회의 성지 안내(cbck.or.kr) — 잠두봉 유래, 처형 경위, 확인 순교자 29명"
+      "sourceNote": "한국천주교주교회의 성지 안내(cbck.or.kr) — 잠두봉 유래, 처형 경위, 확인 순교자 29명",
+      "titleIt": "Jamdubong: dove il nome è cambiato",
+      "narrationIt": "Questa scogliera sopra il fiume che scorre è Jamdubong. La persecuzione Byeongin del 1866 fu la più dura persecuzione dei cattolici nella storia coreana. Quando una flotta francese invase l’isola di Ganghwa, la corte reale incolpò i cattolici e iniziò a giustiziare i credenti proprio in questo luogo. Nei documenti sono confermati ventinove martiri di Jeoldusan, compresi quelli i cui nomi non furono mai scritti. Una collina famosa per la sua bellezza divenne un luogo di martirio: questo paradosso è il luogo in cui inizia la storia di questo santuario.",
+      "lookForIt": "La vista del fiume Han e del vecchio approdo Yanghwajin sotto la scogliera",
+      "titlePt": "Jamdubong - onde o nome mudou",
+      "narrationPt": "Este penhasco acima do rio que flui é Jamdubong. A perseguição de Byeongin de 1866 foi a mais dura perseguição aos católicos na história coreana. Quando uma frota francesa invadiu a Ilha Ganghwa, a corte real culpou os católicos e começou a executar os crentes neste mesmo local. Vinte e nove mártires de Jeoldusan estão confirmados nos registros, incluindo aqueles cujos nomes nunca foram escritos. Uma colina famosa pela sua beleza tornou-se um local de martírio – é nesse paradoxo que começa a história deste santuário.",
+      "lookForPt": "A vista do rio Han e do antigo desembarque de Yanghwajin abaixo do penhasco",
+      "titleFr": "Jamdubong – Là où le nom a changé",
+      "narrationFr": "Cette falaise au-dessus de la rivière qui coule est Jamdubong. La persécution de Byeongin en 1866 fut la plus dure persécution des catholiques dans l’histoire de la Corée. Lorsqu'une flotte française envahit l'île de Ganghwa, la cour royale accusa les catholiques et commença à exécuter les croyants à cet endroit même. Vingt-neuf martyrs de Jeoldusan sont confirmés dans les archives, y compris ceux dont les noms n'ont jamais été écrits. Une colline célèbre pour sa beauté est devenue un lieu de martyre : c'est dans ce paradoxe que commence l'histoire de ce sanctuaire.",
+      "lookForFr": "La vue sur la rivière Han et le vieux débarcadère de Yanghwajin en contrebas de la falaise"
     },
     {
       "seq": 3,
@@ -64,7 +85,16 @@
       "lookForEs": "Los nombres y las inscripciones grabados en cada monumento",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "한국천주교주교회의 성지 안내(cbck.or.kr) — 순교자 현양비·기념탑, 성지 DB 원문 — 노을 풍경. 개별 조형물의 배치는 현장 확인 필요"
+      "sourceNote": "한국천주교주교회의 성지 안내(cbck.or.kr) — 순교자 현양비·기념탑, 성지 DB 원문 — 노을 풍경. 개별 조형물의 배치는 현장 확인 필요",
+      "titleIt": "Monumenti dei martiri",
+      "narrationIt": "Dall'altra parte del terreno si trovano monumenti in onore dei martiri. Molte più persone morirono qui senza lasciare il proprio nome che con loro, quindi questi memoriali furono eretti per ricordare anche ciò che non è stato registrato. Al tramonto, le sagome dei monumenti in controluce sul fiume Han attirano molti fotografi.",
+      "lookForIt": "I nomi e le iscrizioni scolpiti su ciascun monumento",
+      "titlePt": "Monumentos aos Mártires",
+      "narrationPt": "Do outro lado do terreno há monumentos em homenagem aos mártires. Muito mais pessoas morreram aqui sem deixar seus nomes do que com eles, então esses memoriais foram erguidos para lembrar também os não registrados. Ao pôr do sol, as silhuetas dos monumentos contra o brilho do rio Han atraem muitos fotógrafos.",
+      "lookForPt": "Os nomes e inscrições esculpidos em cada monumento",
+      "titleFr": "Monuments aux martyrs",
+      "narrationFr": "De l'autre côté du parc se dressent des monuments honorant les martyrs. Beaucoup plus de personnes sont mortes ici sans laisser leur nom qu'avec elles, c'est pourquoi ces monuments commémoratifs ont également été érigés pour commémorer les personnes non enregistrées. Au coucher du soleil, les silhouettes des monuments sur fond de lueur au-dessus de la rivière Han attirent de nombreux photographes.",
+      "lookForFr": "Les noms et inscriptions gravés sur chaque monument"
     },
     {
       "seq": 4,
@@ -82,7 +112,16 @@
       "lookForEs": "La entrada a la cripta y los lugares donde descansan las reliquias",
       "forEveryone": "성인의 유해를 모신 공간은 종교를 떠나 묘역과 같은 곳입니다. 조용히 둘러보는 것이 예의입니다.",
       "photos": [],
-      "sourceNote": "한국천주교주교회의 성지 안내(cbck.or.kr) — 1967년 개관(병인박해 100주년), 성해실 성인 27위·무명 순교자 1위. DB 원문의 '28위 성인'은 이 공식 집계와 표현이 달라 공식 자료를 따름"
+      "sourceNote": "한국천주교주교회의 성지 안내(cbck.or.kr) — 1967년 개관(병인박해 100주년), 성해실 성인 27위·무명 순교자 1위. DB 원문의 '28위 성인'은 이 공식 집계와 표현이 달라 공식 자료를 따름",
+      "titleIt": "Chiesa della Memoria e Cappella delle Reliquie",
+      "narrationIt": "Questa sala commemorativa è stata inaugurata nel 1967, in occasione del centesimo anniversario della persecuzione di Byeongin. Nella cripta sottostante la chiesa riposano le reliquie di ventisette santi e di un martire senza nome. Conservare le reliquie dei martiri in una chiesa è una tradizione antica quanto la Chiesa primitiva, nata dall'usanza di celebrare la messa sulle tombe dei martiri. Si prega di mantenere un rispettoso silenzio nella cappella delle reliquie.",
+      "lookForIt": "L'ingresso alla cripta e i luoghi di riposo delle reliquie",
+      "titlePt": "Igreja Memorial e Capela das Relíquias",
+      "narrationPt": "Este salão memorial foi inaugurado em 1967, marcando o centésimo aniversário da perseguição de Byeongin. Na cripta abaixo da igreja repousam as relíquias de vinte e sete santos e um mártir anônimo. Guardar as relíquias dos mártires numa igreja é uma tradição tão antiga quanto a Igreja primitiva, nascida do costume de celebrar a missa sobre os túmulos dos mártires. Por favor, mantenha um silêncio respeitoso na capela das relíquias.",
+      "lookForPt": "A entrada da cripta e os locais de descanso das relíquias",
+      "titleFr": "Église commémorative et chapelle des reliques",
+      "narrationFr": "Cette salle commémorative a ouvert ses portes en 1967, marquant le centième anniversaire de la persécution de Byeongin. Dans la crypte située sous l'église reposent les reliques de vingt-sept saints et d'un martyr anonyme. Conserver les reliques des martyrs dans une église est une tradition aussi ancienne que l'Église primitive, née de la coutume de célébrer la messe sur les tombes des martyrs. Merci de garder un silence respectueux dans la chapelle des reliques.",
+      "lookForFr": "L'entrée de la crypte et les lieux de repos des reliques"
     },
     {
       "seq": 5,
@@ -100,7 +139,16 @@
       "lookForEs": "Las pertenencias y los documentos de los creyentes de la época de las persecuciones",
       "forEveryone": "조선 후기 사회사·생활사 자료로도 가치가 큰 전시입니다.",
       "photos": [],
-      "sourceNote": "한국천주교주교회의 성지 안내(cbck.or.kr) — 박물관·역사 자료. 상설 전시 구성은 현장 확인 필요"
+      "sourceNote": "한국천주교주교회의 성지 안내(cbck.or.kr) — 박물관·역사 자료. 상설 전시 구성은 현장 확인 필요",
+      "titleIt": "Museo dei martiri cattolici coreani",
+      "narrationIt": "Il museo conserva documenti storici della Chiesa cattolica coreana e reliquie dei martiri. Attraverso gli averi e le testimonianze dei credenti dell'era della persecuzione, una storia che scorre in una riga di un libro di testo diventa la vita di persone reali. Dopo la mostra, torna fuori e cammina lentamente lungo il fiume.",
+      "lookForIt": "Oggetti personali e documenti dei credenti dell'epoca della persecuzione",
+      "titlePt": "Museu dos Mártires Católicos Coreanos",
+      "narrationPt": "O museu guarda documentos históricos da Igreja Católica Coreana e relíquias dos mártires. Através dos pertences e registros dos crentes da era da perseguição, uma história que passa em uma linha de um livro torna-se a vida de pessoas reais. Após a exposição, saia e caminhe lentamente ao longo do rio.",
+      "lookForPt": "Pertences e documentos de crentes da época da perseguição",
+      "titleFr": "Musée des martyrs catholiques coréens",
+      "narrationFr": "Le musée conserve des documents historiques de l'Église catholique coréenne et des reliques des martyrs. À travers les biens et les archives des croyants de l’époque de la persécution, une histoire qui se résume en une seule ligne d’un manuel devient la vie de personnes réelles. Après l’exposition, sortez et marchez lentement le long de la rivière.",
+      "lookForFr": "Biens et documents des croyants de l'époque de la persécution"
     },
     {
       "seq": 6,
@@ -118,13 +166,25 @@
       "lookForEs": "Los nombres conocidos de escuelas y periódicos grabados en las lápidas",
       "forEveryone": "학교와 병원, 신문 — 한국 근대의 시작에 얽힌 인물들을 한 언덕에서 만날 수 있습니다.",
       "photos": [],
-      "sourceNote": "서울시 미디어허브(mediahub.seoul.go.kr)·묘원 안내 검색 확인 — 1890년 조성, 15개국 417명, 언더우드·아펜젤러·스크랜튼·베델. 안장자 수는 집계 시점에 따라 다를 수 있어 현장 안내판과 대조 필요"
+      "sourceNote": "서울시 미디어허브(mediahub.seoul.go.kr)·묘원 안내 검색 확인 — 1890년 조성, 15개국 417명, 언더우드·아펜젤러·스크랜튼·베델. 안장자 수는 집계 시점에 따라 다를 수 있어 현장 안내판과 대조 필요",
+      "titleIt": "Oltre il Santuario – Collina Yanghwajin",
+      "narrationIt": "Proprio accanto a Jeoldusan si trova il cimitero missionario straniero di Yanghwajin, fondato nel 1890. Qui riposano circa quattrocento persone provenienti da quindici paesi, tra cui Underwood, fondatore dell'Università di Yonsei, Appenzeller della scuola Pai Chai, Scranton di Ewha e Bethell del Korea Daily News. Con la vetta dei martiri cattolici e la collina dei missionari protestanti fianco a fianco, Yanghwajin è stratificata con la storia moderna della Corea al di là di qualsiasi religione. Se hai tempo, cammina entrambi.",
+      "lookForIt": "Nomi familiari di scuole e giornali scolpiti sulle lapidi",
+      "titlePt": "Além do Santuário – Colina Yanghwajin",
+      "narrationPt": "Bem ao lado de Jeoldusan fica o Cemitério Missionário Estrangeiro de Yanghwajin, fundado em 1890. Cerca de quatrocentas pessoas de quinze países descansam aqui, incluindo Underwood, fundador da Universidade Yonsei, Appenzeller da escola Pai Chai, Scranton de Ewha e Bethell do Korea Daily News. Com o pico dos mártires católicos e a colina dos missionários protestantes lado a lado, Yanghwajin está repleto de história moderna da Coreia, além de qualquer religião. Se tiver tempo, caminhe os dois.",
+      "lookForPt": "Nomes familiares de escolas e jornais gravados nas lápides",
+      "titleFr": "Au-delà du sanctuaire – Colline Yanghwajin",
+      "narrationFr": "Juste à côté de Jeoldusan se trouve le cimetière des missionnaires étrangers de Yanghwajin, créé en 1890. Quelque quatre cents personnes originaires de quinze pays reposent ici, dont Underwood, fondateur de l'université de Yonsei, Appenzeller de l'école Pai Chai, Scranton d'Ewha et Bethell du Korea Daily News. Avec côte à côte le sommet des martyrs catholiques et la colline des missionnaires protestants, Yanghwajin est imprégné de l'histoire moderne de la Corée, au-delà de toute religion. Si vous avez le temps, marchez les deux.",
+      "lookForFr": "Noms familiers d'écoles et de journaux gravés sur les pierres tombales"
     }
   ],
   "outro": {
     "narration": "절두산 순례에 함께해 주셔서 감사합니다. 합정역까지는 걸어서 5분, 한강 자전거길과도 이어져 있으니, 돌아가는 길에 강바람을 맞으며 오늘 들은 이야기를 되새겨 보셔도 좋겠습니다. 평화로운 발걸음 되시기 바랍니다.",
     "narrationEn": "Thank you for walking Jeoldusan with us. Hapjeong Station is five minutes away on foot, and the Han River bike path passes just below — let the river wind carry today's story with you as you go. Peace be with you.",
     "narrationEs": "Gracias por recorrer Jeoldusan con nosotros. La estación de Hapjeong está a cinco minutos a pie y la ruta ciclista del río Han pasa justo abajo. Deje que el viento del río le acompañe con la historia que ha escuchado hoy. Que la paz le acompañe.",
-    "photos": []
+    "photos": [],
+    "narrationIt": "Grazie per aver camminato Jeoldusan con noi. La stazione di Hapjeong è a cinque minuti a piedi e la pista ciclabile del fiume Han passa proprio sotto: lascia che il vento del fiume porti con te la storia di oggi mentre procedi. La pace sia con te.",
+    "narrationPt": "Obrigado por caminhar com Jeoldusan conosco. A Estação Hapjeong fica a cinco minutos a pé, e a ciclovia do Rio Han passa logo abaixo - deixe o vento do rio levar a história de hoje com você enquanto você avança. A paz esteja com você.",
+    "narrationFr": "Merci d'avoir accompagné Jeoldusan avec nous. La gare de Hapjeong est à cinq minutes à pied et la piste cyclable de la rivière Han passe juste en dessous : laissez le vent de la rivière emporter l'histoire d'aujourd'hui avec vous au fur et à mesure. La paix soit avec toi."
   }
 }
