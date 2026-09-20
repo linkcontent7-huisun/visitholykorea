@@ -153,7 +153,7 @@ export default function MenuPage() {
           id: 'lang',
           icon: Globe,
           label: t('languageSetting'),
-          // 검수를 마친 한국어·영어만(ENABLED_LANGUAGES). 목록은 각자의 언어로 적어야 자기 언어를 찾을 수 있다.
+          // 켜진 언어 목록(ENABLED_LANGUAGES, 9/20 부터 여섯 개). 목록은 각자의 언어로 적어야 자기 언어를 찾을 수 있다.
           sub: LANGUAGE_LABEL[language],
           // 네이티브 <select> 는 펼침 목록 위치를 브라우저가 정해서, 모바일에서는 화면을
           // 뒤덮고 PC 에서는 엉뚱한 자리(왼쪽 위)에 뜨는 문제가 있었다(사장님 지적,
