@@ -396,7 +396,15 @@ export default function LoginPage() {
                       onChange={(e) => setAgreed(e.target.checked)}
                       className="mt-0.5 size-5 shrink-0 accent-brand-blue"
                     />
-                    <span>{t('signupConsentLabel')}</span>
+                    <span>
+                      {t('signupConsentLabel')}
+                      {/* 단추가 왜 꺼져 있는지 — 말 없이 꺼진 단추는 「고장」으로 읽힌다(WCAG 3.3.2) */}
+                      {!agreed && (
+                        <span className="mt-1 block font-normal text-app-text-muted">
+                          {t('signupConsentHint')}
+                        </span>
+                      )}
+                    </span>
                   </label>
                 )}
 

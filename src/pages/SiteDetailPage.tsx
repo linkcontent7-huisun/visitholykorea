@@ -737,7 +737,7 @@ export default function SiteDetailPage() {
                         className="flex h-16 w-16 cursor-pointer flex-col items-center justify-center gap-0.5 text-brand-blue transition-colors hover:bg-brand-soft"
                       >
                         <Camera size={16} aria-hidden />
-                        <span className="text-[0.625rem] font-bold">
+                        <span className="text-xs font-bold">
                           {notePhotos.length}/{NOTE_PHOTO_MAX}
                         </span>
                         <input

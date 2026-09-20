@@ -132,7 +132,7 @@ export function TopNav() {
               onClick={() => setAiOpen(true)}
               className={
                 transparent
-                  ? 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-white/40 bg-black/30 px-[10px] text-[14px] font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45'
+                  ? 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-white/40 bg-black/30 px-[10px] text-[14px] font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45 focus-visible:outline-white'
                   : 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-app-border bg-white px-[10px] text-[14px] font-bold text-brand-blue transition-colors hover:bg-app-bg'
               }
               id="ai-guide-toggle"
@@ -175,7 +175,7 @@ export function TopNav() {
                 title={t('moreTab')}
                 className={
                   transparent
-                    ? 'flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] border-white/40 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45'
+                    ? 'flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] border-white/40 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45 focus-visible:outline-white'
                     : 'flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] border-app-border bg-white text-brand-blue transition-colors hover:bg-app-bg'
                 }
                 id="topnav-more"

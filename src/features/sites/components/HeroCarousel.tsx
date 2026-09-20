@@ -142,12 +142,14 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
               loading={i === 0 ? 'eager' : 'lazy'}
               decoding="async"
             />
+            {/* 아래 그늘은 이름·지역 글자용, 위 그늘은 투명 헤더의 흰 로고용 — 공세리성당처럼 하늘이 하얀
+                사진에선 로고가 2.1:1 로 안 읽혔다(2026-09-21 실측). 위 22% 만 살짝 어둡게 한다. */}
             <div
               className="absolute inset-0"
               aria-hidden
               style={{
                 background:
-                  'linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 45%, rgba(0,0,0,.05) 100%)',
+                  'linear-gradient(to bottom, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 22%), linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 45%, rgba(0,0,0,.05) 100%)',
               }}
             />
             {/* 오른쪽 여백(pr-14)은 「멈춤」 단추 자리 */}

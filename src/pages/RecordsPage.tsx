@@ -232,7 +232,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
                 }`}
               >
                 <Camera size={16} aria-hidden />
-                <span className="text-[0.625rem] font-bold leading-tight">
+                <span className="text-xs font-bold leading-tight">
                   {uploadPhotos.isPending ? t('photoUploading') : t('photoAdd')}
                 </span>
                 <input

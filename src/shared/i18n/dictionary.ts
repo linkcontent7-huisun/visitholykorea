@@ -396,6 +396,14 @@ export const DICTIONARY = {
     pt: 'Ir para o conteúdo',
     it: 'Vai al contenuto',
   },
+  mainNavLabel: {
+    ko: '주요 메뉴',
+    en: 'Main menu',
+    es: 'Menú principal',
+    fr: 'Menu principal',
+    pt: 'Menu principal',
+    it: 'Menu principale',
+  },
   // 성지 찾기 (재기획 2026-09-14) — 교구와 행정지역은 다른 개념이라 라벨을 따로 둔다
   searchPageTitle: {
     ko: '성지 찾기',
@@ -543,22 +551,23 @@ export const DICTIONARY = {
     pt: 'Informações de visita de {count} santuários católicos da Coreia, com o movimento previsto a partir de dados turísticos.',
     it: 'Informazioni di visita per {count} santuari cattolici coreani, con l’affluenza prevista dai dati turistici.',
   },
-  // 오늘의 성지 일정 — 고요 속으로 자리를 이어받은 대표 기능 (2026-09-15). 영어 외 언어는 영어 값(언어 선택기에 안 나옴).
+  // 오늘의 성지 일정 — 고요 속으로 자리를 이어받은 대표 기능 (2026-09-15).
+  // 언어 선택기가 여섯 개 전부를 내놓게 된 뒤(2026-09-20) 영어 값으로 남아 있던 네 언어를 compassTitle 과 맞췄다.
   todayPlanTab: {
     ko: '오늘의 성지 일정',
     en: "Today's Plan",
-    es: "Today's Plan",
-    fr: "Today's Plan",
-    pt: "Today's Plan",
-    it: "Today's Plan",
+    es: 'Plan de hoy',
+    fr: 'Programme du jour',
+    pt: 'Roteiro de hoje',
+    it: 'Programma di oggi',
   },
   todayPlanShort: {
     ko: '성지 일정',
     en: 'Plan',
-    es: "Today's Plan",
-    fr: "Today's Plan",
-    pt: "Today's Plan",
-    it: "Today's Plan",
+    es: 'Plan',
+    fr: 'Plan',
+    pt: 'Roteiro',
+    it: 'Piano',
   },
   todayPlanHeroTitle: {
     ko: '마음 상태로 고르는 오늘의 성지 일정',
@@ -1040,22 +1049,26 @@ export const DICTIONARY = {
     pt: 'Miguel',
     it: 'Michele',
   },
-  // 홈 입구 카드용 — 이름 + AI, 헤더 라벨(aiGuideNavLabel)보다 한 단계 더 설명적이다
+  // 홈 입구 카드용 — 헤더 라벨(aiGuideNavLabel)보다 한 단계 더 설명적이다.
+  // 외국어만 「Michael AI」였던 것을 「가이드」로 통일 (2026-09-21). 시트 제목(aiGuideTitle)의
+  // 「guide de pèlerinage」를 그대로 쓰면 390px 에서 두 줄이 되어 카드 3개 높이가 어긋난다(실측) — 짧게.
   aiGuideEntryTitle: {
     ko: '미카엘 순례 가이드',
-    en: 'Michael AI',
-    es: 'Miguel IA',
-    fr: 'Michel IA',
-    pt: 'Miguel IA',
-    it: 'Michele IA',
+    en: 'Michael, your guide',
+    es: 'Miguel, tu guía',
+    fr: 'Michel, votre guide',
+    pt: 'Miguel, seu guia',
+    it: 'Michele, la tua guida',
   },
+  // 「무엇이든 물어보세요」는 과한 약속이다 — 답은 성지 DB 안으로 제한된다(CLAUDE.md).
+  // 문구가 능력보다 크면 첫 질문에서 신뢰가 깨지므로 범위를 문구에 그대로 적는다 (2026-09-21).
   aiGuideEntrySub: {
-    ko: '무엇이든 편히 물어보세요',
-    en: 'Ask anything, anytime',
-    es: 'Pregunta lo que quieras',
-    fr: 'Posez toutes vos questions',
-    pt: 'Pergunte o que quiser',
-    it: 'Chiedi quello che vuoi',
+    ko: '성지에 대해 물어보세요',
+    en: 'Ask about the shrines',
+    es: 'Pregunta por los santuarios',
+    fr: 'Questions sur les sanctuaires',
+    pt: 'Pergunte sobre os santuários',
+    it: 'Chiedi sui santuari',
   },
   // 홈 입구 카드 3개(성지 찾기·미카엘 순례 가이드·오늘의 성지 일정)의 부제 길이를 맞추려고 추가
   // (사장님 지적, 2026-09-18) — 성지 찾기만 부제가 없어 카드 높이가 안 맞았다.
@@ -1818,10 +1831,20 @@ export const DICTIONARY = {
   compassTitle: {
     ko: '오늘의 성지 일정',
     en: "Today's Plan",
-    es: 'Brújula del corazón',
-    fr: 'Boussole du cœur',
-    pt: 'Bússola do coração',
-    it: 'Bussola del cuore',
+    es: 'Plan de hoy',
+    fr: 'Programme du jour',
+    pt: 'Roteiro de hoje',
+    it: 'Programma di oggi',
+  },
+  // 제목 바로 아래 다리 문장 — 탭 이름은 「성지 일정」(달력 아이콘)인데 열리는 화면은 질문이라,
+  // 일정 목록을 기대하고 들어온 사람이 "왜 설문이지?" 하지 않게 한 줄로 잇는다 (디자인 비평, 2026-09-21).
+  compassSub: {
+    ko: '질문 세 개에 답하면 오늘 하루 성지 일정을 만들어 드려요.',
+    en: 'Answer three questions and we’ll build your shrine plan for today.',
+    es: 'Responde tres preguntas y armaremos tu plan de santuarios para hoy.',
+    fr: 'Répondez à trois questions et nous composerons votre programme de sanctuaires du jour.',
+    pt: 'Responda a três perguntas e montaremos o seu roteiro de santuários para hoje.',
+    it: 'Rispondi a tre domande e prepareremo il tuo programma di santuari per oggi.',
   },
   compassPickColor: {
     ko: '마음에 드는 색을 눌러주세요',
@@ -2247,6 +2270,7 @@ export const DICTIONARY = {
     pt: 'aqui hoje?',
     it: 'qui oggi?',
   },
+  // 2026-09-21 부터 화면에서 쓰이지 않는다 — 제목 아래 다리 문장(compassSub)이 같은 역할을 한다.
   compassIntroBody: {
     ko: '몇 가지만 여쭤볼게요. 당신에게 꼭 맞는 쉼의 자리를 찾아드릴게요.',
     en: 'Just a few questions, and we’ll find the place of rest that fits you.',
@@ -2787,6 +2811,14 @@ export const DICTIONARY = {
     it: 'Domande comuni sull’uso di Visit Holy Korea.',
   },
   // 가입 전 명시적 동의 절차가 없다는 피드백(2026-09-07) — 체크해야 가입 버튼이 열린다.
+  signupConsentHint: {
+    ko: '동의하면 「회원가입」 단추가 켜집니다.',
+    en: 'The Sign up button turns on once you agree.',
+    es: 'El botón «Registrarse» se activa cuando aceptas.',
+    fr: 'Le bouton « S’inscrire » s’active une fois que vous acceptez.',
+    pt: 'O botão «Cadastrar» é ativado quando você concorda.',
+    it: 'Il pulsante «Registrati» si attiva dopo il consenso.',
+  },
   signupConsentLabel: {
     ko: '이용약관 및 개인정보 수집·이용에 동의합니다.',
     en: 'I agree to the Terms of Service and the collection/use of my personal data.',

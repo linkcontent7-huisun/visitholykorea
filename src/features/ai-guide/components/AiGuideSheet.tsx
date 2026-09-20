@@ -178,7 +178,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                     {msg.role === 'bot' ? (
                       <div>
                         {msg.fallback && (
-                          <p className="mb-2 rounded bg-app-panel px-2 py-1 text-[0.6875rem] font-bold text-app-text-muted">
+                          <p className="mb-2 rounded bg-app-panel px-2 py-1 text-xs font-bold text-app-text-muted">
                             {t('aiFallbackNotice')}
                           </p>
                         )}
@@ -186,7 +186,7 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
                           <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown>
                         </div>
                         {msg.sources && msg.sources.length > 0 && (
-                          <p className="mt-2 text-[0.6875rem] text-app-text-muted">
+                          <p className="mt-2 text-xs text-app-text-muted">
                             {t('aiSourcesLabel')} {msg.sources.join(' · ')}
                           </p>
                         )}

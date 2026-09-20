@@ -1,5 +1,5 @@
 import { Type } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import type { TextSize } from './settings-context';
 import { useSettings } from './use-settings';
 
@@ -20,6 +20,8 @@ const PICKABLE_SIZES: readonly TextSize[] = ['md', 'lg'];
  *
  * `variant="onDark"` — 헤더가 사진 위에 투명하게 뜰 때(홈, `TopNav`). 평소 상태(글자 크기 「기본」)만
  * 흰 배경 대신 반투명 검정 칩 + 흰 글자로 바꾼다. 펼친 목록은 사진 위에서도 늘 흰 배경이라 그대로 둔다.
+ *
+ * 키보드: 펼치면 현재 크기로 포커스, ↑↓ 로 이동, Esc 로 접고 토글로 돌아간다(2026-09-21 접근성 감사 후속).
  */
 export function TextSizePicker({
   inline = false,
@@ -31,6 +33,14 @@ export function TextSizePicker({
   const { t, textSize, setTextSize } = useSettings();
   const [open, setOpen] = useState(inline);
   const rootRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const groupRef = useRef<HTMLDivElement>(null);
+
+  // 펼치면 현재 크기 항목으로 포커스
+  useEffect(() => {
+    if (inline || !open) return;
+    groupRef.current?.querySelector<HTMLElement>('[aria-checked="true"]')?.focus();
+  }, [inline, open]);
 
   // 바깥을 누르면 접는다 — 열어 둔 채 다른 곳을 만지면 화면을 가린다.
   useEffect(() => {
@@ -38,8 +48,18 @@ export function TextSizePicker({
     const onDown = (e: PointerEvent) => {
       if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
     };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
     document.addEventListener('pointerdown', onDown);
-    return () => document.removeEventListener('pointerdown', onDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', onDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
   }, [inline, open]);
 
   const labels: Record<TextSize, string> = {
@@ -50,13 +70,34 @@ export function TextSizePicker({
 
   const choose = (size: TextSize) => {
     setTextSize(size);
-    if (!inline) setOpen(false);
+    if (!inline) {
+      setOpen(false);
+      toggleRef.current?.focus();
+    }
+  };
+
+  // ↑↓(펼침)·←→(inline) 로 항목 사이를 오간다 — radiogroup 의 관례
+  const onGroupKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+    const items = Array.from(
+      groupRef.current?.querySelectorAll<HTMLElement>('[role="radio"]') ?? [],
+    );
+    if (items.length === 0) return;
+    const forward = e.key === 'ArrowDown' || e.key === 'ArrowRight';
+    const backward = e.key === 'ArrowUp' || e.key === 'ArrowLeft';
+    if (!forward && !backward) return;
+    e.preventDefault();
+    const current = items.indexOf(document.activeElement as HTMLElement);
+    const next = forward
+      ? (current + 1) % items.length
+      : (current - 1 + items.length) % items.length;
+    items[next]?.focus();
   };
 
   return (
     <div ref={rootRef} className={inline ? 'flex items-center' : 'relative'}>
       {!inline && (
         <button
+          ref={toggleRef}
           type="button"
           onClick={() => setOpen((v) => !v)}
           // 상단바의 세 단추(돋보기·글자 크기·언어)는 같은 44px 테두리 상자다. 글자 크기를 키워 둔 상태만 남색으로 채운다.
@@ -64,7 +105,7 @@ export function TextSizePicker({
             textSize === 'lg'
               ? 'border-brand-blue bg-brand-blue text-white'
               : variant === 'onDark'
-                ? 'border-white/40 bg-black/30 text-white backdrop-blur-md hover:bg-black/45'
+                ? 'border-white/40 bg-black/30 text-white backdrop-blur-md hover:bg-black/45 focus-visible:outline-white'
                 : 'border-app-border bg-white text-brand-blue hover:bg-app-bg'
           }`}
           id="text-size-toggle"
@@ -78,6 +119,8 @@ export function TextSizePicker({
 
       {open && (
         <div
+          ref={groupRef}
+          onKeyDown={onGroupKeyDown}
           id="text-size-options"
           role="radiogroup"
           aria-label={t('textSizeButton')}
@@ -100,7 +143,7 @@ export function TextSizePicker({
                 aria-checked={active}
                 onClick={() => choose(size)}
                 className={`rounded-lg px-[10px] text-[14px] font-bold leading-none transition-colors ${
-                  inline ? 'min-h-[40px] min-w-[44px]' : 'min-h-[44px]'
+                  inline ? 'min-h-[44px] min-w-[44px]' : 'min-h-[44px]'
                 } ${
                   active ? 'bg-brand-blue text-white' : 'text-app-text-muted hover:text-brand-blue'
                 }`}
