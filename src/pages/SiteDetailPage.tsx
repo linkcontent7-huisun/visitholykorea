@@ -1,4 +1,14 @@
-import { BookOpen, Camera, ChevronDown, Compass, Flag, Heart, PenLine, User, X } from 'lucide-react';
+import {
+  BookOpen,
+  Camera,
+  ChevronDown,
+  Compass,
+  Flag,
+  Heart,
+  PenLine,
+  User,
+  X,
+} from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -52,6 +62,7 @@ import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PhotoLightbox } from '@/shared/components/ui/PhotoLightbox';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
+import { SquircleSurface } from '@/shared/components/ui/SquircleSurface';
 import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -92,7 +103,9 @@ export default function SiteDetailPage() {
   // 즐겨찾기 단추 옆 「기록하기」 — 순례 기록이 이 서비스의 핵심인데도 이야기·도슨트
   // 아래로 밀려 있어 접근하기 어렵다는 지적(사장님, 2026-09-20)으로 앵커를 만든다.
   const scrollToRecordSection = () => {
-    document.getElementById('reviews-heading')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    document
+      .getElementById('reviews-heading')
+      ?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   };
   // AI 가이드는 홈 상단에서 이리로 옮겼다 (2026-09-12) — 성지를 보다가 궁금할 때 묻는 자리다
   // 공식 사진이 없으면 순례자가 보내준(운영자 승인) 사진이 대표 자리를 채운다.
@@ -199,7 +212,8 @@ export default function SiteDetailPage() {
     // 새로 고른 만큼만 남은 자리에서 자른다(2026-09-20, 「바꾸기」 아닌 「추가」로 고침).
     const room = Math.max(0, policy.maxCount - myStamp.photos.length);
     const picked = Array.from(files).slice(0, room);
-    if (files.length > room) window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
+    if (files.length > room)
+      window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
     const photos = await Promise.all(picked.map((file) => shrinkPhoto(file, policy)));
     uploadPhotos.mutate({
       stampId: myStamp.stamped ? (myStamps.find((s) => s.siteId === siteId)?.stampId ?? '') : '',
@@ -375,14 +389,16 @@ export default function SiteDetailPage() {
         <div className="absolute right-5 top-5 flex items-center gap-2">
           {/* 기록이 이 서비스의 핵심 기능인데도 이야기·도슨트 아래로 밀려 접근하기 어렵다는
               지적(사장님, 2026-09-20)으로, 즐겨찾기 옆에 「기록으로 가기」 앵커를 둔다. */}
-          <button
+          <SquircleSurface
+            as="button"
             type="button"
             onClick={scrollToRecordSection}
-            className="flex min-h-11 items-center gap-1.5 rounded-lg border border-white/30 bg-black/30 px-3 text-base font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45"
+            borderColor="rgb(255 255 255 / 0.3)"
+            className="flex min-h-11 items-center gap-1.5 bg-black/30 px-3 text-base font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45"
           >
             <BookOpen size={18} aria-hidden />
             {t('siteRecordAnchor')}
-          </button>
+          </SquircleSurface>
           {!SUBMISSION_MODE && (
             // 제출판은 본선 기능만 보이게 한다 — T-013
             <button
@@ -478,7 +494,11 @@ export default function SiteDetailPage() {
           {massInfo && massRows.length > 0 && (
             <section aria-labelledby="mass-heading">
               <SectionHeading as="h3" size="md" id="mass-heading" title={t('massTimesTitle')} />
-              <dl className="divide-y divide-app-border overflow-hidden rounded-lg border border-app-border bg-white">
+              <SquircleSurface
+                as="dl"
+                borderColor="var(--color-app-border)"
+                className="divide-y divide-app-border overflow-hidden bg-white"
+              >
                 {massRows.map((row) => (
                   <div key={row.label + row.value} className="p-5">
                     <dt className="mb-2 text-sm font-bold text-brand-blue">{row.label}</dt>
@@ -498,7 +518,7 @@ export default function SiteDetailPage() {
                     </dd>
                   </div>
                 ))}
-              </dl>
+              </SquircleSurface>
             </section>
           )}
 
@@ -514,9 +534,14 @@ export default function SiteDetailPage() {
             (둘 다 TourAPI 다른 엔드포인트) 세 절은 화면에서 뺐다. 관련 hook 호출도 위에서 지웠다 —
             죽여 둔 코드가 없다. 되살릴 땐 이 커밋 이전 `SiteDetailPage.tsx`를 참고할 것. */}
         {!facilitiesLoading && !facilitiesError && facilityGroups.length === 0 && (
-          <p className="rounded-lg border border-dashed border-app-border bg-white p-5 text-base text-app-text-muted">
+          <SquircleSurface
+            as="p"
+            borderColor="var(--color-app-border)"
+            borderDashed
+            className="bg-white p-5 text-base text-app-text-muted"
+          >
             {t('siteNearbyTourismEmpty')}
-          </p>
+          </SquircleSurface>
         )}
 
         {/*
@@ -531,9 +556,9 @@ export default function SiteDetailPage() {
             {facilitiesLoading ? (
               <div className="no-scrollbar -mx-3 flex gap-4 overflow-x-auto px-3 lg:-mx-5 lg:px-5">
                 {[1, 2, 3].map((i) => (
-                  <div
+                  <SquircleSurface
                     key={i}
-                    className="h-64 w-44 flex-shrink-0 animate-pulse rounded-lg bg-app-bg"
+                    className="h-64 w-44 flex-shrink-0 animate-pulse bg-app-bg"
                   />
                 ))}
               </div>
@@ -546,7 +571,8 @@ export default function SiteDetailPage() {
                     </h3>
                     <ScrollHintRow className="-mx-3 flex gap-4 px-3 lg:-mx-5 lg:px-5">
                       {spots.map((spot) => (
-                        <a
+                        <SquircleSurface
+                          as="a"
                           key={spot.contentid}
                           // 이름 검색은 정확한 장소로 안 이어질 때가 있었다(사장님 지적,
                           // 2026-09-17) — 좌표가 있으니 길찾기로 보낸다. 목적지가 곧 정답이다.
@@ -558,7 +584,9 @@ export default function SiteDetailPage() {
                           target="_blank"
                           rel="noreferrer noopener"
                           aria-label={`${spot.title} 길찾기`}
-                          className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left transition-colors hover:border-brand-blue"
+                          borderColor="var(--color-app-border)"
+                          borderClassName="transition-colors group-hover:stroke-brand-blue"
+                          className="group w-44 flex-shrink-0 overflow-hidden bg-white text-left"
                         >
                           <div className="relative flex h-36 items-center justify-center overflow-hidden bg-app-panel">
                             {spot.firstimage ? (
@@ -581,7 +609,7 @@ export default function SiteDetailPage() {
                               {spot.title}
                             </h4>
                           </div>
-                        </a>
+                        </SquircleSurface>
                       ))}
                     </ScrollHintRow>
                   </div>
@@ -632,38 +660,51 @@ export default function SiteDetailPage() {
                   <p className="mt-2 text-sm leading-relaxed text-app-text-muted">
                     {t('noteHint')}
                   </p>
-                  <input
-                    type="text"
-                    name="note"
-                    autoComplete="off"
-                    maxLength={NOTE_MAX_LENGTH}
-                    placeholder={t('notePlaceholder')}
-                    aria-label={t('noteAriaLabel')}
-                    className="mt-3 min-h-12 w-full rounded-lg border border-app-border bg-white px-4 text-base text-app-text focus:border-brand-blue"
-                    value={noteDraft}
-                    onChange={(e) => setNoteDraft(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') handleSaveNote();
-                    }}
-                  />
+                  <SquircleSurface
+                    borderColor="var(--color-app-border)"
+                    borderClassName="transition-colors group-focus-within:stroke-brand-blue"
+                    className="group mt-3 overflow-hidden bg-white"
+                  >
+                    <input
+                      type="text"
+                      name="note"
+                      autoComplete="off"
+                      maxLength={NOTE_MAX_LENGTH}
+                      placeholder={t('notePlaceholder')}
+                      aria-label={t('noteAriaLabel')}
+                      className="min-h-12 w-full bg-transparent px-4 text-base text-app-text focus:outline-none"
+                      value={noteDraft}
+                      onChange={(e) => setNoteDraft(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleSaveNote();
+                      }}
+                    />
+                  </SquircleSurface>
                   {/* 방문일 — 기본은 오늘(기록하는 날), 지난 방문을 나중에 적을 때는 고른다 */}
                   {isVisitedOnAvailable() && (
                     <label className="mt-3 block text-sm font-bold text-app-text-muted">
                       {t('recordsVisitedOn')}
-                      <input
-                        type="date"
-                        value={visitedOnDraft}
-                        max={new Date().toISOString().slice(0, 10)}
-                        onChange={(e) => setVisitedOnDraft(e.target.value)}
-                        className="mt-1 block min-h-12 w-full rounded-lg border border-app-border bg-white px-3 text-base text-app-text"
-                      />
+                      <SquircleSurface
+                        borderColor="var(--color-app-border)"
+                        className="mt-1 overflow-hidden bg-white"
+                      >
+                        <input
+                          type="date"
+                          value={visitedOnDraft}
+                          max={new Date().toISOString().slice(0, 10)}
+                          onChange={(e) => setVisitedOnDraft(e.target.value)}
+                          className="block min-h-12 w-full bg-transparent px-3 text-base text-app-text"
+                        />
+                      </SquircleSurface>
                     </label>
                   )}
                   {/* 사진 — 최대 3장. 기록 문장과 함께 한 번에 올라간다 */}
                   <div className="mt-3 flex flex-wrap gap-2">
                     {notePhotos.map((p, i) => (
                       <div key={p.preview} className="relative">
-                        <img src={p.preview} alt="" className="h-16 w-16 rounded-lg object-cover" />
+                        <SquircleSurface className="h-16 w-16 overflow-hidden">
+                          <img src={p.preview} alt="" className="h-full w-full object-cover" />
+                        </SquircleSurface>
                         <button
                           type="button"
                           onClick={() => removeNotePhoto(i)}
@@ -675,7 +716,13 @@ export default function SiteDetailPage() {
                       </div>
                     ))}
                     {notePhotos.length < NOTE_PHOTO_MAX && (
-                      <label className="flex h-16 w-16 cursor-pointer flex-col items-center justify-center gap-0.5 rounded-lg border-2 border-dashed border-brand-blue/40 text-brand-blue transition-colors hover:bg-brand-soft">
+                      <SquircleSurface
+                        as="label"
+                        borderColor="color-mix(in srgb, var(--color-brand-blue) 40%, transparent)"
+                        borderWidth={2}
+                        borderDashed
+                        className="flex h-16 w-16 cursor-pointer flex-col items-center justify-center gap-0.5 text-brand-blue transition-colors hover:bg-brand-soft"
+                      >
                         <Camera size={16} aria-hidden />
                         <span className="text-[0.625rem] font-bold">
                           {notePhotos.length}/{NOTE_PHOTO_MAX}
@@ -690,7 +737,7 @@ export default function SiteDetailPage() {
                             e.target.value = '';
                           }}
                         />
-                      </label>
+                      </SquircleSurface>
                     )}
                   </div>
                   {notePhotoNotice && (
@@ -741,30 +788,42 @@ export default function SiteDetailPage() {
                       <li key={n.id} className="border-l-2 border-brand-blue/30 pl-3">
                         <label className="block text-sm font-bold text-app-text-muted">
                           {t('recordsMemo')}
-                          <input
-                            type="text"
-                            maxLength={NOTE_MAX_LENGTH}
-                            value={myNoteDraft}
-                            onChange={(e) => setMyNoteDraft(e.target.value)}
-                            className="mt-1 block min-h-12 w-full rounded-lg border border-app-border bg-white px-3 text-base text-app-text focus:border-brand-blue"
-                          />
+                          <SquircleSurface
+                            borderColor="var(--color-app-border)"
+                            borderClassName="transition-colors group-focus-within:stroke-brand-blue"
+                            className="group mt-1 overflow-hidden bg-white"
+                          >
+                            <input
+                              type="text"
+                              maxLength={NOTE_MAX_LENGTH}
+                              value={myNoteDraft}
+                              onChange={(e) => setMyNoteDraft(e.target.value)}
+                              className="block min-h-12 w-full bg-transparent px-3 text-base text-app-text focus:outline-none"
+                            />
+                          </SquircleSurface>
                         </label>
                         {isVisitedOnAvailable() && (
                           <label className="mt-3 block text-sm font-bold text-app-text-muted">
                             {t('recordsVisitedOn')}
-                            <input
-                              type="date"
-                              value={myVisitedOnDraft}
-                              max={new Date().toISOString().slice(0, 10)}
-                              onChange={(e) => setMyVisitedOnDraft(e.target.value)}
-                              className="mt-1 block min-h-12 w-full rounded-lg border border-app-border bg-white px-3 text-base text-app-text"
-                            />
+                            <SquircleSurface
+                              borderColor="var(--color-app-border)"
+                              className="mt-1 overflow-hidden bg-white"
+                            >
+                              <input
+                                type="date"
+                                value={myVisitedOnDraft}
+                                max={new Date().toISOString().slice(0, 10)}
+                                onChange={(e) => setMyVisitedOnDraft(e.target.value)}
+                                className="block min-h-12 w-full bg-transparent px-3 text-base text-app-text"
+                              />
+                            </SquircleSurface>
                           </label>
                         )}
                         <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
                           {myStamp?.photos.map((photo, i) => (
                             <div key={photo.id} className="relative shrink-0">
-                              <button
+                              <SquircleSurface
+                                as="button"
                                 type="button"
                                 onClick={() =>
                                   setLightbox({
@@ -773,14 +832,14 @@ export default function SiteDetailPage() {
                                   })
                                 }
                                 aria-label={t('photoEnlarge')}
-                                className="block h-24 w-24 overflow-hidden rounded-lg"
+                                className="block h-24 w-24 overflow-hidden"
                               >
                                 <img
                                   src={photo.url}
                                   alt={t('photoMineAlt')}
                                   className="h-full w-full object-cover"
                                 />
-                              </button>
+                              </SquircleSurface>
                               <button
                                 type="button"
                                 onClick={() => deletePhoto.mutate(photo)}
@@ -793,8 +852,12 @@ export default function SiteDetailPage() {
                             </div>
                           ))}
                           {(myStamp?.photos.length ?? 0) < photoPolicy().maxCount && (
-                            <label
-                              className={`flex h-24 w-16 shrink-0 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-brand-blue/50 px-1 text-center text-brand-blue transition-colors hover:bg-brand-soft ${
+                            <SquircleSurface
+                              as="label"
+                              borderColor="color-mix(in srgb, var(--color-brand-blue) 50%, transparent)"
+                              borderWidth={2}
+                              borderDashed
+                              className={`flex h-24 w-16 shrink-0 cursor-pointer flex-col items-center justify-center gap-1 px-1 text-center text-brand-blue transition-colors hover:bg-brand-soft ${
                                 uploadPhotos.isPending ? 'opacity-50' : ''
                               }`}
                             >
@@ -814,7 +877,7 @@ export default function SiteDetailPage() {
                                 }}
                                 data-testid="photo-input"
                               />
-                            </label>
+                            </SquircleSurface>
                           )}
                         </div>
                         <div className="mt-3 flex gap-2">
@@ -854,12 +917,13 @@ export default function SiteDetailPage() {
                       {n.photos.length > 0 && (
                         <div className="no-scrollbar mb-2 flex gap-2 overflow-x-auto">
                           {n.photos.map((url, i) => (
-                            <button
+                            <SquircleSurface
+                              as="button"
                               key={url}
                               type="button"
                               onClick={() => setLightbox({ photos: n.photos, index: i })}
                               aria-label={t('photoEnlarge')}
-                              className="block h-36 w-36 shrink-0 overflow-hidden rounded-lg"
+                              className="block h-36 w-36 shrink-0 overflow-hidden"
                             >
                               <img
                                 src={url}
@@ -867,7 +931,7 @@ export default function SiteDetailPage() {
                                 loading="lazy"
                                 className="h-full w-full object-cover"
                               />
-                            </button>
+                            </SquircleSurface>
                           ))}
                         </div>
                       )}
@@ -927,10 +991,13 @@ export default function SiteDetailPage() {
             />
             <div className="no-scrollbar -mx-3 flex gap-4 overflow-x-auto px-3 lg:-mx-5 lg:px-5">
               {nearbySites.map((nearby) => (
-                <Link
+                <SquircleSurface
+                  as={Link}
                   key={nearby.id}
                   to={paths.siteDetail(nearby.id)}
-                  className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left transition-colors hover:border-brand-blue"
+                  borderColor="var(--color-app-border)"
+                  borderClassName="transition-colors group-hover:stroke-brand-blue"
+                  className="group w-44 flex-shrink-0 overflow-hidden bg-white text-left"
                   id={`nearby-${nearby.id}`}
                 >
                   <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-app-panel">
@@ -944,7 +1011,7 @@ export default function SiteDetailPage() {
                   <div className="px-3 py-3">
                     <h3 className="truncate text-base font-bold text-app-text">{nearby.name}</h3>
                   </div>
-                </Link>
+                </SquircleSurface>
               ))}
             </div>
           </section>

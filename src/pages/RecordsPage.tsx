@@ -31,6 +31,7 @@ import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
 import { PhotoLightbox } from '@/shared/components/ui/PhotoLightbox';
+import { SquircleSurface } from '@/shared/components/ui/SquircleSurface';
 import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { dioceseLabel } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -97,7 +98,11 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
   };
 
   return (
-    <li className="rounded-lg border border-app-border bg-white p-5">
+    <SquircleSurface
+      as="li"
+      borderColor="var(--color-app-border)"
+      className="overflow-hidden bg-white p-5"
+    >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <Link
@@ -153,14 +158,19 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
           {canEditDate ? (
             <label className="block text-sm font-bold text-app-text-muted">
               {t('recordsVisitedOn')}
-              <input
-                type="date"
-                name="visitedOn"
-                value={visitedOn}
-                onChange={(e) => setVisitedOn(e.target.value)}
-                max={new Date().toISOString().slice(0, 10)}
-                className="mt-1 block min-h-12 w-full rounded-lg border border-app-border bg-white px-3 text-base text-app-text"
-              />
+              <SquircleSurface
+                borderColor="var(--color-app-border)"
+                className="mt-1 overflow-hidden bg-white"
+              >
+                <input
+                  type="date"
+                  name="visitedOn"
+                  value={visitedOn}
+                  onChange={(e) => setVisitedOn(e.target.value)}
+                  max={new Date().toISOString().slice(0, 10)}
+                  className="block min-h-12 w-full bg-transparent px-3 text-base text-app-text"
+                />
+              </SquircleSurface>
             </label>
           ) : (
             <p className="text-sm leading-relaxed text-app-text-muted">
@@ -169,27 +179,33 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
           )}
           <label className="block text-sm font-bold text-app-text-muted">
             {t('recordsMemo')}
-            <textarea
-              value={note}
-              name="note"
-              onChange={(e) => setNote(e.target.value.slice(0, 120))}
-              rows={3}
-              maxLength={120}
-              className="mt-1 block w-full rounded-lg border border-app-border bg-white px-3 py-2 text-base text-app-text"
-            />
+            <SquircleSurface
+              borderColor="var(--color-app-border)"
+              className="mt-1 overflow-hidden bg-white"
+            >
+              <textarea
+                value={note}
+                name="note"
+                onChange={(e) => setNote(e.target.value.slice(0, 120))}
+                rows={3}
+                maxLength={120}
+                className="block w-full resize-y bg-transparent px-3 py-2 text-base text-app-text"
+              />
+            </SquircleSurface>
           </label>
           {/* 사진 — 확대해서 보고, 각 사진에 삭제 단추가 붙는다(SiteDetailPage 와 같은 부품) */}
           <div className="no-scrollbar flex gap-2 overflow-x-auto">
             {stamp.photos.map((photo, i) => (
               <div key={photo.id} className="relative shrink-0">
-                <button
+                <SquircleSurface
+                  as="button"
                   type="button"
                   onClick={() => setLightbox(i)}
                   aria-label={t('photoEnlarge')}
-                  className="block h-24 w-24 overflow-hidden rounded-lg"
+                  className="block h-24 w-24 overflow-hidden"
                 >
                   <img src={photo.url} alt="" className="h-full w-full object-cover" />
-                </button>
+                </SquircleSurface>
                 <button
                   type="button"
                   onClick={() => deletePhoto.mutate(photo)}
@@ -202,8 +218,12 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
               </div>
             ))}
             {stamp.photos.length < photoPolicy().maxCount && (
-              <label
-                className={`flex h-24 w-16 shrink-0 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-brand-blue/50 px-1 text-center text-brand-blue transition-colors hover:bg-brand-soft ${
+              <SquircleSurface
+                as="label"
+                borderColor="color-mix(in srgb, var(--color-brand-blue) 50%, transparent)"
+                borderWidth={2}
+                borderDashed
+                className={`flex h-24 w-16 shrink-0 cursor-pointer flex-col items-center justify-center gap-1 px-1 text-center text-brand-blue transition-colors hover:bg-brand-soft ${
                   uploadPhotos.isPending ? 'opacity-50' : ''
                 }`}
               >
@@ -222,7 +242,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
                     e.target.value = '';
                   }}
                 />
-              </label>
+              </SquircleSurface>
             )}
           </div>
           {failed && (
@@ -250,22 +270,26 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
       ) : (
         <>
           {stamp.note && (
-            <p className="mt-3 rounded-lg bg-app-bg px-4 py-3 text-base leading-relaxed text-app-text">
+            <SquircleSurface
+              as="p"
+              className="mt-3 bg-app-bg px-4 py-3 text-base leading-relaxed text-app-text"
+            >
               {stamp.note}
-            </p>
+            </SquircleSurface>
           )}
           {stamp.photos.length > 0 && (
             <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
               {stamp.photos.map((photo, i) => (
-                <button
+                <SquircleSurface
+                  as="button"
                   key={photo.id}
                   type="button"
                   onClick={() => setLightbox(i)}
                   aria-label={t('photoEnlarge')}
-                  className="block h-24 w-24 shrink-0 overflow-hidden rounded-lg"
+                  className="block h-24 w-24 shrink-0 overflow-hidden"
                 >
                   <img src={photo.url} alt="" className="h-full w-full object-cover" />
-                </button>
+                </SquircleSurface>
               ))}
             </div>
           )}
@@ -282,7 +306,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
         onIndexChange={setLightbox}
         onClose={() => setLightbox(null)}
       />
-    </li>
+    </SquircleSurface>
   );
 }
 
@@ -332,7 +356,7 @@ export default function RecordsPage() {
           {isLoading ? (
             <div className="space-y-3" role="status" aria-live="polite">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="h-24 animate-pulse rounded-lg bg-white" />
+                <SquircleSurface key={i} className="h-24 animate-pulse bg-white" />
               ))}
             </div>
           ) : stamps.length === 0 ? (
