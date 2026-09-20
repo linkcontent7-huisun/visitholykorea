@@ -424,7 +424,8 @@ export async function updateStamp(
   const payload: Record<string, string | null> = {};
   if ('note' in patch) payload.note = patch.note ?? null;
   if ('visitedOn' in patch && extraColumnsAvailable) payload.visited_on = patch.visitedOn ?? null;
-  if ('crowdLevel' in patch && extraColumnsAvailable) payload.crowd_level = patch.crowdLevel ?? null;
+  if ('crowdLevel' in patch && extraColumnsAvailable)
+    payload.crowd_level = patch.crowdLevel ?? null;
 
   const { error } = await supabase
     .from(TABLE)
