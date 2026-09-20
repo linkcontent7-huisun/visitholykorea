@@ -74,7 +74,7 @@ for (const item of file.items) {
     // 이름은 고유명사만으로 된 것(예: "Gangwon Gamyeong")이면 여섯 언어가 같아도 정상 —
     // 영어 일반 낱말(Church·Shrine…)이 든 이름만 "번역 안 됨"으로 본다
     const generic =
-      /(church|shrine|site|tomb|hall|cathedral|station|village|holy|martyr|memorial|house|way|hill|prison|cave|museum)/i;
+      /\b(church|shrine|site|tomb|hall|cathedral|station|village|holy|martyr|memorial|house|way|hill|prison|cave|museum)\b/i;
     if (e && v.trim() === e.trim() && (f !== 'name' || generic.test(v)))
       problems.push(`[영어 그대로] ${label} · ${f}`);
     if (/[가-힣]/.test(v))
