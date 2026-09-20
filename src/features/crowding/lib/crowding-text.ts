@@ -15,6 +15,13 @@ export const NEARBY_HEADLINE_KEY: Record<CrowdingLevel, TranslationKey> = {
   붐빔: 'nearbyCrowded',
 };
 
+/** 상세 페이지에서 쓰는 「주변 밀집도 하 / 중 / 상」 표시. */
+export const NEARBY_DENSITY_HEADLINE_KEY: Record<CrowdingLevel, TranslationKey> = {
+  조용: 'nearbyDensityLow',
+  보통: 'nearbyDensityMedium',
+  붐빔: 'nearbyDensityHigh',
+};
+
 /** 집중률 등급 → 근거 문장 끝에 붙는 말 */
 const LEVEL_WORD_KEY: Record<CrowdingLevel, TranslationKey> = {
   조용: 'crowdingWordLow',
@@ -24,6 +31,10 @@ const LEVEL_WORD_KEY: Record<CrowdingLevel, TranslationKey> = {
 
 export function nearbyHeadline(level: CrowdingLevel | null, t: T): string {
   return level ? t(NEARBY_HEADLINE_KEY[level]) : t('nearbyNoGrade');
+}
+
+export function nearbyDensityHeadline(level: CrowdingLevel, t: T): string {
+  return t(NEARBY_DENSITY_HEADLINE_KEY[level]);
 }
 
 export function formatReason(reason: ReasonItem, t: T): string {
