@@ -7,7 +7,11 @@
  */
 
 import type { Language } from '@/shared/i18n/dictionary';
-import type { DocentLanguageScript, DocentSiteScripts } from '../api/docent.repository';
+import type {
+  DocentLanguageScript,
+  DocentSiteScripts,
+  DocentSource,
+} from '../api/docent.repository';
 import type { DocentChapter } from './chapters';
 
 const FALLBACK: Language[] = ['en', 'ko'];
@@ -55,11 +59,17 @@ export function buildDbChapters(
 export function pickIntro(
   scripts: DocentSiteScripts | undefined,
   requested: Language,
-): { language: Language; paragraphs: string[] } | null {
+): { language: Language; paragraphs: string[]; sources: DocentSource[] } | null {
   if (!scripts) return null;
   for (const lang of [requested, ...FALLBACK]) {
     const intro = scripts[lang]?.intro;
-    if (intro && intro.length > 0) return { language: lang, paragraphs: intro };
+    if (intro && intro.length > 0) {
+      // 출처는 번역본에 안 옮겨진 경우가 있어 그 언어 → 한국어 순으로 찾는다
+      const sources = scripts[lang]?.introSources?.length
+        ? scripts[lang]!.introSources
+        : (scripts.ko?.introSources ?? []);
+      return { language: lang, paragraphs: intro, sources };
+    }
   }
   return null;
 }

@@ -5870,6 +5870,15 @@ export const DICTIONARY = {
     pt: 'Excluindo…',
     it: 'Eliminazione…',
   },
+  /** 성지 이야기 아래 참고 자료 링크 앞말 (T-032) */
+  storySourcesLabel: {
+    ko: '참고한 자료:',
+    en: 'Sources:',
+    es: 'Fuentes:',
+    fr: 'Sources :',
+    pt: 'Fontes:',
+    it: 'Fonti:',
+  },
 } as const satisfies Record<string, Record<Language, string>>;
 
 export type TranslationKey = keyof typeof DICTIONARY;

@@ -10,6 +10,12 @@ import { supabase } from '@/shared/api/supabase';
 import type { Language } from '@/shared/i18n/dictionary';
 import type { DocentScriptRow } from '@/shared/types/database';
 
+/** 원고가 참고한 자료 — URL 이 있는 것만 화면에 링크로 보여 준다 (T-032, 2026-09-21). */
+export interface DocentSource {
+  label: string;
+  url: string;
+}
+
 export interface DocentPointEntry {
   seq: number;
   title: string;
@@ -23,6 +29,8 @@ export interface DocentLanguageScript {
   intro: string[];
   /** seq 0 여는 말 · 1..n 지점 · 99 맺음말 (있는 것만). */
   points: DocentPointEntry[];
+  /** 소개글이 참고한 자료 중 링크가 있는 것. 지점 원고의 sources 는 작업 메모라 싣지 않는다. */
+  introSources: DocentSource[];
 }
 
 export type DocentSiteScripts = Partial<Record<Language, DocentLanguageScript>>;
@@ -37,12 +45,38 @@ export function splitIntroParagraphs(body: string): string[] {
     .filter((p) => p.length > 0);
 }
 
+/**
+ * `sources` 칸에는 `{ label, url }` 배열이 들어 있는데, url 없이 "Codex 문헌 초안" 같은
+ * 작업 메모만 있는 행이 많다(2026-09-21 실측: 지점 원고 전부). 실제 주소가 있는 것만 출처로 친다.
+ */
+export function pickLinkedSources(raw: unknown): DocentSource[] {
+  if (!Array.isArray(raw)) return [];
+  const out: DocentSource[] = [];
+  for (const item of raw) {
+    if (!item || typeof item !== 'object') continue;
+    const { label, url } = item as { label?: unknown; url?: unknown };
+    if (typeof url !== 'string' || !/^https?:\/\//.test(url)) continue;
+    let name = typeof label === 'string' && label.trim() ? label.trim() : '';
+    // 라벨이 주소 그대로거나 비어 있으면 도메인으로 대신한다 — "https://…" 를 그대로 읽히게 두지 않는다
+    if (!name || /^https?:\/\//.test(name)) {
+      try {
+        name = new URL(url).hostname.replace(/^www\./, '');
+      } catch {
+        name = url;
+      }
+    }
+    if (!out.some((s) => s.url === url)) out.push({ label: name, url });
+  }
+  return out;
+}
+
 export function groupRows(rows: DocentScriptRow[]): DocentSiteScripts {
   const out: DocentSiteScripts = {};
   for (const row of rows) {
-    const lang = (out[row.language] ??= { intro: [], points: [] });
+    const lang = (out[row.language] ??= { intro: [], points: [], introSources: [] });
     if (row.kind === 'intro') {
       lang.intro = splitIntroParagraphs(row.body);
+      lang.introSources = pickLinkedSources(row.sources);
     } else {
       lang.points.push({
         seq: row.seq,
@@ -60,7 +94,7 @@ export function groupRows(rows: DocentScriptRow[]): DocentSiteScripts {
 export async function fetchDocentScripts(siteId: string): Promise<DocentSiteScripts> {
   const { data, error } = await supabase
     .from(TABLE)
-    .select('site_id, language, kind, seq, title, body, look_for')
+    .select('site_id, language, kind, seq, title, body, look_for, sources')
     .eq('site_id', siteId)
     .order('seq', { ascending: true });
   if (error) throw new Error(`fetchDocentScripts: ${error.message}`);
