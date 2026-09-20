@@ -18,8 +18,8 @@ Claude Code 창과 Codex 창이 **같은 폴더**를 본다. 브랜치가 같으
 
 1. **지시서에 적힌 파일만 고친다.** 목록에 없는 파일은 오타여도 손대지 않는다.
    고쳐야 할 것을 발견하면 고치지 말고 작업기록에 적는다.
-2. **커밋하지 않는다.** `git commit` · `git push` · `git checkout` · `git stash` 금지.
-   파일만 고쳐두면 지시자(Claude Code 창)가 확인하고 커밋한다.
+2. **기본적으로 커밋하지 않는다.** `git commit` · `git push` · `git checkout` · `git stash` 금지.
+   다만 사용자가 현재 대화에서 커밋·푸시를 명시적으로 요청하면, 아래 변경 범위를 확인한 뒤 예외로 진행한다.
 3. **작업 시작 전에 `git status` 를 찍어 작업기록에 남긴다.** 내가 만들지 않은
    수정 파일이 있으면 다른 에이전트가 일하는 중이다 — 그 파일은 피한다.
 4. **`npm run verify` 는 돌려도 된다**(읽기 전용). 통과 여부를 작업기록에 적는다.
@@ -42,14 +42,16 @@ Claude Code 창과 Codex 창이 **같은 폴더**를 본다. 브랜치가 같으
 
 ### git
 
-- `git add` · `git commit` · `git push` · `git checkout` · `git switch` · `git reset` ·
-  `git restore` · `git stash` · `git clean` · `git rebase` · `git merge` **전부 금지.**
-  읽기 명령(`git status` · `git diff` · `git log`)만 쓴다.
+- `git checkout` · `git switch` · `git reset` · `git restore` · `git stash` · `git clean` ·
+  `git rebase` · `git merge` **전부 금지.** 읽기 명령(`git status` · `git diff` · `git log`)을
+  우선 사용한다. 사용자가 현재 대화에서 명시적으로 요청한 경우에만 확인한 파일을 `git add`하고
+  커밋·푸시한다.
 - 🔴 **`git add` 를 특히 조심한다.** 2026-09-07 에 누군가 `git add -A` 로 전체를
   스테이징해 둔 탓에, 지시자가 `git add docs` 만 했는데도 사장님 개인 문서
   두 개가 공개 저장소에 올라갔다. 히스토리를 다시 쓰고 강제 푸시해야 했다.
-  **스테이징은 지시자만 한다.** 파일만 고쳐 두면 된다.
-- 파일만 고쳐두면 지시자(Claude Code 창)가 확인하고 커밋한다.
+  **스테이징은 지시자만 한다.** 단, 사용자가 현재 대화에서 커밋·푸시를 명시적으로 요청한
+  경우에는 확인한 파일만 스테이징한다.
+- 별도 요청이 없으면 파일만 고쳐두고 지시자(Claude Code 창)가 확인하고 커밋한다.
 
 ### 명령
 
