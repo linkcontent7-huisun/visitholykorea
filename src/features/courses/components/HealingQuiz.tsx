@@ -477,7 +477,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   <div className="flex gap-3">
                     <Button
                       onClick={() => goToQuestion(STEP_TIME)}
-                      className="flex-1"
+                      className="min-w-0 flex-1 !whitespace-normal !px-2 text-center leading-tight"
                       id="plan-widen-time"
                     >
                       {t('planWidenTime')}
@@ -485,7 +485,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                     <Button
                       variant="neutral"
                       onClick={() => goToQuestion(1)}
-                      className="flex-1"
+                      className="min-w-0 flex-1 !whitespace-normal !px-2 text-center leading-tight"
                       id="plan-change-mood"
                     >
                       {t('planChangeMood')}

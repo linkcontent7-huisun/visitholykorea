@@ -22,7 +22,6 @@ import { paths } from '@/app/routes/paths';
 import { useAdminAccess } from '@/features/admin/hooks/use-admin';
 import { signOut } from '@/features/auth/api/auth';
 import { useSession } from '@/features/auth/hooks/use-session';
-import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { LANGUAGE_LABEL, type TranslationKey } from '@/shared/i18n/dictionary';
 import { Button } from '@/shared/components/ui/Button';
 import { InstallShareSheet } from '@/shared/components/ui/InstallShareSheet';
@@ -35,7 +34,7 @@ import { copyText } from '@/shared/lib/map-links';
 import { shareApp, type ShareResult } from '@/shared/lib/share-app';
 import { OFFICIAL_LINKS } from '@/shared/config/official-links';
 
-/** GPS 상태별 부제. 성공 후 켜져 있을 때는 origin 항목 쪽이 현재 위치 안내를 맡는다. */
+/** GPS 상태별 부제. 켜진 뒤에는 스위치가 현재 위치 사용 여부를 맡는다. */
 function gpsLocationSub(
   status: 'idle' | 'loading' | 'granted' | 'denied' | 'unsupported' | 'error',
   t: (key: TranslationKey) => string,
@@ -50,7 +49,7 @@ function gpsLocationSub(
     case 'error':
       return t('currentLocationError');
     case 'granted':
-      return t('clearCurrentLocationButton');
+      return t('currentLocationActiveSub');
     default:
       return undefined;
   }
@@ -83,7 +82,6 @@ export default function MenuPage() {
   const { canEnter: canEnterAdmin } = useAdminAccess();
   const { language, gpsLocation, gpsStatus, requestGpsLocation, clearGpsLocation, t } =
     useSettings();
-  const { data: stamps = [] } = useMyStamps();
 
   const isLoggedIn = Boolean(session);
   const displayName =
@@ -92,6 +90,36 @@ export default function MenuPage() {
     t('pilgrimDefaultName');
 
   const requireAuth = () => navigate(paths.login);
+  const currentLocationEnabled = Boolean(gpsLocation);
+  const currentLocationSwitch = (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={currentLocationEnabled}
+      aria-label={
+        currentLocationEnabled
+          ? t('clearCurrentLocationButton')
+          : t('useCurrentLocationButton')
+      }
+      aria-busy={gpsStatus === 'loading'}
+      disabled={gpsStatus === 'loading' || gpsStatus === 'unsupported'}
+      onClick={() =>
+        currentLocationEnabled ? clearGpsLocation() : requestGpsLocation()
+      }
+      className={`flex h-11 w-16 shrink-0 items-center rounded-full border p-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-60 ${
+        currentLocationEnabled
+          ? 'border-brand-blue bg-brand-blue'
+          : 'border-app-border bg-app-panel'
+      }`}
+    >
+      <span
+        aria-hidden
+        className={`h-8 w-8 rounded-full bg-white shadow-sm transition-transform ${
+          currentLocationEnabled ? 'translate-x-5' : 'translate-x-0'
+        }`}
+      />
+    </button>
+  );
 
   // 「홈화면 추가」(설치 + 링크 공유)는 이제 시트 하나로 — 하단 탭 넷째 자리와 같은 것
   const [installSheetOpen, setInstallSheetOpen] = useState(false);
@@ -172,7 +200,7 @@ export default function MenuPage() {
           icon: Navigation,
           label: t('useCurrentLocationButton'),
           sub: gpsLocationSub(gpsStatus, t),
-          onClick: gpsLocation ? clearGpsLocation : requestGpsLocation,
+          control: currentLocationSwitch,
         },
       ],
     },
@@ -256,11 +284,6 @@ export default function MenuPage() {
               <Settings size={22} aria-hidden />
             </button>
           )}
-        </div>
-
-        <div className="mt-5 flex items-center justify-between border-t border-app-border pt-5">
-          <p className="text-sm font-bold text-app-text-muted">{t('countShrines')}</p>
-          <p className="text-2xl font-bold tabular-nums text-app-text">{stamps.length}</p>
         </div>
       </div>
 

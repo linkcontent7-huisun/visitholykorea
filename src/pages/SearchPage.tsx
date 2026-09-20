@@ -15,7 +15,7 @@
  * 조회 중에는 "0곳" 을 먼저 보여주지 않는다.
  *
  * ## 데스크톱 분할 화면 (2026-09-18)
- * "전국 성지 분포 개요"(MapPage) 자체는 사장님 판단으로 쓸모가 없어졌지만(다녀온 곳 추적은
+ * "전국 성지 지도"(MapPage) 자체는 지도 기능으로 남겨 두되(다녀온 곳 추적은
  * 검색과 무관), **왼쪽 목록 + 오른쪽 지도로 갈라지는 형식**은 검색에도 그대로 값어치가 있다 —
  * 필터를 좁히면서 "이 조건에 맞는 곳이 전국 어디 있나"를 바로 보는 것. MapPage 와 같은 이유로
  * (`lg:flex` 452px 목록 패널 + 나머지 지도) 모바일은 위아래로 그대로 흐르고, 지도는 작은 요약으로만
@@ -157,6 +157,8 @@ export default function SearchPage() {
   const hasQuery = needle.length > 0;
   // "내 위치로 검색" — 출발지 추정(origin)이 아니라 실제 GPS 권한을 받았을 때만 켠다.
   const nearMeActive = Boolean(gpsLocation);
+  const locationRequestInProgress = gpsStatus === 'loading';
+  const locationUnsupported = gpsStatus === 'unsupported';
 
   const results = useMemo(() => {
     if (!hasQuery && !nearMeActive) return [];
@@ -308,27 +310,41 @@ export default function SearchPage() {
               type="button"
               onClick={() => (gpsLocation ? clearGpsLocation() : requestGpsLocation())}
               aria-pressed={nearMeActive}
+              aria-busy={locationRequestInProgress}
+              disabled={locationRequestInProgress || locationUnsupported}
               borderColor={nearMeActive ? 'var(--color-brand-blue)' : 'var(--color-app-border)'}
               borderWidth={1.5}
               borderClassName="transition-colors group-hover:stroke-brand-blue/50"
-              className={`group mt-3 flex min-h-12 w-full items-center justify-center gap-1.5 text-base font-bold transition-colors ${
+              className={`group mt-3 flex min-h-12 w-full items-center justify-center gap-1.5 text-base font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${
                 nearMeActive ? 'bg-brand-blue text-white' : 'bg-white text-app-text'
               }`}
             >
               <Navigation size={18} aria-hidden />
-              {nearMeActive ? t('clearCurrentLocationButton') : t('searchNearMeButton')}
+              {locationRequestInProgress
+                ? t('currentLocationLoading')
+                : nearMeActive
+                  ? t('clearCurrentLocationButton')
+                  : t('searchNearMeButton')}
             </SquircleSurface>
             {gpsStatus === 'loading' && (
-              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationLoading')}</p>
+              <p className="mt-2 text-sm text-app-text-muted" role="status">
+                {t('currentLocationLoading')}
+              </p>
             )}
             {gpsStatus === 'denied' && (
-              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationDenied')}</p>
+              <p className="mt-2 text-sm text-app-text-muted" role="alert">
+                {t('currentLocationDenied')}
+              </p>
             )}
             {gpsStatus === 'unsupported' && (
-              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationUnsupported')}</p>
+              <p className="mt-2 text-sm text-app-text-muted" role="alert">
+                {t('currentLocationUnsupported')}
+              </p>
             )}
             {gpsStatus === 'error' && (
-              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationError')}</p>
+              <p className="mt-2 text-sm text-app-text-muted" role="alert">
+                {t('currentLocationError')}
+              </p>
             )}
           </div>
 

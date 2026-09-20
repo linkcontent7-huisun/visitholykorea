@@ -7,45 +7,50 @@
   "status": "draft",
   "intro": {
     "narration": "합덕 성당은 내포 지역 선교의 중심이 되어 온 오래된 본당입니다. 벽돌 성전과 순례자의 집, 본당 관내의 우물터를 통해 건축과 신앙 공동체의 역사를 살펴보시겠습니다.",
+    "narrationEn": "Hapdeok Catholic Church is a historic parish that has long served as a center of mission in the Naepo region. Through its brick church, pilgrim house, and well site within the parish, you will explore the history of its architecture and faith community.", "narrationEs": "La iglesia católica de Hapdeok es una parroquia histórica que ha sido centro de misión en la región de Naepo. A través del templo de ladrillo, la casa de peregrinos y el antiguo pozo de la parroquia, conocerá la historia de su arquitectura y comunidad de fe.", "narrationIt": "La chiesa cattolica di Hapdeok è una parrocchia storica che è stata un centro missionario nella regione di Naepo. Attraverso la chiesa in mattoni, la casa dei pellegrini e l'antico pozzo della parrocchia, esplorerete la storia dell'architettura e della comunità di fede.", "narrationPt": "A Igreja Católica de Hapdeok é uma paróquia histórica que serviu como centro missionário na região de Naepo. Através da igreja de tijolos, da casa dos peregrinos e do antigo poço da paróquia, conhecerá a história da arquitetura e da comunidade de fé.", "narrationFr": "L'église catholique de Hapdeok est une paroisse historique qui fut un centre missionnaire de la région de Naepo. À travers l'église en briques, la maison des pèlerins et l'ancien puits de la paroisse, vous découvrirez l'histoire de son architecture et de sa communauté de foi.",
     "photos": []
   },
   "points": [
     {
       "seq": 1,
-      "title": "성전 — 로마네스크 양식 벽돌 성당",
-      "location": "성당 마당에서 성전 정면",
+      "title": "성전 — 로마네스크 양식 벽돌 성당", "titleEn": "Church — Romanesque Brick Church", "titleEs": "Templo — Iglesia románica de ladrillo", "titleIt": "Chiesa — Chiesa romanica in mattoni", "titlePt": "Igreja — Igreja românica de tijolos", "titleFr": "Église — Église romane en briques",
+      "location": "성당 마당에서 성전 정면", "locationEn": "Front of the church from the courtyard", "locationEs": "Fachada de la iglesia desde el patio", "locationIt": "Facciata della chiesa dal cortile", "locationPt": "Fachada da igreja vista do pátio", "locationFr": "Façade de l'église depuis la cour",
       "narration": "현재 성전은 1929년에 페랭 신부가 지었습니다. 붉은 벽돌로 세운 로마네스크 양식의 건물로, 충청남도 기념물로 지정되어 있습니다. 마당에서 건물 전체의 비례와 벽돌 표면을 천천히 살펴보세요.",
-      "lookFor": "붉은 벽돌과 로마네스크 양식의 외관",
+      "narrationEn": "The present church was built by Father Perrin in 1929. This Romanesque red-brick building is designated as a monument of Chungcheongnam-do. From the courtyard, take time to observe the building's overall proportions and brick surfaces.", "narrationEs": "La iglesia actual fue construida por el padre Perrin en 1929. Este edificio románico de ladrillo rojo está designado monumento de Chungcheongnam-do. Desde el patio, observe con calma sus proporciones y superficies de ladrillo.", "narrationIt": "L'attuale chiesa fu costruita da padre Perrin nel 1929. Questo edificio romanico in mattoni rossi è designato monumento di Chungcheongnam-do. Dal cortile osservate con calma le proporzioni e le superfici in mattoni.", "narrationPt": "A igreja atual foi construída pelo padre Perrin em 1929. Este edifício românico de tijolos vermelhos é designado monumento de Chungcheongnam-do. A partir do pátio, observe com calma as proporções e as superfícies de tijolo.", "narrationFr": "L'église actuelle fut construite par le père Perrin en 1929. Cet édifice roman en briques rouges est classé monument de Chungcheongnam-do. Depuis la cour, observez tranquillement ses proportions et ses surfaces de briques.",
+      "lookFor": "붉은 벽돌과 로마네스크 양식의 외관", "lookForEn": "The red brick and Romanesque exterior", "lookForEs": "El exterior románico de ladrillo rojo", "lookForIt": "L'esterno romanico in mattoni rossi", "lookForPt": "O exterior românico de tijolos vermelhos", "lookForFr": "L'extérieur roman en briques rouges",
       "forEveryone": "근대 지역 사회의 변화를 보여 주는 역사적 종교 건축물입니다.",
       "photos": [],
       "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19 ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201008560&gubun=16"
     },
     {
       "seq": 2,
-      "title": "마당 — 성가정 순례자의 집",
-      "location": "성당 구내 순례자의 집 앞",
+      "title": "마당 — 성가정 순례자의 집", "titleEn": "Courtyard — Holy Family Pilgrim House", "titleEs": "Patio — Casa del Peregrino de la Sagrada Familia", "titleIt": "Cortile — Casa del Pellegrino della Sacra Famiglia", "titlePt": "Pátio — Casa do Peregrino da Sagrada Família", "titleFr": "Cour — Maison des pèlerins de la Sainte Famille",
+      "location": "성당 구내 순례자의 집 앞", "locationEn": "In front of the pilgrim house on the church grounds", "locationEs": "Frente a la casa de peregrinos", "locationIt": "Davanti alla casa dei pellegrini", "locationPt": "Em frente à casa dos peregrinos", "locationFr": "Devant la maison des pèlerins",
       "narration": "성당에서는 성가정 순례자의 집을 운영하고 있습니다. 단체 피정과 연수, 신앙학교와 숙박을 위한 공간입니다. 오래된 성전이 현재의 순례자를 맞이하는 공동체 공간과 함께 이어지는 모습을 볼 수 있습니다.",
-      "lookFor": "순례자를 맞이하는 별도 건물",
+      "narrationEn": "The parish operates the Holy Family Pilgrim House. It provides space for group retreats, training, faith programs, and lodging. Here you can see how the historic church connects with a community facility welcoming today's pilgrims.", "narrationEs": "La parroquia gestiona la Casa del Peregrino de la Sagrada Familia. Ofrece espacio para retiros, formación, programas de fe y alojamiento. Aquí se ve cómo la iglesia histórica se conecta con un centro comunitario que acoge a los peregrinos actuales.", "narrationIt": "La parrocchia gestisce la Casa del Pellegrino della Sacra Famiglia. Offre spazi per ritiri, formazione, programmi di fede e alloggio. Qui si vede come la chiesa storica si collega a una struttura comunitaria che accoglie i pellegrini di oggi.", "narrationPt": "A paróquia administra a Casa do Peregrino da Sagrada Família. Oferece espaço para retiros, formação, programas de fé e alojamento. Aqui vê-se como a igreja histórica se liga a uma instalação comunitária que acolhe os peregrinos atuais.", "narrationFr": "La paroisse gère la Maison des pèlerins de la Sainte Famille. Elle accueille retraites, formations, programmes de foi et hébergement. On voit ici comment l'église historique se relie à un espace communautaire qui accueille les pèlerins d'aujourd'hui.",
+      "lookFor": "순례자를 맞이하는 별도 건물", "lookForEn": "The separate building welcoming pilgrims", "lookForEs": "El edificio independiente que recibe a los peregrinos", "lookForIt": "L'edificio separato che accoglie i pellegrini", "lookForPt": "O edifício separado que acolhe os peregrinos", "lookForFr": "Le bâtiment séparé qui accueille les pèlerins",
       "forEveryone": "방문객의 체류와 교육을 돕는 공동체 시설입니다.",
       "photos": [],
       "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19"
     },
     {
       "seq": 3,
-      "title": "본당 관내 — 원시장·원시보 우물터",
-      "location": "성당 안내에 따라 이동하는 본당 관내 우물터",
+      "title": "본당 관내 — 원시장·원시보 우물터", "titleEn": "Within the Parish — Well Site of Won Si-jang and Won Si-bo", "titleEs": "En la parroquia — Pozo de Won Si-jang y Won Si-bo", "titleIt": "Nella parrocchia — Pozzo di Won Si-jang e Won Si-bo", "titlePt": "Na paróquia — Poço de Won Si-jang e Won Si-bo", "titleFr": "Dans la paroisse — Puits de Won Si-jang et Won Si-bo",
+      "location": "성당 안내에 따라 이동하는 본당 관내 우물터", "locationEn": "Well site within the parish, reached by following church directions", "locationEs": "Antiguo pozo dentro de la parroquia, siguiendo las indicaciones", "locationIt": "Antico pozzo nella parrocchia, seguendo le indicazioni", "locationPt": "Antigo poço na paróquia, seguindo as indicações", "locationFr": "Ancien puits dans la paroisse, en suivant les indications",
       "narration": "합덕 성당 관내에는 복자 원시장과 원시보 형제의 우물터가 남아 있습니다. 교구는 이 우물터를 본당 주변의 유서 깊은 신앙 유산 가운데 하나로 소개합니다. 성당 구내와 떨어져 있을 수 있으니 현장 안내를 확인한 뒤 이동해 주세요.",
-      "lookFor": "두 복자의 이름이 남은 우물터",
+      "narrationEn": "Within Hapdeok Parish remains the well site associated with the brothers Blessed Won Si-jang and Won Si-bo. The diocese presents it as one of the historic faith heritage sites around the parish. It may be away from the church grounds, so check the on-site directions before setting out.", "narrationEs": "En la parroquia de Hapdeok permanece el pozo asociado a los hermanos beatos Won Si-jang y Won Si-bo. La diócesis lo presenta como uno de los sitios históricos de fe cercanos. Puede estar apartado de la iglesia, así que consulte las indicaciones antes de ir.", "narrationIt": "Nella parrocchia di Hapdeok rimane il pozzo associato ai fratelli beati Won Si-jang e Won Si-bo. La diocesi lo presenta come uno dei siti storici della fede nei dintorni. Potrebbe trovarsi lontano dalla chiesa, quindi controllate le indicazioni prima di partire.", "narrationPt": "Na paróquia de Hapdeok permanece o poço associado aos irmãos beatos Won Si-jang e Won Si-bo. A diocese apresenta-o como um dos locais históricos da fé nas proximidades. Pode ficar afastado da igreja, por isso consulte as indicações antes de partir.", "narrationFr": "Dans la paroisse de Hapdeok subsiste le puits associé aux frères bienheureux Won Si-jang et Won Si-bo. Le diocèse le présente comme l'un des sites historiques de la foi aux alentours. Il peut être éloigné de l'église; consultez les indications avant de partir.",
+      "lookFor": "두 복자의 이름이 남은 우물터", "lookForEn": "The well site bearing the names of the two blesseds", "lookForEs": "El pozo que conserva los nombres de los dos beatos", "lookForIt": "Il pozzo che conserva i nomi dei due beati", "lookForPt": "O poço que conserva os nomes dos dois beatos", "lookForFr": "Le puits qui conserve les noms des deux bienheureux",
       "forEveryone": "생활 시설인 우물이 지역 인물의 기억을 전하는 유적으로 남은 곳입니다.",
       "photos": [],
       "sourceNote": "https://www.djcatholic.or.kr/home/pages/re_shrine_view.php?ids=shrine19"
     },
     {
       "seq": 4,
-      "title": "성당 안 — 매괴학교와 이웃 돌봄",
-      "location": "성당 안",
+      "title": "성당 안 — 매괴학교와 이웃 돌봄", "titleEn": "Inside the Church — Maegoe School and Care for Neighbors", "titleEs": "Dentro de la iglesia — Escuela Maegoe y atención al prójimo", "titleIt": "Nella chiesa — Scuola Maegoe e cura del prossimo", "titlePt": "Dentro da igreja — Escola Maegoe e cuidado do próximo", "titleFr": "Dans l'église — École Maegoe et aide aux voisins",
+      "location": "성당 안", "locationEn": "Inside the church", "locationEs": "Dentro de la iglesia", "locationIt": "All'interno della chiesa", "locationPt": "Dentro da igreja", "locationFr": "À l'intérieur de l'église",
       "narration": "합덕성당은 매괴학교를 세워 지역의 교육을 도왔습니다. 또 부모를 잃은 아이들을 교우 가정에서 돌보도록 지원하며 신앙을 사회의 돌봄으로 이어 갔습니다.",
-      "lookFor": "성당 안에 남은 교육과 돌봄의 기록",
+      "narrationEn": "Hapdeok Catholic Church founded Maegoe School to support local education. It also helped Catholic families care for children who had lost their parents, extending faith into social care.", "narrationEs": "La iglesia de Hapdeok fundó la Escuela Maegoe para apoyar la educación local. También ayudó a familias católicas a cuidar de niños huérfanos, llevando la fe al ámbito de la atención social.", "narrationIt": "La chiesa di Hapdeok fondò la Scuola Maegoe per sostenere l'istruzione locale. Aiutò anche famiglie cattoliche a prendersi cura dei bambini rimasti senza genitori, estendendo la fede all'assistenza sociale.", "narrationPt": "A Igreja de Hapdeok fundou a Escola Maegoe para apoiar a educação local. Também ajudou famílias católicas a cuidar de crianças órfãs, estendendo a fé ao cuidado social.", "narrationFr": "L'église de Hapdeok fonda l'école Maegoe pour soutenir l'éducation locale. Elle aida aussi des familles catholiques à accueillir des enfants orphelins, prolongeant ainsi la foi par l'aide sociale.",
+      "lookFor": "성당 안에 남은 교육과 돌봄의 기록", "lookForEn": "Records of education and care preserved inside the church", "lookForEs": "Los testimonios de educación y atención conservados en la iglesia", "lookForIt": "Le testimonianze di istruzione e assistenza conservate nella chiesa", "lookForPt": "Os registos de educação e cuidado preservados na igreja", "lookForFr": "Les témoignages d'éducation et d'aide conservés dans l'église",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 합덕__합덕성당과 합덕유스호스텔-수정2.txt — 대전교구 https://www.djcatholic.or.kr/"
@@ -53,6 +58,7 @@
   ],
   "outro": {
     "narration": "합덕 성당은 역사적인 성전과 오늘의 순례자 시설이 함께 살아 있는 곳입니다. 우물터를 찾을 때에는 성당의 현장 안내를 먼저 확인해 주세요.",
+    "narrationEn": "Hapdeok Catholic Church is a place where a historic church and modern pilgrim facilities remain active together. Before visiting the well site, check the directions provided at the church.", "narrationEs": "La iglesia de Hapdeok es un lugar donde el templo histórico y las instalaciones actuales para peregrinos siguen activos juntos. Antes de visitar el pozo, consulte las indicaciones de la iglesia.", "narrationIt": "La chiesa di Hapdeok è un luogo in cui la chiesa storica e le strutture moderne per i pellegrini restano attive insieme. Prima di visitare il pozzo, controllate le indicazioni fornite dalla chiesa.", "narrationPt": "A Igreja de Hapdeok é um lugar onde a igreja histórica e as instalações modernas para peregrinos permanecem ativas em conjunto. Antes de visitar o poço, consulte as indicações fornecidas pela igreja.", "narrationFr": "L'église de Hapdeok est un lieu où l'église historique et les installations modernes pour pèlerins restent actives ensemble. Avant de visiter le puits, consultez les indications fournies par l'église.",
     "photos": []
   }
 }

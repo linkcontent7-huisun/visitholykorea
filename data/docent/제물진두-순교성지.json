@@ -7,7 +7,12 @@
   "status": "draft",
   "intro": {
     "narration": "인천 제물포의 옛 나루터입니다. 순교지이자, 김대건 신부가 사제가 되러 상하이로 떠난 바닷가입니다.",
-    "photos": []
+    "photos": [],
+    "narrationEn": "This is the old landing place at Jemulpo, Incheon: a martyrdom site and the shore from which Father Kim Taegon departed for Shanghai to become a priest.",
+    "narrationEs": "This is the old landing place at Jemulpo, Incheon: a martyrdom site and the shore from which Father Kim Taegon departed for Shanghai to become a priest.",
+    "narrationIt": "This is the old landing place at Jemulpo, Incheon: a martyrdom site and the shore from which Father Kim Taegon departed for Shanghai to become a priest.",
+    "narrationPt": "This is the old landing place at Jemulpo, Incheon: a martyrdom site and the shore from which Father Kim Taegon departed for Shanghai to become a priest.",
+    "narrationFr": "This is the old landing place at Jemulpo, Incheon: a martyrdom site and the shore from which Father Kim Taegon departed for Shanghai to become a priest."
   },
   "points": [
     {
@@ -18,7 +23,27 @@
       "lookFor": "경당의 높이와 바다 쪽 방향",
       "forEveryone": "개항장 인천의 옛 나루터 자리입니다.",
       "photos": [],
-      "sourceNote": "굿뉴스 성지 안내(제물진두): https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=4224&menugubun=holyplace"
+      "sourceNote": "굿뉴스 성지 안내(제물진두): https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=4224&menugubun=holyplace",
+      "titleEn": "Memorial Chapel — A Church Facing the Sea",
+      "locationEn": "Center of the shrine",
+      "narrationEn": "The Diocese of Incheon secured the site in 2011 and dedicated the fifteen-meter-high memorial chapel in 2014. Reclamation pushed the old waterway away, but the chapel faces the sea and marks Jemuljindu.",
+      "lookForEn": "The chapel’s height and its orientation toward the sea",
+      "titleEs": "Memorial Chapel — A Church Facing the Sea",
+      "locationEs": "Center of the shrine",
+      "narrationEs": "The Diocese of Incheon secured the site in 2011 and dedicated the fifteen-meter-high memorial chapel in 2014. Reclamation pushed the old waterway away, but the chapel faces the sea and marks Jemuljindu.",
+      "lookForEs": "The chapel’s height and its orientation toward the sea",
+      "titleIt": "Memorial Chapel — A Church Facing the Sea",
+      "locationIt": "Center of the shrine",
+      "narrationIt": "The Diocese of Incheon secured the site in 2011 and dedicated the fifteen-meter-high memorial chapel in 2014. Reclamation pushed the old waterway away, but the chapel faces the sea and marks Jemuljindu.",
+      "lookForIt": "The chapel’s height and its orientation toward the sea",
+      "titlePt": "Memorial Chapel — A Church Facing the Sea",
+      "locationPt": "Center of the shrine",
+      "narrationPt": "The Diocese of Incheon secured the site in 2011 and dedicated the fifteen-meter-high memorial chapel in 2014. Reclamation pushed the old waterway away, but the chapel faces the sea and marks Jemuljindu.",
+      "lookForPt": "The chapel’s height and its orientation toward the sea",
+      "titleFr": "Memorial Chapel — A Church Facing the Sea",
+      "locationFr": "Center of the shrine",
+      "narrationFr": "The Diocese of Incheon secured the site in 2011 and dedicated the fifteen-meter-high memorial chapel in 2014. Reclamation pushed the old waterway away, but the chapel faces the sea and marks Jemuljindu.",
+      "lookForFr": "The chapel’s height and its orientation toward the sea"
     },
     {
       "seq": 2,
@@ -28,7 +53,27 @@
       "lookFor": "기념물에 새겨진 네 순교자의 이름",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "굿뉴스 성지 안내(제물진두): https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=4224&menugubun=holyplace"
+      "sourceNote": "굿뉴스 성지 안내(제물진두): https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=4224&menugubun=holyplace",
+      "titleEn": "Martyrs’ Monument — Four Martyrs of 1868",
+      "locationEn": "In front of the chapel",
+      "narrationEn": "During the Byeongin Persecution, believers were publicly executed here. In 1868, four people were martyred, including Augustine Yi Yeon-gu, great-grandson of Peter Yi Seung-hun, and Paul Yi Gyun-gu.",
+      "lookForEn": "The four martyrs’ names inscribed on the monument",
+      "titleEs": "Martyrs’ Monument — Four Martyrs of 1868",
+      "locationEs": "In front of the chapel",
+      "narrationEs": "During the Byeongin Persecution, believers were publicly executed here. In 1868, four people were martyred, including Augustine Yi Yeon-gu, great-grandson of Peter Yi Seung-hun, and Paul Yi Gyun-gu.",
+      "lookForEs": "The four martyrs’ names inscribed on the monument",
+      "titleIt": "Martyrs’ Monument — Four Martyrs of 1868",
+      "locationIt": "In front of the chapel",
+      "narrationIt": "During the Byeongin Persecution, believers were publicly executed here. In 1868, four people were martyred, including Augustine Yi Yeon-gu, great-grandson of Peter Yi Seung-hun, and Paul Yi Gyun-gu.",
+      "lookForIt": "The four martyrs’ names inscribed on the monument",
+      "titlePt": "Martyrs’ Monument — Four Martyrs of 1868",
+      "locationPt": "In front of the chapel",
+      "narrationPt": "During the Byeongin Persecution, believers were publicly executed here. In 1868, four people were martyred, including Augustine Yi Yeon-gu, great-grandson of Peter Yi Seung-hun, and Paul Yi Gyun-gu.",
+      "lookForPt": "The four martyrs’ names inscribed on the monument",
+      "titleFr": "Martyrs’ Monument — Four Martyrs of 1868",
+      "locationFr": "In front of the chapel",
+      "narrationFr": "During the Byeongin Persecution, believers were publicly executed here. In 1868, four people were martyred, including Augustine Yi Yeon-gu, great-grandson of Peter Yi Seung-hun, and Paul Yi Gyun-gu.",
+      "lookForFr": "The four martyrs’ names inscribed on the monument"
     },
     {
       "seq": 3,
@@ -38,11 +83,36 @@
       "lookFor": "안내판의 출항 설명",
       "forEveryone": null,
       "photos": [],
-      "sourceNote": "굿뉴스 성지 안내(제물진두): https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=4224&menugubun=holyplace"
+      "sourceNote": "굿뉴스 성지 안내(제물진두): https://maria.catholic.or.kr/mobile/sa_ho/list/view.asp?ctxtOrgNum=4224&menugubun=holyplace",
+      "titleEn": "Landing Place — Father Kim Taegon’s Departure",
+      "locationEn": "Information board near the chapel",
+      "narrationEn": "In 1845, Father Andrew Kim Taegon boarded a ship near this landing place and departed for Shanghai to be ordained. Two memories meet on this shore: martyrdom and the voyage of the first Korean priest.",
+      "lookForEn": "The account of the departure on the information board",
+      "titleEs": "Landing Place — Father Kim Taegon’s Departure",
+      "locationEs": "Information board near the chapel",
+      "narrationEs": "In 1845, Father Andrew Kim Taegon boarded a ship near this landing place and departed for Shanghai to be ordained. Two memories meet on this shore: martyrdom and the voyage of the first Korean priest.",
+      "lookForEs": "The account of the departure on the information board",
+      "titleIt": "Landing Place — Father Kim Taegon’s Departure",
+      "locationIt": "Information board near the chapel",
+      "narrationIt": "In 1845, Father Andrew Kim Taegon boarded a ship near this landing place and departed for Shanghai to be ordained. Two memories meet on this shore: martyrdom and the voyage of the first Korean priest.",
+      "lookForIt": "The account of the departure on the information board",
+      "titlePt": "Landing Place — Father Kim Taegon’s Departure",
+      "locationPt": "Information board near the chapel",
+      "narrationPt": "In 1845, Father Andrew Kim Taegon boarded a ship near this landing place and departed for Shanghai to be ordained. Two memories meet on this shore: martyrdom and the voyage of the first Korean priest.",
+      "lookForPt": "The account of the departure on the information board",
+      "titleFr": "Landing Place — Father Kim Taegon’s Departure",
+      "locationFr": "Information board near the chapel",
+      "narrationFr": "In 1845, Father Andrew Kim Taegon boarded a ship near this landing place and departed for Shanghai to be ordained. Two memories meet on this shore: martyrdom and the voyage of the first Korean priest.",
+      "lookForFr": "The account of the departure on the information board"
     }
   ],
   "outro": {
     "narration": "떠난 자리와 죽은 자리가 같은 바닷가라는 점, 그것이 제물진두의 이야기입니다.",
-    "photos": []
+    "photos": [],
+    "narrationEn": "Jemuljindu’s story is that the place of departure and the place of death share the same shore.",
+    "narrationEs": "Jemuljindu’s story is that the place of departure and the place of death share the same shore.",
+    "narrationIt": "Jemuljindu’s story is that the place of departure and the place of death share the same shore.",
+    "narrationPt": "Jemuljindu’s story is that the place of departure and the place of death share the same shore.",
+    "narrationFr": "Jemuljindu’s story is that the place of departure and the place of death share the same shore."
   }
 }

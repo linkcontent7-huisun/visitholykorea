@@ -3,10 +3,12 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
+import { useSession } from '@/features/auth/hooks/use-session';
 import {
   usePilgrimageRoutes,
   useLocalizedRoutes,
 } from '@/features/routes/hooks/use-pilgrimage-routes';
+import { homeRotationDay, selectDailyRotation, sortByDistance } from '@/features/sites/lib/nearest';
 import { HeroCarousel, type HeroSlide } from '@/features/sites/components/HeroCarousel';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { HERO_SITES } from '@/features/sites/data/hero-sites';
@@ -24,7 +26,7 @@ import type { HolySite } from '@/shared/types/domain';
  * 홈 — 2026-09-16 회의 · 시안(버전 8) 확정 순서, 이후 9/17~9/18 사장님 지시로 여러 번 다듬었다.
  *
  *   1. 히어로 — 고정 5곳 사진 슬라이드, 100vw. 사진이 가장 먼저 눈에 들어온다. 설명글 없음.
- *   2. 입구 3개 — 성지 찾기 · 미카엘 AI · 오늘의 성지 일정(2026-09-18, 미카엘 추가). 첫 화면 안에 보인다.
+ *   2. 입구 3개 — 성지 찾기 · 미카엘 순례 가이드 · 오늘의 성지 일정(2026-09-18, 미카엘 추가). 첫 화면 안에 보인다.
  *   3. 오늘 방문하기 좋은 성지 (사진·연락처·좌표가 모두 확인된 곳)
  *   4. 푸터 — 이용약관·개인정보·FAQ 링크만(2026-09-18). 「정보 출처·문의」 팝업은 없앴다 —
  *      내용이 이미 FAQ·이용약관에 있었다.
@@ -104,7 +106,8 @@ function EntryCard({
 }
 
 export default function HomePage() {
-  const { language, t } = useSettings();
+  const { language, t, gpsLocation } = useSettings();
+  const { session } = useSession();
   const [aiOpen, setAiOpen] = useState(false);
 
   const { data: allSitesRaw = [] } = useSites({ limit: 300 });
@@ -129,15 +132,27 @@ export default function HomePage() {
     });
   }, [allSites, language, t]);
 
-  /** 사진·연락처·좌표가 모두 있는 성지 중 이름순 4곳. 날짜로 돌리지 않는다 — 심사·시연 때 매번 같아야 한다. */
-  const firstVisit = useMemo(
+  /** 원문 이름순을 순위로 삼아 언어를 바꿔도 같은 날짜에는 같은 성지가 보이게 한다. */
+  const readySites = useMemo(
     () =>
-      [...allSites]
+      [...allSitesRaw]
         .filter(isFirstVisitReady)
-        .sort((a, b) => a.name.localeCompare(b.name, 'ko'))
-        .slice(0, 4),
-    [allSites],
+        .sort((a, b) => a.name.localeCompare(b.name, 'ko')),
+    [allSitesRaw],
   );
+
+  /**
+   * 비로그인·위치 미허용 사용자는 한국 날짜별 순환, 로그인·위치 허용 사용자는 가까운 순이다.
+   * 위치 권한을 홈 진입 때 새로 요청하지 않는 것은 기존 T-011 정책을 따른다.
+   */
+  const firstVisit = useMemo(() => {
+    const ranked =
+      session && gpsLocation
+        ? sortByDistance(readySites, gpsLocation).measured.map(({ site }) => site).slice(0, 4)
+        : selectDailyRotation(readySites, homeRotationDay());
+    const localizedById = new Map(allSites.map((site) => [site.id, site]));
+    return ranked.map((site) => localizedById.get(site.id) ?? site);
+  }, [allSites, gpsLocation, readySites, session]);
 
   return (
     <div className="bg-white pb-10">
@@ -147,7 +162,7 @@ export default function HomePage() {
       {/* 1. 히어로 — 모바일·PC 모두 100vw 로 가장자리까지, 헤더 바로 아래(2026-09-17) */}
       <HeroCarousel slides={heroSlides} />
 
-      {/* 2. 입구 3개 — 성지 찾기 · 미카엘 AI · 오늘의 성지 일정 순서(사장님 지적, 2026-09-18).
+      {/* 2. 입구 3개 — 성지 찾기 · 미카엘 순례 가이드 · 오늘의 성지 일정 순서(사장님 지적, 2026-09-18).
           미카엘은 화면 이동이 아니라 그 자리에서 시트를 연다 — `to` 대신 `onClick`. */}
       <PageContainer className="pt-3 lg:pt-4">
         <div className="grid gap-2.5 lg:grid-cols-3">

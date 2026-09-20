@@ -435,8 +435,8 @@ export default function SiteDetailPage() {
           </h1>
           {/* 주소는 삭제 — 「찾아가는 길」에 한국어·영문 병기로 이미 나온다(2026-09-17 사장님 지적) */}
           <div className="flex flex-wrap items-center gap-2">
-            {/* 인근 혼잡도 라벨 — 값이 있을 때만(재기획 A-2). 주어는 "인근 지역", 숫자는 없다 */}
-            <NearbyCrowdingLabel site={site} variant="onDark" />
+            {/* 인근 밀집도 라벨 — 조회 중에는 분석 상태를, 완료되면 하·중·상을 표시한다 */}
+            <NearbyCrowdingLabel site={site} labelMode="density" variant="onDark" />
             {tags.map((tag) => (
               <span
                 key={tag}

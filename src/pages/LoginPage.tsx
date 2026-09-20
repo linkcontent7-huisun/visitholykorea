@@ -1,4 +1,4 @@
-import { Eye, EyeOff, Lock, Mail, ShieldCheck, User as UserIcon } from 'lucide-react';
+import { ChevronDown, Eye, EyeOff, Lock, Mail, ShieldCheck, User as UserIcon } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -20,14 +20,16 @@ import googleIcon from '@/features/auth/assets/social/google.svg';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { t } = useSettings();
+  const { t, language } = useSettings();
 
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState('');
   const [agreed, setAgreed] = useState(false);
+  const [emailAuthOpen, setEmailAuthOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'error' | 'info'; text: string } | null>(null);
 
@@ -57,7 +59,13 @@ export default function LoginPage() {
       return;
     }
 
-    const { data, error } = await signUpWithEmail(email, password, name);
+    if (password !== passwordConfirmation) {
+      setLoading(false);
+      setMessage({ type: 'error', text: t('passwordMismatch') });
+      return;
+    }
+
+    const { data, error } = await signUpWithEmail(email, password, name, language);
     setLoading(false);
     if (error) {
       // 상태를 구분해 안내한다(재기획 §12): 기존 계정 / 약한 비밀번호 / 일시 오류 — 원문 영어 메시지를 그대로 보여주지 않는다.
@@ -132,110 +140,17 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {!isLogin && (
-            <div className="group relative">
-              <UserIcon
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
-                size={20}
-              />
-              <input
-                type="text"
-                name="name"
-                placeholder={t('nameField')}
-                aria-label={t('nameField')}
-                autoComplete="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className={inputClass}
-              />
-            </div>
-          )}
-
-          <div className="group relative">
-            <Mail
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
-              size={20}
-            />
-            <input
-              type="email"
-              name="email"
-              inputMode="email"
-              spellCheck={false}
-              placeholder={t('emailField')}
-              aria-label={t('emailField')}
-              autoComplete="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={inputClass}
-            />
-          </div>
-
-          <div className="group relative">
-            <Lock
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
-              size={20}
-            />
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              placeholder={t('passwordField')}
-              aria-label={t('passwordField')}
-              autoComplete={isLogin ? 'current-password' : 'new-password'}
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={`${inputClass} pr-14`}
-            />
-            {/* 비밀번호 보기 — 브라우저 기본 기능이 아니다(Chrome·Safari 에 없음). 오타로 로그인에 실패하는
-                50대 이상 사용자를 위해 둔다 (2026-09-16 회의). */}
-            <button
-              type="button"
-              onClick={() => setShowPassword((v) => !v)}
-              className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg hover:text-brand-blue"
-              aria-label={showPassword ? t('hidePassword') : t('showPassword')}
-              aria-pressed={showPassword}
-              id="toggle-password"
-            >
-              {showPassword ? <EyeOff size={20} aria-hidden /> : <Eye size={20} aria-hidden />}
-            </button>
-          </div>
-
-          {!isLogin && (
-            <label className="flex min-h-11 cursor-pointer items-start gap-3 px-1 text-sm text-app-text-muted">
-              <input
-                type="checkbox"
-                name="agreed"
-                checked={agreed}
-                onChange={(e) => setAgreed(e.target.checked)}
-                className="mt-0.5 size-5 shrink-0 accent-brand-blue"
-              />
-              <span>{t('signupConsentLabel')}</span>
-            </label>
-          )}
-
-          {message && (
-            <p
-              className={`px-1 text-base font-bold ${
-                message.type === 'error' ? 'text-red-600' : 'text-brand-blue'
-              }`}
-              role="status"
-              aria-live="polite"
-            >
-              {message.text}
-            </p>
-          )}
-
-          <Button
-            type="submit"
-            block
-            disabled={loading || (!isLogin && !agreed)}
-            className="mt-8 min-h-14 text-lg"
+        {message && (
+          <p
+            className={`px-1 text-base font-bold ${
+              message.type === 'error' ? 'text-red-600' : 'text-brand-blue'
+            }`}
+            role="status"
+            aria-live="polite"
           >
-            {loading ? t('processing') : isLogin ? t('login') : t('signup')}
-          </Button>
-        </form>
+            {message.text}
+          </p>
+        )}
 
         {/* 소셜 로그인 — 투어원패스처럼 안내 문구 + 원형 아이콘 가로 배열.
             네이버(Edge Function)·카카오·구글(Supabase 등록) 3사 지원. */}
@@ -318,47 +233,198 @@ export default function LoginPage() {
               </div>
             </>
           )}
-
-          {/* 약관·개인정보·FAQ 는 새 창으로 — 같은 창에서 이동하면 입력하던 이메일·비밀번호·동의가 사라진다(재기획 §12) */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            <Link
-              to={paths.terms}
-              target="_blank"
-              rel="noopener"
-              className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
-            >
-              {t('viewTerms')}
-            </Link>
-            <Link
-              to={paths.privacy}
-              target="_blank"
-              rel="noopener"
-              className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
-            >
-              {t('privacyNotice')}
-            </Link>
-            <Link
-              to={paths.faq}
-              target="_blank"
-              rel="noopener"
-              className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
-            >
-              {t('viewFaq')}
-            </Link>
-          </div>
-          <p className="mt-2 text-center text-sm text-app-text-muted">{t('termsOpensNewTab')}</p>
         </div>
 
-        <div className="mt-10 text-center">
+        <section
+          className="mt-10 border-t border-app-border pt-6"
+          aria-labelledby="email-auth-heading"
+        >
           <button
             type="button"
-            onClick={() => setIsLogin(!isLogin)}
-            className="min-h-11 rounded-lg px-3 text-base font-bold text-app-text-muted transition-colors hover:bg-app-bg"
+            onClick={() => setEmailAuthOpen((open) => !open)}
+            className="flex min-h-14 w-full items-center justify-between rounded-lg border border-app-border bg-app-bg px-4 text-left transition-colors hover:bg-app-panel"
+            aria-expanded={emailAuthOpen}
+            aria-controls="email-auth-panel"
           >
-            {isLogin ? t('noAccountYet') : t('alreadyHaveAccount')}
-            <span className="text-brand-blue">{isLogin ? t('signup') : t('login')}</span>
+            <span>
+              <span id="email-auth-heading" className="block text-base font-bold text-app-text">
+                {t('emailAuth')}
+              </span>
+              <span className="mt-1 block text-sm text-app-text-muted">{t('emailAuthHint')}</span>
+            </span>
+            <ChevronDown
+              size={22}
+              aria-hidden
+              className={`shrink-0 text-app-text-muted transition-transform ${
+                emailAuthOpen ? 'rotate-180' : ''
+              }`}
+            />
           </button>
+
+          {emailAuthOpen && (
+            <div id="email-auth-panel" className="mt-5">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {!isLogin && (
+                  <div className="group relative">
+                    <UserIcon
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
+                      size={20}
+                    />
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder={t('nameField')}
+                      aria-label={t('nameField')}
+                      autoComplete="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className={inputClass}
+                    />
+                  </div>
+                )}
+
+                <div className="group relative">
+                  <Mail
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
+                    size={20}
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    inputMode="email"
+                    spellCheck={false}
+                    placeholder={t('emailField')}
+                    aria-label={t('emailField')}
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className={inputClass}
+                  />
+                </div>
+
+                <div className="group relative">
+                  <Lock
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
+                    size={20}
+                  />
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    placeholder={t('passwordField')}
+                    aria-label={t('passwordField')}
+                    autoComplete={isLogin ? 'current-password' : 'new-password'}
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className={`${inputClass} pr-14`}
+                  />
+                  {/* 비밀번호 보기 — 브라우저 기본 기능이 아니다(Chrome·Safari 에 없음). 오타로 로그인에 실패하는
+                      50대 이상 사용자를 위해 둔다 (2026-09-16 회의). */}
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg hover:text-brand-blue"
+                    aria-label={showPassword ? t('hidePassword') : t('showPassword')}
+                    aria-pressed={showPassword}
+                    id="toggle-password"
+                  >
+                    {showPassword ? (
+                      <EyeOff size={20} aria-hidden />
+                    ) : (
+                      <Eye size={20} aria-hidden />
+                    )}
+                  </button>
+                </div>
+
+                {!isLogin && (
+                  <div className="group relative">
+                    <Lock
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
+                      size={20}
+                    />
+                    <input
+                      type="password"
+                      name="passwordConfirmation"
+                      placeholder={t('passwordConfirmation')}
+                      aria-label={t('passwordConfirmation')}
+                      autoComplete="new-password"
+                      required
+                      value={passwordConfirmation}
+                      onChange={(e) => setPasswordConfirmation(e.target.value)}
+                      className={inputClass}
+                    />
+                  </div>
+                )}
+
+                {!isLogin && (
+                  <label className="flex min-h-11 cursor-pointer items-start gap-3 px-1 text-sm text-app-text-muted">
+                    <input
+                      type="checkbox"
+                      name="agreed"
+                      checked={agreed}
+                      onChange={(e) => setAgreed(e.target.checked)}
+                      className="mt-0.5 size-5 shrink-0 accent-brand-blue"
+                    />
+                    <span>{t('signupConsentLabel')}</span>
+                  </label>
+                )}
+
+                <Button
+                  type="submit"
+                  block
+                  disabled={loading || (!isLogin && !agreed)}
+                  className="mt-8 min-h-14 text-lg"
+                >
+                  {loading ? t('processing') : isLogin ? t('login') : t('signup')}
+                </Button>
+              </form>
+
+              <div className="mt-8 text-center">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsLogin(!isLogin);
+                    setMessage(null);
+                  }}
+                  className="min-h-11 rounded-lg px-3 text-base font-bold text-app-text-muted transition-colors hover:bg-app-bg"
+                >
+                  {isLogin ? t('noAccountYet') : t('alreadyHaveAccount')}
+                  <span className="text-brand-blue">{isLogin ? t('signup') : t('login')}</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* 약관·개인정보·FAQ 는 새 창으로 — 같은 창에서 이동하면 입력하던 이메일·비밀번호·동의가 사라진다(재기획 §12) */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center">
+          <Link
+            to={paths.terms}
+            target="_blank"
+            rel="noopener"
+            className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
+          >
+            {t('viewTerms')}
+          </Link>
+          <Link
+            to={paths.privacy}
+            target="_blank"
+            rel="noopener"
+            className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
+          >
+            {t('privacyNotice')}
+          </Link>
+          <Link
+            to={paths.faq}
+            target="_blank"
+            rel="noopener"
+            className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
+          >
+            {t('viewFaq')}
+          </Link>
         </div>
+        <p className="mt-2 text-center text-sm text-app-text-muted">{t('termsOpensNewTab')}</p>
       </div>
     </PageContainer>
   );

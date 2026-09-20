@@ -1,36 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import type { CongestionRate, TourApiSpot } from '@/shared/api/tour-api';
+import type { CongestionRate } from '@/shared/api/tour-api';
 import {
   combineNearbyCrowding,
-  festivalPressure,
-  FESTIVAL_RADIUS_KM,
   LEVEL_BOUNDS,
   pickCongestion,
-  saturate,
   toCrowdingLevel,
 } from './crowding-score';
-
-/** 해미 순교성지 근처 좌표 */
-const HAEMI = { lat: 36.7137, lng: 126.5468 };
-
-function spot(over: Partial<TourApiSpot> = {}): TourApiSpot {
-  return {
-    contentid: '1',
-    contenttypeid: '15',
-    title: '행사',
-    addr1: '',
-    mapx: String(HAEMI.lng),
-    mapy: String(HAEMI.lat),
-    firstimage: '',
-    tel: '',
-    ...over,
-  } as TourApiSpot;
-}
-
-/** 위도 1도 ≈ 111km. 북쪽으로 km 만큼 옮긴 좌표 */
-function north(km: number) {
-  return { mapy: String(HAEMI.lat + km / 111), mapx: String(HAEMI.lng) };
-}
 
 function rate(
   tAtsNm: string,
@@ -49,16 +24,6 @@ function rate(
   };
 }
 
-describe('saturate — 포화 곡선', () => {
-  it('0 이면 0, 상한을 넘지 않는다', () => {
-    expect(saturate(0, 100, 1)).toBe(0);
-    expect(saturate(1000, 100, 1)).toBeLessThanOrEqual(100);
-  });
-  it('값이 포화 상수와 같으면 상한의 약 63%', () => {
-    expect(saturate(1, 100, 1)).toBeCloseTo(63.2, 0);
-  });
-});
-
 describe('toCrowdingLevel — 세 단계뿐', () => {
   it('경계값은 위 등급에 속한다', () => {
     expect(toCrowdingLevel(0)).toBe('조용');
@@ -67,32 +32,6 @@ describe('toCrowdingLevel — 세 단계뿐', () => {
     expect(toCrowdingLevel(LEVEL_BOUNDS.moderateBelow - 0.1)).toBe('보통');
     expect(toCrowdingLevel(LEVEL_BOUNDS.moderateBelow)).toBe('붐빔');
     expect(toCrowdingLevel(100)).toBe('붐빔');
-  });
-});
-
-describe('festivalPressure — 오늘 축제 압력 (0~100)', () => {
-  it('행사가 없으면 0', () => {
-    expect(festivalPressure(HAEMI, [])).toEqual({ score: 0, count: 0, nearest: null });
-  });
-  it('반경 밖 행사는 점수에 안 들어가지만 가장 가까운 행사로는 남는다', () => {
-    const r = festivalPressure(HAEMI, [spot({ title: '멀리', ...north(FESTIVAL_RADIUS_KM + 5) })]);
-    expect(r.score).toBe(0);
-    expect(r.count).toBe(0);
-    expect(r.nearest?.title).toBe('멀리');
-  });
-  it('가까울수록 높고, 많아도 100 을 넘지 않는다', () => {
-    const near = festivalPressure(HAEMI, [spot(north(1))]).score;
-    const far = festivalPressure(HAEMI, [spot(north(12))]).score;
-    expect(near).toBeGreaterThan(far);
-    const many = festivalPressure(
-      HAEMI,
-      Array.from({ length: 30 }, () => spot(north(0.5))),
-    );
-    expect(many.score).toBeLessThanOrEqual(100);
-  });
-  it('좌표 없는 성지·좌표 0 인 행사는 계산하지 않는다', () => {
-    expect(festivalPressure({ lat: null, lng: null }, [spot()]).score).toBe(0);
-    expect(festivalPressure(HAEMI, [spot({ mapx: '0', mapy: '0' })]).count).toBe(0);
   });
 });
 
@@ -141,35 +80,27 @@ describe('pickCongestion — 집중률에서 성지 신호 고르기', () => {
 });
 
 describe('combineNearbyCrowding — 합산과 근거', () => {
-  const noFestival = festivalPressure(HAEMI, []);
-
-  it('집중률이 없으면 등급도 점수도 없다. 축제 0건을 조용으로 읽지 않는다', () => {
-    const r = combineNearbyCrowding(noFestival, null);
+  it('집중률이 없으면 등급도 점수도 없다', () => {
+    const r = combineNearbyCrowding(null);
     expect(r.level).toBeNull();
     expect(r.score).toBeNull();
-    expect(r.reasons.map((x) => x.key)).toEqual([
-      'crowdingReasonNoData',
-      'crowdingReasonFestivalNo',
-    ]);
+    expect(r.reasons.map((x) => x.key)).toEqual(['crowdingReasonNoData']);
   });
 
-  it('집중률 0.7 + 축제 0.3 으로 합친다', () => {
+  it('집중률을 혼잡도 점수로 사용한다', () => {
     const congestion = pickCongestion('x', [rate('a', 50)])!;
-    const festival = festivalPressure(HAEMI, [spot(north(1))]);
-    const r = combineNearbyCrowding(festival, congestion);
-    expect(r.score).toBeCloseTo(50 * 0.7 + festival.score * 0.3, 0);
+    const r = combineNearbyCrowding(congestion);
+    expect(r.score).toBe(50);
     expect(r.level).toBe(toCrowdingLevel(r.score!));
   });
 
   it('성지 이름이 매칭되면 「이 성지」 근거, 아니면 시·군·구 근거 — 숫자는 어디에도 없다', () => {
     const site = combineNearbyCrowding(
-      noFestival,
       pickCongestion('솔뫼성지', [rate('솔뫼성지', 20)])!,
     );
     expect(site.reasons[0]).toEqual({ key: 'crowdingReasonSite', level: '조용' });
 
     const district = combineNearbyCrowding(
-      noFestival,
       pickCongestion('신리성지', [rate('삽교호', 70)])!,
     );
     expect(district.reasons[0]).toEqual({
@@ -180,14 +111,5 @@ describe('combineNearbyCrowding — 합산과 근거', () => {
     for (const reason of [...site.reasons, ...district.reasons]) {
       expect(JSON.stringify(reason.params ?? {})).not.toMatch(/\d/);
     }
-  });
-
-  it('오늘 인근 행사가 있으면 가장 가까운 행사 이름을 근거로 남긴다', () => {
-    const festival = festivalPressure(HAEMI, [spot({ title: '해미읍성 축제', ...north(2) })]);
-    const r = combineNearbyCrowding(festival, pickCongestion('x', [rate('a', 10)]));
-    expect(r.reasons[1]).toEqual({
-      key: 'crowdingReasonFestivalYes',
-      params: { title: '해미읍성 축제' },
-    });
   });
 });

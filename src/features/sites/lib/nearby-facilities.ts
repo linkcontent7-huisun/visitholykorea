@@ -56,7 +56,7 @@ export function groupNearbyFacilities(spots: TourApiSpot[], perGroup = 6): Group
 
   for (const spot of spots) {
     const group = GROUP_OF[Number(spot.contenttypeid)];
-    if (!group) continue; // 축제·여행코스는 다른 섹션이 맡는다
+    if (!group) continue; // 이 화면에서 다루지 않는 유형은 제외한다
     const bucket = buckets.get(group);
     if (bucket) bucket.push(spot);
     else buckets.set(group, [spot]);

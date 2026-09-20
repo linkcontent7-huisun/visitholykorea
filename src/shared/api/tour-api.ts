@@ -40,7 +40,6 @@ const REQUEST_TIMEOUT_MS = 10_000;
 export const CONTENT_TYPE = {
   관광지: 12,
   문화시설: 14,
-  축제공연행사: 15,
   여행코스: 25,
   레포츠: 28,
   숙박: 32,
@@ -59,9 +58,6 @@ export interface TourApiSpot {
   firstimage: string;
   /** 좌표 기준 조회에서만 채워지는 거리(m) */
   dist?: string;
-  /** 축제 조회에서만 채워지는 기간 */
-  eventstartdate?: string;
-  eventenddate?: string;
 }
 
 /**
@@ -198,7 +194,7 @@ function normalizeItems<T>(data: TourApiResponse<T>): T[] {
 /**
  * 동시 호출 수 제한 (에러코드 23 회피).
  *
- * 홈 화면 1회 로드는 축제 1 + 붐빔 후보 6 + 코스 8 = 15회를 부른다(2026-08-28: 붐빔 후보 12→6).
+ * 홈 화면 1회 로드는 붐빔 후보 6 + 코스 8 = 14회를 부른다(2026-08-28: 붐빔 후보 12→6).
  * 각 화면이 `Promise.all` 로 묶어 쏘기 때문에, 막지 않으면 20개가 거의 동시에 나간다.
  * TourAPI 는 일일 한도(코드 22)와 별개로 **초당 한도(코드 23)** 가 있고,
  * 그 수치는 공개 문서에 없다 — 확인되지 않은 벽에 스스로 부딪힐 이유가 없다.
@@ -470,25 +466,18 @@ export function getBarrierFreeNearby(
   );
 }
 
-/** TourAPI 날짜 형식(YYYYMMDD). */
-export function toApiDate(date: Date): string {
-  const mm = String(date.getMonth() + 1).padStart(2, '0');
-  const dd = String(date.getDate()).padStart(2, '0');
-  return `${date.getFullYear()}${mm}${dd}`;
-}
-
-function todayYYYYMMDD(): string {
-  return toApiDate(new Date());
-}
-
 /**
  * 시·군·구의 관광지 집중률 예측(오늘부터 30일). `areaCd`·`signguCd` 둘 다 필수 —
  * 시·도만 넘기면 API 가 거절한다(2026-09-16 실측). 메모리에서만 잠깐 쓴다.
+ *
+ * 응답은 관광지별 30일치가 연달아 온다. 300행이면 관광지 약 10곳만 받아 서울 중구처럼
+ * 1,650행이 필요한 지역에서 성지 이름 매칭이 잘린다. 현재 최대치를 한 번에 받아야
+ * "정보 없음"을 실제 데이터 부재와 구분할 수 있다.
  */
 export function getCongestionRates(areaCd: string, signguCd: string): Promise<CongestionRate[]> {
   return callTourApi<CongestionRate>(
     'tatsCnctrRatedList',
-    { areaCd, signguCd, numOfRows: 300, pageNo: 1 },
+    { areaCd, signguCd, numOfRows: 2000, pageNo: 1 },
     'TatsCnctrRateService',
   );
 }
@@ -574,47 +563,5 @@ export async function getWalkingCoursesNear(
   return courses.filter((c) => {
     const [sido, ...sigungu] = (c.sigun ?? '').trim().split(/\s+/);
     return sido === region && sigungu.join(' ') === district;
-  });
-}
-
-/**
- * 오늘 진행 중인 전국 축제·행사 목록.
- *
- * 붐빔 지수의 핵심 입력이다. 성지마다 따로 묻지 않고 **전국을 한 번에 받아온 뒤
- * 성지와의 거리는 우리가 직접 계산한다** — 이것 하나로 호출 수가 성지 수(208)에서 1로 줄어든다.
- *
- * `eventStartDate` 는 "그 날짜 이후 시작하는 행사"를 뜻하므로, 오늘 이미 진행 중인 행사까지
- * 잡으려면 과거 날짜로 조회한 뒤 종료일을 보고 걸러야 한다.
- */
-export async function getOngoingFestivals(
-  options: { daysBack?: number; numOfRows?: number; maxPages?: number } = {},
-): Promise<TourApiSpot[]> {
-  // 한 페이지에 많이 받을수록 호출 수가 줄어든다. 전국 축제는 하루 수십~수백 건이라
-  // 300건이면 대개 1회로 끝난다(실측 확인).
-  const { daysBack = 60, numOfRows = 300, maxPages = 3 } = options;
-
-  const from = new Date();
-  from.setDate(from.getDate() - daysBack);
-  const today = todayYYYYMMDD();
-
-  const collected: TourApiSpot[] = [];
-  for (let pageNo = 1; pageNo <= maxPages; pageNo += 1) {
-    const page = await callTourApi('searchFestival2', {
-      eventStartDate: toApiDate(from),
-      numOfRows,
-      pageNo,
-      arrange: 'A',
-    });
-    collected.push(...page);
-    // 마지막 페이지에 닿으면 요청한 수보다 적게 온다.
-    if (page.length < numOfRows) break;
-  }
-
-  // 오늘 진행 중인 것만 남긴다 (시작 ≤ 오늘 ≤ 종료).
-  return collected.filter((spot) => {
-    const start = spot.eventstartdate;
-    const end = spot.eventenddate;
-    if (!start || !end) return false;
-    return start <= today && today <= end;
   });
 }

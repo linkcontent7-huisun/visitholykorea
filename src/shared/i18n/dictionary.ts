@@ -104,7 +104,14 @@ export const DICTIONARY = {
     pt: 'Explorar',
     it: 'Esplora',
   },
-  record: { ko: '기록', en: 'Record', es: 'Registro', fr: 'Carnet', pt: 'Registro', it: 'Diario' },
+  record: {
+    ko: '순례 기록',
+    en: 'Record',
+    es: 'Registro',
+    fr: 'Carnet',
+    pt: 'Registro',
+    it: 'Diario',
+  },
   menu: {
     ko: '설정',
     en: 'Settings',
@@ -138,7 +145,7 @@ export const DICTIONARY = {
     it: 'Santuari',
   },
   myRecords: {
-    ko: '내 기록',
+    ko: '내 순례 기록',
     en: 'My records',
     es: 'Mis registros',
     fr: 'Mes notes',
@@ -164,7 +171,7 @@ export const DICTIONARY = {
     it: 'Conserva i santuari visitati e una breve nota. Privato per impostazione; modifica o elimina quando vuoi.',
   },
   recordsAddTitle: {
-    ko: '기록 추가',
+    ko: '순례 기록 추가',
     en: 'Add a record',
     es: 'Añadir registro',
     fr: 'Ajouter une note',
@@ -172,7 +179,7 @@ export const DICTIONARY = {
     it: 'Aggiungi appunto',
   },
   recordsPickSite: {
-    ko: '「성지 찾기」로 장소 고르기',
+    ko: '「성지 찾기」로 성지 고르기',
     en: 'Pick a shrine via search',
     es: 'Elegir santuario buscando',
     fr: 'Choisir un sanctuaire via la recherche',
@@ -188,7 +195,7 @@ export const DICTIONARY = {
     it: 'Apri un santuario da Trova santuari e tocca “Salva visita” in basso: comparirà qui.',
   },
   recordsEmptyTitle: {
-    ko: '아직 기록이 없습니다',
+    ko: '아직 순례 기록이 없습니다',
     en: 'No records yet',
     es: 'Aún no hay registros',
     fr: 'Aucune note pour l’instant',
@@ -236,7 +243,7 @@ export const DICTIONARY = {
     it: 'Elimina',
   },
   recordsDeleteConfirm: {
-    ko: '이 기록을 지울까요? 되돌릴 수 없어요.',
+    ko: '이 순례 기록을 지울까요? 되돌릴 수 없어요.',
     en: 'Delete this record? This cannot be undone.',
     es: '¿Eliminar este registro? No se puede deshacer.',
     fr: 'Supprimer cette note ? Irréversible.',
@@ -643,7 +650,7 @@ export const DICTIONARY = {
   },
   // 제출 범위에서 뺀 기능의 옛 주소로 들어온 사람에게
   retiredAiTitle: {
-    ko: 'AI 순례 가이드는 잠시 쉬고 있습니다',
+    ko: '미카엘 순례 가이드는 잠시 쉬고 있습니다',
     en: 'The AI pilgrimage guide is paused',
     es: 'La guía de peregrinación con IA está en pausa',
     fr: 'Le guide de pèlerinage IA est en pause',
@@ -683,7 +690,7 @@ export const DICTIONARY = {
     it: 'Vai a Trova santuari',
   },
   mapOverviewTitle: {
-    ko: '전국 성지 분포 개요',
+    ko: '전국 성지 지도',
     en: 'Nationwide shrine distribution overview',
     es: 'Distribución de santuarios en el país',
     fr: 'Répartition des sanctuaires dans le pays',
@@ -691,7 +698,7 @@ export const DICTIONARY = {
     it: 'Distribuzione dei santuari nel paese',
   },
   mapOverviewNote: {
-    ko: '배경 지도 없이 위치만 점으로 나타낸 개요입니다. 길찾기는 각 성지 상세의 외부 지도를 이용해 주세요.',
+    ko: '배경 지도 없이 위치만 점으로 나타냅니다. 길찾기는 각 성지 상세의 외부 지도를 이용해 주세요.',
     en: 'A dot-only overview without a base map. For directions, open the external map from each shrine page.',
     es: 'Vista general solo con puntos, sin mapa base. Para indicaciones, abre el mapa externo desde cada santuario.',
     fr: 'Aperçu par points sans fond de carte. Pour l’itinéraire, ouvrez la carte externe depuis chaque sanctuaire.',
@@ -952,8 +959,8 @@ export const DICTIONARY = {
   quietSubtitle: {
     ko: '한국관광공사 관광데이터(실시간 호출)로 예상한 오늘의 붐빔 정도예요',
     en: 'Expected crowding for today, estimated from Korea Tourism Organization data fetched live',
-    es: 'Afluencia estimada con datos en directo de festivales y atracciones de la Organización de Turismo de Corea',
-    fr: 'Affluence estimée à partir des données en temps réel des festivals et sites de l’Office du tourisme coréen',
+    es: 'Afluencia estimada con datos en directo de eventos y atracciones de la Organización de Turismo de Corea',
+    fr: 'Affluence estimée à partir des données en temps réel des événements et sites de l’Office du tourisme coréen',
     pt: 'Movimento estimado com dados ao vivo de festivais e atrações da Organização de Turismo da Coreia',
     it: 'Affluenza stimata dai dati in tempo reale su feste e attrazioni dell’Ente del Turismo Coreano',
   },
@@ -986,7 +993,7 @@ export const DICTIONARY = {
   quietHeroSubtitle: {
     ko: '붐비는 관광지 대신, 관광데이터로 예상한 비교적 한적한 성지를 찾습니다',
     en: 'Instead of a crowded spot, find a comparatively quiet shrine using expected crowding from tourism data',
-    es: 'Un paso lejos del ruido, con datos en vivo de festivales y atracciones de la Organización de Turismo de Corea',
+    es: 'Un paso lejos del ruido, con datos en vivo de eventos y atracciones de la Organización de Turismo de Corea',
     fr: 'Un pas hors du bruit, grâce aux données en temps réel de l’Office du tourisme coréen',
     pt: 'Um passo para longe do ruído, com dados ao vivo da Organização de Turismo da Coreia',
     it: 'Un passo lontano dal rumore, con i dati in tempo reale dell’Ente del Turismo Coreano',
@@ -1025,7 +1032,7 @@ export const DICTIONARY = {
   },
   // 대화 시트 헤더 제목 — 「AI」 대신 이름을 앞세운다 (2026-09-18 사장님)
   aiGuideTitle: {
-    ko: '순례 가이드 미카엘',
+    ko: '미카엘 순례 가이드',
     en: 'Michael, Pilgrimage Guide',
     es: 'Miguel, guía de peregrinación',
     fr: 'Michel, guide de pèlerinage',
@@ -1043,7 +1050,7 @@ export const DICTIONARY = {
   },
   // 홈 입구 카드용 — 이름 + AI, 헤더 라벨(aiGuideNavLabel)보다 한 단계 더 설명적이다
   aiGuideEntryTitle: {
-    ko: '미카엘 AI',
+    ko: '미카엘 순례 가이드',
     en: 'Michael AI',
     es: 'Miguel IA',
     fr: 'Michel IA',
@@ -1058,7 +1065,7 @@ export const DICTIONARY = {
     pt: 'Pergunte o que quiser',
     it: 'Chiedi quello che vuoi',
   },
-  // 홈 입구 카드 3개(성지 찾기·미카엘 AI·오늘의 성지 일정)의 부제 길이를 맞추려고 추가
+  // 홈 입구 카드 3개(성지 찾기·미카엘 순례 가이드·오늘의 성지 일정)의 부제 길이를 맞추려고 추가
   // (사장님 지적, 2026-09-18) — 성지 찾기만 부제가 없어 카드 높이가 안 맞았다.
   homeEntrySearchSub: {
     ko: '이름이나 지역으로 찾아보세요',
@@ -1071,7 +1078,7 @@ export const DICTIONARY = {
   // 2026-09-07 부터 화면에서 쓰이지 않는다 — 홈의 큰 AI 배너를 바로가기 칩으로
   // 줄이면서 본문·버튼 문구가 빠졌다. 시트 안에 안내를 넣게 되면 다시 쓴다.
   aiGuideBody: {
-    ko: '성지 순례에 대한 모든 것! 무엇이든 물어보세요.',
+    ko: '성지순례에 대한 모든 것! 무엇이든 물어보세요.',
     en: 'Everything about pilgrimage — ask anything.',
     es: 'Todo sobre la peregrinación: pregunta lo que quieras.',
     fr: 'Tout sur le pèlerinage — posez vos questions.',
@@ -1313,7 +1320,7 @@ export const DICTIONARY = {
     it: 'Molte persone stanno consultando insieme, quindi le ricerche sono in pausa oggi. Domani tornerà a funzionare.',
   },
 
-  // 오디오 도슨트 플레이어 — WYD 대비 6개 국어. 이전에는 한/영뿐이었다.
+  // 오디오 가이드 플레이어 — WYD 대비 6개 국어. 이전에는 한/영뿐이었다.
   docentTitle: {
     ko: '오디오 가이드',
     en: 'Audio Guide',
@@ -1323,7 +1330,7 @@ export const DICTIONARY = {
     it: 'Audioguida',
   },
   docentHint: {
-    ko: '박물관 도슨트처럼, 둘러보는 동안 귀로 들으세요',
+    ko: '박물관 오디오 가이드처럼, 둘러보는 동안 귀로 들으세요',
     en: 'Listen as you walk, like a museum docent',
     es: 'Escuche mientras camina, como en un museo',
     fr: 'Écoutez en marchant, comme au musée',
@@ -1427,7 +1434,7 @@ export const DICTIONARY = {
     it: 'Questo dispositivo non ha una voce per questa lingua, quindi potrebbe non esserci audio. Aggiungila nelle impostazioni, o leggi il testo qui sotto.',
   },
   docentEarphoneAsk: {
-    ko: '성당은 미사와 기도가 이어지는 공간입니다. 다른 순례자분들께 소리가 들리지 않도록 이어폰을 연결해 주세요. 이어폰이 연결되지 않은 경우에는 오디오 도슨트를 들으실 수 없습니다.',
+    ko: '성당은 미사와 기도가 이어지는 공간입니다. 다른 순례자분들께 소리가 들리지 않도록 이어폰을 연결해 주세요. 이어폰이 연결되지 않은 경우에는 오디오 가이드를 들으실 수 없습니다.',
     en: 'Churches are places of Mass and prayer. Please connect earphones so the sound does not reach other pilgrims — without earphones, the audio guide cannot be played.',
     es: 'Las iglesias son lugares de Misa y oración. Conecte auriculares para que el sonido no llegue a otros peregrinos: sin auriculares, la audioguía no puede reproducirse.',
     fr: 'Les églises sont des lieux de messe et de prière. Veuillez brancher des écouteurs afin que le son n’atteigne pas les autres pèlerins — sans écouteurs, l’audioguide ne peut pas être lu.',
@@ -1576,7 +1583,7 @@ export const DICTIONARY = {
     it: 'Risultati',
   },
   aiGuideName: {
-    ko: 'AI 순례 가이드 미카엘',
+    ko: '미카엘 순례 가이드',
     en: 'Michael, the AI pilgrimage guide',
     es: 'Michael, la guía de peregrinación con IA',
     fr: 'Michael, le guide de pèlerinage IA',
@@ -1639,14 +1646,6 @@ export const DICTIONARY = {
     fr: 'Peu fréquenté en ce moment',
     pt: 'Sem multidão agora',
     it: 'Poco affollato ora',
-  },
-  searchRecommendFestival: {
-    ko: '오늘 열리는 축제 곁 성지',
-    en: 'Shrines near today’s festivals',
-    es: 'Santuarios junto a festivales de hoy',
-    fr: 'Sanctuaires près des fêtes du jour',
-    pt: 'Santuários perto dos festivais de hoje',
-    it: 'Santuari vicino ai festival di oggi',
   },
 
   // 지도 화면
@@ -1725,7 +1724,7 @@ export const DICTIONARY = {
 
   // 기록 화면
   recordsTitle: {
-    ko: '기록',
+    ko: '순례 기록',
     en: 'My Record',
     es: 'Mi registro',
     fr: 'Mon carnet',
@@ -1749,7 +1748,7 @@ export const DICTIONARY = {
     it: 'Accedi per salvare i santuari che visiti e le tue note.',
   },
   stampsEmptyTitle: {
-    ko: '아직 스탬프가 없어요',
+    ko: '아직 순례 기록이 없어요',
     en: 'No stamps yet',
     es: 'Aún no hay sellos',
     fr: 'Pas encore de tampons',
@@ -2654,12 +2653,28 @@ export const DICTIONARY = {
     it: 'Registrati per organizzare e conservare\nil tuo pellegrinaggio.',
   },
   socialLogin: {
-    ko: 'SNS 간편 로그인',
+    ko: '간편 로그인',
     en: 'Continue with social login',
     es: 'Continuar con inicio de sesión social',
     fr: 'Continuer avec la connexion sociale',
     pt: 'Continuar com login social',
     it: 'Continua con l’accesso social',
+  },
+  emailAuth: {
+    ko: '이메일로 로그인·회원가입',
+    en: 'Log in or sign up with email',
+    es: 'Iniciar sesión o registrarse con correo',
+    fr: 'Se connecter ou s’inscrire par e-mail',
+    pt: 'Entrar ou cadastrar-se com e-mail',
+    it: 'Accedi o registrati con l’e-mail',
+  },
+  emailAuthHint: {
+    ko: '이메일 로그인·회원가입은 필요할 때 열어보세요.',
+    en: 'Open email login or sign-up when you need it.',
+    es: 'Abre el acceso o registro por correo cuando lo necesites.',
+    fr: 'Ouvrez la connexion ou l’inscription par e-mail si nécessaire.',
+    pt: 'Abra o login ou cadastro por e-mail quando precisar.',
+    it: 'Apri l’accesso o la registrazione via e-mail quando serve.',
   },
   noAccountYet: {
     ko: '계정이 없으신가요? ',
@@ -2712,7 +2727,7 @@ export const DICTIONARY = {
     it: 'Email o password non corretti.',
   },
   socialLoginFailed: {
-    ko: '소셜 로그인에 실패했어요. 잠시 후 다시 시도해주세요.',
+    ko: '간편 로그인에 실패했어요. 잠시 후 다시 시도해주세요.',
     en: 'Social login failed. Please try again shortly.',
     es: 'Falló el inicio de sesión social. Inténtalo de nuevo en un momento.',
     fr: 'La connexion sociale a échoué. Réessayez dans un instant.',
@@ -2722,7 +2737,7 @@ export const DICTIONARY = {
 
   // 메뉴 요약 카드
   countShrines: {
-    ko: '순례지',
+    ko: '순례 기록',
     en: 'Shrines',
     es: 'Santuarios',
     fr: 'Sanctuaires',
@@ -2732,12 +2747,12 @@ export const DICTIONARY = {
 
   // 로그인 화면 하단
   socialLoginHint: {
-    ko: 'SNS 인증으로 간편하게 시작할 수 있어요.',
-    en: 'You can start quickly with a social account.',
-    es: 'Puedes empezar rápido con una cuenta social.',
-    fr: 'Vous pouvez commencer rapidement avec un compte social.',
-    pt: 'Você pode começar rapidamente com uma conta social.',
-    it: 'Puoi iniziare rapidamente con un account social.',
+    ko: '간편 로그인으로 회원가입과 로그인을 모두 할 수 있어요.',
+    en: 'Use social login to sign up and log in.',
+    es: 'Usa el inicio de sesión social para registrarte y entrar.',
+    fr: 'Utilisez la connexion sociale pour vous inscrire et vous connecter.',
+    pt: 'Use o login social para se cadastrar e entrar.',
+    it: 'Usa l’accesso social per registrarti e accedere.',
   },
   viewTerms: {
     ko: '이용약관 보기',
@@ -2963,110 +2978,12 @@ export const DICTIONARY = {
     it: 'Informazioni sull’accessibilità',
   },
   visitInfoNearbyParishes: {
-    ko: '주변 본당',
+    ko: '주변 성당·공소',
     en: 'Nearby parishes',
     es: 'Parroquias cercanas',
     fr: 'Paroisses proches',
     pt: 'Paróquias próximas',
     it: 'Parrocchie vicine',
-  },
-
-  // 축제 가는 김에 — 붐빔 피하기의 반대 방향(행사에서 성지로 끌어온다)
-  festivalsTitle: {
-    ko: '축제 가는 김에',
-    en: 'On your way to the festival',
-    es: 'De camino al festival',
-    fr: 'Sur le chemin du festival',
-    pt: 'A caminho do festival',
-    it: 'Sulla strada per la festa',
-  },
-  festivalsSubtitle: {
-    ko: '행사 근처의 성지를 함께 둘러보세요',
-    en: 'Stop by a shrine near the event',
-    es: 'Visita un santuario cerca del evento',
-    fr: 'Visitez un sanctuaire près de l’événement',
-    pt: 'Visite um santuário perto do evento',
-    it: 'Visita un santuario vicino all’evento',
-  },
-  festivalsRegionAll: {
-    ko: '전체',
-    en: 'All',
-    es: 'Todas',
-    fr: 'Toutes',
-    pt: 'Todas',
-    it: 'Tutte',
-  },
-  festivalsRegionLabel: {
-    ko: '지역 고르기',
-    en: 'Choose a region',
-    es: 'Elegir región',
-    fr: 'Choisir une région',
-    pt: 'Escolher região',
-    it: 'Scegli una regione',
-  },
-  festivalsNearbySites: {
-    ko: '근처 성지',
-    en: 'Shrines nearby',
-    es: 'Santuarios cercanos',
-    fr: 'Sanctuaires à proximité',
-    pt: 'Santuários próximos',
-    it: 'Santuari vicini',
-  },
-  festivalsFound: {
-    ko: '성지가 가까운 축제 {n}곳',
-    en: '{n} festivals with a shrine nearby',
-    es: '{n} festivales con un santuario cerca',
-    fr: '{n} festivals avec un sanctuaire à proximité',
-    pt: '{n} festivais com um santuário por perto',
-    it: '{n} feste con un santuario nelle vicinanze',
-  },
-  festivalsLoading: {
-    ko: '오늘 열리는 축제를 확인하는 중…',
-    en: 'Checking today’s festivals…',
-    es: 'Comprobando los festivales de hoy…',
-    fr: 'Vérification des festivals du jour…',
-    pt: 'Verificando os festivais de hoje…',
-    it: 'Controllo delle feste di oggi…',
-  },
-  festivalsEmpty: {
-    ko: '오늘은 성지 가까이에서 열리는 축제가 없어요',
-    en: 'No festivals near a shrine today',
-    es: 'Hoy no hay festivales cerca de un santuario',
-    fr: 'Aucun festival près d’un sanctuaire aujourd’hui',
-    pt: 'Hoje não há festivais perto de um santuário',
-    it: 'Oggi non ci sono feste vicino a un santuario',
-  },
-  festivalsEmptyHint: {
-    ko: '다른 지역을 골라 보세요',
-    en: 'Try another region',
-    es: 'Prueba con otra región',
-    fr: 'Essayez une autre région',
-    pt: 'Tente outra região',
-    it: 'Prova un’altra regione',
-  },
-  festivalsError: {
-    ko: '축제 정보를 불러오지 못했어요',
-    en: 'Couldn’t load festival information',
-    es: 'No se pudo cargar la información de festivales',
-    fr: 'Impossible de charger les informations sur les festivals',
-    pt: 'Não foi possível carregar as informações dos festivais',
-    it: 'Impossibile caricare le informazioni sulle feste',
-  },
-  festivalsErrorHint: {
-    ko: '잠시 후 다시 시도해 주세요',
-    en: 'Please try again in a moment',
-    es: 'Inténtalo de nuevo en unos momentos',
-    fr: 'Veuillez réessayer dans un instant',
-    pt: 'Tente novamente em instantes',
-    it: 'Riprova tra poco',
-  },
-  festivalsSource: {
-    ko: '오늘 열리는 축제 정보는 한국관광공사 관광데이터를 지금 불러온 것입니다. 성지까지의 거리는 직선거리 참고값이에요.',
-    en: 'Today’s festival information is fetched just now from the Korea Tourism Organization. Distances to shrines are straight-line reference values.',
-    es: 'La información de festivales de hoy proviene en directo de la Organización de Turismo de Corea. Las distancias a los santuarios son en línea recta.',
-    fr: 'Les informations sur les festivals du jour proviennent en temps réel de l’Office du tourisme coréen. Les distances vers les sanctuaires sont à vol d’oiseau.',
-    pt: 'As informações dos festivais de hoje vêm ao vivo da Organização de Turismo da Coreia. As distâncias até os santuários são em linha reta.',
-    it: 'Le informazioni sulle feste di oggi arrivano in tempo reale dall’Ente del Turismo Coreano. Le distanze dai santuari sono in linea d’aria.',
   },
 
   // 성지 상세 — 화면 구획 (T-007, 2026-09-06)
@@ -3430,7 +3347,7 @@ export const DICTIONARY = {
     it: 'Non è stato possibile salvare la tua nota.',
   },
   saveFailedFavorite: {
-    ko: '찜 저장에 실패했어요.',
+    ko: '즐겨찾기 저장에 실패했어요.',
     en: 'Couldn’t save to favorites.',
     es: 'No se pudo guardar en favoritos.',
     fr: 'Impossible d’ajouter aux favoris.',
@@ -3438,7 +3355,7 @@ export const DICTIONARY = {
     it: 'Non è stato possibile salvare tra i preferiti.',
   },
   saveFailedStamp: {
-    ko: '스탬프 저장에 실패했어요.',
+    ko: '순례 기록 저장에 실패했어요.',
     en: 'Couldn’t save your stamp.',
     es: 'No se pudo guardar tu sello.',
     fr: 'Impossible d’enregistrer votre tampon.',
@@ -3463,7 +3380,7 @@ export const DICTIONARY = {
     it: 'Santuario dei martiri',
   },
   recordsStampsTab: {
-    ko: '방문 스탬프',
+    ko: '순례 기록',
     en: 'Visit stamps',
     es: 'Sellos de visita',
     fr: 'Tampons de visite',
@@ -4257,7 +4174,7 @@ export const DICTIONARY = {
     it: 'Si è verificato un problema nel caricamento dei dati turistici. Riprova tra poco.',
   },
   crowdingEstimateNote: {
-    ko: '현장 인원이나 대기 시간을 잰 값이 아닙니다. 한국관광공사 관광데이터(관광지 집중률 예측, 오늘 열리는 축제·행사)를 실시간으로 불러와 계산한 참고값이라 실제와 다를 수 있어요.',
+    ko: '현장 인원이나 대기 시간을 잰 값이 아닙니다. 한국관광공사 관광데이터의 관광지 집중률 예측을 불러와 계산한 참고값이라 실제와 다를 수 있어요.',
     en: "Not a count of people on site. A reference estimate computed live from Korea Tourism Organization data (congestion forecasts, today's events) and may differ from reality.",
     es: "Not a count of people on site. A reference estimate computed live from Korea Tourism Organization data (congestion forecasts, today's events) and may differ from reality.",
     fr: "Not a count of people on site. A reference estimate computed live from Korea Tourism Organization data (congestion forecasts, today's events) and may differ from reality.",
@@ -4443,7 +4360,7 @@ export const DICTIONARY = {
   // 한국어의 줄바꿈 문자는 「가까운」 화면 제목에서만 살아난다(whitespace-pre-line).
   // "성/지·성당"처럼 단어 중간에서 갈리지 않게 사장님이 줄 위치를 정했다(2026-09-13).
   nearbyEntryTitle: {
-    ko: '여기에서 가장 가까운\n성지·성당',
+    ko: '여기에서 가장 가까운\n성지·성당·공소',
     en: 'Nearest shrines & churches from here',
     es: 'Santuarios e iglesias más cercanos',
     fr: 'Sanctuaires et églises les plus proches',
@@ -4485,7 +4402,7 @@ export const DICTIONARY = {
     it: 'Santuari · {count}',
   },
   nearbyParishesTab: {
-    ko: '가까운 성당',
+    ko: '가까운 성당·공소',
     en: 'Churches',
     es: 'Iglesias',
     fr: 'Églises',
@@ -4493,7 +4410,7 @@ export const DICTIONARY = {
     it: 'Chiese',
   },
   nearbyParishesEmpty: {
-    ko: '반경 {radius}km 안에 등록된 본당·공소가 없어요.',
+    ko: '반경 {radius}km 안에 등록된 성당·공소가 없어요.',
     en: 'No parishes or mission stations within {radius} km.',
     es: 'No hay parroquias ni capillas en {radius} km.',
     fr: 'Aucune paroisse ni chapelle dans un rayon de {radius} km.',
@@ -4509,7 +4426,7 @@ export const DICTIONARY = {
     it: 'Distanza in linea d’aria. Controlla il tempo reale nelle indicazioni.',
   },
   nearbyParishesSub: {
-    ko: '반경 {radius}km 안 본당·공소 — 가까운 미사를 찾을 때',
+    ko: '반경 {radius}km 안 성당·공소 — 가까운 미사를 찾을 때',
     en: 'Parishes and mission stations within {radius} km — for a nearby Mass',
     es: 'Parroquias y capillas en {radius} km — para una misa cercana',
     fr: 'Paroisses et chapelles dans un rayon de {radius} km — pour une messe proche',
@@ -4549,7 +4466,7 @@ export const DICTIONARY = {
     it: 'Un pellegrinaggio',
   },
   regionHeroTitleLine2: {
-    ko: '성지 순례',
+    ko: '성지순례',
     en: 'from {region}',
     es: 'desde {region}',
     fr: 'depuis {region}',
@@ -4704,7 +4621,7 @@ export const DICTIONARY = {
   // 본당·공소 5,918건의 이름·주소는 사람이 번역한 게 아니라 표기법을 기계로 적용한
   // 값이다(2026-09-07) — 208곳 성지의 사람이 확인한 번역과 다르다는 것을 밝힌다.
   nearbyParishesMassTimesNote: {
-    ko: '미사 시간은 본당 사정에 따라 바뀌니 방문 전 전화로 확인해 주세요.',
+    ko: '미사 시간은 성당 사정에 따라 바뀌니 방문 전 전화로 확인해 주세요.',
     en: 'Mass times vary by parish — please call ahead to confirm before visiting.',
     es: 'Los horarios de misa varían según la parroquia; llama antes de visitar para confirmar.',
     fr: 'Les horaires de messe varient selon la paroisse — appelez avant de visiter pour confirmer.',
@@ -4720,7 +4637,7 @@ export const DICTIONARY = {
     it: 'Nomi e indirizzi sono traslitterati automaticamente e potrebbero non essere esatti.',
   },
   regionParishesTitle: {
-    ko: '주변 본당·공소',
+    ko: '주변 성당·공소',
     en: 'Nearby parishes & chapels',
     es: 'Parroquias y capillas cercanas',
     fr: 'Paroisses et chapelles à proximité',
@@ -4728,7 +4645,7 @@ export const DICTIONARY = {
     it: 'Parrocchie e cappelle vicine',
   },
   regionParishesBody: {
-    ko: '성지로 등록되진 않았지만, 이 지역에서 미사에 참례할 수 있는 본당·공소예요.',
+    ko: '성지로 등록되진 않았지만, 이 지역에서 미사에 참례할 수 있는 성당·공소예요.',
     en: 'Not registered as a curated shrine, but these are parishes and chapels where you can attend Mass nearby.',
     es: 'No están registrados como santuarios seleccionados, pero son parroquias y capillas donde puedes asistir a misa cerca.',
     fr: 'Non répertoriés comme sanctuaires sélectionnés, mais ce sont des paroisses et chapelles où assister à la messe à proximité.',
@@ -4934,7 +4851,7 @@ export const DICTIONARY = {
     it: 'Mese dei Defunti',
   },
   favoriteAdd: {
-    ko: '찜하기',
+    ko: '즐겨찾기 추가',
     en: 'Add to favorites',
     es: 'Guardar en favoritos',
     fr: 'Ajouter aux favoris',
@@ -4942,7 +4859,7 @@ export const DICTIONARY = {
     it: 'Aggiungi ai preferiti',
   },
   favoriteRemove: {
-    ko: '찜 해제하기',
+    ko: '즐겨찾기 해제하기',
     en: 'Remove from favorites',
     es: 'Quitar de favoritos',
     fr: 'Retirer des favoris',
@@ -4950,7 +4867,7 @@ export const DICTIONARY = {
     it: 'Rimuovi dai preferiti',
   },
   siteRecordAnchor: {
-    ko: '기록하기',
+    ko: '순례 기록 남기기',
     en: 'Record',
     es: 'Registrar',
     fr: 'Noter',
@@ -5079,6 +4996,22 @@ export const DICTIONARY = {
     pt: 'Senha',
     it: 'Password',
   },
+  passwordConfirmation: {
+    ko: '비밀번호 재입력',
+    en: 'Re-enter password',
+    es: 'Repite la contraseña',
+    fr: 'Confirmez le mot de passe',
+    pt: 'Digite a senha novamente',
+    it: 'Reinserisci la password',
+  },
+  passwordMismatch: {
+    ko: '비밀번호가 일치하지 않습니다. 다시 확인해주세요.',
+    en: 'Passwords do not match. Please check them again.',
+    es: 'Las contraseñas no coinciden. Compruébalas de nuevo.',
+    fr: 'Les mots de passe ne correspondent pas. Vérifiez-les.',
+    pt: 'As senhas não coincidem. Confira novamente.',
+    it: 'Le password non corrispondono. Controllale di nuovo.',
+  },
   loginWith: {
     ko: '{provider}로 로그인',
     en: 'Log in with {provider}',
@@ -5138,7 +5071,7 @@ export const DICTIONARY = {
     it: 'Ancora nessuna recensione',
   },
   routeTotalEpisodes: {
-    ko: '전 {count}화',
+    ko: '{count}곳 경유',
     en: '{count} chapters total',
     es: '{count} capítulos en total',
     fr: '{count} chapitres au total',
@@ -5250,7 +5183,7 @@ export const DICTIONARY = {
     it: 'Ciao, pellegrino! Sono Michele e ti aiuto nel pellegrinaggio. Chiedimi di una regione o di un santuario che ti incuriosisce.',
   },
   aiSheetAria: {
-    ko: 'AI 순례 가이드',
+    ko: '미카엘 순례 가이드',
     en: 'AI pilgrimage guide',
     es: 'Guía de peregrinación IA',
     fr: 'Guide de pèlerinage IA',
@@ -5610,6 +5543,38 @@ export const DICTIONARY = {
     pt: 'Surroundings are busy',
     it: 'Surroundings are busy',
   },
+  nearbyDensityLow: {
+    ko: '주변 밀집도 하',
+    en: 'Nearby density: low',
+    es: 'Densidad cercana: baja',
+    fr: 'Densité à proximité : faible',
+    pt: 'Densidade próxima: baixa',
+    it: 'Densità nei dintorni: bassa',
+  },
+  nearbyDensityMedium: {
+    ko: '주변 밀집도 중',
+    en: 'Nearby density: moderate',
+    es: 'Densidad cercana: media',
+    fr: 'Densité à proximité : moyenne',
+    pt: 'Densidade próxima: média',
+    it: 'Densità nei dintorni: media',
+  },
+  nearbyDensityHigh: {
+    ko: '주변 밀집도 상',
+    en: 'Nearby density: high',
+    es: 'Densidad cercana: alta',
+    fr: 'Densité à proximité : élevée',
+    pt: 'Densidade próxima: alta',
+    it: 'Densità nei dintorni: alta',
+  },
+  nearbyDensityLoading: {
+    ko: '실시간 밀집도 분석중',
+    en: 'Analyzing nearby density',
+    es: 'Analizando la densidad cercana',
+    fr: 'Analyse de la densité à proximité',
+    pt: 'Analisando a densidade próxima',
+    it: 'Analisi della densità nei dintorni',
+  },
   nearbyUnknown: {
     ko: '인근 혼잡도를 불러오지 못했어요',
     en: "Couldn't load nearby crowding",
@@ -5770,22 +5735,6 @@ export const DICTIONARY = {
     fr: 'No KTO congestion data for this district',
     pt: 'No KTO congestion data for this district',
     it: 'No KTO congestion data for this district',
-  },
-  crowdingReasonFestivalYes: {
-    ko: '오늘 인근에 열리는 행사 있음 · {title}',
-    en: 'Event nearby today · {title}',
-    es: 'Event nearby today · {title}',
-    fr: 'Event nearby today · {title}',
-    pt: 'Event nearby today · {title}',
-    it: 'Event nearby today · {title}',
-  },
-  crowdingReasonFestivalNo: {
-    ko: '오늘 인근에 열리는 행사 없음',
-    en: 'No events nearby today',
-    es: 'No events nearby today',
-    fr: 'No events nearby today',
-    pt: 'No events nearby today',
-    it: 'No events nearby today',
   },
   crowdingWordLow: { ko: '낮음', en: 'low', es: 'low', fr: 'low', pt: 'low', it: 'low' },
   crowdingWordMid: {
