@@ -7,15 +7,28 @@
   "status": "draft",
   "intro": {
     "narration": "초남이 성지는 유항검 아우구스티노 가족의 생가가 있던 곳입니다. 생가터와 교리당, 순교자 묘소를 따라 호남 지역에 신앙이 퍼져 간 흔적을 살펴보시겠습니다.",
+    "narrationEn": "Chonami Shrine stands where the family home of Augustine Yu Hang-geom once stood. As you visit the homesite, catechism hall, and martyrs' tomb, you will see traces of how the faith spread through the Honam region.",
+    "narrationEs": "El Santuario de Chonami se encuentra donde estuvo la casa familiar de Agustín Yu Hang-geom. Al visitar el solar, la sala de catequesis y la tumba de los mártires, verá huellas de cómo se difundió la fe por la región de Honam.",
+    "narrationIt": "Il Santuario di Chonami sorge dove un tempo si trovava la casa della famiglia di Agostino Yu Hang-geom. Visitando il sito della casa, la sala del catechismo e la tomba dei martiri, vedrete le tracce della diffusione della fede nella regione di Honam.",
+    "narrationPt": "O Santuário de Chonami fica onde existiu a casa da família de Agostinho Yu Hang-geom. Ao visitar o terreno da casa, a sala de catequese e o túmulo dos mártires, verá vestígios de como a fé se difundiu pela região de Honam.",
+    "narrationFr": "Le sanctuaire de Chonami se trouve à l'emplacement de la maison familiale d'Augustin Yu Hang-geom. En visitant le site de la maison, la salle de catéchisme et la tombe des martyrs, vous découvrirez comment la foi s'est répandue dans la région du Honam.",
     "photos": []
   },
   "points": [
     {
       "seq": 1,
       "title": "생가터 — 유항검의 집터",
+      "titleEn": "Homesite — Yu Hang-geom's Home", "titleEs": "Solar — Casa de Yu Hang-geom", "titleIt": "Sito della casa — Casa di Yu Hang-geom", "titlePt": "Terreno da casa — Casa de Yu Hang-geom", "titleFr": "Site de la maison — Maison de Yu Hang-geom",
       "location": "성지 안 생가터",
+      "locationEn": "Homesite within the shrine", "locationEs": "Solar dentro del santuario", "locationIt": "Sito della casa nel santuario", "locationPt": "Terreno da casa dentro do santuário", "locationFr": "Site de la maison dans le sanctuaire",
       "narration": "이곳은 호남의 사도로 불린 유항검 아우구스티노의 생가가 있던 자리입니다. 유항검은 이곳에서 나눔을 실천하고 복음을 전했습니다. 신유박해 때 가족이 순교한 뒤 집은 헐리고 터가 파헤쳐졌습니다.",
+      "narrationEn": "This is the site of the family home of Augustine Yu Hang-geom, known as the Apostle of Honam. Here he practiced charity and shared the Gospel. After his family was martyred during the 1801 Persecution, the house was demolished and the site dug up.",
+      "narrationEs": "Este es el solar de la casa familiar de Agustín Yu Hang-geom, conocido como el Apóstol de Honam. Aquí practicó la caridad y anunció el Evangelio. Después del martirio de su familia durante la persecución de 1801, la casa fue demolida y el terreno excavado.",
+      "narrationIt": "Questo è il sito della casa familiare di Agostino Yu Hang-geom, noto come l'Apostolo di Honam. Qui praticò la carità e annunciò il Vangelo. Dopo il martirio della sua famiglia durante la persecuzione del 1801, la casa fu demolita e il terreno dissotterrato.",
+      "narrationPt": "Este é o terreno da casa da família de Agostinho Yu Hang-geom, conhecido como o Apóstolo de Honam. Aqui praticou a caridade e anunciou o Evangelho. Depois do martírio da sua família durante a perseguição de 1801, a casa foi demolida e o terreno escavado.",
+      "narrationFr": "Voici l'emplacement de la maison familiale d'Augustin Yu Hang-geom, surnommé l'Apôtre du Honam. Il y pratiqua la charité et annonça l'Évangile. Après le martyre de sa famille pendant la persécution de 1801, la maison fut démolie et le terrain fouillé.",
       "lookFor": "유항검 가족의 삶을 기억하는 생가터",
+      "lookForEn": "The homesite commemorating the life of Yu Hang-geom's family", "lookForEs": "El solar que recuerda la vida de la familia de Yu Hang-geom", "lookForIt": "Il sito della casa che ricorda la vita della famiglia di Yu Hang-geom", "lookForPt": "O terreno da casa que recorda a vida da família de Yu Hang-geom", "lookForFr": "Le site de la maison rappelant la vie de la famille de Yu Hang-geom",
       "forEveryone": "한 가족의 삶과 지역 공동체의 역사가 시작된 집터입니다.",
       "photos": [],
       "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta04.php ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003779&gubun=16"
@@ -23,9 +36,17 @@
     {
       "seq": 2,
       "title": "교리당 — 교리와 숙식의 공간",
+      "titleEn": "Catechism Hall — A Place for Teaching and Hospitality", "titleEs": "Sala de catequesis — Lugar de enseñanza y acogida", "titleIt": "Sala del catechismo — Luogo di insegnamento e ospitalità", "titlePt": "Sala de catequese — Lugar de ensino e acolhimento", "titleFr": "Salle de catéchisme — Lieu d'enseignement et d'accueil",
       "location": "성지 안 교리당",
+      "locationEn": "Catechism hall within the shrine", "locationEs": "Sala de catequesis dentro del santuario", "locationIt": "Sala del catechismo nel santuario", "locationPt": "Sala de catequese dentro do santuário", "locationFr": "Salle de catéchisme dans le sanctuaire",
       "narration": "교리당은 유항검이 교리를 가르치고 토론하며 사람들에게 숙식을 제공하던 장소입니다. 이곳을 기점으로 전주와 김제, 금구와 영광까지 천주교가 전해졌습니다. 주문모 야고보 신부도 1795년에 이곳에 머물며 미사와 고해성사를 거행했습니다.",
+      "narrationEn": "The catechism hall was where Yu Hang-geom taught and discussed doctrine and provided visitors with food and lodging. From here, Catholicism spread to Jeonju, Gimje, Geumgu, and Yeonggwang. Father James Zhou Wen-mo also stayed here in 1795, celebrating Mass and hearing confessions.",
+      "narrationEs": "La sala de catequesis era donde Yu Hang-geom enseñaba y debatía la doctrina y ofrecía comida y alojamiento. Desde aquí, el catolicismo se extendió a Jeonju, Gimje, Geumgu y Yeonggwang. El padre Santiago Zhou Wen-mo también se alojó aquí en 1795, celebró misa y oyó confesiones.",
+      "narrationIt": "La sala del catechismo era il luogo in cui Yu Hang-geom insegnava e discuteva la dottrina e offriva vitto e alloggio. Da qui il cattolicesimo si diffuse a Jeonju, Gimje, Geumgu e Yeonggwang. Anche padre Giacomo Zhou Wen-mo vi soggiornò nel 1795, celebrando la Messa e ascoltando le confessioni.",
+      "narrationPt": "A sala de catequese era onde Yu Hang-geom ensinava e debatia a doutrina e oferecia alimentação e alojamento. A partir daqui, o catolicismo difundiu-se por Jeonju, Gimje, Geumgu e Yeonggwang. O padre Tiago Zhou Wen-mo também ficou aqui em 1795, celebrou missa e ouviu confissões.",
+      "narrationFr": "La salle de catéchisme était le lieu où Yu Hang-geom enseignait et discutait la doctrine, tout en offrant le gîte et le couvert. De là, le catholicisme se répandit à Jeonju, Gimje, Geumgu et Yeonggwang. Le père Jacques Zhou Wen-mo y séjourna aussi en 1795, célébrant la messe et entendant les confessions.",
       "lookFor": "사람들이 배우고 머물던 교리당 공간",
+      "lookForEn": "The catechism hall where people learned and stayed", "lookForEs": "La sala de catequesis donde la gente aprendía y se alojaba", "lookForIt": "La sala del catechismo dove le persone imparavano e soggiornavano", "lookForPt": "A sala de catequese onde as pessoas aprendiam e ficavam", "lookForFr": "La salle de catéchisme où les gens étudiaient et séjournaient",
       "forEveryone": "배움과 환대가 지역의 새로운 사상을 퍼뜨린 장소입니다.",
       "photos": [],
       "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta04.php"
@@ -33,9 +54,17 @@
     {
       "seq": 3,
       "title": "성당 — 성 요셉성당",
+      "titleEn": "Church — St. Joseph Church", "titleEs": "Iglesia — Iglesia de San José", "titleIt": "Chiesa — Chiesa di San Giuseppe", "titlePt": "Igreja — Igreja de São José", "titleFr": "Église — Église Saint-Joseph",
       "location": "생가터 쪽 성당",
+      "locationEn": "Church by the homesite", "locationEs": "Iglesia junto al solar", "locationIt": "Chiesa presso il sito della casa", "locationPt": "Igreja junto ao terreno da casa", "locationFr": "Église près du site de la maison",
       "narration": "생가터에는 성 요셉성당이 마련되어 있습니다. 월요일 미사는 생가터의 이 성당에서 봉헌된다고 교구 안내에 적혀 있습니다. 가족의 신앙을 기억하는 성지에서 예배가 이어지는 공간입니다.",
+      "narrationEn": "St. Joseph Church stands on the homesite. Diocesan information states that Monday Mass is celebrated here. It is a place where worship continues at a shrine that remembers the family's faith.",
+      "narrationEs": "La iglesia de San José se encuentra en el solar. La información diocesana indica que aquí se celebra la misa de los lunes. Es un lugar donde continúa el culto en un santuario que recuerda la fe de la familia.",
+      "narrationIt": "La chiesa di San Giuseppe sorge sul sito della casa. Le informazioni diocesane indicano che qui si celebra la Messa del lunedì. È un luogo in cui il culto continua in un santuario che ricorda la fede della famiglia.",
+      "narrationPt": "A Igreja de São José fica no terreno da casa. As informações diocesanas indicam que aqui se celebra a missa de segunda-feira. É um lugar onde o culto continua num santuário que recorda a fé da família.",
+      "narrationFr": "L'église Saint-Joseph se dresse sur le site de la maison. Les informations diocésaines indiquent que la messe du lundi y est célébrée. Le culte se poursuit ainsi dans un sanctuaire qui rappelle la foi de la famille.",
       "lookFor": "생가터에 자리한 작은 성당",
+      "lookForEn": "The small church on the homesite", "lookForEs": "La pequeña iglesia en el solar", "lookForIt": "La piccola chiesa sul sito della casa", "lookForPt": "A pequena igreja no terreno da casa", "lookForFr": "La petite église sur le site de la maison",
       "forEveryone": "역사적 집터에 마련된 현재의 예배 공간입니다.",
       "photos": [],
       "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta04.php"
@@ -43,9 +72,17 @@
     {
       "seq": 4,
       "title": "교리당 — 순교자 묘소",
+      "titleEn": "Catechism Hall — Martyrs' Tomb", "titleEs": "Sala de catequesis — Tumba de los mártires", "titleIt": "Sala del catechismo — Tomba dei martiri", "titlePt": "Sala de catequese — Túmulo dos mártires", "titleFr": "Salle de catéchisme — Tombe des martyrs",
       "location": "교리당의 순교자 묘소",
+      "locationEn": "Martyrs' tomb at the catechism hall", "locationEs": "Tumba de los mártires en la sala de catequesis", "locationIt": "Tomba dei martiri presso la sala del catechismo", "locationPt": "Túmulo dos mártires na sala de catequese", "locationFr": "Tombe des martyrs à la salle de catéchisme",
       "narration": "교리당에는 윤지충 바오로와 권상연 야고보, 윤지헌 프란치스코의 유해를 모신 묘소가 있습니다. 이 유해들은 바우배기에서 2021년에 발견되었습니다. 순교한 지 오랜 시간이 흐른 뒤 다시 확인된 유해를 이곳에서 기립니다.",
+      "narrationEn": "The catechism hall contains a tomb holding the remains of Paul Yun Ji-chung, James Kwon Sang-yeon, and Francis Yun Ji-heon. Their remains were discovered at Baubegi in 2021. Here, the remains identified long after their martyrdom are honored.",
+      "narrationEs": "La sala de catequesis contiene una tumba con los restos de Pablo Yun Ji-chung, Santiago Kwon Sang-yeon y Francisco Yun Ji-heon. Sus restos fueron descubiertos en Baubegi en 2021. Aquí se veneran los restos identificados mucho después de su martirio.",
+      "narrationIt": "La sala del catechismo ospita una tomba con i resti di Paolo Yun Ji-chung, Giacomo Kwon Sang-yeon e Francesco Yun Ji-heon. I loro resti furono scoperti a Baubegi nel 2021. Qui sono venerati i resti identificati molto tempo dopo il martirio.",
+      "narrationPt": "A sala de catequese contém um túmulo com os restos mortais de Paulo Yun Ji-chung, Tiago Kwon Sang-yeon e Francisco Yun Ji-heon. Os restos foram descobertos em Baubegi em 2021. Aqui são venerados os restos identificados muito depois do martírio.",
+      "narrationFr": "La salle de catéchisme abrite une tombe contenant les restes de Paul Yun Ji-chung, Jacques Kwon Sang-yeon et François Yun Ji-heon. Leurs restes ont été découverts à Baubegi en 2021. Ils sont honorés ici, longtemps après leur martyre.",
       "lookFor": "세 복자의 유해를 모신 묘소",
+      "lookForEn": "The tomb holding the remains of the three blesseds", "lookForEs": "La tumba que alberga los restos de los tres beatos", "lookForIt": "La tomba che custodisce i resti dei tre beati", "lookForPt": "O túmulo que guarda os restos dos três beatos", "lookForFr": "La tombe qui abrite les restes des trois bienheureux",
       "forEveryone": "발굴과 확인을 거쳐 보존된 역사 인물들의 안식처입니다.",
       "photos": [],
       "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta04.php"
@@ -53,9 +90,17 @@
     {
       "seq": 5,
       "title": "바우배기 — 유해 발견지",
+      "titleEn": "Baubegi — Discovery Site of the Remains", "titleEs": "Baubegi — Lugar del hallazgo de los restos", "titleIt": "Baubegi — Luogo del ritrovamento dei resti", "titlePt": "Baubegi — Local da descoberta dos restos", "titleFr": "Baubegi — Lieu de découverte des restes",
       "location": "성지에서 안내하는 바우배기 자리",
+      "locationEn": "The Baubegi site indicated by the shrine", "locationEs": "El lugar de Baubegi indicado por el santuario", "locationIt": "Il sito di Baubegi indicato dal santuario", "locationPt": "O local de Baubegi indicado pelo santuário", "locationFr": "Le site de Baubegi indiqué par le sanctuaire",
       "narration": "바우배기는 세 복자의 유해가 발견된 장소입니다. 유항검 가족 일곱 분의 유해도 처음에는 이곳에 묻혔다가 1914년 치명자산으로 옮겨졌습니다. 한 장소가 서로 다른 순교자들의 기억을 오랫동안 품어 온 셈입니다.",
+      "narrationEn": "Baubegi is where the remains of the three blesseds were discovered. The remains of seven members of Yu Hang-geom's family were also first buried here before being moved to Chimyeongjasan in 1914. This single place thus preserved the memory of different martyrs for many years.",
+      "narrationEs": "Baubegi es el lugar donde se descubrieron los restos de los tres beatos. Los restos de siete miembros de la familia de Yu Hang-geom también fueron enterrados aquí antes de ser trasladados a Chimyeongjasan en 1914. Así, un solo lugar conservó durante muchos años la memoria de distintos mártires.",
+      "narrationIt": "Baubegi è il luogo in cui furono scoperti i resti dei tre beati. Anche i resti di sette membri della famiglia di Yu Hang-geom furono inizialmente sepolti qui, prima di essere trasferiti a Chimyeongjasan nel 1914. Questo luogo ha così custodito a lungo la memoria di diversi martiri.",
+      "narrationPt": "Baubegi é o local onde foram descobertos os restos dos três beatos. Os restos de sete membros da família de Yu Hang-geom também foram inicialmente sepultados aqui, antes de serem transferidos para Chimyeongjasan em 1914. Assim, este lugar preservou durante muitos anos a memória de diferentes mártires.",
+      "narrationFr": "Baubegi est le lieu où les restes des trois bienheureux ont été découverts. Les restes de sept membres de la famille de Yu Hang-geom y avaient aussi été enterrés avant leur transfert à Chimyeongjasan en 1914. Ce lieu a ainsi longtemps préservé la mémoire de différents martyrs.",
       "lookFor": "유해 발견지를 알리는 현장 표지",
+      "lookForEn": "The marker identifying the discovery site", "lookForEs": "La señal que identifica el lugar del hallazgo", "lookForIt": "Il cartello che indica il luogo del ritrovamento", "lookForPt": "A placa que identifica o local da descoberta", "lookForFr": "Le panneau indiquant le lieu de la découverte",
       "forEveryone": "매장지의 발견이 역사를 새롭게 확인하게 한 장소입니다.",
       "photos": [],
       "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta04.php"
@@ -63,6 +108,11 @@
   ],
   "outro": {
     "narration": "초남이에서는 집터와 배움의 공간, 묘소가 한 가족과 지역 공동체의 역사를 이어 줍니다. 각 장소의 거리를 천천히 걸으며 신앙이 사람 사이에서 전해진 과정을 떠올려 보세요.",
+    "narrationEn": "At Chonami, the homesite, the place of learning, and the tomb connect the history of one family with that of the local community. Walk slowly between the sites and reflect on how faith was passed from person to person.",
+    "narrationEs": "En Chonami, el solar, el lugar de aprendizaje y la tumba enlazan la historia de una familia con la comunidad local. Camine despacio entre los lugares y reflexione sobre cómo la fe pasó de persona a persona.",
+    "narrationIt": "A Chonami, il sito della casa, il luogo di apprendimento e la tomba collegano la storia di una famiglia a quella della comunità locale. Camminate lentamente tra i luoghi e riflettete su come la fede sia passata da persona a persona.",
+    "narrationPt": "Em Chonami, o terreno da casa, o espaço de aprendizagem e o túmulo ligam a história de uma família à comunidade local. Caminhe devagar entre os locais e reflita sobre como a fé passou de pessoa para pessoa.",
+    "narrationFr": "À Chonami, le site de la maison, le lieu d'apprentissage et la tombe relient l'histoire d'une famille à celle de la communauté locale. Marchez lentement entre les lieux et réfléchissez à la manière dont la foi s'est transmise de personne en personne.",
     "photos": []
   }
 }

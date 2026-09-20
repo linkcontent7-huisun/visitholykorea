@@ -97,8 +97,14 @@ Deno.serve(async (req) => {
       headers: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' },
       body,
     });
-    const token = await tokenRes.json();
-    if (!token.access_token) return 실패('kakao_token');
+    // 카카오가 왜 거부했는지(KOE010 자격증명·KOE320 인가코드 등)를 버리지 않는다 —
+    // 2026-09-20 에 이 정보가 없어 원인 찾는 데 반나절이 들었다. 응답이 JSON 이 아닐 수도 있다.
+    const token = await tokenRes.json().catch(() => ({}) as Record<string, unknown>);
+    if (!token.access_token) {
+      const 코드 = `${token.error_code ?? token.error ?? tokenRes.status}`;
+      console.error('[kakao-auth] 토큰 교환 실패', tokenRes.status, JSON.stringify(token));
+      return 실패(`kakao_token_${코드}`);
+    }
 
     // 이메일은 카카오 콘솔 동의항목에서 "필수 동의"여야 온다 (2026-09-19 확인됨)
     const profileRes = await fetch('https://kapi.kakao.com/v2/user/me', {

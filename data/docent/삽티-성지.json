@@ -7,15 +7,20 @@
   "status": "draft",
   "intro": {
     "narration": "삽티는 하부 내포의 교우촌이자 성 황석두 루카의 유해를 모셨던 곳입니다.",
+    "narrationEn": "Sapti was a Catholic village in Lower Naepo and the place where the remains of St. Luke Hwang Seok-du were laid to rest.", "narrationEs": "Sapti fue una aldea católica del Bajo Naepo y el lugar donde reposaron los restos de san Lucas Hwang Seok-du.", "narrationIt": "Sapti era un villaggio cattolico del Basso Naepo e il luogo dove furono deposti i resti di san Luca Hwang Seok-du.", "narrationPt": "Sapti era uma aldeia católica do Baixo Naepo e o lugar onde os restos mortais de são Lucas Hwang Seok-du foram sepultados.", "narrationFr": "Sapti était un village catholique du Bas-Naepo et le lieu où furent déposés les restes de saint Luc Hwang Seok-du.",
     "photos": []
   },
   "points": [
     {
       "seq": 1,
       "title": "입구 — 하부 내포 교우촌",
+      "titleEn": "Entrance — Catholic Village of Lower Naepo", "titleEs": "Entrada — Aldea católica del Bajo Naepo", "titleIt": "Ingresso — Villaggio cattolico del Basso Naepo", "titlePt": "Entrada — Aldeia católica do Baixo Naepo", "titleFr": "Entrée — Village catholique du Bas-Naepo",
       "location": "입구 쪽",
+      "locationEn": "Near the entrance", "locationEs": "Cerca de la entrada", "locationIt": "Vicino all'ingresso", "locationPt": "Perto da entrada", "locationFr": "Près de l'entrée",
       "narration": "삽티는 박해를 피해 신앙인들이 모여 살던 하부 내포의 교우촌입니다. 산길 깊은 자리가 공동체를 지켜 주었습니다.",
+      "narrationEn": "Sapti was a Catholic village in Lower Naepo where believers gathered to live while fleeing persecution. Its location deep along the mountain road sheltered the community.", "narrationEs": "Sapti fue una aldea católica del Bajo Naepo donde los creyentes se reunieron para vivir mientras huían de la persecución. Su ubicación en lo profundo del camino de montaña protegió a la comunidad.", "narrationIt": "Sapti era un villaggio cattolico del Basso Naepo dove i credenti si riunirono per vivere sfuggendo alla persecuzione. La sua posizione lungo un remoto sentiero di montagna protesse la comunità.", "narrationPt": "Sapti era uma aldeia católica do Baixo Naepo onde os fiéis se reuniram para viver enquanto fugiam da perseguição. Sua localização no interior da trilha da montanha protegeu a comunidade.", "narrationFr": "Sapti était un village catholique du Bas-Naepo où les croyants se réunirent pour vivre à l'abri des persécutions. Sa situation au fond d'un chemin de montagne protégea la communauté.",
       "lookFor": "산과 마을이 만나는 자리",
+      "lookForEn": "The place where the mountain and village meet", "lookForEs": "El lugar donde se encuentran la montaña y la aldea", "lookForIt": "Il punto in cui la montagna incontra il villaggio", "lookForPt": "O lugar onde a montanha e a aldeia se encontram", "lookForFr": "L'endroit où la montagne rejoint le village",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
@@ -23,9 +28,13 @@
     {
       "seq": 2,
       "title": "마당 — 황석두 루카의 기억",
+      "titleEn": "Courtyard — Memory of Luke Hwang Seok-du", "titleEs": "Patio — Memoria de Lucas Hwang Seok-du", "titleIt": "Cortile — Memoria di Luca Hwang Seok-du", "titlePt": "Pátio — Memória de Lucas Hwang Seok-du", "titleFr": "Cour — Mémoire de Luc Hwang Seok-du",
       "location": "마당",
+      "locationEn": "Courtyard", "locationEs": "Patio", "locationIt": "Cortile", "locationPt": "Pátio", "locationFr": "Cour",
       "narration": "갈매못에서 순교한 성 황석두 루카의 유해는 가족에게 거두어져 삽티에 모셔졌습니다. 이곳은 순교지와 묘소를 잇는 여정의 한 자리입니다.",
+      "narrationEn": "The remains of St. Luke Hwang Seok-du, who was martyred at Galmaemot, were recovered by his family and laid to rest in Sapti. This place is one stop on the journey linking the site of martyrdom and the grave.", "narrationEs": "Los restos de san Lucas Hwang Seok-du, martirizado en Galmaemot, fueron recogidos por su familia y sepultados en Sapti. Este lugar es una etapa del camino que une el lugar del martirio con la tumba.", "narrationIt": "I resti di san Luca Hwang Seok-du, martirizzato a Galmaemot, furono recuperati dalla famiglia e deposti a Sapti. Questo luogo è una tappa del cammino che unisce il luogo del martirio alla tomba.", "narrationPt": "Os restos mortais de são Lucas Hwang Seok-du, martirizado em Galmaemot, foram recolhidos por sua família e sepultados em Sapti. Este lugar é uma etapa do caminho que liga o local do martírio ao túmulo.", "narrationFr": "Les restes de saint Luc Hwang Seok-du, martyrisé à Galmaemot, furent recueillis par sa famille et déposés à Sapti. Ce lieu est une étape du parcours reliant le lieu du martyre à la tombe.",
       "lookFor": "성인을 기억하는 표지",
+      "lookForEn": "The marker commemorating the saint", "lookForEs": "La señal que recuerda al santo", "lookForIt": "Il segno che ricorda il santo", "lookForPt": "A placa que recorda o santo", "lookForFr": "Le repère qui commémore le saint",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
@@ -33,9 +42,13 @@
     {
       "seq": 3,
       "title": "성지 안 — 교우촌의 삶",
+      "titleEn": "Inside the Holy Site — Life in the Catholic Village", "titleEs": "Dentro del santuario — Vida en la aldea católica", "titleIt": "All'interno del santuario — Vita nel villaggio cattolico", "titlePt": "Dentro do santuário — Vida na aldeia católica", "titleFr": "Dans le sanctuaire — Vie du village catholique",
       "location": "성지 안",
+      "locationEn": "Inside the holy site", "locationEs": "Dentro del santuario", "locationIt": "All'interno del santuario", "locationPt": "Dentro do santuário", "locationFr": "Dans le sanctuaire",
       "narration": "교우촌 사람들은 숨어 살면서도 신앙과 일상을 함께 이어 갔습니다. 남은 터를 보며 이름이 기록되지 않은 이들의 생활을 떠올려 보세요.",
+      "narrationEn": "Even while living in hiding, the people of the Catholic village sustained both their faith and daily lives together. As you look at the remaining site, imagine the lives of those whose names were not recorded.", "narrationEs": "Incluso mientras vivían escondidos, los habitantes de la aldea católica mantuvieron juntos su fe y su vida cotidiana. Al observar el lugar que queda, imagine la vida de quienes no dejaron su nombre registrado.", "narrationIt": "Pur vivendo nascosti, gli abitanti del villaggio cattolico portarono avanti insieme la fede e la vita quotidiana. Osservando ciò che rimane del sito, immagini la vita di coloro i cui nomi non furono registrati.", "narrationPt": "Mesmo vivendo escondidos, os habitantes da aldeia católica mantiveram juntos a fé e a vida cotidiana. Ao observar o local remanescente, imagine a vida daqueles cujos nomes não foram registrados.", "narrationFr": "Même en vivant cachés, les habitants du village catholique poursuivirent ensemble leur foi et leur vie quotidienne. En regardant les vestiges du site, imaginez la vie de ceux dont les noms ne furent pas consignés.",
       "lookFor": "옛 교우촌의 지형",
+      "lookForEn": "The landscape of the former Catholic village", "lookForEs": "El paisaje de la antigua aldea católica", "lookForIt": "Il paesaggio dell'antico villaggio cattolico", "lookForPt": "A paisagem da antiga aldeia católica", "lookForFr": "Le paysage de l'ancien village catholique",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
@@ -43,9 +56,13 @@
     {
       "seq": 4,
       "title": "도앙골 가는 쪽 — 이어지는 길",
+      "titleEn": "Toward Doangol — The Continuing Path", "titleEs": "Hacia Doangol — El camino que continúa", "titleIt": "Verso Doangol — Il cammino che continua", "titlePt": "Em direção a Doangol — O caminho que continua", "titleFr": "Vers Doangol — Le chemin qui se poursuit",
       "location": "입구 쪽",
+      "locationEn": "Near the entrance", "locationEs": "Cerca de la entrada", "locationIt": "Vicino all'ingresso", "locationPt": "Perto da entrada", "locationFr": "Près de l'entrée",
       "narration": "삽티와 도앙골은 도보 순례길로 이어집니다. 한 마을에 머물지 않고 서로 도왔던 하부 내포 공동체를 생각해 보세요.",
+      "narrationEn": "Sapti and Doangol are connected by a walking pilgrimage route. Reflect on the communities of Lower Naepo, whose members did not remain in a single village but helped one another.", "narrationEs": "Sapti y Doangol están unidos por una ruta de peregrinación a pie. Reflexione sobre las comunidades del Bajo Naepo, cuyos miembros no permanecían en una sola aldea, sino que se ayudaban unos a otros.", "narrationIt": "Sapti e Doangol sono collegati da un percorso di pellegrinaggio a piedi. Rifletta sulle comunità del Basso Naepo, i cui membri non rimanevano in un solo villaggio ma si aiutavano a vicenda.", "narrationPt": "Sapti e Doangol são ligados por uma rota de peregrinação a pé. Reflita sobre as comunidades do Baixo Naepo, cujos membros não permaneciam numa única aldeia, mas ajudavam uns aos outros.", "narrationFr": "Sapti et Doangol sont reliés par un itinéraire de pèlerinage à pied. Songez aux communautés du Bas-Naepo, dont les membres ne restaient pas dans un seul village, mais s'entraidaient.",
       "lookFor": "도앙골 방향 안내",
+      "lookForEn": "The sign pointing toward Doangol", "lookForEs": "La señal que indica la dirección de Doangol", "lookForIt": "L'indicazione verso Doangol", "lookForPt": "A placa que indica a direção de Doangol", "lookForFr": "Le panneau indiquant la direction de Doangol",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/"
@@ -53,6 +70,7 @@
   ],
   "outro": {
     "narration": "황석두 루카 성인의 시신을 두 친척이 거두어 묻었던 골짜기입니다. 1962년 발견된 옹기 항아리 이야기를 기억하며 도앙골 쪽 산길로 이어 가셔도 좋습니다.",
+    "narrationEn": "This is the valley where two relatives recovered and buried the body of St. Luke Hwang Seok-du. Remember the story of the earthenware jar discovered in 1962, and you may continue along the mountain path toward Doangol.", "narrationEs": "Este es el valle donde dos familiares recogieron y enterraron el cuerpo de san Lucas Hwang Seok-du. Recuerde la historia de la vasija de barro descubierta en 1962 y, si lo desea, continúe por el sendero de montaña hacia Doangol.", "narrationIt": "Questa è la valle dove due parenti recuperarono e seppellirono il corpo di san Luca Hwang Seok-du. Ricordi la storia del vaso di terracotta scoperto nel 1962 e, se desidera, prosegua lungo il sentiero di montagna verso Doangol.", "narrationPt": "Este é o vale onde dois parentes recolheram e sepultaram o corpo de são Lucas Hwang Seok-du. Lembre-se da história do pote de barro descoberto em 1962 e, se desejar, continue pela trilha da montanha em direção a Doangol.", "narrationFr": "Voici la vallée où deux membres de sa famille recueillirent et enterrèrent le corps de saint Luc Hwang Seok-du. Gardez en mémoire l'histoire de la jarre en terre cuite découverte en 1962 et, si vous le souhaitez, poursuivez par le sentier de montagne vers Doangol.",
     "photos": []
   }
 }

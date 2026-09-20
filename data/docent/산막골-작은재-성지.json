@@ -7,15 +7,24 @@
   "status": "draft",
   "intro": {
     "narration": "산막골과 작은재는 천방산 줄기의 교우촌과 줄무덤을 함께 기억하는 성지입니다.",
+    "narrationEn": "Sanmakgol and Jageunjae form a holy site commemorating both a Catholic village and a row of graves along the Cheonbangsan mountain range.",
+    "narrationEs": "Sanmakgol y Jageunjae forman un santuario que recuerda tanto una aldea católica como una hilera de tumbas en la sierra de Cheonbangsan.",
+    "narrationIt": "Sanmakgol e Jageunjae formano un santuario che ricorda sia un villaggio cattolico sia una fila di tombe lungo la catena del Cheonbangsan.",
+    "narrationPt": "Sanmakgol e Jageunjae formam um santuário que recorda tanto uma aldeia católica como uma fileira de túmulos na serra de Cheonbangsan.",
+    "narrationFr": "Sanmakgol et Jageunjae forment un sanctuaire qui commémore à la fois un village catholique et une rangée de tombes dans le massif du Cheonbangsan.",
     "photos": []
   },
   "points": [
     {
       "seq": 1,
       "title": "산막골 입구 — 산속 교우촌",
+      "titleEn": "Sanmakgol Entrance — Catholic Village in the Mountains", "titleEs": "Entrada de Sanmakgol — Aldea católica en la montaña", "titleIt": "Ingresso di Sanmakgol — Villaggio cattolico tra le montagne", "titlePt": "Entrada de Sanmakgol — Aldeia católica nas montanhas", "titleFr": "Entrée de Sanmakgol — Village catholique dans la montagne",
       "location": "산막골 입구 쪽",
+      "locationEn": "Near the Sanmakgol entrance", "locationEs": "Cerca de la entrada de Sanmakgol", "locationIt": "Vicino all'ingresso di Sanmakgol", "locationPt": "Perto da entrada de Sanmakgol", "locationFr": "Près de l'entrée de Sanmakgol",
       "narration": "산막골에는 기해박해 뒤 신앙 선조들이 숨어들어 공동체를 이루었습니다. 다블뤼 주교와 페롱 신부도 이 일대를 사목했습니다.",
+      "narrationEn": "After the Gihae Persecution, the ancestors in faith sought refuge in Sanmakgol and formed a community. Bishop Daveluy and Fr. Féron also ministered in this area.", "narrationEs": "Tras la Persecución de Gihae, los antepasados en la fe se refugiaron en Sanmakgol y formaron una comunidad. El obispo Daveluy y el padre Féron también ejercieron su ministerio en esta zona.", "narrationIt": "Dopo la persecuzione di Gihae, gli antenati nella fede si rifugiarono a Sanmakgol e formarono una comunità. Anche il vescovo Daveluy e padre Féron svolsero il loro ministero in questa zona.", "narrationPt": "Após a Perseguição de Gihae, os antepassados na fé refugiaram-se em Sanmakgol e formaram uma comunidade. O bispo Daveluy e o padre Féron também exerceram seu ministério nesta região.", "narrationFr": "Après la persécution de Gihae, les ancêtres dans la foi se réfugièrent à Sanmakgol et formèrent une communauté. Mgr Daveluy et le père Féron exercèrent eux aussi leur ministère dans cette région.",
       "lookFor": "산으로 감싸인 교우촌 자리",
+      "lookForEn": "The site of the Catholic village surrounded by mountains", "lookForEs": "El emplazamiento de la aldea católica rodeada de montañas", "lookForIt": "Il sito del villaggio cattolico circondato dalle montagne", "lookForPt": "O local da aldeia católica cercada pelas montanhas", "lookForFr": "L'emplacement du village catholique entouré de montagnes",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/ — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2862&menugubun=holyplace"
@@ -23,9 +32,13 @@
     {
       "seq": 2,
       "title": "산막골 — 황석두 루카 성인상",
+      "titleEn": "Sanmakgol — Statue of St. Luke Hwang Seok-du", "titleEs": "Sanmakgol — Estatua de san Lucas Hwang Seok-du", "titleIt": "Sanmakgol — Statua di san Luca Hwang Seok-du", "titlePt": "Sanmakgol — Estátua de são Lucas Hwang Seok-du", "titleFr": "Sanmakgol — Statue de saint Luc Hwang Seok-du",
       "location": "야외제대 쪽",
+      "locationEn": "Near the outdoor altar", "locationEs": "Cerca del altar al aire libre", "locationIt": "Vicino all'altare all'aperto", "locationPt": "Perto do altar ao ar livre", "locationFr": "Près de l'autel en plein air",
       "narration": "황석두 루카는 가족과 함께 연풍에서 이주해 산막골에서 참회와 보속의 삶을 살았습니다. 야외제대 곁 성인상을 살펴보세요.",
+      "narrationEn": "Luke Hwang Seok-du moved here from Yeonpung with his family and lived a life of repentance and penance in Sanmakgol. Look at the statue of the saint beside the outdoor altar.", "narrationEs": "Lucas Hwang Seok-du se trasladó aquí desde Yeonpung con su familia y vivió una vida de arrepentimiento y penitencia en Sanmakgol. Observe la estatua del santo junto al altar al aire libre.", "narrationIt": "Luca Hwang Seok-du si trasferì qui da Yeonpung con la famiglia e visse una vita di pentimento e penitenza a Sanmakgol. Osservi la statua del santo accanto all'altare all'aperto.", "narrationPt": "Lucas Hwang Seok-du mudou-se para cá vindo de Yeonpung com sua família e viveu uma vida de arrependimento e penitência em Sanmakgol. Observe a estátua do santo ao lado do altar ao ar livre.", "narrationFr": "Luc Hwang Seok-du vint s'installer ici depuis Yeonpung avec sa famille et mena une vie de repentir et de pénitence à Sanmakgol. Observez la statue du saint près de l'autel en plein air.",
       "lookFor": "야외십자가 곁 성인상",
+      "lookForEn": "The statue of the saint beside the outdoor cross", "lookForEs": "La estatua del santo junto a la cruz exterior", "lookForIt": "La statua del santo accanto alla croce esterna", "lookForPt": "A estátua do santo ao lado da cruz externa", "lookForFr": "La statue du saint près de la croix extérieure",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/ — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2862&menugubun=holyplace"
@@ -33,9 +46,13 @@
     {
       "seq": 3,
       "title": "작은재 — 공소 터",
+      "titleEn": "Jageunjae — Chapel Site", "titleEs": "Jageunjae — Emplazamiento de la capilla", "titleIt": "Jageunjae — Sito della cappella", "titlePt": "Jageunjae — Local da capela", "titleFr": "Jageunjae — Emplacement de la chapelle",
       "location": "작은재 공소 터",
+      "locationEn": "Jageunjae chapel site", "locationEs": "Emplazamiento de la capilla de Jageunjae", "locationIt": "Sito della cappella di Jageunjae", "locationPt": "Local da capela de Jageunjae", "locationFr": "Emplacement de la chapelle de Jageunjae",
       "narration": "작은재에는 신앙 공동체가 모였던 공소 터가 남아 있습니다. 기념비와 성모동산을 보며 산속 공동체의 생활을 떠올려 보세요.",
+      "narrationEn": "At Jageunjae, the site of the chapel where the community of faith gathered remains. As you look at the monument and the Marian garden, imagine the life of this mountain community.", "narrationEs": "En Jageunjae permanece el emplazamiento de la capilla donde se reunía la comunidad de fe. Mientras observa el monumento y el jardín mariano, imagine la vida de esta comunidad de montaña.", "narrationIt": "A Jageunjae rimane il sito della cappella dove si riuniva la comunità di fede. Osservando il monumento e il giardino mariano, immagini la vita di questa comunità di montagna.", "narrationPt": "Em Jageunjae permanece o local da capela onde a comunidade de fé se reunia. Ao observar o monumento e o jardim mariano, imagine a vida dessa comunidade da montanha.", "narrationFr": "À Jageunjae subsiste l'emplacement de la chapelle où se réunissait la communauté de foi. En regardant le monument et le jardin marial, imaginez la vie de cette communauté de montagne.",
       "lookFor": "공소 터 기념비와 성모동산",
+      "lookForEn": "The chapel-site monument and Marian garden", "lookForEs": "El monumento de la capilla y el jardín mariano", "lookForIt": "Il monumento del sito della cappella e il giardino mariano", "lookForPt": "O monumento do local da capela e o jardim mariano", "lookForFr": "Le monument de la chapelle et le jardin marial",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/ — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2862&menugubun=holyplace"
@@ -43,9 +60,13 @@
     {
       "seq": 4,
       "title": "작은재 — 줄무덤",
+      "titleEn": "Jageunjae — Row of Graves", "titleEs": "Jageunjae — Hilera de tumbas", "titleIt": "Jageunjae — Fila di tombe", "titlePt": "Jageunjae — Fileira de túmulos", "titleFr": "Jageunjae — Rangée de tombes",
       "location": "작은재 줄무덤 앞",
+      "locationEn": "In front of the row of graves at Jageunjae", "locationEs": "Frente a la hilera de tumbas de Jageunjae", "locationIt": "Davanti alla fila di tombe di Jageunjae", "locationPt": "Em frente à fileira de túmulos de Jageunjae", "locationFr": "Devant la rangée de tombes de Jageunjae",
       "narration": "작은재 줄무덤은 이 산골에서 신앙을 지킨 이들을 기억하는 자리입니다. 무덤 앞에서는 길과 묘역을 훼손하지 않도록 조용히 걸어 보세요.",
+      "narrationEn": "The row of graves at Jageunjae commemorates those who kept the faith in this mountain village. Near the graves, please walk quietly to avoid damaging the path and burial ground.", "narrationEs": "La hilera de tumbas de Jageunjae recuerda a quienes conservaron la fe en esta aldea de montaña. Cerca de las tumbas, camine en silencio para no dañar el sendero ni el cementerio.", "narrationIt": "La fila di tombe di Jageunjae ricorda coloro che conservarono la fede in questo villaggio di montagna. Vicino alle tombe, cammini in silenzio per non danneggiare il sentiero e l'area sepolcrale.", "narrationPt": "A fileira de túmulos de Jageunjae recorda aqueles que mantiveram a fé nesta aldeia da montanha. Perto dos túmulos, caminhe em silêncio para não danificar a trilha nem a área funerária.", "narrationFr": "La rangée de tombes de Jageunjae commémore ceux qui gardèrent la foi dans ce village de montagne. Près des tombes, marchez en silence afin de ne pas endommager le chemin ni le cimetière.",
       "lookFor": "이어진 줄무덤과 기념비",
+      "lookForEn": "The connected row of graves and monument", "lookForEs": "La hilera continua de tumbas y el monumento", "lookForIt": "La fila continua di tombe e il monumento", "lookForPt": "A fileira contínua de túmulos e o monumento", "lookForFr": "La rangée continue de tombes et le monument",
       "forEveryone": null,
       "photos": [],
       "sourceNote": "대전교구 홍보국 제공 자료(2026-09-18): 대전교구사진-크란시아자매님_원본__대전교구 성지 소개 글(홈페이지 내용 수정 전).txt — 대전교구 https://www.djcatholic.or.kr/ — 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=2862&menugubun=holyplace"
@@ -53,6 +74,7 @@
   ],
   "outro": {
     "narration": "두 장소를 잇는 산길과 공동체의 기억을 마음에 담고 돌아갑니다.",
+    "narrationEn": "As you leave, carry with you the mountain path linking the two places and the memory of the community.", "narrationEs": "Al marcharse, lleve consigo el sendero de montaña que une los dos lugares y la memoria de la comunidad.", "narrationIt": "Mentre riparte, porti con sé il sentiero di montagna che unisce i due luoghi e la memoria della comunità.", "narrationPt": "Ao partir, leve consigo a trilha da montanha que liga os dois lugares e a memória da comunidade.", "narrationFr": "En repartant, emportez avec vous le sentier de montagne qui relie les deux lieux et la mémoire de la communauté.",
     "photos": []
   }
 }
