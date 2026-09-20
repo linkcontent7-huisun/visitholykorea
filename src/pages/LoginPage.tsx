@@ -172,7 +172,7 @@ export default function LoginPage() {
                     title={fillPlaceholders(t('loginWith'), { provider: t('providerNaver') })}
                     className="flex h-14 w-14 items-center justify-center rounded-full bg-[#03C75A] transition-[filter] hover:brightness-95 disabled:opacity-50"
                   >
-                    <img src={naverIcon} width={20} height={20} alt="" aria-hidden />
+                    <img src={naverIcon} className="h-full w-full" alt="" aria-hidden />
                   </button>
                 )}
 
@@ -185,7 +185,7 @@ export default function LoginPage() {
                     title={fillPlaceholders(t('loginWith'), { provider: t('providerKakao') })}
                     className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FEE500] transition-[filter] hover:brightness-95 disabled:opacity-50"
                   >
-                    <img src={kakaoIcon} width={26} height={26} alt="" aria-hidden />
+                    <img src={kakaoIcon} className="h-full w-full" alt="" aria-hidden />
                   </button>
                 )}
 
@@ -198,7 +198,7 @@ export default function LoginPage() {
                     title={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
                     className="flex h-14 w-14 items-center justify-center rounded-full border border-app-border bg-white transition-colors hover:bg-app-bg disabled:opacity-50"
                   >
-                    <img src={googleIcon} width={24} height={24} alt="" aria-hidden />
+                    <img src={googleIcon} className="h-full w-full" alt="" aria-hidden />
                   </button>
                 )}
 
@@ -216,7 +216,7 @@ export default function LoginPage() {
                     className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1877F2] transition-[filter] hover:brightness-95 disabled:opacity-50"
                   >
                     {/* 페이스북 f 심볼 */}
-                    <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden>
+                    <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden>
                       <path
                         fill="#fff"
                         d="M13.5 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.3v3.2h2.8V21h3.4Z"
