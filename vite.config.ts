@@ -95,7 +95,7 @@ export default defineConfig(({ mode }) => ({
         clientsClaim: true,
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
         // 카카오 페이지에는 매번 다른 state 쿼리가 붙는다. 앱 셸로 바뀌면 로그인이 중단된다.
-        navigateFallbackDenylist: [/^\/api\//, /^\/kakao-login\.html$/],
+        navigateFallbackDenylist: [/^\/api\//, /^\/kakao-login\.html(?:\?|$)/],
         // 성지 정보(자체 큐레이션 DB)는 오프라인 대비 캐싱한다.
         // TourAPI 응답(/api/tour·apis.data.go.kr)은 공모전 규정상 캐싱하지 않으므로
         // 런타임 캐시 규칙에 넣지 않는다 — 아래 목록에 그 URL 이 없는 것이 의도다.
