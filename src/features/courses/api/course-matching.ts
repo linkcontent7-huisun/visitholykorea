@@ -11,7 +11,10 @@
  * 스펙: docs/10-product/재기획/2026-09-15-오늘의-성지-일정-스펙.md 6절.
  */
 
-import { fetchSiteNameTranslations, fetchSitesByEmotion } from '@/features/sites/api/holy-sites.repository';
+import {
+  fetchSiteNameTranslations,
+  fetchSitesByEmotion,
+} from '@/features/sites/api/holy-sites.repository';
 import { FALLBACK_CHAIN, type Language } from '@/shared/i18n/dictionary';
 import { haversineKm } from '@/shared/lib/geo';
 import type { EmotionTag, HolySite } from '@/shared/types/domain';
@@ -85,7 +88,9 @@ export function rankByDistance(
       const { lat, lng } = site.coordinates;
       if (lat == null || lng == null) return [];
       const distanceKm = haversineKm(origin.lat, origin.lng, lat, lng);
-      return distanceKm <= radiusKm ? [{ site, distanceKm, quality: contentQualityScore(site) }] : [];
+      return distanceKm <= radiusKm
+        ? [{ site, distanceKm, quality: contentQualityScore(site) }]
+        : [];
     })
     .sort((a, b) => a.distanceKm - b.distanceKm || a.site.name.localeCompare(b.site.name, 'ko'))
     .slice(0, max);
@@ -109,9 +114,13 @@ export function countInNextRadius(
 }
 
 /** 마음에 맞는 성지 전체(최대 62곳). 이름은 요청 언어로 번역해 둔다 — 카드가 한 곳씩 조회하지 않게. */
-export async function fetchEmotionSites(emotion: EmotionTag, language: Language): Promise<HolySite[]> {
+export async function fetchEmotionSites(
+  emotion: EmotionTag,
+  language: Language,
+): Promise<HolySite[]> {
   const sites = await fetchSitesByEmotion(emotion);
-  const wanted = language === 'ko' ? [] : [language, ...FALLBACK_CHAIN[language]].filter((l) => l !== 'ko');
+  const wanted =
+    language === 'ko' ? [] : [language, ...FALLBACK_CHAIN[language]].filter((l) => l !== 'ko');
   if (wanted.length === 0) return sites;
   const nameById = await fetchSiteNameTranslations(
     sites.map((s) => s.id),

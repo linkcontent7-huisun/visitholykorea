@@ -35,7 +35,9 @@ export function assignTags(cards: readonly TagInput[]): (CandidateTag | null)[] 
     taken.add(idx);
   };
 
-  const byDistance = cards.map((_, i) => i).sort((a, b) => cards[a]!.distanceKm - cards[b]!.distanceKm);
+  const byDistance = cards
+    .map((_, i) => i)
+    .sort((a, b) => cards[a]!.distanceKm - cards[b]!.distanceKm);
   claim('nearest', byDistance);
 
   // 조용 태그는 붐빔 점수가 있고 실제로 「조용」 등급인 카드끼리만 겨룬다. 없으면 이 태그는 없다.

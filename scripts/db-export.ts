@@ -60,12 +60,22 @@ function todayInSeoul(): string {
 
 function csvCell(value: unknown): string {
   if (value === null || value === undefined) return '';
-  const text = value instanceof Date ? value.toISOString() : typeof value === 'object' ? JSON.stringify(value) : String(value);
+  const text =
+    value instanceof Date
+      ? value.toISOString()
+      : typeof value === 'object'
+        ? JSON.stringify(value)
+        : String(value);
   return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 }
 
 function toCsv<T extends object>(columns: (keyof T & string)[], rows: T[]): string {
-  return [columns.map(csvCell).join(','), ...rows.map((row) => columns.map((column) => csvCell(row[column])).join(','))].join('\n') + '\n';
+  return (
+    [
+      columns.map(csvCell).join(','),
+      ...rows.map((row) => columns.map((column) => csvCell(row[column])).join(',')),
+    ].join('\n') + '\n'
+  );
 }
 
 function markdownCell(value: string | null): string {
@@ -79,14 +89,18 @@ function inside(root: string, candidate: string): boolean {
 
 function photoPath(photosDir: string, name: string): string {
   const target = resolve(photosDir, ...name.split('/'));
-  if (!inside(resolve(photosDir), target)) throw new Error(`안전하지 않은 사진 경로입니다: ${name}`);
+  if (!inside(resolve(photosDir), target))
+    throw new Error(`안전하지 않은 사진 경로입니다: ${name}`);
   return target;
 }
 
 function publicObjectUrl(baseUrl: string, bucket: string, name: string): string {
   const base = new URL(baseUrl);
   const encodedName = name.split('/').map(encodeURIComponent).join('/');
-  return new URL(`/storage/v1/object/public/${encodeURIComponent(bucket)}/${encodedName}`, base).toString();
+  return new URL(
+    `/storage/v1/object/public/${encodeURIComponent(bucket)}/${encodedName}`,
+    base,
+  ).toString();
 }
 
 const backupRoot = process.env.BACKUP_DIR || 'C:\\VisitHoly-백업';
@@ -134,23 +148,40 @@ try {
   const tableSummaries: { name: string; rows: number }[] = [];
 
   for (const { table_name: tableName } of tables.rows) {
-    const result = await client.query<Record<string, unknown>>(`select * from ${pg.escapeIdentifier(tableName)}`);
+    const result = await client.query<Record<string, unknown>>(
+      `select * from ${pg.escapeIdentifier(tableName)}`,
+    );
     const tableColumns = columns.rows.filter((column) => column.table_name === tableName);
     const columnNames = tableColumns.map((column) => column.column_name);
 
-    writeFileSync(join(tablesDir, `${tableName}.json`), JSON.stringify(result.rows, null, 2) + '\n', 'utf8');
+    writeFileSync(
+      join(tablesDir, `${tableName}.json`),
+      JSON.stringify(result.rows, null, 2) + '\n',
+      'utf8',
+    );
     writeFileSync(join(tablesDir, `${tableName}.csv`), toCsv(columnNames, result.rows), 'utf8');
     tableSummaries.push({ name: tableName, rows: result.rowCount ?? result.rows.length });
 
-    schema.push(`## ${tableName}`, '', '| 열 | 형 | NULL 허용 | 기본값 |', '| --- | --- | --- | --- |');
+    schema.push(
+      `## ${tableName}`,
+      '',
+      '| 열 | 형 | NULL 허용 | 기본값 |',
+      '| --- | --- | --- | --- |',
+    );
     for (const column of tableColumns) {
-      schema.push(`| ${markdownCell(column.column_name)} | ${markdownCell(column.data_type)} | ${column.is_nullable === 'YES' ? '예' : '아니오'} | ${markdownCell(column.column_default)} |`);
+      schema.push(
+        `| ${markdownCell(column.column_name)} | ${markdownCell(column.data_type)} | ${column.is_nullable === 'YES' ? '예' : '아니오'} | ${markdownCell(column.column_default)} |`,
+      );
     }
-    const tableConstraints = constraints.rows.filter((constraint) => constraint.table_name === tableName);
+    const tableConstraints = constraints.rows.filter(
+      (constraint) => constraint.table_name === tableName,
+    );
     if (tableConstraints.length > 0) {
       schema.push('', '| 제약 이름 | 종류 | 열 |', '| --- | --- | --- |');
       for (const constraint of tableConstraints) {
-        schema.push(`| ${markdownCell(constraint.constraint_name)} | ${markdownCell(constraint.constraint_type)} | ${markdownCell(constraint.column_name)} |`);
+        schema.push(
+          `| ${markdownCell(constraint.constraint_name)} | ${markdownCell(constraint.constraint_type)} | ${markdownCell(constraint.column_name)} |`,
+        );
       }
     }
     schema.push('');
@@ -161,7 +192,11 @@ try {
     from storage.objects
     order by bucket_id, name
   `);
-  writeFileSync(join(outputDir, 'storage-files.csv'), toCsv(['bucket', 'name', 'size', 'created_at'], storage.rows), 'utf8');
+  writeFileSync(
+    join(outputDir, 'storage-files.csv'),
+    toCsv(['bucket', 'name', 'size', 'created_at'], storage.rows),
+    'utf8',
+  );
   writeFileSync(join(outputDir, 'schema.md'), schema.join('\n'), 'utf8');
 
   await client.query('commit');
@@ -178,7 +213,9 @@ try {
       writeFileSync(destination, Buffer.from(await response.arrayBuffer()));
       downloadedPhotos += 1;
     } catch (error) {
-      downloadFailures.push(`${photo.bucket}/${photo.name}: ${error instanceof Error ? error.message : String(error)}`);
+      downloadFailures.push(
+        `${photo.bucket}/${photo.name}: ${error instanceof Error ? error.message : String(error)}`,
+      );
     }
   }
 
@@ -193,21 +230,35 @@ try {
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
   for (const row of siteImages.rows) {
     // 저장소 안 사진(/images/sites/…)은 배포 주소로 받는다. 위키미디어는 연속 요청에 429 를 주므로 쉬어 가며 한 번 더 시도
-    const url = row.image_url.startsWith('/') ? `https://visitholykorea-app.vercel.app${row.image_url}` : row.image_url;
-    const ext = ((url.split('?')[0] ?? url).match(/\.(jpe?g|png|webp|gif)$/i)?.[1] ?? 'jpg').toLowerCase();
+    const url = row.image_url.startsWith('/')
+      ? `https://visitholykorea-app.vercel.app${row.image_url}`
+      : row.image_url;
+    const ext = (
+      (url.split('?')[0] ?? url).match(/\.(jpe?g|png|webp|gif)$/i)?.[1] ?? 'jpg'
+    ).toLowerCase();
     const destination = join(siteImagesDir, `${row.id}.${ext}`);
     try {
       await sleep(400);
-      let response = await fetch(url, { headers: { 'User-Agent': 'VisitHolyKorea-backup/1.0 (contact via GitHub linkcontent7-huisun)' } });
+      let response = await fetch(url, {
+        headers: {
+          'User-Agent': 'VisitHolyKorea-backup/1.0 (contact via GitHub linkcontent7-huisun)',
+        },
+      });
       if (response.status === 429) {
         await sleep(3000);
-        response = await fetch(url, { headers: { 'User-Agent': 'VisitHolyKorea-backup/1.0 (contact via GitHub linkcontent7-huisun)' } });
+        response = await fetch(url, {
+          headers: {
+            'User-Agent': 'VisitHolyKorea-backup/1.0 (contact via GitHub linkcontent7-huisun)',
+          },
+        });
       }
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       writeFileSync(destination, Buffer.from(await response.arrayBuffer()));
       downloadedSiteImages += 1;
     } catch (error) {
-      downloadFailures.push(`site-image ${row.id}: ${error instanceof Error ? error.message : String(error)}`);
+      downloadFailures.push(
+        `site-image ${row.id}: ${error instanceof Error ? error.message : String(error)}`,
+      );
     }
   }
 
@@ -232,7 +283,12 @@ try {
     `성지 대표 사진(바깥 주소): ${siteImages.rows.length.toLocaleString('ko-KR')}곳 중 ${downloadedSiteImages.toLocaleString('ko-KR')}장 내려받음 → photos/site-images/`,
   ];
   if (downloadFailures.length > 0) {
-    summary.push('', '## 사진 내려받기 실패', '', ...downloadFailures.map((failure) => `- ${failure}`));
+    summary.push(
+      '',
+      '## 사진 내려받기 실패',
+      '',
+      ...downloadFailures.map((failure) => `- ${failure}`),
+    );
   }
   writeFileSync(join(outputDir, '요약.md'), summary.join('\n') + '\n', 'utf8');
 

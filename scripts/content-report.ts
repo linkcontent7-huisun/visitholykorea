@@ -74,7 +74,9 @@ console.log(`${pad('구간', 34)}${pad('곳', 6)}해야 할 일`);
 console.log('-'.repeat(72));
 console.log(`${pad('① 좌표 O · 소개글 O', 34)}${pad(String(ready.length), 6)}번역만 하면 완결`);
 console.log(`${pad('② 좌표 O · 소개글 X', 34)}${pad(String(needText.length), 6)}글 쓰기 → 번역`);
-console.log(`${pad('③ 좌표 X · 소개글 O', 34)}${pad(String(needCoords.length), 6)}좌표 확보 → 번역`);
+console.log(
+  `${pad('③ 좌표 X · 소개글 O', 34)}${pad(String(needCoords.length), 6)}좌표 확보 → 번역`,
+);
 console.log(`${pad('④ 좌표 X · 소개글 X', 34)}${pad(String(needBoth.length), 6)}둘 다 (후순위)`);
 
 // ---------------------------------------------------------------------------

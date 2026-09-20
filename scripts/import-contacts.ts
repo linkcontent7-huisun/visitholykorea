@@ -46,19 +46,30 @@ function parseCsv(text: string): string[][] {
     if (inQuotes) {
       if (c === '"') {
         // 따옴표 두 개는 따옴표 한 글자
-        if (text[i + 1] === '"') { field += '"'; i += 1; }
-        else inQuotes = false;
+        if (text[i + 1] === '"') {
+          field += '"';
+          i += 1;
+        } else inQuotes = false;
       } else field += c;
       continue;
     }
 
     if (c === '"') inQuotes = true;
-    else if (c === ',') { row.push(field); field = ''; }
-    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
-    else if (c !== '\r') field += c;
+    else if (c === ',') {
+      row.push(field);
+      field = '';
+    } else if (c === '\n') {
+      row.push(field);
+      rows.push(row);
+      row = [];
+      field = '';
+    } else if (c !== '\r') field += c;
   }
 
-  if (field !== '' || row.length > 0) { row.push(field); rows.push(row); }
+  if (field !== '' || row.length > 0) {
+    row.push(field);
+    rows.push(row);
+  }
   return rows.filter((r) => r.some((v) => v.trim() !== ''));
 }
 
@@ -78,7 +89,10 @@ function normalize(name: string): string {
 
 const rows = parseCsv(readFileSync(csvPath, 'utf-8'));
 const header = rows[0]?.map((h) => h.trim());
-if (!header) { console.error('CSV 가 비었습니다.'); process.exit(1); }
+if (!header) {
+  console.error('CSV 가 비었습니다.');
+  process.exit(1);
+}
 
 const col = {
   name: header.indexOf('name'),
@@ -87,7 +101,10 @@ const col = {
   homepage: header.indexOf('homepage_url'),
   fax: header.indexOf('fax'),
 };
-if (col.name === -1) { console.error('name 열이 없습니다.'); process.exit(1); }
+if (col.name === -1) {
+  console.error('name 열이 없습니다.');
+  process.exit(1);
+}
 
 interface Incoming {
   name: string;
@@ -97,13 +114,16 @@ interface Incoming {
   fax: string | null;
 }
 
-const incoming: Incoming[] = rows.slice(1).map((r) => ({
-  name: (r[col.name] ?? '').trim(),
-  location: col.location === -1 ? null : value(r[col.location]),
-  phone: col.phone === -1 ? null : value(r[col.phone]),
-  homepage_url: col.homepage === -1 ? null : value(r[col.homepage]),
-  fax: col.fax === -1 ? null : value(r[col.fax]),
-})).filter((r) => r.name !== '');
+const incoming: Incoming[] = rows
+  .slice(1)
+  .map((r) => ({
+    name: (r[col.name] ?? '').trim(),
+    location: col.location === -1 ? null : value(r[col.location]),
+    phone: col.phone === -1 ? null : value(r[col.phone]),
+    homepage_url: col.homepage === -1 ? null : value(r[col.homepage]),
+    fax: col.fax === -1 ? null : value(r[col.fax]),
+  }))
+  .filter((r) => r.name !== '');
 
 console.log(`\nCSV ${incoming.length}줄을 읽었습니다.\n`);
 
@@ -128,10 +148,10 @@ if (error) {
   console.error('성지 조회 실패:', error.message);
   if (error.message.includes('phone')) {
     console.error('\n컬럼이 아직 없습니다. SQL Editor 에서 아래를 먼저 실행하세요.\n');
-    console.error("  alter table public.holy_sites");
-    console.error("    add column if not exists phone text,");
-    console.error("    add column if not exists homepage_url text,");
-    console.error("    add column if not exists fax text;");
+    console.error('  alter table public.holy_sites');
+    console.error('    add column if not exists phone text,');
+    console.error('    add column if not exists homepage_url text,');
+    console.error('    add column if not exists fax text;');
     console.error("  notify pgrst, 'reload schema';\n");
   }
   process.exit(1);
@@ -155,14 +175,20 @@ let alreadyFilled = 0;
 
 for (const row of incoming) {
   const candidates = byName.get(normalize(row.name));
-  if (!candidates || candidates.length === 0) { notFound.push(row.name); continue; }
+  if (!candidates || candidates.length === 0) {
+    notFound.push(row.name);
+    continue;
+  }
 
   let site = candidates[0]!;
   if (candidates.length > 1) {
     // 주소 앞부분이 겹치는 쪽을 고른다
     const head = (row.location ?? '').slice(0, 6);
     const better = candidates.find((c) => (c.location ?? '').startsWith(head));
-    if (!better) { ambiguous.push(row.name); continue; }
+    if (!better) {
+      ambiguous.push(row.name);
+      continue;
+    }
     site = better;
   }
 
@@ -172,7 +198,10 @@ for (const row of incoming) {
   if (row.homepage_url && !site.homepage_url) patch.homepage_url = row.homepage_url;
   if (row.fax && !site.fax) patch.fax = row.fax;
 
-  if (Object.keys(patch).length === 0) { alreadyFilled += 1; continue; }
+  if (Object.keys(patch).length === 0) {
+    alreadyFilled += 1;
+    continue;
+  }
   updates.push({ id: site.id, name: site.name, patch });
 }
 

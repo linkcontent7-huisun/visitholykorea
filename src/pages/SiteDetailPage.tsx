@@ -1,23 +1,12 @@
-import {
-  Camera,
-  ChevronDown,
-  Compass,
-  Flag,
-  Heart,
-  PartyPopper,
-  Share2,
-  User,
-  X,
-} from 'lucide-react';
+import { BookOpen, Camera, ChevronDown, Compass, Flag, Heart, User, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
-import { getLiturgicalEvent } from '@/features/passport/lib/liturgical-calendar';
 import { resolveReflectionQuestion } from '@/features/passport/lib/reflection-questions';
-import { generateShareCard, shareOrDownloadCard } from '@/features/passport/lib/share-card';
 import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use-favorites';
 import {
   useAddStamp,
+  useDeleteStampPhoto,
   useMyStamp,
   useMyStamps,
   useReportNote,
@@ -27,8 +16,7 @@ import {
 import { getMyStamps, recordNoteReads } from '@/features/passport/api/stamps.repository';
 import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
-import { resolveStampMotif } from '@/features/passport/lib/stamp-motifs';
-import { isWydPeriod, isWydVenue, WYD_LABEL_EN, WYD_LABEL_KO } from '@/features/passport/lib/wyd';
+import { isWydVenue, WYD_LABEL_EN, WYD_LABEL_KO } from '@/features/passport/lib/wyd';
 import { DocentPlayer } from '@/features/docent/components/DocentPlayer';
 import { buildChapters } from '@/features/docent/lib/chapters';
 import { getDocentScript } from '@/features/docent/data/scripts';
@@ -40,10 +28,8 @@ import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCa
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { sizedImageUrl } from '@/shared/lib/image-url';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
-import { useNearbyFacilities, useNearbyFestivals } from '@/features/sites/hooks/use-nearby-tour';
+import { useNearbyFacilities } from '@/features/sites/hooks/use-nearby-tour';
 import { NearbyCrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
-import { useWalkingCoursesNear } from '@/features/sites/hooks/use-tour-extras';
-import { WalkingCourseCard } from '@/features/sites/components/WalkingCourseCard';
 import { GROUP_LABEL_KEY } from '@/features/sites/lib/nearby-facilities';
 import {
   useLocalizedSites,
@@ -59,6 +45,7 @@ import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { ScrollHintRow } from '@/shared/components/ui/ScrollHintRow';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { PhotoLightbox } from '@/shared/components/ui/PhotoLightbox';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
@@ -69,7 +56,7 @@ import { kakaoDirectionsUrl } from '@/shared/lib/geo';
 /** 가는 김에 둘러볼 곳 — 레포츠·쇼핑은 도보권 밖으로 벗어나는 유형이라 뺀다(사장님 지적, 2026-09-17) */
 const HIDDEN_FACILITY_GROUPS = new Set(['레포츠', '쇼핑']);
 
-/** 순례 후기에 붙이는 사진 최대 장수(2026-09-17) — 일반 사진 추가(최대 5·10장)와는 다른 값 */
+/** 순례 기록에 붙이는 사진 최대 장수(2026-09-17) — 일반 사진 추가(최대 5·10장)와는 다른 값 */
 const NOTE_PHOTO_MAX = 3;
 
 export default function SiteDetailPage() {
@@ -87,10 +74,6 @@ export default function SiteDetailPage() {
     isError: facilitiesError,
   } = useNearbyFacilities(site?.coordinates);
   const facilityGroups = facilityGroupsRaw.filter((g) => !HIDDEN_FACILITY_GROUPS.has(g.group));
-  const { data: festivals = [], isFetching: festivalsLoading } = useNearbyFestivals(
-    site?.coordinates,
-  );
-  const { data: walkingCourses = [] } = useWalkingCoursesNear(site);
   const location = useLocation();
   // 마음 나침반에서 「이 코스로 가볼게요」로 오면 #directions — 「방문 정보」로 스크롤한다
   const wantsDirections = location.hash === '#directions';
@@ -100,6 +83,11 @@ export default function SiteDetailPage() {
     const el = document.getElementById('visit-info-heading');
     el?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }, [wantsDirections, site]);
+  // 즐겨찾기 단추 옆 「기록하기」 — 순례 기록이 이 서비스의 핵심인데도 이야기·도슨트
+  // 아래로 밀려 있어 접근하기 어렵다는 지적(사장님, 2026-09-20)으로 앵커를 만든다.
+  const scrollToRecordSection = () => {
+    document.getElementById('reviews-heading')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  };
   // AI 가이드는 홈 상단에서 이리로 옮겼다 (2026-09-12) — 성지를 보다가 궁금할 때 묻는 자리다
   // 공식 사진이 없으면 순례자가 보내준(운영자 승인) 사진이 대표 자리를 채운다.
   // 훅이므로 이른 return 위에서 부른다.
@@ -113,21 +101,11 @@ export default function SiteDetailPage() {
   const { data: visitNotes = [] } = useSiteNotes(siteId, reviewsOpen ? undefined : 6);
   const addStamp = useAddStamp(siteId ?? '');
 
-  // 이 성지가 나의 몇 번째 순례인가 (오래된 순으로 센다). 안 찍었으면 null.
-  const visitOrder = (() => {
-    const asc = [...myStamps].sort(
-      (a, b) => new Date(a.visitedAt).getTime() - new Date(b.visitedAt).getTime(),
-    );
-    const idx = asc.findIndex((s) => s.siteId === siteId);
-    return idx === -1 ? null : idx + 1;
-  })();
-
-  const [shareLoading, setShareLoading] = useState(false);
   const [noteDraft, setNoteDraft] = useState('');
-  // 후기 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-17).
+  // 기록 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-17).
   // 접어도 사라지지 않는다 — 줄만 남아서 다시 누르면 펼칠 수 있다.
   const [noteComposerOpen, setNoteComposerOpen] = useState(true);
-  // 후기와 함께 올릴 사진 — 최대 3장(2026-09-17, LogComposer 와 같은 미리보기 방식)
+  // 기록과 함께 올릴 사진 — 최대 3장(2026-09-17, 올리기 전 미리보기 방식)
   const [notePhotos, setNotePhotos] = useState<{ file: File; preview: string }[]>([]);
   const [notePhotoNotice, setNotePhotoNotice] = useState<string | null>(null);
 
@@ -170,19 +148,25 @@ export default function SiteDetailPage() {
   // 「소개글」 — 순교·신앙 역사 / 위치·지리 / 건축물 세 문단. 없으면 기존 description 한 줄을 그대로 보여준다.
   const docentIntro = useMemo(() => pickIntro(dbScripts, language), [dbScripts, language]);
 
-  // 순례 사진 — 첫 후기를 남기면 자동으로 생기는 "내 기록"에 붙인다
+  // 순례 사진 — 첫 기록을 남기면 자동으로 생기는 "내 기록"에 붙인다
   const uploadPhotos = useUploadStampPhotos(siteId ?? '');
+  const deletePhoto = useDeleteStampPhoto(siteId ?? '');
   const reportNote = useReportNote(siteId ?? '');
   const [reportedIds, setReportedIds] = useState<Set<string>>(new Set());
+  // 사진 확대 모달 — 「내가 남긴」·「다른 순례자」 사진 둘 다 이 상태 하나를 같이 쓴다
+  const [lightbox, setLightbox] = useState<{ photos: string[]; index: number } | null>(null);
   const handlePhotoPick = async (files: FileList | null) => {
     if (!files || !myStamp) return;
     const policy = photoPolicy();
-    const picked = Array.from(files).slice(0, policy.maxCount);
-    if (files.length > policy.maxCount)
-      window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
+    // 이미 있는 사진 뒤에 이어 붙인다 — 위치(position)가 겹치면 기존 사진을 덮어쓰므로
+    // 새로 고른 만큼만 남은 자리에서 자른다(2026-09-20, 「바꾸기」 아닌 「추가」로 고침).
+    const room = Math.max(0, policy.maxCount - myStamp.photos.length);
+    const picked = Array.from(files).slice(0, room);
+    if (files.length > room) window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
     const photos = await Promise.all(picked.map((file) => shrinkPhoto(file, policy)));
     uploadPhotos.mutate({
       stampId: myStamp.stamped ? (myStamps.find((s) => s.siteId === siteId)?.stampId ?? '') : '',
+      startPosition: myStamp.photos.length + 1,
       photos,
     });
   };
@@ -192,7 +176,7 @@ export default function SiteDetailPage() {
     reportNote.mutate(stampId);
   };
 
-  // 후기 입력 칸의 사진 — 올리기 전 미리보기 URL 은 메모리를 잡으므로 바뀔 때마다 놓아준다
+  // 기록 입력 칸의 사진 — 올리기 전 미리보기 URL 은 메모리를 잡으므로 바뀔 때마다 놓아준다
   useEffect(() => () => notePhotos.forEach((p) => URL.revokeObjectURL(p.preview)), [notePhotos]);
   const pickNotePhotos = (files: FileList | null) => {
     if (!files) return;
@@ -209,10 +193,6 @@ export default function SiteDetailPage() {
   const removeNotePhoto = (index: number) =>
     setNotePhotos((prev) => prev.filter((_, i) => i !== index));
 
-  // 공유 카드 디자인에 쓰는 오늘의 전례색·WYD 여부 — 화면에 절차로 보여주지 않는다(2026-09-17).
-  const todayLiturgical = getLiturgicalEvent();
-  const wydNow = isWydPeriod();
-
   // "다녀온 사람의 한 줄"이 실제로 화면에 보였을 때만 읽힘 수를 올린다.
   // 성지당 한 번 — 리렌더마다 세면 조회수가 아니라 렌더 횟수가 된다.
   const readRecordedRef = useRef<Set<string>>(new Set());
@@ -224,10 +204,10 @@ export default function SiteDetailPage() {
   }, [siteId, visitNotes.length]);
 
   /**
-   * 후기 저장 — 이 한 번의 호출이 "기록"(스탬프)도 함께 만든다(2026-09-17).
-   * 예전엔 "스탬프 찍기" 버튼을 먼저 눌러야 후기를 쓸 수 있었다. 그 절차가
+   * 기록 저장 — 이 한 번의 호출이 "기록"(스탬프)도 함께 만든다(2026-09-17).
+   * 예전엔 "스탬프 찍기" 버튼을 먼저 눌러야 기록을 쓸 수 있었다. 그 절차가
    * 이 화면의 유일한 "기록" 입구인데도 무겁게 느껴진다는 지적으로, 절차를 화면에
-   * 드러내지 않고 후기 쓰기 한 번으로 합쳤다 — addStamp 자체는 그대로다
+   * 드러내지 않고 기록 쓰기 한 번으로 합쳤다 — addStamp 자체는 그대로다
    * (처음 쓰면 새 기록을 만들고, 이미 있으면 한 줄만 갱신한다).
    */
   const handleSaveNote = () => {
@@ -243,7 +223,7 @@ export default function SiteDetailPage() {
           window.alert(t('saveFailedNote'));
           return;
         }
-        // 후기와 같이 고른 사진이 있으면 이어서 올린다 — stamp 는 방금 생겼으므로
+        // 기록과 같이 고른 사진이 있으면 이어서 올린다 — stamp 는 방금 생겼으므로
         // (myStamps 캐시가 아직 갱신 전일 수 있어) 직접 다시 조회해 stampId 를 얻는다.
         if (notePhotos.length > 0 && siteId) {
           const pending = notePhotos;
@@ -271,32 +251,6 @@ export default function SiteDetailPage() {
         window.alert(t('saveFailedFavorite'));
       },
     });
-  };
-
-  const handleShareCard = async () => {
-    if (!site) return;
-    setShareLoading(true);
-    try {
-      const blob = await generateShareCard({
-        siteName: site.name,
-        location: site.location,
-        emotionTag: site.emotionTag,
-        // 순례자 사진이 대표가 된 성지는 카드 배경도 그 사진을 쓴다
-        imageUrl: heroPhoto.url,
-        visitedAt: new Date(),
-        liturgical: todayLiturgical,
-        visitOrder,
-        motif: resolveStampMotif(site.name, site.category),
-        wyd: isWydVenue(site.name),
-        wydLimited: wydNow,
-      });
-      await shareOrDownloadCard(blob, `visitholy-${site.name}.png`);
-    } catch (e) {
-      console.error('공유 카드 생성 실패:', e);
-      window.alert(t('shareCardFailed'));
-    } finally {
-      setShareLoading(false);
-    }
   };
 
   if (isLoading) return <LoadingSpinner />;
@@ -378,22 +332,34 @@ export default function SiteDetailPage() {
             2026-09-19: "뒤로 버튼 종류가 두 가지로 보인다") — 사진 위라 onDark 로만 다르다. */}
         <BackButton variant="onDark" className="absolute left-5 top-5" />
 
-        {!SUBMISSION_MODE && (
-          // 제출판은 본선 기능만 보이게 한다 — T-013
+        <div className="absolute right-5 top-5 flex items-center gap-2">
+          {/* 기록이 이 서비스의 핵심 기능인데도 이야기·도슨트 아래로 밀려 접근하기 어렵다는
+              지적(사장님, 2026-09-20)으로, 즐겨찾기 옆에 「기록으로 가기」 앵커를 둔다. */}
           <button
-            onClick={handleToggleFavorite}
-            disabled={toggleFavorite.isPending}
-            className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-lg border border-white/30 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45"
-            aria-label={isFavorited ? t('favoriteRemove') : t('favoriteAdd')}
-            aria-pressed={isFavorited}
+            type="button"
+            onClick={scrollToRecordSection}
+            className="flex min-h-11 items-center gap-1.5 rounded-lg border border-white/30 bg-black/30 px-3 text-base font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45"
           >
-            <Heart
-              size={22}
-              className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined}
-              aria-hidden
-            />
+            <BookOpen size={18} aria-hidden />
+            {t('siteRecordAnchor')}
           </button>
-        )}
+          {!SUBMISSION_MODE && (
+            // 제출판은 본선 기능만 보이게 한다 — T-013
+            <button
+              onClick={handleToggleFavorite}
+              disabled={toggleFavorite.isPending}
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/30 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45"
+              aria-label={isFavorited ? t('favoriteRemove') : t('favoriteAdd')}
+              aria-pressed={isFavorited}
+            >
+              <Heart
+                size={22}
+                className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined}
+                aria-hidden
+              />
+            </button>
+          )}
+        </div>
 
         <div className="absolute bottom-10 left-5 right-5 text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.55)] lg:left-8 lg:right-8">
           <span className="inline-block rounded-full bg-brand-blue px-3 py-1 text-xs font-bold">
@@ -503,168 +469,89 @@ export default function SiteDetailPage() {
           <DirectionsCard site={site} addressEnglish={view?.addressRomanized ?? null} />
         </section>
 
-        {/* 성지 사무실·운영자가 직접 적은 주변 안내. TourAPI 목록과 달리 우리 DB 값이라
-            관리자 콘솔에서 고칠 수 있다. 둘 다 비어 있으면 절 자체를 그리지 않는다. */}
-        {(site.nearbyAttractions || site.nearbyLodging) && (
-          <section>
-            <SectionHeading title={t('siteCuratedNearbyTitle')} />
-            <div className="space-y-3">
-              {site.nearbyAttractions && (
-                <Card tone="panel">
-                  <div className="mb-1 text-sm font-bold text-app-text-muted">
-                    {t('siteCuratedAttractions')}
-                  </div>
-                  <p className="whitespace-pre-line text-base leading-relaxed text-app-text">
-                    {site.nearbyAttractions}
-                  </p>
-                </Card>
-              )}
-              {site.nearbyLodging && (
-                <Card tone="panel">
-                  <div className="mb-1 text-sm font-bold text-app-text-muted">
-                    {t('siteCuratedLodging')}
-                  </div>
-                  <p className="whitespace-pre-line text-base leading-relaxed text-app-text">
-                    {site.nearbyLodging}
-                  </p>
-                </Card>
-              )}
-            </div>
-          </section>
+        {/* 「주변 정보」 절은 「둘러볼 곳」(TourAPI 편의시설) 하나만 남긴다(사장님 지시, 2026-09-19)
+            — 「성지가 알려주는 주변」(DB 큐레이션)·「지금 근처에서 열리는 행사」·「이 근처 걷기길」
+            (둘 다 TourAPI 다른 엔드포인트) 세 절은 화면에서 뺐다. 관련 hook 호출도 위에서 지웠다 —
+            죽여 둔 코드가 없다. 되살릴 땐 이 커밋 이전 `SiteDetailPage.tsx`를 참고할 것. */}
+        {!facilitiesLoading && !facilitiesError && facilityGroups.length === 0 && (
+          <p className="rounded-lg border border-dashed border-app-border bg-white p-5 text-base text-app-text-muted">
+            {t('siteNearbyTourismEmpty')}
+          </p>
         )}
 
-        {/* 「주변 관광 정보」라는 상위 제목·설명 문구는 뺀다(사장님 지적, 2026-09-17) —
-            아래 세 절(둘러볼 곳·오늘의 행사·도보 코스)은 각자 제목이 있어 그것으로 충분하고,
-            묶는 제목이 오히려 한 겹 더 얹힌 것처럼 느껴졌다. 절 자체(하위 구조·오류 카드)는
-            그대로 두고 감싸던 제목만 없앤다. 역사·방문 정보보다 아래에 둔 이유는 그대로다
-            (재기획 §4-1: 주변 음식점이 기본 방문 정보보다 먼저 나오지 않게). */}
-        <div className="space-y-8">
-          {/* 한국관광공사 오류 카드는 없앴다(사장님 지적, 2026-09-17) — 축제 API 가 늘 실패해서
-              (9/17 밤 기록: searchFestival2 는 좌표 반경 검색을 지원하지 않음) 이 카드가 거의
-              항상 떠 있었다. 실패해도 아래 절들은 조용히 안 그려질 뿐 — 빈 화면이 오류보다 낫다. */}
-          {!facilitiesLoading && !facilitiesError && facilityGroups.length === 0 && (
-            <p className="rounded-lg border border-dashed border-app-border bg-white p-5 text-base text-app-text-muted">
-              {t('siteNearbyTourismEmpty')}
-            </p>
-          )}
-
-          {/*
+        {/*
           주변 편의시설 — 맛집·숙박·볼거리를 한 화면에서 본다(관광공사 유형 그대로, 레포츠·쇼핑은 뺐다).
           TourAPI 를 한 번만 부르고 유형으로 나눈다(저장하지 않는다).
           빈 유형은 아예 그리지 않는다 — 시골 성지의 빈 탭은 정보가 없는 앱으로 보인다.
         */}
-          {(facilitiesLoading || facilityGroups.length > 0) && (
-            <section>
-              <SectionHeading title={t('siteNearbyTitle')} />
+        {(facilitiesLoading || facilityGroups.length > 0) && (
+          <section>
+            <SectionHeading title={t('siteNearbyTitle')} />
 
-              {facilitiesLoading ? (
-                <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
-                  {[1, 2, 3].map((i) => (
-                    <div
-                      key={i}
-                      className="h-64 w-44 flex-shrink-0 animate-pulse rounded-lg bg-app-bg"
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="space-y-8">
-                  {facilityGroups.map(({ group, spots }) => (
-                    <div key={group}>
-                      <h3 className="mb-3 text-lg font-bold text-app-text">
-                        {t(GROUP_LABEL_KEY[group])}
-                      </h3>
-                      <ScrollHintRow className="-mx-5 flex gap-4 px-5 lg:-mx-8 lg:px-8">
-                        {spots.map((spot) => (
-                          <a
-                            key={spot.contentid}
-                            // 이름 검색은 정확한 장소로 안 이어질 때가 있었다(사장님 지적,
-                            // 2026-09-17) — 좌표가 있으니 길찾기로 보낸다. 목적지가 곧 정답이다.
-                            href={kakaoDirectionsUrl(
-                              spot.title,
-                              Number(spot.mapy),
-                              Number(spot.mapx),
-                            )}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                            aria-label={`${spot.title} 길찾기`}
-                            className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left transition-colors hover:border-brand-blue"
-                          >
-                            <div className="relative flex h-36 items-center justify-center overflow-hidden bg-app-panel">
-                              {spot.firstimage ? (
-                                <img
-                                  src={spot.firstimage}
-                                  alt={spot.title}
-                                  className="h-full w-full object-cover"
-                                  loading="lazy"
-                                />
-                              ) : (
-                                <Compass
-                                  size={28}
-                                  className="text-app-text-muted opacity-30"
-                                  aria-hidden
-                                />
-                              )}
-                            </div>
-                            <div className="p-4">
-                              <h4 className="truncate text-base font-bold text-app-text group-hover:text-brand-blue">
-                                {spot.title}
-                              </h4>
-                            </div>
-                          </a>
-                        ))}
-                      </ScrollHintRow>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </section>
-          )}
-
-          {/* 오늘 열리는 행사 — 매일 바뀌므로 캐싱이 원천적으로 불가능한 데이터 */}
-          {(festivalsLoading || festivals.length > 0) && (
-            <section>
-              <SectionHeading title={t('siteFestivalsTitle')} meta={t('siteLiveSource')} />
-              <div className="space-y-3">
-                {festivalsLoading
-                  ? [1, 2].map((i) => (
-                      <div key={i} className="h-16 animate-pulse rounded-lg bg-app-bg" />
-                    ))
-                  : festivals.map((spot) => (
-                      <div
-                        key={spot.contentid}
-                        className="flex items-center gap-4 rounded-lg border border-app-border bg-white p-4"
-                      >
-                        <div
-                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand-blue"
-                          aria-hidden
-                        >
-                          <PartyPopper size={20} />
-                        </div>
-                        <div className="min-w-0">
-                          <h3 className="truncate text-base font-bold text-app-text">
-                            {spot.title}
-                          </h3>
-                          <p className="truncate text-sm text-app-text-muted">{spot.addr1}</p>
-                        </div>
-                      </div>
-                    ))}
-              </div>
-            </section>
-          )}
-
-          {walkingCourses.length > 0 && (
-            <section>
-              <SectionHeading title={t('siteWalkingCoursesTitle')} />
-              <div className="space-y-3">
-                {walkingCourses.slice(0, 3).map((course, index) => (
-                  <WalkingCourseCard key={course.crsIdx ?? index} course={course} />
+            {facilitiesLoading ? (
+              <div className="no-scrollbar -mx-3 flex gap-4 overflow-x-auto px-3 lg:-mx-5 lg:px-5">
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="h-64 w-44 flex-shrink-0 animate-pulse rounded-lg bg-app-bg"
+                  />
                 ))}
               </div>
-            </section>
-          )}
-        </div>
+            ) : (
+              <div className="space-y-8">
+                {facilityGroups.map(({ group, spots }) => (
+                  <div key={group}>
+                    <h3 className="mb-3 text-lg font-bold text-app-text">
+                      {t(GROUP_LABEL_KEY[group])}
+                    </h3>
+                    <ScrollHintRow className="-mx-3 flex gap-4 px-3 lg:-mx-5 lg:px-5">
+                      {spots.map((spot) => (
+                        <a
+                          key={spot.contentid}
+                          // 이름 검색은 정확한 장소로 안 이어질 때가 있었다(사장님 지적,
+                          // 2026-09-17) — 좌표가 있으니 길찾기로 보낸다. 목적지가 곧 정답이다.
+                          href={kakaoDirectionsUrl(
+                            spot.title,
+                            Number(spot.mapy),
+                            Number(spot.mapx),
+                          )}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          aria-label={`${spot.title} 길찾기`}
+                          className="group w-44 flex-shrink-0 overflow-hidden rounded-lg border border-app-border bg-white text-left transition-colors hover:border-brand-blue"
+                        >
+                          <div className="relative flex h-36 items-center justify-center overflow-hidden bg-app-panel">
+                            {spot.firstimage ? (
+                              <img
+                                src={spot.firstimage}
+                                alt={spot.title}
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <Compass
+                                size={28}
+                                className="text-app-text-muted opacity-30"
+                                aria-hidden
+                              />
+                            )}
+                          </div>
+                          <div className="p-4">
+                            <h4 className="truncate text-base font-bold text-app-text group-hover:text-brand-blue">
+                              {spot.title}
+                            </h4>
+                          </div>
+                        </a>
+                      ))}
+                    </ScrollHintRow>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
 
-        {/* 순례 후기 — "스탬프 찍기" 절차를 없앴다(2026-09-17 사장님 지적). 로그인한 사람은
+        {/* 순례 기록 — "스탬프 찍기" 절차를 없앴다(2026-09-17 사장님 지적). 로그인한 사람은
             누구나 바로 한 줄을 남길 수 있고, 그 글이 이 성지의 첫 기록이면 스탬프(기록)가
             뒤에서 함께 남는다. 사진은 확대해서 가로로 넘겨 보고, 다른 사람 글에는 실명 대신
             일반 라벨("순례자")만 붙인다 — 누가 썼는지는 DB 조회 자체에 없다(비식별 설계 유지). */}
@@ -719,7 +606,7 @@ export default function SiteDetailPage() {
                       if (e.key === 'Enter') handleSaveNote();
                     }}
                   />
-                  {/* 사진 — 최대 3장. 후기 문장과 함께 한 번에 올라간다 */}
+                  {/* 사진 — 최대 3장. 기록 문장과 함께 한 번에 올라간다 */}
                   <div className="mt-3 flex flex-wrap gap-2">
                     {notePhotos.map((p, i) => (
                       <div key={p.preview} className="relative">
@@ -783,60 +670,76 @@ export default function SiteDetailPage() {
                   </p>
                 </>
               )}
-              {/* 순례 사진 — 확대해서 가로로 넘겨 본다(2026-09-17, 예전엔 3열 작은 격자) */}
-              {myStamp?.photos.length ? (
-                <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
-                  {myStamp.photos.map((photo) => (
+              {/* 순례 사진 — 눌러서 확대해 보고, 각 사진에 삭제 단추가 붙는다(2026-09-20,
+                  「바꾸기」 단추 하나뿐이던 것을 사진별 수정·삭제로 바꿨다). */}
+              <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
+                {myStamp?.photos.length ? (
+                  myStamp.photos.map((photo, i) => (
+                    <div key={photo.id} className="relative shrink-0">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setLightbox({ photos: myStamp.photos.map((p) => p.url), index: i })
+                        }
+                        aria-label={t('photoEnlarge')}
+                        className="block h-40 w-40 overflow-hidden rounded-lg"
+                      >
+                        <img
+                          src={photo.url}
+                          alt={t('photoMineAlt')}
+                          className="h-full w-full object-cover"
+                        />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => deletePhoto.mutate(photo)}
+                        disabled={deletePhoto.isPending}
+                        aria-label={t('photoDelete')}
+                        className="absolute -right-1 -top-1 flex h-7 w-7 items-center justify-center rounded-full bg-black/70 text-white disabled:opacity-50"
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
+                  ))
+                ) : myStamp?.photoUrl ? (
+                  <button
+                    type="button"
+                    onClick={() => setLightbox({ photos: [myStamp.photoUrl!], index: 0 })}
+                    aria-label={t('photoEnlarge')}
+                    className="block h-40 w-40 shrink-0 overflow-hidden rounded-lg"
+                  >
                     <img
-                      key={photo.id}
-                      src={photo.url}
+                      src={myStamp.photoUrl}
                       alt={t('photoMineAlt')}
-                      className="h-40 w-40 shrink-0 rounded-lg object-cover"
+                      className="h-full w-full object-cover"
                     />
-                  ))}
-                </div>
-              ) : myStamp?.photoUrl ? (
-                <img
-                  src={myStamp.photoUrl}
-                  alt={t('photoMineAlt')}
-                  className="mt-3 h-40 w-full rounded-lg object-cover"
-                />
-              ) : null}
-              <label
-                className={`mt-3 flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg border-[1.5px] border-dashed border-brand-blue/50 text-base font-bold text-brand-blue transition-colors hover:bg-brand-soft ${
-                  uploadPhotos.isPending ? 'opacity-50' : ''
-                }`}
-              >
-                <Camera size={18} aria-hidden />
-                {uploadPhotos.isPending
-                  ? t('photoUploading')
-                  : myStamp?.photos.length
-                    ? t('photoReplace')
-                    : t('photoAdd')}
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  className="hidden"
-                  disabled={uploadPhotos.isPending}
-                  onChange={(e) => {
-                    void handlePhotoPick(e.target.files);
-                    e.target.value = '';
-                  }}
-                  data-testid="photo-input"
-                />
-              </label>
-              <Button
-                variant="secondary"
-                block
-                onClick={() => void handleShareCard()}
-                disabled={shareLoading}
-                id="share-card-button"
-                className="mt-3"
-              >
-                <Share2 size={18} aria-hidden />
-                {shareLoading ? t('shareCardMaking') : t('shareStampCard')}
-              </Button>
+                  </button>
+                ) : null}
+                {(myStamp?.photos.length ?? 0) < photoPolicy().maxCount && (
+                  <label
+                    className={`flex h-40 w-16 shrink-0 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-brand-blue/50 px-1 text-center text-brand-blue transition-colors hover:bg-brand-soft ${
+                      uploadPhotos.isPending ? 'opacity-50' : ''
+                    }`}
+                  >
+                    <Camera size={18} aria-hidden />
+                    <span className="text-xs font-bold leading-tight">
+                      {uploadPhotos.isPending ? t('photoUploading') : t('photoAdd')}
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      className="hidden"
+                      disabled={uploadPhotos.isPending}
+                      onChange={(e) => {
+                        void handlePhotoPick(e.target.files);
+                        e.target.value = '';
+                      }}
+                      data-testid="photo-input"
+                    />
+                  </label>
+                )}
+              </div>
               <p className="mt-3 text-sm leading-relaxed text-app-text-muted">
                 {t('reviewPublicNotice')}
               </p>
@@ -873,14 +776,21 @@ export default function SiteDetailPage() {
                     </div>
                     {n.photos.length > 0 && (
                       <div className="no-scrollbar mb-2 flex gap-2 overflow-x-auto">
-                        {n.photos.map((url) => (
-                          <img
+                        {n.photos.map((url, i) => (
+                          <button
                             key={url}
-                            src={url}
-                            alt={t('pilgrimPhotoAlt')}
-                            loading="lazy"
-                            className="h-36 w-36 shrink-0 rounded-lg object-cover"
-                          />
+                            type="button"
+                            onClick={() => setLightbox({ photos: n.photos, index: i })}
+                            aria-label={t('photoEnlarge')}
+                            className="block h-36 w-36 shrink-0 overflow-hidden rounded-lg"
+                          >
+                            <img
+                              src={url}
+                              alt={t('pilgrimPhotoAlt')}
+                              loading="lazy"
+                              className="h-full w-full object-cover"
+                            />
+                          </button>
                         ))}
                       </div>
                     )}
@@ -925,7 +835,7 @@ export default function SiteDetailPage() {
                 diocese: localizeRegionName(site.region, language),
               })}
             />
-            <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
+            <div className="no-scrollbar -mx-3 flex gap-4 overflow-x-auto px-3 lg:-mx-5 lg:px-5">
               {nearbySites.map((nearby) => (
                 <Link
                   key={nearby.id}
@@ -956,6 +866,13 @@ export default function SiteDetailPage() {
           <NearbyParishesCard site={site} />
         </section>
       </PageContainer>
+
+      <PhotoLightbox
+        photos={lightbox?.photos ?? null}
+        index={lightbox?.index ?? 0}
+        onIndexChange={(index) => setLightbox((prev) => (prev ? { ...prev, index } : prev))}
+        onClose={() => setLightbox(null)}
+      />
     </div>
   );
 }

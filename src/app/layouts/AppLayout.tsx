@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import { TravelProfileSheet } from '@/features/auth/components/TravelProfileSheet';
-import { useTravelProfilePrompt } from '@/features/auth/hooks/use-travel-profile-prompt';
+import { Outlet, useLocation } from 'react-router-dom';
+import { InstallBanner } from '@/shared/components/ui/InstallBanner';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { BottomNav } from './BottomNav';
 import { TopNav } from './TopNav';
@@ -30,11 +28,8 @@ import { TopNav } from './TopNav';
 const KEEP_BOTTOM_NAV_ON_MOBILE = true;
 
 export function AppLayout() {
-  // 서버가 "물어본 적 없다"고 답한 세션에서만 뜬다. 시트를 닫으면(답했든 건너뛰었든)
-  // 서버에도 표시가 남으므로, 여기서는 다시 안 뜨게만 로컬로 즉시 숨긴다.
+  const { pathname } = useLocation();
   const { t } = useSettings();
-  const shouldPrompt = useTravelProfilePrompt();
-  const [dismissed, setDismissed] = useState(false);
 
   return (
     <div className="flex min-h-full flex-col bg-app-bg font-sans text-app-text selection:bg-brand-violet/20">
@@ -43,6 +38,8 @@ export function AppLayout() {
         {t('skipToContent')}
       </a>
       <TopNav />
+      {/* 「홈 화면에 추가」 조용한 배너 — 설치 가능한 환경·두 번째 화면부터·7일 쿨다운 */}
+      <InstallBanner pathname={pathname} />
 
       {/* 하단 탭이 가리는 만큼만 모바일에서 아래 여백을 준다 */}
       <main
@@ -54,7 +51,6 @@ export function AppLayout() {
       </main>
 
       {KEEP_BOTTOM_NAV_ON_MOBILE && <BottomNav />}
-      <TravelProfileSheet isOpen={shouldPrompt && !dismissed} onClose={() => setDismissed(true)} />
     </div>
   );
 }

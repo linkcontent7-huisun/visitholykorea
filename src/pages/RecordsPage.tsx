@@ -7,12 +7,12 @@
  * 코드(`features/passport/lib/*`)는 남아 있어 나중에 다시 붙일 수 있다.
  *
  * 기록의 정체는 `pilgrimage_stamps` 행 하나다. 장소를 고르는 입구는 성지 상세의
- * 「방문 기록 남기기」 버튼이고, 여기서는 목록·수정·삭제만 한다. 방문일(`visited_on`)은
+ * 「순례 기록 남기기」 버튼이고, 여기서는 목록·수정·삭제만 한다. 방문일(`visited_on`)은
  * 마이그레이션 20260914130000 이 운영 DB 에 적용된 뒤에만 편집할 수 있다 — 그 전에는
  * 열이 없다는 사실을 화면에 그대로 적는다.
  */
 
-import { Calendar, MapPin, PenLine, Plus, Search, Trash2, User } from 'lucide-react';
+import { Calendar, MapPin, PenLine, Plus, Search, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -24,7 +24,7 @@ import { Card } from '@/shared/components/ui/Card';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
-import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
+import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { dioceseLabel } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 
@@ -189,15 +189,11 @@ export default function RecordsPage() {
   const { t } = useSettings();
   const { session } = useSession();
   const { data: stamps = [], isLoading } = useMyStamps();
-  const displayName =
-    (session?.user.user_metadata?.name as string | undefined) ||
-    session?.user.email ||
-    t('pilgrimDefaultName');
 
   return (
     <PageContainer width="narrow" className="min-h-page pb-16">
       {/* 2026-09-16 시안: 제목은 명조, 설명은 16px. 여권·인증서 영역은 없다(재기획에서 뺌). */}
-      <PageHeader title={t('recordsMinimalTitle')} sub={t('recordsMinimalSub')} />
+      <PageHeader title={t('recordsMinimalTitle')} />
 
       {/* 비회원: 무엇을 할 수 있는 곳인지만 보여주고 로그인으로 안내한다. 탐색은 로그인 없이 된다. */}
       {!session ? (
@@ -221,24 +217,6 @@ export default function RecordsPage() {
         </Card>
       ) : (
         <>
-          {/* 로그인 상태를 첫 줄에 — 회의(9/16) "로그인 상태를 먼저 확인한다" */}
-          <Card tone="soft" className="mb-4 flex items-center gap-3 p-4" id="records-signed-in">
-            <span
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-blue text-white"
-              aria-hidden
-            >
-              <User size={22} />
-            </span>
-            <div className="min-w-0">
-              <p className="truncate text-base font-bold text-app-text">
-                {fillPlaceholders(t('recordsLoggedInAs'), {
-                  name: displayName,
-                  count: stamps.length,
-                })}
-              </p>
-              <p className="text-sm text-app-text-muted">{t('recordsLoggedInNote')}</p>
-            </div>
-          </Card>
           <ButtonLink
             to={paths.search}
             variant="secondary"
@@ -249,7 +227,6 @@ export default function RecordsPage() {
             <Plus size={22} aria-hidden />
             {t('recordsPickSite')}
           </ButtonLink>
-          <p className="mb-4 text-sm leading-relaxed text-app-text-muted">{t('recordsPickHint')}</p>
 
           {isLoading ? (
             <div className="space-y-3" role="status" aria-live="polite">
@@ -272,13 +249,6 @@ export default function RecordsPage() {
               ))}
             </ul>
           )}
-
-          <p className="mt-6 text-sm leading-relaxed text-app-text-muted">
-            {t('recordsPrivateNote')}
-          </p>
-          <p className="mt-1 text-sm leading-relaxed text-app-text-muted">
-            {t('recordsMoreFeatures')}
-          </p>
         </>
       )}
     </PageContainer>

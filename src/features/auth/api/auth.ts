@@ -20,10 +20,21 @@ export async function signUpWithEmail(email: string, password: string, name: str
  * 한다. 로그인 후에는 원래 화면으로 돌아온다.
  */
 export async function signInWithOAuth(provider: 'google' | 'kakao' | 'facebook') {
+  // 스마트폰의 카카오는 카카오톡 앱 간편로그인으로 — Supabase 제공자(REST)는 아이디·비밀번호를
+  // 치게 해서 사장님 지적(2026-09-19). kakao-auth 함수가 SDK 페이지를 내려 카카오톡을 띄운다.
+  if (provider === 'kakao' && isMobileBrowser()) {
+    window.location.href = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/kakao-auth/login`;
+    return { data: { provider, url: null }, error: null };
+  }
   return supabase.auth.signInWithOAuth({
     provider,
     options: { redirectTo: window.location.origin },
   });
+}
+
+/** 카카오톡 앱이 깔려 있을 만한 기기 — 안드로이드·아이폰·아이패드. PC 는 REST 로그인이 더 낫다(앱이 없다). */
+export function isMobileBrowser(ua: string = navigator.userAgent): boolean {
+  return /Android|iPhone|iPad|iPod/i.test(ua);
 }
 
 /**

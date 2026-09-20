@@ -13,7 +13,6 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { BackButton } from '@/shared/components/ui/BackButton';
 import { EMOTION_TAGS, type EmotionTag } from '@/shared/types/domain';
 import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
 import { localizeRegionName } from '@/shared/i18n/domain-labels';
@@ -36,6 +35,7 @@ import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory'
 import { Button } from '@/shared/components/ui/Button';
 import { Card } from '@/shared/components/ui/Card';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { PageHeader } from '@/shared/components/ui/PageHeader';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { REGIONS, regionCoords, type Region } from '@/shared/lib/regions';
 
@@ -252,11 +252,9 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
       {/* X 로 닫던 것을 다른 화면과 같은 「← 뒤로」로 바꿨다(사장님 지적, 2026-09-19 —
           뒤로 버튼이 화면마다 다르게 보인다는 지적 + 성지 일정에 뒤로 버튼 자체가
           없다는 지적). `handleClose` 가 하던 정리(reset)는 그대로 하고 이동만 같은
-          컴포넌트를 쓴다. */}
-      <div className="flex min-h-14 shrink-0 items-center gap-2 border-b border-app-border">
-        <BackButton onClick={handleClose} />
-        <span className="text-base font-bold text-app-text">{t('compassTitle')}</span>
-      </div>
+          컴포넌트를 쓴다. 헤딩도 성지 찾기·순례 코스와 같은 PageHeader 로 맞춘다
+          (사장님 지적, 2026-09-20 — 성지 일정만 헤딩이 달랐다). */}
+      <PageHeader back={{ onClick: handleClose }} title={t('compassTitle')} className="pb-4" />
 
       {progress > 0 && (
         <div className="h-1 shrink-0 bg-app-panel">
@@ -570,7 +568,7 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
 
       {/* 화면 아래 붙는 이전/다음 버튼 — 스크롤해도 항상 보인다. 모바일에선 하단 탭(70px) 위. */}
       {isQuestionStep && (
-        <div className="sticky bottom-[70px] z-30 -mx-5 flex gap-3 border-t border-app-border bg-white/95 px-5 py-4 backdrop-blur-md lg:-mx-8 lg:bottom-0 lg:px-8">
+        <div className="sticky bottom-[70px] z-30 -mx-3 flex gap-3 border-t border-app-border bg-white/95 px-3 py-4 backdrop-blur-md lg:-mx-5 lg:bottom-0 lg:px-5">
           <Button
             variant="neutral"
             onClick={() => setStep(step - 1)}

@@ -3,12 +3,16 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
-import { usePilgrimageRoutes } from '@/features/routes/hooks/use-pilgrimage-routes';
+import {
+  usePilgrimageRoutes,
+  useLocalizedRoutes,
+} from '@/features/routes/hooks/use-pilgrimage-routes';
 import { HeroCarousel, type HeroSlide } from '@/features/sites/components/HeroCarousel';
 import { SiteGridCard } from '@/features/sites/components/SiteGridCard';
 import { HERO_SITES } from '@/features/sites/data/hero-sites';
 import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
+import { ScrollHintRow } from '@/shared/components/ui/ScrollHintRow';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { OFFICIAL_LINKS } from '@/shared/config/official-links';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
@@ -59,13 +63,13 @@ function EntryCard({
   sub?: string;
   filled?: boolean;
 }) {
-  const className = `flex min-h-[84px] w-full items-center gap-3.5 rounded-lg border-[1.5px] border-brand-blue p-4 text-left transition-transform active:scale-[0.99] lg:min-h-24 lg:px-5 ${
+  const className = `flex min-h-[68px] w-full items-center gap-3 rounded-lg border-[1.5px] border-brand-blue p-3 text-left transition-transform active:scale-[0.99] lg:min-h-[76px] lg:px-4 lg:py-3.5 ${
     filled ? 'bg-brand-blue text-white' : 'bg-white text-brand-blue'
   }`;
   const inner = (
     <>
       <span
-        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg ${filled ? 'bg-white/15' : 'bg-brand-soft'}`}
+        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${filled ? 'bg-white/15' : 'bg-brand-soft'}`}
         aria-hidden
       >
         {icon}
@@ -76,7 +80,7 @@ function EntryCard({
         </span>
         {sub && (
           <span
-            className={`mt-0.5 block text-sm leading-snug ${filled ? 'text-white/90' : 'text-app-text-muted'}`}
+            className={`mt-0 block text-xs leading-snug ${filled ? 'text-white/90' : 'text-app-text-muted'}`}
           >
             {sub}
           </span>
@@ -105,7 +109,8 @@ export default function HomePage() {
 
   const { data: allSitesRaw = [] } = useSites({ limit: 300 });
   const allSites = useLocalizedSites(allSitesRaw);
-  const { data: routes = [] } = usePilgrimageRoutes();
+  const { data: routesRaw = [] } = usePilgrimageRoutes();
+  const routes = useLocalizedRoutes(routesRaw);
 
   /** 히어로 5곳 — DB 행(번역 포함)이 있으면 그것을, 아직 없으면 고정표의 대체 표기를 쓴다. 사진은 항상 자체 파일. */
   const heroSlides = useMemo<HeroSlide[]>(() => {
@@ -119,7 +124,6 @@ export default function HomePage() {
         slug: h.slug,
         name: site?.name ?? h.name,
         caption: `${region} · ${category}`,
-        credit: `${h.imageSource} · ${h.imageLicense}`,
         objectPosition: h.objectPosition,
       };
     });
@@ -145,8 +149,8 @@ export default function HomePage() {
 
       {/* 2. 입구 3개 — 성지 찾기 · 미카엘 AI · 오늘의 성지 일정 순서(사장님 지적, 2026-09-18).
           미카엘은 화면 이동이 아니라 그 자리에서 시트를 연다 — `to` 대신 `onClick`. */}
-      <PageContainer className="pt-4 lg:pt-5">
-        <div className="grid gap-3 lg:grid-cols-3">
+      <PageContainer className="pt-3 lg:pt-4">
+        <div className="grid gap-2.5 lg:grid-cols-3">
           <EntryCard
             to={paths.search}
             id="entry-search"
@@ -172,16 +176,26 @@ export default function HomePage() {
         </div>
       </PageContainer>
 
-      {/* 3. 처음 방문하기 좋은 성지 */}
+      {/* 3. 처음 방문하기 좋은 성지 — 모바일은 가로 슬라이드(2026-09-19, 2×2 격자에서 바꿈).
+          영어 등 이름이 긴 언어에서 2열 격자 폭(카드 하나 ~170px)에 이름이 잘려 보였다
+          (2026-09-19 실측). 카드 폭을 180px 로 넓혀 가로로 넘기면 대부분 한 줄에 다 들어간다.
+          md 부터는 화면이 넓어 그대로 격자로 4장을 편다. */}
       <PageContainer className="pt-8 lg:pt-12">
         <SectionHeading title={t('homeFirstVisitTitle')} />
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:gap-5">
+        <ScrollHintRow className="-mx-3 flex gap-3 px-3 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 lg:gap-5">
           {firstVisit.length > 0
-            ? firstVisit.map((site) => <SiteGridCard key={site.id} site={site} />)
+            ? firstVisit.map((site) => (
+                <div key={site.id} className="w-[180px] shrink-0 md:w-auto">
+                  <SiteGridCard site={site} />
+                </div>
+              ))
             : [1, 2, 3, 4].map((i) => (
-                <div key={i} className="aspect-[4/3] animate-pulse rounded-lg bg-app-panel" />
+                <div
+                  key={i}
+                  className="aspect-[4/3] w-[180px] shrink-0 animate-pulse rounded-lg bg-app-panel md:w-auto"
+                />
               ))}
-        </div>
+        </ScrollHintRow>
       </PageContainer>
 
       {/* 3.5 순례 코스 — 오늘 방문하기 좋은 성지 아래, 「모두 보기」 링크 포함(사장님 지적, 2026-09-18) */}
@@ -191,7 +205,7 @@ export default function HomePage() {
             title={t('routesTitle')}
             action={{ to: paths.routes, label: t('seeAll') }}
           />
-          <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 lg:-mx-8 lg:px-8">
+          <div className="no-scrollbar -mx-3 flex gap-4 overflow-x-auto px-3 lg:-mx-5 lg:px-5">
             {routes.slice(0, 6).map((route) => (
               <Link
                 key={route.id}
@@ -202,7 +216,9 @@ export default function HomePage() {
                 <div className="mb-1 flex items-center gap-2 text-sm font-bold text-app-text-muted">
                   <Footprints size={14} aria-hidden />
                   {route.stopCount != null && (
-                    <span>{fillPlaceholders(t('routeStopsCount'), { count: route.stopCount })}</span>
+                    <span>
+                      {fillPlaceholders(t('routeStopsCount'), { count: route.stopCount })}
+                    </span>
                   )}
                 </div>
                 <h3 className="mb-1 text-lg font-bold text-app-text group-hover:text-brand-blue">

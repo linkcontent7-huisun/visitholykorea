@@ -117,13 +117,27 @@ export function useAttachPhoto(siteId: string) {
 export function useUploadStampPhotos(siteId?: string) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (input: { stampId: string; siteId?: string; photos: Blob[] }) => uploadStampPhotos(input.stampId, input.siteId ?? siteId ?? '', input.photos),
+    mutationFn: (input: {
+      stampId: string;
+      siteId?: string;
+      photos: Blob[];
+      /** 몇 번째 자리부터 저장할지(1부터). 기본 1 — 이미 있는 사진 뒤에 이으려면 넘긴다. */
+      startPosition?: number;
+    }) =>
+      uploadStampPhotos(
+        input.stampId,
+        input.siteId ?? siteId ?? '',
+        input.photos,
+        input.startPosition,
+      ),
     onSuccess: (result, input) => {
       if (!result.success) return;
       void queryClient.invalidateQueries({ queryKey: queryKeys.passport.stamps });
       const affectedSiteId = input.siteId ?? siteId ?? '';
       void queryClient.invalidateQueries({ queryKey: queryKeys.passport.myStamp(affectedSiteId) });
-      void queryClient.invalidateQueries({ queryKey: queryKeys.passport.siteNotes(affectedSiteId) });
+      void queryClient.invalidateQueries({
+        queryKey: queryKeys.passport.siteNotes(affectedSiteId),
+      });
     },
   });
 }

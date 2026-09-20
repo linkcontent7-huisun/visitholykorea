@@ -6,7 +6,8 @@
  * (`vite.config.ts` 의 `site-photos` 캐시). 성지 정보는 우리 자체 DB 라 저장·캐싱해도 된다(ADR 0002).
  *
  * 이름·지역·분류는 DB 를 아직 못 받았을 때의 **대체 표기**다. 화면은 같은 id 의 DB 행이 있으면
- * 그쪽(번역 포함)을 우선한다. 사진 출처는 CC 계열이라 화면에 표기해야 한다(라이선스 의무).
+ * 그쪽(번역 포함)을 우선한다. imageSource·imageLicense 는 화면에 더 이상 표시하지 않는다
+ * (2026-09-19 사장님 지시로 홈 슬라이드 출처 표기 삭제) — 다만 출처 기록은 남겨 둔다.
  *
  * 솔뫼 사진은 9/17 사장님이 준 입구 십자가 문 사진으로 교체했다(교황 방문 현수막이 찍힌 옛 사진 대신).
  * 🔴 사진을 바꿀 때는 **파일 이름도 바꾼다**(slug). 서비스워커가 `/images/hero/` 를 CacheFirst 로 잡아 두어 같은 이름이면
@@ -21,8 +22,9 @@ export interface HeroSite {
   name: string;
   region: string;
   category: string;
-  imageSource: string;
-  imageLicense: string;
+  /** 자체 촬영 사진처럼 출처 표기 의무가 없으면 비워 둔다(CC 계열 사진만 채운다) */
+  imageSource?: string;
+  imageLicense?: string;
   /** CSS object-position. PC 히어로는 2.6:1 띠라 위아래가 잘린다 — 중요한 것이 위에 있으면 `50% 20%` 처럼 올린다. 없으면 가운데 */
   objectPosition?: string;
 }
@@ -61,9 +63,7 @@ export const HERO_SITES: readonly HeroSite[] = [
     name: '솔뫼성지',
     region: '대전',
     category: '순례길',
-    // 2026-09-17 사장님이 준 사진(입구 십자가 문)으로 교체. 위키미디어 사진은 더 이상 쓰지 않는다.
-    imageSource: '직접 촬영',
-    imageLicense: '앱 사용 동의',
+    // 2026-09-17 사장님이 준 사진(입구 십자가 문)으로 교체. 자체 촬영.
     objectPosition: '50% 6%', // 십자가 셋이 위쪽에 있다 — PC 띠에서 위 여백을 남긴다
   },
   {

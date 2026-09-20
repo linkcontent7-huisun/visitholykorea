@@ -8,12 +8,15 @@ import {
   signInWithOAuth,
   signUpWithEmail,
 } from '@/features/auth/api/auth';
-import { HAS_ANY_SOCIAL } from '@/features/auth/lib/providers';
+import { HAS_ANY_SOCIAL, isSocialEnabled } from '@/features/auth/lib/providers';
 import { BackButton } from '@/shared/components/ui/BackButton';
 import { Button } from '@/shared/components/ui/Button';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import naverIcon from '@/features/auth/assets/social/naver.svg';
+import kakaoIcon from '@/features/auth/assets/social/kakao.svg';
+import googleIcon from '@/features/auth/assets/social/google.svg';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -235,13 +238,12 @@ export default function LoginPage() {
         </form>
 
         {/* 소셜 로그인 — 투어원패스처럼 안내 문구 + 원형 아이콘 가로 배열.
-            Supabase 공식 지원 제공자(카카오·구글)만 놓는다. 네이버는 미지원이라 뺐다. */}
+            네이버(Edge Function)·카카오·구글(Supabase 등록) 3사 지원. */}
         <div className="mt-10 text-center">
-          {/* 켜진 제공자가 있을 때만 그린다. 2026-09-04 실측에서 카카오·구글·
-              페이스북·네이버 넷 다 죽어 있었고, 누르면 앱을 떠나 오류 JSON
-              화면으로 갔다 — 사용자 눈에는 "앱이 멈췄다"로 보인다.
-              작동하지 않는 버튼은 더미 UI 다. 제공자를 켠 뒤
-              features/auth/lib/providers.ts 목록에 추가하면 되살아난다. */}
+          {/* 2026-09-19: 네이버·카카오·구글 3사는 Supabase 등록(카카오·구글) 및
+              naver-auth Edge Function 배포(네이버)가 끝나 ENABLED_SOCIAL_PROVIDERS 에
+              추가됐다. 각 버튼은 isSocialEnabled(provider) 로 개별 노출되므로,
+              아직 등록되지 않은 페이스북은 자동으로 숨겨진다(죽은 버튼 방지). */}
           {HAS_ANY_SOCIAL && (
             <>
               <div className="mb-6 flex items-center gap-4" aria-hidden>
@@ -252,82 +254,67 @@ export default function LoginPage() {
               <p className="mb-6 text-base text-app-text-muted">{t('socialLoginHint')}</p>
 
               <div className="flex items-center justify-center gap-5">
-                <button
-                  type="button"
-                  onClick={() => signInWithNaver()}
-                  disabled={loading}
-                  aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerNaver') })}
-                  title={fillPlaceholders(t('loginWith'), { provider: t('providerNaver') })}
-                  className="flex h-14 w-14 items-center justify-center rounded-full bg-[#03C75A] transition-[filter] hover:brightness-95 disabled:opacity-50"
-                >
-                  {/* 네이버 N 심볼 */}
-                  <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden>
-                    <path fill="#fff" d="M15.1 4v8.2L8.9 4H4v16h4.9v-8.2l6.2 8.2H20V4h-4.9Z" />
-                  </svg>
-                </button>
+                {isSocialEnabled('naver') && (
+                  <button
+                    type="button"
+                    onClick={() => signInWithNaver()}
+                    disabled={loading}
+                    aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerNaver') })}
+                    title={fillPlaceholders(t('loginWith'), { provider: t('providerNaver') })}
+                    className="flex h-14 w-14 items-center justify-center rounded-full bg-[#03C75A] transition-[filter] hover:brightness-95 disabled:opacity-50"
+                  >
+                    <img src={naverIcon} width={20} height={20} alt="" aria-hidden />
+                  </button>
+                )}
 
-                <button
-                  type="button"
-                  onClick={() => handleOAuth('kakao')}
-                  disabled={loading}
-                  aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerKakao') })}
-                  title={fillPlaceholders(t('loginWith'), { provider: t('providerKakao') })}
-                  className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FEE500] transition-[filter] hover:brightness-95 disabled:opacity-50"
-                >
-                  {/* 카카오 말풍선 심볼 */}
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
-                    <path
-                      fill="#191919"
-                      d="M12 3C6.9 3 2.8 6.2 2.8 10.1c0 2.5 1.7 4.7 4.2 6l-1 3.8c-.1.3.3.6.6.4l4.4-2.9c.3 0 .7.1 1 .1 5.1 0 9.2-3.2 9.2-7.3S17.1 3 12 3Z"
-                    />
-                  </svg>
-                </button>
+                {isSocialEnabled('kakao') && (
+                  <button
+                    type="button"
+                    onClick={() => handleOAuth('kakao')}
+                    disabled={loading}
+                    aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerKakao') })}
+                    title={fillPlaceholders(t('loginWith'), { provider: t('providerKakao') })}
+                    className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FEE500] transition-[filter] hover:brightness-95 disabled:opacity-50"
+                  >
+                    <img src={kakaoIcon} width={26} height={26} alt="" aria-hidden />
+                  </button>
+                )}
 
-                <button
-                  type="button"
-                  onClick={() => handleOAuth('google')}
-                  disabled={loading}
-                  aria-label={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
-                  title={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
-                  className="flex h-14 w-14 items-center justify-center rounded-full border border-app-border bg-white transition-colors hover:bg-app-bg disabled:opacity-50"
-                >
-                  {/* 구글 G 심볼 */}
-                  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden>
-                    <path
-                      fill="#4285F4"
-                      d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.8Z"
-                    />
-                    <path
-                      fill="#34A853"
-                      d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.2v3.1C3.2 21.3 7.3 24 12 24Z"
-                    />
-                    <path
-                      fill="#FBBC05"
-                      d="M5.3 14.3c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3V6.6H1.2C.4 8.2 0 10 0 12s.4 3.8 1.2 5.4l4.1-3.1Z"
-                    />
-                    <path
-                      fill="#EA4335"
-                      d="M12 4.7c1.8 0 3.3.6 4.6 1.8L20 3C18 1.1 15.2 0 12 0 7.3 0 3.2 2.7 1.2 6.6l4.1 3.1c.9-2.9 3.6-5 6.7-5Z"
-                    />
-                  </svg>
-                </button>
+                {isSocialEnabled('google') && (
+                  <button
+                    type="button"
+                    onClick={() => handleOAuth('google')}
+                    disabled={loading}
+                    aria-label={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
+                    title={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
+                    className="flex h-14 w-14 items-center justify-center rounded-full border border-app-border bg-white transition-colors hover:bg-app-bg disabled:opacity-50"
+                  >
+                    <img src={googleIcon} width={24} height={24} alt="" aria-hidden />
+                  </button>
+                )}
 
-                <button
-                  type="button"
-                  onClick={() => handleOAuth('facebook')}
-                  disabled={loading}
-                  aria-label={fillPlaceholders(t('loginWith'), { provider: t('providerFacebook') })}
-                  title={fillPlaceholders(t('loginWith'), { provider: t('providerFacebook') })}
-                  className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1877F2] transition-[filter] hover:brightness-95 disabled:opacity-50"
-                >
-                  {/* 페이스북 f 심볼 */}
-                  <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden>
-                    <path
-                      fill="#fff"
-                      d="M13.5 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.3v3.2h2.8V21h3.4Z"
-                    />
-                  </svg>
-                </button>
+                {/* 페이스북은 아직 Supabase 미등록 — isSocialEnabled('facebook') 이 false 라 자동으로 숨겨진다.
+                    등록 후 features/auth/lib/providers.ts 의 ENABLED_SOCIAL_PROVIDERS 에 추가하면 노출된다. */}
+                {isSocialEnabled('facebook') && (
+                  <button
+                    type="button"
+                    onClick={() => handleOAuth('facebook')}
+                    disabled={loading}
+                    aria-label={fillPlaceholders(t('loginWith'), {
+                      provider: t('providerFacebook'),
+                    })}
+                    title={fillPlaceholders(t('loginWith'), { provider: t('providerFacebook') })}
+                    className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1877F2] transition-[filter] hover:brightness-95 disabled:opacity-50"
+                  >
+                    {/* 페이스북 f 심볼 */}
+                    <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden>
+                      <path
+                        fill="#fff"
+                        d="M13.5 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.3v3.2h2.8V21h3.4Z"
+                      />
+                    </svg>
+                  </button>
+                )}
               </div>
             </>
           )}

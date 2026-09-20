@@ -8,13 +8,13 @@
 
 ## 한눈에 — 다섯 덩어리
 
-| 덩어리 | 표 | 한 줄 |
-| --- | --- | --- |
-| **성지** (자체 수집, 캐싱 가능) | `holy_sites` · `holy_site_translations` · `site_sources` · `site_revisions` · `site_artworks` | 208곳의 원본. 번역·출처·수정이력·건축예술이 여기 매달림 |
-| **순례 기록** (회원 데이터) | `profiles` · `pilgrimage_stamps` · `stamp_photos` · `pilgrimage_logs` · `favorites` · `compass_responses` | 스탬프(방문 도장)가 중심. 사진·신고·읽음수가 스탬프에 매달림 |
-| **순례 코스** | `pilgrimage_routes` · `pilgrimage_route_sites` | 박해 사건·인물 축으로 성지를 순서대로 잇는 길 |
-| **주변 시설** | `catholic_directory` · `rest_places` · `rest_spots` · `rest_spot_reports` | 성당·수도원 주소록과 그 안의 쉼터(화장실·의자) |
-| **매체·운영** | `articles` · `article_sites` · `events` · `visit_note_reports` · `note_read_counts` | 언론 기사 ↔ 성지 연결, 접속 기록, 신고 |
+| 덩어리                          | 표                                                                                                        | 한 줄                                                        |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| **성지** (자체 수집, 캐싱 가능) | `holy_sites` · `holy_site_translations` · `site_sources` · `site_revisions` · `site_artworks`             | 208곳의 원본. 번역·출처·수정이력·건축예술이 여기 매달림      |
+| **순례 기록** (회원 데이터)     | `profiles` · `pilgrimage_stamps` · `stamp_photos` · `favorites` · `compass_responses` | 스탬프(방문 도장)가 중심. 사진·신고·읽음수가 스탬프에 매달림 |
+| **순례 코스**                   | `pilgrimage_routes` · `pilgrimage_route_sites`                                                            | 박해 사건·인물 축으로 성지를 순서대로 잇는 길                |
+| **주변 시설**                   | `catholic_directory` · `rest_places` · `rest_spots` · `rest_spot_reports`                                 | 성당·수도원 주소록과 그 안의 쉼터(화장실·의자)               |
+| **매체·운영**                   | `articles` · `article_sites` · `events` · `visit_note_reports` · `note_read_counts`                       | 언론 기사 ↔ 성지 연결, 접속 기록, 신고                       |
 
 TourAPI 응답은 **어느 표에도 저장하지 않는다** (ADR 0002). 매 요청 실시간 호출.
 
@@ -240,16 +240,16 @@ erDiagram
 
 ## 뷰 3개 (표가 아니라 미리 짜 둔 조회)
 
-| 뷰 | 무엇을 보여주나 | 왜 뷰인가 |
-| --- | --- | --- |
-| `directory_public` | `catholic_directory` 에서 공개해도 되는 컬럼만 | 화면은 이 뷰만 읽는다 — 담당자 연락처 같은 값이 새지 않게 |
-| `site_visit_notes` | 성지별 공개 소감(스탬프의 `note`, `hidden=false`) + 읽음 수 | 신고·숨김 처리를 한 곳에서 걸러서 내보내려고 |
-| `admin_pending_photos` | 승인 대기 중인 후기 사진 | 관리자 콘솔 전용 |
+| 뷰                     | 무엇을 보여주나                                             | 왜 뷰인가                                                 |
+| ---------------------- | ----------------------------------------------------------- | --------------------------------------------------------- |
+| `directory_public`     | `catholic_directory` 에서 공개해도 되는 컬럼만              | 화면은 이 뷰만 읽는다 — 담당자 연락처 같은 값이 새지 않게 |
+| `site_visit_notes`     | 성지별 공개 소감(스탬프의 `note`, `hidden=false`) + 읽음 수 | 신고·숨김 처리를 한 곳에서 걸러서 내보내려고              |
+| `admin_pending_photos` | 승인 대기 중인 후기 사진                                    | 관리자 콘솔 전용                                          |
 
 ## 설계에서 눈여겨볼 것
 
 - **`holy_sites` 가 허브다.** 열 개 넘는 표가 `site_id` 로 매달려 있고, 성지를 지우면 전부 함께 지워진다(`on delete cascade`). 성지 id 는 절대 바꾸지 않는다.
-- **스탬프 = 기록의 중심.** 사진·신고·읽음수가 `pilgrimage_logs`(여행기)가 아니라 `pilgrimage_stamps` 에 매달린다. 여행기는 별도 긴 글이고, 스탬프의 `note` 가 짧은 소감이다.
+- **스탬프 = 기록의 중심.** 사진·신고·읽음수가 `pilgrimage_stamps` 에 매달린다. `pilgrimage_logs`(여행기, 제목+긴 글)는 표는 남아 있지만 **2026-09-20부터 앱 코드가 안 쓴다** — 작성 화면이 재기획 때 빠진 뒤 죽은 코드로만 남아 있다가 코드째 지웠다.
 - **회원 정보는 두 곳.** 인증(`auth.users`, Supabase 관리)과 앱 프로필(`profiles`)이 1:1. 권한(`role`)은 `profiles` 에 있고 DB 정책이 읽는다 — 화면이 판단하지 않는다.
 - **주소록과 성지는 다른 표.** `catholic_directory`(성당·수도원 수천 곳, 주소록)와 `holy_sites`(성지 208곳, 콘텐츠)는 연결 키가 없다. "여기에서 가장 가까운 성지·성당" 화면은 둘을 따로 조회해 합친다.
 - **다대다 연결표 3개**: `pilgrimage_route_sites`(코스↔성지), `article_sites`(기사↔성지), `favorites`(회원↔성지). 모두 두 FK 를 합친 복합 기본 키.

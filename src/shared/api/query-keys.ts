@@ -39,7 +39,8 @@ export const queryKeys = {
     listTranslations: (ids: string[], lang: string) =>
       ['routes', 'list-translations', ids, lang] as const,
     /** 코스 1곳의 전문 번역 — 상세 화면이 폴백까지 겹쳐 쓴다. */
-    translation: (routeId: string, lang: string) => ['routes', 'translation', routeId, lang] as const,
+    translation: (routeId: string, lang: string) =>
+      ['routes', 'translation', routeId, lang] as const,
     /** 경유지 메모 번역 — 코스 1곳 전체를 한 번에 받는다. */
     stopTranslations: (routeId: string, lang: string) =>
       ['routes', 'stop-translations', routeId, lang] as const,
@@ -51,9 +52,6 @@ export const queryKeys = {
     dioceseProgress: ['passport', 'diocese-progress'] as const,
     /** 내 한 줄들이 읽힌 횟수 (stampId → count). */
     noteReads: ['passport', 'note-reads'] as const,
-  },
-  records: {
-    logs: ['records', 'logs'] as const,
   },
   compass: {
     latest: (userId: string) => ['compass', 'latest', userId] as const,
@@ -75,8 +73,6 @@ export const queryKeys = {
       ['tour', 'facilities', lat, lng, language] as const,
     /** 성지 주변 무장애 여행 정보 (열린관광 축). */
     barrierFree: (lat: number, lng: number) => ['tour', 'barrier-free', lat, lng] as const,
-    festivals: (coords: string, language = 'ko') =>
-      ['tour', 'festivals', coords, language] as const,
     /** 성지의 시·군·구 관광지 집중률 예측 — 성지 id 로 키를 잡는다(주소 → 코드는 조회 계층이 한다). */
     congestion: (siteId: string) => ['tour', 'congestion', siteId] as const,
     hubSpots: (areaCd: string, signguCd: string, baseYm: string) =>

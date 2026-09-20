@@ -138,13 +138,7 @@ export interface WalkingCourse {
  *   api            그 밖의 TourAPI 오류 코드
  */
 export type TourApiErrorKind =
-  | 'quota'
-  | 'rate_limited'
-  | 'upstream'
-  | 'timeout'
-  | 'network'
-  | 'not_configured'
-  | 'api';
+  'quota' | 'rate_limited' | 'upstream' | 'timeout' | 'network' | 'not_configured' | 'api';
 
 /** resultCode·종류를 들고 있는 에러. 어떤 종류의 실패인지 화면이 구분할 수 있게 한다. */
 export class TourApiError extends Error {
@@ -488,32 +482,6 @@ function todayYYYYMMDD(): string {
 }
 
 /**
- * 성지 주변에서 오늘 이후 열리는 축제·행사.
- * 매일 바뀌는 데이터라 캐싱이 원천적으로 불가능하므로, 실시간 활용을 보여주기 가장 좋은 지점이다.
- */
-export function getNearbyFestivals(
-  mapX: number,
-  mapY: number,
-  radiusMeters = 10000,
-  numOfRows = 10,
-  language: Language = 'ko',
-): Promise<TourApiSpot[]> {
-  return callLocalized(
-    'searchFestival2',
-    {
-      eventStartDate: todayYYYYMMDD(),
-      mapX,
-      mapY,
-      radius: radiusMeters,
-      numOfRows,
-      pageNo: 1,
-      arrange: 'E', // 거리순
-    },
-    language,
-  );
-}
-
-/**
  * 시·군·구의 관광지 집중률 예측(오늘부터 30일). `areaCd`·`signguCd` 둘 다 필수 —
  * 시·도만 넘기면 API 가 거절한다(2026-09-16 실측). 메모리에서만 잠깐 쓴다.
  */
@@ -575,18 +543,29 @@ export function getAudioStoriesNearby(
 let allWalkingCourses: Promise<WalkingCourse[]> | null = null;
 
 async function fetchAllWalkingCourses(): Promise<WalkingCourse[]> {
-  const first = await callTourApiPage<WalkingCourse>('courseList', { brdDiv: 'DNWW', numOfRows: 50, pageNo: 1 }, 'Durunubi');
+  const first = await callTourApiPage<WalkingCourse>(
+    'courseList',
+    { brdDiv: 'DNWW', numOfRows: 50, pageNo: 1 },
+    'Durunubi',
+  );
   const pages = Math.min(6, Math.ceil(first.totalCount / 50));
   const rest = await Promise.all(
     Array.from({ length: pages - 1 }, (_, i) =>
-      callTourApi<WalkingCourse>('courseList', { brdDiv: 'DNWW', numOfRows: 50, pageNo: i + 2 }, 'Durunubi'),
+      callTourApi<WalkingCourse>(
+        'courseList',
+        { brdDiv: 'DNWW', numOfRows: 50, pageNo: i + 2 },
+        'Durunubi',
+      ),
     ),
   );
   return [...first.items, ...rest.flat()];
 }
 
 /** 시·도(짧은 이름)와 시·군·구가 모두 맞는 걷기길. 「부산 중구」와 「서울 중구」를 섞지 않는다. */
-export async function getWalkingCoursesNear(region: string, district: string): Promise<WalkingCourse[]> {
+export async function getWalkingCoursesNear(
+  region: string,
+  district: string,
+): Promise<WalkingCourse[]> {
   allWalkingCourses ??= fetchAllWalkingCourses().catch((error) => {
     allWalkingCourses = null; // 실패는 기억하지 않는다
     throw error;

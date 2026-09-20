@@ -11,15 +11,44 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 let deferred: BeforeInstallPromptEvent | null = null;
+const listeners = new Set<() => void>();
+const notify = () => listeners.forEach((fn) => fn());
 
 if (typeof window !== 'undefined') {
   window.addEventListener('beforeinstallprompt', (e) => {
+    // 브라우저 자체 미니 배너를 막고(preventDefault) 우리 화면에서 원할 때 띄운다 — QA 정의서 FR-2 결정
     e.preventDefault();
     deferred = e as BeforeInstallPromptEvent;
+    notify();
   });
   window.addEventListener('appinstalled', () => {
     deferred = null;
+    notify();
   });
+}
+
+/**
+ * 설치 상태 (QA 정의서 FR-1). 화면은 이 값 하나로 분기한다.
+ * - installed: 이미 홈 화면 앱으로 실행 중 → 설치 유도 UI 를 숨긴다 (FR-4)
+ * - installable: 크롬·엣지·삼성인터넷이 설치 창을 줄 수 있음 → 버튼 한 번에 설치
+ * - ios: 아이폰 사파리 — 설치 창 API 가 없어 수동 안내 (FR-3)
+ * - in-app: 카카오톡·인스타 안 브라우저 — 홈 화면 추가 불가, 다른 브라우저로 열라고 안내
+ * - unsupported: 그 밖(데스크톱 파이어폭스·사파리 등) — 조용히 숨긴다 (FR-5)
+ */
+export type InstallState = 'installed' | 'installable' | 'ios' | 'in-app' | 'unsupported';
+
+export function getInstallState(): InstallState {
+  if (isStandalone()) return 'installed';
+  if (isInAppBrowser()) return 'in-app';
+  if (deferred) return 'installable';
+  if (isIos()) return 'ios';
+  return 'unsupported';
+}
+
+/** 설치 상태가 바뀔 때(설치 창이 준비되거나, 설치가 끝나거나) 알려준다. 해제 함수를 돌려준다. */
+export function subscribeInstallState(fn: () => void): () => void {
+  listeners.add(fn);
+  return () => listeners.delete(fn);
 }
 
 export type InstallResult = 'accepted' | 'dismissed' | 'installed' | 'ios' | 'in-app' | 'manual';
@@ -41,7 +70,11 @@ export function isInAppBrowser(): boolean {
 
 export function isIos(): boolean {
   if (typeof navigator === 'undefined') return false;
-  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) return true;
+  // 사파리에서 "데스크톱 웹사이트로 보기"를 켜면 아이폰도 User-Agent 가 macOS 로 바뀌어
+  // 위 검사를 그냥 통과해 버린다 — 애플 터치스크린 기기만 maxTouchPoints > 1 인 걸로 구분한다
+  // (2026-09-19: 실기기에서 이 때문에 아이폰인데도 설치 안내가 데스크톱용으로 잘못 떴다).
+  return navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
 }
 
 /** 설치를 시도한다. 브라우저 창을 띄울 수 없으면 왜 안 되는지를 돌려준다. */

@@ -4,13 +4,25 @@ import { join } from 'node:path';
 import { loadEnvLocal, ROOT } from '../lib/env.ts';
 
 interface ArticleInput {
-  source: 'catholicnews' | 'cpbc' | 'catholictimes' | 'other'; url: string; title: string;
-  published_at: string | null; author: string | null; summary: string; excerpt: string;
-  topics: string[]; facts: { sites?: string[]; artworks?: Array<{ title: string; artist?: string | null; kind?: string }> };
+  source: 'catholicnews' | 'cpbc' | 'catholictimes' | 'other';
+  url: string;
+  title: string;
+  published_at: string | null;
+  author: string | null;
+  summary: string;
+  excerpt: string;
+  topics: string[];
+  facts: {
+    sites?: string[];
+    artworks?: Array<{ title: string; artist?: string | null; kind?: string }>;
+  };
 }
 const dryRun = process.argv.includes('--dry-run');
 const file = join(ROOT, 'data', 'research', 'articles.jsonl');
-const articles: ArticleInput[] = readFileSync(file, 'utf-8').split(/\r?\n/).filter(Boolean).map((line) => JSON.parse(line) as ArticleInput);
+const articles: ArticleInput[] = readFileSync(file, 'utf-8')
+  .split(/\r?\n/)
+  .filter(Boolean)
+  .map((line) => JSON.parse(line) as ArticleInput);
 const unique = [...new Map(articles.map((article) => [article.url, article])).values()];
 
 if (dryRun) {
@@ -29,29 +41,61 @@ const { connectAdminDb } = await import('../lib/db.ts');
 const db = await connectAdminDb();
 try {
   await db.query('begin');
-  const siteRows = await db.query<{ id: string; name: string }>('select id, name from public.holy_sites');
+  const siteRows = await db.query<{ id: string; name: string }>(
+    'select id, name from public.holy_sites',
+  );
   const siteIds = new Map(siteRows.rows.map((site) => [site.name, site.id]));
   for (const article of unique) {
     if (article.excerpt.length > 200) throw new Error(`인용문이 200자를 넘습니다: ${article.url}`);
-    const result = await db.query<{ id: string }>(`insert into public.articles (source, url, title, published_at, author, summary, excerpt, topics, facts)
+    const result = await db.query<{ id: string }>(
+      `insert into public.articles (source, url, title, published_at, author, summary, excerpt, topics, facts)
       values ($1,$2,$3,$4,$5,$6,$7,$8,$9::jsonb)
       on conflict (url) do update set title=excluded.title, published_at=excluded.published_at, author=excluded.author,
       summary=excluded.summary, excerpt=excluded.excerpt, topics=excluded.topics, facts=excluded.facts, fetched_at=now()
-      returning id`, [article.source, article.url, article.title, article.published_at, article.author, article.summary, article.excerpt, article.topics, JSON.stringify(article.facts)]);
+      returning id`,
+      [
+        article.source,
+        article.url,
+        article.title,
+        article.published_at,
+        article.author,
+        article.summary,
+        article.excerpt,
+        article.topics,
+        JSON.stringify(article.facts),
+      ],
+    );
     const articleId = result.rows[0]?.id;
     if (!articleId) throw new Error(`기사 upsert 결과에 ID가 없습니다: ${article.url}`);
     for (const name of article.facts.sites ?? []) {
-      const siteId = siteIds.get(name); if (!siteId) continue;
-      await db.query('insert into public.article_sites (article_id, site_id, confidence) values ($1,$2,$3) on conflict (article_id, site_id) do update set confidence=excluded.confidence', [articleId, siteId, 1]);
+      const siteId = siteIds.get(name);
+      if (!siteId) continue;
+      await db.query(
+        'insert into public.article_sites (article_id, site_id, confidence) values ($1,$2,$3) on conflict (article_id, site_id) do update set confidence=excluded.confidence',
+        [articleId, siteId, 1],
+      );
       for (const artwork of article.facts.artworks ?? []) {
         if (!artwork.title || !artwork.kind) continue;
-        await db.query(`insert into public.site_artworks (site_id, kind, title, artist, description, article_id)
-          values ($1,$2,$3,$4,$5,$6) on conflict (site_id, kind, title, article_id) do update set artist=excluded.artist, description=excluded.description`, [siteId, artwork.kind, artwork.title, artwork.artist ?? null, '기사에서 언급된 예술품 후보입니다. 원문과 현장 자료를 대조해 설명을 보완해야 합니다.', articleId]);
+        await db.query(
+          `insert into public.site_artworks (site_id, kind, title, artist, description, article_id)
+          values ($1,$2,$3,$4,$5,$6) on conflict (site_id, kind, title, article_id) do update set artist=excluded.artist, description=excluded.description`,
+          [
+            siteId,
+            artwork.kind,
+            artwork.title,
+            artwork.artist ?? null,
+            '기사에서 언급된 예술품 후보입니다. 원문과 현장 자료를 대조해 설명을 보완해야 합니다.',
+            articleId,
+          ],
+        );
       }
     }
   }
   await db.query('commit');
   console.log(`적재 완료: articles ${unique.length}건`);
 } catch (error) {
-  await db.query('rollback'); throw error;
-} finally { await db.end(); }
+  await db.query('rollback');
+  throw error;
+} finally {
+  await db.end();
+}

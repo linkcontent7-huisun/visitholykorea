@@ -47,10 +47,11 @@ interface AskPayload {
 export const HISTORY_TURNS = 6;
 
 async function invoke(payload: AskPayload): Promise<AiGuideAnswer | null> {
-  const { data, error } = await supabase.functions.invoke<{ text: string; fallback?: boolean; sources?: string[] }>(
-    'ai-guide',
-    { body: payload },
-  );
+  const { data, error } = await supabase.functions.invoke<{
+    text: string;
+    fallback?: boolean;
+    sources?: string[];
+  }>('ai-guide', { body: payload });
   if (error) {
     console.error('ai-guide invoke error:', error);
     return null;
@@ -69,6 +70,11 @@ export async function askAIGuide(
   history: ChatTurn[] = [],
   audience?: AiGuideAudience,
 ): Promise<AiGuideAnswer> {
-  const answer = await invoke({ mode: 'ask', question, audience, history: history.slice(-HISTORY_TURNS) });
+  const answer = await invoke({
+    mode: 'ask',
+    question,
+    audience,
+    history: history.slice(-HISTORY_TURNS),
+  });
   return answer ?? { text: FALLBACK_ANSWER, fallback: true, sources: [] };
 }

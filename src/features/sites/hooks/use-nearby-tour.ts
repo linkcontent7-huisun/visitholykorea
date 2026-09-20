@@ -4,7 +4,6 @@ import {
   getBarrierFreeNearby,
   getNearbyAttractions,
   getNearbyByLocation,
-  getNearbyFestivals,
 } from '@/shared/api/tour-api';
 import { groupNearbyFacilities } from '@/features/sites/lib/nearby-facilities';
 import type { Coordinates } from '@/shared/types/domain';
@@ -63,20 +62,6 @@ export function useNearbyFacilities(coordinates: Coordinates | undefined) {
         language,
       }),
     select: (spots) => groupNearbyFacilities(spots),
-    enabled: lat != null && lng != null,
-    ...REALTIME_QUERY_OPTIONS,
-  });
-}
-
-/** 성지 반경 10km 에서 오늘 이후 열리는 축제·행사. */
-export function useNearbyFestivals(coordinates: Coordinates | undefined) {
-  const { language } = useSettings();
-  const lat = coordinates?.lat ?? null;
-  const lng = coordinates?.lng ?? null;
-
-  return useQuery({
-    queryKey: queryKeys.tour.festivals(`${lat},${lng}`, language),
-    queryFn: () => getNearbyFestivals(lng!, lat!, 10000, 6, language),
     enabled: lat != null && lng != null,
     ...REALTIME_QUERY_OPTIONS,
   });

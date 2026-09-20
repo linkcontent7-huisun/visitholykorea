@@ -152,7 +152,7 @@ export default function MapPage() {
         ref={listRef}
         className="relative lg:w-[452px] lg:shrink-0 lg:overflow-y-auto lg:border-r lg:border-app-border lg:bg-white"
       >
-        <div className="px-5 pb-2 pt-6 lg:px-8">
+        <div className="px-3 pb-2 pt-6 lg:px-5">
           <h1 className="mb-1 font-display text-[1.625rem] leading-tight text-app-text lg:text-3xl">
             {t('mapOverviewTitle')}
           </h1>
@@ -187,7 +187,7 @@ export default function MapPage() {
 
         {/* 지도 — 모바일에서만 여기에 온다 */}
         {!wideView && (
-          <div className="px-5 lg:px-8">
+          <div className="px-3 lg:px-5">
             <div className="rounded-lg border border-app-border bg-white p-4">
               {mapNode}
               <div className="mt-3 border-t border-app-border pt-3">
@@ -198,10 +198,10 @@ export default function MapPage() {
         )}
 
         {/* 선택 카드 — 모바일에서만 여기에 온다(데스크톱은 지도 위에 뜬다) */}
-        {!wideView && selectedCard && <div className="mt-4 px-5 lg:px-8">{selectedCard}</div>}
+        {!wideView && selectedCard && <div className="mt-4 px-3 lg:px-5">{selectedCard}</div>}
 
         {/* 검색 */}
-        <div className="mt-6 px-5 lg:mt-2 lg:px-8">
+        <div className="mt-6 px-3 lg:mt-2 lg:px-5">
           <div className="relative">
             <Search
               className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted"
@@ -230,7 +230,7 @@ export default function MapPage() {
         </div>
 
         {/* 목록 — 데스크톱에서는 마우스를 올리면 지도의 핀이 함께 강조된다 */}
-        <div className="space-y-3 px-5 py-6 pb-32 lg:px-8 lg:pb-6">
+        <div className="space-y-3 px-3 py-6 pb-32 lg:px-5 lg:pb-6">
           {isLoading ? (
             [1, 2, 3].map((i) => <div key={i} className="h-20 animate-pulse rounded-lg bg-white" />)
           ) : visibleSites.length === 0 ? (
@@ -256,7 +256,7 @@ export default function MapPage() {
         </div>
 
         {/* 교구별 진행 — 데스크톱에서는 목록 아래에 계속 둔다 */}
-        <div className="px-5 pb-10 lg:px-8 lg:pb-8">
+        <div className="px-3 pb-10 lg:px-5 lg:pb-8">
           <h2 className="mb-3 text-lg font-bold text-app-text">{t('dioceseProgress')}</h2>
           <DioceseProgressList
             progress={progress}

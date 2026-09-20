@@ -11,7 +11,9 @@ export const supabase = createClient(env.supabaseUrl, env.supabaseAnonKey, {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
-    // 네이티브 앱(Capacitor)에서는 URL 해시 기반 세션 감지가 동작하지 않으므로 끈다.
-    detectSessionInUrl: false,
+    // 소셜 로그인(구글·카카오·네이버 매직링크)은 앱 주소로 돌아올 때 URL 에 토큰을 실어 온다.
+    // 이 값이 false 면 supabase-js 가 그 토큰을 읽지 않아 "로그인했는데 로그인 버튼이 그대로" 가 된다
+    // (2026-09-19 실측). 네이티브(Capacitor)에서는 딥링크로 받은 URL 을 따로 넘겨야 하지만, 웹은 이걸로 충분하다.
+    detectSessionInUrl: true,
   },
 });

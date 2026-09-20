@@ -9,7 +9,10 @@ import { shareApp, type ShareResult } from '@/shared/lib/share-app';
  *
  * 예전엔 설정 화면 「지원 및 정보」 안에 묻혀 있던 항목이다. 사장님 요청(2026-09-13)으로
  * 하단 탭 넷째 자리로 꺼냈고, 「전체」 화면의 서비스 목록에서도 같은 시트를 연다.
- * 하단 탭 위에 붙는 시트라 `bottom-[70px]` 은 BottomNav 높이와 같아야 한다.
+ * 하단 탭 위에 붙는 시트라 `bottom-[70px]` 은 BottomNav 높이(세이프에어리어 제외)와 같아야 한다.
+ * BottomNav 는 `safe-area-inset-bottom` 만큼 패딩이 더 붙어(홈 인디케이터 있는 폰) 실제 높이가
+ * 70px 보다 크다 — 시트도 같은 세이프에어리어를 더해야 아랫부분이 내비바에 가려 잘리지 않는다
+ * (2026-09-19 실측: 세이프에어리어 큰 폰에서 시트 하단이 내비바 아래로 잘려 보였다).
  */
 export function InstallShareSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useSettings();
@@ -71,7 +74,7 @@ export function InstallShareSheet({ open, onClose }: { open: boolean; onClose: (
       <div
         role="dialog"
         aria-label={t('installTab')}
-        className="fixed bottom-[70px] left-1/2 z-50 w-full max-w-lg -translate-x-1/2 rounded-t-lg border-t border-app-border bg-white px-5 pb-5 pt-4 lg:bottom-0 lg:rounded-lg lg:border"
+        className="fixed bottom-[calc(70px+env(safe-area-inset-bottom))] left-1/2 z-50 w-full max-w-lg -translate-x-1/2 rounded-t-lg border-t border-app-border bg-white px-5 pb-5 pt-4 lg:bottom-0 lg:rounded-lg lg:border"
         id="install-share-sheet"
       >
         <div className="mb-3 flex items-center justify-between">

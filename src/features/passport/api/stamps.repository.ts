@@ -140,8 +140,15 @@ export async function getMyStamp(siteId: string): Promise<MyStamp> {
     console.error('getMyStamp error:', error);
     return { stamped: false, note: null, photoUrl: null, photos: [] };
   }
-  const photos = ((data?.stamp_photos ?? []) as StampPhoto[]).sort((a, b) => a.position - b.position);
-  return { stamped: Boolean(data), note: data?.note ?? null, photoUrl: data?.photo_url ?? null, photos };
+  const photos = ((data?.stamp_photos ?? []) as StampPhoto[]).sort(
+    (a, b) => a.position - b.position,
+  );
+  return {
+    stamped: Boolean(data),
+    note: data?.note ?? null,
+    photoUrl: data?.photo_url ?? null,
+    photos,
+  };
 }
 
 export interface SiteVisitNote {
@@ -218,22 +225,29 @@ export async function attachStampPhoto(
   return { success: true };
 }
 
-/** 여러 장은 각각의 순서를 DB에 남겨, 공개 사진 격자와 내 기록의 순서가 바뀌지 않게 한다. */
+/**
+ * 여러 장은 각각의 순서를 DB에 남겨, 공개 사진 격자와 내 기록의 순서가 바뀌지 않게 한다.
+ * `startPosition` 은 몇 번째 자리부터 쓸지(1부터) — 이미 있는 사진 뒤에 이어 붙일 때
+ * 앞자리(예: 1번)를 다시 upsert 하면 기존 사진을 덮어쓴다(2026-09-20 「바꾸기」 버튼을
+ * 「추가」로 바꾸며 발견). 기본값 1은 첫 업로드(새 기록)와 그대로 호환된다.
+ */
 export async function uploadStampPhotos(
   stampId: string,
   siteId: string,
   photos: Blob[],
+  startPosition = 1,
 ): Promise<{ success: boolean; error?: string }> {
   const userId = await getCurrentUserId();
   if (!userId) return { success: false, error: '로그인이 필요합니다.' };
   const uploaded: { path: string; url: string; position: number }[] = [];
   for (let index = 0; index < photos.length; index += 1) {
-    const position = index + 1;
+    const position = startPosition + index;
     const path = `${userId}/${siteId}/${position}.jpg`;
     const { error } = await supabase.storage
       .from('pilgrim-photos')
       .upload(path, photos[index]!, { upsert: true, contentType: 'image/jpeg' });
-    if (error) return { success: false, error: '사진을 올리지 못했습니다. 잠시 후 다시 시도해주세요.' };
+    if (error)
+      return { success: false, error: '사진을 올리지 못했습니다. 잠시 후 다시 시도해주세요.' };
     const { data: pub } = supabase.storage.from('pilgrim-photos').getPublicUrl(path);
     uploaded.push({ path, url: `${pub.publicUrl}?v=${Date.now()}`, position });
   }
@@ -242,8 +256,13 @@ export async function uploadStampPhotos(
     { onConflict: 'stamp_id,position' },
   );
   if (error) return { success: false, error: '사진 기록을 저장하지 못했습니다.' };
-  // 예전 화면도 계속 같은 사진을 표시해야 하므로 첫 사진을 대표 칸에 남긴다.
-  const { error: legacyError } = await supabase.from(TABLE).update({ photo_url: uploaded[0]?.url ?? null }).eq('id', stampId);
+  // 예전 화면도 계속 같은 사진을 표시해야 하므로 첫 사진을 대표 칸에 남긴다 — 1번 자리가
+  // 이번 업로드에 없으면(이어 붙이는 경우) 이미 저장된 대표 사진을 그대로 둔다.
+  if (startPosition !== 1) return { success: true };
+  const { error: legacyError } = await supabase
+    .from(TABLE)
+    .update({ photo_url: uploaded[0]?.url ?? null })
+    .eq('id', stampId);
   if (legacyError) return { success: false, error: '사진 기록을 저장하지 못했습니다.' };
   return { success: true };
 }
@@ -336,7 +355,11 @@ export async function updateStamp(
   if ('note' in patch) payload.note = patch.note ?? null;
   if ('visitedOn' in patch && visitedOnAvailable) payload.visited_on = patch.visitedOn ?? null;
 
-  const { error } = await supabase.from(TABLE).update(payload).eq('id', stampId).eq('user_id', userId);
+  const { error } = await supabase
+    .from(TABLE)
+    .update(payload)
+    .eq('id', stampId)
+    .eq('user_id', userId);
   if (error) {
     console.error('updateStamp error:', error);
     return { success: false, error: error.message };

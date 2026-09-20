@@ -58,7 +58,17 @@ export interface ArticleRow {
   author: string | null;
   summary: string | null;
   excerpt: string | null;
-  topics: Array<'pilgrimage_route' | 'pilgrimage_record' | 'statue' | 'stained_glass' | 'relic' | 'sculpture' | 'artwork' | 'architecture' | 'shrine_news'>;
+  topics: Array<
+    | 'pilgrimage_route'
+    | 'pilgrimage_record'
+    | 'statue'
+    | 'stained_glass'
+    | 'relic'
+    | 'sculpture'
+    | 'artwork'
+    | 'architecture'
+    | 'shrine_news'
+  >;
   facts: Record<string, unknown>;
   fetched_at: string;
   status: 'new' | 'reviewed' | 'used' | 'skip';
@@ -287,20 +297,6 @@ export interface CatholicDirectoryRow {
 export interface FavoriteRow {
   user_id: string;
   site_id: string;
-  created_at: string;
-}
-
-export interface PilgrimageLogRow {
-  id: string;
-  user_id: string;
-  site_id: string;
-  title: string;
-  content: string;
-  visit_date: string;
-  site_name: string | null;
-  site_image: string | null;
-  /** 여행기 사진 공개 URL 목록(순서대로). 마이그레이션 20260914000000. */
-  photos: string[] | null;
   created_at: string;
 }
 

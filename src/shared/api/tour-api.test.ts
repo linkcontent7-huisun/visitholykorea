@@ -3,7 +3,10 @@ import { isQuotaExceededError, TourApiError } from './tour-api';
 
 describe('TourApiError / isQuotaExceededError', () => {
   it('코드 22(일일 호출 한도 초과)는 한도 초과로 분류한다', () => {
-    const err = new TourApiError('TourAPI 오류: LIMITED_NUMBER_OF_SERVICE_REQUESTS_EXCEEDS_ERROR', '22');
+    const err = new TourApiError(
+      'TourAPI 오류: LIMITED_NUMBER_OF_SERVICE_REQUESTS_EXCEEDS_ERROR',
+      '22',
+    );
     expect(isQuotaExceededError(err)).toBe(true);
   });
 

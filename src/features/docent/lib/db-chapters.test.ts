@@ -4,8 +4,20 @@ import type { DocentScriptRow } from '@/shared/types/database';
 import { buildDbChapters, pickIntro, pickTourLanguage } from './db-chapters';
 
 const row = (p: Partial<DocentScriptRow>): DocentScriptRow => ({
-  id: 'x', site_id: 's1', language: 'ko', kind: 'point', seq: 1, title: 't', body: 'b', look_for: null,
-  sources: [], status: 'draft', written_by: null, created_at: '', updated_at: '', ...p,
+  id: 'x',
+  site_id: 's1',
+  language: 'ko',
+  kind: 'point',
+  seq: 1,
+  title: 't',
+  body: 'b',
+  look_for: null,
+  sources: [],
+  status: 'draft',
+  written_by: null,
+  created_at: '',
+  updated_at: '',
+  ...p,
 });
 
 const rows: DocentScriptRow[] = [
@@ -43,6 +55,8 @@ describe('DB 도슨트 원고', () => {
     const scripts = groupRows(rows);
     expect(pickIntro(scripts, 'en')?.paragraphs[0]).toBe('First 1801.');
     expect(pickIntro(scripts, 'es')?.language).toBe('en');
-    expect(pickIntro(groupRows(rows.filter((r) => r.language === 'ko')), 'es')?.language).toBe('ko');
+    expect(pickIntro(groupRows(rows.filter((r) => r.language === 'ko')), 'es')?.language).toBe(
+      'ko',
+    );
   });
 });
