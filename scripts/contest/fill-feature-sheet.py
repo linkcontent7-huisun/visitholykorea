@@ -82,8 +82,8 @@ S = list(prs.slides)
 
 # ── 1. 표지 ─────────────────────────────────────────────
 t = S[0].shapes[0].table
-set_text(t.cell(0, 1), ['(팀명 기입)'], 18)
-set_text(t.cell(1, 1), ['VisitHolyKorea — 길 위에서 나를 만나는 성지순례'], 18)
+set_text(t.cell(0, 1), ['visitholykorea'], 18)
+set_text(t.cell(1, 1), ['VisitHolyKorea (한국 천주교 성지순례)'], 18)
 
 # ── 2. 서비스 소개 ───────────────────────────────────────
 t = table_of(S[1]).table
