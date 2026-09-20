@@ -9,6 +9,7 @@
  */
 
 import type { CongestionRate, TourApiSpot } from '@/shared/api/tour-api';
+import { ratesForToday } from '@/features/crowding/api/crowding-score';
 import { isSameSpot, normalizeName } from '@/features/crowding/lib/name-match';
 import { CATHOLIC_TITLE } from '../api/course-matching';
 
@@ -32,20 +33,17 @@ export function toCongestionLevel(rate: number): CongestionLevel {
 }
 
 /**
- * 응답은 **오늘부터** 30일치가 섞여 온다 — 가장 이른 날(=오늘) 행만 남긴다.
- * 예전엔 `max(baseYmd)` 를 골라 30일 뒤 예측을 오늘 값처럼 썼다(2026-09-16 발견).
+ * 관광지 제목 ↔ 집중률 관광지명(tAtsNm). 규칙은 `name-match.ts`(성지 매칭과 같다).
+ * 날짜는 `ratesForToday` — 응답이 어제부터 올 때가 있어 "가장 이른 날 = 오늘"로 가정하지 않는다.
+ * `todayYmd` 는 테스트가 날짜를 고정할 때만 넘긴다.
  */
-function todayRates(rates: readonly CongestionRate[]): CongestionRate[] {
-  const valid = rates.filter((r) => r.baseYmd && Number.isFinite(Number(r.cnctrRate)));
-  if (valid.length === 0) return [];
-  const today = valid.reduce((min, r) => (r.baseYmd < min ? r.baseYmd : min), valid[0]!.baseYmd);
-  return valid.filter((r) => r.baseYmd === today);
-}
-
-/** 관광지 제목 ↔ 집중률 관광지명(tAtsNm). 규칙은 `name-match.ts`(성지 매칭과 같다). */
-export function matchCongestion(title: string, rates: readonly CongestionRate[]): number | null {
+export function matchCongestion(
+  title: string,
+  rates: readonly CongestionRate[],
+  todayYmd?: string,
+): number | null {
   if (!normalizeName(title)) return null;
-  const hit = todayRates(rates).find((r) => isSameSpot(title, r.tAtsNm));
+  const hit = ratesForToday(rates, todayYmd).find((r) => isSameSpot(title, r.tAtsNm));
   return hit ? Math.max(0, Math.min(100, Number(hit.cnctrRate))) : null;
 }
 
@@ -61,11 +59,12 @@ function distanceOf(spot: TourApiSpot): number {
 export function rankAfternoon(
   spots: readonly TourApiSpot[],
   rates: readonly CongestionRate[] = [],
+  todayYmd?: string,
 ): AfternoonPick[] {
   return spots
     .filter((s) => !CATHOLIC_TITLE.test(s.title))
     .map((spot) => {
-      const congestion = rates.length ? matchCongestion(spot.title, rates) : null;
+      const congestion = rates.length ? matchCongestion(spot.title, rates, todayYmd) : null;
       return { spot, congestion, level: congestion == null ? null : toCongestionLevel(congestion) };
     })
     .sort((a, b) => {

@@ -79,9 +79,7 @@ export function EmptyPassportPreview() {
           ))}
         </div>
         {/* 미리보기임을 반드시 밝힌다 */}
-        <p className="mt-4 text-[0.625rem] font-bold text-app-text-muted/70">
-          {t('stampPreviewNote')}
-        </p>
+        <p className="mt-4 text-xs font-bold text-app-text-muted">{t('stampPreviewNote')}</p>
       </div>
 
       {/* 출발지가 있어야 거리를 말할 수 있다 — nearest 는 origin(또는 GPS)에서 계산된 값이다 */}
@@ -95,9 +93,7 @@ export function EmptyPassportPreview() {
             <MapPin size={20} />
           </div>
           <div className="min-w-0 text-left">
-            <p className="text-[0.625rem] font-extrabold uppercase tracking-widest text-brand-violet">
-              {t('firstPilgrimageSuggestion')}
-            </p>
+            <p className="text-xs font-bold text-brand-violet">{t('firstPilgrimageSuggestion')}</p>
             <p className="truncate text-sm font-extrabold text-app-text">{nearest.name}</p>
             <p className="text-xs font-bold text-app-text-muted">
               {distanceLabel(t, originLabel!, nearest.km)}

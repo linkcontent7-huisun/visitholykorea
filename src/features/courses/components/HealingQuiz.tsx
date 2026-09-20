@@ -254,7 +254,13 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
           없다는 지적). `handleClose` 가 하던 정리(reset)는 그대로 하고 이동만 같은
           컴포넌트를 쓴다. 헤딩도 성지 찾기·순례 코스와 같은 PageHeader 로 맞춘다
           (사장님 지적, 2026-09-20 — 성지 일정만 헤딩이 달랐다). */}
-      <PageHeader back={{ onClick: handleClose }} title={t('compassTitle')} className="pb-4" />
+      <PageHeader
+        back={{ onClick: handleClose }}
+        title={t('compassTitle')}
+        // 다리 문장은 첫 화면에만 — 질문·결과 단계에선 "세 개에 답하면"이 이미 지난 말이다.
+        sub={step === 0 ? t('compassSub') : undefined}
+        className="pb-4"
+      />
 
       {progress > 0 && (
         <div className="h-1 shrink-0 bg-app-panel">
@@ -269,10 +275,11 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
       <div className="flex-1 py-6">
         <AnimatePresence mode="wait">
           {step === 0 && (
-            <motion.div key="intro" {...fade} className="pt-10 text-center">
+            <motion.div key="intro" {...fade} className="pt-2 text-center">
               {/* 이모지 대신 선 아이콘 — 디자인 원칙(2026-09-16): 이모지 아이콘 안 씀 */}
               <div
-                className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-brand-soft text-brand-blue"
+                // 검색·기록의 빈 상태(`EmptyState`)와 같은 회색 원 — 이 화면만 연남색이었다(디자인 비평, 2026-09-21).
+                className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-app-panel text-app-text-muted"
                 aria-hidden
               >
                 <Compass size={32} />
@@ -282,10 +289,14 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                 <br />
                 {t('compassIntroLine2')}
               </h2>
-              <p className="mb-10 text-base leading-relaxed text-app-text-muted">
-                {t('compassIntroBody')}
-              </p>
-              <Button block onClick={() => setStep(1)} className="min-h-14 text-lg" id="quiz-start">
+              {/* 설명 문단(compassIntroBody)은 뺐다 — 제목 아래 다리 문장(compassSub)과 같은 말이 두 번 나오고,
+                  그만큼 「시작하기」가 390px 접힘선 아래로 밀렸다(2026-09-21 실측). */}
+              <Button
+                block
+                onClick={() => setStep(1)}
+                className="mt-8 min-h-14 text-lg"
+                id="quiz-start"
+              >
                 {t('compassStart')}
               </Button>
               {memory?.matchedSiteId && memory.matchedSiteName && (

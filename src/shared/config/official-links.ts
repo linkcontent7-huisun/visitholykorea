@@ -1,3 +1,5 @@
+import type { Language } from '@/shared/i18n/dictionary';
+
 /**
  * 외부 공식 안내 링크.
  *
@@ -7,11 +9,9 @@
  * URL 은 **운영자가 확인한 값만** 넣는다. `null` 이면 화면은 "운영자 확인 후 연결" 이라고
  * 정직하게 적는다 — 추측한 주소를 넣어 두면 심사·이용자 모두에게 거짓이 된다.
  */
-import type { Language } from '@/shared/i18n/dictionary';
-
 export interface OfficialLink {
   id: 'wyd2027' | 'did' | 'cbck';
-  /** 화면 언어별 이름. 짧게 — 영어 화면 푸터 6개 항목이 한 줄에 들어가야 한다(2026-09-19 실측) */
+  /** 화면에 보이는 이름 — 6개 국어. 2026-09-20 까지 ko/en 둘뿐이라 스페인어 화면에 영어가 났다(T-030). */
   label: Record<Language, string>;
   url: string | null;
 }
@@ -23,14 +23,14 @@ export const OFFICIAL_LINKS: readonly OfficialLink[] = [
     label: {
       ko: '2027 서울 세계청년대회(WYD) 공식 안내',
       en: 'WYD Seoul 2027 official site',
-      es: 'Sitio oficial JMJ Seúl 2027',
-      fr: 'Site officiel JMJ Séoul 2027',
-      pt: 'Site oficial JMJ Seul 2027',
-      it: 'Sito ufficiale GMG Seoul 2027',
+      es: 'Sitio oficial de la JMJ Seúl 2027',
+      fr: 'Site officiel des JMJ Séoul 2027',
+      pt: 'Site oficial da JMJ Seul 2027',
+      it: 'Sito ufficiale della GMG Seul 2027',
     },
     url: 'https://wydseoul.org/',
   },
-  // 영어 이름은 2026-09-19 에 줄였다 — 영어 화면에서 푸터 6개 항목(약관·개인정보·FAQ·WYD·DID·주교회의)이
+  // en 은 2026-09-19 에 줄였다 — 영어 화면에서 푸터 6개 항목(약관·개인정보·FAQ·WYD·DID·주교회의)이
   // 한 줄에 안 들어가 줄바꿈됐다(실측). "Days in the Dioceses (DID)" 는 이미 괄호 안에 약어(DID)를
   // 병기하고 있어 풀어쓴 이름을 빼도 뜻이 그대로 통한다.
   {
@@ -39,9 +39,9 @@ export const OFFICIAL_LINKS: readonly OfficialLink[] = [
       ko: '교구대회(DID) 공식 안내',
       en: 'DID official information',
       es: 'Información oficial de los DID',
-      fr: 'Informations officielles DID',
+      fr: 'Informations officielles des DID',
       pt: 'Informações oficiais dos DID',
-      it: 'Informazioni ufficiali DID',
+      it: 'Informazioni ufficiali dei DID',
     },
     url: 'https://www.wyd2027did.org/kr',
   },

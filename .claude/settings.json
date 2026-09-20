@@ -11,6 +11,11 @@
       "Bash(npm ci)",
       "Bash(npx prettier --check *)",
       "Bash(npx tsc --noEmit)"
+      "Bash(npx tsc --noEmit)",
+      "Bash(gh pr merge *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git pull *)"
     ]
   }
 }

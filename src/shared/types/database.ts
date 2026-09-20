@@ -223,6 +223,12 @@ export interface PilgrimageStampRow {
   photo_url: string | null;
   /** 신고 누적으로 숨겨진 글 — 뷰에서 걸러진다. */
   hidden: boolean;
+  /** 이 성지까지 어떻게 왔는지 (20260905000000). null = 응답 안 함. */
+  transport_mode: 'walk' | 'public_transit' | 'car' | 'tour_bus' | 'other' | null;
+  /** 사용자가 고른 실제 방문일 (20260914130000). created_at 과 별개. */
+  visited_on: string | null;
+  /** 방문 당시 체감 붐빔 (20260921120000). 관광공사 집중률 예측을 검증하는 실측값. null = 응답 안 함. */
+  crowd_level: 'quiet' | 'moderate' | 'crowded' | null;
   created_at: string;
 }
 

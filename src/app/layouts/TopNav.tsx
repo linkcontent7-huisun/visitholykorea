@@ -1,9 +1,10 @@
-import { BookOpen, Menu, Sparkles } from 'lucide-react';
+import { BookOpen, Menu } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
+import { MichaelIcon } from '@/shared/components/icons/MichaelIcon';
 import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -86,7 +87,9 @@ export function TopNav() {
         <div className="mx-auto flex h-[60px] w-full max-w-[1200px] items-center gap-[12px] px-[12px] lg:h-[72px] lg:gap-[24px] lg:px-[20px]">
           {/* 로고 — 사장님이 만든 비둘기·십자가 마크 + 글자 (2026-09-12). 글자는 이미지가 아니라
             텍스트라 작은 화면에서도 선명하고, 마크 색(#04377C)에 맞췄다. 홈에서 사진 위에 뜰 때는
-            마크에 옅은 그림자를, 글자는 흰색 + 그림자로 바꿔 사진이 밝아도 윤곽이 보이게 한다. */}
+            마크에 옅은 그림자를, 글자는 흰색 + 그림자로 바꿔 사진이 밝아도 윤곽이 보이게 한다.
+            그림자는 두 겹 — 넓고 옅은 것 하나로는 공세리성당(흰 하늘)에서 2.1:1 이었다(2026-09-21 실측).
+            글자에 바싹 붙는 진한 테(0 0 2px)를 더해 어떤 사진에서도 윤곽이 남게 한다. */}
           <Link to={paths.home} className="flex shrink-0 items-center gap-[8px]" id="logo">
             <img
               src="/logo-mark-88.png"
@@ -99,7 +102,7 @@ export function TopNav() {
             <span
               className={`text-[13px] font-extrabold leading-[1.05] tracking-tight transition-colors duration-200 lg:hidden ${
                 transparent
-                  ? 'text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.55)]'
+                  ? 'text-white [text-shadow:0_0_2px_rgba(0,0,0,0.9),0_1px_6px_rgba(0,0,0,0.55)]'
                   : 'text-brand-blue'
               }`}
               aria-label="VisitHoly Korea"
@@ -111,7 +114,7 @@ export function TopNav() {
             <span
               className={`hidden text-[19px] font-extrabold tracking-tight transition-colors duration-200 lg:inline ${
                 transparent
-                  ? 'text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.55)]'
+                  ? 'text-white [text-shadow:0_0_2px_rgba(0,0,0,0.9),0_1px_6px_rgba(0,0,0,0.55)]'
                   : 'text-brand-blue'
               }`}
             >
@@ -132,12 +135,12 @@ export function TopNav() {
               onClick={() => setAiOpen(true)}
               className={
                 transparent
-                  ? 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-white/40 bg-black/30 px-[10px] text-[14px] font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45'
+                  ? 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-white/40 bg-black/30 px-[10px] text-[14px] font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45 focus-visible:outline-white'
                   : 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-app-border bg-white px-[10px] text-[14px] font-bold text-brand-blue transition-colors hover:bg-app-bg'
               }
               id="ai-guide-toggle"
             >
-              <Sparkles size={16} aria-hidden />
+              <MichaelIcon size={18} aria-hidden />
               {t('aiGuideNavLabel')}
             </button>
 
@@ -175,7 +178,7 @@ export function TopNav() {
                 title={t('moreTab')}
                 className={
                   transparent
-                    ? 'flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] border-white/40 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45'
+                    ? 'flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] border-white/40 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45 focus-visible:outline-white'
                     : 'flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] border-app-border bg-white text-brand-blue transition-colors hover:bg-app-bg'
                 }
                 id="topnav-more"

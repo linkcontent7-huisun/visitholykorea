@@ -18,7 +18,13 @@ import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { useMyFavoriteIds } from '@/features/favorites/hooks/use-favorites';
-import { isVisitedOnAvailable, type StampedSite } from '@/features/passport/api/stamps.repository';
+import {
+  isVisitedOnAvailable,
+  type CrowdLevel,
+  type StampedSite,
+} from '@/features/passport/api/stamps.repository';
+import { CrowdLevelPicker } from '@/features/passport/components/CrowdLevelPicker';
+import { CROWD_LEVEL_LABEL_KEY } from '@/features/passport/lib/crowd-level-label';
 import {
   useDeleteStamp,
   useDeleteStampPhoto,
@@ -33,12 +39,13 @@ import { Card } from '@/shared/components/ui/Card';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
-import { PhotoLightbox } from '@/shared/components/ui/PhotoLightbox';
+import { PhotoCardViewer } from '@/shared/components/ui/PhotoCardViewer';
 import { SquircleSurface } from '@/shared/components/ui/SquircleSurface';
 import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { dioceseLabel } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { useUnsavedChangesGuard } from '@/shared/hooks/use-unsaved-changes-guard';
+import { koreaTodayIso } from '@/shared/lib/korea-date';
 import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 
 function formatDate(value: string, locale: string): string {
@@ -62,11 +69,16 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
   const [editing, setEditing] = useState(false);
   const [note, setNote] = useState(stamp.note ?? '');
   const [visitedOn, setVisitedOn] = useState(defaultVisitedOn(stamp));
+  const [crowdLevel, setCrowdLevel] = useState<CrowdLevel | null>(stamp.crowdLevel);
   const [failed, setFailed] = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
   const canEditDate = isVisitedOnAvailable();
 
-  const isDirty = editing && (note !== (stamp.note ?? '') || visitedOn !== defaultVisitedOn(stamp));
+  const isDirty =
+    editing &&
+    (note !== (stamp.note ?? '') ||
+      visitedOn !== defaultVisitedOn(stamp) ||
+      crowdLevel !== stamp.crowdLevel);
   useUnsavedChangesGuard(isDirty);
 
   const save = async () => {
@@ -74,7 +86,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
     const result = await update.mutateAsync({
       stampId: stamp.stampId,
       note: note.trim() || null,
-      ...(canEditDate ? { visitedOn: visitedOn || null } : {}),
+      ...(canEditDate ? { visitedOn: visitedOn || null, crowdLevel } : {}),
     });
     if (!result.success) {
       setFailed(true);
@@ -125,6 +137,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
             {stamp.visitedOn
               ? `${t('recordsVisitedOn')} · ${formatDate(stamp.visitedOn, locale)}`
               : `${t('recordsRecordedOn')} · ${formatDate(stamp.visitedAt, locale)}`}
+            {stamp.crowdLevel && ` · ${t(CROWD_LEVEL_LABEL_KEY[stamp.crowdLevel])}`}
           </p>
         </div>
         {!editing && (
@@ -170,7 +183,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
                   name="visitedOn"
                   value={visitedOn}
                   onChange={(e) => setVisitedOn(e.target.value)}
-                  max={new Date().toISOString().slice(0, 10)}
+                  max={koreaTodayIso()}
                   className="block min-h-12 w-full bg-transparent px-3 text-base text-app-text"
                 />
               </SquircleSurface>
@@ -180,6 +193,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
               {t('recordsVisitDateUnavailable')}
             </p>
           )}
+          {canEditDate && <CrowdLevelPicker value={crowdLevel} onChange={setCrowdLevel} />}
           <label className="block text-sm font-bold text-app-text-muted">
             {t('recordsMemo')}
             <SquircleSurface
@@ -231,7 +245,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
                 }`}
               >
                 <Camera size={16} aria-hidden />
-                <span className="text-[0.625rem] font-bold leading-tight">
+                <span className="text-xs font-bold leading-tight">
                   {uploadPhotos.isPending ? t('photoUploading') : t('photoAdd')}
                 </span>
                 <input
@@ -303,7 +317,8 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
           {t('recordsSaveFailed')}
         </p>
       )}
-      <PhotoLightbox
+      {/* 사진을 누르면 전체 화면 모달이 아니라 이 카드 영역을 사진으로 채운다 */}
+      <PhotoCardViewer
         photos={lightbox !== null ? stamp.photos.map((p) => p.url) : null}
         index={lightbox ?? 0}
         onIndexChange={setLightbox}

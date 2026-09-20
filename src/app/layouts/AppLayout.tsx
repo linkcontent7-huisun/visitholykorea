@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
+import { paths } from '@/app/routes/paths';
 import { InstallBanner } from '@/shared/components/ui/InstallBanner';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { BottomNav } from './BottomNav';
@@ -38,8 +39,10 @@ export function AppLayout() {
         {t('skipToContent')}
       </a>
       <TopNav />
-      {/* 「홈 화면에 추가」 조용한 배너 — 설치 가능한 환경·두 번째 화면부터·7일 쿨다운 */}
-      <InstallBanner pathname={pathname} />
+      {/* 「홈 화면에 추가」 조용한 배너 — 설치 가능한 환경·두 번째 화면부터·7일 쿨다운.
+          더보기에는 「홈화면 추가」 항목이 이미 맨 위에 있어 같은 화면에서 두 번 권하지 않는다(디자인 비평, 2026-09-21).
+          (조회 수는 배너 안에서 세므로 더보기는 셈에서 빠진다 — 두 번째 화면 조건에 영향은 없다.) */}
+      {pathname !== paths.menu && <InstallBanner pathname={pathname} />}
 
       {/* 하단 탭이 가리는 만큼만 모바일에서 아래 여백을 준다 */}
       <main

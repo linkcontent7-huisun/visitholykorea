@@ -274,7 +274,7 @@ export default function AccountPage() {
         </p>
         {deleteError && (
           <p role="alert" className="mt-3 text-base text-red-700">
-            {t('accountDeleteFailed')}
+            {t('accountDeleteError')}
           </p>
         )}
         <Button

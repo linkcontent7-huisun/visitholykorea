@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -21,8 +21,8 @@ export interface HeroSlide {
  * 영상 없이 사진만. 사진 위에는 이름·지역 한 줄과 넘김 점·화살표만 얹는다(검색창은 뺐다 — 시안 버전 7).
  * 넘김은 CSS scroll-snap 이 하고, 화살표는 그 위치로 스크롤만 시킨다 — 손으로 밀든 화살표를 누르든
  * 같은 상태(스크롤 위치)를 본다. 6초마다 다음 장으로 넘어가되, 손을 대거나 마우스를 올리면 멈추고
- * 「동작 줄이기」 설정이면 아예 돌리지 않는다(50대 이상 · 접근성). 그래도 그냥 읽는 사람은 멈출 길이
- * 없었다 — 오른쪽 아래 「멈춤」 단추를 둔다(WCAG 2.2.2, 2026-09-20 접근성 감사).
+ * 「동작 줄이기」 설정이면 아예 돌리지 않는다(50대 이상 · 접근성). 오른쪽 아래 「멈춤」 단추는
+ * 접근성 감사(WCAG 2.2.2)로 넣었다가 사장님 지시로 뺐다(2026-09-21) — 사진을 가리고 단추가 셋이나 된다.
  *
  * 마지막 장에서 다음으로 가면 **앞으로** 1장이 나온다(2026-09-17). 전에는 스크롤 위치를 0 으로 되돌려
  * 5→4→3→2→1 을 거꾸로 훑고 지나갔다. 그래서 맨 뒤에 1장의 복제본을 한 장 더 두고, 거기 도착하면
@@ -35,8 +35,6 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  // 사용자가 직접 멈춘 상태 — 마우스를 떼도 다시 돌지 않는다
-  const [userPaused, setUserPaused] = useState(false);
   // 「이전」으로 1→5 를 넘길 때 복제본으로 순간 이동한 상태 — 그 순간엔 onScroll 이 1장으로 되돌리면 안 된다
   const wrappingBackRef = useRef(false);
   const count = slides.length;
@@ -90,19 +88,18 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
   };
 
   useEffect(() => {
-    if (paused || userPaused || count < 2) return;
+    if (paused || count < 2) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const timer = window.setInterval(() => goTo(index + 1), 6000);
     return () => window.clearInterval(timer);
-  }, [paused, userPaused, count, index, goTo]);
+  }, [paused, count, index, goTo]);
 
   if (count === 0) return null;
 
   // 화살표는 사진 세로 한가운데 (2026-09-17). 전엔 40% 높이라 아래 글자 쪽으로 치우쳐 보였다.
   // 평소엔 옅게, 올리거나 누르면 또렷한 흰색으로(사장님 지적, 2026-09-18) — 사진을 덜 가린다.
-  const roundButtonClass =
-    'absolute z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/50 text-app-text backdrop-blur-sm transition-colors duration-300 hover:bg-white active:bg-white';
-  const arrowClass = `${roundButtonClass} top-1/2 -translate-y-1/2`;
+  const arrowClass =
+    'absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/50 text-app-text backdrop-blur-sm transition-colors duration-300 hover:bg-white active:bg-white';
 
   return (
     <section
@@ -142,16 +139,17 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
               loading={i === 0 ? 'eager' : 'lazy'}
               decoding="async"
             />
+            {/* 아래 그늘은 이름·지역 글자용, 위 그늘은 투명 헤더의 흰 로고용 — 공세리성당처럼 하늘이 하얀
+                사진에선 로고가 2.1:1 로 안 읽혔다(2026-09-21 실측). 위 22% 만 살짝 어둡게 한다. */}
             <div
               className="absolute inset-0"
               aria-hidden
               style={{
                 background:
-                  'linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 45%, rgba(0,0,0,.05) 100%)',
+                  'linear-gradient(to bottom, rgba(0,0,0,.72) 0%, rgba(0,0,0,.3) 12%, rgba(0,0,0,0) 26%), linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 45%, rgba(0,0,0,.05) 100%)',
               }}
             />
-            {/* 오른쪽 여백(pr-14)은 「멈춤」 단추 자리 */}
-            <div className="absolute inset-x-3 bottom-7 pr-14 text-white [text-shadow:0_1px_8px_rgba(0,0,0,.45)] lg:inset-x-5 lg:bottom-10 lg:pr-16">
+            <div className="absolute inset-x-3 bottom-7 text-white [text-shadow:0_1px_8px_rgba(0,0,0,.45)] lg:inset-x-5 lg:bottom-10">
               <p className="min-w-0 truncate text-sm font-bold tracking-wide opacity-95">
                 {slide.caption}
               </p>
@@ -182,20 +180,6 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             id="hero-next"
           >
             <ChevronRight size={24} aria-hidden />
-          </button>
-          <button
-            type="button"
-            onClick={() => setUserPaused((v) => !v)}
-            className={`${roundButtonClass} bottom-3 right-3`}
-            aria-label={userPaused ? t('heroPlay') : t('heroPause')}
-            aria-pressed={userPaused}
-            id="hero-pause"
-          >
-            {userPaused ? (
-              <Play size={22} className="ml-0.5" aria-hidden />
-            ) : (
-              <Pause size={22} aria-hidden />
-            )}
           </button>
           {/* "1 / 5" 같은 숫자 카운터는 뺀다(사장님 지적, 2026-09-18) — 아래 점(dot)
               표시로도 몇 번째인지 충분히 보인다. */}

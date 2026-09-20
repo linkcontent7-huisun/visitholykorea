@@ -28,10 +28,13 @@ import {
   getMyStamps,
   isVisitedOnAvailable,
   recordNoteReads,
+  type CrowdLevel,
 } from '@/features/passport/api/stamps.repository';
+import { CrowdLevelPicker } from '@/features/passport/components/CrowdLevelPicker';
+import { koreaTodayIso } from '@/shared/lib/korea-date';
 import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
-import { isWydVenue } from '@/features/passport/lib/wyd';
+import { isWydVenue, WYD_LABEL } from '@/features/passport/lib/wyd';
 import { DocentPlayer } from '@/features/docent/components/DocentPlayer';
 import { buildChapters } from '@/features/docent/lib/chapters';
 import { getDocentScript } from '@/features/docent/data/scripts';
@@ -48,6 +51,7 @@ import { useNearbyFacilities } from '@/features/sites/hooks/use-nearby-tour';
 import { WalkingCourseCard } from '@/features/sites/components/WalkingCourseCard';
 import { useWalkingCoursesNear } from '@/features/sites/hooks/use-tour-extras';
 import { NearbyCrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
+import { QuietDaysCard } from '@/features/crowding/components/QuietDaysCard';
 import { GROUP_LABEL_KEY } from '@/features/sites/lib/nearby-facilities';
 import {
   useLocalizedSites,
@@ -127,7 +131,9 @@ export default function SiteDetailPage() {
   const [noteDraft, setNoteDraft] = useState('');
   // 방문일 — 기본값은 오늘(기록하는 날)이지만, 지난 방문을 나중에 적는 경우도 있어
   // 날짜 선택을 열어둔다(사장님 지적, 2026-09-20: "무조건 기록한 날짜로 고정이다").
-  const [visitedOnDraft, setVisitedOnDraft] = useState(() => new Date().toISOString().slice(0, 10));
+  const [visitedOnDraft, setVisitedOnDraft] = useState(() => koreaTodayIso());
+  // 그날 붐볐나요 — 관광공사 예측을 검증할 실측 한 칸. 안 골라도(null) 저장된다(2026-09-21).
+  const [crowdLevelDraft, setCrowdLevelDraft] = useState<CrowdLevel | null>(null);
   // 기록 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-17).
   // 접어도 사라지지 않는다 — 줄만 남아서 다시 누르면 펼칠 수 있다.
   const [noteComposerOpen, setNoteComposerOpen] = useState(true);
@@ -188,15 +194,18 @@ export default function SiteDetailPage() {
   const [editingMyNote, setEditingMyNote] = useState(false);
   const [myNoteDraft, setMyNoteDraft] = useState('');
   const [myVisitedOnDraft, setMyVisitedOnDraft] = useState('');
+  const [myCrowdLevelDraft, setMyCrowdLevelDraft] = useState<CrowdLevel | null>(null);
   const startEditingMyNote = () => {
     setMyNoteDraft(myStamp?.note ?? '');
     setMyVisitedOnDraft((myStamp?.visitedOn ?? myStamp?.visitedAt ?? '').slice(0, 10));
+    setMyCrowdLevelDraft(myStamp?.crowdLevel ?? null);
     setEditingMyNote(true);
   };
   const isMyNoteDirty =
     editingMyNote &&
     (myNoteDraft !== (myStamp?.note ?? '') ||
-      myVisitedOnDraft !== (myStamp?.visitedOn ?? myStamp?.visitedAt ?? '').slice(0, 10));
+      myVisitedOnDraft !== (myStamp?.visitedOn ?? myStamp?.visitedAt ?? '').slice(0, 10) ||
+      myCrowdLevelDraft !== (myStamp?.crowdLevel ?? null));
   useUnsavedChangesGuard(isMyNoteDirty);
   const handleUpdateMyNote = () => {
     if (!myStamp?.id) return;
@@ -204,7 +213,9 @@ export default function SiteDetailPage() {
       {
         stampId: myStamp.id,
         note: normalizeNote(myNoteDraft),
-        ...(isVisitedOnAvailable() ? { visitedOn: myVisitedOnDraft || null } : {}),
+        ...(isVisitedOnAvailable()
+          ? { visitedOn: myVisitedOnDraft || null, crowdLevel: myCrowdLevelDraft }
+          : {}),
       },
       { onSuccess: (result) => result.success && setEditingMyNote(false) },
     );
@@ -269,7 +280,11 @@ export default function SiteDetailPage() {
     const note = normalizeNote(noteDraft);
     if (!note) return;
     addStamp.mutate(
-      { note, visitedOn: isVisitedOnAvailable() ? visitedOnDraft : null },
+      {
+        note,
+        visitedOn: isVisitedOnAvailable() ? visitedOnDraft : null,
+        crowdLevel: isVisitedOnAvailable() ? crowdLevelDraft : null,
+      },
       {
         onSuccess: async (result) => {
           if (!result.success) {
@@ -429,7 +444,7 @@ export default function SiteDetailPage() {
           {/* WYD 2027 공식 일정지 — 해외 청년 20~30만 명이 오는 확정 행사다 */}
           {isWydVenue(site.name) && (
             <span className="ml-2 inline-block rounded-full bg-amber-400/90 px-3 py-1 text-xs font-bold text-amber-950">
-              {t('wydVenueLabel')}
+              {WYD_LABEL[language]}
             </span>
           )}
           <h1 className="mb-3 mt-3 font-display text-[2rem] leading-tight lg:text-[2.5rem]">
@@ -546,6 +561,9 @@ export default function SiteDetailPage() {
               </SquircleSurface>
             </section>
           )}
+
+          {/* 한적한 날 — 집중률에 이름이 있는 성지만. 미사 시간 바로 아래가 "언제 갈까"를 정하는 자리다 */}
+          <QuietDaysCard site={site} />
 
           {/* 공식 홈페이지·연락처 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
           <ContactCard site={site} />
@@ -726,12 +744,15 @@ export default function SiteDetailPage() {
                         <input
                           type="date"
                           value={visitedOnDraft}
-                          max={new Date().toISOString().slice(0, 10)}
+                          max={koreaTodayIso()}
                           onChange={(e) => setVisitedOnDraft(e.target.value)}
                           className="block min-h-12 w-full bg-transparent px-3 text-base text-app-text"
                         />
                       </SquircleSurface>
                     </label>
+                  )}
+                  {isVisitedOnAvailable() && (
+                    <CrowdLevelPicker value={crowdLevelDraft} onChange={setCrowdLevelDraft} />
                   )}
                   {/* 사진 — 최대 3장. 기록 문장과 함께 한 번에 올라간다 */}
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -759,7 +780,7 @@ export default function SiteDetailPage() {
                         className="flex h-16 w-16 cursor-pointer flex-col items-center justify-center gap-0.5 text-brand-blue transition-colors hover:bg-brand-soft"
                       >
                         <Camera size={16} aria-hidden />
-                        <span className="text-[0.625rem] font-bold">
+                        <span className="text-xs font-bold">
                           {notePhotos.length}/{NOTE_PHOTO_MAX}
                         </span>
                         <input
@@ -848,12 +869,19 @@ export default function SiteDetailPage() {
                               <input
                                 type="date"
                                 value={myVisitedOnDraft}
-                                max={new Date().toISOString().slice(0, 10)}
+                                max={koreaTodayIso()}
                                 onChange={(e) => setMyVisitedOnDraft(e.target.value)}
                                 className="block min-h-12 w-full bg-transparent px-3 text-base text-app-text"
                               />
                             </SquircleSurface>
                           </label>
+                        )}
+                        {isVisitedOnAvailable() && (
+                          <CrowdLevelPicker
+                            value={myCrowdLevelDraft}
+                            onChange={setMyCrowdLevelDraft}
+                            name="myCrowdLevel"
+                          />
                         )}
                         <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
                           {myStamp?.photos.map((photo, i) => (

@@ -6,7 +6,8 @@ import {
   Globe,
   Share2,
   Smartphone,
-  Info,
+  FileText,
+  Lock,
   LogIn,
   LogOut,
   Navigation,
@@ -33,6 +34,15 @@ import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { copyText } from '@/shared/lib/map-links';
 import { shareApp, type ShareResult } from '@/shared/lib/share-app';
 import { OFFICIAL_LINKS } from '@/shared/config/official-links';
+
+/** 외부 링크의 부제 — `https://www.` 와 끝 `/` 를 뗀 도메인만. 어디로 가는지는 알리되 줄을 넘기지 않는다. */
+function officialLinkDomain(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
+}
 
 /** GPS 상태별 부제. 켜진 뒤에는 스위치가 현재 위치 사용 여부를 맡는다. */
 function gpsLocationSub(
@@ -210,15 +220,16 @@ export default function MenuPage() {
           sub: t('customerSupportSub'),
           onClick: () => navigate(paths.faq),
         },
+        // 약관·개인정보가 둘 다 ⓘ 라 구분이 안 됐다(디자인 비평, 2026-09-21) — 문서·자물쇠로
         {
           id: 'terms',
-          icon: Info,
+          icon: FileText,
           label: t('viewTerms'),
           onClick: () => navigate(paths.terms),
         },
         {
           id: 'privacy',
-          icon: Info,
+          icon: Lock,
           label: t('privacyNotice'),
           onClick: () => navigate(paths.privacy),
         },
@@ -230,7 +241,8 @@ export default function MenuPage() {
         id: `official-${link.id}`,
         icon: Globe,
         label: link.label[language],
-        sub: link.url ? link.url : t('officialLinkPending'),
+        // 주소 원문은 390px 에서 낱말 중간에 끊겼다("wyd2027did.or / g/kr") — 도메인만 보여 준다(2026-09-21)
+        sub: link.url ? officialLinkDomain(link.url) : t('officialLinkPending'),
         onClick: link.url ? () => window.open(link.url!, '_blank', 'noopener') : undefined,
       })),
     },
@@ -287,20 +299,38 @@ export default function MenuPage() {
         {sections.map((section) => (
           <section key={section.title}>
             <h3 className="mb-3 ml-1 text-sm font-bold text-app-text-muted">{section.title}</h3>
-            <div className="overflow-hidden rounded-lg border border-app-border bg-white">
+            {/* overflow-hidden 을 두면 안 된다 — 「언어 설정」 줄의 펼침 목록이 이 상자에 잘려
+                아래 언어들을 못 골랐다(사장님 지적, 2026-09-21). 대신 첫·끝 줄에 모서리를 직접 준다. */}
+            <div className="rounded-lg border border-app-border bg-white">
               {section.items.map((item, idx) => {
                 const display = item.mobileOnly
                   ? 'flex lg:hidden'
                   : item.desktopOnly
                     ? 'hidden lg:flex'
                     : 'flex';
-                const rowClass = `${display} min-h-16 w-full items-center gap-4 px-5 py-4 ${
+                // 모바일·PC 에서 보이는 줄이 달라 「첫 줄」「끝 줄」도 각각 따로 센다 —
+                // hover 바탕이 상자의 둥근 모서리 밖으로 삐져나오지 않게
+                const mobileItems = section.items.filter((it) => !it.desktopOnly);
+                const desktopItems = section.items.filter((it) => !it.mobileOnly);
+                const corner = [
+                  item === mobileItems[0] ? 'rounded-t-lg' : '',
+                  item === mobileItems[mobileItems.length - 1] ? 'rounded-b-lg' : '',
+                  item === desktopItems[0] ? 'lg:rounded-t-lg' : 'lg:rounded-t-none',
+                  item === desktopItems[desktopItems.length - 1]
+                    ? 'lg:rounded-b-lg'
+                    : 'lg:rounded-b-none',
+                ]
+                  .filter(Boolean)
+                  .join(' ');
+                const rowClass = `${display} min-h-16 w-full items-center gap-4 px-5 py-4 ${corner} ${
                   idx !== section.items.length - 1 ? 'border-b border-app-border' : ''
                 }`;
                 const body = (
                   <>
                     <div
-                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-app-panel text-app-text-muted"
+                      // 홈 입구 카드·위 프로필 카드와 같은 연남색 타일 — 회색이던 것을 맞췄다(디자인 비평, 2026-09-21).
+                      // 누르는 것은 남색 하나(화면 규칙)이고, 이 줄들도 전부 누르는 입구다.
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand-blue"
                       aria-hidden
                     >
                       <item.icon size={20} />

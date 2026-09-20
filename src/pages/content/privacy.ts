@@ -3,21 +3,26 @@ import type { Language } from '@/shared/i18n/dictionary';
 /**
  * 개인정보 안내 본문 — 6개 국어.
  *
- * `pages/PrivacyPage.tsx` 가 ko/en 둘만 갖고 있어 스페인어 이용자도 영어를 보던 것을 나눴다 (T-031, 2026-09-20).
+ * `pages/PrivacyPage.tsx` 가 ko/en 둘만 갖고 있어 스페인어 이용자도 영어를 보던 것을 나눴다 (T-031, 2026-09-20 — 두 세션이 각각 했고 9/21 병합).
  * 2026-09-21 사장님과 항목별로 확인해 다시 썼다: 보호책임자(운영팀 대표), 국외 이전(도쿄·미국),
  * 이용자 권리(이름·비밀번호는 계정 설정에서 직접), 자동 수집(기기 저장소·접속 기록·분석 도구 없음),
  * 시행일 2026-09-21 과 개정 이력. 앱의 실제 저장·삭제 동작과 운영자가 확정한 값만 적는다 —
  * 한국어가 원문, 나머지는 번역. 절을 고칠 때는 여섯 언어를 함께 고친다.
  */
-export interface PrivacySection {
+export interface PrivacyItem {
   title: string;
   body: string;
 }
 
-export const PRIVACY: Record<Language, { title: string; sections: PrivacySection[] }> = {
+export interface PrivacyContent {
+  title: string;
+  items: PrivacyItem[];
+}
+
+export const PRIVACY: Record<Language, PrivacyContent> = {
   ko: {
     title: '개인정보 안내',
-    sections: [
+    items: [
       {
         title: '수집하는 항목',
         body: '회원 가입 시 이메일, 비밀번호(해시 형태), 이름 또는 닉네임을 처리합니다. 간편 로그인(카카오·네이버·구글) 시에는 제공업체가 전달하는 계정 식별 정보와 이메일·이름을 처리하며, 제공업체의 비밀번호는 받지 않습니다. 순례 기록에는 성지·방문일·한 줄 메모·선택한 사진(최대 3장)이, 즐겨찾기와 오늘의 성지 일정을 이용하면 선택·응답 내용이 저장됩니다. 현재 위치는 「현재 위치 사용」 중 기기에서만 이용하며 서버에 저장하지 않습니다. 만 14세 미만은 가입할 수 없습니다.',
@@ -71,7 +76,7 @@ export const PRIVACY: Record<Language, { title: string; sections: PrivacySection
 
   en: {
     title: 'Privacy notice',
-    sections: [
+    items: [
       {
         title: 'What we collect',
         body: 'When you create an account, we process your email, password (stored as a hash), and name or nickname. Social sign-in (Kakao, Naver, Google) provides an account identifier, email and name; we never receive the provider’s password. Visit records contain the shrine, visit date, one-line note and optional photos (up to 3). Favorites and Today’s Plan answers are saved when used. Your location is used on your device only while location access is on and is not stored on our server. Persons under 14 may not sign up.',
@@ -125,7 +130,7 @@ export const PRIVACY: Record<Language, { title: string; sections: PrivacySection
 
   es: {
     title: 'Aviso de privacidad',
-    sections: [
+    items: [
       {
         title: 'Qué datos tratamos',
         body: 'Al crear una cuenta tratamos tu correo electrónico, tu contraseña (guardada como hash) y tu nombre o apodo. El inicio de sesión social (Kakao, Naver, Google) nos proporciona un identificador de cuenta, el correo y el nombre; nunca recibimos la contraseña del proveedor. Los registros de peregrinación contienen el santuario, la fecha de visita, una nota de una línea y fotos opcionales (hasta 3). Los favoritos y las respuestas del Plan de santuarios de hoy se guardan cuando usas esas funciones. Tu ubicación se usa solo en tu dispositivo mientras el acceso a la ubicación está activado y no se guarda en nuestro servidor. Los menores de 14 años no pueden registrarse.',
@@ -179,7 +184,7 @@ export const PRIVACY: Record<Language, { title: string; sections: PrivacySection
 
   fr: {
     title: 'Avis de confidentialité',
-    sections: [
+    items: [
       {
         title: 'Données traitées',
         body: 'Lors de la création d’un compte, nous traitons votre adresse e-mail, votre mot de passe (stocké sous forme de hachage) et votre nom ou pseudonyme. La connexion sociale (Kakao, Naver, Google) nous fournit un identifiant de compte, l’e-mail et le nom ; nous ne recevons jamais le mot de passe du fournisseur. Le carnet de pèlerinage contient le sanctuaire, la date de visite, une note d’une ligne et des photos facultatives (3 au maximum). Les favoris et les réponses du Plan de sanctuaires du jour sont enregistrés lorsque vous utilisez ces fonctions. Votre position est utilisée uniquement sur votre appareil tant que l’accès à la position est activé et n’est pas stockée sur notre serveur. Les personnes de moins de 14 ans ne peuvent pas s’inscrire.',
@@ -233,7 +238,7 @@ export const PRIVACY: Record<Language, { title: string; sections: PrivacySection
 
   pt: {
     title: 'Aviso de privacidade',
-    sections: [
+    items: [
       {
         title: 'Dados que tratamos',
         body: 'Ao criar uma conta, tratamos seu e-mail, sua senha (armazenada como hash) e seu nome ou apelido. O login social (Kakao, Naver, Google) nos fornece um identificador de conta, o e-mail e o nome; nunca recebemos a senha do provedor. Os registros de peregrinação contêm o santuário, a data da visita, uma nota de uma linha e fotos opcionais (até 3). Os favoritos e as respostas do Plano de santuários de hoje são salvos quando você usa essas funções. Sua localização é usada apenas no seu dispositivo enquanto o acesso à localização está ativado e não é armazenada no nosso servidor. Menores de 14 anos não podem se cadastrar.',
@@ -287,7 +292,7 @@ export const PRIVACY: Record<Language, { title: string; sections: PrivacySection
 
   it: {
     title: 'Informativa sulla privacy',
-    sections: [
+    items: [
       {
         title: 'Dati che trattiamo',
         body: 'Quando crei un account trattiamo il tuo indirizzo e-mail, la password (conservata come hash) e il nome o nickname. L’accesso social (Kakao, Naver, Google) ci fornisce un identificativo dell’account, l’e-mail e il nome; non riceviamo mai la password del fornitore. Il diario di pellegrinaggio contiene il santuario, la data della visita, una nota di una riga e foto facoltative (fino a 3). I preferiti e le risposte del Piano dei santuari di oggi vengono salvati quando usi quelle funzioni. La tua posizione è usata solo sul tuo dispositivo finché l’accesso alla posizione è attivo e non viene memorizzata sul nostro server. I minori di 14 anni non possono registrarsi.',

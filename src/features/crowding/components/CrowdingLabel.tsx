@@ -2,7 +2,7 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
 import type { CrowdingLevel } from '../api/crowding-score';
 import { useNearbyCrowding } from '../hooks/use-nearby-crowding';
-import { nearbyDensityHeadline, nearbyHeadline } from '../lib/crowding-text';
+import { districtOnlySentence, nearbyDensityHeadline, nearbyHeadline } from '../lib/crowding-text';
 
 /**
  * 인근 혼잡도 라벨 — 색 점 + 문장 하나. 카드가 아니라 다른 UI 어디에나 붙이는 작은 부품(사장님 2026-09-16).
@@ -61,6 +61,12 @@ export function CrowdingLabel({
   );
 }
 
+/** 등급 없는 문장용 — 같은 알약 모양이되 글자를 옅게. 색 클래스가 PILL_CLASS 와 겹치지 않게 따로 둔다. */
+const MUTED_PILL_CLASS: Record<Variant, string> = {
+  default: 'border-app-border bg-white text-app-text-muted',
+  onDark: 'border-white/20 bg-white/15 text-white/85 backdrop-blur-md',
+};
+
 const SKELETON_CLASS: Record<Variant, string> = {
   default: 'bg-app-panel',
   onDark: 'bg-white/15',
@@ -110,14 +116,30 @@ export function NearbyCrowdingLabel({
       />
     );
   }
-  if (!data?.level) return null;
-  return (
-    <CrowdingLabel
-      level={data.level}
-      labelMode={labelMode}
-      variant={variant}
-      className={className}
-      id="nearby-crowding"
-    />
-  );
+  if (!data) return null;
+  if (data.level) {
+    return (
+      <CrowdingLabel
+        level={data.level}
+        labelMode={labelMode}
+        variant={variant}
+        className={className}
+        id="nearby-crowding"
+      />
+    );
+  }
+  // 성지 이름이 집중률에 없는 곳 — 인근 관광지 값은 이 성지 얘기가 아니라서 색 점·등급 없이 문장만(2026-09-21).
+  // 옅은 글자로 그려 「조용」 라벨과 같은 무게로 읽히지 않게 한다.
+  if (data.congestion?.kind === 'district') {
+    return (
+      <span
+        id="nearby-crowding"
+        title={t('crowdingBasisLabel')}
+        className={`inline-flex items-center whitespace-nowrap rounded-full border px-3 py-1 text-xs ${MUTED_PILL_CLASS[variant]} ${className}`}
+      >
+        {districtOnlySentence(data.congestion.district, data.congestion.level, t)}
+      </span>
+    );
+  }
+  return null;
 }
