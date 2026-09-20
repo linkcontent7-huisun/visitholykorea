@@ -5,26 +5,20 @@ import { useSettings } from '@/shared/i18n/use-settings';
 /**
  * 개인정보 안내.
  *
- * ⚠️ 법률 문구를 여기서 확정하지 않는다. 운영자가 정해야 하는 값(보유기간·책임자·문의처 등)은
- * `needsOperator: true` 로 표시해 화면에 "운영자 확인 필요"로 드러낸다 — 빈칸을 그럴듯한 말로
- * 채워 두면 심사·이용자 모두에게 거짓이 된다. 값이 확정되면 이 표만 고치면 된다.
- *
- * 항목은 재기획(2026-09-14)이 요구한 6가지: 수집 항목 · 이용 목적 · 보유기간 · 삭제 방법 ·
- * 문의 연락처 · 외부 서비스 이용. 한국어·영어를 같이 둔다(그 외 언어는 영어로).
+ * 앱의 실제 저장·삭제 동작과 운영자가 확정한 값만 공개한다.
+ * 한국어·영어를 같이 둔다(그 외 언어는 영어로).
  */
 interface PrivacyItem {
   title: { ko: string; en: string };
   body: { ko: string; en: string };
-  /** 운영자가 확정해야 하는 값이 아직 비어 있음 */
-  needsOperator?: boolean;
 }
 
 const ITEMS: PrivacyItem[] = [
   {
     title: { ko: '수집하는 항목', en: 'What we collect' },
     body: {
-      ko: '회원 가입 시 이메일, 비밀번호(암호화 저장), 이름 또는 닉네임. 순례 기록 작성 시 성지·방문일·메모·(선택) 사진. 접속 통계용 익명 식별자(이름·이메일과 연결하지 않음). 현재 위치는 「현재 위치 사용」을 켠 동안 기기 안에서만 쓰고 서버로 보내지 않습니다.',
-      en: 'On sign-up: email, password (stored hashed), and a name or nickname. When writing a visit record: shrine, visit date, note and optional photos. An anonymous identifier for usage statistics (not linked to name or email). Your current location is used on the device only while “Use current location” is on and is never sent to our server.',
+      ko: '회원 가입 시 이메일, 비밀번호(해시 형태), 이름 또는 닉네임을 처리합니다. SNS 로그인 시에는 제공업체가 전달하는 계정 식별 정보와 이메일·이름을 처리합니다. 순례 기록에는 성지·방문일·메모·선택한 사진이, 즐겨찾기와 마음 나침반을 이용하면 선택·응답 내용이 저장됩니다. 기기에만 남기는 방문 표시는 서버에 보내지 않습니다. 현재 위치는 「현재 위치 사용」 중 기기에서만 이용하며 서버에 저장하지 않습니다.',
+      en: 'When you create an account, we process your email, password (stored as a hash), and name or nickname. Social sign-in provides an account identifier, email and name. Visit records contain the shrine, visit date, note and optional photos. Favorites and compass answers are saved when used. Device-only visit markers are not sent to our server. Your location is used on your device while location access is on and is not stored on our server.',
     },
   },
   {
@@ -37,33 +31,30 @@ const ITEMS: PrivacyItem[] = [
   {
     title: { ko: '이용 목적', en: 'Why we use it' },
     body: {
-      ko: '로그인과 본인 확인, 순례 기록의 저장·표시, 서비스 이용 통계. 다른 목적으로 쓰거나 동의 없이 제3자에게 제공하지 않습니다.',
-      en: 'Sign-in and identity verification, storing and showing your visit records, and usage statistics. We do not use it for other purposes or share it with third parties without consent.',
+      ko: '로그인과 본인 확인, 순례 기록·즐겨찾기·AI 대화·마음 나침반 결과의 저장과 표시에 사용합니다. 순례 후기와 첨부 사진은 다른 이용자에게도 공개됩니다.',
+      en: 'We use this information to sign you in, verify your identity, and save and show visit records, favorites, AI chats and compass results. Visit notes and attached photos are also visible to other users.',
     },
   },
   {
     title: { ko: '보유 기간', en: 'Retention period' },
     body: {
-      ko: '회원 탈퇴 또는 삭제 요청 시 지체 없이 삭제합니다. 법령이 정한 보존 기간이 있는 항목은 그 기간 동안만 보관합니다. ▶ 구체적 기간(예: 접속 기록 N개월)은 운영자가 확정해야 합니다.',
-      en: 'Deleted without delay upon account withdrawal or deletion request. Items with a statutory retention period are kept only for that period. ▶ Specific periods (e.g. access logs for N months) must be confirmed by the operator.',
+      ko: '계정 정보와 이에 연결된 순례 기록·사진·즐겨찾기·AI 대화·마음 나침반 응답은 회원이 서비스를 이용하는 동안 보유합니다. 개별 기록을 지우거나 탈퇴하면 해당 정보를 지체 없이 삭제합니다. 다른 법령에 따라 특정 정보를 보존해야 하는 경우에는 해당 항목만 그 법정 기간 동안 분리해 보관합니다. 기기에 저장된 방문 표시는 계정 탈퇴 시 그 기기에서 삭제되며, 브라우저 저장소를 지워도 삭제됩니다.',
+      en: 'Account data and linked visit records, photos, favorites, AI chats and compass answers are kept while you use the service. We delete a record when you delete it, and delete account-linked information without delay when you close your account. If another law requires retention of specific information, only that information is kept separately for the required period. Device visit markers are removed from that device when you delete your account or clear browser storage.',
     },
-    needsOperator: true,
   },
   {
     title: { ko: '삭제 방법', en: 'How to delete' },
     body: {
-      ko: '순례 기록은 「내 기록」에서 직접 삭제할 수 있습니다. 계정 삭제는 문의 연락처로 요청하면 처리합니다. ▶ 앱 안 계정 삭제 버튼은 준비 중입니다.',
-      en: 'Visit records can be deleted directly in “My records”. Account deletion is handled on request through the contact below. ▶ An in-app account deletion button is being prepared.',
+      ko: '순례 기록은 「내 기록」에서 직접 삭제할 수 있습니다. 탈퇴는 로그인 후 「더보기 → 계정 설정 → 계정 삭제」에서 진행합니다. 사진 원본과 공개 후기를 포함한 연결 정보를 삭제한 뒤 계정을 삭제합니다. 로그인이 어려우면 아래 이메일로 요청하세요. 담당자가 본인 여부를 확인한 뒤 지체 없이 처리하고, 요청 접수 후 10일 이내에 처리 결과를 이메일로 알립니다. 전자 파일은 복구되지 않도록 삭제합니다.',
+      en: 'Delete individual visit records in “My records”. To close your account, sign in and choose “More → Account settings → Delete account”. Linked information, including original photos and public notes, is removed before the account. If you cannot sign in, request deletion by email below. We verify your identity, act without delay, and email the result within 10 days of receiving the request. Electronic files are deleted so they cannot be restored.',
     },
-    needsOperator: true,
   },
   {
-    title: { ko: '문의 연락처', en: 'Contact' },
+    title: { ko: '개인정보 문의 및 고충처리', en: 'Privacy inquiries and complaints' },
     body: {
-      ko: '▶ 개인정보 담당자 이름·이메일은 운영자가 확정해야 합니다. 확정 전에는 자주 묻는 질문 화면의 연락 방법을 이용해 주세요.',
-      en: '▶ The name and email of the privacy officer must be confirmed by the operator. Until then, please use the contact method on the FAQ page.',
+      ko: 'Visit Holy Korea 운영팀이 개인정보 문의와 고충을 처리합니다. 이메일: visitholykorea@gmail.com',
+      en: 'The Visit Holy Korea operations team handles privacy inquiries and complaints. Email: visitholykorea@gmail.com',
     },
-    needsOperator: true,
   },
   {
     title: { ko: '외부 서비스 이용', en: 'Third-party services' },
@@ -80,26 +71,13 @@ export default function PrivacyPage() {
 
   return (
     <PageContainer width="narrow" className="min-h-page pb-16">
-      <PageHeader
-        back
-        title={lang === 'ko' ? '개인정보 안내' : 'Privacy notice'}
-        sub={
-          lang === 'ko'
-            ? '이 안내는 초안입니다. ▶ 표시가 있는 항목은 운영자가 값을 확정한 뒤 갱신됩니다.'
-            : 'This notice is a draft. Items marked ▶ will be updated once the operator confirms the values.'
-        }
-      />
+      <PageHeader back title={lang === 'ko' ? '개인정보 안내' : 'Privacy notice'} />
 
       <div className="mt-2">
         {ITEMS.map((item) => (
           <article key={item.title.en} className="mb-8">
             <h2 className="mb-2 flex flex-wrap items-center gap-2 text-lg font-bold text-app-text">
               {item.title[lang]}
-              {item.needsOperator && (
-                <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-800">
-                  {lang === 'ko' ? '운영자 확인 필요' : 'Operator to confirm'}
-                </span>
-              )}
             </h2>
             <p className="whitespace-pre-line text-base leading-relaxed text-app-text-muted">
               {item.body[lang]}

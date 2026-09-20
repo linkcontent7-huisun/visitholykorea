@@ -2,7 +2,11 @@ import { useQueries } from '@tanstack/react-query';
 import { queryKeys } from '@/shared/api/query-keys';
 import { getNearbyByLocation, type TourApiSpot } from '@/shared/api/tour-api';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { combineNearbyCrowding, pickCongestion, type NearbyCrowding } from '@/features/crowding/api/crowding-score';
+import {
+  combineNearbyCrowding,
+  pickCongestion,
+  type NearbyCrowding,
+} from '@/features/crowding/api/crowding-score';
 import { fetchCongestionRatesForSite } from '@/features/crowding/api/congestion-lookup';
 import {
   groupNearbyFacilities,

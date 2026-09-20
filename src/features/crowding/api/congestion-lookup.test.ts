@@ -5,6 +5,7 @@ import { legacyDistrict, matchSido, matchSigngu } from './congestion-lookup';
 const SIDO: LdongCode[] = [
   { code: '11', name: '서울특별시' },
   { code: '28', name: '인천광역시' },
+  { code: '41', name: '경기도' },
   { code: '44', name: '충청남도' },
   { code: '12', name: '전남광주통합특별시' },
   { code: '51', name: '강원특별자치도' },
@@ -25,6 +26,9 @@ describe('matchSido — 주소 → 법정동 시·도', () => {
   it('2026 개편 — 광주와 전남 주소는 둘 다 통합특별시 행으로', () => {
     expect(matchSido('광주광역시 남구', SIDO)?.code).toBe('12');
     expect(matchSido('전라남도 나주시', SIDO)?.code).toBe('12');
+  });
+  it('「경기도 광주시」는 경기로 판정한다', () => {
+    expect(matchSido('경기도 광주시 퇴촌면 천진암로 1203', SIDO)?.code).toBe('41');
   });
   it('시·도를 못 찾으면 null', () => {
     expect(matchSido('', SIDO)).toBeNull();

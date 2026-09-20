@@ -14,27 +14,60 @@
         place-items: center;
         font-family: sans-serif;
         color: #333;
+        background: #fff;
       }
       main {
+        width: 100%;
+        max-width: 22rem;
         padding: 1.5rem;
         text-align: center;
+        box-sizing: border-box;
       }
-      button {
-        min-height: 3rem;
-        margin-top: 1rem;
-        padding: 0.75rem 1.5rem;
-        border: 0;
-        border-radius: 0.5rem;
-        background: #fee500;
+      h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.375rem;
+      }
+      /* 순례자 다수가 50대 이상이라 글자와 누를 곳을 크게 잡는다. */
+      #message {
+        margin: 0 0 2rem;
         font-size: 1rem;
+        line-height: 1.5;
+        color: #666;
+      }
+      #talk {
+        display: block;
+        width: 100%;
+        min-height: 3.5rem;
+        border: 0;
+        border-radius: 0.75rem;
+        background: #fee500;
+        font-size: 1.125rem;
         font-weight: 700;
+        color: #191600;
+        cursor: pointer;
+      }
+      #account {
+        display: block;
+        width: 100%;
+        min-height: 3rem;
+        margin-top: 0.75rem;
+        border: 0;
+        background: none;
+        font-size: 1rem;
+        color: #666;
+        text-decoration: underline;
+        cursor: pointer;
       }
     </style>
   </head>
   <body>
     <main>
-      <p id="message" role="status">카카오톡으로 이동합니다…</p>
-      <button type="button" id="retry">카카오톡으로 계속하기</button>
+      <h1>카카오로 로그인</h1>
+      <p id="message" role="status">아래 단추를 눌러 주세요.</p>
+      <div id="choices">
+        <button type="button" id="talk">카카오톡으로 로그인</button>
+        <button type="button" id="account">카카오 계정으로 로그인</button>
+      </div>
     </main>
     <script>
       // 인증값을 # 뒤에 두면 설치형 앱의 서비스워커가 주소를 다른 화면으로 바꾸지 않는다.
@@ -43,29 +76,49 @@
       const key = params.get('js_key');
       const callback = params.get('redirect_uri');
       const message = document.getElementById('message');
+      const choices = document.getElementById('choices');
 
-      function authorize() {
+      /** 우리 함수의 콜백 주소로만 보낸다 — 남의 주소가 끼어들면 인가 코드를 가로챌 수 있다. */
+      function 인증값이올바른가() {
         try {
           const url = new URL(callback);
-          if (
-            !state ||
-            !key ||
-            !/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(url.origin) ||
-            url.pathname !== '/functions/v1/kakao-auth/callback' ||
-            !window.Kakao
-          ) {
-            throw new Error('로그인 정보가 올바르지 않습니다.');
-          }
-          if (!Kakao.isInitialized()) Kakao.init(key);
-          Kakao.Auth.authorize({ redirectUri: callback, state, throughTalk: true });
+          return (
+            !!state &&
+            !!key &&
+            /^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(url.origin) &&
+            url.pathname === '/functions/v1/kakao-auth/callback' &&
+            !!window.Kakao
+          );
         } catch {
-          message.textContent =
-            '카카오 로그인을 열지 못했습니다. 앱으로 돌아가 다시 시도해 주세요.';
+          return false;
         }
       }
 
-      document.getElementById('retry').addEventListener('click', authorize);
-      authorize();
+      // 🔴 여기서 저절로 카카오톡을 열지 않는다. 크롬은 **사용자가 직접 누른 직후가 아닌**
+      // 외부 앱 실행(intent:)을 조용히 막는데, 이 화면은 로그인 단추 → 함수(302) → 여기로
+      // 이동해 온 화면이라 그 누름이 이어지지 않는다 (2026-09-20 안드로이드 실측: 오류도
+      // 콘솔 기록도 없이 화면만 그대로 남았다. intent 안의 browser_fallback_url 도 함께 무시).
+      // 그래서 이 화면에서 한 번 더 누르게 한다 — 그 누름은 크롬이 막지 않는다.
+      function 로그인시작(throughTalk) {
+        if (!인증값이올바른가()) {
+          message.textContent =
+            '카카오 로그인을 열지 못했습니다. 앱으로 돌아가 다시 시도해 주세요.';
+          choices.hidden = true;
+          return;
+        }
+        if (!Kakao.isInitialized()) Kakao.init(key);
+        Kakao.Auth.authorize({ redirectUri: callback, state, throughTalk });
+      }
+
+      document.getElementById('talk').addEventListener('click', () => 로그인시작(true));
+      // 카카오톡이 없거나 열리지 않는 분을 위한 길 — 카카오 계정(아이디·비밀번호) 로그인.
+      document.getElementById('account').addEventListener('click', () => 로그인시작(false));
+
+      // 주소가 잘못 왔으면 누르기 전에 미리 알린다.
+      if (!인증값이올바른가()) {
+        message.textContent = '카카오 로그인을 열지 못했습니다. 앱으로 돌아가 다시 시도해 주세요.';
+        choices.hidden = true;
+      }
     </script>
   </body>
 </html>

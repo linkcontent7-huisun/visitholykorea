@@ -87,13 +87,17 @@ export function CandidateCards({
               : t('planExhausted')}
           </p>
           <div className="mt-4 flex gap-2">
-            <Button onClick={onWidenTime} className="flex-1" id="plan-widen-time">
+            <Button
+              onClick={onWidenTime}
+              className="min-w-0 flex-1 !whitespace-normal !px-2 text-center leading-tight"
+              id="plan-widen-time"
+            >
               {t('planWidenTime')}
             </Button>
             <Button
               variant="neutral"
               onClick={onChangeMood}
-              className="flex-1"
+              className="min-w-0 flex-1 !whitespace-normal !px-2 text-center leading-tight"
               id="plan-change-mood"
             >
               {t('planChangeMood')}

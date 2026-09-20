@@ -95,14 +95,10 @@ describe('combineNearbyCrowding — 합산과 근거', () => {
   });
 
   it('성지 이름이 매칭되면 「이 성지」 근거, 아니면 시·군·구 근거 — 숫자는 어디에도 없다', () => {
-    const site = combineNearbyCrowding(
-      pickCongestion('솔뫼성지', [rate('솔뫼성지', 20)])!,
-    );
+    const site = combineNearbyCrowding(pickCongestion('솔뫼성지', [rate('솔뫼성지', 20)])!);
     expect(site.reasons[0]).toEqual({ key: 'crowdingReasonSite', level: '조용' });
 
-    const district = combineNearbyCrowding(
-      pickCongestion('신리성지', [rate('삽교호', 70)])!,
-    );
+    const district = combineNearbyCrowding(pickCongestion('신리성지', [rate('삽교호', 70)])!);
     expect(district.reasons[0]).toEqual({
       key: 'crowdingReasonDistrict',
       params: { district: '당진시' },

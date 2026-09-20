@@ -24,7 +24,9 @@ export function useSquircle<T extends HTMLElement = HTMLElement>(radius: number)
     const update = () => {
       const { width, height } = el.getBoundingClientRect();
       if (width === 0 || height === 0) return;
-      setBox((prev) => (prev && prev.width === width && prev.height === height ? prev : { width, height }));
+      setBox((prev) =>
+        prev && prev.width === width && prev.height === height ? prev : { width, height },
+      );
     };
 
     update();

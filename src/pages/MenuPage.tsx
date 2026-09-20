@@ -22,7 +22,6 @@ import { paths } from '@/app/routes/paths';
 import { useAdminAccess } from '@/features/admin/hooks/use-admin';
 import { signOut } from '@/features/auth/api/auth';
 import { useSession } from '@/features/auth/hooks/use-session';
-import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { LANGUAGE_LABEL, type TranslationKey } from '@/shared/i18n/dictionary';
 import { Button } from '@/shared/components/ui/Button';
 import { InstallShareSheet } from '@/shared/components/ui/InstallShareSheet';
@@ -83,7 +82,6 @@ export default function MenuPage() {
   const { canEnter: canEnterAdmin } = useAdminAccess();
   const { language, gpsLocation, gpsStatus, requestGpsLocation, clearGpsLocation, t } =
     useSettings();
-  const { data: stamps = [] } = useMyStamps();
 
   const isLoggedIn = Boolean(session);
   const displayName =
@@ -99,15 +97,11 @@ export default function MenuPage() {
       role="switch"
       aria-checked={currentLocationEnabled}
       aria-label={
-        currentLocationEnabled
-          ? t('clearCurrentLocationButton')
-          : t('useCurrentLocationButton')
+        currentLocationEnabled ? t('clearCurrentLocationButton') : t('useCurrentLocationButton')
       }
       aria-busy={gpsStatus === 'loading'}
       disabled={gpsStatus === 'loading' || gpsStatus === 'unsupported'}
-      onClick={() =>
-        currentLocationEnabled ? clearGpsLocation() : requestGpsLocation()
-      }
+      onClick={() => (currentLocationEnabled ? clearGpsLocation() : requestGpsLocation())}
       className={`flex h-11 w-16 shrink-0 items-center rounded-full border p-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-60 ${
         currentLocationEnabled
           ? 'border-brand-blue bg-brand-blue'
@@ -286,11 +280,6 @@ export default function MenuPage() {
               <Settings size={22} aria-hidden />
             </button>
           )}
-        </div>
-
-        <div className="mt-5 flex items-center justify-between border-t border-app-border pt-5">
-          <p className="text-sm font-bold text-app-text-muted">{t('countShrines')}</p>
-          <p className="text-2xl font-bold tabular-nums text-app-text">{stamps.length}</p>
         </div>
       </div>
 

@@ -7,55 +7,62 @@
   "status": "draft",
   "intro": {
     "narration": "치명자산 성지는 유항검 아우구스티노와 가족 순교자들이 함께 묻힌 곳입니다. 산 아래 광장에서 정상 묘역까지 이어지는 기도 공간을 살펴보시겠습니다.",
+    "narrationEn": "Chimyeongjasan Shrine is the burial place of Augustine Yu Hang-geom and his martyred family members. You will explore the prayer spaces extending from the plaza below the mountain to the cemetery at the summit.", "narrationEs": "El Santuario de Chimyeongjasan es el lugar de sepultura de Agustín Yu Hang-geom y sus familiares mártires. Recorrerá los espacios de oración que se extienden desde la plaza al pie de la montaña hasta el cementerio de la cima.", "narrationIt": "Il Santuario di Chimyeongjasan è il luogo di sepoltura di Agostino Yu Hang-geom e dei suoi familiari martiri. Esplorerete gli spazi di preghiera che si estendono dalla piazza ai piedi del monte fino al cimitero sulla cima.", "narrationPt": "O Santuário de Chimyeongjasan é o local de sepultura de Agostinho Yu Hang-geom e dos seus familiares mártires. Conhecerá os espaços de oração que se estendem da praça ao pé da montanha até ao cemitério no cume.", "narrationFr": "Le sanctuaire de Chimyeongjasan est le lieu de sépulture d'Augustin Yu Hang-geom et des membres martyrs de sa famille. Vous découvrirez les espaces de prière qui s'étendent de la place au pied de la montagne jusqu'au cimetière du sommet.",
     "photos": []
   },
   "points": [
     {
       "seq": 1,
       "title": "광장 — 요안루갈다 광장",
-      "location": "산 아래 성지 광장",
+      "titleEn": "Plaza — John and Lugalda Plaza", "titleEs": "Plaza — Plaza de Juan y Lugalda", "titleIt": "Piazza — Piazza Giovanni e Lugalda", "titlePt": "Praça — Praça João e Lugalda", "titleFr": "Place — Place Jean et Lugalda",
+      "location": "산 아래 성지 광장", "locationEn": "Shrine plaza below the mountain", "locationEs": "Plaza del santuario al pie de la montaña", "locationIt": "Piazza del santuario ai piedi del monte", "locationPt": "Praça do santuário ao pé da montanha", "locationFr": "Place du sanctuaire au pied de la montagne",
       "narration": "산 아래에는 요안루갈다 광장이 있습니다. 이곳에는 평화의 전당과 순례자성당, 옹기가마 경당과 기도숲이 함께 조성되어 있습니다. 산을 오르기 전 성지의 여러 공간을 한눈에 살펴볼 수 있는 출발점입니다.",
-      "lookFor": "광장을 둘러싼 여러 성지 건물",
+      "narrationEn": "John and Lugalda Plaza lies below the mountain. It includes the Hall of Peace, Pilgrim Church, Pottery Kiln Chapel, and Prayer Forest. It is the starting point where you can take in the shrine's various spaces before climbing the mountain.", "narrationEs": "La plaza de Juan y Lugalda se encuentra al pie de la montaña. Reúne el Salón de la Paz, la iglesia de los peregrinos, la capilla del horno de cerámica y el bosque de oración. Es el punto de partida para contemplar los distintos espacios antes de subir.", "narrationIt": "La piazza Giovanni e Lugalda si trova ai piedi del monte. Comprende la Sala della Pace, la chiesa dei pellegrini, la cappella della fornace e il bosco della preghiera. È il punto di partenza da cui osservare i vari spazi prima della salita.", "narrationPt": "A Praça João e Lugalda fica ao pé da montanha. Inclui o Salão da Paz, a Igreja dos Peregrinos, a Capela do Forno de Cerâmica e a Floresta de Oração. É o ponto de partida para observar os vários espaços antes da subida.", "narrationFr": "La place Jean et Lugalda se trouve au pied de la montagne. Elle réunit la Maison de la Paix, l'église des pèlerins, la chapelle du four à poterie et la forêt de prière. C'est le point de départ pour découvrir les différents espaces avant l'ascension.",
+      "lookFor": "광장을 둘러싼 여러 성지 건물", "lookForEn": "The shrine buildings surrounding the plaza", "lookForEs": "Los edificios del santuario alrededor de la plaza", "lookForIt": "Gli edifici del santuario intorno alla piazza", "lookForPt": "Os edifícios do santuário em redor da praça", "lookForFr": "Les bâtiments du sanctuaire autour de la place",
       "forEveryone": "순례와 휴식, 문화 활동이 만나는 성지의 중심 공간입니다.",
       "photos": [],
       "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta01.php ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003781&gubun=16"
     },
     {
       "seq": 2,
-      "title": "산길 — 요안루갈다 십자가의 길",
-      "location": "산 위로 오르는 순례길",
+      "title": "산길 — 요안루갈다 십자가의 길", "titleEn": "Mountain Path — John and Lugalda Way of the Cross", "titleEs": "Sendero — Vía Crucis de Juan y Lugalda", "titleIt": "Sentiero — Via Crucis di Giovanni e Lugalda", "titlePt": "Trilho — Via-Sacra de João e Lugalda", "titleFr": "Sentier — Chemin de croix de Jean et Lugalda",
+      "location": "산 위로 오르는 순례길", "locationEn": "Pilgrimage path up the mountain", "locationEs": "Camino de peregrinación que sube la montaña", "locationIt": "Cammino di pellegrinaggio sul monte", "locationPt": "Caminho de peregrinação pela montanha", "locationFr": "Chemin de pèlerinage montant la montagne",
       "narration": "산길에는 요안루갈다 십자가의 길이 조성되어 있습니다. 정상 묘역으로 오르는 수고와 예수의 수난을 묵상하는 기도가 한 길에서 이어집니다. 경사가 있는 구간에서는 서두르지 말고 천천히 이동해 주세요.",
-      "lookFor": "오르는 길을 따라 놓인 십자가의 길",
+      "narrationEn": "The John and Lugalda Way of the Cross follows the mountain path. The effort of climbing to the summit cemetery accompanies prayerful reflection on the Passion of Jesus. Take your time and move slowly on steep sections.", "narrationEs": "El Vía Crucis de Juan y Lugalda recorre el sendero. El esfuerzo de subir al cementerio de la cima acompaña la meditación sobre la Pasión de Jesús. Avance despacio en los tramos empinados.", "narrationIt": "La Via Crucis di Giovanni e Lugalda segue il sentiero. La fatica della salita al cimitero accompagna la meditazione sulla Passione di Gesù. Procedete lentamente nei tratti ripidi.", "narrationPt": "A Via-Sacra de João e Lugalda acompanha o trilho. O esforço da subida ao cemitério une-se à meditação sobre a Paixão de Jesus. Avance devagar nos trechos íngremes.", "narrationFr": "Le chemin de croix de Jean et Lugalda suit le sentier. L'effort de la montée vers le cimetière accompagne la méditation sur la Passion de Jésus. Avancez lentement dans les passages escarpés.",
+      "lookFor": "오르는 길을 따라 놓인 십자가의 길", "lookForEn": "The Stations of the Cross along the ascending path", "lookForEs": "Las estaciones del Vía Crucis a lo largo de la subida", "lookForIt": "Le stazioni della Via Crucis lungo la salita", "lookForPt": "As estações da Via-Sacra ao longo da subida", "lookForFr": "Les stations du chemin de croix le long de la montée",
       "forEveryone": "걷기와 사색을 결합한 종교적 순례 동선입니다.",
       "photos": [],
       "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta01.php"
     },
     {
       "seq": 3,
-      "title": "산 위 — 기념성당과 기념관",
-      "location": "정상 묘역으로 오르는 길의 기념 공간",
+      "title": "산 위 — 기념성당과 기념관", "titleEn": "On the Mountain — Memorial Church and Hall", "titleEs": "En la montaña — Iglesia y museo conmemorativos", "titleIt": "Sul monte — Chiesa e museo commemorativi", "titlePt": "Na montanha — Igreja e museu memoriais", "titleFr": "Sur la montagne — Église et musée commémoratifs",
+      "location": "정상 묘역으로 오르는 길의 기념 공간", "locationEn": "Memorial space on the way to the summit cemetery", "locationEs": "Espacio conmemorativo camino del cementerio de la cima", "locationIt": "Spazio commemorativo lungo il cammino verso il cimitero", "locationPt": "Espaço memorial a caminho do cemitério no cume", "locationFr": "Espace commémoratif sur le chemin du cimetière du sommet",
       "narration": "치명자산에는 1994년에 세운 기념성당과 기념관이 있습니다. 순교자들을 기리는 예배와 역사 안내가 건물 안에서 이어집니다. 묘역에 오르기 전후로 들러 성지의 배경을 정리해 보기 좋은 공간입니다.",
-      "lookFor": "서로 이어진 기념성당과 기념관",
+      "narrationEn": "Chimyeongjasan has a memorial church and hall built in 1994. Worship honoring the martyrs and historical interpretation continue inside. It is a good place to understand the shrine's background before or after visiting the cemetery.", "narrationEs": "Chimyeongjasan cuenta con una iglesia y un museo conmemorativos construidos en 1994. En su interior se celebran actos de culto y se explica la historia. Es un buen lugar para comprender el contexto antes o después de visitar el cementerio.", "narrationIt": "Chimyeongjasan ospita una chiesa e un museo commemorativi costruiti nel 1994. All'interno si svolgono il culto in onore dei martiri e la narrazione storica. È un buon luogo per comprendere il contesto prima o dopo la visita al cimitero.", "narrationPt": "Chimyeongjasan possui uma igreja e um museu memoriais construídos em 1994. No interior realizam-se celebrações em honra dos mártires e apresentações históricas. É um bom lugar para compreender o contexto antes ou depois da visita ao cemitério.", "narrationFr": "Chimyeongjasan possède une église et un musée commémoratifs construits en 1994. Le culte en l'honneur des martyrs et la présentation historique s'y poursuivent. C'est un bon endroit pour comprendre le contexte avant ou après la visite du cimetière.",
+      "lookFor": "서로 이어진 기념성당과 기념관", "lookForEn": "The connected memorial church and hall", "lookForEs": "La iglesia y el museo conmemorativos conectados", "lookForIt": "La chiesa e il museo commemorativi collegati", "lookForPt": "A igreja e o museu memoriais interligados", "lookForFr": "L'église et le musée commémoratifs reliés",
       "forEveryone": "추모 의식과 역사 이해를 돕는 기념 건물입니다.",
       "photos": [],
       "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta01.php"
     },
     {
       "seq": 4,
-      "title": "정상 — 가족 순교자 묘",
-      "location": "승암산 정상 묘역",
+      "title": "정상 — 가족 순교자 묘", "titleEn": "Summit — Tomb of the Martyred Family", "titleEs": "Cima — Tumba de la familia mártir", "titleIt": "Cima — Tomba della famiglia martire", "titlePt": "Cume — Túmulo da família mártir", "titleFr": "Sommet — Tombe de la famille martyre",
+      "location": "승암산 정상 묘역", "locationEn": "Cemetery at the summit of Seungamsan", "locationEs": "Cementerio en la cima de Seungamsan", "locationIt": "Cimitero sulla cima del Seungamsan", "locationPt": "Cemitério no cume do Seungamsan", "locationFr": "Cimetière au sommet du Seungamsan",
       "narration": "정상에는 유항검 아우구스티노와 가족 여섯 분이 함께 묻힌 묘가 있습니다. 이 유해들은 초남이 바우배기에 묻혀 있다가 1914년에 이곳으로 옮겨졌습니다. 동정부부로 알려진 유중철 요한과 이순이 루갈다도 이 묘에 함께 모셔져 있습니다.",
-      "lookFor": "일곱 가족 순교자를 함께 모신 묘",
+      "narrationEn": "At the summit is a tomb where Augustine Yu Hang-geom and six family members are buried together. Their remains were buried at Baubegi in Chonami before being moved here in 1914. John Yu Jung-cheol and Lugalda Yi Sun-i, known as the virgin spouses, also rest in this tomb.", "narrationEs": "En la cima hay una tumba donde descansan Agustín Yu Hang-geom y seis familiares. Sus restos estuvieron en Baubegi, Chonami, hasta su traslado aquí en 1914. Juan Yu Jung-cheol y Lugalda Yi Sun-i, conocidos como los esposos vírgenes, también reposan aquí.", "narrationIt": "Sulla cima si trova la tomba di Agostino Yu Hang-geom e di sei familiari. I loro resti furono sepolti a Baubegi, Chonami, prima del trasferimento qui nel 1914. Anche Giovanni Yu Jung-cheol e Lugalda Yi Sun-i, noti come sposi vergini, riposano in questa tomba.", "narrationPt": "No cume encontra-se o túmulo de Agostinho Yu Hang-geom e de seis familiares. Os restos estiveram sepultados em Baubegi, Chonami, antes da transferência para aqui em 1914. João Yu Jung-cheol e Lugalda Yi Sun-i, conhecidos como esposos virgens, também repousam neste túmulo.", "narrationFr": "Au sommet se trouve la tombe d'Augustin Yu Hang-geom et de six membres de sa famille. Leurs restes furent enterrés à Baubegi, Chonami, avant leur transfert ici en 1914. Jean Yu Jung-cheol et Lugalda Yi Sun-i, connus comme les époux vierges, y reposent également.",
+      "lookFor": "일곱 가족 순교자를 함께 모신 묘", "lookForEn": "The tomb holding seven martyrs from one family", "lookForEs": "La tumba de siete mártires de una misma familia", "lookForIt": "La tomba di sette martiri della stessa famiglia", "lookForPt": "O túmulo de sete mártires da mesma família", "lookForFr": "La tombe de sept martyrs d'une même famille",
       "forEveryone": "가족 전체가 겪은 박해의 역사를 기리는 산정 묘역입니다.",
       "photos": [],
       "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta01.php ; https://directory.cbck.or.kr/m/catholicInfo.asp?code=201003781&gubun=16"
     },
     {
       "seq": 5,
-      "title": "성모동산 — 파티마성모동산",
-      "location": "성지 안 성모동산",
+      "title": "성모동산 — 파티마성모동산", "titleEn": "Marian Garden — Our Lady of Fatima Garden", "titleEs": "Jardín mariano — Jardín de Nuestra Señora de Fátima", "titleIt": "Giardino mariano — Giardino di Nostra Signora di Fatima", "titlePt": "Jardim mariano — Jardim de Nossa Senhora de Fátima", "titleFr": "Jardin marial — Jardin de Notre-Dame de Fatima",
+      "location": "성지 안 성모동산", "locationEn": "Marian garden within the shrine", "locationEs": "Jardín mariano dentro del santuario", "locationIt": "Giardino mariano nel santuario", "locationPt": "Jardim mariano dentro do santuário", "locationFr": "Jardin marial dans le sanctuaire",
       "narration": "성지에는 파티마성모동산이 조성되어 있습니다. 순교자 묘역과 십자가의 길 사이에서 성모 신심을 드러내는 기도 공간입니다. 조형물과 주변 산세가 어우러지는 모습을 조용히 살펴보세요.",
-      "lookFor": "동산 안 성모 조형물과 주변 풍경",
+      "narrationEn": "The shrine includes an Our Lady of Fatima Garden. Between the martyrs' cemetery and the Way of the Cross, it offers a prayer space devoted to Mary. Quietly observe how the statue blends with the surrounding mountains.", "narrationEs": "El santuario incluye un jardín de Nuestra Señora de Fátima. Entre el cementerio de los mártires y el Vía Crucis, ofrece un espacio de oración dedicado a María. Observe en silencio cómo la imagen armoniza con las montañas.", "narrationIt": "Il santuario comprende un giardino di Nostra Signora di Fatima. Tra il cimitero dei martiri e la Via Crucis, offre uno spazio di preghiera dedicato a Maria. Osservate in silenzio come la statua si armonizza con le montagne.", "narrationPt": "O santuário inclui um jardim de Nossa Senhora de Fátima. Entre o cemitério dos mártires e a Via-Sacra, oferece um espaço de oração dedicado a Maria. Observe em silêncio como a imagem se harmoniza com as montanhas.", "narrationFr": "Le sanctuaire comprend un jardin de Notre-Dame de Fatima. Entre le cimetière des martyrs et le chemin de croix, il offre un espace de prière consacré à Marie. Observez en silence l'harmonie entre la statue et les montagnes.",
+      "lookFor": "동산 안 성모 조형물과 주변 풍경", "lookForEn": "The Marian statue and surrounding scenery", "lookForEs": "La imagen de María y el paisaje circundante", "lookForIt": "La statua di Maria e il paesaggio circostante", "lookForPt": "A imagem de Maria e a paisagem circundante", "lookForFr": "La statue de Marie et le paysage environnant",
       "forEveryone": "자연 속에 마련된 조용한 기도와 사색의 공간입니다.",
       "photos": [],
       "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta01.php"
@@ -63,6 +70,7 @@
   ],
   "outro": {
     "narration": "치명자산은 산을 오르는 과정 자체가 순교자들의 삶을 기억하는 길이 됩니다. 내려갈 때에는 발밑을 살피며 광장까지 천천히 이동해 주세요.",
+    "narrationEn": "At Chimyeongjasan, the climb itself becomes a path for remembering the lives of the martyrs. On your way down, watch your footing and return slowly to the plaza.", "narrationEs": "En Chimyeongjasan, la propia subida se convierte en un camino para recordar la vida de los mártires. Al bajar, mire dónde pisa y regrese despacio a la plaza.", "narrationIt": "A Chimyeongjasan, la salita stessa diventa un cammino per ricordare la vita dei martiri. Durante la discesa, guardate dove mettete i piedi e tornate lentamente alla piazza.", "narrationPt": "Em Chimyeongjasan, a própria subida torna-se um caminho para recordar a vida dos mártires. Na descida, tenha atenção aos passos e regresse devagar à praça.", "narrationFr": "À Chimyeongjasan, l'ascension elle-même devient un chemin de mémoire de la vie des martyrs. À la descente, regardez où vous posez les pieds et revenez lentement vers la place.",
     "photos": []
   }
 }

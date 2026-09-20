@@ -49,46 +49,48 @@ export function DocentPlayer({ chapters, language }: DocentPlayerProps) {
 
   return (
     <div className="mb-6 overflow-hidden rounded-lg border border-app-border bg-app-bg">
-      <div className="flex items-center gap-3 border-b border-app-border p-5">
-        {isSupported && (
-          <button
-            onClick={toggle}
-            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-colors ${
-              isPlaying
-                ? 'bg-brand-blue text-white'
-                : 'border-[1.5px] border-brand-blue bg-white text-brand-blue hover:bg-brand-soft'
-            }`}
-            aria-label={isPlaying ? t('docentPause') : t('docentPlay')}
-            aria-pressed={isPlaying}
-          >
-            {isPlaying ? (
-              <Pause size={22} aria-hidden />
-            ) : (
-              <Play size={22} className="ml-0.5" aria-hidden />
-            )}
-          </button>
-        )}
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <Headphones size={16} className="shrink-0 text-brand-blue" aria-hidden />
-            <h3 className="whitespace-nowrap text-base font-bold text-app-text">
-              {t('docentTitle')}
-            </h3>
-            <span className="text-sm font-bold tabular-nums text-app-text-muted">
-              {currentIndex + 1}/{chapters.length}
-            </span>
+      <div className="flex flex-wrap items-center gap-3 border-b border-app-border p-5">
+        <div className="flex min-w-0 flex-1 items-center gap-3">
+          {isSupported && (
+            <button
+              onClick={toggle}
+              className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-colors ${
+                isPlaying
+                  ? 'bg-brand-blue text-white'
+                  : 'border-[1.5px] border-brand-blue bg-white text-brand-blue hover:bg-brand-soft'
+              }`}
+              aria-label={isPlaying ? t('docentPause') : t('docentPlay')}
+              aria-pressed={isPlaying}
+            >
+              {isPlaying ? (
+                <Pause size={22} aria-hidden />
+              ) : (
+                <Play size={22} className="ml-0.5" aria-hidden />
+              )}
+            </button>
+          )}
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2">
+              <Headphones size={16} className="shrink-0 text-brand-blue" aria-hidden />
+              <h3 className="whitespace-nowrap text-base font-bold text-app-text">
+                {t('docentTitle')}
+              </h3>
+              <span className="text-sm font-bold tabular-nums text-app-text-muted">
+                {currentIndex + 1}/{chapters.length}
+              </span>
+            </div>
+            <p className="mt-0.5 truncate text-sm text-app-text-muted">{t('docentHint')}</p>
+            {/* 「초안 — 현장 확인 전」 배지를 화면에서 뺐다(사장님 지적, 2026-09-17).
+                ⚠️ 이 배지는 "문헌으로만 쓴 원고임을 정직하게 표시한다"는 더미 금지 원칙에서
+                나왔다 — isDraft 값과 docentScript.status 는 그대로 두었으니, 다시 보여줘야
+                한다면 이 자리에 되살리면 된다. */}
           </div>
-          <p className="mt-0.5 truncate text-sm text-app-text-muted">{t('docentHint')}</p>
-          {/* 「초안 — 현장 확인 전」 배지를 화면에서 뺐다(사장님 지적, 2026-09-17).
-              ⚠️ 이 배지는 "문헌으로만 쓴 원고임을 정직하게 표시한다"는 더미 금지 원칙에서
-              나왔다 — isDraft 값과 docentScript.status 는 그대로 두었으니, 다시 보여줘야
-              한다면 이 자리에 되살리면 된다. */}
         </div>
-        {/* 고령 사용자를 위한 속도 조절 — 느리게·보통·빠르게 순환 */}
+        {/* 큰 글자에서 제목과 겹치지 않도록 휴대폰에서는 속도 조절을 다음 줄로 내린다. */}
         {isSupported && (
           <button
             onClick={cycleRate}
-            className="flex min-h-11 shrink-0 items-center gap-1 rounded-lg border border-app-border bg-white px-3 text-sm font-bold text-app-text-muted transition-colors hover:border-brand-blue hover:text-brand-blue"
+            className="flex min-h-11 w-full shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-app-border bg-white px-3 text-sm font-bold text-app-text-muted transition-colors hover:border-brand-blue hover:text-brand-blue sm:w-auto"
             aria-label={`${t('docentRateLabel')}: ${rateText[rateKey]}`}
           >
             <Gauge size={16} aria-hidden />

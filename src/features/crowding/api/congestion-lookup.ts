@@ -62,9 +62,14 @@ const LEGACY_DISTRICTS: Array<{ prefix: string; code: DistrictCode }> = [
   { prefix: '인천시 동구', code: { areaCd: '28', signguCd: '28140', signguNm: '인천 동구' } },
 ];
 
-/** 주소 → 코드표의 시·도 행. 순수 함수 — 테스트로 고정. */
+/**
+ * 주소 → 코드표의 시·도 행. 순수 함수 — 테스트로 고정.
+ * 시·도는 첫 낱말만 본다. 주소 전체를 훑으면 「경기도 광주시」의 광주가 먼저 잡혀
+ * 전남광주통합특별시를 조회하게 된다.
+ */
 export function matchSido(address: string, sidoList: readonly LdongCode[]): LdongCode | null {
-  const region = regionOfAddress(address);
+  const firstWord = address.trim().split(/\s+/, 1)[0] ?? '';
+  const region = regionOfAddress(firstWord);
   if (!region) return null;
   const piece = LDONG_SIDO_MATCH[region];
   return sidoList.find((s) => s.name.includes(piece)) ?? null;
