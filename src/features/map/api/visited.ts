@@ -78,6 +78,11 @@ export function toggleLocalVisit(siteId: string): VisitRecord[] {
   return next;
 }
 
+/** 탈퇴가 끝난 기기에 이전 계정의 방문 표시가 남지 않게 한다. */
 export function clearLocalVisits(): void {
-  safeWrite([]);
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    // 저장소 접근이 막혀도 서버의 계정 삭제 결과는 유지한다.
+  }
 }

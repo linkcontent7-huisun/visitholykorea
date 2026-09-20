@@ -71,3 +71,21 @@ export function signInWithNaver() {
 export async function signOut() {
   return supabase.auth.signOut();
 }
+
+export async function deleteMyAccount(): Promise<{ success: boolean }> {
+  const { data, error: sessionError } = await supabase.auth.getSession();
+  if (sessionError || !data.session) return { success: false };
+
+  const { data: result, error } = await supabase.functions.invoke<{ success: boolean }>(
+    'delete-account',
+    {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${data.session.access_token}` },
+    },
+  );
+  if (error || result?.success !== true) return { success: false };
+
+  // 서버에서 계정 삭제가 확정된 뒤 기기에 남은 로그인 정보만 지운다.
+  await supabase.auth.signOut({ scope: 'local' });
+  return { success: true };
+}
