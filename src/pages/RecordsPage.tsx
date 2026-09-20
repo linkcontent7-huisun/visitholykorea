@@ -12,11 +12,12 @@
  * 열이 없다는 사실을 화면에 그대로 적는다.
  */
 
-import { Calendar, Camera, MapPin, PenLine, Plus, Search, Trash2, X } from 'lucide-react';
-import { useState } from 'react';
+import { Calendar, Camera, Heart, MapPin, PenLine, Plus, Search, Trash2, X } from 'lucide-react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
+import { useMyFavoriteIds } from '@/features/favorites/hooks/use-favorites';
 import { isVisitedOnAvailable, type StampedSite } from '@/features/passport/api/stamps.repository';
 import {
   useDeleteStamp,
@@ -25,6 +26,8 @@ import {
   useUpdateStamp,
   useUploadStampPhotos,
 } from '@/features/passport/hooks/use-stamps';
+import { SiteListItem } from '@/features/sites/components/SiteListItem';
+import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { Button, ButtonLink } from '@/shared/components/ui/Button';
 import { Card } from '@/shared/components/ui/Card';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
@@ -36,6 +39,7 @@ import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { dioceseLabel } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { useUnsavedChangesGuard } from '@/shared/hooks/use-unsaved-changes-guard';
+import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 
 function formatDate(value: string, locale: string): string {
@@ -314,6 +318,16 @@ export default function RecordsPage() {
   const { t } = useSettings();
   const { session } = useSession();
   const { data: stamps = [], isLoading } = useMyStamps();
+  const { data: favoriteIds = [] } = useMyFavoriteIds();
+  const { data: allSites = [] } = useSites({ limit: 300 });
+  const favoriteSitesRaw = useMemo(() => {
+    if (favoriteIds.length === 0) return [];
+    const order = new Map(favoriteIds.map((id, index) => [id, index]));
+    return allSites
+      .filter((site) => order.has(site.id))
+      .sort((a, b) => order.get(a.id)! - order.get(b.id)!);
+  }, [allSites, favoriteIds]);
+  const favoriteSites = useLocalizedSites(favoriteSitesRaw);
 
   return (
     <PageContainer width="narrow" className="min-h-page pb-16">
@@ -352,6 +366,30 @@ export default function RecordsPage() {
             <Plus size={22} aria-hidden />
             {t('recordsPickSite')}
           </ButtonLink>
+
+          {!SUBMISSION_MODE && favoriteSites.length > 0 && (
+            // 즐겨찾기는 아직 방문하지 않은 성지를 기록 화면에서 바로 다시 찾는 입구다.
+            <section className="mb-6" aria-labelledby="records-favorites-heading">
+              <div className="mb-3 flex items-center gap-2">
+                <Heart size={18} className="fill-pink-500 text-pink-500" aria-hidden />
+                <h2
+                  id="records-favorites-heading"
+                  className="text-base font-extrabold text-app-text"
+                >
+                  {t('favorites')}
+                </h2>
+              </div>
+              <Card padded={false}>
+                <ul className="divide-y divide-app-border" aria-label={t('favorites')}>
+                  {favoriteSites.map((site) => (
+                    <li key={site.id} className="px-5 py-4 first:pt-5 last:pb-5">
+                      <SiteListItem site={site} />
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </section>
+          )}
 
           {isLoading ? (
             <div className="space-y-3" role="status" aria-live="polite">
