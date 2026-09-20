@@ -84,7 +84,8 @@ if (missing.length > 0) {
 
 const body = {
   smtp_host: process.env.SMTP_HOST,
-  smtp_port: Number(process.env.SMTP_PORT),
+  // Management API 는 포트를 **문자열**로 받는다 (숫자로 보내면 400 — 2026-09-20 실측)
+  smtp_port: String(process.env.SMTP_PORT),
   smtp_user: process.env.SMTP_USER,
   smtp_pass: process.env.SMTP_PASS,
   smtp_admin_email: process.env.SMTP_SENDER_EMAIL,
