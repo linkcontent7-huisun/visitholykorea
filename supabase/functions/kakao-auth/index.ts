@@ -62,9 +62,12 @@ Deno.serve(async (req) => {
     const state = crypto.randomUUID();
     // Edge Function 의 GET HTML 은 일반 텍스트로 바뀌므로 SDK 페이지는 앱 도메인에서 연다.
     const to = new URL('/kakao-login.html', APP_URL);
-    to.searchParams.set('state', state);
-    to.searchParams.set('js_key', KAKAO_JS_KEY);
-    to.searchParams.set('redirect_uri', 콜백주소(req));
+    // 쿼리가 붙으면 설치형 앱의 서비스워커가 로그인 페이지를 앱의 404 화면으로 바꾼다.
+    to.hash = new URLSearchParams({
+      state,
+      js_key: KAKAO_JS_KEY,
+      redirect_uri: 콜백주소(req),
+    }).toString();
     return new Response(null, {
       status: 302,
       headers: {
