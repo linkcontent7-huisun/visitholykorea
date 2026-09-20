@@ -21,7 +21,7 @@ export async function signUpWithEmail(email: string, password: string, name: str
  */
 export async function signInWithOAuth(provider: 'google' | 'kakao' | 'facebook') {
   // 스마트폰의 카카오는 카카오톡 앱 간편로그인으로 — Supabase 제공자(REST)는 아이디·비밀번호를
-  // 치게 해서 사장님 지적(2026-09-19). kakao-auth 함수가 SDK 페이지를 내려 카카오톡을 띄운다.
+  // 치게 해서 사장님 지적(2026-09-19). kakao-auth 함수가 상태 쿠키를 발급하고 앱의 SDK 페이지로 보낸다.
   if (provider === 'kakao' && isMobileBrowser()) {
     window.location.href = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/kakao-auth/login`;
     return { data: { provider, url: null }, error: null };

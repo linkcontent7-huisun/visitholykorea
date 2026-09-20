@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <title>카카오 로그인</title>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"></script>
+    <style>
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        font-family: sans-serif;
+        color: #333;
+      }
+      main {
+        padding: 1.5rem;
+        text-align: center;
+      }
+      button {
+        min-height: 3rem;
+        margin-top: 1rem;
+        padding: 0.75rem 1.5rem;
+        border: 0;
+        border-radius: 0.5rem;
+        background: #fee500;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p id="message" role="status">카카오톡으로 이동합니다…</p>
+      <button type="button" id="retry">카카오톡으로 계속하기</button>
+    </main>
+    <script>
+      const params = new URLSearchParams(location.search);
+      const state = params.get('state');
+      const key = params.get('js_key');
+      const callback = params.get('redirect_uri');
+      const message = document.getElementById('message');
+
+      function authorize() {
+        try {
+          const url = new URL(callback);
+          if (
+            !state ||
+            !key ||
+            !/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(url.origin) ||
+            url.pathname !== '/functions/v1/kakao-auth/callback' ||
+            !window.Kakao
+          ) {
+            throw new Error('로그인 정보가 올바르지 않습니다.');
+          }
+          if (!Kakao.isInitialized()) Kakao.init(key);
+          Kakao.Auth.authorize({ redirectUri: callback, state, throughTalk: true });
+        } catch {
+          message.textContent =
+            '카카오 로그인을 열지 못했습니다. 앱으로 돌아가 다시 시도해 주세요.';
+        }
+      }
+
+      document.getElementById('retry').addEventListener('click', authorize);
+      authorize();
+    </script>
+  </body>
+</html>
