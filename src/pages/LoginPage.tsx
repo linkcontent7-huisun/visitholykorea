@@ -235,7 +235,10 @@ export default function LoginPage() {
           )}
         </div>
 
-        <section className="mt-10 border-t border-app-border pt-6" aria-labelledby="email-auth-heading">
+        <section
+          className="mt-10 border-t border-app-border pt-6"
+          aria-labelledby="email-auth-heading"
+        >
           <button
             type="button"
             onClick={() => setEmailAuthOpen((open) => !open)}
@@ -252,7 +255,9 @@ export default function LoginPage() {
             <ChevronDown
               size={22}
               aria-hidden
-              className={`shrink-0 text-app-text-muted transition-transform ${emailAuthOpen ? 'rotate-180' : ''}`}
+              className={`shrink-0 text-app-text-muted transition-transform ${
+                emailAuthOpen ? 'rotate-180' : ''
+              }`}
             />
           </button>
 
@@ -324,7 +329,11 @@ export default function LoginPage() {
                     aria-pressed={showPassword}
                     id="toggle-password"
                   >
-                    {showPassword ? <EyeOff size={20} aria-hidden /> : <Eye size={20} aria-hidden />}
+                    {showPassword ? (
+                      <EyeOff size={20} aria-hidden />
+                    ) : (
+                      <Eye size={20} aria-hidden />
+                    )}
                   </button>
                 </div>
 
