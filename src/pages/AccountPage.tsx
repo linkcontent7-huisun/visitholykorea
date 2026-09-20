@@ -21,11 +21,10 @@ import { useSettings } from '@/shared/i18n/use-settings';
  */
 export default function AccountPage() {
   const navigate = useNavigate();
-  const { t, language } = useSettings();
+  const { t } = useSettings();
   const { session } = useSession();
   const [deleting, setDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState(false);
-  const ko = language === 'ko';
 
   const displayName =
     (session?.user.user_metadata?.name as string | undefined) ||
@@ -39,11 +38,7 @@ export default function AccountPage() {
   };
 
   const handleDelete = async () => {
-    const confirmed = window.confirm(
-      ko
-        ? '계정을 삭제하면 순례 기록, 공개 후기, 사진, 대화가 함께 삭제되며 복구할 수 없습니다. 계속할까요?'
-        : 'Deleting your account also deletes your visit records, public notes, photos and chats. This cannot be undone. Continue?',
-    );
+    const confirmed = window.confirm(t('accountDeleteConfirm'));
     if (!confirmed) return;
     setDeleting(true);
     setDeleteError(false);
@@ -54,11 +49,7 @@ export default function AccountPage() {
         return;
       }
       clearLocalVisits();
-      window.alert(
-        ko
-          ? '계정과 연결 기록을 삭제했습니다.'
-          : 'Your account and linked records have been deleted.',
-      );
+      window.alert(t('accountDeleteDone'));
       navigate(paths.home);
     } catch {
       setDeleteError(true);
@@ -120,17 +111,13 @@ export default function AccountPage() {
       </Button>
 
       <div className="mt-8 border-t border-app-border pt-6">
-        <h2 className="text-lg font-bold text-app-text">{ko ? '계정 삭제' : 'Delete account'}</h2>
+        <h2 className="text-lg font-bold text-app-text">{t('accountDeleteTitle')}</h2>
         <p className="mt-2 text-base leading-relaxed text-app-text-muted">
-          {ko
-            ? '계정과 연결된 순례 기록, 공개 후기, 사진, AI 대화가 삭제됩니다. 로그인이 어렵다면 visitholykorea@gmail.com으로 요청해 주세요.'
-            : 'Your account, visit records, public notes, photos and AI chats will be deleted. If you cannot sign in, email visitholykorea@gmail.com.'}
+          {t('accountDeleteBody')}
         </p>
         {deleteError && (
           <p role="alert" className="mt-3 text-base text-red-700">
-            {ko
-              ? '삭제를 완료하지 못했습니다. 다시 시도하거나 이메일로 요청해 주세요.'
-              : 'Deletion could not be completed. Try again or request it by email.'}
+            {t('accountDeleteError')}
           </p>
         )}
         <Button
@@ -142,7 +129,7 @@ export default function AccountPage() {
           id="account-delete-btn"
         >
           <Trash2 size={18} aria-hidden />
-          {deleting ? (ko ? '삭제 중…' : 'Deleting…') : ko ? '계정 삭제' : 'Delete account'}
+          {deleting ? t('accountDeleting') : t('accountDeleteTitle')}
         </Button>
       </div>
     </PageContainer>

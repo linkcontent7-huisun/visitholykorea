@@ -240,7 +240,7 @@ export default function MenuPage() {
       items: OFFICIAL_LINKS.map((link) => ({
         id: `official-${link.id}`,
         icon: Globe,
-        label: language === 'ko' ? link.labelKo : link.labelEn,
+        label: link.label[language],
         // 주소 원문은 390px 에서 낱말 중간에 끊겼다("wyd2027did.or / g/kr") — 도메인만 보여 준다(2026-09-21)
         sub: link.url ? officialLinkDomain(link.url) : t('officialLinkPending'),
         onClick: link.url ? () => window.open(link.url!, '_blank', 'noopener') : undefined,

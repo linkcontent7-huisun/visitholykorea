@@ -2,120 +2,44 @@ import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { TERMS } from './content/terms';
 
 /**
  * 이용약관.
  *
- * 투어원패스(pass.knto.or.kr/terms)의 장·조 구성을 참고해 우리 서비스에 맞게 새로 썼다.
- * 개인정보 처리의 구체적인 항목·기간·삭제 방법은 별도 개인정보 처리방침에 둔다.
+ * 본문은 `content/terms.ts` 에 6개 국어로 둔다. 2026-09-20 까지는 제목만 번역되고 본문은
+ * 한국어뿐이라 외국인 이용자가 읽을 수 없었다(T-030 검사). 한국어가 원문이므로
+ * 다른 언어에는 "번역본이며 한국어본이 우선" 을 밝힌다.
  */
-
-const 시행일 = '2026년 8월 18일';
-
-const 약관 = [
-  {
-    장: '제1장 총칙',
-    조항: [
-      {
-        제목: '제1조 (목적)',
-        내용: `이 약관은 Visit Holy Korea(이하 "서비스")의 이용 조건과 절차, 이용자와 서비스 제공자의 권리·의무 및 책임에 관한 사항을 정하는 것을 목적으로 합니다.`,
-      },
-      {
-        제목: '제2조 (용어의 정의)',
-        내용: `1. "이용자"란 이 약관에 따라 서비스를 이용하는 모든 사람을 말합니다.
-2. "회원"이란 이메일 또는 SNS 계정으로 가입해 계정을 보유한 이용자를 말합니다.
-3. "간편 로그인"이란 카카오·구글 등 외부 제공자의 계정으로 본인을 인증하는 방식을 말합니다.
-4. "순례 기록"이란 회원이 서비스 안에서 작성한 방문 스탬프·한 줄 메모 등 게시물을 말합니다.`,
-      },
-      {
-        제목: '제3조 (약관의 효력과 변경)',
-        내용: `1. 이 약관은 서비스 화면에 게시함으로써 효력이 발생합니다.
-2. 서비스 제공자는 관련 법령을 위반하지 않는 범위에서 약관을 변경할 수 있으며, 변경 시 시행일 7일 전부터 공지합니다.
-3. 변경된 약관에 동의하지 않는 회원은 탈퇴할 수 있으며, 시행일 이후 서비스를 계속 이용하면 변경에 동의한 것으로 봅니다.`,
-      },
-      {
-        제목: '제4조 (개인정보의 보호)',
-        내용: `1. 서비스는 회원 가입에 필요한 이메일과 이름 또는 닉네임을 처리합니다. 순례 기록·사진 등은 해당 기능을 사용할 때 처리합니다.
-2. 간편 로그인 시 제공자로부터 받는 정보는 계정 식별에 필요한 범위로 한정하며, 해당 제공자의 비밀번호는 전달받지 않습니다.
-3. 처리 항목·목적·기간·삭제 방법과 외부 서비스 이용은 별도 개인정보 처리방침에 따릅니다.`,
-      },
-    ],
-  },
-  {
-    장: '제2장 서비스 이용',
-    조항: [
-      {
-        제목: '제5조 (이용계약의 성립)',
-        내용: `이용계약은 이용자가 약관에 동의하고 가입을 신청한 뒤, 서비스가 이를 승낙함으로써 성립합니다. 만 14세 미만은 가입할 수 없습니다.`,
-      },
-      {
-        제목: '제6조 (서비스의 내용)',
-        내용: `1. 서비스는 한국 가톨릭 성지 정보 열람, 순례 코스 안내, 순례 기록(방문 스탬프·한 줄 메모) 기능을 제공합니다.
-2. 성지 소개는 각 교구 공식 자료 등 확인된 출처를 기반으로 작성하며, 주변 관광 정보는 한국관광공사 TourAPI를 실시간으로 호출해 표시합니다.
-3. 미카엘 순례 가이드의 답변은 참고용이며, 미사 시간·개방 여부 등 중요한 정보는 반드시 해당 성지 사무실에 확인해야 합니다.`,
-      },
-      {
-        제목: '제7조 (서비스의 중지)',
-        내용: `시스템 점검, 외부 API 장애, 천재지변 등 부득이한 사유가 있는 경우 서비스의 전부 또는 일부를 일시 중지할 수 있습니다. 이 경우 사전 또는 사후에 공지합니다.`,
-      },
-      {
-        제목: '제8조 (외부 서비스 연동)',
-        내용: `간편 로그인, 지도, 길찾기 등 외부 서비스는 해당 제공자의 약관과 정책을 따릅니다. 외부 서비스의 장애나 정책 변경으로 발생한 문제에 대해서는 해당 제공자에게 문의해야 할 수 있습니다.`,
-      },
-    ],
-  },
-  {
-    장: '제3장 의무 및 책임',
-    조항: [
-      {
-        제목: '제9조 (서비스 제공자의 의무)',
-        내용: `1. 관련 법령과 이 약관을 지키며, 안정적으로 서비스를 제공하기 위해 노력합니다.
-2. 성지 정보의 오류를 발견하면 확인된 1차 자료를 근거로 신속히 바로잡습니다.
-3. 이용자의 개인정보를 보호하기 위해 보안 조치를 유지합니다.`,
-      },
-      {
-        제목: '제10조 (이용자의 의무)',
-        내용: `1. 타인의 계정을 도용하거나 허위 정보를 등록해서는 안 됩니다.
-2. 순례 기록에 타인의 권리를 침해하는 내용, 종교 시설과 신자에 대한 모욕·혐오 표현을 게시해서는 안 됩니다.
-3. 서비스의 데이터를 무단으로 수집(크롤링)하거나 상업적으로 재배포해서는 안 됩니다.
-4. 위 의무를 위반하면 게시물 삭제, 이용 제한 등의 조치를 받을 수 있습니다.`,
-      },
-      {
-        제목: '제11조 (저작권)',
-        내용: `1. 서비스가 작성한 성지 소개 글의 저작권은 서비스에 있습니다. 각 교구 공식 자료를 참고한 경우 해당 출처를 함께 표시합니다.
-2. 서비스에 쓰인 일부 사진은 Wikimedia Commons 등 자유 라이선스 저작물이며, 화면에 출처와 라이선스를 표시합니다.
-3. 회원이 작성한 순례 기록의 저작권은 회원에게 있으며, 서비스는 서비스 운영·홍보 목적의 범위에서 이를 사용할 수 있습니다.`,
-      },
-      {
-        제목: '제12조 (책임의 한계)',
-        내용: `1. 성지의 미사 시간·개방 여부 등은 현지 사정에 따라 달라질 수 있으며, 서비스는 방문 전 확인 없이 발생한 불편에 대해 책임지지 않습니다.
-2. 무료로 제공되는 서비스의 이용과 관련하여, 서비스의 고의 또는 중대한 과실이 없는 한 책임이 제한됩니다.`,
-      },
-    ],
-  },
-];
-
 export default function TermsPage() {
-  const { t } = useSettings();
+  const { language, t } = useSettings();
+  const content = TERMS[language];
+
   return (
     <PageContainer width="narrow" className="min-h-page pb-16">
       <PageHeader
         back
         title={t('termsPageTitle')}
-        sub={fillPlaceholders(t('termsEffectiveDate'), { date: 시행일 })}
+        sub={fillPlaceholders(t('termsEffectiveDate'), { date: content.effectiveDate })}
       />
 
+      {language !== 'ko' && (
+        <p className="mb-6 text-sm leading-relaxed text-app-text-muted">
+          {t('legalTranslationNote')}
+        </p>
+      )}
+
       <div className="mt-2">
-        {약관.map((장) => (
-          <section key={장.장} className="mb-10">
+        {content.chapters.map((chapter) => (
+          <section key={chapter.title} className="mb-10">
             <h2 className="mb-4 border-b border-app-border pb-2 text-lg font-bold text-app-text">
-              {장.장}
+              {chapter.title}
             </h2>
-            {장.조항.map((조) => (
-              <article key={조.제목} className="mb-6">
-                <h3 className="mb-2 text-base font-bold text-app-text">{조.제목}</h3>
+            {chapter.articles.map((article) => (
+              <article key={article.title} className="mb-6">
+                <h3 className="mb-2 text-base font-bold text-app-text">{article.title}</h3>
                 <p className="whitespace-pre-line text-base leading-relaxed text-app-text-muted">
-                  {조.내용}
+                  {article.body}
                 </p>
               </article>
             ))}
