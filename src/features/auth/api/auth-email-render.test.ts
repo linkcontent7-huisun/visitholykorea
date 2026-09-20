@@ -101,11 +101,23 @@ describe('가입 인증 메일 — 언어별 실제 결과', () => {
     expect(tpl).not.toContain('eq .Data.lang');
   });
 
-  it('언어를 모르면(옛 가입자·값 없음) 영어로 간다 — 빈 편지가 되지 않는다', () => {
+  it('언어를 모르면(값 없음·옛 가입자·미지원 언어) 한국어로 간다', () => {
+    // 이용자 대부분이 한국인이고, 배포본이 lang 을 보내기 전에도 한국어여야 한다(9/20 사장님 지시).
     for (const lang of [undefined, '', 'zh']) {
       const html = render(lang);
-      expect(html).toContain('Confirm your email address');
+      expect(html).toContain('이메일 주소를 확인해 주세요');
+      expect(html).not.toContain('Confirm your email address');
       expect(html).toContain(LINK);
+    }
+  });
+
+  it('한국어 편지에 성지순례 안내와 주소가 함께 간다 (9/20 사장님 지시)', () => {
+    for (const lang of ['ko', undefined]) {
+      const html = render(lang);
+      expect(html).toContain('길 위에서 나를 만나는 성지순례');
+      expect(html).toContain('오늘의 성지 일정');
+      expect(html).toContain('오디오 가이드');
+      expect(html).toContain('www.visitholykorea.com');
     }
   });
 
@@ -125,10 +137,10 @@ describe('가입 인증 메일 — 언어별 실제 결과', () => {
 
 describe('비밀번호 재설정 메일 — 언어별 실제 결과', () => {
   const tpl = readFileSync(join(DIR, 'recovery.html'), 'utf8');
-  it('한국어 계정은 한국어로, 모르면 영어로', () => {
-    expect(renderGoTemplate(tpl, { lang: 'ko', url: LINK })).toContain(
-      '비밀번호를 새로 정하시겠어요?',
-    );
-    expect(renderGoTemplate(tpl, { lang: undefined, url: LINK })).toContain('Reset your password');
+  it('한국어 계정은 한국어로, 값이 없어도 한국어로 (영어는 en 일 때만)', () => {
+    for (const lang of ['ko', undefined]) {
+      expect(renderGoTemplate(tpl, { lang, url: LINK })).toContain('비밀번호를 새로 정하시겠어요?');
+    }
+    expect(renderGoTemplate(tpl, { lang: 'en', url: LINK })).toContain('Reset your password');
   });
 });
