@@ -74,20 +74,27 @@ export type TransportMode = 'walk' | 'public_transit' | 'car' | 'tour_bus' | 'ot
  *
  * transportMode: "오늘 여기 어떻게 오셨어요?" — 국가 통계에 없는, 성지별
  * 이동수단 데이터를 여기서 직접 쌓는다. 안 물어봐도(null) 스탬프는 찍힌다.
+ * visitedOn: 성지 상세에서 처음 기록을 남길 때도 날짜를 고를 수 있어야 한다(2026-09-20
+ * 사장님 지적) — 기본값(오늘)은 화면이 채워서 넘긴다. 열이 없는 DB 에서는 조용히 무시된다.
  */
 export async function addStamp(
   siteId: string,
   note: string | null = null,
   transportMode: TransportMode | null = null,
+  visitedOn: string | null = null,
 ): Promise<{ success: boolean; error?: string }> {
   const userId = await getCurrentUserId();
   if (!userId) {
     return { success: false, error: 'UNAUTHENTICATED' };
   }
 
-  const { error } = await supabase
-    .from(TABLE)
-    .insert({ user_id: userId, site_id: siteId, note, transport_mode: transportMode });
+  const { error } = await supabase.from(TABLE).insert({
+    user_id: userId,
+    site_id: siteId,
+    note,
+    transport_mode: transportMode,
+    ...(visitedOnAvailable ? { visited_on: visitedOn } : {}),
+  });
 
   if (error) {
     // 23505 = unique 제약 위반(중복 스탬프). 이미 찍은 곳이다.
@@ -112,8 +119,14 @@ export async function addStamp(
 
 export interface MyStamp {
   stamped: boolean;
+  /** 이 기록의 id — 「기록 모두 보기」에 뜨는 항목 중 내 것을 찾을 때 쓴다. 안 찍었으면 null. */
+  id: string | null;
   /** 내가 남긴 한 줄. 안 찍었거나 안 남겼으면 null. */
   note: string | null;
+  /** 사용자가 고른 방문일. 마이그레이션 전 DB 에서는 항상 null. */
+  visitedOn: string | null;
+  /** 기록한 시각(created_at) — visitedOn 이 없을 때 기본값으로 쓴다. */
+  visitedAt: string | null;
   /** 내가 올린 순례 사진. */
   photoUrl: string | null;
   photos: StampPhoto[];
@@ -127,26 +140,61 @@ export interface StampPhoto {
 
 export async function getMyStamp(siteId: string): Promise<MyStamp> {
   const userId = await getCurrentUserId();
-  if (!userId) return { stamped: false, note: null, photoUrl: null, photos: [] };
+  if (!userId)
+    return {
+      stamped: false,
+      id: null,
+      note: null,
+      visitedOn: null,
+      visitedAt: null,
+      photoUrl: null,
+      photos: [],
+    };
 
-  const { data, error } = await supabase
-    .from(TABLE)
-    .select('id, note, photo_url, stamp_photos(id, url, position)')
-    .eq('user_id', userId)
-    .eq('site_id', siteId)
-    .maybeSingle();
+  const baseColumns = 'id, note, created_at, photo_url, stamp_photos(id, url, position)';
+  const select = (withVisitedOn: boolean) =>
+    supabase
+      .from(TABLE)
+      .select(withVisitedOn ? `${baseColumns}, visited_on` : baseColumns)
+      .eq('user_id', userId)
+      .eq('site_id', siteId)
+      .maybeSingle();
+
+  let { data, error } = await select(visitedOnAvailable);
+  // 42703 = 열 없음. 마이그레이션 전 DB 라면 열 없이 다시 받는다.
+  if (error && visitedOnAvailable && error.code === '42703') {
+    visitedOnAvailable = false;
+    ({ data, error } = await select(false));
+  }
 
   if (error) {
     console.error('getMyStamp error:', error);
-    return { stamped: false, note: null, photoUrl: null, photos: [] };
+    return {
+      stamped: false,
+      id: null,
+      note: null,
+      visitedOn: null,
+      visitedAt: null,
+      photoUrl: null,
+      photos: [],
+    };
   }
-  const photos = ((data?.stamp_photos ?? []) as StampPhoto[]).sort(
-    (a, b) => a.position - b.position,
-  );
+  const row = data as unknown as {
+    id: string;
+    note: string | null;
+    visited_on?: string | null;
+    created_at: string;
+    photo_url: string | null;
+    stamp_photos: StampPhoto[] | null;
+  } | null;
+  const photos = (row?.stamp_photos ?? []).sort((a, b) => a.position - b.position);
   return {
-    stamped: Boolean(data),
-    note: data?.note ?? null,
-    photoUrl: data?.photo_url ?? null,
+    stamped: Boolean(row),
+    id: row?.id ?? null,
+    note: row?.note ?? null,
+    visitedOn: row?.visited_on ?? null,
+    visitedAt: row?.created_at ?? null,
+    photoUrl: row?.photo_url ?? null,
     photos,
   };
 }

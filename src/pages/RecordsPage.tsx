@@ -12,21 +12,30 @@
  * 열이 없다는 사실을 화면에 그대로 적는다.
  */
 
-import { Calendar, MapPin, PenLine, Plus, Search, Trash2 } from 'lucide-react';
+import { Calendar, Camera, MapPin, PenLine, Plus, Search, Trash2, X } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { isVisitedOnAvailable, type StampedSite } from '@/features/passport/api/stamps.repository';
-import { useDeleteStamp, useMyStamps, useUpdateStamp } from '@/features/passport/hooks/use-stamps';
+import {
+  useDeleteStamp,
+  useDeleteStampPhoto,
+  useMyStamps,
+  useUpdateStamp,
+  useUploadStampPhotos,
+} from '@/features/passport/hooks/use-stamps';
 import { Button, ButtonLink } from '@/shared/components/ui/Button';
 import { Card } from '@/shared/components/ui/Card';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
+import { PhotoLightbox } from '@/shared/components/ui/PhotoLightbox';
 import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { dioceseLabel } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { useUnsavedChangesGuard } from '@/shared/hooks/use-unsaved-changes-guard';
+import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 
 function formatDate(value: string, locale: string): string {
   const d = new Date(value);
@@ -34,16 +43,27 @@ function formatDate(value: string, locale: string): string {
   return d.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
+/** 방문일이 없으면(고른 적 없음) 기록한 날을 기본값으로 — 빈 채로 두면 "고르지 않음"처럼 보인다. */
+function defaultVisitedOn(stamp: StampedSite): string {
+  return stamp.visitedOn ?? stamp.visitedAt.slice(0, 10);
+}
+
 function RecordItem({ stamp }: { stamp: StampedSite }) {
   const { t, language } = useSettings();
   const locale = SPEECH_LOCALE[language];
   const update = useUpdateStamp();
   const remove = useDeleteStamp();
+  const uploadPhotos = useUploadStampPhotos(stamp.siteId);
+  const deletePhoto = useDeleteStampPhoto(stamp.siteId);
   const [editing, setEditing] = useState(false);
   const [note, setNote] = useState(stamp.note ?? '');
-  const [visitedOn, setVisitedOn] = useState(stamp.visitedOn ?? '');
+  const [visitedOn, setVisitedOn] = useState(defaultVisitedOn(stamp));
   const [failed, setFailed] = useState(false);
+  const [lightbox, setLightbox] = useState<number | null>(null);
   const canEditDate = isVisitedOnAvailable();
+
+  const isDirty = editing && (note !== (stamp.note ?? '') || visitedOn !== defaultVisitedOn(stamp));
+  useUnsavedChangesGuard(isDirty);
 
   const save = async () => {
     setFailed(false);
@@ -63,6 +83,17 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
     if (!window.confirm(t('recordsDeleteConfirm'))) return;
     const result = await remove.mutateAsync(stamp.stampId);
     if (!result.success) setFailed(true);
+  };
+
+  const handlePhotoPick = async (files: FileList | null) => {
+    if (!files) return;
+    const policy = photoPolicy();
+    const room = Math.max(0, policy.maxCount - stamp.photos.length);
+    const picked = Array.from(files).slice(0, room);
+    if (files.length > room)
+      window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
+    const photos = await Promise.all(picked.map((file) => shrinkPhoto(file, policy)));
+    uploadPhotos.mutate({ stampId: stamp.stampId, startPosition: stamp.photos.length + 1, photos });
   };
 
   return (
@@ -147,6 +178,53 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
               className="mt-1 block w-full rounded-lg border border-app-border bg-white px-3 py-2 text-base text-app-text"
             />
           </label>
+          {/* 사진 — 확대해서 보고, 각 사진에 삭제 단추가 붙는다(SiteDetailPage 와 같은 부품) */}
+          <div className="no-scrollbar flex gap-2 overflow-x-auto">
+            {stamp.photos.map((photo, i) => (
+              <div key={photo.id} className="relative shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setLightbox(i)}
+                  aria-label={t('photoEnlarge')}
+                  className="block h-24 w-24 overflow-hidden rounded-lg"
+                >
+                  <img src={photo.url} alt="" className="h-full w-full object-cover" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => deletePhoto.mutate(photo)}
+                  disabled={deletePhoto.isPending}
+                  aria-label={t('photoDelete')}
+                  className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/70 text-white disabled:opacity-50"
+                >
+                  <X size={12} />
+                </button>
+              </div>
+            ))}
+            {stamp.photos.length < photoPolicy().maxCount && (
+              <label
+                className={`flex h-24 w-16 shrink-0 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-brand-blue/50 px-1 text-center text-brand-blue transition-colors hover:bg-brand-soft ${
+                  uploadPhotos.isPending ? 'opacity-50' : ''
+                }`}
+              >
+                <Camera size={16} aria-hidden />
+                <span className="text-[0.625rem] font-bold leading-tight">
+                  {uploadPhotos.isPending ? t('photoUploading') : t('photoAdd')}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  disabled={uploadPhotos.isPending}
+                  onChange={(e) => {
+                    void handlePhotoPick(e.target.files);
+                    e.target.value = '';
+                  }}
+                />
+              </label>
+            )}
+          </div>
           {failed && (
             <p className="text-sm font-bold text-red-600" role="alert">
               {t('recordsSaveFailed')}
@@ -162,7 +240,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
               onClick={() => {
                 setEditing(false);
                 setNote(stamp.note ?? '');
-                setVisitedOn(stamp.visitedOn ?? '');
+                setVisitedOn(defaultVisitedOn(stamp));
               }}
             >
               {t('recordsCancel')}
@@ -170,17 +248,40 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
           </div>
         </form>
       ) : (
-        stamp.note && (
-          <p className="mt-3 rounded-lg bg-app-bg px-4 py-3 text-base leading-relaxed text-app-text">
-            {stamp.note}
-          </p>
-        )
+        <>
+          {stamp.note && (
+            <p className="mt-3 rounded-lg bg-app-bg px-4 py-3 text-base leading-relaxed text-app-text">
+              {stamp.note}
+            </p>
+          )}
+          {stamp.photos.length > 0 && (
+            <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
+              {stamp.photos.map((photo, i) => (
+                <button
+                  key={photo.id}
+                  type="button"
+                  onClick={() => setLightbox(i)}
+                  aria-label={t('photoEnlarge')}
+                  className="block h-24 w-24 shrink-0 overflow-hidden rounded-lg"
+                >
+                  <img src={photo.url} alt="" className="h-full w-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </>
       )}
       {failed && !editing && (
         <p className="mt-2 text-sm font-bold text-red-600" role="alert">
           {t('recordsSaveFailed')}
         </p>
       )}
+      <PhotoLightbox
+        photos={lightbox !== null ? stamp.photos.map((p) => p.url) : null}
+        index={lightbox ?? 0}
+        onIndexChange={setLightbox}
+        onClose={() => setLightbox(null)}
+      />
     </li>
   );
 }
