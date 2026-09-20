@@ -44,6 +44,8 @@ import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { sizedImageUrl } from '@/shared/lib/image-url';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { useNearbyFacilities } from '@/features/sites/hooks/use-nearby-tour';
+import { WalkingCourseCard } from '@/features/sites/components/WalkingCourseCard';
+import { useWalkingCoursesNear } from '@/features/sites/hooks/use-tour-extras';
 import { NearbyCrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
 import { GROUP_LABEL_KEY } from '@/features/sites/lib/nearby-facilities';
 import {
@@ -91,6 +93,7 @@ export default function SiteDetailPage() {
     isError: facilitiesError,
   } = useNearbyFacilities(site?.coordinates);
   const facilityGroups = facilityGroupsRaw.filter((g) => !HIDDEN_FACILITY_GROUPS.has(g.group));
+  const { data: walkingCourses = [] } = useWalkingCoursesNear(site);
   const location = useLocation();
   // 마음 나침반에서 「이 코스로 가볼게요」로 오면 #directions — 「방문 정보」로 스크롤한다
   const wantsDirections = location.hash === '#directions';
@@ -529,10 +532,8 @@ export default function SiteDetailPage() {
           <DirectionsCard site={site} addressEnglish={view?.addressRomanized ?? null} />
         </section>
 
-        {/* 「주변 정보」 절은 「둘러볼 곳」(TourAPI 편의시설) 하나만 남긴다(사장님 지시, 2026-09-19)
-            — 「성지가 알려주는 주변」(DB 큐레이션)·「지금 근처에서 열리는 행사」·「이 근처 걷기길」
-            (둘 다 TourAPI 다른 엔드포인트) 세 절은 화면에서 뺐다. 관련 hook 호출도 위에서 지웠다 —
-            죽여 둔 코드가 없다. 되살릴 땐 이 커밋 이전 `SiteDetailPage.tsx`를 참고할 것. */}
+        {/* 「주변 정보」 절은 「둘러볼 곳」(TourAPI 편의시설)과 장소 기준 걷기길만 남긴다.
+            성지가 알려주는 주변(DB 큐레이션)과 근처 행사(TourAPI)는 화면에서 뺐다. */}
         {!facilitiesLoading && !facilitiesError && facilityGroups.length === 0 && (
           <SquircleSurface
             as="p"
@@ -616,6 +617,18 @@ export default function SiteDetailPage() {
                 ))}
               </div>
             )}
+          </section>
+        )}
+
+        {/* 장소를 기준으로 찾은 결과만 보여준다 — 근처에 걷기길이 없으면 빈 영역도 만들지 않는다. */}
+        {walkingCourses.length > 0 && (
+          <section>
+            <SectionHeading title={t('routeNearbyTrails')} />
+            <div className="space-y-3">
+              {walkingCourses.slice(0, 3).map((course, index) => (
+                <WalkingCourseCard key={course.crsIdx ?? index} course={course} />
+              ))}
+            </div>
           </section>
         )}
 
