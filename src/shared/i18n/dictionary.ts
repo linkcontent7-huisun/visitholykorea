@@ -105,7 +105,7 @@ export const DICTIONARY = {
     it: 'Esplora',
   },
   record: {
-    ko: '순례 기록',
+    ko: '기록',
     en: 'Record',
     es: 'Registro',
     fr: 'Carnet',
