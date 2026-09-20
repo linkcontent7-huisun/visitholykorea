@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
+import { SquircleBorder } from '@/shared/components/ui/SquircleBorder';
+import { useSquircle } from '@/shared/components/ui/use-squircle';
 import type { HolySite } from '@/shared/types/domain';
 import { SiteThumbnail } from './SiteThumbnail';
 import { useFeaturedPhotos } from '../hooks/use-featured-photos';
+
+const CARD_RADIUS = 8;
 
 /**
  * 홈·목록에 쓰는 성지 카드 — 2026-09-16 시안: 사진 4:3 · 모서리 8px · 이름 16px.
@@ -11,12 +15,24 @@ import { useFeaturedPhotos } from '../hooks/use-featured-photos';
 export function SiteGridCard({ site }: { site: HolySite }) {
   // 공식 사진이 없는 성지는 순례자가 보내준(승인된) 사진으로 채운다
   const { data: featured = {} } = useFeaturedPhotos();
+  const { ref, style, overlay } = useSquircle<HTMLAnchorElement>(CARD_RADIUS);
   return (
     <Link
+      ref={ref}
       to={paths.siteDetail(site.id)}
-      className="group flex flex-col overflow-hidden rounded-lg border border-app-border bg-white transition-colors duration-300 hover:border-brand-blue/50"
+      className="group relative flex flex-col overflow-hidden rounded-lg bg-white"
+      style={style}
       id={`site-card-${site.id}`}
     >
+      {overlay && (
+        <SquircleBorder
+          path={overlay.path}
+          width={overlay.width}
+          height={overlay.height}
+          color="var(--color-app-border)"
+          className="transition-[stroke] duration-300 group-hover:stroke-brand-blue/50"
+        />
+      )}
       <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-app-panel">
         <SiteThumbnail
           imageUrl={site.imageUrl}

@@ -6,9 +6,12 @@ import { getDocentScript } from '@/features/docent/data/scripts';
 import { useDocentSiteIds } from '@/features/docent/hooks/use-docent-script';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { useSquircle } from '@/shared/components/ui/use-squircle';
 import type { HolySite } from '@/shared/types/domain';
 import { SiteThumbnail } from './SiteThumbnail';
 import { useFeaturedPhotos } from '../hooks/use-featured-photos';
+
+const THUMB_RADIUS = 8;
 
 /** 탐색(교구별) 화면의 가로형 목록 항목. meta 는 거리·소요시간 같은 한 줄 부가 정보. */
 export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) {
@@ -18,6 +21,7 @@ export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) 
   // 포인트별 오디오 도슨트가 준비된 성지를 목록에서 알아볼 수 있게 한다
   const docentIds = useDocentSiteIds();
   const hasDocent = docentIds ? docentIds.has(site.id) : getDocentScript(site.id) !== null;
+  const { ref, style } = useSquircle<HTMLDivElement>(THUMB_RADIUS);
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
       <Link
@@ -25,7 +29,11 @@ export function SiteListItem({ site, meta }: { site: HolySite; meta?: string }) 
         className="group flex gap-5"
         id={`explore-item-${site.id}`}
       >
-        <div className="flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-app-panel">
+        <div
+          ref={ref}
+          style={style}
+          className="flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden bg-app-panel"
+        >
           <SiteThumbnail
             imageUrl={site.imageUrl}
             pilgrimUrl={featured[site.id] ?? null}
