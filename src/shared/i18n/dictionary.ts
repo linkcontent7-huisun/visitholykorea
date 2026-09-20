@@ -2275,15 +2275,6 @@ export const DICTIONARY = {
     pt: 'Esta é uma tradução de cortesia. Em caso de divergência com o texto coreano, prevalece o texto coreano.',
     it: 'Questa è una traduzione di cortesia. In caso di discrepanza con il testo coreano, prevale il testo coreano.',
   },
-  // 하단 탭의 스크린리더 이름 — "주요 메뉴" 가 한국어로 박혀 있었다(T-030 검사 2).
-  mainNavLabel: {
-    ko: '주요 메뉴',
-    en: 'Main menu',
-    es: 'Menú principal',
-    fr: 'Menu principal',
-    pt: 'Menu principal',
-    it: 'Menu principale',
-  },
   originSetting: {
     ko: '출발지',
     en: 'Starting point',
