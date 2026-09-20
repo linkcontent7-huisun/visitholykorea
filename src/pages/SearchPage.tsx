@@ -157,6 +157,8 @@ export default function SearchPage() {
   const hasQuery = needle.length > 0;
   // "내 위치로 검색" — 출발지 추정(origin)이 아니라 실제 GPS 권한을 받았을 때만 켠다.
   const nearMeActive = Boolean(gpsLocation);
+  const locationRequestInProgress = gpsStatus === 'loading';
+  const locationUnsupported = gpsStatus === 'unsupported';
 
   const results = useMemo(() => {
     if (!hasQuery && !nearMeActive) return [];
@@ -308,27 +310,41 @@ export default function SearchPage() {
               type="button"
               onClick={() => (gpsLocation ? clearGpsLocation() : requestGpsLocation())}
               aria-pressed={nearMeActive}
+              aria-busy={locationRequestInProgress}
+              disabled={locationRequestInProgress || locationUnsupported}
               borderColor={nearMeActive ? 'var(--color-brand-blue)' : 'var(--color-app-border)'}
               borderWidth={1.5}
               borderClassName="transition-colors group-hover:stroke-brand-blue/50"
-              className={`group mt-3 flex min-h-12 w-full items-center justify-center gap-1.5 text-base font-bold transition-colors ${
+              className={`group mt-3 flex min-h-12 w-full items-center justify-center gap-1.5 text-base font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${
                 nearMeActive ? 'bg-brand-blue text-white' : 'bg-white text-app-text'
               }`}
             >
               <Navigation size={18} aria-hidden />
-              {nearMeActive ? t('clearCurrentLocationButton') : t('searchNearMeButton')}
+              {locationRequestInProgress
+                ? t('currentLocationLoading')
+                : nearMeActive
+                  ? t('clearCurrentLocationButton')
+                  : t('searchNearMeButton')}
             </SquircleSurface>
             {gpsStatus === 'loading' && (
-              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationLoading')}</p>
+              <p className="mt-2 text-sm text-app-text-muted" role="status">
+                {t('currentLocationLoading')}
+              </p>
             )}
             {gpsStatus === 'denied' && (
-              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationDenied')}</p>
+              <p className="mt-2 text-sm text-app-text-muted" role="alert">
+                {t('currentLocationDenied')}
+              </p>
             )}
             {gpsStatus === 'unsupported' && (
-              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationUnsupported')}</p>
+              <p className="mt-2 text-sm text-app-text-muted" role="alert">
+                {t('currentLocationUnsupported')}
+              </p>
             )}
             {gpsStatus === 'error' && (
-              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationError')}</p>
+              <p className="mt-2 text-sm text-app-text-muted" role="alert">
+                {t('currentLocationError')}
+              </p>
             )}
           </div>
 
