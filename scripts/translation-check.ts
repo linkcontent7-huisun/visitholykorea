@@ -46,7 +46,8 @@ const SIG: Record<string, RegExp> = {
 function guessLanguage(text: string): string {
   const scores = Object.entries(SIG).map(([l, re]) => [l, (text.match(re) ?? []).length] as const);
   scores.sort((a, b) => b[1] - a[1]);
-  return scores[0][1] === 0 ? '?' : scores[0][0];
+  const top = scores[0];
+  return !top || top[1] === 0 ? '?' : top[0];
 }
 
 const FIELDS = ['name', 'description', 'history'] as const;
