@@ -5762,6 +5762,15 @@ export const DICTIONARY = {
     it: 'moderate',
   },
   crowdingWordHigh: { ko: '높음', en: 'high', es: 'high', fr: 'high', pt: 'high', it: 'high' },
+  /** 성지 이름이 집중률에 없는 곳 — 색 점·등급 없이 이 문장만 그린다(2026-09-21). {word} 는 crowdingWord* */
+  crowdingDistrictOnly: {
+    ko: '{district} 관광지 예측 {word} · 이 성지 데이터 없음',
+    en: '{district} attractions forecast: {word} · no data for this shrine',
+    es: 'Previsión de atracciones en {district}: {word} · sin datos de este santuario',
+    fr: 'Prévision des sites de {district} : {word} · pas de données pour ce sanctuaire',
+    pt: 'Previsão das atrações de {district}: {word} · sem dados deste santuário',
+    it: 'Previsione attrazioni di {district}: {word} · nessun dato per questo santuario',
+  },
 
   // ── 홈 재정돈(2026-09-16 시안 확정) — 히어로 슬라이드·입구 2개 ──
   heroCarouselLabel: {

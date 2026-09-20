@@ -37,6 +37,17 @@ export function nearbyDensityHeadline(level: CrowdingLevel, t: T): string {
   return t(NEARBY_DENSITY_HEADLINE_KEY[level]);
 }
 
+/**
+ * 성지 자체 값이 없는 곳(kind=district)의 한 줄 — 「당진시 관광지 예측 낮음 · 이 성지 데이터 없음」.
+ * 등급 말은 인근 관광지 것이라 색 점을 붙이지 않는다.
+ */
+export function districtOnlySentence(district: string, level: CrowdingLevel, t: T): string {
+  return fillPlaceholders(t('crowdingDistrictOnly'), {
+    district,
+    word: t(LEVEL_WORD_KEY[level]),
+  });
+}
+
 export function formatReason(reason: ReasonItem, t: T): string {
   const text = fillPlaceholders(t(reason.key), reason.params ?? {});
   return reason.level ? `${text} · ${t(LEVEL_WORD_KEY[reason.level])}` : text;
