@@ -17,7 +17,11 @@ import { Link, type LinkProps } from 'react-router-dom';
  *
  * 클래스 문자열만 필요하면(`<a href>`·`<label>`) `class-names.ts` 의 `buttonClass` 를 쓴다.
  */
-import { buttonClass, type ButtonSize, type ButtonVariant } from './class-names';
+import { BUTTON_BORDER, buttonClass, type ButtonSize, type ButtonVariant } from './class-names';
+import { SquircleBorder } from './SquircleBorder';
+import { useSquircle } from './use-squircle';
+
+const BUTTON_RADIUS = 8;
 
 interface ButtonOwnProps {
   variant?: ButtonVariant;
@@ -29,7 +33,7 @@ interface ButtonOwnProps {
 }
 
 export function Button({
-  variant,
+  variant = 'primary',
   size,
   block,
   className,
@@ -37,25 +41,53 @@ export function Button({
   children,
   ...rest
 }: ButtonOwnProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'>) {
+  const { ref, style, overlay } = useSquircle<HTMLButtonElement>(BUTTON_RADIUS);
+  const border = BUTTON_BORDER[variant];
   return (
-    <button type={type} className={buttonClass({ variant, size, block, className })} {...rest}>
+    <button
+      ref={ref}
+      type={type}
+      className={buttonClass({ variant, size, block, className })}
+      style={style}
+      {...rest}
+    >
       {children}
+      {overlay && border && (
+        <SquircleBorder
+          path={overlay.path}
+          width={overlay.width}
+          height={overlay.height}
+          color={border.color}
+          strokeWidth={border.width}
+        />
+      )}
     </button>
   );
 }
 
 /** 같은 생김새의 이동용 링크. 행동은 `<button>`, 이동은 `<a>` — 가운데 버튼·새 탭 열기가 살아야 한다. */
 export function ButtonLink({
-  variant,
+  variant = 'primary',
   size,
   block,
   className,
   children,
   ...rest
 }: ButtonOwnProps & Omit<LinkProps, 'className' | 'children'>) {
+  const { ref, style, overlay } = useSquircle<HTMLAnchorElement>(BUTTON_RADIUS);
+  const border = BUTTON_BORDER[variant];
   return (
-    <Link className={buttonClass({ variant, size, block, className })} {...rest}>
+    <Link ref={ref} className={buttonClass({ variant, size, block, className })} style={style} {...rest}>
       {children}
+      {overlay && border && (
+        <SquircleBorder
+          path={overlay.path}
+          width={overlay.width}
+          height={overlay.height}
+          color={border.color}
+          strokeWidth={border.width}
+        />
+      )}
     </Link>
   );
 }

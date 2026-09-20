@@ -10,9 +10,19 @@ export type ButtonSize = 'md' | 'sm';
 
 const BUTTON_VARIANT: Record<ButtonVariant, string> = {
   primary: 'bg-brand-blue text-white hover:bg-brand-blue/90',
-  secondary: 'border-[1.5px] border-brand-blue bg-white text-brand-blue hover:bg-brand-soft',
-  neutral: 'border border-app-border bg-white text-app-text hover:bg-app-bg',
+  // 테두리는 CSS border 가 아니라 스쿼클 경로 위에 SVG 로 덧그린다 (BUTTON_BORDER) — 각진 모서리로
+  // 잘리지 않도록. 색·간격만 여기서 정하고 border 폭 클래스는 넣지 않는다.
+  secondary: 'bg-white text-brand-blue hover:bg-brand-soft',
+  neutral: 'bg-white text-app-text hover:bg-app-bg',
   ghost: 'text-app-text-muted hover:bg-app-bg hover:text-app-text',
+};
+
+/** Button.tsx 가 SquircleBorder 를 그릴 때 쓰는 테두리 색·두께·점선 여부. null 이면 테두리 없음. */
+export const BUTTON_BORDER: Record<ButtonVariant, { color: string; width: number } | null> = {
+  primary: null,
+  secondary: { color: 'var(--color-brand-blue)', width: 1.5 },
+  neutral: { color: 'var(--color-app-border)', width: 1 },
+  ghost: null,
 };
 
 const BUTTON_SIZE: Record<ButtonSize, string> = {
@@ -32,7 +42,7 @@ export function buttonClass({
   className?: string;
 } = {}): string {
   return [
-    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-bold transition-colors',
+    'relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-bold transition-colors',
     'disabled:cursor-not-allowed disabled:opacity-50',
     BUTTON_VARIANT[variant],
     BUTTON_SIZE[size],
@@ -45,15 +55,24 @@ export function buttonClass({
 
 export type CardTone = 'white' | 'panel' | 'dashed' | 'soft';
 
+// 테두리 폭 클래스는 넣지 않는다 — Card.tsx 가 CARD_BORDER 로 SquircleBorder 를 덧그린다.
 const CARD_TONE: Record<CardTone, string> = {
-  white: 'border border-app-border bg-white',
-  panel: 'border border-app-border bg-app-bg',
-  dashed: 'border border-dashed border-app-border bg-white',
+  white: 'bg-white',
+  panel: 'bg-app-bg',
+  dashed: 'bg-white',
   soft: 'bg-brand-soft',
 };
 
+/** Card.tsx 가 SquircleBorder 를 그릴 때 쓰는 테두리 색·점선 여부. null 이면 테두리 없음. */
+export const CARD_BORDER: Record<CardTone, { color: string; dashed: boolean } | null> = {
+  white: { color: 'var(--color-app-border)', dashed: false },
+  panel: { color: 'var(--color-app-border)', dashed: false },
+  dashed: { color: 'var(--color-app-border)', dashed: true },
+  soft: null,
+};
+
 export function cardClass(tone: CardTone = 'white', padded = true, className = ''): string {
-  return `rounded-lg ${CARD_TONE[tone]} ${padded ? 'p-5' : ''} ${className}`.trim();
+  return `relative rounded-lg ${CARD_TONE[tone]} ${padded ? 'p-5' : ''} ${className}`.trim();
 }
 
 export function chipClass(active: boolean, className = ''): string {

@@ -17,3 +17,13 @@ Object.assign(import.meta.env, {
   VITE_SUPABASE_URL: 'https://test.supabase.co',
   VITE_SUPABASE_ANON_KEY: 'test-anon-key',
 });
+
+// jsdom 에는 ResizeObserver 가 없다 — 스쿼클 모서리(use-squircle) 처럼 실제 렌더
+// 크기를 재는 컴포넌트가 마운트만 해도 죽는다. 크기 관찰 자체는 테스트 대상이
+// 아니므로 아무 것도 안 하는 자리표시로 채운다.
+class ResizeObserverStub {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+globalThis.ResizeObserver ??= ResizeObserverStub as unknown as typeof ResizeObserver;
