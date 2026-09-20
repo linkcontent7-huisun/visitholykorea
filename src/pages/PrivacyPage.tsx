@@ -55,7 +55,6 @@ const ITEMS: PrivacyItem[] = [
       ko: 'Visit Holy Korea 운영팀이 개인정보 문의와 고충을 처리합니다. 이메일: visitholykorea@gmail.com',
       en: 'The Visit Holy Korea operations team handles privacy inquiries and complaints. Email: visitholykorea@gmail.com',
     },
-    needsOperator: true,
   },
   {
     title: { ko: '외부 서비스 이용', en: 'Third-party services' },
@@ -72,10 +71,7 @@ export default function PrivacyPage() {
 
   return (
     <PageContainer width="narrow" className="min-h-page pb-16">
-      <PageHeader
-        back
-        title={lang === 'ko' ? '개인정보 안내' : 'Privacy notice'}
-      />
+      <PageHeader back title={lang === 'ko' ? '개인정보 안내' : 'Privacy notice'} />
 
       <div className="mt-2">
         {ITEMS.map((item) => (

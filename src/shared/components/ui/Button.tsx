@@ -77,7 +77,12 @@ export function ButtonLink({
   const { ref, style, overlay } = useSquircle<HTMLAnchorElement>(BUTTON_RADIUS);
   const border = BUTTON_BORDER[variant];
   return (
-    <Link ref={ref} className={buttonClass({ variant, size, block, className })} style={style} {...rest}>
+    <Link
+      ref={ref}
+      className={buttonClass({ variant, size, block, className })}
+      style={style}
+      {...rest}
+    >
       {children}
       {overlay && border && (
         <SquircleBorder

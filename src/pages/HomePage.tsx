@@ -135,9 +135,7 @@ export default function HomePage() {
   /** 원문 이름순을 순위로 삼아 언어를 바꿔도 같은 날짜에는 같은 성지가 보이게 한다. */
   const readySites = useMemo(
     () =>
-      [...allSitesRaw]
-        .filter(isFirstVisitReady)
-        .sort((a, b) => a.name.localeCompare(b.name, 'ko')),
+      [...allSitesRaw].filter(isFirstVisitReady).sort((a, b) => a.name.localeCompare(b.name, 'ko')),
     [allSitesRaw],
   );
 
@@ -148,7 +146,9 @@ export default function HomePage() {
   const firstVisit = useMemo(() => {
     const ranked =
       session && gpsLocation
-        ? sortByDistance(readySites, gpsLocation).measured.map(({ site }) => site).slice(0, 4)
+        ? sortByDistance(readySites, gpsLocation)
+            .measured.map(({ site }) => site)
+            .slice(0, 4)
         : selectDailyRotation(readySites, homeRotationDay());
     const localizedById = new Map(allSites.map((site) => [site.id, site]));
     return ranked.map((site) => localizedById.get(site.id) ?? site);

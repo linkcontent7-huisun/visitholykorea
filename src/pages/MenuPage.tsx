@@ -97,15 +97,11 @@ export default function MenuPage() {
       role="switch"
       aria-checked={currentLocationEnabled}
       aria-label={
-        currentLocationEnabled
-          ? t('clearCurrentLocationButton')
-          : t('useCurrentLocationButton')
+        currentLocationEnabled ? t('clearCurrentLocationButton') : t('useCurrentLocationButton')
       }
       aria-busy={gpsStatus === 'loading'}
       disabled={gpsStatus === 'loading' || gpsStatus === 'unsupported'}
-      onClick={() =>
-        currentLocationEnabled ? clearGpsLocation() : requestGpsLocation()
-      }
+      onClick={() => (currentLocationEnabled ? clearGpsLocation() : requestGpsLocation())}
       className={`flex h-11 w-16 shrink-0 items-center rounded-full border p-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-60 ${
         currentLocationEnabled
           ? 'border-brand-blue bg-brand-blue'

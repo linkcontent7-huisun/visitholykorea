@@ -435,7 +435,8 @@ export async function deleteStamp(stampId: string): Promise<{ success: boolean; 
     if (!url) continue;
     try {
       const path = new URL(url).pathname.split('/object/public/pilgrim-photos/')[1];
-      if (path && decodeURIComponent(path).startsWith(`${userId}/`)) paths.add(decodeURIComponent(path));
+      if (path && decodeURIComponent(path).startsWith(`${userId}/`))
+        paths.add(decodeURIComponent(path));
     } catch {
       // 외부 URL 은 우리 저장소의 사진이 아니므로 여기에서 삭제하지 않는다.
     }

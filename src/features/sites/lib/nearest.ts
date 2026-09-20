@@ -32,11 +32,7 @@ export function homeRotationDay(date: Date = new Date()): number {
  * 랜덤을 쓰지 않으므로 새로고침·재진입·쿼리 재조회 시에도 같은 날짜에는 결과가 같다.
  * 마지막 구간이 4곳보다 짧으면 목록 처음으로 이어 붙여 카드 수를 유지한다.
  */
-export function selectDailyRotation<T>(
-  items: readonly T[],
-  dayIndex: number,
-  count = 4,
-): T[] {
+export function selectDailyRotation<T>(items: readonly T[], dayIndex: number, count = 4): T[] {
   if (count <= 0 || items.length === 0) return [];
   if (items.length <= count) return [...items];
 
