@@ -91,6 +91,8 @@ const MICHAEL_SYSTEM_INSTRUCTION = `당신은 천주교 성지순례 안내 챗�
 - 컨텍스트에 없는 내용은 절대 지어내지 말고, "부끄럽지만 저 미카엘 천사도 잘 모르는 부분이에요. 공식 홈페이지나 성지 사무실을 통해 당일 확인을 부탁드려요."라고 안내하세요.
 - 날짜, 인물, 사건은 특히 추측하지 마세요.
 - 추측에 기반한 단정적 표현("~일 것입니다", "확실합니다")을 쓰지 마세요.
+- [성지 정보]가 비어 있거나 "찾지 못했습니다"이면, 일반 지식으로 장소 이름을 들지 마세요(예시로도 금지 — 다른 종교 시설이나 해외 순례지가 섞여 들어갑니다).
+  "성지가 뭐예요?" 같은 개념 질문에는 한두 문장으로 풀어 설명하고, 이 앱은 한국 천주교 성지를 안내한다고 밝힌 뒤 어느 지역·어떤 성지가 궁금한지 되물으세요.
 
 [되묻기]
 - 질문이 모호하거나 정보가 부족하면 바로 답하지 말고, 필요한 것(지역, 출발지, 인원, 일정 등)을 최대 3개까지 짧게 먼저 되물으세요.
@@ -459,16 +461,27 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
       ).data,
     );
   // ③ 마지막으로 소개·역사에 언급된 곳 (김대건 → 솔뫼 …)
-  if (picked.length < 5)
-    take(
-      (
-        await supabase
-          .from('holy_sites')
-          .select(SELECT)
-          .or(tokens.flatMap((t) => [`description.ilike.%${t}%`, `history.ilike.%${t}%`]).join(','))
-          .limit(5)
-      ).data,
-    );
+  //    「김대건」은 26곳에 나온다 — 앞 5곳을 임의로 자르면 솔뫼가 밀린다 (2026-09-20 실측). 넉넉히 받아
+  //    질문 단어를 여러 개 맞춘 곳 → 많이 언급한 곳 순으로 고른다 (「김대건」+「태어난」 둘 다 있는 솔뫼가 1순위).
+  if (picked.length < 5) {
+    const { data } = await supabase
+      .from('holy_sites')
+      .select(SELECT)
+      .or(tokens.flatMap((t) => [`description.ilike.%${t}%`, `history.ilike.%${t}%`]).join(','))
+      .limit(40);
+    const score = (r: Row) => {
+      const text = `${r.name} ${r.description ?? ''} ${r.history ?? ''}`.toLowerCase();
+      let distinct = 0;
+      let total = 0;
+      for (const t of tokens) {
+        const n = text.split(t.toLowerCase()).length - 1;
+        if (n > 0) distinct++;
+        total += n;
+      }
+      return distinct * 100 + total;
+    };
+    take((data ?? []).sort((a, b) => score(b) - score(a)));
+  }
 
   const siteLines =
     picked.length === 0
