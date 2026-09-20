@@ -4,6 +4,8 @@
 
   Supabase 는 언어별 서식을 따로 두는 기능이 없다. 대신 서식이 Go 템플릿이라
   가입 때 넘긴 메타데이터(`options.data.lang`, `auth.ts` 의 signUpWithEmail)로 갈라 쓴다.
+  값이 없는 계정(옛 가입자·소셜 로그인)에서도 죽지 않도록 `printf "%v"` 로 문자열을 만든 뒤 비교한다 —
+  Go 는 nil 과 문자열을 `eq` 로 비교하면 실행이 실패하고, 그러면 편지가 아예 안 나간다.
   값이 없거나 모르는 값이면 영어로 떨어진다.
 
   쓸 수 있는 변수: .ConfirmationURL .Token .TokenHash .SiteURL .Email .Data.<키>
@@ -14,7 +16,8 @@
   <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #e3e0d8;border-radius:12px;padding:32px 28px;">
     <div style="font-size:15px;font-weight:700;color:#1f2f55;letter-spacing:.02em;">VisitHolyKorea</div>
 
-    {{ if eq .Data.lang "ko" }}
+    {{ $lang := printf "%v" (index .Data "lang") }}
+    {{ if eq $lang "ko" }}
     <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">이메일 주소를 확인해 주세요</h1>
     <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">
       VisitHolyKorea 가입을 신청해 주셔서 감사합니다.<br />
@@ -26,28 +29,28 @@
     <p style="margin:0 0 8px;font-size:14px;line-height:1.7;color:#666666;">단추가 눌리지 않으면 아래 주소를 복사해 인터넷 주소창에 붙여 넣어 주세요.</p>
     <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
     <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">본인이 신청하지 않으셨다면 이 편지를 지워 주세요. 아무 일도 일어나지 않습니다.</p>
-    {{ else if eq .Data.lang "es" }}
+    {{ else if eq $lang "es" }}
     <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Confirme su correo electrónico</h1>
     <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Gracias por registrarse en VisitHolyKorea. Pulse el botón para completar su registro.</p>
     <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Confirmar registro</a></p>
     <p style="margin:0 0 8px;font-size:14px;line-height:1.7;color:#666666;">Si el botón no funciona, copie esta dirección en su navegador.</p>
     <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
     <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">Si no ha sido usted, puede ignorar este mensaje.</p>
-    {{ else if eq .Data.lang "fr" }}
+    {{ else if eq $lang "fr" }}
     <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Confirmez votre adresse e-mail</h1>
     <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Merci de votre inscription à VisitHolyKorea. Cliquez sur le bouton pour terminer votre inscription.</p>
     <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Confirmer mon inscription</a></p>
     <p style="margin:0 0 8px;font-size:14px;line-height:1.7;color:#666666;">Si le bouton ne fonctionne pas, copiez cette adresse dans votre navigateur.</p>
     <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
     <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">Si vous n'êtes pas à l'origine de cette demande, ignorez ce message.</p>
-    {{ else if eq .Data.lang "pt" }}
+    {{ else if eq $lang "pt" }}
     <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Confirme o seu e-mail</h1>
     <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Obrigado por se inscrever no VisitHolyKorea. Toque no botão para concluir o seu registo.</p>
     <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Confirmar registo</a></p>
     <p style="margin:0 0 8px;font-size:14px;line-height:1.7;color:#666666;">Se o botão não funcionar, copie este endereço para o seu navegador.</p>
     <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
     <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">Se não foi você, ignore esta mensagem.</p>
-    {{ else if eq .Data.lang "it" }}
+    {{ else if eq $lang "it" }}
     <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Conferma il tuo indirizzo e-mail</h1>
     <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Grazie per esserti registrato a VisitHolyKorea. Tocca il pulsante per completare la registrazione.</p>
     <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Conferma registrazione</a></p>
