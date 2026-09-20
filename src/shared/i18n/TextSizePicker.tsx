@@ -105,7 +105,7 @@ export function TextSizePicker({
             textSize === 'lg'
               ? 'border-brand-blue bg-brand-blue text-white'
               : variant === 'onDark'
-                ? 'border-white/40 bg-black/30 text-white backdrop-blur-md hover:bg-black/45 focus-visible:outline-white'
+                ? 'border-white/40 bg-transparent [text-shadow:0_1px_3px_rgba(0,0,0,0.6)] text-white hover:bg-white/15 focus-visible:outline-white'
                 : 'border-app-border bg-white text-brand-blue hover:bg-app-bg'
           }`}
           id="text-size-toggle"

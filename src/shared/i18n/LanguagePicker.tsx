@@ -91,7 +91,7 @@ export function LanguagePicker({
         // 영어 화면에서 「EN」·「Log in」이 두 줄로 꺾여 단추가 깨졌다(2026-09-17) — 상단바 단추는 줄바꿈도 줄어듦도 없다
         className={
           variant === 'onDark'
-            ? 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-white/40 bg-black/30 px-[10px] text-[14px] font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45 focus-visible:outline-white'
+            ? 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-white/40 bg-transparent [text-shadow:0_1px_3px_rgba(0,0,0,0.6)] px-[10px] text-[14px] font-bold text-white transition-colors hover:bg-white/15 focus-visible:outline-white'
             : 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-app-border bg-white px-[10px] text-[14px] font-bold text-brand-blue transition-colors hover:bg-app-bg'
         }
         id="language-toggle"

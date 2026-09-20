@@ -31,7 +31,7 @@ const HEADER_H = { base: 60, lg: 72 };
  * 불투명 흰 배경으로 돌아간다 — 위치는 계속 `fixed` 로 두어(자리를 다시 차지하면 그만큼
  * 본문이 훌쩍 밀려 내려가 버벅여 보인다) 색만 바뀐다.
  *
- * 투명일 때 안의 버튼(글자크기·언어)은 `onDark` 로 반투명 검정 칩 + 흰 글자로 바꿔 사진이
+ * 투명일 때 안의 버튼(글자크기·미카엘·언어)은 `onDark` 로 배경 없는 흰 테두리 + 흰 글자(그림자)로 바꿔 사진이
  * 밝든 어둡든 읽힌다 — 성지 상세 히어로의 뒤로가기·즐겨찾기 버튼과 같은 방식(`SiteDetailPage`).
  * 다른 화면은 그대로 `sticky` + 흰 배경 — 사진이 없어 투명하게 할 이유가 없다.
  *
@@ -135,7 +135,7 @@ export function TopNav() {
               onClick={() => setAiOpen(true)}
               className={
                 transparent
-                  ? 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-white/40 bg-black/30 px-[10px] text-[14px] font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45 focus-visible:outline-white'
+                  ? 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-white/40 bg-transparent [text-shadow:0_1px_3px_rgba(0,0,0,0.6)] px-[10px] text-[14px] font-bold text-white transition-colors hover:bg-white/15 focus-visible:outline-white'
                   : 'flex h-[44px] shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg border-[1.5px] border-app-border bg-white px-[10px] text-[14px] font-bold text-brand-blue transition-colors hover:bg-app-bg'
               }
               id="ai-guide-toggle"
@@ -178,7 +178,7 @@ export function TopNav() {
                 title={t('moreTab')}
                 className={
                   transparent
-                    ? 'flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] border-white/40 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45 focus-visible:outline-white'
+                    ? 'flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] border-white/40 bg-transparent [text-shadow:0_1px_3px_rgba(0,0,0,0.6)] text-white transition-colors hover:bg-white/15 focus-visible:outline-white'
                     : 'flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-[1.5px] border-app-border bg-white text-brand-blue transition-colors hover:bg-app-bg'
                 }
                 id="topnav-more"
