@@ -326,11 +326,16 @@ async function callTourApiPage<T = TourApiSpot>(
   return { items: normalizeItems(data), totalCount: data.response.body?.totalCount ?? 0 };
 }
 
-/** 승인된 언어 서비스만 고른다. 미승인 언어는 안전하게 국문 서비스로 보낸다. */
+/**
+ * 승인된 언어 서비스만 고른다.
+ * 영문(EngService2)은 2026-09-21 활용신청·승인 확인(배포 키로 resultCode 0000 실측).
+ * 포르투갈어·이탈리아어는 관광공사에 서비스가 없어 **영어**로 보낸다 — 한글보다는 읽힌다(사장님 결정 9/21).
+ * 결과가 비면 `callLocalized` 가 국문으로 한 번 더 부른다.
+ */
 export function serviceFor(language: Language): string {
   if (language === 'fr') return 'FreService2';
   if (language === 'es') return 'SpnService2';
-  // EngService2 승인 시: if (language === 'en') return 'EngService2';
+  if (language === 'en' || language === 'pt' || language === 'it') return 'EngService2';
   return 'KorService2';
 }
 
