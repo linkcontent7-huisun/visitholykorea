@@ -1,0 +1,58 @@
+{
+  "siteId": "335e638e-f115-4158-a097-36b2ec261490",
+  "siteName": "대산 성당 복자 구한선 타대오 성지",
+  "slug": "daesan-church-blessed-gu-hanseon-thaddeus-shrine",
+  "surveyedAt": "2026-09-20",
+  "surveyedBy": "Codex (문헌 초안 2026-09-20)",
+  "status": "draft",
+  "intro": {
+    "narration": "대산 성당 안에 조성된 복자 구한선 타대오 성지입니다. 무덤 경당과 희망의 동산, 안내센터를 차례로 살펴보며 젊은 순교자와 그 유해가 이곳에 모셔진 이야기를 만나보겠습니다.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "성당 1층 — 무덤 경당",
+      "location": "대산 성당 1층",
+      "narration": "성당 1층 무덤 경당으로 들어가 보세요. 복자 구한선 타대오의 유해는 이 경당 제대에 모셔져 있습니다. 마산교구는 옛 묘역 주변의 환경 변화와 순례자의 접근 문제를 고려해 2016년 유해를 대산 성당으로 옮겼습니다. 순교자의 무덤과 미사를 봉헌하는 제대가 한자리에 놓인 모습을 조용히 살펴보세요.",
+      "lookFor": "복자의 유해가 안치된 무덤 경당 제대",
+      "forEveryone": "무덤 경당은 순교자의 유해를 모시고 기도와 미사를 드리는 공간입니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 대산 성당 성지 안내 · 무덤 경당과 유해 이장: https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=4336&menugubun=holyplace"
+    },
+    {
+      "seq": 2,
+      "title": "마당 — 희망의 동산 기념제단",
+      "location": "성당 마당 희망의 동산",
+      "narration": "성당 마당의 희망의 동산으로 나가 기념제단을 보세요. 이 제단에도 복자 구한선 타대오의 유해 일부가 안치되어 있습니다. 성지는 오스트리아 그라츠-세카우 교구와 마련한 공동기금으로 조성되었고, 지역 주민에게도 열린 공간으로 꾸며졌습니다. 실내 무덤 경당과 야외 기념제단이 한 성지 안에서 이어지는 구성을 눈여겨보세요.",
+      "lookFor": "희망의 동산에 설치된 야외 기념제단",
+      "forEveryone": "실내 경당뿐 아니라 마당도 지역 주민에게 열린 순례 공간으로 조성되었습니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 대산 성당 성지 안내 · 희망의 동산, 기념제단, 공동기금: https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtOrgNum=4336&menugubun=holyplace"
+    },
+    {
+      "seq": 3,
+      "title": "입구 — 안내센터 어머니 쉼터",
+      "location": "성지 입구",
+      "narration": "성지 입구의 안내센터는 어머니 쉼터라고도 불립니다. 이곳은 무덤 경당과 희망의 동산을 찾는 순례자를 맞는 성지의 안내 공간입니다. 굿뉴스 사진 자료에는 안내센터와 사제관이 성지 입구에 자리한 모습이 남아 있습니다. 순례를 시작하거나 마치며 필요한 안내를 확인해 보세요.",
+      "lookFor": "입구에 자리한 안내센터 건물",
+      "forEveryone": "순례 공간의 위치와 관람 안내를 확인할 수 있는 곳입니다.",
+      "photos": [],
+      "sourceNote": "굿뉴스 대산 성당 안내센터 사진 자료: https://maria.catholic.or.kr/sa_ho/album/album_view.asp?Orggubun=71&bbscount=13&bbsgubun=album&ctxtSubMenu=album&id=48372&infogubun=org&infoid=4336&menugubun=holyplace&page=1"
+    },
+    {
+      "seq": 4,
+      "title": "성지 공간 — 구한선 타대오의 기억",
+      "location": "무덤 경당과 희망의 동산 사이",
+      "narration": "이 성지의 두 제단 사이에서 복자 구한선 타대오의 생애를 떠올려 보세요. 함안 미나리골에서 태어난 그는 다블뤼 주교에게 세례를 받고 리델 신부의 복사로 거제도 전교에 동행했습니다. 1866년 체포되어 혹독한 매질을 당한 뒤 풀려났지만 이레 만에 숨졌습니다. 오랫동안 잊혔던 그의 묘와 유해는 여러 차례 확인과 이장을 거쳐 지금 이 성당에 모셔져 있습니다.",
+      "lookFor": "무덤 경당 제대와 희망의 동산 기념제단을 잇는 동선",
+      "forEveryone": "이 성지는 한 젊은 순교자의 생애와 유해가 보존되어 온 과정을 함께 전합니다.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 · 복자 구한선 타대오 순교성지 기념제단: https://www.catholictimes.org/article/201611020171178 ; 굿뉴스 구한선 타대오 생애: https://maria.catholic.or.kr/sa_ho/list/view.asp?ctxtSaintId=6320&menugubun=saint"
+    }
+  ],
+  "outro": {
+    "narration": "대산 성당에서는 무덤 경당과 희망의 동산이 복자 구한선 타대오의 유해와 기억을 함께 지키고 있습니다. 성지를 나서기 전에 실내와 야외의 두 제단을 한 번 더 돌아보세요.",
+    "photos": []
+  }
+}

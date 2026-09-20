@@ -8,7 +8,11 @@
   "intro": {
     "narration": "저와 함께 한옥 성당에서 서양식 성당으로 시선을 옮겨 보겠습니다. 서로 다른 건물에 남은 한 공동체의 이야기를 만나 보세요.",
     "photos": [],
-    "narrationEn": "Let me move your eyes from the hanok church to the Western-style church beside it — one community's story, kept in two very different buildings."
+    "narrationEn": "Let me move your eyes from the hanok church to the Western-style church beside it — one community's story, kept in two very different buildings.",
+    "narrationEs": "Permítanme mover sus ojos de la iglesia hanok a la iglesia de estilo occidental que está al lado: la historia de una comunidad, mantenida en dos edificios muy diferentes.",
+    "narrationIt": "Permettimi di spostare lo sguardo dalla chiesa hanok alla chiesa in stile occidentale accanto ad essa: la storia di una comunità, conservata in due edifici molto diversi.",
+    "narrationPt": "Deixe-me mover o seu olhar da igreja hanok para a igreja de estilo ocidental ao lado dela – a história de uma comunidade, mantida em dois edifícios muito diferentes.",
+    "narrationFr": "Permettez-moi de déplacer votre regard de l'église hanok vers l'église de style occidental située à côté – l'histoire d'une communauté, conservée dans deux bâtiments très différents."
   },
   "points": [
     {
@@ -23,7 +27,19 @@
       "titleEn": "Two Churches in One Yard",
       "locationEn": "The yard where both churches are visible",
       "lookForEn": "The different lines of the hanok tiled roof and the Western church roof",
-      "narrationEn": "From the yard, take in the tiled roof of the hanok and the Western-style church together. Munsan began with prayers in a converted house; as the faithful grew, they built a new church. The old hanok building remains, carrying the community's years forward. Compare the lines of the two roofs. A familiar Korean roof and an architecture brought from the West share one yard, and together they show how the faith settled here."
+      "narrationEn": "From the yard, take in the tiled roof of the hanok and the Western-style church together. Munsan began with prayers in a converted house; as the faithful grew, they built a new church. The old hanok building remains, carrying the community's years forward. Compare the lines of the two roofs. A familiar Korean roof and an architecture brought from the West share one yard, and together they show how the faith settled here.",
+      "titleEs": "Dos iglesias en un patio",
+      "narrationEs": "Desde el patio, contempla el techo de tejas del hanok y la iglesia de estilo occidental. Munsan comenzó con oraciones en una casa reformada; A medida que los fieles crecieron, construyeron una nueva iglesia. El antiguo edificio hanok permanece, conservando los años de la comunidad. Compara las líneas de los dos techos. Un techo coreano familiar y una arquitectura traída de Occidente comparten un patio, y juntos muestran cómo la fe se estableció aquí.",
+      "lookForEs": "Las diferentes líneas del techo de tejas hanok y el techo de la iglesia occidental.",
+      "titleIt": "Due chiese in un cortile",
+      "narrationIt": "Dal cortile, ammira insieme il tetto di tegole dell'hanok e la chiesa in stile occidentale. Munsan ha iniziato con le preghiere in una casa ristrutturata; man mano che i fedeli crescevano, costruivano una nuova chiesa. Il vecchio edificio hanok rimane, portando avanti gli anni della comunità. Confronta le linee dei due tetti. Un tetto coreano familiare e un'architettura portata dall'Occidente condividono lo stesso cortile e insieme mostrano come la fede si è stabilita qui.",
+      "lookForIt": "Le diverse linee del tetto di tegole hanok e del tetto della chiesa occidentale",
+      "titlePt": "Duas igrejas em um quintal",
+      "narrationPt": "Do quintal, admire o telhado de telhas do hanok e da igreja de estilo ocidental juntos. Munsan começou com orações em uma casa reformada; à medida que os fiéis cresciam, eles construíram uma nova igreja. O antigo edifício hanok permanece, levando os anos da comunidade adiante. Compare as linhas dos dois telhados. Um familiar telhado coreano e uma arquitetura trazida do Ocidente compartilham um pátio e, juntos, mostram como a fé se instalou aqui.",
+      "lookForPt": "As diferentes linhas do telhado de telhas hanok e do telhado da igreja ocidental",
+      "titleFr": "Deux églises dans une cour",
+      "narrationFr": "Depuis la cour, admirez ensemble le toit de tuiles du hanok et l'église de style occidental. Munsan a commencé par des prières dans une maison reconvertie ; à mesure que les fidèles grandissaient, ils construisirent une nouvelle église. L'ancien bâtiment hanok demeure, faisant avancer les années de la communauté. Comparez les lignes des deux toits. Un toit coréen familier et une architecture venue d'Occident partagent une même cour et montrent ensemble comment la foi s'est installée ici.",
+      "lookForFr": "Les différentes lignes du toit de tuiles hanok et du toit de l'église occidentale"
     },
     {
       "seq": 2,
@@ -37,7 +53,19 @@
       "titleEn": "A Church Raised by Its Own People",
       "locationEn": "In front of the Western-style church",
       "lookForEn": "The way the wall and entrance of the Western-style church are put together",
-      "narrationEn": "Look at the wall and the entrance of the Western-style church. When the new church was built, Father Kim Yeong-je sold his property and even his motorcycle to help pay for it, and parishioners carried the cement and bricks themselves. Gathering their strength that way, they consecrated the church in 1937. Rather than the size of the building, I would rest your eyes on the small units that make up the wall. Materials carried by hand became a house where people could pray together."
+      "narrationEn": "Look at the wall and the entrance of the Western-style church. When the new church was built, Father Kim Yeong-je sold his property and even his motorcycle to help pay for it, and parishioners carried the cement and bricks themselves. Gathering their strength that way, they consecrated the church in 1937. Rather than the size of the building, I would rest your eyes on the small units that make up the wall. Materials carried by hand became a house where people could pray together.",
+      "titleEs": "Una iglesia levantada por su propio pueblo",
+      "narrationEs": "Observa el muro y la entrada de la iglesia de estilo occidental. Cuando se construyó la nueva iglesia, el padre Kim Yeong-je vendió su propiedad e incluso su motocicleta para ayudar a pagarla, y los feligreses cargaron ellos mismos el cemento y los ladrillos. Reuniendo así sus fuerzas, consagraron la iglesia en 1937. Más que por el tamaño del edificio, me centraría en las pequeñas unidades que forman la pared. Los materiales llevados a mano se convirtieron en una casa donde la gente podía orar junta.",
+      "lookForEs": "La forma en que se ensamblan el muro y la entrada de la iglesia de estilo occidental",
+      "titleIt": "Una Chiesa fondata dal suo stesso popolo",
+      "narrationIt": "Guarda il muro e l'ingresso della chiesa in stile occidentale. Quando fu costruita la nuova chiesa, padre Kim Yeong-je vendette la sua proprietà e perfino la sua motocicletta per contribuire a pagarla, e i parrocchiani trasportarono essi stessi il cemento e i mattoni. Raccogliendo così le forze, consacrarono la chiesa nel 1937. Più che sulle dimensioni dell'edificio, fisserei lo sguardo sui piccoli elementi che compongono il muro. I materiali trasportati a mano sono diventati una casa dove le persone potevano pregare insieme.",
+      "lookForIt": "Il modo in cui sono accostati il muro e l'ingresso della chiesa in stile occidentale",
+      "titlePt": "Uma igreja criada por seu próprio povo",
+      "narrationPt": "Observe a parede e a entrada da igreja de estilo ocidental. Quando a nova igreja foi construída, o Padre Kim Yeong-je vendeu a sua propriedade e até a sua moto para ajudar a pagar, e os próprios paroquianos carregaram o cimento e os tijolos. Reunindo forças dessa forma, eles consagraram a igreja em 1937. Em vez do tamanho do edifício, eu colocaria os olhos nas pequenas unidades que compõem a parede. Os materiais carregados à mão tornaram-se uma casa onde as pessoas podiam orar juntas.",
+      "lookForPt": "A forma como a parede e a entrada da igreja de estilo ocidental são montadas",
+      "titleFr": "Une Église élevée par son propre peuple",
+      "narrationFr": "Regardez le mur et l'entrée de l'église de style occidental. Lorsque la nouvelle église a été construite, le père Kim Yeong-je a vendu sa propriété et même sa moto pour contribuer à la payer, et les paroissiens ont transporté eux-mêmes le ciment et les briques. Rassemblant ainsi leurs forces, ils consacrèrent l'église en 1937. Plutôt que la taille du bâtiment, je poserais mon regard sur les petits éléments qui composent le mur. Les matériaux portés à la main sont devenus une maison où les gens pouvaient prier ensemble.",
+      "lookForFr": "La façon dont le mur et l'entrée de l'église de style occidental sont assemblés"
     },
     {
       "seq": 3,
@@ -51,12 +79,28 @@
       "titleEn": "The Painting Beyond the Pillars",
       "locationEn": "Inside, from the pews",
       "lookForEn": "Christ and the apostles painted on the wall behind the altar",
-      "narrationEn": "Inside, follow the line of pillars toward the altar. You can see how the space divides into a center and two sides. On the wall behind the altar is a painting of the risen Christ with the twelve apostles, added when the interior was renewed around the parish's centenary. Take in the whole composition first, then look at the expressions of the figures. Inside an old building, a later generation's hands are laid over the earlier ones."
+      "narrationEn": "Inside, follow the line of pillars toward the altar. You can see how the space divides into a center and two sides. On the wall behind the altar is a painting of the risen Christ with the twelve apostles, added when the interior was renewed around the parish's centenary. Take in the whole composition first, then look at the expressions of the figures. Inside an old building, a later generation's hands are laid over the earlier ones.",
+      "titleEs": "La pintura más allá de los pilares",
+      "narrationEs": "En el interior, sigue la línea de pilares hacia el altar. Puedes ver cómo el espacio se divide en un centro y dos lados. En la pared detrás del altar hay una pintura de Cristo resucitado con los doce apóstoles, añadida cuando se renovó el interior en torno al centenario de la parroquia. Primero observe toda la composición y luego observe las expresiones de las figuras. Dentro de un edificio antiguo, las manos de una generación posterior se posan sobre las anteriores.",
+      "lookForEs": "Cristo y los apóstoles pintados en la pared detrás del altar.",
+      "titleIt": "Il dipinto oltre i pilastri",
+      "narrationIt": "All'interno, segui la linea dei pilastri verso l'altare. Puoi vedere come lo spazio si divide in un centro e due lati. Sulla parete dietro l'altare si trova il dipinto di Cristo risorto con i dodici apostoli, aggiunto in occasione del rinnovamento dell'interno in occasione del centenario della parrocchia. Osserva prima l'intera composizione, poi osserva le espressioni delle figure. All'interno di un vecchio edificio, le mani della generazione successiva si sovrappongono a quelle precedenti.",
+      "lookForIt": "Cristo e gli apostoli dipinti sulla parete dietro l'altare",
+      "titlePt": "A pintura além dos pilares",
+      "narrationPt": "No interior, siga a linha de pilares em direção ao altar. Você pode ver como o espaço se divide em um centro e dois lados. Na parede atrás do altar encontra-se uma pintura de Cristo ressuscitado com os doze apóstolos, acrescentada aquando da renovação do interior por volta do centenário da freguesia. Observe primeiro toda a composição e depois observe as expressões das figuras. Dentro de um edifício antigo, as mãos de uma geração posterior estão sobrepostas às anteriores.",
+      "lookForPt": "Cristo e os apóstolos pintados na parede atrás do altar",
+      "titleFr": "La peinture au-delà des piliers",
+      "narrationFr": "À l’intérieur, suivez la ligne de piliers en direction de l’autel. Vous pouvez voir comment l'espace se divise en un centre et deux côtés. Sur le mur derrière l'autel se trouve une peinture du Christ ressuscité avec les douze apôtres, ajoutée lors de la rénovation de l'intérieur à l'occasion du centenaire de la paroisse. Examinez d’abord toute la composition, puis regardez les expressions des personnages. À l'intérieur d'un vieux bâtiment, les mains d'une génération ultérieure reposent sur les générations précédentes.",
+      "lookForFr": "Le Christ et les apôtres peints sur le mur derrière l'autel"
     }
   ],
   "outro": {
     "narration": "두 성당을 둘러보았습니다. 마당으로 나오면 다른 지붕 아래 같은 공동체의 시간이 이어져 있다는 이야기를 떠올려 보세요.",
     "photos": [],
-    "narrationEn": "We have looked at both churches. As you step back into the yard, remember that under two different roofs runs the time of one and the same community."
+    "narrationEn": "We have looked at both churches. As you step back into the yard, remember that under two different roofs runs the time of one and the same community.",
+    "narrationEs": "Hemos analizado ambas iglesias. Al volver al patio, recuerde que bajo dos techos diferentes pasa el tiempo de una misma comunidad.",
+    "narrationIt": "Abbiamo esaminato entrambe le chiese. Quando torni nel cortile, ricorda che sotto due tetti diversi scorre il tempo di una stessa comunità.",
+    "narrationPt": "Nós olhamos para ambas as igrejas. Ao voltar para o quintal, lembre-se de que sob dois tetos diferentes corre o tempo de uma mesma comunidade.",
+    "narrationFr": "Nous avons examiné les deux églises. En revenant dans la cour, rappelez-vous que sous deux toits différents se déroule le temps d'une seule et même communauté."
   }
 }
