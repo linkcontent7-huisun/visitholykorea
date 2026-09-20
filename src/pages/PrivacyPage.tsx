@@ -30,8 +30,8 @@ const ITEMS: PrivacyItem[] = [
   {
     title: { ko: 'AI 가이드(미카엘) 대화', en: 'AI guide (Michael) conversations' },
     body: {
-      ko: '로그인한 상태에서 미카엘에게 한 질문과 답은 계정에 저장되어 다음에 열어도 이어서 볼 수 있습니다. 본인만 볼 수 있고, 대화창의 「대화 지우기」로 언제든 전부 삭제됩니다. 로그인하지 않으면 저장하지 않습니다. 질문에 이름·연락처 같은 개인정보를 넣지 마세요. 답변 생성에는 Google Gemini 를 사용하며 질문 내용이 그 서비스로 전송됩니다.',
-      en: 'While signed in, your questions to Michael and its answers are saved to your account so the conversation continues next time. Only you can see them, and "Clear chat" in the chat window deletes them all at any time. Nothing is saved when you are not signed in. Please do not include personal details such as names or contact information in questions. Answers are generated with Google Gemini, so question text is sent to that service.',
+      ko: '로그인한 상태에서 미카엘에게 한 질문과 답은 계정에 저장되어 다음에 열어도 이어서 볼 수 있습니다. 본인만 볼 수 있고, 대화창의 「대화 지우기」로 언제든 전부 삭제됩니다. 로그인하지 않으면 저장하지 않습니다. 질문에 이름·연락처 같은 개인정보를 넣지 마세요. 답변 생성에는 Anthropic Claude 를 사용하며(장애 시 Google Gemini 로 대신 답합니다) 질문 내용이 그 서비스로 전송됩니다.',
+      en: 'While signed in, your questions to Michael and its answers are saved to your account so the conversation continues next time. Only you can see them, and "Clear chat" in the chat window deletes them all at any time. Nothing is saved when you are not signed in. Please do not include personal details such as names or contact information in questions. Answers are generated with Anthropic Claude (Google Gemini as a backup when Claude is unavailable), so question text is sent to that service.',
     },
   },
   {
