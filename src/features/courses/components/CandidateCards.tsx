@@ -4,8 +4,14 @@ import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary'
 import { formatFromOrigin } from '../lib/plan-format';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { Button } from '@/shared/components/ui/Button';
+import { Card } from '@/shared/components/ui/Card';
+import { SquircleBorder } from '@/shared/components/ui/SquircleBorder';
+import { useSquircle } from '@/shared/components/ui/use-squircle';
 import type { Candidate } from '../hooks/use-candidate-plans';
 import type { CandidateTag } from '../lib/candidate-tags';
+
+const CARD_RADIUS = 8;
+const THUMB_RADIUS = 8;
 
 /**
  * 후보 카드 화면 — 결과의 첫 화면. 카드 최대 3장, 카드마다 근거 태그 1개.
@@ -64,47 +70,7 @@ export function CandidateCards({
       <ul className="space-y-3" id="plan-cards">
         {candidates.map((c, i) => (
           <li key={c.site.id}>
-            <button
-              type="button"
-              onClick={() => onSelect(i)}
-              className="flex w-full items-center gap-4 rounded-lg border border-app-border bg-white p-3 text-left transition-colors hover:border-brand-blue"
-              id={`plan-card-${c.site.id}`}
-            >
-              <span className="h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-app-panel">
-                <SiteThumbnail
-                  imageUrl={c.site.imageUrl}
-                  name={c.site.name}
-                  category={c.site.category}
-                  className="h-full w-full object-cover"
-                />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block text-lg font-bold leading-tight text-app-text">
-                  {c.site.name}
-                </span>
-                <span className="mt-1 flex items-center gap-1 text-sm text-app-text-muted">
-                  <MapPin size={14} className="shrink-0" aria-hidden />
-                  <span className="truncate">
-                    {c.site.location ? `${c.site.location} · ` : ''}
-                    {formatFromOrigin(c.distanceKm, t)}
-                  </span>
-                </span>
-                <span className="mt-2 block">
-                  {c.tag ? (
-                    <span
-                      className={`inline-block rounded-full px-3 py-1 text-xs font-bold ${TAG_STYLE[c.tag]}`}
-                    >
-                      {t(TAG_LABEL[c.tag])}
-                    </span>
-                  ) : c.loading ? (
-                    <span className="inline-block rounded-full bg-app-panel px-3 py-1 text-xs font-bold text-app-text-muted">
-                      {t('tagChecking')}
-                    </span>
-                  ) : null}
-                </span>
-              </span>
-              <ChevronRight size={20} className="shrink-0 text-app-text-muted" aria-hidden />
-            </button>
+            <CandidateCard candidate={c} onSelect={() => onSelect(i)} />
           </li>
         ))}
       </ul>
@@ -114,7 +80,7 @@ export function CandidateCards({
           {t('planMore')}
         </Button>
       ) : (
-        <div className="mt-5 rounded-lg border border-dashed border-app-border bg-white p-5 text-center">
+        <Card tone="dashed" className="mt-5 text-center">
           <p className="text-base font-bold text-app-text-muted">
             {moreInNextRadius > 0
               ? fillPlaceholders(t('planMoreInRadius'), { n: moreInNextRadius })
@@ -133,8 +99,71 @@ export function CandidateCards({
               {t('planChangeMood')}
             </Button>
           </div>
-        </div>
+        </Card>
       )}
     </div>
+  );
+}
+
+/** 후보 카드 한 장 — 배열 안에서 훅(useSquircle)을 쓰려면 컴포넌트로 따로 빼야 한다. */
+function CandidateCard({ candidate: c, onSelect }: { candidate: Candidate; onSelect: () => void }) {
+  const { t } = useSettings();
+  const { ref, style, overlay } = useSquircle<HTMLButtonElement>(CARD_RADIUS);
+  const { ref: thumbRef, style: thumbStyle } = useSquircle<HTMLSpanElement>(THUMB_RADIUS);
+  return (
+    <button
+      ref={ref}
+      type="button"
+      onClick={onSelect}
+      style={style}
+      className="group relative flex w-full items-center gap-4 bg-white p-3 text-left transition-colors"
+      id={`plan-card-${c.site.id}`}
+    >
+      {overlay && (
+        <SquircleBorder
+          path={overlay.path}
+          width={overlay.width}
+          height={overlay.height}
+          color="var(--color-app-border)"
+          className="transition-[stroke] group-hover:stroke-brand-blue"
+        />
+      )}
+      <span
+        ref={thumbRef}
+        style={thumbStyle}
+        className="h-20 w-20 shrink-0 overflow-hidden bg-app-panel"
+      >
+        <SiteThumbnail
+          imageUrl={c.site.imageUrl}
+          name={c.site.name}
+          category={c.site.category}
+          className="h-full w-full object-cover"
+        />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-lg font-bold leading-tight text-app-text">{c.site.name}</span>
+        <span className="mt-1 flex items-center gap-1 text-sm text-app-text-muted">
+          <MapPin size={14} className="shrink-0" aria-hidden />
+          <span className="truncate">
+            {c.site.location ? `${c.site.location} · ` : ''}
+            {formatFromOrigin(c.distanceKm, t)}
+          </span>
+        </span>
+        <span className="mt-2 block">
+          {c.tag ? (
+            <span
+              className={`inline-block rounded-full px-3 py-1 text-xs font-bold ${TAG_STYLE[c.tag]}`}
+            >
+              {t(TAG_LABEL[c.tag])}
+            </span>
+          ) : c.loading ? (
+            <span className="inline-block rounded-full bg-app-panel px-3 py-1 text-xs font-bold text-app-text-muted">
+              {t('tagChecking')}
+            </span>
+          ) : null}
+        </span>
+      </span>
+      <ChevronRight size={20} className="shrink-0 text-app-text-muted" aria-hidden />
+    </button>
   );
 }

@@ -15,7 +15,7 @@
  * 조회 중에는 "0곳" 을 먼저 보여주지 않는다.
  *
  * ## 데스크톱 분할 화면 (2026-09-18)
- * "전국 성지 분포 개요"(MapPage) 자체는 사장님 판단으로 쓸모가 없어졌지만(다녀온 곳 추적은
+ * "전국 성지 지도"(MapPage) 자체는 지도 기능으로 남겨 두되(다녀온 곳 추적은
  * 검색과 무관), **왼쪽 목록 + 오른쪽 지도로 갈라지는 형식**은 검색에도 그대로 값어치가 있다 —
  * 필터를 좁히면서 "이 조건에 맞는 곳이 전국 어디 있나"를 바로 보는 것. MapPage 와 같은 이유로
  * (`lg:flex` 452px 목록 패널 + 나머지 지도) 모바일은 위아래로 그대로 흐르고, 지도는 작은 요약으로만
@@ -33,6 +33,7 @@ import { Button } from '@/shared/components/ui/Button';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
+import { SquircleSurface } from '@/shared/components/ui/SquircleSurface';
 import { useLocalizedSites, useSiteSearch, useSites } from '@/features/sites/hooks/use-sites';
 import { useDirectorySearch } from '@/features/sites/hooks/use-nearby-directory';
 import type { DirectoryEntry } from '@/features/sites/api/directory.repository';
@@ -91,27 +92,29 @@ function ResultRow({
   rowRef: (el: HTMLLIElement | null) => void;
   onMouseEnter: () => void;
 }) {
-  const cls = `flex w-full items-center gap-4 rounded-lg border bg-white p-4 text-left transition-colors hover:border-brand-blue ${
-    active ? 'border-brand-blue ring-1 ring-brand-blue/20' : 'border-app-border'
-  }`;
-
   return (
     <li ref={rowRef} onMouseEnter={onMouseEnter}>
-      <Link to={to} className={cls} id={id}>
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-app-panel">
-          <SiteThumbnail
-            imageUrl={imageUrl}
-            name={name}
-            category={category}
-            className="h-full w-full object-cover"
-          />
-        </div>
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-lg font-bold text-app-text">{name}</p>
-          <p className="mt-0.5 truncate text-sm text-app-text-muted">{subtitle}</p>
-        </div>
-        <ChevronRight size={20} className="shrink-0 text-app-text-muted" aria-hidden />
-      </Link>
+      <SquircleSurface
+        borderColor={active ? 'var(--color-brand-blue)' : 'var(--color-app-border)'}
+        borderClassName="transition-colors group-hover:stroke-brand-blue"
+        className={`group overflow-hidden bg-white ${active ? 'ring-1 ring-brand-blue/20' : ''}`}
+      >
+        <Link to={to} className="flex w-full items-center gap-4 p-4 text-left" id={id}>
+          <SquircleSurface className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden bg-app-panel">
+            <SiteThumbnail
+              imageUrl={imageUrl}
+              name={name}
+              category={category}
+              className="h-full w-full object-cover"
+            />
+          </SquircleSurface>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-lg font-bold text-app-text">{name}</p>
+            <p className="mt-0.5 truncate text-sm text-app-text-muted">{subtitle}</p>
+          </div>
+          <ChevronRight size={20} className="shrink-0 text-app-text-muted" aria-hidden />
+        </Link>
+      </SquircleSurface>
     </li>
   );
 }
@@ -154,6 +157,8 @@ export default function SearchPage() {
   const hasQuery = needle.length > 0;
   // "내 위치로 검색" — 출발지 추정(origin)이 아니라 실제 GPS 권한을 받았을 때만 켠다.
   const nearMeActive = Boolean(gpsLocation);
+  const locationRequestInProgress = gpsStatus === 'loading';
+  const locationUnsupported = gpsStatus === 'unsupported';
 
   const results = useMemo(() => {
     if (!hasQuery && !nearMeActive) return [];
@@ -268,7 +273,12 @@ export default function SearchPage() {
           {/* 검색 입력 */}
           <div className="border-b border-app-border pb-5">
             <PageHeader back title={t('searchPageTitle')} className="pb-4" />
-            <div className="flex items-center gap-3 rounded-lg border-[1.5px] border-app-border bg-white px-4 focus-within:border-brand-blue">
+            <SquircleSurface
+              borderColor="var(--color-app-border)"
+              borderWidth={1.5}
+              borderClassName="transition-colors group-focus-within:stroke-brand-blue"
+              className="group flex items-center gap-3 overflow-hidden bg-white px-4"
+            >
               <Search className="shrink-0 text-app-text-muted" size={22} aria-hidden />
               <input
                 type="search"
@@ -291,41 +301,60 @@ export default function SearchPage() {
                   <X size={22} aria-hidden />
                 </button>
               )}
-            </div>
+            </SquircleSurface>
 
             {/* 내 위치로 검색 — 위치 권한을 받아 반경 안 성지를 가까운 순으로 보여준다(사장님 지적,
                 2026-09-19). 검색창과 너비를 맞췄다(같은 날 추가 지적) — 반경 문구는 화면엔 안 적는다. */}
-            <button
+            <SquircleSurface
+              as="button"
               type="button"
               onClick={() => (gpsLocation ? clearGpsLocation() : requestGpsLocation())}
               aria-pressed={nearMeActive}
-              className={`mt-3 flex min-h-12 w-full items-center justify-center gap-1.5 rounded-lg border-[1.5px] text-base font-bold transition-colors ${
-                nearMeActive
-                  ? 'border-brand-blue bg-brand-blue text-white'
-                  : 'border-app-border bg-white text-app-text hover:border-brand-blue/50'
+              aria-busy={locationRequestInProgress}
+              disabled={locationRequestInProgress || locationUnsupported}
+              borderColor={nearMeActive ? 'var(--color-brand-blue)' : 'var(--color-app-border)'}
+              borderWidth={1.5}
+              borderClassName="transition-colors group-hover:stroke-brand-blue/50"
+              className={`group mt-3 flex min-h-12 w-full items-center justify-center gap-1.5 text-base font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${
+                nearMeActive ? 'bg-brand-blue text-white' : 'bg-white text-app-text'
               }`}
             >
               <Navigation size={18} aria-hidden />
-              {nearMeActive ? t('clearCurrentLocationButton') : t('searchNearMeButton')}
-            </button>
+              {locationRequestInProgress
+                ? t('currentLocationLoading')
+                : nearMeActive
+                  ? t('clearCurrentLocationButton')
+                  : t('searchNearMeButton')}
+            </SquircleSurface>
             {gpsStatus === 'loading' && (
-              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationLoading')}</p>
+              <p className="mt-2 text-sm text-app-text-muted" role="status">
+                {t('currentLocationLoading')}
+              </p>
             )}
             {gpsStatus === 'denied' && (
-              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationDenied')}</p>
+              <p className="mt-2 text-sm text-app-text-muted" role="alert">
+                {t('currentLocationDenied')}
+              </p>
             )}
             {gpsStatus === 'unsupported' && (
-              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationUnsupported')}</p>
+              <p className="mt-2 text-sm text-app-text-muted" role="alert">
+                {t('currentLocationUnsupported')}
+              </p>
             )}
             {gpsStatus === 'error' && (
-              <p className="mt-2 text-sm text-app-text-muted">{t('currentLocationError')}</p>
+              <p className="mt-2 text-sm text-app-text-muted" role="alert">
+                {t('currentLocationError')}
+              </p>
             )}
           </div>
 
           <div className="flex flex-1 flex-col py-6">
             {/* 자체 데이터 없음 — 목록 자체를 못 받았을 때. 외부 API 와 무관한 우리 쪽 문제다. */}
             {sitesFailed && (
-              <div className="rounded-lg border border-app-border bg-white">
+              <SquircleSurface
+                borderColor="var(--color-app-border)"
+                className="overflow-hidden bg-white"
+              >
                 <EmptyState
                   compact
                   role="alert"
@@ -337,7 +366,7 @@ export default function SearchPage() {
                     </Button>
                   }
                 />
-              </div>
+              </SquircleSurface>
             )}
 
             {!active && !sitesFailed && (
@@ -396,7 +425,11 @@ export default function SearchPage() {
                   </section>
                 ) : (
                   directoryResults.length === 0 && (
-                    <div className="rounded-lg border border-dashed border-app-border bg-white">
+                    <SquircleSurface
+                      borderColor="var(--color-app-border)"
+                      borderDashed
+                      className="overflow-hidden bg-white"
+                    >
                       <EmptyState
                         compact
                         role="status"
@@ -409,7 +442,7 @@ export default function SearchPage() {
                           </Button>
                         }
                       />
-                    </div>
+                    </SquircleSurface>
                   )
                 )}
 

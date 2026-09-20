@@ -33,7 +33,7 @@
 
 - **앱**: React 19 · TypeScript · Vite 6 · Tailwind CSS v4 · React Router 7 · TanStack Query 5
 - **백엔드**: Supabase (PostgreSQL + Auth + RLS + Edge Functions)
-- **외부 데이터**: 한국관광공사 TourAPI (실시간 호출), Gemini (Edge Function 경유)
+- **외부 데이터**: 한국관광공사 TourAPI (실시간 호출), Anthropic Claude — 예비 Gemini (Edge Function 경유)
 - **배포**: 웹은 PWA(설치 가능), 네이티브는 Capacitor 로 Android/iOS 패키징
 
 ## 시작하기
@@ -67,8 +67,8 @@ supabase functions deploy ai-guide                        # AI 가이드 함수 
 `catholic_directory`(CBCK 주소록 5,918건)는 별도 테이블이며 스키마만 마이그레이션에 있다.
 데이터 적재는 스크레이핑 결과가 필요하므로 시드에 포함하지 않았다.
 
-`GEMINI_API_KEY` 는 클라이언트가 아니라 Edge Function 쪽 시크릿으로 넣는다:
-`supabase secrets set GEMINI_API_KEY=...`
+AI 키는 클라이언트가 아니라 Edge Function 쪽 시크릿으로 넣는다 (Claude 1순위, Gemini 예비 — 2026-09-19):
+`supabase secrets set ANTHROPIC_API_KEY=... AI_PRIMARY=claude GEMINI_API_KEY=...`
 
 ### 네이티브 앱 빌드
 

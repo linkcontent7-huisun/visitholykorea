@@ -66,7 +66,8 @@ export function useAddStamp(siteId: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (note: string | null = null) => addStamp(siteId, note),
+    mutationFn: ({ note = null, visitedOn = null }: { note?: string | null; visitedOn?: string | null } = {}) =>
+      addStamp(siteId, note, null, visitedOn),
     onSuccess: (result) => {
       if (!result.success) return;
       void queryClient.invalidateQueries({ queryKey: queryKeys.passport.stamps });

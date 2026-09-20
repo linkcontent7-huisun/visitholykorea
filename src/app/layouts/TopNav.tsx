@@ -43,7 +43,7 @@ export function TopNav() {
   const { pathname } = useLocation();
   const isHome = pathname === paths.home;
   const [scrolled, setScrolled] = useState(false);
-  // 미카엘 AI 시트 — 헤더 아무 화면에서나 열 수 있게 여기서 상태를 들고 있는다(2026-09-18 되살림).
+  // 미카엘 순례 가이드 시트 — 헤더 아무 화면에서나 열 수 있게 여기서 상태를 들고 있는다(2026-09-18 되살림).
   const [aiOpen, setAiOpen] = useState(false);
 
   useEffect(() => {
@@ -124,7 +124,7 @@ export function TopNav() {
               누르면 옆에 소·중·대가 펼쳐진다 (2026-09-12). */}
             <TextSizePicker variant={transparent ? 'onDark' : 'default'} />
 
-            {/* 미카엘 AI — 재기획(2026-09-14)에서 정확성·비용 안전장치가 갖춰지기 전까지
+            {/* 미카엘 순례 가이드 — 재기획(2026-09-14)에서 정확성·비용 안전장치가 갖춰지기 전까지
               숨겨 뒀던 것을, 검색 정확도·Gemini 한도 안내를 고친 뒤(PR #40, 2026-09-17)
               되살린다(사장님 지적, 2026-09-18). 글자크기·언어 버튼과 같은 자리에 둔다. */}
             <button
@@ -143,9 +143,8 @@ export function TopNav() {
 
             {/* 언어 선택 — 2026-09-18에 "더보기에서도 바꿀 수 있다"는 이유로 뺐던 것을
               되살린다(2026-09-19, 다국어화 재착수 4-1) — 헤더·더보기 양쪽에서 바로 바꿀 수
-              있어야 한다는 2026-09-08 원래 결정으로 되돌아간다. 지금은 ENABLED_LANGUAGES가
-              ko/en뿐이라 목록엔 두 개만 보인다 — es/fr/pt/it 콘텐츠 번역이 채워지면 이 배열만
-              늘리면 된다(4-3). 모바일에서도 삼선 메뉴를 열지 않고 바로 바꿀 수 있어야 해서
+              있어야 한다는 2026-09-08 원래 결정으로 되돌아간다. 목록은 ENABLED_LANGUAGES
+              (2026-09-20 콘텐츠 번역이 끝나 여섯 개 전부). 모바일에서도 삼선 메뉴를 열지 않고 바로 바꿀 수 있어야 해서
               데스크톱 전용(`lg:flex`) 밖, 늘 보이는 자리에 둔다. */}
             <LanguagePicker variant={transparent ? 'onDark' : 'default'} />
 

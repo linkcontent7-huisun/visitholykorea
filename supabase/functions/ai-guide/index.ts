@@ -13,10 +13,33 @@
  */
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
+import modelList from './models.json' with { type: 'json' };
 
 const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
+/**
+ * Gemini 가 끝내 못 답하면 Claude 로 넘어간다 (2026-09-19 사장님 결정). 같은 시스템 프롬프트·같은 성지
+ * 컨텍스트·같은 대화 이력을 그대로 보내므로 "컨텍스트 밖은 모른다" 규칙(CLAUDE.md)은 그대로 지켜진다.
+ * 키가 없으면 이 단계는 건너뛰고 예전처럼 정보 카드로 간다.
+ */
+const ANTHROPIC_API_KEY = Deno.env.get('ANTHROPIC_API_KEY');
+const CLAUDE_MODEL = Deno.env.get('CLAUDE_MODEL') ?? 'claude-haiku-4-5-20251001';
+/** Claude 가 준비돼 있으면 Gemini 를 오래 두드릴 이유가 줄어든다. 'true' 면 Gemini 는 3회만 보고 Claude 로. 기본은 사장님 지시대로 20~30회. */
+const GEMINI_QUICK_HANDOFF =
+  Deno.env.get('GEMINI_QUICK_HANDOFF') === 'true' && Boolean(ANTHROPIC_API_KEY);
+/**
+ * 1순위 답변자. 'claude' 면 Claude 가 먼저 답하고 Gemini 가 예비, 그 밖(기본)은 Gemini 먼저.
+ * 2026-09-19: Gemini 무료 한도가 시연에 불안해 Claude 유료(API 크레딧)를 1순위로 두기로 함. 시크릿 하나로 바꾼다.
+ */
+const AI_PRIMARY =
+  Deno.env.get('AI_PRIMARY') === 'claude' && Boolean(ANTHROPIC_API_KEY) ? 'claude' : 'gemini';
 // 모델은 환경변수로 갈아끼울 수 있게 둔다(모델 교체 때 코드 수정이 필요 없도록).
-const GEMINI_MODEL = Deno.env.get('GEMINI_MODEL') ?? 'gemini-3.6-flash';
+/**
+ * 모델 후보 순서. 이름은 시크릿에 박지 않는다 — `models.json` 을 GitHub Actions 가 매일 ListModels 로
+ * 갱신하고 재배포한다(사장님 지시 2026-09-19, 모델명 변동이 심해서). `GEMINI_MODEL` 시크릿은 급할 때
+ * 맨 앞에 끼워 넣는 임시 덮어쓰기용이다.
+ */
+const GEMINI_MODEL_OVERRIDE = Deno.env.get('GEMINI_MODEL');
+const BUNDLED_MODELS: string[] = (modelList as { models?: string[] }).models ?? [];
 
 // H-01(보안 진단 2026-09-13): '*' 대신 허용 도메인만. 프리뷰 도메인이 필요하면 ALLOWED_ORIGINS 시크릿에 쉼표로 추가.
 const ALLOWED_ORIGINS = (Deno.env.get('ALLOWED_ORIGINS') ?? 'https://visitholykorea-app.vercel.app')
@@ -75,6 +98,8 @@ const MICHAEL_SYSTEM_INSTRUCTION = `당신은 천주교 성지순례 안내 챗�
 - 컨텍스트에 없는 내용은 절대 지어내지 말고, "부끄럽지만 저 미카엘 천사도 잘 모르는 부분이에요. 공식 홈페이지나 성지 사무실을 통해 당일 확인을 부탁드려요."라고 안내하세요.
 - 날짜, 인물, 사건은 특히 추측하지 마세요.
 - 추측에 기반한 단정적 표현("~일 것입니다", "확실합니다")을 쓰지 마세요.
+- [성지 정보]가 비어 있거나 "찾지 못했습니다"이면, 일반 지식으로 장소 이름을 들지 마세요(예시로도 금지 — 다른 종교 시설이나 해외 순례지가 섞여 들어갑니다).
+  "성지가 뭐예요?" 같은 개념 질문에는 한두 문장으로 풀어 설명하고, 이 앱은 한국 천주교 성지를 안내한다고 밝힌 뒤 어느 지역·어떤 성지가 궁금한지 되물으세요.
 
 [되묻기]
 - 질문이 모호하거나 정보가 부족하면 바로 답하지 말고, 필요한 것(지역, 출발지, 인원, 일정 등)을 최대 3개까지 짧게 먼저 되물으세요.
@@ -100,20 +125,117 @@ type Turn = { role: 'user' | 'bot'; text: string };
 const MAX_HISTORY_TURNS = 6;
 
 /** 한 번의 시도가 이보다 오래 끌면 끊는다 — 과부하(503)는 보통 1~2초 안에 오므로 이 값은 정상 응답용이다. */
-const GEMINI_ATTEMPT_TIMEOUT_MS = 12_000;
+const GEMINI_ATTEMPT_TIMEOUT_MS = 6_000;
 /**
- * 재시도 규칙 (2026-09-19 사장님: "무료 키라 최소 20번은 다시 시도").
- * 503(과부하)·429(분당 한도)·시간 초과·네트워크 오류면 짧게 쉬었다 다시 부른다.
- * 횟수는 20번까지, 그러나 **전체 대기는 GEMINI_TOTAL_BUDGET_MS 를 넘기지 않는다** — 사용자를 1분 넘게
- * 세워 둘 수는 없다. 503 은 1초 안에 오므로 20번을 다 써도 예산 안에 든다. 두 번째 시도부터는
- * 보조 모델(GEMINI_FALLBACK_MODEL)과 번갈아 부른다 — 한 모델이 막혀도 다른 모델은 비어 있을 때가 많다.
+ * 재시도 규칙 (2026-09-19 사장님: "최소 20회, 최대 30회. 정확하게 지켜라").
+ * 503(과부하)·429(분당 한도)·5xx·시간 초과·네트워크 오류·빈 답이면 다시 부른다.
+ * - 20회까지는 시간에 관계없이 **반드시** 시도한다.
+ * - 21~30회는 전체 경과가 GEMINI_EXTRA_BUDGET_MS 안일 때만 이어 간다 — Edge Function 은 150초를 넘기면
+ *   플랫폼이 끊어 버려 답을 아예 못 돌려준다. 시도당 최대 6초 + 쉬는 시간 1초라 20회는 그 안에 든다.
+ * - models.json 의 모델을 순서대로 번갈아 부른다. 이름이 없는(404) 모델은 그 자리에서 제외, 전부 없으면 ListModels 로 재발견.
  */
-const GEMINI_MAX_ATTEMPTS = 20;
-const GEMINI_TOTAL_BUDGET_MS = 40_000;
-const GEMINI_FALLBACK_MODEL = Deno.env.get('GEMINI_FALLBACK_MODEL') ?? 'gemini-3.6-flash-lite';
+const GEMINI_MIN_ATTEMPTS = 20;
+const GEMINI_MAX_ATTEMPTS = 30;
+const GEMINI_EXTRA_BUDGET_MS = 110_000;
+/** 429(한도)는 재시도해도 한도만 더 깎인다 — 몇 번만 보고 정보 카드로 */
+const RATE_LIMIT_MAX_RETRIES = 3;
 const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/** ListModels 결과(1시간 캐시). CI 가 갱신하는 models.json 이 전부 죽었을 때만 쓰는 비상용. */
+let discovered: { at: number; models: string[] } | null = null;
+async function discoverModels(force = false): Promise<string[]> {
+  if (!force && discovered && Date.now() - discovered.at < 60 * 60 * 1000) return discovered.models;
+  try {
+    const res = await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models?pageSize=200',
+      {
+        headers: { 'x-goog-api-key': GEMINI_API_KEY! },
+        signal: AbortSignal.timeout(8_000),
+      },
+    );
+    if (!res.ok) return [];
+    const { models = [] } = (await res.json()) as {
+      models?: { name: string; supportedGenerationMethods?: string[] }[];
+    };
+    const names = models
+      .filter((m) => (m.supportedGenerationMethods ?? []).includes('generateContent'))
+      .map((m) => m.name.replace(/^models\//, ''))
+      .filter(
+        (n) =>
+          /^gemini-/.test(n) &&
+          !/(embedding|image|audio|tts|live|vision|exp|preview|thinking|robotics|computer|latest)/i.test(
+            n,
+          ),
+      )
+      .sort(
+        (a, b) =>
+          (/flash-lite/.test(a) ? 1 : /flash/.test(a) ? 0 : 2) -
+          (/flash-lite/.test(b) ? 1 : /flash/.test(b) ? 0 : 2),
+      );
+    discovered = { at: Date.now(), models: names.slice(0, 4) };
+    console.warn('ai-guide: ListModels 로 모델 재발견 —', discovered.models.join(', '));
+    return discovered.models;
+  } catch (err) {
+    console.error('ai-guide: ListModels 실패', err);
+    return [];
+  }
+}
+
+/** 시도할 모델 순서: 시크릿 덮어쓰기 → models.json → (둘 다 비면) ListModels. */
+async function candidateModels(): Promise<string[]> {
+  const list = [GEMINI_MODEL_OVERRIDE, ...BUNDLED_MODELS].filter((m): m is string => Boolean(m));
+  const unique = list.filter((m, i) => list.indexOf(m) === i);
+  return unique.length > 0 ? unique : await discoverModels();
+}
+
+class ClaudeHttpError extends Error {
+  constructor(public status: number) {
+    super(`Claude HTTP ${status}`);
+  }
+}
+const CLAUDE_TIMEOUT_MS = 20_000;
+
+/** Gemini 실패 뒤의 두 번째 답변자. 프롬프트·이력 구성은 Gemini 와 같다. */
+async function callClaude(
+  systemInstruction: string,
+  userPrompt: string,
+  history: Turn[] = [],
+): Promise<string> {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': ANTHROPIC_API_KEY!,
+      'anthropic-version': '2023-06-01',
+    },
+    signal: AbortSignal.timeout(CLAUDE_TIMEOUT_MS),
+    body: JSON.stringify({
+      model: CLAUDE_MODEL,
+      // sonnet-5 는 기본으로 생각(thinking)을 하고 그 토큰이 max_tokens 에 포함된다 — 800 이면 코스 질문에서
+      // 생각만 하다 끝나 본문이 비었다(2026-09-20 실측, 20문항 중 1건 claude_204 폴백). 넉넉히 주고 생각은 얕게.
+      max_tokens: 2048,
+      output_config: { effort: 'low' },
+      system: systemInstruction,
+      messages: [
+        ...history.map((h) => ({ role: h.role === 'bot' ? 'assistant' : 'user', content: h.text })),
+        { role: 'user', content: userPrompt },
+      ],
+    }),
+  });
+  if (!res.ok) {
+    console.error(
+      `Claude 호출 실패 (${CLAUDE_MODEL}, HTTP ${res.status}):`,
+      (await res.text()).slice(0, 300),
+    );
+    throw new ClaudeHttpError(res.status);
+  }
+  const data = (await res.json()) as { content?: { type: string; text?: string }[] };
+  const text = data.content?.find((c) => c.type === 'text')?.text ?? '';
+  if (!text) throw new ClaudeHttpError(204);
+  return text;
+}
 
 async function callGeminiOnce(
   model: string,
@@ -176,10 +298,13 @@ async function callGemini(
 ): Promise<string> {
   const started = Date.now();
   let lastErr: unknown = null;
-  // 이름이 틀린(404) 모델은 그 자리에서 제외한다 — 보조 모델 이름이 바뀌어도 주 모델로 계속 간다
-  const models = [GEMINI_MODEL, GEMINI_FALLBACK_MODEL].filter((m, i, a) => m && a.indexOf(m) === i);
+  let attempts = 0;
+  let rateLimited = 0;
+  // 이름이 틀린(404) 모델은 그 자리에서 제외한다. 전부 없어지면 ListModels 로 스스로 다시 채운다.
+  let models = await candidateModels();
   for (let attempt = 1; attempt <= GEMINI_MAX_ATTEMPTS && models.length > 0; attempt++) {
     const model = models[(attempt - 1) % models.length]!;
+    attempts = attempt;
     try {
       const text = await callGeminiOnce(model, systemInstruction, userPrompt, history);
       if (attempt > 1) console.warn(`ai-guide: ${attempt}번째 시도(${model})에서 성공`);
@@ -188,23 +313,27 @@ async function callGemini(
       lastErr = err;
       if (err instanceof GeminiHttpError && err.status === 404) {
         console.warn(`ai-guide: 모델 없음 — ${model} 제외`);
-        models.splice(models.indexOf(model), 1);
+        models = models.filter((m) => m !== model);
+        if (models.length === 0) models = await discoverModels(true); // 목록이 낡았다 — 살아 있는 모델을 직접 찾는다
         continue;
       }
       if (!isRetryable(err)) throw err;
-      // 429 는 분당 한도라 좀 더 쉰다. 그 밖은 0.5초부터 배로 늘려 최대 4초.
-      const backoff =
-        err instanceof RateLimitError
-          ? 5_000
-          : Math.min(500 * 2 ** Math.min(attempt - 1, 3), 4_000);
-      const elapsed = Date.now() - started;
-      if (elapsed + backoff > GEMINI_TOTAL_BUDGET_MS) {
-        console.warn(`ai-guide: ${attempt}번 시도 뒤 시간 예산 초과 — 정보 카드로`);
-        break;
+      // 429 는 "한도 소진"이라 계속 두드리면 한도만 더 깎는다 (2026-09-19 실측: 20회 재시도가 100초를 끌고도 실패).
+      // 한도는 3번만 더 보고 정보 카드로 넘어간다. 20~30회 규칙은 과부하(503)·일시 오류에 적용한다.
+      if (err instanceof RateLimitError) {
+        rateLimited++;
+        if (rateLimited >= RATE_LIMIT_MAX_RETRIES) break;
+        await sleep(5_000);
+        continue;
       }
-      await sleep(backoff);
+      // 20회를 채운 뒤에는 시간이 남을 때만 30회까지 더 간다
+      if (attempt >= GEMINI_MIN_ATTEMPTS && Date.now() - started > GEMINI_EXTRA_BUDGET_MS) break;
+      await sleep(1_000); // 짧게 자주 — 과부하는 몇 초 안에 풀리는 일이 많다
     }
   }
+  console.warn(
+    `ai-guide: ${attempts}회 시도 뒤 포기 (${Math.round((Date.now() - started) / 1000)}초) — 정보 카드로`,
+  );
   throw lastErr ?? new GeminiHttpError(503);
 }
 
@@ -399,16 +528,27 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
       ).data,
     );
   // ③ 마지막으로 소개·역사에 언급된 곳 (김대건 → 솔뫼 …)
-  if (picked.length < 5)
-    take(
-      (
-        await supabase
-          .from('holy_sites')
-          .select(SELECT)
-          .or(tokens.flatMap((t) => [`description.ilike.%${t}%`, `history.ilike.%${t}%`]).join(','))
-          .limit(5)
-      ).data,
-    );
+  //    「김대건」은 26곳에 나온다 — 앞 5곳을 임의로 자르면 솔뫼가 밀린다 (2026-09-20 실측). 넉넉히 받아
+  //    질문 단어를 여러 개 맞춘 곳 → 많이 언급한 곳 순으로 고른다 (「김대건」+「태어난」 둘 다 있는 솔뫼가 1순위).
+  if (picked.length < 5) {
+    const { data } = await supabase
+      .from('holy_sites')
+      .select(SELECT)
+      .or(tokens.flatMap((t) => [`description.ilike.%${t}%`, `history.ilike.%${t}%`]).join(','))
+      .limit(40);
+    const score = (r: Row) => {
+      const text = `${r.name} ${r.description ?? ''} ${r.history ?? ''}`.toLowerCase();
+      let distinct = 0;
+      let total = 0;
+      for (const t of tokens) {
+        const n = text.split(t.toLowerCase()).length - 1;
+        if (n > 0) distinct++;
+        total += n;
+      }
+      return distinct * 100 + total;
+    };
+    take((data ?? []).sort((a, b) => score(b) - score(a)));
+  }
 
   const siteLines =
     picked.length === 0
@@ -527,24 +667,56 @@ Deno.serve(async (req) => {
       .filter(Boolean)
       .join('\n\n');
 
-    try {
-      const text = await callGemini(MICHAEL_SYSTEM_INSTRUCTION, prompt, history);
-      return new Response(JSON.stringify({ text, sources }), {
+    // 답변자 순서: AI_PRIMARY 가 먼저, 다른 쪽이 예비. 요청의 provider 로 검증용 강제 지정도 된다.
+    const wantClaudeFirst =
+      (payload.provider === 'claude' || AI_PRIMARY === 'claude') && Boolean(ANTHROPIC_API_KEY);
+    const order: ('gemini' | 'claude')[] = wantClaudeFirst
+      ? ['claude', 'gemini']
+      : ['gemini', 'claude'];
+    const json = (body: Record<string, unknown>) =>
+      new Response(JSON.stringify(body), {
         headers: { ...corsFor(req), 'content-type': 'application/json' },
       });
-    } catch (err) {
-      // Gemini 가 못 답해도 검색 결과가 있으면 정보 카드로 답한다 (200). 없을 때만 오류로.
-      const card = fallbackCard(ctx);
-      if (card) {
-        // reason: 한도(429) · 업스트림 상태 코드 · 그 밖(네트워크·시간 초과). 비밀값 없음.
+    let firstErr: unknown = null;
+    let firstReason = '';
+    for (const provider of order) {
+      if (provider === 'claude' && !ANTHROPIC_API_KEY) continue;
+      try {
+        const text =
+          provider === 'claude'
+            ? await callClaude(MICHAEL_SYSTEM_INSTRUCTION, prompt, history)
+            : await callGemini(MICHAEL_SYSTEM_INSTRUCTION, prompt, history);
+        if (firstErr)
+          console.warn(`ai-guide: ${order[0]} 실패(${firstReason}) → ${provider} 가 답함`);
+        return json(
+          firstErr
+            ? { text, sources, provider, fallbackFrom: order[0], reason: firstReason }
+            : { text, sources, provider },
+        );
+      } catch (err) {
         const reason =
           err instanceof RateLimitError
             ? 'rate_limited'
             : err instanceof GeminiHttpError
               ? `gemini_${err.status}`
-              : err instanceof Error && err.name === 'TimeoutError'
-                ? 'gemini_timeout'
-                : 'gemini_error';
+              : err instanceof ClaudeHttpError
+                ? `claude_${err.status}`
+                : err instanceof Error && err.name === 'TimeoutError'
+                  ? `${provider}_timeout`
+                  : `${provider}_error`;
+        if (!firstErr) {
+          firstErr = err;
+          firstReason = reason;
+        }
+        console.error(`ai-guide: ${provider} 실패 (${reason})`);
+      }
+    }
+    {
+      const err = firstErr;
+      const reason = firstReason;
+      // 2) 둘 다 못 답해도 검색 결과가 있으면 정보 카드로 답한다 (200). 없을 때만 오류로.
+      const card = fallbackCard(ctx);
+      if (card) {
         console.warn('ai-guide fallback:', reason);
         return new Response(JSON.stringify({ text: card, sources, fallback: true, reason }), {
           headers: { ...corsFor(req), 'content-type': 'application/json' },

@@ -8,7 +8,6 @@ import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
-import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import {
   usePilgrimageRoute,
@@ -19,8 +18,6 @@ import { countVisitedEpisodes, toEpisodes } from '@/features/routes/lib/episodes
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
 import { useLocalizedSites } from '@/features/sites/hooks/use-sites';
-import { useWalkingCoursesNear } from '@/features/sites/hooks/use-tour-extras';
-import { WalkingCourseCard } from '@/features/sites/components/WalkingCourseCard';
 
 /**
  * 코스 상세 — 경유지를 이야기 순서대로 보여준다.
@@ -34,7 +31,6 @@ export default function RouteDetailPage() {
   const { data: featured = {} } = useFeaturedPhotos();
   const { routeSlug = '' } = useParams();
   const { data, isLoading } = usePilgrimageRoute(routeSlug);
-  const { data: walkingCourses = [] } = useWalkingCoursesNear(data?.stops[0]?.site);
   // 이 코스 중 몇 화에 기록을 남겼는지 — 스탬프는 기록을 쓸 때만 찍힌다(2026-09-17,
   // "순례 스탬프 찍기" 버튼 삭제 이후 기록 제출이 스탬프의 유일한 입구다).
   const { data: myStamps = [] } = useMyStamps();
@@ -177,16 +173,6 @@ export default function RouteDetailPage() {
           );
         })}
       </ol>
-      {walkingCourses.length > 0 && (
-        <section className="pb-8">
-          <SectionHeading title={t('routeNearbyTrails')} />
-          <div className="space-y-3">
-            {walkingCourses.slice(0, 3).map((course, index) => (
-              <WalkingCourseCard key={course.crsIdx ?? index} course={course} />
-            ))}
-          </div>
-        </section>
-      )}
     </PageContainer>
   );
 }

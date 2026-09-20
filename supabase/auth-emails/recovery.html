@@ -1,0 +1,55 @@
+<!--
+  비밀번호 재설정 메일 — 가입 인증 메일(confirmation.html)과 같은 규칙.
+  다만 재설정은 가입 때 넘긴 `lang` 이 계정에 남아 있으면 그 언어로, 없으면 한국어로 나간다
+  (재설정 요청에는 메타데이터를 새로 넘길 수 없다 — 계정에 저장된 값을 서식이 읽는다).
+-->
+<div style="margin:0;padding:24px 12px;background:#f4f3ee;font-family:'Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;">
+  <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #e3e0d8;border-radius:12px;padding:32px 28px;">
+    <div style="font-size:15px;font-weight:700;color:#1f2f55;letter-spacing:.02em;">VisitHolyKorea</div>
+
+    {{ $lang := printf "%v" (index .Data "lang") }}
+    {{ if eq $lang "en" }}
+    <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Reset your password</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Tap the button below to choose a new password.</p>
+    <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Choose a new password</a></p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">If you did not request this, ignore this message — your password stays the same.</p>
+    {{ else if eq $lang "es" }}
+    <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Restablecer su contraseña</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Pulse el botón para elegir una contraseña nueva.</p>
+    <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Cambiar contraseña</a></p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">Si no ha sido usted, ignore este mensaje: su contraseña no cambiará.</p>
+    {{ else if eq $lang "fr" }}
+    <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Réinitialiser votre mot de passe</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Cliquez sur le bouton pour choisir un nouveau mot de passe.</p>
+    <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Changer mon mot de passe</a></p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">Si vous n'êtes pas à l'origine de cette demande, ignorez ce message.</p>
+    {{ else if eq $lang "pt" }}
+    <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Redefinir a sua palavra-passe</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Toque no botão para escolher uma nova palavra-passe.</p>
+    <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Alterar palavra-passe</a></p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">Se não foi você, ignore esta mensagem.</p>
+    {{ else if eq $lang "it" }}
+    <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Reimposta la tua password</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Tocca il pulsante per scegliere una nuova password.</p>
+    <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Cambia password</a></p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">Se non sei stato tu, ignora questo messaggio.</p>
+    {{ else }}
+    <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">비밀번호를 새로 정하시겠어요?</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">아래 단추를 누르시면 새 비밀번호를 정하는 화면이 열립니다.</p>
+    <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">비밀번호 새로 정하기</a></p>
+    <p style="margin:0 0 8px;font-size:14px;line-height:1.7;color:#666666;">단추가 눌리지 않으면 아래 주소를 복사해 인터넷 주소창에 붙여 넣어 주세요.</p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">본인이 신청하지 않으셨다면 이 편지를 지워 주세요. 비밀번호는 그대로 유지됩니다.</p>
+    {{ end }}
+
+    <hr style="margin:28px 0 16px;border:0;border-top:1px solid #e3e0d8;" />
+    <p style="margin:0;font-size:13px;line-height:1.6;color:#8a8a8a;">
+      VisitHolyKorea · <a href="https://www.visitholykorea.com" style="color:#1f2f55;">www.visitholykorea.com</a>
+    </p>
+  </div>
+</div>

@@ -78,11 +78,8 @@ describe('groupNearbyFacilities', () => {
     expect(titlesOf(groupNearbyFacilities(many, 3), '맛집')).toHaveLength(3);
   });
 
-  it('축제·여행코스는 다른 섹션이 맡으므로 여기서 제외한다', () => {
-    const result = groupNearbyFacilities([
-      spot('벚꽃축제', CONTENT_TYPE.축제공연행사, 100),
-      spot('추천코스', CONTENT_TYPE.여행코스, 200),
-    ]);
+  it('화면에서 다루지 않는 여행코스는 제외한다', () => {
+    const result = groupNearbyFacilities([spot('추천코스', CONTENT_TYPE.여행코스, 200)]);
 
     expect(result).toEqual([]);
   });

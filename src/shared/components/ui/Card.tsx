@@ -8,7 +8,11 @@ import type { HTMLAttributes, ReactNode } from 'react';
  * - `dashed` 점선 — 「확인되지 않음」「결과 없음」처럼 내용이 비어 있음을 알리는 자리
  * - `soft`   연남색 — 로그인 상태 같은 짧은 안내
  */
-import { cardClass, type CardTone } from './class-names';
+import { CARD_BORDER, cardClass, type CardTone } from './class-names';
+import { SquircleBorder } from './SquircleBorder';
+import { useSquircle } from './use-squircle';
+
+const CARD_RADIUS = 8;
 
 export function Card({
   tone = 'white',
@@ -23,9 +27,20 @@ export function Card({
   className?: string;
   children: ReactNode;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children'>) {
+  const { ref, style, overlay } = useSquircle<HTMLDivElement>(CARD_RADIUS);
+  const border = CARD_BORDER[tone];
   return (
-    <div className={cardClass(tone, padded, className)} {...rest}>
+    <div ref={ref} className={cardClass(tone, padded, className)} style={style} {...rest}>
       {children}
+      {overlay && border && (
+        <SquircleBorder
+          path={overlay.path}
+          width={overlay.width}
+          height={overlay.height}
+          color={border.color}
+          dashed={border.dashed}
+        />
+      )}
     </div>
   );
 }

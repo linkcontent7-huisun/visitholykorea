@@ -12,21 +12,35 @@
  * 열이 없다는 사실을 화면에 그대로 적는다.
  */
 
-import { Calendar, MapPin, PenLine, Plus, Search, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { Calendar, Camera, Heart, MapPin, PenLine, Plus, Search, Trash2, X } from 'lucide-react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { useSession } from '@/features/auth/hooks/use-session';
+import { useMyFavoriteIds } from '@/features/favorites/hooks/use-favorites';
 import { isVisitedOnAvailable, type StampedSite } from '@/features/passport/api/stamps.repository';
-import { useDeleteStamp, useMyStamps, useUpdateStamp } from '@/features/passport/hooks/use-stamps';
+import {
+  useDeleteStamp,
+  useDeleteStampPhoto,
+  useMyStamps,
+  useUpdateStamp,
+  useUploadStampPhotos,
+} from '@/features/passport/hooks/use-stamps';
+import { SiteListItem } from '@/features/sites/components/SiteListItem';
+import { useLocalizedSites, useSites } from '@/features/sites/hooks/use-sites';
 import { Button, ButtonLink } from '@/shared/components/ui/Button';
 import { Card } from '@/shared/components/ui/Card';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
+import { PhotoLightbox } from '@/shared/components/ui/PhotoLightbox';
+import { SquircleSurface } from '@/shared/components/ui/SquircleSurface';
 import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { dioceseLabel } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { useUnsavedChangesGuard } from '@/shared/hooks/use-unsaved-changes-guard';
+import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
+import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 
 function formatDate(value: string, locale: string): string {
   const d = new Date(value);
@@ -34,16 +48,27 @@ function formatDate(value: string, locale: string): string {
   return d.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
+/** 방문일이 없으면(고른 적 없음) 기록한 날을 기본값으로 — 빈 채로 두면 "고르지 않음"처럼 보인다. */
+function defaultVisitedOn(stamp: StampedSite): string {
+  return stamp.visitedOn ?? stamp.visitedAt.slice(0, 10);
+}
+
 function RecordItem({ stamp }: { stamp: StampedSite }) {
   const { t, language } = useSettings();
   const locale = SPEECH_LOCALE[language];
   const update = useUpdateStamp();
   const remove = useDeleteStamp();
+  const uploadPhotos = useUploadStampPhotos(stamp.siteId);
+  const deletePhoto = useDeleteStampPhoto(stamp.siteId);
   const [editing, setEditing] = useState(false);
   const [note, setNote] = useState(stamp.note ?? '');
-  const [visitedOn, setVisitedOn] = useState(stamp.visitedOn ?? '');
+  const [visitedOn, setVisitedOn] = useState(defaultVisitedOn(stamp));
   const [failed, setFailed] = useState(false);
+  const [lightbox, setLightbox] = useState<number | null>(null);
   const canEditDate = isVisitedOnAvailable();
+
+  const isDirty = editing && (note !== (stamp.note ?? '') || visitedOn !== defaultVisitedOn(stamp));
+  useUnsavedChangesGuard(isDirty);
 
   const save = async () => {
     setFailed(false);
@@ -65,8 +90,23 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
     if (!result.success) setFailed(true);
   };
 
+  const handlePhotoPick = async (files: FileList | null) => {
+    if (!files) return;
+    const policy = photoPolicy();
+    const room = Math.max(0, policy.maxCount - stamp.photos.length);
+    const picked = Array.from(files).slice(0, room);
+    if (files.length > room)
+      window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
+    const photos = await Promise.all(picked.map((file) => shrinkPhoto(file, policy)));
+    uploadPhotos.mutate({ stampId: stamp.stampId, startPosition: stamp.photos.length + 1, photos });
+  };
+
   return (
-    <li className="rounded-lg border border-app-border bg-white p-5">
+    <SquircleSurface
+      as="li"
+      borderColor="var(--color-app-border)"
+      className="overflow-hidden bg-white p-5"
+    >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <Link
@@ -122,14 +162,19 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
           {canEditDate ? (
             <label className="block text-sm font-bold text-app-text-muted">
               {t('recordsVisitedOn')}
-              <input
-                type="date"
-                name="visitedOn"
-                value={visitedOn}
-                onChange={(e) => setVisitedOn(e.target.value)}
-                max={new Date().toISOString().slice(0, 10)}
-                className="mt-1 block min-h-12 w-full rounded-lg border border-app-border bg-white px-3 text-base text-app-text"
-              />
+              <SquircleSurface
+                borderColor="var(--color-app-border)"
+                className="mt-1 overflow-hidden bg-white"
+              >
+                <input
+                  type="date"
+                  name="visitedOn"
+                  value={visitedOn}
+                  onChange={(e) => setVisitedOn(e.target.value)}
+                  max={new Date().toISOString().slice(0, 10)}
+                  className="block min-h-12 w-full bg-transparent px-3 text-base text-app-text"
+                />
+              </SquircleSurface>
             </label>
           ) : (
             <p className="text-sm leading-relaxed text-app-text-muted">
@@ -138,15 +183,72 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
           )}
           <label className="block text-sm font-bold text-app-text-muted">
             {t('recordsMemo')}
-            <textarea
-              value={note}
-              name="note"
-              onChange={(e) => setNote(e.target.value.slice(0, 120))}
-              rows={3}
-              maxLength={120}
-              className="mt-1 block w-full rounded-lg border border-app-border bg-white px-3 py-2 text-base text-app-text"
-            />
+            <SquircleSurface
+              borderColor="var(--color-app-border)"
+              className="mt-1 overflow-hidden bg-white"
+            >
+              <textarea
+                value={note}
+                name="note"
+                onChange={(e) => setNote(e.target.value.slice(0, 120))}
+                rows={3}
+                maxLength={120}
+                className="block w-full resize-y bg-transparent px-3 py-2 text-base text-app-text"
+              />
+            </SquircleSurface>
           </label>
+          {/* 사진 — 확대해서 보고, 각 사진에 삭제 단추가 붙는다(SiteDetailPage 와 같은 부품) */}
+          <div className="no-scrollbar flex gap-2 overflow-x-auto">
+            {stamp.photos.map((photo, i) => (
+              <div key={photo.id} className="relative shrink-0">
+                <SquircleSurface
+                  as="button"
+                  type="button"
+                  onClick={() => setLightbox(i)}
+                  aria-label={t('photoEnlarge')}
+                  className="block h-24 w-24 overflow-hidden"
+                >
+                  <img src={photo.url} alt="" className="h-full w-full object-cover" />
+                </SquircleSurface>
+                <button
+                  type="button"
+                  onClick={() => deletePhoto.mutate(photo)}
+                  disabled={deletePhoto.isPending}
+                  aria-label={t('photoDelete')}
+                  className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/70 text-white disabled:opacity-50"
+                >
+                  <X size={12} />
+                </button>
+              </div>
+            ))}
+            {stamp.photos.length < photoPolicy().maxCount && (
+              <SquircleSurface
+                as="label"
+                borderColor="color-mix(in srgb, var(--color-brand-blue) 50%, transparent)"
+                borderWidth={2}
+                borderDashed
+                className={`flex h-24 w-16 shrink-0 cursor-pointer flex-col items-center justify-center gap-1 px-1 text-center text-brand-blue transition-colors hover:bg-brand-soft ${
+                  uploadPhotos.isPending ? 'opacity-50' : ''
+                }`}
+              >
+                <Camera size={16} aria-hidden />
+                <span className="text-[0.625rem] font-bold leading-tight">
+                  {uploadPhotos.isPending ? t('photoUploading') : t('photoAdd')}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  disabled={uploadPhotos.isPending}
+                  onChange={(e) => {
+                    void handlePhotoPick(e.target.files);
+                    e.target.value = '';
+                  }}
+                />
+              </SquircleSurface>
+            )}
+          </div>
           {failed && (
             <p className="text-sm font-bold text-red-600" role="alert">
               {t('recordsSaveFailed')}
@@ -162,7 +264,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
               onClick={() => {
                 setEditing(false);
                 setNote(stamp.note ?? '');
-                setVisitedOn(stamp.visitedOn ?? '');
+                setVisitedOn(defaultVisitedOn(stamp));
               }}
             >
               {t('recordsCancel')}
@@ -170,18 +272,45 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
           </div>
         </form>
       ) : (
-        stamp.note && (
-          <p className="mt-3 rounded-lg bg-app-bg px-4 py-3 text-base leading-relaxed text-app-text">
-            {stamp.note}
-          </p>
-        )
+        <>
+          {stamp.note && (
+            <SquircleSurface
+              as="p"
+              className="mt-3 bg-app-bg px-4 py-3 text-base leading-relaxed text-app-text"
+            >
+              {stamp.note}
+            </SquircleSurface>
+          )}
+          {stamp.photos.length > 0 && (
+            <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
+              {stamp.photos.map((photo, i) => (
+                <SquircleSurface
+                  as="button"
+                  key={photo.id}
+                  type="button"
+                  onClick={() => setLightbox(i)}
+                  aria-label={t('photoEnlarge')}
+                  className="block h-24 w-24 shrink-0 overflow-hidden"
+                >
+                  <img src={photo.url} alt="" className="h-full w-full object-cover" />
+                </SquircleSurface>
+              ))}
+            </div>
+          )}
+        </>
       )}
       {failed && !editing && (
         <p className="mt-2 text-sm font-bold text-red-600" role="alert">
           {t('recordsSaveFailed')}
         </p>
       )}
-    </li>
+      <PhotoLightbox
+        photos={lightbox !== null ? stamp.photos.map((p) => p.url) : null}
+        index={lightbox ?? 0}
+        onIndexChange={setLightbox}
+        onClose={() => setLightbox(null)}
+      />
+    </SquircleSurface>
   );
 }
 
@@ -189,6 +318,16 @@ export default function RecordsPage() {
   const { t } = useSettings();
   const { session } = useSession();
   const { data: stamps = [], isLoading } = useMyStamps();
+  const { data: favoriteIds = [] } = useMyFavoriteIds();
+  const { data: allSites = [] } = useSites({ limit: 300 });
+  const favoriteSitesRaw = useMemo(() => {
+    if (favoriteIds.length === 0) return [];
+    const order = new Map(favoriteIds.map((id, index) => [id, index]));
+    return allSites
+      .filter((site) => order.has(site.id))
+      .sort((a, b) => order.get(a.id)! - order.get(b.id)!);
+  }, [allSites, favoriteIds]);
+  const favoriteSites = useLocalizedSites(favoriteSitesRaw);
 
   return (
     <PageContainer width="narrow" className="min-h-page pb-16">
@@ -228,10 +367,34 @@ export default function RecordsPage() {
             {t('recordsPickSite')}
           </ButtonLink>
 
+          {!SUBMISSION_MODE && favoriteSites.length > 0 && (
+            // 즐겨찾기는 아직 방문하지 않은 성지를 기록 화면에서 바로 다시 찾는 입구다.
+            <section className="mb-6" aria-labelledby="records-favorites-heading">
+              <div className="mb-3 flex items-center gap-2">
+                <Heart size={18} className="fill-pink-500 text-pink-500" aria-hidden />
+                <h2
+                  id="records-favorites-heading"
+                  className="text-base font-extrabold text-app-text"
+                >
+                  {t('favorites')}
+                </h2>
+              </div>
+              <Card padded={false}>
+                <ul className="divide-y divide-app-border" aria-label={t('favorites')}>
+                  {favoriteSites.map((site) => (
+                    <li key={site.id} className="px-5 py-4 first:pt-5 last:pb-5">
+                      <SiteListItem site={site} />
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </section>
+          )}
+
           {isLoading ? (
             <div className="space-y-3" role="status" aria-live="polite">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="h-24 animate-pulse rounded-lg bg-white" />
+                <SquircleSurface key={i} className="h-24 animate-pulse bg-white" />
               ))}
             </div>
           ) : stamps.length === 0 ? (

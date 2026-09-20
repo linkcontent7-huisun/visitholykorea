@@ -20,7 +20,7 @@ import googleIcon from '@/features/auth/assets/social/google.svg';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { t } = useSettings();
+  const { t, language } = useSettings();
 
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
@@ -57,7 +57,7 @@ export default function LoginPage() {
       return;
     }
 
-    const { data, error } = await signUpWithEmail(email, password, name);
+    const { data, error } = await signUpWithEmail(email, password, name, language);
     setLoading(false);
     if (error) {
       // 상태를 구분해 안내한다(재기획 §12): 기존 계정 / 약한 비밀번호 / 일시 오류 — 원문 영어 메시지를 그대로 보여주지 않는다.

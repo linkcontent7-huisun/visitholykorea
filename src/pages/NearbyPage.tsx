@@ -19,7 +19,7 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
 import { isRegion, regionCoords, REGIONS } from '@/shared/lib/regions';
 
-/** 본당·공소는 성지보다 촘촘하지만, 탭으로 따로 보게 되면서(2026-09-13) 시골에서도
+/** 성당·공소는 성지보다 촘촘하지만, 탭으로 따로 보게 되면서(2026-09-13) 시골에서도
  *  비지 않게 반경을 30km 로 넓혔다. 거리순이라 가까운 곳이 위에 온다. */
 const PARISH_RADIUS_KM = 30;
 const PARISH_LIMIT = 50;
@@ -27,12 +27,12 @@ const PARISH_LIMIT = 50;
 type NearbyTab = 'sites' | 'parishes';
 
 /**
- * 「여기에서 가장 가까운 성지·성당」.
+ * 「여기에서 가장 가까운 성지·성당·공소」.
  *
  * 홈의 큰 입구를 눌러 들어오는 화면이다 (2026-09-12 사장님 요청). 들어오는 순간
  * 현재 위치를 한 번 묻고, 성지 208곳 **전부**를 가까운 순으로 늘어놓는다 — 8곳만
- * 보여주는 홈과 달리 여기서는 끝까지 스크롤할 수 있다. 「가까운 성당」 탭을 누르면
- * 같은 기준점에서 본당·공소를 가까운 순으로 보여준다 (처음엔 성지 목록 아래에 붙어
+ * 보여주는 홈과 달리 여기서는 끝까지 스크롤할 수 있다. 「가까운 성당·공소」 탭을 누르면
+ * 같은 기준점에서 성당·공소를 가까운 순으로 보여준다 (처음엔 성지 목록 아래에 붙어
  * 있었는데, 사장님 요청으로 나란한 탭 두 개로 바꿨다 — 2026-09-13).
  *
  * 위치 권한을 거부했거나 못 받으면 출발 지역을 골라 그 중심에서 잰다. 위치는 메모리에만 둔다.
@@ -138,7 +138,7 @@ export default function NearbyPage() {
         <LoadingSpinner />
       ) : !center ? null : (
         <>
-          {/* 탭 두 개 — 성지(기본) / 성당. 하나를 고르면 그 목록만 보인다 */}
+          {/* 탭 두 개 — 성지(기본) / 성당·공소. 하나를 고르면 그 목록만 보인다 */}
           <div role="tablist" aria-label={t('nearbyEntryTitle')} className="mb-3 flex gap-2">
             {(
               [

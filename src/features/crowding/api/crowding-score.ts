@@ -1,14 +1,11 @@
 /**
  * 인근 혼잡도 산식 (2026-09-16 재설계).
  *
- * 한국관광공사 TourAPI 에는 실시간 혼잡도가 없다. 대신 두 가지가 있다.
- *   ① 관광지 집중률 예측 — 관광지 **이름**별 0~100, 오늘부터 30일. 성지 32곳은 이름으로 올라 있고
- *      나머지는 같은 시·군·구 관광지들의 값을 "인근" 근거로 쓴다.
- *   ② 오늘 열리는 축제·행사 — 성지 반경 15km 안의 거리 가중 합.
+ * 한국관광공사 TourAPI 에는 실시간 혼잡도가 없다. 관광지 집중률 예측을
+ * 성지 이름 또는 같은 시·군·구 관광지들의 값으로 "인근" 근거로 쓴다.
  *
  * 예전 산식의 "주변 명소·식당 개수" 축은 뺐다 — 시설 수는 사람 수의 근거가 못 된다.
- * 집중률이 없는 시·군·구(광주·전남 등)에서는 **등급을 내지 않는다.** 축제 0건을 "조용"으로
- * 읽는 것이 가장 흔한 거짓말이었다.
+ * 집중률이 없는 시·군·구(광주·전남 등)에서는 **등급을 내지 않는다.**
  *
  * 화면 규칙(사장님 2026-09-16): 등급은 세 단계뿐이고, 퍼센트·점수·건수 같은 숫자는 화면에 내지
  * 않는다. 그래서 근거는 문장 키(`ReasonItem`)로 돌려주고 숫자는 내부(`score`)에만 둔다.
@@ -16,22 +13,14 @@
  * 이 파일에는 API 호출이 없다. 순수 계산만 있어서 테스트로 고정한다. 조회는 `congestion-lookup.ts`.
  */
 
-import type { CongestionRate, TourApiSpot } from '@/shared/api/tour-api';
+import type { CongestionRate } from '@/shared/api/tour-api';
 import type { TranslationKey } from '@/shared/i18n/dictionary';
-import { haversineKm } from '@/shared/lib/geo';
-import type { Coordinates } from '@/shared/types/domain';
 import { isSameSpot } from '../lib/name-match';
 
 // ---------------------------------------------------------------------------
 // 상수 — 발표자료에 그대로 공개할 값들
 // ---------------------------------------------------------------------------
 
-/** 축제는 광역에서 사람을 끌어오므로 넓게 본다(km). 이 밖은 그날의 붐빔에 영향을 주지 않는다고 본다. */
-export const FESTIVAL_RADIUS_KM = 15;
-/** 포화 상수. 가까운 축제 1개면 이미 63% 에 닿는다. */
-export const FESTIVAL_SATURATION = 1;
-/** 두 신호의 가중치. 집중률이 관광지 단위 예측이라 더 무겁다. 실측 대조 뒤 조정할 값. */
-export const WEIGHT = { congestion: 0.7, festival: 0.3 } as const;
 /** 등급 경계. 이 미만이 조용, 다음 미만이 보통, 그 이상이 붐빔. */
 export const LEVEL_BOUNDS = { quietBelow: 30, moderateBelow: 60 } as const;
 
@@ -45,60 +34,8 @@ export function toCrowdingLevel(score: number): CrowdingLevel {
   return '붐빔';
 }
 
-/**
- * 포화 곡선: `max * (1 - e^(-value/k))`.
- * 처음 몇 개가 크게 올리고, 이미 붐비는 곳에서는 몇 개 더 늘어도 체감이 작다는 성질. 상한을 넘지 않는다.
- */
-export function saturate(value: number, max: number, k: number): number {
-  if (value <= 0) return 0;
-  return max * (1 - Math.exp(-value / k));
-}
-
 // ---------------------------------------------------------------------------
-// 신호 ① 축제 압력
-// ---------------------------------------------------------------------------
-
-export interface FestivalPressure {
-  /** 0~100 */
-  score: number;
-  /** 반경 안에 있는 행사 수 (내부용 — 화면에 내지 않는다) */
-  count: number;
-  /** 가장 가까운 행사 (반경 밖이라도 참고용) */
-  nearest: { title: string; distanceKm: number } | null;
-}
-
-/** 오늘 열리는 행사들과의 거리로 축제 압력을 낸다. 가까울수록 크고(선형 감쇠), 여러 개면 합산 뒤 포화. */
-export function festivalPressure(
-  site: Coordinates,
-  festivals: readonly TourApiSpot[],
-): FestivalPressure {
-  const { lat, lng } = site;
-  if (lat == null || lng == null) return { score: 0, count: 0, nearest: null };
-
-  let weightSum = 0;
-  let count = 0;
-  let nearest: FestivalPressure['nearest'] = null;
-
-  for (const festival of festivals) {
-    const fLat = Number(festival.mapy);
-    const fLng = Number(festival.mapx);
-    if (!Number.isFinite(fLat) || !Number.isFinite(fLng) || fLat === 0 || fLng === 0) continue;
-
-    const distanceKm = haversineKm(lat, lng, fLat, fLng);
-    if (!nearest || distanceKm < nearest.distanceKm)
-      nearest = { title: festival.title, distanceKm };
-
-    if (distanceKm <= FESTIVAL_RADIUS_KM) {
-      count += 1;
-      weightSum += 1 - distanceKm / FESTIVAL_RADIUS_KM;
-    }
-  }
-
-  return { score: saturate(weightSum, 100, FESTIVAL_SATURATION), count, nearest };
-}
-
-// ---------------------------------------------------------------------------
-// 신호 ② 관광공사 집중률
+// 관광공사 집중률
 // ---------------------------------------------------------------------------
 
 export interface CongestionSignal {
@@ -189,7 +126,6 @@ export interface NearbyCrowding {
   /** 0~100, 내부·테스트용. 화면에 내지 않는다 */
   score: number | null;
   congestion: CongestionSignal | null;
-  festival: FestivalPressure;
   reasons: ReasonItem[];
 }
 
@@ -197,11 +133,8 @@ function round(value: number): number {
   return Math.round(value * 10) / 10;
 }
 
-/** 두 신호를 합쳐 인근 혼잡도를 만든다. 집중률이 없으면 등급 없이 근거만 남긴다. */
-export function combineNearbyCrowding(
-  festival: FestivalPressure,
-  congestion: CongestionSignal | null,
-): NearbyCrowding {
+/** 관광공사 집중률로 인근 혼잡도를 만든다. 데이터가 없으면 등급 없이 근거만 남긴다. */
+export function combineNearbyCrowding(congestion: CongestionSignal | null): NearbyCrowding {
   const reasons: ReasonItem[] = [];
 
   if (congestion?.kind === 'site') {
@@ -216,14 +149,8 @@ export function combineNearbyCrowding(
     reasons.push({ key: 'crowdingReasonNoData' });
   }
 
-  if (festival.count > 0 && festival.nearest) {
-    reasons.push({ key: 'crowdingReasonFestivalYes', params: { title: festival.nearest.title } });
-  } else {
-    reasons.push({ key: 'crowdingReasonFestivalNo' });
-  }
+  if (!congestion) return { level: null, score: null, congestion: null, reasons };
 
-  if (!congestion) return { level: null, score: null, congestion: null, festival, reasons };
-
-  const score = round(congestion.rate * WEIGHT.congestion + festival.score * WEIGHT.festival);
-  return { level: toCrowdingLevel(score), score, congestion, festival, reasons };
+  const score = round(congestion.rate);
+  return { level: toCrowdingLevel(score), score, congestion, reasons };
 }

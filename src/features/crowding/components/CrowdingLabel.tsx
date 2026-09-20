@@ -2,7 +2,7 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
 import type { CrowdingLevel } from '../api/crowding-score';
 import { useNearbyCrowding } from '../hooks/use-nearby-crowding';
-import { nearbyHeadline } from '../lib/crowding-text';
+import { nearbyDensityHeadline, nearbyHeadline } from '../lib/crowding-text';
 
 /**
  * 인근 혼잡도 라벨 — 색 점 + 문장 하나. 카드가 아니라 다른 UI 어디에나 붙이는 작은 부품(사장님 2026-09-16).
@@ -17,6 +17,7 @@ const DOT_CLASS: Record<CrowdingLevel, string> = {
 };
 
 type Variant = 'default' | 'onDark';
+export type CrowdingLabelMode = 'nearby' | 'density';
 
 const PILL_CLASS: Record<Variant, string> = {
   default: 'border-app-border bg-white text-app-text',
@@ -27,6 +28,8 @@ export interface CrowdingLabelProps {
   level: CrowdingLevel;
   /** 기본은 「인근 지역이 조용해요」 류 문장. 다른 문장을 쓰려면 넘긴다 */
   text?: string;
+  /** 상세 페이지처럼 「주변 밀집도 하·중·상」으로 보여줄 때 사용한다. */
+  labelMode?: CrowdingLabelMode;
   variant?: Variant;
   className?: string;
   id?: string;
@@ -36,6 +39,7 @@ export interface CrowdingLabelProps {
 export function CrowdingLabel({
   level,
   text,
+  labelMode = 'nearby',
   variant = 'default',
   className = '',
   id,
@@ -51,7 +55,8 @@ export function CrowdingLabel({
         aria-hidden
         className={`inline-block h-2.5 w-2.5 shrink-0 rounded-full ${DOT_CLASS[level]}`}
       />
-      {text ?? nearbyHeadline(level, t)}
+      {text ??
+        (labelMode === 'density' ? nearbyDensityHeadline(level, t) : nearbyHeadline(level, t))}
     </span>
   );
 }
@@ -62,23 +67,42 @@ const SKELETON_CLASS: Record<Variant, string> = {
 };
 
 /**
- * 성지 한 곳의 인근 혼잡도를 조회해 라벨로. 조회 중·실패·데이터 없는 지역이면 아무것도 그리지 않는다 —
- * 라벨은 "말할 수 있을 때만" 말한다(더미 금지).
+ * 성지 한 곳의 인근 혼잡도를 조회해 라벨로. 실패·데이터 없는 지역이면 아무것도 그리지 않는다 —
+ * 라벨은 "말할 수 있을 때만" 말한다(더미 금지). 상세 페이지의 density 모드는 조회 중에
+ * 빈 공간 대신 분석 상태를 알려준다.
  *
  * 조회 중에는 같은 크기의 빈 자리(스켈레톤)를 먼저 잡아 둔다(사장님 지적, 2026-09-17) —
  * 아무것도 없다가 응답이 오면 라벨이 갑자기 튀어나와 옆 태그들이 밀렸다.
  */
 export function NearbyCrowdingLabel({
   site,
+  labelMode = 'nearby',
   variant = 'default',
   className = '',
 }: {
   site: HolySite;
+  labelMode?: CrowdingLabelMode;
   variant?: Variant;
   className?: string;
 }) {
+  const { t } = useSettings();
   const { data, isLoading } = useNearbyCrowding(site);
   if (isLoading) {
+    if (labelMode === 'density') {
+      return (
+        <span
+          role="status"
+          aria-live="polite"
+          className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1 text-xs font-bold ${PILL_CLASS[variant]} ${className}`}
+        >
+          <span
+            aria-hidden
+            className="inline-block h-2.5 w-2.5 shrink-0 animate-pulse rounded-full bg-current opacity-70"
+          />
+          {t('nearbyDensityLoading')}
+        </span>
+      );
+    }
     return (
       <span
         aria-hidden
@@ -90,6 +114,7 @@ export function NearbyCrowdingLabel({
   return (
     <CrowdingLabel
       level={data.level}
+      labelMode={labelMode}
       variant={variant}
       className={className}
       id="nearby-crowding"

@@ -1,0 +1,109 @@
+<!--
+  가입 인증 메일 — 화면에서 고른 언어로 보낸다 (2026-09-20 사장님 지시:
+  "대부분 한국 사용자·어르신인데 영어 메일이 오면 못 읽는다").
+
+  Supabase 는 언어별 서식을 따로 두는 기능이 없다. 대신 서식이 Go 템플릿이라
+  가입 때 넘긴 메타데이터(`options.data.lang`, `auth.ts` 의 signUpWithEmail)로 갈라 쓴다.
+  값이 없는 계정(옛 가입자·소셜 로그인)에서도 죽지 않도록 `printf "%v"` 로 문자열을 만든 뒤 비교한다 —
+  Go 는 nil 과 문자열을 `eq` 로 비교하면 실행이 실패하고, 그러면 편지가 아예 안 나간다.
+  값이 없거나 모르는 값이면 **한국어**로 떨어진다 — 이용자 대부분이 한국인이고,
+  배포본이 lang 을 보내기 전(PR #77)에도 한국어로 나가야 하기 때문이다(2026-09-20 사장님 지시).
+
+  쓸 수 있는 변수: .ConfirmationURL .Token .TokenHash .SiteURL .Email .Data.<키>
+  본문 16px 이상 — 어르신이 읽는다. 작은 회색 글씨·어두운 배경을 쓰지 않는다.
+  적용: node scripts/auth-email-apply.mjs (Management API, .env.local 의 SUPABASE_ACCESS_TOKEN)
+-->
+<div style="margin:0;padding:24px 12px;background:#f4f3ee;font-family:'Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif;">
+  <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #e3e0d8;border-radius:12px;padding:32px 28px;">
+    <div style="font-size:15px;font-weight:700;color:#1f2f55;letter-spacing:.02em;">VisitHolyKorea</div>
+
+    {{ $lang := printf "%v" (index .Data "lang") }}
+    {{ if eq $lang "en" }}
+    <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Confirm your email address</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Thank you for signing up for VisitHolyKorea. Tap the button below to finish creating your account.</p>
+    <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Confirm sign-up</a></p>
+    <p style="margin:0 0 8px;font-size:14px;line-height:1.7;color:#666666;">If the button does not work, copy this address into your browser.</p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">If you did not request this, you can safely ignore this message.</p>
+    <div style="margin:26px 0 0;padding:18px 20px;background:#f7f6f1;border-radius:10px;">
+      <p style="margin:0 0 8px;font-size:15px;font-weight:700;color:#1f2f55;">A pilgrimage that gives you a pause</p>
+      <p style="margin:0 0 12px;font-size:15px;line-height:1.75;color:#444444;">
+        Instead of crowded sights, a quiet place to rest. VisitHolyKorea guides you through 206 Catholic
+        pilgrimage sites across Korea, chosen for how you feel today.
+      </p>
+      <p style="margin:0 0 12px;font-size:15px;line-height:1.85;color:#444444;">
+        · <b>Today's shrine plan</b> — answer three questions and get a day laid out for you<br />
+        · <b>Audio guide</b> — stop-by-stop narration on site, in six languages<br />
+        · <b>Michael, your pilgrimage guide</b> — ask anything about a shrine<br />
+        · <b>Pilgrimage routes</b> — walk the history of the persecutions
+      </p>
+      <p style="margin:0;font-size:15px;">
+        <a href="https://www.visitholykorea.com" style="color:#1f2f55;font-weight:700;">www.visitholykorea.com</a>
+      </p>
+    </div>
+
+    {{ else if eq $lang "es" }}
+    <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Confirme su correo electrónico</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Gracias por registrarse en VisitHolyKorea. Pulse el botón para completar su registro.</p>
+    <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Confirmar registro</a></p>
+    <p style="margin:0 0 8px;font-size:14px;line-height:1.7;color:#666666;">Si el botón no funciona, copie esta dirección en su navegador.</p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">Si no ha sido usted, puede ignorar este mensaje.</p>
+    {{ else if eq $lang "fr" }}
+    <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Confirmez votre adresse e-mail</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Merci de votre inscription à VisitHolyKorea. Cliquez sur le bouton pour terminer votre inscription.</p>
+    <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Confirmer mon inscription</a></p>
+    <p style="margin:0 0 8px;font-size:14px;line-height:1.7;color:#666666;">Si le bouton ne fonctionne pas, copiez cette adresse dans votre navigateur.</p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">Si vous n'êtes pas à l'origine de cette demande, ignorez ce message.</p>
+    {{ else if eq $lang "pt" }}
+    <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Confirme o seu e-mail</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Obrigado por se inscrever no VisitHolyKorea. Toque no botão para concluir o seu registo.</p>
+    <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Confirmar registo</a></p>
+    <p style="margin:0 0 8px;font-size:14px;line-height:1.7;color:#666666;">Se o botão não funcionar, copie este endereço para o seu navegador.</p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">Se não foi você, ignore esta mensagem.</p>
+    {{ else if eq $lang "it" }}
+    <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">Conferma il tuo indirizzo e-mail</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">Grazie per esserti registrato a VisitHolyKorea. Tocca il pulsante per completare la registrazione.</p>
+    <p style="margin:0 0 24px;"><a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">Conferma registrazione</a></p>
+    <p style="margin:0 0 8px;font-size:14px;line-height:1.7;color:#666666;">Se il pulsante non funziona, copia questo indirizzo nel browser.</p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">Se non sei stato tu, ignora questo messaggio.</p>
+    {{ else }}
+    <h1 style="margin:18px 0 12px;font-size:23px;line-height:1.35;color:#1f2f55;">이메일 주소를 확인해 주세요</h1>
+    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#333333;">
+      VisitHolyKorea 가입을 신청해 주셔서 감사합니다.<br />
+      아래 단추를 누르시면 가입이 끝납니다.
+    </p>
+    <p style="margin:0 0 24px;">
+      <a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;background:#1f2f55;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none;border-radius:8px;">가입 확인하기</a>
+    </p>
+    <p style="margin:0 0 8px;font-size:14px;line-height:1.7;color:#666666;">단추가 눌리지 않으면 아래 주소를 복사해 인터넷 주소창에 붙여 넣어 주세요.</p>
+    <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#1f2f55;word-break:break-all;">{{ .ConfirmationURL }}</p>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#666666;">본인이 신청하지 않으셨다면 이 편지를 지워 주세요. 아무 일도 일어나지 않습니다.</p>
+    <div style="margin:26px 0 0;padding:18px 20px;background:#f7f6f1;border-radius:10px;">
+      <p style="margin:0 0 8px;font-size:15px;font-weight:700;color:#1f2f55;">길 위에서 나를 만나는 성지순례</p>
+      <p style="margin:0 0 12px;font-size:15px;line-height:1.75;color:#444444;">
+        붐비는 관광지 대신, 마음에 필요한 쉼표 하나. VisitHolyKorea 는 전국 천주교 성지 206곳을
+        오늘의 마음과 형편에 맞춰 안내합니다.
+      </p>
+      <p style="margin:0 0 12px;font-size:15px;line-height:1.85;color:#444444;">
+        · <b>오늘의 성지 일정</b> — 마음·출발지·낼 수 있는 시간을 고르면 하루 일정을 짜 드립니다<br />
+        · <b>오디오 가이드</b> — 성지에 서서 듣는 지점별 해설, 여섯 나라 말로<br />
+        · <b>순례 가이드 미카엘</b> — 성지에 관해 무엇이든 물어보세요<br />
+        · <b>순례 코스</b> — 박해의 역사를 따라 걷는 길
+      </p>
+      <p style="margin:0;font-size:15px;">
+        <a href="https://www.visitholykorea.com" style="color:#1f2f55;font-weight:700;">www.visitholykorea.com</a>
+      </p>
+    </div>
+
+    {{ end }}
+
+    <hr style="margin:28px 0 16px;border:0;border-top:1px solid #e3e0d8;" />
+    <p style="margin:0;font-size:13px;line-height:1.6;color:#8a8a8a;">
+      VisitHolyKorea · <a href="https://www.visitholykorea.com" style="color:#1f2f55;">www.visitholykorea.com</a>
+    </p>
+  </div>
+</div>
