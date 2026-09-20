@@ -417,6 +417,13 @@ export default function RecordsPage() {
                 icon={Calendar}
                 title={t('recordsEmptyTitle')}
                 description={t('recordsPickHint')}
+                // 안내문을 읽고 카드를 누르는 사람이 있었다(사장님, 9/21) — 갈 곳을 단추로 준다
+                action={
+                  <ButtonLink to={paths.search} id="records-empty-go-search">
+                    <Search size={18} aria-hidden />
+                    {t('findShrines')}
+                  </ButtonLink>
+                }
               />
             </Card>
           ) : (

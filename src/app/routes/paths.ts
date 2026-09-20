@@ -26,7 +26,7 @@ export const paths = {
    */
   quiet: '/quiet',
   alternatives: '/alternatives',
-  /** 제출 범위에서 뺀 AI 가이드의 옛 진입 주소 — 안내 후 성지 찾기로 보낸다 */
+  /** AI 가이드의 옛 진입 주소 — 홈으로 보내 미카엘 시트를 바로 연다(`?ai=1`) */
   aiGuide: '/ai-guide',
   /** 개인정보 안내 */
   privacy: '/privacy',

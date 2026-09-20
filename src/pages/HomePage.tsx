@@ -1,6 +1,6 @@
 import { CalendarHeart, ChevronRight, Footprints, Search } from 'lucide-react';
-import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
 import { useSession } from '@/features/auth/hooks/use-session';
@@ -110,6 +110,23 @@ export default function HomePage() {
   const { language, t, gpsLocation } = useSettings();
   const { session } = useSession();
   const [aiOpen, setAiOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  // `/ai-guide` 옛 주소나 외부 링크로 온 `?ai=1` 은 미카엘을 바로 연다. 카카오·네이버 함수가
+  // 실패하면 `?auth_error=…` 로 돌아오는데, 그동안 주소창에만 남아 이용자가 몰랐다(9/20 실측).
+  const authError = searchParams.get('auth_error');
+  useEffect(() => {
+    if (searchParams.get('ai') === '1') {
+      setAiOpen(true);
+      const next = new URLSearchParams(searchParams);
+      next.delete('ai');
+      setSearchParams(next, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
+  const dismissAuthError = () => {
+    const next = new URLSearchParams(searchParams);
+    next.delete('auth_error');
+    setSearchParams(next, { replace: true });
+  };
 
   const { data: allSitesRaw = [] } = useSites({ limit: 300 });
   const allSites = useLocalizedSites(allSitesRaw);
@@ -162,6 +179,32 @@ export default function HomePage() {
 
       {/* 1. 히어로 — 모바일·PC 모두 100vw 로 가장자리까지, 헤더 바로 아래(2026-09-17) */}
       <HeroCarousel slides={heroSlides} />
+
+      {/* 간편 로그인 실패 안내 — 실패 이유 코드(kakao_token 등)는 이용자에게 뜻이 없어 문장만 보여 주고,
+          고칠 수 없으면 이메일로 알려 달라고 한다. 닫으면 주소에서도 지운다. */}
+      {authError && (
+        <PageContainer>
+          <div
+            role="alert"
+            className="mt-4 flex flex-wrap items-start justify-between gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-base text-red-800"
+          >
+            <p className="leading-relaxed">
+              {t('socialLoginFailed')} {t('signupContact')}:{' '}
+              <a href="mailto:visitholykorea@gmail.com" className="font-bold underline">
+                visitholykorea@gmail.com
+              </a>
+            </p>
+            <button
+              type="button"
+              onClick={dismissAuthError}
+              className="min-h-11 shrink-0 rounded-lg px-3 font-bold hover:bg-red-100"
+              id="auth-error-dismiss"
+            >
+              {t('close')}
+            </button>
+          </div>
+        </PageContainer>
+      )}
 
       {/* 2. 입구 3개 — 성지 찾기 · 미카엘 순례 가이드 · 오늘의 성지 일정 순서(사장님 지적, 2026-09-18).
           미카엘은 화면 이동이 아니라 그 자리에서 시트를 연다 — `to` 대신 `onClick`. */}

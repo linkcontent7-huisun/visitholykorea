@@ -650,22 +650,6 @@ export const DICTIONARY = {
     it: 'Vedi tutto',
   },
   // 제출 범위에서 뺀 기능의 옛 주소로 들어온 사람에게
-  retiredAiTitle: {
-    ko: '미카엘 순례 가이드는 잠시 쉬고 있습니다',
-    en: 'The AI pilgrimage guide is paused',
-    es: 'La guía de peregrinación con IA está en pausa',
-    fr: 'Le guide de pèlerinage IA est en pause',
-    pt: 'O guia de peregrinação com IA está em pausa',
-    it: 'La guida al pellegrinaggio con IA è in pausa',
-  },
-  retiredAiBody: {
-    ko: '출처 표시와 정확성 검수 체계를 갖춘 뒤 다시 열 예정입니다. 성지 이름·지역으로 검색하면 확인된 방문 정보를 바로 볼 수 있어요.',
-    en: 'It will return once source citation and accuracy review are in place. Search by shrine or region to see verified visit information now.',
-    es: 'Volverá cuando existan citas de fuentes y revisión de exactitud. Busca por santuario o región para ver información verificada.',
-    fr: 'Il reviendra une fois la citation des sources et la relecture en place. Cherchez par sanctuaire ou région pour voir des informations vérifiées.',
-    pt: 'Voltará quando houver citação de fontes e revisão de exatidão. Pesquise por santuário ou região para ver informações verificadas.',
-    it: 'Tornerà quando ci saranno citazioni delle fonti e revisione dell’accuratezza. Cerca per santuario o regione per informazioni verificate.',
-  },
   retiredCompassTitle: {
     ko: '마음 나침반은 성지 찾기로 합쳤습니다',
     en: 'Heart Compass has merged into Find shrines',
@@ -681,14 +665,6 @@ export const DICTIONARY = {
     fr: 'Votre humeur, région de départ et conditions de déplacement sont désormais des filtres dans Trouver un sanctuaire.',
     pt: 'O seu ânimo, região de partida e condições de deslocamento agora são filtros em Encontrar santuários.',
     it: 'Umore, regione di partenza e condizioni di viaggio sono ora filtri in Trova santuari.',
-  },
-  goToFindShrines: {
-    ko: '성지 찾기로 가기',
-    en: 'Go to Find shrines',
-    es: 'Ir a Buscar santuarios',
-    fr: 'Aller à Trouver un sanctuaire',
-    pt: 'Ir para Encontrar santuários',
-    it: 'Vai a Trova santuari',
   },
   mapOverviewTitle: {
     ko: '전국 성지 지도',

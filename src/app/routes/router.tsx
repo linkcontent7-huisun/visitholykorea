@@ -17,7 +17,6 @@ const SearchPage = lazy(() => import('@/pages/SearchPage'));
 const RoutesPage = lazy(() => import('@/pages/RoutesPage'));
 const RouteDetailPage = lazy(() => import('@/pages/RouteDetailPage'));
 const CompassPage = lazy(() => import('@/pages/CompassPage'));
-const RetiredFeaturePage = lazy(() => import('@/pages/RetiredFeaturePage'));
 const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
 const RegionLandingPage = lazy(() => import('@/pages/RegionLandingPage'));
 const NearbyPage = lazy(() => import('@/pages/NearbyPage'));
@@ -111,7 +110,8 @@ export const router = createBrowserRouter([
           // 고요 속으로(/quiet)는 「오늘의 성지 일정」이 자리를 이어받았다 (2026-09-15 팀 결정).
           { path: paths.quiet, element: <Navigate to={paths.compass} replace /> },
           { path: paths.alternatives, element: <Navigate to={paths.compass} replace /> },
-          { path: paths.aiGuide, element: withSuspense(<RetiredFeaturePage feature="ai" />) },
+          // 옛 AI 가이드 주소 — 미카엘은 살아 있으므로(사장님 9/20 결정) 홈에서 바로 연다
+          { path: paths.aiGuide, element: <Navigate to={`${paths.home}?ai=1`} replace /> },
           { path: paths.privacy, element: withSuspense(<PrivacyPage />) },
           { path: paths.regionPattern, element: withSuspense(<RegionLandingPage />) },
           { path: paths.nearby, element: withSuspense(<NearbyPage />) },
