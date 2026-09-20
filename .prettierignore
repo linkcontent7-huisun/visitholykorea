@@ -15,3 +15,10 @@ docs/50-research/
 docs/30-content-ops/
 data/
 supabase/seed/
+
+# 사람·Codex 가 계속 손으로 고치는 문서는 서식 검사에서 뺀다 — 문서 한 줄 때문에 CI 가 빨개지면
+# 코드 검사까지 무시하게 된다 (2026-09-20, main 이 6개 파일로 계속 실패)
+docs/**/*.md
+.claude/
+.agents/
+.codex/

@@ -86,7 +86,9 @@ export default function SiteDetailPage() {
   // 즐겨찾기 단추 옆 「기록하기」 — 순례 기록이 이 서비스의 핵심인데도 이야기·도슨트
   // 아래로 밀려 있어 접근하기 어렵다는 지적(사장님, 2026-09-20)으로 앵커를 만든다.
   const scrollToRecordSection = () => {
-    document.getElementById('reviews-heading')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    document
+      .getElementById('reviews-heading')
+      ?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   };
   // AI 가이드는 홈 상단에서 이리로 옮겼다 (2026-09-12) — 성지를 보다가 궁금할 때 묻는 자리다
   // 공식 사진이 없으면 순례자가 보내준(운영자 승인) 사진이 대표 자리를 채운다.
@@ -162,7 +164,8 @@ export default function SiteDetailPage() {
     // 새로 고른 만큼만 남은 자리에서 자른다(2026-09-20, 「바꾸기」 아닌 「추가」로 고침).
     const room = Math.max(0, policy.maxCount - myStamp.photos.length);
     const picked = Array.from(files).slice(0, room);
-    if (files.length > room) window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
+    if (files.length > room)
+      window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
     const photos = await Promise.all(picked.map((file) => shrinkPhoto(file, policy)));
     uploadPhotos.mutate({
       stampId: myStamp.stamped ? (myStamps.find((s) => s.siteId === siteId)?.stampId ?? '') : '',
