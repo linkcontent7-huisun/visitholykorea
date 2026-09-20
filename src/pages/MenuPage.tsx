@@ -299,14 +299,30 @@ export default function MenuPage() {
         {sections.map((section) => (
           <section key={section.title}>
             <h3 className="mb-3 ml-1 text-sm font-bold text-app-text-muted">{section.title}</h3>
-            <div className="overflow-hidden rounded-lg border border-app-border bg-white">
+            {/* overflow-hidden 을 두면 안 된다 — 「언어 설정」 줄의 펼침 목록이 이 상자에 잘려
+                아래 언어들을 못 골랐다(사장님 지적, 2026-09-21). 대신 첫·끝 줄에 모서리를 직접 준다. */}
+            <div className="rounded-lg border border-app-border bg-white">
               {section.items.map((item, idx) => {
                 const display = item.mobileOnly
                   ? 'flex lg:hidden'
                   : item.desktopOnly
                     ? 'hidden lg:flex'
                     : 'flex';
-                const rowClass = `${display} min-h-16 w-full items-center gap-4 px-5 py-4 ${
+                // 모바일·PC 에서 보이는 줄이 달라 「첫 줄」「끝 줄」도 각각 따로 센다 —
+                // hover 바탕이 상자의 둥근 모서리 밖으로 삐져나오지 않게
+                const mobileItems = section.items.filter((it) => !it.desktopOnly);
+                const desktopItems = section.items.filter((it) => !it.mobileOnly);
+                const corner = [
+                  item === mobileItems[0] ? 'rounded-t-lg' : '',
+                  item === mobileItems[mobileItems.length - 1] ? 'rounded-b-lg' : '',
+                  item === desktopItems[0] ? 'lg:rounded-t-lg' : 'lg:rounded-t-none',
+                  item === desktopItems[desktopItems.length - 1]
+                    ? 'lg:rounded-b-lg'
+                    : 'lg:rounded-b-none',
+                ]
+                  .filter(Boolean)
+                  .join(' ');
+                const rowClass = `${display} min-h-16 w-full items-center gap-4 px-5 py-4 ${corner} ${
                   idx !== section.items.length - 1 ? 'border-b border-app-border' : ''
                 }`;
                 const body = (
