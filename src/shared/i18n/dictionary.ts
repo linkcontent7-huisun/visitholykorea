@@ -331,14 +331,6 @@ export const DICTIONARY = {
     pt: 'Senha demasiado curta (mínimo 6).',
     it: 'Password troppo corta (almeno 6 caratteri).',
   },
-  termsOpensNewTab: {
-    ko: '(새 창에서 열려 입력한 내용이 지워지지 않아요)',
-    en: '(opens in a new tab so your form is kept)',
-    es: '(se abre en otra pestaña; el formulario se conserva)',
-    fr: '(s’ouvre dans un nouvel onglet ; le formulaire est conservé)',
-    pt: '(abre noutra aba; o formulário é mantido)',
-    it: '(si apre in una nuova scheda; il modulo resta)',
-  },
   // 더보기 — 약관·개인정보·공식 안내
   privacyNotice: {
     ko: '개인정보 안내',
@@ -2621,12 +2613,12 @@ export const DICTIONARY = {
 
   // 로그인 화면
   loginWelcomeBack: {
-    ko: '다시 오신 것을\n환영합니다',
-    en: 'Welcome\nback',
-    es: 'Bienvenido\nde nuevo',
-    fr: 'Bon retour\nparmi nous',
-    pt: 'Bem-vindo\nde volta',
-    it: 'Bentornato\nfra noi',
+    ko: '다시 오신 것을 환영합니다',
+    en: 'Welcome back',
+    es: 'Bienvenido de nuevo',
+    fr: 'Bon retour parmi nous',
+    pt: 'Bem-vindo de volta',
+    it: 'Bentornato fra noi',
   },
   loginWelcomeBackSub: {
     ko: '순례의 기록을 계속 이어가세요.',
@@ -2667,14 +2659,6 @@ export const DICTIONARY = {
     fr: 'Se connecter ou s’inscrire par e-mail',
     pt: 'Entrar ou cadastrar-se com e-mail',
     it: 'Accedi o registrati con l’e-mail',
-  },
-  emailAuthHint: {
-    ko: '이메일 로그인·회원가입은 필요할 때 열어보세요.',
-    en: 'Open email login or sign-up when you need it.',
-    es: 'Abre el acceso o registro por correo cuando lo necesites.',
-    fr: 'Ouvrez la connexion ou l’inscription par e-mail si nécessaire.',
-    pt: 'Abra o login ou cadastro por e-mail quando precisar.',
-    it: 'Apri l’accesso o la registrazione via e-mail quando serve.',
   },
   noAccountYet: {
     ko: '계정이 없으신가요? ',
@@ -5568,7 +5552,7 @@ export const DICTIONARY = {
     it: 'Densità nei dintorni: alta',
   },
   nearbyDensityLoading: {
-    ko: '실시간 밀집도 분석중',
+    ko: '주변 밀집도 확인 중',
     en: 'Analyzing nearby density',
     es: 'Analizando la densidad cercana',
     fr: 'Analyse de la densité à proximité',
@@ -5771,6 +5755,22 @@ export const DICTIONARY = {
     fr: 'Sanctuaire suivant',
     pt: 'Próximo santuário',
     it: 'Santuario successivo',
+  },
+  heroPause: {
+    ko: '자동 넘김 멈춤',
+    en: 'Pause slideshow',
+    es: 'Pausar la presentación',
+    fr: 'Mettre le diaporama en pause',
+    pt: 'Pausar a apresentação',
+    it: 'Metti in pausa la presentazione',
+  },
+  heroPlay: {
+    ko: '자동 넘김 다시 시작',
+    en: 'Resume slideshow',
+    es: 'Reanudar la presentación',
+    fr: 'Reprendre le diaporama',
+    pt: 'Retomar a apresentação',
+    it: 'Riprendi la presentazione',
   },
   showPassword: {
     ko: '비밀번호 보기',

@@ -42,7 +42,8 @@ export function buttonClass({
   className?: string;
 } = {}): string {
   return [
-    'relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-bold transition-colors',
+    // focus-inset: 스쿼클 clip-path 가 전역 outline 을 잘라내므로 안쪽 그림자로 포커스를 그린다(globals.css)
+    'focus-inset relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-bold transition-colors',
     'disabled:cursor-not-allowed disabled:opacity-50',
     BUTTON_VARIANT[variant],
     BUTTON_SIZE[size],

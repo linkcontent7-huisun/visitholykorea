@@ -1,4 +1,4 @@
-import { ChevronDown, Eye, EyeOff, Lock, Mail, ShieldCheck, User as UserIcon } from 'lucide-react';
+import { ChevronDown, Eye, EyeOff, Lock, Mail, User as UserIcon } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -32,10 +32,15 @@ export default function LoginPage() {
   const [emailAuthOpen, setEmailAuthOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'error' | 'info'; text: string } | null>(null);
+  // 오류가 어느 칸 때문인지 — 그 칸에 aria-invalid 를 붙여 스크린리더가 칸과 오류를 잇는다(WCAG 3.3.1)
+  const [invalidField, setInvalidField] = useState<'password' | 'passwordConfirmation' | null>(
+    null,
+  );
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setMessage(null);
+    setInvalidField(null);
     setLoading(true);
 
     if (isLogin) {
@@ -61,6 +66,7 @@ export default function LoginPage() {
 
     if (password !== passwordConfirmation) {
       setLoading(false);
+      setInvalidField('passwordConfirmation');
       setMessage({ type: 'error', text: t('passwordMismatch') });
       return;
     }
@@ -78,6 +84,7 @@ export default function LoginPage() {
         setMessage({ type: 'error', text: t('signupExisting') });
         setIsLogin(true);
       } else if (msg.includes('password')) {
+        setInvalidField('password');
         setMessage({ type: 'error', text: t('signupWeakPassword') });
       } else {
         setMessage({ type: 'error', text: `${t('signupTemporaryError')} · ${t('signupContact')}` });
@@ -115,8 +122,11 @@ export default function LoginPage() {
     // 성공 시에는 제공자 페이지로 이동하므로 여기서 할 일이 없다.
   };
 
+  // 테두리는 입력창 전용 진한 회색(3.5:1) — 연한 app-border 로는 어디를 눌러 적는지 안 보였다(2026-09-20 접근성 감사)
   const inputClass =
-    'min-h-14 w-full rounded-lg border border-app-border bg-white pl-12 pr-4 text-base font-bold text-app-text transition-colors focus:border-brand-blue';
+    'min-h-14 w-full rounded-lg border border-app-input-border bg-white pl-12 pr-4 text-base font-bold text-app-text transition-colors focus:border-brand-blue';
+  // 라벨은 눈에 보이게 칸 위에 — placeholder 는 글자를 치면 사라져 「지금 뭘 적고 있지」를 잃는다(WCAG 3.3.2)
+  const labelClass = 'mb-1.5 block text-sm font-bold text-app-text';
 
   return (
     <PageContainer width="narrow" className="flex min-h-screen flex-col bg-white pb-10">
@@ -126,12 +136,6 @@ export default function LoginPage() {
 
       <div className="flex-1">
         <div className="mb-10 mt-8">
-          <div
-            className="mb-6 flex h-16 w-16 items-center justify-center rounded-lg bg-brand-blue text-white"
-            aria-hidden
-          >
-            <ShieldCheck size={32} />
-          </div>
           <h1 className="mb-2 whitespace-pre-line font-display text-[1.625rem] leading-tight text-app-text lg:text-3xl">
             {isLogin ? t('loginWelcomeBack') : t('signupTitle')}
           </h1>
@@ -140,13 +144,14 @@ export default function LoginPage() {
           </p>
         </div>
 
+        {/* 오류는 alert(즉시 읽음), 안내는 status(차례 기다림) — 오류를 polite 로 두면 스크린리더가 놓친다 */}
         {message && (
           <p
             className={`px-1 text-base font-bold ${
               message.type === 'error' ? 'text-red-600' : 'text-brand-blue'
             }`}
-            role="status"
-            aria-live="polite"
+            role={message.type === 'error' ? 'alert' : 'status'}
+            id="login-message"
           >
             {message.text}
           </p>
@@ -178,7 +183,7 @@ export default function LoginPage() {
                     title={fillPlaceholders(t('loginWith'), { provider: t('providerNaver') })}
                     className="flex h-14 w-14 items-center justify-center rounded-full bg-[#03C75A] transition-[filter] hover:brightness-95 disabled:opacity-50"
                   >
-                    <img src={naverIcon} width={20} height={20} alt="" aria-hidden />
+                    <img src={naverIcon} className="h-full w-full" alt="" aria-hidden />
                   </button>
                 )}
 
@@ -191,7 +196,7 @@ export default function LoginPage() {
                     title={fillPlaceholders(t('loginWith'), { provider: t('providerKakao') })}
                     className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FEE500] transition-[filter] hover:brightness-95 disabled:opacity-50"
                   >
-                    <img src={kakaoIcon} width={26} height={26} alt="" aria-hidden />
+                    <img src={kakaoIcon} className="h-full w-full" alt="" aria-hidden />
                   </button>
                 )}
 
@@ -204,7 +209,7 @@ export default function LoginPage() {
                     title={fillPlaceholders(t('loginWith'), { provider: 'Google' })}
                     className="flex h-14 w-14 items-center justify-center rounded-full border border-app-border bg-white transition-colors hover:bg-app-bg disabled:opacity-50"
                   >
-                    <img src={googleIcon} width={24} height={24} alt="" aria-hidden />
+                    <img src={googleIcon} className="h-full w-full" alt="" aria-hidden />
                   </button>
                 )}
 
@@ -222,7 +227,7 @@ export default function LoginPage() {
                     className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1877F2] transition-[filter] hover:brightness-95 disabled:opacity-50"
                   >
                     {/* 페이스북 f 심볼 */}
-                    <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden>
+                    <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden>
                       <path
                         fill="#fff"
                         d="M13.5 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.3v3.2h2.8V21h3.4Z"
@@ -250,7 +255,6 @@ export default function LoginPage() {
               <span id="email-auth-heading" className="block text-base font-bold text-app-text">
                 {t('emailAuth')}
               </span>
-              <span className="mt-1 block text-sm text-app-text-muted">{t('emailAuthHint')}</span>
             </span>
             <ChevronDown
               size={22}
@@ -265,95 +269,121 @@ export default function LoginPage() {
             <div id="email-auth-panel" className="mt-5">
               <form onSubmit={handleSubmit} className="space-y-4">
                 {!isLogin && (
-                  <div className="group relative">
-                    <UserIcon
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
-                      size={20}
-                    />
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder={t('nameField')}
-                      aria-label={t('nameField')}
-                      autoComplete="name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className={inputClass}
-                    />
+                  <div>
+                    <label htmlFor="login-name" className={labelClass}>
+                      {t('nameField')}
+                    </label>
+                    <div className="group relative">
+                      <UserIcon
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
+                        size={20}
+                        aria-hidden
+                      />
+                      <input
+                        id="login-name"
+                        type="text"
+                        name="name"
+                        autoComplete="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className={inputClass}
+                      />
+                    </div>
                   </div>
                 )}
 
-                <div className="group relative">
-                  <Mail
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
-                    size={20}
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    inputMode="email"
-                    spellCheck={false}
-                    placeholder={t('emailField')}
-                    aria-label={t('emailField')}
-                    autoComplete="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className={inputClass}
-                  />
+                <div>
+                  <label htmlFor="login-email" className={labelClass}>
+                    {t('emailField')}
+                  </label>
+                  <div className="group relative">
+                    <Mail
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
+                      size={20}
+                      aria-hidden
+                    />
+                    <input
+                      id="login-email"
+                      type="email"
+                      name="email"
+                      inputMode="email"
+                      spellCheck={false}
+                      autoComplete="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className={inputClass}
+                    />
+                  </div>
                 </div>
 
-                <div className="group relative">
-                  <Lock
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
-                    size={20}
-                  />
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    name="password"
-                    placeholder={t('passwordField')}
-                    aria-label={t('passwordField')}
-                    autoComplete={isLogin ? 'current-password' : 'new-password'}
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className={`${inputClass} pr-14`}
-                  />
-                  {/* 비밀번호 보기 — 브라우저 기본 기능이 아니다(Chrome·Safari 에 없음). 오타로 로그인에 실패하는
-                      50대 이상 사용자를 위해 둔다 (2026-09-16 회의). */}
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword((v) => !v)}
-                    className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg hover:text-brand-blue"
-                    aria-label={showPassword ? t('hidePassword') : t('showPassword')}
-                    aria-pressed={showPassword}
-                    id="toggle-password"
-                  >
-                    {showPassword ? (
-                      <EyeOff size={20} aria-hidden />
-                    ) : (
-                      <Eye size={20} aria-hidden />
-                    )}
-                  </button>
-                </div>
-
-                {!isLogin && (
+                <div>
+                  <label htmlFor="login-password" className={labelClass}>
+                    {t('passwordField')}
+                  </label>
                   <div className="group relative">
                     <Lock
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
                       size={20}
+                      aria-hidden
                     />
                     <input
-                      type="password"
-                      name="passwordConfirmation"
-                      placeholder={t('passwordConfirmation')}
-                      aria-label={t('passwordConfirmation')}
-                      autoComplete="new-password"
+                      id="login-password"
+                      type={showPassword ? 'text' : 'password'}
+                      name="password"
+                      autoComplete={isLogin ? 'current-password' : 'new-password'}
                       required
-                      value={passwordConfirmation}
-                      onChange={(e) => setPasswordConfirmation(e.target.value)}
-                      className={inputClass}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      aria-invalid={invalidField === 'password' || undefined}
+                      aria-describedby={invalidField === 'password' ? 'login-message' : undefined}
+                      className={`${inputClass} pr-14`}
                     />
+                    {/* 비밀번호 보기 — 브라우저 기본 기능이 아니다(Chrome·Safari 에 없음). 오타로 로그인에 실패하는
+                      50대 이상 사용자를 위해 둔다 (2026-09-16 회의). */}
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((v) => !v)}
+                      className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg text-app-text-muted transition-colors hover:bg-app-bg hover:text-brand-blue"
+                      aria-label={showPassword ? t('hidePassword') : t('showPassword')}
+                      aria-pressed={showPassword}
+                      id="toggle-password"
+                    >
+                      {showPassword ? (
+                        <EyeOff size={20} aria-hidden />
+                      ) : (
+                        <Eye size={20} aria-hidden />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {!isLogin && (
+                  <div>
+                    <label htmlFor="login-password-confirmation" className={labelClass}>
+                      {t('passwordConfirmation')}
+                    </label>
+                    <div className="group relative">
+                      <Lock
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
+                        size={20}
+                        aria-hidden
+                      />
+                      <input
+                        id="login-password-confirmation"
+                        type="password"
+                        name="passwordConfirmation"
+                        autoComplete="new-password"
+                        required
+                        value={passwordConfirmation}
+                        onChange={(e) => setPasswordConfirmation(e.target.value)}
+                        aria-invalid={invalidField === 'passwordConfirmation' || undefined}
+                        aria-describedby={
+                          invalidField === 'passwordConfirmation' ? 'login-message' : undefined
+                        }
+                        className={inputClass}
+                      />
+                    </div>
                   </div>
                 )}
 
@@ -424,7 +454,6 @@ export default function LoginPage() {
             {t('viewFaq')}
           </Link>
         </div>
-        <p className="mt-2 text-center text-sm text-app-text-muted">{t('termsOpensNewTab')}</p>
       </div>
     </PageContainer>
   );

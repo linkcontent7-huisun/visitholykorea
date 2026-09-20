@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
+import { useModalFocus } from '@/shared/hooks/use-modal-focus';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 /**
@@ -7,6 +8,7 @@ import { useSettings } from '@/shared/i18n/use-settings';
  *
  * 터치 스와이프(모바일)·화살표 단추(PC)·좌우 화살표 키보드를 모두 받는다.
  * `photos` 가 null 이면 아무것도 그리지 않는다 — 열림 상태는 호출부가 갖는다.
+ * Esc·포커스 가두기·되돌리기는 `useModalFocus` 가 한다(2026-09-20 접근성 감사).
  */
 export function PhotoLightbox({
   photos,
@@ -21,17 +23,18 @@ export function PhotoLightbox({
 }) {
   const { t } = useSettings();
   const touchStartX = useRef<number | null>(null);
+  const open = !!photos && photos.length > 0;
+  const dialogRef = useModalFocus<HTMLDivElement>(open, onClose);
 
   useEffect(() => {
     if (!photos) return;
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      else if (e.key === 'ArrowLeft' && index > 0) onIndexChange(index - 1);
+      if (e.key === 'ArrowLeft' && index > 0) onIndexChange(index - 1);
       else if (e.key === 'ArrowRight' && index < photos.length - 1) onIndexChange(index + 1);
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [photos, index, onIndexChange, onClose]);
+  }, [photos, index, onIndexChange]);
 
   if (!photos || photos.length === 0) return null;
   const hasPrev = index > 0;
@@ -39,6 +42,7 @@ export function PhotoLightbox({
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label={t('photoEnlarge')}
@@ -61,11 +65,13 @@ export function PhotoLightbox({
         aria-label={t('close')}
         onClick={onClose}
       />
+      {/* 검은 바탕이라 전역 남색 포커스 선이 안 보인다 — 흰 선으로. 열리면 여기로 포커스가 온다 */}
       <button
         type="button"
         onClick={onClose}
         aria-label={t('close')}
-        className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60"
+        data-autofocus
+        className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60 focus-visible:outline-white"
       >
         <X size={22} aria-hidden />
       </button>
@@ -75,7 +81,7 @@ export function PhotoLightbox({
           type="button"
           onClick={() => onIndexChange(index - 1)}
           aria-label={t('photoPrev')}
-          className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60 lg:left-4"
+          className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60 focus-visible:outline-white lg:left-4"
         >
           <ChevronLeft size={24} aria-hidden />
         </button>
@@ -85,20 +91,24 @@ export function PhotoLightbox({
           type="button"
           onClick={() => onIndexChange(index + 1)}
           aria-label={t('photoNext')}
-          className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60 lg:right-4"
+          className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60 focus-visible:outline-white lg:right-4"
         >
           <ChevronRight size={24} aria-hidden />
         </button>
       )}
 
+      {/* 확대된 사진이 이 화면의 내용이다 — 빈 alt 면 스크린리더에 「이미지」로만 들린다 */}
       <img
         src={photos[index]}
-        alt=""
+        alt={`${t('photoEnlarge')} ${index + 1} / ${photos.length}`}
         className="pointer-events-none relative max-h-[85vh] max-w-[92vw] object-contain"
       />
 
       {photos.length > 1 && (
-        <p className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-black/40 px-3 py-1 text-sm font-bold tabular-nums text-white">
+        <p
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-black/40 px-3 py-1 text-sm font-bold tabular-nums text-white"
+          aria-live="polite"
+        >
           {index + 1} / {photos.length}
         </p>
       )}

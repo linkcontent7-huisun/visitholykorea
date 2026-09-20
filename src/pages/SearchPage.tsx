@@ -273,10 +273,12 @@ export default function SearchPage() {
           {/* 검색 입력 */}
           <div className="border-b border-app-border pb-5">
             <PageHeader back title={t('searchPageTitle')} className="pb-4" />
+            {/* 스쿼클(clip-path)은 바깥 outline 을 잘라내므로 포커스는 테두리 선을 3px 남색으로 굵혀 보인다.
+                입력창 테두리는 app-input-border(3.5:1) — 2026-09-20 접근성 감사 */}
             <SquircleSurface
-              borderColor="var(--color-app-border)"
+              borderColor="var(--color-app-input-border)"
               borderWidth={1.5}
-              borderClassName="transition-colors group-focus-within:stroke-brand-blue"
+              borderClassName="transition-colors group-focus-within:stroke-brand-blue group-focus-within:stroke-[6px]"
               className="group flex items-center gap-3 overflow-hidden bg-white px-4"
             >
               <Search className="shrink-0 text-app-text-muted" size={22} aria-hidden />
@@ -287,7 +289,7 @@ export default function SearchPage() {
                 enterKeyHint="search"
                 placeholder={t('searchInputPlaceholder')}
                 aria-label={t('searchAria')}
-                className="min-h-14 min-w-0 flex-1 border-none bg-transparent text-lg font-bold text-app-text focus:outline-none"
+                className="min-h-14 min-w-0 flex-1 border-none bg-transparent text-lg font-bold text-app-text focus-visible:outline-none"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
