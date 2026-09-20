@@ -213,7 +213,10 @@ async function callClaude(
     signal: AbortSignal.timeout(CLAUDE_TIMEOUT_MS),
     body: JSON.stringify({
       model: CLAUDE_MODEL,
-      max_tokens: 800,
+      // sonnet-5 는 기본으로 생각(thinking)을 하고 그 토큰이 max_tokens 에 포함된다 — 800 이면 코스 질문에서
+      // 생각만 하다 끝나 본문이 비었다(2026-09-20 실측, 20문항 중 1건 claude_204 폴백). 넉넉히 주고 생각은 얕게.
+      max_tokens: 2048,
+      output_config: { effort: 'low' },
       system: systemInstruction,
       messages: [
         ...history.map((h) => ({ role: h.role === 'bot' ? 'assistant' : 'user', content: h.text })),
