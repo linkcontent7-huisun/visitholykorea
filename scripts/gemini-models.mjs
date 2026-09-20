@@ -31,14 +31,21 @@ const usable = models
   .filter((m) => (m.supportedGenerationMethods ?? []).includes('generateContent'))
   .map((m) => m.name.replace(/^models\//, ''))
   .filter((n) => /^gemini-/.test(n))
-  .filter((n) => !/(embedding|image|audio|tts|live|vision|exp|preview|thinking|robotics|computer)/i.test(n));
+  .filter(
+    (n) =>
+      !/(embedding|image|audio|tts|live|vision|exp|preview|thinking|robotics|computer)/i.test(n),
+  );
 
 /** 순서: flash(빠르고 한도 넉넉) → flash-lite → 나머지. 같은 급이면 버전 숫자 큰 것 먼저. */
 const rank = (n) => (/flash-lite/.test(n) ? 1 : /flash/.test(n) ? 0 : 2);
 const ver = (n) => parseFloat((n.match(/gemini-(\d+(?:\.\d+)?)/) ?? [0, '0'])[1]);
-const ordered = [...new Set(usable)].sort((a, b) => rank(a) - rank(b) || ver(b) - ver(a) || a.localeCompare(b));
+const ordered = [...new Set(usable)].sort(
+  (a, b) => rank(a) - rank(b) || ver(b) - ver(a) || a.localeCompare(b),
+);
 // "-latest" 별칭·숫자 없는 버전(gemini-flash-latest 등)은 가리키는 곳이 바뀔 수 있어 뒤로 보낸다
-const stable = ordered.filter((n) => !/latest/.test(n)).concat(ordered.filter((n) => /latest/.test(n)));
+const stable = ordered
+  .filter((n) => !/latest/.test(n))
+  .concat(ordered.filter((n) => /latest/.test(n)));
 const picked = stable.slice(0, 4);
 
 if (picked.length === 0) {
@@ -56,5 +63,9 @@ if (JSON.stringify(prev) === JSON.stringify(picked)) {
   console.log('변경 없음:', picked.join(', '));
   process.exit(0);
 }
-writeFileSync(OUT, JSON.stringify({ updatedAt: new Date().toISOString().slice(0, 10), models: picked }, null, 2) + '\n');
+writeFileSync(
+  OUT,
+  JSON.stringify({ updatedAt: new Date().toISOString().slice(0, 10), models: picked }, null, 2) +
+    '\n',
+);
 console.log('갱신:', prev.join(', ') || '(없음)', '→', picked.join(', '));

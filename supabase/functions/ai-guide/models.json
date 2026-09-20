@@ -1,6 +1,4 @@
 {
   "updatedAt": "2026-09-19",
-  "models": [
-    "gemini-3.6-flash"
-  ]
+  "models": ["gemini-3.6-flash"]
 }
