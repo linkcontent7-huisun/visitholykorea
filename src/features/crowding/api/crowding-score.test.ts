@@ -4,6 +4,7 @@ import {
   combineNearbyCrowding,
   LEVEL_BOUNDS,
   pickCongestion,
+  pickQuietDays,
   ratesForToday,
   toCrowdingLevel,
 } from './crowding-score';
@@ -140,5 +141,33 @@ describe('combineNearbyCrowding — 합산과 근거', () => {
     for (const reason of [...site.reasons, ...district.reasons]) {
       expect(JSON.stringify(reason.params ?? {})).not.toMatch(/\d/);
     }
+  });
+});
+
+describe('pickQuietDays — 이 성지의 앞으로 30일 중 조용한 날', () => {
+  const rows = [
+    rate('솔뫼성지', 10, '20260915'), // 어제 — 뺀다
+    rate('솔뫼성지', 65, '20260916'), // 오늘 붐빔
+    rate('솔뫼성지', 12, '20260917'),
+    rate('솔뫼성지', 40, '20260918'),
+    rate('솔뫼성지', 8, '20260919'),
+    rate('삽교호', 5, '20260920'), // 다른 곳 — 뺀다
+    rate('솔뫼성지', 20, '20260921'),
+    rate('솔뫼성지', 29, '20260922'),
+    rate('솔뫼성지', 1, '20260923'),
+  ];
+  it('오늘 이후 · 이 성지 · 조용 등급만, 가까운 순, 최대 4개', () => {
+    expect(pickQuietDays('솔뫼성지', rows, TODAY)).toEqual([
+      '20260917',
+      '20260919',
+      '20260921',
+      '20260922',
+    ]);
+  });
+  it('이름이 등재되지 않은 성지는 빈 배열 — 다른 관광지 값으로 날짜를 권하지 않는다', () => {
+    expect(pickQuietDays('신리성지', rows, TODAY)).toEqual([]);
+  });
+  it('오늘이 조용하면 오늘부터', () => {
+    expect(pickQuietDays('a', [rate('a', 5, TODAY)], TODAY)).toEqual([TODAY]);
   });
 });

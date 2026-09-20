@@ -127,6 +127,38 @@ export function pickCongestion(
   };
 }
 
+/** 「한적한 날」로 보여줄 최대 개수 — 날짜 알약 4개면 휴대폰 한 줄에 들어간다 */
+export const QUIET_DAYS_LIMIT = 4;
+
+/**
+ * 이 성지의 앞으로 30일 중 「조용」 등급인 날(YYYYMMDD, 가까운 순).
+ *
+ * 집중률은 "그 장소의 가장 붐비는 시기 대비" 상대치라 장소끼리 비교는 못 해도 **같은 장소의 날짜 비교에는
+ * 정확히 맞는 지표**다(data.go.kr 15128555). 그래서 오버투어리즘 답변은 "어디로"가 아니라 "언제"로 낸다
+ * (2026-09-21 결정). 성지 이름이 관광지로 등재된 곳(kind=site)에만 의미가 있고, 그 외는 빈 배열.
+ * 응답에 이미 30일치가 들어 있어 호출 수는 늘지 않는다. 오늘도 조용하면 오늘부터 센다.
+ */
+export function pickQuietDays(
+  siteName: string,
+  rates: readonly CongestionRate[],
+  todayYmd: string = koreaTodayYmd(),
+  limit: number = QUIET_DAYS_LIMIT,
+): string[] {
+  return rates
+    .filter(
+      (r) =>
+        r.baseYmd &&
+        r.baseYmd >= todayYmd &&
+        Number.isFinite(Number(r.cnctrRate)) &&
+        isSameSpot(siteName, r.tAtsNm) &&
+        toCrowdingLevel(clampRate(r.cnctrRate)) === '조용',
+    )
+    .map((r) => r.baseYmd)
+    .filter((ymd, i, all) => all.indexOf(ymd) === i)
+    .sort()
+    .slice(0, limit);
+}
+
 // ---------------------------------------------------------------------------
 // 합산 · 근거
 // ---------------------------------------------------------------------------

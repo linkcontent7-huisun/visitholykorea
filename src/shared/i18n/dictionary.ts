@@ -5570,6 +5570,23 @@ export const DICTIONARY = {
     it: 'moderate',
   },
   crowdingWordHigh: { ko: '높음', en: 'high', es: 'high', fr: 'high', pt: 'high', it: 'high' },
+  // 「한적한 날」 — 이름 등재 성지의 앞으로 30일 중 조용한 날짜(2026-09-21). 숫자·퍼센트는 없다.
+  quietDaysTitle: {
+    ko: '한적한 날',
+    en: 'Quiet days',
+    es: 'Días tranquilos',
+    fr: 'Jours calmes',
+    pt: 'Dias tranquilos',
+    it: 'Giorni tranquilli',
+  },
+  quietDaysNote: {
+    ko: '앞으로 30일 · 한국관광공사 예측 · 이 성지 기준 · 실제와 다를 수 있어요',
+    en: 'Next 30 days · Korea Tourism Organization forecast for this shrine · may differ from reality',
+    es: 'Próximos 30 días · previsión de la Organización de Turismo de Corea para este santuario · puede diferir de la realidad',
+    fr: '30 prochains jours · prévision de l’Office du tourisme coréen pour ce sanctuaire · peut différer de la réalité',
+    pt: 'Próximos 30 dias · previsão da Organização de Turismo da Coreia para este santuário · pode diferir da realidade',
+    it: 'Prossimi 30 giorni · previsione dell’Ente del Turismo Coreano per questo santuario · può differire dalla realtà',
+  },
   /** 성지 이름이 집중률에 없는 곳 — 색 점·등급 없이 이 문장만 그린다(2026-09-21). {word} 는 crowdingWord* */
   crowdingDistrictOnly: {
     ko: '{district} 관광지 예측 {word} · 이 성지 데이터 없음',

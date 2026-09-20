@@ -47,6 +47,7 @@ import { useNearbyFacilities } from '@/features/sites/hooks/use-nearby-tour';
 import { WalkingCourseCard } from '@/features/sites/components/WalkingCourseCard';
 import { useWalkingCoursesNear } from '@/features/sites/hooks/use-tour-extras';
 import { NearbyCrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
+import { QuietDaysCard } from '@/features/crowding/components/QuietDaysCard';
 import { GROUP_LABEL_KEY } from '@/features/sites/lib/nearby-facilities';
 import {
   useLocalizedSites,
@@ -524,6 +525,9 @@ export default function SiteDetailPage() {
               </SquircleSurface>
             </section>
           )}
+
+          {/* 한적한 날 — 집중률에 이름이 있는 성지만. 미사 시간 바로 아래가 "언제 갈까"를 정하는 자리다 */}
+          <QuietDaysCard site={site} />
 
           {/* 공식 홈페이지·연락처 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
           <ContactCard site={site} />

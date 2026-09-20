@@ -11,13 +11,20 @@ import { useMemo } from 'react';
 import { queryKeys } from '@/shared/api/query-keys';
 import type { HolySite } from '@/shared/types/domain';
 import { fetchCongestionForSite } from '../api/congestion-lookup';
-import { combineNearbyCrowding, pickCongestion, type NearbyCrowding } from '../api/crowding-score';
+import {
+  combineNearbyCrowding,
+  pickCongestion,
+  pickQuietDays,
+  type NearbyCrowding,
+} from '../api/crowding-score';
 
 const SIX_HOURS = 6 * 60 * 60 * 1000;
 
 export interface NearbyCrowdingState {
   /** null = 아직 조회 중이거나 실패 */
   data: NearbyCrowding | null;
+  /** 이 성지가 「조용」으로 예측된 날(YYYYMMDD, 가까운 순). 이름 등재 성지가 아니면 빈 배열 */
+  quietDays: string[];
   isLoading: boolean;
   isError: boolean;
   error: unknown;
@@ -41,8 +48,14 @@ export function useNearbyCrowding(site: HolySite | undefined): NearbyCrowdingSta
     return combineNearbyCrowding(pickCongestion(site.name, congestion.data.rates));
   }, [site, congestion.data]);
 
+  const quietDays = useMemo(
+    () => (site && congestion.data ? pickQuietDays(site.name, congestion.data.rates) : []),
+    [site, congestion.data],
+  );
+
   return {
     data,
+    quietDays,
     isLoading: enabled && congestion.isPending,
     isError: congestion.isError,
     error: congestion.error,
