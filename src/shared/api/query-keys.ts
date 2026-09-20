@@ -82,13 +82,6 @@ export const queryKeys = {
     walkingCourses: (sigunguName: string) => ['tour', 'walking-courses', sigunguName] as const,
     searchKeyword: (keyword: string) => ['tour', 'search', keyword] as const,
   },
-  festivals: {
-    /**
-     * 「축제 가는 김에」 — 오늘 진행 중인 전국 축제.
-     * 날짜를 키에 넣어 자정이 지나면 자동으로 다시 받는다(캐시에 눌러앉지 않게).
-     */
-    ongoing: (date: string) => ['festivals', 'ongoing', date] as const,
-  },
   admin: {
     /** 내 권한 등급. 로그인이 바뀌면 무효화한다. */
     role: ['admin', 'role'] as const,

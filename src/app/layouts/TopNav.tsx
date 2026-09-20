@@ -43,7 +43,7 @@ export function TopNav() {
   const { pathname } = useLocation();
   const isHome = pathname === paths.home;
   const [scrolled, setScrolled] = useState(false);
-  // 미카엘 AI 시트 — 헤더 아무 화면에서나 열 수 있게 여기서 상태를 들고 있는다(2026-09-18 되살림).
+  // 미카엘 순례 가이드 시트 — 헤더 아무 화면에서나 열 수 있게 여기서 상태를 들고 있는다(2026-09-18 되살림).
   const [aiOpen, setAiOpen] = useState(false);
 
   useEffect(() => {
@@ -124,7 +124,7 @@ export function TopNav() {
               누르면 옆에 소·중·대가 펼쳐진다 (2026-09-12). */}
             <TextSizePicker variant={transparent ? 'onDark' : 'default'} />
 
-            {/* 미카엘 AI — 재기획(2026-09-14)에서 정확성·비용 안전장치가 갖춰지기 전까지
+            {/* 미카엘 순례 가이드 — 재기획(2026-09-14)에서 정확성·비용 안전장치가 갖춰지기 전까지
               숨겨 뒀던 것을, 검색 정확도·Gemini 한도 안내를 고친 뒤(PR #40, 2026-09-17)
               되살린다(사장님 지적, 2026-09-18). 글자크기·언어 버튼과 같은 자리에 둔다. */}
             <button

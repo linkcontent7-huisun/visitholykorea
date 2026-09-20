@@ -19,7 +19,6 @@ const RouteDetailPage = lazy(() => import('@/pages/RouteDetailPage'));
 const CompassPage = lazy(() => import('@/pages/CompassPage'));
 const RetiredFeaturePage = lazy(() => import('@/pages/RetiredFeaturePage'));
 const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
-const FestivalsPage = lazy(() => import('@/pages/FestivalsPage'));
 const RegionLandingPage = lazy(() => import('@/pages/RegionLandingPage'));
 const NearbyPage = lazy(() => import('@/pages/NearbyPage'));
 const LoginPage = lazy(() => import('@/pages/LoginPage'));
@@ -114,7 +113,6 @@ export const router = createBrowserRouter([
           { path: paths.alternatives, element: <Navigate to={paths.compass} replace /> },
           { path: paths.aiGuide, element: withSuspense(<RetiredFeaturePage feature="ai" />) },
           { path: paths.privacy, element: withSuspense(<PrivacyPage />) },
-          { path: paths.festivals, element: withSuspense(<FestivalsPage />) },
           { path: paths.regionPattern, element: withSuspense(<RegionLandingPage />) },
           { path: paths.nearby, element: withSuspense(<NearbyPage />) },
           { path: paths.faq, element: withSuspense(<FaqPage />) },
