@@ -46,6 +46,7 @@ import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCa
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { sizedImageUrl } from '@/shared/lib/image-url';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
+import { photoCreditText } from '@/features/sites/lib/photo-credit';
 import { useNearbyFacilities } from '@/features/sites/hooks/use-nearby-tour';
 import { WalkingCourseCard } from '@/features/sites/components/WalkingCourseCard';
 import { useWalkingCoursesNear } from '@/features/sites/hooks/use-tour-extras';
@@ -335,6 +336,7 @@ export default function SiteDetailPage() {
     (tag): tag is string => Boolean(tag),
   );
   const heroPhoto = sitePhoto;
+  const photoCredit = photoCreditText(site.imageSource, site.imageLicense);
 
   // 소개글 끝의 「▷ 미사 시간」 문단은 인용문에서 떼어 방문 정보 카드로 보낸다 (2026-09-13)
   const { body: descriptionBody, mass: massInfo } = splitMassInfo(site.description);
@@ -373,11 +375,11 @@ export default function SiteDetailPage() {
                 {t('photoFromPilgrim')}
               </span>
             )}
-            {/* CC 계열 라이선스는 출처 표기가 의무다 — 출처가 기록된 사진에만 붙는다 */}
-            {!heroPhoto.fromPilgrim && site.imageSource && (
-              <span className="absolute bottom-2 right-3 rounded bg-black/40 px-2 py-0.5 text-xs text-white/85 backdrop-blur-sm">
-                {site.imageSource}
-                {site.imageLicense ? ` · ${site.imageLicense}` : ''}
+            {/* 사진 출처 — 위키미디어(CC BY)·공공누리는 표기가 의무라 남기되, 사진을 가리지 않게
+                오른쪽 아래 아주 작게(사장님 지적 2026-09-21). 우리가 직접 찍은 사진은 표기하지 않는다. */}
+            {!heroPhoto.fromPilgrim && photoCredit && (
+              <span className="absolute bottom-1 right-1.5 rounded-sm bg-black/35 px-1.5 py-0.5 text-[0.625rem] leading-none text-white/70">
+                {photoCredit}
               </span>
             )}
           </>
@@ -485,6 +487,26 @@ export default function SiteDetailPage() {
                     &ldquo;{paragraph}&rdquo;
                   </p>
                 ))}
+                {/* 참고한 자료 — 굿뉴스 성지 안내·교구 홈페이지처럼 주소가 있는 것만(T-032, 2026-09-21).
+                    글은 우리가 다시 쓴 것이고, 무엇을 보고 썼는지 밝혀 신뢰를 얻는다. */}
+                {docentIntro.sources.length > 0 && (
+                  <p className="text-xs leading-relaxed text-app-text-muted">
+                    {t('storySourcesLabel')}{' '}
+                    {docentIntro.sources.map((source, i) => (
+                      <span key={source.url}>
+                        {i > 0 && ' · '}
+                        <a
+                          href={source.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline decoration-app-border underline-offset-2 hover:text-brand-blue"
+                        >
+                          {source.label}
+                        </a>
+                      </span>
+                    ))}
+                  </p>
+                )}
               </div>
             ) : (
               description && (

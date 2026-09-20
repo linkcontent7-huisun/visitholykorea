@@ -15,7 +15,6 @@ import { useLocalizedSites, useSites, useSitesByDiocese } from '@/features/sites
 import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { formatDuration } from '@/shared/lib/geo';
 import { regionCoords } from '@/shared/lib/regions';
 import { DIOCESES } from '@/shared/types/domain';
@@ -79,7 +78,7 @@ export default function ExplorePage() {
 
         {!selectedDiocese ? (
           <div className="pb-10">
-            {!SUBMISSION_MODE && favoriteSites.length > 0 && (
+            {favoriteSites.length > 0 && (
               // 제출판은 본선 기능만 보이게 한다 — T-013
               <section className="mb-10">
                 <div className="mb-4 flex items-center gap-2">
