@@ -34,15 +34,12 @@ describe('LanguagePicker', () => {
     expect(screen.queryByText('Español')).not.toBeInTheDocument();
   });
 
-  it('누르면 검수된 한국어·영어만 각자의 언어 이름으로 나온다 (es·fr·pt·it 는 검수 전이라 숨김)', () => {
+  it('누르면 여섯 언어가 각자의 언어 이름으로 나온다 (2026-09-20 전부 켬)', () => {
     mockSettings('ko');
     render(<LanguagePicker />);
     fireEvent.click(screen.getByRole('button', { name: /언어|Language/i }));
-    for (const label of ['한국어', 'English']) {
+    for (const label of ['한국어', 'English', 'Español', 'Français', 'Português', 'Italiano']) {
       expect(screen.getByRole('option', { name: label })).toBeInTheDocument();
-    }
-    for (const label of ['Español', 'Français', 'Português', 'Italiano']) {
-      expect(screen.queryByRole('option', { name: label })).not.toBeInTheDocument();
     }
   });
 
