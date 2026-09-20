@@ -290,7 +290,7 @@ export default function HomePage() {
                 rel="noopener"
                 className="inline-flex min-h-11 items-center text-sm font-bold text-app-text-muted underline underline-offset-2"
               >
-                {language === 'ko' ? link.labelKo : link.labelEn}
+                {link.label[language]}
               </a>
             ))}
           </footer>

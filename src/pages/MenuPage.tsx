@@ -229,7 +229,7 @@ export default function MenuPage() {
       items: OFFICIAL_LINKS.map((link) => ({
         id: `official-${link.id}`,
         icon: Globe,
-        label: language === 'ko' ? link.labelKo : link.labelEn,
+        label: link.label[language],
         sub: link.url ? link.url : t('officialLinkPending'),
         onClick: link.url ? () => window.open(link.url!, '_blank', 'noopener') : undefined,
       })),

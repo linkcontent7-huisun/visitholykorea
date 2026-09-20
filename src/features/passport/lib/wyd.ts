@@ -10,8 +10,7 @@
 /** 공식 일정지로 확인된 이름 조각. 확정 발표된 곳만 넣는다 — 추측 금지. */
 const WYD_VENUE_PATTERNS = ['솔뫼', '해미'] as const;
 
-export const WYD_LABEL_KO = 'WYD 2027 공식 일정지';
-export const WYD_LABEL_EN = 'World Youth Day Seoul 2027 · Official Venue';
+// 화면 표시 문구는 사전 `wydVenueLabel` (6개 국어) — 여기엔 판정 규칙만 둔다 (T-031).
 
 /** 이 성지가 WYD 2027 공식 일정지인가. */
 export function isWydVenue(siteName: string): boolean {

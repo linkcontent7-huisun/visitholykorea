@@ -24,7 +24,7 @@ export function BottomNav() {
   return (
     <nav
       className="safe-area-inset-bottom fixed bottom-0 left-1/2 z-50 w-full max-w-lg -translate-x-1/2 border-t border-app-border bg-white shadow-[0_-4px_16px_rgba(30,34,43,0.06)] lg:hidden"
-      aria-label="주요 메뉴"
+      aria-label={t('mainMenuAria')}
     >
       <div className="flex h-[70px] items-stretch">
         {NAV_ITEMS.map((tab) => {
