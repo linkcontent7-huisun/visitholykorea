@@ -87,35 +87,6 @@ Deno.serve(async (req) => {
     });
   }
 
-  // ── 임시 진단 경로 (배포 후 바로 제거한다) ───────────────
-  if (url.pathname.endsWith('/selftest')) {
-    const body = new URLSearchParams({
-      grant_type: 'authorization_code',
-      client_id: KAKAO_REST_KEY,
-      redirect_uri: 콜백주소(req),
-      code: 'dummy-selftest-code',
-    });
-    if (KAKAO_CLIENT_SECRET) body.set('client_secret', KAKAO_CLIENT_SECRET);
-    const res = await fetch('https://kauth.kakao.com/oauth/token', {
-      method: 'POST',
-      headers: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' },
-      body,
-    });
-    const text = await res.text();
-    return new Response(
-      JSON.stringify({
-        redirect_uri: 콜백주소(req),
-        app_url: APP_URL,
-        rest_key_len: KAKAO_REST_KEY.length,
-        js_key_len: KAKAO_JS_KEY.length,
-        client_secret_len: KAKAO_CLIENT_SECRET.length,
-        kakao_status: res.status,
-        kakao_body: text,
-      }),
-      { headers: { 'content-type': 'application/json' } },
-    );
-  }
-
   // ── 2단계: 콜백 처리 ─────────────────────────────────────
   if (url.pathname.endsWith('/callback')) {
     const code = url.searchParams.get('code');
