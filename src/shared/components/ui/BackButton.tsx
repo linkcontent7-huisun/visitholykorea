@@ -36,7 +36,7 @@ export function BackButton({
     'inline-flex min-h-11 items-center gap-1.5 rounded-lg text-base font-bold transition-colors';
   const cls =
     variant === 'onDark'
-      ? `${base} border border-white/30 bg-black/30 px-3 text-white backdrop-blur-md hover:bg-black/45 focus-visible:outline-white ${className}`
+      ? `${base} bg-transparent px-3 text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.7)] hover:bg-white/15 focus-visible:outline-white ${className}`
       : `${base} -ml-2 gap-1 px-2 text-app-text-muted hover:bg-app-bg hover:text-app-text ${className}`;
 
   if (to) {

@@ -73,7 +73,6 @@ import { SquircleSurface } from '@/shared/components/ui/SquircleSurface';
 import { fillPlaceholders, SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { kakaoDirectionsUrl } from '@/shared/lib/geo';
 import { useUnsavedChangesGuard } from '@/shared/hooks/use-unsaved-changes-guard';
 
@@ -413,28 +412,26 @@ export default function SiteDetailPage() {
             as="button"
             type="button"
             onClick={scrollToRecordSection}
-            borderColor="rgb(255 255 255 / 0.3)"
-            className="flex min-h-11 items-center gap-1.5 bg-black/30 px-3 text-base font-bold text-white backdrop-blur-md transition-colors hover:bg-black/45"
+            borderColor="transparent"
+            className="flex min-h-11 items-center gap-1.5 bg-transparent px-3 text-base font-bold text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.7)] transition-colors hover:bg-white/15"
           >
             <BookOpen size={18} aria-hidden />
             {t('siteRecordAnchor')}
           </SquircleSurface>
-          {!SUBMISSION_MODE && (
-            // 제출판은 본선 기능만 보이게 한다 — T-013
-            <button
-              onClick={handleToggleFavorite}
-              disabled={toggleFavorite.isPending}
-              className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/30 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/45"
-              aria-label={isFavorited ? t('favoriteRemove') : t('favoriteAdd')}
-              aria-pressed={isFavorited}
-            >
-              <Heart
-                size={22}
-                className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined}
-                aria-hidden
-              />
-            </button>
-          )}
+          {/* 즐겨찾기는 정식 기능(9/20) — 제출판에서도 보인다. 사진 위 세 단추는 배경 없이 글자·아이콘만(사장님 지적 9/21). */}
+          <button
+            onClick={handleToggleFavorite}
+            disabled={toggleFavorite.isPending}
+            className="flex h-11 w-11 items-center justify-center rounded-lg bg-transparent text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)] transition-colors hover:bg-white/15"
+            aria-label={isFavorited ? t('favoriteRemove') : t('favoriteAdd')}
+            aria-pressed={isFavorited}
+          >
+            <Heart
+              size={22}
+              className={isFavorited ? 'fill-pink-500 text-pink-500' : undefined}
+              aria-hidden
+            />
+          </button>
         </div>
 
         <div className="absolute bottom-10 left-5 right-5 text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.55)] lg:left-8 lg:right-8">
