@@ -42,6 +42,7 @@ import { useDocentScripts } from '@/features/docent/hooks/use-docent-script';
 import { buildDbChapters, pickIntro } from '@/features/docent/lib/db-chapters';
 import { ContactCard } from '@/features/sites/components/ContactCard';
 import { splitMassInfo } from '@/features/sites/lib/mass-info';
+import { localizeMassLabel, localizeMassValue } from '@/features/sites/lib/mass-info-localize';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { sizedImageUrl } from '@/shared/lib/image-url';
@@ -538,20 +539,25 @@ export default function SiteDetailPage() {
               >
                 {massRows.map((row) => (
                   <div key={row.label + row.value} className="p-5">
-                    <dt className="mb-2 text-sm font-bold text-brand-blue">{row.label}</dt>
+                    <dt className="mb-2 text-sm font-bold text-brand-blue">
+                      {localizeMassLabel(row.label, language)}
+                    </dt>
                     <dd className="text-base leading-loose text-app-text">
-                      {row.value.split(/(\d{1,2}:\d{2})/g).map((part, i) =>
-                        /^\d{1,2}:\d{2}$/.test(part) ? (
-                          <span
-                            key={i}
-                            className="mx-0.5 inline-flex items-center rounded-full bg-brand-soft px-2 py-0.5 font-bold tabular-nums text-brand-blue"
-                          >
-                            {part}
-                          </span>
-                        ) : (
-                          part
-                        ),
-                      )}
+                      {/* 라벨·요일·자주 나오는 구절만 화면 언어로 바꾸고 나머지는 원문 그대로(T-034) */}
+                      {localizeMassValue(row.value, language)
+                        .split(/(\d{1,2}:\d{2})/g)
+                        .map((part, i) =>
+                          /^\d{1,2}:\d{2}$/.test(part) ? (
+                            <span
+                              key={i}
+                              className="mx-0.5 inline-flex items-center rounded-full bg-brand-soft px-2 py-0.5 font-bold tabular-nums text-brand-blue"
+                            >
+                              {part}
+                            </span>
+                          ) : (
+                            part
+                          ),
+                        )}
                     </dd>
                   </div>
                 ))}
