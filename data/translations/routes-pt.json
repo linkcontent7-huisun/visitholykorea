@@ -1,0 +1,169 @@
+[
+  {
+    "slug": "naepo-walk",
+    "title": "Naepo, viveiro da fé",
+    "subtitle": "De Yeosaul a Gongseri — os campos onde a Igreja coreana cresceu",
+    "description": "Naepo, no noroeste da província de Chungcheong, é a terra onde o catolicismo coreano criou raízes pela primeira vez. A rota começa no Santuário de Yeosaul, aldeia natal de Yi Jon-chang, que voltou batizado em 1784, e continua pelo Santuário de Solmoe, local de nascimento do padre Kim Dae-geon, pelo Santuário de Silli, sede do quinto vicariato apostólico de Joseon, e segue até a Igreja de Hapdeok e a Igreja do Santuário de Gongseri, símbolos da reconstrução da Igreja — ligando os santuários que a Diocese de Daejeon indica como trecho de peregrinação a pé.",
+    "stopNotes": [
+      "Aldeia natal de Yi Jon-chang, o «Apóstolo de Naepo» — o viveiro da fé",
+      "Local de nascimento do padre Kim Dae-geon, de uma família de quatro mártires",
+      "Primeira paróquia de Chungcheong — o coração da reconstrução da Igreja",
+      "O quinto vicariato apostólico de Joseon, do bispo Daveluy",
+      "Sítio de uma aldeia católica nunca totalmente restaurada",
+      "Primeira paróquia de Chungcheong, construída sobre o antigo depósito de grãos de Gongse"
+    ]
+  },
+  {
+    "slug": "naepo-walk-solmoe-haemi",
+    "title": "Peregrinação a pé de Naepo ① De Solmoe a Haemi",
+    "subtitle": "40,0 km · 9–10 h — a pé do local de nascimento do padre Kim Dae-geon ao local dos mártires de Haemi",
+    "description": "A rota principal do «Guia de Peregrinação a Pé de Naepo», publicado pelo Santuário de Solmoe. Partindo de Solmoe, local de nascimento de santo André Kim Dae-geon, passa pela Igreja de Hapdeok (4,0 km), pelo Santuário de Silli do bispo Daveluy (4,0 km), pelo Santuário de Baenadeuri (8,4 km) e pelo Santuário do Martírio de Deoksan (5,6 km) antes de chegar ao Santuário do Martírio de Haemi (18,0 km). Muito adequada para percorrer os campos de Naepo em dois dias; distâncias e tempos são os valores medidos pelo guia.",
+    "stopNotes": [
+      "Partida — local de nascimento de santo André Kim Dae-geon",
+      "4,0 km · 1 h",
+      "4,0 km · 1 h — sede do vicariato do bispo Daveluy",
+      "8,4 km · 2 h",
+      "5,6 km · 1 h 30 min",
+      "18,0 km · 5–6 h — chegada"
+    ]
+  },
+  {
+    "slug": "naepo-walk-solmoe-hongju",
+    "title": "Peregrinação a pé de Naepo ② De Solmoe a Hongju Eupseong",
+    "subtitle": "29,4 km · 7–8 h — por Hwangmusil e Deoksan até Hongju",
+    "description": "Do Santuário de Solmoe pela antiga aldeia católica de Hwangmusil (6,0 km), passando por Godeok (6,0 km) e pelo Santuário do Martírio de Deoksan (5,4 km), até o Santuário do Martírio de Hongju, junto às antigas muralhas de Hongju Eupseong (12,0 km). Pode ser feita num dia longo ou com pernoite em Deoksan. Godeok é uma aldeia de passagem, não um santuário da lista, por isso a tela da rota liga diretamente a Deoksan.",
+    "stopNotes": [
+      "Partida",
+      "6,0 km · 1 h 30 min",
+      "5,4 km por Godeok (6,0 km) — 3 h no total",
+      "12,0 km · 3 h — chegada"
+    ]
+  },
+  {
+    "slug": "naepo-walk-hongju-darakgol",
+    "title": "Peregrinação a pé de Naepo ③ De Hongju Eupseong a Galmaemot e Darakgol",
+    "subtitle": "55,5 km · 13–15 h — uma ligação de 2 noites e 3 dias entre os locais dos mártires do sul",
+    "description": "De Hongju Eupseong até o Santuário do Martírio de Galmaemot, à beira-mar (30,0 km), e depois até os túmulos em fileira do Santuário de Darakgol, em Cheongyang (25,5 km). Uma rota longa que une três locais de mártires da perseguição de Byeongin, melhor dividida em duas noites e três dias. No espírito da «atitude no santuário» do guia — caminhar em oração, em reflexão sobre a própria vida e em meditação sobre a vida dos mártires.",
+    "stopNotes": [
+      "Partida",
+      "30,0 km · 7–8 h — local dos mártires à beira-mar",
+      "25,5 km · 6–7 h — os túmulos em fileira, chegada"
+    ]
+  },
+  {
+    "slug": "naepo-walk-gongseri-yeosaul",
+    "title": "Peregrinação a pé de Naepo ④ De Gongseri a Yeosaul",
+    "subtitle": "31,0 km · 8 h 30 min — da baía de Asan ao viveiro da fé de Naepo",
+    "description": "Da Igreja do Santuário de Gongseri, em Asan, até o Santuário de Solmoe (21,0 km), e depois pela Igreja de Hapdeok (4,0 km) até o Santuário de Yeosaul (6,0 km), aldeia natal de Yi Jon-chang, o «Apóstolo de Naepo». Passar pela Igreja de Sinpyeong divide a caminhada em Gongseri→Sinpyeong (13,5 km) e Sinpyeong→Solmoe (9,0 km) — a Igreja de Sinpyeong não é um santuário da lista, por isso aparece apenas como ponto de passagem.",
+    "stopNotes": [
+      "Partida — uma igreja na colina sobre a baía de Asan",
+      "21,0 km · 5 h (13,5 km + 9,0 km pela Igreja de Sinpyeong)",
+      "4,0 km · 1 h",
+      "6,0 km · 1 h 30 min — chegada"
+    ]
+  },
+  {
+    "slug": "hwang-seokdu",
+    "title": "O caminho de são Lucas Hwang Seok-du",
+    "subtitle": "De Yeonpung a Galmaemot — percorrendo a vida de um líder leigo",
+    "description": "A vida de são Lucas Hwang Seok-du, que não renegou a fé nem mesmo diante da lâmina do carrasco, percorrida em ordem. Começa em sua aldeia natal, Yeonpung, continua até Sanmakgol, onde viveu seis anos com a família, o Santuário de Silli, onde se entregou junto com o bispo Daveluy, a costa de Galmaemot, onde foi martirizado na Sexta-feira Santa, e por fim o Santuário de Sapti, onde seu filho adotivo e seu sobrinho sepultaram seu corpo.",
+    "stopNotes": [
+      "Aldeia natal — local de sua conversão diante da lâmina, hoje seu túmulo",
+      "A aldeia católica onde viveu seis anos com a família",
+      "«Eu também darei testemunho» — onde se entregou",
+      "A costa onde cinco mártires morreram na Sexta-feira Santa de 1866",
+      "Onde seu filho adotivo Hwang Cheon-il e seu sobrinho Hwang Gi-won sepultaram seu corpo"
+    ]
+  },
+  {
+    "slug": "seoul-1-word",
+    "title": "Caminho de Seul, Rota 1 — O caminho da Palavra",
+    "subtitle": "De Myeongdong a Gahoe-dong, 8,7 km · 3 h 40 min — percorrendo o começo do catolicismo coreano",
+    "description": "O primeiro percurso da «Rota de Peregrinação Católica de Seul», o local de peregrinação internacional que a Santa Sé aprovou em setembro de 2018 — o primeiro do gênero na Ásia. Começa na antiga casa de Tomás Kim Beom-u, registrado como primeiro confessor da fé da Coreia, e no local de nascimento da Igreja Católica na Coreia, a casa de Yi Byeok, onde ocorreu o primeiro batismo em 1785, refazendo a decisão de uma comunidade leiga que abraçou o Evangelho por conta própria. Pelo caminho passa pelo poço de Seokjeong Boreum, que se diz ter sido usado para água benta pelo padre Zhou Wenmo, primeiro missionário estrangeiro da Igreja coreana, e pela Igreja Católica de Gahoe-dong, na área de Gyedong onde ele atuou — um convite a refletir sobre o sacrifício de um homem que escolheu o martírio longe de casa. (Com base no guia da rota de peregrinação da Arquidiocese de Seul.)",
+    "stopNotes": [
+      "Partida — o coração do catolicismo coreano; as relíquias dos mártires repousam na cripta",
+      "A primeira reunião de fé em 1784; o primeiro confessor da Coreia",
+      "A casa de Yi Byeok — onde ocorreu o primeiro batismo em 1785",
+      "Onde os mártires foram interrogados",
+      "Salão memorial no sítio da prisão do departamento de polícia",
+      "O portão pelo qual os corpos eram levados para fora das muralhas — um salão memorial dos mártires",
+      "O berço da formação sacerdotal na Igreja coreana",
+      "O poço que se diz ter sido usado para água benta pelo padre Zhou Wenmo",
+      "Chegada — a área de Gyedong onde o padre Zhou Wenmo celebrou a primeira missa"
+    ]
+  },
+  {
+    "slug": "kim-daegeon",
+    "title": "O caminho do padre Kim Dae-geon (trecho de Chungcheong)",
+    "subtitle": "De Solmoe a Surichigol — o nascimento e o regresso a casa do primeiro sacerdote",
+    "description": "A jornada de santo André Kim Dae-geon, primeiro sacerdote da Coreia, por Chungcheong. Vai do Santuário de Solmoe, seu local de nascimento, ao Santuário do Martírio de Haemi, onde seu bisavô Kim Jin-hu Pio foi martirizado, à Igreja de Ganggyeong, onde celebrou sua primeira missa após voltar como sacerdote, e segue até o Santuário Mariano de Surichigol, onde o bispo Ferréol e o padre Daveluy se refugiaram após sua prisão e fundaram a Sociedade do Sagrado Coração de Maria.",
+    "stopNotes": [
+      "Nascido em 1821 — sua casa natal num pinhal",
+      "Local do martírio de seu bisavô Kim Jin-hu Pio",
+      "O porto onde celebrou sua primeira missa após voltar para casa em 1845",
+      "Onde os dois missionários se refugiaram após sua prisão e fundaram a Sociedade do Sagrado Coração de Maria"
+    ]
+  },
+  {
+    "slug": "seoul-2-life",
+    "title": "Caminho de Seul, Rota 2 — O caminho da Vida",
+    "subtitle": "De Gahoe-dong a Yakhyeon, 5,9 km · 2 h 30 min — pelos locais da perseguição rumo à vida eterna",
+    "description": "A dinastia Joseon rotulou de doutrina herética o catolicismo, que punha a palavra de Deus acima da ordem do rei, e levou a cabo perseguições repetidas. O «caminho da Vida» guarda essa história — passando pelo Santuário do Martírio de Seosomun, onde mais fiéis foram decapitados do que em qualquer outro lugar, e pelos sítios do Hyeongjo (Ministério da Justiça), do Departamento de Polícia da Direita e da Sede Provincial de Gyeonggi, onde católicos presos foram torturados e martirizados. Chama-se «caminho da Vida» porque foi ao mesmo tempo o caminho do martírio e o caminho da vida eterna. Ao caminhar sobre lugares cuja forma já não sobrevive, convida a refletir sobre o que os mártires valorizaram acima da própria vida. (Com base no guia da rota de peregrinação da Arquidiocese de Seul.)",
+    "stopNotes": [
+      "Partida",
+      "Missa de beatificação do Papa Francisco, 16 de agosto de 2014",
+      "Onde os fiéis presos foram interrogados",
+      "O órgão que julgava os crimes graves — onde os mártires foram julgados",
+      "Onde fiéis morreram sob custódia",
+      "Um lugar de tortura e morte na prisão",
+      "Onde os mártires foram interrogados",
+      "Onde o maior número de fiéis foi decapitado — hoje um museu de história",
+      "Chegada — a primeira igreja de estilo ocidental da Coreia, com vista para o local do martírio de Seosomun"
+    ]
+  },
+  {
+    "slug": "seoul-3-unity",
+    "title": "Caminho de Seul, Rota 3 — O caminho da Unidade",
+    "subtitle": "De Yakhyeon a Samseongsan, 29,5 km · 8 h — santuários dos mártires ligados ao longo do rio Han",
+    "description": "Esta rota que liga os principais santuários dos mártires de Seul chama-se «caminho da Unidade» por seu propósito — que os fiéis sigam a fé dos mártires e vivam a vontade de Deus. Passa pelo Santuário do Martírio de Danggogae, que deu o terceiro maior número de mártires canonizados da Coreia, e por Saenamteo, onde foram martirizados o primeiro missionário estrangeiro, o padre Tiago Zhou Wenmo, e o primeiro sacerdote da Coreia, santo André Kim Dae-geon, antes de encontrar o rio Han. Seguindo a margem chega a Jeoldusan, «a colina onde os católicos foram decapitados» — as relíquias de 27 mártires canonizados e de um mártir anônimo repousam na cripta de sua igreja memorial —, passa depois por Waegogae, onde dez mártires ficaram enterrados por décadas, e segue até Samseongsan. Pelo caminho pergunta o que significa viver a fé dos mártires. (Com base no guia da rota de peregrinação da Arquidiocese de Seul.)",
+    "stopNotes": [
+      "Partida",
+      "9 mártires canonizados — o terceiro maior número de santos da Coreia",
+      "Local do martírio do padre Zhou Wenmo e de santo André Kim Dae-geon",
+      "As relíquias de 27 mártires canonizados repousam na cripta",
+      "A colina onde os corpos dos mártires foram enterrados provisoriamente",
+      "O primeiro seminário da Coreia — aberto apenas aos sábados e domingos",
+      "Onde dez mártires ficaram enterrados por décadas",
+      "Chegada — local de sepultamento de três missionários martirizados na perseguição de Gihae"
+    ]
+  },
+  {
+    "slug": "choi-yangeop",
+    "title": "O caminho do venerável padre Choi Yang-eop",
+    "subtitle": "De Darakgol a Baeron — rezando pela beatificação do mártir do suor",
+    "description": "Esta rota segue a vida do venerável padre Tomás Choi Yang-eop (1821–1861), segundo sacerdote da Coreia. Nascido em Saeteo, em Darakgol, Cheongyang, cresceu na aldeia católica de Jinsan e, em 1836, foi escolhido como um dos primeiros seminaristas da Coreia e enviado para estudar no exterior. Nesse tempo, a perseguição de Gihae (1839) levou seu pai, são Francisco Choi Kyung-hwan, martirizado em Surisan, e sua mãe, Maria Yi Seong-nye, martirizada em Danggogae. Ordenado sacerdote em 1849 e de volta a casa, passou doze anos caminhando milhares de ri por ano para chegar às aldeias católicas de todo o país — ganhando o nome de «mártir do suor» — antes de morrer em Jinan-ri, Mungyeong, em 15 de junho de 1861, e ser sepultado em Baeron. O Papa Francisco o declarou venerável em abril de 2016, e esta rota de peregrinação reza por sua beatificação e canonização. (Liga os lugares, entre os 30 do caderno do passaporte de peregrinação, que estão nos dados de santuários do aplicativo.)",
+    "stopNotes": [
+      "Nascido em 1 de março de 1821 em Saeteo — os túmulos em fileira",
+      "A aldeia católica onde sua família viveu, 1828–1835",
+      "Martírio (morreu na prisão em 12 de setembro de 1839) e túmulo de seu pai, são Francisco Choi Kyung-hwan",
+      "A aldeia católica onde sua família se refugiou",
+      "Martírio de sua mãe, Maria Yi Seong-nye (31 de janeiro de 1840)",
+      "A igreja que comemora o local do martírio de Seosomun",
+      "Onde repousam as relíquias de seus pais e de outros mártires",
+      "Seu pai Choi Kyung-hwan foi canonizado em 1984",
+      "Missa de beatificação de 2014 — o padre Choi Yang-eop, venerável, ainda aguarda a própria beatificação",
+      "Uma aldeia católica que visitou em seu ministério itinerante",
+      "Sua primeira base de ministério após voltar para casa em 1849",
+      "Seminário do Vicariato Apostólico de Joseon e centro do ministério do padre Choi",
+      "A aldeia católica de Chungcheong onde começou seu ministério após voltar para casa",
+      "Uma área de seu ministério itinerante — um local de martírio de Gongju",
+      "Uma aldeia católica de seu ministério itinerante",
+      "Uma aldeia católica de seu ministério itinerante",
+      "Uma aldeia católica de Gangwon que visitou em seu ministério itinerante",
+      "Uma aldeia católica onde os fiéis se refugiaram durante a perseguição de Gyeongsin (1860)",
+      "A 1,5 km a pé de Jinan-ri — percorrido junto com ela",
+      "Onde morreu em 15 de junho de 1861",
+      "Seu túmulo — o lugar onde se reza por sua beatificação e canonização"
+    ]
+  }
+]
