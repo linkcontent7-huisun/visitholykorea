@@ -88,7 +88,7 @@ S = list(prs.slides)
 # ── 1. 표지 ─────────────────────────────────────────────
 t = S[0].shapes[0].table
 set_text(t.cell(0, 1), ['visitholykorea'], 18)
-set_text(t.cell(1, 1), ['VisitHolyKorea — 길 위에서 나를 만나는 성지순례'], 18)
+set_text(t.cell(1, 1), ['VisitHolyKorea — 길 위에서 나를 만나는 성지순례'], 16)  # 18pt 면 「성/지순례」로 줄바꿈된다(9/21 실측)
 
 # ── 2. 서비스 소개 ───────────────────────────────────────
 t = table_of(S[1]).table
