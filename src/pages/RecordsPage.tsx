@@ -39,7 +39,7 @@ import { Card } from '@/shared/components/ui/Card';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
-import { PhotoCardViewer } from '@/shared/components/ui/PhotoCardViewer';
+import { PhotoLightbox } from '@/shared/components/ui/PhotoLightbox';
 import { SquircleSurface } from '@/shared/components/ui/SquircleSurface';
 import { SPEECH_LOCALE } from '@/shared/i18n/dictionary';
 import { dioceseLabel } from '@/shared/i18n/domain-labels';
@@ -210,7 +210,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
               />
             </SquircleSurface>
           </label>
-          {/* 사진 — 확대해서 보고, 각 사진에 삭제 단추가 붙는다(SiteDetailPage 와 같은 부품) */}
+          {/* 사진 — 누르면 전체 화면 모달로 보고, 각 사진에 삭제 단추가 붙는다(SiteDetailPage 와 같은 부품) */}
           <div className="no-scrollbar flex gap-2 overflow-x-auto">
             {stamp.photos.map((photo, i) => (
               <div key={photo.id} className="relative shrink-0">
@@ -317,8 +317,8 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
           {t('recordsSaveFailed')}
         </p>
       )}
-      {/* 사진을 누르면 전체 화면 모달이 아니라 이 카드 영역을 사진으로 채운다 */}
-      <PhotoCardViewer
+      {/* 사진을 누르면 전체 화면 모달로 본다(SiteDetailPage 와 같은 동작, 2026-09-21) */}
+      <PhotoLightbox
         photos={lightbox !== null ? stamp.photos.map((p) => p.url) : null}
         index={lightbox ?? 0}
         onIndexChange={setLightbox}
