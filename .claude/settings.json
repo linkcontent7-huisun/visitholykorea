@@ -10,7 +10,6 @@
       "Bash(npm run db:status)",
       "Bash(npm ci)",
       "Bash(npx prettier --check *)",
-      "Bash(npx tsc --noEmit)"
       "Bash(npx tsc --noEmit)",
       "Bash(gh pr merge *)",
       "Bash(git commit *)",
