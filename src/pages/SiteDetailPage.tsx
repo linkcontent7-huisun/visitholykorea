@@ -336,7 +336,7 @@ export default function SiteDetailPage() {
     (tag): tag is string => Boolean(tag),
   );
   const heroPhoto = sitePhoto;
-  const photoCredit = photoCreditText(site.imageSource, site.imageLicense);
+  const photoCredit = photoCreditText(site.imageSource, site.imageLicense, language);
 
   // 소개글 끝의 「▷ 미사 시간」 문단은 인용문에서 떼어 방문 정보 카드로 보낸다 (2026-09-13)
   const { body: descriptionBody, mass: massInfo } = splitMassInfo(site.description);
