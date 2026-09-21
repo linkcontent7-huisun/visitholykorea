@@ -93,7 +93,16 @@ export const router = createBrowserRouter([
         element: <AppLayout />,
         children: [
           { path: paths.home, element: withSuspense(<HomePage />) },
-          { path: paths.map, element: withSuspense(<MapPage />) },
+          // 전국 지도는 배경 지도 없이 점만 찍는 보류 화면이라 제출판에서는 성지 찾기로 보낸다 (사장님 결정 2026-09-21).
+          // 코드는 그대로 두고 플래그로만 감춘다 — 다음 버전에서 다시 켠다.
+          {
+            path: paths.map,
+            element: SUBMISSION_MODE ? (
+              <Navigate to={paths.search} replace />
+            ) : (
+              withSuspense(<MapPage />)
+            ),
+          },
           // 「탐색」은 성지 찾기(검색 + 교구·행정지역 필터)로 흡수됐다 (재기획 2026-09-14)
           { path: paths.explore, element: <Navigate to={paths.search} replace /> },
           { path: paths.records, element: withSuspense(<RecordsPage />) },

@@ -526,13 +526,14 @@ export const DICTIONARY = {
     pt: 'Obtido agora da OpenAPI da Organização de Turismo da Coreia. Se falhar, as informações de visita continuam disponíveis.',
     it: 'Recuperato ora dall’OpenAPI dell’Ente del Turismo Coreano. Se fallisce, le informazioni di visita restano disponibili.',
   },
+  // 조회는 1km, 비면 3km 로 한 번 더(2026-09-21). 문구는 마지막 반경 기준.
   siteNearbyTourismEmpty: {
-    ko: '반경 5km 안에 한국관광공사 등록 정보가 없습니다.',
-    en: 'No Korea Tourism Organization entries within 5 km.',
-    es: 'No hay registros de la Organización de Turismo de Corea en 5 km.',
-    fr: 'Aucune entrée de l’Office du tourisme coréen dans un rayon de 5 km.',
-    pt: 'Nenhum registro da Organização de Turismo da Coreia num raio de 5 km.',
-    it: 'Nessuna voce dell’Ente del Turismo Coreano entro 5 km.',
+    ko: '반경 3km 안에 한국관광공사 등록 정보가 없습니다.',
+    en: 'No Korea Tourism Organization entries within 3 km.',
+    es: 'No hay registros de la Organización de Turismo de Corea en 3 km.',
+    fr: 'Aucune entrée de l’Office du tourisme coréen dans un rayon de 3 km.',
+    pt: 'Nenhum registro da Organização de Turismo da Coreia num raio de 3 km.',
+    it: 'Nessuna voce dell’Ente del Turismo Coreano entro 3 km.',
   },
   // 홈 (재기획 2026-09-14) — 문제 정의 → 고요 속으로 → 지역별 찾기 → 추천 → 처음 방문 → 출처 → 문의
   homeProblemLine: {
@@ -2542,21 +2543,22 @@ export const DICTIONARY = {
   },
 
   // 로그인 화면
+  // 처음 온 사람(심사위원)도 로그인 탭을 보므로 「다시 오신」 전제를 뺐다(사장님 결정 2026-09-21)
   loginWelcomeBack: {
-    ko: '다시 오신 것을 환영합니다',
-    en: 'Welcome back',
-    es: 'Bienvenido de nuevo',
-    fr: 'Bon retour parmi nous',
-    pt: 'Bem-vindo de volta',
-    it: 'Bentornato fra noi',
+    ko: '로그인',
+    en: 'Sign in',
+    es: 'Iniciar sesión',
+    fr: 'Se connecter',
+    pt: 'Entrar',
+    it: 'Accedi',
   },
   loginWelcomeBackSub: {
-    ko: '순례의 기록을 계속 이어가세요.',
-    en: 'Pick up your pilgrimage record where you left off.',
-    es: 'Retoma tu registro de peregrinación donde lo dejaste.',
-    fr: 'Reprenez votre carnet de pèlerinage là où vous l’aviez laissé.',
-    pt: 'Retome seu registro de peregrinação de onde parou.',
-    it: 'Riprendi il tuo diario di pellegrinaggio da dove eri rimasto.',
+    ko: '순례 기록을 남기려면 로그인하세요.',
+    en: 'Sign in to keep your pilgrimage record.',
+    es: 'Inicia sesión para guardar tu registro de peregrinación.',
+    fr: 'Connectez-vous pour conserver votre carnet de pèlerinage.',
+    pt: 'Entre para guardar o seu registro de peregrinação.',
+    it: 'Accedi per conservare il tuo diario di pellegrinaggio.',
   },
   signupTitle: {
     ko: '거룩한 여정의\n시작',

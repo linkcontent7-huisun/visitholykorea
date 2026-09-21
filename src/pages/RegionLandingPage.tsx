@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Church, MapPin } from 'lucide-react';
 import { paths } from '@/app/routes/paths';
+import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { ButtonLink } from '@/shared/components/ui/Button';
 import { Card } from '@/shared/components/ui/Card';
 import { chipClass } from '@/shared/components/ui/class-names';
@@ -195,9 +196,11 @@ export default function RegionLandingPage() {
               <ButtonLink to={paths.home} block>
                 {fillPlaceholders(t('regionStartHere'), { region: regionLabel })}
               </ButtonLink>
-              <ButtonLink to={paths.map} variant="neutral" block>
-                {t('viewNationalMap')}
-              </ButtonLink>
+              {!SUBMISSION_MODE && (
+                <ButtonLink to={paths.map} variant="neutral" block>
+                  {t('viewNationalMap')}
+                </ButtonLink>
+              )}
             </div>
           </>
         )}
