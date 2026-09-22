@@ -89,3 +89,10 @@ screenshots/
 
 # 사진 원본(6.9GB) — 저장소에 넣지 않는다. Storage 로 올린다
 대전교구사진-크란시아자매님/
+
+# 비밀 파일 — 백서 5장 5-3. 최상위에 놓인 키·토큰 메모가 실수로 올라가는 것을 막는다.
+*token*.txt
+*key*.txt
+*비번*.txt
+cf-token.txt
+googleconsole.txt
