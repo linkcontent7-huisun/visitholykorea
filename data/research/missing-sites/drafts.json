@@ -1,5 +1,5 @@
 {
-  "_about": "T-049 빠진 성지 초안 — Claude 2026-09-29. 앱 holy_sites 열 모양. 좌표는 카카오 주소검색(9/29). description 은 _pages/<code>/ 사본에 있는 사실만 줄여 씀 — 사본에 소개가 없으면 null. emotion_tag·category 는 DB 넣을 때 확정(여기 값은 제안). DB 반영은 심사 끝난 뒤(사장님 9/29).",
+  "_about": "T-049 빠진 성지 초안 — Claude 2026-09-29. 앱 holy_sites 열 모양. 좌표는 카카오 주소검색(9/29). description 은 _pages/<code>/ 사본에 있는 사실만 줄여 씀 — 사본에 소개가 없으면 null. emotion_tag·category 는 DB 넣을 때 확정(여기 값은 제안). DB 반영은 심사 끝난 뒤(사장님 9/29). 9/29 Codex 검증(_verify.json) 반영: 전화 2건·흑산 주소 표기 수정 — 10곳 모두 Claude·Codex 합의.",
   "sites": [
     {
       "cbck_code": "201008913",
@@ -8,11 +8,18 @@
       "diocese": "춘천",
       "region_province": "강원",
       "location": "강원특별자치도 인제군 인제읍 인제로225번길 12",
-      "lat": 38.071604852261, "lng": 128.173464845728,
+      "lat": 38.071604852261,
+      "lng": 128.173464845728,
       "phone": "033-461-0964",
       "description": "1954년 홍천 본당에서 나뉘어 설립된 본당이다. 한국전쟁 때 포격으로 벽체만 남은 일제강점기 극장 건물을 미국의 원조로 고쳐 1957년 11월 성당으로 완공했다. 성당과 사제관을 한 건물로 지은 드문 형태가 원형대로 남아 국가등록문화유산이 되었다.",
-      "sources": ["https://www.cccatholic.or.kr/parish/holyland/19", "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201008913"],
-      "sourceFiles": ["201008913/official.txt", "201008913/cbck-m.txt"],
+      "sources": [
+        "https://www.cccatholic.or.kr/parish/holyland/19",
+        "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201008913"
+      ],
+      "sourceFiles": [
+        "201008913/official.txt",
+        "201008913/cbck-m.txt"
+      ],
       "notes": "주교회의 주소록 비고: 등록문화재 742호. 전화는 교구 누리집 0964, 주소록 0961 — 확인 필요."
     },
     {
@@ -22,11 +29,18 @@
       "diocese": "춘천",
       "region_province": "강원",
       "location": "강원특별자치도 강릉시 연곡면 행정2길 14",
-      "lat": 37.8539357293386, "lng": 128.78899078314,
+      "lat": 37.8539357293386,
+      "lng": 128.78899078314,
       "phone": "033-662-5264",
       "description": "1928년 신자 두 가족이 옮겨 오며 시작된 옹기마을 교우촌이다. 한국전쟁 뒤 신자들이 쌀을 아껴 모은 돈으로 진흙 벽돌을 직접 구워 공소를 짓고 1958년 10월 축복식을 했다. 1998년 공소 미사가 멈췄으나 2003년 건물을 수리했고, 2009년 교구 사적지로 지정되었다.",
-      "sources": ["https://www.cccatholic.or.kr/parish/holyland/9?t=2", "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201008911"],
-      "sourceFiles": ["201008911/official.txt", "201008911/cbck-m.txt"],
+      "sources": [
+        "https://www.cccatholic.or.kr/parish/holyland/9?t=2",
+        "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201008911"
+      ],
+      "sourceFiles": [
+        "201008911/official.txt",
+        "201008911/cbck-m.txt"
+      ],
       "notes": "사장님 책자 차례(춘천)에도 있음."
     },
     {
@@ -36,11 +50,16 @@
       "diocese": "원주",
       "region_province": "강원",
       "location": "강원특별자치도 횡성군 횡성읍 태기로19번길 25",
-      "lat": 37.4924622316394, "lng": 127.987453023832,
+      "lat": 37.4924622316394,
+      "lng": 127.987453023832,
       "phone": "033-344-2610",
       "description": null,
-      "sources": ["https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201008163"],
-      "sourceFiles": ["201008163/cbck-m.txt"],
+      "sources": [
+        "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201008163"
+      ],
+      "sourceFiles": [
+        "201008163/cbck-m.txt"
+      ],
       "notes": "공식 소개글 못 찾음 — 원주교구 성지 목록(wj-list)에도 없음. 주교회의 주소록에만 성지/사적지로 등재. 소개는 비워 둠."
     },
     {
@@ -50,11 +69,18 @@
       "diocese": "대구",
       "region_province": "경북",
       "location": "경상북도 김천시 증산면 원황점길 436-33",
-      "lat": 35.8494888950772, "lng": 128.053850132552,
+      "lat": 35.8494888950772,
+      "lng": 128.053850132552,
       "phone": "054-932-0620",
       "description": "병인박해 때 피난 온 신자들이 이룬 산골 교우촌에서 비롯된 공소다. 박해 뒤 김보록 신부가 판공성사를 주러 찾았다. 1936년 수해와 한국전쟁을 거치며 교우촌이 지금의 황점으로 옮겨 왔고, 현재 공소 건물은 1972년에 지었다. 해발 600m 고지에 있다.",
-      "sources": ["http://nj.cathms.kr/xe/board_GcHV47/14384", "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201003751"],
-      "sourceFiles": ["201003751/official.txt", "201003751/cbck-m.txt"],
+      "sources": [
+        "http://nj.cathms.kr/xe/board_GcHV47/14384",
+        "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201003751"
+      ],
+      "sourceFiles": [
+        "201003751/official.txt",
+        "201003751/cbck-m.txt"
+      ],
       "notes": "소개 출처는 마산교구 누리집의 「순례지 안내 — 대구대교구」 글(교구 공식 사이트이나 대구교구 자체 글은 아님). 대구대교구 누리집엔 연락처만."
     },
     {
@@ -64,11 +90,18 @@
       "diocese": "마산",
       "region_province": "경남",
       "location": "경상남도 김해시 진례면 시례리 산106",
-      "lat": 35.2510585999569, "lng": 128.732861046515,
-      "phone": null,
+      "lat": 35.2510585999569,
+      "lng": 128.732861046515,
+      "phone": "055-345-3226",
       "description": "병인박해기(1866년 이후로 추정)에 순교한 서응권 요한과 아내 안나의 쌍분이다. 김해 노루목의 농부였던 부부는 포교들에게 어린 자녀 셋을 잃은 뒤 스스로 김해 관아에 자수해 배교를 거부하고 순교했다. 뒷날 셋째 아들 서석수 비오가 두 분을 이곳에 함께 모셨다. 시복 추진 대상인 「하느님의 종」이다.",
-      "sources": ["https://cathms.kr/page10", "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201008529"],
-      "sourceFiles": ["201008529/official.txt", "201008529/cbck-m.txt"],
+      "sources": [
+        "https://cathms.kr/page10",
+        "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201008529"
+      ],
+      "sourceFiles": [
+        "201008529/official.txt",
+        "201008529/cbck-m.txt"
+      ],
       "notes": "묘소 지번은 산106(교구 누리집 본문과 주소록 일치). 교구 누리집은 내비게이션 검색어로 「진례면 시례리 803」 을 안내(26/8/13 갱신) — 길 안내 문구에 쓸 것. 순교 연도는 교구도 「1866년 이후 추정」, 기존 1868년 설은 틀렸다고 밝힘."
     },
     {
@@ -77,13 +110,20 @@
       "category": "성당",
       "diocese": "광주",
       "region_province": "전남",
-      "location": "전라남도 신안군 흑산면 흑산일주로 180-20",
-      "lat": 34.6841231485075, "lng": 125.431294682109,
+      "location": "전남광주통합특별시 신안군 흑산면 흑산일주로 180-20",
+      "lat": 34.6841231485075,
+      "lng": 125.431294682109,
       "phone": "061-275-9998",
       "description": "옛 성모중학교 건물에 흑산성당 60년 역사를 보여 주는 역사관과 최후만찬·예수성심 등 목공 작품 전시관을 꾸몄다. 순례객 숙소인 「흑산성당 묵상의 집」과 함께 있어 흑산도를 찾는 이들이 천주교의 역사와 문화를 만날 수 있다.",
-      "sources": ["https://www.gjcatholic.or.kr/holyland/heuksanmuksang", "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201008812"],
-      "sourceFiles": ["201008812/official.txt", "201008812/cbck-m.txt"],
-      "notes": "주소록 주소의 「전남광주통합특별시」 표기는 행정구역 개편 표기 — 앱의 다른 전남 성지와 맞춰 「전라남도」로 적음. 확인 필요."
+      "sources": [
+        "https://www.gjcatholic.or.kr/holyland/heuksanmuksang",
+        "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201008812"
+      ],
+      "sourceFiles": [
+        "201008812/official.txt",
+        "201008812/cbck-m.txt"
+      ],
+      "notes": "주소는 주교회의 주소록·카카오 주소검색(9/29) 표기 그대로 「전남광주통합특별시」. 앱의 다른 전남 성지 주소와 표기가 다름 — DB 넣을 때 통일 방향 정할 것."
     },
     {
       "cbck_code": "201006036",
@@ -92,11 +132,16 @@
       "diocese": "전주",
       "region_province": "전북",
       "location": "전북특별자치도 정읍시 산내면 종성리 산 215",
-      "lat": 35.5188159801084, "lng": 127.086672501362,
+      "lat": 35.5188159801084,
+      "lng": 127.086672501362,
       "phone": "063-538-1701",
       "description": null,
-      "sources": ["https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201006036"],
-      "sourceFiles": ["201006036/cbck-m.txt"],
+      "sources": [
+        "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201006036"
+      ],
+      "sourceFiles": [
+        "201006036/cbck-m.txt"
+      ],
       "notes": "공식 소개글 못 찾음(9/29 검색 도구 오류 반복). 두 분이 순교자인지 확인 못 함 — category 는 임시."
     },
     {
@@ -106,11 +151,16 @@
       "diocese": "전주",
       "region_province": "전북",
       "location": "전북특별자치도 군산시 옥도면 신시도리 산4-12",
-      "lat": 35.8178946710486, "lng": 126.478792063575,
+      "lat": 35.8178946710486,
+      "lng": 126.478792063575,
       "phone": null,
       "description": null,
-      "sources": ["https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201007727"],
-      "sourceFiles": ["201007727/cbck-m.txt"],
+      "sources": [
+        "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201007727"
+      ],
+      "sourceFiles": [
+        "201007727/cbck-m.txt"
+      ],
       "notes": "주교회의 주소록 비고: 「신시도 최양업 신부 체류지」. 그 밖의 공식 소개 못 찾음."
     },
     {
@@ -120,11 +170,18 @@
       "diocese": "전주",
       "region_province": "전북",
       "location": "전북특별자치도 전주시 완산구 현무1길 20",
-      "lat": 35.8205463417058, "lng": 127.148217143505,
-      "phone": null,
+      "lat": 35.8205463417058,
+      "lng": 127.148217143505,
+      "phone": "063-277-1711",
       "description": null,
-      "sources": ["https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201007725", "https://www.jcatholic.or.kr/theme/main/pages/pilgrimage05.html"],
-      "sourceFiles": ["201007725/cbck-m.txt", "201007725/jc-pilgrimage05.txt"],
+      "sources": [
+        "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201007725",
+        "https://www.jcatholic.or.kr/theme/main/pages/pilgrimage05.html"
+      ],
+      "sourceFiles": [
+        "201007725/cbck-m.txt",
+        "201007725/jc-pilgrimage05.txt"
+      ],
       "notes": "주소록: 한국전통문화의전당 후문. 전주교구 순례길 안내에 「숲정이 - 서천교 - 초록바위 - 치명자산 성지 - 전주옥터」 경유지로 나옴. 소개글은 못 찾음. 사장님 책자 차례(전주)에도 있음."
     },
     {
@@ -134,17 +191,37 @@
       "diocese": "제주",
       "region_province": "제주",
       "location": "제주특별자치도 서귀포시 호근동 194-1",
-      "lat": 33.249742591728, "lng": 126.541383984682,
+      "lat": 33.249742591728,
+      "lng": 126.541383984682,
       "phone": "064-762-3444",
       "description": "1900년 제주 본당에서 나뉘어 서귀포 지역에 처음 세워진 옛 하논성당 자리다. 성당은 1902년 홍로로 옮겨 갔지만 터는 성지로 보존되어 있다. 제3대 주임 타케 신부가 온주밀감을 처음 들여온 곳으로, 제주 순례길 「하논성당길」이 지난다.",
-      "sources": ["https://santoviaggio.com/cs002/2", "https://santoviaggio.com/theme/page/cs002.php", "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201009234"],
-      "sourceFiles": ["201009234/santoviaggio-cs002.txt", "201009234/cbck-m.txt"],
+      "sources": [
+        "https://santoviaggio.com/cs002/2",
+        "https://santoviaggio.com/theme/page/cs002.php",
+        "https://directory.cbck.or.kr/m/catholicInfo.asp?gubun=16&code=201009234"
+      ],
+      "sourceFiles": [
+        "201009234/santoviaggio-cs002.txt",
+        "201009234/cbck-m.txt"
+      ],
       "notes": "출처는 제주교구 순례길 공식 누리집(santoviaggio). 전화는 서귀포성당."
     }
   ],
   "notNew": [
-    { "cbck_code": "201008180", "name": "순교 신심 순례지", "reason": "앱의 「백령도 성지」와 주소 같음(백령로254번길 66) — 새로 넣지 않음" },
-    { "cbck_code": "201006264", "name": "김 아가다 묘", "reason": "주소가 살티 공소와 같음 — 새 성지 대신 살티 공소 소개에 덧붙일 후보" },
-    { "cbck_code": "201006266", "name": "김영제 묘", "reason": "주소가 살티 공소와 같음 — 위와 같음" }
+    {
+      "cbck_code": "201008180",
+      "name": "순교 신심 순례지",
+      "reason": "앱의 「백령도 성지」와 주소 같음(백령로254번길 66) — 새로 넣지 않음"
+    },
+    {
+      "cbck_code": "201006264",
+      "name": "김 아가다 묘",
+      "reason": "주소가 살티 공소와 같음 — 새 성지 대신 살티 공소 소개에 덧붙일 후보"
+    },
+    {
+      "cbck_code": "201006266",
+      "name": "김영제 묘",
+      "reason": "주소가 살티 공소와 같음 — 위와 같음"
+    }
   ]
 }
