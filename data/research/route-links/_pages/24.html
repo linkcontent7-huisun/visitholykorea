@@ -1,0 +1,1078 @@
+
+<!doctype html>
+<html lang="ko">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>천주교안동교구</title>
+    <!--meta tag-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="title" content="천주교 안동교구">
+<meta name="Author" content="천주교 안동교구">
+<meta name="description" content="기쁘고 떳떳하게! 천주교 안동교구">
+<meta name="keywords" content="안동교구, 사제단, 본당, 성지, 교구소식, 천주교 안동교구, 안동성당, 안동교구청, 안동천주교">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="천주교 안동교구">
+<meta property="og:description" content="기쁘고 떳떳하게! 천주교 안동교구">
+<meta property="og:image" content="http://www.acatholic.or.kr/asset/img/og_img.png">
+<meta property="og:url" content="http://www.acatholic.or.kr/">
+<meta property="og:site_name" content="천주교 안동교구">
+<meta property="og:locale" content="ko_KR">
+
+<link rel="canonical" href="http://www.acatholic.or.kr">
+
+<link rel="icon" href="https://www.acatholic.or.kr/asset/img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="https://www.acatholic.or.kr/asset/img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="https://www.acatholic.or.kr/asset/img/favicon.ico" type="image/vnd.microsoft.icon">
+
+    <link rel="stylesheet" href="/asset/css/default.css?0.0.2.1"/>
+    <link rel="stylesheet" href="/asset/css/contents.css?0.0.2.1"/>
+    <link rel="stylesheet" href="/asset/css/navigator.css?0.0.2.1"/>
+    <link rel="stylesheet" href="/asset/js/owlcarousel/owl.carousel.min.css?0.0.2.1">
+    <link rel="stylesheet" href="/asset/css/swiper.min.css?0.0.2.1">
+    <!--게시판 필요-->
+    <link rel="stylesheet" href="/gears/board/xboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
+
+    <script src="/asset/js/jquery-1.8.3.min.js?0.0.2.1"></script>
+    <script src="/asset/js/owlcarousel/owl.carousel.min.js?0.0.2.1"></script>
+    <script src="/asset/js/swiper.min.js?0.0.2.1"></script>
+    <script src="/asset/js/jquery.fancybox.js?0.0.2.1"></script>
+    <script src="/asset/js/navigator_gnb.js?0.0.2.1"></script>
+    <script src="/asset/js/common.js?0.0.2.1"></script>
+    <!--<script src="/asset/js/jquery.menu.js?0.0.2.1"></script>-->
+    <script>
+        $(function () {
+
+            $('.fancybox').fancybox();
+
+            $("#gnb .gnb_1dli").mouseenter(function () {
+                var menuWidth = $("#gnb .gnb_1dli").outerWidth();
+                var menuLeft = 0;
+                var index = $(this).index();
+
+                for (var i = 0; i <= index - 1; i++) {
+                    menuLeft += $("#gnb .gnb_1dli")
+                        .eq(i)
+                        .outerWidth();
+                }
+                menuLeft -= $(this).outerWidth();
+                $("#nav_bar")
+                    .stop()
+                    .animate({
+                        width: menuWidth,
+                        left: menuLeft
+                    }, 300);
+            });
+
+            $("#gnb").mouseleave(function () {
+                $("#nav_bar")
+                    .stop()
+                    .animate({
+                        width: 0,
+                        left: 0
+                    }, 0);
+            });
+
+            //location
+            $(".page-location > li > a.menu-btn").click(function (e) {
+                e.preventDefault();
+                $(this)
+                    .parent("li")
+                    .toggleClass("hover");
+
+            });
+
+            setInterval(function () {
+                if ($(window).scrollTop() >= 50) {
+                    $("#hd").addClass("scrollBg");
+                } else {
+                    $("#hd").removeClass("scrollBg");
+                }
+            }, 300);
+
+        });
+    </script>
+
+
+</head>
+<style>
+.course {}
+.course h3 {font-size:30px;font-family: 'ChosunSm'; text-align:center;color:#333333;font-weight:600; margin-top:30px;}
+.course h3 strong {color:#0071AD;font-weight:600;}
+.course h3 br { display:none;}
+.course h4{font-size:25px;font-family: 'Paperlogy-5Medium';text-align:center;}
+.course .top_line { width:100px; margin:40px auto; height:1px; background:#333;}
+.course .course_top {width:100%;  margin:20px auto;   padding:40px 0; vertical-align:middle;  text-align:center;  border-top:2px solid #000;   border-bottom:1px dashed #000; background:#f8f8f8;}
+.course .course_top p {font-family: 'Paperlogy-4Regular'; font-size:18px; text-align:center; line-height:1.8;}
+.course .course_box { display:inline-block; width:31%; margin:30px 1%; border:1px solid #D0D0D0; padding-bottom:30px; }
+.course .course_box_1 { display:inline-block; width:50%; margin:30px 25%; border:1px solid #D0D0D0; padding:30px;}
+.course .course_box .c_title,
+.course .course_box_1 .c_title{ background:#0071AD;font-size:20px;font-family: 'Paperlogy-5Medium';text-align:center; color:#fff; height:50px; line-height:50px;}
+
+.course .course_box .c_con,
+.course .course_box_1 .c_con {margin-top:40px; margin-bottom: 80px; padding:0 40px 30px 40px;box-sizing:border-box;}
+.course .course_box .c_con ul,
+.course .course_box_1 .c_con ul {display: flex;justify-content: space-between;align-items: center; position:relative;}
+.course .course_box .c_con ul:before,
+.course .course_box_1 .c_con ul:before,
+.course .course_box .c_con ul:after,
+.course .course_box_1 .c_con ul:after {display:block; position:absolute; content:''; clear:both; width:calc(100% - 90px); left:45px; top:50%; transform:translateY(-50%); z-index:-1;}
+.course .course_box .c_con ul:before,
+.course .course_box_1 .c_con ul:before {height:25px; background-color:#EBEBEE; border-radius:30px;}
+.course .course_box .c_con ul:after,
+.course .course_box_1 .c_con ul:after {height:5px; background-image:url("/sub4/img/course_dash_line.png"); background-repeat:no-repeat; background-size: 100%;}
+.course .course_box .c_con ul li,
+.course .course_box_1 .c_con ul li {position:relative;}
+.course .course_box .c_con .numTxt,
+.course .course_box_1 .c_con .numTxt {width:90px; height:90px; background-color:#0071AD; border-radius:50px; padding:10px; box-sizing:border-box; margin:0 auto;font-family: 'Paperlogy-5Medium';font-size:20px; line-height:70px; text-align:center; color:#fff;}
+.course .course_box .c_con .routeName,
+.course .course_box_1 .c_con .routeName {position:absolute; top:100%; left:50%; transform:translateX(-50%); margin-top:12px; font-size:16px; font-weight:400; color:#212121; text-align:center; white-space:nowrap;}
+.course .course_box .c_con .routeName strong,
+.course .course_box_1 .c_con .routeName strong {font-size:18px;}
+.course .course_box_1 .c_con .routeName small {font-size:15px;}
+.course .course_box_1 .c_con .routeName small br{ display:none;}
+.course .course_box .c_con .routeDistance,
+.course .course_box_1 .c_con .routeDistance {width:100px; height:40px; border-radius:80px; border:3px solid #0071AD; font-size:16px; font-weight:600; color:#333; line-height:36px; text-align:center; box-sizing:border-box; background-color:#fff;}
+.course .course_box .c_sleep,
+.course .course_box_1 .c_sleep { text-align:center; }
+.course .course_box .c_sleep strong,
+.course .course_box_1 .c_sleep strong{ display:inline-block; background-color:#333333; font-size:16px; color:#ffffff; font-weight:600; height:40px; line-height:40px;border-radius:50px; padding:0 30px;}
+.course .course_box .c_sleep.empty,
+.course .course_box_1 .c_sleep.empty {visibility: hidden; height: 40px;}
+
+@media (max-width:1200px) { 
+.course .course_box { width:80%; margin:30px 10%;}
+.course .course_box_1 {width:80%; margin:30px 10%;}
+}
+
+@media (max-width:768px) { 
+.course .course_top {margin:20px auto; padding:20px;}
+.course .course_top p {font-size:14px; line-height:1.4;}
+}
+
+
+@media (max-width:480px) {
+.course h3 { font-size:23px;}
+.course h3 br { display:block;}
+.course h4 { font-size:18px;}
+.course .top_line { margin:20px auto; }
+
+.course .course_box { width:100%; margin:10px 0;}
+.course .course_box_1 {width:100%; margin:10px 0;}
+.course .course_box .c_con {margin-top:20px; margin-bottom:50px;}
+.course .course_box_1 .c_con {margin-top:0; margin-bottom:50px;}
+.course .course_box .c_con .numTxt, 
+.course .course_box_1 .c_con .numTxt { width:50px; height:50px; line-height:30px; font-size:15px;}
+.course .course_box .c_con .routeName strong,
+.course .course_box_1 .c_con .routeName strong { font-size:15px;}
+.course .course_box_1 .c_con .routeName small {font-size:13px;}
+.course .course_box_1 .c_con .routeName small br{ display:block;}
+.course .course_box .c_con .routeName,
+.course .course_box_1 .c_con .routeName { font-size:13px;}
+.course .course_box_1 .c_con { padding-left:10px; padding-right:10px;}
+.course .course_box .c_sleep.empty,
+.course .course_box_1 .c_sleep.empty {visibility: hidden; height: 0;}
+}
+
+
+</style>
+
+
+<body>
+<style>
+    .groupware h3 img { margin-left: 5px;}    
+</style>
+
+
+
+    <!-- 상단레이아웃 시작 { -->
+    <!--skip navigation start-->
+    <div id="skip_to_container">
+        <a href="#container">본문 바로가기</a>
+    </div>
+    <!--skip navigation end-->
+
+    <div id='hd' class='hd_bg'>
+        <div id="hd_wrapper">
+            <div class="at-container">
+                <!--모바일 -->
+                <div id="mb-open-menu">
+                    <span class="line1"></span>
+                    <span class="line2"></span>
+                    <span class="line3"></span>
+                </div>
+                <div class='groupware sub_bg'>
+                    <a href="https://gw.acatholic.or.kr/ekp/view/login/userLogin" target="_blank">
+                        <h3>
+                        <span>Groupware</span>그룹웨어
+                            <img src="/asset/img/go.png" alt="그룹웨어 바로가기">
+                        
+                    </h3>
+                        </a>
+                </div>
+                <div class="logo_s">
+                    <a href="/default.asp"><img src="/asset/img/sub_logo.png" alt="천주교안동교구"></a>
+                </div>
+                <div class="hd_sch_wr">
+                    <fieldset id="hd_sch">
+                        <legend>사이트 내 전체검색</legend>
+                        <form name="fsearchbox" method="get" action="/sub7/search.asp" onsubmit="return fsearchbox_submit(this);">
+                            <input type="text" name="stx" id="sch_stx" maxlength="20" placeholder="검색">
+                            <button type="submit" id="sch_submit" value="검색"><i class="search"></i></button>
+                        </form>
+
+                        <script>
+                            function fsearchbox_submit(f) {
+                                if (f.stx.value.length < 2) {
+                                    alert("검색어는 두글자 이상 입력하십시오.");
+                                    f.stx.select();
+                                    f.stx.focus();
+                                    return false;
+                                }
+
+                                // 검색에 많은 부하가 걸리는 경우 이 주석을 제거하세요.
+                                var cnt = 0;
+                                for (var i = 0; i < f.stx.value.length; i++) {
+                                    if (f.stx.value.charAt(i) == ' ') 
+                                        cnt++;
+                                    }
+                                
+                                if (cnt > 1) {
+                                    alert("빠른 검색을 위하여 검색어에 공백은 한개만 입력할 수 있습니다.");
+                                    f.stx.select();
+                                    f.stx.focus();
+                                    return false;
+                                }
+
+                                return true;
+                            }
+                        </script>
+                    </fieldset>
+                </div>
+
+                <button type="button" class="gnb_menu_btn">
+                    <span class="line1"></span>
+                    <span class="line2"></span>
+                    <span class="line3"></span>
+                </button>
+
+                <script>
+                    $(function () {
+                        $(".gnb_menu_btn").click(function () {
+                            $("#gnb_all").show();
+                        });
+                        $(".gnb_close_btn").click(function () {
+                            $("#gnb_all").hide();
+                        });
+                    });
+                </script>
+            </div>
+            <!--.at-container-->
+            <nav id="gnb" class='sub_gnb_bg'>
+                <div class="gnb_wrap">
+                    <ul id="gnb_1dul">
+                        <!-- <li class='gnb_1dli'><a href="/sub1/sub1.asp" class="gnb_1da">교구</a> <ul
+                        class="gnb_2dul"> <li class="gnb_2dli"><a href="/sub1/sub1.asp"
+                        class="gnb_2da">교구소개</a></li> <li class="gnb_2dli"><a href="/sub1/sub2.asp"
+                        class="gnb_2da">교구장</a></li> <li class="gnb_2dli"><a href="/sub1/sub3.asp"
+                        class="gnb_2da">교구청</a></li> <li class="gnb_2dli"><a href="/sub1/sub4.asp"
+                        class="gnb_2da">교구기관</a></li> <li class="gnb_2dli"><a href="/sub1/sub5.asp"
+                        class="gnb_2da">교구단체</a></li> </ul> </li> <li class='gnb_1dli'><a
+                        href="/sub2/sub1.asp" class="gnb_1da">사제단</a> <ul class="gnb_2dul"> <li
+                        class="gnb_2dli"><a href="/sub2/sub1.asp" class="gnb_2da">교구사제</a></li> <li
+                        class="gnb_2dli"><a href="/sub2/sub2.asp" class="gnb_2da">선종사제</a></li> <li
+                        class="gnb_2dli"><a href="/sub2/sub3.asp" class="gnb_2da">사제단 통계</a></li> </ul>
+                        </li> <li class='gnb_1dli'><a href="/sub3/sub1.asp" class="gnb_1da">본당</a> <ul
+                        class="gnb_2dul"> <li class="gnb_2dli"><a href="/sub3/sub1.asp"
+                        class="gnb_2da">본당</a></li> <li class="gnb_2dli"><a href="/sub3/sub2.asp"
+                        class="gnb_2da">순례지 성당</a></li> <li class="gnb_2dli"><a href="/sub3/sub3.asp"
+                        class="gnb_2da">미사시간</a></li> <li class="gnb_2dli"><a href="/sub3/sub4.asp"
+                        class="gnb_2da">공소</a></li> </ul> </li> <li class='gnb_1dli'><a
+                        href="/sub4/sub1.asp" class="gnb_1da">성지</a> <ul class="gnb_2dul"> <li
+                        class="gnb_2dli"><a href="/sub4/sub1.asp" class="gnb_2da">성지</a></li> <li
+                        class="gnb_2dli"><a href="/sub4/sub2.asp" class="gnb_2da">순례길</a></li> <li
+                        class="gnb_2dli"><a href="/sub4/sub3.asp" class="gnb_2da">성지소식</a></li> </ul>
+                        </li> <li class='gnb_1dli'><a href="/sub5/sub1.asp" class="gnb_1da">교구소식</a> <ul
+                        class="gnb_2dul"> <li class="gnb_2dli"><a href="/sub5/sub1.asp"
+                        class="gnb_2da">공문ㆍ알림</a></li> <li class="gnb_2dli"><a href="/sub5/sub2.asp"
+                        class="gnb_2da">교구일정</a></li> <li class="gnb_2dli"><a href="/sub5/sub3.asp"
+                        class="gnb_2da">사진</a></li> <li class="gnb_2dli"><a href="/sub5/sub4.asp"
+                        class="gnb_2da">교회소식</a></li> </ul> </li> <li class='gnb_1dli'><a
+                        href="/sub6/sub1.asp" class="gnb_1da">자료실</a> <ul class="gnb_2dul"> <li
+                        class="gnb_2dli"><a href="/sub6/sub1.asp" class="gnb_2da">간행물</a></li> <li
+                        class="gnb_2dli"><a href="/sub6/sub2.asp" class="gnb_2da">인준기도문</a></li> <li
+                        class="gnb_2dli"><a href="/sub6/sub3.asp" class="gnb_2da">공소전례</a></li> <li
+                        class="gnb_2dli"><a href="/sub6/sub4.asp" class="gnb_2da">서식자료</a></li> <li
+                        class="gnb_2dli"><a href="/sub6/sub5.asp" class="gnb_2da">교구편찬자료집</a></li> <li
+                        class="gnb_2dli"><a href="/sub6/sub6.asp" class="gnb_2da">사진뜰</a></li> </ul>
+                        </li> -->
+                    </ul>
+                    <div id="nav_bar"></div>
+                </div>
+            </nav><!--#gnb.sub_gnb_bg-->
+
+            <!-- 전체메뉴박스-->
+            <div id="gnb_all">
+                <button type="button" class="gnb_close_btn">
+                    <!--<img src="/asset/img/allmenu_close.png" alt="">-->
+                    <a href="#" onclick="return false;"><img src="/asset/img/close_btn.png" alt="닫기"></a>
+                </button>
+                <div class='at-gnb_all'>
+                    <ul class="at-gnb_list">
+                        <!--
+                        <li>
+                            <a href="/sub1/sub1.asp" class="first">교구</a>
+                            <ul class="at-snb">
+                                <li>
+                                    <a href="/sub1/sub1.asp">교구소개</a>
+                                    <ol>
+                                        <li>
+                                            <a href="/sub1/sub1.asp">주보성인</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub1_2.asp">교구사명선언문</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub1_3.asp">교구심볼</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub1_4.asp">교구현황</a>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <a href="/sub1/sub2.asp">교구장</a>
+                                    <ol>
+                                        <li>
+                                            <a href="/sub1/sub2.asp">교구장소개</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub2_2.asp">교구장사목교서</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub2_3.asp">교구장말씀</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub2_4.asp">교구장동정</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub2_5.asp">역대교구장</a>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <a href="/sub1/sub3.asp">교구청</a>
+                                    <ol>
+                                        <li>
+                                            <a href="/sub1/sub3.asp">조직도</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub3_2.asp">연락처 및 오시는길</a>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <a href="/sub1/sub4.asp">교구기관</a>
+                                    <ol>
+                                        <li>
+                                            <a href="/sub1/sub4.asp">교구법원</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub4_2.asp">교회사연구소</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub4_3.asp">가톨릭 농민회</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub4_4.asp">교구위원회</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub4_5.asp">사회복지기관</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub4_6.asp">교육기관</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub4_7.asp">피정 및 교육장소</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub1/sub4_8.asp">수도회</a>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <a href="/sub1/sub5.asp">교구단체</a>
+                                    <ol>
+                                        <li>
+                                            <a href="/sub1/sub5.asp">각 교구 단체 안내</a>
+                                        </li>
+                                    </ol>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/sub2/sub1.asp" class="first">사제단</a>
+                            <ul class="at-snb">
+                                <li>
+                                    <a href="/sub2/sub1.asp">교구사제</a>
+                                </li>
+                                <li>
+                                    <a href="/sub2/sub2.asp">선종사제</a>
+                                </li>
+                                <li>
+                                    <a href="/sub2/sub3.asp">사제단통계</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/sub3/sub1.asp" class="first">본당</a>
+                            <ul class="at-snb">
+                                <li>
+                                    <a href="/sub3/sub1.asp">본당</a>
+                                </li>
+                                <li>
+                                    <a href="/sub3/sub2.asp">순례지 성당</a>
+                                </li>
+                                <li>
+                                    <a href="/sub3/sub3.asp">미사시간</a>
+                                </li>
+                                <li>
+                                    <a href="/sub3/sub4.asp">공소</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/sub4/sub1.asp" class="first">성지</a>
+                            <ul class="at-snb">
+                                <li>
+                                    <a href="/sub4/sub1.asp">성지</a>
+                                </li>
+                                <li>
+                                    <a href="/sub4/sub2.asp">순례길</a>
+                                </li>
+                                <li>
+                                    <a href="/sub4/sub3.asp">성지소식</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/sub5/sub1.asp" class="first">교구소식</a>
+                            <ul class="at-snb">
+                                <li>
+                                    <a href="/sub5/sub1.asp">공문ㆍ알림</a>
+                                </li>
+                                <li>
+                                    <a href="/sub5/sub2.asp">교구일정</a>
+                                </li>
+                                <li>
+                                    <a href="/sub5/sub3.asp">사진</a>
+                                </li>
+                                <li>
+                                    <a href="/sub5/sub4.asp">교회소식</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/sub6/sub1.asp" class="first">자료실</a>
+                            <ul class="at-snb">
+                                <li>
+                                    <a href="/sub6/sub1.asp">간행물</a>
+                                    <ol>
+                                        <li>
+                                            <a href="/sub6/sub1.asp">가톨릭안동</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub6/sub1_2.asp">틔움</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub6/sub1_3.asp">못자리</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub6/sub1_4.asp">두레판</a>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <a href="/sub6/sub2.asp">인준기도문</a>
+                                    <ol>
+                                        <li>
+                                            <a href="/sub6/sub2.asp">실천사항</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sub6/sub2_2.asp">인준기도문</a>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <a href="/sub6/sub3.asp">공소전례</a>
+                                </li>
+                                <li>
+                                    <a href="/sub6/sub4.asp">서식자료</a>
+                                </li>
+                                <li>
+                                    <a href="/sub6/sub5.asp">교구편찬자료집</a>
+                                </li>
+                                <li>
+                                    <a href="/sub6/sub6.asp">사진뜰</a>
+                                </li>
+                            </ul>
+                        </li>
+                        -->
+                    </ul>
+                </div>
+                <!--.at-gnb_all-->
+            </div><!--#gnb_all-->
+            <!-- 전체메뉴박스-->
+        </div><!--#hd_wrapper-->
+    </div>
+    <!-- } 상단 레이아웃 끝 -->
+<!-- 중간레이아웃 시작 { -->
+<div id="wrapper">
+  <div id="container">
+  
+
+<!-- 서브이미지  시작 { -->
+<div class='subvisual bg4'>
+    <div class="subvisual_txt">
+        <img src="img/subvisual_txt.png" alt="서브메인텍스트">
+        <div class='subtit'>Diocese of Andong</div>
+    </div>
+
+    <!--page-navi-->
+    <div class="page-navi">
+        <div class="at-container nopadding">
+            <ul class="page-location">
+                <li class="home"><a href="sub1.asp"><i class="home_icon"></i></a></li>
+                <li class="nav-depth"><a href="#" class='menu-btn'><span class="nav-depth1-selected">성지</span> <i class="loc_down"></i></a>
+                    <ol class="hidden-menu nav-depth1">
+                        <li><a href="/sub1/sub1.asp">교구</a></li>
+                        <li><a href="/sub2/sub1.asp">사제단</a></li>
+                        <li><a href="/sub3/sub1.asp">본당</a></li>
+                        <li><a href="/sub4/sub1.asp">성지</a></li>
+                        <li><a href="/sub5/sub1.asp">교구소식</a></li>
+                        <li><a href="/sub6/sub1.asp">자료실</a></li>
+                    </ol>
+                </li>
+                <li class="nav-depth"><a href="#" class='menu-btn'><span class="nav-depth2-selected">성지</span> <i class="loc_down"></i></a>
+                    <ol class="hidden-menu nav-depth2">
+                        <li><a href="/sub4/sub1.asp">성지</a></li>
+                        <li><a href="/sub4/sub2.asp">순례길</a></li>
+                        <li><a href="/sub4/sub3.asp">성지소식</a></li>
+                    </ol>
+                </li>
+            </ul>
+            <div class='share_box'>
+                <ul>
+                    <li><a href="#" class="clip_btn" onclick="return false;">공유</a></li>
+                    <li><a href="#" onclick="window.print(); return false;" class="print_btn">프린트</a></li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!--page-navi-->
+</div>
+<!--.subvisual.bg1-->
+<!-- } 서브이미지 끝 -->
+
+<script>
+    const site_menu = 'sub4';
+    const site_menu2 = '순례길';
+    const site_menu3 = '';
+</script>
+<script src="/asset/js/navigator.js?0.0.2.1"></script>
+
+    <div class="content-area">
+      <div class='at-container'>
+        <!-- 타이틀  시작 { -->
+        <div class="page-title">
+          <h3>순례길</h3>
+        </div>
+        <!-- } 타이틀 끝 -->
+        <!-- 컨텐츠  시작 { -->
+        <div class='at-container'>
+        
+<div class="course" style="text-align: center;">
+<h3><strong>사제와 함께하는 도보순례</strong></h3>
+<p><strong></strong></p>
+<span style="font-size: 14pt; color: #000000;">문경 마원&middot;진안리 성지 담당 사제와 함께 하는 도보순례입니다. </span></div>
+<div class="course" style="text-align: center;">
+<ul class="linkC" style="display: flex; align-items: center; justify-content: center;">
+<li><a href="https://cafe.daum.net/Mawon.Jinan" target="_blank" rel="noopener"><i class="icon1"></i>순례신청 및 일정확인</a></li>
+</ul>
+<div class="top_line"></div>
+<h4>순교의 길 (1일 코스)</h4>
+<ul class="course_box_1">
+<li class="c_con">
+<ul>
+<li>
+<div class="numTxt">01</div>
+<p class="routeName"><strong>문경 성당</strong><br /><span style="color: #3366ff;">오전 8시 출발</span><br /> <small>차량이동 : 여우목 성지</small></p>
+</li>
+<li>
+<div class="routeDistance">
+<p>18km</p>
+</div>
+</li>
+<li>
+<div class="numTxt">02</div>
+<p class="routeName"><strong>문경 관아</strong><br /><span style="color: #3366ff;">오후 4시 도착</span><br /> <small>오후 5시 : 미사(명상센터)&nbsp;&nbsp;</small></p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="top_line"></div>
+<h4>우정의 길 (1일 코스)</h4>
+<ul class="course_box_1">
+<li class="c_con">
+<ul>
+<li>
+<div class="numTxt">01</div>
+<p class="routeName"><strong>문경 성당</strong><br /><span style="color: #3366ff;">오전 8시 출발</span><br /> <small>차량이동 :&nbsp;<br />한실 성지</small></p>
+</li>
+<li>
+<div class="routeDistance">
+<p>12km</p>
+</div>
+</li>
+<li>
+<div class="numTxt">02</div>
+<p class="routeName"><strong>백화산 정상</strong><br /><span style="color: #3366ff;">미사 후 하산</span><br /> <small>오후 5시 :&nbsp;<br />문경성당 도착</small></p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="top_line"></div>
+<h4>빛과 어둠의 길 (야간코스, 문경새재길)</h4>
+<ul class="course_box_1">
+<li class="c_con">
+<ul>
+<li>
+<div class="numTxt">01</div>
+<p class="routeName"><strong>3관문</strong><br /><span style="color: #3366ff;">오후 3시 : 명상센터 출발</span><br /><small>차량이동</small></p>
+</li>
+<li>
+<div class="routeDistance">
+<p>8km</p>
+</div>
+</li>
+<li>
+<div class="numTxt">02</div>
+<p class="routeName"><strong>1관문</strong><br /><span style="color: #3366ff;">순례중 미사</span><br /><span style="color: #000000;">저녁 9시 : 명상센터 도착</span></p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="top_line"></div>
+<h4>믿음의 길 (3일 코스)</h4>
+<ul class="course_box">
+<li class="c_title">1일차</li>
+<li class="c_con">
+<ul>
+<li>
+<div class="numTxt">01</div>
+<p class="routeName"><strong>문경 성당</strong><br /> (오전 8시 출발)</p>
+</li>
+<li>
+<div class="routeDistance">
+<p>18km</p>
+</div>
+</li>
+<li>
+<div class="numTxt">02</div>
+<p class="routeName"><strong>신기 성당</strong><br /> (오후 4시 도착, 미사)</p>
+</li>
+</ul>
+</li>
+<li class="c_sleep"><strong>숙소: 문경성당</strong></li>
+</ul>
+<ul class="course_box">
+<li class="c_title">2일차</li>
+<li class="c_con">
+<ul>
+<li>
+<div class="numTxt">01</div>
+<p class="routeName"><strong>신기 성당</strong><br /> (오전 8시 출발)</p>
+</li>
+<li>
+<div class="routeDistance">
+<p>26km</p>
+</div>
+</li>
+<li>
+<div class="numTxt">02</div>
+<p class="routeName"><strong>퇴강 성당</strong><br /> (오후 6시 도착)</p>
+</li>
+</ul>
+</li>
+<li class="c_sleep"><strong>숙소: 퇴강 알베르게</strong></li>
+</ul>
+<ul class="course_box">
+<li class="c_title">3일차</li>
+<li class="c_con">
+<ul>
+<li>
+<div class="numTxt">01</div>
+<p class="routeName"><strong>퇴강 성당</strong><br /> (오전 8시 출발)</p>
+</li>
+<li>
+<div class="routeDistance">
+<p>22km</p>
+</div>
+</li>
+<li>
+<div class="numTxt">02</div>
+<p class="routeName"><strong>상주 옥터</strong><br /> (오후 4시 도착, 미사)</p>
+</li>
+</ul>
+</li>
+<li class="c_sleep empty"><strong>숙소: 해당없음</strong></li>
+</ul>
+<!--<div class="top_line"></div>
+<h4>열정의 길 (5일 코스)</h4>
+<div class="course_top">
+<p>집결지 : 문경성당 / 첫날 오후4시 : 배론 이동 묘소 참배, 저녁미사<br /> 출발 : 배론 성지 / 도착 : 진안리 성지(최양업 신부님 선종지) 도착 : 100km</p>
+</div>
+<ul class="course_box">
+<li class="c_title">1일차</li>
+<li class="c_con">
+<ul>
+<li>
+<div class="numTxt">01</div>
+<p class="routeName"><strong>문경 성당</strong></p>
+</li>
+<li>
+<div class="routeDistance">
+<p>18km</p>
+</div>
+</li>
+<li>
+<div class="numTxt">02</div>
+<p class="routeName"><strong>배론성지</strong></p>
+</li>
+</ul>
+</li>
+<li class="c_sleep"><strong>숙소: 배론성지</strong></li>
+</ul>
+<ul class="course_box">
+<li class="c_title">2일차</li>
+<li class="c_con">
+<ul>
+<li>
+<div class="numTxt">01</div>
+<p class="routeName"><strong>배론성지</strong></p>
+</li>
+<li>
+<div class="routeDistance">
+<p>27km</p>
+</div>
+</li>
+<li>
+<div class="numTxt">02</div>
+<p class="routeName"><strong>삼탄리 유원지</strong></p>
+</li>
+</ul>
+</li>
+<li class="c_sleep"><strong>숙소: 삼탄리 유원지(민박)</strong></li>
+</ul>
+<ul class="course_box">
+<li class="c_title">3일차</li>
+<li class="c_con">
+<ul>
+<li>
+<div class="numTxt">01</div>
+<p class="routeName"><strong>삼탄리</strong></p>
+</li>
+<li>
+<div class="routeDistance">
+<p>20km</p>
+</div>
+</li>
+<li>
+<div class="numTxt">02</div>
+<p class="routeName"><strong>계명산휴양림</strong></p>
+</li>
+</ul>
+</li>
+<li class="c_sleep"><strong>숙소: 계명산휴양림(펜션)</strong></li>
+</ul>
+<ul class="course_box">
+<li class="c_title">4일차</li>
+<li class="c_con">
+<ul>
+<li>
+<div class="numTxt">01</div>
+<p class="routeName"><strong>계명산휴양림</strong></p>
+</li>
+<li>
+<div class="routeDistance">
+<p>24km</p>
+</div>
+</li>
+<li>
+<div class="numTxt">02</div>
+<p class="routeName"><strong>실미면</strong></p>
+</li>
+</ul>
+</li>
+<li class="c_sleep"><strong>숙소: 실미면 충주야생화고택</strong></li>
+</ul>
+<ul class="course_box">
+<li class="c_title">5일차</li>
+<li class="c_con">
+<ul>
+<li>
+<div class="numTxt">01</div>
+<p class="routeName"><strong>실미면</strong></p>
+</li>
+<li>
+<div class="routeDistance">
+<p>28km</p>
+</div>
+</li>
+<li>
+<div class="numTxt">02</div>
+<p class="routeName"><strong>진안리 성지</strong></p>
+</li>
+</ul>
+</li>
+<li class="c_sleep empty"><strong>숙소: 해당없음</strong></li>
+</ul>--></div>
+
+        </div>
+        <!-- } 컨텐츠 끝 -->
+      </div>
+    </div>
+  </div>
+  <!--#container-->
+  
+    <!-- 모바일 노출 시작 { -->
+
+<div id="aside">
+    <div class="close_menu" id="mobile_menu_close">
+        <span class="close-line1"></span>
+        <span class="close-line2"></span>
+    </div>
+    <h3>
+        <img src="/asset/img/logo.png" alt="천주교안동교구"></h3>
+        <div class="mobile_menu">
+            <ul class="mobileUl"></ul>
+        </div>
+        <!--.mobile_menu-->
+    </div>
+    <div class="mask"></div>
+    <script>
+        $(document).ready(function () {
+            $(document)
+                .on('click', '.mobile_menu > ul > li > a', function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    var url = $(this).attr('href');
+                    var target = $(this).attr('target');
+
+                    // 링크이동
+                    if (url) {
+                        if (target === '_blank') {
+                            window.open(url, '_blank');
+                        } else {
+                            location.href = url;
+                        }
+                    }
+
+                    $(this)
+                        .parent()
+                        .find('ul')
+                        .slideToggle();
+                    $(this)
+                        .parent()
+                        .siblings()
+                        .children()
+                        .next()
+                        .slideUp();
+                    $('.mobile_menu > ul > li > a').removeClass("hover");
+                    $(this).addClass("hover");
+                    return false;
+                })
+                .on('pointerdown', '.mobile_menu > ul > li > a', function(e){
+                    if(e.pointerType === 'touch') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        $(this).trigger('click');
+                    }
+                });
+
+            /*
+            $('.mobile_menu > ul > li > a').click(function () {
+                var url = $(this).attr('href');
+                var target = $(this).attr('target');
+
+                // 링크이동
+                if (url) {
+                    if (target === '_blank') {
+                        window.open(url, '_blank');
+                    } else {
+                        location.href = url;
+                    }
+                }
+
+                $(this)
+                    .parent()
+                    .find('ul')
+                    .slideToggle();
+                $(this)
+                    .parent()
+                    .siblings()
+                    .children()
+                    .next()
+                    .slideUp();
+                $('.mobile_menu > ul > li > a').removeClass("hover");
+                $(this).addClass("hover");
+                return false;
+            });
+
+            $('.mobile_menu > ul > li > a').bind('touchstart', function (e) {
+                $(this).trigger('click');
+                e.preventDefault();
+            });
+            */
+
+            $("#mb-open-menu,#mb-open-menu_m").click(function () {
+                $("#aside").animate({
+                    "right": "0px"
+                }, 200);
+                $(".mask").css('display', 'block');
+                $(".close_menu").animate({
+                    "right": "20px"
+                }, 200);
+                $("body").css("position", "fixed");
+            });
+
+            $("#mobile_menu_close, .mask").click(function () {
+                $("#aside").animate({
+                    "right": "-100%"
+                }, 200);
+                $(".close_menu").animate({
+                    "right": "-100%"
+                }, 200);
+                $(".mask").css('display', 'none');
+                $("body").css("position", "relative");
+
+            });
+
+            $("#top_btn2").on("click", function () {
+                $("html, body").animate({
+                    scrollTop: 0
+                }, '500');
+                return false;
+            });
+        });
+    </script>
+    <!-- }모바일 끝 -->
+</div>
+<!-- } 중간레이아웃 끝 -->
+
+    
+  <!-- 푸터 레이아웃시작 { -->
+  <div id='ft'>
+    <div class='ft_site_box'>
+      <div class='at-container main'>
+ 
+        <!-- 사이트링크 -->
+        <div class="footBtnWrap">
+          <div class="footBtn">
+            <button type="button"><span>교구관련 웹사이트</span></button>
+            <div>
+              <ul class="lowerCtgryList">
+                <li><a href="https://gw.acatholic.or.kr/ekp/view/login/userLogin"  target="_blank">안동교구그룹웨어</a></li>
+                <li><a href="https://adc.egentouch.com/main.do?action=main"  target="_blank">안동교구도서관</a></li>
+                <li><a href="http://xn--289a71jftad9zslkca.com/angel/"  target="_blank">봉안경당</a></li>
+                <li><a href="http://www.nongeun.kr/coding/main.asp"  target="_blank">농은수련원</a></li>
+                <li><a href="https://cafe.daum.net/Mawon.Jinan"  target="_blank">문경천주교성지</a></li>
+                <li><a href="https://cafe.daum.net/ugokseongji"  target="_blank">봉화우곡성지</a></li>
+                <li><a href="https://www.happysister.net/home/"  target="_blank">그리스도의교육수녀회</a></li>
+                <li><a href="https://www.mecho.kr/"  target="_blank">자비의 성모 자매회</a></li>
+                <li><a href="https://www.andongfood.net/"  target="_blank">안동가농(우리농매장)</a></li>
+                <li><a href="https://cafe.daum.net/FiveTwo"  target="_blank">오병이어(주일학교교재)</a></li>
+                <li><a href="https://cafe.daum.net/motzary"  target="_blank">못자리(초등부주일학교)</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="footBtn">
+            <button type="button"><span>교구산하기관</span></button>
+            <div>
+              <ul class="lowerCtgryList">
+                <li><a href="https://www.csj.ac.kr/main.html"  target="_blank">가톨릭상지대학교</a></li>
+                <li><a href="https://school.gyo6.net/sangjihs/main.do?sysId=sangjihs"  target="_blank">상지중학교·상지미래경영고등학교</a></li>
+                <li><a href="https://www.adcaritas.or.kr/"  target="_blank">안동교구사회복지회</a></li>
+                <li><a href="https://adcaritas.or.kr/bbs/content.php?co_id=organi01"  target="_blank">안동교구사회복지회시설 및 단체</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="footBtn">
+            <button type="button"><span>전국교구 웹사이트</span></button>
+            <div>
+              <ul class="lowerCtgryList">
+                <li><a href="https://aos.catholic.or.kr" target="_blank">서울대교구</a></li>
+                <li><a href="http://www.cccatholic.or.kr" target="_blank">춘천교구</a></li>
+                <li><a href="https://www.djcatholic.or.kr" target="_blank">대전교구</a></li>
+                <li><a href="http://www.caincheon.or.kr" target="_blank">인천교구</a></li>
+                <li><a href="http://www.casuwon.or.kr" target="_blank">수원교구</a></li>
+                <li><a href="http://www.wjcatholic.or.kr" target="_blank">원주교구</a></li>
+                <li><a href="http://www.ucatholic.or.kr" target="_blank">의정부교구</a></li>
+                <li><a href="http://www.daegu-archdiocese.or.kr" target="_blank">대구대교구</a></li>
+                <li><a href="http://www.catholicbusan.or.kr" target="_blank">부산교구</a></li>
+                <li><a href="http://www.cdcj.or.kr" target="_blank">청주교구</a></li>
+                <li><a href="http://cathms.kr" target="_blank">마산교구</a></li>
+                <li><a href="https://www.gjcatholic.or.kr/" target="_blank">광주대교구</a></li>
+                <li><a href="http://www.jcatholic.or.kr" target="_blank">전주교구</a></li>
+                <li><a href="https://www.diocesejeju.or.kr" target="_blank">제주교구</a></li>
+                <li><a href="http://www.gunjong.or.kr" target="_blank">군종교구</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="footBtn">
+            <button type="button"><span>가톨릭유관기관</span></button>
+            <div>
+              <ul class="lowerCtgryList">
+                <li><a href="https://www.cbck.or.kr/"  target="_blank">한국천주교주교회의</a></li>
+                <li><a href="https://www.catholictimes.org/"  target="_blank">가톨릭신문</a></li>
+                <li><a href="https://news.cpbc.co.kr/"  target="_blank">가톨릭평화방송,신문</a></li>
+                <li><a href="https://www.catholic.or.kr/"  target="_blank">가톨릭인터넷굿뉴스</a></li>
+                <li><a href="https://www.vaticannews.va/ko.html"  target="_blank">바티칸뉴스</a></li>
+                <li><a href="https://www.pauline.or.kr/main"  target="_blank">바오로딸인터넷서점</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- //사이트링크 -->
+      </div>
+    </div>
+    <div class='at-container'>
+      <div class="ft_company"> 
+        <div class="ft_link">
+          <a href="/sub6/sub4.asp" target="_blank" class='ft_link3'>서식자료</a> 
+          <a href="/sub5/sub2.asp">교구일정</a>
+          <a href="/sub1/sub3_2.asp">찾아오시는 길</a>
+          
+          <a href="/mngr/sign-in.asp" target="_blank" onclick="return window.open(this.href,'wndLogin').focus(), false;">관리자</a>
+          
+        </div>
+        <ul class='footer_address'>
+          <li><strong>주소</strong> : 36678 경상북도 안동시 마지락길 77<a href="/sub1/sub3_2.asp"><img src="/asset/img/loc_map_f.png" alt="오시는 길"></a></li>
+          <li><strong>TEL</strong> :  사무처, 관리국 054-858-3111~3, 사목국  054-858-3114~5 /  <strong>FAX</strong> :  054-858-3116 /  <strong>E-mail </strong>:  사무처 sa3111@hanmail.net,　사목국 sa3119@nate.com</li>
+        </ul>
+        <div class="ft_copy">Copyright(c) acatholic.or.kr.  All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+  <!-- } 푸터레이아웃 끝 -->
+  
+  <script src="/gears/counter/counter.js"></script>
+  
+</body>
+</html>

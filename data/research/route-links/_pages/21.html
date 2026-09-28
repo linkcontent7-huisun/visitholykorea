@@ -1,0 +1,1048 @@
+
+
+
+
+    
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scaleable=no">
+<title>
+
+	
+	
+
+
+
+성지순례길 &lt; 길따라 떠나는 여행 &lt; 추천여행 &lt; 보령시청
+
+	
+
+</title>
+<link rel="stylesheet" href="/font/SpoqaHanSansNeo/font.css" />
+<link rel="stylesheet" href="/css/tour/common.css" />
+<!-- <link rel="stylesheet" href="/css/tour/layout.css" /> -->
+<!-- <link rel="stylesheet" href="/css/tour/layout_rwd.css" /> --> <!-- 반응형 레이아웃 -->
+<link rel="stylesheet" href="/css/tour/new_layout.css?ver=20210117" />
+<link rel="stylesheet" href="/css/tour/contents.css" />
+<link rel="stylesheet" href="/css/tour/contents_rwd.css" /> <!-- 반응형 컨텐츠 -->
+<link rel="stylesheet" href="/css/common/component.css" />
+<link rel="stylesheet" href="/css/common/verification.css" />
+<script src="/js/jquery-1.9.0.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/tour/common.js"></script>
+<script src="/js/tour/gnb.js"></script>
+<script src="/js/tour/main_slide.js"></script>
+<script src="/js/tour/layout_2021.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/print/jquery.printElement.js"></script>	
+<!--[if lt IE 9]>	
+ <script type="text/javascript">
+  document.createElement("header"); document.createElement("nav"); document.createElement("section"); document.createElement("article"); document.createElement("aside"); document.createElement("footer");
+ </script>
+ <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+ <script src="/js/respond.min.js"></script>	
+<![endif]-->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var fnt = "/font/SpoqaHanSansNeo/font.css";
+		var common = "/css/tour/common.css";
+		//var layout = "/css/tour/layout.css";
+		//var layout_rwd = "/css/tour/layout_rwd.css";
+		var layout_21 = "/css/tour/new_layout.css";
+		var contents = "/css/tour/contents.css";
+		var contents_rwd = "/css/tour/contents_rwd.css";
+		var component = "/css/common/component.css";
+		var board = "/css/egovframework/com/cop/bbs/board_basic.css";
+
+		// 프린트 기능
+		$("#print a[href=#none]").bind("click",function(event){
+			$("#contents").printElement({
+				printMode:'popup', //팝업설정 popup = 팝업창 , iframe = iframe
+				//overrideElementCSS:[common, layout, layout_rwd, board], //css경로
+				overrideElementCSS:[common, layout, layout_rwd, board,contents,contents_rwd,component], //css경로
+				pageTitle:'보령시청', //인쇄 타이틀
+				printBodyOptions:{
+					styleToAdd: 'width:'+$("#contents").width() //style attributes to add to the body of print document
+				},
+				leaveOpen:false //false = 인쇄후 창닫기
+			});
+			event.preventDefault();
+		});
+	});
+</script>	
+<script type="text/javascript">
+if (!window.GLOBAL_CSRF_TOKEN || window.GLOBAL_CSRF_TOKEN === 'undefined' || window.GLOBAL_CSRF_TOKEN === '') {
+    window.GLOBAL_CSRF_TOKEN = 'c34ee909-5c31-47ba-aa6c-2e4a44b224e1';
+}
+if (document.addEventListener) {
+    document.addEventListener('DOMContentLoaded', function() { csrfInjectForm(); });
+} else if (document.attachEvent) {
+    document.attachEvent('onreadystatechange', function() { if(document.readyState === 'complete') csrfInjectForm(); });
+}
+window.onsubmit = function(e) {
+    var event = e || window.event;
+    var target = event.target || event.srcElement;
+    if (target && target.tagName.toLowerCase() === 'form') {
+        var m = target.getAttribute('method');
+        if (m && m.toLowerCase() === 'post') {
+            var token = window.GLOBAL_CSRF_TOKEN;
+            if (token && token !== 'undefined') {
+                var csrfInput = target.querySelector('input[name="_csrf"]');
+                if (!csrfInput) {
+                    var input = document.createElement('input');
+                    input.type = 'hidden'; input.name = '_csrf'; input.value = token;
+                    target.appendChild(input);
+                } else if (!csrfInput.value) {
+                    csrfInput.value = token;
+                }
+            }
+        }
+    }
+};
+function csrfInjectForm() {
+    var token = window.GLOBAL_CSRF_TOKEN;
+    if(!token || token === 'undefined') return;
+    var forms = document.getElementsByTagName('form');
+    for(var i=0; i<forms.length; i++) {
+        var f = forms[i];
+        var m = f.getAttribute('method');
+        if(m && m.toLowerCase() === 'post') {
+            var csrfInput = null;
+            var inputs = f.getElementsByTagName('input');
+            for(var j=0; j<inputs.length; j++) {
+                if(inputs[j].getAttribute('name') === '_csrf') { csrfInput = inputs[j]; break; }
+            }
+            if(!csrfInput) {
+                var input = document.createElement('input');
+                input.type = 'hidden'; input.name = '_csrf'; input.value = token;
+                f.appendChild(input);
+            } else if (!csrfInput.value) {
+                csrfInput.value = token;
+            }
+        }
+    }
+}
+(function() {
+    var origOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function(m, u, a, us, p) {
+        origOpen.apply(this, arguments);
+        if(!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(m) && window.GLOBAL_CSRF_TOKEN && window.GLOBAL_CSRF_TOKEN !== 'undefined') {
+            this.setRequestHeader('X-CSRF-TOKEN', window.GLOBAL_CSRF_TOKEN);
+        }
+    };
+})();
+</script>
+</head>
+<body>
+<!-- skip :s -->
+<dl class="skip">
+	<dt><strong>바로가기 메뉴</strong></dt>
+	<dd><a href="#gnb">주요메뉴 바로가기</a></dd>
+	<dd><a href="#contents">본문 바로가기</a></dd>
+	<dd><a href="#footer">하단메뉴 바로가기</a></dd>
+</dl>
+<!-- //skip :e -->
+<div id="wrap">
+	<!-- header :S -->
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+function chkSearchForm(frm) {
+	if(frm != null) {
+		if(frm.qt != null && frm.qt.value != "") {
+			var charset = document.charset;
+			document.charset = 'euc-kr';
+			frm.submit();
+			document.charset = charset;
+			//return true;
+		} else {
+			alert("검색어가 정확하지 않습니다.");
+		}
+	}
+	return false;	
+}
+
+</script>
+
+<div id="header">
+	<h1><a href="/tour.do">
+		<img src="/images/tour/layout/logo.svg" alt="보령시 로고">
+		<span>문화관광</span>
+	</a></h1>
+
+	<!-- gnb::S:: -->
+	<nav id="gnb">
+		<div id="gnbwrap">
+			<div id="animate">
+				<div id="animate_line"></div>
+				<ul id="tm">
+					<li class='th1'>
+<a href="/prog/attraction/tour/sub01_01/list.do">관광명소</a>
+<div class="th1_title"><p>관광명소</p></div>
+<ul class="th2">
+<li class='th2_1'><a href="/prog/attraction/tour/sub01_01/list.do" target="_self">전체</a>
+</li>
+<li class='th2_2'><a href="/prog/attraction/tour/sub01_02/list.do" target="_self">섬</a>
+</li>
+<li class='th2_3'><a href="/prog/attraction/tour/sub01_03/list.do" target="_self">해수욕장</a>
+</li>
+<li class='th2_4'><a href="/prog/attraction/tour/sub01_04/list.do" target="_self">항구</a>
+</li>
+<li class='th2_5'><a href="/prog/attraction/tour/sub01_05/list.do" target="_self">산/계곡</a>
+</li>
+<li class='th2_6'><a href="/prog/attraction/tour/sub01_06/list.do" target="_self">호수</a>
+</li>
+<li class='th2_7'><a href="/prog/attraction/tour/sub01_07/list.do" target="_self">축제</a>
+</li>
+<li class='th2_8'><a href="/prog/attraction/tour/sub01_08/list.do" target="_self">체험/마을</a>
+</li>
+<li class='th2_9'><a href="/prog/attraction/tour/sub01_09/list.do" target="_self">휴양/공원</a>
+</li>
+<li class='th2_10'><a href="/prog/attraction/tour/sub01_10/list.do" target="_self">박물관</a>
+</li>
+<li class='th2_11'><a href="/prog/attraction/tour/sub01_11/list.do" target="_self">국보/보물/사적</a>
+</li>
+<li class='th2_12'><a href="/prog/attraction/tour/sub01_12/list.do" target="_self">천연기념물/등록문화유산</a>
+</li>
+<li class='th2_13'><a href="/prog/attraction/tour/sub01_13/list.do" target="_self">유형/무형유산</a>
+</li>
+<li class='th2_14'><a href="/prog/attraction/tour/sub01_14/list.do" target="_self">기념물/민속문화유산</a>
+</li>
+<li class='th2_15'><a href="/prog/attraction/tour/sub01_15/list.do" target="_self">문화유산자료</a>
+</li>
+<li class='th2_16'><a href="/prog/attraction/tour/sub01_16/list.do" target="_self">향토문화유산</a>
+</li>
+</ul>
+</li>
+<li class='th1'>
+<a href="/tour/sub02_07_01.do">추천여행</a>
+<div class="th1_title"><p>추천여행</p></div>
+<ul class="th2">
+<li class='th2_1'><a href="/tour/sub02_07_01.do" target="_self">스탬프·옛이야기 투어</a>
+<ul>
+<li><a href="/tour/sub02_07_01.do" target="_self">모바일 스탬프투어</a></li>
+<li><a href="/tour/sub02_07_02.do" target="_self">옛이야기투어</a></li>
+</ul>
+</li>
+<li class='th2_2'><a href="/tour/sub02_02_06.do" target="_self">길따라 떠나는 여행</a>
+<ul>
+<li><a href="/tour/sub02_02_06.do" target="_self">보령9경 플러스</a></li>
+<li><a href="/tour/sub02_02_01_01.do" target="_self">섬둘레길</a></li>
+<li><a href="/tour/sub02_02_02.do" target="_self">성지순례길</a></li>
+<li><a href="/tour/sub02_02_03.do" target="_self">자전거코스</a></li>
+<li><a href="/tour/sub02_02_04_01.do" target="_self">드라이브코스</a></li>
+<li><a href="/tour/sub02_02_05.do" target="_self">도미부인솔바람길</a></li>
+</ul>
+</li>
+<li class='th2_3'><a href="/tour/sub02_03_01_01.do" target="_self">가족과 떠나는 여행</a>
+<ul>
+<li><a href="/tour/sub02_03_01_01.do" target="_self">치유여행</a></li>
+<li><a href="/tour/sub02_03_02_01.do" target="_self">배움여행</a></li>
+<li><a href="/tour/sub02_03_03_02.do" target="_self">섬여행</a></li>
+</ul>
+</li>
+<li class='th2_4'><a href="/prog/tour_pet/tour/sub02_08_01/petHotel/list.do" target="_self">반려동물 동반 여행</a>
+<ul>
+<li><a href="/prog/tour_pet/tour/sub02_08_01/petHotel/list.do" target="_self">숙박</a></li>
+<li><a href="/prog/tour_pet/tour/sub02_08_02/petRestaurant/list.do" target="_self">음식점</a></li>
+<li><a href="/prog/tour_pet/tour/sub02_08_03/petCafe/list.do" target="_self">카페</a></li>
+<li><a href="/prog/attraction/tour/sub02_08_04/list.do" target="_self">관광명소</a></li>
+</ul>
+</li>
+<li class='th2_5'><a href="/tour/sub02_04_01.do" target="_self">레저/스포츠</a>
+<ul>
+<li><a href="/tour/sub02_04_01.do" target="_self">익사이팅 보령</a></li>
+<li><a href="/tour/sub02_04_02.do" target="_self">바다낚시</a></li>
+</ul>
+</li>
+<li class='th2_6'><a href="/tour/sub02_05.do" target="_self">연간 주요행사</a>
+</li>
+</ul>
+</li>
+<li class='th1'>
+<a href="/tour/sub03_01_01.do">이야기가 있는 여행</a>
+<div class="th1_title"><p>이야기가 있는 여행</p></div>
+<ul class="th2">
+<li class='th2_1'><a href="/tour/sub03_01_01.do" target="_self">즐기는 여행</a>
+<ul>
+<li><a href="/tour/sub03_01_01.do" target="_self">보령 천북굴축제</a></li>
+<li><a href="/tour/sub03_01_02.do" target="_self">보령 전통시장</a></li>
+<li><a href="/tour/sub03_01_03.do" target="_self">보령호</a></li>
+<li><a href="/tour/sub03_01_04.do" target="_self">청천저수지</a></li>
+</ul>
+</li>
+<li class='th2_2'><a href="/tour/sub03_02_01.do" target="_self">추천하는 여행</a>
+<ul>
+<li><a href="/tour/sub03_02_01.do" target="_self">대천해수욕장</a></li>
+<li><a href="/tour/sub03_02_02.do" target="_self">무창포해수욕장</a></li>
+<li><a href="/tour/sub03_02_03.do" target="_self">오천항</a></li>
+</ul>
+</li>
+<li class='th2_3'><a href="/tour/sub03_03_01.do" target="_self">함께하는 여행</a>
+<ul>
+<li><a href="/tour/sub03_03_01.do" target="_self">오서산</a></li>
+<li><a href="/tour/sub03_03_02.do" target="_self">삽시도 둘레길</a></li>
+<li><a href="/tour/sub03_03_03.do" target="_self">외연열도 둘레길</a></li>
+</ul>
+</li>
+<li class='th2_4'><a href="/tour/sub03_04_01.do" target="_self">느끼는 여행</a>
+<ul>
+<li><a href="/tour/sub03_04_01.do" target="_self">성주산 휴양림</a></li>
+<li><a href="/tour/sub03_04_02.do" target="_self">해넘이·해맞이</a></li>
+</ul>
+</li>
+<li class='th2_5'><a href="/tour/sub03_05_02.do" target="_self">스릴있는 여행</a>
+<ul>
+<li><a href="/tour/sub03_05_02.do" target="_self">월전죽도</a></li>
+<li><a href="/tour/sub03_05_03.do" target="_self">원산도</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='th1'>
+<a href="/tour/sub04_02.do">숙박·음식·카페</a>
+<div class="th1_title"><p>숙박·음식·카페</p></div>
+<ul class="th2">
+<li class='th2_1'><a href="/tour/sub04_02.do" target="_self">보령9미</a>
+</li>
+<li class='th2_2'><a href="/prog/tour_restaurant/tour/sub04_03/list.do" target="_self">음식정보</a>
+</li>
+<li class='th2_3'><a href="/prog/tour_cafe/tour/sub04_07/list.do" target="_self">카페정보</a>
+</li>
+<li class='th2_4'><a href="/prog/tour_hotel/tour/sub04_04/list.do" target="_self">숙박정보</a>
+</li>
+<li class='th2_5'><a href="/tour/sub04_05.do" target="_self">외국어 메뉴판 만들기</a>
+</li>
+<li class='th2_6'><a href="/cop/bbs/BBSMSTR_000000001591/selectBoardList.do" target="_self">관광업체정보 등록 요청</a>
+</li>
+</ul>
+</li>
+<li class='th1'>
+<a href="/prog/tour_special//tour/sub05_02/list.do">관광도우미</a>
+<div class="th1_title"><p>관광도우미</p></div>
+<ul class="th2">
+<li class='th2_1'><a href="/kor/sub05_07_01_04.do" target="_blank">교통정보</a>
+</li>
+<li class='th2_2'><a href="/prog/tour_special/tour/sub05_02/list.do" target="_self">특산물정보</a>
+</li>
+<li class='th2_3'><a href="/prog/tour_culture/tour/sub05_03/list.do" target="_self">보령의 문화</a>
+</li>
+<li class='th2_4'><a href="/tour/sub05_04.do" target="_self">관광안내</a>
+</li>
+<li class='th2_5'><a href="/tour/sub05_15.do" target="_self">문화관광해설사</a>
+</li>
+<li class='th2_6'><a href="/cop/bbs/BBSMSTR_000000000285/selectBoardList.do" target="_self">관광문화소식</a>
+</li>
+<li class='th2_7'><a href="/prog/photo/tour/sub05_12/B/list.do" target="_self">관광명소</a>
+</li>
+<li class='th2_8'><a href="/prog/photo/tour/sub05_13/C/list.do" target="_self">보령축제</a>
+</li>
+<li class='th2_9'><a href="/prog/tourGuideBook/tour/sub05_06/list.do" target="_self">관광지도신청</a>
+</li>
+<li class='th2_10'><a href="https://www.brcn.go.kr/kor/sub03_01_02.do" target="_blank">관광불편신고</a>
+</li>
+<li class='th2_11'><a href="/cop/bbs/BBSMSTR_000000000453/selectBoardList.do" target="_self">여행후기</a>
+</li>
+<li class='th2_12'><a href="/cop/bbs/BBSMSTR_000000000454/selectBoardList.do" target="_self">내가 찍은 보령</a>
+</li>
+<li class='th2_13'><a href="/tour/sub05_11_01_01.do" target="_self">열린관광지</a>
+</li>
+<li class='th2_14'><a href="http://www.khoa.go.kr/kcom/cnt/selectContentsPage.do?cntId=31201000" target="_blank">바다갈라짐</a>
+</li>
+</ul>
+</li>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<script>
+		var param = "#gnbwrap";
+		var ban = ".th1_title";
+		var obj = ".th2";
+		var btn = ".th1>a";
+		var wrap = "#animate";
+		var elem = 01; // th1 메뉴코드, index로 사용
+		var scale = 1000; // 입력한 해상도 이하애서 실행 안함
+		var dur = 500; // 애니메이션 진행 속도
+		var meth = "easeOutExpo"; // 애니메이션 진행 타입
+		var mno = "";
+		gnb(param,ban,obj,btn,wrap,elem,scale,dur,meth,mno);
+	</script>
+	<!-- gnb::E:: -->
+
+	<div class="etcs">
+		<div class="links">
+			<a rel="noopener noreferrer" href="http://www.brcn.go.kr"  target="_blank" title="새창으로 관광포털 홈페이지로 이동합니다." class="potals">대표포털</a>
+			<!--<a rel="noopener noreferrer" href="http://www.brcn.go.kr/itv.do"  target="_blank" title="새창으로 보령tv 홈페이지로 이동합니다." class="b_tv">보령TV</a>-->
+
+		</div>
+		<div class="langbx">
+			<a href="#" class="tt">KOR</a>
+			<ul>
+				<li><a rel="noopener noreferrer" href="http://www.brcn.go.kr/kor.do"   target="_blank" title="새창">KOR</a></li>
+				<li><a rel="noopener noreferrer" href="http://www.brcn.go.kr/eng.do"  target="_blank" title="새창">ENG</a></li>
+				<li><a rel="noopener noreferrer" href="http://www.brcn.go.kr/jap.do"  target="_blank" title="새창">JAP</a></li>
+				<li><a rel="noopener noreferrer" href="http://www.brcn.go.kr/chn.do"  target="_blank" title="새창">CHN</a></li>
+			</ul>
+		</div>
+		<div class="searchbx">
+			<a href="#search" class="s_btn">검색열기</a>
+			<div class="searchs">
+				<form  name="" rel="noopener noreferrer" action="https://search.brcn.go.kr/RSA/front_new/Search.jsp" method="post" target="_blank" accept-charset="UTF-8" onsubmit="return chkSearchForm(this);">
+					<input type="hidden" name="menu" value="통합검색" />
+					<span>
+						<label for="total_search" class="hidden">통합검색 입력</label>
+						<input type="text" name="qt" id="total_search" placeholder="검색어를 입력해주세요." />
+						<input type="submit" value="검색">
+					</span>
+				</form>
+			</div>
+		</div>
+		<a href="/tour/sitemap_11.do" class="sitemaps">사이트맵</a>
+	</div>
+
+	
+	
+	
+		
+		
+			<div class="map_dwn map_dwn_sub">
+				<ul>
+					<li><a rel="noopener noreferrer" href="https://www.brcn.go.kr/download/tour/brtourmap_ver01.pdf"  target="_blank" title="새창"><span>한 눈에 보는 보령 MAP</span></a></li>
+					<li><a href="/tour/sub05_15.do"  target="_blank" title="새창"><span>문화관광해설사</span></a></li>
+				</ul>
+			</div>
+		
+	
+</div>
+	
+<div id="rwd_header">
+	<div class="gnb_btn"><a href="#gnb" title="네비게이션메뉴 열기"><span class="hidden">네비게이션메뉴</span></a></div>
+	<div class="rwd_gnb">
+		<ul class="link_site">
+			<li><a href="/kor.do" target="_blank"  title="새창으로 대표포털 홈페이지로 이동합니다.">대표포털</a></li></li>
+            <li><a rel="noopener noreferrer" href="http://www.brcn.go.kr/itv.do" target="_blank"  title="새창으로 보령tv 홈페이지로 이동합니다.">보령TV</a></li>
+		</ul>
+		<ul class="lang_site">
+			<li><a rel="noopener noreferrer" href="http://www.brcn.go.kr/eng.do" target="_blank"  title="새창으로 영문 홈페이지로 이동합니다.">ENGLISH</a></li>
+			<li><a rel="noopener noreferrer" href="http://www.brcn.go.kr/jap.do" target="_blank"  title="새창으로 일문 홈페이지로 이동합니다.">日本語</a></li>
+			<li><a rel="noopener noreferrer" href="http://www.brcn.go.kr/chn.do" target="_blank"  title="새창으로 중문 홈페이지로 이동합니다.">中國語</a></li>
+		</ul>	
+		<nav>
+			<ul class="depth1">
+				<li>
+<h2><a href="/prog/attraction/tour/sub01_01/list.do">관광명소</a></h2>
+<ul class='depth2'>
+<li><h3><a href="/prog/attraction/tour/sub01_01/list.do" target="_self">전체</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_02/list.do" target="_self">섬</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_03/list.do" target="_self">해수욕장</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_04/list.do" target="_self">항구</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_05/list.do" target="_self">산/계곡</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_06/list.do" target="_self">호수</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_07/list.do" target="_self">축제</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_08/list.do" target="_self">체험/마을</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_09/list.do" target="_self">휴양/공원</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_10/list.do" target="_self">박물관</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_11/list.do" target="_self">국보/보물/사적</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_12/list.do" target="_self">천연기념물/등록문화유산</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_13/list.do" target="_self">유형/무형유산</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_14/list.do" target="_self">기념물/민속문화유산</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_15/list.do" target="_self">문화유산자료</a></h3>
+</li>
+<li><h3><a href="/prog/attraction/tour/sub01_16/list.do" target="_self">향토문화유산</a></h3>
+</li>
+</ul>
+</li>
+<li>
+<h2><a href="/tour/sub02_07_01.do">추천여행</a></h2>
+<ul class='depth2'>
+<li><h3><a href="/tour/sub02_07_01.do" target="_self">스탬프·옛이야기 투어</a></h3>
+<ul class='depth3'>
+<li><a href="/tour/sub02_07_01.do" target="_self">모바일 스탬프투어</a></li>
+<li><a href="/tour/sub02_07_02.do" target="_self">옛이야기투어</a></li>
+</ul>
+</li>
+<li><h3><a href="/tour/sub02_02_06.do" target="_self">길따라 떠나는 여행</a></h3>
+<ul class='depth3'>
+<li><a href="/tour/sub02_02_06.do" target="_self">보령9경 플러스</a></li>
+<li><a href="/tour/sub02_02_01_01.do" target="_self">섬둘레길</a></li>
+<li><a href="/tour/sub02_02_02.do" target="_self">성지순례길</a></li>
+<li><a href="/tour/sub02_02_03.do" target="_self">자전거코스</a></li>
+<li><a href="/tour/sub02_02_04_01.do" target="_self">드라이브코스</a></li>
+<li><a href="/tour/sub02_02_05.do" target="_self">도미부인솔바람길</a></li>
+</ul>
+</li>
+<li><h3><a href="/tour/sub02_03_01_01.do" target="_self">가족과 떠나는 여행</a></h3>
+<ul class='depth3'>
+<li><a href="/tour/sub02_03_01_01.do" target="_self">치유여행</a></li>
+<li><a href="/tour/sub02_03_02_01.do" target="_self">배움여행</a></li>
+<li><a href="/tour/sub02_03_03_02.do" target="_self">섬여행</a></li>
+</ul>
+</li>
+<li><h3><a href="/prog/tour_pet/tour/sub02_08_01/petHotel/list.do" target="_self">반려동물 동반 여행</a></h3>
+<ul class='depth3'>
+<li><a href="/prog/tour_pet/tour/sub02_08_01/petHotel/list.do" target="_self">숙박</a></li>
+<li><a href="/prog/tour_pet/tour/sub02_08_02/petRestaurant/list.do" target="_self">음식점</a></li>
+<li><a href="/prog/tour_pet/tour/sub02_08_03/petCafe/list.do" target="_self">카페</a></li>
+<li><a href="/prog/attraction/tour/sub02_08_04/list.do" target="_self">관광명소</a></li>
+</ul>
+</li>
+<li><h3><a href="/tour/sub02_04_01.do" target="_self">레저/스포츠</a></h3>
+<ul class='depth3'>
+<li><a href="/tour/sub02_04_01.do" target="_self">익사이팅 보령</a></li>
+<li><a href="/tour/sub02_04_02.do" target="_self">바다낚시</a></li>
+</ul>
+</li>
+<li><h3><a href="/tour/sub02_05.do" target="_self">연간 주요행사</a></h3>
+</li>
+</ul>
+</li>
+<li>
+<h2><a href="/tour/sub03_01_01.do">이야기가 있는 여행</a></h2>
+<ul class='depth2'>
+<li><h3><a href="/tour/sub03_01_01.do" target="_self">즐기는 여행</a></h3>
+<ul class='depth3'>
+<li><a href="/tour/sub03_01_01.do" target="_self">보령 천북굴축제</a></li>
+<li><a href="/tour/sub03_01_02.do" target="_self">보령 전통시장</a></li>
+<li><a href="/tour/sub03_01_03.do" target="_self">보령호</a></li>
+<li><a href="/tour/sub03_01_04.do" target="_self">청천저수지</a></li>
+</ul>
+</li>
+<li><h3><a href="/tour/sub03_02_01.do" target="_self">추천하는 여행</a></h3>
+<ul class='depth3'>
+<li><a href="/tour/sub03_02_01.do" target="_self">대천해수욕장</a></li>
+<li><a href="/tour/sub03_02_02.do" target="_self">무창포해수욕장</a></li>
+<li><a href="/tour/sub03_02_03.do" target="_self">오천항</a></li>
+</ul>
+</li>
+<li><h3><a href="/tour/sub03_03_01.do" target="_self">함께하는 여행</a></h3>
+<ul class='depth3'>
+<li><a href="/tour/sub03_03_01.do" target="_self">오서산</a></li>
+<li><a href="/tour/sub03_03_02.do" target="_self">삽시도 둘레길</a></li>
+<li><a href="/tour/sub03_03_03.do" target="_self">외연열도 둘레길</a></li>
+</ul>
+</li>
+<li><h3><a href="/tour/sub03_04_01.do" target="_self">느끼는 여행</a></h3>
+<ul class='depth3'>
+<li><a href="/tour/sub03_04_01.do" target="_self">성주산 휴양림</a></li>
+<li><a href="/tour/sub03_04_02.do" target="_self">해넘이·해맞이</a></li>
+</ul>
+</li>
+<li><h3><a href="/tour/sub03_05_02.do" target="_self">스릴있는 여행</a></h3>
+<ul class='depth3'>
+<li><a href="/tour/sub03_05_02.do" target="_self">월전죽도</a></li>
+<li><a href="/tour/sub03_05_03.do" target="_self">원산도</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h2><a href="/tour/sub04_02.do">숙박·음식·카페</a></h2>
+<ul class='depth2'>
+<li><h3><a href="/tour/sub04_02.do" target="_self">보령9미</a></h3>
+</li>
+<li><h3><a href="/prog/tour_restaurant/tour/sub04_03/list.do" target="_self">음식정보</a></h3>
+</li>
+<li><h3><a href="/prog/tour_cafe/tour/sub04_07/list.do" target="_self">카페정보</a></h3>
+</li>
+<li><h3><a href="/prog/tour_hotel/tour/sub04_04/list.do" target="_self">숙박정보</a></h3>
+</li>
+<li><h3><a href="/tour/sub04_05.do" target="_self">외국어 메뉴판 만들기</a></h3>
+</li>
+<li><h3><a href="/cop/bbs/BBSMSTR_000000001591/selectBoardList.do" target="_self">관광업체정보 등록 요청</a></h3>
+</li>
+</ul>
+</li>
+<li>
+<h2><a href="/prog/tour_special//tour/sub05_02/list.do">관광도우미</a></h2>
+<ul class='depth2'>
+<li><h3><a href="/kor/sub05_07_01_04.do" target="_blank">교통정보</a></h3>
+</li>
+<li><h3><a href="/prog/tour_special/tour/sub05_02/list.do" target="_self">특산물정보</a></h3>
+</li>
+<li><h3><a href="/prog/tour_culture/tour/sub05_03/list.do" target="_self">보령의 문화</a></h3>
+</li>
+<li><h3><a href="/tour/sub05_04.do" target="_self">관광안내</a></h3>
+</li>
+<li><h3><a href="/tour/sub05_15.do" target="_self">문화관광해설사</a></h3>
+</li>
+<li><h3><a href="/cop/bbs/BBSMSTR_000000000285/selectBoardList.do" target="_self">관광문화소식</a></h3>
+</li>
+<li><h3><a href="/prog/photo/tour/sub05_12/B/list.do" target="_self">관광명소</a></h3>
+</li>
+<li><h3><a href="/prog/photo/tour/sub05_13/C/list.do" target="_self">보령축제</a></h3>
+</li>
+<li><h3><a href="/prog/tourGuideBook/tour/sub05_06/list.do" target="_self">관광지도신청</a></h3>
+</li>
+<li><h3><a href="https://www.brcn.go.kr/kor/sub03_01_02.do" target="_blank">관광불편신고</a></h3>
+</li>
+<li><h3><a href="/cop/bbs/BBSMSTR_000000000453/selectBoardList.do" target="_self">여행후기</a></h3>
+</li>
+<li><h3><a href="/cop/bbs/BBSMSTR_000000000454/selectBoardList.do" target="_self">내가 찍은 보령</a></h3>
+</li>
+<li><h3><a href="/tour/sub05_11_01_01.do" target="_self">열린관광지</a></h3>
+</li>
+<li><h3><a href="http://www.khoa.go.kr/kcom/cnt/selectContentsPage.do?cntId=31201000" target="_blank">바다갈라짐</a></h3>
+</li>
+</ul>
+</li>
+
+			</ul>			
+		</nav>
+		<a href="#" class="mob_close">메뉴닫기</a>		
+	</div>
+	<div class="shadow_bg"></div>		
+</div>
+
+	<!-- header :E -->
+
+
+	<!-- visual :S -->
+	<div class="sub_visual bg02">
+	<!-- 메뉴별 배경클래스 class="bg01, bg02..." -->
+		<div class="wr">
+			<h2><span>추천여행</span></h2>
+		</div>
+	</div>
+	<!-- visual :E -->
+
+
+	
+		
+		
+			<div id="container">
+				<div class="al_box">	
+					<!-- lnb :S -->
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- lnb :S -->
+	<div id="lnb">	
+		<nav>
+			<ul class="lm_2th lm_bg02">
+				<li><a href="/tour/sub02_07_01.do" target='_self' class='link_2th'>스탬프·옛이야기 투어</a>
+<ul>
+<li><a href="/tour/sub02_07_01.do" target='_self' class='link_3th'>모바일 스탬프투어</a></li>
+<li><a href="/tour/sub02_07_02.do" target='_self' class='link_3th'>옛이야기투어</a></li>
+</ul>
+</li>
+<li><a href="/tour/sub02_02_06.do" target='_self' class='ov' >길따라 떠나는 여행</a>
+<ul>
+<li><a href="/tour/sub02_02_06.do" target='_self'>보령9경 플러스</a></li>
+<li><a href="/tour/sub02_02_01_01.do" target='_self'>섬둘레길</a></li>
+<li class='ov'><a href="/tour/sub02_02_02.do" target='_self'>성지순례길</a></li>
+<li><a href="/tour/sub02_02_03.do" target='_self'>자전거코스</a></li>
+<li><a href="/tour/sub02_02_04_01.do" target='_self'>드라이브코스</a></li>
+<li><a href="/tour/sub02_02_05.do" target='_self'>도미부인솔바람길</a></li>
+</ul>
+</li>
+<li><a href="/tour/sub02_03_01_01.do" target='_self' class='link_2th'>가족과 떠나는 여행</a>
+<ul>
+<li><a href="/tour/sub02_03_01_01.do" target='_self' class='link_3th'>치유여행</a></li>
+<li><a href="/tour/sub02_03_02_01.do" target='_self' class='link_3th'>배움여행</a></li>
+<li><a href="/tour/sub02_03_03_02.do" target='_self' class='link_3th'>섬여행</a></li>
+</ul>
+</li>
+<li><a href="/prog/tour_pet/tour/sub02_08_01/petHotel/list.do" target='_self' class='link_2th'>반려동물 동반 여행</a>
+<ul>
+<li><a href="/prog/tour_pet/tour/sub02_08_01/petHotel/list.do" target='_self' class='link_3th'>숙박</a></li>
+<li><a href="/prog/tour_pet/tour/sub02_08_02/petRestaurant/list.do" target='_self' class='link_3th'>음식점</a></li>
+<li><a href="/prog/tour_pet/tour/sub02_08_03/petCafe/list.do" target='_self' class='link_3th'>카페</a></li>
+<li><a href="/prog/attraction/tour/sub02_08_04/list.do" target='_self' class='link_3th'>관광명소</a></li>
+</ul>
+</li>
+<li><a href="/tour/sub02_04_01.do" target='_self' class='link_2th'>레저/스포츠</a>
+<ul>
+<li><a href="/tour/sub02_04_01.do" target='_self' class='link_3th'>익사이팅 보령</a></li>
+<li><a href="/tour/sub02_04_02.do" target='_self' class='link_3th'>바다낚시</a></li>
+</ul>
+</li>
+<li><a href="/tour/sub02_05.do" target='_self' class='link_2th'>연간 주요행사</a>
+</li>
+
+			</ul>
+		</nav>
+	</div>	
+	<script>leftmenu();</script>
+	<!-- lnb :E -->	
+
+
+					<!-- lnb :E -->
+
+
+					<div id="contents_wrap">
+						<div class="location">
+							
+
+
+
+
+
+
+		
+
+
+
+
+
+
+
+
+
+<div class="navi">
+	<a class="home" href="/tour.do">홈</a>
+	<ul>	
+		<li>추천여행 </li>
+<li> 길따라 떠나는 여행 </li>
+<li> 성지순례길 </li>
+
+	</ul>
+</div>
+<ul class="snsbx">
+	<li class="fb">
+		<a href="#facebook" onclick="facebookOpen(); return false;" title="facebook, 새창에서 열림">facebook</a>
+	</li>
+	<li class="tw"><a href="#twitter" onclick="twitterOpen(); return false;" title="twitter, 새창에서 열림">twitter</a>
+	</li>
+	<li id="print" class="pr"><a href="#none">print</a></li>
+</ul>
+<h3> 성지순례길 
+</h3> 
+
+						</div>
+						<!-- contents :S --> 
+						<div id="contents">
+							
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+							
+
+<!-- 성지순례길 :S -->
+<div class="sub02_title04">
+	<strong><span>갈매못에서 순교한 성인들의 유해를</span><span class="next_txt">장장 12일동안 산길을 통해 운구해온</span>성지순례길</strong>
+	<ol class="pilgrimage_ol">
+		<li><span>완장포구</span></li>
+		<li><span>웅천읍내</span></li>
+		<li><span>웅천 성동리</span></li>
+		<li><span>주산화평리</span></li>
+		<li><span>보령댐</span></li>
+		<li><span>서짓골</span></li>
+	</ol>
+</div>
+<!-- 성지순례길 :E -->
+
+
+<p>갈매못 순교성지는 1866년 병인박해 때 다섯 분의 천주교 성인(聖人)이 군문효수형을 받아 순교한 후 인근 모래사장에 묻힌 곳이다. <Strong>갈매못-서짓골 성지 순례길</Strong>은 다블뤼 주교, 오매트르 신부, 위앵 신부, 장주기(요셉) 회장의 유해가 신자들에 의해 오천면 갈매못부터 미산면 서짓골 성지로 옮겨진 길이다. 신자들은 12일간 풍랑과 뇌우 속에서 바닷길과 산길을 통해 유해를 운구하여 서짓골에 안장하였다. 그리고 두 달 후 그 신자들 역시 발각되어 순교하였다. <span class="color_green">성인의 유해가 운반된 육상 동선 9.5Km가 성지순례길</span>이다. 
+순례길은 완장포구에서 시작해 1866~1882년까지 16년간 안장됐던 서짓골을 끝으로 마무리된다.</p>
+
+<h5 class="drive_h5">코스안내</h5>
+
+<div class="line_box">
+	<ul class="drive_infor">
+		<li class="list01 ov">거리 : <span class="color_blue">총 9km</span></li>
+		<li class="list02">시간 : <span class="color_org">약 3시간</span></li>
+	</ul>
+	<div class="comm_button drive_btn">
+		<a rel="noopener noreferrer" href="http://map.naver.com/index.nhn?x=126.5081746&amp;y=36.4282641" class="btn_type4" target="_blank" title="새창으로 API보기 홈페이지로 이동합니다.">API보기</a>
+	</div>
+	<ul class="drive_infor2">
+		<li class="list03 ov">
+			<ol>
+				<li>완장포구 →</li>
+				<li>웅천읍내 →</li>
+				<li>웅천 성동리 →</li>
+				<li>주산 화평리 →</li>
+				<li>보령댐 →</li>
+				<li>서짓골</li>
+			</ol>
+		</li>
+	</ul>
+</div>
+
+
+<div class="shrine_img">
+	<img src="../../../images/tour/sub02/shrine_sub02_02_02_img.jpg" alt="성지순례길 지도" style="width:100%;">
+</div>
+
+
+<h5 class="info1_h5">정보하나</h5>
+ <p class="bottom_line">16년간 안장되었던 4명의 천주교 성인(聖人)은 1882년 3월 블랑 부주교의 지시로 발굴되었고, 일본 나가사키와 서울 용산 신학교로 옮겨졌다가 1900년 9월 명동 주교좌 성당의 지하실에 안치되었다.</p>
+
+<h5 class="travel_h5">여행정보</h5>
+<div class="around_btn"><a href="/prog/attraction/tour/sub01_06/view.do?listOrder=&searchCondition=&searchKeyword=&searchLocalCode=&searchMonth=&themeCode=1068&attractionCode=12">주변관광지</a></div>
+<div class="travel_infor">
+	<ul>
+		<li>여행팁
+			<ul>
+				<li>천주교 박해시대 오천 갈매못에서 군문효수로 순교한 다섯 순교자 중 4명의 유해를 임시 안장했던 곳인 서짓골 성지에서 보령호 최고의 경치를 볼 수 있다.</li>
+			</ul>
+		</li>
+		<li>이용문의
+			<ul>
+				<li>갈매못 성지</li>
+				<li>보령호</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+							<!-- 컨텐츠 담당자 :S -->																
+							
+
+
+
+<div class='charge'>
+<dl class='admin_info'>
+<dt class='dept'>담당부서 :</dt>
+<dd>관광과</dd>
+<dt class='mngphone'>연락처 :</dt>
+<dd>041-930-6564</dd>
+</dl>
+<dl class='modDate'>
+<dt>최종수정일 :</dt>
+<dd>2025-02-27 09:55</dd>
+</dl>
+</div>
+														
+							<!-- 컨텐츠 담당자 :E -->				
+							<!-- 만족도조사 :S -->
+							
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+function researchCheckForm(){
+	
+	
+	if($('input:radio[name=point]').is(":checked")==false  ) 
+	{
+		alert('점수를 선택해 주세요.');
+		$('#research_point_3').focus();
+		return false;
+	}
+	
+	
+	if($('#research_descript').val() == ''){
+		alert('의견을 남겨주세요.');
+		$('#research_descript').focus();
+		return false;
+	}
+  
+	var research_descript = $('#research_descript').val();
+	var research_siteCode = $('#research_siteCode').val();
+	var research_mno = $('#research_mno').val();
+	var research_point = $(':radio[name="point"]:checked').val();
+	var research_title = $('#research_title').val();
+	var research_userid = $('#research_userid').val();
+
+
+	$.ajax({
+		url: '/prog/research/insert.do',
+        type: 'POST',     
+        data : {
+            "descript" : research_descript,
+            "siteCode" : research_siteCode,
+            "mno" : research_mno,
+            "title" : research_title,
+            "userid" : research_userid,
+            "point" : research_point
+		},
+        success : function() {
+        	$('#research_descript').val('');
+        	$("input:radio[name='point']").attr("checked",false); 
+        	alert('정상적으로 등록되었습니다.');
+        		
+        }
+    });
+}
+
+</script> 
+
+
+<div class="satisfaction">
+	<form name="researchForm" id="researchForm"   method="POST" >
+	<input type="hidden" name="siteCode" id="research_siteCode" value="tour" />
+	<input type="hidden" name="mno" id="research_mno" value="sub02_02_02" />
+	<input type="hidden" name="title" id="research_title" value="성지순례길" />
+	<input type="hidden" name="userid" id="research_userid" value="" />
+	<fieldset>
+		
+		
+		
+			<legend>만족도조사</legend>
+			<div class="research">
+				<p>이 페이지에서 제공하는 정보에 대하여 만족하십니까?</p>
+				<ul class="star">
+					<li><input name="point" class="point_radio" type="radio"  id="research_point_1" value="5" /><label for="research_point_1" class="star_01"><span>매우만족</span></label></li>
+					<li><input name="point" class="point_radio" type="radio"  id="research_point_2" value="4" /><label for="research_point_2" class="star_02"><span>만족</span></label></li>
+					<li><input name="point" class="point_radio" type="radio"  id="research_point_3" value="3" /><label for="research_point_3" class="star_03"><span>보통</span></label></li>
+					<li><input name="point" class="point_radio" type="radio"  id="research_point_4" value="2" /><label for="research_point_4" class="star_04"><span>불만족</span></label></li>
+					<li><input name="point" class="point_radio" type="radio"  id="research_point_5" value="1" /><label for="research_point_5" class="star_05"><span>매우불만족</span></label></li>
+				</ul>
+				<div class="survey_txt">
+					<label for="research_descript" class="flow">여러분들의 의견을 남겨주세요.</label>
+					<input name="descript" id="research_descript" type="text" title="여러분들의 의견을 남겨주세요." value="" /><input type="button" value="입력" onclick="researchCheckForm(); return false;"  title="입력" />
+				</div>
+			</div>
+		
+		
+	</fieldset>
+	</form> 
+</div>
+							<!-- 만족도조사 :E -->
+						</div>
+						<!-- contents :E --> 
+					</div>	
+				</div>
+			</div>			
+					
+	
+
+
+	<!-- footer :S -->
+	
+
+
+
+	<div id="footer">
+		<div class="layout">
+			<ul class="menus">
+				<li><a rel="noopener noreferrer" href="http://www.brcn.go.kr/kor/sitemap_13.do"  title="새창" target="_blank">개인정보처리방침</a></li>
+				<li><a rel="noopener noreferrer" href="http://www.brcn.go.kr/kor/sitemap_20.do" target="_blank"  title="새창">저작권 정책</a></li>
+				<li><a rel="noopener noreferrer" href="http://www.brcn.go.kr/kor/sitemap_16.do" title="새창" target="_blank">이메일무단수집거부</a></li>
+				<li><a rel="noopener noreferrer" href="http://www.brcn.go.kr/cop/bbs/BBSMSTR_000000000394/selectBoardList.do" title="새창" target="_blank">홈페이지개선의견</a></li>
+			</ul>
+			<ul class="menus2">
+				<li><a rel="noopener noreferrer" href="http://mud.brcn.go.kr/cosmetic/cosmetic01.php" title="새창" target="_blank">머드이야기</a></li>
+			    <li><a href="/download/tour/brtourmap_ver01.pdf" title="새창" target="_blank">보령관광지도</a></li>
+                <li><a href="/itv.do" title="새창" target="_blank">보령TV</a></li>
+				<li><a href="/prog/tour_hotel/tour/sub04_04/list.do">숙박정보</a></li>
+				<li><a href="/kor/sub05_07_01_04.do" target="_blank" title="새창">교통정보</a></li>
+			</ul>
+			<div class="ft_btm">
+				<address>
+					[33483] 충청남도 보령시 성주산로 77. TEL : <a href="tel:041-930-3114">041-930-3114</a><br>
+				<span>본 웹사이트에 게시된 이메일 주소가 자동수집되는 것을 거부하며, 위반시 "정보통신망법"에 의해 처벌됨을 유념하시기 바랍니다</span>
+			</address>
+				<p class="copy">Copyright &copy; Boryeong City. All Right Reserved</p>
+				<ul class="sns_lst">
+					<li data-sns="1"><a rel="noopener noreferrer" href="https://www.facebook.com/manseboryeongsi" target="_blank"  title="새창">facebook</a></li>
+					<li data-sns="2"><a rel="noopener noreferrer" href="http://blog.naver.com/boryeongsi" target="_blank"  title="새창">blog</a></li>
+					<li data-sns="3"><a rel="noopener noreferrer" href="https://story.kakao.com/ch/boryeong" target="_blank"  title="새창">kakao story</a></li>
+					<li data-sns="4"><a rel="noopener noreferrer" href="https://www.youtube.com/channel/UCfCIXETqWEHOcpiMbRqEE0Q" target="_blank"  title="새창">youtube</a></li>
+					<li data-sns="5"><a rel="noopener noreferrer" href="http://post.naver.com/boryeongsi" target="_blank"  title="새창">naver post</a></li>
+					<li data-sns="6"><a rel="noopener noreferrer" href="https://www.instagram.com/boryeongsi" target="_blank"  title="새창">instagram</a></li>
+					<li data-sns="7"><a rel="noopener noreferrer" href="https://tv.kakao.com/channel/3154464/cliplink/397482975?metaObjectType=Channel" target="_blank"  title="새창">kakao tv</a></li>
+					<li data-sns="8"><a rel="noopener noreferrer" href="https://pf.kakao.com/_lAXPxb" target="_blank"  title="새창">kakao channel</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-79738324-10" integrity="sha256-NGnQ1UaLzaZ7yE+zPtuctgGk45IfVGJm+fcdgREdrpo=" crossorigin="anonymous"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-79738324-10');
+</script>
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script src="https://www.googletagmanager.com/gtag/js?id=G-3FL5Z6JPVK" integrity="sha256-DZBSe299ybdIcWnkcWHLEMkctgu3vsEhnhEwrMLgbYE=" crossorigin="anonymous"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3FL5Z6JPVK');
+</script>
+	<!-- footer :E -->
+
+	<a href="#" id="top_btn">top버튼</a>
+</div>
+</body>
+</html>

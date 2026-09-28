@@ -1,0 +1,982 @@
+	<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta property="fb:app_id" content="APP_ID" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="순교자현양위원회" />
+<meta property="og:url" content="" />
+<meta property="og:description" content="천주교 서울대교구 순교자현양위원회 홈페이지입니다" />
+<meta property="og:image" content="/_img/mmobile/kakaotalk_img.JPG" />
+<title>순교자현양위원회 | 천주교 서울 순례길</title>
+<link rel="stylesheet" type="text/css" href="/_css/common.css?v=20260929015041">
+<link href='//fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" type="text/css" href="/_css/cont.css?v=20260929015041">
+<!--<script src="/_js/jquery-3.1.1.min.js"></script>-->
+<!--[if lt IE 9]>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<![endif]-->
+<!--[if IE 9]><!-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/_js/jquery-ui.js"></script>
+<script src="/_js/util.js"></script>
+<script src="/_js/common.js"></script>
+<script src="/_js/slick.min.js"></script>
+<script src="/_js/loadingoverlay.min.js"></script>
+<link rel="shortcut icon" href="/_img/mmain/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/_img/mmain/favicon.png" type="image/x-icon" />
+
+
+</head>
+
+<body class="pilgrim">
+
+<script src="/_plugin/PinZoomer/js/hammer.min.js" type="text/javascript"></script>
+<script src="/_plugin/PinZoomer/js/TweenMax.min.js" type="text/javascript"></script>
+<script src="/_plugin/PinZoomer/js/jquery.pinchzoomer.min.js" type="text/javascript"></script>
+  <div id="wrap" class="pilgrims">
+    
+
+<header id="header">
+  <div class="skip blind">
+    <strong>바로가기 목록</strong>
+    <ul class="list_skip">
+      <li><a href="#gnb">메뉴 바로가기</a></li>
+	        <li><a href="#contents">본문 바로가기</a></li>
+	      </ul>
+  </div>
+  <div id="top">
+    <div class="ww">
+	        <h1 class="pc"><a href="/_web/"><img src="/_img/mcommon/logo_top_w.png" alt="천주교서울대교구"></a></h1>	  
+	        <div class="ui_mo">
+	   <h1><a href="/_web/main/main.html" class="block"><img src="/_img/mcommon/logo_top.png" alt="천주교서울대교구 순교자현양위원회"></a></h1>
+	   <!--
+        <div class="lang">
+          <span id="crtLang">Ko</span>
+          <select id="sltLang">
+            <option value="/">Ko</option>
+            <option value="/en/main/main.html">En</option>
+          </select>
+        </div>
+		-->
+        <button type="button" onclick="tglMenu();" class="open_menu">메뉴 열기</button>
+      </div>
+      <div class="left">
+        <a href="/_web/mabout/about.html">순교자현양위원회 소개</a>
+		<a href="/_web/msub/sponsor.html">후원안내</a>
+		<a href="/_web/msub/prayer.html">기도문</a>
+      </div>
+      <div class="right">
+        
+		<a href="/_web/msub/faq_list.html">이용안내</a>
+		<a href="javascript:void(0);" class="sitemap">사이트맵</a>		
+          <div class="wrap_slt">
+		  
+          <select class="slt lang">
+            <option value="/" selected>Korean</option>
+            <option value="/en/main/main.html" >English</option>
+          </select>
+		<script>
+	    $( ".lang" ).selectmenu({
+	    	  change: function( event, ui ) {
+	    		location.href=this.value;
+			}
+	   	});
+		</script>
+
+        </div>  
+      </div>
+    </div>
+
+  </div>
+  <div id="menu" >
+    <button type="button" class="ui_mo tgl_menu"><span class="open">메뉴 열기</span></button>
+    <div class="ww">
+      <nav id="gnb">
+        <div class="ui_mo">
+          <div class="hd_menu">
+           <a href="/_web/" class="link_home"><img src="/_img/mcommon/logo_footer.png" alt="홈으로"></a>
+          </div>
+	  <div class="hd_menu2">
+		<a href="/_web/mabout/about.html" class="menutt">순교자 현양위원회 소개</a>
+		<a href="/_web/msub/prayer.html">기도문</a>
+	  </div>
+        </div>
+        <h2 class="blind">사이트 메뉴</h2>
+        <ul class="menu_gnb">
+          <li class="menu1 d1 on">
+            <a href="/_web/mpilgrims/about.html" class="menutt">성지 순례</a>
+            <div class="sub">
+              <strong class="tit_sub">성지순례</strong>
+              <ul class="list_sub">
+			  			  <li><a href="/_web/mpilgrims/programapply.html">순례 신청하기</a></li>
+			  			  <li><a href="/_web/mpilgrims/program.html">순례 프로그램</a></li>
+			  			  <li><a href="/_web/mpilgrims/pilmass.html">순례지 미사안내</a></li>
+			  			  <li><a href="/_web/mpilgrims/about.html">천주교 서울 순례길</a></li>
+			  			  <li><a href="/_web/mpilgrims/reservlogin.html">신청확인</a></li>
+			                  <!-- 페이지 위쪽에서 배열로 지정해서 불러들이고 있음. -->
+              </ul>
+            </div>
+          </li>
+          <li class="menu2 d1 ">
+          <a href="/_web/martyr/martyrdom.html" class="menutt">순교자현양</a>
+          <div class="sub">
+            <strong class="tit_sub">순교자현양</strong>
+            <ul class="list_sub">
+              			  <li><a href="/_web/martyr/martyrdom.html">순교자현양미사</a></li>
+			  			  <li><a href="/_web/mwebzine/webzine_list.html?tab=WZ11">특별미사 및 행사</a></li>
+			  			  <li><a href="/_web/martyr/martyrstory.html">200주년 희년</a></li>
+			              </ul>
+          </div>
+          </li>
+          <li class="menu3 d1 ">
+            <a href="/_web/mwebzine/webzine_list.html?tab=WZ01" class="menutt">주요사업</a>
+            <div class="sub">
+              <strong class="tit_sub">주요사업</strong>
+              <ul class="list_sub">
+                			  <li><a href="/_web/mwebzine/webzine_list.html?tab=WZ01">사적지ㆍ순례지 조성</a></li>
+			  			  <li><a href="/_web/mwebzine/webzine_list.html?tab=WZ16">성지순례 프로그램</a></li>
+			  			  <li><a href="/_web/mwebzine/webzine_list.html?tab=WZ17">아시아 순례 네트워크</a></li>
+			  			  <li><a href="/_web/mwebzine/webzine_list.html?tab=WZ18">한국순례주간</a></li>
+			  			  <li><a href="/_web/mwebzine/webzine_list.html?tab=WZ19">대외협력과 교류</a></li>
+			                </ul>
+            </div>
+          </li>
+		  <li class="menu4 d1 ">
+            <a href="/_web/mwebzine/webzine_list.html?tab=WZ12" class="menutt">전시ㆍ교육</a>
+            <div class="sub">
+              <strong class="tit_sub">전시ㆍ교육</strong>
+              <ul class="list_sub">
+                			  <li><a href="/_web/mwebzine/webzine_list.html?tab=WZ12">전시</a></li>
+			  			  <li><a href="/_web/mwebzine/webzine_list.html?tab=WZ13">서울대교구 역사관</a></li>
+			  			  <li><a href="/_web/mwebzine/webzine_list.html?tab=WZ14">교육</a></li>
+			  			  <li><a href="/_web/mwebzine/webzine_list.html?tab=WZ15">연구</a></li>
+			                </ul>
+            </div>
+          </li>
+          <li class="menu5 d1 ">
+            <a href="/_web/mcommunity/iboard_list.html?tab=IB01" class="menutt">간행물</a>
+           <div class="sub">
+              <strong class="tit_sub">간행물</strong>
+			  <ul class="list_sub">
+               			  <li><a href="/_web/mcommunity/iboard_list.html?tab=IB01">순교자현양회보</a></li>
+			  			  <li><a href="/_web/mcommunity/iboard_list.html?tab=IB02">The Pilgrims</a></li>
+			  	
+              </ul>
+            </div>
+          </li>
+		   <li class="menu6 d1 ">
+            <a href="/_web/mcommunity/board_list.html?tab=BD01" class="menutt">소통공간</a>
+           <div class="sub">
+              <strong class="tit_sub">소통공간</strong>
+			  <ul class="list_sub">
+						  <li><a href="/_web/mcommunity/board_list.html?tab=BD01">공지사항</a></li>
+			  			  <li><a href="/_web/mcommunity/board_list.html?tab=BD02">언론보도</a></li>
+			  			  <li><a href="/_web/mcommunity/board_list.html?tab=BD03">자료실</a></li>
+			  			  <li><a href="/_web/mcommunity/gallery_list.html?tab=GL01">사진갤러리</a></li>
+			  			  <li><a href="/_web/mcommunity/gallery_list.html?tab=GL02">영상갤러리</a></li>
+			  			  <li><a href="/_web/mcommunity/sns.html">SNS갤러리</a></li>
+			  			  <li><a href="/_web/mcommunity/event_list.html">이벤트</a></li>
+			  			  
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <button type="button" class="open tgl_menu">메뉴 전체보기</button>
+        <button type="button" class="close tgl_menu ico_bfr">닫기</button>
+        <div class="ui_mo">
+         
+	  <div class="hd_menu2 darker">
+		<a href="/_web/msub/sponsor.html">후원안내</a>
+		<a href="/_web/msub/faq_list.html">이용안내</a>
+	  </div>
+        </div>
+      </nav>
+      <script type="text/javascript">
+        $(function(){
+          $('.tgl_menu').click(function(){
+            $('#header').toggleClass('on')
+			$('#menu').toggleClass('on')
+			$('.menu_gnb > li').toggleClass('on')
+          });
+          $('.sitemap').click(function(){
+            $('#header').toggleClass('on')
+			$('#menu').toggleClass('on')
+			$('.menu_gnb > li').toggleClass('on')
+          });		  
+        });
+        $(document).ready(function(){
+          if($(window).width()<720){
+            $(document).mousedown(function(e) {
+          		$('#gnb').each(function() {
+          			if( $(this).css('display') == 'block' ) {
+          				var objPos = $(this).offset();
+          				objPos.right = (objPos.left + $(this).width());
+          				objPos.bottom = (objPos.top + $(this).height());
+          				if( e.pageX < objPos.left || e.pageX > objPos.right
+          				 || e.pageY < objPos.top || e.pageY > objPos.bottom ) {
+          					$('#header').removeClass('on')
+          				}
+          			}
+          		});
+          	});
+          }
+
+        });
+      </script>
+
+    </div>
+  </div>
+
+</header>
+
+<div id="visual">
+  <div class="ww">
+    <div class="inner">
+      <h3 class="tit">성지 순례</h3>
+            <p class="desc">순례지는 자신을 재발견하고 회개에 필요한 힘을 되찾는 안식처가 될 수 있고<br />
+참다운 복음화의 장소라는 특징을 갖는다. – 교황 프란치스코</p>
+          </div>
+    <strong class="blind">현재 위치</strong>
+    <ul class="location">
+      <li><a href="/_web/main/main.html"><i class="ico_comm">홈</i></a></li>
+      <li class="ico_bfr">성지 순례</li>
+      <li class="ico_bfr">천주교 서울 순례길</li>
+    </ul>
+  </div>
+</div>
+
+<div id="sub">
+  <div class="ww">
+    <ul class="list_sub">
+	
+Deprecated: The each() function is deprecated. This message will be suppressed on further calls in /martyrs2014/www/_inc/header.inc on line 383
+		<li>
+		<a href="/_web/mpilgrims/programapply.html"><span>순례 신청하기</span></a></li>
+				<li>
+		<a href="/_web/mpilgrims/program.html"><span>순례 프로그램</span></a></li>
+				<li>
+		<a href="/_web/mpilgrims/pilmass.html"><span>순례지 미사안내</span></a></li>
+				<li class="on">
+		<a href="/_web/mpilgrims/about.html"><span>천주교 서울 순례길</span></a></li>
+				<li>
+		<a href="/_web/mpilgrims/reservlogin.html"><span>신청확인</span></a></li>
+			    </ul>
+  </div>
+</div>
+<script type="text/javascript">
+
+  $(function(){
+	$('#sltLang').change(function(){
+	  var lang = $(this).find("option:selected").text();
+	  $('#crtLang').html(lang)
+	})
+  });
+$(document).ready(function(){
+    if($(window).width()<1000){
+		var _winW = $(window).width()*0.5;
+		var x=$("#sub .list_sub .on").position();
+		if( x.left > 0 ){
+			$('#sub .ww').scrollLeft(x.left);				
+		}
+    }
+})
+</script>
+
+<script>
+/*아이폰 클릭문제*/
+$(document).ready(function(){
+	var isMobile = false; //initiate as false
+	// device detection
+	if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
+	    || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) {
+	    isMobile = true;
+	}
+	if(isMobile){
+		$(".menu_gnb > li").hover(function(){
+			window.location.href=$(this).children().attr("href");
+		});
+	}
+});
+</script>
+    <div id="contents">
+		<h2 class="blind">본문</h2>
+		<div id="aboutcourse">
+			<div class="tit_cont">
+				<p class="desc">교황청 승인 국제순례지</p>
+				<h4 class="tit ico_bfr">천주교 서울 순례길</h4>
+			</div>		
+
+			<div class="wn">
+				
+				<ul class="tab_comm pc">
+					<li class=""><a href="about.html">국제순례지 <span>선포</span></a></li>
+					<li class=""><a href="aboutcourse.html?cidx=6">말씀의 길<span>(1코스)</span></a></li>
+					<li class=""><a href="aboutcourse.html?cidx=7">생명의 길<span>(2코스)</span></a></li>
+					<li class=""><a href="aboutcourse.html?cidx=8">일치의 길<span>(3코스)</span></a></li>
+ 				    <li class="on"><a href="aboutcourse.html?cidx=109">김대건 신부<span> 치명 순교길</span></a></li>  
+				</ul>
+
+				<ul class="tab_comm mobile" style="margin-bottom: 1rem; ">
+					<li class=""><a href="about.html">국제순례지 <span>선포</span></a></li>
+				</ul>
+				<ul  id="phil" class="tab_comm mobile">
+					<li class=""><a href="aboutcourse.html?cidx=6">말씀의 길<span>(1코스)</span></a></li>
+					<li class=""><a href="aboutcourse.html?cidx=7">생명의 길<span>(2코스)</span></a></li>
+					<li class=""><a href="aboutcourse.html?cidx=8">일치의 길<span>(3코스)</span></a></li>
+					<li class="on"><a href="aboutcourse.html?cidx=109">김대건 신부 <span>치명 순례길</span></a></li>
+				</ul>
+
+				<div class="titlewrap" style="background-image:url('/pic/course/ccoursebg20201126164322.jpg')">
+					<div class="iwrapm mobile"><img src="/pic/course/ccoursebg20201126164322.jpg" /></div>
+					<div class="txtbox">		
+												<div class="tit_bar" class="cpurple">
+							<h5 class="cpurple">첫 사제의 마지막 순교길</h5>
+							<h3 class="cpurple">김대건 신부 치명 순교길</h3>
+						</div>
+						<div class="wrap_btn">
+							<a href="/_web/martyr/martyrstory.html" class="btn_navy" target="_blank">성 김대건 안드레아 신부 <span>탄생 200주년 희년</span></a>
+						</div>
+												
+						<p>
+						김대건 신부 치명 순교길은 교황청 승인 국제 순례지인 ‘천주교 서울 순례길’에 속해 있습니다. 김대건 신부님이 순교성인으로 다시 태어나 영원한 생명의 길을 향해 걸으셨던 마지막 순교길이었습니다. 우포도청 터에서 서소문 밖 네거리 순교성지, 당고개 순교성지, 새남터 순교성지, 그리고 절두산 순교성지에 이르는 치명 순교길 순례를 통해 그의 순교영성을 기억해보고자 합니다. <br />
+<br />
+‘2021년 유네스코UNESCO 세계 기념 인물’로 선정된 ‘김대건 안드레아 신부님 탄생 200주년 희년’을 맞이하여, 그의 말씀과 행적 그리고 순교정신을 기억하고 재조명하며, 우리 모두 새로운 자세와 각오로 교회와 세상 안에서 복음의 기쁨을 전하는 희년을 보냈으면 합니다. 2020년 11월 29일 희년 개막 미사시작과 함께 첫 순례단이 ‘김대건 신부 치명 순교길’을 함께 하며 치명순교길 도보순례는 계속 될 예정입니다. 신자 여러분의 많은 관심과 동행을 부탁드립니다.<br />
+<br />
+						</p>
+						<div class="dl_type1">
+							<dl>
+								<dt>거리</dt>
+								<dd >약 12.7km</dd>
+								<dt>소요시간</dt>
+								<dd>약 4~5시간(도보)</dd>
+							</dl>
+						</div>
+					</div>
+			    </div>
+				<div class="tit_bar">
+					<h3 class="tit">김대건 신부 치명 순교길_ 경로안내</h3>
+					<div class="txt_bar"></div>
+				</div>	
+				<div class="iwrap">
+					<img src="/pic/course/ccourse20201127172226.jpg" alt="코스 이미지맵"/>
+				</div>	
+				<div class="tit_bar withbtn">
+					<h3 class="tit">김대건 신부 치명 순교길_ 상세보기</h3>
+					
+					<div class="icon_zoommap pc">
+						<a href="#" target="_blank" >
+						<span class=""><i class="icon_magnify"></i>크게 보시려면 지도이미지를 더블클릭하세요</span>						
+						</a>
+					</div>					
+					
+					
+				</div>
+				<div class="iwrapbig mobile">
+				<img src="/pic/course/1220_4course.jpg" alt="코스 이미지맵"  />
+				</div>
+				<div class="zoomHolder pc">
+				<img src="/pic/course/1220_4course.jpg" alt="코스 이미지맵"  data-elem="pinchzoomer"/>
+				</div>
+
+				
+				<div class="tit_bar">
+					<h3 class="tit">김대건 신부 치명 순교길_ 지도안내</h3>
+					<div class="txt_bar"></div>
+				</div>
+				<div class="map_wrap">
+					<div id="map" class="imgwrap" style="width:100%;height:600px;"></div>
+					
+					
+					<div class="custom_zoomcontrol radius_border"> 
+						<span onclick="zoomIn()"><img src="http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대"></span>  
+						<span onclick="zoomOut()"><img src="http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" alt="축소"></span>
+					</div>
+				</div>
+			
+				<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74bd2d0c3b197b24a8e025a8594a042b"></script>
+					<style>
+.map_wrap {position:relative;overflow:hidden;width:100%;height:600px;}
+.radius_border{border:1px solid #919191;border-radius:5px;}      
+.custom_zoomcontrol {position:absolute;top:10px;right:10px;width:36px;height:80px;overflow:hidden;z-index:1;background-color:#f5f5f5;} 
+.custom_zoomcontrol span {display:block;width:36px;height:40px;text-align:center;cursor:pointer;}     
+.custom_zoomcontrol span img {width:15px;height:15px;padding:12px 0;border:none;}             
+.custom_zoomcontrol span:first-child{border-bottom:1px solid #bfbfbf;}            
+
+.customoverlay {position:relative;bottom:80px;border-radius:10px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+.customoverlay .title {display:block;text-align:center;background:#fff;padding:10px 15px;margin-right:35px;font-size:14px;font-weight:bold;}
+.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+</style>
+<script>
+var MARKER_WIDTH = 36, // 기본, 클릭 마커의 너비
+    MARKER_HEIGHT = 44, // 기본, 클릭 마커의 높이
+    OFFSET_X = 18, // 기본, 클릭 마커의 기준 X좌표
+    OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
+    OVER_MARKER_WIDTH = 40, // 오버 마커의 너비
+    OVER_MARKER_HEIGHT = 42, // 오버 마커의 높이
+    OVER_OFFSET_X = 13, // 오버 마커의 기준 X좌표
+    OVER_OFFSET_Y = OVER_MARKER_HEIGHT, // 오버 마커의 기준 Y좌표
+    SPRITE_MARKER_URL = '/_img/msub/course_icon5.png', // 스프라이트 마커 이미지 URL
+    SPRITE_WIDTH = 36, // 스프라이트 이미지 너비
+    SPRITE_HEIGHT = 600, // 스프라이트 이미지 높이
+    SPRITE_GAP = 23; // 스프라이트 이미지에서 마커간 간격
+
+var markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
+    markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
+    overMarkerSize = new kakao.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // 오버 마커의 크기
+    overMarkerOffset = new kakao.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
+    spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
+
+var positions = [
+	new kakao.maps.LatLng(37.570080245558,126.97783890095),
+	new kakao.maps.LatLng(37.560649, 126.969210),
+	new kakao.maps.LatLng(37.5353773, 126.9665386),
+	new kakao.maps.LatLng(37.524879186502, 126.95680712305),
+	new kakao.maps.LatLng(37.544424740058, 126.91161817703)
+    ],
+    selectedMarker = null; // 클릭한 마커를 담을 변수
+var contents = [
+	"1. 우포도청 터",
+	"2. 서소문 밖 네거리 순교성지",
+	"3. 당고개 순교성지",
+	"4. 새남터 순교성지",
+	"5. 절두산 순교성지"
+    ],
+    selectedMarker = null; // 클릭한 마커를 담을 변수	
+var links = [
+	"https://map.kakao.com/link/to/광화문 우체국,37.570080245558,126.97783890095",
+	"https://map.kakao.com/link/to/서소문성지역사박물관,37.560649, 126.969210",
+	"https://map.kakao.com/link/to/청파로 139-26,37.5353773,126.9665386",
+	"https://map.kakao.com/link/to/용산구 이촌로 80-8,37.524879186502,126.95680712305",
+	"https://map.kakao.com/link/to/마포구 토정로 6,37.544424740058,126.91161817703"
+    ]	
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = { 
+        center: new kakao.maps.LatLng(37.55910714357,126.96744382979), // 지도의 중심좌표
+        level: 4 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+var contt = '<div class="customoverlay">' +
+    '  <a href="';
+var contm =' " target="_blank">' +
+    '    <span class="title">';
+var contb =	'</span>' +
+		'  </a>' +
+		'</div>';
+// 지도 위에 마커를 표시합니다
+for (var i = 0, len = positions.length; i < len; i++) {
+    var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
+        originY = (MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
+        overOriginY = (OVER_MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
+        normalOrigin = new kakao.maps.Point(0, originY), // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
+        clickOrigin = new kakao.maps.Point(gapX, originY), // 스프라이트 이미지에서 마우스오버 마커로 사용할 영역의 좌상단 좌표
+        overOrigin = new kakao.maps.Point(gapX * 2, overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
+        
+    // 마커를 생성하고 지도위에 표시합니다
+    addMarker(positions[i], normalOrigin, overOrigin, clickOrigin);
+}
+for (var i = 0, len = positions.length; i < len; i++) {
+	var customOverlay = new kakao.maps.CustomOverlay({
+		position: positions[i],
+		content: contt + links[i] + contm + contents[i] +contb   
+	});
+	customOverlay.setMap(map);
+	
+}
+// 마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
+function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
+
+    // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
+    var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
+        overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
+        clickImage = createMarkerImage(markerSize, markerOffset, clickOrigin);
+    
+    // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: position,
+        image: normalImage
+    });
+
+    // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
+    marker.normalImage = normalImage;
+}
+// MakrerImage 객체를 생성하여 반환하는 함수입니다
+function createMarkerImage(markerSize, offset, spriteOrigin) {
+    var markerImage = new kakao.maps.MarkerImage(
+        SPRITE_MARKER_URL, // 스프라이트 마커 이미지 URL
+        markerSize, // 마커의 크기
+        {
+            offset: offset, // 마커 이미지에서의 기준 좌표
+            spriteOrigin: spriteOrigin, // 스트라이프 이미지 중 사용할 영역의 좌상단 좌표
+            spriteSize: spriteImageSize // 스프라이트 이미지의 크기
+        }
+    );
+    
+    return markerImage;
+}
+/*
+// 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+
+var linePath = [
+	new kakao.maps.LatLng(37.570080245558,126.97783890095),
+	new kakao.maps.LatLng(37.560649, 126.969210),
+	new kakao.maps.LatLng(37.5353773, 126.9665386),
+	new kakao.maps.LatLng(37.524879186502, 126.95680712305),
+	new kakao.maps.LatLng(37.544424740058, 126.91161817703)
+];
+
+// 지도에 표시할 선을 생성합니다
+var polyline = new kakao.maps.Polyline({
+    path: linePath, // 선을 구성하는 좌표배열 입니다
+    strokeWeight: 5, // 선의 두께 입니다
+    strokeColor: '#0fb083;', // 선의 색깔입니다
+    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'solid' // 선의 스타일입니다
+});
+
+// 지도에 선을 표시합니다 
+polyline.setMap(map); 
+// 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
+function setMapType(maptype) { 
+    var roadmapControl = document.getElementById('btnRoadmap');
+    var skyviewControl = document.getElementById('btnSkyview'); 
+    if (maptype === 'roadmap') {
+        map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);    
+        roadmapControl.className = 'selected_btn';
+        skyviewControl.className = 'btn';
+    } else {
+        map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);    
+        skyviewControl.className = 'selected_btn';
+        roadmapControl.className = 'btn';
+    }
+}
+*/
+// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+function zoomIn() {
+    map.setLevel(map.getLevel() - 1);
+}
+
+// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+function zoomOut() {
+    map.setLevel(map.getLevel() + 1);
+} 
+</script>					
+				<div class="tit_bar">
+					<h3 class="tit">김대건 신부 치명 순교길_ 코스소개</h3>
+					<div class="txt_bar"></div>
+				</div>				
+		    </div><!--//wn-->
+			<!--owl-->
+			<script src="/_plugin/owl/docs/assets/owlcarousel/owl.carousel.js"></script>
+
+ <section id="owl">
+          <div class="owl-carousel owl-theme slider_course wn cpurple">
+            			  
+					<div class="item">
+					  <div class="lthumb">
+					  <div class="owl-carouselin owlin-theme ">
+						<div class="item thumb">
+						<img src="/pic/course/crthumb120201126172343.jpg" class="fitsize" alt="1. 우포도청 터" style="width:100% !important" />
+						</div>
+																														
+						</div>
+						<div class="info">
+							<div class="mobile">
+								<div class="tits"><h3 class="cpurple tleft"><span class="cpurplebg">1</span> 우포도청 터</h3>
+								<h3 class="cpurple tright">
+																</div>
+							</div>
+							<div class="dl_type1">
+								<dl>
+																												
+																			
+									<dt>위치</dt>
+									<dd><a href="https://map.kakao.com/link/to/광화문 우체국,37.570080245558,126.97783890095" target="_blank">서울시 종로구 종로6 <br />광화문 우체국 앞 화단</a></dd>																	</dl>
+							</div>
+						</div>
+					  </div>
+					  <div class="cont">
+						  <div class="pc">
+							<div class="tits"><h3 class="cpurple tleft"><span class="cpurplebg">1</span> 우포도청 터</h3>
+							<h3 class="cpurple tright">
+														서울시 종로구 종로6 광화문 우체국 앞 화단														</h3>
+							</div>
+						  </div>
+						<p>
+						우포도청(현 광화문 우체국)은 최초의 한국인 사제인 김대건 안드레아 신부가 성직자영입을 위하여 새로운 장소를 찾으려고 건너갔던 순위도에서 체포되어 순교하기 직전까지 3개월간 투옥되어 국문을 거치면서 신앙을 증언한 장소이다. 김대건 신부는 1846년 6월 19일 한양 포도청으로 이송되었고, 처형에 앞서 이곳에서 조선 교우들에게 보내는 마지막 옥중 서한을 작성하였다. 마지막 서한에서 ‘부디 서로 우애를 잊지 말고 돕고, 아울러 주 우리를 불쌍히 여기시어 환난을 걷기까지 기다려라’고 당부하며, ‘내 죽는 것을 부디 서러워하지 말고 큰 사랑을 이뤄, 한 몸같이 주님을 섬기다가 사후에 한가지로 영원히 천주 대전에서 만나 길이 누리기를 천만 바란다.’는 마지막 인사를 남겼다. 아울러 우포도청은 한국천주교회의 마지막 순교자들이 희생된 곳이기도 하다. 충청도 공주 지방에서 사목하던 드게트 신부와 신자들이 공주 감영을 거쳐 우포도청으로 압송되었다. 박해가 최고조에 다다랐던 시기처럼 혹독한 고문이 자행되지는 않았지만 투옥된 교인들을 괴롭힌 것은 가혹한 굶주림이었다. 결국 압송된 신자들 중 이병교 레오, 김덕빈 바오로, 이용헌 이시도로 등이 우포도청 옥에서 아사로 순교하였으며 이들이 바로 한국천주교회 마지막 순교자들이다. <br />
+						</p>
+						
+					  </div>
+					</div>
+					
+				  
+					<div class="item">
+					  <div class="lthumb">
+					  <div class="owl-carouselin owlin-theme ">
+						<div class="item thumb">
+						<img src="/pic/course/crthumb120201126172458.jpg" class="fitsize" alt="2. 서소문 밖 네거리 순교성지" style="width:100% !important" />
+						</div>
+																														
+						</div>
+						<div class="info">
+							<div class="mobile">
+								<div class="tits"><h3 class="cpurple tleft"><span class="cpurplebg">2</span> 서소문 밖 네거리 순교성지</h3>
+								<h3 class="cpurple tright">
+																<a href="www.seosomun.org" target="_blank">
+								www.seosomun.org</a>
+																</div>
+							</div>
+							<div class="dl_type1">
+								<dl>
+																		<dt>문의처</dt>
+									<dd>서소문성지역사박물관</dd>									<dt>전화번호</dt>
+									<dd>02-3147-2401</dd>	
+									<dt>홈페이지</dt>
+									<dd><a href="www.seosomun.org" target="_blank">www.seosomun.org</a></dd>										
+									<dt>위치</dt>
+									<dd><a href="https://map.kakao.com/link/to/서소문성지역사박물관,37.560649, 126.969210" target="_blank">서울시 중구 칠패로 5</a></dd>																	</dl>
+							</div>
+						</div>
+					  </div>
+					  <div class="cont">
+						  <div class="pc">
+							<div class="tits"><h3 class="cpurple tleft"><span class="cpurplebg">2</span> 서소문 밖 네거리 순교성지</h3>
+							<h3 class="cpurple tright">
+														<a href="www.seosomun.org" target="_blank">
+							www.seosomun.org</a>
+														</h3>
+							</div>
+						  </div>
+						<p>
+						박순집 증언록에 따르면, 김대건 안드레아 신부는 우포도청에서 3개월간 투옥되고 사형을 언도받은 뒤, 이곳 서소문 밖 네거리를 거쳐 당고개를 지나 새남터에서 순교하였다. 이에 앞서 김대건 신부의 아버지 김제준 이냐시오도 1839년 기해박해 당시 이곳에서 순교하였다. 서소문 밖 네거리 순교성지는 조선 시대 공식 처형장이었다. 사직단 서쪽에 처형장을 두어야 한다는 『예기』의 가르침과 최종 사형 판결을 내리는 형조나 의금부와 그리 멀지 않다는 편의성, 그리고 사람들이 많이 왕래하는 ‘칠패 시장’이 있어 범죄에 대한 경각심을 줄 수 있다는 점 때문에 대부분의 처형이 이곳에서 이루어졌다. 1801년 신유박해, 1839년 기해박해, 그리고 1866년-1873년 병인박해를 거치면서 이곳에서 순교한 신자들 가운데 그 신원이 확인된 경우만 100명이 넘는다. 이 가운데 44위가 시성되었는데, 단일 순교지로는 가장 많은 성인을 배출한 곳이다. 대표적인 인물로 정하상 바오로와 김효임 골룸바, 김효주 아녜스 성인 등이 있다. 또한 2014년 시복된 순교복자 124위 가운데 27위가 서소문 밖 네거리에서 순교하였다. 2019년 6월 1일 염수정 추기경에 의해 서소문 밖 네거리 순교성지가 그 장소성과 역사성을 기념하고자 지상은 ‘서소문 역사공원’으로, 지하는 정하상 기념경당을 비롯한 문화복합시설인 ‘서소문성지 역사박물관’으로 조성되었다.<br />
+						</p>
+						
+					  </div>
+					</div>
+					
+				  
+					<div class="item">
+					  <div class="lthumb">
+					  <div class="owl-carouselin owlin-theme ">
+						<div class="item thumb">
+						<img src="/pic/course/crthumb120201126172602.jpg" class="fitsize" alt="3. 당고개 순교성지" style="width:100% !important" />
+						</div>
+																														
+						</div>
+						<div class="info">
+							<div class="mobile">
+								<div class="tits"><h3 class="cpurple tleft"><span class="cpurplebg">3</span> 당고개 순교성지</h3>
+								<h3 class="cpurple tright">
+																<a href="http://www.danggogae.org" target="_blank">
+								http://www.danggogae.org</a>
+																</div>
+							</div>
+							<div class="dl_type1">
+								<dl>
+																											<dt>전화번호</dt>
+									<dd> 02-711-0933</dd>	
+									<dt>홈페이지</dt>
+									<dd><a href="http://www.danggogae.org" target="_blank">http://www.danggogae.org</a></dd>										
+									<dt>위치</dt>
+									<dd><a href="https://map.kakao.com/link/to/청파로 139-26,37.5353773,126.9665386" target="_blank">서울시 용산구 청파로 139-26(신계동 56)</a></dd>																	</dl>
+							</div>
+						</div>
+					  </div>
+					  <div class="cont">
+						  <div class="pc">
+							<div class="tits"><h3 class="cpurple tleft"><span class="cpurplebg">3</span> 당고개 순교성지</h3>
+							<h3 class="cpurple tright">
+														<a href="http://www.danggogae.org" target="_blank">
+							http://www.danggogae.org</a>
+														</h3>
+							</div>
+						  </div>
+						<p>
+						박순집 증언록에 따르면, 당고개는 1846년 9월 16일(헌종 12년, 병오박해) 최초의 한국인 사제인 김대건 안드레아 신부가 새남터로 향한 참수 길에 서소문 밖 네거리를 거쳐 새남터 형장에 도착하기 전 잠시 쉬어 갔던 곳이기도 하다. 용산 당고개는 음력 1839년 12월 27일과 28일 이틀 간 10명의 교우들이 순교했던 곳이다. 당시 설을 앞두고 대목장에 방해받지 않으려는 상인들의 요청으로, 서소문 밖 네거리에서 한강가로 나아간 이곳에서 사형이 집행되었다. 27일에는 박종원 아우구스티노, 홍병주 베드로, 권진이 아가타, 이경이 아가타, 손소벽 막달레나, 이인덕 마리아, 이성례 마리아 7명이, 다음날에는 홍영주 바오로, 최영이 바르바라, 이문우 요한 3명이 순교하였다. 당고개 순교성지는 최양업 신부의 어머니 이성례 마리아가 순교한 곳으로, 어머니의 성지로도 불린다. 김대건 신부는 죽음을 앞두고 열아홉 번째 편지에서 최양업 신부에게, 스무 번째 편지에서는 주교님에게 자신의 어머니를 간곡히 부탁하였다. 사제이자 자식으로서 그분이 느꼈을 고뇌는 우리의 가슴을 먹먹하게 한다. <br />
+						</p>
+						
+					  </div>
+					</div>
+					
+				  
+					<div class="item">
+					  <div class="lthumb">
+					  <div class="owl-carouselin owlin-theme ">
+						<div class="item thumb">
+						<img src="/pic/course/crthumb120201126172738.jpg" class="fitsize" alt="4. 새남터 순교성지" style="width:100% !important" />
+						</div>
+																														
+						</div>
+						<div class="info">
+							<div class="mobile">
+								<div class="tits"><h3 class="cpurple tleft"><span class="cpurplebg">4</span> 새남터 순교성지</h3>
+								<h3 class="cpurple tright">
+																<a href="http://www.saenamteo.or.kr" target="_blank">
+								http://www.saenamteo.or.kr</a>
+																</div>
+							</div>
+							<div class="dl_type1">
+								<dl>
+																											<dt>전화번호</dt>
+									<dd>02-716-1791</dd>	
+									<dt>홈페이지</dt>
+									<dd><a href="http://www.saenamteo.or.kr" target="_blank">http://www.saenamteo.or.kr</a></dd>										
+									<dt>위치</dt>
+									<dd><a href="https://map.kakao.com/link/to/용산구 이촌로 80-8,37.524879186502,126.95680712305" target="_blank">서울시 용산구 이촌로 80-8</a></dd>																	</dl>
+							</div>
+						</div>
+					  </div>
+					  <div class="cont">
+						  <div class="pc">
+							<div class="tits"><h3 class="cpurple tleft"><span class="cpurplebg">4</span> 새남터 순교성지</h3>
+							<h3 class="cpurple tright">
+														<a href="http://www.saenamteo.or.kr" target="_blank">
+							http://www.saenamteo.or.kr</a>
+														</h3>
+							</div>
+						  </div>
+						<p>
+						1846년 9월 16일 한국 최초의 신부인 김대건 성인이 군문 효수형을 당한 바로 그 장소라는 의미에서 한국 천주교회에 매우 중요한 부분을 차지하고 있는 곳이다. 김대건 신부는 새남터 순교성지에서 순교하였지만 영원한 생명의 길로 나아갔다. 새남터 순교성지는 조선 시대에 순교한 성직자 열네 명 가운데 열한 명이 순교한 곳으로, 이 가운데 여덟 명과 교회 지도자급 평신도 세 명이 성인 반열에 오른 한국의 대표적인 순교성지이다. 한강변에 있는 새남터 순교성지는 조선 초기부터 군사들의 연무장으로 사용됐고 국사범을 비롯한 중죄인의 처형장으로 사용되어 왔다. 이곳에 순교의 피가 뿌려지기 시작한 것은 1801년 신유박해 때 치명한 중국인 복자 주문모 야고보 신부부터이다. 주문모 신부가 입국한지 6년 만인 1801년 신유박해 때, 자신 때문에 많은 희생자가 생기자 주문모 신부는 자진해서 의금부로 출두하였고 새남터에서 순교하였다. 1839년 기해박해 때에는 조선 제2대 교구장 성 라우렌시오 앵베르 범 주교와 성 베드로 모방 나 신부, 성 야고보 샤스탕 정 신부가, 7년 뒤인 1846년 병오박해에는 한국 최초의 사제인 김대건 안드레아 신부와 ‘기해일기’를 작성한 현석문 가롤로가 이곳에서 참수되었다. 1866년 병인박해 때에는 베르뇌 주교, 브르트니에르, 볼리외, 도리, 푸르티에, 프티니콜라 신부 등 6명의 사제들이 순교하였다.<br />
+						</p>
+						
+					  </div>
+					</div>
+					
+				  
+					<div class="item">
+					  <div class="lthumb">
+					  <div class="owl-carouselin owlin-theme ">
+						<div class="item thumb">
+						<img src="/pic/course/crthumb120201126172917.jpg" class="fitsize" alt="5. 절두산 순교성지" style="width:100% !important" />
+						</div>
+																														
+						</div>
+						<div class="info">
+							<div class="mobile">
+								<div class="tits"><h3 class="cpurple tleft"><span class="cpurplebg">5</span> 절두산 순교성지</h3>
+								<h3 class="cpurple tright">
+																<a href="http://www.jeoldusan.or.kr" target="_blank">
+								http://www.jeoldusan.or.kr</a>
+																</div>
+							</div>
+							<div class="dl_type1">
+								<dl>
+																		<dt>문의처</dt>
+									<dd>절두산 순교성지</dd>									<dt>전화번호</dt>
+									<dd>02-3142-4434</dd>	
+									<dt>홈페이지</dt>
+									<dd><a href="http://www.jeoldusan.or.kr" target="_blank">http://www.jeoldusan.or.kr</a></dd>										
+									<dt>위치</dt>
+									<dd><a href="https://map.kakao.com/link/to/마포구 토정로 6,37.544424740058,126.91161817703" target="_blank">서울시 마포구 토정로 6</a></dd>																	</dl>
+							</div>
+						</div>
+					  </div>
+					  <div class="cont">
+						  <div class="pc">
+							<div class="tits"><h3 class="cpurple tleft"><span class="cpurplebg">5</span> 절두산 순교성지</h3>
+							<h3 class="cpurple tright">
+														<a href="http://www.jeoldusan.or.kr" target="_blank">
+							http://www.jeoldusan.or.kr</a>
+														</h3>
+							</div>
+						  </div>
+						<p>
+						한국 천주교회는 1846년 김대건 신부의 순교 후 100년이 지난 1946년, 전국 단위의 순교자현양위원회를 결성한 이후 10년간의 모금활동의 결과로 양화진에 부지를 매입하고 성지를 조성하였다. 1966년 병인박해 100주년을 기념해 김대건 신부 광장과 기념관을 준공, 1967년에 축성된 절두산 순교성지는 광장과 기념성당, 성인 유해실, 한국천주교순교자박물관으로 이루어져 있으며, 성지 일대는 1997년 ‘서울 양화나루와 잠두봉 유적(사적399호)’으로 지정되었다. 또한 김대건 신부 탄생 150주년이 되던 1972년에는 김대건 신부 기념동상이 광장에 세워졌다. 특히, 박물관에는 교회의 귀중한 사료들과, 순교자들의 유품, 형구(刑具) 등 3,500여 점 이상의 유물이 소장되어 있어 그 수나 규모면에서 한국 천주교회를 대표하는 박물관이라고 할 수 있다. 김대건 신부 광장이 조성된 야외에는 다양한 조형물과 기념비들이 설치되어 아름다운 주변 경관과 어울려 기도와 묵상의 시간을 풍요롭게 하며, 성지를 찾는 신자들뿐 아니라 지역 주민들에게까지 순교신앙·선교·문화 체험 공간의 역할을 하고 있다. 절두산은 예로부터 가을두, 잠두봉, 용두봉 등으로 불리어 왔다. 1866년 프랑스 함대가 양화진을 통과해 서울 근교까지 침범해 오자 대원군은 서양 오랑캐들로 더럽혀진 한강을 천주교인들의 피로 씻겠다며 이곳에서 수많은 신자를 목을 잘라 죽이면서[병인박해] 이곳의 지명을 절두산(切頭山)이라 부르게 되었다. <br />
+						</p>
+						
+					  </div>
+					</div>
+					
+			  </div>
+		 
+		  <script>
+			$(document).ready(function() {
+			  var owl = $('.owl-carousel');
+			  owl.owlCarousel({
+				center: false,
+				items:1,
+				loop:false,
+				margin:0,
+				mouseDrag:false,	
+				touchDrag:false,
+				stagePadding: 0,               
+				nav: true,	
+				dot: true,				
+				responsive:{
+				 0: {
+					items: 1
+				  },
+				600:{
+					items:1
+				},
+				  1000: {
+					items: 1
+				  }
+				}
+			  });
+			  
+			})
+
+			
+
+			$(document).ready(function() {
+			  var owl = $('.owl-carouselin');
+			  owl.owlCarousel({
+				center: false,
+				items:1,
+				loop:false,				
+				margin:0,
+				stagePadding: 0,               
+				nav: true,	
+				dot: false,
+				responsive:{
+				 0: {
+					items: 1
+				  },
+				600:{
+					items:1
+				},
+				  1000: {
+					items: 1
+				  }
+				}
+			  });
+			 
+			})			
+		  </script>  
+
+		</section>		
+
+		<div class="btn_wrap">
+			<button class="fill med" onclick="location.href='/_web/mpilgrims/programapply.html?ccode=4'">순례신청하기</button>
+		</div>		
+		
+
+		</div><!--shrine_info-->
+	</div><!--//contents-->
+  </div><!--//wrap-->
+      
+<div id="help" class="ui_mo">
+	 <h5 class="quickmenu">Quick menu</h5>
+  <ul class="list_help">
+    <li  class="smallsize"><a href="/_web/mpilgrims/about.html" title="천주교 서울순례길">
+	<i aria-hidden="true"><img src="/_img/mmain/quik_iconcourse.png" alt="서울순례길" /></i>
+	천주교 서울순례길</a></li>
+    <li><a href="/_web/mpilgrims/program.html?tab=WALK" title="도보성지순례"><i aria-hidden="true"><img src="/_img/mmain/quik_iconW.png" alt="도보성지순례" /></i>도보성지순례</a></li>
+	<li><a href="/_web/mpilgrims/programgrp.html?tab=GRP" title="서울 버스 순례(단체별 접수)"><i aria-hidden="true"><img src="/_img/mmain/quik_iconB.png" alt="서울 버스 순례(단체별 접수)" /></i>서울 버스 순례(단체별 접수)</a></li>
+    <li><a href="/_web/mpilgrims/programkorea2020.html?tab=KOREA" title="전국성지순례"><i aria-hidden="true"><img src="/_img/mmain/quik_iconK.png" alt="전국성지순례" /></i>전국성지순례</a></li>
+    <!-- <li><a href="javascript:alert('준비중입니다')"><i aria-hidden="true"><img src="/_img/mmain/quik_iconsponsor.png" alt=""></i>후원회가입</a></li> -->
+  </ul>
+</div>
+
+
+<div id="quick">
+  <ul class="list_quick">
+    <li><a href="/_web/mpilgrims/about.html" title="서울순례길"><i aria-hidden="true"><img src="/_img/mmain/quik_iconcourse.png" alt="서울순례길" /></i><p>천주교<br />서울순례길</p></a></li>
+    <li><a href="/_web/mpilgrims/program.html?tab=WALK" title="도보성지순례"><i aria-hidden="true"><img src="/_img/mmain/quik_iconW.png" alt="도보성지순례" /></i><p>도보성지순례</p></a></li>
+	<li><a href="/_web/mpilgrims/programgrp.html?tab=GRP" title="서울 버스 순례(단체별 접수)"><i aria-hidden="true"><img src="/_img/mmain/quik_iconB.png" alt="서울 버스 순례(단체별 접수)" /></i><p>서울 버스 순례(단체별 접수)</p></a></li>
+    <li><a href="/_web/mpilgrims/programkorea2020.html?tab=KOREA" title="전국성지순례"><i aria-hidden="true"><img src="/_img/mmain/quik_iconK.png" alt="전국성지순례" /></i><p>전국성지순례</p></a></li>
+    <!-- <li><a href="#" title="후원회가입"><i aria-hidden="true"><img src="/_img/mmain/quik_iconsponsor.png" alt="후원회가입" /></i>후원회가입</a></li> -->
+  </ul>
+  <a href="javascript:;" onclick="toTop();" class="totop">
+  <i></i>
+  TOP</a>
+</div>
+<footer id="footer">
+<!--   <div class="ft_bnr">
+    <ul class="ww">
+      <li><a href="http://www.junggu.seoul.kr/" target="_blank"><img src="/_img/footer_bnr1.jpg" title="서울 중구"><span class="blind">서울 중구</span></a></li>
+      <li><a href="http://www.seoul.go.kr/" target="_blank"><img src="/_img/footer_bnr2.jpg" title="서울특별시"><span class="blind">서울특별시</span></a></li>
+      <li><a href="http://aos.catholic.or.kr/" target="_blank"><img src="/_img/footer_bnr3.jpg" title="천주교 서울대교구"><span class="blind">천주교 서울대교구</span></a></li>
+      <li><a href="https://www.mcst.go.kr/" target="_blank"><img src="/_img/footer_bnr4.jpg" title="문화체육관광부"><span class="blind">문화체육관광부</span></a></li>
+    </ul>
+  </div> -->
+  <div class="ft">
+    <div class="ww">
+      <a href="../main/main.html" class="ft_logo"><img src="/_img/main/logo_footer.png" alt="메인페이지로"></a>
+      <div class="cont">
+        <div class="ft_links">
+          <a href="/_web/mpolicy/service.html">이용약관</a>
+          <a href="/_web/mpolicy/privacy.html" class="background">개인정보 취급방침</a>
+          <div class="wrap_slt">
+		    <label for="slt_sites" class="blind">패밀리사이트</label>
+            <select class="slt sites" name="slt_sites" id="slt_sites" alt="(새창)관련 사이트로 이동">
+             <option value="" label="패밀리사이트">패밀리사이트</option>
+			 <!--
+             <option value="http://aos.catholic.or.kr/" label="천주교 서울대교구">천주교 서울대교구</option>
+             <option value="https://blog.naver.com/sachm" label="천주교 서울대교구 역사관">천주교 서울대교구 역사관</option>
+             <option value="http://Jeoldusan.or.kr" label="한국 천주교 순교자 박물관">한국 천주교 순교자 박물관</option>-->
+             <option value="http://www.catholic.or.kr/" label="가톨릭 굿뉴스">가톨릭 굿뉴스</option>
+             <option value="http://www.jeoldusan.or.kr/renew/" label="절두산 순교성지">절두산 순교성지</option>
+             <option value="https://seosomun.org" label="서소문성지역사박물관">서소문성지역사박물관</option>
+             <option value="https://booking.naver.com/booking/12/bizes/179821" label="서울대교구역사관">서울대교구역사관</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="ft_info">
+		  <span class="tt">주소</span>  [04537]서울시 중구 명동길 74-3, 교구청별관 325호  <br />       
+			<span class="tt">TEL</span>  <span class=" ">02-2269-0413, 02-2269-0414</span>  
+			<span class="tt spacer">FAX</span>  <span class=" "> 02-2269-0415</span> <br />
+			<span class="tt">운영시간</span> 평일 : 오전 9시~18시 (공휴일휴무, 점심시간 제외) <br />
+			<span class="tt">이메일</span>  komar@catholic.or.kr / martyrs@seoul.catholic.kr
+        </div>
+        <p class="copyright">Copyrightⓒ 천주교 서울대교구 순교자현양위원회 All Rights reserved.</p>
+      </div><!--//cont-->
+	  <div class="cont_right">
+		  <div class="cr_box1" onclick="location.href='https://pf.kakao.com/_YysWd'">
+				<div class="cr_img1">
+					<img src="/_img/main/kakao01.png" alt="카카오 플러스 친구" />	
+				</div>
+				<div class="cr_txt1">
+						<h4>카카오 플러스 친구</h4>
+						<span><img src="/_img/main/icon01.png" alt="돋보기" style="margin-top:7px;" />순교자현양위원회</span>
+				</div>	
+		  </div>
+		<div class="cr_box1 appdown"  onclick="location.href='https://play.google.com/store/apps/details?id=kr.or.catholic.seoul.holyplace&hl=ko'">
+				<div class="cr_img1">
+					<img src="/_img/main/footer_app_icon_01.png" alt="서울순례길" />	
+				</div>
+				<div class="cr_txt1">
+						<h4>앱스토어</h4>
+						<span><img src="/_img/main/icon01.png" alt="돋보기" style="margin-top:7px;" />서울순례길</span>
+				</div>	
+		  </div>
+		  
+		  <div class="cr_box2">
+
+		  <ul class="fqr">
+		  <li>
+		  <h3>앱스토어에서<br /><span class="fontwhite">서울순례길</span><br />검색!
+		  </h3><img src="/_img/main/footer_app_icon_01.png" alt="서울순례길" onclick="location.href='https://play.google.com/store/apps/details?id=kr.or.catholic.seoul.holyplace&hl=ko'"/>
+		  </li>
+			<li><img src="/_img/msub/pilgrims_appqr.jpg" alt="Google Play" /></li>
+		  </ul>
+		  </div>
+	  </div><!--//cont_right-->
+      <a href="javascript:;" onclick="toTop();" class="toTop"><i class="ico_comm">맨 위로</i></a>
+		<script>
+	    $( "#slt_sites" ).selectmenu({
+	    	  change: function( event, ui ) {
+	    		  		window.open(this.value);
+	    		  }
+	   	});
+		</script>
+
+ 
+    </div><!--//ww-->
+  </div><!--//ft-->
+</footer>
+
+
+</body>
+
+</html>

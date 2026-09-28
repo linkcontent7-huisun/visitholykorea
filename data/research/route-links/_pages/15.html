@@ -1,0 +1,1029 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.6,user-scaleable=yes" />
+	<meta name="description" content="가실에서 한티까지 한티가는 길 45.6km, 한눈에 보기, 스카이뷰, 로드뷰 제공" /><!-- 설명 -->
+<meta name="Keywords" CONTENT="한티가는길, 45.6km, 가실, 한티, 칠곡, 힐링의길, 순례길" /><!-- 키워드 -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="한티가는길" /><!-- 타이틀 -->
+<meta property="og:description" content="가실에서 한티까지 한티가는 길 45.6km, 한눈에 보기, 스카이뷰, 로드뷰 제공" /><!-- 설명 -->
+<meta property="og:image" content="http://www.hantigil.or.kr/myimage.jpg" /><!-- 이미지 FULL URL 주소 -->
+<meta property="og:url" content="http://www.hantigil.or.kr" /><!-- FULL URL -->
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="한티가는길" /><!-- 타이틀 -->
+<meta name="twitter:description" content="가실에서 한티까지 한티가는 길 45.6km, 한눈에 보기, 스카이뷰, 로드뷰 제공" /><!-- 설명 -->
+<meta name="twitter:image" content="http://www.hantigil.or.kr/myimage.jpg" /><!-- 이미지 FULL URL 주소 -->
+<meta name="twitter:domain" content="http://www.hantigil.or.kr" /><!-- FULL URL -->
+
+<link rel="alternate" href="http://www.hantigil.or.kr/">
+<link rel="canonical" href="http://www.hantigil.or.kr/">	<title>한티가는길</title>
+	<link rel="image_src" href="/images/logo_ci.png" />
+	<link rel="shortcut icon" href="/images/favicon.ico" />
+	<link rel="Stylesheet" type="text/css" href="/css/jquery.lightbox-0.5.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/css/jquery.bxslider.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/default/base.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/css/default/layout.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/css/default/index.css" media="screen" />	
+	<script type="text/javascript" charset="utf-8" src="https://hantigil.or.kr/js/jquery-1.10.2.min.js"></script>
+	<script src="/js/swiper.min.js"></script>
+	<script src="/js/jquery-ui.js"></script>
+	<script src="/js/jquery.lightbox-0.5.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/jquery.bxslider.js"></script>
+	<script src="/js/index.js"></script>
+	<script type="text/javascript" src="/js/jquery.rwdImageMaps.js"></script>
+	<!-- AOS -->
+	<link rel="stylesheet" type="text/css" href="/css/aos.css"/>
+	<script src="/js/aos.js"></script>
+	<script>
+		$(function(){AOS.init();})
+	</script>
+	<!-- AOS -->
+	<style>
+        #top {position: fixed; right: 2rem; bottom: 2rem; z-index: 10;}
+        #top a.top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+            line-height: 1.2;
+            height: 100%;
+            font-size: .7rem;
+            cursor: pointer;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.2);
+            border: 1px solid #555;
+            margin-bottom: 0.5rem;
+        }
+	</style>
+	<script type="text/javascript">
+		//window.onload role
+		$(document).ready(function(){
+			//주메뉴 제어 Begin
+			var bg_box = 'off';//필수 입력
+			var nav_cnt = 0;
+			$(window).scroll(function(){
+				var bg_box = 'off';
+				var sp = $(window).scrollTop();
+				if(sp > 83){
+					$('#header').addClass('scroll');
+					$('#header .logo a img').attr('src', '/images/default/main/logo.svg');
+				}else{
+					if(bg_box == 'off'){
+						$('#header').removeClass('scroll');
+						$('#header .logo a img').attr('src', '/images/default/main/logo.svg');
+					}
+				}
+			});
+			$('#header').mouseover(function(){
+				$('#header').addClass('over');
+				$('#header h1 img').attr('src','/images/default/main/logo.svg');
+				if(bg_box == 'off'){
+					bg_box = 'on';
+				}
+				var sp = $(window).scrollTop();
+				if(sp < 83){//스크롤 높이가 83 이하일때 로고 색상 수정
+					$('#header h1 img').attr('src','/images/default/main/logo.svg');
+				}
+			});
+			$('div#nav > ul > li').each(function(){
+				$(this).find('a:first').on('mouseover', function(){
+					$('#header').addClass('over');
+					$('#header .header_inner').addClass('over');
+					var this_idx = $(this).parent().parent().index() + 1;
+					if(nav_cnt != this_idx){
+						$('div#nav > ul > li > ul').hide();
+						$(this).parent().parent().find('ul').stop().slideDown(500);
+					}
+					nav_cnt = this_idx;
+					$('div#nav > ul > li').removeClass('on');
+					$(this).parent().parent().addClass('on');
+					$('div#nav > ul > li > ul > li').removeClass('on');
+					$(this).parent().parent().find('ul > li').addClass('on');
+				});
+			});
+			$('div#nav > ul > li').each(function(){
+				$(this).find('ul').on('mouseover', function(){
+					$('div#nav > ul > li').removeClass('on');
+					$(this).parent().addClass('on');
+					$('div#nav > ul > li > ul > li').removeClass('on')
+					$(this).find('li').addClass('on');
+				});
+			});
+
+			$('#header').on('mouseleave', function(){
+				var sp = $(window).scrollTop();
+				bg_box = 'off';
+				$('div#nav > ul > li').removeClass('on');
+				$('div#nav > ul > li > ul > li').removeClass('on');
+				$('div#nav > ul > li > ul').stop().hide();
+				$('#header').removeClass('over');
+				nav_cnt = 0;
+				if(sp > 83){
+					$('#header .logo a img').attr('src', '/images/default/main/logo.svg');
+				}else{
+					if(bg_box == 'off'){
+						$('#header .logo a img').attr('src', '/images/default/main/logo.svg');
+					}
+				}
+			});
+			//주메뉴 제어 End
+
+
+			//2차 메뉴가 없을때 nosub 클래스 주기
+			$('.mobile_top > ul > li').each(function(){
+				if($(this).find('ul').index() != 1){
+					$(this).addClass('nosub');
+				}
+			});
+
+			//사이트맵 버튼
+			$('.btn-gnb-menu').click(function(){
+				if($('#header').hasClass('open') == false){
+					$('#header').addClass('open');
+					$('body,html').css('overflow','hidden');
+				}else{
+					$('#header').removeClass('open');
+					$('body,html').css('overflow','visible');
+				}
+			});
+
+			//모바일 메뉴 작업
+			$('.mobile_top > ul').addClass('mbtop');
+            $('.mbtop > li > div > a').unwrap();
+            $('.mbtop > li > ul > li').each(function(){
+				if($(this).find('a:first').attr('href') == '#'){
+					$(this).find('a:first').attr('href',$(this).find(' > ul > li > a:first').attr('href'));
+				}
+			});
+
+			$('.mbtop > li > a').click(function(){
+				$('.mbtop > li > ul').removeClass('on');
+				$('.mbtop > li').removeClass('open_li');
+				var mbtop_li = $(this).parent();
+				if(mbtop_li.find('ul > li').length > 0){
+					if(mbtop_li.prop('class') == 'open_li'){
+						mbtop_li.removeClass('open_li');
+						mbtop_li.find('ul').removeClass('on');
+					}else{
+						mbtop_li.addClass('open_li');
+						mbtop_li.find('ul').addClass('on');
+					}
+					return false;
+				}
+			});
+
+
+			//지도
+			$('#Map01 > area').hover(function(){
+				var area = $(this).attr('class');
+				$('.map01').attr('src','/images/default/content/course_map_'+area+'.jpg')
+			});
+
+			//탭메뉴
+			$('.course_tab > ul > li').css({cursor:"pointer"});
+			$('.course_tab > ul > li').click(function(){
+				var idx = $(this).index()+1;
+				$('.course_tab > ul > li').each(function(){
+					$(this).removeClass();
+				});
+				$('[id^="c0"]').hide();
+				$(this).addClass('on');
+				$('#c0'+idx).show();
+			});
+
+			//버스팝업
+			var pop = 1;
+			$('.bus_pop').click(function(){
+				if(pop == 1){
+					$('.con_pop').show();
+					pop = 2;
+				}else{
+					$('.con_pop').hide();
+					pop = 1;
+				}
+			});
+
+			$('.close').click(function(){
+				$('.con_pop').hide();
+				pop = 1;
+			});
+            $('#map01').show();//첫 로드 1구간on
+            $('.map01').attr('src','/images/default/content/course_map_one.jpg')//첫 로드 1구간on
+            var mobileCheck = ""
+            $('#map01').show(); //처음 1구간  on
+            //모바일이면
+            if(mobileCheck){
+                $('#Map01 > area').click(function(){
+                    var selArea = $(this).prop('class');
+                    $('.map_pop').hide();
+                    if(selArea == 'one'){
+                        $('#map01').show();
+                    }else if(selArea == 'two'){
+                        $('#map02').show();
+                    }else if(selArea == 'three'){
+                        $('#map03').show();
+                    }else if(selArea == 'four'){
+                        $('#map04').show();
+                    }else if(selArea == 'five'){
+                        $('#map05').show();
+                    }
+                    return false;
+                });
+
+            }else{//pc면
+                // 20230802 마우스 오버시 팝업 뜨기 bk
+                $('#Map01 > area').mouseover(function(){
+                    var selArea = $(this).prop('class');
+                    $('.map_pop').hide();
+                    if(selArea == 'one'){
+                        $('#map01').show();
+                    }else if(selArea == 'two'){
+                        $('#map02').show();
+                    }else if(selArea == 'three'){
+                        $('#map03').show();
+                    }else if(selArea == 'four'){
+                        $('#map04').show();
+                    }else if(selArea == 'five'){
+                        $('#map05').show();
+                    }
+                });
+            }
+
+
+
+            $('#top').click(function(){
+                $('html').stop().animate({scrollTop:'0'},500);
+            });
+
+			//이미지맵
+			$('img[usemap]').rwdImageMaps();
+		});
+	</script>
+</head>
+<body>
+	<!-- wrap -->
+	<div id="wrap"
+		<!-- header -->
+		<div id="header">
+			<h1 class="logo"><a href="/index"><img src="/images/default/main/logo.svg" alt="한티가는길"/></a></h1>
+			<!-- 탑메뉴 -->
+			<div class="header_inner">
+				<div id="nav" class="lnb">
+					
+<ul><li><div><a href="/content/4" title="그대  어디로  가는가">그대  어디로  가는가</a></div><ul><li><a href="/content/29" title="한티가는길 소개">한티가는길 소개</a></li><li><a href="/content/67" title="한티가는길 역사">한티가는길 역사</a><ul><li><a href="/content/102" title="신문기록">신문기록</a></li><li><a href="/content/103" title="행사기록 - 2016년 이전">행사기록 - 2016년 이전</a></li><li><a href="/content/104" title="행사기록 - 2016년 이후">행사기록 - 2016년 이후</a></li></ul></li><li><a href="/content/30" title="안내드리는 글">안내드리는 글</a></li><li><a href="/content/93" title="스탬프 북">스탬프 북</a></li></ul></li><li><div><a href="/content/1" title="한티가는길 걸어보기">한티가는길 걸어보기</a></div><ul><li><a href="/content/23" title="코스별 소개">코스별 소개</a></li><li><a href="/content/24" title="한눈에 보기">한눈에 보기</a></li></ul></li><li><div><a href="/content/94" title="예약신청하기">예약신청하기</a></div><ul><li><a href="/content/95" title="소울스테이 예약">소울스테이 예약</a><ul><li><a href="/content/97" title="예약신청">예약신청</a></li><li><a href="/content/myList" title="예약현황">예약현황</a></li><li><a href="/content/99" title="소울스테이 소개">소울스테이 소개</a></li><li><a href="/content/100" title="이용안내">이용안내</a></li></ul></li><li><a href="/content/programList" title="프로그램/행사 신청">프로그램/행사 신청</a></li></ul></li><li><div><a href="/content/3" title="커뮤니티">커뮤니티</a></div><ul><li><a href="/content/66" title="공지사항">공지사항</a></li><li><a href="/content/109" title="홍보영상">홍보영상</a></li><li><a href="/content/101" title="사진전">사진전</a></li><li><a href="https://cafe.daum.net/hanti1868" target="_BLANK" class="newBlank" title="새창열림">Cafe</a></li></ul></li></ul>
+				</div>
+			</div>
+			<div class="bg_box"></div>
+
+			<!-- 회원서비스 -->
+			<ul class="log_menu">
+									<li><a href="/login">로그인</a></li>
+					<li><a href="/signup">회원가입</a></li>
+
+							</ul>
+			<!-- 햄버거메뉴 -->
+			<div class="btn-gnb-menu">
+				<button class="btnAll">
+					<span></span>
+					<span></span>
+				</button>
+			</div>
+			<!-- 전체메뉴펼침 -->
+            <div id="menuAll">
+                <div id="navi">					
+					<div class="top_menu">
+						<div class="top_menu_head">
+							<h3>반갑습니다.<br>
+							<b>한티가는길</b>에 오신것을 환영합니다.</h3>
+						</div>
+					</div>
+
+					<div class="memb">
+													<ul>
+								<li><a href="/login"><i class=""></i> 로그인</a></li>
+								<li><a href="/member/account/user_agreements/1"><i class=""></i> 회원가입</a></li>
+							</ul>
+											</div>
+
+                    <div class="mobile_top">
+                        
+<ul><li><div><a href="/content/4" title="그대  어디로  가는가">그대  어디로  가는가</a></div><ul><li><a href="/content/29" title="한티가는길 소개">한티가는길 소개</a></li><li><a href="/content/67" title="한티가는길 역사">한티가는길 역사</a><ul><li><a href="/content/102" title="신문기록">신문기록</a></li><li><a href="/content/103" title="행사기록 - 2016년 이전">행사기록 - 2016년 이전</a></li><li><a href="/content/104" title="행사기록 - 2016년 이후">행사기록 - 2016년 이후</a></li></ul></li><li><a href="/content/30" title="안내드리는 글">안내드리는 글</a></li><li><a href="/content/93" title="스탬프 북">스탬프 북</a></li></ul></li><li><div><a href="/content/1" title="한티가는길 걸어보기">한티가는길 걸어보기</a></div><ul><li><a href="/content/23" title="코스별 소개">코스별 소개</a></li><li><a href="/content/24" title="한눈에 보기">한눈에 보기</a></li></ul></li><li><div><a href="/content/94" title="예약신청하기">예약신청하기</a></div><ul><li><a href="/content/95" title="소울스테이 예약">소울스테이 예약</a><ul><li><a href="/content/97" title="예약신청">예약신청</a></li><li><a href="/content/myList" title="예약현황">예약현황</a></li><li><a href="/content/99" title="소울스테이 소개">소울스테이 소개</a></li><li><a href="/content/100" title="이용안내">이용안내</a></li></ul></li><li><a href="/content/programList" title="프로그램/행사 신청">프로그램/행사 신청</a></li></ul></li><li><div><a href="/content/3" title="커뮤니티">커뮤니티</a></div><ul><li><a href="/content/66" title="공지사항">공지사항</a></li><li><a href="/content/109" title="홍보영상">홍보영상</a></li><li><a href="/content/101" title="사진전">사진전</a></li><li><a href="https://cafe.daum.net/hanti1868" target="_BLANK" class="newBlank" title="새창열림">Cafe</a></li></ul></li></ul>
+                    </div>
+                </div>
+				<div class="naviBlind"></div>
+            </div>
+		</div>
+        <!-- //header -->
+
+
+		<!-- 큰 지도 -->
+
+		<div class="course_map">
+			<div class="map_box">
+				<img src="/images/default/content/course_map.jpg" alt="" usemap="#Map01" class="map01"/>
+				<map name="Map01" id="Map01">
+					<area shape="rect"  onfocus="this.blur()" coords="177,350,394,525" href="/content/23?class=one" title="1구간" class="one" />
+					<area shape="rect"  onfocus="this.blur()" coords="396,254,538,475" href="/content/23?class=two" title="2구간" class="two"  />
+					<area shape="rect"  onfocus="this.blur()" coords="541,210,781,404" href="/content/23?class=three" title="3구간" class="three"  />
+					<area shape="rect"  onfocus="this.blur()" coords="782,126,899,355" href="/content/23?class=four" title="4구간" class="four"  />
+					<area shape="rect"  onfocus="this.blur()" coords="901,115,1151,241" href="/content/23?class=five" title="5구간" class="five" />
+				</map>
+				<div id="map01" class="map_pop">
+					<div class="map_pop_in">
+						<h5><span>1구간</span> <em>돌아보는 길</em></h5>
+						<p>한티가는길의 첫 구간을 시작하면서 새로운 마음가짐으로 스스로의 삶을 되돌아보며 자기 자신에 대하여 생각하는 시간을 갖는 길</p>
+						<ul class="info2">
+							<li><span class="km">거리</span>10.5km</li>
+							<li><span class="time">소요시간</span>4시간 30분 예상</li>
+							<li><span class="check">특징</span>5개 구간중 가장 거리가 깁니다</li>
+						</ul>
+						<p class="more mob"><a href="/content/23?class=one">자세히보기</a></p>
+					</div>
+
+				</div>
+				<div id="map02" class="map_pop">
+					<div class="map_pop_in">
+						<h5><span>2구간</span> <em>비우는 길</em></h5>
+						<p>자신의 내면에서 자신을 괴롭히던 욕심과 잡념을 비우고 가치있는 것을 채울 수 있는 준비의 길</p>
+						<ul class="info2">
+							<li><span class="km">거리</span>9.5km</li>
+							<li><span class="time">소요시간</span>4시간 예상</li>
+							<li><span class="check">특징</span>중간에 편의점이 없습니다.</li>
+						</ul>
+						<p class="more mob"><a href="/content/23?class=two">자세히보기</a></p>
+					</div>
+				</div>
+				<div id="map03" class="map_pop">
+					<div class="map_pop_in">
+						<h5><span>3구간</span> <em>뉘우치는 길</em></h5>
+						<p>현재까지의 잘못을 되새기며 도덕적 결심을 하고 과거의 행동을 반성하며 뉘우치는 길</p>
+						<ul class="info2">
+							<li><span class="km">거리</span>9km</li>
+							<li><span class="time">소요시간</span>4시간 예상</li>
+							<li><span class="check">특징</span>창평지부터 쌀바위까지 급경사입니다.</li>
+						</ul>
+						<p class="more mob"><a href="/content/23?class=three">자세히보기</a></p>
+					</div>
+				</div>
+				<div id="map04" class="map_pop">
+					<div class="map_pop_in">
+						<h5><span>4구간</span> <em>용서의 길</em></h5>
+						<p>용서하지 못할 때 가장 고통스러운 사람은 자신이라는 것을 일깨워 세상을 향해 자신을 용서하고 독려하는 길</p>
+						<ul class="info2">
+							<li><span class="km">거리</span>8.5km</li>
+							<li><span class="time">소요시간</span>4시간 예상</li>
+							<li><span class="check">특징</span>계곡따라 걷는 길이 예술입니다.</li>
+						</ul>
+						<p class="more mob"><a href="/content/23?class=four">자세히보기</a></p>
+					</div>
+				</div>
+				<div id="map05" class="map_pop">
+					<div class="map_pop_in">
+						<h5><span>5구간</span> <em>사랑의 길</em></h5>
+						<p>한티로 향했던 순교자들의 삶을 묵상하며 나 자신을 돌아보고 비우고 뉘우치고 용서하며 자신을 만나고 함께 걸어왔던 이들과 함께 사람의 의미를 알아가고 진정한 나를 찾는 길</p>
+						<ul class="info2">
+							<li><span class="km">거리</span>8.1km</li>
+							<li><span class="time">소요시간</span>3시간 30분 예상</li>
+							<li><span class="check">특징</span>순교자들 무덤의 순례 코스입니다.</li>
+						</ul>
+						<p class="more mob"><a href="/content/23?class=five">자세히보기</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="visual-wrap">
+			<div class="visual swiper-container">
+				<div class="swiper-wrapper">
+				  <div class="swiper-slide" >
+					<div class="inn">
+						<h2><span class="batang">45.6km</span><img src="/images/default/main/visaul_tit.svg"  alt="그대 어디로 가는가"></h2>
+						<p><b>한티가는 길</b>은 바쁘게 살아가는 사람들에게 자신을 위로하고<br class="web"/>
+						지나온 삶을 되돌아 보며 내면적 성찰을 이루는 소중한 계기와 의미를<br class="web"/>
+						가질 수있는 <b>힐링의 길</b>입니다.  </p>
+					</div>
+					<div class="bg" style="background:url('/images/default/main/visual01.jpg')no-repeat 50% 50%; background-size:cover;"></div>
+				  </div>
+				  <div class="swiper-slide">
+					<div class="inn">
+						<h2><span class="batang">45.6km</span><img src="/images/default/main/visaul_tit.svg"  alt="그대 어디로 가는가"></h2>
+						<p><b>한티가는 길</b>은 바쁘게 살아가는 사람들에게 자신을 위로하고<br class="web"/>
+						지나온 삶을 되돌아 보며 내면적 성찰을 이루는 소중한 계기와 의미를<br class="web"/>
+						가질 수있는 <b>힐링의 길</b>입니다.  </p>
+					</div>
+					<div class="bg" style="background:url('/images/default/main/visual02.jpg')no-repeat 50% 50%; background-size:cover;"></div>
+				  </div>
+				  <div class="swiper-slide">
+					<div class="inn">
+						<h2><span class="batang">45.6km</span><img src="/images/default/main/visaul_tit.svg"  alt="그대 어디로 가는가"></h2>
+						<p><b>한티가는 길</b>은 바쁘게 살아가는 사람들에게 자신을 위로하고<br class="web"/>
+						지나온 삶을 되돌아 보며 내면적 성찰을 이루는 소중한 계기와 의미를<br class="web"/>
+						가질 수있는 <b>힐링의 길</b>입니다.  </p>
+					</div>
+					<div class="bg" style="background:url('/images/default/main/visual03.jpg')no-repeat 50% 50%; background-size:cover;"></div>
+				  </div>
+				  <div class="swiper-slide">
+					<div class="inn">
+						<h2><span class="batang">45.6km</span><img src="/images/default/main/visaul_tit.svg"  alt="그대 어디로 가는가"></h2>
+						<p><b>한티가는 길</b>은 바쁘게 살아가는 사람들에게 자신을 위로하고<br class="web"/>
+						지나온 삶을 되돌아 보며 내면적 성찰을 이루는 소중한 계기와 의미를<br class="web"/>
+						가질 수있는 <b>힐링의 길</b>입니다.  </p>
+					</div>
+					<div class="bg" style="background:url('/images/default/main/visual04.jpg')no-repeat 50% 50%; background-size:cover;"></div>
+				  </div>
+				  <div class="swiper-slide">
+					<div class="inn">
+						<h2><span class="batang">45.6km</span><img src="/images/default/main/visaul_tit.svg"  alt="그대 어디로 가는가"></h2>
+						<p><b>한티가는 길</b>은 바쁘게 살아가는 사람들에게 자신을 위로하고<br class="web"/>
+						지나온 삶을 되돌아 보며 내면적 성찰을 이루는 소중한 계기와 의미를<br class="web"/>
+						가질 수있는 <b>힐링의 길</b>입니다.  </p>
+					</div>
+					<div class="bg" style="background:url('/images/default/main/visual05.jpg')no-repeat 50% 50%; background-size:cover;"></div>
+				  </div>
+				</div>
+				<div class="control">
+					<div class="visPage">
+						<span class="ing">1</span>
+						<div class="pagination"><span class="bar"></span></div>
+					</div>
+					<div class="visPrev"></div>
+					<div class="visNext"></div>
+					
+				</div>
+			</div>
+		</div>
+
+		<!-- container -->
+		<div id="container">
+			<div id="cts1">
+				<div class="inn">
+					<div class="head">
+						<div class="title">
+							<span>한국의 아름다운 순례길</span>
+							<h3 class="batang">이런 <b>걷기여행</b>은<br class="web"/> 어떤가요? </h3>							
+						</div>
+						<div class="tab">
+							<ul>
+								<li class="on">
+									<a class="tab01">
+										<h4 class="batang">돌아보는 길</h4>
+										<p>10.5km <span>ㅣ</span> 4:30</p>
+									</a>
+								</li>
+								<li>
+									<a class="tab02">
+										<h4 class="batang">비우는 길</h4>
+										<p>9.5km <span>ㅣ</span> 4:00</p>
+									</a>
+								</li>
+								<li>
+									<a class="tab03">
+										<h4 class="batang">뉘우치는 길</h4>
+										<p>9km <span>ㅣ</span> 4:00</p>
+									</a>
+								</li>
+								<li>
+									<a class="tab04">
+										<h4 class="batang">용서의 길</h4>
+										<p>8.5km <span>ㅣ</span> 4:00</p>
+									</a>
+								</li>
+								<li>
+									<a class="tab05">
+										<h4 class="batang">사랑의 길</h4>
+										<p>8.1km <span>ㅣ</span> 3:30</p>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="body">
+						<div class="slide-wrap" id="t01">
+							<p class="tit"><em>1구간</em> 돌아보는 길</p>
+							<div class="slide swiper-container">
+								<div class="swiper-wrapper">
+																																							
+										<div class="swiper-slide">
+											<a href="/content/23?class=one">
+												<div class="img" style="background:url('./uploads/board/step1/9785df0d9626b7f68e591662e70848a6.jpg')no-repeat center center; background-size:cover;"></div>
+												<div class="txt">
+													<p>경북에서 가장 오래된 아름다운 성당</p>	
+													<h4 class="batang">가실성당</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=one">
+												<div class="img" style="background:url('./uploads/board/step1/72ca04e98a6e21f8cd7a99d12a714d7a.jpg')no-repeat center center; background-size:cover;"></div>
+												<div class="txt">
+													<p>대한민국의 천연기념물로 지정된</p>	
+													<h4 class="batang">금무봉 나무고사리 화석산지</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=one">
+												<div class="img" style="background:url('./uploads/board/step1/f8698f4e39d2a613c65fd1e24a07dab7.jpg')no-repeat center center; background-size:cover;"></div>
+												<div class="txt">
+													<p>천주교 신자들이 도자기를 굽고 살았던</p>	
+													<h4 class="batang">도암지</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=one">
+												<div class="img" style="background:url('./uploads/board/step1/04a2ed70f0551b44147a3baddf038dde.jpg')no-repeat center center; background-size:cover;"></div>
+												<div class="txt">
+													<p>천주교 박해시대의 교우촌</p>	
+													<h4 class="batang">신나무골 성지</h4>
+												</div>
+											</a>
+										</div>
+																											</div>
+								<div class="slide-next"><i class="icon-arrow_left"></i></div>
+								<div class="slide-prev"><i class="icon-arrow_right"></i></div>
+							</div>
+						</div>
+						<div class="slide-wrap" id="t02" style="display:none;">
+							<p class="tit"><em>2구간</em> 비우는 길</p>
+							<div class="slide swiper-container">
+								<div class="swiper-wrapper">
+																																							
+										<div class="swiper-slide">
+											<a href="/content/23?class=two">
+												<div class="img" style="background:url('./uploads/board/step2/0924968d6add4b7c519cf463f9be954a.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p></p>	
+													<h4 class="batang">신나무골성지</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=two">
+												<div class="img" style="background:url('./uploads/board/step2/c7fbe2f3e397ec19ee4ff1dc30448475.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p>칠곡군 지천면 황학리에 있는 저수지</p>	
+													<h4 class="batang">댓골지(달서지)</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=two">
+												<div class="img" style="background:url('./uploads/board/step2/6531e976f8f2b87216650b02560679ba.png')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p>푸른초지 속에서 뛰노는 양떼가 있는</p>	
+													<h4 class="batang">양떼목장</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=two">
+												<div class="img" style="background:url('./uploads/board/step2/dcb103f7e14317da19a7c5943a38fb14.png')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p>고려·조선시대 청자·자기·옹기가마터</p>	
+													<h4 class="batang">창평지</h4>
+												</div>
+											</a>
+										</div>
+																											</div>
+								<div class="slide-next"><i class="icon-arrow_left"></i></div>
+								<div class="slide-prev"><i class="icon-arrow_right"></i></div>
+							</div>
+						</div>
+						<div class="slide-wrap" id="t03" style="display:none;">
+							<p class="tit"><em>3구간</em> 뉘우치는 길</p>
+							<div class="slide swiper-container">
+								<div class="swiper-wrapper">
+																																							
+										<div class="swiper-slide">
+											<a href="/content/23?class=three">
+												<div class="img" style="background:url('./uploads/board/step3/6b6f892a38f5cb541c197918849cf611.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p></p>	
+													<h4 class="batang">사기점공소</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=three">
+												<div class="img" style="background:url('./uploads/board/step3/c9a658fa59b5ff1d0acee6d3abd348b4.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p></p>	
+													<h4 class="batang">열두굽이길</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=three">
+												<div class="img" style="background:url('./uploads/board/step3/3963000804da8a4a5cde69f1c9b0ac70.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p></p>	
+													<h4 class="batang">쌀바위 진달래</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=three">
+												<div class="img" style="background:url('./uploads/board/step3/cf6a81b8e5b809f6a0af31aa5bc1304c.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p></p>	
+													<h4 class="batang">쌀바위 노을</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=three">
+												<div class="img" style="background:url('./uploads/board/step3/6d36eaa5f10c846af2b5ecb6c1725078.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p>자연 그대로 느낄 수 있는 쉼터</p>	
+													<h4 class="batang">금낙정</h4>
+												</div>
+											</a>
+										</div>
+																											</div>
+								<div class="slide-next"><i class="icon-arrow_left"></i></div>
+								<div class="slide-prev"><i class="icon-arrow_right"></i></div>
+							</div>
+						</div>
+						<div class="slide-wrap" id="t04" style="display:none;">
+							<p class="tit"><em>4구간</em> 용서의 길</p>
+							<div class="slide swiper-container">
+								<div class="swiper-wrapper">
+																																							
+										<div class="swiper-slide">
+											<a href="/content/23?class=four">
+												<div class="img" style="background:url('./uploads/board/step4/5611673b402db71e1c1094edbaeafa44.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p></p>	
+													<h4 class="batang">원당공소</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=four">
+												<div class="img" style="background:url('./uploads/board/step4/15ab35deea2093a837b1797e3eacff54.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p></p>	
+													<h4 class="batang">동명성당</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=four">
+												<div class="img" style="background:url('./uploads/board/step4/4db6e56886f086a7ff5c131c32a65e8a.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p></p>	
+													<h4 class="batang">동명수변공원 노을</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=four">
+												<div class="img" style="background:url('./uploads/board/step4/d6d4e919400dc4c8d88e1b3678f3608c.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p>칠곡군 동명면 구덕리에 있는 조계종 사찰</p>	
+													<h4 class="batang">송림사</h4>
+												</div>
+											</a>
+										</div>
+																											</div>
+								<div class="slide-next"><i class="icon-arrow_left"></i></div>
+								<div class="slide-prev"><i class="icon-arrow_right"></i></div>
+							</div>
+						</div>
+						<div class="slide-wrap" id="t05" style="display:none;">
+							<p class="tit"><em>5구간</em> 사랑의 길</p>
+							<div class="slide swiper-container">
+								<div class="swiper-wrapper">
+																																							
+										<div class="swiper-slide">
+											<a href="/content/23?class=five">
+												<div class="img" style="background:url('./uploads/board/step5/e93eb5fc972f5c4620116535ce972230.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p>조선시대 때 외적 방어용으로 건립된</p>	
+													<h4 class="batang">가산산성(진남문)</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=five">
+												<div class="img" style="background:url('./uploads/board/step5/bb9b72c4acece65a1c4f3fe75d630e6c.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p></p>	
+													<h4 class="batang">한티마을사람</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=five">
+												<div class="img" style="background:url('./uploads/board/step5/a1e1de01c6767bd82b174209b46ea1da.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p></p>	
+													<h4 class="batang">억새마을</h4>
+												</div>
+											</a>
+										</div>
+																														
+										<div class="swiper-slide">
+											<a href="/content/23?class=five">
+												<div class="img" style="background:url('./uploads/board/step1/42ea508623ddcb1829c2fadaf46f0637.jpg')no-repeat 0 0; background-size:cover;"></div>
+												<div class="txt">
+													<p></p>	
+													<h4 class="batang">한티순교성지</h4>
+												</div>
+											</a>
+										</div>
+																											</div>
+								<div class="slide-next"><i class="icon-arrow_left"></i></div>
+								<div class="slide-prev"><i class="icon-arrow_right"></i></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+			
+			
+			<div id="cts2" style="display:none;">
+				<div class="inn">
+					<div class="head">
+						<div class="title">
+							<span>자연을 만나고 사람을 만나고 나를 찾는</span>
+							<h3 class="batang">가실에서 한티까지<br class="web"/> 한티가는 길 </h3>
+							<h2 class="batang">45.6km</h2>
+						</div>
+						<div class="menu">
+							<ul>
+								<li>
+									<a href="/content/24">
+										<img src="/images/default/main/road_img01.png"  alt="한눈에 보기">
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="body">
+						<img src="/images/default/main/road.png"  alt="한티가는길 안내도">
+					</div>
+				</div>
+			</div>
+			
+			<div id="cts3" style="display:none;">
+				<div class="inn">
+					<h2 class="batang"><b>숙박시설</b> 예약하기</h2>
+					<ul>
+												<li>
+							<div class="box">
+								<span>1구간</span>
+								<div class="img" >
+																			<img src="/uploads/facility/69862df300d360d9272e1202dd085015.jpg"  alt="">
+																	</div>
+								<h4 class="batang">신나무골엘리사벳집</h4>
+								<p>2구간 엘리사벳 입구 부근에 위치한 숙박시설 입니다. 사전예약제로 운영하고 있습니다.</p>
+								<a href="/reservation/fac_rsv/1">예약하기 <i class="icon-arrow_left"></i></a>
+							</div>
+						</li>
+												<li>
+							<div class="box">
+								<span>2구간</span>
+								<div class="img" >
+																			<img src="/uploads/facility/a82d205a647056e07ec25e1d194a1550.jpg"  alt="">
+																	</div>
+								<h4 class="batang">사기점공소</h4>
+								<p>3구간 창평지 입구 부근에 위치한 숙박시설 입니다.  사전예약제로 운영하고 있습니다.</p>
+								<a href="/reservation/fac_rsv/2">예약하기 <i class="icon-arrow_left"></i></a>
+							</div>
+						</li>
+												<li>
+							<div class="box">
+								<span>3구간</span>
+								<div class="img" >
+																			<img src="/uploads/facility/d98178137227909f1b0fcd6a8d631a6d.jpg"  alt="">
+																	</div>
+								<h4 class="batang">동명순례자의집</h4>
+								<p>4구간 동명성당 입구 부근에 위치한 숙박시설 입니다.  사전예약제로 운영하고 있습니다.</p>
+								<a href="/reservation/fac_rsv/3">예약하기 <i class="icon-arrow_left"></i></a>
+							</div>
+						</li>
+												<li>
+							<div class="box">
+								<span>4구간</span>
+								<div class="img" >
+																			<img src="/uploads/facility/5a368b64351d6f4ebc7022c9751c7327.jfif"  alt="">
+																	</div>
+								<h4 class="batang">원당공소</h4>
+								<p>5구간 한티순교성지에서는 숙박이 가능합니다. 사전예약제로 운영하고 있습니다.</p>
+								<a href="/reservation/fac_rsv/4">예약하기 <i class="icon-arrow_left"></i></a>
+							</div>
+						</li>
+											</ul>
+				</div>
+			</div>
+
+			<div id="cts4" style="display:none;">
+				<div class="inn clearfix">
+					<div class="title">
+						<span>여행후기</span>
+						<h3 class="batang">한티가는길 <br class="web"/><b>잘 다녀왔습니다.</b></h3>
+						<a href="/board/review">자세히보기 <i class="icon-arrow_left"></i></a>
+					</div>
+					<div class="review-wrap">
+						<div class="review swiper-container">
+							<div class="swiper-wrapper">
+															</div>
+							<div class="swiper-pagination"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="cts5">
+				<div class="inn">
+					<div class="notice-wrap">
+						<h4 class="batang">한티가는길 <b>소식</b> <a href="/board/notice"><i class="xi-plus-thin"></i></a></h4>
+						<div class="notice">
+																																		<div class="recent_ul">
+											<a href="/board/view/notice/266">
+												<div class="date">
+													<span class="">20</span>
+													2026.05												</div>
+												<p>														
+													(종료)2026 한티가는길 모심기 체험 행사 안내																																						</p>
+											</a>
+										</div>
+										<ul class="others_ul">
+																																								<li>
+													<a href="/board/view/notice/248">
+														(종료)2025년 제4회 한티가는길 사진공모전 수상작 발표																											</a>
+													<p>2025.11.15</p>
+												</li>
+																																								<li>
+													<a href="/board/view/notice/247">
+														(종료)2025년 제 4회 한티가는길 사진공모전 안내																											</a>
+													<p>2025.10.12</p>
+												</li>
+																																								<li>
+													<a href="/board/view/notice/246">
+														(종료)2025 한티가는길 걷기 행사 안내																											</a>
+													<p>2025.08.10</p>
+												</li>
+																																								<li>
+													<a href="/board/view/notice/245">
+														(종료)2025 한티가는길 모심기 체험 행사 안내																											</a>
+													<p>2025.06.06</p>
+												</li>
+																											</ul>
+													</div>
+						<div class="sns">
+							<a href="https://www.youtube.com/@user-ll1pi6gu5p" target="_blank"><span class="icon01"></span><p><b>유튜브</b></p></a>
+							<a href="https://www.instagram.com/hantiganeungil_official_insta/" target="_blank"><span class="icon02"></span><p><b>인스타그램</b></p></a>
+							<a href="https://www.facebook.com/hantiganeungil" target="_blank"><span class="icon03"></span><p><b>페이스북</b></p></a>
+							<a href="https://cafe.daum.net/hanti1868" target="_blank"><span class="icon04"></span><p><b>다음카페</b></p></a>
+						</div>
+					</div>
+					<div class="banner-wrap">
+						<h4 class="batang">한티가는길 <b>행사신청하기</b> <a href="/program/program_list"><i class="xi-plus-thin"></i></a></h4>
+						<div class="swiper-container swiper5">
+							<ul class="swiper-wrapper">
+																	<li class="banner swiper-slide" style="background:url('uploads/shortcut/aad123041be5dedba5b8f168e7644d6d.jpg')no-repeat 50% 50%; background-size:cover;"><a href="https://forms.gle/Wd8saqAcJDJDe52k9"></a></li>
+																	<li class="banner swiper-slide" style="background:url('uploads/shortcut/fc2155213a7389560f8be7dbea1fa001.jpg')no-repeat 50% 50%; background-size:cover;"><a href="https://forms.gle/Q4e4LYf9N7M4Jj6Q6"></a></li>
+															</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //container -->
+
+		<!-- footer -->
+		<div id="footer">
+			<div class="inn">
+				<div class="copyright">
+					<h3 class="logo"><img src="/images/default/main/logo_w.svg" alt="한티가는길"/></h3>
+					<div class="">
+						<ul>
+							<li><a href="/content/86">이용약관</a></li>
+							<li><a href="/content/87">개인정보처리방침</a></li>
+							<li><a href="/content/88">이메일무단수집거부</a></li>
+						</ul>
+						<p><b>주소</b> :  (우) 39855 경상북도 칠곡군 동명면 한티로 1길 69<span></span><b>전화</b> : 054-975-5151<span></span><b>이메일</b> : dghanti@daum.net</p>
+						<p class="copy">Copyright ©  사단법인 한티. All rights reserved. <a href="/manage" target="_blank"><i class="xi-lock-o"></i><span class="hide">관리자사이트 가기</span></a></p>
+					</div>
+				</div>
+			</div>
+			<!--div class="logos">
+				<ul>
+					<li><img src="/images/default/main/logos01.png"  alt="경상북도"></li>
+					<li><img src="/images/default/main/logos02.png"  alt="칠곡군"></li>
+				</ul>
+			</div-->
+		</div>
+		<!-- //footer -->
+	</div>
+	<!-- //wrap -->
+
+	<style type="text/css">
+	.popup_web{display:block; }
+	.popup_mob{display:none}
+	.layerPopup{position: absolute;  top: 0;  left: 0; z-index:99999;  }
+
+	
+	
+	.chkvsb{display:flex; justify-content: space-between; background: #191919; color:#fff; padding:.5rem .5rem;}
+	.chkvsb p{cursor:pointer; font-size:.7rem;}
+	.chkvsb p i{vertical-align:text-top;}
+
+	@media (max-width:1300px){
+	}
+	@media (max-width:1030px){
+		.layerPopup{ height:100%; width: 100%;}
+		.popup_web{display:none;}
+		.popup_mob{display:block;}
+		.popup_mob .popup{position:absolute; left:50%; top:5rem; width:500px; transform:translate(-50%); box-shadow:0 0 20px rgba(0,0,0,0.4);background-color: #191919;}
+		.popup_mob .popup .swiper-pagination{bottom:3rem;}
+		.popup_mob .popup .swiper-pagination-bullet{width:.5rem; height:.5rem; border-radius:.25rem;}
+		.popup_mob .popup .swiper-pagination-bullet-active{width:1.5rem; background:#000;}
+		.chkvsb{padding:.75rem;}
+		.chkvsb p{ font-size:.85rem;}
+	}
+	@media (max-width:767px){
+		.popup_mob .popup{width:80%;}
+	}
+
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		// PC 레이어
+        $('.popup_web .btnCloseLayerPopup').click(function(){
+			var restPeriod = $(this).find('input[name="restPeriod"]').val();
+			
+			try {$.cookie('popup' + $(this).data('idx'), '1', { path: '/', expires: restPeriod });}
+			catch (e) {}
+			finally {$('#layerPopup'+$(this).data('idx')).hide();}
+        });
+
+		$('.popup_web .popupClose').click(function() {
+			$(this).parent().parent().hide();
+		});
+		// Mobile 레이어
+        $('.popup_mob .btnCloseLayerPopup').click(function(){
+			try {$.cookie('popup_mob', '1', { path: '/', expires: 1 });}
+			catch (e) {}
+			finally {$('.popup_mob').hide();}
+        });
+
+		$('.popup_mob .popupClose').click(function() {
+			$('.popup_mob').hide();
+		});
+
+		// 모바일 슬라이드설정
+        var swiper = new Swiper('.popup_mob .popup', {
+		  pagination: {
+			el: '.swiper-pagination',
+			clickable: true,
+		  },
+		});
+	});
+
+</script>
+	<script>
+    $(document).ready(function(){
+		 // 윈도우 팝업을 띄워주면 된다.
+	        })
+</script>
+	<div id="top">
+
+		<a class="top"><i class="xi-angle-up-min"></i></a>
+	</div>
+<!-- Running time: 0.1112sec / Memory used: 6.99MB -->
+</body>
+</html>
