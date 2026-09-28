@@ -1,0 +1,35 @@
+{
+  "slug": "andong-walking",
+  "pageOpened": true,
+  "openNote": "9/29 사본(_pages) 대조",
+  "checks": [
+    { "item": "courses[0].name", "research": "순교의 길 (1일)", "verdict": "불일치", "official": "순교의 길 (1일 코스)", "note": "공식 사본은 ‘코스’를 포함한다." },
+    { "item": "courses[0].distanceKm", "research": 18, "verdict": "일치", "official": 18, "note": "" },
+    { "item": "courses[0].duration", "research": "오전 8시~오후 4시", "verdict": "불일치", "official": "오전 8시 출발~오후 4시 도착", "note": "시간은 같지만 공식 사본은 출발·도착으로 표기한다." },
+    { "item": "courses[0].stops[0].name", "research": "문경 성당", "verdict": "일치", "official": "문경 성당", "note": "" },
+    { "item": "courses[0].stops[1].name", "research": "문경 관아", "verdict": "일치", "official": "문경 관아", "note": "" },
+    { "item": "courses[1].name", "research": "우정의 길 (1일)", "verdict": "불일치", "official": "우정의 길 (1일 코스)", "note": "공식 사본은 ‘코스’를 포함한다." },
+    { "item": "courses[1].distanceKm", "research": 12, "verdict": "일치", "official": 12, "note": "" },
+    { "item": "courses[1].duration", "research": "오전 8시~오후 5시", "verdict": "불일치", "official": "오전 8시 출발~오후 5시 문경성당 도착", "note": "시간은 같지만 공식 사본은 출발·도착으로 표기한다." },
+    { "item": "courses[1].stops[0].name", "research": "문경 성당", "verdict": "일치", "official": "문경 성당", "note": "" },
+    { "item": "courses[1].stops[1].name", "research": "백화산 정상", "verdict": "일치", "official": "백화산 정상", "note": "" },
+    { "item": "courses[2].name", "research": "빛과 어둠의 길 (야간, 문경새재)", "verdict": "불일치", "official": "빛과 어둠의 길 (야간코스, 문경새재길)", "note": "공식 사본의 야간 코스 및 길 명칭 표기가 다르다." },
+    { "item": "courses[2].distanceKm", "research": 8, "verdict": "일치", "official": 8, "note": "" },
+    { "item": "courses[2].duration", "research": "오후 3시~저녁 9시", "verdict": "불일치", "official": "오후 3시 명상센터 출발~저녁 9시 명상센터 도착", "note": "시간은 같지만 공식 사본은 출발·도착으로 표기한다." },
+    { "item": "courses[2].stops[0].name", "research": "3관문", "verdict": "일치", "official": "3관문", "note": "" },
+    { "item": "courses[2].stops[1].name", "research": "1관문", "verdict": "일치", "official": "1관문", "note": "" },
+    { "item": "courses[3].name", "research": "믿음의 길 (3일)", "verdict": "불일치", "official": "믿음의 길 (3일 코스)", "note": "공식 사본은 ‘코스’를 포함한다." },
+    { "item": "courses[3].distanceKm", "research": 66, "verdict": "일치", "official": 66, "note": "공식 사본의 1일차 18km, 2일차 26km, 3일차 22km 합계다." },
+    { "item": "courses[3].duration", "research": "3일", "verdict": "일치", "official": "3일", "note": "공식 사본의 ‘3일 코스’ 표기 기준이다." },
+    { "item": "courses[3].stops[0].name", "research": "문경 성당", "verdict": "일치", "official": "문경 성당", "note": "" },
+    { "item": "courses[3].stops[1].name", "research": "신기 성당", "verdict": "일치", "official": "신기 성당", "note": "" },
+    { "item": "courses[3].stops[2].name", "research": "퇴강 성당", "verdict": "일치", "official": "퇴강 성당", "note": "" },
+    { "item": "courses[3].stops[3].name", "research": "상주 옥터", "verdict": "일치", "official": "상주 옥터", "note": "" }
+  ],
+  "missing": ["공식 사본에는 1차 결과에 없는 ‘열정의 길 (5일 코스)’도 제시되어 있어 별도 확인이 필요하다."],
+  "matchReview": [
+    { "stop": "퇴강 성당", "ourSite": "퇴강 성당", "verdict": "맞음", "reason": "공식 사본의 믿음의 길 2일차 도착·3일차 출발지는 퇴강 성당이며, 앱 자료도 안동교구 경북 상주시 사벌면의 같은 이름 성당이다." },
+    { "stop": "상주 옥터", "ourSite": "상주 옥 터", "verdict": "맞음", "reason": "공식 사본은 믿음의 길 3일차 도착지를 상주 옥터로 표기하고, 앱 자료의 상주 옥 터는 띄어쓰기만 다르며 경북 상주시 성동동에 있다." }
+  ],
+  "recommendationComment": "공식 사본은 1일 코스 3개와 3일 코스 1개의 거리·출발·도착지를 제시한다. 1차 결과에는 공식 사본의 열정의 길(5일 코스)이 빠져 있으므로 코스 목록을 보완하기 전에는 전체 도보순례 안내로 추천하지 않는 편이 좋다."
+}

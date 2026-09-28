@@ -1,0 +1,21 @@
+{
+  "slug": "boryeong-galmaemot",
+  "pageOpened": true,
+  "openNote": "9/29 사본(_pages) 대조",
+  "checks": [
+    { "item": "courses[0].name", "research": "갈매못-서짓골 성지순례길", "verdict": "불일치", "official": "갈매못-서짓골 성지 순례길", "note": "공식 사본은 ‘성지’와 ‘순례길’ 사이를 띄어 쓴다." },
+    { "item": "courses[0].distanceKm", "research": 9, "verdict": "일치", "official": 9, "note": "본문에는 육상 동선 9.5km도 있으나, 코스안내는 총 9km로 표기한다." },
+    { "item": "courses[0].duration", "research": "약 3시간", "verdict": "일치", "official": "약 3시간", "note": "" },
+    { "item": "courses[0].stops[0].name", "research": "완장포구", "verdict": "일치", "official": "완장포구", "note": "" },
+    { "item": "courses[0].stops[1].name", "research": "웅천읍내", "verdict": "일치", "official": "웅천읍내", "note": "" },
+    { "item": "courses[0].stops[2].name", "research": "웅천 성동리", "verdict": "일치", "official": "웅천 성동리", "note": "" },
+    { "item": "courses[0].stops[3].name", "research": "주산 화평리", "verdict": "불일치", "official": "주산화평리", "note": "공식 사본은 지명 사이를 띄어 쓰지 않는다." },
+    { "item": "courses[0].stops[4].name", "research": "보령댐", "verdict": "일치", "official": "보령댐", "note": "" },
+    { "item": "courses[0].stops[5].name", "research": "서짓골", "verdict": "일치", "official": "서짓골", "note": "" }
+  ],
+  "missing": [],
+  "matchReview": [
+    { "stop": "서짓골", "ourSite": "서짓골 성지", "verdict": "맞음", "reason": "공식 사본은 보령시 미산면의 서짓골 성지로 표기하고, 앱 자료도 보령시 미산면 평라리의 서짓골 성지를 가리킨다." }
+  ],
+  "recommendationComment": "공식 사본은 한 코스의 거리 9km·약 3시간과 여섯 경유지를 모두 제시한다. 다만 본문의 육상 동선은 9.5km로 별도 표기되어 거리 안내에는 코스안내 기준임을 함께 밝혀야 하며, 코스명과 주산화평리 표기는 공식 표기로 통일할 필요가 있다."
+}

@@ -1,0 +1,36 @@
+{
+  "slug": "gwangju-pilgrimage",
+  "pageOpened": true,
+  "openNote": "curl 응답 본문은 0자였으나, 공식 페이지 사본 _pages/gwangju-pilgrimage/0.txt와 1.txt를 열람함",
+  "checks": [
+    { "item": "courses[0].name", "research": "노안-나주 순교자 기념 성당", "verdict": "불일치", "official": "노안⇔나주순교자기념성당", "note": "공식 사본의 표제는 하이픈·공백 대신 ⇔를 사용함" },
+    { "item": "courses[0].distanceKm", "research": 12.9, "verdict": "일치", "official": 12.9, "note": "" },
+    { "item": "courses[0].duration", "research": null, "verdict": "확인불가", "official": null, "note": "공식 사본에 소요 시간 없음" },
+    { "item": "courses[0].stops[0].name", "research": "노안성당", "verdict": "일치", "official": "노안성당", "note": "" },
+    { "item": "courses[0].stops[1].name", "research": "계량재", "verdict": "일치", "official": "계량재", "note": "" },
+    { "item": "courses[0].stops[2].name", "research": "이별재광장", "verdict": "일치", "official": "이별재광장", "note": "" },
+    { "item": "courses[0].stops[3].name", "research": "옥산", "verdict": "일치", "official": "옥산", "note": "" },
+    { "item": "courses[0].stops[4].name", "research": "무재", "verdict": "일치", "official": "무재", "note": "" },
+    { "item": "courses[0].stops[5].name", "research": "울음재", "verdict": "일치", "official": "울음재", "note": "" },
+    { "item": "courses[0].stops[6].name", "research": "오두재", "verdict": "일치", "official": "오두재", "note": "" },
+    { "item": "courses[0].stops[7].name", "research": "경현동", "verdict": "일치", "official": "경현동", "note": "" },
+    { "item": "courses[0].stops[8].name", "research": "나주순교자기념성당", "verdict": "일치", "official": "나주순교자기념성당", "note": "" },
+    { "item": "courses[1].name", "research": "사거리성당", "verdict": "일치", "official": "사거리성당", "note": "" },
+    { "item": "courses[1].distanceKm", "research": 42.5, "verdict": "일치", "official": 42.5, "note": "" },
+    { "item": "courses[1].duration", "research": null, "verdict": "확인불가", "official": null, "note": "공식 사본에 소요 시간 없음" },
+    { "item": "courses[1].stops[0].name", "research": "사거리성당", "verdict": "일치", "official": "사거리성당", "note": "" },
+    { "item": "courses[1].stops[1].name", "research": "성진원공소", "verdict": "일치", "official": "성진원공소", "note": "" },
+    { "item": "courses[1].stops[2].name", "research": "되야동", "verdict": "일치", "official": "되야동", "note": "" },
+    { "item": "courses[1].stops[3].name", "research": "매남공소", "verdict": "일치", "official": "매남공소", "note": "" },
+    { "item": "courses[1].stops[4].name", "research": "점골", "verdict": "일치", "official": "점골", "note": "" },
+    { "item": "courses[1].stops[5].name", "research": "금곡영화마을", "verdict": "일치", "official": "금곡영화마을", "note": "" },
+    { "item": "courses[1].stops[6].name", "research": "월산삼거리", "verdict": "일치", "official": "월산삼거리", "note": "" },
+    { "item": "courses[1].stops[7].name", "research": "솔재", "verdict": "일치", "official": "솔재", "note": "" },
+    { "item": "courses[1].stops[8].name", "research": "사거리성당", "verdict": "일치", "official": "사거리성당", "note": "" }
+  ],
+  "missing": ["두 코스의 소요 시간은 공식 사본에 표기되지 않음"],
+  "matchReview": [
+    { "stop": "나주순교자기념성당", "ourSite": "나주 순교자 기념성당", "verdict": "맞음", "reason": "공식 사본의 노안⇔나주순교자기념성당 경로 종점과 우리 성지의 이름이 공백만 다르고, 우리 성지 위치도 전남 나주시임" }
+  ],
+  "recommendationComment": "두 코스는 공식 사본에서 전체 거리와 순서가 있는 경유지를 확인할 수 있어 순례 경로로 안내할 근거가 있다. 다만 소요 시간과 경유지 주소는 표기되지 않아 이동 계획 전 별도 확인이 필요하다."
+}

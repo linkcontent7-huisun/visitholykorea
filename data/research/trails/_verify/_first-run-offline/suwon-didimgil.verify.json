@@ -1,0 +1,42 @@
+{
+  "slug": "suwon-didimgil",
+  "pageOpened": false,
+  "openNote": "curl -sL -A \"Mozilla/5.0\" https://www.casuwon.or.kr/holyland/pilgrimage 요청이 빈 본문을 반환함",
+  "checks": [
+    {"item":"courses[0].name","verdict":"확인불가"},{"item":"courses[0].distanceKm","verdict":"확인불가"},{"item":"courses[0].duration","verdict":"확인불가"},{"item":"courses[0].stops[0].name","verdict":"확인불가"},{"item":"courses[0].stops[1].name","verdict":"확인불가"},
+    {"item":"courses[1].name","verdict":"확인불가"},{"item":"courses[1].distanceKm","verdict":"확인불가"},{"item":"courses[1].duration","verdict":"확인불가"},{"item":"courses[1].stops[0].name","verdict":"확인불가"},{"item":"courses[1].stops[1].name","verdict":"확인불가"},{"item":"courses[1].stops[2].name","verdict":"확인불가"},
+    {"item":"courses[2].name","verdict":"확인불가"},{"item":"courses[2].distanceKm","verdict":"확인불가"},{"item":"courses[2].duration","verdict":"확인불가"},{"item":"courses[2].stops[0].name","verdict":"확인불가"},{"item":"courses[2].stops[1].name","verdict":"확인불가"},
+    {"item":"courses[3].name","verdict":"확인불가"},{"item":"courses[3].distanceKm","verdict":"확인불가"},{"item":"courses[3].duration","verdict":"확인불가"},{"item":"courses[3].stops[0].name","verdict":"확인불가"},{"item":"courses[3].stops[1].name","verdict":"확인불가"},
+    {"item":"courses[4].name","verdict":"확인불가"},{"item":"courses[4].distanceKm","verdict":"확인불가"},{"item":"courses[4].duration","verdict":"확인불가"},{"item":"courses[4].stops[0].name","verdict":"확인불가"},{"item":"courses[4].stops[1].name","verdict":"확인불가"},{"item":"courses[4].stops[2].name","verdict":"확인불가"},
+    {"item":"courses[5].name","verdict":"확인불가"},{"item":"courses[5].distanceKm","verdict":"확인불가"},{"item":"courses[5].duration","verdict":"확인불가"},{"item":"courses[5].stops[0].name","verdict":"확인불가"},{"item":"courses[5].stops[1].name","verdict":"확인불가"},
+    {"item":"courses[6].name","verdict":"확인불가"},{"item":"courses[6].distanceKm","verdict":"확인불가"},{"item":"courses[6].duration","verdict":"확인불가"},{"item":"courses[6].stops[0].name","verdict":"확인불가"},{"item":"courses[6].stops[1].name","verdict":"확인불가"},{"item":"courses[6].stops[2].name","verdict":"확인불가"},
+    {"item":"courses[7].name","verdict":"확인불가"},{"item":"courses[7].distanceKm","verdict":"확인불가"},{"item":"courses[7].duration","verdict":"확인불가"},{"item":"courses[7].stops[0].name","verdict":"확인불가"},{"item":"courses[7].stops[1].name","verdict":"확인불가"},{"item":"courses[7].stops[2].name","verdict":"확인불가"},
+    {"item":"courses[8].name","verdict":"확인불가"},{"item":"courses[8].distanceKm","verdict":"확인불가"},{"item":"courses[8].duration","verdict":"확인불가"},{"item":"courses[8].stops[0].name","verdict":"확인불가"},{"item":"courses[8].stops[1].name","verdict":"확인불가"},
+    {"item":"courses[9].name","verdict":"확인불가"},{"item":"courses[9].distanceKm","verdict":"확인불가"},{"item":"courses[9].duration","verdict":"확인불가"},{"item":"courses[9].stops[0].name","verdict":"확인불가"},{"item":"courses[9].stops[1].name","verdict":"확인불가"},
+    {"item":"courses[10].name","verdict":"확인불가"},{"item":"courses[10].distanceKm","verdict":"확인불가"},{"item":"courses[10].duration","verdict":"확인불가"},{"item":"courses[10].stops[0].name","verdict":"확인불가"},{"item":"courses[10].stops[1].name","verdict":"확인불가"},
+    {"item":"courses[11].name","verdict":"확인불가"},{"item":"courses[11].distanceKm","verdict":"확인불가"},{"item":"courses[11].duration","verdict":"확인불가"},{"item":"courses[11].stops[0].name","verdict":"확인불가"},{"item":"courses[11].stops[1].name","verdict":"확인불가"},
+    {"item":"courses[12].name","verdict":"확인불가"},{"item":"courses[12].distanceKm","verdict":"확인불가"},{"item":"courses[12].duration","verdict":"확인불가"},{"item":"courses[12].stops[0].name","verdict":"확인불가"},{"item":"courses[12].stops[1].name","verdict":"확인불가"},{"item":"courses[12].stops[2].name","verdict":"확인불가"},
+    {"item":"courses[13].name","verdict":"확인불가"},{"item":"courses[13].distanceKm","verdict":"확인불가"},{"item":"courses[13].duration","verdict":"확인불가"},{"item":"courses[13].stops[0].name","verdict":"확인불가"},{"item":"courses[13].stops[1].name","verdict":"확인불가"},{"item":"courses[13].stops[2].name","verdict":"확인불가"},
+    {"item":"courses[14].name","verdict":"확인불가"},{"item":"courses[14].distanceKm","verdict":"확인불가"},{"item":"courses[14].duration","verdict":"확인불가"},{"item":"courses[14].stops[0].name","verdict":"확인불가"},{"item":"courses[14].stops[1].name","verdict":"확인불가"},
+    {"item":"courses[15].name","verdict":"확인불가"},{"item":"courses[15].distanceKm","verdict":"확인불가"},{"item":"courses[15].duration","verdict":"확인불가"},{"item":"courses[15].stops[0].name","verdict":"확인불가"},{"item":"courses[15].stops[1].name","verdict":"확인불가"},
+    {"item":"courses[16].name","verdict":"확인불가"},{"item":"courses[16].distanceKm","verdict":"확인불가"},{"item":"courses[16].duration","verdict":"확인불가"},{"item":"courses[16].stops[0].name","verdict":"확인불가"},{"item":"courses[16].stops[1].name","verdict":"확인불가"}
+  ],
+  "missing": ["공식 페이지를 열지 못해 코스명·거리·소요 시간·경유지의 공식 표기를 확인하지 못함"],
+  "matchReview": [
+    {"stop":"수리산성지","ourSite":"수리산 성지","verdict":"맞음","reason":"명칭 띄어쓰기만 다르고 수원교구·경기 안양 주소가 일치한다."},
+    {"stop":"손골성지","ourSite":"손골 성지","verdict":"맞음","reason":"명칭 띄어쓰기만 다르고 수원교구·경기 용인 주소가 일치한다."},
+    {"stop":"남한산성성지","ourSite":"남한산성 순교성지","verdict":"맞음","reason":"순교성지 표기만 추가됐고 수원교구·경기 광주 남한산성면으로 일치한다."},
+    {"stop":"구산성지","ourSite":"구산 성지","verdict":"맞음","reason":"명칭 띄어쓰기만 다르고 수원교구·경기 하남 주소가 일치한다."},
+    {"stop":"양근성지","ourSite":"양근 성지","verdict":"맞음","reason":"명칭 띄어쓰기만 다르고 수원교구·경기 양평 주소가 일치한다."},
+    {"stop":"천진암성지","ourSite":"천진암 성지","verdict":"맞음","reason":"명칭 띄어쓰기만 다르고 수원교구·경기 광주 주소가 일치한다."},
+    {"stop":"죽산성지","ourSite":"죽산 순교성지","verdict":"맞음","reason":"순교성지 표기만 추가됐고 수원교구·경기 안성 주소가 일치한다."},
+    {"stop":"어농성지","ourSite":"어농 성지","verdict":"맞음","reason":"명칭 띄어쓰기만 다르고 수원교구·경기 이천 주소가 일치한다."},
+    {"stop":"단내성가정성지","ourSite":"단내 성가정 성지","verdict":"맞음","reason":"명칭 띄어쓰기만 다르고 수원교구·경기 이천 주소가 일치한다."},
+    {"stop":"은이성지","ourSite":"은이 성지","verdict":"맞음","reason":"명칭 띄어쓰기만 다르고 수원교구·경기 용인 주소가 일치한다."},
+    {"stop":"미리내성지","ourSite":"미리내 성지","verdict":"맞음","reason":"명칭 띄어쓰기만 다르고 수원교구·경기 안성 주소가 일치한다."},
+    {"stop":"요당리성지","ourSite":"요당리 성지","verdict":"맞음","reason":"명칭 띄어쓰기만 다르고 수원교구·경기 화성 주소가 일치한다."},
+    {"stop":"남양성모성지","ourSite":"남양 성모 성지","verdict":"맞음","reason":"명칭 띄어쓰기만 다르고 수원교구·경기 화성 주소가 일치한다."},
+    {"stop":"수원화성순교성지","ourSite":"수원 화성 순교성지","verdict":"맞음","reason":"명칭 띄어쓰기만 다르고 수원교구·경기 수원 주소가 일치한다."}
+  ],
+  "recommendationComment": "공식 순례길 페이지의 코스 세부 정보를 열지 못했으므로, 거리와 소요 시간은 이용자에게 추천 근거로 제시하지 않는다."
+}

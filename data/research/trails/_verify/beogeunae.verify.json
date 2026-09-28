@@ -1,0 +1,29 @@
+{
+  "slug": "beogeunae",
+  "pageOpened": true,
+  "openNote": "9/29 사본(_pages) 대조",
+  "checks": [
+    { "item": "courses[0].name", "research": "버그내 순례길", "verdict": "일치", "official": "버그내 순례길", "note": "" },
+    { "item": "courses[0].distanceKm", "research": null, "verdict": "확인불가", "official": null, "note": "공식 사본에 순례길 전체 거리가 없음" },
+    { "item": "courses[0].duration", "research": null, "verdict": "확인불가", "official": null, "note": "공식 사본에 도보 소요 시간이 없음" },
+    { "item": "courses[0].stops[0].name", "research": "솔뫼성지", "verdict": "일치", "official": "솔뫼성지", "note": "" },
+    { "item": "courses[0].stops[1].name", "research": "합덕제, 수리민속박물관", "verdict": "불일치", "official": "합덕제,수리민속박물관", "note": "공식 표기에는 쉼표 뒤 공백이 없음" },
+    { "item": "courses[0].stops[2].name", "research": "합덕성당", "verdict": "일치", "official": "합덕성당", "note": "" },
+    { "item": "courses[0].stops[3].name", "research": "합덕제중수비", "verdict": "일치", "official": "합덕제중수비", "note": "" },
+    { "item": "courses[0].stops[4].name", "research": "원시장, 원시보우물", "verdict": "불일치", "official": "원시장,원시보우물", "note": "공식 표기에는 쉼표 뒤 공백이 없음" },
+    { "item": "courses[0].stops[5].name", "research": "무명순교자의묘", "verdict": "일치", "official": "무명순교자의묘", "note": "" },
+    { "item": "courses[0].stops[6].name", "research": "신리성지", "verdict": "일치", "official": "신리성지", "note": "" },
+    { "item": "courses[0].stops[7].name", "research": "거더리공소", "verdict": "일치", "official": "거더리공소", "note": "" },
+    { "item": "courses[0].stops[8].name", "research": "세거리공소", "verdict": "일치", "official": "세거리공소", "note": "" },
+    { "item": "courses[0].stops[9].name", "research": "하흑공소", "verdict": "일치", "official": "하흑공소", "note": "" }
+  ],
+  "missing": [],
+  "matchReview": [
+    { "stop": "솔뫼성지", "ourSite": "솔뫼성지", "verdict": "맞음", "reason": "공식 사본의 순례길 1번 경유지와 우리 성지명이 같고, 우리 자료의 당진시 우강면 위치도 공식 페이지의 솔뫼성지 주소와 부합한다." },
+    { "stop": "합덕제, 수리민속박물관", "ourSite": "합덕 성당", "verdict": "틀림", "reason": "공식 사본은 합덕제·수리민속박물관을 2번, 합덕성당을 별도 3번 경유지로 구분한다." },
+    { "stop": "합덕성당", "ourSite": "합덕 성당", "verdict": "맞음", "reason": "공식 사본의 3번 경유지명과 우리 성지명은 띄어쓰기만 다르다." },
+    { "stop": "합덕제중수비", "ourSite": "합덕 성당", "verdict": "틀림", "reason": "공식 사본은 합덕제중수비를 4번, 합덕성당을 별도 3번 경유지로 구분한다." },
+    { "stop": "신리성지", "ourSite": "신리성지", "verdict": "맞음", "reason": "공식 사본의 7번 경유지와 우리 성지명이 같고, 우리 자료의 당진시 합덕읍 신리 위치가 순례길 지역과 부합한다." }
+  ],
+  "recommendationComment": "솔뫼성지부터 하흑공소까지 10곳을 한 동선으로 잇는다. 구간별 거리가 0.9~4.4km로 안내되어 있어 순례 일정의 이동량을 가늠하기 좋다."
+}

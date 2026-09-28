@@ -1,0 +1,24 @@
+{
+  "slug": "jeonju-gyouchon",
+  "pageOpened": true,
+  "openNote": "9/29 사본(_pages) 대조",
+  "checks": [
+    { "item": "courses[0].name", "research": "요안루갈다길", "verdict": "일치", "official": "요안루갈다길", "note": "" },
+    { "item": "courses[0].distanceKm", "research": null, "verdict": "확인불가", "official": null, "note": "사본에 전체 거리 표기 없음" },
+    { "item": "courses[0].duration", "research": null, "verdict": "확인불가", "official": null, "note": "사본에 예상 소요시간 표기 없음" },
+    { "item": "courses[0].stops[0].name", "research": "초남이성지", "verdict": "일치", "official": "초남이성지", "note": "" },
+    { "item": "courses[0].stops[1].name", "research": "전주숲정이성지", "verdict": "일치", "official": "전주숲정이성지", "note": "" },
+    { "item": "courses[0].stops[2].name", "research": "서천교순교터", "verdict": "일치", "official": "서천교순교터", "note": "" },
+    { "item": "courses[0].stops[3].name", "research": "전동성당", "verdict": "일치", "official": "전동성당", "note": "" },
+    { "item": "courses[0].stops[4].name", "research": "치명자산성지", "verdict": "일치", "official": "치명자산성지", "note": "" }
+  ],
+  "missing": [],
+  "matchReview": [
+    { "stop": "초남이성지", "ourSite": "초남이 성지", "verdict": "애매", "reason": "공식 사본은 완주군 이서면으로 표기하지만 앱 자료는 전주시 완산구로 표기해 지역이 다르다." },
+    { "stop": "전주숲정이성지", "ourSite": "전주 숲정이 성지", "verdict": "맞음", "reason": "공식 사본과 앱 자료 모두 전주교구·전주시 덕진구의 같은 성지로 가리킨다." },
+    { "stop": "서천교순교터", "ourSite": "서천교 순교 터", "verdict": "맞음", "reason": "공식 사본과 앱 자료 모두 전주교구·전주시 완산구 서완산동의 같은 순교터로 가리킨다." },
+    { "stop": "전동성당", "ourSite": "전동성당", "verdict": "맞음", "reason": "공식 사본과 앱 자료 모두 전주교구·전주시 완산구 태조로 51의 같은 성당으로 가리킨다." },
+    { "stop": "치명자산성지", "ourSite": "치명자산 성지", "verdict": "맞음", "reason": "공식 사본과 앱 자료 모두 전주교구·전주시 완산구 치명자산의 같은 성지로 가리킨다." }
+  ],
+  "recommendationComment": "공식 사본이 한 코스와 5개 경유지를 모두 제시하고, 그중 4곳은 앱 성지와 지역까지 일치한다. 다만 전체 거리와 예상 소요시간이 없어 코스 정보에는 미확인 항목으로 남겨야 하며, 초남이 성지의 앱 주소는 확인이 필요하다."
+}

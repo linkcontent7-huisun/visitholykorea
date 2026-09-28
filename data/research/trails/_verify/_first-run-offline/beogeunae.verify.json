@@ -1,0 +1,29 @@
+{
+  "slug": "beogeunae",
+  "pageOpened": false,
+  "openNote": "curl -sL -A \"Mozilla/5.0\" 요청이 curl: (7) Failed to connect to beogeunae.dangjin.go.kr:443 오류로 실패함",
+  "checks": [
+    { "item": "courses[0].name", "research": "버그내 순례길", "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" },
+    { "item": "courses[0].distanceKm", "research": null, "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" },
+    { "item": "courses[0].duration", "research": null, "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" },
+    { "item": "courses[0].stops[0].name", "research": "솔뫼성지", "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" },
+    { "item": "courses[0].stops[1].name", "research": "합덕제, 수리민속박물관", "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" },
+    { "item": "courses[0].stops[2].name", "research": "합덕성당", "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" },
+    { "item": "courses[0].stops[3].name", "research": "합덕제중수비", "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" },
+    { "item": "courses[0].stops[4].name", "research": "원시장, 원시보우물", "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" },
+    { "item": "courses[0].stops[5].name", "research": "무명순교자의묘", "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" },
+    { "item": "courses[0].stops[6].name", "research": "신리성지", "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" },
+    { "item": "courses[0].stops[7].name", "research": "거더리공소", "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" },
+    { "item": "courses[0].stops[8].name", "research": "세거리공소", "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" },
+    { "item": "courses[0].stops[9].name", "research": "하흑공소", "verdict": "확인불가", "official": null, "note": "공식 페이지 연결 실패" }
+  ],
+  "missing": ["공식 페이지 연결 실패로 1차 조사 결과의 누락 여부를 확인할 수 없음"],
+  "matchReview": [
+    { "stop": "솔뫼성지", "ourSite": "솔뫼성지", "verdict": "맞음", "reason": "이름이 같고 당진시 우강면 솔뫼로 132로 위치가 일치함" },
+    { "stop": "합덕제, 수리민속박물관", "ourSite": "합덕 성당", "verdict": "틀림", "reason": "합덕제·수리민속박물관과 합덕 성당은 이름과 대상이 다른 장소임" },
+    { "stop": "합덕성당", "ourSite": "합덕 성당", "verdict": "맞음", "reason": "공백 표기만 다르며 같은 당진시 합덕읍의 성당임" },
+    { "stop": "합덕제중수비", "ourSite": "합덕 성당", "verdict": "틀림", "reason": "합덕제중수비와 합덕 성당은 이름과 대상이 다른 장소임" },
+    { "stop": "신리성지", "ourSite": "신리성지", "verdict": "맞음", "reason": "이름이 같고 당진시 합덕읍 신리로 위치가 일치함" }
+  ],
+  "recommendationComment": "공식 페이지 연결이 실패해 코스 정보는 재확인이 필요하다. 다만 기존 성지 데이터와 직접 일치한 솔뫼성지·합덕성당·신리성지는 후보로 검토할 수 있다."
+}
