@@ -1,0 +1,1297 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes">
+<meta name="HandheldFriendly" content="true">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-UA-Compatible" content="IE=10,chrome=1">
+<meta name="description" content="가야산 주변의 4개시군 (서산시,당진시,홍성군,예산군) 이 내포 지역의 역사, 문화, 생태적 가치를 바탕으로 연결한  장거리 도보 여행길">
+<meta name="keywords" content="내포문화숲길, 서산시, 당진시, 홍성군, 예산군, 내포, 문화, 숲길, 도보, 여행길, 가야산">
+<meta name="author" content="내포문화숲길 - 가야산 주변의 4개시군 (서산시,당진시,홍성군,예산군) 이 내포 지역의 역사, 문화, 생태적 가치를 바탕으로 연결한  장거리 도보 여행길" />
+<meta name="format-detection" content="telephone=no">
+<meta property="og:type" content="website">
+<meta property="og:title" content="사단법인 내포문화숲길 - 가야산 주변의 4개시군 (서산시,당진시,홍성군,예산군) 이 내포 지역의 역사, 문화, 생태적 가치를 바탕으로 연결한  장거리 도보 여행길">
+<meta property="og:site_name" content="사단법인 내포문화숲길">
+<meta property="og:description" content="가야산 주변의 4개시군 (서산시,당진시,홍성군,예산군) 이 내포 지역의 역사, 문화, 생태적 가치를 바탕으로 연결한  장거리 도보 여행길">
+<meta property="og:image" content="/css/favicon_1200x630.png">
+<meta name="twitter:description" content="가야산 주변의 4개시군 (서산시,당진시,홍성군,예산군) 이 내포 지역의 역사, 문화, 생태적 가치를 바탕으로 연결한  장거리 도보 여행길">
+<meta name="twitter:image" content="/css/favicon_270x270.png">
+<title>사단법인 내포문화숲길</title>
+<script src="/assets/common/js/redirect.js" async></script>
+<link rel="stylesheet" href="/assets/front/css/content.css">
+
+<link rel="stylesheet" href="/assets/front/css/layout.css">
+<link rel="stylesheet" href="/assets/front/css/style.css">
+
+<link rel="stylesheet" href="/assets/front/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/front/css/common.css">
+<link rel="stylesheet" href="/assets/front/css/default.min.css">
+
+
+
+<script src="/assets/common/libs/jquery/jquery.min.js"></script>
+<script src="/assets/front/js/lib.js"></script>
+<script src="/assets/common/js/common.js"></script>
+
+
+</head>
+<body>
+
+	<header id="hd">
+		<h1 id="hd_h1">내포문화숲길</h1>
+
+		<div class="to_content">
+			<a href="#container">본문 바로가기</a>
+		</div>
+
+
+
+		<div id="tnb" class="pc_view">
+
+
+		</div>
+
+
+		<div id="hd_wrapper">
+
+			<div id="logo">
+				<a href="/">
+					<img src="/assets/front/img/m_logo.png" alt="내포문화숲길">
+				</a>
+			</div>
+
+			<button type="button" id="gnb_open">
+				<i class="fa fa-bars"></i>
+				<span class="sound_only"> 메뉴열기</span>
+			</button>
+			<!-- <button type="button" class="hd_sch_btn">
+				<i class="fa fa-search"></i>
+				<span class="sound_only">검색열기</span>
+			</button> -->
+
+			<div id="hd_sch">
+				<div class="sch_wr">
+					<h2 class="sound_only">사이트 내 전체검색</h2>
+					<form name="fsearchbox" action="/bbs/search.php" onsubmit="return fsearchbox_submit(this);" method="get">
+						<input type="hidden" name="sfl" value="wr_subject||wr_content">
+						<input type="hidden" name="sop" value="and">
+						<input type="text" name="stx" id="sch_stx" placeholder="검색어(필수)" required maxlength="20">
+						<button type="submit" value="검색" id="sch_submit">
+							<i class="fa fa-search" aria-hidden="true"></i>
+							<span class="sound_only">검색</span>
+						</button>
+					</form>
+
+					<script>
+						function fsearchbox_submit(f) {
+							if (f.stx.value.length < 2) {
+								alert("검색어는 두글자 이상 입력하십시오.");
+								f.stx.select();
+								f.stx.focus();
+								return false;
+							}
+
+							// 검색에 많은 부하가 걸리는 경우 이 주석을 제거하세요.
+							var cnt = 0;
+							for (var i = 0; i < f.stx.value.length; i++) {
+								if (f.stx.value.charAt(i) == ' ')
+									cnt++;
+							}
+
+							if (cnt > 1) {
+								alert("빠른 검색을 위하여 검색어에 공백은 한개만 입력할 수 있습니다.");
+								f.stx.select();
+								f.stx.focus();
+								return false;
+							}
+
+							return true;
+						}
+					</script>
+					<button type="button" class="btn_close">
+						<i class="fa fa-times-circle"></i>
+						<span class="sound_only">검색</span>
+					</button>
+				</div>
+			</div>
+
+			<div id="gnb" class="pc_view">
+				<ul id="gnb_1dul">
+					<li class="gnb_1dli">
+						<a href="/content/about" target="_self" class="gnb_1da">단체소개</a>
+						<ul class="gnb_2dul">
+							<li class="gnb_2dli">
+								<a href="/content/country" target="_self" class="gnb_2da">
+									<span></span>
+									국가숲길
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/content/about" target="_self" class="gnb_2da">
+									<span></span>
+									사)내포문화숲길
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/introduction/history" target="_self" class="gnb_2da">
+									<span></span>
+									연혁
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/content/organization" target="_self" class="gnb_2da">
+									<span></span>
+									조직구성
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/content/location" target="_self" class="gnb_2da">
+									<span></span>
+									찾아오시는 길
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="gnb_1dli">
+						<a href="/course/info" target="_self" class="gnb_1da">전체코스</a>
+						<ul class="gnb_2dul">
+							<li class="gnb_2dli">
+								<a href="/course/info" target="_self" class="gnb_2da">
+									<span></span>
+									전체코스
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/course/wonhyo" target="_self" class="gnb_2da">
+									<span></span>
+									내포불교순례길
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/course/catholic" target="_self" class="gnb_2da">
+									<span></span>
+									내포천주교순례길
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/course/baekjae" target="_self" class="gnb_2da">
+									<span></span>
+									백제부흥군길
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/course/character" target="_self" class="gnb_2da">
+									<span></span>
+									내포역사인물길
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/course/donghak" target="_self" class="gnb_2da">
+									<span></span>
+									내포동학길
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="gnb_1dli">
+						<a href="/program/introduce" target="_self" class="gnb_1da">프로그램</a>
+						<ul class="gnb_2dul">
+							<li class="gnb_2dli">
+								<a href="/program/introduce" target="_self" class="gnb_2da">
+									<span></span>
+									프로그램 소개
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/program/list" target="_self" class="gnb_2da">
+									<span></span>
+									프로그램 신청
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/schedule/list" target="_self" class="gnb_2da">
+									<span></span>
+									전체일정
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="gnb_1dli">
+						<a href="/content/guide" target="_self" class="gnb_1da">완주도전</a>
+						<ul class="gnb_2dul">
+							<li class="gnb_2dli">
+								<a href="/content/guide" target="_self" class="gnb_2da">
+									<span></span>
+									이용안내
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/content/howto" target="_self" class="gnb_2da">
+									<span></span>
+									완주방법
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/bbs/honor" target="_self" class="gnb_2da">
+									<span></span>
+									완주자
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/content/follow" target="_self" class="gnb_2da">
+									<span></span>
+									따라가기
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/content/goods" target="_self" class="gnb_2da">
+									<span></span>
+									굿즈
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="gnb_1dli">
+						<a href="/bbs/notice" target="_self" class="gnb_1da">커뮤니티</a>
+						<ul class="gnb_2dul">
+							<li class="gnb_2dli">
+								<a href="/bbs/notice" target="_self" class="gnb_2da">
+									<span></span>
+									공지사항
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/bbs/archives" target="_self" class="gnb_2da">
+									<span></span>
+									자료실
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/bbs/press" target="_self" class="gnb_2da">
+									<span></span>
+									보도자료
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/bbs/media" target="_self" class="gnb_2da">
+									<span></span>
+									숲길미디어
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/bbs/qna" target="_self" class="gnb_2da">
+									<span></span>
+									문의하기
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="gnb_1dli">
+						<a href="/content/method" target="_self" class="gnb_1da">기부하기</a>
+						<ul class="gnb_2dul">
+							<li class="gnb_2dli">
+								<a href="/donation/together" target="_self" class="gnb_2da">
+									<span></span>
+									함께 해주시는 분들
+								</a>
+							</li>
+							<li class="gnb_2dli">
+								<a href="/content/method" target="_self" class="gnb_2da">
+									<span></span>
+									기부하기
+								</a>
+							</li>
+							<!-- <li class="gnb_2dli">
+								<a href="/bbs/donation" target="_self" class="gnb_2da">
+									<span></span>
+									연간 기부금 모금액 내역
+								</a>
+							</li> -->
+							<li class="gnb_2dli">
+								<a href="/bbs/use" target="_self" class="gnb_2da">
+									<span></span>
+									연간 기부금 모금액 내역 및 활용 실적 내역
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+			</div>
+
+			<div id="gnb2">
+				<button type="button" class="btn_close">
+					<i class="fa fa-times"></i>
+				</button>
+				<ul class="gnb_tnb">
+
+				</ul>
+				<ul id="gnb2_1dul">
+					<li class="gnb2_1dli">
+						<a href="/content/about" target="_self" class="gnb2_1da">단체소개</a>
+						<button type="button" class="btn_gnb_op">하위분류</button>
+						<ul class="gnb2_2dul">
+							<li class="gnb2_2dli">
+								<a href="/content/country" target="_self" class="gnb2_2da">
+									<span></span>
+									국가숲길
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/content/about" target="_self" class="gnb2_2da">
+									<span></span>
+									사)내포문화숲길
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/introduction/history" target="_self" class="gnb2_2da">
+									<span></span>
+									연혁
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/content/organization" target="_self" class="gnb2_2da">
+									<span></span>
+									조직구성
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/content/location" target="_self" class="gnb2_2da">
+									<span></span>
+									찾아오시는 길
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="gnb2_1dli">
+						<a href="/course/info" target="_self" class="gnb2_1da">전체코스</a>
+						<button type="button" class="btn_gnb_op">하위분류</button>
+						<ul class="gnb2_2dul">
+							<li class="gnb2_2dli">
+								<a href="/course/info" target="_self" class="gnb2_2da">
+									<span></span>
+									전체코스
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/course/wonhyo" target="_self" class="gnb2_2da">
+									<span></span>
+									내포불교순례길
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/course/catholic" target="_self" class="gnb2_2da">
+									<span></span>
+									내포천주교순례길
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/course/baekjae" target="_self" class="gnb2_2da">
+									<span></span>
+									백제부흥군길
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/course/character" target="_self" class="gnb2_2da">
+									<span></span>
+									내포역사인물길
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/course/donghak" target="_self" class="gnb2_2da">
+									<span></span>
+									내포동학길
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="gnb2_1dli">
+						<a href="/program/introduce" target="_self" class="gnb2_1da">프로그램</a>
+						<button type="button" class="btn_gnb_op">하위분류</button>
+						<ul class="gnb2_2dul">
+							<li class="gnb2_2dli">
+								<a href="/program/introduce" target="_self" class="gnb2_2da">
+									<span></span>
+									프로그램 소개
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/program/list" target="_self" class="gnb2_2da">
+									<span></span>
+									프로그램 신청
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/schedule/list" target="_self" class="gnb2_2da">
+									<span></span>
+									전체일정
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="gnb2_1dli">
+						<a href="/content/guide" target="_self" class="gnb2_1da">완주도전</a>
+						<button type="button" class="btn_gnb_op">하위분류</button>
+						<ul class="gnb2_2dul">
+							<li class="gnb2_2dli">
+								<a href="/content/guide" target="_self" class="gnb2_2da">
+									<span></span>
+									이용안내
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/content/howto" target="_self" class="gnb2_2da">
+									<span></span>
+									완주방법
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/bbs/honor" target="_self" class="gnb2_2da">
+									<span></span>
+									완주자
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/content/follow" target="_self" class="gnb2_2da">
+									<span></span>
+									따라가기
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/content/goods" target="_self" class="gnb2_2da">
+									<span></span>
+									굿즈
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="gnb2_1dli">
+						<a href="/bbs/notice" target="_self" class="gnb2_1da">커뮤니티</a>
+						<button type="button" class="btn_gnb_op">하위분류</button>
+						<ul class="gnb2_2dul">
+							<li class="gnb2_2dli">
+								<a href="/bbs/notice" target="_self" class="gnb2_2da">
+									<span></span>
+									공지사항
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/bbs/archives" target="_self" class="gnb2_2da">
+									<span></span>
+									자료실
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/bbs/press" target="_self" class="gnb2_2da">
+									<span></span>
+									보도자료
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/bbs/media" target="_self" class="gnb2_2da">
+									<span></span>
+									숲길미디어
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/bbs/qna" target="_self" class="gnb2_2da">
+									<span></span>
+									문의하기
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="gnb2_1dli">
+						<a href="/content/method" target="_self" class="gnb2_1da">기부하기</a>
+						<button type="button" class="btn_gnb_op">하위분류</button>
+						<ul class="gnb2_2dul">
+							<li class="gnb2_2dli">
+								<a href="/donation/together" target="_self" class="gnb2_2da">
+									<span></span>
+									함께 해주시는 분들
+								</a>
+							</li>
+							<li class="gnb2_2dli">
+								<a href="/content/method" target="_self" class="gnb2_2da">
+									<span></span>
+									기부하기
+								</a>
+							</li>
+							<!-- <li class="gnb2_2dli">
+								<a href="/bbs/donation" target="_self" class="gnb2_2da">
+									<span></span>
+									연간 기부금 모금액 내역
+								</a>
+							</li> -->
+							<li class="gnb2_2dli">
+								<a href="/bbs/use" target="_self" class="gnb2_2da">
+									<span></span>
+									연간 기부금 모금액 내역 및 활용 실적 내역
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+			</div>
+			<script>
+				/*
+				$(function() {
+					//폰트 크기 조정 위치 지정
+					var font_resize_class = get_cookie("ck_font_resize_add_class");
+					if (font_resize_class == 'ts_up') {
+						$("#text_size button").removeClass("select");
+						$("#size_def").addClass("select");
+					} else if (font_resize_class == 'ts_up2') {
+						$("#text_size button").removeClass("select");
+						$("#size_up").addClass("select");
+					}
+
+					$(".hd_opener").on(
+							"click",
+							function() {
+								var $this = $(this);
+								var $hd_layer = $this.next(".hd_div");
+
+								if ($hd_layer.is(":visible")) {
+									$hd_layer.hide();
+									$this.find("span").text("열기");
+								} else {
+									var $hd_layer2 = $(".hd_div:visible");
+									$hd_layer2.prev(".hd_opener").find("span")
+											.text("열기");
+									$hd_layer2.hide();
+
+									$hd_layer.show();
+									$this.find("span").text("닫기");
+								}
+							});
+
+					$(".btn_gnb_op").click(
+							function() {
+								$(this).toggleClass("btn_gnb_cl").next(
+										".gnb2_2dul").slideToggle(300);
+
+							});
+
+					$(".hd_closer").on(
+							"click",
+							function() {
+								var idx = $(".hd_closer").index($(this));
+								$(".hd_div:visible").hide();
+								$(".hd_opener:eq(" + idx + ")").find("span")
+										.text("열기");
+							});
+
+					$(".hd_sch_btn").on("click", function() {
+						$("#hd_sch").show();
+					});
+
+					$("#hd_sch .btn_close").on("click", function() {
+						$("#hd_sch").hide();
+					});
+
+					$("#gnb_open").on("click", function() {
+						$("#gnb2").show();
+					});
+
+					$("#gnb2 .btn_close").on("click", function() {
+						$("#gnb2").hide();
+					});
+
+				});
+				 */
+
+				//상단고정
+				if ($("#hd").length) {
+					var jbOffset = $("#hd").offset();
+					$(window).scroll(function() {
+						if ($(document).scrollTop() > jbOffset.top) {
+							$('body').addClass('fixed');
+						} else {
+							$('body').removeClass('fixed');
+						}
+					});
+				}
+			</script>
+
+		</div>
+
+	</header>
+
+
+
+	<div id="wrapper">
+
+		<div id="container">
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+#ft {
+	margin: 0 !important;
+}
+.csacr_pic{
+	height: 210px;
+}
+
+.csact_wrap{
+	margin-left: unset;
+}
+
+.csact_item{
+	padding: unset;
+	height: unset;
+}
+</style>
+
+<div id="container_title">
+	<div class="wrap">
+		<h2 class="top" title="내포천주교순례길">내포천주교순례길</h2>
+	</div>
+</div>
+
+<div id="wrap">
+	<div id="contents" class="c_sub course">
+
+		<section class="cs_list">
+			<div class="wrap">
+				<div class="csl_menu">
+					<a href="/">
+						<i></i>
+					</a>
+					<span>
+						<b>전체코스</b>
+					</span>
+				</div>
+			</div>
+		</section>
+		<section class="cs_area">
+
+			<article id="ctt" class="ctt_wonhyo">
+				<header>
+					<h1>내포천주교순례길</h1>
+				</header>
+
+				<div id="ctt_con contents">
+					<div class="csa_content course catholic">
+						<div class="csac_wrap">
+							<div class="wrap">
+								<div class="csac_nav">
+									<div class="csacn_wrap">
+										<ul>
+											<li class="">
+												<a href="/course/info">전체코스</a>
+											</li>
+											<li class="">
+												<a href="/course/wonhyo">내포불교순례길</a>
+											</li>
+											<li class="on">
+												<a href="/course/catholic">내포천주교순례길</a>
+											</li>
+											<li class="">
+												<a href="/course/baekjae">백제부흥군길</a>
+											</li>
+											<li class="">
+												<a href="/course/character">내포역사인물길</a>
+											</li>
+											<li class="">
+												<a href="/course/donghak">내포동학길</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<strong class="csa_title title t2 bold s2">내포천주교순례길 2코스</strong>
+
+								<ul class="csac_tab">
+									
+										<li class="">
+											<a href="/course/catholic/16#mynav" class="csact_btn">
+												<span>1코스</span>
+											</a>
+										</li>
+									
+										<li class="on">
+											<a href="/course/catholic/17#mynav" class="csact_btn">
+												<span>2코스</span>
+											</a>
+										</li>
+									
+										<li class="">
+											<a href="/course/catholic/18#mynav" class="csact_btn">
+												<span>3코스</span>
+											</a>
+										</li>
+									
+										<li class="">
+											<a href="/course/catholic/19#mynav" class="csact_btn">
+												<span>4코스</span>
+											</a>
+										</li>
+									
+										<li class="">
+											<a href="/course/catholic/20#mynav" class="csact_btn">
+												<span>5코스</span>
+											</a>
+										</li>
+									
+								</ul>
+
+								<p class="csac_coment">
+									<span class="text cb regular s08" style="width: 100%; text-align: center;">
+										내포천주교순례길 2코스
+										<br>
+										<span style="width: 100%; text-align: center;">신리성지 ~ 삽교성당</span>
+									</span>
+								</p>
+
+								<ul class="csac_method">
+									<li>
+										
+										
+											<a href="http://naver.me/Fvnbz4J5" target="_blank">네이버맵</a>
+										
+										
+										
+									</li>
+									<li>
+										
+										
+											<a onclick="courseFileDown('146')">GPS 다운받기</a>
+										
+										
+										
+										
+									</li>
+									<li>
+										<a href="/content/follow">GPS 사용방법</a>
+									</li>
+								</ul>
+
+								<div class="map_box">
+									<div class="map_title">
+										<span class="tab_btn wonhyo_btn">
+											<a href="#n" class="map_1_btn on">일반지도보기</a>
+											<a href="#n" class="map_2_btn">위성지도보기</a>
+										</span>
+									</div>
+									<div class="map_area">
+										<div class="map_area_wrap catholic_map_2 on">
+											<div></div>
+										</div>
+									</div>
+									<div class="map_info_area">
+										<h3>탐방로 구간별 난이도</h3>
+										<div class="level_box">
+											<ol>
+												<li class="li_1">
+													<span class="icon"></span>
+													<span class="icon_text">
+														1등급
+														<br>
+														매우쉬움
+													</span>
+												</li>
+												<li class="li_2">
+													<span class="icon"></span>
+													<span class="icon_text">
+														2등급
+														<br>
+														쉬움
+													</span>
+												</li>
+												<li class="li_3">
+													<span class="icon"></span>
+													<span class="icon_text">
+														3등급
+														<br>
+														보통
+													</span>
+												</li>
+												<li class="li_4">
+													<span class="icon"></span>
+													<span class="icon_text">
+														4등급
+														<br>
+														어려움
+													</span>
+												</li>
+												<li class="li_5">
+													<span class="icon"></span>
+													<span class="icon_text">
+														5등급
+														<br>
+														매우어려움
+													</span>
+												</li>
+											</ol>
+										</div>
+									</div>
+								</div>
+
+								<!-- 평면도 -->
+								
+
+								<!-- 측면도 -->
+								
+									<div class="csac_course">
+										
+											<a href="/data/course/catholic/3696640610_20P4HsD6_1727d8d8068ed17a6b25314f921eeb9dc1d37c99.jpg" target="_blank">
+												<img src="/data/course/catholic/3696640610_20P4HsD6_1727d8d8068ed17a6b25314f921eeb9dc1d37c99.jpg" />
+											</a>
+										
+									</div>
+								
+
+								<!-- 본문 -->
+								<div class="csac_content">
+									<div class="csacc_pic">
+										
+											
+												<img src="/data/course/catholic/3696640610_U0Tb2LxZ_e23ea38d51783aa6398ba06c73a5b0741bb057c7.jpg" />
+											
+										
+
+									</div>
+									<div class="csacc_txt">
+										<span class="text middle cb regular s1"> 푸른 잔디밭이 아름다운 신리성지를 시작으로 드넓은 예당평야를 가로지르는 삽교천변을 따라 걸으며 천주교 역사의 현장인 배나드리성지(인언민마르티노 사적지)를 지나 삽교성당에 이르게 된다. 1800년대 천주교 박해와 순교의 역사를 깊게 느낄 수 있다. </span>
+									</div>
+								</div>
+
+								<!-- 걷기정보 -->
+								<div class="csac_info t1">
+									<strong class="csac_title title t1 cb bold s25">걷기정보</strong>
+									<ul>
+										<li>
+											<div class="csacw_wrap">
+												<strong class="text cb bold s12"><span>총거리</span></strong>
+												<span class="text cb regular s12"> 15.4KM </span>
+											</div>
+										</li>
+										<li>
+											<div class="csacw_wrap">
+												<strong class="text cb bold s12"><span>스탬프 위치</span></strong>
+												<span class="text cb regular s12"> 신리성지, 배나드리성지 </span>
+											</div>
+										</li>
+										<li>
+											<div class="csacw_wrap">
+												<strong class="text cb bold s12"><span>난이도</span></strong>
+												<span class="text cb regular s12"> 중 </span>
+											</div>
+										</li>
+										<li>
+											<div class="csacw_wrap">
+												<strong class="text cb bold s12"><span>보행시 TIP</span></strong>
+												<span class="text cb regular s12"> 그늘이 부족한 제방 및 마을 길로 구성된 코스이므로, 여름철에는 충분한 수분 섭취에 유의해주세요. </span>
+											</div>
+										</li>
+									</ul>
+								</div>
+
+								<div class="csac_traffic">
+									<strong class="csac_title title t1 cb bold s25">교통정보</strong>
+									<span class="text cb regular s2">버스 운행 간격이 길거나, 노선 변경이 있을 수 있으므로 코스 탐방 전 대중교통 운행시간을 다시 한 번 확인하시기 바랍니다.</span>
+									<div class="csact_wrap">
+										<div class="csact_item t1">
+											<div class="csacti_title">
+												<strong class="text cb bold s1">시작점 찾아가기</strong>
+											</div>
+											<div class="csacti_content">
+
+												
+													
+
+													<strong class="csactic_title"> 신례원역 </strong>
+													<ol>
+														
+															
+														
+															
+																<li>
+																	<span>신례원정류장 450번 버스 승차</span>
+															
+														
+															
+																<li>
+																	<span>약 33분소요</span>
+															
+														
+													</ol>
+												
+
+												
+
+												
+													
+
+													<strong class="csactic_title t1"> 신리정류장 하차 </strong>
+													<ol>
+														
+															
+														
+															
+																<li>
+																	<span>신리성지까지 약 364m 도보로 이동</span>
+															
+														
+													</ol>
+												
+											</div>
+										</div>
+
+										<div class="csact_item t2">
+											<div class="csacti_title">
+												<strong class="text cb bold s1">종점에서 돌아가기</strong>
+											</div>
+											<div class="csacti_content">
+
+												
+													
+
+													<strong class="csactic_title"> 신가2리, 삽교읍정류장  </strong>
+													<ol>
+														
+															
+														
+															
+																<li>
+																	<span>501,507,511,543,544-1, 56번 버스 탑승</span>
+															
+														
+															
+																<li>
+																	<span>약 8분 소요</span>
+															
+														
+													</ol>
+												
+
+												
+
+												
+													
+
+													<strong class="csactic_title t2"> 삽교역 정류장 하차 </strong>
+													<ol>
+														
+															
+														
+															
+																<li>
+																	<span>삽교역까지 약 72m 이동</span>
+															
+														
+													</ol>
+												
+
+
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="csac_info t2">
+									<strong class="csac_title title t1 cb bold s25">지도이용 방법</strong>
+									<ul>
+										<li>
+											<div class="csacw_wrap">
+												<strong class="text cb bold s12"><span>APP</span></strong>
+												<span class="text cb regular s12">Play 스토어 (안드로이드), App Store (iOS)에서 ‘내포문화숲길’ 앱을 다운받아 사용해보세요!</span>
+											</div>
+										</li>
+										<li>
+											<div class="csacw_wrap">
+												<strong class="text cb bold s12"><span>GPS</span></strong>
+												<span class="text cb regular s12">내포문화숲길 공식 홈페이지 코스 정보에서 GPS를 다운받아 사용해보세요!</span>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="csac_resource">
+									<strong class="csac_title title t1 cb bold s25">내포문화숲길 속 문화자원</strong>
+									<ul>
+										
+											
+												<li>
+											
+											<div class="csacr_item" title="배나드리 성지">
+												<div class="csacr_pic">
+													<div class="scacrp_wrap" style="background-image: url('/data/bbs/cultural/thumb/3696640610_7rYCRcgH_eac27e383713e0da8ae076b483f81fe846e5efe9.jpg')">
+														<img src="/data/bbs/cultural/thumb/3696640610_7rYCRcgH_eac27e383713e0da8ae076b483f81fe846e5efe9.jpg">
+													</div>
+													<img src="../images/ratio_4x3.png">
+												</div>
+												<p class="scacr_info">
+													<strong class="text cb bold s1">배나드리 성지</strong>
+													<span class="text cb regular s1">-</span>
+												</p>
+											</div>
+											
+											
+										
+											
+											<div class="csacr_item" title="구만포구">
+												<div class="csacr_pic">
+													<div class="scacrp_wrap" style="background-image: url('/data/bbs/cultural/thumb/3696640610_GSWB2kgQ_c372385ff7185cafba803d25dfe2bc2d9dd4f4fc.jpg')">
+														<img src="/data/bbs/cultural/thumb/3696640610_GSWB2kgQ_c372385ff7185cafba803d25dfe2bc2d9dd4f4fc.jpg">
+													</div>
+													<img src="../images/ratio_4x3.png">
+												</div>
+												<p class="scacr_info">
+													<strong class="text cb bold s1">구만포구</strong>
+													<span class="text cb regular s1">조선시대 내포의 교통문화 중심지로서 쌀과 잡곡을 서울로 수송하는 통운의 연결 지로
+1970년대까지는 바다에서 새우젓, 소금 기타 해산물 실어오는 배가 선착 되는 곳이다. 땅이 기름지고 교통이 편리한 고장을 풍수 지리학으로 받아들인 마을이요, 살아있는 용의 형국이라 하고 ‘배’의 형국이라 한다.</span>
+												</p>
+											</div>
+											
+												</li>
+											
+											
+										
+										
+										
+											</li>
+										
+									</ul>
+								</div>
+
+							</div>
+						</div>
+
+
+
+
+
+
+					</div>
+
+
+				</div>
+
+
+			</article>
+		</section>
+	</div>
+</div>
+
+
+<form id="downloadForm" name="downloadForm" method="POST">
+	<input type="hidden" name="fileId">
+</form>
+<iframe id="downloadFrame" name="downloadFrame" style="display: none;" title="빈 프레임"></iframe>
+
+
+<script>
+	$(function() {
+		$(".map_1_btn").click(function() {
+			$(this).addClass("on");
+			$(".map_2_btn").removeClass("on");
+			$(".map_area_wrap").addClass("on");
+		});
+		$(".map_2_btn").click(function() {
+			$(this).addClass("on");
+			$(".map_1_btn").removeClass("on");
+			$(".map_area_wrap").removeClass("on");
+		});
+	});
+
+	function courseFileDown(fileId) {
+		var downFrm = document.downloadForm;
+		downFrm.action = "/course/file/download";
+		downFrm.fileId.value = fileId;
+		downFrm.target = "downloadFrame";
+		downFrm.submit();
+	}
+</script>
+
+		</div>
+	</div>
+
+
+	<div id="ft">
+
+		<div class="ft_info">
+			<div class="lt">
+				<ul>
+					<li class="ft_logo">국가숲길 내포문화숲길</li>
+					<li>
+						<b>사단법인 내포문화숲길</b> (우) 32407 충남 예산군 덕산면 가야산로 401
+					</li>
+					<li>전화 041-338-0773 | 이메일 naepotrail@naepotrail.org | 고유번호증 311-82-06313</li>
+					<li>정보보호책임자 문순수 | 이사장 박금성(도신 스님)</li>
+				</ul>
+				<ul class="sns">
+					<li>
+						<a href="https://band.us/@naepotrail">
+							<img src="/assets/front/img/sns_1.png">
+						</a>
+					</li>
+					<li>
+						<a href="https://blog.naver.com/naepotrail">
+							<img src="/assets/front/img/sns_2.png">
+						</a>
+					</li>
+					<li>
+						<a href="https://instagram.com/naepotrail_">
+							<img src="/assets/front/img/sns_3.png">
+						</a>
+					</li>
+					<li>
+						<a href="https://www.youtube.com/channel/UCh9kq1aKSWWdZs0YfNfBGVw">
+							<img src="/assets/front/img/sns_4.png">
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div id="ft_contact">
+				<ul>
+					<li>
+						<a href="/content/about">(사)내포문화숲길 안내</a>
+					</li>
+					<li>
+						<a href="/content/terms">이용약관</a>
+					</li>
+					<li>
+						<a href="/content/privacy">개인정보처리방침</a>
+					</li>
+					<li>
+						<a href="/bbs/notice">공지사항</a>
+					</li>
+					<li>
+						<a href="/content/location">찾아오시는 길</a>
+					</li>
+				</ul>
+				<ul class="f_info_right">
+					<li>
+						<a href="https://www.acrc.go.kr" target="_blank">
+							<img src="/assets/front/img/f_icon_1.png" alt="">
+						</a>
+					</li>
+					<li>
+						<a href="https://www.nts.go.kr" target="_blank">
+							<img src="/assets/front/img/f_icon_2.png" alt="">
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<button type="button" id="top_btn">
+			<i class="fa fa-arrow-up" aria-hidden="true"></i>
+			<span class="sound_only">상단으로</span>
+		</button>
+	</div>
+
+
+
+	<script>
+		$(function(){
+			$("#gnb_open").on("click", function() {
+                $("#gnb2").show();
+            });
+
+            $("#gnb2 .btn_close").on("click", function() {
+                $("#gnb2").hide();
+            });
+            
+            $(".btn_gnb_op").click(function(){
+                $(this).toggleClass("btn_gnb_cl").next(".gnb2_2dul").slideToggle(300);
+                
+            });
+
+		});
+		
+		jQuery(function($) {
+
+			$(document).ready(function() {
+
+				if ($('#top_btn').length) {
+					var scrollTrigger = 100, // px
+					backToTop = function() {
+						var scrollTop = $(window).scrollTop();
+						if (scrollTop > scrollTrigger) {
+							$('#top_btn').addClass('show');
+						} else {
+							$('#top_btn').removeClass('show');
+						}
+					};
+					backToTop();
+					$(window).on('scroll', function() {
+						backToTop();
+					});
+					$('#top_btn').on('click', function(e) {
+						e.preventDefault();
+						$('html,body').animate({
+							scrollTop : 0
+						}, 700);
+					});
+				}
+			});
+		});
+	</script>
+
+
+
+	<!-- ie6,7에서 사이드뷰가 게시판 목록에서 아래 사이드뷰에 가려지는 현상 수정 -->
+	<!--[if lte IE 7]>
+<script>
+$(function() {
+    var $sv_use = $(".sv_use");
+    var count = $sv_use.length;
+
+    $sv_use.each(function() {
+        $(this).css("z-index", count);
+        $(this).css("position", "relative");
+        count = count - 1;
+    });
+});
+</script>
+<![endif]-->
+
+
+</body>
+</html>

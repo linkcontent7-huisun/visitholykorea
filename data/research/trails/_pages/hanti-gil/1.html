@@ -1,0 +1,1417 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko" dir="ltr">
+
+<head>
+    <title>코스별 소개</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.6,user-scaleable=yes" />
+    <meta name="description" content="가실에서 한티까지 한티가는 길 45.6km, 한눈에 보기, 스카이뷰, 로드뷰 제공" /><!-- 설명 -->
+<meta name="Keywords" CONTENT="한티가는길, 45.6km, 가실, 한티, 칠곡, 힐링의길, 순례길" /><!-- 키워드 -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="한티가는길" /><!-- 타이틀 -->
+<meta property="og:description" content="가실에서 한티까지 한티가는 길 45.6km, 한눈에 보기, 스카이뷰, 로드뷰 제공" /><!-- 설명 -->
+<meta property="og:image" content="http://www.hantigil.or.kr/myimage.jpg" /><!-- 이미지 FULL URL 주소 -->
+<meta property="og:url" content="http://www.hantigil.or.kr" /><!-- FULL URL -->
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="한티가는길" /><!-- 타이틀 -->
+<meta name="twitter:description" content="가실에서 한티까지 한티가는 길 45.6km, 한눈에 보기, 스카이뷰, 로드뷰 제공" /><!-- 설명 -->
+<meta name="twitter:image" content="http://www.hantigil.or.kr/myimage.jpg" /><!-- 이미지 FULL URL 주소 -->
+<meta name="twitter:domain" content="http://www.hantigil.or.kr" /><!-- FULL URL -->
+
+<link rel="alternate" href="http://www.hantigil.or.kr/">
+<link rel="canonical" href="http://www.hantigil.or.kr/">    <link rel="image_src" href="/images/logo_ci.png" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.lightbox-0.5.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.treeview.css" />
+    <link rel="stylesheet" type="text/css" href="/css/board.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/gallery.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/default/base.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/css/default/layout.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/default/layout_content.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/default/content.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/default/member.css" media="screen" />
+	<link href="/css/jquery-ui.css" rel="stylesheet" />
+	<style>
+        #top {position: fixed; right: 2rem; bottom: 2rem; z-index: 10;}
+        #top a.top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+            line-height: 1.2;
+            height: 100%;
+            font-size: .7rem;
+            cursor: pointer;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.2);
+            border: 1px solid #555;
+            margin-bottom: 0.5rem;
+        }
+	</style>
+    <script type="text/javascript" charset="utf-8" src="https://hantigil.or.kr/js/jquery-1.10.2.min.js"></script>
+    <script src="/js/aos.js"></script>
+	<script src="/js/jquery.bxslider.js"></script>
+	<script src="/js/swiper.min.js"></script>
+	<script src="/js/jquery-ui.js"></script>
+	<script src="/js/jquery.lightbox-0.5.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/board.js"></script>
+	<script src="/js/masonry.js"></script>
+	<script src="/js/common.js"></script>
+	<script type="text/javascript" src="/js/jquery.rwdImageMaps.js"></script>
+	<script type="text/javascript">
+		//window.onload role
+		$(document).ready(function(){
+			//주메뉴 제어 Begin
+			var bg_box = 'off';//필수 입력
+			var nav_cnt = 0;
+			$(window).scroll(function(){
+				var bg_box = 'off';
+				var sp = $(window).scrollTop();
+				if(sp > 83){
+					$('#header').addClass('scroll');
+				}else{
+					if(bg_box == 'off'){
+						$('#header').removeClass('scroll');
+					}
+				}
+			});
+			$('#header').mouseover(function(){
+				$('#header').addClass('over');
+				if(bg_box == 'off'){
+					bg_box = 'on';
+				}
+				var sp = $(window).scrollTop();
+				if(sp < 83){//스크롤 높이가 83 이하일때 로고 색상 수정
+				}
+			});
+			$('div#nav > ul > li').each(function(){
+				$(this).find('a:first').on('mouseover', function(){
+					$('#header').addClass('over');
+					$('#header .header_inner').addClass('over');
+					var this_idx = $(this).parent().parent().index() + 1;
+					if(nav_cnt != this_idx){
+						$('div#nav ul li ul').hide();
+						$(this).parent().parent().find('ul').stop().slideDown(500);
+					}
+					nav_cnt = this_idx;
+					$('div#nav > ul > li').removeClass('on');
+					$(this).parent().parent().addClass('on');
+					$('div#nav ul li ul li').removeClass('on');
+					$(this).parent().parent().find('ul > li').addClass('on');
+				});
+			});
+			$('div#nav > ul > li').each(function(){
+				$(this).find('ul').on('mouseover', function(){
+					$('div#nav > ul > li').removeClass('on');
+					$(this).parent().addClass('on');
+					$('div#nav ul li ul li').removeClass('on')
+					$(this).find('li').addClass('on');
+				});
+			});
+
+			$('#header').on('mouseleave', function(){
+				var sp = $(window).scrollTop();
+				bg_box = 'off';
+				$('div#nav > ul > li').removeClass('on');
+				$('div#nav > ul > li > ul > li').removeClass('on');
+				$('div#nav > ul > li > ul').stop().hide();
+				$('#header').removeClass('over');
+				nav_cnt = 0;
+			});
+			//주메뉴 제어 End
+
+
+			//2차 메뉴가 없을때 nosub 클래스 주기
+			$('.mobile_top > ul > li').each(function(){
+				if($(this).find('ul').index() != 1){
+					$(this).addClass('nosub');
+				}
+			});
+
+			//사이트맵 버튼
+			$('.btn-gnb-menu').click(function(){
+				if($('#header').hasClass('open') == false){
+					$('#header').addClass('open');
+					$('body,html').css('overflow','hidden');
+					var te = $('.mbtop > li > ul > li > a').find('strong');
+					te.parent().parent().parent().parent().addClass('open_li');
+					te.parent().parent().parent().addClass('on');
+				}else{
+					$('#header').removeClass('open');
+					$('body,html').css('overflow','visible');
+					$('.mbtop > li.open_li ul').find('ul').hide();
+					$('.mbtop > li.open_li ul').removeClass('on');
+					$('.mbtop > li.open_li').removeClass('open_li');
+				}
+			});
+
+			//모바일 메뉴 작업
+			$('.mobile_top > ul').addClass('mbtop');
+            $('.mbtop > li > div > a').unwrap();
+            $('.mbtop > li > ul > li').each(function(){
+				if($(this).find('a:first').attr('href') == '#'){
+					$(this).find('a:first').attr('href',$(this).find(' > ul > li > a:first').attr('href'));
+				}
+			});
+
+			$('.mbtop > li > a').click(function(){
+				$('.mbtop > li > ul').removeClass('on');
+				$('.mbtop > li').removeClass('open_li');
+				var mbtop_li = $(this).parent();
+				if(mbtop_li.find('ul > li').length > 0){
+					if(mbtop_li.prop('class') == 'open_li'){
+						mbtop_li.removeClass('open_li');
+						mbtop_li.find('ul').removeClass('on');
+					}else{
+						mbtop_li.addClass('open_li');
+						mbtop_li.find('ul').addClass('on');
+					}
+					return false;
+				}
+			});
+
+
+
+			//대메뉴별 비쥬얼 다르게
+			var root = '2';
+			$('#wrap #sepration .sep_img').css({"background":"url('/images/default/content/sub_visual0"+root+".jpg') no-repeat 50% center", "background-size":"cover"})
+
+
+			//서브메뉴
+			var root = '2';
+			var depth = '1';
+			var refer = '1';
+
+			$('div#nav > ul > li:eq('+(root-1)+')').addClass('active');
+
+			$('.left_menu  ul > li').each(function(){
+				$(this).find('strong').parent().parent().addClass('on');
+			});
+
+			$('.tab_menu > ul > li').each(function(){
+				$(this).find('strong').parent().parent().addClass('on');
+			});
+
+
+			if(depth == 2){ // tab메뉴일경우 1차 메뉴 over
+				$('.left_menu > ul > li').each(function(){
+					var href = $(this).find('> a').attr('href');
+					var d = href.split('/');
+					if(d[2] == refer){
+						$(this).find('a').parent().addClass('on');
+					}
+				});
+
+				$('.tab_menu > ul > li').each(function(){
+					$(this).find('strong').parent().parent().addClass('on');
+				});
+			}
+			$('.tab_menu  li.on > a').on('click', function () {
+				$(this).parents('.tab_menu').toggleClass('on');
+				return false;
+			});
+
+			//서브 lnb
+			var idx = '';
+			$("#lnb a").next("div").hide();
+			$("#lnb li > div").prev("a ").on("click", function() {
+				var bg = $(this).parent().index();
+				$('#lnb > li').removeClass('open');// li 클래스 제거
+				$('#lnb li > a').find('span.unfd').removeClass('on');//on 제거
+				if(bg == idx){
+					$(this).parent().find("div").slideUp();
+					idx = '';
+				}else{
+					$(this).parent().addClass('open');//li class open
+					$(this).parent().siblings().find(">a").removeClass("on").end().find("div").slideUp();
+					$(this).toggleClass("on");
+					$(this).next("div").slideDown(300);
+					$(this).find('span.unfd').addClass('on');
+					idx = $(this).parent().index();
+				}
+				return false;
+			});
+
+			//모바일 탭메뉴
+			$('.left_menu > ul').addClass('tab_ul');
+			var ts = 0;
+			$('.tab_view').click(function(){
+				if(ts == 0){
+					$(this).addClass('on');
+					$('.tab_ul').slideDown(300);
+					ts = 1;
+				}else{
+					$(this).removeClass('on');
+					$('.tab_ul').slideUp(300);
+					ts = 0;
+				}
+			});
+
+			//탭메뉴 모양 잡기
+			$('.sub02 .tab_menu').addClass('course_tab');
+			$('.sub02 .tab_menu').removeClass('tab_menu');
+			$('.course_tab > ul > li').each(function(){
+				var idx = $(this).index()+1;
+				$(this).find('ul > li').each(function(){
+					$(this).addClass('c0'+idx);
+				});
+			});
+
+			//이미지맵
+			$('img[usemap]').rwdImageMaps();
+
+            $('#top').click(function(){
+                $('html').stop().animate({scrollTop:'0'},500);
+            });
+
+
+		});
+	</script>
+</head>
+
+<body>
+    <!-- wrap -->
+    <div id="wrap">
+        <!-- header -->
+		<div id="header">
+			<h1 class="logo"><a href="/index"><img src="/images/default/main/logo.svg" alt="한티가는길"/></a></h1>
+			<!-- 탑메뉴 -->
+			<div class="header_inner">
+				<div id="nav" class="lnb">
+					
+<ul><li><div><a href="/content/4" title="그대  어디로  가는가">그대  어디로  가는가</a></div><ul><li><a href="/content/29" title="한티가는길 소개">한티가는길 소개</a></li><li><a href="/content/67" title="한티가는길 역사">한티가는길 역사</a></li><li><a href="/content/30" title="안내드리는 글">안내드리는 글</a></li><li><a href="/content/93" title="스탬프 북">스탬프 북</a></li></ul></li><li><div><a href="/content/1" title="한티가는길 걸어보기">한티가는길 걸어보기</a></div><ul><li><a href="/content/23" title="코스별 소개"><strong>코스별 소개</strong></a></li><li><a href="/content/24" title="한눈에 보기">한눈에 보기</a></li></ul></li><li><div><a href="/content/94" title="예약신청하기">예약신청하기</a></div><ul><li><a href="/content/95" title="소울스테이 예약">소울스테이 예약</a></li><li><a href="/content/programList" title="프로그램/행사 신청">프로그램/행사 신청</a></li></ul></li><li><div><a href="/content/3" title="커뮤니티">커뮤니티</a></div><ul><li><a href="/content/66" title="공지사항">공지사항</a></li><li><a href="/content/109" title="홍보영상">홍보영상</a></li><li><a href="/content/101" title="사진전">사진전</a></li><li><a href="https://cafe.daum.net/hanti1868" target="_BLANK" class="newBlank" title="새창열림">Cafe</a></li></ul></li></ul>
+				</div>
+			</div>
+			<div class="bg_box"></div>
+			<!-- 회원서비스 -->
+			<ul class="log_menu">
+									<li><a href="/login">로그인</a></li>
+					<li><a href="/signup">회원가입</a></li>
+
+							</ul>
+			<!-- 햄버거메뉴 -->
+			<div class="btn-gnb-menu">
+				<button class="btnAll">
+					<span></span>
+					<span></span>
+				</button>
+			</div>
+			<!-- 전체메뉴펼침 -->
+            <div id="menuAll">
+                <div id="navi">
+					<div class="top_menu">
+						<div class="top_menu_head">
+							<h3>반갑습니다.<br>
+							<b>한티가는길</b>에 오신것을 환영합니다.</h3>
+						</div>
+					</div>
+					<div class="memb">
+													<ul>
+								<li><a href="/login"><i class=""></i> 로그인</a></li>
+								<li><a href="/member/account/user_agreements/1"><i class=""></i> 회원가입</a></li>
+							</ul>
+											</div>
+                    <div class="mobile_top">
+                        
+<ul><li><div><a href="/content/4" title="그대  어디로  가는가">그대  어디로  가는가</a></div><ul><li><a href="/content/29" title="한티가는길 소개">한티가는길 소개</a></li><li><a href="/content/67" title="한티가는길 역사">한티가는길 역사</a><ul><li><a href="/content/102" title="신문기록">신문기록</a></li><li><a href="/content/103" title="행사기록 - 2016년 이전">행사기록 - 2016년 이전</a></li><li><a href="/content/104" title="행사기록 - 2016년 이후">행사기록 - 2016년 이후</a></li></ul></li><li><a href="/content/30" title="안내드리는 글">안내드리는 글</a></li><li><a href="/content/93" title="스탬프 북">스탬프 북</a></li></ul></li><li><div><a href="/content/1" title="한티가는길 걸어보기">한티가는길 걸어보기</a></div><ul><li><a href="/content/23" title="코스별 소개"><strong>코스별 소개</strong></a></li><li><a href="/content/24" title="한눈에 보기">한눈에 보기</a></li></ul></li><li><div><a href="/content/94" title="예약신청하기">예약신청하기</a></div><ul><li><a href="/content/95" title="소울스테이 예약">소울스테이 예약</a><ul><li><a href="/content/97" title="예약신청">예약신청</a></li><li><a href="/content/myList" title="예약현황">예약현황</a></li><li><a href="/content/99" title="소울스테이 소개">소울스테이 소개</a></li><li><a href="/content/100" title="이용안내">이용안내</a></li></ul></li><li><a href="/content/programList" title="프로그램/행사 신청">프로그램/행사 신청</a></li></ul></li><li><div><a href="/content/3" title="커뮤니티">커뮤니티</a></div><ul><li><a href="/content/66" title="공지사항">공지사항</a></li><li><a href="/content/109" title="홍보영상">홍보영상</a></li><li><a href="/content/101" title="사진전">사진전</a></li><li><a href="https://cafe.daum.net/hanti1868" target="_BLANK" class="newBlank" title="새창열림">Cafe</a></li></ul></li></ul>
+                    </div>
+                </div>
+				<div class="naviBlind"></div>
+            </div>
+		</div>
+        <!-- //header -->
+
+        <!-- sub_visual -->
+        <div id="sepration">
+			<div class="sep_img">
+				<div class="section">
+					<h2 class="fadeInUp">
+													한티가는길 걸어보기																	</h2>
+					<p>
+													<a href="/"><i class="ri-home-line"></i> Home</a> &gt;
+																								<a href="/content/1">한티가는길 걸어보기</a> &gt;
+																						<a href="/content/23"><b>코스별 소개</b></a>
+											</p>
+				</div>
+			</div>
+        </div>
+       <!-- 왼쪽메뉴 -->
+		<div class="lm_bg non_left_menu">
+			<h2 class="tab_view">
+								코스별 소개				<i class="xi-caret-down-circle"></i>
+			</h2>
+					</div>
+
+
+		<!-- 페이지 타이틀 -->
+		<div class="page_main_title">
+			<h3><span>
+									코스별 소개								</span>
+			</h3>
+		</div>
+
+
+		<!-- container -->
+        <div id="container" class="sub02">
+			<div class="content_body">
+                <!-- 현재 메뉴가 4차 메뉴일 경우 3차 탭메뉴 -->
+                
+				<!-- 탭메뉴 -->
+								<!-- //3차 탭메뉴 -->
+
+				<!-- //페이지 타이틀 -->
+				
+<script type="text/javascript">
+	$(function(){
+
+        var selClass = 'one';
+        if(selClass != ''){
+            select_tab(selClass);
+        }
+
+
+		//지도
+		$('#Map01 > area').hover(function(){
+			var area = $(this).attr('class');
+			$('.map01').attr('src','/images/default/content/course_map_'+area+'.jpg')
+		});
+
+		//탭메뉴
+		$('.course_tab > ul > li').css({cursor:"pointer"});
+		$('.course_tab > ul > li').click(function(){
+			var idx = $(this).index()+1;
+
+            $('.course_tab > ul > li').each(function(){
+				$(this).removeClass();
+			});
+			$('[id^="c0"]').hide();
+			$(this).addClass('on');
+			$('#c0'+idx).show();
+
+            if(idx == '1'){
+                $('.map01').attr('src','/images/default/content/course_map_one.jpg')
+            }else if(idx == '2'){
+                $('.map01').attr('src','/images/default/content/course_map_two.jpg')
+            }else if(idx == '3'){
+                $('.map01').attr('src','/images/default/content/course_map_three.jpg')
+            }else if(idx == '4'){
+                $('.map01').attr('src','/images/default/content/course_map_four.jpg')
+            }else if(idx == '5'){
+                $('.map01').attr('src','/images/default/content/course_map_five.jpg')
+            }
+            $('.map_pop').hide();
+            $('#map0'+idx).show();
+		});
+
+		//버스팝업
+		var pop = 1;
+		$('.bus_pop').click(function(){
+			if(pop == 1){
+				$('.big_pop1').show();
+				pop = 2;
+			}else{
+				$('.big_pop1').hide();
+				pop = 1;
+			}
+		});
+        var pop2 = 1;
+        $('.godo_pop').click(function(){
+            if(pop2 == 1){
+                $('.big_pop2 img').attr('src', '/images/default/content/godobig'+$(this).data('godo')+'.jpg');
+                $('.big_pop2').show();
+                pop2 = 2;
+            }else{
+                $('.big_pop2').hide();
+                pop2 = 1;
+            }
+        });
+
+		$('.close').click(function(){
+			$('.con_pop').hide();
+			pop = 1;
+            pop = 2;
+		});
+        if(selClass == ''){
+            $('#map01').show();//첫화면 1구간 on
+            $('.map01').attr('src','/images/default/content/course_map_one.jpg');
+        }
+
+		// 20230802 마우스 오버시 팝업 뜨기 bk
+		$('#Map01 > area').mouseover(function(){
+		    var selArea = $(this).prop('class');
+            $('.map_pop').hide();
+		    if(selArea == 'one'){
+		        $('#map01').show();
+		    }else if(selArea == 'two'){
+                $('#map02').show();
+		    }else if(selArea == 'three'){
+                $('#map03').show();
+            }else if(selArea == 'four'){
+                $('#map04').show();
+            }else if(selArea == 'five'){
+                $('#map05').show();
+            }
+		});
+        if(selClass == '') {
+            $('.course_tab > ul > li').eq(0).addClass('on'); //첫화면 1구간 탭메뉴 on
+            $('#c01').show();//첫화면 1구간 on
+        }
+        // 20230802 클릭시 아래 탭 변경 bk
+        $('#Map01 > area').click(function(){
+            var selArea = $(this).prop('class');
+            $('.course_tab > ul > li').each(function(){
+                $(this).removeClass();
+            });
+            $('[id^="c0"]').hide();
+            // 아래로 스르륵
+            var offset = $('.course_tab').offset();
+            $('html').animate({scrollTop : offset.top}, 1000); // 시간초 조절가능
+
+            if(selArea == 'one'){
+                $('.course_tab > ul > li').eq(0).addClass('on');
+                $('#c01').show();
+            }else if(selArea == 'two'){
+                $('.course_tab > ul > li').eq(1).addClass('on');
+                $('#c02').show();
+            }else if(selArea == 'three'){
+                $('.course_tab > ul > li').eq(2).addClass('on');
+                $('#c03').show();
+            }else if(selArea == 'four'){
+                $('.course_tab > ul > li').eq(3).addClass('on');
+                $('#c04').show();
+            }else if(selArea == 'five'){
+                $('.course_tab > ul > li').eq(4).addClass('on');
+                $('#c05').show();
+            }
+            return false;
+        });
+
+	});
+
+    function select_tab(selClass){
+        var selArea = selClass;
+        $('.course_tab > ul > li').each(function(){
+            $(this).removeClass();
+        });
+        $('[id^="c0"]').hide();
+        // 아래로 스르륵
+        var offset = $('.course_tab').offset();
+        $('html').animate({scrollTop : offset.top}, 1); // 시간초 조절가능
+        $('.map01').attr('src','/images/default/content/course_map_'+selArea+'.jpg');
+        if(selArea == 'one'){
+            $('#map01').show();
+            $('.course_tab > ul > li').eq(0).addClass('on');
+            $('#c01').show();
+        }else if(selArea == 'two'){
+            $('#map02').show();
+            $('.course_tab > ul > li').eq(1).addClass('on');
+            $('#c02').show();
+        }else if(selArea == 'three'){
+            $('#map03').show();
+            $('.course_tab > ul > li').eq(2).addClass('on');
+            $('#c03').show();
+        }else if(selArea == 'four'){
+            $('#map04').show();
+            $('.course_tab > ul > li').eq(3).addClass('on');
+            $('#c04').show();
+        }else if(selArea == 'five'){
+            $('#map05').show();
+            $('.course_tab > ul > li').eq(4).addClass('on');
+            $('#c05').show();
+        }
+
+        return false;
+    }
+</script>
+<!-- 큰 지도 -->
+<div class="course_map">
+	<div class="map_box">
+		<img src="/images/default/content/course_map.jpg" alt="" usemap="#Map01" class="map01"/>
+		<map name="Map01" id="Map01">
+			<area shape="rect"  onfocus="this.blur()" coords="177,350,394,525" href="#" title="1구간" class="one" />
+			<area shape="rect"  onfocus="this.blur()" coords="396,254,538,475" href="#" title="2구간" class="two"  />
+			<area shape="rect"  onfocus="this.blur()" coords="541,210,781,404" href="#" title="3구간" class="three"  />
+			<area shape="rect"  onfocus="this.blur()" coords="782,126,899,355" href="#" title="4구간" class="four"  />
+			<area shape="rect"  onfocus="this.blur()" coords="901,115,1151,241" href="#" title="5구간" class="five" />
+		</map>
+		<div id="map01" class="map_pop">
+			<div class="map_pop_in">
+				<h5><span>1구간</span> <em>돌아보는 길</em></h5>
+				<p>한티가는길의 첫 구간을 시작하면서 새로운 마음가짐으로 스스로의 삶을 되돌아보며 자기 자신에 대하여 생각하는 시간을 갖는 길</p>
+				<ul class="info2">
+					<li><span class="km">거리</span>10.5km</li>
+					<li><span class="time">소요시간</span>4시간 30분 예상</li>
+					<li><span class="check">특징</span>5개 구간중 가장 거리가 깁니다</li>
+				</ul>
+			</div>
+
+		</div>
+		<div id="map02" class="map_pop">
+			<div class="map_pop_in">
+				<h5><span>2구간</span> <em>비우는 길</em></h5>
+				<p>자신의 내면에서 자신을 괴롭히던 욕심과 잡념을 비우고 가치있는 것을 채울 수 있는 준비의 길</p>
+				<ul class="info2">
+					<li><span class="km">거리</span>9.5km</li>
+					<li><span class="time">소요시간</span>4시간 예상</li>
+					<li><span class="check">특징</span>중간에 편의점이 없습니다.</li>
+				</ul>
+			</div>
+		</div>
+		<div id="map03" class="map_pop">
+			<div class="map_pop_in">
+				<h5><span>3구간</span> <em>뉘우치는 길</em></h5>
+				<p>현재까지의 잘못을 되새기며 도덕적 결심을 하고 과거의 행동을 반성하며 뉘우치는 길</p>
+				<ul class="info2">
+					<li><span class="km">거리</span>9km</li>
+					<li><span class="time">소요시간</span>4시간 예상</li>
+					<li><span class="check">특징</span>창평지부터 쌀바위까지 급경사입니다.</li>
+				</ul>
+			</div>
+		</div>
+		<div id="map04" class="map_pop">
+			<div class="map_pop_in">
+				<h5><span>4구간</span> <em>용서의 길</em></h5>
+				<p>용서하지 못할 때 가장 고통스러운 사람은 자신이라는 것을 일깨워 세상을 향해 자신을 용서하고 독려하는 길</p>
+				<ul class="info2">
+					<li><span class="km">거리</span>8.5km</li>
+					<li><span class="time">소요시간</span>4시간 예상</li>
+					<li><span class="check">특징</span>계곡따라 걷는 길이 예술입니다.</li>
+				</ul>
+			</div>
+		</div>
+		<div id="map05" class="map_pop">
+			<div class="map_pop_in">
+				<h5><span>5구간</span> <em>사랑의 길</em></h5>
+				<p>한티로 향했던 순교자들의 삶을 묵상하며 나 자신을 돌아보고 비우고 뉘우치고 용서하며 자신을 만나고 함께 걸어왔던 이들과 함께 사람의 의미를 알아가고 진정한 나를 찾는 길</p>
+				<ul class="info2">
+					<li><span class="km">거리</span>8.1km</li>
+					<li><span class="time">소요시간</span>3시간 30분 예상</li>
+					<li><span class="check">특징</span>순교자들 무덤의 순례 코스입니다.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 탭메뉴 -->
+<div class="course_tab">
+	<h3>코스별 소개</h3>
+	<ul>
+		<li class="on"><a>1구간</a></li>
+		<li><a>2구간</a></li>
+		<li><a>3구간</a></li>
+		<li><a>4구간</a></li>
+		<li><a>5구간</a></li>
+	</ul>
+</div>
+
+
+<div id="c01" class="pcon">
+	<div class="con cour">
+		<!-- 코스안내 -->
+		<div class="course_line">
+			<h4>코스</h4>	
+			<ul>
+				<li><img src="/images/default/content/c_start.png" alt=""/>가실성당</li>
+				<li>숲길입구</li>
+				<li>숲갈림길</li>
+				<li>전망데크</li>
+				<li>바람쉼터</li>
+				<li><em style="color:#121212;">금무봉 나무고사리화석 산지</em></li>
+				<li>연화예술원</li>
+				<li>도암지</li>
+				<li>성모상</li>
+				<li><img src="/images/default/content/c_finish.png" alt=""/>신나무골성지</li>
+			</ul>
+		</div>
+		<!-- 구간안내 -->
+		<div class="overview">		
+			<div class="list">
+				<h4 class="bullet">구간안내</h4>	
+				<h5><span>1구간</span> <em>돌아보는 길</em></h5>
+				<p>한티가는길의 첫 구간을 시작하면서 새로운 마음가짐으로 스스로의 삶을 되돌아보며 자기 자신에 대하여 생각하는 시간을 갖는 길</p>
+				<ul class="info2">
+					<li><span class="km">거리</span>10.5km</li>
+					<li><span class="time">소요시간</span>4시간 30분 예상</li>
+					<li><span class="check">특징</span>5개 구간중 가장 거리가 깁니다</li>
+				</ul>	
+			</div>
+		</div>
+		
+		<!-- 코스팁 -->
+		<div class="tip_bg">
+			<h4 class="bullet">코스팁</h4>
+			<ul>
+				<li>
+					<img src="/images/default/content/tip_1_01.jpg" alt=""/>
+					<div class="txt">
+						<p><span>01</span></p>
+						도시락 준비는 못했어도 <br/><b>지향(소원)은 갖고 걸어라.</b>
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_1_02.jpg" alt=""/>
+					<div class="txt">
+						<p><span>02</span></p>
+						오렌지와 하늘색의 <br/><b>쌍리본을 따라 걸어라.</b>
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_1_03.jpg" alt=""/>
+					<div class="txt">
+						<p><span>03</span></p>
+						<b>처음 1시간은 편안하게 걸어라.</b> <br/>그러면 끝까지 걷는다.
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_1_04.jpg" alt=""/>
+					<div class="txt">
+						<p><span>04</span></p>
+						<b>스탬프북을 챙겨서 걸어라.</b><br/> 20개 스탬프를 다 찍으면 완주인증과  기념품을 받게 된다.
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_1_05.jpg" alt=""/>
+					<div class="txt">
+						<p><span>05</span></p>
+						가실성당에는 <br/><b>숙소, 주차장, 종합안내소 등</b>이 마련되어 있다.
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<!-- 고도 버스 -->
+		<div class="cour_half">
+			<div class="godo">
+				<div class="tit">
+					<h4 class="bullet">고도안내</h4>
+					<a href="#" onclick="return false;" class="godo_pop" data-godo="1"><span><img src="/images/default/content/mag.png" alt=""/></span> 큰 이미지로 보기</a>
+				</div>
+				<div class="img">
+					<a href="#" onclick="return false;" class="godo_pop" data-godo="1"><img src="/images/default/content/godobig1.jpg" alt=""/></a>
+				</div>
+			</div>
+			<div class="bus">
+				<div class="tit">
+					<h4 class="bullet">버스안내</h4>	
+					<!--a href="#" onclick="return false;" class="bus_pop"><span><img src="/images/default/content/mag.png" alt=""/></span> 큰 이미지로 보기</a-->
+				</div>
+				<div class="img">
+					<!--a href="#" onclick="return false;" class="bus_pop"><img src="/images/default/content/bus_map.jpg" alt=""/></a-->
+					<a href="https://businfo.daegu.go.kr/" target="_blank"><img src="/images/default/content/bus_system_link1.jpg" alt=""/></a>
+					<a href="https://bus.chilgok.go.kr/" target="_blank"><img src="/images/default/content/bus_system_link2.jpg" alt=""/></a>
+				</div>
+			</div>
+		</div>
+
+		<!-- 명소 -->
+		<div class="course_wrap main_course">
+			<h4 class="bullet">1구간 대표 명소</h4>
+			<div class="pics">
+				<ul>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p1_1.jpg') no-repeat center center; background-size:cover;"></span></div>							
+						<div class="txt">
+							<p class="subject">가실성당 <span><img src="/images/default/content/location.png" alt=""/> 칠곡군 왜관읍 가실1길 1</span></p>
+							1895년에 설립된 경북지역 초기 천주교회 건물로 로베르 신부 등이 지천면 연화리 신나무골에서 전교를 시작한 후 가밀로 빠이아스(한국명 하경조)신부가 낙산리 가실마을로 이주해 1922~1923년에 지어진 경북에서 가장 오래된 (지상1층, 지하1층, 연건평 217㎡) 성당이다. 건축 양식은 로마네스크 양식이며, 설계자는 프랑스인 박도행(Victor Louis Poisnel) 신부이다. 공사는 중국 기술자들이 담당했으며 벽돌은 현장에서 구워서 썼다. 한국전쟁 때는 양측 군인들이 병원으로 쓰며 전쟁피해를 피할 수 있었다. <br/><br/>
+
+							가실성당  경상북도 유형문화재 제348호<br/>
+							가실성당은 로마네스크 양식으로 안팎이 모두 아름답다. 설계자는 프랑스인 박도행(Victor Louis  Poisnel) 신부이며 공사는 중국 기술자들이 현장에서 벽돌을 구워서 쌓았다. 성당내부의 감실은 칠보  작품으로 주제는 ‘엠마오’ 혹은 ‘부활 감실’로 불린다. 또한 1924년 프랑스에서 제작한 한국 유일의 ‘안  나상’도 있다. 독일 색유리 화가 ‘에기노 바이너트’의 마지막 작품으로 예수의 일생이 그려진 14개의 아 름다운 스테인드글라스도 있다. 1926년에 설치된 ‘안나종’과 파라핀을 채워 넣어 쓰는 ‘감실등’도 가실  성당만의 매력이다.<br/><br/>
+
+							가실성당 스탬프를 찍은 후 ‘좁은 문으로 들어가라’는 안내에 따라 작은 문을 통과하면 45.6km 도보순  례가 시작된다. 이제부터 한티까지는 쌍리본을 따라 걸으면 된다. 오렌지색과 하늘색 리본에는 ‘그대 어  디로 가는가’와 ‘한티가는길’ 이란 글귀가 정성스럽게 새겨져 있다. 갈림길에서 50미터 이상 갔음에도 리 본이 보이지 않으면 다시 갈림길로 되돌아가서 확인해야 한다.
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="course_wrap sub_course">
+			<h4 class="bullet">1구간 주요 명소</h4>
+			<div class="pics">
+				<ul>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p1_2.jpg') no-repeat center center; background-size:cover;"></span></div>							
+						<div class="txt">
+							<p class="subject">금무봉 나무고사리 화석산지</p>
+							칠곡 금무봉 나무고사리화석 산지는 1925년 일본인 학자인 다테이와가 최초로  화석을 발견, 1962년 화석산지로는 국내 최초로 금무산 일대가 천연기념물로 지정됐다. 나무고사리화석은 약 1억 3,000만년 전, 이 부근에서 번성했던 고사리  와 비슷한 잎을 가진 고사리식물의 화석이다.
+						</div>
+					</li>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p1_3.jpg') no-repeat center center; background-size:cover;"></span></div>						
+						<div class="txt">
+							<p class="subject">도암지</p>
+							조선 후기 천주교 신자들이 도자기를 굽고 살았다고 해서 도암마을이라고 불린다. 
+						</div>
+					</li>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p1_4.jpg') no-repeat center center; background-size:cover;"></span></div>						
+						<div class="txt">
+							<p class="subject">신나무골 성지</p>
+							영호남 지방의 선교 요람지로 박해로 희생된 이선의 엘리사벳의 무덤이 있다. 
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="c02" class="pcon" style="display:none;">
+	<div class="con cour">	
+		<!-- 코스안내 -->
+		<div class="course_line">
+			<h4>코스</h4>	
+			<ul>
+				<li><img src="/images/default/content/c_start.png" alt=""/>신나무골성지</li>
+				<li>임도입구</li>
+				<li>숲갈림길</li>
+				<li>전망쉼터</li>
+				<li>댓골지<em>(달서지)</em></li>
+				<li>징검다리</li>
+				<li>팔각정</li>
+				<li>양떼목장</li>
+				<li>산길전망대</li>
+				<li>숲갈림길</li>
+				<li><img src="/images/default/content/c_finish.png" alt=""/>사기점공소<em>(창평지)</em></li>
+			</ul>
+		</div>
+		<!-- 구간안내 -->
+		<div class="overview">		
+			<div class="list">
+				<h4 class="bullet">구간안내</h4>	
+				<h5><span>2구간</span> <em>비우는 길</em></h5>
+				<p>자신의 내면에서 자신을 괴롭히던 욕심과 잡념을 비우고 가치있는 것을 채울 수 있는 준비의 길</p>
+				<ul class="info2">
+					<li><span class="km">거리</span>9.5km</li>
+					<li><span class="time">소요시간</span>4시간 예상</li>
+					<li><span class="check">특징</span>중간에 편의점이 없습니다.</li>
+				</ul>	
+			</div>
+		</div>
+		<!-- 코스팁 -->
+		<div class="tip_bg">
+			<h4 class="bullet">코스팁</h4>
+			<ul>
+				<li>
+					<img src="/images/default/content/tip_2_01.jpg" alt=""/>
+					<div class="txt">
+						<p><span>01</span></p>
+						이 구간은 <b>식수를 <br/>미리 준비</b>해야 한다. </b>
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_2_02.jpg" alt=""/>
+					<div class="txt">
+						<p><span>02</span></p>
+						신나무골 출발 후 1시간 임도는 <br/><b>침묵하기에 좋은 길</b>이다.</b>
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_2_03.jpg" alt=""/>
+					<div class="txt">
+						<p><span>03</span></p>
+						신나무골성지에는 <br/><b>카페, 종합안내소, 숙소 등</b>이 마련되어 있다. 
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- 고도 버스 -->
+		<div class="cour_half">
+			<div class="godo">
+				<div class="tit">
+					<h4 class="bullet">고도안내</h4>
+					<a href="#" onclick="return false;" class="godo_pop" data-godo="2"><span><img src="/images/default/content/mag.png" alt=""/></span> 큰 이미지로 보기</a>
+				</div>
+				<div class="img">
+					<a href="#" onclick="return false;" class="godo_pop" data-godo="2"><img src="/images/default/content/godobig2.jpg" alt=""/></a>
+				</div>
+			</div>
+			<div class="bus">
+				<div class="tit">
+					<h4 class="bullet">버스안내</h4>	
+					<!--a href="#" onclick="return false;" class="bus_pop"><span><img src="/images/default/content/mag.png" alt=""/></span> 큰 이미지로 보기</a-->
+				</div>
+				<div class="img">
+					<!--a href="#" onclick="return false;" class="bus_pop"><img src="/images/default/content/bus_map.jpg" alt=""/></a-->
+					<a href="https://businfo.daegu.go.kr/" target="_blank"><img src="/images/default/content/bus_system_link1.jpg" alt=""/></a>
+					<a href="https://bus.chilgok.go.kr/" target="_blank"><img src="/images/default/content/bus_system_link2.jpg" alt=""/></a>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- 명소 -->
+		<div class="course_wrap main_course">
+			<h4 class="bullet">2구간 대표 명소</h4>
+			<div class="pics">
+				<ul>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p2_1.jpg') no-repeat center center; background-size:cover;"></span></div>							
+						<div class="txt">
+							<p class="subject">신나무골성지 <span>경북 칠곡군 지천면 칠곡대로 2189-22</span></p>
+							천주교 신자들이 신나무골에 모여 살기 시작한 시기는 정확히 알 수 없다. 다만 신나무골 위치가 외지고 깊숙한 산골이면서도 대구와 가까워, 많은 선교사들이 대구진출의 전초기지로 삼아 사목활동을 했던 곳으로 짐작하고 있다. <br/><br/>
+
+							1837년부터 샤스땅 신부 등 역대 파리외방전교회 신부들이 신나무골을 왕래하면서 전교했을 가능성이 있다. <br/>
+							이후 1885년 12월 영남지방 선교에 지대한 역할을 한 로베르 아킬레오(김보록) 신부가 신나무골에 사제관을 건립함으로써 신나무골을 거점으로 한 활발한 전교활동이 이루어졌다. <br/><br/>
+
+							대구대교구는 1984년 한국천주교회 창립 200주년을 맞아 순교자 이선이 엘리사벳의 묘소를 이장하고, 대구 본당(계산 성당의 옛 이름)의 발상지로 개발하고 김보록 신부 흉상도 건립했다. 
+
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="course_wrap sub_course">
+			<h4 class="bullet">2구간 주요 명소</h4>
+			<div class="pics">
+				<ul>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p2_2.jpg') no-repeat center center; background-size:cover;"></span></div>							
+						<div class="txt">
+							<p class="subject">댓골지(달서지)</p>
+							전망쉼터에서 내려와 댓골지와 농수로다리 밑을 지나면 넓은 들판이 펼쳐진다. 
+
+						</div>
+					</li>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p2_3.jpg') no-repeat center center; background-size:cover;"></span></div>						
+						<div class="txt">
+							<p class="subject">양떼목장</p>
+							스탬프함과 간이의자가 마련되어 있다. 쉬는 동안 평화로이 풀을 뜯는 양떼들을 만날 수도 있다. 
+
+						</div>
+					</li>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p2_4.jpg') no-repeat center center; background-size:cover;"></span></div>						
+						<div class="txt">
+							<p class="subject">창평지</p>
+							고려시대에서 조선시대에 이르는 청자, 자기, 옹기가마터 10기가 확인됨에 따라 ‘창평리 요지＇라고 불린다 
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="c03" class="pcon" style="display:none;">
+	<div class="con cour">	
+		<!-- 코스안내 -->
+		<div class="course_line">
+			<h4>코스</h4>	
+			<ul>
+				<li><img src="/images/default/content/c_start.png" alt=""/>사기점공소</li>
+				<li>창평지</li>
+				<li>쌀바위</li>
+				<li>금낙정</li>
+				<li>여부재</li>
+				<li>송산지</li>
+				<li>동명면사무소</li>
+				<li><img src="/images/default/content/c_finish.png" alt=""/>동명성당</li>
+			</ul>
+		</div>
+
+		<!-- 구간안내 -->
+		<div class="overview">		
+			<div class="list">
+				<h4 class="bullet">구간안내</h4>	
+				<h5><span>3구간</span> <em>뉘우치는 길</em></h5>
+				<p>현재까지의 잘못을 되새기며 도덕적 결심을 하고 과거의 행동을 반성하며 뉘우치는 길</p>
+				<ul class="info2">
+					<li><span class="km">거리</span>9km</li>
+					<li><span class="time">소요시간</span>4시간 예상</li>
+					<li><span class="check">특징</span>창평지부터 쌀바위까지 급경사입니다.</li>
+				</ul>		
+			</div>
+		</div>
+		
+		<!-- 코스팁 -->
+		<div class="tip_bg">
+			<h4 class="bullet">코스팁</h4>
+			<ul>
+				<li>
+					<img src="/images/default/content/tip_3_01.jpg" alt=""/>
+					<div class="txt">
+						<p><span>01</span></p>
+						처음 30분 열두굽이길을 <br/>올라 쌀바위까지는 <b>난이도가 아주 높으나 뛰어난 파노라마의 풍광</b>을 즐길 수 있다. <b>쌀바위의 일몰은 장관</b>이다. 
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_3_02.jpg" alt=""/>
+					<div class="txt">
+						<p><span>02</span></p>
+						대중교통으로 사기점공소(창평지)에 도착하려면 <b>신동초등학교에서 마을버스</b>를 이용해야한다. 
+
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_3_03.jpg" alt=""/>
+					<div class="txt">
+						<p><span>03</span></p>
+						사기점공소에는 <br/><b>숙소, 카페, 식당, 종합안내소 등</b>이 있다. 
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<!-- 고도 버스 -->
+		<div class="cour_half">
+			<div class="godo">
+				<div class="tit">
+					<h4 class="bullet">고도안내</h4>
+					<a href="#" onclick="return false;" class="godo_pop" data-godo="3"><span><img src="/images/default/content/mag.png" alt=""/></span> 큰 이미지로 보기</a>
+				</div>
+				<div class="img">
+					<a href="#" onclick="return false;" class="godo_pop" data-godo="3"><img src="/images/default/content/godobig3.jpg" alt=""/></a>
+				</div>
+			</div>
+			<div class="bus">
+				<div class="tit">
+					<h4 class="bullet">버스안내</h4>	
+					<!--a href="#" onclick="return false;" class="bus_pop"><span><img src="/images/default/content/mag.png" alt=""/></span> 큰 이미지로 보기</a-->
+				</div>
+				<div class="img">
+					<!--a href="#" onclick="return false;" class="bus_pop"><img src="/images/default/content/bus_map.jpg" alt=""/></a-->
+					<a href="https://businfo.daegu.go.kr/" target="_blank"><img src="/images/default/content/bus_system_link1.jpg" alt=""/></a>
+					<a href="https://bus.chilgok.go.kr/" target="_blank"><img src="/images/default/content/bus_system_link2.jpg" alt=""/></a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 명소 -->
+		<div class="course_wrap main_course">
+			<h4 class="bullet">3구간 대표 명소</h4>
+			<div class="pics">
+				<ul>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p3_1.jpg') no-repeat center center; background-size:cover;"></span></div>							
+						<div class="txt">
+								<p class="subject">사기점공소 <span><img src="/images/default/content/location.png" alt=""/> 경북 칠곡군 지천면 창평로 315-10</span></p>
+							사기점(沙器店)은 칠곡군 지천면소재지에서 북쪽으로 4km지역에 위치한 창평리의 자연부락이다. 현재 신동성당의 뒤편인 창평리, 백운리, 심천리는 박해시대 때부터 천주교인들이 살고 있었다.<br/> 경신박해(1860) 때 상주에서 피난을 와서 백운리 길붓(질붓)에서 살았던 이시우 요한 가정과 창평리에 살면서 천주교에 입교한 광주이씨 이환 스테파노 가정, 병인박해 때 심천리에 살았던 이문 베난시오(1857-1927)가정과 창평리 듬우에 살았던 배석기 루수(1868-1943)가정이 있었다. 천주교인들은 박해가 나면 떠나야하기에 좋은 흙과 물과 나무가 있는 곳에 자리를 잡아 옹기와 사기를 구어 내다 팔면서 생계를 꾸렸다.  <br/><br/>
+
+							이곳 사기점은 구한말 앞에 흐르고 있는 내(川에)서 좋은 모래가 나와 도공들이 모여 살면서 사기그릇을 만들어 판매를 한 사기점(沙器店)이 있었다 해서 내(川)이름은 ‘사천’이라 하고 동네는 ‘사기점’이라 했다. 현재 창평지는 1979년에 준설되었으며 저수지의 제방을 따라 ‘한티가는길’이 ‘쌀바위’와 ‘금낙정’과 ‘여부재’로 이어지고 있다.<br/>
+							가실성당은 로마네스크 양식으로 안팎이 모두 아름답다. 설계자는 프랑스인 박도행(Victor Louis  Poisnel) 신부이며 공사는 중국 기술자들이 현장에서 벽돌을 구워서 쌓았다. 
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="course_wrap sub_course">
+			<h4 class="bullet">3구간 주요 명소</h4>
+			<div class="pics">
+				<ul>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p3_2.jpg') no-repeat center center; background-size:cover;"></span></div>							
+						<div class="txt">
+							<p class="subject">열두굽이길</p>
+							한티가는길 순례 중 가장 높은 오르막으로 쌀바위까지 10분이 걸린다.
+
+						</div>
+					</li>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p3_3.jpg') no-repeat center center; background-size:cover;"></span></div>						
+						<div class="txt">
+							<p class="subject">쌀바위 진달래</p>
+							이 곳 쌀바위는 그 날 먹을 만큼의 쌀만 나오곤 했는데 인간의 욕심으로 쌀이 많이 나오도록 바위틈을 후벼팠다가 쌀 대신 피가 나와 바위가 붉게 되었다고한다. 
+						</div>
+					</li>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p3_4.jpg') no-repeat center center; background-size:cover;"></span></div>						
+						<div class="txt">
+							<p class="subject">쌀바위 노을</p>
+							망망대해의 쌀바위 저녁노을은 순례자의발걸음을 붙잡는다. 
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="c04" class="pcon" style="display:none;">
+	<div class="con cour">	
+		<!-- 코스안내 -->
+		<div class="course_line">
+			<h4>코스</h4>	
+			<ul>
+				<li><img src="/images/default/content/c_start.png" alt=""/>동명성당</li>
+				<li>동명수변공원</li>
+				<li>청산농원</li>
+				<li>팔각정</li>
+				<li>원당공소</li>
+				<li><img src="/images/default/content/c_finish.png" alt=""/>진남문</li>
+			</ul>
+		</div>
+
+		<!-- 구간안내 -->
+		<div class="overview">	
+			<div class="list">
+				<h4 class="bullet">구간안내</h4>	
+				<h5><span>4구간</span> <em>용서의 길</em></h5>
+				<p>용서하지 못할 때 가장 고통스러운 사람은 자신이라는 것을 일깨워 세상을 향해 자신을 용서하고 독려하는 길</p>
+				<ul class="info2">
+					<li><span class="km">거리</span>8.5km</li>
+					<li><span class="time">소요시간</span>4시간 예상</li>
+					<li><span class="check">특징</span>계곡따라 걷는 길이 예술입니다.</li>
+				</ul>
+			</div>
+		</div>
+		
+		<!-- 코스팁 -->
+		<div class="tip_bg">
+			<h4 class="bullet">코스팁</h4>
+			<ul>
+				<li>
+					<img src="/images/default/content/tip_4_01.jpg" alt=""/>
+					<div class="txt">
+						<p><span>01</span></p>
+						이 구간 순례길에는 돌길을 지나가야 하고, 비교적 길이 험한 편이니 <b>등산화를 잘 챙겨 신어야한다.</b> 
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_4_02.jpg" alt=""/>
+					<div class="txt">
+						<p><span>02</span></p>
+						동명성당 순례자의 집은 <br/><b>숙소와 카페, 종합안내소</b>가 있다. 
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_4_03.jpg" alt=""/>
+					<div class="txt">
+						<p><span>03</span></p>
+						동명은 <br/>한티가는길의 <b>교통 요충지</b>이다.
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<!-- 고도 버스 -->
+		<div class="cour_half">
+			<div class="godo">
+				<div class="tit">
+					<h4 class="bullet">고도안내</h4>
+					<a href="#" onclick="return false;" class="godo_pop" data-godo="4"><span><img src="/images/default/content/mag.png" alt=""/></span> 큰 이미지로 보기</a>
+				</div>
+				<div class="img">
+					<a href="#" onclick="return false;" class="godo_pop" data-godo="4"><img src="/images/default/content/godobig4.jpg" alt=""/></a>
+				</div>
+			</div>
+			<div class="bus">
+				<div class="tit">
+					<h4 class="bullet">버스안내</h4>	
+					<!--a href="#" onclick="return false;" class="bus_pop"><span><img src="/images/default/content/mag.png" alt=""/></span> 큰 이미지로 보기</a-->
+				</div>
+				<div class="img">
+					<!--a href="#" onclick="return false;" class="bus_pop"><img src="/images/default/content/bus_map.jpg" alt=""/></a-->
+					<a href="https://businfo.daegu.go.kr/" target="_blank"><img src="/images/default/content/bus_system_link1.jpg" alt=""/></a>
+					<a href="https://bus.chilgok.go.kr/" target="_blank"><img src="/images/default/content/bus_system_link2.jpg" alt=""/></a>
+				</div>
+			</div>
+		</div>
+
+		<!-- 명소 -->
+		<div class="course_wrap main_course">
+			<h4 class="bullet">4구간 대표 명소</h4>
+			<div class="pics">
+				<ul>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p4_1.jpg') no-repeat center center; background-size:cover;"></span></div>							
+						<div class="txt">
+							<p class="subject">원당공소 <span><img src="/images/default/content/location.png" alt=""/> 경북 칠곡군 동명면 남원로3길 98-2</span></p>
+							공소(公所)는 천주교의 종교시설로 본당보다 작은 교회 단위이다. 해당 지역을 관할하는 신부가 직접 방문해서 미사를 드리거나 신부가 방문하지 못하는 경우는 공소회장을 중심으로 공소예절을 하는 공간이다. 이곳 원당공소도 오랜 시간 신부들이 와서 신자들에게 성사를 주고 미사를 드렸다. 원당공소의 시작은 한티에서 신나무골로 오가던 신자들이 원당마을의 최씨를 권면하여 영세시킨 후 최씨 소유의 아래채(남원리504번지) 사랑방을 공소로 사용하였다.  <br/><br/>
+
+							‘작은 한티 공소’로 통했던 원당공소는 1900년대 초부터 한티공소보다 신자가 더 많았다. <br/>
+							1915년 11월 7일 대구교구의 초대교구장 안세화 드망즈 주교가 순회방문을 와서 이곳에 이틀을 머물렀다. 1922년에 91명까지 신자가 증가한 후 1970년대 초반까지도 60명의 신자가 있었다. 현재 공소건물은 최만학(베드로)이 기증한 땅에 1966년 11월 1일 상량 되었다. 가실본당, 비산본당, 칠곡본당을 거쳐 지금은 동명성당 관할 공소이다. <br/><br/>
+
+							
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="course_wrap sub_course">
+			<h4 class="bullet">4구간 주요 명소</h4>
+			<div class="pics">
+				<ul>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p4_2.jpg') no-repeat center center; background-size:cover;"></span></div>							
+						<div class="txt">
+							<p class="subject">동명성당</p>
+							1979년 12월에 칠곡 본당에서 분리되어 설립되어 초대 정성우[바오로] 신부가 부임하여 사목하였다. 
+
+						</div>
+					</li>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p4_3.jpg') no-repeat center center; background-size:cover;"></span></div>						
+						<div class="txt">
+							<p class="subject">동명수변공원 노을</p>
+							동명성당 출발 후 편의점을 돌아 계단을 올라셔면 장관의 호수를 만난다. 한티가는길 전구간 중 가장 많은 사람들이 붐비는 곳으로 저수지 위의 부교에는 한티가는길의 아름다운 풍경 사진들이 전시되어 있다. 카페와 간이매점, 한티가는길 종합안내도를 둘러본 후 현수교를 건너 좌측으로 이동하면 스탬프함을 만난다. 동명저수지는 낙동강 수계지역으로 농업용수 개발을 목적으로 1961년 준공되었다. 수변생태공원에는 수변산책로, 습지마당, 생태학습관, 테마초화원 등이 조성되어 지역민에게 수변생태공간 체험 및 휴식과 커뮤니티 공간으로 활동되고있다. 
+
+						</div>
+					</li>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p4_4.jpg') no-repeat center center; background-size:cover;"></span></div>						
+						<div class="txt">
+							<p class="subject">송림사</p>
+							544년, 신라 진흥왕 때 창건한 고찰로 대앙한 보물들과 오층전탑 등이 유명하다
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="c05" class="pcon" style="display:none;">
+	<div class="con cour">	
+		<!-- 코스안내 -->
+		<div class="course_line">
+			<h4>코스</h4>	
+			<ul>
+				<li><img src="/images/default/content/c_start.png" alt=""/>진남문</li>
+				<li>기성동정류장<em>(바지마)</em></li>
+				<li>팔공산터널</li>
+				<li>득명교</li>
+				<li>마당재</li>
+				<li>데크길</li>
+				<li>1868억새길</li>
+				<li>한티공소<em>(억새마을)</em></li>
+				<li>옹기굴</li>
+				<li>숯가마터</li>
+				<li><img src="/images/default/content/c_finish.png" alt=""/>한티마을사람</li>
+			</ul>
+		</div>
+
+		<!-- 구간안내 -->
+		<div class="overview">		
+			<div class="list">
+				<h4 class="bullet">구간안내</h4>	
+				<h5><span>5구간</span> <em>사랑의 길</em></h5>
+				<p>한티로 향했던 순교자들의 삶을 묵상하며 나 자신을 돌아보고 비우고 뉘우치고 용서하며 자신을 만나고 함께 걸어왔던 이들과 함께 사람의 의미를 알아가고 진정한 나를 찾는 길</p>
+				<ul class="info2">
+					<li><span class="km">거리</span>8.1km</li>
+					<li><span class="time">소요시간</span>3시간 30분 예상</li>
+					<li><span class="check">특징</span>순교자들 무덤의 순례 코스입니다.</li>
+				</ul>
+
+			</div>
+		</div>
+		
+		<!-- 코스팁 -->
+		<div class="tip_bg">
+			<h4 class="bullet">코스팁</h4>
+			<ul>
+				<li>
+					<img src="/images/default/content/tip_5_01.jpg" alt=""/>
+					<div class="txt">
+						<p><span>01</span></p>
+						<b>팔공3번 버스</b>가 5구간의 출발지인 진남문정류장으로 운행한다. <b>하루 20회 주말과 공휴일에만 운행</b>한다. <em>(12~2월 운행중지)</em>
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_5_02.jpg" alt=""/>
+					<div class="txt">
+						<p><span>02</span></p>
+						기성동정류장에서는 <br/><b>칠곡3번이 1일 15회 운행</b>한다. 
+
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_5_03.jpg" alt=""/>
+					<div class="txt">
+						<p><span>03</span></p>
+						한티순교성지정류장에는 <br/><b>38번 1일 4회 운행</b>한다. 
+
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_5_04.jpg" alt=""/>
+					<div class="txt">
+						<p><span>04</span></p>
+						<b>완주인증스탬프와 기념품</b>은 도보4분에 위치한 <br/>(사)한티사무국에 가야한다. <em>(사)한티사무국 <br/>054-975-5151 / OPEN 9시 – 17시</em>
+
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_5_05.jpg" alt=""/>
+					<div class="txt">
+						<p><span>05</span></p>
+						숙식은 <b>한티피정의집을<br/> 예약</b>해야 한다
+					</div>
+				</li>
+				<li>
+					<img src="/images/default/content/tip_5_06.jpg" alt=""/>
+					<div class="txt">
+						<p><span>06</span></p>
+						2시간 정도의 한티순교성지 내에 있는 1868억새길, 겸손의길, 인내의길, 십자가의길은 <b>한티가는길의 마지막</b>이다. 
+					</div>
+				</li>
+				
+			</ul>
+		</div>
+
+		<!-- 고도 버스 -->
+		<div class="cour_half">
+			<div class="godo">
+				<div class="tit">
+					<h4 class="bullet">고도안내</h4>
+					<a href="#" onclick="return false;" class="godo_pop" data-godo="5"><span><img src="/images/default/content/mag.png" alt=""/></span> 큰 이미지로 보기</a>
+				</div>
+				<div class="img">
+					<a href="#" onclick="return false;" class="godo_pop" data-godo="5"><img src="/images/default/content/godobig5.jpg" alt=""/></a>
+				</div>
+			</div>
+			<div class="bus">
+				<div class="tit">
+					<h4 class="bullet">버스안내</h4>	
+					<!--a href="#" onclick="return false;" class="bus_pop"><span><img src="/images/default/content/mag.png" alt=""/></span> 큰 이미지로 보기</a-->
+				</div>
+				<div class="img">
+					<!--a href="#" onclick="return false;" class="bus_pop"><img src="/images/default/content/bus_map.jpg" alt=""/></a-->
+					<a href="https://businfo.daegu.go.kr/" target="_blank"><img src="/images/default/content/bus_system_link1.jpg" alt=""/></a>
+					<a href="https://bus.chilgok.go.kr/" target="_blank"><img src="/images/default/content/bus_system_link2.jpg" alt=""/></a>
+				</div>
+			</div>
+		</div>
+
+		<!-- 명소 -->
+		<div class="course_wrap main_course">
+			<h4 class="bullet">5구간 대표 명소</h4>
+			<div class="pics">
+				<ul>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p5_1.jpg') no-repeat center center; background-size:cover;"></span></div>							
+						<div class="txt">
+							<p class="subject">한티순교성지 <span><img src="/images/default/content/location.png" alt=""/> 경북 칠곡군 동명면 한티로1길 69</span></p>
+							‘한티’는 높은 재(嶺) 밑에서 한 데 모여 사는 마을이란 뜻으로 해발 600m에  있다. 이곳에 천주교인들이 살기 시작한 것은 을해박해(1815)로 붙잡힌 교인  들이 대구감영으로 오자 그들의 옥바라지를 위해 숨어 들어와 살기 시작하였다. 1862년 다블뤼 주교의 록으로 보아 이곳에 40명 이상의 교인이 살았음을 알 수 있다.  <br/><br/>
+
+							경신박해(1860) 때는 신나무골에 살던 이선이 엘리사벳 과 그의 아들 배스테파노가 한티에 피난 왔다가 순교하였다. <br/>
+							그 후 병인박해  (1866)가 한창이던 1868년 늦봄, 경포와 칠곡도호부의 병사들이 한티를 습  격하여 도망치던 교인들을 쫓아가 그 자리에 죽임으로써 피를 뿌린 듯 온 산  에 무덤이 흩어져 있다. 당시 회장인 조가롤로와 부인 최 바르바라와 그의 여  동생 조아기를 비롯한 40여 명 이상이 순교하였다. 현재까지 발견된 37기의  순교자들의 묘지를 따라 순례길이 조성되어 있다.<br/><br/>
+
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="course_wrap sub_course">
+			<h4 class="bullet">5구간 주요 명소</h4>
+			<div class="pics">
+				<ul>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p5_2.jpg') no-repeat center center; background-size:cover;"></span></div>							
+						<div class="txt">
+							<p class="subject">가산산성(진남문)</p>
+							외침에 대비하기 위해 가산의 요새에 3중으로 축성한 포곡식(包谷式) 성곽이다.
+
+						</div>
+					</li>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p5_3.jpg') no-repeat center center; background-size:cover;"></span></div>						
+						<div class="txt">
+							<p class="subject">한티마을사람</p>
+							한티가는 길 순례를 마치면 크고 작은 돌들로 조성된 한티마을사람이 순례자를 보듬어주며, 여기에는 세가지 뜻이 있다. 하나는 마을이 존재했음을, 하나는 한티 순교자를, 하나는 한티 순교자의 신앙과 삶을 따르려는 지금 나 자신을 뜻하다. 
+
+						</div>
+					</li>
+					<li>
+						<div class="gimg"><span style="background:url('/images/default/content/p5_4.jpg') no-repeat center center; background-size:cover;"></span></div>						
+						<div class="txt">
+							<p class="subject">마당재 데크길</p>
+							여기서부터 한티순교성지까지는 30분 정도 걸리며 한티가는길들 가운데 가장 쉽고 아름다운 구간으로 통한다. 
+
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="con_pop big_pop1">
+	<div class="popin">		
+		<div class="txt">
+			<img src="/images/default/content/bus_map.jpg" alt=""/>
+		</div>
+		<p class="close"><i class="xi-close"></i></p>
+	</div>
+</div>
+<div class="con_pop big_pop2">
+	<div class="popin">
+		<div class="txt">
+			<img src="/images/default/content/godobig1.jpg" alt=""/>
+		</div>
+		<p class="close"><i class="xi-close"></i></p>
+	</div>
+</div>
+
+
+<style>
+	#wrap #sepration{display:none;}
+	.page_main_title{display:none;}
+
+	@media (max-width:767px){
+		#wrap {padding-top:4rem;}
+		#wrap #sepration{padding:4.5rem 0 2rem;}
+		#wrap #sepration .sep_img{padding-top:0;}
+		.lm_bg{margin-top:0;}
+	}
+
+	/* 알림창 */
+	.con_pop{display:none; background:rgba(0, 0, 0, .8); position:fixed; top:0; left:0; width:100%; height:100%; z-index:10000;}
+	.con_pop .popin{width:1200px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; z-index:1000;}
+	.con_pop .popin .txt{}
+	.con_pop .popin .close{cursor:pointer; position:absolute; right:0; top:-3rem; font-size:2rem; color:#fff;}
+</style>
+
+
+
+
+
+			</div>
+			<!-- //페이지 주내용 -->
+        </div>
+        <!-- //container -->
+
+        <!-- footer -->
+		<div id="footer">
+			<div class="inn">
+				<div class="copyright">
+					<h3 class="logo"><img src="/images/default/main/logo_w.svg" alt="한티가는길"/></h3>
+					<div class="">
+						<ul>
+							<li><a href="/content/86">이용약관</a></li>
+							<li><a href="/content/87">개인정보처리방침</a></li>
+							<li><a href="/content/88">이메일무단수집거부</a></li>
+						</ul>
+						<p><b>주소</b> :  (우) 39855 경상북도 칠곡군 동명면 한티로 1길 69<span></span><b>전화</b> : 054-975-5151<span></span><b>이메일</b> : dghanti@daum.net</p>
+						<p class="copy">Copyright © 사단법인 한티. All rights reserved. <a href="/manage"  target="_blank"><i class="xi-lock-o"></i><span class="hide">관리자사이트 가기</span></a></p>
+					</div>
+				</div>
+			</div>
+			<!--div class="logos">
+				<ul>
+					<li><img src="/images/default/main/logos01.png"  alt="경상북도"></li>
+					<li><img src="/images/default/main/logos02.png"  alt="칠곡군"></li>
+				</ul>
+			</div-->
+		</div>
+		<!-- //footer -->
+    </div>
+    <!-- //wrap -->
+
+    <!-- Running time: 0.0802sec / Memory used: 7.37MB -->
+	<div class="divblind" style="display:none;position:fixed; left:0; top:0;filter:alpha(opacity=96); background:#1b1c1c;opacity:.70; width:100%;height:100%; z-index:10;"></div>
+    <div id="top">
+
+	    <a class="top"><i class="xi-angle-up-min"></i></a>
+    </div>
+</body>
+</html>

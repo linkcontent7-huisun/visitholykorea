@@ -48,6 +48,9 @@ def check(path: str) -> list[str]:
             errs.append(f"불일치인데 official 없음: {c.get('item')}")
     if not v["pageOpened"] and any(c.get("verdict") != "확인불가" for c in v["checks"]):
         errs.append("페이지를 못 열었는데 확인불가가 아닌 판정이 있음")
+    # 9/29: 사본(_pages)이 있으니 못 열었다는 결과는 받지 않는다 — 9/28 에 7곳이 전부 확인불가로 통과했던 구멍
+    if not v["pageOpened"]:
+        errs.append("pageOpened=false — _pages/<slug>/ 사본을 읽고 다시 판정할 것")
 
     pairs = json.load(open(os.path.join(BASE, "_verify", "matches.json"), encoding="utf-8"))
     want = {(p["stop"], p["ourSite"]) for p in pairs if p["slug"] == v["slug"]}
