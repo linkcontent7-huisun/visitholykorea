@@ -1,0 +1,38 @@
+{
+  "slug": "beogeunae",
+  "name": "버그내 순례길",
+  "operator": "당진시",
+  "operatorType": "local",
+  "region": "충남 당진시",
+  "officialUrl": "https://beogeunae.dangjin.go.kr/pil1.html",
+  "urlWorks": true,
+  "summary": "당진시 공식 페이지는 솔뫼성지에서 하흑공소까지 천주교 성지와 관련 장소 10곳을 잇는 순례 동선을 소개한다. 구간마다 다음 경유지까지의 거리를 함께 안내한다.",
+  "courses": [
+    {
+      "name": "버그내 순례길",
+      "distanceKm": null,
+      "duration": null,
+      "courseUrl": "https://beogeunae.dangjin.go.kr/pil1.html",
+      "stops": [
+        { "order": 1, "name": "솔뫼성지", "address": "충청남도 당진시 솔뫼로 132", "sourceUrl": "https://beogeunae.dangjin.go.kr/pil1.html" },
+        { "order": 2, "name": "합덕제, 수리민속박물관", "address": null, "sourceUrl": "https://beogeunae.dangjin.go.kr/pil1.html" },
+        { "order": 3, "name": "합덕성당", "address": null, "sourceUrl": "https://beogeunae.dangjin.go.kr/pil1.html" },
+        { "order": 4, "name": "합덕제중수비", "address": null, "sourceUrl": "https://beogeunae.dangjin.go.kr/pil1.html" },
+        { "order": 5, "name": "원시장, 원시보우물", "address": null, "sourceUrl": "https://beogeunae.dangjin.go.kr/pil1.html" },
+        { "order": 6, "name": "무명순교자의묘", "address": null, "sourceUrl": "https://beogeunae.dangjin.go.kr/pil1.html" },
+        { "order": 7, "name": "신리성지", "address": null, "sourceUrl": "https://beogeunae.dangjin.go.kr/pil1.html" },
+        { "order": 8, "name": "거더리공소", "address": null, "sourceUrl": "https://beogeunae.dangjin.go.kr/pil1.html" },
+        { "order": 9, "name": "세거리공소", "address": null, "sourceUrl": "https://beogeunae.dangjin.go.kr/pil1.html" },
+        { "order": 10, "name": "하흑공소", "address": null, "sourceUrl": "https://beogeunae.dangjin.go.kr/pil1.html" }
+      ]
+    }
+  ],
+  "unknowns": [
+    "공식 페이지에 순례길 전체 거리가 표기되지 않음; 구간별 거리는 4.4km, 1.4km, 2km, 1.7km, 1.7km, 1.8km, 0.9km, 1.6km, 2km로 안내됨",
+    "공식 페이지에 순례길 소요 시간이 표기되지 않음",
+    "솔뫼성지 외 경유지의 주소가 공식 페이지에 표기되지 않음"
+  ],
+  "sources": [
+    "https://beogeunae.dangjin.go.kr/pil1.html"
+  ]
+}

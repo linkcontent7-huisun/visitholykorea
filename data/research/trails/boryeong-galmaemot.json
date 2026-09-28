@@ -1,0 +1,63 @@
+{
+  "slug": "boryeong-galmaemot",
+  "name": "갈매못-서짓골 성지순례길",
+  "operator": "보령시",
+  "operatorType": "local",
+  "region": "충남 보령",
+  "officialUrl": "https://www.brcn.go.kr/tour/sub02_02_02.do",
+  "urlWorks": true,
+  "summary": "1866년 갈매못에서 순교한 다블뤼 주교 등 네 성인의 유해를 신자들이 서짓골까지 옮긴 육상 동선을 걷는 길.",
+  "courses": [
+    {
+      "name": "갈매못-서짓골 성지순례길",
+      "distanceKm": 9,
+      "duration": "약 3시간",
+      "courseUrl": "https://www.brcn.go.kr/tour/sub02_02_02.do",
+      "stops": [
+        {
+          "order": 1,
+          "name": "완장포구",
+          "address": null,
+          "sourceUrl": "https://www.brcn.go.kr/tour/sub02_02_02.do"
+        },
+        {
+          "order": 2,
+          "name": "웅천읍내",
+          "address": null,
+          "sourceUrl": "https://www.brcn.go.kr/tour/sub02_02_02.do"
+        },
+        {
+          "order": 3,
+          "name": "웅천 성동리",
+          "address": null,
+          "sourceUrl": "https://www.brcn.go.kr/tour/sub02_02_02.do"
+        },
+        {
+          "order": 4,
+          "name": "주산 화평리",
+          "address": null,
+          "sourceUrl": "https://www.brcn.go.kr/tour/sub02_02_02.do"
+        },
+        {
+          "order": 5,
+          "name": "보령댐",
+          "address": null,
+          "sourceUrl": "https://www.brcn.go.kr/tour/sub02_02_02.do"
+        },
+        {
+          "order": 6,
+          "name": "서짓골",
+          "address": null,
+          "sourceUrl": "https://www.brcn.go.kr/tour/sub02_02_02.do"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    "본문엔 「육상 동선 9.5km」, 코스안내엔 「총 9km」로 두 값이 다름",
+    "출발점이 갈매못 성지가 아니라 완장포구"
+  ],
+  "sources": [
+    "https://www.brcn.go.kr/tour/sub02_02_02.do"
+  ]
+}

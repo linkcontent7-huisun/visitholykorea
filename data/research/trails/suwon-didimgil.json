@@ -1,0 +1,395 @@
+{
+  "slug": "suwon-didimgil",
+  "name": "수원교구 성지순례 디딤길",
+  "operator": "천주교 수원교구",
+  "operatorType": "diocese",
+  "region": "경기 남부 일원",
+  "officialUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+  "urlWorks": true,
+  "summary": "수원교구 성지 15곳을 17개 도보 코스로 잇는 순례길. 순례수첩에 출발·도착 스탬프를 모아 완주하면 교구장 축복장을 받는다.",
+  "courses": [
+    {
+      "name": "제1코스 수원교구청~수리산성지",
+      "distanceKm": 21,
+      "duration": "4~5시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "수원교구청",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "수리산성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제2코스 수리산성지~손골성지",
+      "distanceKm": 29,
+      "duration": "7~8시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "수리산성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "하우현성당",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 3,
+          "name": "손골성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제3코스 손골성지~남한산성성지",
+      "distanceKm": 29,
+      "duration": "6~7시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "손골성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "남한산성성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제4코스 남한산성성지~구산성지",
+      "distanceKm": 14,
+      "duration": "4시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "남한산성성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "구산성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제5코스 구산성지~양근성지",
+      "distanceKm": 43,
+      "duration": "9시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "구산성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "양수리성당",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 3,
+          "name": "양근성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제6코스 양근성지~천진암성지",
+      "distanceKm": 21,
+      "duration": "5시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "양근성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "천진암성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제7코스 천진암성지~여주성당",
+      "distanceKm": 46,
+      "duration": "12시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "천진암성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "산북성당",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 3,
+          "name": "여주성당",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제8코스 여주성당~죽산성지",
+      "distanceKm": 21,
+      "duration": "5시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "여주성당",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "가남성당",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 3,
+          "name": "죽산성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제9코스 죽산성지~어농성지",
+      "distanceKm": 16,
+      "duration": "4시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "죽산성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "어농성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제10코스 어농성지~단내성가정성지",
+      "distanceKm": 8,
+      "duration": "2시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "어농성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "단내성가정성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제11코스 단내성가정성지~은이성지",
+      "distanceKm": 18,
+      "duration": "4~5시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "단내성가정성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "은이성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제12코스 은이성지~미리내성지",
+      "distanceKm": 11,
+      "duration": "3~4시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "은이성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "미리내성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제13코스 미리내성지~요당리성지",
+      "distanceKm": 42,
+      "duration": "9시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "미리내성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "송탄성당",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 3,
+          "name": "요당리성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제14코스 요당리성지~남양성모성지",
+      "distanceKm": 31,
+      "duration": "7시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "요당리성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "발안성당",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 3,
+          "name": "남양성모성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제15코스 남양성모성지~왕림성당",
+      "distanceKm": 17,
+      "duration": "4시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "남양성모성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "왕림성당",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제16코스 왕림성당~수원화성순교성지",
+      "distanceKm": 20,
+      "duration": "4시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "왕림성당",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "수원화성순교성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    },
+    {
+      "name": "제17코스 수원화성순교성지~수원교구청",
+      "distanceKm": 8,
+      "duration": "2시간",
+      "courseUrl": "https://www.casuwon.or.kr/holyland/pilgrimage",
+      "stops": [
+        {
+          "order": 1,
+          "name": "수원화성순교성지",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        },
+        {
+          "order": 2,
+          "name": "수원교구청",
+          "address": null,
+          "sourceUrl": "https://www.casuwon.or.kr/holyland/pilgrimage"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    "공식 페이지의 도로·지명 단위 길안내는 옮기지 않고 출발·경유 성당·도착만 기록",
+    "Codex 샌드박스에선 리디렉션 반복 오류, 9/28 Claude 가 Firecrawl 로 확인"
+  ],
+  "sources": [
+    "https://www.casuwon.or.kr/holyland/pilgrimage"
+  ]
+}

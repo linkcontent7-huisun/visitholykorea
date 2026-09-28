@@ -1,0 +1,57 @@
+{
+  "slug": "jeonju-gyouchon",
+  "name": "전주교구 교우촌 도보순례",
+  "operator": "천주교 전주교구",
+  "operatorType": "diocese",
+  "region": "전북특별자치도 전주·완주",
+  "officialUrl": "https://www.jcatholic.or.kr/theme/main/pages/pilgrimage01.html",
+  "urlWorks": true,
+  "summary": "전주교구의 요안루갈다길은 초남이성지에서 치명자산성지까지 유중철과 이순이의 삶을 따라 걷는 도보순례길이다. 전주교구는 이 길을 순례문화 정착을 위해 2015년 5월 2일 선포했다.",
+  "courses": [
+    {
+      "name": "요안루갈다길",
+      "distanceKm": null,
+      "duration": null,
+      "courseUrl": "https://www.jcatholic.or.kr/theme/main/pages/pilgrimage01.html",
+      "stops": [
+        {
+          "order": 1,
+          "name": "초남이성지",
+          "address": "전북특별자치도 완주군 이서면 초남신기길 122-1",
+          "sourceUrl": "https://www.jcatholic.or.kr/theme/main/pages/pilgrimage01.html"
+        },
+        {
+          "order": 2,
+          "name": "전주숲정이성지",
+          "address": "전북특별자치도 전주시 덕진구 공북로 19",
+          "sourceUrl": "https://www.jcatholic.or.kr/theme/main/pages/pilgrimage01.html"
+        },
+        {
+          "order": 3,
+          "name": "서천교순교터",
+          "address": "전북특별자치도 전주시 완산구 서완산동 1가 351-1 주변",
+          "sourceUrl": "https://www.jcatholic.or.kr/theme/main/pages/pilgrimage01.html"
+        },
+        {
+          "order": 4,
+          "name": "전동성당",
+          "address": "전북특별자치도 전주시 완산구 태조로 51",
+          "sourceUrl": "https://www.jcatholic.or.kr/theme/main/pages/pilgrimage01.html"
+        },
+        {
+          "order": 5,
+          "name": "치명자산성지",
+          "address": "전북특별자치도 전주시 완산구 바람쐬는길 92",
+          "sourceUrl": "https://www.jcatholic.or.kr/theme/main/pages/pilgrimage01.html"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    "공식 페이지에 요안루갈다길의 전체 거리와 예상 소요시간이 표기되지 않음",
+    "지시서의 시작 URL은 pilgrimage01.htm이나, 공식 페이지의 실제 접근 주소는 pilgrimage01.html임"
+  ],
+  "sources": [
+    "https://www.jcatholic.or.kr/theme/main/pages/pilgrimage01.html"
+  ]
+}

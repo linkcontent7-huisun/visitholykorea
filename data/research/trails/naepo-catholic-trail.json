@@ -1,0 +1,83 @@
+{
+  "slug": "naepo-catholic-trail",
+  "name": "내포천주교순례길",
+  "operator": "사단법인 내포문화숲길",
+  "operatorType": "other",
+  "region": "충청남도 예산군·당진시·홍성군·서산시",
+  "officialUrl": "https://naepotrail.org/course/catholic",
+  "urlWorks": true,
+  "summary": "사단법인 내포문화숲길이 운영하는 내포천주교순례길은 천주교가 전래된 내포 지역의 박해와 순교 역사를 성지와 함께 걷는 길이다. 공식 페이지는 여사울성지에서 솔뫼성지로 이어지는 1코스를 포함해 5개 코스를 안내한다.",
+  "courses": [
+    {
+      "name": "1코스 여사울성지 ~ 솔뫼성지",
+      "distanceKm": 16.4,
+      "duration": null,
+      "courseUrl": "https://naepotrail.org/course/catholic/16",
+      "stops": [
+        { "order": 1, "name": "여사울성지", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/16" },
+        { "order": 2, "name": "신리성지", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/16" },
+        { "order": 3, "name": "솔뫼성지", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/16" }
+      ]
+    },
+    {
+      "name": "2코스 신리성지 ~ 삽교성당",
+      "distanceKm": 15.4,
+      "duration": null,
+      "courseUrl": "https://naepotrail.org/course/catholic/17",
+      "stops": [
+        { "order": 1, "name": "신리성지", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/17" },
+        { "order": 2, "name": "배나드리성지", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/17" },
+        { "order": 3, "name": "삽교성당", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/17" }
+      ]
+    },
+    {
+      "name": "3코스 삽교성당 ~ 충의사",
+      "distanceKm": 9.8,
+      "duration": null,
+      "courseUrl": "https://naepotrail.org/course/catholic/18",
+      "stops": [
+        { "order": 1, "name": "삽교성당", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/18" },
+        { "order": 2, "name": "충의사", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/18" }
+      ]
+    },
+    {
+      "name": "4코스 충의사 ~ 해미순교성지",
+      "distanceKm": 14.4,
+      "duration": null,
+      "courseUrl": "https://naepotrail.org/course/catholic/19",
+      "stops": [
+        { "order": 1, "name": "충의사", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/19" },
+        { "order": 2, "name": "한티고개", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/19" },
+        { "order": 3, "name": "산수저수지", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/19" },
+        { "order": 4, "name": "해미읍성", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/19" },
+        { "order": 5, "name": "해미순교성지", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/19" }
+      ]
+    },
+    {
+      "name": "5코스 홍주성역사관 ~ 홍주순교성지 ~ 홍주성역사관(순환)",
+      "distanceKm": 2.3,
+      "duration": null,
+      "courseUrl": "https://naepotrail.org/course/catholic/20",
+      "stops": [
+        { "order": 1, "name": "홍주성역사관", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/20" },
+        { "order": 2, "name": "홍성군청", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/20" },
+        { "order": 3, "name": "북문교", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/20" },
+        { "order": 4, "name": "홍주순교성지", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/20" },
+        { "order": 5, "name": "조양문", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/20" },
+        { "order": 6, "name": "홍주성역사관", "address": null, "sourceUrl": "https://naepotrail.org/course/catholic/20" }
+      ]
+    }
+  ],
+  "unknowns": [
+    "공식 코스 페이지에 각 코스의 표준 소요 시간이 없어 duration을 null로 기록함",
+    "공식 코스 페이지에 경유지별 도로명 주소가 없어 address를 null로 기록함"
+  ],
+  "sources": [
+    "https://naepotrail.org/course/catholic",
+    "https://naepotrail.org/course/catholic/16",
+    "https://naepotrail.org/course/catholic/17",
+    "https://naepotrail.org/course/catholic/18",
+    "https://naepotrail.org/course/catholic/19",
+    "https://naepotrail.org/course/catholic/20"
+  ]
+}

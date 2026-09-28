@@ -1,0 +1,111 @@
+{
+  "slug": "andong-walking",
+  "name": "사제와 함께하는 도보순례",
+  "operator": "천주교 안동교구",
+  "operatorType": "diocese",
+  "region": "경북 문경·상주",
+  "officialUrl": "https://www.acatholic.or.kr/sub4/sub2.asp",
+  "urlWorks": true,
+  "summary": "문경 마원·진안리 성지 담당 사제가 인솔하는 신청제 도보순례. 1일 코스 3개와 3일 코스 1개가 있다.",
+  "courses": [
+    {
+      "name": "순교의 길 (1일)",
+      "distanceKm": 18,
+      "duration": "오전 8시~오후 4시",
+      "courseUrl": "https://www.acatholic.or.kr/sub4/sub2.asp",
+      "stops": [
+        {
+          "order": 1,
+          "name": "문경 성당",
+          "address": null,
+          "sourceUrl": "https://www.acatholic.or.kr/sub4/sub2.asp"
+        },
+        {
+          "order": 2,
+          "name": "문경 관아",
+          "address": null,
+          "sourceUrl": "https://www.acatholic.or.kr/sub4/sub2.asp"
+        }
+      ]
+    },
+    {
+      "name": "우정의 길 (1일)",
+      "distanceKm": 12,
+      "duration": "오전 8시~오후 5시",
+      "courseUrl": "https://www.acatholic.or.kr/sub4/sub2.asp",
+      "stops": [
+        {
+          "order": 1,
+          "name": "문경 성당",
+          "address": null,
+          "sourceUrl": "https://www.acatholic.or.kr/sub4/sub2.asp"
+        },
+        {
+          "order": 2,
+          "name": "백화산 정상",
+          "address": null,
+          "sourceUrl": "https://www.acatholic.or.kr/sub4/sub2.asp"
+        }
+      ]
+    },
+    {
+      "name": "빛과 어둠의 길 (야간, 문경새재)",
+      "distanceKm": 8,
+      "duration": "오후 3시~저녁 9시",
+      "courseUrl": "https://www.acatholic.or.kr/sub4/sub2.asp",
+      "stops": [
+        {
+          "order": 1,
+          "name": "3관문",
+          "address": null,
+          "sourceUrl": "https://www.acatholic.or.kr/sub4/sub2.asp"
+        },
+        {
+          "order": 2,
+          "name": "1관문",
+          "address": null,
+          "sourceUrl": "https://www.acatholic.or.kr/sub4/sub2.asp"
+        }
+      ]
+    },
+    {
+      "name": "믿음의 길 (3일)",
+      "distanceKm": 66,
+      "duration": "3일",
+      "courseUrl": "https://www.acatholic.or.kr/sub4/sub2.asp",
+      "stops": [
+        {
+          "order": 1,
+          "name": "문경 성당",
+          "address": null,
+          "sourceUrl": "https://www.acatholic.or.kr/sub4/sub2.asp"
+        },
+        {
+          "order": 2,
+          "name": "신기 성당",
+          "address": null,
+          "sourceUrl": "https://www.acatholic.or.kr/sub4/sub2.asp"
+        },
+        {
+          "order": 3,
+          "name": "퇴강 성당",
+          "address": null,
+          "sourceUrl": "https://www.acatholic.or.kr/sub4/sub2.asp"
+        },
+        {
+          "order": 4,
+          "name": "상주 옥터",
+          "address": null,
+          "sourceUrl": "https://www.acatholic.or.kr/sub4/sub2.asp"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    "정기 코스가 아니라 사제 인솔 신청제 — 일정은 다음 카페(cafe.daum.net/Mawon.Jinan)",
+    "Codex 샌드박스에선 403, 9/28 Claude 가 Firecrawl 로 확인"
+  ],
+  "sources": [
+    "https://www.acatholic.or.kr/sub4/sub2.asp"
+  ]
+}

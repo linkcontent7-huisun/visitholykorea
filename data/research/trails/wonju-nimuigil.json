@@ -1,0 +1,70 @@
+{
+  "slug": "wonju-nimuigil",
+  "name": "원주교구 순례길 「님의 길」",
+  "operator": "천주교 원주교구",
+  "operatorType": "diocese",
+  "region": "강원특별자치도",
+  "officialUrl": "https://sunraegil.seoji.net/course/all",
+  "urlWorks": true,
+  "summary": "원주교구가 운영하는 님의 길은 박해와 순교, 그리고 세상의 빛을 주제로 잇는 세 노선과 14개 구간의 순례길이다. 최양업 신부길·최해성 요한길·정규하 신부길의 총길이는 234km로 안내된다.",
+  "courses": [
+    {
+      "name": "1길 최양업 신부길",
+      "distanceKm": 122.6,
+      "duration": null,
+      "courseUrl": "https://sunraegil.seoji.net/course/all",
+      "stops": [
+        { "order": 1, "name": "풍수원성당", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 2, "name": "창촌공소", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 3, "name": "새점터공소", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 4, "name": "문막성당", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 5, "name": "서지마을", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 6, "name": "화당리 순교자공원", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 7, "name": "배론성지", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" }
+      ]
+    },
+    {
+      "name": "2길 최해성 요한길",
+      "distanceKm": 37.8,
+      "duration": null,
+      "courseUrl": "https://sunraegil.seoji.net/course/all",
+      "stops": [
+        { "order": 1, "name": "서지마을", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 2, "name": "비두리", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 3, "name": "대안리", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 4, "name": "술미공소", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 5, "name": "대안리공소", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 6, "name": "후리사공소", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 7, "name": "무실동성당", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 8, "name": "강원감영", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 9, "name": "원주 원동성당", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" }
+      ]
+    },
+    {
+      "name": "3길 정규하 신부길",
+      "distanceKm": 73.6,
+      "duration": null,
+      "courseUrl": "https://sunraegil.seoji.net/course/all",
+      "stops": [
+        { "order": 1, "name": "풍수원성당", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 2, "name": "오상골", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 3, "name": "금대", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 4, "name": "곤의골공소", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 5, "name": "영산성당", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 6, "name": "가톨릭센터", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 7, "name": "원동성당", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 8, "name": "치악재", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 9, "name": "용소막성당", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 10, "name": "묘재", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" },
+        { "order": 11, "name": "배론성지", "address": null, "sourceUrl": "https://sunraegil.seoji.net/course/all" }
+      ]
+    }
+  ],
+  "unknowns": [
+    "공식 전체 코스 페이지에 각 경유지의 주소가 표기되지 않음",
+    "공식 전체 코스 페이지에 3개 노선 전체의 소요 시간이 표기되지 않음"
+  ],
+  "sources": [
+    "https://sunraegil.seoji.net/course/all"
+  ]
+}

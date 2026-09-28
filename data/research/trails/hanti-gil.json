@@ -1,0 +1,106 @@
+{
+  "slug": "hanti-gil",
+  "name": "한티가는길",
+  "operator": "천주교 대구대교구",
+  "operatorType": "diocese",
+  "region": "경상북도 칠곡군",
+  "officialUrl": "https://hantigil.or.kr/index",
+  "urlWorks": true,
+  "summary": "한티가는길은 가실성당에서 한티순교성지까지 이어지는 5개 구간, 총 45.6km의 도보 순례길이다. 공식 사이트는 각 구간을 자신을 돌아보고 비우며 성찰하는 길로 안내한다.",
+  "courses": [
+    {
+      "name": "1구간 돌아보는 길",
+      "distanceKm": 10.5,
+      "duration": "4시간 30분 예상",
+      "courseUrl": "https://hantigil.or.kr/content/23?class=one",
+      "stops": [
+        { "order": 1, "name": "가실성당", "address": "경북 칠곡군 왜관읍 가실1길 1", "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 2, "name": "숲길입구", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 3, "name": "숲갈림길", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 4, "name": "전망데크", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 5, "name": "바람쉼터", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 6, "name": "금무봉 나무고사리화석 산지", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 7, "name": "연화예술원", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 8, "name": "도암지", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 9, "name": "성모상", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 10, "name": "신나무골성지", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" }
+      ]
+    },
+    {
+      "name": "2구간 비우는 길",
+      "distanceKm": 9.5,
+      "duration": "4시간 예상",
+      "courseUrl": "https://hantigil.or.kr/content/23?class=one",
+      "stops": [
+        { "order": 1, "name": "신나무골성지", "address": "경북 칠곡군 지천면 칠곡대로 2189-22", "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 2, "name": "임도입구", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 3, "name": "숲갈림길", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 4, "name": "전망쉼터", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 5, "name": "댓골지(달서지)", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 6, "name": "징검다리", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 7, "name": "팔각정", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 8, "name": "양떼목장", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 9, "name": "산길전망대", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 10, "name": "숲갈림길", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 11, "name": "사기점공소(창평지)", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" }
+      ]
+    },
+    {
+      "name": "3구간 뉘우치는 길",
+      "distanceKm": 9,
+      "duration": "4시간 예상",
+      "courseUrl": "https://hantigil.or.kr/content/23?class=one",
+      "stops": [
+        { "order": 1, "name": "사기점공소", "address": "경북 칠곡군 지천면 창평로 315-10", "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 2, "name": "창평지", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 3, "name": "쌀바위", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 4, "name": "금낙정", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 5, "name": "여부재", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 6, "name": "송산지", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 7, "name": "동명면사무소", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 8, "name": "동명성당", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" }
+      ]
+    },
+    {
+      "name": "4구간 용서의 길",
+      "distanceKm": 8.5,
+      "duration": "4시간 예상",
+      "courseUrl": "https://hantigil.or.kr/content/23?class=one",
+      "stops": [
+        { "order": 1, "name": "동명성당", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 2, "name": "동명수변공원", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 3, "name": "청산농원", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 4, "name": "팔각정", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 5, "name": "원당공소", "address": "경북 칠곡군 동명면 남원로3길 98-2", "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 6, "name": "진남문", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" }
+      ]
+    },
+    {
+      "name": "5구간 사랑의 길",
+      "distanceKm": 8.1,
+      "duration": "3시간 30분 예상",
+      "courseUrl": "https://hantigil.or.kr/content/23?class=one",
+      "stops": [
+        { "order": 1, "name": "진남문", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 2, "name": "기성동정류장(바지마)", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 3, "name": "팔공산터널", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 4, "name": "득명교", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 5, "name": "마당재", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 6, "name": "데크길", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 7, "name": "1868억새길", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 8, "name": "한티공소(억새마을)", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 9, "name": "옹기굴", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 10, "name": "숯가마터", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" },
+        { "order": 11, "name": "한티마을사람", "address": null, "sourceUrl": "https://hantigil.or.kr/content/23?class=one" }
+      ]
+    }
+  ],
+  "unknowns": [
+    "공식 코스 페이지에 일부 경유지의 개별 도로명 주소가 제시되지 않아 null로 기록함",
+    "공식 코스 페이지는 한티마을사람까지의 순서를 제시하며, 한티순교성지 내 마지막 순례 동선의 세부 순서는 제시하지 않음"
+  ],
+  "sources": [
+    "https://hantigil.or.kr/index",
+    "https://hantigil.or.kr/content/23?class=one"
+  ]
+}

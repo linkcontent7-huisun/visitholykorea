@@ -1,0 +1,54 @@
+{
+  "slug": "gwangju-pilgrimage",
+  "name": "광주대교구 순례길",
+  "operator": "천주교 광주대교구",
+  "operatorType": "diocese",
+  "region": "광주·전남",
+  "officialUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju",
+  "urlWorks": true,
+  "summary": "광주대교구 성지 메뉴는 여러 순례 경로를 안내하며, 노안-나주와 사거리성당 경로에는 전체 거리와 구간별 경유지가 실려 있다. 두 경로 모두 도보 이동의 소요 시간과 각 경유지 주소는 안내하지 않는다.",
+  "courses": [
+    {
+      "name": "노안-나주 순교자 기념 성당",
+      "distanceKm": 12.9,
+      "duration": null,
+      "courseUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju",
+      "stops": [
+        { "order": 1, "name": "노안성당", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju" },
+        { "order": 2, "name": "계량재", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju" },
+        { "order": 3, "name": "이별재광장", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju" },
+        { "order": 4, "name": "옥산", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju" },
+        { "order": 5, "name": "무재", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju" },
+        { "order": 6, "name": "울음재", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju" },
+        { "order": 7, "name": "오두재", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju" },
+        { "order": 8, "name": "경현동", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju" },
+        { "order": 9, "name": "나주순교자기념성당", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju" }
+      ]
+    },
+    {
+      "name": "사거리성당",
+      "distanceKm": 42.5,
+      "duration": null,
+      "courseUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/crossroad",
+      "stops": [
+        { "order": 1, "name": "사거리성당", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/crossroad" },
+        { "order": 2, "name": "성진원공소", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/crossroad" },
+        { "order": 3, "name": "되야동", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/crossroad" },
+        { "order": 4, "name": "매남공소", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/crossroad" },
+        { "order": 5, "name": "점골", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/crossroad" },
+        { "order": 6, "name": "금곡영화마을", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/crossroad" },
+        { "order": 7, "name": "월산삼거리", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/crossroad" },
+        { "order": 8, "name": "솔재", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/crossroad" },
+        { "order": 9, "name": "사거리성당", "address": null, "sourceUrl": "https://www.gjcatholic.or.kr/holyland/pilgrimage/crossroad" }
+      ]
+    }
+  ],
+  "unknowns": [
+    "노안-나주 및 사거리성당 경로의 소요 시간과 경유지 주소는 공식 페이지에 표기되지 않음",
+    "노안-영광, 옥과-곡성, 이내수 신부 묘소 경로는 공식 메뉴에 있으나 열람 시 리디렉션 오류가 발생해 세부 정보를 확인하지 못함"
+  ],
+  "sources": [
+    "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju",
+    "https://www.gjcatholic.or.kr/holyland/pilgrimage/crossroad"
+  ]
+}
