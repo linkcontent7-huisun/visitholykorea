@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>모바일 한국 천주교 주소록</title>
+	<meta name="description" content="" />
+	<meta name="author" content="THINKER" />
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<link rel="apple-touch-icon-precomposed" href="images/CatholicOfKorea.png" />
+	
+	<link rel="stylesheet" href="style/Address.css"/>
+	<link rel="stylesheet" href="style/jquery.mobile-1.1.0.min.css" />
+
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="js/iscroll.js"></script>
+
+	<script>
+
+	window.addEventListener('load', function () {
+		setTimeout(scrollTo, 0, 0, 1);
+	}, false);
+
+	$(document).ready(function() {
+
+		var myScroller = new iScroll("content");
+		
+	});
+
+	</script>
+
+</head>
+<body>
+<header>
+	<a href="javascript:history.back();" class="button back" >BACK</a>
+	<h1>한국 천주교 주소록</h1>
+	<a href="default.asp" class="button" >HOME</a>
+</header>
+
+
+<script>
+
+	$(window).bind("orientationchange", function(evt) {
+
+		if(window.innerHeight < window.innerWidth){
+			console.log("landscape");
+		}else{
+			console.log("portrait");
+		}
+		
+	});
+
+	$(document).on('keyup', '#search', function() { 
+		if ($(this).val().length > 0) { 
+			$('#icon_clear').fadeIn(300); 
+		   // Do Ajax call 
+
+		} 
+		else { 
+			$('#icon_clear').fadeOut(300); 
+		} 
+	}); 
+
+	$(document).on('click','#icon_clear',function() { 
+		$('#search').val(''); 
+		$(this).fadeOut(300); 
+	}); 
+
+	function searchSubmit() {
+
+			var vSearch;
+			vSearch	= document.getElementById("search").value;
+
+			if (vSearch == "")
+			{
+				alert("검색어를 입력하세요.");
+				return false;	
+			}
+			else
+			{
+				with (document.getElementById("searchForm")) {
+					action = "sResult.asp";
+					target = "";
+					submit();
+					return true;
+				}
+			}
+	}
+</script>
+
+<form  id="searchForm" method="post" onsubmit="return searchSubmit()" action="sResult.asp">
+<div style="padding:5px 5px 0px 5px;">
+	<div class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c"> 
+	<input id='search' name='search' type='search' placeholder="검색어를 입력하세요." class="ui-input-text"> 
+	 <a id="icon_clear" title="clear text" class="ui-input-clear ui-btn ui-btn-up-c ui-btn-icon-notext ui-btn-corner-all ui-shadow ui-input-clear-hidden" href="#" > 
+		 <span class="ui-btn-inner ui-btn-corner-all"> 
+			<span class="ui-btn-text">clear text</span> 
+			<span class="ui-icon ui-icon-delete ui-icon-shadow"></span> 
+		 </span> 
+	  </a> 
+	</div>
+</div>
+</form>
+ 
+
+<div id="content" class="currentPage">
+	<div id="scroller">	
+	<div style="padding:5px">
+
+		<h2>순교 신심 순례지</h2>
+		
+		<br />
+		<div class="ui-bar-f ui-corner-all ui-listview-inset ui-shadow" style="padding:1em;">
+		
+			<table class='small_table' width='100%' border='0' cellspacing='0' cellpadding='0'>
+				<tr>
+					<td class='small_bg_gray' width='30%'>한국천주교</td>
+					<td width='70%'>성지/사적지</td>
+				</tr>
+				<tr>
+					<td class='small_bg_gray' width='30%'>소속</td>
+					<td width='70%'>인천교구</td>
+				</tr>
+				
+			</table>
+
+		
+
+		</div>
+
+			</ul> 
+			<br />
+		
+			
+			<ul class="ui-listview ui-listview-inset ui-corner-all ui-shadow "> 
+                <li class="ui-li ui-li-divider ui-btn ui-bar-d ui-corner-top ui-btn-up-undefined ui-li-has-count">주소<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">1</span> </li> 
+		
+		<li class="ui-btn ui-btn-up-d ui-btn-icon-right ui-corner-bottom ui-li-has-arrow ui-li ">
+				<div class= "ui-btn-inner ui-li-dec">
+					<div class="ui-btn-text ">
+						
+							<a href="mapInfo.asp?gubun=16&code=201008180&seq=001" class="ui-link-inherit">
+						
+							<h3 class="ui-li-heading">23101 인천광역시 옹진군 백령면 백령로254번길 66 </h3>
+							<p class="ui-li-desc">대표주소</p>
+							
+							</a>
+					</div>
+					<span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span>
+				</div>
+			</li> 
+		
+			</ul> 
+			<br />
+		
+			
+			<ul class="ui-listview ui-listview-inset ui-corner-all ui-shadow "> 
+                <li class="ui-li ui-li-divider ui-btn ui-bar-d ui-corner-top ui-btn-up-undefined ui-li-has-count">연락처<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">1</span> </li> 
+		
+		<li class="ui-btn ui-btn-up-d ui-btn-icon-right ui-corner-bottom ui-li-has-arrow ui-li ">
+				<div class= "ui-btn-inner ui-li-dec">
+					<div class="ui-btn-text ">
+						
+							<a href="TEL:(032)836-1221" class="ui-link-inherit">
+						
+							<h3 class="ui-li-heading">(032)836-1221</h3>
+							<p class="ui-li-desc">대표 전화 번호</p>
+							
+							</a>
+					</div>
+					<span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span>
+				</div>
+			</li> 
+		
+			</ul> 
+			<br />
+		
+			
+			<ul class="ui-listview ui-listview-inset ui-corner-all ui-shadow "> 
+                <li class="ui-li ui-li-divider ui-btn ui-bar-d ui-corner-top ui-btn-up-undefined ui-li-has-count">구성원<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">1</span> </li> 
+		
+		<li class="ui-btn ui-btn-up-d ui-btn-icon-right ui-corner-bottom ui-li-has-arrow ui-li ">
+				<div class= "ui-btn-inner ui-li-dec">
+					<div class="ui-btn-text ">
+						
+							<a href="fatherInfo.asp?gubun=0&code=201004233" class="ui-link-inherit">
+						
+							<h3 class="ui-li-heading">김학신 야고보 신부</h3>
+							<p class="ui-li-desc">담당</p>
+							
+							<p class="ui-li-desc">Rev. James KIM HAK SIN</p>
+							
+							</a>
+					</div>
+					<span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span>
+				</div>
+			</li> 
+		
+	</ul> 
+
+					<br />
+					<div class="ui-bar-f ui-corner-all ui-listview-inset ui-shadow" style="padding:1em;">
+						<table class='small_table' width='100%' border='0' cellspacing='0' cellpadding='0'>
+					
+						<tr>
+							<td class='small_bg_gray' width='30%'>관할(모)본당</td>
+							<td width='70%'>백령도</td>
+						</tr>
+						
+						</table>
+					</div>
+					
+
+	</div> 	
+	</div> 	
+</div>
+<footer>
+	<img src="images/i_cbck.png" />
+</footer>
+</body>
+</html>
