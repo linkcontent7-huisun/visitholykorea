@@ -15,6 +15,8 @@ import {
   useLocalizedStopNotes,
 } from '@/features/routes/hooks/use-pilgrimage-routes';
 import { countVisitedEpisodes, toEpisodes } from '@/features/routes/lib/episodes';
+import { COURSE_OFFICIAL_LINKS } from '@/features/routes/lib/official-trails';
+import { OfficialSiteLink } from '@/features/routes/components/OfficialSiteLink';
 import { useMyStamps } from '@/features/passport/hooks/use-stamps';
 import { useFeaturedPhotos } from '@/features/sites/hooks/use-featured-photos';
 import { useLocalizedSites } from '@/features/sites/hooks/use-sites';
@@ -76,6 +78,10 @@ export default function RouteDetailPage() {
       <PageHeader back title={route.title} sub={route.subtitle} />
       {route.description && (
         <p className="text-base leading-relaxed text-app-text-muted">{route.description}</p>
+      )}
+      {/* 공식 순례길을 그대로 옮긴 코스만 링크가 있다 — 앱이 엮은 이야기 코스엔 없다 */}
+      {COURSE_OFFICIAL_LINKS[routeSlug] && (
+        <OfficialSiteLink link={COURSE_OFFICIAL_LINKS[routeSlug]} />
       )}
 
       {/* 연재 진행도 — "몇 화에 기록을 남겼는가"다(방문 여부가 아니다, 사장님 확인 2026-09-18) */}

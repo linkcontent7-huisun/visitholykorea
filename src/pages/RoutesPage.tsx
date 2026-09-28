@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
-import { ChevronRight, Footprints } from 'lucide-react';
+import { ChevronRight, ExternalLink, Footprints, MapPin } from 'lucide-react';
 import { paths } from '@/app/routes/paths';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
+import { dioceseLabel } from '@/shared/i18n/domain-labels';
+import { NATIONWIDE_TRAILS } from '@/features/routes/lib/official-trails';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
@@ -18,7 +20,7 @@ import {
  * 산티아고 가이드(Gronze)가 길을 "하루 구간"으로 나누듯, 우리는 "이야기 구간"으로 나눈다.
  */
 export default function RoutesPage() {
-  const { t } = useSettings();
+  const { t, language } = useSettings();
   const { data: routesRaw = [], isLoading } = usePilgrimageRoutes();
   const routes = useLocalizedRoutes(routesRaw);
 
@@ -57,6 +59,42 @@ export default function RoutesPage() {
           </Link>
         ))}
       </div>
+
+      {/* 전국 교구 순례길 — 앱 밖 공식 누리집으로 잇는다 (T-050) */}
+      <section className="mt-12" aria-labelledby="nationwide-trails">
+        <h2 id="nationwide-trails" className="mb-1 text-xl font-bold text-app-text">
+          {t('nationwideTrailsTitle')}
+        </h2>
+        <p className="mb-4 text-base text-app-text-muted">{t('nationwideTrailsSub')}</p>
+        <ul className="flex flex-col gap-3">
+          {NATIONWIDE_TRAILS.map((trail) => (
+            <li key={trail.url}>
+              <a
+                href={trail.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 rounded-lg border border-app-border bg-white p-4 transition-colors hover:border-brand-blue"
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="mb-1 text-sm font-bold text-brand-blue">
+                    {dioceseLabel(trail.diocese, language)}
+                  </p>
+                  <p className="text-lg font-bold text-app-text group-hover:text-brand-blue">
+                    {language === 'ko' ? trail.name : trail.nameEn}
+                  </p>
+                  {language === 'ko' && (
+                    <p className="mt-0.5 flex items-center gap-1 text-sm text-app-text-muted">
+                      <MapPin size={14} aria-hidden /> {trail.region} · {trail.owner}
+                    </p>
+                  )}
+                </div>
+                <ExternalLink size={18} className="shrink-0 text-brand-blue" aria-hidden />
+                <span className="sr-only">{t('routeOfficialSite')}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     </PageContainer>
   );
 }
