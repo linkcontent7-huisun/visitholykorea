@@ -1,0 +1,366 @@
+[
+ {
+  "slug": "andong-walking",
+  "stop": "퇴강 성당",
+  "ourSite": "퇴강 성당",
+  "ourDiocese": "안동",
+  "ourLocation": "경상북도 상주시 사벌면"
+ },
+ {
+  "slug": "andong-walking",
+  "stop": "상주 옥터",
+  "ourSite": "상주 옥 터",
+  "ourDiocese": "안동",
+  "ourLocation": "경상북도 상주시 성동동 (남문시장 옛 자리)"
+ },
+ {
+  "slug": "beogeunae",
+  "stop": "솔뫼성지",
+  "ourSite": "솔뫼성지",
+  "ourDiocese": "대전",
+  "ourLocation": "충남 당진시 우강면 솔뫼로 132"
+ },
+ {
+  "slug": "beogeunae",
+  "stop": "합덕제, 수리민속박물관",
+  "ourSite": "합덕 성당",
+  "ourDiocese": "대전",
+  "ourLocation": "충청남도 당진시 합덕읍 합덕리 275-2"
+ },
+ {
+  "slug": "beogeunae",
+  "stop": "합덕성당",
+  "ourSite": "합덕 성당",
+  "ourDiocese": "대전",
+  "ourLocation": "충청남도 당진시 합덕읍 합덕리 275-2"
+ },
+ {
+  "slug": "beogeunae",
+  "stop": "합덕제중수비",
+  "ourSite": "합덕 성당",
+  "ourDiocese": "대전",
+  "ourLocation": "충청남도 당진시 합덕읍 합덕리 275-2"
+ },
+ {
+  "slug": "beogeunae",
+  "stop": "신리성지",
+  "ourSite": "신리성지",
+  "ourDiocese": "대전",
+  "ourLocation": "충남 당진시 합덕읍 신리"
+ },
+ {
+  "slug": "boryeong-galmaemot",
+  "stop": "서짓골",
+  "ourSite": "서짓골 성지",
+  "ourDiocese": "대전",
+  "ourLocation": "충청남도 보령시 미산면 평라리 438-3"
+ },
+ {
+  "slug": "gwangju-pilgrimage",
+  "stop": "나주순교자기념성당",
+  "ourSite": "나주 순교자 기념성당",
+  "ourDiocese": "광주",
+  "ourLocation": "전남 나주시 (나주성당)"
+ },
+ {
+  "slug": "hanti-gil",
+  "stop": "가실성당",
+  "ourSite": "가실성당",
+  "ourDiocese": "대구",
+  "ourLocation": "경북 칠곡군 왜관읍"
+ },
+ {
+  "slug": "hanti-gil",
+  "stop": "신나무골성지",
+  "ourSite": "신나무골 성지",
+  "ourDiocese": "대구",
+  "ourLocation": "경상북도 칠곡군 지천면 연화리 20"
+ },
+ {
+  "slug": "hanti-gil",
+  "stop": "한티공소(억새마을)",
+  "ourSite": "한티 순교성지",
+  "ourDiocese": "대구",
+  "ourLocation": "경북 칠곡군 동명면 한티로 1"
+ },
+ {
+  "slug": "hanti-gil",
+  "stop": "한티마을사람",
+  "ourSite": "한티 순교성지",
+  "ourDiocese": "대구",
+  "ourLocation": "경북 칠곡군 동명면 한티로 1"
+ },
+ {
+  "slug": "jeju-pilgrimage",
+  "stop": "용수성지",
+  "ourSite": "용수성지 (성 김대건 신부 제주 표착 기념관)",
+  "ourDiocese": "제주",
+  "ourLocation": "제주특별자치도 제주시 한경면 용수리"
+ },
+ {
+  "slug": "jeju-pilgrimage",
+  "stop": "서귀복자성당",
+  "ourSite": "복자 성당",
+  "ourDiocese": "대구",
+  "ourLocation": "대구광역시 동구 송라로 22"
+ },
+ {
+  "slug": "jeju-pilgrimage",
+  "stop": "서귀포의 6월 항쟁 기념비와 서귀복자성당 옛터",
+  "ourSite": "복자 성당",
+  "ourDiocese": "대구",
+  "ourLocation": "대구광역시 동구 송라로 22"
+ },
+ {
+  "slug": "jeju-pilgrimage",
+  "stop": "새미은총의 동산",
+  "ourSite": "새미 은총의 동산",
+  "ourDiocese": "제주",
+  "ourLocation": "제주도 제주시 한림읍 금악리 365-1"
+ },
+ {
+  "slug": "jeonju-gyouchon",
+  "stop": "초남이성지",
+  "ourSite": "초남이 성지",
+  "ourDiocese": "전주",
+  "ourLocation": "전북 전주시 완산구 (바우배기)"
+ },
+ {
+  "slug": "jeonju-gyouchon",
+  "stop": "전주숲정이성지",
+  "ourSite": "전주 숲정이 성지",
+  "ourDiocese": "전주",
+  "ourLocation": "전라북도 전주시 덕진구 진북동 1034-13"
+ },
+ {
+  "slug": "jeonju-gyouchon",
+  "stop": "서천교순교터",
+  "ourSite": "서천교 순교 터",
+  "ourDiocese": "전주",
+  "ourLocation": "전라북도 전주시 완산구 서완산동 1가 351-1"
+ },
+ {
+  "slug": "jeonju-gyouchon",
+  "stop": "전동성당",
+  "ourSite": "전동성당",
+  "ourDiocese": "전주",
+  "ourLocation": "전북 전주시 완산구 태조로 51 (전동)"
+ },
+ {
+  "slug": "jeonju-gyouchon",
+  "stop": "치명자산성지",
+  "ourSite": "치명자산 성지",
+  "ourDiocese": "전주",
+  "ourLocation": "전북 전주시 완산구 교동 승암산(치명자산) 정상"
+ },
+ {
+  "slug": "naepo-catholic-trail",
+  "stop": "여사울성지",
+  "ourSite": "여사울성지",
+  "ourDiocese": "대전",
+  "ourLocation": "충남 예산군 신암면 신종리"
+ },
+ {
+  "slug": "naepo-catholic-trail",
+  "stop": "신리성지",
+  "ourSite": "신리성지",
+  "ourDiocese": "대전",
+  "ourLocation": "충남 당진시 합덕읍 신리"
+ },
+ {
+  "slug": "naepo-catholic-trail",
+  "stop": "솔뫼성지",
+  "ourSite": "솔뫼성지",
+  "ourDiocese": "대전",
+  "ourLocation": "충남 당진시 우강면 솔뫼로 132"
+ },
+ {
+  "slug": "naepo-catholic-trail",
+  "stop": "배나드리성지",
+  "ourSite": "배나드리 성지",
+  "ourDiocese": "대전",
+  "ourLocation": "충청남도 예산군 삽교읍 용동리 270-23"
+ },
+ {
+  "slug": "naepo-catholic-trail",
+  "stop": "해미읍성",
+  "ourSite": "해미순교성지",
+  "ourDiocese": "대전",
+  "ourLocation": "충남 서산시 해미면 성지1로 13"
+ },
+ {
+  "slug": "naepo-catholic-trail",
+  "stop": "해미순교성지",
+  "ourSite": "해미순교성지",
+  "ourDiocese": "대전",
+  "ourLocation": "충남 서산시 해미면 성지1로 13"
+ },
+ {
+  "slug": "naepo-catholic-trail",
+  "stop": "홍주성역사관",
+  "ourSite": "홍주 순교 성지",
+  "ourDiocese": "대전",
+  "ourLocation": "충청남도 홍성군 홍성읍 아문길 37-1"
+ },
+ {
+  "slug": "naepo-catholic-trail",
+  "stop": "홍주순교성지",
+  "ourSite": "홍주 순교 성지",
+  "ourDiocese": "대전",
+  "ourLocation": "충청남도 홍성군 홍성읍 아문길 37-1"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "수리산성지",
+  "ourSite": "수리산 성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 안양시 만안구 안양 9동 1151-2"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "손골성지",
+  "ourSite": "손골 성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 용인시 수지구 동천동 734"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "남한산성성지",
+  "ourSite": "남한산성 순교성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 광주시 남한산성면"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "구산성지",
+  "ourSite": "구산 성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 하남시 망월동 387-10"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "양근성지",
+  "ourSite": "양근 성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 양평군 양평읍 오빈리 173-2"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "천진암성지",
+  "ourSite": "천진암 성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 광주시 퇴촌면 천진암로 1203"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "죽산성지",
+  "ourSite": "죽산 순교성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 안성시 일죽면 죽림리"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "어농성지",
+  "ourSite": "어농 성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 이천시 모가면 어농리 322-4"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "단내성가정성지",
+  "ourSite": "단내 성가정 성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 이천시 호법면 단천리 357"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "은이성지",
+  "ourSite": "은이 성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 용인시 처인구"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "미리내성지",
+  "ourSite": "미리내 성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 안성시 양성면 미산리"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "요당리성지",
+  "ourSite": "요당리 성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 화성시 양감면 요당리 191-1"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "남양성모성지",
+  "ourSite": "남양 성모 성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 화성시 남양리 1704"
+ },
+ {
+  "slug": "suwon-didimgil",
+  "stop": "수원화성순교성지",
+  "ourSite": "수원 화성 순교성지",
+  "ourDiocese": "수원",
+  "ourLocation": "경기도 수원시 팔달구 정조로 780"
+ },
+ {
+  "slug": "wonju-nimuigil",
+  "stop": "풍수원성당",
+  "ourSite": "풍수원성당",
+  "ourDiocese": "원주",
+  "ourLocation": "강원특별자치도 횡성군 서원면 유현리"
+ },
+ {
+  "slug": "wonju-nimuigil",
+  "stop": "서지마을",
+  "ourSite": "서지 마을",
+  "ourDiocese": "원주",
+  "ourLocation": "강원도 원주시 부론면 서지리"
+ },
+ {
+  "slug": "wonju-nimuigil",
+  "stop": "배론성지",
+  "ourSite": "배론성지",
+  "ourDiocese": "원주",
+  "ourLocation": "충북 제천시 봉양읍 배론성지길"
+ },
+ {
+  "slug": "wonju-nimuigil",
+  "stop": "대안리",
+  "ourSite": "대안리 공소",
+  "ourDiocese": "원주",
+  "ourLocation": "강원도 원주시 흥업면 대안리 659"
+ },
+ {
+  "slug": "wonju-nimuigil",
+  "stop": "대안리공소",
+  "ourSite": "대안리 공소",
+  "ourDiocese": "원주",
+  "ourLocation": "강원도 원주시 흥업면 대안리 659"
+ },
+ {
+  "slug": "wonju-nimuigil",
+  "stop": "강원감영",
+  "ourSite": "강원 감영",
+  "ourDiocese": "원주",
+  "ourLocation": "강원도 원주시 일산동 54-1"
+ },
+ {
+  "slug": "wonju-nimuigil",
+  "stop": "원동성당",
+  "ourSite": "원동 주교좌성당",
+  "ourDiocese": "원주",
+  "ourLocation": "강원도 원주시 원동 85"
+ },
+ {
+  "slug": "wonju-nimuigil",
+  "stop": "용소막성당",
+  "ourSite": "용소막성당",
+  "ourDiocese": "원주",
+  "ourLocation": "강원특별자치도 원주시 신림면"
+ }
+]
