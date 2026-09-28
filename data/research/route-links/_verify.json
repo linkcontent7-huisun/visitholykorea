@@ -1,0 +1,23 @@
+{
+  "items": [
+    { "i": 0, "url": "https://martyrs.or.kr/_web/mpilgrims/aboutcourse.html?cidx=6", "verdict": "OK", "reason": "본문이 ‘천주교 서울 순례길 1코스 말씀의 길’과 8.7km를 직접 안내하며 순교자현양위원회 저작권이 있다." },
+    { "i": 1, "url": "https://martyrs.or.kr/_web/mpilgrims/aboutcourse.html?cidx=7", "verdict": "OK", "reason": "본문이 ‘생명의 길’을 2코스로 소개하고 5.9km 경로를 안내하며 순교자현양위원회 저작권이 있다." },
+    { "i": 2, "url": "https://martyrs.or.kr/_web/mpilgrims/aboutcourse.html?cidx=8", "verdict": "OK", "reason": "본문이 ‘일치의 길’ 코스소개·지도안내를 직접 제공하며 순교자현양위원회 저작권이 있다." },
+    { "i": 11, "url": "https://martyrs.or.kr/_web/mpilgrims/about.html", "verdict": "OK", "reason": "‘천주교 서울 순례길’ 소개 본문과 1~3코스·김대건 길을 안내하며 순교자현양위원회 저작권이 있다." },
+    { "i": 12, "url": "https://martyrs.or.kr/_web/mpilgrims/aboutcourse.html?cidx=109", "verdict": "OK", "reason": "본문이 김대건 신부 치명 순교길을 서울 순례길 소속으로 소개하고 약 12.7km를 제시한다." },
+    { "i": 13, "url": "https://www.casuwon.or.kr/holyland/pilgrimage", "verdict": "OK", "reason": "‘성지순례길’ 본문이 디딤길 17개 코스와 완주 규정을 직접 안내하며 수원교구청 저작권이 있다." },
+    { "i": 14, "url": "https://sunraegil.seoji.net/course/all", "verdict": "OK", "reason": "원주교구 순례길 님의길 3개 노선·14개 구간·234km를 안내하고 대표가 천주교원주교구로 표기된다." },
+    { "i": 15, "url": "https://hantigil.or.kr/", "verdict": "OK", "reason": "본문이 한티가는길 5개 구간·45.6km를 직접 안내하고 저작권자가 사단법인 한티로 표기된다." },
+    { "i": 16, "url": "https://www.jcatholic.or.kr/theme/main/pages/pilgrimage01.html", "verdict": "OK", "reason": "본문 제목이 ‘천주교 전주교구 교우촌 도보순례 - 요안루갈다길’이며 해당 도보순례 구간을 직접 설명한다." },
+    { "i": 17, "url": "https://www.jcatholic.or.kr/theme/main/pages/pilgrimage05.html", "verdict": "OK", "reason": "‘아름다운 순례길’ 본문이 풍남문-송광사 1코스 26.1km를 포함한 9개 코스를 직접 안내한다." },
+    { "i": 18, "url": "https://naepotrail.org/course/catholic", "verdict": "OK", "reason": "내포천주교순례길 전체코스와 각 코스 길이를 안내하며 사단법인 내포문화숲길이 명시된다." },
+    { "i": 19, "url": "https://beogeunae.dangjin.go.kr/pil1.html", "verdict": "OK", "reason": "제목과 본문이 버그내 순례길을 직접 안내하고 당진시청 주소·저작권이 표시된다." },
+    { "i": 20, "url": "https://www.seosan.go.kr/tour/contents.do?key=6053", "verdict": "OK", "reason": "서산시 문화관광 페이지 제목·본문이 해미국제성지순례길 10.1km를 직접 안내한다." },
+    { "i": 21, "url": "https://www.brcn.go.kr/tour/sub02_02_02.do", "verdict": "OK", "reason": "보령시청 페이지가 갈매못-서짓골 성지 순례길과 총 9km 코스를 직접 안내한다." },
+    { "i": 22, "url": "https://santoviaggio.com/", "verdict": "OK", "reason": "천주교제주순례길의 전체코스·스탬프·김대건길을 안내하며 천주교 제주교구가 표기된다." },
+    { "i": 23, "url": "https://www.gjcatholic.or.kr/holyland/pilgrimage/noan_naju", "verdict": "OK", "reason": "광주대교구 페이지가 노안-나주 순교자기념성당 순례길과 총 12.9km를 직접 안내한다." },
+    { "i": 24, "url": "https://www.acatholic.or.kr/sub4/sub2.asp", "verdict": "OK", "reason": "천주교안동교구 순례길 본문이 사제와 함께하는 도보순례의 1·3·5일 코스와 거리를 안내한다." },
+    { "i": 25, "url": "http://old.catholicbusan.or.kr/index.php?mid=page_YTOO85", "verdict": "OK", "reason": "‘교구 순례길 > 동래읍성 순례길’ 본문이 부산교구가 만든 동래 지역 순례길임을 직접 안내하고 부산교구 연락처가 표기된다." },
+    { "i": 28, "url": "https://www.baeti.org/pilgrimage/guide", "verdict": "OK", "reason": "배티성지 순례코스 4개와 ‘최양업신부님과 함께 걷는 순례길’ 총 3.8km·2시간을 안내하며 청주교구 저작권이 있다." }
+  ]
+}
