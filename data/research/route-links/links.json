@@ -23,26 +23,29 @@
       "slug": "naepo-walk-solmoe-haemi",
       "url": null,
       "owner": "솔뫼성지 안내지(PDF, 9/13 사장님 전달)",
-      "status": "todo",
-      "note": "출처가 종이 안내지 — 솔뫼성지 누리집에 같은 안내가 있는지 확인"
+      "status": "none",
+      "note": "출처가 솔뫼성지 종이 안내지 — 9/29 솔뫼성지 누리집에 도보 순례 안내 메뉴 없음. 경유 성지 누리집으로 안내"
     },
     {
       "slug": "naepo-walk-solmoe-hongju",
       "url": null,
       "owner": "솔뫼성지 안내지",
-      "status": "todo"
+      "status": "none",
+      "note": "출처가 솔뫼성지 종이 안내지 — 9/29 솔뫼성지 누리집에 도보 순례 안내 메뉴 없음. 경유 성지 누리집으로 안내"
     },
     {
       "slug": "naepo-walk-hongju-darakgol",
       "url": null,
       "owner": "솔뫼성지 안내지",
-      "status": "todo"
+      "status": "none",
+      "note": "출처가 솔뫼성지 종이 안내지 — 9/29 솔뫼성지 누리집에 도보 순례 안내 메뉴 없음. 경유 성지 누리집으로 안내"
     },
     {
       "slug": "naepo-walk-gongseri-yeosaul",
       "url": null,
       "owner": "솔뫼성지 안내지",
-      "status": "todo"
+      "status": "none",
+      "note": "출처가 솔뫼성지 종이 안내지 — 9/29 솔뫼성지 누리집에 도보 순례 안내 메뉴 없음. 경유 성지 누리집으로 안내"
     },
     {
       "slug": "naepo-walk",
@@ -67,8 +70,8 @@
       "slug": "choi-yangeop",
       "url": null,
       "owner": "앱 자체 구성",
-      "status": "todo",
-      "note": "청주교구 「최양업 신부 탄생 200주년 시복시성기원 순례」 안내 책자가 있음 — 공식 온라인 페이지 확인"
+      "status": "none",
+      "note": "앱 자체 구성. 관련 공식 길: 배티성지 순례길(baeti.org/pilgrimage/guide)·배티~연풍 84.6km(교구 페이지 미확인) — 「함께 보기」 링크 후보"
     }
   ],
   "nationwide": [
@@ -206,7 +209,7 @@
       "url": "http://old.catholicbusan.or.kr/index.php?mid=page_YTOO85",
       "owner": "부산교구(옛 누리집)",
       "status": "found",
-      "note": "옛 누리집 주소 — 새 누리집 주소 확인 필요"
+      "note": "부산교구 옛 누리집 「교구 순례길」 메뉴(9/29 열림). 새 누리집 /holyland 엔 순례길 링크 없음 — 옛 주소 사용"
     },
     {
       "name": "인천교구 도보순례길(8코스)",
@@ -214,8 +217,8 @@
       "region": "인천·강화",
       "url": null,
       "owner": "인천교구",
-      "status": "todo",
-      "note": "7코스 평화의 길·8코스 인내의 길 등 — 교구 공식 페이지 확인"
+      "status": "none",
+      "note": "9/29 교구 누리집 메뉴(home.do)에 순례길 안내 없음 — 7코스 평화의 길·8코스 인내의 길은 청년 도보순례 행사 코스(영상·블로그만). 공식 상시 페이지 없음"
     },
     {
       "name": "춘천교구 도보순례길(말딩길·티모테오 길 등)",
@@ -223,8 +226,8 @@
       "region": "강원",
       "url": null,
       "owner": "춘천교구",
-      "status": "todo",
-      "note": "38선 티모테오 길(양양성당~부소치재 11km) 등 5코스 — 공식 안내 페이지 확인"
+      "status": "none",
+      "note": "9/29 교구 누리집 메뉴에 순례길 없음 — 「38선 티모테오 길」 등은 해마다 여는 도보순례 행사(교구 사진 게시판). 상시 안내 페이지 없음"
     },
     {
       "name": "배티성지 순례길 「최양업 신부님과 함께 걷는 순례길」",
@@ -258,8 +261,8 @@
       "region": "경기 북부",
       "url": null,
       "owner": "의정부교구",
-      "status": "todo",
-      "note": "9/29 검색으로 못 찾음"
+      "status": "none",
+      "note": "9/29 교구 누리집 메뉴에 순례길 없음(성지 게시판만)"
     },
     {
       "name": "배티~연풍 도보성지 순례길",
