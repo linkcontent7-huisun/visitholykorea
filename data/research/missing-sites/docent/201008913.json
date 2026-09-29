@@ -1,0 +1,60 @@
+{
+  "siteId": null,
+  "cbckCode": "201008913",
+  "siteName": "인제 성당",
+  "slug": "inje-cathedral",
+  "surveyedAt": "2026-09-29",
+  "surveyedBy": "Claude (문헌 초안 2026-09-29, T-050)",
+  "status": "draft",
+  "intro": {
+    "narration": "인제 성당에 오신 것을 환영합니다. 이 성당은 한국전쟁이 끝난 직후, 포격으로 무너진 극장 건물의 벽을 살려 지은 성당입니다. 오늘은 전쟁의 폐허에서 성당이 되기까지의 이야기를 따라가 보겠습니다.",
+    "narrationEn": "Welcome to Inje Catholic Church. It was built right after the Korean War, reusing the surviving walls of a theater destroyed by shelling. Today we follow the story of how a ruin became a church.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "성당 외관 — 극장이었던 벽",
+      "titleEn": "Exterior — walls that were once a theater",
+      "location": "성당 정면",
+      "narration": "지금 보시는 건물은 원래 일제강점기에 쓰던 극장이었습니다. 한국전쟁 때 포격으로 지붕과 윗부분이 무너지고 벽체만 남아 있었습니다. 1954년 본당이 세워진 뒤, 미국의 원조를 받아 이 벽을 고쳐 설계하고 1957년 11월 27일 성당으로 완공했습니다. 무너진 건물의 기초를 그대로 이용해 지었다는 점이 이 성당의 출발입니다.",
+      "narrationEn": "The building in front of you was originally a theater used during the Japanese colonial period. During the Korean War, shelling destroyed its roof and upper structure, leaving only the walls. After the parish was founded in 1954, the walls were redesigned and rebuilt with American aid, and the church was completed on November 27, 1957. It rose on the foundations of a ruined building.",
+      "lookFor": "성당 정면이 좌우로 완전히 대칭이 아니라 조금 어긋나 보이는 모습",
+      "lookForEn": "The façade is not perfectly symmetrical — look for the slight imbalance between left and right",
+      "forEveryone": "전쟁으로 부서진 공공건물을 고쳐 공동체의 공간으로 되살린 드문 사례입니다.",
+      "photos": [],
+      "sourceNote": "https://www.cccatholic.or.kr/parish/holyland/19 (사본 data/research/missing-sites/_pages/201008913/official.txt) · https://www.cccatholic.or.kr/news/media/9802?page=101 (사본 data/research/missing-sites/_pages/201008913/cccatholic-news9802.txt) · https://ko.wikipedia.org/wiki/인제성당 (사본 data/research/missing-sites/_pages/201008913/wiki-injeseongdang.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "천막에서 퀀셋으로 — 임시 성당 시절",
+      "titleEn": "From tent to Quonset hut — the temporary churches",
+      "location": "성당 뒤쪽 공터 방향",
+      "narration": "본당이 처음 생겼을 때는 성당 건물이 따로 없었습니다. 지금 성당 뒤쪽 공터에 천막을 쳐서 임시 성당으로 썼는데, 불이 나 모두 타 버렸습니다. 그 뒤 미군 신자들의 도움으로 반원형 가건물인 퀀셋을 세워 2년 동안 미사를 드렸습니다. 당시 본당은 미국가톨릭복지협의회가 보낸 물자와 식량으로 주민들을 돕는 구호 활동을 하며 신자가 늘었습니다.",
+      "narrationEn": "When the parish began, there was no church building at all. A tent was pitched on the open ground behind today's church as a temporary church, but it burned down. With help from Catholic American soldiers, a Quonset hut — a half-cylinder prefab building — was put up and used for Mass for two years. The parish grew as it distributed relief goods and food sent by the U.S. National Catholic Welfare Conference to local residents.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "전쟁 직후 구호품과 함께 교회가 자리 잡은 강원 북부 접경 지역의 역사를 보여 줍니다.",
+      "photos": [],
+      "sourceNote": "https://www.cccatholic.or.kr/parish/holyland/19 (사본 data/research/missing-sites/_pages/201008913/official.txt) · https://www.cccatholic.or.kr/news/media/9802?page=101 (사본 data/research/missing-sites/_pages/201008913/cccatholic-news9802.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "성당과 사제관이 한 건물",
+      "titleEn": "Church and rectory under one roof",
+      "location": "성당 건물 전체",
+      "narration": "이 성당의 가장 큰 특징은 미사를 드리는 성당과 신부가 사는 사제관을 한 건물 안에 함께 지었다는 점입니다. 같은 시기 다른 성당 건축에서는 찾아보기 어려운 독특한 방식입니다. 지어질 때의 모습이 잘 남아 있어 2019년 국가등록문화유산이 되었습니다. 1970년까지는 외국 선교회의 지원으로 운영되다가 그 뒤 스스로 꾸려 가는 본당이 되었습니다.",
+      "narrationEn": "The most distinctive feature of this church is that the worship space and the priest's residence were built together as a single building. That approach is hard to find in other church buildings of the same period. Because it keeps its original form so well, it was registered as National Registered Cultural Heritage in 2019. Until 1970 it was run with support from a foreign mission society, and afterwards it became a self-supporting parish.",
+      "lookFor": "지붕 위에 선 십자가 세 개",
+      "lookForEn": "The three crosses standing on the roof",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://www.cccatholic.or.kr/parish/holyland/19 (사본 data/research/missing-sites/_pages/201008913/official.txt) · https://www.cccatholic.or.kr/news/media/9802?page=101 (사본 data/research/missing-sites/_pages/201008913/cccatholic-news9802.txt) · https://ko.wikipedia.org/wiki/인제성당 (사본 data/research/missing-sites/_pages/201008913/wiki-injeseongdang.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "무너진 벽에서 다시 시작한 이 성당은 지금도 인제 사람들이 미사를 드리는 곳입니다. 미사가 없는 시간에는 정면 대신 옆문으로 들어가실 수 있습니다.",
+    "narrationEn": "This church, reborn from broken walls, is still where the people of Inje come to Mass. When no Mass is being held, please use the side door instead of the front entrance.",
+    "photos": []
+  }
+}

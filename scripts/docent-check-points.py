@@ -1,17 +1,19 @@
 # 지점 원고 JSON 검사 (DB 없이). 소개글 검사(docent-check.ts)의 JSON 판.
+# 인자로 폴더를 주면 그 폴더만 검사한다 — DB 에 아직 없는 성지(siteId 가 null)의 원고용 (T-050).
 import json, io, re, sys, glob, collections, subprocess
+ROOT = sys.argv[1] if len(sys.argv) > 1 else 'data/docent'
 tracked = set(subprocess.run(['git','-c','core.quotepath=off','ls-files','data/docent'],capture_output=True,text=True,encoding='utf-8').stdout.splitlines())
 ids = {}
 for line in io.open('docs/70-agent-workspace/tasks/T-024-지점원고-확장/대상목록.md', encoding='utf-8'):
     m = re.match(r'\| ([0-9a-f-]{36}) \| (.+?) \|', line)
     if m: ids[m.group(1)] = m.group(2)
-files = [f for f in glob.glob('data/docent/*.json') if '_템플릿' not in f]
+files = [f for f in glob.glob(ROOT + '/*.json') if '_템플릿' not in f]
 sent = collections.Counter(); fails = 0
 def sentences(t): return [s.strip() for s in re.split(r'(?<=[.!?])\s+', t) if len(s.strip()) >= 20]
 for f in sorted(files):
     d = json.load(io.open(f, encoding='utf-8')); errs = []
     new = f.replace(chr(92),'/') not in tracked  # 기존 19곳(사장님 검수분)은 틀 문장 집계에만 쓴다
-    if new and d.get('siteId') not in ids: errs.append('siteId 가 대상목록에 없음')
+    if new and ROOT == 'data/docent' and d.get('siteId') not in ids: errs.append('siteId 가 대상목록에 없음')
     pts = d.get('points', [])
     if not 3 <= len(pts) <= 6: errs.append(f'지점 {len(pts)}개')
     texts = [d.get('intro',{}).get('narration','')] + [p.get('narration','') for p in pts] + [d.get('outro',{}).get('narration','')]

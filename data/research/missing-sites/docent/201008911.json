@@ -1,0 +1,60 @@
+{
+  "siteId": null,
+  "cbckCode": "201008911",
+  "siteName": "행정 공소",
+  "slug": "haengjeong-gongso",
+  "surveyedAt": "2026-09-29",
+  "surveyedBy": "Claude (문헌 초안 2026-09-29, T-050)",
+  "status": "draft",
+  "intro": {
+    "narration": "행정 공소에 오신 것을 환영합니다. 이곳은 옹기를 굽던 신자들이 모여 살던 옹기마을 교우촌입니다. 신자들이 옹기 가마에서 직접 구운 벽돌로 지은 공소 건물을 만나 보겠습니다.",
+    "narrationEn": "Welcome to Haengjeong Mission Station. This was an onggi village — a community of Catholics who made traditional earthenware pots. Let us look at the chapel they built with bricks fired in their own kilns.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "마을 입구 — 옹기마을 교우촌의 시작",
+      "titleEn": "Village entrance — how the onggi village began",
+      "location": "마을 들어서는 길",
+      "narration": "행정은 원래 신자가 없던 마을이었습니다. 1928년 양평 용문과 금광리에서 신자 두 가족이 이사 오면서 교우촌이 시작되었습니다. 이들은 옹기점을 운영하며 이웃을 도왔고, 초상이 나면 상갓집에 찾아가 연도를 바치며 궂은일을 함께했습니다. 그런 모습이 자연스럽게 이웃에게 신앙을 전했고, 신자가 늘어 공소가 생겼습니다.",
+      "narrationEn": "Haengjeong was originally a village with no Catholics. In 1928 two Catholic families moved here from Yongmun and Geumgwang-ri in Yangpyeong, and a Catholic community began. They ran an onggi pottery and helped their neighbors; when someone died, they went to the house of mourning to pray for the dead and share the hard work of the funeral. That way of life quietly passed the faith on, and as the faithful grew, a mission station was formed.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "종교를 말로 전하기보다 이웃의 장례를 돕는 생활로 신뢰를 얻은 마을 이야기입니다.",
+      "photos": [],
+      "sourceNote": "https://www.cccatholic.or.kr/parish/holyland/9?t=2 (사본 data/research/missing-sites/_pages/201008911/official.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "공소 건물 — 쌀을 아껴 구운 벽돌",
+      "titleEn": "The chapel — bricks paid for by saving rice",
+      "location": "공소 건물 앞",
+      "narration": "한국전쟁 뒤 신자가 늘었지만 모일 건물이 없었습니다. 신자들은 끼니마다 쌀을 조금씩 덜어 모으는 절미 운동으로 돈을 마련하고, 모두 힘을 합쳐 진흙 벽돌을 찍어 가마에 구웠습니다. 그 벽돌로 지은 공소는 1958년 10월 8일 퀸란 주교와 주문진 본당 최창규 신부의 집전으로 축복식을 올렸습니다. 당시 50여 세대, 230여 명의 신자가 이곳에 모였습니다.",
+      "narrationEn": "After the Korean War the community grew but had no building to gather in. The faithful raised money through a 'rice-saving movement,' setting aside a little rice from every meal, and together they pressed clay bricks and fired them in the kiln. The chapel built with those bricks was blessed on October 8, 1958, by Bishop Quinlan and Father Choe Chang-gyu of Jumunjin Parish. At that time about 50 households, some 230 people, gathered here.",
+      "lookFor": "옹기 가마에서 구운 벽돌로 쌓은 벽",
+      "lookForEn": "The walls made of bricks fired in onggi kilns",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://www.cccatholic.or.kr/parish/holyland/9?t=2 (사본 data/research/missing-sites/_pages/201008911/official.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "표지석 — 문을 닫은 공소를 지킨 이유",
+      "titleEn": "The marker stone — why a closed chapel was kept",
+      "location": "공소 앞 표지석",
+      "narration": "옹기 사업이 기울면서 신자 수가 크게 줄었고, 1998년에는 공소 미사도 멈추었습니다. 2003년 이곳을 찾은 장익 주교는 어려운 시절 신자들이 한마음으로 지은 건물이라는 점을 높이 사 수리하도록 했습니다. 그리고 2009년 교구 사적지로 지정하고 이 표지석을 세웠습니다.",
+      "narrationEn": "As the pottery trade declined, the number of Catholics fell sharply, and in 1998 Mass at the chapel stopped. In 2003 Bishop Jang Ik visited and, valuing it as a building the faithful had raised together in hard times, had it repaired. In 2009 it was designated a diocesan historic site and this marker stone was set up.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://www.cccatholic.or.kr/parish/holyland/9?t=2 (사본 data/research/missing-sites/_pages/201008911/official.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "지금 이 공소에서는 미사가 없지만, 벽돌 한 장 한 장에 가난했던 시절 신자들의 마음이 남아 있습니다.",
+    "narrationEn": "Mass is no longer held here, but every brick still carries the devotion of the faithful in those poor years.",
+    "photos": []
+  }
+}

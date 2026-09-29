@@ -1,0 +1,60 @@
+{
+  "siteId": null,
+  "cbckCode": "201009234",
+  "siteName": "하논 성당 터",
+  "slug": "hanon-church-site",
+  "surveyedAt": "2026-09-29",
+  "surveyedBy": "Claude (문헌 초안 2026-09-29, T-050)",
+  "status": "draft",
+  "intro": {
+    "narration": "하논 성당 터에 오신 것을 환영합니다. 이곳은 1900년 한라산 남쪽에 처음 세워진 성당, 하논 성당이 있던 자리입니다. 서귀포 지역 여러 본당의 뿌리가 된 이 터와, 이곳에 부임해 제주 감귤의 역사를 바꾼 프랑스 신부의 이야기를 들어 보겠습니다.",
+    "narrationEn": "Welcome to the site of Hanon Church. In 1900 the first church south of Mount Halla stood here. Let us hear about this site, the root of many parishes in Seogwipo, and about the French priest posted here who changed the history of Jeju's tangerines.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "성당 터 — 산남 지역의 모태",
+      "titleEn": "The church site — mother of the southern parishes",
+      "location": "하논 성당 터 표지 앞",
+      "narration": "하논 성당은 1900년 제주 본당에서 나뉘어 서귀포 지역에 처음 세워졌습니다. 1902년 홍로로 옮겨 가 홍로 성당이 되었고, 1937년 지금의 서귀포 성당 자리에 정착했습니다. 서귀포 성당은 그 뒤 서귀포시 지역의 여섯 본당으로 나뉘었으니, 이 터는 한라산 남쪽 천주교의 실질적인 모태인 셈입니다.",
+      "narrationEn": "Hanon Church was founded in 1900 as a split from Jeju Parish, the first church in the Seogwipo area. In 1902 it moved to Hongro and became Hongro Church, and in 1937 it settled on the site of today's Seogwipo Church. Seogwipo Church later divided into six parishes across Seogwipo City, so this ground is the true mother of Catholicism south of Mount Halla.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://santoviaggio.com/theme/page/cs002.php (사본 data/research/missing-sites/_pages/201009234/santoviaggio-cs002.txt) · https://santoviaggio.com/cs002/2 (사본 data/research/missing-sites/_pages/201009234/official.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "1901년의 상처와 새 신부",
+      "titleEn": "The wound of 1901 and a new priest",
+      "location": "성당 터",
+      "narration": "1901년 제주에서는 봉세관의 가혹한 세금 징수와 그를 앞세운 천주교 측의 횡포에 맞서 민중이 들고일어났고, 이 과정에서 천주교인 300여 명이 희생되었습니다. 이 사건을 이재수의 난, 또는 신축교안이라고 부릅니다. 민심이 크게 돌아선 이듬해 1902년, 스물아홉 살의 에밀 타케 신부가 이곳에 부임했고, 곧 본당을 홍로로 옮겼습니다. 그는 제주 문화를 존중하며 주민들과 대화하려 한 선교사로 평가받습니다.",
+      "narrationEn": "In 1901 the people of Jeju rose up against a tax commissioner's harsh collections and the abuses of Catholics associated with him; about 300 Catholics were killed. This is called the Lee Jae-su Rebellion, or the Sinchuk Incident. In 1902, with public feeling deeply turned against the Church, 29-year-old Father Émile Taquet was posted here, and he soon moved the parish to Hongro. He is remembered as a missionary who respected Jeju culture and sought dialogue with local people.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "교회가 저지른 잘못과 그 뒤의 화해 노력을 함께 기억하는 장소입니다.",
+      "photos": [],
+      "sourceNote": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0002974883 (사본 data/research/missing-sites/_pages/201009234/ohmynews-A0002974883.txt) · https://www.headlinejeju.co.kr/news/articleView.html?idxno=177495 (사본 data/research/missing-sites/_pages/201009234/headlinejeju-177495.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "타케 신부와 온주밀감",
+      "titleEn": "Father Taquet and the Onshu tangerine",
+      "location": "성당 터",
+      "narration": "하논 성당의 제3대 주임이었던 타케 신부는 1902년부터 1915년까지 13년 동안 제주에 머물며 식물 표본 약 1만 점을 모아 제주 식물을 세계에 알렸습니다. 한라산 왕벚나무를 일본의 지인에게 보내고, 그 답례로 1911년 온주밀감 나무 14그루를 받아 홍로 성당, 지금의 면형의 집에 심었습니다. 오늘날 우리가 흔히 먹는 밀감은 대부분 이때 들어온 온주밀감이라고 합니다.",
+      "narrationEn": "Father Taquet, Hanon Church's third pastor, stayed in Jeju for thirteen years from 1902 to 1915 and collected about 10,000 plant specimens, introducing Jeju's flora to the world. He sent Halla Mountain's King cherry trees to a Japanese acquaintance, and in return received fourteen Onshu tangerine trees in 1911, which he planted at Hongro Church — today's Myeonhyeong House. Most of the tangerines commonly eaten in Korea today are said to be of the Onshu variety he brought in.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "감귤로 유명한 제주의 풍경 뒤에는 한 선교사의 식물 연구가 있습니다.",
+      "photos": [],
+      "sourceNote": "https://www.jejunews.com/news/articleView.html?idxno=2219654 (사본 data/research/missing-sites/_pages/201009234/jejunews-2219654.txt) · https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0002974883 (사본 data/research/missing-sites/_pages/201009234/ohmynews-A0002974883.txt) · https://santoviaggio.com/theme/page/cs002.php (사본 data/research/missing-sites/_pages/201009234/santoviaggio-cs002.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "이 터는 제주 천주교 순례길 ‘하논성당길’이 지나는 곳입니다. 길을 따라 홍로 성당 터였던 면형의 집까지 걸으시면 타케 신부가 밀감을 심은 곳에 닿습니다.",
+    "narrationEn": "This site lies on the Hanon Church Trail of the Jeju Catholic pilgrimage routes. Follow the trail to Myeonhyeong House, the former Hongro Church, and you will reach the place where Father Taquet planted his tangerines.",
+    "photos": []
+  }
+}

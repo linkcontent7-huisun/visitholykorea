@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+
+<!-- SEO -->
+<meta name="robots" content="index,follow">
+<title>전주가톨릭순교현양원</title>
+<meta name="Description" content="전주가톨릭순교현양원" />
+<meta name="Keywords" content="전주가톨릭순교현양원">
+
+<!-- 파비콘 -->
+<link rel="icon" href="/assets/img/main.jpg" sizes="152x152">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="전주가톨릭순교현양원">
+<meta property="og:description" content="전주가톨릭순교현양원">
+<meta property="og:image" content="/assets/img/ico.svg">
+<meta property="og:url" content="">
+
+<!-- PWA 매니페스트 -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+
+<!-- iOS PWA 대응 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="순교현양원">
+<link rel="apple-touch-icon" href="/assets/img/logo_192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/logo_180.png">
+
+<!-- 웹폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<link href="https://hangeul.pstatic.net/hangeul_static/css/maru-buri.css" rel="stylesheet">
+
+<!-- JS -->
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>var g5_cookie_domain = "";</script>
+<script src="/js/common.js"></script>
+<script src="/assets/js/swiper-bundle.min.js"></script>
+<script src="/assets/js/common.js"></script>
+<script src="/assets/js/main.js"></script>
+<script defer src="/assets/js/pwa-install.js?v=20260515"></script>
+
+<!-- CSS -->
+<link href="/assets/css/main.css?6" rel="stylesheet">
+<link href="/assets/css/default.css" rel="stylesheet">
+<link href="/assets/css/fonts.css" rel="stylesheet">
+<link href="/assets/css/footer.scss" rel="stylesheet">
+<link href="/assets/css/swiper-bundle.min.css" rel="stylesheet">
+<link href="/assets/css/index.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<style>
+    /* -----------------------------------------
+       1. 구글 번역기 위치 제어 (PC / 모바일 분기)
+       ----------------------------------------- */
+    #google_translate_element {
+        position: fixed; /* 스크롤 시 상단에 고정하고 싶다면 fixed로 변경하세요 */
+        z-index: 9999 !important;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* PC 화면 (예: 가로 1025px 이상) */
+    @media screen and (min-width: 1025px) {
+        #google_translate_element {
+            top: 15px !important;
+            right: 20px !important;
+        }
+    }
+
+    /* 모바일 화면 (가로 1024px 이하) — 헤더에서 빼고 이미지 영역 우측 상단으로, 라벨 숨김 */
+    @media screen and (max-width: 1024px) {
+        #google_translate_element {
+            top: 70px !important;   /* 모바일 헤더(약 60px) 바로 아래 */
+            right: 10px !important;
+            gap: 0 !important;
+        }
+        #google_translate_element::before {
+            display: none !important; /* "Translation" 라벨 숨김 */
+        }
+    }
+
+    /* -----------------------------------------
+       2. 구글 번역기 한 줄 정렬 (직전 적용 코드 유지)
+       ----------------------------------------- */
+    #google_translate_element .goog-te-gadget-simple {
+        display: inline-block !important;
+        white-space: nowrap !important;
+        padding: 4px 8px !important;
+    }
+    #google_translate_element .goog-te-gadget-simple * {
+        display: inline-block !important;
+        vertical-align: middle !important;
+        white-space: nowrap !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: normal !important;
+    }
+    #google_translate_element .goog-te-gadget-icon {
+        margin-right: 6px !important; 
+    }
+    #google_translate_element .goog-te-menu-value img {
+        margin-left: 4px !important;
+    }
+
+    /* -----------------------------------------
+       3. 'Translation' 라벨 (메인 전용)
+       ----------------------------------------- */
+    #google_translate_element::before {
+        content: "Translation";
+        font-family: 'Lato', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        line-height: normal;
+        white-space: nowrap;
+    }
+</style>
+<!-- 서비스 워커 등록 -->
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(reg) { console.log('SW registered:', reg.scope); })
+      .catch(function(err) { console.error('SW register failed:', err); });
+  });
+}
+</script>
+</head>
+
+<body>
+<div id="google_translate_element"></div>
+<div id="hd">
+    <h1 id="hd_h1"></h1>
+    <div id="skip_to_container"><a href="#container">본문 바로가기</a></div>
+    
+<!-- 팝업레이어 시작 { -->
+<div id="hd_pop">
+
+    <div id="hd_pops_2" class="hd_pops" style="top:220px;left:70px">
+        <div class="hd_pops_con" style="width:270px;height:125px">
+            <div style="background-color:#cc5b9b;height:100%;color:#ffffff;line-height:1;">
+   <p style="padding-top:9px;text-align:center;line-height:1.15;font-family:'Noto Sans KR', sans-serif;font-size:15px;font-weight:bold;"><a href="https://www.martyr.co.kr/notice/1" target="_blank" rel="nofollow noreferrer noopener"><span style="color:#ccff99;">순교현양아카데미</span></a></p>
+   <p style="margin-top:10px;line-height:1.15;text-align:center;font-family:'Noto Sans KR', sans-serif;font-size:17px;font-weight:bold;">
+      <a href="https://www.martyr.co.kr/notice/1" target="_blank" rel="nofollow noreferrer noopener"><span style="color:#ffffff;font-size:16px;">전주 지명, 풍수로 풀다</span></a>
+   </p>
+   <p style="margin-top:0px;line-height:1.5;text-align:center;font-family:'Noto Sans KR', sans-serif;font-size:17px;font-weight:bold;"><a href="https://www.martyr.co.kr/notice/1" target="_blank" rel="nofollow noreferrer noopener"><span style="margin-top:7px;font-size:14px;font-weight:normal;color:#ffffff;">(김상휘 박사)</span></a></p>
+   <p style="margin-top:7px;line-height:1.3;text-align:center;font-family:'noto sans kr', sans-serif;font-size:12px;font-weight:bold;">
+      <a href="https://www.martyr.co.kr/notice/1" target="_blank" rel="nofollow noreferrer noopener"><span style="color:#ffffff;">10월 17일(토) 오후2시</span><br /><span style="color:#ffffff;">순교자현양미사 후 유항검관 4층</span></a>
+   </p>
+   </div>        </div>
+        <div class="hd_pops_footer">
+            <button class="hd_pops_reject hd_pops_2 24"><strong>24</strong>시간 동안 다시 열람하지 않습니다.</button>
+            <button class="hd_pops_close hd_pops_2">닫기 <i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+    </div>
+
+    <div id="hd_pops_3" class="hd_pops" style="top:385px;left:70px">
+        <div class="hd_pops_con" style="width:270px;height:125px">
+            <div style="background-color:#3a835c;height:100%;">
+   <h2 style="padding-top:5px;margin-bottom:0px;text-align:center;line-height:1.3;">
+      <span style="font-family:'noto sans kr', sans-serif;color:#cfecd1;"><a href="https://www.martyr.co.kr/notice/39" target="_blank" rel="nofollow noreferrer noopener"><span style="font-size:14px;color:#b2ff66;">2026년 하반기</span><br /><span style="color:#ffffff;">순교자현양 도보순례</span></a></span>
+   </h2>
+   <p style="margin-top:8px;line-height:1.3;text-align:center;font-family:'Noto Sans KR', sans-serif;font-size:14px;">
+      <a href="https://www.martyr.co.kr/notice/39" target="_blank" rel="nofollow noreferrer noopener"><b><span style="color:#FFFFFF;">1. </span></b><b><span style="color:#ffffff;">요안루갈다</span></b><b><span style="color:#FFFFFF;">길: 10월 10일(토)<br />2. </span></b><b><span style="color:#ffffff;">전주순례</span></b><b><span style="color:#FFFFFF;">길: 10월 31일(토)<br />3. 첫 순교자길: 11월 14일(토)</span></b></a>
+   </p>
+</div>        </div>
+        <div class="hd_pops_footer">
+            <button class="hd_pops_reject hd_pops_3 24"><strong>24</strong>시간 동안 다시 열람하지 않습니다.</button>
+            <button class="hd_pops_close hd_pops_3">닫기 <i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</div>
+
+<script>
+$(function() {
+    $(".hd_pops_reject").click(function() {
+        var id = $(this).attr('class').split(' ');
+        var ck_name = id[1];
+        var exp_time = parseInt(id[2]);
+        $("#"+id[1]).css("display", "none");
+        set_cookie(ck_name, 1, exp_time, g5_cookie_domain);
+    });
+    $('.hd_pops_close').click(function() {
+        var idb = $(this).attr('class').split(' ');
+        $('#'+idb[1]).css('display','none');
+    });
+    $("#hd").css("z-index", 1000);
+});
+</script>
+<!-- } 팝업레이어 끝 --></div>
+   <!-- 슬라이드 네비 출력 -->  
+<script>
+	//모달 출력시 스크롤바 보정
+	$(document).ready(function(){
+		$windowWidth = $(window).width();
+	});
+	$(window).resize(function(){
+		$windowWidth = $(window).width();
+	});
+	//사이드메뉴
+	$(function(){
+		var s = $(".menu"),
+			a = $(".mdim");
+		$(".btn_close").click(function() {
+			if(s.hasClass("modal-open")){
+				s.removeClass("modal-open");
+				$('body').removeClass('noscroll');
+				$('body').removeAttr('style');
+			}
+		});
+		$(".mdim").click(function() {
+			if(s.hasClass("modal-open")){
+				s.removeClass("modal-open");
+				$('body').removeClass('noscroll');
+				$('body').removeAttr('style');
+			}
+		});
+		$("#hMenu").click(function(e){
+			s.addClass("modal-open");
+			e.stopPropagation();
+			$('body').addClass('noscroll');
+			$('body').css('width', $windowWidth);
+		});
+	});
+    
+    $(".footer_list.list_koreaDiocese").hide();
+    $(".footer_li.li_koreaDiocese").click(function(){
+        $(".footer_list.list_koreaDiocese").slideToggle("fast");
+    });
+    </script>
+    
+    <!-- 메뉴버튼 모바일 -->
+    <div class="menu">
+      <div class="mslide">
+        <div class="m_head">
+          <div class="btn_close"></div>
+        </div>
+        <div class="menu_wrap">
+            <div class="tab_menu">
+               <div class="tab_bg"></div>
+					<ul class="list">
+                  <li class="slide_menu is_on">
+                    <a href="#tab1" class="btn">소식</a>
+                    <div id="tab1" class="cont">
+                        <ul>
+                            <a href="/notice">
+                                <li>알림</li>
+                            </a>
+                            <a href="/news">
+                                <li>소식지</li>
+                            </a>
+                            <a href="/schedule">
+                                <li>일정</li>
+                            </a>
+                        </ul>
+                    </div>
+                  </li>
+                  <li class="slide_menu">
+                    <a href="#tab2" class="btn">성인·복자·순교자</a>
+                    <div id="tab2" class="cont">
+                        <ul>
+                            <li><a href="/martyrs">성인</a></li>
+									 <li><a href="/blessed">복자</a></li>
+                            <a href="/servant">
+                                <li>하느님의 종</li>
+                            </a>
+                            <a href="/people">
+                                <li>역사 인물</li>
+                            </a>
+                        </ul>
+                    </div>
+                  </li>
+                  <li class="slide_menu">
+                    <a href="#tab3" class="btn">성지·유적지</a>
+                    <div id="tab3" class="cont">
+                        <ul>
+                            <a href="/assets/holy/">
+                                <li>성지</li>
+                            </a>
+                            <a href="/assets/holy/site.html">
+                                <li>교구 사적지</li>
+                            </a>
+                            <a href="/assets/holy/psite.html">
+                                <li>교구 순례지</li>
+                            </a>
+                        </ul>
+                    </div>
+                  </li>
+                  <li class="slide_menu">
+                    <a href="/assets/away/" class="btn">순례길</a>
+                    <div id="tab3" class="cont">
+                        <ul>
+                            <a href="/assets/away/">
+                                <li>첫순교자의 길</li>
+                            </a>
+                            <a href="/assets/away/away2.html">
+                                <li>요안루갈다길</li>
+                            </a>
+                            <a href="/assets/away/away3.html">
+                                <li>전주순례길</li>
+                            </a>
+                            <a href="/assets/away/awayform.html">
+                                <li>순례길신청</li>
+                            </a>
+                        </ul>
+                    </div>
+                  </li>
+                  <li class="slide_menu">
+                    <a href="#tab5" class="btn">소통</a>
+                    <div id="tab5" class="cont">
+                        <ul>
+                            <a href="/exp">
+                                <li>기적 체험</li>
+                            </a>
+                            <a href="/phil">
+                                <li>순례 소감</li>
+                            </a>
+                            <a href="/ask">
+                                <li>문의</li>
+                            </a>
+                            <a href="/prop">
+                                <li>제안</li>
+                            </a>
+                        </ul>
+                    </div>
+                   </li>
+                   <li class="slide_menu">
+                    <a href="#tab6" class="btn">자료실</a>
+                    <div id="tab6" class="cont">
+                        <ul>
+                            <a href="/book">
+                                <li>도서</li>
+                            </a>
+                            <a href="/media">
+                                <li>사진·영상</li>
+                            </a>
+                            <a href="/sns">
+                                <li>SNS·블로그</li>
+                            </a>
+                        </ul>
+                    </div>
+                  </li>
+                  <li class="slide_menu">
+                    <a href="#tab7" class="btn">현양원 소개</a>
+                    <div id="tab7" class="cont">
+                        <ul>
+                            <a href="/assets/introduction/">
+                                <li>인사말</li>
+                            </a>
+                            <a href="/assets/introduction/diocese.html">
+                                <li>조직도</li>
+                            </a>
+                            <a href="/assets/introduction/history.html">
+                                <li>연혁</li>
+                            </a>
+                            <a href="/assets/introduction/boost.html">
+                                <li>후원</li>
+                            </a>
+                        </ul>
+                    </div>
+                  </li>
+                </ul>                
+          </div>
+        </div>
+      </div>
+      <div class="mdim"></div>
+    </div>
+    <script>
+        const tabList = document.querySelectorAll('.tab_menu .list .slide_menu');
+        for(var i = 0; i < tabList.length; i++){
+          tabList[i].querySelector('.btn').addEventListener('click', function(e){
+            e.preventDefault();
+            for(var j = 0; j < tabList.length; j++){
+              tabList[j].classList.remove('is_on');
+            }
+            this.parentNode.classList.add('is_on');
+          });
+        }
+    </script>
+    
+    
+    <!-- 헤더 시작 -->
+<header id="header" class="bg_white">
+ 
+  <div class="gnb_bg"></div>
+  <h1 class="logo"><a href="/"></a></h1>
+  
+  <nav id="gnb">
+      <ul class="depth1">
+      <li>
+        <a href="/notice">소식</a>
+        <ul class="depth2" >
+          <li><a href="/notice">알림</a></li>
+          <li><a href="/news">소식지</a></li>
+          <li><a href="/schedule">일정</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/assets/martyr/">성인·복자·순교자</a>
+        <ul class="depth2" >
+          <li><a href="/martyrs">성인</a></li>
+          <li><a href="/blessed">복자</a></li>
+          			 <li><a href="/servant">하느님의 종</a></li>
+			 <li><a href="/people">역사 인물</a></li>
+		  </ul>
+      </li>
+      <li>
+        <a href="/assets/holy/">성지·유적지</a>
+        <ul class="depth2" >
+          <li><a href="/assets/holy/">성지</a></li>
+          <li><a href="/assets/holy/site.html">교구 사적지</a></li>
+          <li><a href="/assets/holy/psite.html">교구 순례지</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/assets/away/">도보순례길</a>
+        <ul class="depth2" >
+          <li><a href="/assets/away/">첫순교자의길</a></li>
+          <li><a href="/assets/away/away2.html">요안루갈다길</a></li>
+          <li><a href="/assets/away/away3.html">전주순례길</a></li>
+          <li><a href="/assets/away/awayform.html">도보순례신청</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/exp">소통</a>
+        <ul class="depth2" >
+          <li><a href="/exp">기적 체험</a></li>
+          <li><a href="/phil">순례 소감</a></li>          
+          <li><a href="/inqu">문의</a></li>
+          <li><a href="/prop">제안</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/book">자료실</a>
+        <ul class="depth2" >
+          <li><a href="/book">도서</a></li>
+          <li><a href="/media">사진·영상</a></li>
+          <li><a href="/sns">SNS·블로그</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/assets/introduction/">현양원 소개</a>
+        <ul class="depth2" >
+          <li><a href="/assets/introduction/">인사말</a></li>
+          <li><a href="/assets/introduction/diocese.html">조직도</a></li>
+          <li><a href="/assets/introduction/history.html">연혁</a></li>
+          <li><a href="/assets/introduction/boost.html">후원</a></li>
+        </ul>
+      </li>
+    </ul>  </nav>
+</header>
+   
+   
+<header id="mobile_header">
+  <h1 class="logo"><a href="#"></a></h1>
+  <a href="#" id="hMenu">
+      <div class='nav-icons default'>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+  </a>
+</header>
+
+<section class="main_top">
+   <!-- 메인슬라이드 -->
+   
+   <div class="swiper mySwiper">
+       <div class="main-visual-wrap">
+           <div class="main-visual-cont ssize">
+                
+            </div>
+        </div>
+        <div class="main_bg"></div>
+        <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="../assets/img/main5.jpg" alt=""></div><div class="swiper-slide"><img src="../assets/img/main4.jpg" alt=""></div><div class="swiper-slide"><img src="../assets/img/main10.jpg" alt=""></div><div class="swiper-slide"><img src="../assets/img/main2.jpg" alt=""></div><div class="swiper-slide"><img src="../assets/img/main6.jpg" alt=""></div><div class="swiper-slide"><img src="../assets/img/main12.jpg" alt=""></div><div class="swiper-slide"><img src="../assets/img/main8.jpg" alt=""></div><div class="swiper-slide"><img src="../assets/img/main3.jpg" alt=""></div><div class="swiper-slide"><img src="../assets/img/main7.jpg" alt=""></div><div class="swiper-slide"><img src="../assets/img/main11.jpg" alt=""></div><div class="swiper-slide"><img src="../assets/img/main1.jpg" alt=""></div><div class="swiper-slide"><img src="../assets/img/main9.jpg" alt=""></div>        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+  </div>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      centeredSlides: true,
+		speed: 5000,
+      loop: true,
+      freemode: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+
+
+    <div class="main_sect sect_newspop">
+        <div class="layout layout_newspop">
+            <div class="main_newspop">
+                <a href="/notice/1">아카데미안내</a>
+                <a href="/assets/away/awayform.html">도보순례신청</a>
+                <a href="/assets/introduction/boost.html">후원신청</a>
+                <a href="/news">현양월보<img src="/img/zine.png"></a>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="main_bbs">
+<div style="border:0px solid; width:49%; float:left;">
+	<div class="main_bbs_box main_bbs_news" style="width:100%;">
+		<h2 class="main_ttl"><a href="/notice">알림</a></h2>
+		
+<ul class="main_bbs_ul">
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/notice/41"> 전주순례길의 역사문화적 가치와 종교관광·국제화 방안 논의</a></span><span class="dt">09.15</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/notice/40"> 2026년 9월 12일 &lt; 전주순례길의 세계사적 가치와 지속가능성 &gt; 심포지엄 개최</a></span><span class="dt">09.04</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/notice/39"> 2026년 하반기 순교자현양 도보순례</a></span><span class="dt">08.19</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/notice/38"> 전주·전북지역 가톨릭교회 문화유산의 가치와 활용</a></span><span class="dt">07.24</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/notice/37"> &lt;여산순교성지의 종교문화적 가치 재조명&gt; 심포지엄 개최</a></span><span class="dt">05.28</span>
+    </li>
+        </ul>	</div>
+	<div class="main_bbs_box main_bbs_news" style="width:100%; margin-top:24px;">
+		<h2 class="main_ttl"><a href="/notice">사진·영상</a></h2>
+		
+<ul class="main_bbs_ul">
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/media/70"> 2026년 9월 순교자현양미사 및 순교현양아카데미</a></span><span class="dt">09.23</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/media/69"> 2026년 8월 순교자현양미사 및 순교현양아카데미</a></span><span class="dt">08.25</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/media/67"> 성인열전 | 윤지헌프란치스코</a></span><span class="dt">08.18</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/media/66"> ✝️성 손선지 베드로 </a></span><span class="dt">08.10</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/media/65"> 성 한재권 요셉</a></span><span class="dt">07.28</span>
+    </li>
+        </ul>	</div>
+</div>
+<div style="border:0px solid; width:49%; float:right;">
+   <div class="main_bbs_box main_bbs_press" style="width:100%;">
+		<h2 class="main_ttl"><a href="/press">언론보도</a></h2>
+		
+<ul class="main_bbs_ul">
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/press/70"> ‘한 달의 체류’가 남긴 180년의 역사… 신시도 최양…</a></span><span class="dt">09.28</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/press/69"> 천주교 첫 순교자 묘역…'완주 남계리 유적' 국가문화유…</a></span><span class="dt">09.17</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/press/68"> 완주 남계리 유적, 국가사적 됐다</a></span><span class="dt">09.17</span>
+    </li>
+        </ul>	</div>
+	<div class="main_bbs_box main_bbs_press" style="width:100%; margin-top:24px;">
+		<h2 class="main_ttl"><a href="/press">순례소감</a></h2>
+		
+<ul class="main_bbs_ul">
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/phil/3"> &lt;네이버 블로그 - 렌탈촌: 전주가톨릭순교현양원 순교자…</a></span><span class="dt">05.16</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/phil/2"> &lt;네이버 블로그 - 오스칼의 저 너머 여행: 열여섯 번…</a></span><span class="dt">05.16</span>
+    </li>
+        </ul>	</div>
+   <div class="main_bbs_box main_bbs_press" style="width:100%; margin-top:24px;">
+		<h2 class="main_ttl"><a href="/news">소식지</a></h2>
+		
+<ul class="main_bbs_ul">
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/news/37"> 순교현양 2026년 9월호</a></span><span class="dt">09.28</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/news/36"> 순교현양 2026년 8월호</a></span><span class="dt">08.31</span>
+    </li>
+    	 <li>
+            <span class="txt"><a href="https://www.martyr.co.kr/news/35"> 순교현양 2026년 7월호</a></span><span class="dt">07.27</span>
+    </li>
+        </ul>	</div>
+</div>
+</section>
+
+<section class="main_calendar">
+<div class="main_calendar_wrap">
+<h2 class="main_ttl" style="padding-left:35px"><a href="/schedule">순교현양원 일정</a></h2>
+<div class="main_schedule_cont">
+<!-- 일정 > 이벤트 -->
+                                        <div class="main_schedule_events_wrap">
+							  <div class="main_schedule_events">
+							  </div>
+						  </div>
+</div>
+</div></section>
+<!-- //교구일정 -->
+<script>
+</script>
+<script language=javascript>
+    const scheduleEventCate = {    
+        '교구장' : 'bishop',
+        '사무처' : 'officework',
+        '관리국' : 'official',
+        '사목국' : 'samok',
+        '가정사목국' : 'family',
+        '사회사목국' : 'society',
+        '성소국' : 'sungso',
+        '이주사목국' : 'migran',
+        '청소년교육국' : 'youth',
+        '홍보실' : 'promotion',
+        '노동사목' : 'labor',
+        '농촌사목' : 'farmvillage',
+        '교정사목' : 'correction',
+        '교구법원' : 'court',
+        '기타' : 'etc'
+    };
+    const year = "2026";
+    const month = "09";
+    let selectDay = "2026-9-29";
+    const today = "2026.09.29";
+</script>
+
+<footer id="layout-footer" class="footer">
+        <section class="footer_sect sect_top">
+            <div class="layout footer_layout layout_top">
+				<ul class="footer_list list_link">
+					<li class="footer_li"><a href="https://www.jcatholic.or.kr/" target="_blank">천주교 전주교구</a></li>
+					<li class="footer_li li_group">
+                  <ul class="footer_list li_group list_group">
+                  <li><a href="/pray/1" target="_self" class="footer_link footer_link_group">전주교구 성인·복자 호칭기도</a></li>
+                  <li><a href="/pray/2" target="_self" class="footer_link footer_link_group">한국 순교자들에게 바치는 기도</a></li>
+                  <li><a href="/pray/3" target="_self" class="footer_link footer_link_group">103위 한국 성인 호칭기도</a></li>
+                  <li><a href="/pray/4" target="_self" class="footer_link footer_link_group">124위 한국 순교복자 호칭기도</a></li>
+                  <li><a href="/pray/5" target="_self" class="footer_link footer_link_group">시복시성 기도문</a></li>
+                  <li><a href="/pray/6" target="_self" class="footer_link footer_link_group">순례자의 기도</a></li>
+                  </ul>
+                  <div class="footer_link li_group">기도문</div>
+               </li>
+					<li class="footer_li li_jeonjuArea">
+                  <ul class="footer_list li_jeonjuArea list_jeonjuArea">
+                  <li><a href="/assets/martyr/martyrs.html" target="_blank" class="footer_link footer_link_jeonjuArea">순교자현양회</a></li>
+                  <li><a href="https://cafe.daum.net/jeonjudioc.guide" target="_blank" class="footer_link footer_link_jeonjuArea">신앙문화해설사회</a></li>
+                  </ul>
+                  <div class="footer_link li_jeonjuArea">제단체</div>
+               </li>
+					<li class="footer_li"><a href="#"></a></li>
+				</ul>
+                
+            </div>
+        </section>
+        
+        <section class="footer_sect sect_cont">
+            <div class="layout footer_layout layout_cont">
+                <!-- <div class="footer_logo">
+                    <img src="https://www.jcatholic.or.kr:443/theme/main/img/2023/common/footer_logo.svg">
+                </div> -->
+                <div class="footer_logo_wrap">
+                    <a href="/index.php" class="footer_logo">
+                        <div class="footer_logo_img"><img src="/assets/img/logo_w.svg" alt="전주가톨릭순교현양원"></div>
+                    </a>
+                </div>
+                <div class="footer_links_wrap">
+                    <ul class="footer_list list_links">
+                        <li class="groupware"><a href="https://gw.j1004.net/" target="_blank">그룹웨어</a></li>
+                        <li><a href="/theme/main/pages/agreement.php">이용약관</a></li>
+                        <li class="essential"><a href="/theme/main/pages/privacy.php">개인정보처리방침</a></li>
+                        <li><a href="/theme/main/pages/map.php">오시는 길</a></li>
+                        <li><a href="/bbs/board.php?bo_table=party_qna">관리자에게 문의</a></li>
+                    </ul>
+                </div>
+                <div class="footer_info_wrap">
+                    <div class="footer_info">
+                        <ul class="footer_list list_info">
+                            <li>주소 : (55036) 전북 전주시 완산구 기린대로 100</li>
+                            <li>대표전화 : 063-230-1066~7</li>
+                            <li>팩스 : 063-230-1063</li>
+                            <li>이메일 : jcmartyr@jcatholic.or.kr</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer_copyright_wrap">
+                    <p class="footer_copyright">Copyrights @2024 천주교전주교구 순교현양원 all rights reserved. 
+                    <a href="/bbs/login.php"><i class="fa fa-lock" aria-hidden="true" style="color:#fff;"></i></a></p>
+                </div>
+            </div>
+        </section>
+    </footer>
+<script>
+$(function(){
+	$(".footer_li").off("click").on("click", function() {      
+		var targetClass = $(this).attr('class').split(' ')[1];
+		$(".footer_list.list_" + targetClass.split('_')[1]).slideToggle("fast");
+	});
+});
+</script>
+<script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {
+                pageLanguage: 'ko'
+              , includedLanguages: 'af,ar-SA,ar,en,en-PH,fr,de,it,es,ja,ko,zh-CN,zh-TW'
+              , layout: google.translate.TranslateElement.InlineLayout.SIMPLE // none or HORIZONTAL, SIMPLE
+            }
+          , 'google_translate_element'
+        );
+    }
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

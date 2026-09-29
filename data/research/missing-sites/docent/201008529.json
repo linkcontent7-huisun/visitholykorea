@@ -1,0 +1,60 @@
+{
+  "siteId": null,
+  "cbckCode": "201008529",
+  "siteName": "하느님의 종 서응권 요한 순교자 묘",
+  "slug": "seo-eunggwon-tomb",
+  "surveyedAt": "2026-09-29",
+  "surveyedBy": "Claude (문헌 초안 2026-09-29, T-050)",
+  "status": "draft",
+  "intro": {
+    "narration": "하느님의 종 서응권 요한 순교자 묘에 오신 것을 환영합니다. 이곳에는 병인박해 때 신앙을 지키다 함께 순교한 서응권 요한과 아내 윤 안나가 나란히 잠들어 있습니다. 두 분은 시복이 추진되고 있는 ‘하느님의 종’입니다.",
+    "narrationEn": "Welcome to the tomb of the Servant of God John Seo Eung-gwon. Here John Seo and his wife Anna Yun, who were martyred together during the Byeongin Persecution, rest side by side. Both are Servants of God whose cause for beatification is under way.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "부부의 쌍분",
+      "titleEn": "The couple's twin graves",
+      "location": "묘역 가운데",
+      "narration": "나란히 놓인 두 무덤이 서응권 요한과 아내 윤 안나의 묘입니다. 달성 서씨 집안의 서응권은 벼슬에 나가지 않고 세례를 받은 뒤 김해 노루목에서 농사를 지으며 여섯 자녀와 함께 신앙생활에 전념했습니다. 1868년 부산에서 신앙의 자유를 호소하려던 일이 드러나 함께 뜻을 모은 이들에게 체포령이 내려졌고, 부부는 노루목에 숨어 지냈습니다.",
+      "narrationEn": "The two graves side by side belong to John Seo Eung-gwon and his wife Anna Yun. Born into the Seo clan of Dalseong, John Seo did not seek government office; after baptism he farmed at Norumok in Gimhae and devoted himself to the faith with his six children. In 1868 a plan in Busan to appeal for religious freedom was discovered, arrest warrants went out for those involved, and the couple went into hiding at Norumok.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "종교의 자유를 호소한 것만으로 가족 전체가 쫓기던 시대의 기록입니다.",
+      "photos": [],
+      "sourceNote": "https://home.catholic.or.kr/pdsm/bbs_view.asp?num=259&id=202301&menu=4831 (사본 data/research/missing-sites/_pages/201008529/goodnews-pdsm259.txt) · https://cathms.kr/page10 (사본 data/research/missing-sites/_pages/201008529/official.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "자수를 택한 부부",
+      "titleEn": "The couple who gave themselves up",
+      "location": "쌍분 앞",
+      "narration": "포졸들은 부부를 찾지 못하자 집에 남아 있던 어린 자녀 셋, 일곱 살과 네 살 아들, 갓 돌이 지난 딸의 목숨을 빼앗았습니다. 큰 충격을 받은 부부는 “우리 대신 어린것들이 죽었으니 우리만 살아 무엇 하겠느냐”며 스스로 김해 관아를 찾아갔습니다. 두 사람은 혹독한 문초 속에서도 끝까지 신앙을 버리지 않았고, 다른 신자들과 함께 순교했습니다.",
+      "narrationEn": "Unable to find the couple, the soldiers took the lives of the three small children left at home — two sons aged seven and four, and a daughter just past her first birthday. Heartbroken, the parents said, “Our little ones have died in our place; what is the point of our living on?” and went to the Gimhae magistrate's office of their own accord. Through harsh interrogation they never renounced their faith, and they were martyred along with other Catholics.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://home.catholic.or.kr/pdsm/bbs_view.asp?num=259&id=202301&menu=4831 (사본 data/research/missing-sites/_pages/201008529/goodnews-pdsm259.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "아들이 모신 무덤과 이어진 후손",
+      "titleEn": "A grave prepared by a son, and a living family",
+      "location": "묘역을 나서며",
+      "narration": "가족들은 선산에 모시려 했지만 친척들의 반대로 한동안 다른 야산에 임시로 모셨습니다. 1909년 4월 셋째 아들 서석수 비오가 두 분을 지금 이 자리로 옮겼습니다. 살아남은 자녀들은 노루목에서 신앙을 이어 갔고, 후손 가운데서 여러 사제와 수도자가 나왔습니다.",
+      "narrationEn": "The family wanted to bury them on the ancestral hillside, but relatives objected, so they were first laid to rest on another hill. In April 1909 their third son, Pius Seo Seok-su, moved them to this spot. The surviving children kept the faith at Norumok, and several priests and religious have come from among their descendants.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://home.catholic.or.kr/pdsm/bbs_view.asp?num=259&id=202301&menu=4831 (사본 data/research/missing-sites/_pages/201008529/goodnews-pdsm259.txt) · https://cathms.kr/page10 (사본 data/research/missing-sites/_pages/201008529/official.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "이 묘역은 한동안 잡초에 묻혀 있다가 신자들이 길을 내고 정비했습니다. 두 분을 위해 짧게 기도하고 조용히 내려가시기 바랍니다.",
+    "narrationEn": "For years this burial ground lay overgrown, until Catholics cleared a path and tended it again. Please offer a short prayer for the couple and leave quietly.",
+    "photos": []
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "siteId": null,
+  "cbckCode": "201008163",
+  "siteName": "횡성 성당",
+  "slug": "hoengseong-cathedral",
+  "surveyedAt": "2026-09-29",
+  "surveyedBy": "Claude (문헌 초안 2026-09-29, T-050)",
+  "status": "draft",
+  "intro": {
+    "narration": "횡성 성당에 오신 것을 환영합니다. 횡성은 병인박해 때 강원도에서 신자가 가장 많던 지역이었습니다. 한국전쟁 직후 지은 화강암 성당과 그 안에 남은 옛 모습을 둘러보겠습니다.",
+    "narrationEn": "Welcome to Hoengseong Catholic Church. At the time of the 1866 Byeongin Persecution, Hoengseong had more Catholics than anywhere else in Gangwon Province. Let us explore the granite church built just after the Korean War and the original features it still keeps.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "성당 앞 — 교우촌에서 본당으로",
+      "titleEn": "In front of the church — from hidden village to parish",
+      "location": "성당 앞 마당",
+      "narration": "횡성에는 1830년대에 이미 교우촌이 있었습니다. 병인박해 때 신자들이 붙잡혀 교우촌은 흩어졌고, 1880년대 이후 다시 공소가 생겨 풍수원 본당에 속했습니다. 1930년 3월 풍수원 본당 정규하 신부가 이곳을 본당으로 세웠는데, 그때 신자는 약 400명, 딸린 공소가 17곳이었습니다. 초대 주임 양덕환 신부는 초가집을 사들여 성당으로 고치고 4년 과정의 공민학교를 열어 주민들에게 배움의 기회를 주었습니다.",
+      "narrationEn": "Catholic villages already existed in Hoengseong in the 1830s. During the Byeongin Persecution the faithful were arrested and the community scattered; from the 1880s mission stations reappeared under Pungsuwon Parish. In March 1930 Father Jeong Gyu-ha of Pungsuwon made Hoengseong a parish, with about 400 Catholics and 17 mission stations. The first pastor, Father Yang Deok-hwan, bought a thatched house and turned it into a church, and opened a four-year civic school to give local people a chance to learn.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "박해로 흩어진 공동체가 학교를 열어 지역과 함께 다시 선 과정을 보여 줍니다.",
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2851 (사본 data/research/missing-sites/_pages/201008163/goodnews-2851.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "종탑 — 팔각 위에 얹은 돔",
+      "titleEn": "The bell tower — a dome on an octagon",
+      "location": "성당 정면 가운데",
+      "narration": "지금의 성당은 골롬반 외방선교회의 맥마흔 신부가 1955년 미군의 도움을 받아 짓기 시작해 이듬해 5월 봉헌했습니다. 전쟁 직후 어려운 형편에 맞춰 서양 로마네스크 양식을 간단하게 줄였고, 성당 가운데에 종탑과 정문을 함께 두었습니다. 종탑은 사각형 바탕 위에 팔각형 공간을 올리고 그 위에 돔을 얹은 독특한 모양입니다. 종탑 안의 종은 지을 때 프랑스에서 들여온 것이 그대로 남아 있습니다.",
+      "narrationEn": "The present church was begun in 1955 by Father McMahon of the Columban Missionaries with help from the U.S. military, and dedicated the following May. To suit the hardship right after the war, the Romanesque style was simplified, and the bell tower and main entrance were placed together at the center of the façade. The tower is unusual: an octagonal section rises on a square base, crowned by a dome. The bell, imported from France when the church was built, is still the original.",
+      "lookFor": "사각형에서 팔각형으로, 다시 돔으로 바뀌는 종탑의 층",
+      "lookForEn": "How the tower changes from square to octagon to dome",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2851 (사본 data/research/missing-sites/_pages/201008163/goodnews-2851.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "성당 안 — 긴 공간과 나무 천장",
+      "titleEn": "Inside — a long nave and wooden roof",
+      "location": "성당 내부",
+      "narration": "안으로 들어가 보시면 폭과 높이에 비해 길이가 매우 긴 공간입니다. 천장은 가운데가 평평하고 양쪽이 비스듬히 기운 모양이고, 그 위의 목조 트러스 구조는 지을 때 모습 그대로입니다. 바닥은 마루이고, 제대 양쪽 창의 유리화는 1984년에 넣었습니다. 이 성당은 2008년 2월 국가등록문화유산이 되었습니다.",
+      "narrationEn": "Step inside and you will notice how long the space is compared with its width and height. The ceiling is flat in the middle and slopes down on both sides, and the wooden truss structure above it is original. The floor is wooden, and the stained glass in the windows on either side of the altar was added in 1984. The church was registered as National Registered Cultural Heritage in February 2008.",
+      "lookFor": "제대 양쪽 창의 유리화",
+      "lookForEn": "The stained glass windows on both sides of the altar",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2851 (사본 data/research/missing-sites/_pages/201008163/goodnews-2851.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "뒷동산 — 십자가의 길",
+      "titleEn": "The hill behind — Stations of the Cross",
+      "location": "성당 뒷동산",
+      "narration": "성당 뒷동산에는 2002년 9월 십자가의 길을 만들었습니다. 2000년 본당 설정 70주년에는 교육 복지관도 지었습니다. 1969년 교구가 나뉘면서 횡성 성당은 춘천교구에서 원주교구로 소속이 바뀌었습니다.",
+      "narrationEn": "On the hill behind the church, Stations of the Cross were set up in September 2002. For the parish's 70th anniversary in 2000, an education and welfare hall was also built. When dioceses were reorganized in 1969, Hoengseong moved from the Diocese of Chuncheon to the Diocese of Wonju.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://m.catholic.or.kr/web/holyplace/?seq=2851 (사본 data/research/missing-sites/_pages/201008163/goodnews-2851.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "2015년에는 낡은 함석지붕을 동판으로 바꾸는 보수를 했습니다. 70년 가까이 지난 화강암 성당이 지금도 횡성 읍내를 지키고 있습니다.",
+    "narrationEn": "In 2015 the worn tin roof was replaced with copper. Nearly seventy years on, this granite church still watches over the town of Hoengseong.",
+    "photos": []
+  }
+}

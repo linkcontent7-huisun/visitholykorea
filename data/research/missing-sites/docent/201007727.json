@@ -1,0 +1,60 @@
+{
+  "siteId": null,
+  "cbckCode": "201007727",
+  "siteName": "신시도 최양업 공원",
+  "slug": "sinsido-choe-yangeop-park",
+  "surveyedAt": "2026-09-29",
+  "surveyedBy": "Claude (문헌 초안 2026-09-29, T-050)",
+  "status": "draft",
+  "intro": {
+    "narration": "신시도 최양업 공원에 오신 것을 환영합니다. 이곳은 한국의 두 번째 사제인 가경자 최양업 토마스 신부가 부제 시절 처음으로 고국 땅을 밟은 곳입니다. 1847년 배가 부서져 한 달가량 머물렀던 이 섬의 이야기를 들어 보겠습니다.",
+    "narrationEn": "Welcome to Choe Yang-eop Park on Sinsi Island. This is where the Venerable Thomas Choe Yang-eop, Korea's second Catholic priest, first set foot on his homeland as a deacon. Let us hear the story of the month he spent on this island after his ship was wrecked in 1847.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "공원 앞 — 막힌 귀국길",
+      "titleEn": "The park — a blocked road home",
+      "location": "공원 입구",
+      "narration": "최양업은 1836년 김대건, 최방제와 함께 마카오로 유학을 떠났습니다. 공부를 마친 뒤 1842년부터 여러 번 조선에 들어오려 했지만 번번이 실패했고, 1844년 김대건과 함께 페레올 주교에게 부제품을 받았습니다. 1847년 그는 프랑스 함대가 조선으로 간다는 소식을 듣고 메스트르 신부와 함께 배에 올랐습니다.",
+      "narrationEn": "In 1836 Choe Yang-eop left for Macau to study with Kim Taegon and Choe Bang-je. After finishing his studies he tried many times from 1842 to enter Korea, and failed each time; in 1844 he and Kim Taegon were ordained deacons by Bishop Ferréol. In 1847, hearing that a French fleet was sailing for Korea, he boarded with Father Maistre.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "박해로 국경이 닫힌 나라에 돌아가려 한 젊은 유학생의 여정입니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta14.php (사본 data/research/missing-sites/_pages/201007727/jcatholic-terrasanta14.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "모자이크 벽화 — 섬에서 보낸 한 달",
+      "titleEn": "The mosaic — a month on the island",
+      "location": "공원 안 모자이크",
+      "narration": "그러나 배가 이 근처에서 좌초해 최양업 일행은 신시도에 30여 일 머물렀습니다. 그는 상륙할 기회를 찾으며 부안 대소 공소의 신자들을 만나기도 했지만, 결국 눈물을 흘리며 중국으로 돌아가야 했습니다. 이 모자이크 벽화는 그때 일행이 섬에 머문 모습을 담고 있습니다.",
+      "narrationEn": "But the ship ran aground nearby, and Choe's party stayed on Sinsi Island for about thirty days. Looking for a chance to land, he even met Catholics from the Daeso mission station in Buan, but in the end he had to return to China in tears. This mosaic mural shows the party during their stay on the island.",
+      "lookFor": "벽화 속 최양업 일행의 모습",
+      "lookForEn": "The figures of Choe's party in the mural",
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta14.php (사본 data/research/missing-sites/_pages/201007727/jcatholic-terrasanta14.txt) · https://www.martyr.co.kr/press/70 (사본 data/research/missing-sites/_pages/201007727/martyr-press70.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "제대 — 희망을 버리지 않은 사제",
+      "titleEn": "The altar — a priest who never gave up hope",
+      "location": "공원 안 제대",
+      "narration": "최양업은 1849년 4월 중국에서 사제품을 받고, 신시도를 떠난 뒤 여섯 번째 시도 끝에 그해 12월 의주 변문으로 입국했습니다. 그 뒤 1861년 6월 과로로 선종할 때까지 12년 동안 조선 곳곳을 걸어 다녔습니다. 이 공원은 2026년 9월 27일 축복식을 가졌고, 같은 해 5월에는 전국에서 모인 신자들이 이곳에서 시복을 비는 미사를 봉헌했습니다.",
+      "narrationEn": "Choe Yang-eop was ordained a priest in China in April 1849, and after leaving Sinsi Island he finally entered Korea through the Uiju border gate that December, on his sixth attempt. For the next twelve years, until he died of exhaustion in June 1861, he walked all over the country. This park was blessed on September 27, 2026, and in May of the same year Catholics from across Korea celebrated Mass here praying for his beatification.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta14.php (사본 data/research/missing-sites/_pages/201007727/jcatholic-terrasanta14.txt) · https://www.martyr.co.kr/press/70 (사본 data/research/missing-sites/_pages/201007727/martyr-press70.txt) · https://www.catholictimes.org/article/20260522500076 (사본 data/research/missing-sites/_pages/201007727/catholictimes-20260522500076.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "이 자리는 농어촌공사가 관리하는 시설이어서 공원을 꾸미는 데 제약이 많았다고 합니다. 바다를 한 번 바라보시고, 돌아가지 못해 울었던 젊은 부제를 떠올려 보십시오.",
+    "narrationEn": "The site is managed as agricultural infrastructure, so creating the park faced many limits. Take a look at the sea, and remember the young deacon who wept because he could not go home.",
+    "photos": []
+  }
+}

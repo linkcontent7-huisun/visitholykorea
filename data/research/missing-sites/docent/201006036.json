@@ -1,0 +1,60 @@
+{
+  "siteId": null,
+  "cbckCode": "201006036",
+  "siteName": "김난식 프란치스코·김현채 토마스 묘소",
+  "slug": "kim-nansik-hyeonchae-tombs",
+  "surveyedAt": "2026-09-29",
+  "surveyedBy": "Claude (문헌 초안 2026-09-29, T-050)",
+  "status": "draft",
+  "intro": {
+    "narration": "김난식 프란치스코와 김현채 토마스의 묘소에 오신 것을 환영합니다. 회문산 깊은 골짜기인 이곳에 성 김대건 안드레아 신부의 친동생과 7촌 조카가 잠들어 있습니다. 병인박해를 피해 들어와 교우촌 ‘먹구니’를 이룬 두 사람의 이야기를 들어 보겠습니다.",
+    "narrationEn": "Welcome to the tombs of Francis Kim Nan-sik and Thomas Kim Hyeon-chae. Deep in a valley of Mount Hoemun rest the younger brother and a cousin of Saint Andrew Kim Taegon. Let us hear the story of the two men who fled the Byeongin Persecution and formed the hidden Catholic village of Meokguni.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "먹구니 — 경계에 숨은 교우촌",
+      "titleEn": "Meokguni — a village hidden on the borders",
+      "location": "묘소로 오르는 골짜기",
+      "narration": "이 골짜기에는 ‘먹구니’라는 교우촌이 있었습니다. 1866년 병인박해 때 김난식과 김현채가 피난 오면서 마을이 생겼고, 이들은 화전을 일구며 신앙을 지켰습니다. 먹구니는 정읍, 임실, 순창이 만나는 경계에 있어, 박해 시대 신자들이 숨어 살기 좋은 곳이었습니다. 지금은 마을이 없어지고 두 분의 묘만 남았습니다.",
+      "narrationEn": "This valley once held a Catholic village called Meokguni. It began when Kim Nan-sik and Kim Hyeon-chae fled here during the Byeongin Persecution of 1866, clearing mountain fields and keeping their faith. Meokguni lay where Jeongeup, Imsil and Sunchang meet, a border area where persecuted believers could hide. The village is gone now; only the two tombs remain.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "행정 구역의 경계는 박해 시대 신자들이 추적을 피해 숨어들던 곳이었습니다.",
+      "photos": [],
+      "sourceNote": "https://www.jcatholic.or.kr/theme/main/pages/terrasanta13.php (사본 data/research/missing-sites/_pages/201006036/jcatholic-terrasanta13.txt) · https://www.martyr.co.kr/people/26 (사본 data/research/missing-sites/_pages/201006036/martyr-people26.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "김난식 프란치스코의 묘",
+      "titleEn": "The tomb of Francis Kim Nan-sik",
+      "location": "묘역",
+      "narration": "김난식은 1827년 정해박해 때 가족이 피난 다니던 중에 태어났습니다. 열두 살이던 1839년에 아버지 김제준 이냐시오가 순교했고, 1846년에는 형 김대건 신부마저 순교해 어머니 고 우술라와 함께 집 없이 신자들의 도움으로 살아야 했습니다. 1864년 어머니가 세상을 떠나자 미리내 형의 무덤 곁에 모신 뒤, 병인박해 때 이곳에 들어와 토종벌을 치며 수도자처럼 살다가 1873년 마흔여섯에 세상을 떠났습니다.",
+      "narrationEn": "Kim Nan-sik was born in 1827 while his family was fleeing the Jeonghae Persecution. When he was twelve, in 1839, his father Ignatius Kim Je-jun was martyred, and in 1846 his brother Father Andrew Kim Taegon was martyred too, leaving him and his mother Ursula Go homeless and dependent on other Catholics. After his mother died in 1864 he buried her beside his brother's grave at Mirinae; during the Byeongin Persecution he came here, kept native bees, lived like a monk, and died in 1873 at the age of forty-six.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://www.catholictimes.org/article/200409120104265 (사본 data/research/missing-sites/_pages/201006036/catholictimes-200409120104265.txt) · https://www.martyr.co.kr/people/26 (사본 data/research/missing-sites/_pages/201006036/martyr-people26.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "김현채 토마스의 묘",
+      "titleEn": "The tomb of Thomas Kim Hyeon-chae",
+      "location": "묘역",
+      "narration": "김현채는 김대건 신부 큰집의 7촌 조카로, 김난식보다 두 살 위였습니다. 박해를 피해 떠돌다 부모를 여의었고, 병인박해가 일어나자 부안 불무동에 머물다 이곳 먹구니로 와 김난식과 함께 살았습니다. 여기서 강 막달레나와 혼인했는데, 두 사람이 평생 동정을 지키며 살았다는 이야기가 후손의 증언으로 전해집니다.",
+      "narrationEn": "Kim Hyeon-chae was a cousin from the senior branch of Father Kim Taegon's family, two years older than Nan-sik. Wandering to escape persecution, he lost both parents; when the Byeongin Persecution broke out he stayed for a time at Bulmu-dong in Buan, then came to Meokguni to live with Nan-sik. Here he married Magdalene Kang, and according to a relative's testimony the couple lived their whole marriage in celibacy.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "photos": [],
+      "sourceNote": "https://www.catholictimes.org/article/200409120104265 (사본 data/research/missing-sites/_pages/201006036/catholictimes-200409120104265.txt) · https://www.martyr.co.kr/people/26 (사본 data/research/missing-sites/_pages/201006036/martyr-people26.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "두 분은 성인이나 복자로 불리지는 않지만, 박해를 피해 산나물로 연명하며 신앙을 지킨 삶을 이곳에 남겼습니다. 산길이 험하니 내려가실 때 발밑을 조심하십시오.",
+    "narrationEn": "Neither man has been declared a saint or blessed, yet here they left a life of faith kept on wild greens while hiding from persecution. The mountain path is rough, so please watch your step on the way down.",
+    "photos": []
+  }
+}
