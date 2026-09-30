@@ -6,7 +6,8 @@ import type { Language } from '@/shared/i18n/dictionary';
  * 투어원패스 고객센터(pass.knto.or.kr/faq)의 구성을 참고했다 — 탭 2개(회원가입 및 로그인 /
  * 서비스 이용) + 아코디언. 답변은 실제 구현된 기능만 적는다. 없는 기능을 약속하지 않는다.
  * 한국어가 원문이고 나머지는 번역이다(2026-09-21, T-031). 답을 고치면 여섯 언어를 같이 고친다.
- * 성지 수 「206곳」은 2026-09-18 DB 실측값(CLAUDE.md) — 바뀌면 여섯 언어에서 같이 바꾼다.
+ * 성지 수는 정확한 숫자 대신 「200곳이 넘는」으로 쓴다 — 성지가 늘 때마다 여섯 언어를 고치지 않도록
+ * (2026-09-30 사장님 결정: 빠진 성지 9곳 추가로 206 → 215곳. 설명서의 「206곳(9/20 실측)」과도 어긋나지 않는다).
  */
 export interface FaqItem {
   q: string;
@@ -55,7 +56,7 @@ export const FAQ: Record<Language, FaqContent> = {
       [
         {
           q: 'Visit Holy Korea 가 무엇인가요?',
-          a: `한국 가톨릭 성지 206곳을 안내하는 순례 웹앱입니다. 성지 소개와 지도, 박해의 역사를 따라 걷는 순례 코스, 감정 기반 성지 추천, 순례 기록 기능을 제공합니다.`,
+          a: `200곳이 넘는 한국 가톨릭 성지를 안내하는 순례 웹앱입니다. 성지 소개와 지도, 박해의 역사를 따라 걷는 순례 코스, 감정 기반 성지 추천, 순례 기록 기능을 제공합니다.`,
         },
         {
           q: '성지 소개 글은 어디에서 온 정보인가요?',
@@ -110,7 +111,7 @@ Only features that save "my records", such as visit records, require login.`,
       [
         {
           q: 'What is Visit Holy Korea?',
-          a: `A pilgrimage web app covering 206 Catholic holy sites in Korea. It offers site descriptions and a map, pilgrimage routes that follow the history of persecution, mood-based site recommendations, and visit records.`,
+          a: `A pilgrimage web app covering more than 200 Catholic holy sites in Korea. It offers site descriptions and a map, pilgrimage routes that follow the history of persecution, mood-based site recommendations, and visit records.`,
         },
         {
           q: 'Where does the site information come from?',
@@ -165,7 +166,7 @@ Solo las funciones que guardan «mis registros», como los registros de visita, 
       [
         {
           q: '¿Qué es Visit Holy Korea?',
-          a: `Una aplicación web de peregrinación que cubre 206 santuarios católicos de Corea. Ofrece descripciones y un mapa de los santuarios, rutas de peregrinación que siguen la historia de las persecuciones, recomendaciones según su estado de ánimo y registros de visita.`,
+          a: `Una aplicación web de peregrinación que cubre más de 200 santuarios católicos de Corea. Ofrece descripciones y un mapa de los santuarios, rutas de peregrinación que siguen la historia de las persecuciones, recomendaciones según su estado de ánimo y registros de visita.`,
         },
         {
           q: '¿De dónde proviene la información de los santuarios?',
@@ -220,7 +221,7 @@ Seules les fonctions qui enregistrent « mes carnets », comme les carnets de vi
       [
         {
           q: 'Qu’est-ce que Visit Holy Korea ?',
-          a: `Une application web de pèlerinage couvrant 206 sanctuaires catholiques de Corée. Elle propose des présentations et une carte des sanctuaires, des itinéraires de pèlerinage qui suivent l’histoire des persécutions, des recommandations selon votre état d’esprit et des carnets de visite.`,
+          a: `Une application web de pèlerinage couvrant plus de 200 sanctuaires catholiques de Corée. Elle propose des présentations et une carte des sanctuaires, des itinéraires de pèlerinage qui suivent l’histoire des persécutions, des recommandations selon votre état d’esprit et des carnets de visite.`,
         },
         {
           q: 'D’où proviennent les informations sur les sanctuaires ?',
@@ -275,7 +276,7 @@ Apenas as funções que salvam «meus registros», como os registros de visita, 
       [
         {
           q: 'O que é o Visit Holy Korea?',
-          a: `Um aplicativo web de peregrinação que cobre 206 santuários católicos da Coreia. Oferece descrições e um mapa dos santuários, rotas de peregrinação que seguem a história das perseguições, recomendações conforme seu estado de espírito e registros de visita.`,
+          a: `Um aplicativo web de peregrinação que cobre mais de 200 santuários católicos da Coreia. Oferece descrições e um mapa dos santuários, rotas de peregrinação que seguem a história das perseguições, recomendações conforme seu estado de espírito e registros de visita.`,
         },
         {
           q: 'De onde vêm as informações dos santuários?',
@@ -330,7 +331,7 @@ Solo le funzioni che salvano «i miei diari», come i diari di visita, richiedon
       [
         {
           q: 'Che cos’è Visit Holy Korea?',
-          a: `Un’app web di pellegrinaggio che copre 206 santuari cattolici della Corea. Offre descrizioni e una mappa dei santuari, percorsi di pellegrinaggio che seguono la storia delle persecuzioni, consigli in base al tuo stato d’animo e diari di visita.`,
+          a: `Un’app web di pellegrinaggio che copre oltre 200 santuari cattolici della Corea. Offre descrizioni e una mappa dei santuari, percorsi di pellegrinaggio che seguono la storia delle persecuzioni, consigli in base al tuo stato d’animo e diari di visita.`,
         },
         {
           q: 'Da dove provengono le informazioni sui santuari?',

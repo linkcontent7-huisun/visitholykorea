@@ -39,15 +39,23 @@ interface Draft {
 }
 const drafts: Draft[] = JSON.parse(readFileSync(join(SRC, 'drafts.json'), 'utf-8')).sites;
 
+type Fields = Record<string, string | null | undefined>;
+interface DocentFile {
+  cbckCode: string;
+  intro: Fields;
+  outro: Fields;
+  points: Fields[];
+  siteInfo?: Fields;
+}
+
 /** 원고·성지 정보가 그 언어로 빠짐없이 있는가 */
-function complete(d: any, sfx: string): boolean {
+function complete(d: DocentFile, sfx: string): boolean {
   const si = d.siteInfo ?? {};
-  const infoKeys = sfx === 'En' ? ['name', 'description', 'history', 'story'] : ['name', 'description', 'history', 'story'];
   return Boolean(
-    d.intro?.[`narration${sfx}`] &&
-      d.outro?.[`narration${sfx}`] &&
-      d.points.every((p: any) => p[`narration${sfx}`] && p[`title${sfx}`]) &&
-      infoKeys.every((k) => si[`${k}${sfx}`]),
+    d.intro[`narration${sfx}`] &&
+    d.outro[`narration${sfx}`] &&
+    d.points.every((p) => p[`narration${sfx}`] && p[`title${sfx}`]) &&
+    ['name', 'description', 'history', 'story'].every((k) => si[`${k}${sfx}`]),
   );
 }
 
@@ -56,7 +64,7 @@ await client.connect();
 
 let done = 0;
 for (const f of readdirSync(join(SRC, 'docent')).filter((n) => /^\d+\.json$/.test(n))) {
-  const d = JSON.parse(readFileSync(join(SRC, 'docent', f), 'utf-8'));
+  const d: DocentFile = JSON.parse(readFileSync(join(SRC, 'docent', f), 'utf-8'));
   const draft = drafts.find((x) => x.cbck_code === d.cbckCode);
   const si = d.siteInfo;
   if (!draft || !si) {
@@ -104,7 +112,14 @@ for (const f of readdirSync(join(SRC, 'docent')).filter((n) => /^\d+\.json$/.tes
        values ($1,$2,$3,$4,$5,$6,'machine')
        on conflict (site_id, language) do update set name = excluded.name, description = excluded.description,
          history = excluded.history, address_romanized = excluded.address_romanized, updated_at = now()`,
-      [siteId, lang, si[`name${sfx}`], si[`description${sfx}`], si[`history${sfx}`], si.addressRomanized],
+      [
+        siteId,
+        lang,
+        si[`name${sfx}`],
+        si[`description${sfx}`],
+        si[`history${sfx}`],
+        si.addressRomanized,
+      ],
     );
   }
 
@@ -112,16 +127,22 @@ for (const f of readdirSync(join(SRC, 'docent')).filter((n) => /^\d+\.json$/.tes
   if (APPLY && siteId) {
     const slug = draft.name.replace(/\s+/g, '-');
     const { siteInfo: _, ...script } = d;
-    writeFileSync(join(DOCENT, `${slug}.json`), JSON.stringify({ ...script, siteId, siteName: draft.name }, null, 2) + '\n');
+    writeFileSync(
+      join(DOCENT, `${slug}.json`),
+      JSON.stringify({ ...script, siteId, siteName: draft.name }, null, 2) + '\n',
+    );
     const sourceLines = draft.sources.map((u) => `  - label: ${u}\n    url: ${u}`).join('\n');
     const md = (lang: string, body: string, by: string) =>
       `---\nsiteId: ${siteId}\nsiteName: ${draft.name}\nlanguage: ${lang}\nkind: intro\nstatus: draft\nwrittenBy: ${by}\nsources:\n${sourceLines}\n---\n\n${body}\n`;
-    writeFileSync(join(DOCENT, '소개글', `${slug}.md`), md('ko', si.story, 'Claude (문헌 초안 2026-09-30, T-050) · Codex 검증'));
+    writeFileSync(
+      join(DOCENT, '소개글', `${slug}.md`),
+      md('ko', si.story ?? '', 'Claude (문헌 초안 2026-09-30, T-050) · Codex 검증'),
+    );
     for (const [lang, sfx] of LANGS) {
       mkdirSync(join(DOCENT, '소개글', lang), { recursive: true });
       writeFileSync(
         join(DOCENT, '소개글', lang, `${slug}.md`),
-        md(lang, si[`story${sfx}`], lang === 'en' ? 'Claude (T-050)' : 'Codex 번역 (T-050)'),
+        md(lang, si[`story${sfx}`] ?? '', lang === 'en' ? 'Claude (T-050)' : 'Codex 번역 (T-050)'),
       );
     }
     console.log(`원고   data/docent/${slug}.json + 소개글 6개 국어`);
@@ -129,4 +150,6 @@ for (const f of readdirSync(join(SRC, 'docent')).filter((n) => /^\d+\.json$/.tes
   done++;
 }
 await client.end();
-console.log(`${APPLY ? '반영' : '미리보기'} ${done}곳${APPLY ? ' — 이어서 npm run docent:load' : ' — 실제로 넣으려면 --apply'}`);
+console.log(
+  `${APPLY ? '반영' : '미리보기'} ${done}곳${APPLY ? ' — 이어서 npm run docent:load' : ' — 실제로 넣으려면 --apply'}`,
+);
