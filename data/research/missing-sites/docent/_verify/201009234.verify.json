@@ -1,0 +1,104 @@
+{
+  "cbckCode": "201009234",
+  "checkedAt": "2026-09-30",
+  "siteVerdict": "고칠것",
+  "sentences": [
+    {
+      "text": "하논 성당 터에 오신 것을 환영합니다.",
+      "verdict": "근거있음",
+      "evidence": "santoviaggio-cs002.txt: \"하논성지(성당터)\""
+    },
+    {
+      "text": "이곳은 1900년 한라산 남쪽에 처음 세워진 성당, 하논 성당이 있던 자리입니다.",
+      "verdict": "근거있음",
+      "evidence": "ohmynews-A0002974883.txt: \"하논성당은 1900년 한라산 남쪽에 설립된 최초의 성당이었다\""
+    },
+    {
+      "text": "서귀포 지역 여러 본당의 뿌리가 된 이 터와, 이곳에 부임해 제주 감귤의 역사를 바꾼 프랑스 신부의 이야기를 들어 보겠습니다.",
+      "verdict": "근거있음",
+      "evidence": "santoviaggio-cs002.txt: \"서귀포시 지역의 6개 본당으로 분리되어 나가는 등 산남지역의 실질적인 모태성당\"; ohmynews-A0002974883.txt: \"프랑스에서 출생한 에밀 타케\", \"제주도 감귤산업화의 초석을 놓은 셈\""
+    },
+    {
+      "text": "하논 성당은 1900년 제주 본당에서 나뉘어 서귀포 지역에 처음 세워졌습니다.",
+      "verdict": "근거있음",
+      "evidence": "santoviaggio-cs002.txt: \"1900년 제주 본당에서 분리되어 서귀포 지역 최초로 설립된 옛 '하논성당'\""
+    },
+    {
+      "text": "1902년 홍로로 옮겨 가 홍로 성당이 되었고, 1937년 지금의 서귀포 성당 자리에 정착했습니다.",
+      "verdict": "근거있음",
+      "evidence": "santoviaggio-cs002.txt: \"1902년 홍로성당으로 이전, 1937년 서귀포의 중심지인 현재의 자리에 정착\""
+    },
+    {
+      "text": "서귀포 성당은 그 뒤 서귀포시 지역의 여섯 본당으로 나뉘었으니, 이 터는 한라산 남쪽 천주교의 실질적인 모태인 셈입니다.",
+      "verdict": "근거있음",
+      "evidence": "santoviaggio-cs002.txt: \"서귀포시 지역의 6개 본당으로 분리되어 나가는 등 산남지역의 실질적인 모태성당\""
+    },
+    {
+      "text": "1901년 제주에서는 봉세관의 가혹한 세금 징수와 그를 앞세운 천주교 측의 횡포에 맞서 민중이 들고일어났고, 이 과정에서 천주교인 300여 명이 희생되었습니다.",
+      "verdict": "근거있음",
+      "evidence": "ohmynews-A0002974883.txt: \"봉세관 ... 강봉헌이 제주도 민중들에게 극심한 횡포를 저지르자 이에 맞서 봉기한 민중항쟁\", \"천주교인 300여 명이 희생당했다\""
+    },
+    {
+      "text": "이 사건을 이재수의 난, 또는 신축교안이라고 부릅니다.",
+      "verdict": "근거있음",
+      "evidence": "ohmynews-A0002974883.txt: \"이재수의 난\", \"천주교에서 이 사건을 신축교안으로 부르는\""
+    },
+    {
+      "text": "민심이 크게 돌아선 이듬해 1902년, 스물아홉 살의 에밀 타케 신부가 이곳에 부임했고, 곧 본당을 홍로로 옮겼습니다.",
+      "verdict": "근거있음",
+      "evidence": "ohmynews-A0002974883.txt: \"1902년 서귀포 하논성당 주임신부로 부임\", \"29세의 젊은 신부\", \"다음 해 성당을 현재 면형의 집이 위치한 곳 ... 으로 이전해 홍로성당 시대를 연다\""
+    },
+    {
+      "text": "그는 제주 문화를 존중하며 주민들과 대화하려 한 선교사로 평가받습니다.",
+      "verdict": "근거있음",
+      "evidence": "ohmynews-A0002974883.txt: \"제주문화를 존중하고 대화를 통해 조선인과 공감하려는 쌍방적인 선교 자세\""
+    },
+    {
+      "text": "교회가 저지른 잘못과 그 뒤의 화해 노력을 함께 기억하는 장소입니다.",
+      "verdict": "근거있음",
+      "evidence": "ohmynews-A0002974883.txt: \"가톨릭교회와 그들을 앞세운 봉세관 ... 극심한 횡포\"; \"천주교 제주교구와 신축항쟁 120주년 기념사업회가 하논성당 터에 공동으로 건립했다\" (화해의 탑)"
+    },
+    {
+      "text": "하논 성당의 제3대 주임이었던 타케 신부는 1902년부터 1915년까지 13년 동안 제주에 머물며 식물 표본 약 1만 점을 모아 제주 식물을 세계에 알렸습니다.",
+      "verdict": "근거있음",
+      "evidence": "santoviaggio-cs002.txt: \"하논성당 제3대 주임신부였던 타케 신부\"; jejunews-2219654.txt: \"1902~1915년까지 13년 동안 서귀포성당 3대 주임 신부를 지내며 약 1만점 규모의 식물 표본을 수집, 제주지역 식물의 다양성을 전 세계에 알렸다\""
+    },
+    {
+      "text": "한라산 왕벚나무를 일본의 지인에게 보내고, 그 답례로 1911년 온주밀감 나무 14그루를 받아 홍로 성당, 지금의 면형의 집에 심었습니다.",
+      "verdict": "근거있음",
+      "evidence": "jejunews-2219654.txt: \"한라산에 자생하는 왕벚나무 원종을 일본인 친구에게 보냈고, 그 답례로 1911년 온주감귤 나무 14그루를 받았다\", \"홍로성당(현 면형의집)에 식재했다\"; ohmynews-A0002974883.txt: \"왕벚나무 대가성'을 부인하고 그냥 기증받은 것으로 보고 있다\"",
+      "note": "사본끼리 온주밀감 14그루를 왕벚나무의 답례로 받은 경위가 다름."
+    },
+    {
+      "text": "오늘날 우리가 흔히 먹는 밀감은 대부분 이때 들어온 온주밀감이라고 합니다.",
+      "verdict": "근거있음",
+      "evidence": "jejunews-2219654.txt: \"현재 국내에서 흔히 먹는 감귤인 밀감은 대부분 에밀 타케 신부가 그 당시 들여온 온주밀감\""
+    },
+    {
+      "text": "감귤로 유명한 제주의 풍경 뒤에는 한 선교사의 식물 연구가 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "jejunews-2219654.txt: \"약 1만점 규모의 식물 표본을 수집, 제주지역 식물의 다양성을 전 세계에 알렸다\"; \"제주 감귤산업의 마중물\""
+    },
+    {
+      "text": "이 터는 제주 천주교 순례길 ‘하논성당길’이 지나는 곳입니다.",
+      "verdict": "근거있음",
+      "evidence": "santoviaggio-cs002.txt: \"하논성당길\"의 주요 거점에 \"하논성지\" 수록; cbck.txt: \"하논성당길 순례길 선포식\""
+    },
+    {
+      "text": "길을 따라 홍로 성당 터였던 면형의 집까지 걸으시면 타케 신부가 밀감을 심은 곳에 닿습니다.",
+      "verdict": "근거있음",
+      "evidence": "santoviaggio-cs002.txt: 하논성지와 \"면형의 집\"을 같은 하논성당길 주요 거점으로 수록, \"옛 홍로성당이 소재했던\"; jejunews-2219654.txt: \"홍로성당(현 면형의집)에 식재했다\""
+    }
+  ],
+  "english": [
+    { "part": "intro", "verdict": "일치" },
+    { "part": "point1", "verdict": "일치" },
+    { "part": "point2", "verdict": "일치" },
+    {
+      "part": "point3",
+      "verdict": "어긋남",
+      "fix": "Father Taquet, Hanon Church's third pastor, stayed in Jeju for thirteen years from 1902 to 1915 and collected about 10,000 plant specimens, introducing Jeju's flora to the world. He sent Halla Mountain's King cherry trees to a Japanese acquaintance, and in return received fourteen Onshu tangerine trees in 1911, which he planted at Hongro Church — today's Myeonhyeong House. Most of the tangerines commonly eaten today are said to be of the Onshu variety he brought in."
+    },
+    { "part": "outro", "verdict": "일치" }
+  ]
+}

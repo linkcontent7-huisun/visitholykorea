@@ -53,8 +53,20 @@
     }
   ],
   "outro": {
-    "narration": "지금 이 공소에서는 미사가 없지만, 벽돌 한 장 한 장에 가난했던 시절 신자들의 마음이 남아 있습니다.",
-    "narrationEn": "Mass is no longer held here, but every brick still carries the devotion of the faithful in those poor years.",
+    "narration": "이 공소는 어려운 시절 신자들이 한마음으로 지은 역사성 있는 건물입니다. 1998년 공소 미사는 멈추었지만 건물은 수리를 거쳐 교구 사적지로 남아 있습니다.",
+    "narrationEn": "This chapel is a historic building that the faithful raised together in hard times. Mass stopped here in 1998, but the building was repaired and remains a diocesan historic site.",
     "photos": []
+  },
+  "siteInfo": {
+    "category": "성당",
+    "emotionTag": "감사",
+    "nameEn": "Haengjeong Mission Station",
+    "addressRomanized": "14 Haengjeong 2-gil, Yeongok-myeon, Gangneung-si, Gangwon-do",
+    "description": "1928년 신자 두 가족이 옮겨 오며 시작된 옹기마을 교우촌이다. 한국전쟁 뒤 신자들이 쌀을 아껴 모은 돈으로 진흙 벽돌을 직접 구워 공소를 짓고 1958년 10월 축복식을 했다. 1998년 공소 미사가 멈췄으나 2003년 건물을 수리했고, 2009년 교구 사적지로 지정되었다.",
+    "descriptionEn": "An onggi pottery village of Catholics that began when two Catholic families moved here in 1928. After the Korean War the faithful saved rice to raise funds, fired their own clay bricks and built the chapel, which was blessed in October 1958. Mass stopped in 1998, but the building was repaired in 2003 and designated a diocesan historic site in 2009.",
+    "history": "1928년 교우촌 시작. 1958년 10월 8일 신자들이 구운 벽돌 공소 축복. 1998년 공소 미사 중지, 2009년 교구 사적지.",
+    "historyEn": "Catholic village begun in 1928. Brick chapel made by the faithful blessed on October 8, 1958. Mass stopped in 1998; diocesan historic site since 2009.",
+    "story": "행정은 원래 신자가 없던 마을이었습니다. 1928년 양평 용문과 금광리에서 신자 두 가족이 옮겨 오면서 교우촌이 시작되었고, 이들은 옹기점을 하며 이웃의 장례를 도와 자연스럽게 신앙을 전했습니다.\n\n한국전쟁 뒤 신자가 늘자 신자들은 절미 운동으로 돈을 모으고 진흙 벽돌을 찍어 가마에 구워 공소를 지었습니다. 1958년 10월 8일 퀸란 주교와 주문진 본당 최창규 신부가 축복식을 했고, 그때 50여 세대 230여 명이 모였습니다.\n\n옹기 사업이 기울며 신자가 줄어 1998년 공소 미사가 멈추었습니다. 2003년 장익 주교가 건물을 수리하게 했고, 2009년 교구 사적지로 지정되어 표지석이 세워졌습니다.",
+    "storyEn": "Haengjeong was originally a village with no Catholics. In 1928 two Catholic families moved here from Yongmun and Geumgwang-ri in Yangpyeong; running an onggi pottery and helping neighbors with funerals, they quietly passed on their faith.\n\nAs the community grew after the Korean War, the faithful raised money through a rice-saving movement, pressed clay bricks and fired them in the kiln to build a chapel. It was blessed on October 8, 1958 by Bishop Quinlan and Father Choe Chang-gyu of Jumunjin Parish, when about 50 households, some 230 people, gathered here.\n\nAs the pottery trade declined the community shrank, and Mass at the chapel stopped in 1998. In 2003 Bishop Jang Ik had the building repaired, and in 2009 it was designated a diocesan historic site and a marker stone was set up."
   }
 }

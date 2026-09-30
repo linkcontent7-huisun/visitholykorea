@@ -53,8 +53,20 @@
     }
   ],
   "outro": {
-    "narration": "지금 마을은 새 집들이 들어서 옛 모습은 많이 사라졌지만, 해발 600m의 맑은 공기와 산세는 그대로입니다. 박해를 피해 이 높은 곳까지 올라온 신자들을 떠올리며 내려가시기 바랍니다.",
-    "narrationEn": "The village now has new houses and much of its old look is gone, but the clear air and mountains at 600 meters remain. As you leave, remember the believers who climbed this high to escape persecution.",
+    "narration": "지금 마을은 새 집들이 들어서 옛 모습은 많이 사라졌지만, 해발 600m 고지의 공기는 도심과는 완전히 다릅니다. 박해를 피해 이 높은 곳까지 올라온 신자들을 떠올리며 내려가시기 바랍니다.",
+    "narrationEn": "The village now has new houses and much of its old look is gone, but the air at 600 meters is completely different from the city. As you leave, remember the believers who climbed this high to escape persecution.",
     "photos": []
+  },
+  "siteInfo": {
+    "category": "교우촌",
+    "emotionTag": "평온",
+    "nameEn": "Hwangjeom Faith Heritage Site",
+    "addressRomanized": "436-33 Wonhwangjeom-gil, Jeungsan-myeon, Gimcheon-si, Gyeongsangbuk-do",
+    "description": "병인박해 때 피난 온 신자들이 이룬 산골 교우촌에서 비롯된 공소다. 박해 뒤 김보록 신부가 판공성사를 주러 찾았다. 1936년 수해와 한국전쟁을 거치며 교우촌이 지금의 황점으로 옮겨 왔고, 현재 공소 건물은 1972년에 지었다. 해발 600m 고지에 있다.",
+    "descriptionEn": "A mission chapel that grew out of a mountain village formed by Catholics fleeing the Byeongin Persecution. After the persecution, Father Kim Bo-rok came here to hear confessions. After the 1936 flood and the Korean War the village moved to present-day Hwangjeom, and the current chapel was built in 1972. It lies about 600 meters above sea level.",
+    "history": "병인박해 때 장자터 교우촌 형성. 1936년 수해, 한국전쟁 뒤 황점으로 이주. 1972년 윤 에릭 신부가 현 공소 신축.",
+    "historyEn": "Jangjateo village formed during the Byeongin Persecution. Moved to Hwangjeom after the 1936 flood and the Korean War. Present chapel built in 1972 by Father Eric Yun.",
+    "story": "황점 공소의 뿌리는 황점리에서 약 1km 떨어진 골짜기 장자터입니다. 병인박해 때 박해를 피해 들어온 신자들이 이곳에서 숯과 옹기를 굽고 화전을 일구며 교우촌을 이루었습니다.\n\n1936년 수해로 장자터 마을이 떠내려갔고, 한국전쟁 뒤 무장 공비가 자주 나타나자 남은 집들이 철거되어 교우촌은 지금의 황점으로 옮겨 왔습니다. 원황점이라는 지명은 옛날 유황을 구워 조정에 바친 데서 왔다고 전해집니다.\n\n지금의 공소는 1972년 윤 에릭 신부가 지었고, 그는 독일에서 가져온 발전기로 전기가 없던 마을에 전기를 댔습니다. 대구대교구는 장자터를 중심으로 땅을 사들여 신앙 유적지로 가꾸고 있습니다.",
+    "storyEn": "Hwangjeom's roots lie in Jangjateo, a valley about a kilometer from Hwangjeom-ri. During the Byeongin Persecution, Catholics fleeing arrest formed a village here, burning charcoal, firing pottery and clearing mountain fields.\n\nThe 1936 flood swept away the Jangjateo village, and after the Korean War, when armed guerrillas often appeared, the remaining houses were removed and the community moved to present-day Hwangjeom. The name Wonhwangjeom is said to come from the sulfur once baked here and sent to the royal court.\n\nThe present chapel was built in 1972 by Father Eric Yun, who brought a generator from Germany to give the village its first electricity. The Archdiocese of Daegu has been buying land around Jangjateo to develop it as a faith heritage site."
   }
 }

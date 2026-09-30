@@ -44,7 +44,7 @@
       "titleEn": "Father Taquet and the Onshu tangerine",
       "location": "성당 터",
       "narration": "하논 성당의 제3대 주임이었던 타케 신부는 1902년부터 1915년까지 13년 동안 제주에 머물며 식물 표본 약 1만 점을 모아 제주 식물을 세계에 알렸습니다. 한라산 왕벚나무를 일본의 지인에게 보내고, 그 답례로 1911년 온주밀감 나무 14그루를 받아 홍로 성당, 지금의 면형의 집에 심었습니다. 오늘날 우리가 흔히 먹는 밀감은 대부분 이때 들어온 온주밀감이라고 합니다.",
-      "narrationEn": "Father Taquet, Hanon Church's third pastor, stayed in Jeju for thirteen years from 1902 to 1915 and collected about 10,000 plant specimens, introducing Jeju's flora to the world. He sent Halla Mountain's King cherry trees to a Japanese acquaintance, and in return received fourteen Onshu tangerine trees in 1911, which he planted at Hongro Church — today's Myeonhyeong House. Most of the tangerines commonly eaten in Korea today are said to be of the Onshu variety he brought in.",
+      "narrationEn": "Father Taquet, Hanon Church's third pastor, stayed in Jeju for thirteen years from 1902 to 1915 and collected about 10,000 plant specimens, introducing Jeju's flora to the world. He sent Halla Mountain's King cherry trees to a Japanese acquaintance, and in return received fourteen Onshu tangerine trees in 1911, which he planted at Hongro Church — today's Myeonhyeong House. Most of the tangerines commonly eaten today are said to be of the Onshu variety he brought in.",
       "lookFor": null,
       "lookForEn": null,
       "forEveryone": "감귤로 유명한 제주의 풍경 뒤에는 한 선교사의 식물 연구가 있습니다.",
@@ -56,5 +56,17 @@
     "narration": "이 터는 제주 천주교 순례길 ‘하논성당길’이 지나는 곳입니다. 길을 따라 홍로 성당 터였던 면형의 집까지 걸으시면 타케 신부가 밀감을 심은 곳에 닿습니다.",
     "narrationEn": "This site lies on the Hanon Church Trail of the Jeju Catholic pilgrimage routes. Follow the trail to Myeonhyeong House, the former Hongro Church, and you will reach the place where Father Taquet planted his tangerines.",
     "photos": []
+  },
+  "siteInfo": {
+    "category": "역사사적지",
+    "emotionTag": "치유",
+    "nameEn": "Hanon Church Site",
+    "addressRomanized": "194-1 Hogeun-dong, Seogwipo-si, Jeju-do",
+    "description": "1900년 제주 본당에서 나뉘어 서귀포 지역에 처음 세워진 옛 하논성당 자리다. 성당은 1902년 홍로로 옮겨 갔고, 뒤에 서귀포시 지역 여섯 본당의 뿌리가 되었다. 제3대 주임 타케 신부는 1911년 온주밀감 나무 14그루를 들여와 홍로 성당에 심었다. 제주 순례길 「하논성당길」이 지난다.",
+    "descriptionEn": "The site of the former Hanon Church, founded in 1900 as a split from Jeju Parish and the first church in the Seogwipo area. The church moved to Hongro in 1902 and later became the root of six parishes in Seogwipo City. Its third pastor, Father Émile Taquet, brought in fourteen Onshu tangerine trees in 1911 and planted them at Hongro Church. The Hanon Church Trail of the Jeju pilgrimage routes passes here.",
+    "history": "1900년 하논성당 설립. 1902년 홍로로 이전, 1937년 현 서귀포 성당 자리로. 타케 신부 1902~1915년 재임.",
+    "historyEn": "Hanon Church founded in 1900. Moved to Hongro in 1902 and to the present Seogwipo Church site in 1937. Father Taquet served 1902–1915.",
+    "story": "하논 성당은 1900년 제주 본당에서 나뉘어 한라산 남쪽에 처음 세워진 성당입니다. 1902년 홍로로 옮겨 홍로 성당이 되었고, 1937년 지금의 서귀포 성당 자리에 정착해 서귀포시 지역 여섯 본당의 모태가 되었습니다.\n\n1901년 봉세관의 가혹한 세금 징수와 천주교 측의 횡포에 맞선 민중 봉기로 천주교인 300여 명이 희생되었습니다. 이듬해 부임한 에밀 타케 신부는 제주 문화를 존중하며 주민과 대화하려 한 선교사로 평가받습니다.\n\n타케 신부는 1902년부터 1915년까지 제주에서 식물 표본 약 1만 점을 모았고, 1911년 온주밀감 나무 14그루를 들여와 홍로 성당, 지금의 면형의 집에 심었습니다. 이 터는 제주 천주교 순례길 「하논성당길」이 지나는 곳입니다.",
+    "storyEn": "Hanon Church was founded in 1900 as a split from Jeju Parish, the first church south of Mount Halla. It moved to Hongro in 1902 and became Hongro Church, then settled on the site of today's Seogwipo Church in 1937, becoming the mother of six parishes in Seogwipo City.\n\nIn 1901 a popular uprising against a tax commissioner's harsh collections and the abuses of Catholics left about 300 Catholics dead. Father Émile Taquet, posted here the following year, is remembered as a missionary who respected Jeju culture and sought dialogue with local people.\n\nFrom 1902 to 1915 Father Taquet collected about 10,000 plant specimens in Jeju, and in 1911 he brought in fourteen Onshu tangerine trees and planted them at Hongro Church, today's Myeonhyeong House. This site lies on the Hanon Church Trail of the Jeju Catholic pilgrimage routes."
   }
 }

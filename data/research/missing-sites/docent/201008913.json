@@ -7,8 +7,8 @@
   "surveyedBy": "Claude (문헌 초안 2026-09-29, T-050)",
   "status": "draft",
   "intro": {
-    "narration": "인제 성당에 오신 것을 환영합니다. 이 성당은 한국전쟁이 끝난 직후, 포격으로 무너진 극장 건물의 벽을 살려 지은 성당입니다. 오늘은 전쟁의 폐허에서 성당이 되기까지의 이야기를 따라가 보겠습니다.",
-    "narrationEn": "Welcome to Inje Catholic Church. It was built right after the Korean War, reusing the surviving walls of a theater destroyed by shelling. Today we follow the story of how a ruin became a church.",
+    "narration": "인제 성당에 오신 것을 환영합니다. 이 성당은 한국전쟁 때 포격으로 벽체만 남은 일제강점기 극장 건물을 고쳐 지은 성당입니다. 오늘은 전쟁의 폐허에서 성당이 되기까지의 이야기를 따라가 보겠습니다.",
+    "narrationEn": "Welcome to Inje Catholic Church. It was built by rebuilding a colonial-era theater whose walls alone survived shelling in the Korean War. Today we follow the story of how a ruin became a church.",
     "photos": []
   },
   "points": [
@@ -34,7 +34,7 @@
       "narrationEn": "When the parish began, there was no church building at all. A tent was pitched on the open ground behind today's church as a temporary church, but it burned down. With help from Catholic American soldiers, a Quonset hut — a half-cylinder prefab building — was put up and used for Mass for two years. The parish grew as it distributed relief goods and food sent by the U.S. National Catholic Welfare Conference to local residents.",
       "lookFor": null,
       "lookForEn": null,
-      "forEveryone": "전쟁 직후 구호품과 함께 교회가 자리 잡은 강원 북부 접경 지역의 역사를 보여 줍니다.",
+      "forEveryone": null,
       "photos": [],
       "sourceNote": "https://www.cccatholic.or.kr/parish/holyland/19 (사본 data/research/missing-sites/_pages/201008913/official.txt) · https://www.cccatholic.or.kr/news/media/9802?page=101 (사본 data/research/missing-sites/_pages/201008913/cccatholic-news9802.txt)"
     },
@@ -43,8 +43,8 @@
       "title": "성당과 사제관이 한 건물",
       "titleEn": "Church and rectory under one roof",
       "location": "성당 건물 전체",
-      "narration": "이 성당의 가장 큰 특징은 미사를 드리는 성당과 신부가 사는 사제관을 한 건물 안에 함께 지었다는 점입니다. 같은 시기 다른 성당 건축에서는 찾아보기 어려운 독특한 방식입니다. 지어질 때의 모습이 잘 남아 있어 2019년 국가등록문화유산이 되었습니다. 1970년까지는 외국 선교회의 지원으로 운영되다가 그 뒤 스스로 꾸려 가는 본당이 되었습니다.",
-      "narrationEn": "The most distinctive feature of this church is that the worship space and the priest's residence were built together as a single building. That approach is hard to find in other church buildings of the same period. Because it keeps its original form so well, it was registered as National Registered Cultural Heritage in 2019. Until 1970 it was run with support from a foreign mission society, and afterwards it became a self-supporting parish.",
+      "narration": "이 성당의 가장 큰 특징은 미사를 드리는 성당과 신부가 사는 사제관을 한 건물 안에 함께 지었다는 점입니다. 같은 시기 다른 성당 건축에서는 찾아보기 어려운 독특한 방식입니다. 지어질 때의 모습이 잘 남아 있어 2019년 국가등록문화유산이 되었습니다. 1970년까지는 외국 선교회의 지원으로 운영되었고, 그 뒤 본당 스스로 꾸려 가는 길을 걷기 시작했습니다.",
+      "narrationEn": "The most distinctive feature of this church is that the worship space and the priest's residence were built together as a single building. That approach is hard to find in other church buildings of the same period. Because it keeps its original form so well, it was registered as National Registered Cultural Heritage in 2019. Until 1970 it was run with support from a foreign mission society, and afterwards the parish began to support itself.",
       "lookFor": "지붕 위에 선 십자가 세 개",
       "lookForEn": "The three crosses standing on the roof",
       "forEveryone": null,
@@ -53,8 +53,20 @@
     }
   ],
   "outro": {
-    "narration": "무너진 벽에서 다시 시작한 이 성당은 지금도 인제 사람들이 미사를 드리는 곳입니다. 미사가 없는 시간에는 정면 대신 옆문으로 들어가실 수 있습니다.",
-    "narrationEn": "This church, reborn from broken walls, is still where the people of Inje come to Mass. When no Mass is being held, please use the side door instead of the front entrance.",
+    "narration": "성당 앞에는 지금도 미사 시간이 안내되어 있습니다. 미사가 없는 시간에는 정면 대신 옆문으로 들어가실 수 있습니다.",
+    "narrationEn": "Mass times are still posted in front of the church. When no Mass is being held, please use the side door instead of the front entrance.",
     "photos": []
+  },
+  "siteInfo": {
+    "category": "성당",
+    "emotionTag": "새출발",
+    "nameEn": "Inje Catholic Church",
+    "addressRomanized": "12 Inje-ro 225beon-gil, Inje-eup, Inje-gun, Gangwon-do",
+    "description": "강원 인제 읍내에 선 이 성당은 한국전쟁 때 포격으로 벽체만 남은 일제강점기 극장 건물을 고쳐 지었다. 1954년 본당이 세워진 뒤 천막과 퀀셋 가건물을 거쳐, 미국의 원조로 1957년 11월 성당을 완공했다. 성당과 사제관을 한 건물에 지은 드문 형태가 원형대로 남아 2019년 국가등록문화유산이 되었다.",
+    "descriptionEn": "This church in the town of Inje was built by rebuilding a colonial-era theater whose walls alone survived shelling in the Korean War. After the parish was founded in 1954 and worshipped in a tent and then a Quonset hut, the church was completed with American aid in November 1957. Its rare design, with church and rectory under one roof, survives intact, and it became National Registered Cultural Heritage in 2019.",
+    "history": "1954년 본당 설립. 1957년 11월 27일 전쟁으로 부서진 극장 건물을 고쳐 성당으로 완공. 2019년 국가등록문화유산.",
+    "historyEn": "Parish founded in 1954. Completed on November 27, 1957 by rebuilding a war-damaged theater. Registered as National Cultural Heritage in 2019.",
+    "story": "인제 본당은 한국전쟁 직후인 1954년에 세워졌습니다. 본당은 미국가톨릭복지협의회가 보낸 물자와 식량으로 주민을 돕는 구호 활동을 하며 신자가 늘었습니다.\n\n성당 자리에는 일제강점기에 극장으로 쓰던 건물이 있었는데, 전쟁 때 포격으로 윗부분이 무너지고 벽체만 남아 있었습니다. 본당은 천막 성당이 불에 탄 뒤 퀀셋 가건물에서 2년을 지내다, 미국의 원조로 이 벽을 고쳐 1957년 11월 27일 성당을 완공했습니다.\n\n성당과 사제관을 한 건물로 지은 방식은 같은 시기 다른 성당에서 보기 어려운 형태입니다. 지어질 때의 모습이 잘 남아 2019년 국가등록문화유산이 되었습니다.",
+    "storyEn": "Inje Parish was founded in 1954, right after the Korean War. It grew as it distributed relief goods and food sent by the U.S. National Catholic Welfare Conference to local residents.\n\nThe site held a theater from the Japanese colonial period; shelling during the war destroyed its upper structure, leaving only the walls. After its tent church burned down, the parish spent two years in a Quonset hut, then rebuilt those walls with American aid and completed the church on November 27, 1957.\n\nBuilding the church and the rectory as one structure is hard to find in other churches of the period. Because it keeps its original form, it became National Registered Cultural Heritage in 2019."
   }
 }

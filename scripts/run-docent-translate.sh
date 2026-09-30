@@ -10,12 +10,13 @@ DIR="data/research/missing-sites/docent"
 LOG="$DIR/_verify/_translate.log"
 CODES="${*:-$(ls $DIR/*.json | xargs -n1 basename | sed 's/\.json$//')}"
 
-# 네 언어가 여는 말·모든 지점·맺음말에 다 있는가
+# 네 언어가 여는 말·모든 지점·맺음말·siteInfo(이름·소개·역사·이야기)에 다 있는가
 done_langs() {
   python -c "
 import json,sys
 d=json.load(open('$1',encoding='utf-8'))
-ok=all(d['intro'].get('narration'+x) and d['outro'].get('narration'+x) and all(p.get('narration'+x) and p.get('title'+x) for p in d['points']) for x in ('Es','It','Pt','Fr'))
+si=d.get('siteInfo',{})
+ok=all(d['intro'].get('narration'+x) and d['outro'].get('narration'+x) and all(p.get('narration'+x) and p.get('title'+x) for p in d['points']) and all(si.get(k+x) for k in ('name','description','history','story')) for x in ('Es','It','Pt','Fr'))
 sys.exit(0 if ok else 1)"
 }
 
