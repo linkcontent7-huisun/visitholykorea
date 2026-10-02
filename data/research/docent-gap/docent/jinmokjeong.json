@@ -66,8 +66,8 @@
       "narrationEn": "After the martyrdom, Heo In-baek's wife Pak Jo-ye recovered the three bodies and buried them beneath the riverbank near the parade ground. In 1907, when the persecutions had ended, the remains were exhumed from that spot after Pak Jo-ye identified it, and the families laid them to rest here on Domaesan, the hill behind Jinmokjeong. About seven hundred meters up the path past the station is the site where the three martyrs lay until 1932. At the end of May 1932 the remains were moved to the church cemetery at Gamcheon-ri in Wolbae, Daegu; on October 25, 1962, to a stone chest before the Marian statue on the hilltop of that cemetery; and on October 19, 1973, to the grounds of Bokja Church in Sincheon-dong, Daegu, where they now rest. The three were beatified by Pope Francis in Gwanghwamun Square on August 16, 2014.",
       "lookFor": "1932년까지 세 순교자가 묻혀 있던 묘소 자리",
       "lookForEn": "The grave site where the three martyrs lay until 1932",
-      "forEveryone": "남편과 동료들의 시신을 거두어 묻고 40년 뒤 그 자리를 다시 찾아낸 한 여인의 기억이 이 성지를 만들었습니다.",
-      "forEveryoneEn": "This shrine owes its existence to one woman who buried her husband and his companions and, forty years later, found the spot again.",
+      "forEveryone": "남편과 동료들의 시신을 거두어 묻고 뒷날 그 자리를 다시 확인해 준 한 여인의 기억 덕에 유해를 찾을 수 있었습니다.",
+      "forEveryoneEn": "The remains could be found thanks to one woman who buried her husband and his companions and later confirmed the spot again.",
       "photos": [],
       "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2828 (사본 _pages/jinmokjeong/goodnews.txt)"
     },
@@ -96,15 +96,15 @@
       "narrationEn": "About 3.6 kilometers from the Jinmok station, at Dansugol in Sotae-ri on Mount Danseok, is the Tiger Cave where the three martyrs are said to have hidden. You reach it by passing the village of Naeil 1-ri and climbing the Way of the Cross that begins at the Sotaegol retreat house. The cave has since collapsed and its original shape is hard to make out, but here the three martyrs and their families prayed together and kept up one another's devotion and courage. According to tradition the cave had been a tiger's den. A few days after they moved in a great tiger appeared and threatened them, whereupon James Heo In-baek stepped forward, made the sign of the cross, and told it that they were passing travelers who had shamelessly entered its home, that he was sorry, and that if it would go elsewhere for a while he would give the den back as soon as the persecution ended; and the tiger withdrew. It is said the tiger then roared now and then from a great rock on the hillside opposite, keeping other beasts from entering the cave.",
       "lookFor": "굴 맞은편 산 중턱의 큰 바위",
       "lookForEn": "The great rock on the hillside opposite the cave",
-      "forEveryone": "호랑이에게 집을 빌렸다는 전설이 남은, 한국 성지 가운데서도 독특한 이야기의 장소입니다.",
-      "forEveryoneEn": "A place with a legend found nowhere else among Korea's shrines: a home borrowed from a tiger.",
+      "forEveryone": "호랑이에게 집을 빌렸다는 전설이 남은 곳입니다.",
+      "forEveryoneEn": "A place with a legend of a home borrowed from a tiger.",
       "photos": [],
       "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2828 (사본 _pages/jinmokjeong/goodnews.txt)"
     }
   ],
   "outro": {
-    "narration": "진목정 성지 순례를 마치셨습니다. 세 분이 순교한 울산 병영 순교성지와 세 분이 함께 살던 살티 공소도 멀지 않으니, 이들이 걸었던 길을 따라 순례를 이어 가 보셔도 좋겠습니다.",
-    "narrationEn": "This concludes our visit to Jinmokjeong Shrine. The Ulsan Byeongyeong Martyrs' Shrine, where the three were executed, and the Salti mission station where they lived together are not far, so you may wish to continue along the path these men walked.",
+    "narration": "진목정 성지 순례를 마치셨습니다. 세 분이 순교한 울산 병영 순교성지로 순례를 이어 가 보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to Jinmokjeong Shrine. You may wish to continue your pilgrimage to the Ulsan Byeongyeong Martyrs' Shrine, where the three were executed.",
     "photos": []
   }
 }
