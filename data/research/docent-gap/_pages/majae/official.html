@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=10,chrome=1">
+<title>의정부교구 성가정 마재성지</title>
+<link rel="stylesheet" href="http://www.majaesungji.or.kr/css/default.css">
+<link rel="stylesheet" href="http://www.majaesungji.or.kr/skin/connect/basic/style.css">
+<link rel="stylesheet" href="http://www.majaesungji.or.kr/skin/latest/ad2/style.css">
+<link rel="stylesheet" href="http://www.majaesungji.or.kr/skin/latest/basic_mj/style.css">
+<link rel="canonical" href="http://www.majaesungji.or.kr/">
+<!--[if lte IE 8]>
+<script src="http://www.majaesungji.or.kr/js/html5.js"></script>
+<![endif]-->
+<script>
+// 자바스크립트에서 사용하는 전역변수 선언
+var g5_url       = "http://www.majaesungji.or.kr";
+var g5_bbs_url   = "http://www.majaesungji.or.kr/bbs";
+var g5_is_member = "";
+var g5_is_admin  = "";
+var g5_is_mobile = "";
+var g5_bo_table  = "";
+var g5_sca       = "";
+var g5_editor    = "";
+var g5_cookie_domain = ".majaesungji.or.kr";
+</script>
+<script src="http://www.majaesungji.or.kr/js/jquery-1.8.3.min.js"></script>
+<script src="http://www.majaesungji.or.kr/js/jquery.menu.js"></script>
+<script src="http://www.majaesungji.or.kr/js/common.js"></script>
+<script src="http://www.majaesungji.or.kr/js/wrest.js"></script>
+</head>
+<body ondragstart="return false" onselectstart="return false">
+
+<!-- 상단 시작 { -->
+<div id="hd">
+    <h1 id="hd_h1">의정부교구 성가정 마재성지</h1>
+
+    <div id="skip_to_container"><a href="#container">본문 바로가기</a></div>
+
+    
+<!-- 팝업레이어 시작 { -->
+<div id="hd_pop">
+    <h2>팝업레이어 알림</h2>
+
+<span class="sound_only">팝업레이어 알림이 없습니다.</span></div>
+
+<script>
+$(function() {
+    $(".hd_pops_reject").click(function() {
+        var id = $(this).attr('class').split(' ');
+        var ck_name = id[1];
+        var exp_time = parseInt(id[2]);
+        $("#"+id[1]).css("display", "none");
+        set_cookie(ck_name, 1, exp_time, g5_cookie_domain);
+    });
+    $('.hd_pops_close').click(function() {
+        var idb = $(this).attr('class').split(' ');
+        $('#'+idb[1]).css('display','none');
+    });
+    $("#hd").css("z-index", 1000);
+});
+</script>
+<!-- } 팝업레이어 끝 -->
+    <div id="hd_wrapper">
+
+ 
+      <div>
+        <ul id="tnb">
+                        <li><a href="http://www.majaesungji.or.kr/bbs/mjgaip.php">회원가입</a></li>
+            <li><a href="http://www.majaesungji.or.kr/bbs/login.php"><b>로그인</b></a></li>
+                        <!-- <li><a href="http://www.majaesungji.or.kr/bbs/faq.php">FAQ</a></li>
+            <li><a href="http://www.majaesungji.or.kr/bbs/qalist.php">1:1문의</a></li>
+            <li><a href="http://www.majaesungji.or.kr/bbs/current_connect.php">접속자 
+10</a></li>
+            <li><a href="http://www.majaesungji.or.kr/bbs/new.php">새글</a></li> -->
+        </ul>
+    </div>
+    
+   
+        <div id="logo">
+            <a href="http://www.majaesungji.or.kr"><img src="http://www.majaesungji.or.kr/img/logo.png" alt="의정부교구 성가정 마재성지"></a>
+        </div>
+     <nav id="gnb">
+        <h2>메인메뉴</h2>
+        <ul id="gnb_1dul">
+                        <li class="gnb_1dli" style="z-index:999">
+                <a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=land&me_code=40" target="_self" class="gnb_1da">성지소개</a>
+                <ul class="gnb_2dul">
+                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=land&me_code=4010" target="_self" class="gnb_2da">거룩한 부르심의 땅</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=pray&me_code=4020" target="_self" class="gnb_2da">기도하는성지</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=history&me_code=4030" target="_self" class="gnb_2da">성지역사</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=father&me_code=4040" target="_self" class="gnb_2da">신부님</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=map&me_code=4050" target="_self" class="gnb_2da">찾아오시는길</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=parking&wr_id=1&me_code=4070&me_code=4070" target="_self" class="gnb_2da">성지 주차 안내</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=support&me_code=4060" target="_self" class="gnb_2da">마재성지후원및미사지향접수</a></li>
+                </ul>
+            </li>
+                        <li class="gnb_1dli" style="z-index:998">
+                <a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=saint_01&me_code=60" target="_self" class="gnb_1da">마재성가정</a>
+                <ul class="gnb_2dul">
+                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=saint_01&me_code=6010" target="_self" class="gnb_2da">복자정약종아우구스티노</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=saint_02&me_code=6020" target="_self" class="gnb_2da">복자정철상가롤로</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=saint_03&me_code=6030" target="_self" class="gnb_2da">성정하상바오로</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=saint_04&me_code=6040" target="_self" class="gnb_2da">성녀정정혜엘리사벳</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=saint_05&me_code=6050" target="_self" class="gnb_2da">성녀유선임체칠리아</a></li>
+                </ul>
+            </li>
+                        <li class="gnb_1dli" style="z-index:997">
+                <a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=group&me_code=30" target="_self" class="gnb_1da">성지봉사</a>
+                            </li>
+                        <li class="gnb_1dli" style="z-index:996">
+                <a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=zone&me_code=80" target="_self" class="gnb_1da">성지본당공동체</a>
+                            </li>
+                        <li class="gnb_1dli" style="z-index:995">
+                <a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=notice&me_code=10" target="_self" class="gnb_1da">성지게시판</a>
+                <ul class="gnb_2dul">
+                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=notice&me_code=1010" target="_self" class="gnb_2da">공지사항</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=free&me_code=1030" target="_self" class="gnb_2da">기도해주세요</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=record&me_code=1040" target="_self" class="gnb_2da">순례후기</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=bible&me_code=1020" target="_self" class="gnb_2da">복음의기쁨</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=data&me_code=1050" target="_self" class="gnb_2da">자료실</a></li>
+                </ul>
+            </li>
+                        <li class="gnb_1dli" style="z-index:994">
+                <a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=photo&me_code=20" target="_self" class="gnb_1da">성지갤러리</a>
+                <ul class="gnb_2dul">
+                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=photo&me_code=2010" target="_self" class="gnb_2da">성지앨범</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=free_photo&me_code=2020" target="_self" class="gnb_2da">자유갤러리</a></li>
+                                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=movie&me_code=2030" target="_self" class="gnb_2da">동영상갤러리</a></li>
+                </ul>
+            </li>
+                        <li class="gnb_1dli" style="z-index:993">
+                <a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=load&me_code=50" target="_self" class="gnb_1da">성지순례길</a>
+                            </li>
+                        <li class="gnb_1dli" style="z-index:992">
+                <a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=tour&me_code=70" target="_self" class="gnb_1da">성지주변안내</a>
+                <ul class="gnb_2dul">
+                    <li class="gnb_2dli"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=tour&me_code=7010" target="_self" class="gnb_2da">가볼만한곳</a></li>
+                </ul>
+            </li>
+                    </ul>
+    </nav>
+</div>
+</div>
+<!-- } 상단 끝 -->
+
+<hr>
+
+<!-- 콘텐츠 시작 { -->
+<div id="wrapper">
+    <!-- <IMG SRC="http://www.majaesungji.or.kr/img/main.png" WIDTH="999" HEIGHT="379" BORDER="0" ALT="마재성지"> -->
+
+    <!-- 메인이미지 배너 시작 { -->
+
+<style>
+.jquery_img {
+width:999px;
+height:379px;
+border:1px solid #ccc;
+}
+.exhibition {
+width:999px;
+height:379px;
+	position:relative;
+	z-index:1;
+}
+.theme-default .nivo-controlNav {
+left:462px;
+	bottom:4px;
+display:0;
+}
+</style>
+<script type="text/javascript" src="http://www.majaesungji.or.kr/skin/latest/ad2/jquery.nivo.slider.js"></script>
+
+<table border=0 cellpadding=0 cellspacing=0>
+	<tr>
+		<td class="jquery_img"><div class="exhibition">
+			<div class="slider-wrapper theme-default">
+				<div id="slider" class="nivoSlider">
+					<img src="http://www.majaesungji.or.kr/data/file/main_img/thumb-3716879356_OQrpisNS_sub1_999x379.jpg" alt="" width="999" height="379"><img src="http://www.majaesungji.or.kr/data/file/main_img/thumb-2083716450_zA5bkN6v_main_01_999x379.jpg" alt="" width="999" height="379"><img src="http://www.majaesungji.or.kr/data/file/main_img/thumb-2083716450_ScwH2gvQ_main_02_999x379.jpg" alt="" width="999" height="379">				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+	$(document).ready(function() {
+		$('#slider').nivoSlider();
+	});
+	</script></td>
+	</tr>
+</table>
+<!-- 메인이미지 배너 끝 { -->
+ 
+
+    <div id="aside">
+		<ul> 
+			<li><IMG SRC="http://www.majaesungji.or.kr/img/time.png" WIDTH="182" HEIGHT="394" BORDER="0" ALT="성지전례"></li>
+			<li><IMG SRC="http://www.majaesungji.or.kr/img/tel.png"  BORDER="0" ALT="연락처"></li>
+			<li><div  class="event"><a href="https://map.naver.com/p/entry/place/31161937?placePath=/ticket&fromPanelNum=1&additionalHeight=76&timestamp=202604291436&locale=ko&svcName=map_pcv5&from=map&searchType=place&lng=127.2960812&lat=37.5216274&c=15.00,0,0,0,dh" target="_blank"><IMG SRC="http://www.majaesungji.or.kr/img/l_banner_01.jpg" WIDTH="90" HEIGHT="58" BORDER="0" ALT="마재다음카페"></a></div>
+				<div  class="event"><a href="http://www.catholic.or.kr" target="_blank"><IMG SRC="http://www.majaesungji.or.kr/img/l_banner_02.jpg" WIDTH="89" HEIGHT="58" BORDER="0" ALT="인터넷굿뉴스"></a></div>
+				<div  class="event"><a href="http://www.cbck.or.kr" target="_blank"><IMG SRC="http://www.majaesungji.or.kr/img/l_banner_03.jpg" WIDTH="90" HEIGHT="58" BORDER="0" ALT="한국천주교중앙협의회"></a></div>
+				<div><a href="http://www.ucatholic.or.kr" target="_blank"><IMG SRC="http://www.majaesungji.or.kr/img/l_banner_04.jpg" WIDTH="89" HEIGHT="58" BORDER="0" ALT="의정부교구"></a></div>
+			</li>
+		</ul>      
+
+						        
+    </div>
+    <div id="container">
+        
+<h2 class="sound_only">최신글</h2>
+<!-- 최신글 시작 { -->
+<div style="float:left;">
+    <a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=notice&me_code=1010">
+		<IMG SRC="./img/c_head1.png"  BORDER="0" ALT="공지사항"></a>
+        
+<!-- 공지사항 최신글 시작 { -->
+<div class="lt">
+    <!-- <strong class="lt_title"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=notice">공지사항</a></strong> -->
+    <ul>
+            <li>
+            <a href="http://majaesungji.or.kr/bbs/board.php?bo_table=notice&amp;wr_id=160">거룩한 부르심의 땅</a>  <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_hot.gif" alt="인기글"> <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_file.gif" alt="첨부파일">          </li>
+            <li>
+            <a href="http://majaesungji.or.kr/bbs/board.php?bo_table=notice&amp;wr_id=159"><strong>◆ 손희송 베네딕토 주교님 마재성지 사목방문 (2026년 6월 16일)</strong></a>  <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_hot.gif" alt="인기글"> <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_file.gif" alt="첨부파일">          </li>
+            <li>
+            <a href="http://majaesungji.or.kr/bbs/board.php?bo_table=notice&amp;wr_id=158">교구장님 사목방문~26.06.16</a>  <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_hot.gif" alt="인기글"> <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_file.gif" alt="첨부파일"> <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_link.gif" alt="관련링크">         </li>
+            <li>
+            <a href="http://majaesungji.or.kr/bbs/board.php?bo_table=notice&amp;wr_id=157"><strong>◆ 성지 피정의 집 이용=》》메인화면  피정의 집 클릭▶▶</strong></a>  <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_hot.gif" alt="인기글"> <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_file.gif" alt="첨부파일">          </li>
+            <li>
+            <a href="http://majaesungji.or.kr/bbs/board.php?bo_table=notice&amp;wr_id=155"><strong>◆ cpdc라디오_귀로듣는 마재성지 순례</strong></a>  <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_hot.gif" alt="인기글">          </li>
+            <li>
+            <a href="http://majaesungji.or.kr/bbs/board.php?bo_table=notice&amp;wr_id=153">2026년 5월 성모의 밤 안내</a>  <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_hot.gif" alt="인기글">          </li>
+            <li>
+            <a href="http://majaesungji.or.kr/bbs/board.php?bo_table=notice&amp;wr_id=150"><strong>◆ 마재 성지내 봉사자 모집안내</strong></a>  <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_hot.gif" alt="인기글"> <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_file.gif" alt="첨부파일">          </li>
+            <li>
+            <a href="http://majaesungji.or.kr/bbs/board.php?bo_table=notice&amp;wr_id=149">성지 피정의 집 축복식 안내</a>  <img src="http://majaesungji.or.kr/skin/latest/basic_mj/img/icon_hot.gif" alt="인기글">          </li>
+            </ul>
+    
+</div>
+<!-- } 공지사항 최신글 끝 --></div>
+<div class="wrap_bot">
+	<a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=photo&me_code=2010"><IMG SRC="./img/c_head2.png" WIDTH="480" HEIGHT="36" BORDER="0" ALT="마재성지지금여기에"></a>
+	﻿<link rel="stylesheet" href="http://www.majaesungji.or.kr/skin/latest/move/style.css">
+<!-- <section class="n_gallery_wrap">
+  <div class="n_title_wrap">
+    <div class="n_title"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=photo">성지앨범</a></div>
+    <div class="n_right_wrap">
+            <a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=photo"><img src="http://www.majaesungji.or.kr/skin/latest/move/img/icon_more.gif" width="13" height="13" alt="더보기" title="" /></a>
+    </div>
+  </div>
+</section> -->
+<script type="text/javascript">
+var sliderwidth="450px"  //스크롤 가로 사이즈
+var sliderheight="104px"  //스크롤 세로 사이즈
+var slidespeed="0"  
+slidebgcolor="transparent"  // 배경색을 주시려면 #99cc00 등과 같이 바꾸시면 됩니다 !
+
+var leftarrowimage = "http://www.majaesungji.or.kr/skin/latest/move/img/left.gif";
+var rightarrowimage = "http://www.majaesungji.or.kr/skin/latest/move/img/right.gif";
+
+var leftrightslide=new Array()
+var finalslide=''
+
+    leftrightslide[0] = "&nbsp;<A HREF='http://majaesungji.or.kr/bbs/board.php?bo_table=photo&amp;wr_id=136' target='_blank'><img src='http://www.majaesungji.or.kr/data/file/photo/thumb-3716879356_OQrpisNS_sub1_146x104.jpg' border=0 width='146' height='104' ></A>&nbsp;";
+    leftrightslide[1] = "&nbsp;<A HREF='http://majaesungji.or.kr/bbs/board.php?bo_table=photo&amp;wr_id=135' target='_blank'><img src='http://www.majaesungji.or.kr/data/file/photo/thumb-990252882_uvmTrMEj_EC82ACEBAAA9EBB0A9EBACB8ED9998EC9881_146x104.jpg' border=0 width='146' height='104' ></A>&nbsp;";
+    leftrightslide[2] = "&nbsp;<A HREF='http://majaesungji.or.kr/bbs/board.php?bo_table=photo&amp;wr_id=134' target='_blank'><img src='http://www.majaesungji.or.kr/data/file/photo/thumb-990252882_9eCJnsEN_20260531_095659_146x104.jpg' border=0 width='146' height='104' ></A>&nbsp;";
+
+
+var imagegap=""
+var slideshowgap=0
+
+var copyspeed=slidespeed
+    leftrightslide='<nobr>'+leftrightslide.join(imagegap)+'</nobr>'
+var iedom=document.all||document.getElementById
+    if (iedom)
+        document.write('<span id="temp" style="visibility:hidden;position:absolute;top:-100px;left:-9000px">'+leftrightslide+'</span>')
+
+var actualwidth=''
+var cross_slide, ns_slide
+var righttime,lefttime
+
+function fillup(){
+    if (iedom){
+        cross_slide=document.getElementById? document.getElementById("test2") : document.all.test2
+        cross_slide2=document.getElementById? document.getElementById("test3") : document.all.test3
+        cross_slide.innerHTML=cross_slide2.innerHTML=leftrightslide
+        actualwidth=document.all? cross_slide.offsetWidth : document.getElementById("temp").offsetWidth
+        cross_slide2.style.left=actualwidth+slideshowgap+"px"
+    }
+    else if (document.layers){
+        ns_slide=document.ns_slidemenu.document.ns_slidemenuorange
+        ns_slide2=document.ns_slidemenu.document.ns_slidemenu3
+        ns_slide.document.write(leftrightslide)
+        ns_slide.document.close()
+        actualwidth=ns_slide.document.width
+        ns_slide2.left=actualwidth+slideshowgap
+        ns_slide2.document.write(leftrightslide)
+        ns_slide2.document.close()
+    }
+    lefttime=setInterval("slideleft()",30)
+}
+window.onload=fillup
+
+function slideleft(){
+    if (iedom){
+    if (parseInt(cross_slide.style.left)>(actualwidth*(-1)+8))
+        cross_slide.style.left=parseInt(cross_slide.style.left)-copyspeed+"px"
+    else
+        cross_slide.style.left=parseInt(cross_slide2.style.left)+actualwidth+slideshowgap+"px"
+    if (parseInt(cross_slide2.style.left)>(actualwidth*(-1)+8))
+        cross_slide2.style.left=parseInt(cross_slide2.style.left)-copyspeed+"px"
+    else
+        cross_slide2.style.left=parseInt(cross_slide.style.left)+actualwidth+slideshowgap+"px"
+    }
+    else if (document.layers){
+    if (ns_slide.left>(actualwidth*(-1)+8))
+        ns_slide.left-=copyspeed
+    else
+        ns_slide.left=ns_slide2.left+actualwidth+slideshowgap
+    if (ns_slide2.left>(actualwidth*(-1)+8))
+        ns_slide2.left-=copyspeed
+    else
+        ns_slide2.left=ns_slide.left+actualwidth+slideshowgap
+    }
+}
+
+function slideright(){
+    if (iedom){
+    if (parseInt(cross_slide.style.left)<(actualwidth+8))
+        cross_slide.style.left=parseInt(cross_slide.style.left)+copyspeed+"px"
+    else
+        cross_slide.style.left=parseInt(cross_slide2.style.left)+actualwidth*(-1)+slideshowgap+"px"
+    if (parseInt(cross_slide2.style.left)<(actualwidth+8))
+        cross_slide2.style.left=parseInt(cross_slide2.style.left)+copyspeed+"px"
+    else
+        cross_slide2.style.left=parseInt(cross_slide.style.left)+actualwidth*(-1)+slideshowgap+"px"
+    }
+    else if (document.layers){
+    if (ns_slide.left>(actualwidth*(-1)+8))
+        ns_slide.left-=copyspeed
+    else
+        ns_slide.left=ns_slide2.left+actualwidth+slideshowgap
+    if (ns_slide2.left>(actualwidth*(-1)+8))
+        ns_slide2.left-=copyspeed
+    else
+        ns_slide2.left=ns_slide.left+actualwidth+slideshowgap
+    }
+}
+
+function right(){
+    if(lefttime){
+        clearInterval(lefttime)
+        clearInterval(righttime)
+        righttime=setInterval("slideright()",30)  
+    }
+}
+
+function left(){
+    if(righttime){
+        clearInterval(lefttime)
+        clearInterval(righttime)
+        lefttime=setInterval("slideleft()",30)  
+    }
+}
+    document.write('<table width='+sliderwidth+' border="0" cellspacing="0" cellpadding="0">');
+    document.write('<tr><td align=center valign=middle width=20><img src='+leftarrowimage+' onMouseover="left(); copyspeed=2" onMouseout="copyspeed=1" style="cursor:hand"></td>')
+
+
+    if (iedom||document.layers){
+        with (document){
+            document.write('<td>')
+    if (iedom){
+        write('<div style="position:relative;width:'+sliderwidth+';height:'+sliderheight+';overflow:hidden">')
+        write('<div style="position:absolute;width:'+sliderwidth+';height:'+sliderheight+';background-color:'+slidebgcolor+'" onMouseover="copyspeed=0" onMouseout="copyspeed=1">')
+        write('<div id="test2" style="position:absolute;left:0px;top:0px"></div>')
+        write('<div id="test3" style="position:absolute;left:-1000px;top:0px"></div>')
+        write('</div></div>')
+    }
+    else if (document.layers){
+        write('<ilayer width='+sliderwidth+' height='+sliderheight+' name="ns_slidemenu" bgColor='+slidebgcolor+'>')
+        write('<layer name="ns_slidemenuorange" left=0 top=0 onMouseover="copyspeed=0" onMouseout="copyspeed=slidespeed"></layer>')
+        write('<layer name="ns_slidemenu3" left=0 top=0 onMouseover="copyspeed=0" onMouseout="copyspeed=slidespeed"></layer>')
+        write('</ilayer>')
+    }
+    document.write('</td>')
+    }
+}
+
+document.write('<td width="20" align=center valign=middle><img src='+rightarrowimage+' onMouseover="right();copyspeed=2" onMouseout="copyspeed=1" style="cursor:hand"></td></tr></table>')
+
+</script></div>
+<div class="wrap_bot">
+    <div class="event">
+		<a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=tour&me_code=7010"><IMG SRC="./img/c_banner_01.png" WIDTH="122" HEIGHT="119" BORDER="0" ALT="마재성지주변가볼만한곳"></a>
+	</div>
+    <div class="event">
+		<a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=map&me_code=4050"><IMG SRC="./img/c_banner_02.png" WIDTH="123" HEIGHT="119" BORDER="0" ALT="마재성지오시는길"></a>
+	</div>
+	<div class="event">
+		<a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=load&me_code=50"><IMG SRC="./img/c_banner_03.png" WIDTH="124" HEIGHT="119" BORDER="0" ALT="마재성지성지순례길"></a>
+	</div>
+	<div class="event">
+		<a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=parking&wr_id=1&me_code=4070"><IMG SRC="./img/c_banner_04.png" WIDTH="111" HEIGHT="119" BORDER="0" ALT="무엇이든지물어보세요"></a>
+    </div>      
+</div>
+<!-- } 최신글 끝 -->
+
+
+    </div>
+
+	<div id="bside">
+      <div class="event2">
+			<ul  class="event2">
+			    <li>
+				<div style=> 
+				    <!-- <a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=bible"> -->
+                        <a href="https://map.naver.com/p/entry/place/31161937?placePath=/ticket&fromPanelNum=1&additionalHeight=76&timestamp=202604291436&locale=ko&svcName=map_pcv5&from=map&searchType=place&lng=127.2960812&lat=37.5216274&c=15.00,0,0,0,dh" target="_blank">
+		            <IMG SRC="http://www.majaesungji.or.kr/img/word.png" WIDTH="302" HEIGHT="262" ALT="성지 피정의 집(순례자쉼터)"></a>
+                    
+                    <!-- 복음의 기쁨 -->
+                                        
+                <!-- </div> -->
+				</li>
+				<!-- <li><IMG SRC="http://www.majaesungji.or.kr/img/word.png" WIDTH="302" HEIGHT="244" BORDER="0" ALT=""></a></li> -->
+				<li><a href="http://info.catholic.or.kr/missa/" target="_blank"><IMG SRC="http://www.majaesungji.or.kr/img/r_banner.png" WIDTH="300" HEIGHT="55" BORDER="0" ALT="매일미사"></a></li>
+				<li><div class="event"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=support&me_code=4060"><IMG SRC="http://www.majaesungji.or.kr/img/r_banner2_01.png" WIDTH="147" HEIGHT="74" BORDER="0" ALT="마재성지후원"></a></div>
+					<div><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=support&me_code=4060"><IMG SRC="http://www.majaesungji.or.kr/img/r_banner2_02.png" WIDTH="153" HEIGHT="74" BORDER="0" ALT="미사지향접수"></a></div>
+				    <div class="event"><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=support_s&me_code=4070"><IMG SRC="http://www.majaesungji.or.kr/img/r_banner2_03.png" WIDTH="147" HEIGHT="80" BORDER="0" ALT="정약용교회사연구소후원"></a></div>
+					<div><a href="http://www.majaesungji.or.kr/bbs/board.php?bo_table=support_b&me_code=4080"><IMG SRC="http://www.majaesungji.or.kr/img/r_banner2_04.png" WIDTH="153" HEIGHT="80" BORDER="0" ALT="신앙의등불후원"></a></div>
+				</li>
+				<li><IMG SRC="http://www.majaesungji.or.kr/img/r_banner3_01.png" WIDTH="300" HEIGHT="59" BORDER="0" ALT="천주교의정부교구마재성지"></a></li>
+			</ul>      
+		</div>
+	</div>	
+
+
+</div>
+
+<!-- } 콘텐츠 끝 -->
+
+<hr>
+
+<!-- 하단 시작 { -->
+<div id="ft">
+            <!-- <div id="ft_catch"><img src="http://www.majaesungji.or.kr/img/ft.png" alt="그누보드5"></div>
+    <div id="ft_company">
+    </div> -->
+    <div id="ft_copy">
+        <div>
+		    <a href="#"><img src="http://www.majaesungji.or.kr/img/ft.png" alt="그누보드5"></a>
+			<IMG SRC="http://www.majaesungji.or.kr/img/copyright.png" WIDTH="531" HEIGHT="45" BORDER="0" ALT="천주교 의정부교구 마재성지">
+            <!-- <a href="http://www.majaesungji.or.kr/bbs/content.php?co_id=company">성지소개</a>
+            <a href="http://www.majaesungji.or.kr/bbs/content.php?co_id=privacy">개인정보취급방침</a>
+            <a href="http://www.majaesungji.or.kr/bbs/content.php?co_id=provision">서비스이용약관</a>
+            Copyright &copy; <b>majaesungji.or.kr.</b> All rights reserved.<br>
+            <a href="#hd" id="ft_totop">상단으로</a> -->
+        </div>
+    </div>
+</div>
+
+
+<!-- } 하단 끝 -->
+
+<script>
+$(function() {
+    // 폰트 리사이즈 쿠키있으면 실행
+    font_resize("container", get_cookie("ck_font_resize_rmv_class"), get_cookie("ck_font_resize_add_class"));
+});
+</script>
+
+
+
+<!-- ie6,7에서 사이드뷰가 게시판 목록에서 아래 사이드뷰에 가려지는 현상 수정 -->
+<!--[if lte IE 7]>
+<script>
+$(function() {
+    var $sv_use = $(".sv_use");
+    var count = $sv_use.length;
+
+    $sv_use.each(function() {
+        $(this).css("z-index", count);
+        $(this).css("position", "relative");
+        count = count - 1;
+    });
+});
+</script>
+<![endif]-->
+<!-- 우클릭 방지  -->
+
+<script> 
+document.onmousedown=disableclick; 
+status="저작권 보호를 위해 우클릭 방지되었습니다." 
+function disableclick(e) 
+{ 
+  if(event.button==2) 
+  { 
+    alert(status); 
+    return false;    
+  } 
+} 
+
+</script>
+
+</body>
+</html>

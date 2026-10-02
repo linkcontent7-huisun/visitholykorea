@@ -1,0 +1,110 @@
+{
+  "siteId": "90025fc0-dd69-461c-a5c2-3179d8886ff0",
+  "siteName": "관덕정 순교성지",
+  "slug": "gwandeokjeong",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "대구 도심 한가운데, 반월당역에서 걸어서 1분이면 닿는 관덕정 순교기념관에 오셨습니다. 이곳은 조선 시대 경상감영의 처형장이던 관덕당 자리로, 영남 지방에서 가장 많은 순교자가 목숨을 바친 터입니다. 오늘은 입구의 성인상에서 시작해 지하 경당의 유해실, 전시실, 그리고 단청이 화려한 옥상 누각까지 차례로 둘러보겠습니다.",
+    "narrationEn": "Welcome to the Gwandeokjeong Martyrs' Memorial, right in the heart of Daegu, a one-minute walk from Banwoldang Station. This is the site of Gwandeokdang, the execution ground of the Gyeongsang provincial office in the Joseon era, where more martyrs gave their lives than anywhere else in the Yeongnam region. Today we will start at the saint's statue by the entrance, then visit the relic chapel in the basement, the exhibition halls, and finally the rooftop pavilion with its colorful painted eaves.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 열두 계단과 성 이윤일 요한 동상",
+      "titleEn": "Entrance — The Twelve Steps and the Statue of St. John Yi Yun-il",
+      "location": "길가에서 기념관으로 오르는 계단 위",
+      "locationEn": "At the top of the steps leading up from the street",
+      "narration": "길에서 기념관으로 오르는 계단은 열두 개로, 조금 가파른 편입니다. 계단을 다 오르면 대구대교구의 제2주보이신 성 이윤일 요한의 동상이 먼저 순례자를 맞이합니다. 동상 곁에는 순교복자기념비가 서 있고, 기념관 바깥벽에는 순교자들의 모습을 새긴 큰 돌 부조가 있습니다. 건물 위에는 한옥 누각이 시원하게 솟아 있습니다.",
+      "narrationEn": "Twelve rather steep steps lead up from the street to the memorial. At the top, the statue of St. John Yi Yun-il, the second patron of the Archdiocese of Daegu, is the first to greet pilgrims. Beside the statue stands a monument to the blessed martyrs, and on the outer wall of the building is a large stone relief carved with the figures of the martyrs. A traditional Korean pavilion rises above the building.",
+      "lookFor": "바깥벽의 순교자 석재 부조",
+      "lookForEn": "The stone relief of the martyrs on the outer wall",
+      "forEveryone": "한옥 누각을 얹은 건물이 이곳의 첫인상입니다.",
+      "forEveryoneEn": "A building crowned with a traditional Korean pavilion is the first impression this place leaves.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2250&ctxtSubMenu=other&ctxtOtherID=13 (사본 _pages/gwandeokjeong/goodnews.txt) · 가톨릭신문 2022-10-19 https://www.catholictimes.org/article/202210190140607 (사본 _pages/gwandeokjeong/catholictimes.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "관덕당 터 — 열일곱 분이 순교한 형장",
+      "titleEn": "The Gwandeokdang Site — Execution Ground of Seventeen Martyrs",
+      "location": "기념관이 서 있는 자리 전체",
+      "locationEn": "The whole site on which the memorial stands",
+      "narration": "지금 서 계신 이 땅은 1749년, 영조 25년에 세워진 관덕당의 터입니다. 관덕당은 군관을 뽑는 무과 시험장이었고, 그 앞의 넓은 마당은 군사 훈련장이었습니다. 조선 시대에 중죄인을 처형하는 군문효수형은 이런 연병장에서 집행되었는데, 천주교 신자들은 '사학 죄인'이라 하여 국사범으로 다루어져 바로 이곳에서 참수되었습니다. 을해박해 때 일곱 분, 기해박해 때 세 분, 병인박해 때 성 이윤일 요한을 비롯한 일곱 분, 모두 열일곱 분이 여기서 순교하셨습니다. 이곳에서는 천주교 신자뿐 아니라 동학을 창시한 최제우도 처형되었습니다. 일제강점기에 관덕당은 허물어지고 1934년에는 공설 시장이 들어섰다가 차츰 살림집들이 자리 잡았습니다.",
+      "narrationEn": "The ground you are standing on is the site of Gwandeokdang, built in 1749, the 25th year of King Yeongjo. Gwandeokdang was the examination ground for selecting military officers, and the wide yard in front of it served as a military training field. In the Joseon era, executions of serious offenders were carried out on such parade grounds, and Catholics, treated as state criminals under the charge of 'evil learning,' were beheaded right here. Seven died in the Eulhae Persecution, three in the Gihae Persecution, and seven including St. John Yi Yun-il in the Byeongin Persecution: seventeen martyrs in all. Choe Je-u, the founder of Donghak, was also executed here. Under Japanese rule Gwandeokdang was torn down, a public market opened on the site in 1934, and houses gradually took its place.",
+      "lookFor": "1층 전시실에 걸린, 이곳에서 참수된 순교자 명단 액자",
+      "lookForEn": "The framed list of martyrs beheaded here, hung in the first-floor exhibition hall",
+      "forEveryone": "조선의 군사 시험장이 처형장으로 쓰였고, 천주교 신자와 동학 창시자가 같은 자리에서 죽었습니다.",
+      "forEveryoneEn": "A Joseon military examination ground doubled as an execution site, where Catholics and the founder of Donghak died on the same spot.",
+      "photos": [],
+      "sourceNote": "주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/29 (사본 _pages/gwandeokjeong/cbck.txt) · 가톨릭신문 2022-10-19 https://www.catholictimes.org/article/202210190140607 (사본 _pages/gwandeokjeong/catholictimes.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2250&ctxtSubMenu=other&ctxtOtherID=13 (사본 _pages/gwandeokjeong/goodnews.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "지하 경당 — 서른일곱 분의 유해를 모신 제대",
+      "titleEn": "Basement Chapel — The Altar Holding the Relics of Thirty-seven Saints and Blesseds",
+      "location": "지하 경당 안 오른쪽 성인 유해실",
+      "locationEn": "The relic room on the right inside the basement chapel",
+      "narration": "지하로 내려오시면 경당이 있고, 그 오른쪽에 성인 유해실이 있습니다. 여기 모신 제대는 1902년 대구본당, 지금의 계산주교좌성당 신자들이 고딕식 성당을 지으며 봉헌한 첫 제대를 옮겨 온 것입니다. 이 제대에는 열여덟 분 성인과 열여덟 분 복자의 유해가 모셔져 있습니다. 우리나라 첫 사제 성 김대건 안드레아와 사도 바오로, 성 프란치스코 하비에르 같은 분들의 유해입니다. 박해 시대 파리외방전교회 선교사들이 죽음을 각오하고 조선으로 떠날 때 장상들이 성인의 유해를 목에 걸어 주었는데, 그 유해들이 교구청에 보관되다가 이 기념관이 세워지면서 이곳에 모셔졌습니다. 성 이윤일 요한의 유해는 1991년 1월 20일, 기념관 축성일에 미리내에서 옮겨 와 제대 아래에 봉안되었습니다. 이윤일 성인까지 모두 서른일곱 분의 유해가 이 경당에 계십니다.",
+      "narrationEn": "Downstairs is the chapel, and to its right the relic room of the saints. The altar here was brought from the Daegu parish, today's Gyesan Cathedral, where the faithful dedicated it as their first altar when they built a Gothic church in 1902. The altar holds the relics of eighteen saints and eighteen blesseds, among them St. Andrew Kim Taegon, Korea's first priest, the Apostle Paul, and St. Francis Xavier. In the age of persecution, when missionaries of the Paris Foreign Missions Society set out for Korea prepared to die, their superiors hung relics of the saints around their necks; those relics were kept at the diocesan office and enshrined here when this memorial was built. The relics of St. John Yi Yun-il were moved from Mirinae on January 20, 1991, the day the memorial was consecrated, and placed beneath the altar. Counting St. Yi, the relics of thirty-seven saints and blesseds rest in this chapel.",
+      "lookFor": "제대 아래 성 이윤일 요한의 유해",
+      "lookForEn": "The relics of St. John Yi Yun-il beneath the altar",
+      "forEveryone": "선교사들이 목에 걸고 왔던 성인 유해가 한곳에 모여 있는 유해실입니다.",
+      "forEveryoneEn": "A relic room gathering the saints' relics that missionaries once wore around their necks on the journey here.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2250&ctxtSubMenu=other&ctxtOtherID=13 (사본 _pages/gwandeokjeong/goodnews.txt) · 주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/29 (사본 _pages/gwandeokjeong/cbck.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "성 이윤일 요한 — 여우목에서 관덕당까지",
+      "titleEn": "St. John Yi Yun-il — From Yeoumok to Gwandeokdang",
+      "location": "3층 전시실, 이윤일 성인 일대기 스테인드글라스 앞",
+      "locationEn": "Third-floor exhibition hall, in front of the stained glass depicting the life of St. Yi Yun-il",
+      "narration": "3층 전시실 양쪽 창에는 성 이윤일 요한의 일대기와 대구대교구 백 년의 역사를 담은 스테인드글라스가 있습니다. 이윤일 요한은 충청도 홍주에서 태어나 아버지를 여읜 뒤 가족을 이끌고 문경 여우목으로 옮겨 가, 그곳 교우촌의 회장으로 신자들을 돌보고 이웃에게 신앙을 전했습니다. 1866년 병인박해가 일어나자 여우목에서 가족 여덟 명과 함께 붙잡혀 문경 관아와 상주 진영을 거치며 여러 차례 형벌을 받았고, '사학 죄인의 우두머리'라는 죄목으로 대구 경상감영으로 보내졌습니다. 떠나기 전 자녀들에게, 자신은 순교하러 떠나니 집에 돌아가 성실하게 천주님의 계명을 지키고 꼭 자신을 따라오라고 당부하셨습니다. 1867년 1월 21일, 쉰두 살의 나이로 관덕당에서 참수되셨습니다. 시신은 아미산에 가매장되었다가 아들의 손으로 비산동 날뫼로, 다시 경기도 용인 묵리와 미리내로 옮겨졌고, 1984년 5월 6일 교황 요한 바오로 2세에 의해 성인품에 오르셨습니다. 1987년 대구대교구 제2주보성인으로 선포되었고 1991년 이곳 지하 경당에 모셔졌습니다.",
+      "narrationEn": "The windows on both sides of the third-floor hall hold stained glass telling the life of St. John Yi Yun-il and a hundred years of the Archdiocese of Daegu. Yi Yun-il was born in Hongju, Chungcheong Province. After his father died he moved his family to Yeoumok in Mungyeong, where as leader of the Catholic village he cared for the faithful and shared the faith with his neighbors. When the Byeongin Persecution broke out in 1866 he was arrested at Yeoumok with eight members of his family, tortured repeatedly at the Mungyeong magistrate's office and the Sangju garrison, and sent to the Gyeongsang provincial office in Daegu as the 'ringleader of the evil learning.' Before leaving he told his children, \"I am going to be martyred. Go home, keep God's commandments faithfully, and be sure to follow me.\" On January 21, 1867, at the age of fifty-two, he was beheaded at Gwandeokdang. His body was buried temporarily on Amisan, moved by his son to Nalmoe in Bisan-dong, then to Mungni in Yongin and to Mirinae. He was canonized by Pope John Paul II on May 6, 1984, proclaimed the second patron saint of the Archdiocese of Daegu in 1987, and enshrined in the basement chapel here in 1991.",
+      "lookFor": "스테인드글라스 속 이윤일 성인의 여정",
+      "lookForEn": "The saint's journey as told in the stained glass",
+      "forEveryone": "여우목 교우촌의 회장이 끝까지 신앙을 지키다 관덕당에서 처형된 이야기입니다.",
+      "forEveryoneEn": "The story of the leader of the Yeoumok Catholic village, executed at Gwandeokdang for holding to his faith to the end.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2250&ctxtSubMenu=other&ctxtOtherID=13 (사본 _pages/gwandeokjeong/goodnews.txt) · 주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/29 (사본 _pages/gwandeokjeong/cbck.txt) · 가톨릭신문 2022-10-19 https://www.catholictimes.org/article/202210190140607 (사본 _pages/gwandeokjeong/catholictimes.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "전시실 — 교우촌의 역사와 선교사들의 머리카락",
+      "titleEn": "Exhibition Halls — The Catholic Villages and the Missionaries' Hair",
+      "location": "1층·2층 전시실",
+      "locationEn": "First- and second-floor exhibition halls",
+      "narration": "1층 전시실에는 역대 박해 때 이곳에서 참수된 순교자들의 이름을 적은 액자와 스테인드글라스가 있습니다. 2층 전시실은 1801년 신유박해 뒤 충청도와 전라도에 숨어 살던 신자들이 경상도 산골로 들어오면서 교우촌이 크게 늘어난 역사를 보여 줍니다. 이 전시실에는 조선으로 떠나올 때 죽음을 각오하고 잘라 두었던 선교사들의 머리카락이 있고, 계산본당 초대 주임 김보록 신부가 가실본당 신자에게 준 십자가, 한티공소의 십자고상, 박재수 요한 신부의 전교일지도 전시되어 있습니다.",
+      "narrationEn": "The first-floor hall displays a framed list of the martyrs beheaded here in each persecution, along with stained glass. The second-floor hall shows how, after the Sinyu Persecution of 1801, believers hiding in Chungcheong and Jeolla moved into the mountains of Gyeongsang, and how Catholic villages multiplied there. On display are locks of hair the missionaries cut before leaving for Korea, prepared to die; a cross that Father Kim Bo-rok, the first pastor of Gyesan parish, gave to a parishioner of Gasil; a crucifix from the Hanti mission station; and the mission diary of Father John Park Jae-su.",
+      "lookFor": "선교사들이 잘라 두고 온 머리카락",
+      "lookForEn": "The locks of hair the missionaries left behind",
+      "forEveryone": "조선으로 떠나올 때 죽음을 각오하고 잘라 둔 파리외방전교회 선교사들의 머리카락을 실물로 볼 수 있습니다.",
+      "forEveryoneEn": "Here you can see the actual locks of hair that missionaries of the Paris Foreign Missions Society cut before leaving for Korea, prepared to die.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2250&ctxtSubMenu=other&ctxtOtherID=13 (사본 _pages/gwandeokjeong/goodnews.txt) · 가톨릭신문 2022-10-19 https://www.catholictimes.org/article/202210190140607 (사본 _pages/gwandeokjeong/catholictimes.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "옥상 누각 — 십자가와 포도나무를 그린 단청",
+      "titleEn": "Rooftop Pavilion — Painted Eaves with the Cross and the Vine",
+      "location": "옥상 전망대, 누각 아래",
+      "locationEn": "Rooftop observation deck, beneath the pavilion",
+      "narration": "마지막으로 옥상에 오르시면 망루 모양의 누각이 있습니다. 누각의 단청은 언뜻 절집처럼 보이지만, 가까이서 보시면 절에서는 볼 수 없는 문양이 가득합니다. 비둘기 모양으로 내려오는 성령, 십자가를 지신 예수님, 포도나무와 백합, 물고기와 초, 구름이 그려져 있습니다. 가장 높은 곳의 그림은 순교자들이 생명을 잃었지만 이제 하느님 나라에서 영원한 생명을 누리고 있음을 말해 줍니다. 옥상 전망대에서 주변을 둘러보면 바로 이 자리에서 순교한 신앙 선조들의 모습이 아른거립니다.",
+      "narrationEn": "Finally, climb to the roof, where a watchtower-shaped pavilion stands. At first glance its painted eaves look like those of a Buddhist temple, but look closely and you will find motifs no temple has: the Holy Spirit descending as a dove, Jesus carrying the cross, the vine and the lily, fish, candles, and clouds. The painting at the very top tells that the martyrs, though they lost their lives, now enjoy eternal life in God's kingdom. As you look out over the surroundings from the rooftop deck, the figures of the forebears martyred on this very spot seem to flicker before you.",
+      "lookFor": "단청 속 비둘기·십자가·포도나무 문양",
+      "lookForEn": "The dove, cross, and vine motifs in the painted eaves",
+      "forEveryone": "한국 전통 단청 기법으로 그리스도교 상징을 그린 지붕입니다.",
+      "forEveryoneEn": "A roof where Christian symbols are painted in the traditional Korean dancheong technique.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2022-10-19 https://www.catholictimes.org/article/202210190140607 (사본 _pages/gwandeokjeong/catholictimes.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2250&ctxtSubMenu=other&ctxtOtherID=13 (사본 _pages/gwandeokjeong/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "관덕정 순교기념관 순례를 마치셨습니다. 기념관에서 가까운 대구대교구청에는 1914년에 지은 성 유스티노 신학교 건물과 성모당, 성직자 묘지가 있으니 시간이 되시면 함께 들러 보세요. 매달 첫째 토요일에는 이곳에서 후원회원 미사와 순교영성 강좌가 열립니다.",
+    "narrationEn": "This concludes our visit to the Gwandeokjeong Martyrs' Memorial. Nearby, the Archdiocese of Daegu's grounds hold the St. Justino Seminary building of 1914, the Lourdes grotto called Seongmodang, and the clergy cemetery, well worth a visit if you have time. On the first Saturday of each month a Mass for supporters and a lecture on the spirituality of martyrdom are held here.",
+    "photos": []
+  }
+}

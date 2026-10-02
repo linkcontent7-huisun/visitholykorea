@@ -5,8 +5,8 @@ set -u
 cd "$(dirname "$0")/.."
 
 COMPANION="$HOME/.claude/plugins/cache/openai-codex/codex/1.0.6/scripts/codex-companion.mjs"
-BRIEF="docs/70-agent-workspace/tasks/T-050-빠진-성지-오디오가이드/검증-지시서.md"
-DIR="data/research/missing-sites/docent"
+BRIEF="${BRIEF:-docs/70-agent-workspace/tasks/T-050-빠진-성지-오디오가이드/검증-지시서.md}"
+DIR="${DIR:-data/research/missing-sites/docent}"
 LOG="$DIR/_verify/_run.log"
 CODES="${*:-$(ls $DIR/*.json | xargs -n1 basename | sed 's/\.json$//')}"
 

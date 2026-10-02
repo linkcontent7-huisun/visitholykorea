@@ -1,0 +1,110 @@
+{
+  "siteId": "8476c254-d130-4d16-bc22-26d520f35853",
+  "siteName": "황사평 성지",
+  "slug": "hwangsapyeong",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "제주시 화북, 약 1만 8천 평의 너른 땅 황사평 성지에 오셨습니다. 이곳은 1901년 신축교안으로 희생된 천주교 신자들의 시신을 묻기 위해 나라에서 양도받은 땅에서 시작해, 지금은 제주교구 신자들의 묘지와 납골당까지 품은 추모의 공간입니다. 오늘은 신축교안의 전말을 들은 뒤 순교자 합장묘와 복사 신재순의 묘, 복자 김기량의 순교비, 그리고 화해의 탑까지 걸어 보겠습니다.",
+    "narrationEn": "Welcome to Hwangsapyeong Shrine in Hwabuk, Jeju, a broad tract of some sixty thousand square meters. It began as land ceded by the government for burying the Catholics killed in the Sinchuk Incident of 1901, and today it is a place of remembrance that also holds the cemetery and columbarium of the Diocese of Jeju's faithful. Today we will hear the story of the Sinchuk Incident, then walk to the martyrs' common grave, the grave of the altar server Sin Jae-sun, the memorial of Blessed Kim Gi-ryang, and the Tower of Reconciliation.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "묘역 입구 — 해마다 현양대회가 열리는 곳",
+      "titleEn": "Cemetery Entrance — Where the Annual Martyrs' Rally Is Held",
+      "location": "황사평 묘역 입구",
+      "locationEn": "At the entrance to the Hwangsapyeong cemetery",
+      "narration": "황사평은 총면적이 약 1만 8천 평에 이릅니다. 1903년 제주본당의 라크루 신부가 제주 목사 홍종우에게서 이 땅을 양도받을 때는 신축교안 희생자만 묻도록 되어 있었지만, 지금은 제주교구 신자들의 공동 안장지로도 쓰이고 있습니다. 1977년 9월부터 제주교구는 해마다 이곳에서 순교자 현양대회를 열어 왔고, 1980년에는 울타리 석축과 성상을 세워 공원묘지로 가꾸었습니다. 2008년부터는 순교자 묘역 앞에 납골당이 마련되어 돌아가신 이들을 기리는 추모공원이 되었습니다.",
+      "narrationEn": "Hwangsapyeong covers some sixty thousand square meters. When Father Lacrouts of Jeju parish received the land from the Jeju magistrate Hong Jong-u in 1903, it was meant only for the victims of the Sinchuk Incident, but today it also serves as the common burial ground of the Diocese of Jeju's faithful. Since September 1977 the diocese has held a martyrs' rally here every year, and in 1980 stone walls and sacred statues were added to make it a memorial park. Since 2008 a columbarium in front of the martyrs' graves has made it a memorial park for remembering the departed.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "제주 천주교 신자들에게는 순교 성지이면서 조상을 모신 가족 묘지이기도 한 곳입니다.",
+      "forEveryoneEn": "For Jeju's Catholics this is both a martyrs' shrine and a family cemetery where their ancestors rest.",
+      "photos": [],
+      "sourceNote": "한국민족문화대백과 '황사평 천주교 유적' https://encykorea.aks.ac.kr/Article/E0069929 (사본 _pages/hwangsapyeong/encykorea.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2369 (사본 _pages/hwangsapyeong/goodnews.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "1901년 신축교안 — 300여 명이 희생된 20일",
+      "titleEn": "The Sinchuk Incident of 1901 — Twenty Days That Took Over Three Hundred Lives",
+      "location": "순교자 묘역 앞",
+      "locationEn": "In front of the martyrs' graves",
+      "narration": "제주에 선교사가 처음 들어온 것은 1899년 5월, 파리외방전교회 페네 신부와 한국인 김원영 신부였습니다. 2년도 안 되어 본당 두 곳에 신자 241명, 예비신자 620명으로 늘어났습니다. 그런데 1900년 황실 재정을 채우려 새로 둔 봉세관이 온갖 잡세를 거두자 도민들의 원성이 높아졌고, 일부 신자가 그 징세를 돕고 토착 신앙의 신당을 부수는 일까지 겹쳤습니다. 1901년 5월, 대정의 상무사 회원들이 신자들을 잡아들이며 시작된 민란은 이재수를 우두머리로 제주성으로 향했고, 민군은 바로 이 황사평에 주둔했습니다. 5월 28일 제주성이 함락되면서 성안으로 피신했던 신자들이 학살당했습니다. 관덕정 앞 광장에서만 170여 명이 매를 맞고 처형되었고, 희생된 신자는 모두 300명에서 350명으로 추산됩니다. 교회는 이 일을 두고 전통 사회와 문화를 제대로 이해하지 못한 채 선교했던 점을 뒤에 인정했습니다.",
+      "narrationEn": "The first missionaries reached Jeju in May 1899: Father Peynet of the Paris Foreign Missions Society and the Korean priest Kim Won-yeong. In under two years the mission grew to two parishes with 241 believers and 620 catechumens. But in 1900 a new tax commissioner, sent to fill the imperial treasury, levied all manner of taxes and stirred the islanders' anger, and matters were made worse when some believers helped collect those taxes and destroyed shrines of the local folk religion. In May 1901 an uprising that began with members of the Sangmusa in Daejeong seizing Catholics marched on Jeju Fortress under the leader Yi Jae-su, and the rebel army camped right here at Hwangsapyeong. When the fortress fell on May 28, the believers who had taken refuge inside were massacred. In the square before Gwandeokjeong alone some 170 were beaten and executed, and the Catholic dead are estimated at 300 to 350 in all. The Church later acknowledged that it had carried out its mission without properly understanding the traditional society and culture.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "세금 수탈에 맞선 민란이 천주교 박해로 번진 사건으로, 제주에서는 '이재수의 난'으로도 불립니다.",
+      "forEveryoneEn": "An uprising against tax extortion that turned into a persecution of Catholics, known in Jeju also as the Yi Jae-su Rebellion.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2369 (사본 _pages/hwangsapyeong/goodnews.txt) · 한국민족문화대백과 https://encykorea.aks.ac.kr/Article/E0069929 (사본 _pages/hwangsapyeong/encykorea.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "순교자 합장묘 — 스물여덟 구의 무연고 유해",
+      "titleEn": "The Martyrs' Common Grave — Twenty-eight Unclaimed Bodies",
+      "location": "순교자 묘역 가운데 합장묘",
+      "locationEn": "The common grave at the center of the martyrs' cemetery",
+      "narration": "희생자들의 시신은 한동안 관덕정 앞에 그대로 놓여 있다가, 대부분은 가족이 거두어 갔고 연고 없는 시신은 별도봉과 화북천 사이 기슭에 가매장되었습니다. 1902년 8월 제주를 찾은 뮈텔 주교가 매장지를 강하게 요구했고, 프랑스 공사와 조정의 교섭 끝에 1903년 황사평이 천주교인 매장지로 결정되었습니다. 그렇게 옮겨 온 무연고 묘가 26기, 시신이 28구였습니다. 1980년에는 평장으로 모셨다가, 제주 선교 100주년을 준비하던 1995년 11월에 28구의 유해를 한곳에 모아 지금의 합장묘를 만들고 묘역을 새로 단장했습니다. 기록이 모자라 신자와 비신자, 순교자와 단순 희생자를 가려내기는 어렵지만, 제주 신자들은 이곳을 순교자 묘역으로 여기며 기도해 왔습니다.",
+      "narrationEn": "The bodies of the victims lay for a time before Gwandeokjeong; most were taken by their families, and those with no one to claim them were buried temporarily on the slope between Byeoldobong and the Hwabuk stream. Bishop Mutel, visiting Jeju in August 1902, pressed hard for a burial ground, and after negotiations between the French legation and the Korean court, Hwangsapyeong was designated a Catholic burial site in 1903. Twenty-six unclaimed graves holding twenty-eight bodies were moved here. In 1980 they were reburied as flat graves, and in November 1995, preparing for the centenary of the Jeju mission, the twenty-eight were gathered into the present common grave and the cemetery was renewed. The records are too thin to distinguish believer from non-believer or martyr from mere victim, but Jeju's Catholics have long regarded this as the martyrs' cemetery and prayed here.",
+      "lookFor": "28구의 유해를 한데 모신 합장묘",
+      "lookForEn": "The common grave holding the twenty-eight bodies",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2369 (사본 _pages/hwangsapyeong/goodnews.txt) · 한국민족문화대백과 https://encykorea.aks.ac.kr/Article/E0069929 (사본 _pages/hwangsapyeong/encykorea.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "복사 신재순 아우구스티노의 묘",
+      "titleEn": "The Grave of Augustine Sin Jae-sun, the Altar Server",
+      "location": "순교자 묘역 안",
+      "locationEn": "Inside the martyrs' cemetery",
+      "narration": "순교자 묘역에는 1993년에 옮겨 온 두 기의 무덤이 있습니다. 신축교안 희생자 김 토마스와, 라크루 신부의 복사였던 열여덟 살 신재순 아우구스티노입니다. 라크루 신부가 뮈텔 주교에게 보낸 1901년 6월 11일자 편지에는 그날의 일이 적혀 있습니다. 동헌 마당에서 천주교 아이놈은 어디 있느냐는 외침이 들렸고, 벽장에 숨어 있던 아우구스티노는 붙잡혀 고문을 당한 뒤 뺨에 총을 맞고 '아버지, 예수님, 성모님'을 부르며 숨졌습니다. 신부는 그를 순진하고 양식을 갖춘 신자로, 천사와 같은 삶을 살았던 헌신적인 젊은이로 기억했습니다.",
+      "narrationEn": "Two graves in the martyrs' cemetery were moved here in 1993: that of Thomas Kim, a victim of the Sinchuk Incident, and that of Augustine Sin Jae-sun, Father Lacrouts' eighteen-year-old altar server. In a letter to Bishop Mutel dated June 11, 1901, Father Lacrouts recorded what happened that day. From the magistrate's courtyard came shouts asking where the Catholic boy was; Augustine, hiding in a closet, was caught and tortured, then shot in the cheek, and died calling on the Father, Jesus, and Mary. The priest remembered him as an innocent and sensible Catholic, a devoted young man who had lived a life like an angel's.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "이름이 남은 몇 안 되는 희생자 가운데 한 사람입니다.",
+      "forEveryoneEn": "One of the very few victims whose name has been preserved.",
+      "photos": [],
+      "sourceNote": "굿뉴스 (차기진, 사목 2000년 3월호 · 라크루 신부 서한) https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2369 (사본 _pages/hwangsapyeong/goodnews.txt) · 한국민족문화대백과 https://encykorea.aks.ac.kr/Article/E0069929 (사본 _pages/hwangsapyeong/encykorea.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "복자 김기량 펠릭스 베드로 순교비",
+      "titleEn": "Memorial of Blessed Felix Peter Kim Gi-ryang",
+      "location": "묘역 안 순교비 앞",
+      "locationEn": "In front of the martyrs' memorial stone in the cemetery",
+      "narration": "1998년 9월 27일 순교자 현양대회에서 제막한 이 비는 제주 출신 첫 신자 김기량 펠릭스 베드로의 순교비입니다. 그는 1816년 함덕리의 중인 집안에서 태어나 배를 타고 장사를 하던 사람으로, 1857년 2월 바다에서 풍랑을 만나 표류하다 중국 광동 해역에서 영국 배에 구조되었습니다. 홍콩의 파리외방전교회 극동 대표부로 보내진 그는 그곳에서 교리를 배워 그해 5월 31일 세례를 받고 돌아왔습니다. 페롱 신부와 최양업 신부는 그가 '제주의 사도'가 되리라 믿었고, 실제로 그는 가족과 사공들에게 열심히 복음을 전했습니다. 1866년 병인박해가 일어난 직후 무역을 하러 통영에 갔다가 신자임이 드러나 체포되었고, 여러 차례 형벌에도 굴하지 않다가 1867년 1월 동료들과 함께 옥에서 교수형으로 순교했습니다. 2014년 8월 16일 광화문 광장에서 프란치스코 교황에 의해 복자품에 올랐습니다.",
+      "narrationEn": "Unveiled at the martyrs' rally on September 27, 1998, this stone commemorates Felix Peter Kim Gi-ryang, the first Catholic born on Jeju. Born in 1816 to a family of the middle class in Hamdeok-ri, he traded by sea, and in February 1857 his boat was caught in a storm and drifted until an English ship rescued him in the waters off Guangdong, China. Sent to the Paris Foreign Missions Society's Far East headquarters in Hong Kong, he learned the faith there, was baptized on May 31 that year, and returned home. Father Feron and Father Choe Yang-eop believed he would become 'the apostle of Jeju,' and he did preach the Gospel eagerly to his family and his boatmen. Just after the Byeongin Persecution began in 1866 he went to Tongyeong to trade, was discovered to be a Catholic and arrested, and after refusing to yield under repeated torture was hanged in prison with his companions in January 1867. He was beatified by Pope Francis in Gwanghwamun Square on August 16, 2014.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "풍랑에 떠밀려 홍콩까지 갔다가 신자가 되어 돌아온, 바다 사람의 이야기입니다.",
+      "forEveryoneEn": "The story of a seafarer swept by storm to Hong Kong, who came home a Christian.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2369 (사본 _pages/hwangsapyeong/goodnews.txt) · 한국민족문화대백과 https://encykorea.aks.ac.kr/Article/E0069929 (사본 _pages/hwangsapyeong/encykorea.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "성직자 묘역과 화해의 탑",
+      "titleEn": "The Clergy Cemetery and the Tower of Reconciliation",
+      "location": "순교자 묘역 한편의 성직자 묘역, 그리고 화해의 탑",
+      "locationEn": "The clergy cemetery at one side of the martyrs' cemetery, and the Tower of Reconciliation",
+      "narration": "묘역 한편의 성직자 묘역에는 초대 제주지목구장 현 해롤드 대주교와 서귀포본당에서 일한 나 토마스 신부, 성서학자 임승필 요셉 신부가 잠들어 있습니다. 1998년 9월 20일에는 이곳에 공덕비를 세웠습니다. 1899년 이후 100여 년 동안 제주에 들어와 사목한 외국인 사제 55명 가운데 먼저 선종한 열여섯 분의 이름이 새겨져 있습니다. 그리고 2022년 5월 29일, 신축교안 120주년을 맞아 '화해의 탑'이 세워졌습니다. 제주교구와 '1901년 제주항쟁 100주년 기념사업회'는 2003년 11월 7일 화해 선언문을 함께 발표하며 100년 동안 평행선을 달려온 양쪽의 과거사를 새로 정리했습니다. 교회는 전통 사회를 이해하지 못한 채 선교했던 점을, 도민 사회는 봉기 과정에서 무고한 신자들이 희생된 점을 서로 인정했고, 그때 약속한 탑이 이것입니다.",
+      "narrationEn": "In the clergy cemetery at one side of the grounds rest Archbishop Harold Henry, the first prefect apostolic of Jeju, Father Thomas Ryan who served at Seogwipo parish, and the biblical scholar Father Joseph Im Seung-pil. On September 20, 1998, a memorial stele was raised here, inscribed with the names of the sixteen foreign priests who had already died among the fifty-five who came to minister on Jeju in the hundred years after 1899. Then on May 29, 2022, marking the 120th anniversary of the Sinchuk Incident, the Tower of Reconciliation was erected. On November 7, 2003, the Diocese of Jeju and the committee for the centenary of the 1901 Jeju Uprising had jointly issued a declaration of reconciliation, reframing a history on which the two sides had run on parallel lines for a century. The Church acknowledged that it had carried out its mission without understanding the traditional society, and the islanders acknowledged that innocent believers had died in the uprising; this tower is what they promised then.",
+      "lookFor": "공덕비에 새겨진 외국인 사제 열여섯 분의 이름",
+      "lookForEn": "The names of the sixteen foreign priests inscribed on the memorial stele",
+      "forEveryone": "가해와 피해가 뒤얽힌 역사를 교회와 지역 사회가 함께 정리한 보기 드문 사례입니다.",
+      "forEveryoneEn": "A rare example of a church and a local community jointly coming to terms with a history in which harm ran both ways.",
+      "photos": [],
+      "sourceNote": "한국민족문화대백과 https://encykorea.aks.ac.kr/Article/E0069929 (사본 _pages/hwangsapyeong/encykorea.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2369 (사본 _pages/hwangsapyeong/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "황사평 성지 순례를 마치셨습니다. 1901년의 비극과 100년 뒤의 화해가 한자리에 있는 곳입니다. 170여 명이 처형된 제주 관덕정 앞 광장과, 김기량 복자의 고향 함덕의 순교 기념관도 멀지 않으니 함께 찾아보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to Hwangsapyeong Shrine, where the tragedy of 1901 and the reconciliation a century later stand in one place. The square before Gwandeokjeong in Jeju, where some 170 were executed, and the memorial hall of Blessed Kim Gi-ryang in his home village of Hamdeok are not far, and are worth visiting together.",
+    "photos": []
+  }
+}
