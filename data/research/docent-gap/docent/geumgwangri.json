@@ -1,0 +1,95 @@
+{
+  "siteId": "a2f90f8e-e627-4659-b5bb-5be6a75c526c",
+  "siteName": "금광리 공소",
+  "slug": "geumgwangri",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "강릉시 구정면, 금광리 공소에 오셨습니다. 현판에 '1887년 창립'이라 적힌 이 공소는 강릉 지역 천주교의 모태입니다. 병인박해를 피해 경주와 여주 등지에서 온 신자들이 옹기를 굽고 농사를 지으며 은밀히 신앙을 지키던 마을로, 원산 본당 신부가 배를 타고 와 전교했고, 1921년에는 잠시 본당이 되었다가 1923년 주문진으로 옮겨 가며 다시 공소가 되었습니다. 오늘은 공소 현판에서 시작해 옹기 마을의 신자들, 배를 타고 온 신부들, 1921년의 본당과 주문진으로의 이전, 그리고 삼정평 공소 논쟁까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to Geumgwangni Mission Station in Gujeong-myeon, Gangneung. This station, whose signboard reads 'founded 1887,' is the cradle of Catholicism in the Gangneung area. It was a village where believers who had fled the Byeongin Persecution from Gyeongju, Yeoju, and elsewhere kept their faith in secret while firing pottery and farming; the priest of Wonsan parish came by boat to minister here, and in 1921 it briefly became a parish before the seat moved to Jumunjin in 1923 and it returned to being a station. Today we will begin at the station's signboard, then look at the believers of the pottery village, the priests who came by sea, the parish of 1921 and the move to Jumunjin, and the question of the Samjeongpyeong station.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "'1887년 창립' — 현판이 전하는 강릉 천주교의 모태",
+      "titleEn": "'Founded 1887' — The Cradle of Gangneung Catholicism, as the Signboard Tells",
+      "location": "공소 현판 앞",
+      "locationEn": "In front of the station signboard",
+      "narration": "금광리 공소는 1887년에 설립된 강릉 지역 천주교의 모태로, 국내의 역사적 소용돌이 속에서도 잡초처럼 신앙의 씨앗이 싹튼 곳입니다. 「증수임영지」에는 구한말 19세기 말경 구정면 금광리와 내곡동 등지에 천주교인들이 이주해 옹기 굽는 일이나 농사를 지으며 은밀하게 전교하고 있었다고 적혀 있고, 지금 공소 현판의 '1887년 창립'과 들어맞습니다. 지금 공소 건물은 1950년대에 본래 있던 공소 터에서 길가 쪽으로 옮겨 지은 것이고, 행정구역상 어단리에 속해 어단리 공소로도 불렸습니다. 현재는 1987년 설립된 강릉 노암동 성당의 관할 공소입니다.",
+      "narrationEn": "Geumgwangni station, founded in 1887, is the cradle of Catholicism in the Gangneung area, a place where the seed of faith sprouted like a weed through the storms of Korean history. The 'Jeungsu Imyeongji,' a local gazetteer, records that in the late nineteenth century Catholics moved to Geumgwang-ri and Naegok-dong in Gujeong-myeon and spread the faith quietly while firing pottery and farming, which agrees with the 'founded 1887' on the station's signboard. The present building was moved toward the roadside from the original site in the 1950s, and since it lies administratively in Eodan-ri it has also been called Eodanni station. Today it belongs to Noam-dong parish in Gangneung, founded in 1987.",
+      "lookFor": "'1887년 창립'이라 적힌 공소 현판",
+      "lookForEn": "The station signboard reading 'founded 1887'",
+      "forEveryone": "옹기 굽는 마을에서 동해안 강릉의 천주교가 시작되었습니다.",
+      "forEveryoneEn": "Catholicism in Gangneung on the east coast began in a village of potters.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '금광리 공소' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2265 (사본 _pages/geumgwangri/goodnews.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "경주와 여주에서 온 피난민 — 공소 회장들의 증언",
+      "titleEn": "Refugees from Gyeongju and Yeoju — Testimony of the Station Leaders",
+      "location": "공소 마당",
+      "locationEn": "The station yard",
+      "narration": "강원도 영동 지역에 천주교가 적극적으로 전파된 계기는 1866년 대원군이 일으킨 병인박해였습니다. 금광리 공소 회장으로 오래 봉사한 김중철 필립보 씨는 증조부와 증조모가 교우들과 함께 박해를 피해 경주에서 금광리로 왔다고 증언했고, 이영녀 씨는 시아버지 조중서 씨가 소년 시절 경기도 여주에서 피난해 왔다고 했으며, 명지리 공소의 김정옥 씨도 증조부 김 요한이 대원군의 박해를 피해 금광리에 정착했다고 했습니다. 드브레 주교는 1923년 가을 이곳을 방문한 뒤 병인박해 이후에 교우촌이 형성되기 시작했다고 기록했고, 경향잡지 1921년 9월호는 영동 교우들이 병인박해 때 전라, 충청, 경기도에서 피난해 넘어온 이들이라고 전합니다.",
+      "narrationEn": "What first drove the spread of Catholicism in the Yeongdong region of Gangwon was the Byeongin Persecution launched by the Daewongun in 1866. Philip Kim Jung-cheol, long the leader of Geumgwangni station, testified that his great-grandparents came from Gyeongju to Geumgwang-ri with fellow believers to escape persecution; Yi Yeong-nyeo said her father-in-law Jo Jung-seo had fled here as a boy from Yeoju in Gyeonggi; and Kim Jeong-ok of the Myeongji-ri station said her great-grandfather John Kim settled at Geumgwang-ri to escape the Daewongun's persecution. Bishop Devred, after visiting in the autumn of 1923, recorded that the Catholic village began to form after the Byeongin Persecution, and the September 1921 issue of the Kyunghyang magazine describes the believers of Yeongdong as refugees who crossed over from Jeolla, Chungcheong, and Gyeonggi during that persecution.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "지금 공소 회장의 증조부 세대가 박해를 피해 이 마을에 왔습니다.",
+      "forEveryoneEn": "The great-grandparents of today's station leader came to this village fleeing persecution.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '금광리 공소' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2265 (사본 _pages/geumgwangri/goodnews.txt); 춘천교구 성지 '금광리 공소' https://www.cccatholic.or.kr/parish/holyland/10 (사본 _pages/geumgwangri/cccatholic.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "배를 타고 온 신부들 — 원산과 안변 본당의 순방",
+      "titleEn": "Priests Who Came by Boat — Visits from the Wonsan and Anbyeon Parishes",
+      "location": "공소 마당",
+      "locationEn": "The station yard",
+      "narration": "공소 초기에는 원산의 백응만 신부가 배를 타고 와서 전교했고, 그 뒤 안변과 원산 본당의 주 신부, 표 신부도 배를 타고 와서 전교했다고 합니다. 교세통계표에 금광리가 처음 나오는 것은 1890년 풍수원 르메르 신부의 보고이고, 샤르즈뵈프 신부는 1893년 연말 보고에서 삼정평 공소에서 19리밖에 안 되는 옹기 마을로서 매우 큰 마을이라고 적었습니다. 1900년에는 100여 명의 신자가 있어 공소로 쓰는 집 말고도 선교사가 방문할 때만 쓰는 집을 따로 지어 두었습니다.",
+      "narrationEn": "In the station's early days Father Baek Eung-man of Wonsan came by boat to minister, and later Fathers Ju and Pyo of the Anbyeon and Wonsan parishes also came by sea. Geumgwang-ri first appears in the church statistics in the 1890 report of Father Le Merre of Pungsuwon, and in his year-end report of 1893 Father Chargeboeuf described it as a very large pottery village only nineteen ri from the Samjeongpyeong station. By 1900 there were some hundred believers, who kept, besides the house used as the station, a separate house used only when missionaries visited.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "길이 험한 동해안이라 신부가 배로 찾아왔습니다.",
+      "forEveryoneEn": "On the rugged east coast, the priest came by boat.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '금광리 공소' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2265 (사본 _pages/geumgwangri/goodnews.txt); 춘천교구 성지 https://www.cccatholic.or.kr/parish/holyland/10 (사본 _pages/geumgwangri/cccatholic.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "1921년의 본당, 1923년 주문진으로 — 영동의 두 번째 본당",
+      "titleEn": "A Parish in 1921, Jumunjin in 1923 — Yeongdong's Second Parish",
+      "location": "공소 앞",
+      "locationEn": "In front of the station",
+      "narration": "원산 본당에 속했던 영동 지방에서 1921년 가을 판공 때 금광리 신자들은 양양 본당 최문식 주임신부에게 보좌 이철연 신부를 금광리에 보내 달라고 청했습니다. 강릉 이남의 공소들은 신자가 많았고 양양 본당과도 멀었기 때문입니다. 최문식 신부는 그해 12월 이철연 신부를 보내 금광리 본당, 곧 주문진 본당의 전신을 세웠고, 그래서 영동 지역에는 1921년에 두 본당이 생겼습니다. 1922년 당시 관할 공소는 양양 견불, 구정면 제비골, 옥계 오일골, 정선 느랏이었습니다. 그러나 이곳이 거주하기에 적당하지 않고 발전 가능성도 적다고 본 드브레 주교의 지시로 1923년 주문진에 성당 부지를 사서 그해 11월 23일 본당이 옮겨 갔고, 금광리는 다시 공소가 되었습니다.",
+      "narrationEn": "In the autumn of 1921, at the time of the Easter-and-Christmas confessions, the believers of Geumgwang-ri in the Yeongdong region, then under Wonsan parish, asked Father Choe Mun-sik, pastor of Yangyang, to send his assistant Father Yi Cheol-yeon to them, for the stations south of Gangneung had many believers and lay far from Yangyang. That December Father Choe sent Father Yi, founding Geumgwangni parish, the forerunner of Jumunjin parish, so that two parishes arose in Yeongdong in 1921. In 1922 its stations were Gyeonbul in Yangyang, Jebigol in Gujeong-myeon, Oilgol in Okgye, and Neurat in Jeongseon. But on the instruction of Bishop Devred, who judged the place unsuitable for residence and lacking in prospects, land was bought at Jumunjin in 1923 and the parish moved there on November 23 that year, and Geumgwang-ri became a station again.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "본당이 된 지 2년 만에 바닷가 읍내로 옮겨 가고 마을은 공소로 남았습니다.",
+      "forEveryoneEn": "Two years after becoming a parish, the seat moved to the seaside town and the village stayed a station.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '금광리 공소' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2265 (사본 _pages/geumgwangri/goodnews.txt); 춘천교구 성지 https://www.cccatholic.or.kr/parish/holyland/10 (사본 _pages/geumgwangri/cccatholic.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "영동 최초의 공소는 어디인가 — 삼정평 공소 논쟁",
+      "titleEn": "Which Was Yeongdong's First Station? — The Samjeongpyeong Question",
+      "location": "공소 앞",
+      "locationEn": "In front of the station",
+      "narration": "지금까지 영동 지역 최초의 공소는 원산교구 소속이던 이곳 구정면 금광리 공소로 알려져 왔습니다. 그러나 「뮈텔 주교 일기」를 자세히 분석한 최근 연구에 따르면, 지금은 없어진 구정면 금광리 삼정평 공소를 최초로 보아야 한다는 의견도 있습니다. 같은 금광리 안의 두 자리를 두고 연구가 이어지고 있습니다.",
+      "narrationEn": "Until now the first station in the Yeongdong region has been taken to be this one, Geumgwangni station in Gujeong-myeon, once under the Diocese of Wonsan. Recent research based on a close reading of Bishop Mutel's diary, however, suggests that the now-vanished Samjeongpyeong station, also in Geumgwang-ri, should be counted as the first. Study of the two sites within the same village continues.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '금광리 공소' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2265 (사본 _pages/geumgwangri/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "금광리 공소 순례를 마치셨습니다. 이 공소에서 옮겨 간 주문진 성당과, 한국전쟁 때 이 지역에서 순교한 라 파트리치오 신부의 옥계 순교 터를 이어 찾아보시기 바랍니다.",
+    "narrationEn": "This concludes our visit to Geumgwangni Mission Station. Continue to Jumunjin Church, to which the parish moved from here, and to the martyrdom site at Okgye of Father Patrick Reilly, killed in this region during the Korean War.",
+    "photos": []
+  }
+}

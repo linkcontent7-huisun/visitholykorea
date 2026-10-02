@@ -1,0 +1,95 @@
+{
+  "siteId": "5671a051-b259-49d8-a404-7bcfcd1f0eb1",
+  "siteName": "묵호 성당",
+  "slug": "mukho",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "동해시 발한로, 묵호 성당에 오셨습니다. 1948년 6월 본당이 되었지만 성전이 없어 항구 근처 일본식 집에서 미사를 드리던 이 본당은, 1949년 부임한 라 파트리치오 신부가 한국전쟁 중 순교하면서 주임 없는 곳이 되었습니다. 전쟁 뒤 퀸란 교구장이 전쟁 순교 사제들을 기념하려고 지은 세 성당 가운데 하나로 1957년 6월 준공되어 '바다의 별'을 주보로 삼았고, 성당 안에 성 김대건 신부의 유해 일부를 모셨습니다. 오늘은 성당에서 시작해 항구의 임시 사제관, 라 신부의 순교와 공석의 시절, 1957년의 기념 성당, 가난한 아이들을 위한 학교, 그리고 순교비와 추모의 날까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to Mukho Church on Balhan-ro in Donghae. This parish, founded in June 1948 but without a church, so that Mass was celebrated in a Japanese-style house near the harbor, was left without a pastor when Father Patrick Reilly, who arrived in 1949, was martyred in the Korean War. One of three churches Bishop Quinlan built after the war in memory of priests martyred in it, it was completed in June 1957 with 'Star of the Sea' as its patron and enshrines a relic of St. Andrew Kim Taegon. Today we will begin at the church, then look at the temporary rectory by the harbor, Father Reilly's martyrdom and the years without a pastor, the memorial church of 1957, the school for poor children, and the memorial and day of remembrance.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "1957년 6월 준공 — '바다의 별'과 김대건 신부의 유해",
+      "titleEn": "Completed June 1957 — 'Star of the Sea' and a Relic of Father Kim Taegon",
+      "location": "성당 정면",
+      "locationEn": "In front of the church",
+      "narration": "전쟁 뒤 퀸란 교구장은 전쟁 당시 순교한 신부들을 기념하기 위해 소양로, 묵호, 삼척 세 곳에 성당을 새로 지으려 했고, 1957년 6월 지금의 묵호 성당 건물을 준공해 주보를 '바다의 별'이라 했습니다. 성당 안에는 성 김대건 신부의 유해 일부를 모셨습니다. 동해의 항구 도시에 어울리는 주보입니다.",
+      "narrationEn": "After the war Bishop Quinlan set out to build new churches in three places, Soyangno, Mukho, and Samcheok, in memory of the priests martyred during the war, and in June 1957 the present Mukho Church was completed with 'Star of the Sea' as its patron. A relic of St. Andrew Kim Taegon is enshrined inside. It is a patron well suited to a harbor town on the East Sea.",
+      "lookFor": "성당 안에 모신 성 김대건 신부의 유해",
+      "lookForEn": "The relic of St. Andrew Kim Taegon enshrined in the church",
+      "forEveryone": "항구 성당의 수호자 이름이 '바다의 별'입니다.",
+      "forEveryoneEn": "A harbor church whose patron is the 'Star of the Sea.'",
+      "photos": [],
+      "sourceNote": "춘천교구 성지 '묵호 성당' https://www.cccatholic.or.kr/parish/holyland/12 (사본 _pages/mukho/cccatholic.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "1948년 6월 — 성전 없는 본당, 묵호항의 일본식 가옥",
+      "titleEn": "June 1948 — A Parish without a Church, a Japanese House by Mukho Harbor",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "묵호 본당은 임당동 본당 관할 공소에서 1948년 6월 본당으로 승격되었습니다. 그러나 성전이 마련되지 않아 초대 주임 한 프란치스코 맥건 신부는 묵호항 부근의 일본식 가옥에 임시 사제관을 두고 미사를 집전하며 사목했습니다. 1949년 8월 라 파트리치오 신부가 부임했습니다.",
+      "narrationEn": "Mukho parish was raised from a station under Imdang-dong parish to a parish in June 1948. But with no church yet built, its first pastor, Father Francis McGann, set up a temporary rectory in a Japanese-style house near Mukho harbor and celebrated Mass there. In August 1949 Father Patrick Reilly arrived as pastor.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "춘천교구 성지 '묵호 성당' https://www.cccatholic.or.kr/parish/holyland/12 (사본 _pages/mukho/cccatholic.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "주임 없는 본당 — 라 신부의 순교와 삼척으로 다니던 미사",
+      "titleEn": "A Parish without a Pastor — Father Reilly's Martyrdom and Mass in Samcheok",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "라 파트리치오 신부는 한국전쟁이 일어나자 양들을 버리고 목자가 혼자 도망갈 수 없다며 피란을 거절했고, 숨어서 미사를 드리다 신고로 체포되어 1950년 8월 29일 밤재골에서 총살당했습니다. 그래서 묵호 본당은 주임신부 없는 곳이 되었습니다. 주임이 공석인 동안 신자들은 인근 삼척 본당으로 미사를 다녔고, 1954년에는 삼척 성내동 본당 관할 공소가 되었습니다.",
+      "narrationEn": "When the Korean War broke out, Father Patrick Reilly refused to flee, saying a shepherd could not run away and leave his sheep; celebrating Mass in hiding, he was betrayed, arrested, and shot at Bamjaegol on August 29, 1950. Mukho parish was thus left without a pastor. While the post stood vacant the faithful traveled to nearby Samcheok parish for Mass, and in 1954 Mukho became a station under Seongnae-dong parish in Samcheok.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "신부를 잃은 신자들이 몇 해 동안 이웃 도시로 미사를 다녔습니다.",
+      "forEveryoneEn": "Having lost their priest, the faithful traveled to the next town for Mass for several years.",
+      "photos": [],
+      "sourceNote": "춘천교구 성지 '묵호 성당' https://www.cccatholic.or.kr/parish/holyland/12 (사본 _pages/mukho/cccatholic.txt); 춘천교구 '라 파트리치오 신부 순교 터' https://www.cccatholic.or.kr/parish/holyland/11 (사본 _pages/ra-patricio/cccatholic.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "남호고등공민학교 — 가난한 아이들을 위한 15년",
+      "titleEn": "Namho Civic High School — Fifteen Years for Poor Children",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "묵호 본당은 지역 사회 가난한 가정의 자녀들을 위한 교육 사업으로 1968년 11월 남호실업중고등학교를 인수해 남호고등공민학교로 이름을 바꾸고 15년 동안 교육 사업을 이어 가다 1982년 2월 폐교했습니다. 1992년 1월 원주교구 소속 천곡동 본당이 아파트 밀집 지역에 신설되면서 관할 구역 신자들의 교적이 정리되었고, 이를 계기로 묵호 본당의 교세는 감소 추세로 돌아섰습니다.",
+      "narrationEn": "As a work of education for children of poor families in the community, Mukho parish took over Namho Vocational Middle and High School in November 1968, renamed it Namho Civic High School, and ran it for fifteen years before closing it in February 1982. In January 1992, when Cheongok-dong parish of the Diocese of Wonju was founded in a dense apartment district, the parish registers of believers in that area were transferred, and from then on Mukho's congregation began to decline.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "성당이 15년 동안 학교를 운영해 가난한 아이들을 가르쳤습니다.",
+      "forEveryoneEn": "For fifteen years the parish ran a school to teach poor children.",
+      "photos": [],
+      "sourceNote": "춘천교구 성지 '묵호 성당' https://www.cccatholic.or.kr/parish/holyland/12 (사본 _pages/mukho/cccatholic.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "1974년의 순교비 — 순교자를 모신 공동체",
+      "titleEn": "The Memorial of 1974 — A Community That Honors Its Martyr",
+      "location": "라 파트리치오 신부 순교비 앞",
+      "locationEn": "In front of the memorial to Father Patrick Reilly",
+      "narration": "묵호 본당 신자들은 순교자를 모신 공동체로서 1974년 라 파트리치오 신부 순교비를 세웠고, 해마다 라 신부의 순교일 즈음에 추모의 날을 지내고 있습니다. 신자들이 밤재골에 세운 순교비가 영동선 터널 입구에 있어 위험해지자 춘천교구는 2021년 강릉 옥계면 낙풍리에 새 순례지를 조성했습니다.",
+      "narrationEn": "As a community that honors its martyr, the parishioners of Mukho raised a memorial to Father Patrick Reilly in 1974 and keep a day of remembrance each year around the date of his death. When the memorial they had set up at Bamjaegol proved dangerous at the mouth of a tunnel on the Yeongdong line, the Diocese of Chuncheon created a new pilgrimage site at Nakpung-ri in Okgye-myeon, Gangneung, in 2021.",
+      "lookFor": "1974년에 세운 라 파트리치오 신부 순교비",
+      "lookForEn": "The memorial to Father Patrick Reilly raised in 1974",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "춘천교구 성지 '묵호 성당' https://www.cccatholic.or.kr/parish/holyland/12 (사본 _pages/mukho/cccatholic.txt); 춘천교구 '라 파트리치오 신부 순교 터' https://www.cccatholic.or.kr/parish/holyland/11 (사본 _pages/ra-patricio/cccatholic.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "묵호 성당 순례를 마치셨습니다. 라 파트리치오 신부가 순교한 강릉 옥계의 순례지와, 같은 뜻으로 지은 춘천 소양로 성당을 이어 찾으시면 한국전쟁 순교 사제들을 기리는 세 성당의 뜻을 함께 보실 수 있습니다.",
+    "narrationEn": "This concludes our visit to Mukho Church. Continue to the pilgrimage site at Okgye in Gangneung, where Father Patrick Reilly died, and to Soyangno Church in Chuncheon, built with the same purpose, to see the meaning of the three churches that honor the priests martyred in the Korean War.",
+    "photos": []
+  }
+}

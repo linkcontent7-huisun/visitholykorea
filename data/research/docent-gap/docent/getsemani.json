@@ -1,0 +1,95 @@
+{
+  "siteId": "1d5c3163-e82c-4375-a634-423e125f9224",
+  "siteName": "겟세마니 피정의 집",
+  "slug": "getsemani",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "인제군 남면 소양강변, 겟세마니 피정의 집에 오셨습니다. 성 골롬반 외방선교회의 호주인 사제 조선희 필립보 신부가 세상의 평화와 죄인들의 회개를 위해 세운 순례 장소입니다. 일제강점기에 구금과 추방을 겪고 한국전쟁 때는 '죽음의 행진'과 3년의 포로 생활을 견딘 뒤 세 번째로 한국에 돌아온 그는, 1990년 은퇴하고 38선 위 이 자리에 1991년 '평화와 보속을 위한 기도의 집'을 지었습니다. 오늘은 피정의 집에서 시작해 조선희 신부의 세 번의 입국, 죽음의 행진, 기도의 집 건립, 그리고 '제 영혼의 반은 한국에 두고 갑니다'라는 작별까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to the Gethsemane Retreat House on the banks of the Soyang River in Nam-myeon, Inje. It is a place of pilgrimage founded by Father Philip Crosbie, an Australian priest of the Missionary Society of St. Columban, for the peace of the world and the conversion of sinners. Imprisoned and expelled under Japanese rule, a survivor of the 'Death March' and three years as a prisoner during the Korean War, he returned to Korea a third time, and after retiring in 1990 he built the 'House of Prayer for Peace and Penance' here on the line of the 38th parallel in 1991. Today we will begin at the retreat house, then look at Father Crosbie's three arrivals in Korea, the Death March, the building of the house of prayer, and his farewell, 'I leave half my soul in Korea.'",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "소양강변의 기도의 집 — 평화와 회개와 보속을 위한 순례 장소",
+      "titleEn": "A House of Prayer on the Soyang River — A Place of Pilgrimage for Peace, Repentance, and Penance",
+      "location": "피정의 집 입구",
+      "locationEn": "At the entrance to the retreat house",
+      "narration": "인제군 소양강변에 자리한 겟세마니 피정의 집은 성 골롬반 외방선교회 조선희 필립보 신부, 필립 크로스비 신부가 세운 평화와 회개, 보속을 위한 순례 장소입니다. 1991년 지금 자리에 세워진 '평화와 보속을 위한 기도의 집'은 1996년 '겟세마니 피정의 집'으로 이름을 바꾸었습니다. 이곳은 38선상으로, 일제강점기와 한국전쟁 같은 격동의 현대사를 함께 겪은 조선희 신부가 세상의 평화와 죄인들의 회개를 위해 기도하는 공간으로 만들었다는 데 뜻이 있습니다.",
+      "narrationEn": "The Gethsemane Retreat House on the Soyang River in Inje is a place of pilgrimage for peace, repentance, and penance founded by Father Philip Crosbie of the Missionary Society of St. Columban, known in Korea as Jo Seon-hui. Built on this site in 1991 as the 'House of Prayer for Peace and Penance,' it was renamed the 'Gethsemane Retreat House' in 1996. Its significance lies in its location on the 38th parallel, and in the fact that Father Crosbie, who lived through the turmoil of Korea's modern history from the Japanese occupation to the Korean War, created it as a place to pray for the peace of the world and the conversion of sinners.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "분단선이 지나는 강가에 평화를 위해 기도하는 집을 지었습니다.",
+      "forEveryoneEn": "On a riverbank crossed by the dividing line, a house was built to pray for peace.",
+      "photos": [],
+      "sourceNote": "춘천교구 성지 '겟세마니 피정의 집(신앙의 증인, 조선희 필립보 신부)' https://www.cccatholic.or.kr/parish/holyland/16 (사본 _pages/getsemani/cccatholic.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "1940년 춘천교구로 — 일제강점기의 구금과 추방",
+      "titleEn": "To the Diocese of Chuncheon in 1940 — Imprisonment and Expulsion under Japanese Rule",
+      "location": "피정의 집 안",
+      "locationEn": "Inside the retreat house",
+      "narration": "조선희 신부는 1915년 호주에서 태어나 1939년 사제품을 받고 1940년 춘천교구에서 사목을 시작했습니다. 일제강점기에 강제 구금과 추방을 경험한 그는 해방 뒤 다시 돌아와 1947년 홍천 본당에 부임해 성당 건축을 시작했지만, 한국전쟁이 터지면서 공사는 중단되고 짓던 성당도 파괴되었습니다.",
+      "narrationEn": "Father Crosbie was born in Australia in 1915, ordained in 1939, and began his ministry in the Diocese of Chuncheon in 1940. Forcibly detained and expelled under Japanese rule, he returned after liberation and in 1947 took charge of Hongcheon parish, where he began building a church; but with the outbreak of the Korean War the work stopped and the half-built church was destroyed.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "춘천교구 성지 https://www.cccatholic.or.kr/parish/holyland/16 (사본 _pages/getsemani/cccatholic.txt); 춘천교구 '홍천 성당' https://www.cccatholic.or.kr/parish/holyland/18 (사본 _pages/hongcheon/cccatholic.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "죽음의 행진과 압록강변의 3년 — 포로가 남긴 기록",
+      "titleEn": "The Death March and Three Years on the Yalu — A Prisoner's Record",
+      "location": "피정의 집 안",
+      "locationEn": "Inside the retreat house",
+      "narration": "한국전쟁이 일어나자 조선희 신부는 공산군에게 체포되어 서울을 거쳐 이북으로 끌려가는 '죽음의 행진'을 겪었습니다. 그 행진을 견딘 뒤에도 3년 동안 전쟁 포로로 압록강변 수용소에서 지내며 수많은 이들의 죽음을 목격했고, 포로 기간의 상처와 아픔을 기록으로 남겼습니다. 포로 생활을 끝내고 1953년 5월 석방되어 본국으로 돌아갔습니다.",
+      "narrationEn": "When the Korean War broke out, Father Crosbie was captured by communist forces and taken through Seoul to the North on the 'Death March.' Having survived the march, he spent three years as a prisoner of war in a camp on the banks of the Yalu, witnessing the deaths of countless people, and he left a written record of the wounds and suffering of his captivity. Released in May 1953 at the end of his imprisonment, he returned to his homeland.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "전쟁 포로로 3년을 견딘 신부가 그 체험을 글로 남겼습니다.",
+      "forEveryoneEn": "A priest who survived three years as a prisoner of war wrote down what he lived through.",
+      "photos": [],
+      "sourceNote": "춘천교구 성지 https://www.cccatholic.or.kr/parish/holyland/16 (사본 _pages/getsemani/cccatholic.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "세 번째 입국 — 1954년 홍천으로, 1991년 기도의 집으로",
+      "titleEn": "A Third Arrival — Hongcheon in 1954, the House of Prayer in 1991",
+      "location": "피정의 집 안",
+      "locationEn": "Inside the retreat house",
+      "narration": "조선희 신부는 1954년 8월 다시 한국에 들어와 홍천 본당 주임으로 부임했습니다. 그의 세 번째 한국 입국이었습니다. 돌아온 뒤에도 변함없이 선교사로 신앙을 전하며 일생을 헌신했습니다. 1990년 은퇴한 그는 오랫동안 계획하고 준비했던 '평화와 보속을 위한 기도의 집'을 1991년 지금 이 자리에 세웠습니다.",
+      "narrationEn": "In August 1954 Father Crosbie entered Korea once more and took charge of Hongcheon parish. It was his third arrival in the country. Back again, he went on as before, devoting his whole life to spreading the faith as a missionary. After retiring in 1990 he built the 'House of Prayer for Peace and Penance,' long planned and prepared, here on this site in 1991.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "쫓겨나고 끌려가고도 세 번 돌아온 나라에 기도의 집을 남겼습니다.",
+      "forEveryoneEn": "Expelled and taken captive, he returned three times and left a house of prayer behind.",
+      "photos": [],
+      "sourceNote": "춘천교구 성지 https://www.cccatholic.or.kr/parish/holyland/16 (사본 _pages/getsemani/cccatholic.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "'제 영혼의 반은 한국에 놔두고 갑니다' — 1998년의 작별",
+      "titleEn": "'I Leave Half My Soul in Korea' — The Farewell of 1998",
+      "location": "피정의 집 마당",
+      "locationEn": "The retreat house yard",
+      "narration": "한국은 제2의 고향이라고 말할 만큼 한국을 사랑한 조선희 신부는 노령으로 더 이상 활동이 어려워지자 제 영혼의 반은 한국에 놔두고 간다는 말을 남기고 1998년 11월 본국으로 돌아갔습니다. 그리고 2005년 3월 24일 주님의 품에 안겼습니다. 그가 남긴 이 집은 지금도 평화와 회개를 위해 기도하는 순례자들을 맞이합니다.",
+      "narrationEn": "Father Crosbie, who loved Korea enough to call it his second home, returned to his homeland in November 1998 when age made further work impossible, leaving behind the words that he was leaving half his soul in Korea. He died on March 24, 2005. The house he left still welcomes pilgrims who come to pray for peace and repentance.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "춘천교구 성지 https://www.cccatholic.or.kr/parish/holyland/16 (사본 _pages/getsemani/cccatholic.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "겟세마니 피정의 집 순례를 마치셨습니다. 조선희 신부가 세 차례 주임을 맡고 종을 달아 완공한 홍천 성당을 이어 찾으시면 이 신부의 한국 생애를 더 깊이 만나실 수 있습니다.",
+    "narrationEn": "This concludes our visit to the Gethsemane Retreat House. Continue to Hongcheon Church, which Father Crosbie served three times as pastor and completed with the bell he brought, to meet his Korean life more fully.",
+    "photos": []
+  }
+}

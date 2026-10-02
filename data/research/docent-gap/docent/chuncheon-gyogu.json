@@ -1,0 +1,80 @@
+{
+  "siteId": "c4784db9-f32b-433e-b40c-6935a1c6cfd2",
+  "siteName": "춘천교구 주교관과 교육원",
+  "slug": "chuncheon-gyogu",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "춘천시 공지로, 춘천교구 주교관과 교육원에 오셨습니다. 강원도 선교를 맡았던 성 골롬반 외방선교회가 1958년 지은 주교관과, 1959년 수녀 양성을 위해 세운 옛 영원한 도움의 성모수도회 춘천 수련소가 나란히 있습니다. 햇빛이 아쉬운 아일랜드 풍습을 따라 서향으로 세운 주교관과, 시기를 달리해 지은 두 건물을 하나로 이은 교육원은 모두 국가등록문화유산입니다. 오늘은 주교관에서 시작해 퀸란 주교의 1958년 편지, 서향으로 지은 까닭, 수련소에서 교육원으로 바뀐 세월, 그리고 지역 사회와 함께한 쓰임까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to the Bishop's Residence and Education Center of the Diocese of Chuncheon on Gongji-ro in Chuncheon. Side by side stand the bishop's residence, built in 1958 by the Missionary Society of St. Columban, which was responsible for the mission in Gangwon-do, and the former Chuncheon novitiate of the Sisters of Our Lady of Perpetual Help, built in 1959 to train sisters. The residence, which faces west in the Irish fashion of a people starved of sunlight, and the education center, which joins two buildings of different dates into one, are both Registered National Cultural Heritage. Today we will begin at the residence, then look at Bishop Quinlan's letter of 1958, why it faces west, the years that turned a novitiate into an education center, and its service to the community.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "'10월 1일부터 주교관으로 이사해왔습니다' — 퀸란 주교의 1958년 편지",
+      "titleEn": "'We Moved into the Bishop's House on October 1' — Bishop Quinlan's Letter of 1958",
+      "location": "주교관 앞",
+      "locationEn": "In front of the bishop's residence",
+      "narration": "춘천교구 주교관은 주교의 거처이자 선교사들이 교구 일을 돕거나 기거하던 거점으로, 강원도 지역을 담당하던 성 골롬반 외방선교회가 1958년 지었습니다. 퀸란 주교는 1958년 10월 20일자 골롬반 문서에서 10월 1일부터 주교관으로 이사해 왔다고, 더할 나위 없이 좋으며 몇 해 지나 주위의 나무와 풀이 자라면 아주 쾌적해 보일 것이라고 적어 건립 시기를 알려 줍니다.",
+      "narrationEn": "The bishop's residence of the Diocese of Chuncheon, the bishop's home and a base where missionaries helped with diocesan work or lodged, was built in 1958 by the Missionary Society of St. Columban, which had charge of Gangwon-do. In a Columban document dated October 20, 1958, Bishop Quinlan wrote that they had moved into the residence on October 1, that it could not be better, and that in a few years, once the trees and grass around it had grown, it would look very pleasant, giving us the date of its construction.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "아일랜드 선교회가 지은 1958년 주교의 집입니다.",
+      "forEveryoneEn": "The bishop's house of 1958, built by an Irish missionary society.",
+      "photos": [],
+      "sourceNote": "춘천교구 성지 '춘천교구 주교관과 교육원' https://www.cccatholic.or.kr/parish/holyland/23 (사본 _pages/chuncheon-gyogu/cccatholic.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "유별나게 서향으로 — 햇빛이 아쉬운 아일랜드의 풍습",
+      "titleEn": "Facing West, Unusually — The Habit of an Ireland Short of Sunlight",
+      "location": "주교관 앞",
+      "locationEn": "In front of the bishop's residence",
+      "narration": "이 건물은 당시의 전형적인 외국인 선교회 풍으로 지었는데, 유별나게 서향으로 세운 것은 햇빛이 아쉬운 아일랜드 풍습의 영향으로 보입니다. 한국전쟁 이후 춘천에 아일랜드 풍으로 세워진 건물로서 지금까지 보존이 잘 되어 건축사적 가치를 지니고 있습니다.",
+      "narrationEn": "The building was put up in the typical style of foreign missionary societies of its day, and its unusual westward orientation appears to reflect the habit of Ireland, a country short of sunlight. As an Irish-style building raised in Chuncheon after the Korean War and well preserved to this day, it holds value for architectural history.",
+      "lookFor": "서쪽을 향해 선 주교관의 정면",
+      "lookForEn": "The front of the residence, facing west",
+      "forEveryone": "한국 집은 남향인데 이 집은 서향입니다. 아일랜드식입니다.",
+      "forEveryoneEn": "Korean houses face south; this one faces west, the Irish way.",
+      "photos": [],
+      "sourceNote": "춘천교구 성지 https://www.cccatholic.or.kr/parish/holyland/23 (사본 _pages/chuncheon-gyogu/cccatholic.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "1959년의 수련소 — 강원도 선교를 위한 수녀 양성",
+      "titleEn": "The Novitiate of 1959 — Training Sisters for the Gangwon Mission",
+      "location": "교육원 앞",
+      "locationEn": "In front of the education center",
+      "narration": "춘천교구 신앙 교육의 요람인 옛 영원한 도움의 성모수도회 춘천 수련소는 강원도 지역 선교를 담당할 수녀를 양성할 목적으로 지어졌습니다. 퀸란 주교는 1959년 건물을 완공하고 영원한 도움의 성모수도회를 춘천으로 초빙했으며, 1969년 2월까지 이 수도회의 수련소로 쓰였습니다.",
+      "narrationEn": "The former Chuncheon novitiate of the Sisters of Our Lady of Perpetual Help, cradle of religious education in the diocese, was built to train sisters who would carry on the mission in Gangwon-do. Bishop Quinlan completed the building in 1959 and invited the Sisters of Our Lady of Perpetual Help to Chuncheon, and it served as their novitiate until February 1969.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "춘천교구 성지 https://www.cccatholic.or.kr/parish/holyland/23 (사본 _pages/chuncheon-gyogu/cccatholic.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "기숙사, 교육원, 미혼모의 집 — 두 건물을 하나로 이은 집의 쓰임",
+      "titleEn": "Dormitory, Education Center, Home for Unwed Mothers — The Uses of Two Buildings Joined as One",
+      "location": "교육원 앞",
+      "locationEn": "In front of the education center",
+      "narration": "수련소가 떠난 뒤 이 건물은 1976년까지 예수의 까리따스 수녀회가 운영하는 여대생 기숙사로 쓰였고, 1977년부터 가톨릭교육원으로 이름을 바꾸어 춘천교구 신앙 교육의 산실이 되었습니다. 1979년부터 1985년까지는 착한 목자 수녀회가 미혼모 보호소인 마리아의 집으로 썼습니다. 1959년에 완공된 건물 한 채와 1962년에 완공된 건물 한 채가 유기적으로 이어져 있는데, 지어진 시기가 다른 두 건물을 하나의 공간으로 만들었다는 점에서 건축학적 가치가 있고, 교회의 필요로 지어졌지만 현대사 속에서 지역 사회와 함께한 곳이라는 뜻이 있어 국가등록문화유산으로 지정되었습니다.",
+      "narrationEn": "After the novitiate moved out, the building served until 1976 as a dormitory for women university students run by the Caritas Sisters of Jesus, and from 1977, renamed the Catholic Education Center, it became the cradle of religious education in the diocese. From 1979 to 1985 the Sisters of the Good Shepherd used it as Mary's House, a shelter for unwed mothers. It consists of one building completed in 1959 and another completed in 1962, organically joined; the joining of two buildings of different dates into a single space gives it architectural value, and as a place built for the needs of the Church yet shared with the community through modern history, it was designated Registered National Cultural Heritage.",
+      "lookFor": "1959년 건물과 1962년 건물이 이어진 자리",
+      "lookForEn": "Where the 1959 and 1962 buildings join",
+      "forEveryone": "수녀 수련소였다가 기숙사, 미혼모 쉼터로도 쓰인 건물입니다.",
+      "forEveryoneEn": "A building that served as a novitiate, a dormitory, and a shelter for unwed mothers.",
+      "photos": [],
+      "sourceNote": "춘천교구 성지 https://www.cccatholic.or.kr/parish/holyland/23 (사본 _pages/chuncheon-gyogu/cccatholic.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "춘천교구 주교관과 교육원 순례를 마치셨습니다. 바로 가까이의 죽림동 주교좌성당과 순교성지, 그리고 퀸란 주교가 순교 사제를 기념해 지은 소양로 성당을 이어 찾아보시기 바랍니다.",
+    "narrationEn": "This concludes our visit to the Bishop's Residence and Education Center of the Diocese of Chuncheon. Continue to nearby Jungnim-dong Cathedral and its martyrs' shrine, and to Soyangno Church, built by Bishop Quinlan in memory of a martyred priest.",
+    "photos": []
+  }
+}
