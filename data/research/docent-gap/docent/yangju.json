@@ -1,0 +1,110 @@
+{
+  "siteId": "5ba9bfec-e762-4b98-9430-87c6ec27c234",
+  "siteName": "양주 순교 성지",
+  "slug": "yangju",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "양주 향교 앞, 옛 양주 관아 곁의 양주 순교 성지에 오셨습니다. 조선 시대 417년 동안 경기도 일대를 다스리던 양주 관아는 1866년 병인박해 때 용인과 이 지역에서 붙잡힌 신자들이 순교한 치명지가 되었습니다. 순교자들의 이름은 '치명일기'에 다섯 분만 남아 있고 그 이상은 알려진 것이 없습니다. 의정부교구가 2004년 설립된 뒤 증언을 따라 순교 터를 찾아내 2016년 교구의 첫 순교성지로 선포했고, 2025년 9월 20일 '천국 가는 길 성당'을 봉헌했습니다. 오늘은 검붉은 건물들이 늘어선 입구에서 시작해 양주 관아, 다섯 순교자, 순교 터를 찾은 이야기, 십자가의 길과 성모 동산, 그리고 성당 구석구석의 상징까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to the Yangju Martyrs' Shrine beside the old Yangju magistracy, in front of the Yangju Confucian school. For 417 years in the Joseon era the Yangju magistracy governed the Gyeonggi region, and in the Byeongin Persecution of 1866 it became a place of martyrdom for believers arrested in Yongin and around here. Only five names survive in the 'Martyrs' Diary,' and nothing more is known of them. After the Diocese of Uijeongbu was founded in 2004 it traced the execution site through testimony, proclaimed it the diocese's first martyrs' shrine in 2016, and on September 20, 2025, dedicated the 'Road to Heaven Church.' Today we will begin at the entrance with its dark red buildings, then visit the magistracy, hear of the five martyrs and the search for the site, walk the Way of the Cross and the Marian garden, and explore the symbolism of the church.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "성지 입구 — 순교자의 선혈 빛 건물들과 순례자의 집",
+      "titleEn": "Shrine Entrance — Buildings the Color of Martyrs' Blood and the Pilgrims' House",
+      "location": "별산대놀이마당과 양주향교로 이어지는 길목",
+      "locationEn": "On the lane leading to the Byeolsandae performance ground and the Yangju Confucian school",
+      "narration": "양주별산대놀이마당과 양주향교로 이어지는 길목에 들어서면 검붉은색의 아담한 건물들이 눈에 들어옵니다. 순교자의 선혈을 상징하는 색으로, 순례자의 집과 십자가의 길, 성당의 바깥벽이 모두 같은 색입니다. 입구의 순례자의 집은 순례자들이 쉬어 가는 곳으로, 수십 가지 성모상과 벽면을 가득 채운 십자가의 길 수묵화가 눈길을 끕니다. 힘찬 필치의 수묵화는 석창우 베드로 화백의 작품입니다. 성지 둘레에는 양주향교와 복원된 양주 관아, 국가무형문화재 제2호 양주별산대놀이 공연장이 있어 역사와 문화를 함께 체험할 수 있습니다.",
+      "narrationEn": "Turning onto the lane that leads to the Byeolsandae performance ground and the Yangju Confucian school, you see a cluster of small dark red buildings. The color symbolizes the blood of the martyrs, and the pilgrims' house, the Way of the Cross, and the outer walls of the church all share it. The pilgrims' house at the entrance is a place for visitors to rest, notable for dozens of different statues of Our Lady and an ink-wash painting of the Way of the Cross covering an entire wall, painted with vigorous strokes by the artist Peter Seok Chang-u. Around the shrine stand the Yangju Confucian school, the restored Yangju magistracy, and the performance ground of the Yangju Byeolsandae mask dance, National Intangible Cultural Heritage No. 2, so history and culture can be experienced together.",
+      "lookFor": "순례자의 집 벽면의 십자가의 길 수묵화",
+      "lookForEn": "The ink-wash Way of the Cross on the wall of the pilgrims' house",
+      "forEveryone": "조선 관아 터, 향교, 탈춤 공연장이 한자리에 있어 신자가 아니어도 둘러볼 거리가 많습니다.",
+      "forEveryoneEn": "With a Joseon magistracy, a Confucian school, and a mask-dance stage all in one spot, there is plenty to see for any visitor.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2025-09-24 https://www.catholictimes.org/article/20250924500050 (사본 _pages/yangju/catholictimes.txt) · 의정부교구 성지 소개 http://ucatholic.or.kr/bbs/board.php?bo_table=holyland&wr_id=97 (사본 _pages/yangju/diocese.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "양주 관아 — 417년 동안 경기도를 다스린 관청",
+      "titleEn": "The Yangju Magistracy — Seat of Government over Gyeonggi for 417 Years",
+      "location": "성지 곁 양주 관아지",
+      "locationEn": "The magistracy site beside the shrine",
+      "narration": "양주별산대놀이마당과 유양초등학교 사이 야산 아래에 양주 관아지가 있습니다. 양주 관아는 1506년 중종 1년에 지금 자리에 설치되어 1922년 시둔면, 지금의 의정부로 옮겨 갈 때까지 417년 동안 양주목을 다스린 행정관청이었습니다. 1871년의 '경기읍지'에는 동헌과 객사, 사창, 군사시설 등 31개쯤의 관아 시설이 있었다고 기록되어 있어 규모가 매우 컸음을 알 수 있습니다. 양주시는 1997년 양주목사의 집무처인 동헌 매학당을 복원하고 1999년 관아지를 경기도 기념물 제167호로 등록했으며, 2000년부터 2017년까지 다섯 차례 발굴 조사를 거쳐 2017년 동행각과 서행각, 내삼문, 사령청, 외삼문과 목사의 관사인 내아 등을 복원했습니다. 1866년 병인박해 때 이 관아는 용인과 양주 일대에서 체포된 신자들이 순교한 곳이 되었습니다.",
+      "narrationEn": "The site of the Yangju magistracy lies at the foot of a low hill between the Byeolsandae performance ground and Yuyang Primary School. Established on this spot in 1506, the first year of King Jungjong, the magistracy governed Yangju for 417 years until it moved in 1922 to Sidun-myeon, today's Uijeongbu. The Gyeonggi Gazetteer of 1871 records some thirty-one buildings here, including the magistrate's hall, the guesthouse, the granary, and military facilities, showing how large the complex was. Yangju City restored the magistrate's hall, Maehakdang, in 1997, registered the site as Gyeonggi Monument No. 167 in 1999, and after five excavations between 2000 and 2017 restored the east and west wings, the inner gate, the constables' office, the outer gate, and the magistrate's residence in 2017. In the Byeongin Persecution of 1866 this magistracy became the place where believers arrested around Yongin and Yangju were martyred.",
+      "lookFor": "복원된 동헌 매학당",
+      "lookForEn": "The restored magistrate's hall, Maehakdang",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2840 (사본 _pages/yangju/goodnews.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "치명일기의 다섯 분 — 이름밖에 남지 않은 순교자들",
+      "titleEn": "The Five of the Martyrs' Diary — Martyrs of Whom Only Names Remain",
+      "location": "야외 제대 앞",
+      "locationEn": "In front of the outdoor altar",
+      "narration": "'치명일기'는 이곳에서 다섯 분이 순교했다고 전합니다. 1866년 용인 굴암에 살던 김윤오 요한과 아내 권 마르타 부부가 양주 포교에게 붙잡혀 순교했고, 용인 한덕골에 살던 김 마리아도 양주 포교에게 체포되어 순교했습니다. 김 마리아는 중국으로 가서 죽은 최 프란치스코의 아내로, 최 프란치스코는 김대건 신부가 부제로 조선에 왔다가 중국으로 갈 때 함께 간 사람으로 추정됩니다. 양주에 살던 것으로 보이는 박 서방은 홍주에서 부부가 함께 순교한 박사행의 아버지로, 양주 옥에서 교수형을 받았습니다. 1868년에는 양주 일담리 출신 홍성원 아우구스티노가 포천에서 양주 포교에게 체포되어 순교했습니다. 아버지 홍몽노 베드로는 포천 고약리 공소 회장을 지내다 한양에서, 형 홍성국 요한은 광주에서, 동생 홍성선은 공주에서 순교해 아버지와 삼형제가 모두 목숨을 바쳤습니다. 성지는 이 다섯 분에 대해 치명일기 기록 이상의 내용을 아직 갖고 있지 못하며, 뒤늦게나마 조사와 연구를 이어 가고 있다고 솔직히 밝히고 있습니다.",
+      "narrationEn": "The 'Martyrs' Diary' records five martyrs here. In 1866 John Kim Yun-o and his wife Martha Gwon, who lived at Guram in Yongin, were seized by Yangju constables and martyred, as was Maria Kim of Handeokgol in Yongin. Maria Kim was the wife of Francis Choe, who died after going to China and who is believed to have accompanied Kim Taegon when, as a deacon, he came to Korea and returned to China. A man known only as Mr. Park, apparently of Yangju and father of Park Sa-haeng, who was martyred with his wife at Hongju, was hanged in the Yangju prison. In 1868 Augustine Hong Seong-won of Ildam-ri in Yangju was arrested in Pocheon by Yangju constables and martyred; his father Peter Hong Mong-no, leader of the mission station at Goyak-ri in Pocheon, died in Seoul, his elder brother John Hong Seong-guk in Gwangju, and his younger brother Hong Seong-seon in Gongju, so that father and all three sons gave their lives. The shrine states frankly that it has nothing beyond the Diary's record about these five, and that it is now, belatedly, pursuing research into them.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "이름 한 줄씩만 남은 다섯 사람을 위해 교구가 성지를 세웠습니다.",
+      "forEveryoneEn": "The diocese built a shrine for five people of whom only a line of names survives.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2840 (사본 _pages/yangju/goodnews.txt) · 양주순교성지 누리집 https://sd.uca.or.kr/yangju1866/default?mnucd=20002883 (사본 _pages/yangju/official.txt) · 의정부교구 성지 소개 (사본 _pages/yangju/diocese.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "순교 터를 찾다 — 2008년 심포지엄에서 2016년 선포까지",
+      "titleEn": "Finding the Site — From the 2008 Symposium to the 2016 Proclamation",
+      "location": "성지 안, 옛 '순교지' 표지석 자리",
+      "locationEn": "Inside the shrine, where the old 'martyrdom site' marker stood",
+      "narration": "2004년 의정부교구가 세워진 뒤 교구 순교자공경위원회는 2008년 '경기 북부 지역과 한국 천주교' 심포지엄을 통해 치명일기에 적힌 양주 관아 일대의 치명지로 추정되는 곳을 찾았습니다. 그리고 오래전에 '순교지'라는 표지석이 있었다는 증언을 따라 그 자리를 확인하고, 양주 향교 앞 순교 터 3,766제곱미터를 사들였습니다. 2016년 5월 28일 교구장 이기헌 주교는 이곳을 의정부교구의 첫 순교성지로 선포하고 현양미사를 봉헌했습니다. 2017년 9월 전담 사제를 임명해 순교 터의 천막 성당에서 매일 미사를 드렸고, 2018년 십자가의 길을 만들고 임시 조립식 건물에서 미사를 봉헌하며 기념성당 건립을 추진했습니다. 성지는 우고리, 신암리, 갈곡리로 이어지는 외딴 교우촌의 신자들도 삶을 봉헌한 또 다른 순교자로 기억합니다.",
+      "narrationEn": "After the Diocese of Uijeongbu was founded in 2004, its committee for honoring the martyrs identified the probable execution site around the Yangju magistracy described in the Martyrs' Diary at a 2008 symposium on northern Gyeonggi and the Korean Church. Following testimony that a marker stone reading 'martyrdom site' had once stood there, the committee confirmed the spot and purchased 3,766 square meters of land in front of the Yangju Confucian school. On May 28, 2016, Bishop Yi Gi-heon proclaimed it the diocese's first martyrs' shrine and celebrated a commemorative Mass. In September 2017 a priest was assigned and daily Mass was offered in a tent church on the site; in 2018 the Way of the Cross was laid out and Mass moved to a temporary prefabricated building while plans for a memorial church went ahead. The shrine also remembers the believers of the remote Catholic villages stretching from Ugo-ri through Sinam-ri to Galgok-ri as martyrs of another kind, who offered their whole lives to God.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "오래된 표지석을 기억하는 주민들의 증언이 성지의 자리를 정했습니다.",
+      "forEveryoneEn": "The testimony of residents who remembered an old marker stone fixed the shrine's location.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2840 (사본 _pages/yangju/goodnews.txt) · 양주순교성지 누리집 https://sd.uca.or.kr/yangju1866/default?mnucd=20002883 (사본 _pages/yangju/official.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "십자가의 길과 성모 동산 — 항아리 전구함과 72시간 촛불",
+      "titleEn": "The Way of the Cross and the Marian Garden — Jar Prayer Boxes and 72-Hour Candles",
+      "location": "십자가의 길과 야외 제대 너머 성모 동산",
+      "locationEn": "The Way of the Cross and the Marian garden beyond the outdoor altar",
+      "narration": "십자가의 길은 산화철로 만든 단순하면서도 큼직한 형태로, 각 처에는 수원교구 용인 고초골공소에서 가져온 항아리가 놓여 숫자를 표시합니다. 예수님이 부활하신 제15처까지 있어 두 팔 벌린 영광의 예수님도 만날 수 있습니다. 꽃길이라는 뜻을 담아 사철 피는 꽃을 함께 심었고, 매일 오후 3시에는 담당 신부가 신자들과 십자가의 길 기도를 바칩니다. 야외 제대 너머 성모 동산에는 가나의 혼인 잔치를 상징하는 물동이 항아리 여섯 개가 '기도 전구함'으로 순백의 성모상을 둘러싸고 있습니다. 이 항아리들도 고초골공소에서 가져온 것으로, 성당을 지을 때 성인의 유해 대신 기도 카드를 담아 제대 아래 봉헌되었습니다. 성모상 옆의 붉은 컵 초는 예수님이 돌아가시고 부활하기까지 사흘, 72시간 동안 타며 기도 지향을 천상의 제단으로 피워 올립니다.",
+      "narrationEn": "The Way of the Cross is made of simple, large forms in oxidized iron, and at each station a jar brought from the Gochogol mission station in Yongin, in the Diocese of Suwon, marks the number. There is a fifteenth station for the Resurrection, where you meet the glorified Jesus with arms outstretched. Flowers that bloom in every season were planted along it to make it a 'path of flowers,' and every day at three in the afternoon the priest in charge prays the Stations with the faithful. Beyond the outdoor altar, in the Marian garden, six water jars symbolizing the wedding at Cana surround a pure white statue of Our Lady as 'prayer intention boxes.' These jars too came from Gochogol, and when the church was built they were filled with prayer cards in place of saints' relics and placed beneath the altar. The red cup candles beside the statue burn for seventy-two hours, the three days from Jesus' death to his resurrection, carrying the prayers written in them up to the heavenly altar.",
+      "lookFor": "성모상을 둘러싼 여섯 개의 물동이 항아리",
+      "lookForEn": "The six water jars surrounding the Marian statue",
+      "forEveryone": "옛 공소의 장독 항아리가 기도함이 된, 이 성지만의 소박한 상징입니다.",
+      "forEveryoneEn": "Old earthenware jars from a country mission station turned into prayer boxes, a humble symbol unique to this shrine.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2025-09-24 https://www.catholictimes.org/article/20250924500050 (사본 _pages/yangju/catholictimes.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "천국 가는 길 성당 — 목칼의 문을 지나 노아의 방주로",
+      "titleEn": "The Road to Heaven Church — Through the Cangue Gate into Noah's Ark",
+      "location": "성지 중심의 '천국 가는 길 성당'",
+      "locationEn": "The 'Road to Heaven Church' at the center of the shrine",
+      "narration": "성지 중심에 선 '천국 가는 길 성당'은 2024년 9월 1일 기공해 2025년 4월 19일 파스카 성야에 입당미사를 드리고, 9월 20일 한국 순교자 대축일에 봉헌되었습니다. 정면에는 순교자들이 옥에서 썼던 목칼을 형상화한 커다란 산화철 조형물이 서 있고 그 아래 '순교의 문'이 있습니다. 두려운 고문 도구를 앞세웠지만 성당은 그 너머의 희망을 보여 줍니다. 건물은 하늘에서 보면 십자가 모양이고, 지붕은 스페인에서 들여온 돌을 층층이 쌓아 '천국의 계단'을 나타냈습니다. 안으로 들어서면 성당 설계의 바탕이 된 심순화 가타리나 화백의 성화가 순교자들이 올리브 가지를 밟고 천국으로 오르는 모습을 보여 줍니다. 요한묵시록의 '열두 진주로 된 열두 성문'을 형상화한 스테인드글라스 '천국의 문'을 열면 신발을 벗고 들어가는 노아의 방주 모양 내부가 펼쳐지고, 순백의 제단은 예수님이 모는 '천국 가는 배'를 나타냅니다. 좌석은 묵시록의 14만 4천 명을 뜻하는 144석으로 의자마다 열두 제자의 문양이 새겨져 있고, 제대 뒤 성모님과 제자들을 새긴 감실과 다섯 개의 성령 유리화는 최후의 만찬과 성령 강림의 다락방을 상징합니다. 왼편 경당 천장에는 성부의 손, 성자의 성체, 빛이신 성령의 삼위일체 부조가 있고, 벽에는 103위 성인과 124위 복자의 유리화가 빛납니다. 유리화는 모두 최성호 루카 작가의 작품입니다.",
+      "narrationEn": "The 'Road to Heaven Church' at the center of the shrine was begun on September 1, 2024; the first Mass was celebrated at the Easter Vigil on April 19, 2025, and it was dedicated on September 20, the feast of the Korean Martyrs. On its facade stands a great oxidized-iron sculpture of the cangue, the wooden collar martyrs wore in prison, with the 'Gate of Martyrdom' beneath it; the church puts a fearsome instrument of torture before you, then reveals the hope beyond it. Seen from above the building forms a cross, and its roof of stone imported from Spain is stacked in tiers to suggest a 'stairway to heaven.' Inside, the painting by the artist Catharina Sim Sun-hwa that inspired the design shows the martyrs climbing to heaven on olive branches. Open the 'Gate of Heaven,' a stained-glass window depicting the twelve gates of twelve pearls from the Book of Revelation, and you enter, shoes removed, an interior shaped like Noah's ark, its pure white sanctuary the 'boat to heaven' steered by Jesus. The 144 seats stand for the 144,000 of Revelation, each carved with the emblem of one of the twelve apostles, and the tabernacle behind the altar, carved with Mary and the disciples and framed by five windows of the Holy Spirit, evokes the upper room of the Last Supper and Pentecost. In the chapel to the left, a ceiling relief of the Trinity shows the hand of the Father, the Eucharistic Son, and the Spirit as light, while stained glass of the 103 saints and 124 blesseds of Korea glows on the wall. All the glasswork is by the artist Luke Choe Seong-ho.",
+      "lookFor": "정면의 목칼 조형물과 그 아래 '순교의 문'",
+      "lookForEn": "The cangue sculpture on the facade and the 'Gate of Martyrdom' beneath it",
+      "forEveryone": "2025년에 봉헌된, 한국에서 가장 새로운 순교 기념성당 가운데 하나입니다.",
+      "forEveryoneEn": "Dedicated in 2025, one of the newest martyrs' memorial churches in Korea.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2025-09-24 https://www.catholictimes.org/article/20250924500050 (사본 _pages/yangju/catholictimes.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2840 (사본 _pages/yangju/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "양주 순교 성지 순례를 마치셨습니다. 미사는 월요일을 빼고 매일 오전 11시, 십자가의 길과 하느님 자비의 기도는 매일 오후 3시에 있습니다. 가까운 양주 장흥의 성 남종삼 요한과 가족 묘소, 신암리 성당도 함께 찾아보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to the Yangju Martyrs' Shrine. Mass is celebrated daily at eleven except Mondays, and the Way of the Cross and the Divine Mercy prayers daily at three. The grave of St. John Nam Jong-sam and his family at Jangheung in Yangju and Sinam-ri Church are nearby and worth visiting together.",
+    "photos": []
+  }
+}

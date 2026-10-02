@@ -1,0 +1,110 @@
+{
+  "siteId": "dbeaa5a4-4c1c-4e73-bdce-ab8195d76b6f",
+  "siteName": "개갑 장터 순교 성지",
+  "slug": "gaegap",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "고창 공음면 석교리, 개갑 장터 순교 성지에 오셨습니다. 옛 무장 고을과 영광 법성포를 잇는 길 한가운데 있던 개갑 장터는 조선 시대 온갖 산물이 모이던 번창한 시장이자 이름난 우시장이었습니다. 1801년 신유박해 때 이 장터에서 무장의 양반 최여겸 마티아가 서른여덟 살에 참수되었습니다. 한국 교회 '순교의 남방 한계선'이라 불리는 곳입니다. 장터는 일제에 폐쇄되어 흔적조차 없지만, 2013년 순교 현양탑과 야외 제대, 십자가의 길을 갖춘 성지로 축복되었습니다. 오늘은 장터의 내력에서 시작해 최여겸의 삶과 신앙 고백, 순교, 그리고 성지 조성 이야기까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to the Gaegap Market Martyrs' Shrine in Seokgyo-ri, Gongeum-myeon, Gochang. Gaegap Market, midway on the road between the old town of Mujang and the port of Beopseongpo in Yeonggwang, was a thriving Joseon-era market where goods of every kind were gathered, and a famous cattle market. In the Sinyu Persecution of 1801, Matthias Choe Yeo-gyeom, a gentleman of Mujang, was beheaded here at the age of thirty-eight, which is why the site is called the 'southern limit of martyrdom' of the Korean Church. The market itself was closed under Japanese rule and no trace remains, but in 2013 the site was blessed as a shrine with a memorial tower, an outdoor altar, and a Way of the Cross. Today we will begin with the market's history, then follow Choe Yeo-gyeom's life, his confession of faith, his martyrdom, and the making of the shrine.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "개갑 장터 — 사라진 우시장, 향토문화유산 제1호",
+      "titleEn": "Gaegap Market — A Vanished Cattle Market, Local Heritage No. 1",
+      "location": "성지 입구 표석 앞",
+      "locationEn": "At the marker stone by the shrine entrance",
+      "narration": "개갑 장터는 무장 고을과 영광 법성포를 연결하는 중간 지점에 있어 조선 시대 각종 산물의 집산지로 매우 번창한 시장이었고, 이름난 우시장이기도 했습니다. 그러나 한일합방 뒤 구한말 의병들의 물자 보급소와 연락처로 쓰이면서 일제의 미움을 사 폐쇄되었고, 지금은 흔적조차 찾을 수 없습니다. 고창군은 2004년 6월 이 장터의 역사적, 문화적 가치를 인정해 향토문화유산 제1호로 지정했습니다. 입구에는 넓은 주차장이 마련되어 있고, 성지 안 한국순교복자성직수도회 수도원에서는 매일 아침 7시 미사가 봉헌되어 일반인도 참석할 수 있습니다.",
+      "narrationEn": "Gaegap Market, lying midway between the town of Mujang and the port of Beopseongpo in Yeonggwang, was a flourishing Joseon-era market where goods of all kinds were gathered, and a well-known cattle market. After the Japanese annexation, however, it served as a supply depot and contact point for the anti-Japanese militias of the late Korean Empire, which earned it the hostility of the colonial authorities; it was shut down, and today not a trace remains. In June 2004 Gochang County recognized its historical and cultural value by designating it Local Cultural Heritage No. 1. A large parking lot stands at the entrance, and the monastery of the Congregation of the Blessed Korean Martyrs within the shrine celebrates Mass every morning at seven, open to all.",
+      "lookFor": "고창군 향토문화유산 제1호 표석",
+      "lookForEn": "The marker for Gochang County Local Cultural Heritage No. 1",
+      "forEveryone": "의병을 돕다 일제에 폐쇄된 장터라, 천주교와 항일 역사가 한자리에 겹칩니다.",
+      "forEveryoneEn": "A market shut down for aiding the anti-Japanese militias, where Catholic and anti-colonial history overlap.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=4199 (사본 _pages/gaegap/goodnews.txt) · 가톨릭신문 2009-10-20 https://www.catholictimes.org/article/200910200269344 (사본 _pages/gaegap/catholictimes.txt) · 전주교구 성지 소개 https://www.jcatholic.or.kr/theme/main/pages/terrasanta12.php (사본 _pages/gaegap/official.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "최여겸 마티아 — 윤지충에게 배우고 이존창에게 세례받다",
+      "titleEn": "Matthias Choe Yeo-gyeom — Taught by Yun Ji-chung, Baptized by Yi Jon-chang",
+      "location": "순교 현양탑 앞",
+      "locationEn": "In front of the memorial tower",
+      "narration": "최여겸 마티아는 1763년 무장현 공음치면, 이 개갑 장터 가까운 갑촌의 양반 집안에서 태어났습니다. 일찍이 진산의 윤지충 바오로에게서 천주교 교리를 배웠고, 충청도 한산으로 장가든 뒤에는 처가에서 '내포의 사도' 이존창 루도비코 곤자가를 만나 다시 교리를 배우고 세례를 받아 아주 열심한 신자가 되었습니다. 고향 무장으로 돌아온 그는 교리를 충실히 실천하는 한편 깨달은 신앙의 진리를 이웃에게 전하는 데 힘써, 흥덕과 고창, 무장, 영광, 함평에서 스물여덟 명을 입교시켰습니다.",
+      "narrationEn": "Matthias Choe Yeo-gyeom was born in 1763 into a gentry family at Gapchon, near this Gaegap Market, in Gongeumchi-myeon of Mujang County. Early on he learned the Catholic faith from Paul Yun Ji-chung of Jinsan, and after marrying into a family in Hansan, Chungcheong, he met Louis Gonzaga Yi Jon-chang, 'the apostle of Naepo,' at his in-laws' home, studied the doctrine again, was baptized, and became a fervent believer. Returning to his home in Mujang, he practiced the faith faithfully and worked to share the truth he had found with his neighbors, bringing twenty-eight people into the Church in Heungdeok, Gochang, Mujang, Yeonggwang, and Hampyeong.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "한국 천주교 첫 순교자 윤지충의 제자가 전라도 서남쪽 끝까지 신앙을 전했습니다.",
+      "forEveryoneEn": "A disciple of Yun Ji-chung, Korea's first Catholic martyr, carried the faith to the far southwest of Jeolla.",
+      "photos": [],
+      "sourceNote": "주교회의 시복시성위 124위 약전 https://cbck.or.kr/koreanmartyrs/124-Martyrs/48 (사본 _pages/gaegap/cbck.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=4199 (사본 _pages/gaegap/goodnews.txt) · 전주교구 성지 소개 (사본 _pages/gaegap/official.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "체포와 신앙 고백 — \"유일한 참 종교를 따른다\"",
+      "titleEn": "Arrest and Confession — \"I Follow the One True Religion\"",
+      "location": "야외 제대 앞",
+      "locationEn": "In front of the outdoor altar",
+      "narration": "1801년 신유박해가 일어나자 최여겸은 한산의 처가로 피신했습니다. 그사이 무장에서는 그가 입교시킨 신자들을 비롯해 수많은 신자가 체포되었고, 그들을 문초하는 과정에서 그의 이름이 드러났습니다. 4월 13일 한산에서 체포된 그는 그곳에서 문초를 받고 감사의 명에 따라 무장으로 이송되었습니다. 무장 관장은 곧장 형벌을 가하며 문초했지만 어떤 형벌로도 신앙을 꺾을 수 없음을 알고 전주 감영으로 보냈고, 거기서도 그는 굴복하지 않았습니다. 전라 감사가 왜 사학을 따르느냐고 묻자 그는 자신은 유일한 참 종교를 따른다고 답하고, 착한 이에게 상을 주고 악한 이를 벌하신다는 상선벌악의 교리를 고백해 당시 불의한 사회 구조에 경종을 울렸습니다. 또 합법적인 결혼의 부부 관계 밖에는 어떤 관계도 가질 수 없다고 말해 남자도 부부의 의리를 지켜 첩을 끊어야 함을 강조했습니다. 전주 옥에서 그는 열렬한 신자 한정흠 스타니슬라오와 김천애 안드레아를 만나는 행운을 누렸습니다.",
+      "narrationEn": "When the Sinyu Persecution broke out in 1801, Choe Yeo-gyeom took refuge at his in-laws' home in Hansan. Meanwhile in Mujang many believers, including those he had converted, were arrested, and under interrogation his name came out. Arrested at Hansan on April 13, he was questioned there and sent to Mujang on the governor's orders. The Mujang magistrate began torturing and interrogating him at once, but soon realized that no punishment could break his faith and sent him on to the provincial office in Jeonju, where again he did not yield. When the governor of Jeolla asked why he followed the 'evil learning,' he replied that he followed the one true religion, and confessed the doctrine that God rewards the good and punishes the wicked, a warning to the unjust social order of the day. He also declared that no relationship was permitted outside lawful marriage, stressing that men too must keep faith with their wives and give up concubines. In the Jeonju prison he had the good fortune to meet two fervent believers, Stanislaus Han Jeong-heum and Andrew Kim Cheon-ae.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "1801년 조선의 법정에서 첩을 두지 말라고, 남녀가 평등하다고 말한 기록입니다.",
+      "forEveryoneEn": "A record of a man telling a Joseon court in 1801 that men must not keep concubines and that men and women are equal.",
+      "photos": [],
+      "sourceNote": "주교회의 시복시성위 124위 약전 https://cbck.or.kr/koreanmartyrs/124-Martyrs/48 (사본 _pages/gaegap/cbck.txt) · 전주교구 성지 소개 https://www.jcatholic.or.kr/theme/main/pages/terrasanta12.php (사본 _pages/gaegap/official.txt) · 굿뉴스 (사본 _pages/gaegap/goodnews.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "1801년 8월 27일 — \"만 번 죽여도 아깝지 않다\"",
+      "titleEn": "August 27, 1801 — \"Not Even Ten Thousand Deaths Would Be Too Many\"",
+      "location": "복자 최여겸 마티아 순교 터 표지석",
+      "locationEn": "At the marker stone of Blessed Choe Yeo-gyeom's martyrdom site",
+      "narration": "최여겸과 동료들은 한양으로 압송되어 포도청과 형조에서 문초를 받았지만 신앙은 변함이 없었습니다. 형조는 1801년 8월 21일 사형을 선고하고 각각 고향으로 보내 처형하도록 명했습니다. 선고문에는 최여겸이 처음 윤지충에게 교리를 배우고 이존창을 따르며 독실히 믿었으며, 그 교리로 남들을 미혹시키고 널리 가르쳐 자신도 망치고 남도 망쳤으니 만 번 죽여도 아깝지 않다고 적혀 있습니다. 그 고을에서 법을 집행하는 '해읍정법'의 형이었습니다. 고향 무장으로 이송된 그는 무장읍성 감옥에서 마지막 밤을 보낸 뒤, 며칠 뒤인 1801년 8월 27일, 음력 7월 19일 이 개갑 장터에서 참수형으로 순교했습니다. 서른여덟 살이었습니다. 2014년 8월 16일 광화문 광장에서 프란치스코 교황에 의해 동료 순교자 123위와 함께 복자품에 올랐습니다.",
+      "narrationEn": "Choe Yeo-gyeom and his companions were taken to Seoul and interrogated at the police bureau and the Board of Punishments, but their faith did not waver. On August 21, 1801, the Board sentenced them to death and ordered each sent home for execution. The sentence stated that Choe had first learned the doctrine from Yun Ji-chung and then followed Yi Jon-chang, believing devoutly, and that by deluding others and teaching widely he had ruined himself and others, so that even ten thousand deaths would not be too many. It was a sentence of 'execution in one's home district.' Sent back to Mujang, he spent his last night in the prison of Mujang fortress, and a few days later, on August 27, 1801, the nineteenth day of the seventh lunar month, he was beheaded here at Gaegap Market at the age of thirty-eight. On August 16, 2014, in Gwanghwamun Square, Pope Francis beatified him together with 123 fellow martyrs.",
+      "lookFor": "2015년에 세운 순교 터 표지석",
+      "lookForEn": "The martyrdom-site marker erected in 2015",
+      "forEveryone": "사람을 가르쳤다는 것이 죄목이 된 사형 선고문이 그대로 전해집니다.",
+      "forEveryoneEn": "The death sentence survives, listing as a crime that he taught people.",
+      "photos": [],
+      "sourceNote": "주교회의 시복시성위 124위 약전 https://cbck.or.kr/koreanmartyrs/124-Martyrs/48 (사본 _pages/gaegap/cbck.txt) · 전주교구 성지 소개 https://www.jcatholic.or.kr/theme/main/pages/terrasanta12.php (사본 _pages/gaegap/official.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=4199 (사본 _pages/gaegap/goodnews.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "순교 현양탑과 야외 제대 — 유리화에 담은 순교자의 생애",
+      "titleEn": "The Memorial Tower and Outdoor Altar — A Martyr's Life in Stained Glass",
+      "location": "12미터 순교 현양탑과 야외 제대",
+      "locationEn": "The twelve-meter memorial tower and the outdoor altar",
+      "narration": "전주교구 고창 본당은 2002년부터 고창군과 함께 개갑 장터를 성지로 조성하기로 결정하고 2004년 1차로 부지를 사들여 표석을 세웠습니다. 2009년부터 '최여겸 마티아 순교터 성지 조성 개발계획'에 따라 본격적인 성역화에 들어가 모두 1만 6,500제곱미터, 5천여 평의 부지에 순교 현양탑과 야외 제대, 400미터 길이의 십자가의 길을 조성했습니다. 12미터 높이의 순교 현양탑과 야외 제대 벽면은 최여겸 순교자의 활동과 순교를 주제로 남용우 마리아 원로 유리화가가 만든 모자이크 색유리화로 장식되어 있습니다. 2013년 9월 28일 전주교구장 이병호 주교의 주례로 성지 축복식과 순교자 현양미사가 봉헌되었고, 2015년에는 순교 터 표지석과 부활동산이 조성되었습니다.",
+      "narrationEn": "In 2002 Gochang parish of the Diocese of Jeonju, together with Gochang County, decided to develop Gaegap Market as a shrine, and in 2004 bought the first parcel of land and set up a marker. From 2009, under the 'Matthias Choe Yeo-gyeom Martyrdom Site Development Plan,' full-scale work began on a site of 16,500 square meters, creating a memorial tower, an outdoor altar, and a 400-meter Way of the Cross. The twelve-meter tower and the wall of the outdoor altar are decorated with mosaic stained glass by the senior glass artist Maria Nam Yong-u, depicting the life and martyrdom of Choe Yeo-gyeom. On September 28, 2013, Bishop Yi Byeong-ho of Jeonju blessed the shrine and celebrated a Mass honoring the martyr, and in 2015 the martyrdom-site marker and a Resurrection Garden were added.",
+      "lookFor": "현양탑과 제대 벽면의 모자이크 색유리화",
+      "lookForEn": "The mosaic stained glass on the tower and altar wall",
+      "forEveryone": "교구와 군청이 함께 만든 성지라 순례지이자 지역 공원처럼 가꾸어져 있습니다.",
+      "forEveryoneEn": "Built jointly by the diocese and the county, the shrine is laid out as much like a local park as a pilgrimage site.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=4199 (사본 _pages/gaegap/goodnews.txt) · 가톨릭신문 2009-10-20 https://www.catholictimes.org/article/200910200269344 (사본 _pages/gaegap/catholictimes.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "순교의 남방 한계선 — 청보리밭과 동학의 땅 사이",
+      "titleEn": "The Southern Limit of Martyrdom — Between Barley Fields and the Land of Donghak",
+      "location": "십자가의 길 끝, 부활동산",
+      "locationEn": "At the end of the Way of the Cross, the Resurrection Garden",
+      "narration": "고창 본당 김병희 신부는 2009년 성지 조성을 시작하며 개갑 장터가 한국 교회 '순교의 남방 한계선'이라는 점에서 교회사적으로 뜻이 깊다고 말했습니다. 성지 가까이에는 청보리밭과 동학농민혁명 발상지, 고인돌 공원, 선운사가 있어 성지 순례와 관광을 함께 누릴 수 있는 서남해안의 대표 사적지로 가꾸어 가고 있습니다. 고창 본당은 2009년 10월 18일 최여겸의 시복을 기원하며 고창성당에서 무장읍성을 거쳐 개갑 장터까지 23킬로미터를 걸어 순례했습니다. 최여겸이 마지막 밤을 보낸 무장읍성 감옥에서 이 장터까지, 순교자가 끌려온 그 길입니다.",
+      "narrationEn": "When shrine development began in 2009, Father Kim Byeong-hui of Gochang parish observed that Gaegap Market holds deep significance in church history as the 'southern limit of martyrdom' of the Korean Church. Nearby are the green barley fields, the birthplace of the Donghak Peasant Revolution, the dolmen park, and Seonunsa Temple, and the shrine is being developed as a leading historic site of the southwest coast where pilgrimage and sightseeing can be enjoyed together. On October 18, 2009, praying for Choe Yeo-gyeom's beatification, Gochang parish walked twenty-three kilometers from Gochang Church through Mujang fortress to Gaegap Market, the very road along which the martyr was led from the fortress prison, where he spent his last night, to this market.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "고창 청보리밭과 선운사를 찾는 길에 들르기 좋은 곳입니다.",
+      "forEveryoneEn": "An easy stop on the way to Gochang's barley fields and Seonunsa Temple.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2009-10-20 https://www.catholictimes.org/article/200910200269344 (사본 _pages/gaegap/catholictimes.txt) · 전주교구 성지 소개 https://www.jcatholic.or.kr/theme/main/pages/terrasanta12.php (사본 _pages/gaegap/official.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "개갑 장터 순교 성지 순례를 마치셨습니다. 최여겸이 마지막 밤을 보낸 무장읍성과, 그가 전주 옥에서 만난 한정흠, 김천애가 순교한 김제와 전주의 순교 터로 순례를 이어 가 보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to the Gaegap Market Martyrs' Shrine. You may wish to continue to Mujang fortress, where Choe Yeo-gyeom spent his last night, and to the martyrdom sites in Gimje and Jeonju where Han Jeong-heum and Kim Cheon-ae, whom he met in the Jeonju prison, gave their lives.",
+    "photos": []
+  }
+}

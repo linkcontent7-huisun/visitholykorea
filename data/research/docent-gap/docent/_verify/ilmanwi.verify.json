@@ -1,0 +1,259 @@
+{
+  "slug": "ilmanwi",
+  "checkedAt": "2026-10-02",
+  "siteVerdict": "OK",
+  "sentences": [
+    {
+      "text": "강화도 내가면 고천리, 바다의 별 청소년 수련원 위쪽 숲속 동산에 자리한 일만 위 순교자 현양 동산에 오셨습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "100여 년의 박해를 거친 한국 교회에는 적게는 1만 명, 많게는 3만 명의 순교자가 있지만 이름이라도 알려진 분은 1천여 명에 지나지 않습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "이곳은 그 이름 없는 순교자들을 기리기 위해 만든 동산입니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "스스로 '성지가 아니라 순례지', '침묵의 순례지'라 부르는 곳이니, 오늘은 되도록 말을 아끼고 숲길을 천천히 걸으며 성모당과 순교자의 길, 무명관, 위로의 동산, 성 남종삼 기념관을 차례로 둘러보겠습니다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: pilgrimage of silence",
+      "note": "안내문"
+    },
+    {
+      "text": "일만 위 순교자 현양 동산 순례를 마치셨습니다.",
+      "verdict": "근거있음",
+      "evidence": "guide wording",
+      "note": "안내문"
+    },
+    {
+      "text": "이곳은 순교자를 위한 곳이라기보다 일상을 사는 신앙인을 위한 '신앙의 학교'이자, 누구나 와서 기도하고 쉬어 가는 '삶의 성지'입니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "강화에는 갑곶 순교성지와 진무영 순교성지도 있으니 섬 안의 순교 터를 이어 걸어 보셔도 좋겠습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "이 동산은 1996년 가을 인천가톨릭대학교가 주축이 되어 조성 사업을 시작했습니다.",
+      "verdict": "근거있음",
+      "evidence": "goodnews.txt: \"1996년 가을 인천가톨릭대학교가 주축이 되어 시작한 한국 일만위 순교자 현양동산 조성 사업\""
+    },
+    {
+      "text": "순교자들의 정신과 삶을 널리 알려 하느님과 순교 선조들께 영광을 드리자는 뜻이었습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "인천교구는 섬 전체가 역사 유적지이자 순교 터인 강화도의 청소년 야영장 안 부지에 동산을 만들어, 2002년 8월 14일 최기산 주교의 주례로 한국의 순교자들, 특히 무명 순교자들에게 봉헌했습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "강화 해협은 신앙의 증인들이 중국과 오가던 길목이었고, 지금의 강화성당 아래 군영지와 갑곶돈대에서 많은 신자가 순교했습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "야영장은 2004년 5월 5일 숙박 시설을 갖춘 바다의 별 청소년 수련원으로 다시 문을 열었습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "이름이 남은 순교자보다 이름 없는 순교자가 훨씬 많고, 그들 대부분은 배우지 못하고 가난한 사람들이었습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "동산을 처음 만들 때 성모당과 십자가의 길, 순교자 현양당이 먼저 들어섰습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "동산을 세운 이들은 이곳을 찾는 사람마다 성모님께 바쳐진 성모당에서 성모님의 사랑과 위로를 얻고, 십자가의 길에서 주님의 고통을 묵상하며 주님을 만나고, 순교자 현양당에서는 순교자들의 용감한 믿음을 선물로 받아 돌아가기를 기원했습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "자연과 하나 되어 숲속을 천천히 걸으며 기도하는 기도 동산입니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "성모당과 현양당에 이어 전국 유명 성지의 상징물을 모아 놓은 '순교자의 길'이 조성되었습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "이 길을 걸으면 한자리에서 전국의 순교 터를 떠올릴 수 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "cbck.txt: \"한국의 성지들을 간접적으로 체험할 수 있는 순교자의 길\"",
+      "note": "안내문"
+    },
+    {
+      "text": "길 끝에는 무명 순교자상과 무명 순교자 현양탑이 서 있고, 연못을 돌며 묵주기도를 바칠 수 있는 '묵주 연못'이 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "이 동산은 처음부터 무명 순교자길과 무명 순교자상을 가꾸고 건물 이름까지 '무명관'이라 지으며 이름 없는 순교자들을 기억하려 애써 왔습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "2018년 11월 24일에는 순례자가 홀로 침묵 속에 걷도록 만든 '혼자 걷는 묵주기도 4 신비길'이 축복되었습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "무명 순교자상",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "침묵은 자기 이름을 바쳐 삶을 온전히 봉헌한 무명 순교자를 닮는 방법이라고 이 동산은 말합니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "기존 강당 건물을 고쳐 만든 무명관 2층에는 2005년 11월 3일 70여 평 규모의 일만위 순교자 기념성당이 마련되었습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "성당 안에는 홀로 기도하고 싶은 이들을 위한 개인 성체조배실도 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "1층에는 사제와 수도자를 위한 작은 피정 장소인 삼덕방과 역사박물관이 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "홀로 기도하는 개인 성체조배실",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "청소년 수련원 오른쪽 계곡 옆에는 2007년 6월 26일 축복된 '주님 위로의 동산'과 '순교자의 십자가 길'이 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "위로의 동산에 선 '위로의 주님상'은 조각가 조숙의 교수의 작품으로, 고통으로 신음하는 예수님이 아니라 자상하고 인자한 미소를 지으며 근심에 싸인 사람을 품에 안으려 두 팔을 벌린 예수님의 모습입니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "세상 근심에 지친 신자들이 자비로우신 예수 성심께 기도하며 참된 위로와 평화를 얻도록 만든 곳입니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "'순교자의 십자가 길'은 보통의 14처가 아니라 15처입니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "한국 천주교회의 창립부터 성장기까지 교회사의 중요한 열다섯 가지 사건을 형상화해, 박해와 시련 속에서 모든 것을 바친 순교자들의 신앙을 묵상하며 기도하게 했습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "두 팔을 벌리고 미소 짓는 '위로의 주님상'",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "순교자의 십자가 길은 보통의 14처가 아니라 15처로 되어 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "성모당 바로 아래에는 병인박해 때 순교한 103위 성인 가운데 한 분, 성 남종삼 요한의 유해 일부를 모신 기념관이 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "성인은 충주에서 태어나 남상교의 양자가 되었고, 1843년 문과에 급제해 영해 군수를 지내며 재물과 부녀자를 멀리하는 청백리로 존경받았습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "프랑스 선교사들에게 한국어를 가르쳤고 1863년 승지가 되어 왕족 자제의 교육을 맡았습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "1866년 러시아가 국경을 넘어 통상을 요구하자 영국과 프랑스와 동맹을 맺어 러시아를 막자는 방아책을 대원군에게 건의했지만, 태도가 돌변한 대원군이 병인박해를 일으켰습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "그해 2월 25일 체포되어 여섯 차례 국문을 받고 3월 7일 쉰 살의 나이로 서소문 밖에서 홍봉주 토마스와 함께 참수되었습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "이 유해는 후손 남기윤 베네딕토 씨가 큰고모인 샬트르 성 바오로 수녀회 남형우 수녀에게서 인도받아 기증한 것으로 척추뼈와 치아, 슬개골, 머리카락 등입니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "2004년 8월 31일 봉안 예식을 거쳐 일부는 갑곶 순교성지에, 나머지는 2007년 10월 26일 축복된 이 기념관에 모셨으며, 성인의 생애와 기적 증거 자료도 함께 전시되어 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "기념관의 성인 유해 10여 점",
+      "verdict": "근거있음",
+      "evidence": "source copies: matching fact"
+    },
+    {
+      "text": "19세기 조선 조정의 고위 관리가 외교 제안 때문에 처형된 역사가 이 유해에 담겨 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "cbck.txt: \"정3품 승지\", \"방아책을 대원군에게 건의\", \"참수형으로 순교\""
+    }
+  ],
+  "english": [
+    {
+      "part": "intro",
+      "verdict": "일치"
+    },
+    {
+      "part": "point1",
+      "verdict": "일치"
+    },
+    {
+      "part": "point2",
+      "verdict": "일치"
+    },
+    {
+      "part": "point3",
+      "verdict": "일치"
+    },
+    {
+      "part": "point4",
+      "verdict": "일치"
+    },
+    {
+      "part": "point5",
+      "verdict": "일치"
+    },
+    {
+      "part": "point6",
+      "verdict": "일치"
+    },
+    {
+      "part": "outro",
+      "verdict": "일치"
+    }
+  ]
+}
