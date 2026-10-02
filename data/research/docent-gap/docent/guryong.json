@@ -1,0 +1,95 @@
+{
+  "siteId": "ce4882fd-cf65-4364-bf43-f43eedf18d1f",
+  "siteName": "구룡 공소",
+  "slug": "guryong",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "청도군 운문면과 영천시 북안면, 경산시 용성면이 만나는 구룡산 정상 가까이, '하늘 아래 첫 동네'라 불리는 구룡 공소에 오셨습니다. 첩첩산중에 자리한 이 공소는 박해를 피해 숨어든 신자들의 교우촌에서 시작해, 1887년 로베르 신부의 보고서에 60명의 신자가 적혔고, 한국전쟁 때도 신자들이 피난 가지 않고 지킨 곳입니다. 오늘은 공소의 자리와 미사에서 시작해 살티의 김영제 베드로, 1887년의 보고서와 1921년의 준본당 축성, 1952년 빨치산의 밤, 그리고 공소를 거쳐 간 본당들까지 짧게 둘러보겠습니다.",
+    "narrationEn": "Welcome to Guryong Mission Station, called 'the first village under heaven,' near the summit of Mount Guryong where Unmun-myeon in Cheongdo, Bugan-myeon in Yeongcheon, and Yongseong-myeon in Gyeongsan meet. Deep in the mountains, this station grew from a village of believers hiding from persecution; Father Robert's report of 1887 recorded sixty Catholics here, and during the Korean War the faithful stayed to guard it rather than flee. Today we will begin with the station's setting and Masses, then look briefly at Peter Kim Yeong-je of Salti, the report of 1887 and the blessing of 1921, the night of the partisans in 1952, and the parishes that have cared for the station over the years.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "하늘 아래 첫 동네 — 구룡산 675미터 정상 가까이",
+      "titleEn": "The First Village Under Heaven — Near the 675-Meter Summit of Mount Guryong",
+      "location": "구룡마을길 361-5, 공소 마당",
+      "locationEn": "The station yard at 361-5 Guryong-maeul-gil",
+      "narration": "지금 용성성당 관할인 구룡 공소는 청도군 운문면과 영천시 북안면, 경산시 용성면의 경계에 솟은 구룡산, 높이 675미터 정상 가까이에 있습니다. 하늘 아래 첫 동네라 불릴 만큼 첩첩산중입니다. 공소 미사는 주일 아침 7시 30분에 있고, 용성성당 사무실로 연락하면 순례객을 위한 미사도 수시로 드릴 수 있습니다.",
+      "narrationEn": "Guryong Mission Station, now under Yongseong parish, lies close to the summit of Mount Guryong, 675 meters high, where the borders of Unmun-myeon in Cheongdo, Bugan-myeon in Yeongcheon, and Yongseong-myeon in Gyeongsan meet. It is so deep in the mountains that it is called the first village under heaven. Mass at the station is celebrated on Sunday mornings at 7:30, and pilgrims may arrange a Mass at other times by contacting the Yongseong parish office.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "세 시군의 경계가 만나는 산꼭대기 마을이라 길이 구불구불한 외길입니다.",
+      "forEveryoneEn": "A mountaintop village where three districts meet, reached by a single winding road.",
+      "photos": [],
+      "sourceNote": "대구대교구 순례지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=pilgrimage&process=read&idx=6&view_option= (사본 _pages/guryong/official.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "살티의 김영제 베드로 — 이 골짜기에서 보낸 3년",
+      "titleEn": "Peter Kim Yeong-je of Salti — Three Years in This Valley",
+      "location": "공소 마당",
+      "locationEn": "The station yard",
+      "narration": "살티의 김영제 베드로는 병인박해 때 간월에서 체포되었다가 풀려난 뒤 이곳 자인골, 용성면 매남 3리 큰골로 와서 3년 동안 살았습니다. 그 뒤 다른 신자들과 함께 다시 언양의 안살티로 옮겨 가 살았습니다. 박해를 피해 산에서 산으로 옮겨 다니던 신자들의 길 위에 이 골짜기도 있었던 것입니다.",
+      "narrationEn": "Peter Kim Yeong-je of Salti, arrested at Ganwol during the Byeongin Persecution and later released, came to this valley, Jaingol at Keungol in Maenam 3-ri, Yongseong-myeon, and lived here for three years before moving on with other believers to Ansalti in Eonyang. This valley, too, lay on the road of believers who moved from mountain to mountain to escape persecution.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "대구대교구 순례지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=pilgrimage&process=read&idx=6&view_option= (사본 _pages/guryong/official.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "1887년 신자 60명, 1921년 준본당 축성",
+      "titleEn": "Sixty Believers in 1887, Blessed as a Quasi-Parish in 1921",
+      "location": "공소 안",
+      "locationEn": "Inside the station",
+      "narration": "로베르 신부의 1887년 사목 보고서에 따르면 이 공소에는 60명의 신자가 있었습니다. 1921년에는 대구교구장 드망즈 주교가 로마 성모 대성당을 주보로 정한 뒤 준본당으로 축성하고 미사를 봉헌했습니다. 산꼭대기 작은 공소가 한때 준본당이었던 것입니다.",
+      "narrationEn": "According to Father Robert's pastoral report of 1887, the station had sixty believers. In 1921 Bishop Demange of Daegu chose St. Mary Major in Rome as its patron, blessed it as a quasi-parish, and celebrated Mass. For a time, this small mountaintop station was a quasi-parish.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "대구대교구 순례지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=pilgrimage&process=read&idx=6&view_option= (사본 _pages/guryong/official.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "1952년 10월 — 공소 예절 중에 들이닥친 빨치산",
+      "titleEn": "October 1952 — Partisans Burst In During the Station Prayers",
+      "location": "공소 안",
+      "locationEn": "Inside the station",
+      "narration": "한국전쟁 중에도 이곳 신자들은 피난을 가지 않고 공소를 지켰습니다. 1952년 10월, 이영조 가밀로 회장을 중심으로 공소 예절을 드리려고 신자들이 모여 있을 때 빨치산 12명이 들이닥쳐 총을 쏘았지만 아무도 다치지 않았다고 전해집니다.",
+      "narrationEn": "Even during the Korean War the believers here did not flee but stayed to guard the station. In October 1952, as they gathered around their leader Camillus Yi Yeong-jo for the station prayers, twelve partisans broke in and opened fire, yet it is said that no one was hurt.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "전쟁 중 산골 공소에서 총격이 있었는데도 다친 사람이 없었다는 이야기가 전해집니다.",
+      "forEveryoneEn": "A wartime shooting in a mountain station in which, the story goes, no one was hurt.",
+      "photos": [],
+      "sourceNote": "대구대교구 순례지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=pilgrimage&process=read&idx=6&view_option= (사본 _pages/guryong/official.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "다섯 본당을 거쳐 — 1997년의 개축",
+      "titleEn": "Through Five Parishes — The Rebuilding of 1997",
+      "location": "공소 바깥",
+      "locationEn": "Outside the station",
+      "narration": "이 공소는 1907년 용평본당, 1928년 하양본당, 1963년 금호본당, 1972년 자인본당을 거쳐 1995년부터 용성본당의 관할이 되었습니다. 1997년 11월 이문희 대주교가 공소 개축 미사를 봉헌했습니다. 100년 넘게 본당은 바뀌어도 산꼭대기 공소는 자리를 지켜 왔습니다.",
+      "narrationEn": "The station passed from Yongpyeong parish in 1907 to Hayang in 1928, Geumho in 1963, and Jain in 1972, and since 1995 has belonged to Yongseong parish. In November 1997 Archbishop Yi Mun-hui celebrated a Mass for the rebuilding of the station. Though the parishes have changed over more than a century, the mountaintop station has kept its place.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "대구대교구 순례지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=pilgrimage&process=read&idx=6&view_option= (사본 _pages/guryong/official.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "구룡 공소 순례를 마치셨습니다. 김영제 베드로가 옮겨 간 언양의 살티 공소와, 같은 산골 교우촌 진목정 성지가 멀지 않으니 함께 찾아보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to Guryong Mission Station. The Salti station in Eonyang, to which Peter Kim Yeong-je moved on, and Jinmokjeong Shrine, another mountain village of believers, are not far and worth visiting together.",
+    "photos": []
+  }
+}
