@@ -1,0 +1,95 @@
+{
+  "siteId": "47d6a607-6c63-46e9-bef9-0b382f253889",
+  "siteName": "경기 감영 터",
+  "slug": "gyeonggi-gamyeong",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "서울 종로구 서대문역 3번 출구 왼편, 경기 감영 터에 오셨습니다. 한성 서대문 밖 반송방에 있던 경기 감영은 1801년 신유박해 때 경기 지역에서 잡혀 온 신자들이 혹독한 형벌과 문초를 받던 곳으로, 정약종에게 신앙을 배운 가난한 신자 조용삼 베드로가 열한 달의 옥살이 끝에 순교했습니다. 서울 순례길 '생명의 길'에 든 증거 터입니다. 오늘은 표석 자리에서 시작해 경기 지역 신앙 공동체와 신유박해, 옥중에서 대세를 받은 조용삼, 그의 마지막 고백, 그리고 생명의 길까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to the site of the Gyeonggi Provincial Office, to the left of Exit 3 of Seodaemun Station in Jongno-gu, Seoul. The provincial office of Gyeonggi, which stood at Bansongbang outside the West Gate of Hanyang, was where believers arrested across Gyeonggi in the Sinyu Persecution of 1801 were cruelly punished and interrogated, and where Peter Jo Yong-sam, a poor believer who learned the faith from Jeong Yak-jong, died a martyr after eleven months in prison. It is a site of witness on the Seoul pilgrimage route called the Way of Life. Today we will begin at the marker, then look at the communities of faith in Gyeonggi and the Sinyu Persecution, Jo Yong-sam baptized in prison, his final confession, and the Way of Life.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "서대문역 3번 출구 왼편 — 반송방의 경기 감영",
+      "titleEn": "Left of Exit 3, Seodaemun Station — The Gyeonggi Provincial Office at Bansongbang",
+      "location": "서대문역 3번 출구 왼편 도로",
+      "locationEn": "The roadside to the left of Exit 3, Seodaemun Station",
+      "narration": "경기 감영 터는 서울 종로구 통일로 134, 지하철 5호선 서대문역 3번 출구 왼편 도로에 있습니다. 옛 주소로는 종로구 평동 234번지, 서대문역 3번 출구 왼편 화단입니다. 한성 서대문 밖 반송방에 자리했던 경기 감영은 경기도를 다스리던 관찰사의 관아로, 박해 때 경기 지역에서 잡혀 온 신자들이 이송되어 문초를 받던 곳입니다.",
+      "narrationEn": "The site of the Gyeonggi Provincial Office is at 134 Tongil-ro in Jongno-gu, Seoul, on the roadside to the left of Exit 3 of Seodaemun Station on Subway Line 5; by the old address it is 234 Pyeong-dong, Jongno-gu, the flower bed to the left of the exit. The office, which stood at Bansongbang outside the West Gate of Hanyang, was the seat of the governor of Gyeonggi Province, and during the persecutions believers arrested across Gyeonggi were brought here for interrogation.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "지하철역 출구 옆 길가가 조선 시대 경기도 관청 자리입니다.",
+      "forEveryoneEn": "The roadside beside a subway exit is where the provincial government of Gyeonggi once stood.",
+      "photos": [],
+      "sourceNote": "주교회의 매일미사 성지 안내 '경기 감영 터' https://missa.cbck.or.kr/Shrines (사본 _pages/_index/cbck-missa-shrines.txt); 서울 순례길 생명의 길 https://martyrs.or.kr/_web/mpilgrims/aboutcourse.html?cidx=7 (사본 _pages/_index/martyrs-seoul-course7.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "1801년 신유박해 — 경기 지역 신앙 공동체의 타격",
+      "titleEn": "The Sinyu Persecution of 1801 — A Blow to the Communities of Gyeonggi",
+      "location": "표석 자리",
+      "locationEn": "At the marker",
+      "narration": "박해로 숨어서 천주를 믿어야 했음에도 점점 퍼져 가던 경기 지역의 신앙 공동체는 1801년 신유박해로 큰 타격을 입었습니다. 잡혀 온 경기 지역 신자들은 한성 서대문 밖 반송방에 위치한 이곳 경기 감영으로 이송되어 혹독한 형벌과 문초를 받았습니다. 서울의 좌·우포도청과 의금부, 형조가 중앙의 심문 기관이었다면, 경기 감영은 경기도 각지의 신자들이 거쳐 간 곳이었습니다.",
+      "narrationEn": "Though forced by persecution to practice their faith in hiding, the communities of believers in Gyeonggi had steadily grown, until the Sinyu Persecution of 1801 dealt them a heavy blow. Believers arrested across Gyeonggi were brought here, to the provincial office at Bansongbang outside the West Gate of Hanyang, and subjected to cruel punishment and interrogation. If the Left and Right Police Bureaus, the State Tribunal, and the Board of Punishments were the central organs of interrogation in Seoul, the Gyeonggi office was where believers from every part of the province passed through.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "서울 순례길 생명의 길 https://martyrs.or.kr/_web/mpilgrims/aboutcourse.html?cidx=7 (사본 _pages/_index/martyrs-seoul-course7.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "옥중에서 '베드로'로 — 정약종의 제자 조용삼",
+      "titleEn": "'Peter' in Prison — Jo Yong-sam, Disciple of Jeong Yak-jong",
+      "location": "표석 자리",
+      "locationEn": "At the marker",
+      "narration": "가난하고 몸이 부실하며 배움도 부족했던 조용삼은 정약종 아우구스티노에게 신앙을 배우며 따르다가 체포되어 열한 달 동안 이 감영의 옥에 갇혔습니다. 세례를 받지 못한 채 잡혀 온 그는 옥중에서 '베드로'라는 세례명으로 대세를 받았습니다.",
+      "narrationEn": "Jo Yong-sam, poor, frail in body, and little educated, learned the faith from Augustine Jeong Yak-jong and followed him until he was arrested and held for eleven months in the prison of this office. Taken before he could be baptized, he received emergency baptism in prison with the name Peter.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "감옥 안에서 세례를 받은 가난한 신자의 이야기입니다.",
+      "forEveryoneEn": "The story of a poor believer baptized inside a prison.",
+      "photos": [],
+      "sourceNote": "서울 순례길 생명의 길 https://martyrs.or.kr/_web/mpilgrims/aboutcourse.html?cidx=7 (사본 _pages/_index/martyrs-seoul-course7.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "'하늘에는 두 명의 주인이 없고' — 1801년 3월 27일의 순교, 2014년의 시복",
+      "titleEn": "'There Are Not Two Lords in Heaven' — Martyrdom on March 27, 1801, Beatification in 2014",
+      "location": "표석 자리",
+      "locationEn": "At the marker",
+      "narration": "1801년 2월 다시 감사 앞으로 끌려 나간 조용삼은 배교를 강요당하며 형벌을 받았지만, 약해진 몸은 더 이상의 형벌을 감당할 수 없었습니다. 다시 옥에 갇힌 지 며칠 뒤인 3월 27일 숨을 거두었습니다. 마지막 형벌 때 그는 박해자들을 향해 하늘에는 두 명의 주인이 없고 사람에게는 두 마음이 있을 수 없으며, 자신이 원하는 것은 천주를 위해 한 번 죽는 것뿐이라고 신앙을 고백하고 순교의 길을 걸었습니다. 2014년 프란치스코 교황은 조용삼 베드로를 시복했습니다.",
+      "narrationEn": "Dragged before the governor again in February 1801, Jo Yong-sam was tortured and pressed to apostatize, but his weakened body could bear no more. A few days after being returned to prison, on March 27, he died. At his final punishment he confessed his faith to his persecutors, declaring that there are not two lords in heaven nor two hearts in a man, and that all he desired was to die once for the Lord of Heaven, and so he walked the road of martyrdom. In 2014 Pope Francis beatified Peter Jo Yong-sam.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "'하늘에 주인이 둘일 수 없다'는 한마디를 남기고 죽은 사람이 2014년 복자가 되었습니다.",
+      "forEveryoneEn": "A man who died saying 'heaven cannot have two lords' was beatified in 2014.",
+      "photos": [],
+      "sourceNote": "서울 순례길 생명의 길 https://martyrs.or.kr/_web/mpilgrims/aboutcourse.html?cidx=7 (사본 _pages/_index/martyrs-seoul-course7.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "생명의 길 — 형조 터와 우포도청 터, 서소문으로 이어지는 순례길",
+      "titleEn": "The Way of Life — A Pilgrimage Route Linking the Board of Punishments, the Right Police Bureau, and Seosomun",
+      "location": "표석 자리",
+      "locationEn": "At the marker",
+      "narration": "2013년 한국 천주교회는 서울 안 24곳의 성지를 이어 서울대교구 성지순례길을 선포했고, 2018년 9월 14일 교황청은 천주교 서울 순례길을 아시아 최초의 국제 공식 순례지로 승인했습니다. 경기 감영 터는 그 2코스 '생명의 길' 5.9킬로미터에 들어 있습니다. 가장 많은 신자가 참수된 서소문 밖 네거리 순교성지와 함께, 체포된 천주교인들이 고문을 받고 순교한 형조 터와 우포도청 터, 경기 감영 터를 포함하는 길입니다. 종로성당의 포도청 순례길 B코스도 전옥서 터와 우포도청 터, 형조 터를 지나 적십자병원 앞 경기감영 터를 거쳐 서소문 밖 성지와 중림동 약현성당에 이릅니다.",
+      "narrationEn": "In 2013 the Korean Church proclaimed the Seoul Archdiocesan Pilgrimage Routes linking twenty-four holy sites in the city, and on September 14, 2018, the Holy See approved the Seoul Catholic Pilgrimage Route as the first officially recognized international pilgrimage site in Asia. The site of the Gyeonggi office lies on Course 2, the 5.9-kilometer 'Way of Life,' which includes the Seosomun Martyrs' Shrine, where the greatest number of believers were beheaded, together with the sites of the Board of Punishments, the Right Police Bureau, and the Gyeonggi office, where captured Catholics were tortured and died. Course B of the Police Bureau pilgrimage route from Jongno Church likewise passes the sites of the Jeonokseo prison, the Right Police Bureau, and the Board of Punishments, then the Gyeonggi office in front of the Red Cross Hospital, before reaching the Seosomun shrine and Yakhyeon Church in Jungnim-dong.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "교황청이 아시아에서 처음 공식 인정한 순례길의 한 지점입니다.",
+      "forEveryoneEn": "One stop on the first pilgrimage route in Asia officially recognized by the Holy See.",
+      "photos": [],
+      "sourceNote": "서소문성지 역사박물관 '순례코스' https://www.seosomun.org/retrieveContents.do?mCode=21 (사본 _pages/_index/seosomun-course.txt); 종로성당 '포도청 순례길' http://www.jongnocc.or.kr/19 (사본 _pages/_index/jongnocc-19.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "경기 감영 터 순례를 마치셨습니다. 생명의 길을 따라 서소문 밖 네거리 순교성지와 중림동 약현성당까지 걸어 보시기 바랍니다.",
+    "narrationEn": "This concludes our visit to the site of the Gyeonggi Provincial Office. Follow the Way of Life on to the Seosomun Martyrs' Shrine and Yakhyeon Church in Jungnim-dong.",
+    "photos": []
+  }
+}

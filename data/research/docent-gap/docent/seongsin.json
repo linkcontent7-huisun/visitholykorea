@@ -1,0 +1,95 @@
+{
+  "siteId": "fbf56b63-8140-4577-ad92-ce6bd3d78c76",
+  "siteName": "가톨릭 대학교 성신 교정",
+  "slug": "seongsin",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "서울 종로구 혜화동, 가톨릭대학교 성신교정에 오셨습니다. 대학로 뒤편 낙산 산등성이 위에 자리한 한국 천주교회 사제 양성의 못자리로, 신학대학 성당에는 한국인 첫 사제 성 김대건 안드레아 신부의 유해가 모셔져 있습니다. 1855년 제천 배론의 성 요셉 신학당에서 시작해 1885년 여주 부엉골의 예수성심신학교, 1887년 용산을 거쳐 혜화동에 이른 170년의 역사가 이 교정에 있습니다. 오늘은 성당의 김대건 신부 유해에서 시작해 마카오로 간 세 소년, 배론과 부엉골과 용산의 신학교, 일제에 닫혔다 다시 연 학교, 그리고 150주년과 160주년의 기념물까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to the Songsin Campus of the Catholic University of Korea in Hyehwa-dong, Jongno-gu, Seoul. Set on the ridge of Naksan behind Daehangno, it is the seedbed where the Korean Church forms its priests, and the chapel of the College of Theology holds the relics of St. Andrew Kim Taegon, Korea's first priest. Some 170 years of history lie in this campus, from the St. Joseph Seminary at Baeron in Jecheon in 1855, through the Sacred Heart Seminary at Bueonggol in Yeoju in 1885 and Yongsan in 1887, to Hyehwa-dong. Today we will begin at the relics of Father Kim in the chapel, then look at the three boys sent to Macau, the seminaries at Baeron, Bueonggol, and Yongsan, the school closed under Japanese rule and reopened, and the memorials of the 150th and 160th anniversaries.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "신학대학 성당의 성 김대건 신부 유해 — 사제 성소의 못자리",
+      "titleEn": "The Relics of St. Andrew Kim Taegon in the Seminary Chapel — Seedbed of Priestly Vocations",
+      "location": "신학대학 성당 앞",
+      "locationEn": "In front of the College of Theology chapel",
+      "narration": "젊은이들의 활기가 넘치는 대학로 뒤편, 야트막한 산등성이 위에 한국 천주교회를 이끌어 갈 젊은 신학도들의 못자리가 있습니다. 가톨릭대학교 성신교정, 곧 신학대학의 성당에는 우리나라 최초의 방인 사제 성 김대건 안드레아 신부의 유해가 모셔져 있습니다. 1857년 가경자, 1925년 복자, 1984년 성인이 된 김대건 신부의 유해는 그를 본받아 참된 목자가 되려는 신학도들의 삶과 함께합니다. 1902년부터 1958년까지 용산 신학교 성당에 모셨던 유해를 신학대학 이전과 함께 혜화동으로 옮겨 온 것입니다. 성신교정은 2026년 현재 재건축 공사 중이어서 방문과 순례가 어려우니 미리 확인하시기 바랍니다.",
+      "narrationEn": "Behind the youthful bustle of Daehangno, on a low ridge, lies the seedbed of the young seminarians who will lead the Korean Church. In the chapel of the Songsin Campus, the College of Theology of the Catholic University of Korea, rest the relics of St. Andrew Kim Taegon, Korea's first native priest. Declared venerable in 1857, beatified in 1925, and canonized in 1984, Father Kim accompanies through his relics the lives of seminarians who seek to follow him as true shepherds. The relics, kept in the chapel of the Yongsan seminary from 1902 to 1958, were brought to Hyehwa-dong when the College of Theology moved. As of 2026 the campus is under reconstruction and visits and pilgrimages are difficult, so please check in advance.",
+      "lookFor": "성당에 모신 성 김대건 신부의 유해",
+      "lookForEn": "The relics of St. Andrew Kim Taegon enshrined in the chapel",
+      "forEveryone": "한국인 첫 신부의 유해가 미래의 신부들이 공부하는 학교 성당에 있습니다.",
+      "forEveryoneEn": "The relics of Korea's first priest rest in the chapel of the school where future priests study.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '가톨릭대학교 성신교정 성당' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2287 (사본 _pages/seongsin/goodnews.txt); 서울 순례길 일치의 길(옛 용산 신학교) https://martyrs.or.kr/_web/mpilgrims/aboutcourse.html?cidx=8 (사본 _pages/_index/martyrs-seoul-course8.txt); 주교회의 매일미사 성지 안내 https://missa.cbck.or.kr/Shrines (사본 _pages/_index/cbck-missa-shrines.txt — 재건축 공사 안내)"
+    },
+    {
+      "seq": 2,
+      "title": "1830년대 — 정하상에게 가르친 라틴어, 마카오로 보낸 세 소년",
+      "titleEn": "The 1830s — Latin Taught to Chong Ha-sang, Three Boys Sent to Macau",
+      "location": "성당 앞",
+      "locationEn": "In front of the chapel",
+      "narration": "가톨릭대학교 신학대학의 효시는 한국인 성직자 양성이 처음 시도된 1830년대까지 거슬러 올라갑니다. 당시 선교사들은 정하상을 비롯한 소년들에게 국내에서 신학 교육을 하는 한편 김대건과 최양업, 최방제를 마카오로 유학 보냈습니다. 그 가운데 김대건과 최양업이 사제품을 받고 귀국해 활동하다가 한 명은 피의 순교를, 다른 한 명은 땀의 순교를 했습니다.",
+      "narrationEn": "The origins of the College of Theology go back to the 1830s, when the training of Korean clergy was first attempted. The missionaries of that time taught theology within Korea to Chong Ha-sang and other youths, and sent Kim Taegon, Choe Yang-eop, and Choe Bang-je to study in Macau. Of these, Kim Taegon and Choe Yang-eop were ordained and returned to work in Korea, the one dying a martyrdom of blood, the other a martyrdom of sweat.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "이 학교의 뿌리는 190년 전 마카오로 유학 간 세 소년에게 닿습니다.",
+      "forEveryoneEn": "The school's roots reach back 190 years to three boys sent to study in Macau.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2287 (사본 _pages/seongsin/goodnews.txt); 서울 순례길 말씀의 길 https://martyrs.or.kr/_web/mpilgrims/aboutcourse.html?cidx=6 (사본 _pages/_index/martyrs-seoul-course6.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "배론, 부엉골, 용산 — 신학교가 걸어온 길",
+      "titleEn": "Baeron, Bueonggol, Yongsan — The Road the Seminary Traveled",
+      "location": "성당 앞",
+      "locationEn": "In front of the chapel",
+      "narration": "1855년 충청도 제천 배론에 성 요셉 신학당이 세워져 신학 교육을 시작했으나 1866년 병인박해로 문을 닫았습니다. 신앙의 자유가 확보되면서 1882년 신학생 21명을 뽑아 페낭 신학교로 유학을 보냈고, 1885년 강원도 여주군 강천면 범골, 곧 부엉골에서 지금 신학대학의 직접적인 전신인 예수성심신학교가 문을 열어 처음으로 국내 신학교가 세워졌습니다. 2년 뒤인 1887년 신학교는 서울 용산 함벽정, 지금의 원효로 4가로 옮겨 갔고, 1914년 대구 성 유스티노 신학교, 1927년 덕원 신학교가 뒤따라 세워졌습니다.",
+      "narrationEn": "In 1855 the St. Joseph Seminary was founded at Baeron in Jecheon, Chungcheong, and theological education began, but the Byeongin Persecution of 1866 closed it. Once freedom of religion was secured, twenty-one seminarians were chosen in 1882 and sent to the seminary at Penang, and in 1885 the Sacred Heart Seminary, direct forerunner of today's College of Theology, opened at Beomgol, or Bueonggol, in Gangcheon-myeon, Yeoju, Gangwon-do, the first seminary on Korean soil. Two years later, in 1887, it moved to Hambyeokjeong at Yongsan in Seoul, today's Wonhyo-ro 4-ga, and was followed by St. Justin's Seminary in Daegu in 1914 and the Deogwon Seminary in 1927.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "산골 교우촌에서 시작한 신학교가 세 번 자리를 옮겨 서울 도심에 왔습니다.",
+      "forEveryoneEn": "A seminary begun in a mountain village moved three times before reaching downtown Seoul.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2287 (사본 _pages/seongsin/goodnews.txt); 서울 순례길 말씀의 길 (사본 _pages/_index/martyrs-seoul-course6.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "1942년 폐쇄, 1945년 재설립 — 경성 천주공교신학교에서 성신대학으로",
+      "titleEn": "Closed in 1942, Refounded in 1945 — From the Keijo Catholic Seminary to Seongsin College",
+      "location": "성당 앞",
+      "locationEn": "In front of the chapel",
+      "narration": "1942년 용산 예수성심신학교는 일제에 의해 강제로 문을 닫았습니다. 그러나 1945년 경성 천주공교신학교로 이름을 바꾸어 다시 세워졌고, 그 뒤 성신대학이라는 이름을 거쳐 지금에 이르렀습니다. 1954년에는 명동 성당 구내에서 의학대학이 문을 열어 1959년 가톨릭대학 의학부가 되었고, 1995년 성심여자대학교가 통합되면서 신학, 의학, 성심 세 교정을 갖춘 종합대학이 되었습니다.",
+      "narrationEn": "In 1942 the Sacred Heart Seminary at Yongsan was forcibly closed by the Japanese authorities. It was refounded in 1945 as the Keijo Catholic Seminary, later took the name Seongsin College, and so continues today. In 1954 a medical college opened within the grounds of Myeong-dong Cathedral, becoming the Catholic College's faculty of medicine in 1959, and in 1995 Songsim Women's University merged with it to form a comprehensive university with three campuses: theology, medicine, and Songsim.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2287 (사본 _pages/seongsin/goodnews.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "2005년의 부조상과 2015년의 이콘 — 개교 150주년과 160주년",
+      "titleEn": "The Relief of 2005 and the Icon of 2015 — The 150th and 160th Anniversaries",
+      "location": "신학대학 본부 건물 앞",
+      "locationEn": "In front of the College of Theology main building",
+      "narration": "2005년 가톨릭대학교는 개교 150주년을 기념해 신학대학 본부 건물 앞에 성 김대건 신부 부조상을 세웠습니다. 2015년 5월 25일에는 개교 160주년을 기념해 미사와 국제 심포지엄을 열고, 성 김대건 신부와 최양업 신부의 순교와 선교 정신을 본받고자 성당 안에 160주년 기념 이콘 성화를 설치해 축복했습니다. 양 떼를 위해 목숨을 바친 김대건 신부의 신앙과, 양 떼를 돌보려 혼신을 다한 하느님의 종 최양업 신부의 정신을 되살리려는 신학도들의 못자리로 이 교정은 새로운 도약을 꿈꾸고 있습니다.",
+      "narrationEn": "In 2005, for its 150th anniversary, the Catholic University of Korea set up a relief of St. Andrew Kim Taegon in front of the main building of the College of Theology. On May 25, 2015, it marked its 160th anniversary with a Mass and an international symposium, and installed and blessed in the chapel a commemorative icon honoring the martyrdom and missionary spirit of St. Andrew Kim Taegon and Father Choe Yang-eop. As the seedbed of seminarians who seek to revive the faith of Father Kim, who gave his life for his flock, and the spirit of the Servant of God Father Choe, who spent himself caring for his flock, the campus looks toward a new beginning.",
+      "lookFor": "본부 건물 앞의 김대건 신부 부조상과 성당 안의 160주년 기념 이콘",
+      "lookForEn": "The relief of Father Kim Taegon before the main building and the 160th-anniversary icon in the chapel",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2287 (사본 _pages/seongsin/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "가톨릭대학교 성신교정 순례를 마치셨습니다. 1958년까지 김대건 신부의 유해를 모셨던 옛 용산 신학교 성당과, 신학교가 처음 문을 연 제천 배론 성지를 이어 찾아보시기 바랍니다.",
+    "narrationEn": "This concludes our visit to the Songsin Campus of the Catholic University of Korea. Continue to the chapel of the old Yongsan seminary, which held Father Kim Taegon's relics until 1958, and to Baeron Shrine in Jecheon, where the seminary first opened.",
+    "photos": []
+  }
+}
