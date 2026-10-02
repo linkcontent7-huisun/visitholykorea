@@ -1,0 +1,110 @@
+{
+  "siteId": "d8aabc95-992a-47f7-ae73-8df7124bf116",
+  "siteName": "진목정",
+  "slug": "jinmokjeong",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "경주 건천을 지나 청도로 넘어가는 단석산 자락, 진목정 성지에 오셨습니다. 이곳은 2014년 복자품에 오른 허인백 야고보, 이양등 베드로, 김종륜 루카 세 순교자가 박해를 피해 바위굴에 숨어 살던 신앙의 터전이고, 울산 장대에서 처형된 세 분의 시신을 허인백의 아내 박조예가 옮겨 묻었던 땅입니다. 순교자들의 삶과 죽음이 함께 있는 곳입니다. 오늘은 오래된 진목 공소에서 시작해 세 분의 이야기와 묘소, 기념성당, 그리고 산 위의 범굴까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to Jinmokjeong Shrine, at the foot of Mount Danseok on the road from Geoncheon in Gyeongju over to Cheongdo. This is the ground of faith where three martyrs beatified in 2014, James Heo In-baek, Peter Yi Yang-deung, and Luke Kim Jong-ryun, hid in a rock cave from persecution, and where Heo In-baek's wife Pak Jo-ye brought and buried their bodies after their execution at the Ulsan parade ground. Here the martyrs' lives and deaths stand side by side. Today we will begin at the old Jinmok mission station, hear the three men's story, and visit the grave, the memorial church, and finally the Tiger Cave up on the mountain.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "진목 공소 — 최양업 신부 시절의 교우촌",
+      "titleEn": "Jinmok Mission Station — A Catholic Village from Father Choe Yang-eop's Day",
+      "location": "도매산 아래 진목 공소",
+      "locationEn": "Jinmok mission station at the foot of Domaesan",
+      "narration": "세 순교 복자가 묻혔던 도매산 아래에 오래된 진목 공소가 있습니다. 이곳은 1858년 무렵, 한국인으로서 두 번째 사제인 '땀의 순교자' 최양업 토마스 신부가 지방을 돌며 전교하던 때부터 교우촌을 이루었다고 전해집니다. 대구대교구는 경주 산내 본당에서 이 성지까지 걸어오는 도보 순례길을 만들고, 공소와 묘소 가까이에 개인과 가족을 위한 피정의 집을 세울 계획을 세웠습니다.",
+      "narrationEn": "At the foot of Domaesan, where the three blessed martyrs once lay buried, stands the old Jinmok mission station. A Catholic village is said to have formed here from around 1858, when Father Thomas Choe Yang-eop, Korea's second priest and the 'martyr of sweat,' traveled the provinces preaching. The Archdiocese of Daegu has laid out a walking pilgrimage route from Sannae parish in Gyeongju to this shrine and planned a retreat house for individuals and families near the station and the grave.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "산내 본당에서 걸어오는 순례길이 있어 걷기 순례로 찾기 좋은 곳입니다.",
+      "forEveryoneEn": "With a walking route from Sannae parish, this is a good place for a pilgrimage on foot.",
+      "photos": [],
+      "sourceNote": "굿뉴스(가톨릭신문 2010-09-19·경향잡지 2009-08 재편집) https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2828 (사본 _pages/jinmokjeong/goodnews.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "세 사람의 만남 — 울산 죽령 교우촌",
+      "titleEn": "How Three Men Met — The Catholic Village of Jungnyeong in Ulsan",
+      "location": "공소 마당",
+      "locationEn": "The yard of the mission station",
+      "narration": "이양등 베드로는 울산 죽령 교우촌, 지금의 울주군 상북면 대재의 회장으로, 본성이 착하고 꿀 장사를 하며 열심히 신앙생활을 하던 사람입니다. 1866년 병인박해를 피해 그 교우촌으로 온 허인백과 김종륜을 만나 세 사람은 서로 권면하며 신앙생활을 했습니다. 김종륜 루카는 양반 집안에서 태어나 어릴 때 공주에서 입교했고, 박해가 일어나자 상주 멍에목, 언양 간월을 거쳐 죽령으로 옮겨 왔습니다. 교양과 학식이 풍부해 동정부부 순교자 이순이 루갈다의 옥중 수기를 직접 베껴 지니고 있었습니다. 허인백 야고보는 김해 농부의 아들로 언양에 살다가 스물다섯에 입교했는데, 고신극기하며 인내롭고 겸손하게 살아 신자들이 '신덕자'라 불렀습니다. 사순시기에는 가난한 이들에게 양식과 옷을 나누고 나그네를 대접하며 병든 이를 도왔습니다. 1860년 경신박해 때 붙잡혀 50여 일 옥에 갇혔고, 경주에서 천주학을 하느냐는 물음에 합니다, 하고 분명히 답해 곤장 20대를 맞고 여덟 달을 갇혀 지내며 짚신을 삼아 번 돈을 전교에 쓰려고 모았습니다.",
+      "narrationEn": "Peter Yi Yang-deung was the leader of the Catholic village of Jungnyeong in Ulsan, today's Daejae in Sangbuk-myeon, Ulju; a good-natured man, he sold honey and lived his faith devoutly. When Heo In-baek and Kim Jong-ryun came to that village fleeing the Byeongin Persecution of 1866, the three encouraged one another in the faith. Luke Kim Jong-ryun was born into a gentry family and entered the Church as a child in Gongju; when persecution came he moved through Meongemok in Sangju and Ganwol in Eonyang before reaching Jungnyeong. Cultured and learned, he had copied out by hand and kept the prison memoir of the virgin martyr Lutgarda Yi Sun-i. James Heo In-baek, a farmer's son from Gimhae who settled in Eonyang, joined the Church at twenty-five, and lived so patiently and humbly in self-denial that the faithful called him 'the man of faith.' In Lent he shared food and clothing with the poor, welcomed travelers, and cared for the sick. Arrested in the Gyeongsin Persecution of 1860, he spent some fifty days in prison, and when asked in Gyeongju whether he practiced the Western religion he answered plainly that he did, for which he was beaten twenty strokes and held eight months, weaving straw sandals in jail to save money for the mission.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "꿀 장수, 양반 선비, 나무그릇 만드는 농부. 신분이 다른 세 사람이 한 마을에서 만났습니다.",
+      "forEveryoneEn": "A honey seller, a gentry scholar, and a farmer who carved wooden bowls: three men of different stations met in one village.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2828 (사본 _pages/jinmokjeong/goodnews.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "1868년 — 경주 진영에서 울산 장대까지",
+      "titleEn": "1868 — From the Gyeongju Garrison to the Ulsan Parade Ground",
+      "location": "순교자 묘소로 오르는 산길",
+      "locationEn": "The hill path up to the martyrs' grave",
+      "narration": "비교적 안전하던 죽령 교우촌은 2년 뒤인 1868년 포졸들에게 발각되었습니다. 허인백은 끌려가며 집안사람들에게 오늘 가면 영원이니 자신을 위해 기도하라고, 치명한 바르바라의 일기를 보지 못했느냐고 말했고, 딸이 건넨 버선 한 벌을 받지 않으며 세상에 적신으로 태어났으니 적신으로 돌아가야 마땅하다고, 봉교를 착실히 하여 후세에 만나자고 했습니다. 경주 진영에서 다른 신자를 대라는 물음에 그는 본디 나무꾼 목수라 무식하여 남을 가르치지 못하고 배우기만 했으니 죽어도 혼자 죽겠다고 답했습니다. 세 차례 형문에 다리뼈가 드러났고, 포졸들이 돈을 요구하며 노끈으로 다리를 톱질해 끊어지기까지 했습니다. 그 몸으로 이틀 만에 80리 길을 걸어 울산으로 갔습니다. 이양등은 사형장으로 끌려 나갈 때 천당 복 바탕에 들어간다며 기뻐했고, 세 사람은 윗옷을 벗고 성호를 그은 뒤 예수 마리아의 이름을 크게 부르며 1868년 9월 14일 울산 병영 장대에서 참수되었습니다.",
+      "narrationEn": "The relatively safe village of Jungnyeong was discovered by constables two years later, in 1868. As Heo In-baek was led away he told his household that today he was going to eternity and they should pray for him, asking whether they had not read the diary of the martyr Barbara; he refused a pair of socks his daughter held out, saying that having come into the world naked he should return naked, and told them to keep the faith faithfully so they might meet in the world to come. At the Gyeongju garrison, ordered to name other believers, he answered that he was only an ignorant woodcutter and carpenter who had taught no one but only learned, and would die alone. Three rounds of torture laid bare the bones of his legs, and when the constables demanded money and he had none, they sawed at his legs with rope until they were cut through. In that state he walked eighty ri to Ulsan in two days. Yi Yang-deung rejoiced as he was led to the execution ground, saying he was entering the blessedness of heaven, and the three men stripped off their outer garments, made the sign of the cross, and called aloud on Jesus and Mary as they were beheaded at the Ulsan garrison parade ground on September 14, 1868.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2828 (사본 _pages/jinmokjeong/goodnews.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "박조예가 옮겨 묻은 묘 — 도매산 묘소",
+      "titleEn": "The Grave Pak Jo-ye Made — The Burial Site on Domaesan",
+      "location": "공소에서 산길 700미터 위, 1932년까지의 묘소 자리",
+      "locationEn": "About 700 meters up the hill path from the station, the grave site used until 1932",
+      "narration": "순교 뒤 허인백의 아내 박조예는 세 사람의 시신을 거두어 장대 가까운 강둑 아래에 묻었습니다. 박해가 끝난 1907년, 박조예의 확인을 거쳐 그 자리에서 유해를 발굴했고, 유족들이 진목정 뒷산인 이 도매산에 모셨습니다. 공소를 지나 700미터쯤 산길을 오르면 1932년까지 세 순교자가 묻혀 있던 묘소 자리입니다. 유해는 1932년 5월 말 대구 월배 감천리 교회 묘지로, 1962년 10월 25일 그 묘지 산 위 성모상 앞 석함으로, 1973년 10월 19일 대구 신천동 복자 성당 구내로 옮겨져 지금은 그곳에 안장되어 있습니다. 세 분은 2014년 8월 16일 광화문 광장에서 프란치스코 교황에 의해 복자품에 올랐습니다.",
+      "narrationEn": "After the martyrdom, Heo In-baek's wife Pak Jo-ye recovered the three bodies and buried them beneath the riverbank near the parade ground. In 1907, when the persecutions had ended, the remains were exhumed from that spot after Pak Jo-ye identified it, and the families laid them to rest here on Domaesan, the hill behind Jinmokjeong. About seven hundred meters up the path past the station is the site where the three martyrs lay until 1932. At the end of May 1932 the remains were moved to the church cemetery at Gamcheon-ri in Wolbae, Daegu; on October 25, 1962, to a stone chest before the Marian statue on the hilltop of that cemetery; and on October 19, 1973, to the grounds of Bokja Church in Sincheon-dong, Daegu, where they now rest. The three were beatified by Pope Francis in Gwanghwamun Square on August 16, 2014.",
+      "lookFor": "1932년까지 세 순교자가 묻혀 있던 묘소 자리",
+      "lookForEn": "The grave site where the three martyrs lay until 1932",
+      "forEveryone": "남편과 동료들의 시신을 거두어 묻고 40년 뒤 그 자리를 다시 찾아낸 한 여인의 기억이 이 성지를 만들었습니다.",
+      "forEveryoneEn": "This shrine owes its existence to one woman who buried her husband and his companions and, forty years later, found the spot again.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2828 (사본 _pages/jinmokjeong/goodnews.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "진목정 순교자 기념성당과 하늘원",
+      "titleEn": "Jinmokjeong Martyrs' Memorial Church and the Haneulwon Columbarium",
+      "location": "순교자 묘지 위에 세운 기념성당",
+      "locationEn": "The memorial church built above the martyrs' grave",
+      "narration": "대구대교구는 세 순교자의 묘지 위에 기념성당을 세우기로 하고 2014년 5월 31일 기공식을 가졌습니다. 여러 어려움 속에 지하 1층, 지상 2층 규모로 지어진 진목정 순교자 기념성당은 2017년 5월 20일 축복식을 거행했습니다. 성당과 함께 세 순교자를 비롯해 신자들의 유해를 모시는 봉안당 '하늘원'도 조성되었습니다.",
+      "narrationEn": "The Archdiocese of Daegu decided to build a memorial church above the three martyrs' grave and held the groundbreaking on May 31, 2014. Built through many difficulties with one floor below ground and two above, the Jinmokjeong Martyrs' Memorial Church was blessed on May 20, 2017. Alongside the church, a columbarium called Haneulwon was created to hold the remains of the faithful together with those of the three martyrs.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2828 (사본 _pages/jinmokjeong/goodnews.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "범굴 — 호랑이에게 집을 빌린 바위굴",
+      "titleEn": "The Tiger Cave — A Rock Cave Borrowed from a Tiger",
+      "location": "진목 공소에서 3.6킬로미터, 단석산 소태리 단수골",
+      "locationEn": "Dansugol in Sotae-ri on Mount Danseok, 3.6 kilometers from the Jinmok station",
+      "narration": "진목 공소에서 3.6킬로미터쯤 떨어진 단석산 소태리 단수골에는 세 순교자가 숨어 살았다는 범굴이 있습니다. 내일 1리 마을을 지나 소태골 피정의 집에서 시작되는 십자가의 길을 따라 산을 오르면 닿습니다. 지금은 무너져 내려 원래 모습을 가늠하기 어렵지만, 이곳에서 세 순교자와 가족들은 함께 기도하며 서로 신심과 용기를 북돋우며 살았습니다. 전해 오는 이야기로 이 굴은 본래 호랑이가 살던 굴이었습니다. 굴에 든 지 며칠 뒤 큰 호랑이가 나타나 위협하자 허인백 야고보가 나서서 성호를 긋고, 우리는 지나가는 길손인데 체면 불구하고 너희 집에 들어왔으니 미안하지만 다른 데로 가 있으면 박해가 끝나는 대로 돌려주겠다고 말하자 호랑이가 물러갔다고 합니다. 그 호랑이는 맞은편 산 중턱 큰 바위 위에서 이따금 어흥 소리를 내어 다른 짐승들이 굴에 들지 못하게 했다고 전합니다.",
+      "narrationEn": "About 3.6 kilometers from the Jinmok station, at Dansugol in Sotae-ri on Mount Danseok, is the Tiger Cave where the three martyrs are said to have hidden. You reach it by passing the village of Naeil 1-ri and climbing the Way of the Cross that begins at the Sotaegol retreat house. The cave has since collapsed and its original shape is hard to make out, but here the three martyrs and their families prayed together and kept up one another's devotion and courage. According to tradition the cave had been a tiger's den. A few days after they moved in a great tiger appeared and threatened them, whereupon James Heo In-baek stepped forward, made the sign of the cross, and told it that they were passing travelers who had shamelessly entered its home, that he was sorry, and that if it would go elsewhere for a while he would give the den back as soon as the persecution ended; and the tiger withdrew. It is said the tiger then roared now and then from a great rock on the hillside opposite, keeping other beasts from entering the cave.",
+      "lookFor": "굴 맞은편 산 중턱의 큰 바위",
+      "lookForEn": "The great rock on the hillside opposite the cave",
+      "forEveryone": "호랑이에게 집을 빌렸다는 전설이 남은, 한국 성지 가운데서도 독특한 이야기의 장소입니다.",
+      "forEveryoneEn": "A place with a legend found nowhere else among Korea's shrines: a home borrowed from a tiger.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2828 (사본 _pages/jinmokjeong/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "진목정 성지 순례를 마치셨습니다. 세 분이 순교한 울산 병영 순교성지와 세 분이 함께 살던 살티 공소도 멀지 않으니, 이들이 걸었던 길을 따라 순례를 이어 가 보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to Jinmokjeong Shrine. The Ulsan Byeongyeong Martyrs' Shrine, where the three were executed, and the Salti mission station where they lived together are not far, so you may wish to continue along the path these men walked.",
+    "photos": []
+  }
+}

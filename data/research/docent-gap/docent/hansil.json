@@ -1,0 +1,110 @@
+{
+  "siteId": "a92550dc-d09b-40b6-8737-55d796cb3691",
+  "siteName": "한실 교우촌",
+  "slug": "hansil",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "백화산과 뇌정산 사이 8부 능선, 문경의 한실 교우촌에 오셨습니다. 이곳은 1801년 신유박해 전후에 생긴 영남에서 가장 오래된 교우촌이자, 병인박해 때 프랑스 선교사 칼래 신부가 숨어 사목하던 중심지였고, 신자 열다섯 명이 붙잡혀 상주 옥에서 순교한 터입니다. 잘 가꿔진 성지라기보다 자연 그대로의 숲에 가까운 곳으로, 산나물과 약초를 보존하려는 마을의 뜻에 따라 일반인의 출입이 막혀 있어 안동교구 성지 담당 신부와 동행해야 들어올 수 있습니다. 오늘은 교우촌이 생긴 내력에서 시작해 칼래 신부의 사목, 열다섯 순교자, 서유형 바오로의 묘, 그리고 마원으로 이어지는 '우정의 길'까지 걸어 보겠습니다.",
+    "narrationEn": "Welcome to the Catholic village of Hansil in Mungyeong, set high on the ridge between Mount Baekhwa and Mount Noejeong. Formed around the Sinyu Persecution of 1801, it is the oldest Catholic village in the Yeongnam region; during the Byeongin Persecution it was the hidden base of the French missionary Father Calais, and fifteen of its believers were arrested and died in the Sangju prison. Rather than a landscaped shrine it is close to untouched forest, and because the villagers wish to protect its wild greens and medicinal herbs, public access is closed; one may enter only in the company of the Andong diocesan priest in charge of shrines. Today we will begin with how the village came to be, then follow Father Calais's ministry, the fifteen martyrs, the grave of Paul Seo Yu-hyeong, and finally the 'Path of Friendship' leading on to Mawon.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "산속의 요새 — 한실 교우촌이 생긴 내력",
+      "titleEn": "A Fortress in the Mountains — How the Hansil Village Began",
+      "location": "교우촌 터 입구",
+      "locationEn": "At the entrance to the village site",
+      "narration": "한실은 백화산 서북쪽 중턱에 있어 뒷산을 넘으면 바로 충북 괴산 연풍으로 이어지고, 왼쪽에 뇌정산, 오른쪽에 문경새재와 조령산이 둘러싸고 있습니다. 이런 자연 요새라 임진왜란 때 피난처가 되었고 박해 때는 은둔처가 되었습니다. 신자들이 처음 들어온 것은 1801년 신유박해 뒤, 상주 배모기에 살던 경상도 첫 신자 서광수의 다섯째 아들 서유도의 가족이 한실 잣골로 피난 오면서부터로 봅니다. 1812년과 1813년 무렵 경상도에서 일어난 사사로운 박해 때 서유도의 아내 전주 이씨가 이곳에서 순교했다고 전합니다. 높고 인적이 드문 자리 덕에 한실은 1866년 병인박해 전까지 모든 박해를 피할 수 있었고, 다른 지역에서 밀려드는 신자들에게 경상도의 교우촌을 소개하고 쉬어 가게 하는 교두보 노릇을 했습니다.",
+      "narrationEn": "Hansil sits on the northwest flank of Mount Baekhwa; cross the hill behind it and you are in Yeonpung, Goesan, in Chungcheongbuk-do, with Mount Noejeong to the left and the Mungyeong Saejae pass and Mount Joryeong to the right. This natural fortress served as a refuge during the Japanese invasions of the 1590s and as a hiding place in times of persecution. Believers first arrived after the Sinyu Persecution of 1801, when the family of Seo Yu-do, fifth son of Seo Gwang-su, the first Catholic of Gyeongsang Province, fled from Baemogi in Sangju to Jatgol in Hansil. Around 1812 and 1813, during a local persecution in Gyeongsang, Seo Yu-do's wife, a woman of the Jeonju Yi family, is said to have been martyred here. Thanks to its height and remoteness Hansil escaped every persecution until 1866, and it served as a bridgehead, introducing believers arriving from other regions to the Catholic villages of Gyeongsang and giving them a place to rest.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "임진왜란 피난처가 200년 뒤 천주교 신자들의 은신처가 된 산골입니다.",
+      "forEveryoneEn": "A mountain hollow that sheltered refugees from the Japanese invasions and, two centuries later, Catholics in hiding.",
+      "photos": [],
+      "sourceNote": "문경시 문화관광 '한실 교우촌' https://www.gbmg.go.kr/tour/contents.do?mId=0303010900 (사본 _pages/hansil/mungyeong.txt) · 가톨릭신문 2021-07-20 https://www.catholictimes.org/article/202107200071429 (사본 _pages/hansil/catholictimes.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "칼래 신부의 사목 중심지",
+      "titleEn": "The Center of Father Calais's Ministry",
+      "location": "교우촌 터",
+      "locationEn": "The village site",
+      "narration": "1861년 조선에 들어와 상주와 문경 일대에서 사목하던 파리외방전교회 칼래 신부에게 한실은 사목의 중심지였습니다. 그는 병인박해 때 백화산을 넘어 문경과 연풍을 오가며 전교에 심혈을 기울였고, 한실을 중심으로 건학, 부럭, 여우목, 사실 교우촌과 백화산 너머 연풍의 신자들에게 성사를 주었습니다. 1865년 음력 12월 1일 건학 교우촌에 성사를 주러 갔을 때는 몇 주 전 순교한 전 하비에르의 아내와 아들이 미사에 참례해 순교자를 위한 미사를 청하기도 했습니다. 병인박해가 터지자 칼래 신부는 이 한실에 숨어 있었습니다.",
+      "narrationEn": "For Father Calais of the Paris Foreign Missions Society, who entered Korea in 1861 and ministered around Sangju and Mungyeong, Hansil was the center of his work. During the Byeongin Persecution he crossed Mount Baekhwa again and again between Mungyeong and Yeonpung, devoting himself to the mission, and from Hansil he administered the sacraments to believers in the villages of Geonhak, Bureok, Yeoumok, and Sasil, and in Yeonpung beyond the mountain. When he went to Geonhak to give the sacraments on the first day of the twelfth lunar month of 1865, the wife and son of Xavier Jeon, martyred a few weeks earlier, attended Mass and asked for a Mass for the martyr. When the persecution broke out, it was here in Hansil that Father Calais hid.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "문경시 문화관광 https://www.gbmg.go.kr/tour/contents.do?mId=0303010900 (사본 _pages/hansil/mungyeong.txt) · 가톨릭신문 2021-07-20 https://www.catholictimes.org/article/202107200071429 (사본 _pages/hansil/catholictimes.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "열다섯 순교자 — 이름만 남은 사람들",
+      "titleEn": "The Fifteen Martyrs — Those Who Left Only Their Names",
+      "location": "교우촌 터, 가묘 예정지",
+      "locationEn": "The village site, where symbolic graves are planned",
+      "narration": "병인박해 때 한실과 부근 교우촌에서 많은 교우가 붙잡혀 순교했습니다. 문경에서 잡힌 이재현, 김레기, 김민기는 1867년 1월 4일 효수형을 받았고, 상주 아문에서는 각 교우촌에서 끌려온 신자 23명과 함께 한실에서 체포된 열다섯 명, 서 베드로와 김 아우구스티노, 김 토마스, 김 안토니오, 김 베네딕도, 김 빈첸시오, 김 프란치스코, 김 요셉, 김 베드로, 모 막달레나 들이 순교했습니다. 충청도에서 와 동정을 지키며 묵주를 만들어 살던 김 요셉과 그 사촌 김 베드로도 함께 붙잡혀 순교했습니다. 서광수의 증손 서태순은 병인년 봄 한실로 피난했다가 겨울에 온 가족이 잡혀 상주로 이송되었고, 옥에서 배가 고파 소 여물을 먹기도 하다가 음력 12월 18일과 19일에 순교했습니다. 아내 김 데레사는 옥에서 딸 마리아를 낳아 풀려났으나 함께 나온 일곱 살 아들은 굶어 죽었고, 그 딸 서 마리아는 뒷날 동정녀로 대구교구 초창기에 많은 공헌을 했습니다. 안타깝게도 열다섯 분은 본관도 후손도 무덤도 확인되지 않아 시복에 오르지 못했고, 안동교구는 가묘를 만들어 기릴 계획입니다.",
+      "narrationEn": "In the Byeongin Persecution many believers from Hansil and the nearby villages were seized and martyred. Yi Jae-hyeon, Kim Re-gi, and Kim Min-gi, caught in Mungyeong, were beheaded and displayed on January 4, 1867, and at the Sangju magistracy, alongside twenty-three believers brought in from the various villages, fifteen arrested at Hansil died: Peter Seo, Augustine Kim, Thomas Kim, Anthony Kim, Benedict Kim, Vincent Kim, Francis Kim, Joseph Kim, Peter Kim, Magdalene Mo, and others. Joseph Kim, who had come from Chungcheong and lived as a celibate making rosaries, and his cousin Peter Kim were arrested and martyred together. Seo Tae-sun, great-grandson of Seo Gwang-su, fled to Hansil in the spring of 1866; that winter his whole family was taken and sent to Sangju, where in his hunger he ate cattle fodder in prison before dying on the eighteenth and nineteenth of the twelfth lunar month. His wife Teresa Kim gave birth to a daughter, Mary, in prison and was released, but the seven-year-old son released with her starved to death; the daughter, Mary Seo, later lived as a consecrated virgin and contributed much to the early Diocese of Daegu. Sadly, for the fifteen no clan records, descendants, or graves have been identified, so they could not be beatified; the Diocese of Andong plans to honor them with symbolic graves.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "이름 외에 아무것도 남지 않아 복자가 되지 못한 순교자들입니다.",
+      "forEveryoneEn": "Martyrs who could not be beatified because nothing but their names survives.",
+      "photos": [],
+      "sourceNote": "문경시 문화관광 https://www.gbmg.go.kr/tour/contents.do?mId=0303010900 (사본 _pages/hansil/mungyeong.txt) · 가톨릭신문 2021-07-20 https://www.catholictimes.org/article/202107200071429 (사본 _pages/hansil/catholictimes.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "서유형 바오로의 묘 — 칠성판 위의 순교자",
+      "titleEn": "The Grave of Paul Seo Yu-hyeong — A Martyr Laid on a Seven-Star Board",
+      "location": "교우촌 터의 서유형 바오로 묘와 박 루치아 가묘",
+      "locationEn": "The grave of Paul Seo Yu-hyeong and the symbolic grave of Lucia Park at the village site",
+      "narration": "지금 한실에는 상주 옥에서 순교한 서유형 바오로와 박 루치아의 묘가 있습니다. 두 분은 한실 교우촌 신자는 아니지만 성역화를 시작하며 상주에 있던 무덤을 이곳으로 옮겼습니다. 서유형은 경상도 첫 신자 서광수의 친척으로 평지리의 큰 부자였는데, 1865년 10월 무렵 가을 농사를 마치고 지붕을 엮다가 들이닥친 포졸에게 잡혀 상주 진영으로 끌려갔습니다. 함께 잡힌 방사선 회장이 탈옥을 권했지만, 순교할 수 있는 이런 좋은 기회를 놓치면 언제 천주님을 위해 생명을 바치겠느냐며 기쁘게 받아들였다고 합니다. 묘소는 후손들이 3대에 걸쳐 애쓴 끝에 1988년 발견되었고, 안동교구는 교구 설정 40주년을 맞아 상주 함창 나한리 논둑의 묘에서 12시간 작업 끝에 팔꿈치뼈와 다리뼈 조각을 발굴해 유해는 교구청에, 유해를 감쌌던 흙은 이곳에 이장하고 묘비를 세웠습니다. 관 없이 칠성판 위에 시신을 올려 묻은 형태로 보여, 순교자 묘소가 원형 그대로 보존된 드문 사례입니다. 함께 묻혔으리라 여겨진 형수 박 루치아의 유해는 확인되지 않아 옆에 가묘만 만들었습니다.",
+      "narrationEn": "Hansil now holds the graves of Paul Seo Yu-hyeong and Lucia Park, who died in the Sangju prison. They were not believers of Hansil itself, but when work on the shrine began their graves were moved here from Sangju. Seo Yu-hyeong, a relative of Seo Gwang-su, the first Catholic of Gyeongsang, was a wealthy man of Pyeongji-ri; around October 1865, having finished the autumn harvest, he was thatching his roof when constables burst in and dragged him to the Sangju garrison. The catechist Bang Sa-seon, arrested with him, urged him to escape, but he is said to have accepted martyrdom gladly, asking when he would ever again have so fine a chance to give his life for God. His grave was found in 1988 after three generations of effort by his descendants, and the Diocese of Andong, marking its fortieth anniversary, spent twelve hours excavating the grave on a paddy bank at Nahan-ri in Hamchang, Sangju, recovering a piece of elbow bone and fragments of leg bone; the bones went to the diocesan office and the soil that had enclosed them was reburied here beneath a new gravestone. He appears to have been buried without a coffin, laid on a 'seven-star board,' making this a rare case of a martyr's grave preserved in its original form. The remains of his sister-in-law Lucia Park, believed to have been buried with him, could not be identified, so only a symbolic grave stands beside his.",
+      "lookFor": "'순교자 서유형 바오로' 묘비",
+      "lookForEn": "The gravestone of 'the martyr Paul Seo Yu-hyeong'",
+      "forEveryone": "조선 시대 장례 방식인 칠성판 매장이 그대로 남아 있던, 고고학적으로도 드문 무덤이었습니다.",
+      "forEveryoneEn": "An archaeologically rare grave, preserving intact the Joseon-era burial custom of laying the body on a seven-star board.",
+      "photos": [],
+      "sourceNote": "문경시 문화관광 https://www.gbmg.go.kr/tour/contents.do?mId=0303010900 (사본 _pages/hansil/mungyeong.txt) · 가톨릭신문 2021-07-20 https://www.catholictimes.org/article/202107200071429 (사본 _pages/hansil/catholictimes.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "우정의 길 — 칼래 신부와 박상근 마티아가 헤어진 능선",
+      "titleEn": "The Path of Friendship — The Ridge Where Father Calais and Matthias Park Parted",
+      "location": "한실에서 마원 성지로 넘어가는 백두대간 능선길",
+      "locationEn": "The Baekdudaegan ridge trail from Hansil over to Mawon Shrine",
+      "narration": "1866년 봄, 문경의 아전 박상근 마티아는 한실에 왔다가 칼래 신부가 숨어 있는 것을 보고 읍내 자기 집이 더 안전하다고 여겨 신부를 모셔 갔습니다. 사흘 뒤 이웃에게 발각되자 두 사람은 동트기 전에 다시 한실로 향했고, 허기와 갈증 속에 백화산 중턱에 이르렀을 때 마티아는 탈진 직전이었습니다. 신부는 돌아가라고 명령했고, 마티아는 미안한 마음에 통곡했으며, 두 사람은 손을 붙잡고 울다가 헤어졌습니다. 마티아는 혼자 떠나는 신부를 한참 동안 그 자리에 서서 바라보았습니다. 돌아온 마티아는 얼마 뒤 체포되어 상주 옥에서 서른 살에 순교했고, 칼래 신부는 프랑스에 돌아가서도 그 우정을 평생 간직했습니다. 두 사람이 마지막 이별을 고한 이 길을 '우정의 길'이라 부릅니다. 백두대간 능선과 겹치는 이 길은 중간중간 매우 가파르고 아직 산행로가 완전히 갖춰지지 않아 당시의 험난함을 조금이나마 느낄 수 있습니다. 힘든 길을 지나면 문경에는 공장도 송전탑도 없어 시야가 완전히 트인 풍광이 펼쳐지고, 끝까지 걸으면 박상근 복자의 묘가 있는 마원 성지에 닿습니다.",
+      "narrationEn": "In the spring of 1866 Matthias Park Sang-geun, a clerk from Mungyeong, came to Hansil, found Father Calais hiding there, and, judging his own house in town safer, took the priest home with him. Three days later a neighbor discovered them, and before dawn the two set out again for Hansil; by the time they reached the middle slopes of Mount Baekhwa, hungry and parched, Matthias was near collapse. The priest ordered him to turn back, Matthias wept in sorrow, and the two clasped hands and cried before parting. Matthias stood a long while watching the priest go on alone. Soon after his return he was arrested and died in the Sangju prison at thirty, while Father Calais, even after returning to France, cherished their friendship for the rest of his life. The trail where the two said their last farewell is called the 'Path of Friendship.' Overlapping the Baekdudaegan ridge, it is very steep in places and not yet fully developed as a hiking route, so one can sense a little of the hardship of that day. Beyond the hard stretches the view opens completely, for Mungyeong has no factories and no power pylons, and at the end of the path you reach Mawon Shrine, where Blessed Park Sang-geun lies.",
+      "lookFor": "능선 위에서 트이는 풍광",
+      "lookForEn": "The view that opens out on the ridge",
+      "forEveryone": "성지 순례이면서 백두대간 능선 산행인 길입니다. 안내 신부와 동행하고 체력을 준비하세요.",
+      "forEveryoneEn": "At once a pilgrimage and a hike along the Baekdudaegan ridge. Go with the guiding priest and come prepared for the climb.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2021-07-20 https://www.catholictimes.org/article/202107200071429 (사본 _pages/hansil/catholictimes.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "쇠퇴와 보존 — 30년 동안 조각 땅을 사 모은 성지",
+      "titleEn": "Decline and Preservation — A Shrine Assembled Plot by Plot over Thirty Years",
+      "location": "교우촌 터 전체",
+      "locationEn": "The whole village site",
+      "narration": "병인박해 뒤 한실 교우촌은 점점 쇠퇴했습니다. 1893년 동학난 때는 부근 신자들이 다시 피난 와 머물렀고 한때 동학도들의 은신처가 되기도 했습니다. 1910년 한일합방 뒤 신자들이 모두 떠나 폐허가 되었고, 대신 가은읍 먹방이와 도탄에 새 교우촌이 생겼습니다. 지금 성지 부지는 약 3만 3천 제곱미터, 3만 평 남짓인데, 이는 성지를 꾸미려고 산 땅이라기보다 워낙 숲이라 길을 내기 위해 지난 30년 동안 조각 땅을 사 모은 터입니다. 성지 담당 정도영 신부는 성지의 목적이 순교자들이 살던 곳을 보며 그분들의 숨결을 느끼고 영신적 도움을 받는 데 있으며, 자칫 개발 자체가 목적이 될 수 있다고 말합니다. 그래서 이곳은 소박한 터로 남아 있습니다.",
+      "narrationEn": "After the Byeongin Persecution the Hansil village gradually declined. During the Donghak uprising of 1893 believers from nearby took refuge here again, and for a time it even sheltered Donghak followers. After the Japanese annexation of 1910 the believers all left and the village fell into ruin, while new Catholic villages formed at Meokbangi and Dotan in Gaeun-eup. The shrine grounds today cover about 33,000 square meters, but this land was bought not to build a shrine so much as to open a path through what is essentially forest, assembled plot by plot over the past thirty years. Father Jeong Do-yeong, in charge of the shrine, says its purpose is to let people see where the martyrs lived, sense their presence, and receive spiritual help, and warns that developing a shrine can easily become an end in itself. So the site remains simple and unadorned.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "성지를 꾸미지 않고 숲으로 남겨 둔 것이 이곳의 선택입니다.",
+      "forEveryoneEn": "Leaving the shrine as forest rather than landscaping it is a deliberate choice here.",
+      "photos": [],
+      "sourceNote": "문경시 문화관광 https://www.gbmg.go.kr/tour/contents.do?mId=0303010900 (사본 _pages/hansil/mungyeong.txt) · 가톨릭신문 2021-07-20 https://www.catholictimes.org/article/202107200071429 (사본 _pages/hansil/catholictimes.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "한실 교우촌 순례를 마치셨습니다. 문경에는 가경자 최양업 신부가 선종한 것으로 추정되는 주막 터 진안리 성지와 성 이윤일 요한의 여우목 성지도 있습니다. 네 곳을 다 돌려면 체력이 필요하지만, 그만큼 순교자의 삶을 몸으로 느낄 수 있는 길입니다.",
+    "narrationEn": "This concludes our visit to the Catholic village of Hansil. Mungyeong also holds Jinan-ri Shrine, the site of the inn where the Venerable Father Choe Yang-eop is believed to have died, and Yeoumok Shrine of St. John Yi Yun-il. Covering all four sites takes stamina, but it is a path on which the martyrs' lives can be felt in one's own body.",
+    "photos": []
+  }
+}
