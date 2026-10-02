@@ -1,0 +1,95 @@
+{
+  "siteId": "b8e7e64b-77af-41bc-81b0-6f8cb8750ea1",
+  "siteName": "새방골 성당",
+  "slug": "saebanggol",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "대구 서구 새방골 성당에 오셨습니다. 새방골은 1860년 경신박해를 전후해 신자들이 살기 시작했고 병인박해가 끝난 뒤 더 큰 교우촌이 된 곳입니다. 경상도를 순회하던 선교사 로베르 신부, 한국 이름 김보록 신부가 1888년 말 대구 선교를 위해 이곳으로 거처를 옮겼고, 그래서 새방골 성당은 계산 주교좌성당의 전신으로 꼽힙니다. 오늘은 성당 마당의 김보록 신부 흉상에서 시작해 교우촌의 시작, 1888년 로베르 신부의 이주, 옆집 화재와 바람이 바뀐 이야기, 그리고 남산공소로 이어진 계산성당의 뿌리까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to Saebanggol Church in Seo-gu, Daegu. Believers began to settle at Saebanggol around the Gyeongsin Persecution of 1860, and after the Byeongin Persecution ended it grew into a larger Catholic village. Father Robert, the itinerant missionary of Gyeongsang Province known in Korea as Kim Bo-rok, moved his residence here at the end of 1888 to open the mission in Daegu, which is why Saebanggol Church is counted as the forerunner of Gyesan Cathedral. Today we will begin at the bust of Father Robert in the churchyard, then look at the village's beginnings, the priest's move here in 1888, the story of a fire next door and a wind that changed, and the roots of Gyesan Cathedral that lead on to the Namsan mission station.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "성당 마당의 김보록 신부 흉상 — 2008년 120주년",
+      "titleEn": "The Bust of Father Kim Bo-rok in the Churchyard — The 120th Anniversary in 2008",
+      "location": "성당 마당 흉상 앞",
+      "locationEn": "In front of the bust in the churchyard",
+      "narration": "마당에 보이는 흉상은 2008년 새방골 성당 120주년을 기념해 제막한 김보록, 곧 로베르 신부의 흉상입니다. 새방골 성당은 계산성당의 전신입니다. 성당은 서구 새방로27길 9에 있고, 주일 미사는 아침 10시 30분, 고해성사는 미사 20분 전에 봅니다.",
+      "narrationEn": "The bust you see in the yard is of Father Kim Bo-rok, that is, Father Robert, unveiled in 2008 to mark the 120th anniversary of Saebanggol Church. Saebanggol Church is the forerunner of Gyesan Cathedral. The church is at 9 Saebang-ro 27-gil in Seo-gu; Sunday Mass is at 10:30 in the morning, and confessions are heard twenty minutes before Mass.",
+      "lookFor": "2008년에 제막한 김보록(로베르) 신부 흉상",
+      "lookForEn": "The bust of Father Kim Bo-rok (Robert), unveiled in 2008",
+      "forEveryone": "대구 도심 대성당의 뿌리가 이 작은 동네 성당에 있습니다.",
+      "forEveryoneEn": "The roots of Daegu's downtown cathedral lie in this small neighborhood church.",
+      "photos": [],
+      "sourceNote": "대구대교구 순례지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=pilgrimage&process=read&idx=11&view_option= (사본 _pages/saebanggol/official.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "경신박해 전후의 교우촌 — 병인박해 뒤 더 커지다",
+      "titleEn": "A Village of Believers from Around 1860 — Larger After the Byeongin Persecution",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "새방골에는 1860년 경신박해를 전후해 신자들이 살기 시작했습니다. 박해를 피해 숨어든 사람들의 마을이었지만, 1866년부터 이어진 병인박해가 끝난 뒤에는 오히려 더 큰 교우촌이 되었습니다. 그렇게 자란 교우촌이 뒷날 선교사가 머물 자리가 되었습니다.",
+      "narrationEn": "Believers began to live at Saebanggol around the time of the Gyeongsin Persecution of 1860. It was a village of people hiding from persecution, yet after the Byeongin Persecution that began in 1866 came to an end, it grew into an even larger Catholic village. That village in turn became the place where a missionary would make his home.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "대구대교구 순례지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=pilgrimage&process=read&idx=11&view_option= (사본 _pages/saebanggol/official.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "1888년 말 — 신나무골에서 새방골로 옮겨 온 로베르 신부",
+      "titleEn": "Late 1888 — Father Robert Moves from Sinnamugol to Saebanggol",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "경상도 순회 선교사였던 로베르 신부는 1888년 말 대구 선교를 위해 신나무골에서 대구와 가까운 이곳 새방골로 거처를 옮겼습니다. 칠곡 신나무골이 경상도 선교의 첫 거점이었다면, 새방골은 대구라는 큰 도시로 들어가기 위한 문턱이었던 셈입니다. 로베르 신부가 이곳에 은신해 있다는 사실이 알려지게 된 데에는 특별한 사연이 있는데, 다음 지점에서 들려드리겠습니다.",
+      "narrationEn": "At the end of 1888 Father Robert, the itinerant missionary of Gyeongsang Province, moved his residence from Sinnamugol to Saebanggol, closer to Daegu, in order to open the mission in the city. If Sinnamugol in Chilgok was the first base of the Gyeongsang mission, Saebanggol was the threshold for entering the great city of Daegu. There is a particular story behind how it became known that Father Robert was hiding here, which we will tell at the next stop.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "외국인 선교사가 아직 숨어 살아야 하던 시절, 대구 바로 곁의 이 마을이 거점이었습니다.",
+      "forEveryoneEn": "In days when a foreign missionary still had to live in hiding, this village on Daegu's doorstep was his base.",
+      "photos": [],
+      "sourceNote": "대구대교구 순례지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=pilgrimage&process=read&idx=11&view_option= (사본 _pages/saebanggol/official.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "옆집의 불과 바뀐 바람 — 1889년 4월의 편지",
+      "titleEn": "A Fire Next Door and a Wind That Turned — A Letter of April 1889",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "로베르 신부는 1889년 4월 3일자 서한에서 하느님의 보호를 깨닫게 된 사건 하나를 전합니다. 옆집에 불이 났는데 갑자기 바람의 방향이 바뀐 덕분에 신부의 숙소와 성당이 있는 건물을 구했고, 신자들은 바람이 갑자기 방향을 바꾼 것을 신기해하며 하늘이 이 집을 보호하신 것이 틀림없다고 말했습니다. 며칠 뒤에는 사람들이 천주교를 배우고 싶다며 찾아왔습니다. 집의 일부는 불에 탔지만 대신 사람들 마음에 신앙의 불을 지폈다고 로베르 신부는 적었습니다.",
+      "narrationEn": "In a letter dated April 3, 1889, Father Robert tells of an event that made him aware of God's protection. A fire broke out next door, but a sudden change in the wind's direction saved the building that held his lodging and the chapel, and the believers, marveling at the sudden turn of the wind, said that heaven must surely have protected this house. A few days later people came asking to learn about the Catholic faith. Part of the house had burned, Father Robert wrote, but in its place a fire of faith had been kindled in people's hearts.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "화재 하나가 숨어 있던 선교사를 세상에 알리고 이웃을 성당으로 불러들였습니다.",
+      "forEveryoneEn": "A single fire revealed the hidden missionary and drew the neighbors to the church.",
+      "photos": [],
+      "sourceNote": "대구대교구 순례지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=pilgrimage&process=read&idx=11&view_option= (사본 _pages/saebanggol/official.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "남산공소로 — 계산 주교좌성당의 뿌리",
+      "titleEn": "On to the Namsan Station — The Roots of Gyesan Cathedral",
+      "location": "성당 정면",
+      "locationEn": "In front of the church",
+      "narration": "그 뒤 로베르 신부는 새방골을 떠나 남산공소, 지금의 계산 주교좌성당으로 거처를 옮겼습니다. 그래서 새방골 성당은 계산성당의 전신으로 불립니다. 2008년 이 성당 120주년을 기념해 김보록 신부의 흉상이 제막된 것도 그 뿌리를 기억하기 위해서입니다.",
+      "narrationEn": "Father Robert later left Saebanggol and moved his residence to the Namsan mission station, today's Gyesan Cathedral. This is why Saebanggol Church is called the forerunner of Gyesan Cathedral. The bust of Father Kim Bo-rok unveiled in 2008 for the church's 120th anniversary likewise honors those roots.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "대구대교구 순례지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=pilgrimage&process=read&idx=11&view_option= (사본 _pages/saebanggol/official.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "새방골 성당 순례를 마치셨습니다. 로베르 신부가 이곳 전에 머물던 칠곡 신나무골 성지와, 이곳을 떠나 자리 잡은 계산 주교좌성당을 이어 보시면 대구 교회가 걸어온 길을 순서대로 따라가게 됩니다.",
+    "narrationEn": "This concludes our visit to Saebanggol Church. Continue to Sinnamugol Shrine in Chilgok, where Father Robert lived before coming here, and to Gyesan Cathedral, where he settled after leaving, and you will trace the road of the Daegu church in order.",
+    "photos": []
+  }
+}

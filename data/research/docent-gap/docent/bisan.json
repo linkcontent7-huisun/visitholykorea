@@ -1,0 +1,95 @@
+{
+  "siteId": "e6ba760e-a5d7-40c0-8899-6f4a319ff2bc",
+  "siteName": "비산 성당",
+  "slug": "bisan",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "대구 서구 비산동, 옛 이름 '날뫼'의 비산 성당에 오셨습니다. 이 성당 자리는 경상 감영의 사형 터 가운데 하나였고, 박해 시대부터 신자들이 모여 살던 교우촌이었습니다. 최양업 신부가 편지에 적은 열심한 노파가 세운 교우촌이 이곳으로 추정되고, 관덕정에서 순교한 이윤일 요한 성인의 유해가 45년 동안 묻혀 있던 날뫼 뒷산도 여기입니다. 1927년 본당이 되어 1958년 지금의 성전을 축성했습니다. 오늘은 성당에서 시작해 날뫼 교우촌의 노파, 이윤일 성인의 첫 무덤과 성 이윤일 요한 길, 이곳에서 자란 순교자 이 알로이시오 곤자가, 그리고 성당의 역사까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to Bisan Church in Bisan-dong, Seo-gu, Daegu, a neighborhood once called 'Nalmoe.' The church stands on one of the execution grounds of the provincial governor's office, and believers lived here as a Catholic village from the days of persecution. The village founded by a devout old woman whom Father Thomas Choe Yang-eop described in a letter is thought to be this place, and the hill behind Nalmoe where the remains of St. John Yi Yun-il, martyred at Gwandeokjeong, lay buried for forty-five years is here as well. It became a parish in 1927 and consecrated the present church in 1958. Today we will begin at the church, then look at the old woman of the Nalmoe village, the first grave of St. John Yi and the pilgrimage path named for him, the martyr Aloysius Gonzaga Yi who grew up here, and the history of the church itself.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "경상 감영의 사형 터 위에 선 성당",
+      "titleEn": "A Church on an Execution Ground of the Provincial Governor",
+      "location": "성당 정면",
+      "locationEn": "In front of the church",
+      "narration": "지금 서 계신 대구 비산성당 자리는 경상 감영의 사형 터 가운데 하나입니다. 1866년 병인박해 때 서울 좌포도청에서 순교한 이 알로이시오 곤자가의 선대 때부터 이곳에 신자들이 살았습니다. 성당은 서구 북비산로67길 31에 있고, 주일 미사는 아침 6시 30분과 10시 30분, 저녁 7시 30분에 있으며 고해성사는 미사 20분 전에 봅니다.",
+      "narrationEn": "The site of Bisan Church where you stand was one of the execution grounds of the Gyeongsang provincial governor's office. Believers lived here from the time of the forebears of Aloysius Gonzaga Yi, who was martyred at the Left Police Bureau in Seoul during the Byeongin Persecution of 1866. The church is at 31 Bukbisan-ro 67-gil in Seo-gu; Sunday Masses are at 6:30 and 10:30 in the morning and 7:30 in the evening, and confessions are heard twenty minutes before Mass.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "처형장이었던 땅에 성당이 세워졌습니다.",
+      "forEveryoneEn": "A church now stands on what was once an execution ground.",
+      "photos": [],
+      "sourceNote": "대구대교구 순교 사적지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=martyr&process=read&idx=10&view_option= (사본 _pages/bisan/official.txt); 월간 빛 '비산성당 일대' https://www.lightzine.co.kr/last.html?p=v&num=1325 (사본 _pages/bisan/lightzine-1325.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "최양업 신부의 편지 속 '열심한 노파'와 날뫼 교우촌",
+      "titleEn": "The 'Devout Old Woman' of Father Choe's Letter and the Nalmoe Village",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "최양업 신부의 서한을 보면 날뫼에 교우촌이 이루어지기까지 어떤 노파의 노력이 있었음을 알 수 있습니다. 열아홉 번째 서한에서 최양업 신부는 대구에 아주 열심한 노파가 한 사람 있어, 많은 사람에게 교리를 설명해 많은 신자로 이루어진 교우촌을 세우고, 철저한 교리 교육과 신심의 모범으로 그 교우촌을 지탱해 왔다고 전합니다. 그 교우촌이 바로 이곳 날뫼로 추정됩니다. 1887년 로베르 신부의 사목 보고서에는 날뫼에 30명의 신자가 살았다고 적혀 있습니다.",
+      "narrationEn": "The letters of Father Thomas Choe Yang-eop show that the Catholic village at Nalmoe owed its beginnings to the efforts of a certain old woman. In his nineteenth letter Father Choe tells of a very devout old woman in Daegu who explained the faith to many people, founded a village made up of many believers, and sustained it by thorough catechesis and the example of her devotion. That village is thought to be Nalmoe, this very place. Father Robert's pastoral report of 1887 records thirty believers living at Nalmoe.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "이름이 남지 않은 한 할머니가 이 마을의 신앙 공동체를 세웠습니다.",
+      "forEveryoneEn": "An old woman whose name is lost founded this village's community of faith.",
+      "photos": [],
+      "sourceNote": "대구대교구 순교 사적지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=martyr&process=read&idx=10&view_option= (사본 _pages/bisan/official.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "이윤일 요한 성인의 첫 무덤과 '성 이윤일 요한 길'",
+      "titleEn": "The First Grave of St. John Yi Yun-il and the 'St. John Yi Yun-il Path'",
+      "location": "성당 인근 성인 무덤 추정지 기념비",
+      "locationEn": "The memorial at the presumed grave site near the church",
+      "narration": "병인박해로 1867년 관덕정에서 순교한 이윤일 요한 성인의 시신을 날뫼 뒷산에 묻었던 이응칠 가정도 이곳에 살았습니다. 형장 근처에 임시로 묻혔던 성인의 유해는 2년 뒤 후손들이 날뫼 뒷산으로 옮겼고, 경기도 용인 묵리로 다시 이장되기까지 45년 동안 이곳에 묻혀 있었습니다. 지금의 비봉초등학교 근처가 그 자리로 추정됩니다. 비산본당은 대구시의 지원을 받아 관덕정순교기념관에서 계산성당, 달성공원, 북비산네거리, 원고개 시장, 성인 무덤 추정지 기념비를 거쳐 비산성당에 이르는 약 3.6킬로미터의 '성 이윤일 요한의 사랑과 순교의 길'을 조성했고, 교구는 2018년 1월 이 길을 교구 성지 순례길로 지정했습니다.",
+      "narrationEn": "The family of Yi Eung-chil, who buried the body of St. John Yi Yun-il on the hill behind Nalmoe after his martyrdom at Gwandeokjeong in 1867, also lived here. First buried temporarily near the execution ground, the saint's remains were moved two years later by his descendants to the hill behind Nalmoe, where they lay for forty-five years before being reburied at Mungni in Yongin, Gyeonggi-do. The spot is thought to be near today's Bibong Elementary School. With support from the city of Daegu, Bisan parish laid out the 'Path of the Love and Martyrdom of St. John Yi Yun-il,' about 3.6 kilometers from the Gwandeokjeong Martyrs' Memorial Hall past Gyesan Cathedral, Dalseong Park, the Bukbisan crossroads, Wongogae Market, and the memorial at the presumed grave site to Bisan Church, and in January 2018 the archdiocese designated it a diocesan pilgrimage path.",
+      "lookFor": "성인 무덤 추정지에 세운 기념비",
+      "lookForEn": "The memorial raised at the saint's presumed grave site",
+      "forEveryone": "순교자의 유해가 옮겨진 길이 도심 3.6킬로미터 걷기 코스가 되었습니다.",
+      "forEveryoneEn": "The route along which a martyr's remains were carried has become a 3.6-kilometer walk through the city.",
+      "photos": [],
+      "sourceNote": "대구대교구 순교 사적지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=martyr&process=read&idx=10&view_option= (사본 _pages/bisan/official.txt); 가톨릭신문 2018-01 '성 이윤일 요한 길 교구 순례길로 지정' https://www.catholictimes.org/article/201801230243960 (사본 _pages/bisan/catholictimes-2018.txt); 월간 빛 https://www.lightzine.co.kr/last.html?p=v&num=1325 (사본 _pages/bisan/lightzine-1325.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "날뫼에서 자란 순교자 — 이 알로이시오 곤자가",
+      "titleEn": "A Martyr Raised at Nalmoe — Aloysius Gonzaga Yi",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "1838년 대구에서 태어난 이 알로이시오 곤자가는 구교우 집안의 아버지에게서 신앙을 물려받아 어머니, 두 여동생과 함께 이곳 날뫼에서 동정을 지키며 검소하게 살았습니다. 가산을 팔아 가난한 이들에게 나누어 준 뒤 칠곡 산중의 신자촌 한티로 들어가 농사를 짓고 책도 쓰며 기도와 묵상에 힘썼습니다. 1866년 병인박해가 일어나자 하양으로 피신했다가 대구로 돌아오던 길에 체포되었고, 서인순 시몬과 함께 서울 좌포도청으로 압송되어 31세에 순교했습니다. 압송길에 어머니와 두 여동생에게 죽으러 가는 것이 아니며 다시 만날 날이 있을 테니 평안히 지내시라고 위로했다고 전해집니다.",
+      "narrationEn": "Born in Daegu in 1838, Aloysius Gonzaga Yi inherited the faith from his father, a member of an old Catholic family, and lived simply and in celibacy here at Nalmoe with his mother and two younger sisters. After selling his property and giving the proceeds to the poor, he moved to Hanti, a believers' village in the mountains of Chilgok, where he farmed, wrote, and devoted himself to prayer and meditation. When the Byeongin Persecution broke out in 1866 he fled to Hayang, was arrested on his way back to Daegu, and was sent with Simon Seo In-sun to the Left Police Bureau in Seoul, where he was martyred at the age of thirty-one. On the way, it is told, he comforted his mother and sisters, saying he was not going to die but that a day would come when they would meet again, and that they should live in peace.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "어릴 때 풍을 앓아 눈과 귀가 비뚤어졌지만 겸손하고 온유한 사람이었다고 전해집니다.",
+      "forEveryoneEn": "A childhood illness had left his eyes and ears crooked, but he is remembered as a humble and gentle man.",
+      "photos": [],
+      "sourceNote": "월간 빛 '대구대교구 성지를 찾아서 ③ 비산성당 일대' https://www.lightzine.co.kr/last.html?p=v&num=1325 (사본 _pages/bisan/lightzine-1325.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "1927년 본당, 1958년 성전 — 명도회관을 뼈대로",
+      "titleEn": "A Parish in 1927, a Church in 1958 — Built on the Frame of the Myeongdo Hall",
+      "location": "성당 정면",
+      "locationEn": "In front of the church",
+      "narration": "대구대교구가 설정된 뒤 신자들이 늘어나자 날뫼 교우촌은 1927년 본당으로 승격되었습니다. 1931년에는 남산본당에서 옮겨 온 명도회관 건물을 골격으로 성전을 지었고, 1958년 1월 29일 지금의 성전을 축성했습니다. 한국전쟁 중에는 구상 시인이 이 비산동 일대에서 피난 생활을 했습니다. 이윤일 성인의 유해가 지나간 길을 따라 순례하려면 관덕정 순교성지와 이 비산성당을 거쳐 용인 묵리, 미리내 성지, 성모당을 돌아 다시 관덕정으로 돌아오게 됩니다.",
+      "narrationEn": "As the number of believers grew after the Archdiocese of Daegu was established, the Nalmoe village was raised to a parish in 1927. In 1931 a church was built on the frame of the Myeongdo Hall building moved from Namsan parish, and on January 29, 1958, the present church was consecrated. During the Korean War the poet Ku Sang lived as a refugee in this Bisan-dong area. To follow the road taken by the remains of St. John Yi, one passes from Gwandeokjeong Martyrs' Shrine through this church to Mungni in Yongin, Mirinae Shrine, and Seongmodang before returning to Gwandeokjeong.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "대구대교구 순교 사적지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=martyr&process=read&idx=10&view_option= (사본 _pages/bisan/official.txt); 월간 빛 https://www.lightzine.co.kr/last.html?p=v&num=1325 (사본 _pages/bisan/lightzine-1325.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "비산 성당 순례를 마치셨습니다. 이윤일 요한 성인이 순교한 관덕정 순교성지에서 이곳까지 이어지는 '성 이윤일 요한 길'을 걸어 보시면 성인의 유해가 옮겨진 길을 그대로 따르게 됩니다.",
+    "narrationEn": "This concludes our visit to Bisan Church. Walk the 'St. John Yi Yun-il Path' from Gwandeokjeong Martyrs' Shrine, where the saint died, to this church, and you will follow the very road along which his remains were carried.",
+    "photos": []
+  }
+}
