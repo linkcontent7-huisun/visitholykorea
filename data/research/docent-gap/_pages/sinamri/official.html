@@ -1,0 +1,817 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="viewport" content="user-scalable=yes,initial-scale=1,width=device-width"> -->
+    <meta name="format-detection" content="telephone=no" />
+    <title></title>
+	<meta name="Keywords" content="" />
+    <link href="/sinamri/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/sinamri/css/awesome.css" rel="stylesheet" type="text/css">
+    <link href="/sinamri/css/scrollbar.min.css" rel="stylesheet" type="text/css">
+    <link href="/sinamri/css/basic.css" rel="stylesheet" type="text/css">
+    <link href="/sinamri/css/common.css" rel="stylesheet" type="text/css">
+
+    <!-- 메인컬러 변경 -->
+    <style type="text/css">
+    #header {
+        border-top-color: #c03322
+    }
+	
+    .event table td .event{
+        border: #c03322
+    }
+	
+
+    #header .header-wrap #gnb li a:hover,
+    .maintype02 #header #gnb li.on a,
+    .maintype02#header .header-wrap #gnb li ul li a:hover,
+    .maintype02h3.title-style02,
+    .text-style01,
+    .photo_list div .title,
+    #content .event-list .data,
+    .weekly_list .title,
+    .event .event-list .data {
+        color: #c03322;
+    }
+
+    #header #gnb li .depth-in:before,
+    #header #gnb li .depth-in:before,
+    .tab-list li button.active,
+    #content .calender table td.event,
+    #content .event-list .data::before,
+    .map .info,
+    .event table th {
+        background-color: #c03322;
+    }
+
+    /* 메인시안 - 기본 */
+    #main.maintype01 h2 a,
+    #main.maintype01 h3,
+    .maintype01 .sacrament dl dt {
+        color: #c03322;
+    }
+
+    .maintype01 .mass .time-wrap h3::before,
+    .maintype01 .sacrament dl dt::after,
+    .maintype01 .gallery .more:hover,
+    .maintype01 .mass .time-wrap h3::before {
+        background-color: #c03322;
+    }
+
+    .maintype01 .gallery-list a .title {
+        border-bottom-color: #c03322
+    }
+
+    /* 메인시안 - 템플릿 2 */
+    .maintype02 .slide-wrap .text02 .title,
+    .maintype02 .main-wrap01 .more::before,
+    #main.maintype02 h3,
+    .maintype02 .sacrament dl dt,
+    .maintype02 .video-list a .title {
+        color: #c03322;
+    }
+
+    #main.maintype02 .bx-controls-direction, #main.maintype02 section.main-wrap02 h2 a,
+    .maintype02 .video-list a .video-text:before {
+        background-color: #c03322;
+    }
+
+    /* 메인시안 - 템플릿 3 */
+    #main.maintype03 h3,
+    .maintype03 .sacrament dl dt {
+        color: #c03322;
+    }
+
+    .maintype03 .slide-wrap .text01 .container::before,
+    .maintype03 .gallery-list a .title,
+    .maintype03 .video-list a .title {
+        background-color: #c03322;
+    }
+
+    /* 메인시안 - 템플릿 4 */
+    #main.maintype04 h2 a,
+    #main.maintype04 h3,
+    .maintype04 .sacrament dl dt,
+    .maintype04 .gallery-list a .title,
+    .maintype04 .video-list a .title::after {
+        color: #c03322;
+    }
+
+    .maintype04 .mass .time-wrap h3::before,
+    .maintype04 .sacrament dl dt::after,
+    .main-wrap04::after {
+        background-color: #c03322;
+    }
+
+
+    /* 메인시안 - 템플릿 5 */
+    .maintype05 .slide-wrap .text02 .title,
+    .maintype05 .bx-controls .bx-next::before,
+    .maintype05 .bx-controls .bx-prev::before,
+    .maintype05 .main-wrap01 .more::before,
+    .maintype05 .weekly li .data,
+    #main.maintype05 h3,
+    .maintype05 .sacrament dl dt,
+    .maintype05 .gallery-list a .title,
+    .maintype05 .video-list a .title {
+        color: #c03322;
+    }
+
+    .maintype05 .gallery-list a .gallery-text:before,
+    .maintype05 .video-list a .video-text:before {
+        background-color: #c03322;
+    }
+</style>
+
+    <!--[if lt IE 9]>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<![endif]-->
+    <!--[if gte IE 9]>
+		<script type="text/javascript" src="/sinamri/js/jquery-3.3.1.min.js"></script>
+	<![endif]-->
+    <!--[if !IE]> -->
+    <script type="text/javascript" src="/sinamri/js/jquery-3.3.1.min.js"></script>
+    <!-- <![endif]-->
+    <!-- <script type="text/javascript" src="/sinamri/js/bootstrap.js"></script> -->
+    <script type="text/javascript" src="/sinamri/js/awesome.min.js"></script>
+    <script type="text/javascript" src="/sinamri/js/scrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="/sinamri/js/jquery.bxslider.js"></script>
+    <script type="text/javascript" src="/sinamri/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="/sinamri/js/common.js"></script>
+</head>
+
+<body>
+
+<!-- 메인 템플릿 css 2021.06.08 -->
+<div class="skip">
+    <h2>스킵네비게이션</h2>
+    <ul>
+        <li><a href="#gnb">메뉴바로가기</a></li>
+        <li><a href="#container">본문바로가기</a></li>
+    </ul>
+</div>
+
+<!-- header -->
+<nav class="navbar navbar-fixed-top">
+    <div id="header">
+        <div class="header-wrap">
+            <div class="container">
+                <h1>
+                    <a href="/sinamri/index.aspx" style="background-image: url('/sinamri/upload/신암리성당.png')">
+                        신암리성당
+                    </a>
+                </h1>
+
+                <button class="btn-menu" onclick="return false;">
+                    <i class="fas fa-bars" onclick="return false;"></i>
+                    <span class="tts">모바일 전체메뉴</span>
+                </button>
+
+                <div id="gnb">
+                    <ul class="mn">
+
+                        <li>
+                            <a href="#" class="depth-in"> + 성당 소개</a>
+                            <ul>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20001696">소개</a>
+                                </li>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20001697">성당역사</a>
+                                </li>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20001698">주보성인</a>
+                                </li>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20001699">성직자/수도자</a>
+                                </li>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20001700">미사안내</a>
+                                </li>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20001701">오시는길</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#" class="depth-in">+ 성당 소식</a>
+                            <ul>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20001704">행사안내</a>
+                                </li>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20001705">주보안내</a>
+                                </li>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20001706">공지사항</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#" class="depth-in">+ 신암리 이야기</a>
+                            <ul>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20001708">갤러리</a>
+                                </li>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20001709">동영상</a>
+                                </li>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20003392">신암리 다이어리</a>
+                                </li>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20003393">한 줄의 기도</a>
+                                </li>
+
+                                <li>
+                                    <a href="/sinamri/default.aspx?mnucd=20003394">공감나눔</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#" class="depth-in">+ 허영엽신부님 단상</a>
+                            <ul>
+
+                                <li>
+                                    <a href=" https://www.facebook.com/mattias84" target="new">글모음</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#" class="depth-in">+ 허근신부님 사목센터</a>
+                            <ul>
+
+                                <li>
+                                    <a href="http://www.sulsul.kr" target="new">가톨릭알코올사목센터</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                    </ul>
+
+                    <button class="btn-close" onclick="return false;"></button>
+                </div>
+            </div>
+
+            <div id="gnb-bg" onclick="return false;"></div>
+        </div>
+    </div>
+</nav>
+<!-- //header -->
+<link href="css/main_02.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+    $(function () {
+        $('.slide-wrap').bxSlider({
+            auto: true,
+            autoControls: true,
+            nextText: "<span class='tts'>다음</span>",
+            prevText: "<span class='tts'>이전</span>",
+            startText: "<span class='tts'>재생</span>",
+            stopText: "<span class='tts'>멈춤</span>",
+            autoControlsCombine: true,
+            pause: 5000,
+			mode: "fade",
+			touchEnabled : false
+			//,
+            //mode: "horizontal",
+			//onSliderLoad: function(){    
+			//	console.log("ss");
+			 //  $('.text02').appendTo(".bx-viewport");
+			 //}
+
+        });
+    });
+    timer();
+    var current = 0;
+    var $interval;
+	var hei = 50;
+    function timer() {
+       // var $interval = setInterval(function () { slide() }, 3000);
+    }
+    function slide() {
+		var $move =  $(".event-list ul");
+        var allH = $(".event-list ul").height();
+		console.log(allH+"/"+hei);
+		if(allH==hei){
+			hei=0; $move.css("top",50);
+		}
+		$move.animate({ top: -hei }, 1000, function () { });
+		hei = hei+50;      
+        current++;
+        if (current == 5) current = 0;
+    }
+</script>
+<!-- container -->
+	  
+<!-- 템플릿 변경시 main-type1 숫자 변경 기본 1~5 -->
+<div class="container-wrap maintype02" id="main">
+    <!-- 슬라이드 영역 -->
+    <section class="slide-wrap">
+        <!-- 롤링 -->
+		
+        <div style="background-image:url('/sinamri/upload/pop/bn48.jpg')">
+            <div class="text01">
+                <div class="container">
+                    <div class="cell">
+                        <div class="title"></div>
+                        <div class="text"></div>
+                    </div>
+                </div>
+            </div>
+			<div class="text02">
+                <div class="container">
+					<div class="cell">
+						<div class="title">						
+						
+								<a href="" >
+
+						신암리성당</a>	
+						</div>
+						<div class="text scrollbarR">
+							<ul>
+								<li></li>
+							</ul>
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+		
+    <!-- //롤링 -->
+    </section>
+    <!-- //슬라이드 영역 -->
+
+
+	
+    <section class="main-wrap01">
+        <div class="container">
+            <!-- 공지사항 -->
+            <div class="notice col-lg-4 col-sm-12">
+                <h2><a href="board.aspx?mnucd=20001706">공지사항</a></h2>
+                <a href="board.aspx?mnucd=20001706" class="more"><span class="tts">더보기</span></a>
+                <ul>
+					
+							<li>
+								<a href="board_view.aspx?mnucd=20001706&board_seq=39847">
+									<p>9월 18일(금), 19일(토) 미사 없습니다</p><span>2026-09-17</span>
+								</a>
+							</li>
+					
+							<li>
+								<a href="board_view.aspx?mnucd=20001706&board_seq=39284">
+									<p>2026년 9월 5일(토) 및 9월 19일(토)  평일미사는 없습니다</p><span>2026-08-20</span>
+								</a>
+							</li>
+					
+							<li>
+								<a href="board_view.aspx?mnucd=20001706&board_seq=38311">
+									<p>7월 미사 일정 안내</p><span>2026-06-29</span>
+								</a>
+							</li>
+					
+							<li>
+								<a href="board_view.aspx?mnucd=20001706&board_seq=32141">
+									<p>2025년 배론성지순례 사진 게시</p><span>2025-09-29</span>
+								</a>
+							</li>
+					
+							<li>
+								<a href="board_view.aspx?mnucd=20001706&board_seq=25164">
+									<p>2024년 본당의 날 행사 사진 갤러리에 올려놓았습니다.</p><span>2024-09-08</span>
+								</a>
+							</li>
+					
+                </ul>
+            </div>
+            <!-- //공지사항 -->
+            <!-- 주보안내 -->
+            <div class="weekly col-lg-8 col-sm-12">
+                <h2><a href="jubo.aspx?mnucd=20001705">주보안내</a></h2>
+                <a href="jubo.aspx?mnucd=20001705" class="more"><span class="tts">더보기</span></a>
+                <ul>
+					
+							<li>
+								<a href="jubo.aspx">
+									<p class="data"><span>2026-10-04</span></p>
+									<p class="title"><span>261004 주보</span></p>
+								</a>
+							</li>
+
+					
+							<li>
+								<a href="jubo.aspx">
+									<p class="data"><span>2026-09-27</span></p>
+									<p class="title"><span>260927 주보</span></p>
+								</a>
+							</li>
+
+					
+							<li>
+								<a href="jubo.aspx">
+									<p class="data"><span>2026-09-20</span></p>
+									<p class="title"><span>260920 주보</span></p>
+								</a>
+							</li>
+
+					
+							<li>
+								<a href="jubo.aspx">
+									<p class="data"><span>2026-09-13</span></p>
+									<p class="title"><span>260913 주보</span></p>
+								</a>
+							</li>
+
+					
+                </ul>
+            </div>
+            <!-- //주보안내 -->
+            </div>
+    </section>
+
+    <section class="main-wrap02">
+        <div class="container">
+            <!-- 미사시간 -->
+            <div class="mass col-sm-6 col-xs-12">
+                <h2><a><span>미사시간</span></a></h2>
+                <div class="time-wrap">
+                    <div>
+                        <div class="sun">
+                            <h3>주일미사</h3>
+                            <ul>
+							
+								<li>
+									<span>10:30</span>
+									<span></span>
+								</li>
+							
+
+
+                            </ul>
+                        </div>
+                        <div class="day">
+                            <h3>평일미사</h3>
+                            <ul>
+							
+								<li>
+									<span>월요일
+									
+									
+											&nbsp;&nbsp;
+											&nbsp;&nbsp;<p>미사없음</p>
+
+									
+																		
+									</span>
+								</li>
+							
+								<li>
+									<span>화요일
+									
+									
+											&nbsp;&nbsp;10:30
+											
+									
+																		
+									</span>
+								</li>
+							
+								<li>
+									<span>수요일
+									
+									
+											&nbsp;&nbsp;10:30
+											
+									
+																		
+									</span>
+								</li>
+							
+								<li>
+									<span>목요일
+									
+									
+											&nbsp;&nbsp;10:30
+											
+									
+																		
+									</span>
+								</li>
+							
+								<li>
+									<span>금요일
+									
+									
+											&nbsp;&nbsp;10:30
+											
+									
+																		
+									</span>
+								</li>
+							
+
+
+
+                            </ul>
+                        </div>
+                        <div class="satur">
+                            <h3>토요미사</h3>
+                            <ul>
+							
+								<li>
+									<span>10:30</span>
+									<span></span>
+								</li>
+							
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //미사시간 -->
+            <!-- 성사시간 -->
+            <div class="sacrament col-sm-6 col-xs-12">
+                <h2><a><span>성사시간</span></a></h2>
+                <dl class="">
+							
+								<dt>고해성사</dt>
+								<dd>미사 전 20분,  미사 후도 가능</dd>
+							
+								<dt>봉성체</dt>
+								<dd>수시로</dd>
+							
+								<dt>성모신심미사</dt>
+								<dd>매월 첫 토요일 10시 30분</dd>
+							
+                </dl>
+            </div>
+            <!-- ///성사시간 -->
+        </div>
+    </section>
+
+    <section class="main-wrap03">
+        <div class="container">
+            <!-- 갤러리 -->
+            <div class="gallery">
+                <h2><a href="gallery.aspx?mnucd=20001708">Gallery</a></h2>
+                <div class="gallery-list">
+                    <!-- 롤링 -->
+					
+                    <a href="gallery_view.aspx?mnucd=20001708&board_seq=35344">
+                        <div class="img">
+								
+								<div style="background-image:url(/sinamri/upload/gallery/35a966be-3972-a50d-9c24-901bcd6fd683-601x1080.jpg)"></div>
+							
+						</div>
+                        <div class="gallery-text">
+                            <div class="title">1925년 신암리성당 초대 주임 고 최문식 베드로 신부님</div>
+                            <div class="text">송도성당 신암리 공소에서 1925년 3월 본당으로 승격되었고, 2년 후 1927년 5월 초대 주임으로 최문식(베드로 1811-1952년, 미리내 성지에 안치) 신부님이 양양본당에서 부임하셨습니다. 당신 관할 구역은 양주군, 연천군, 파주군, 포천군, 가평군, 고양군 일대였습니다. 하지만 1930년 4월 가난한 농촌 마을의 경제적 사정으로 본당 운영이 어렵게 되면서 최신부님은 안성 미리내 본당으로 부임하면서 다시 공소가 되었습니다.
+
+                            </div>
+                        </div>
+                    </a>
+					
+                    <a href="gallery_view.aspx?mnucd=20001708&board_seq=33936">
+                        <div class="img">
+								
+								<div style="background-image:url(/sinamri/upload/gallery/4e9154f6-1494-3f96-904e-b5f28bd6a7f2-1920x786.jpg)"></div>
+							
+						</div>
+                        <div class="gallery-text">
+                            <div class="title">전나무로 만든 십자가 축복식 1</div>
+                            <div class="text">2025년 12월 28일 성가정 축일 십자가 축복식을 교우들과 함께 거행했습니다.
+
+                            </div>
+                        </div>
+                    </a>
+					
+                    <a href="gallery_view.aspx?mnucd=20001708&board_seq=33486">
+                        <div class="img">
+								
+								<div style="background-image:url(/sinamri/upload/gallery/865258fc-586f-cb46-e305-cedb84c7a2e1-1920x786.jpg)"></div>
+							
+						</div>
+                        <div class="gallery-text">
+                            <div class="title">전나무 십자가 세우는 날</div>
+                            <div class="text">지난 70여년 동안 신암리성당 공소시절부터 시간을 지내온 전나무 세 그루 중 두 그루가 있었습니다. 이정규 베네딕도 교우가 초등학교 시절 감골 뒷산에 친구들과 함께 묘목을 캐다가 공소 마당에 심었다고 합니다. 그중 한 그루는 베어졌고, 남아있던 두 그루 중 하나가 병이 들어 부득이 하게 자를 수 밖에 없었습니다. 그 나무를 베는 날 교우 박종만 요셉 형제님이 그 나무로 십자가를 제작하자는 의견을 내셨고, 20여개월에 걸쳐 껍질을 벗겨내고 말리고 제작하여 오늘 성당에 우뚝 서게 되었습니다. 큰길에서도 웅장한 길이 3미터 60센티 십자가가 보입니다. 이제 이 십자가에 예수님의 오상을 뜻하는 못을 제작하여 꽂고 예수님의 십자 명패와 탱자나무로 만든 가시관을 제작하여 부착합니다.&nbsp;푸르름을 뽐내던 전나무는 이제 예수님의 골고타 십자가를 기억하게 하는 십자나무로 다시 우뚝 세워졌습니다.
+
+                            </div>
+                        </div>
+                    </a>
+					
+                    <a href="gallery_view.aspx?mnucd=20001708&board_seq=33485">
+                        <div class="img">
+								
+								<div style="background-image:url(/sinamri/upload/gallery/8d851ba7-4c0c-92d8-ccb5-663977145f41-1920x786.jpg)"></div>
+							
+						</div>
+                        <div class="gallery-text">
+                            <div class="title">전나무 십자가 세우는 날</div>
+                            <div class="text">공소시절부터 있던 거의 70년 된 전나무로 십자가를 만들어 세웠습니다. 전나무가 병이 들어 교우들의 안전을 생각해서 전나무를 베었습니다. 그리고 박요셉 형제님께서 그 나무로 1년에 걸친 작업을 하여 십자가 세워졌습니다. 푸르름을 뽐내던 전나무는 이제 예수님의 골고타 십자가를 기억하게 하는 십자나무로 다시 우뚝 세워졌습니다.
+
+                            </div>
+                        </div>
+                    </a>
+					
+                </div>               
+				<script type="text/javascript">
+				<!--
+					function getGList(page) {
+						if (window.XMLHttpRequest){xmlhttp=new XMLHttpRequest();}else{xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
+						 xmlhttp.onreadystatechange=function(){					  
+						  if (xmlhttp.readyState==1){
+							 document.getElementById("loading2").innerHTML = '<img src="/inc/loading.gif" width="100"/>';
+						  ;}else if (xmlhttp.readyState==4 && xmlhttp.status==200){
+							  document.getElementById("loading2").innerHTML = '';
+							 var arr_value=xmlhttp.responseText.trim();		
+							  document.getElementById("more_gallery2").innerHTML=arr_value;	
+						  ;}
+						 }
+						 xmlhttp.open("POST","/sinamri/more_gallery.aspx?mnucd=20001708&page="+page,true);
+						 xmlhttp.send();
+					}		
+				//-->
+				</script>
+				<div id="loading2" style="width:100%;text-align:center;"></div> 
+				<div id='more_gallery2'>					
+				   <button class="more" onclick="getGList(2);">더보기</button>
+				</div>
+            </div>
+            <!-- //갤러리 -->
+        </div>
+    </section>
+    <section class="main-wrap04">
+        <div class="container">
+            <!-- 동영상 -->
+            <div class="video">
+                <h2><a href="movie.aspx?mnucd=20001709">Video</a></h2>
+                <div class="video-list">
+                    <!-- 롤링 -->
+					
+                    <a href="movie_view.aspx?mnucd=20001709&board_seq=25698">
+                        <div class="img">
+                            <div style="background-image:url(https://img.youtube.com/vi/O2WkFjM_UAs/0.jpg)"></div>
+                        </div>
+                        <div class="video-text">
+                            <div class="title">Come to me  , Dean Forrest</div>
+                            <div class="text">마태 11장 25절과 28-29절 ; 2코린토 6장 18절 ; 1요한 3장 1절의 말씀을 인용
+</div>
+                        </div>
+                    </a>
+					
+                    <a href="movie_view.aspx?mnucd=20001709&board_seq=25697">
+                        <div class="img">
+                            <div style="background-image:url(https://img.youtube.com/vi/6DOTXhsquNQ/0.jpg)"></div>
+                        </div>
+                        <div class="video-text">
+                            <div class="title">여디디아  2부  LOve Theme  Ennio Morricone  </div>
+                            <div class="text">영화 시네마 천국 OST
+</div>
+                        </div>
+                    </a>
+					
+                    <a href="movie_view.aspx?mnucd=20001709&board_seq=25696">
+                        <div class="img">
+                            <div style="background-image:url(https://img.youtube.com/vi/XyL7_6sWrWg/0.jpg)"></div>
+                        </div>
+                        <div class="video-text">
+                            <div class="title">Baba Yetu   Christoper Tin</div>
+                            <div class="text">주님의 기도를 아프리카의 토속 언어인스와힐리어로 부른 곡
+</div>
+                        </div>
+                    </a>
+					
+                    <a href="movie_view.aspx?mnucd=20001709&board_seq=25685">
+                        <div class="img">
+                            <div style="background-image:url(https://img.youtube.com/vi/fTvJ6ZoAcNo/0.jpg)"></div>
+                        </div>
+                        <div class="video-text">
+                            <div class="title">여디디아성가대 앵콜곡</div>
+                            <div class="text">교우들의 환호성과 앵콜이 세곡의 앵콜로, 미리 준비한 듯 합니다 ㅋㅋ
+</div>
+                        </div>
+                    </a>
+					
+                </div>
+				<script type="text/javascript">
+				<!--
+					function mgetGList(page) {
+						if (window.XMLHttpRequest){xmlhttp=new XMLHttpRequest();}else{xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
+						 xmlhttp.onreadystatechange=function(){					  
+						  if (xmlhttp.readyState==1){
+							 document.getElementById("mloading2").innerHTML = '<img src="/inc/loading.gif" width="100"/>';
+						  ;}else if (xmlhttp.readyState==4 && xmlhttp.status==200){
+							  document.getElementById("mloading2").innerHTML = '';
+							 var arr_value=xmlhttp.responseText.trim();		
+							  document.getElementById("more_movie2").innerHTML=arr_value;	
+						  ;}
+						 }
+						 xmlhttp.open("POST","/sinamri/more_movie.aspx?mnucd=20001708&page="+page,true);
+						 xmlhttp.send();
+					}		
+				//-->
+				</script>
+				<div id="mloading2" style="width:100%;text-align:center;"></div> 
+				<div id='more_movie2'>					
+				   <button class="more" onclick="mgetGList(2);">더보기</button>
+				</div>
+            </div>
+            <!-- //동영상 -->
+        </div>
+    </section>
+    <section class="main-wrap05">
+        <div class="container">
+        <!-- 월중행사안내 -->
+		
+            <div class="event col-lg-5 col-sm-12">
+                <h2><a href="calendar.aspx?mnucd=20001704">월중행사안내</a></h2>
+                <div class="calender">
+                    <div class="control">
+                        <!-- <button class="prev" onclick="location.href='calendar.aspx?mnucd=20001704&nowmonth=20260902'"><span class="tts">이전달</span></button> -->
+                        <a href="javascript:;" onclick="location.href='calendar.aspx?mnucd=20001704&nowmonth=20261002'">2026년 10월</a>
+                        <!-- <button class="next" onclick="location.href='calendar.aspx?mnucd=20001704&nowmonth=20261102'"><span class="tts">다음달</span></button> -->
+                    </div>
+		
+			<table cellspacing="0" summary="체크인 날짜 선택" class="typeA">
+				<thead>
+					<tr>
+						<th>일</th>
+						<th>월</th>
+						<th>화</th>
+						<th>수</th>
+						<th>목</th>
+						<th>금</th>
+						<th>토</th>
+					</tr>
+				</thead>
+				<tbody id="calbody2">
+					<tr>
+					<td></td><td></td><td></td><td></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td></tr><tr><td><p>4</p></td><td><p>5</p></td><td><p>6</p></td><td><p>7</p></td><td><p>8</p></td><td><p>9</p></td><td><p>10</p></td></tr><tr><td><p>11</p></td><td><p>12</p></td><td><p>13</p></td><td><p>14</p></td><td><p>15</p></td><td><p>16</p></td><td><p>17</p></td></tr><tr><td><p>18</p></td><td><p>19</p></td><td><p>20</p></td><td><p>21</p></td><td><p>22</p></td><td><p>23</p></td><td><p>24</p></td></tr><tr><td><p>25</p></td><td><p>26</p></td><td><p>27</p></td><td><p>28</p></td><td><p>29</p></td><td><p>30</p></td><td><p>31</p></td></tr>
+				</tbody>		
+			</table>         
+			
+                    <div class="event-list">
+						<div  class="scrollbarR">
+							<ul>
+															
+							</ul>
+						</div>
+                    </div>
+                  </div>
+            </div>
+            <!-- //월중행사안내 -->
+            <!-- 위치안내 -->
+            <div class="map col-lg-7 col-sm-12">
+                <h2><a href="/sinamri/map.aspx?mnucd=20001701">위치안내</a></h2>
+                <div class="api">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2226.5906793588374!2d126.95703819669724!3d37.90432883037639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cdd50b11070ad%3A0xa6e0df7ab84d9611!2z7LKc7KO86rWQIOyLoOyVlOumrCDshLHri7k!5e0!3m2!1sko!2skr!4v1602831243466!5m2!1sko!2skr" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
+                <div class="info">
+                    <div>
+                        <p><strong>주소</strong> : 경기도 양주시 남면 감악산로489번길 27-32 </p>
+                        <p><strong>성당 사무실</strong> : Tel. 031-862-3455 | Fax. </p>
+                    </div>
+                </div>
+            </div>
+            <!-- //위치안내 -->
+        </div>
+    </section>
+</div>
+
+<!-- //container -->
+<footer id="footer">
+    <div class="container">
+        <span>경기도 양주시 남면 감악산로489번길 27-32 </span><span>Tel. 031-862-3455</span><span>Fax. </span><span>대표자 : </span>
+        <span>Email. </span>
+        <span class="copyright"></span>
+    </div>
+</footer>
+
+</body>
+</html>

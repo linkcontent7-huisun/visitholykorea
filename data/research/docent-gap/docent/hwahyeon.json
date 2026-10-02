@@ -1,0 +1,110 @@
+{
+  "siteId": "cc1a07d5-07d4-49ef-ae37-3bb2830b3ae1",
+  "siteName": "화현 이벽 성지",
+  "slug": "hwahyeon",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "포천 화현면, 화현 이벽 성지에 오셨습니다. 이곳은 세계 교회사에서 유례없이 평신도의 손으로 시작된 한국 천주교회의 첫 지도자 이벽 요한 세례자가 1754년에 태어나고, 1785년 집안의 박해 속에 서른한 살로 순교한 곳입니다. 그의 생가터와 처음 묻혔던 진묘 터가 여기 있습니다. 한국 교회의 창립 주역인데도 순교 사실 규명이 늦어 2023년 5월에야 춘천교구가 성지로 선포한, 전국에서 가장 늦게 선포된 성지입니다. 오늘은 하늘만 보이는 기념성당의 안마당에서 시작해 이벽의 삶과 첫 세례, 가정 박해와 죽음, 진묘 터, 그리고 성지와 유적지가 함께 있는 오늘의 모습까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to the Hwahyeon Yi Byeok Shrine in Hwahyeon-myeon, Pocheon. This is where John the Baptist Yi Byeok, first leader of the Korean Catholic Church, which began, uniquely in the history of the world Church, at the hands of lay people, was born in 1754 and died a martyr in 1785 at thirty-one under persecution by his own family. His birthplace and the site of his original grave are here. Though he was a founder of the Korean Church, confirmation of his martyrdom came late, and the Diocese of Chuncheon proclaimed the shrine only in May 2023, the most recent such proclamation in the country. Today we will begin in the memorial church's courtyard, open only to the sky, then follow Yi Byeok's life and the first baptism, the family persecution and his death, the original grave site, and the present-day shrine and historic park that stand side by side.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "광암 이벽 기념성당 — 하늘만 보이는 중정",
+      "titleEn": "The Gwangam Yi Byeok Memorial Church — A Courtyard Open Only to the Sky",
+      "location": "기념성당 안마당",
+      "locationEn": "The inner courtyard of the memorial church",
+      "narration": "춘천교구가 봉헌한 광암 이벽 기념성당은 독특한 모양입니다. 밖에서 안으로 들어서면 텅 빈 듯한 공간이 높은 돌벽으로 둘러싸여 있고 천장은 뚫려 있습니다. 이 중정에 서면 보이는 것은 오직 하늘뿐입니다. 벽으로 둘러싸인 마당은 '벽'이라는 이벽의 이름 그 자체이자, 사방이 막힌 듯한 시대와 고통 속에서도 하늘을 향해 하느님만을 바라보았던 이벽의 정신을 뜻합니다. 유교 사회에서 아무도 걷지 않은 길을 가며 가족에게조차 박해받을 때 그가 바라본 것은 하늘, 곧 하느님뿐이었다는 것입니다. 중정을 지나 성당 문을 열면 푸른 하늘색 배경 위에 십자가가 보입니다. 이벽이 하늘을 올려다보며 마주했을 하느님을 다시 한번 상징합니다.",
+      "narrationEn": "The Gwangam Yi Byeok Memorial Church, dedicated by the Diocese of Chuncheon, has a singular form. Entering from outside, you find a seemingly empty space enclosed by high stone walls and open above. Standing in this courtyard, all you can see is the sky. The walled yard is at once Yi Byeok's very name, for 'byeok' means wall, and a symbol of his spirit, which in an age that seemed closed in on every side, and through all his suffering, looked up to heaven and to God alone. Walking a road no one in Confucian society had walked, persecuted even by his own family, what he looked to was the sky, that is, God. Pass through the courtyard and open the church door, and a cross appears against a sky-blue background, once more symbolizing the God whom Yi Byeok met as he gazed upward.",
+      "lookFor": "돌벽 중정에서 올려다보는 하늘",
+      "lookForEn": "The sky seen from the stone-walled courtyard",
+      "forEveryone": "사람 이름 '벽'을 건축으로 옮긴 성당이라, 신자가 아니어도 설계의 뜻이 바로 읽힙니다.",
+      "forEveryoneEn": "A church that turns a man's name, 'wall,' into architecture, its meaning clear to any visitor.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=4708 (사본 _pages/hwahyeon/goodnews.txt) · 가톨릭신문 2023-09-12 https://www.catholictimes.org/article/202309120208973 (사본 _pages/hwahyeon/catholictimes.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "이벽의 출생과 천진암 강학 — 한밤중의 촛불",
+      "titleEn": "Yi Byeok's Birth and the Cheonjinam Lectures — A Candle at Midnight",
+      "location": "생가터 재현관 앞",
+      "locationEn": "In front of the reconstructed birthplace",
+      "narration": "이벽 요한 세례자는 1754년 이곳 포천 화현리에서 태어났습니다. 집안은 본래 무반이었으나 그는 학문에 더 뜻을 두어 정약전, 정약용 형제와 가까이 지내며 공부했습니다. 언제 어떻게 천주교 서적을 접했는지는 분명하지 않지만, 하느님의 종 약전에 따르면 스승 권철신을 통해 1770년대 중반 무렵 서학서를 접했고, 1779년 겨울 천진암에서 강학이 열렸을 때 한밤중에 도착해 촛불을 밝혀 들고 경서를 담론했다는 기록이 남아 있습니다. 지식에 머물던 천학을 천진암 강학에서 스승과 동료들과 토론하며 신앙으로 승화시킨 것으로 보입니다. 성지 울타리 너머의 생가터는 경주 이씨 문중이 온전히 보존하고 있습니다.",
+      "narrationEn": "John the Baptist Yi Byeok was born here in Hwahyeon-ri, Pocheon, in 1754. His family was of military-official stock, but he inclined more to learning and studied in close company with the brothers Jeong Yak-jeon and Jeong Yak-yong. When and how he first encountered Catholic books is unclear, but according to the biographies of the Servants of God he came upon Western Learning through his teacher Gwon Cheol-sin in the mid-1770s, and records tell that when the study gathering was held at Cheonjinam in the winter of 1779 he arrived in the middle of the night and discoursed on the classics by candlelight. What had been knowledge seems to have become faith as he debated the 'heavenly learning' with teacher and companions at Cheonjinam. His birthplace beyond the shrine fence is preserved intact by the Gyeongju Yi clan.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "선교사 한 명 없이 책만으로 신앙에 이른 18세기 조선 지식인의 출발점입니다.",
+      "forEveryoneEn": "The starting point of an 18th-century Korean intellectual who reached faith through books alone, without a single missionary.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=4708 (사본 _pages/hwahyeon/goodnews.txt) · 가톨릭신문 2023-09-12 (사본 _pages/hwahyeon/catholictimes.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "1784년 — 수표교 집에서 열린 조선 최초의 세례식",
+      "titleEn": "1784 — The First Baptism in Korea, at the House by Supyo Bridge",
+      "location": "기념성당 안",
+      "locationEn": "Inside the memorial church",
+      "narration": "고향을 떠나 서울 저동과 수표교 근처에서 살던 이벽은 1783년 말 이승훈이 북경에 간다는 소식을 듣고 찾아가, 서양 선교사를 만나 가르침을 받고 천주교 서적을 얻어 오라고 부탁했습니다. 북경에서 그라몽 신부에게 베드로라는 이름으로 세례를 받고 1784년 봄 돌아온 이승훈이 가져온 새 서적들을 이벽은 깊이 연구해 천주학이 진리임을 깨달았고, 스승과 동료들을 찾아다니며 설명하는 데 열중했습니다. 1784년 겨울, 이승훈과 권철신, 권일신, 정약전, 정약용이 수표교 근처 이벽의 집에 모였고, 이 자리에서 이승훈이 북경에서 경험한 세례를 동료들에게 베풀었습니다. 조선에서 이루어진 최초의 세례식이었고, 이벽의 세례명은 요한 세례자였습니다. 그 뒤 이벽은 동료들과 교리를 전하는 데 힘써 홍낙민, 최창현, 김범우, 이존창, 유항검이 세례를 받고 서울과 충청도, 전라도에 복음을 전했습니다. 양반 신분에도 그는 중인과 평민, 여성까지 모두 신앙 안에서 형제자매로 받아들였습니다.",
+      "narrationEn": "Having left home to live in Jeo-dong and near Supyo Bridge in Seoul, Yi Byeok heard at the end of 1783 that Yi Seung-hun was going to Beijing, sought him out, and asked him to meet the Western missionaries, receive their teaching, and bring back Catholic books. When Yi Seung-hun returned in the spring of 1784, baptized Peter by Father Grammont, Yi Byeok studied the new books deeply, became convinced that the heavenly learning was the truth, and devoted himself to explaining it to his teachers and companions. In the winter of 1784 Yi Seung-hun, Gwon Cheol-sin, Gwon Il-sin, Jeong Yak-jeon, and Jeong Yak-yong gathered at Yi Byeok's house near Supyo Bridge, and there Yi Seung-hun administered to his companions the baptism he had received in Beijing. It was the first baptism ever performed in Korea, and Yi Byeok took the name John the Baptist. Thereafter he and his companions spread the doctrine with such zeal that Hong Nak-min, Choe Chang-hyeon, Kim Beom-u, Yi Jon-chang, and Yu Hang-geom were baptized and carried the Gospel to Seoul, Chungcheong, and Jeolla. Though a nobleman, he welcomed people of the middle class, commoners, and women alike as brothers and sisters in the faith.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "신분제 사회에서 양반이 평민과 여성을 형제자매로 부른 것은 당시로서는 파격이었습니다.",
+      "forEveryoneEn": "For a nobleman in a rigid class society to call commoners and women brothers and sisters was radical for its time.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=4708 (사본 _pages/hwahyeon/goodnews.txt) · 가톨릭신문 2023-09-12 https://www.catholictimes.org/article/202309120208973 (사본 _pages/hwahyeon/catholictimes.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "1785년 — 집안에 갇혀 맞은 죽음",
+      "titleEn": "1785 — Death Under House Confinement",
+      "location": "생가터",
+      "locationEn": "The birthplace site",
+      "narration": "1785년 봄, 김범우의 집에서 이벽의 주도로 신자들이 모여 집회를 열고 있을 때 지나가던 형조 관헌들이 도박판인 줄 알고 급습해 신자들을 모두 잡아가고 서적과 성물을 압수했습니다. 을사추조적발사건입니다. 이 뒤로 평소 천주교를 못마땅해하던 유림이 반발했고, 이벽과 이승훈은 가족에게 배교를 강요당했으며 집주인 김범우는 유배되었습니다. 이벽의 아버지는 그를 이 고향집으로 불러 집안에 가두고 온갖 방법으로 신앙을 버리라고 강요했습니다. 그러나 어떤 방법으로도 그의 신앙을 꺾을 수 없었고, 스스로 택한 천주 신앙과 부모에 대한 효 사이에서 갈등하던 이벽은 결국 신앙을 증거하며 죽음에 이르렀습니다. 서른한 살이었습니다. 지금 그는 조선왕조 치하의 순교자로서 시복이 추진되고 있습니다.",
+      "narrationEn": "In the spring of 1785, as believers led by Yi Byeok held a gathering at Kim Beom-u's house, officials of the Board of Punishments passing by took it for a gambling den, raided it, arrested everyone, and confiscated the books and sacred objects: the so-called Eulsa incident. Afterward the Confucian establishment, long hostile to Catholicism, reacted; Yi Byeok and Yi Seung-hun were pressed by their families to renounce the faith, and the householder Kim Beom-u was banished. Yi Byeok's father summoned him to this family home, confined him inside, and used every means to force him to abandon the faith. Nothing could break him, and torn between the faith he had chosen and filial duty to his parents, he at last died bearing witness to his faith, at the age of thirty-one. His cause for beatification is now being pursued as a martyr of the Joseon dynasty.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "관청이 아니라 아버지의 집에 갇혀 죽은, 한국 교회에서 보기 드문 순교의 형태입니다.",
+      "forEveryoneEn": "A rare form of martyrdom in the Korean Church: death not in a government prison but confined in his father's house.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=4708 (사본 _pages/hwahyeon/goodnews.txt) · 가톨릭신문 2023-09-12 (사본 _pages/hwahyeon/catholictimes.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "진묘 터 — 190년 만에 찾은 무덤",
+      "titleEn": "The Original Grave Site — A Tomb Found After 190 Years",
+      "location": "화현리 산 289-1, 갓등산 낮은 봉의 진묘 터",
+      "locationEn": "The original grave site on the low peak of Gatdeungsan, san 289-1 Hwahyeon-ri",
+      "narration": "이벽의 묘는 고향집 가까이에 안장되었고 두 부인의 무덤이 그 좌우에 자리했습니다. 순교 뒤 역사의 베일에 싸여 있던 이 묘는 190년이 넘게 흐른 1979년 2월 15일 화현리 산 289-1번지 공동묘지, 갓등산 낮은 봉에서 발견되었습니다. 그해 4월 10일 세 무덤을 발굴해 유해를 서울 혜화동 성당과 명동 대성당에 안치했다가 6월 24일 천진암 성지로 옮겨 모셨습니다. 지금 진묘 터에는 이장 뒤 조성한 봉분과 묘비가 있고 본래 무덤의 흙, 진토가 남아 있습니다. 유해는 천진암으로 갔지만 이벽이 순교하고 묻혔던 이 진묘 터의 뜻은 변하지 않는다고 교구는 말합니다. 진묘 터는 포천시 향토유적 제48호로, 춘천교구가 정성 들여 관리하고 있습니다.",
+      "narrationEn": "Yi Byeok's grave lay close to the family home, with the graves of his two wives on either side. Veiled by history after his death, it was found after more than 190 years, on February 15, 1979, on the low peak of Gatdeungsan in the public cemetery at san 289-1 Hwahyeon-ri. On April 10 that year the three graves were excavated and the remains placed in Hyehwa-dong Church and Myeongdong Cathedral in Seoul, then on June 24 moved to Cheonjinam Shrine. The original grave site now has a mound and gravestone raised after the removal, and the soil of the original grave remains. Though the remains went to Cheonjinam, the diocese holds that the meaning of this site, where Yi Byeok died and was buried, is unchanged. The site is Pocheon City Local Heritage No. 48 and is carefully tended by the Diocese of Chuncheon.",
+      "lookFor": "이장 뒤에도 남은 본래 무덤의 진토",
+      "lookForEn": "The soil of the original grave, still present after the removal",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=4708 (사본 _pages/hwahyeon/goodnews.txt) · 가톨릭신문 2023-09-12 https://www.catholictimes.org/article/202309120208973 (사본 _pages/hwahyeon/catholictimes.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "2023년 성지 선포 — 성지와 유적지가 나란히",
+      "titleEn": "Proclaimed a Shrine in 2023 — Shrine and Historic Park Side by Side",
+      "location": "성지와 광암 이벽 유적지 경계",
+      "locationEn": "Where the shrine meets the Gwangam Yi Byeok historic park",
+      "narration": "2023년 5월 20일 춘천교구장 김주영 시몬 주교는 광암 이벽 요한 세례자의 진묘 터와 생가터를 기념하는 '화현 이벽 성지'를 공식 선포했습니다. 선포문은 시간이 흘러도 이벽의 지상 여정의 시작과 끝이었던 이 장소가 모든 신앙인에게 올바른 신앙이 무엇인지 제시하는 훌륭한 표지가 될 것이라고 적었습니다. 그해 8월 24일 고봉연 요셉 신부가 첫 전담 사제로 부임했습니다. 고 신부는 2009년 포천 일동본당 주임 시절 이곳이 가장 중요한 성지로 조성되어야 한다고 포천시에 제안했었고, 14년이 지나 바로 그 자리의 전담 사제가 되었습니다. 성지 옆에는 포천시가 조성한 광암 이벽 유적지가 있어 생가터 재현관과 기념관, 해설사 안내소, 야외공연장 아레나를 갖추고 있습니다. 교구의 성지와 지자체의 유적지가 공존하므로 순례자는 평신도 지도자 이벽의 신앙과 함께 실학자로서의 삶도 살펴볼 수 있습니다. 20킬로미터쯤 떨어진 포천 홍인 성지도 같은 사제가 맡고 있습니다.",
+      "narrationEn": "On May 20, 2023, Bishop Simon Kim Ju-yeong of Chuncheon formally proclaimed the 'Hwahyeon Yi Byeok Shrine' commemorating the original grave site and birthplace of John the Baptist Yi Byeok. The proclamation stated that however much time passes, this place, the beginning and end of Yi Byeok's earthly journey, will stand as a fine sign showing all believers what true faith is. On August 24 that year Father Joseph Ko Bong-yeon arrived as the first resident priest. As pastor of Pocheon Ildong parish in 2009 he had urged the city to develop this spot as the Church's most important shrine, and fourteen years later he became the priest in charge of that very place. Beside the shrine lies the Gwangam Yi Byeok historic park created by Pocheon City, with a reconstructed birthplace, a memorial hall, a guide center, and an outdoor arena. Because the diocesan shrine and the municipal park coexist, pilgrims can explore not only Yi Byeok's faith as a lay leader but also his life as a scholar of practical learning. The Pocheon Hong In Shrine, about twenty kilometers away, is under the same priest's care.",
+      "lookFor": "포천시 유적지의 생가터 재현관",
+      "lookForEn": "The reconstructed birthplace in the city's historic park",
+      "forEveryone": "교회 성지와 시의 역사 유적지가 담 하나를 두고 나란히 있는 곳입니다.",
+      "forEveryoneEn": "A church shrine and a municipal historic site stand side by side, separated by a single fence.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=4708 (사본 _pages/hwahyeon/goodnews.txt) · 가톨릭신문 2023-09-12 https://www.catholictimes.org/article/202309120208973 (사본 _pages/hwahyeon/catholictimes.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "화현 이벽 성지 순례를 마치셨습니다. 이벽의 유해가 모셔진 천진암 성지와, 그가 세례를 준 동료들의 고향 마재와 양근, 그리고 가까운 포천 홍인 성지로 순례를 이어 가 보셔도 좋겠습니다. 단체 순례자는 정해진 미사 시간이 아니어도 미사를 청할 수 있다고 성지는 안내합니다.",
+    "narrationEn": "This concludes our visit to the Hwahyeon Yi Byeok Shrine. You may wish to continue to Cheonjinam, where Yi Byeok's remains rest, to Majae and Yanggeun, home of the companions he baptized, and to the nearby Pocheon Hong In Shrine. The shrine notes that groups may request Mass even outside the scheduled times.",
+    "photos": []
+  }
+}
