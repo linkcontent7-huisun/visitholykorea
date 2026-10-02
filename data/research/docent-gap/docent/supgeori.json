@@ -1,0 +1,95 @@
+{
+  "siteId": "fdc2adf3-16b6-4a79-9321-8bf1427aad56",
+  "siteName": "충주 숲거리 순교 성지",
+  "slug": "supgeori",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "충주 문화동과 봉방동이 만나는 곳, 숲거리 순교 성지에 오셨습니다. 숲거리는 조선 시대 군사 훈련 지휘소였던 무학당을 지나 충주천변까지 길게 이어져 있던 수풀 지역을 이르는 이름으로, 조선 초기부터 군사 훈련장이자 충주의 대표적인 형장이었습니다. 1801년 신유박해 뒤 각처에서 붙잡혀 온 신자들이 이곳에서 참수형과 군문효수형을 당했습니다. 2020년 11월 29일 청주교구가 성지로 선포했습니다. 오늘은 숲거리라는 땅의 내력에서 시작해 이곳에서 순교한 이들의 이야기를 들어 보겠습니다.",
+    "narrationEn": "Welcome to the Supgeori Martyrs' Shrine, where Munhwa-dong meets Bongbang-dong in Chungju. Supgeori, 'the wooded way,' was the name of a long stretch of woodland running past Muhakdang, the Joseon-era military training headquarters, down to the banks of the Chungju stream; from the early Joseon period it served as a military training ground and as Chungju's principal execution site. After the Sinyu Persecution of 1801, believers arrested throughout the region were beheaded or executed by military decapitation here. The Diocese of Cheongju proclaimed it a shrine on November 29, 2020. Today we will begin with the history of this ground and then hear the stories of those who died here.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "숲거리 — 무학당에서 충주천까지 이어진 수풀",
+      "titleEn": "Supgeori — The Woodland from Muhakdang to the Chungju Stream",
+      "location": "문화동 552번지 일대 성지 표지 앞",
+      "locationEn": "At the shrine marker around 552 Munhwa-dong",
+      "narration": "숲거리는 지금의 문화동과 봉방동 접경에서 조선 시대 군사 훈련 지휘소였던 무학당을 지나 충주천변까지 길게 이어져 있던 수풀 지역을 말합니다. 조선 초기부터 이곳은 군사 훈련장이었고, 충주의 대표적인 형장으로 쓰였습니다. 성지는 문화동 552번지, 문화동 544번지에서 봉방동 11-1번지에 이르는 일대에 자리하며 충주 문화동본당이 관할합니다. 지금은 도시 한가운데 거리가 되어 옛 수풀의 모습은 찾기 어렵습니다.",
+      "narrationEn": "Supgeori refers to the long belt of woodland that ran from the border of today's Munhwa-dong and Bongbang-dong past Muhakdang, the Joseon military training headquarters, down to the Chungju stream. From the early Joseon period it was a military drill ground and the principal place of execution in Chungju. The shrine lies around 552 Munhwa-dong, in the area from 544 Munhwa-dong to 11-1 Bongbang-dong, under the care of Chungju Munhwa-dong parish. Today it is a street in the middle of the city, and little of the old woodland can be seen.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "조선의 군사 훈련장이 처형장을 겸했던, 도심 속에 남은 옛 형장 터입니다.",
+      "forEveryoneEn": "The site of an old execution ground in the heart of the city, where a Joseon military drill field doubled as a place of execution.",
+      "photos": [],
+      "sourceNote": "청주교구 성지 소개 https://www.cdcj.or.kr/parish/holyland/8 (사본 _pages/supgeori/official.txt) · 가톨릭신문 2020-12-01 https://www.catholictimes.org/article/202012010030998 (사본 _pages/supgeori/catholictimes.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "박해 시대의 순교지 — 돌림매와 효수",
+      "titleEn": "A Place of Martyrdom in the Age of Persecution — Beatings and Beheadings",
+      "location": "성지 표지 앞",
+      "locationEn": "At the shrine marker",
+      "narration": "1801년 신유박해 뒤 천주교 박해가 이어지는 동안 이곳 숲거리는 각처에서 체포되어 온 신자들의 순교지가 되었습니다. 끌려온 신자들은 이곳으로 압송되어 오면서 갖은 수모를 겪고 돌림매를 맞았으며, 마침내 참수형이나 군문효수형을 당했습니다. 교회는 그들이 그렇게 천상의 영광을 얻었다고 기억합니다.",
+      "narrationEn": "As persecution continued after the Sinyu Persecution of 1801, Supgeori became the place of martyrdom for believers arrested from all around. Those brought here suffered every humiliation and were beaten by relays of men along the way, and in the end they were beheaded or executed by military decapitation with their heads displayed. The Church remembers that in this way they won the glory of heaven.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "청주교구 성지 소개 https://www.cdcj.or.kr/parish/holyland/8 (사본 _pages/supgeori/official.txt) · 충북공공뉴스 http://www.cbpublic.co.kr/m/view.php?idx=845 (사본 _pages/supgeori/cbpublic.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "충주의 사도 이기연",
+      "titleEn": "Yi Gi-yeon, the Apostle of Chungju",
+      "location": "성지 표지 앞",
+      "locationEn": "At the shrine marker",
+      "narration": "숲거리의 순교자 가운데 1739년에 태어난 이기연은 충주에서 가장 먼저 천주 신앙을 받아들인 사람입니다. 그는 충주와 연풍 지역에 신앙을 널리 전해 '충주의 사도'라 불립니다. 신유박해 때 체포되어 1802년 이곳 숲거리에서 참수형으로 순교했습니다.",
+      "narrationEn": "Among the martyrs of Supgeori, Yi Gi-yeon, born in 1739, was the first person in Chungju to accept the Catholic faith. He spread it widely through the Chungju and Yeonpung areas and is called 'the apostle of Chungju.' Arrested in the Sinyu Persecution, he was beheaded here at Supgeori in 1802.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "충주에 천주교를 처음 들여온 사람이 그 도시의 형장에서 죽었습니다.",
+      "forEveryoneEn": "The man who first brought Catholicism to Chungju died on the city's own execution ground.",
+      "photos": [],
+      "sourceNote": "청주교구 성지 소개 https://www.cdcj.or.kr/parish/holyland/8 (사본 _pages/supgeori/official.txt) · 충북공공뉴스 http://www.cbpublic.co.kr/m/view.php?idx=845 (사본 _pages/supgeori/cbpublic.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "아전 이부춘과 과부 권아기련",
+      "titleEn": "The Clerk Yi Bu-chun and the Widow Gwon A-gi-ryeon",
+      "location": "성지 표지 앞",
+      "locationEn": "At the shrine marker",
+      "narration": "충주의 아전 출신 이부춘은 1735년에 태어나 천주교에 입교한 뒤 열심히 신앙생활을 하다가 숲거리로 끌려와 굳게 신앙을 증거하고 1801년 순교했습니다. 과부 권아기련도 입교 뒤 열심히 신앙을 지키다가 이곳에서 순교의 화관을 받았습니다. 관청의 하급 관리와 홀로 된 여인, 신분과 처지가 다른 두 사람이 같은 형장에서 같은 신앙을 증거했습니다.",
+      "narrationEn": "Yi Bu-chun, born in 1735, a former clerk in the Chungju government office, lived his faith devoutly after entering the Church, and when brought to Supgeori he bore firm witness and was martyred in 1801. The widow Gwon A-gi-ryeon, too, kept the faith zealously after her conversion and received the crown of martyrdom here. A petty official and a woman left alone, two people of different station and circumstance, bore witness to the same faith on the same execution ground.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "청주교구 성지 소개 https://www.cdcj.or.kr/parish/holyland/8 (사본 _pages/supgeori/official.txt) · 충북공공뉴스 http://www.cbpublic.co.kr/m/view.php?idx=845 (사본 _pages/supgeori/cbpublic.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "2020년 성지 선포",
+      "titleEn": "Proclaimed a Shrine in 2020",
+      "location": "성지 표지 앞",
+      "locationEn": "At the shrine marker",
+      "narration": "청주교구는 2020년 11월 29일 교령을 반포해 음성 봉암과 함께 이곳 충주 숲거리를 성지로 선포했습니다. 성지는 충주 문화동본당이 돌보고 있습니다. 거리와 건물 사이로 사라진 옛 형장의 자취를 기억하는 일이 이 성지의 시작입니다.",
+      "narrationEn": "On November 29, 2020, the Diocese of Cheongju issued a decree proclaiming Supgeori in Chungju a shrine, together with Bongam in Eumseong. The shrine is cared for by Chungju Munhwa-dong parish. Remembering the traces of an old execution ground that have vanished among streets and buildings is where this shrine begins.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "가톨릭신문 2020-12-01 https://www.catholictimes.org/article/202012010030998 (사본 _pages/supgeori/catholictimes.txt) · 청주교구 성지 소개 https://www.cdcj.or.kr/parish/holyland/8 (사본 _pages/supgeori/official.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "충주 숲거리 순교 성지 순례를 마치셨습니다. 이기연이 신앙을 전했던 연풍의 순교성지와, 같은 날 성지로 선포된 음성 봉암 성지도 함께 찾아보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to the Supgeori Martyrs' Shrine in Chungju. You may also wish to visit the martyrs' shrine at Yeonpung, where Yi Gi-yeon spread the faith, and Bongam Shrine in Eumseong, proclaimed a shrine on the same day.",
+    "photos": []
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "siteId": "31e77490-a200-4d9a-bcb1-363cfd01b272",
+  "siteName": "음성 봉암 성지",
+  "slug": "bongam",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "충북혁신도시의 고층 아파트에서 차로 조금만 벗어나면 전혀 다른 풍경이 펼쳐집니다. 자동차 한 대가 겨우 지나는 오솔길 끝 마을 어귀, 오래된 공소와 십자가가 먼저 맞이하는 음성 봉암 성지에 오셨습니다. 순교 터도 순교자의 묘도 없지만, 1839년 기해박해 뒤 신자들이 숨어 살던 방축골과 계마대 두 교우촌이 있던 곳이고, 최양업 신부가 들러 성사를 주고 신학생을 뽑은 곳이며, 여섯 교우가 피로 신앙을 증거한 마을입니다. 2020년 11월 29일 청주교구가 성지로 선포했습니다. 오늘은 봉암공소에서 시작해 두 교우촌의 역사, 최양업 신부의 방문, 병인박해의 순교, 그리고 신자들이 한 평씩 땅을 모아 가꾸는 성지 조성 이야기까지 들어 보겠습니다.",
+    "narrationEn": "A short drive from the high-rise apartments of Chungbuk Innovation City brings you into an entirely different landscape. At the end of a lane barely wide enough for one car, where an old mission station and a cross are the first to greet visitors at the village entrance, you have arrived at Bongam Shrine in Eumseong. There is no execution ground here and no martyr's grave, but this is where two Catholic villages, Bangchukgol and Gyemadae, hid believers after the Gihae Persecution of 1839, where Father Choe Yang-eop stopped to give the sacraments and chose a seminarian, and where six believers bore witness with their blood. The Diocese of Cheongju proclaimed it a shrine on November 29, 2020. Today we will begin at the Bongam station, then follow the history of the two villages, Father Choe's visit, the martyrdoms of the Byeongin Persecution, and the story of a shrine being built as parishioners donate land one pyeong at a time.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "봉암공소 — 1897년부터 지켜 온 신앙의 뿌리",
+      "titleEn": "Bongam Mission Station — The Root of Faith Kept Since 1897",
+      "location": "마을 어귀 봉암공소",
+      "locationEn": "The Bongam mission station at the village entrance",
+      "narration": "봉암공소는 성지의 중심입니다. 병인박해로 교우촌이 무너진 뒤 1892년 정무선 요셉이 봉암 마을로 이주해 다시 신앙 공동체를 꾸렸고, 1897년에 이 공소가 세워져 지금까지 신앙의 뿌리를 지키고 있습니다. 2020년 11월 29일 청주교구장 장봉훈 주교는 땀의 순교자 최양업 신부가 방문했던 곳, 신학생 후보를 선발했던 곳, 순교 선조들이 박해 중에 신앙을 보존했던 방축골과 계마대 교우촌을 기억하고자 이 공소를 성지로 선포했습니다. 음성군은 신자 비율이 15퍼센트쯤으로 청주교구에서 가장 높고, 4킬로미터 안에 맹동, 유포, 봉암 세 공소가 있을 만큼 신앙이 오래전부터 뿌리내린 고장입니다.",
+      "narrationEn": "The Bongam station is the heart of the shrine. After the Byeongin Persecution destroyed the Catholic villages, Joseph Jeong Mu-seon moved to Bongam in 1892 and rebuilt a community of faith, and this station, founded in 1897, has kept that root alive ever since. On November 29, 2020, Bishop Jang Bong-hun of Cheongju proclaimed it a shrine in order to remember the place Father Choe Yang-eop, the 'martyr of sweat,' visited, where a seminary candidate was chosen, and where the forebears of Bangchukgol and Gyemadae preserved their faith through persecution. Eumseong County has a Catholic population of about fifteen percent, the highest in the Diocese of Cheongju, and three stations, Maengdong, Yupo, and Bongam, lie within four kilometers, a sign of how long the faith has been rooted here.",
+      "lookFor": "마을 어귀의 오래된 공소 건물과 십자가",
+      "lookForEn": "The old station building and cross at the village entrance",
+      "forEveryone": "신도시 바로 옆에 19세기 교우촌의 후손 마을이 그대로 남아 있습니다.",
+      "forEveryoneEn": "Right beside a new town, a village descended from a 19th-century Catholic community survives intact.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2021-06-15 https://www.catholictimes.org/article/202106150067431 (사본 _pages/bongam/catholictimes.txt) · 음성신문 https://www.usnews.co.kr/news/articleView.html?idxno=59389 (사본 _pages/bongam/usnews.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "방축골과 계마대 — 기해박해 뒤의 두 교우촌",
+      "titleEn": "Bangchukgol and Gyemadae — Two Catholic Villages After the Gihae Persecution",
+      "location": "공소에서 방축골·계마대 터를 바라보며",
+      "locationEn": "At the station, looking toward the sites of Bangchukgol and Gyemadae",
+      "narration": "봉암의 방축골과 계마대는 1839년 기해박해 뒤 신자들이 이주해 와서 교우촌을 만들고 비밀리에 신앙생활을 했던 마을입니다. 방축골은 지금 봉현리에 있는 봉암방죽에서 유래한 골짜기 이름이고, 계마대는 거기서 700에서 800미터 떨어져 있습니다. 당시 이곳에는 김백심 암브로시오와 송군명 바오로, 김경장, 이 베드로 가족이 살았고, 1860년 경신박해 뒤까지 이어진 박해에 신자들이 흩어지던 1861년 무렵 충주 광벌에 살던 민윤명 프란치스코 회장이 가족과 함께 계마대로 옮겨 왔습니다. 민윤명은 두 마을에서 교리 실천과 나눔 운동을 앞장서 이끌었고, 이 교우촌은 음성 지역 신앙의 뿌리가 되었습니다. 지금은 신앙 선조들이 살았던 터만 남아 있습니다.",
+      "narrationEn": "Bangchukgol and Gyemadae in Bongam were villages where believers settled after the Gihae Persecution of 1839, formed Catholic communities, and practiced their faith in secret. Bangchukgol takes its name from the Bongam reservoir in today's Bonghyeon-ri, and Gyemadae lies seven or eight hundred meters away. The families of Ambrose Kim Baek-sim, Paul Song Gun-myeong, Kim Gyeong-jang, and Peter Yi lived here, and around 1861, as persecution continuing past the Gyeongsin Persecution of 1860 scattered believers, the catechist Francis Min Yun-myeong moved his family to Gyemadae from Gwangbeol in Chungju. Min Yun-myeong led the two villages in living the faith and sharing with one another, and these communities became the root of the faith in the Eumseong area. Today only the sites where the forebears lived remain.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "저수지 이름에서 온 골짜기 이름이 그대로 교우촌의 이름이 되었습니다.",
+      "forEveryoneEn": "A valley named after a reservoir became the name of a hidden Catholic village.",
+      "photos": [],
+      "sourceNote": "청주교구 성지 소개 https://www.cdcj.or.kr/parish/holyland/9 (사본 _pages/bongam/official.txt) · 가톨릭신문 2021-06-15 https://www.catholictimes.org/article/202106150067431 (사본 _pages/bongam/catholictimes.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "최양업 신부의 방문 — 열여덟 살 신학생 김 사도요한",
+      "titleEn": "Father Choe Yang-eop's Visit — The Eighteen-Year-Old Seminarian John Kim",
+      "location": "공소 앞마당",
+      "locationEn": "The yard in front of the station",
+      "narration": "한 해에 7천 리, 약 2,750킬로미터를 걸으며 산간벽지의 신자들을 찾아다닌 가경자 최양업 토마스 신부는 사목 순방 중 이 방축골과 계마대에 들러 교우들에게 성사를 주고 함께 미사를 봉헌했습니다. 그때 김백심 암브로시오의 막내아들 김 사도요한을 보고 진천 배티에 있던 조선대목구 신학교의 신학생으로 뽑아 보냈습니다. 요한의 나이 열여덟이었습니다. 그는 배티 신학교에서 공부하다가 1854년 3월 말레이시아 페낭 신학교로 유학을 떠났지만, 1863년 귀국하자마자 환속해 성소의 결실을 맺지는 못했습니다.",
+      "narrationEn": "The Venerable Father Thomas Choe Yang-eop, who walked some 2,750 kilometers a year seeking out believers in remote mountain hamlets, stopped at Bangchukgol and Gyemadae on his rounds to give the sacraments and celebrate Mass with the faithful. There he noticed John Kim, youngest son of Ambrose Kim Baek-sim, and chose him as a seminarian for the Vicariate of Joseon's seminary at Baeti in Jincheon. John was eighteen. He studied at Baeti and in March 1854 went abroad to the seminary in Penang, Malaysia, but on returning home in 1863 he left the seminary at once, and his vocation never bore fruit.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "1850년대에 이 산골 청년이 말레이시아 페낭까지 유학을 갔다는 사실이 놀랍습니다.",
+      "forEveryoneEn": "Remarkably, a young man from this mountain hamlet went as far as Penang, Malaysia, to study in the 1850s.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2021-06-15 https://www.catholictimes.org/article/202106150067431 (사본 _pages/bongam/catholictimes.txt) · 청주교구 성지 소개 https://www.cdcj.or.kr/parish/holyland/9 (사본 _pages/bongam/official.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "병인박해 — \"영복소에서 만나자\"",
+      "titleEn": "The Byeongin Persecution — \"Let Us Meet in the Place of Eternal Blessing\"",
+      "location": "공소 안",
+      "locationEn": "Inside the station",
+      "narration": "두 교우촌이 박해자들에게 발각된 것은 1866년 병인박해 때였습니다. 그해 말 서울과 충주 진영에서 보낸 포교와 포졸들이 들이닥쳐 김백심과 그의 둘째 아들 김성서 파비아노, 민윤명 등을 체포했고 남은 교우들은 뿔뿔이 흩어졌습니다. 김백심 암브로시오는 서울 포도청으로 압송되어 문초와 형벌 끝에 1866년 순교했고, 김성서와 민윤명 회장은 충주로 끌려가 1867년 초에 순교했으며, 교우촌에 살던 이 베드로는 1866년 수원에서 순교했습니다. 민윤명은 압송되기 전 동생 민 야고보에게, 타당하게 교회의 규구를 지키다가 자신이 순교한 표양을 따라 영복소, 곧 천당에서 만나자고 말했다고 전해집니다. 교우촌은 이때 폐허가 되었습니다.",
+      "narrationEn": "The two villages were discovered in the Byeongin Persecution of 1866. At the end of that year officers and constables sent from Seoul and the Chungju garrison burst in and arrested Kim Baek-sim, his second son Fabian Kim Seong-seo, Min Yun-myeong, and others, and the remaining believers scattered. Ambrose Kim Baek-sim was taken to the police bureau in Seoul and died under interrogation and torture in 1866; Kim Seong-seo and the catechist Min Yun-myeong were taken to Chungju and martyred in early 1867; and Peter Yi, who had lived in the village, was martyred in Suwon in 1866. Before he was led away, Min Yun-myeong is said to have told his brother James Min to keep the rules of the Church faithfully, follow the example of his martyrdom, and meet him in the place of eternal blessing, that is, in heaven. The villages were left in ruins.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "청주교구 성지 소개 https://www.cdcj.or.kr/parish/holyland/9 (사본 _pages/bongam/official.txt) · 가톨릭신문 2021-06-15 https://www.catholictimes.org/article/202106150067431 (사본 _pages/bongam/catholictimes.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "김백심 집안 — 아버지와 세 아들이 모두 순교하다",
+      "titleEn": "The Family of Kim Baek-sim — A Father and All Three Sons Martyred",
+      "location": "공소 안",
+      "locationEn": "Inside the station",
+      "narration": "김백심 암브로시오의 맏아들 김성회 바오로와 막내 김 사도요한은 천안 복구정으로 피신해 살다가 1868년 체포되어 서울에서 순교했습니다. 두 형제가 순교할 때 나이는 각각 마흔다섯과 서른셋이었습니다. 배티와 페낭에서 공부했던 그 신학생 출신 요한입니다. 이로써 김백심과 세 아들이 모두 순교했으니, 한국 교회사 안에서 김 암브로시오 집안의 순교는 중요한 의미를 지닙니다. 이 교우촌에서 여섯 교우가 피로 신앙을 증거했고, 그 가운데 계마대의 민윤명 회장은 '하느님의 종 이벽 요한 세례자와 동료 132위'에 포함되어 시복이 추진되고 있습니다.",
+      "narrationEn": "Paul Kim Seong-hoe, eldest son of Ambrose Kim Baek-sim, and the youngest son John Kim, who had fled to live at Bokgujeong in Cheonan, were arrested in 1868 and martyred in Seoul. The brothers were forty-five and thirty-three when they died; John was the former seminarian who had studied at Baeti and Penang. Thus Kim Baek-sim and all three of his sons were martyred, and the martyrdom of Ambrose Kim's family holds a significant place in Korean church history. Six believers from these villages bore witness with their blood, and among them Min Yun-myeong, the catechist of Gyemadae, is included in the cause of 'the Servants of God John the Baptist Yi Byeok and 132 companions' now being advanced toward beatification.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "한 아버지와 세 아들이 2년 사이에 모두 처형된 집안의 이야기입니다.",
+      "forEveryoneEn": "The story of a family in which a father and his three sons were all executed within two years.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2021-06-15 https://www.catholictimes.org/article/202106150067431 (사본 _pages/bongam/catholictimes.txt) · 청주교구 성지 소개 https://www.cdcj.or.kr/parish/holyland/9 (사본 _pages/bongam/official.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "땅 한 평 기부 — 신자들이 만들어 가는 성지",
+      "titleEn": "One Pyeong at a Time — A Shrine Built by Its Parishioners",
+      "location": "공소 둘레 화단과 가로수 길",
+      "locationEn": "The flower beds and tree-lined path around the station",
+      "narration": "성지 선포 뒤 운영을 맡은 맹동본당 주임 정광열 신부와 신자들은 성지 조성에 힘을 모아 왔습니다. 2019년 하반기에 시작한 '봉암성지 땅 한 평 기부 운동'은 2021년 봄 540평을 넘어섰고, 190평가량의 공소 땅과 인근 540평을 사들였습니다. 계마대 땅은 기부를 약속받았고 방축골 땅은 아직 확보하지 못했습니다. 아무것도 없던 성지 주변에 신자들이 조금씩 모아 준 정성으로 장미 화단이 생기고 가로수가 심겼으며, 음성군청도 진입로를 넓혀 주기로 했습니다. 미사가 없을 때면 늘 작업복을 입고 길을 닦고 나무를 베는 정 신부를 마을에서는 '황소 신부님'이라 부르고, 신자들도 누가 시키지 않아도 버려진 나무를 치우고 화단을 가꾸며 함께 성지를 만들어 가고 있습니다.",
+      "narrationEn": "Since the proclamation, Father Jeong Gwang-yeol, pastor of Maengdong parish and in charge of the shrine, and the parishioners have pooled their efforts to build it. The 'one pyeong of land for Bongam Shrine' campaign begun in the second half of 2019 had passed 540 pyeong, about 1,800 square meters, by the spring of 2021, and the station's own 190 pyeong plus 540 pyeong nearby have been purchased. The Gyemadae land has been promised as a gift, while the Bangchukgol land has not yet been secured. Around a shrine that had nothing, the small contributions of the faithful have created a rose garden and a line of roadside trees, and Eumseong County has agreed to widen the access road. Father Jeong, who is always in work clothes clearing paths and cutting trees whenever there is no Mass, is called 'the ox priest' in the village, and the parishioners too, without being asked, haul away fallen timber and tend the flower beds, building the shrine together.",
+      "lookFor": "신자들이 가꾼 장미 화단",
+      "lookForEn": "The rose garden planted by the parishioners",
+      "forEveryone": "큰 기부가 아니라 한 평씩 모은 땅으로 성지가 자라고 있는 현재진행형의 현장입니다.",
+      "forEveryoneEn": "A work in progress: a shrine growing not from large donations but from land gathered one pyeong at a time.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2021-06-15 https://www.catholictimes.org/article/202106150067431 (사본 _pages/bongam/catholictimes.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "음성 봉암 성지 순례를 마치셨습니다. 이곳은 신앙 선조들이 어렵게 신앙을 지킨 터전을 체험하는 곳이자 지역의 영적 쉼터로 자라나기를 기다리는 곳입니다. 김 사도요한이 공부했던 진천 배티 성지와 민윤명 회장이 순교한 충주의 순교 터가 멀지 않으니 함께 찾아보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to Bongam Shrine in Eumseong, a place for experiencing where the forebears kept their faith through hardship, and one waiting to grow into a spiritual refuge for the region. Baeti Shrine in Jincheon, where John Kim studied, and the martyrdom sites in Chungju where Min Yun-myeong died are not far and are worth visiting together.",
+    "photos": []
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "siteId": "76126161-a293-47ca-a839-337467e2ca2c",
+  "siteName": "한덕골 성지",
+  "slug": "handeokgol",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "용인 처인구 이동면 묵리, 한덕골 순교사적지에 오셨습니다. 이곳은 박해 시대 교우들이 숨어들어 교우촌을 이루고 살던 산골로, 한국인 첫 사제 성 김대건 신부의 가족이 솔뫼를 떠나 피난해 온 곳이고, 두 번째 사제 최양업 신부의 큰아버지 집안이 살던 곳이자 사제가 되어 돌아온 최양업 신부가 어린 동생들과 눈물로 상봉한 곳입니다. 지금은 용인시가 '청년 김대건 길'을 정비해 찾기 어렵지 않지만, 박해 당시에는 집도 없이 산 나무에 칡을 얽어 억새를 덮고 살았다는 이야기가 전해지는 외딴 골짜기였습니다. 오늘은 사적지의 모습에서 시작해 두 사제 집안의 이야기, 최양업 신부의 사목과 천주가사, 그리고 이곳 출신 순교자들까지 들어 보겠습니다.",
+    "narrationEn": "Welcome to the Handeokgol martyrdom site in Muk-ri, Idong-myeon, Yongin. This mountain hollow was a hidden Catholic village in the age of persecution: here the family of St. Andrew Kim Taegon, Korea's first priest, took refuge after leaving Solmoe, here the family of the uncle of Father Choe Yang-eop, Korea's second priest, lived, and here Father Choe, returning as a priest, was reunited in tears with his young brothers. Today the city of Yongin has laid out the 'Young Kim Taegon Trail' and the site is easy to reach, but in the time of persecution it was a remote ravine where, the story goes, families without a house lived under arrowroot vines tied to living trees and roofed with silver grass. Today we will begin with the site as it is now, then hear the stories of the two priests' families, Father Choe's ministry and his Catholic hymns, and the martyrs who came from this village.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "사적지 — 큰 십자가와 두 사제의 상",
+      "titleEn": "The Site — The Great Cross and the Statues of Two Priests",
+      "location": "묵리 619-1 사적지 입구",
+      "locationEn": "At the entrance to the site at 619-1 Muk-ri",
+      "narration": "입구에 들어서면 '희망의 순례자' 표지판이 먼저 눈에 띕니다. 최양업 신부의 시복시성을 기원하며 그와 관련된 성지와 교우촌을 순례하도록 지정한 순례지라는 표시입니다. 사적지에는 대형 십자가와 야외 제대가 있고, 양옆에 성 김대건 안드레아 신부와 최양업 토마스 신부의 상이 서 있으며, 2010년 5월에는 파티마의 성모상을 세워 축복했습니다. 이 터는 교회사 연구와 성지 개발에 남다른 열정을 지녔던 인천교구의 고 김진용 마티아 씨가 한덕골 사적지를 발굴하는 데 결정적 역할을 하고 땅을 손수 사들여 수원교구에 기증한 것입니다. 사적지는 천리요셉본당이 관리하고 있습니다.",
+      "narrationEn": "As you enter, a sign reading 'Pilgrim of Hope' catches the eye first: it marks this as one of the designated pilgrimage sites connected with Father Choe Yang-eop, visited in prayer for his beatification. The site holds a great cross and an outdoor altar, flanked by statues of St. Andrew Kim Taegon and Father Thomas Choe Yang-eop, and in May 2010 a statue of Our Lady of Fatima was erected and blessed. The land itself was purchased personally and donated to the Diocese of Suwon by the late Matthias Kim Jin-yong of the Diocese of Incheon, a man of rare devotion to church history and shrine development who played the decisive role in identifying Handeokgol as a historic site. The site is cared for by Cheolli Joseph parish.",
+      "lookFor": "제대 양옆의 김대건·최양업 신부상",
+      "lookForEn": "The statues of Fathers Kim Taegon and Choe Yang-eop on either side of the altar",
+      "forEveryone": "한국의 첫 사제와 두 번째 사제가 나란히 선 곳으로, 두 집안이 모두 이 골짜기와 얽혀 있습니다.",
+      "forEveryoneEn": "Korea's first and second priests stand side by side here, and both their families are bound to this ravine.",
+      "photos": [],
+      "sourceNote": "굿뉴스(한덕골 안내판) https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2831 (사본 _pages/handeokgol/goodnews.txt) · 가톨릭신문 2024-03-05 https://www.catholictimes.org/article/202403051038058 (사본 _pages/handeokgol/catholictimes.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "김대건 신부 가족의 피난 — 칡과 억새로 지은 집",
+      "titleEn": "The Flight of Father Kim Taegon's Family — A Home of Vines and Silver Grass",
+      "location": "사적지에서 성애골 방향을 바라보며",
+      "locationEn": "At the site, looking toward the Seongaegol ravine",
+      "narration": "한국인 첫 사제 성 김대건 신부의 가족은 박해를 피해 충남 당진 솔뫼를 떠나 서울 청파를 거쳐 이곳으로 피난해 왔습니다. 처음에는 기거할 집이 없어 마을 근처 성애골 골짜기에 들어가 산 나무와 산 나무 사이에 칡으로 얽어매고 억새풀을 덮고서 살았다는 눈물겨운 이야기가 전해집니다. 성애골은 지금은 매몰되었습니다. 원래 한덕골은 윗마을 광파리골과 아랫마을 한덕골을 합쳐 부르던 이름이며, 그중 교우촌은 윗마을 광파리골이었습니다. 족보에는 김대건 신부의 조부 김택현과 숙부 김제철의 묘가 한덕동에 있다고 기록되어 있어 가족의 한덕골 피난설을 뒷받침합니다. 김대건 신부는 은이공소에 정착하기 전 이곳에 머물렀던 것으로 알려져 있습니다.",
+      "narrationEn": "The family of St. Andrew Kim Taegon, Korea's first priest, fled persecution from Solmoe in Dangjin, Chungcheong, passed through Cheongpa in Seoul, and took refuge here. At first, having no house to live in, they went into the Seongaegol ravine near the village and lived, the heartbreaking story goes, under arrowroot vines tied between living trees and covered with silver grass. Seongaegol has since been buried. Handeokgol was originally a name for the upper village, Gwangparigol, and the lower village, Handeokgol, together, and the Catholic village was the upper one. The family genealogy records that the graves of Father Kim's grandfather Kim Taek-hyeon and his uncle Kim Je-cheol lie at Handeok-dong, supporting the account of the family's refuge here. Father Kim Taegon is known to have stayed here before settling at the Euni mission station.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "한국 천주교의 첫 사제가 소년 시절 집도 없이 산속에서 지낸 골짜기입니다.",
+      "forEveryoneEn": "The ravine where Korea's first Catholic priest, as a boy, lived in the mountains without even a house.",
+      "photos": [],
+      "sourceNote": "굿뉴스(한덕골 안내판) https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2831 (사본 _pages/handeokgol/goodnews.txt) · 가톨릭신문 2024-03-05 https://www.catholictimes.org/article/202403051038058 (사본 _pages/handeokgol/catholictimes.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "최양업 신부의 상봉 — 부모를 잃은 동생들",
+      "titleEn": "Father Choe Yang-eop's Reunion — Brothers Who Had Lost Their Parents",
+      "location": "최양업 신부상 앞",
+      "locationEn": "In front of the statue of Father Choe Yang-eop",
+      "narration": "한덕골은 최양업 신부의 둘째 큰아버지 최영겸 베드로 일가가 1837년부터 정착해 살던 곳입니다. 1839년 기해박해로 최양업 신부의 부모인 성 최경환 프란치스코와 복자 이성례 마리아가 순교하자, 막냇동생 최신정은 큰아버지가 사는 이 한덕골로 와서 살았습니다. 1849년 4월 15일 상해에서 사제품을 받고 이듬해 귀국한 최양업 신부는 한덕골을 찾아 중백부와 어린 동생들을 눈물로 상봉했고, 그 뒤에도 가끔 이곳에 들러 성사를 주었습니다.",
+      "narrationEn": "Handeokgol is where the family of Peter Choe Yeong-gyeom, Father Choe Yang-eop's second uncle, had lived since 1837. When Father Choe's parents, St. Francis Choe Gyeong-hwan and Blessed Maria Yi Seong-rye, were martyred in the Gihae Persecution of 1839, his youngest brother Choe Sin-jeong came to live here with his uncle. Ordained in Shanghai on April 15, 1849, and returning home the following year, Father Choe came to Handeokgol and was reunited in tears with his uncle and his young brothers, and afterward he visited from time to time to administer the sacraments.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "열다섯에 유학을 떠나 사제가 되어 돌아온 아들이, 그 사이 부모를 잃은 동생들을 처음 만난 곳입니다.",
+      "forEveryoneEn": "Here a son who left to study at fifteen and came home a priest first met the brothers who had lost their parents in the meantime.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2024-03-05 https://www.catholictimes.org/article/202403051038058 (사본 _pages/handeokgol/catholictimes.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2831 (사본 _pages/handeokgol/goodnews.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "땀의 순교자 — 한 달에 나흘 밤밖에 쉬지 못한 사목",
+      "titleEn": "The Martyr of Sweat — A Ministry That Allowed Only Four Nights' Rest a Month",
+      "location": "최양업 신부상 앞",
+      "locationEn": "In front of the statue of Father Choe Yang-eop",
+      "narration": "최양업 신부가 맡은 사목 구역은 충청도와 경상 좌우도, 전라 좌우도 다섯 도에 걸쳐 있었고, 강원도 일부와 이곳 한덕골처럼 경기도도 찾았습니다. 사목을 시작한 1851년에 그가 돌보는 교우촌은 127곳이었고 그 뒤로 계속 늘어났습니다. 1861년 페롱 신부의 편지에 따르면 그는 낮에는 80리에서 100리를 걷고 밤에는 고해를 들은 뒤 날이 새기 전에 다시 떠나야 했기에 한 달에 쉴 수 있는 밤이 나흘을 넘지 못했습니다. 연구자들은 그가 걸은 거리를 적어도 8만 리, 약 3만 킬로미터로 추산합니다. 1851년 그가 찾아다닌 신자는 5,936명으로 당시 조선 전체 신자의 절반이 넘었고, 해마다 전체 세례자의 30에서 40퍼센트가 그에게 세례를 받았으며, 매스트르 신부는 그가 한 해에 4,500명의 고해를 들었다고 적었습니다. 그런 가운데서도 그는 1855년 편지에서 하느님께서 많은 새 형제를 보내 주시어 하느님 아버지의 밭에 풍년이 들었다고 기뻐했습니다.",
+      "narrationEn": "Father Choe Yang-eop's pastoral territory spanned five provinces, Chungcheong and both halves of Gyeongsang and Jeolla, and he also visited parts of Gangwon and, as here at Handeokgol, Gyeonggi. When he began in 1851 he was responsible for 127 Catholic villages, and the number kept growing. According to a letter of Father Féron in 1861, he walked eighty to a hundred ri by day, heard confessions by night, and had to set out again before dawn, so that in a month he could rest no more than four nights. Researchers estimate he walked at least eighty thousand ri, about thirty thousand kilometers. In 1851 the believers he visited numbered 5,936, more than half of all Catholics in Korea at the time; thirty to forty percent of all baptisms each year were his, and Father Maistre recorded that he heard 4,500 confessions a year. Yet in a letter of 1855 he rejoiced that God had sent so many new brothers and sisters that the Father's field had yielded a rich harvest.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "12년 동안 지구 거의 한 바퀴 거리를 걸어 다닌 사제의 이야기입니다.",
+      "forEveryoneEn": "The story of a priest who, in twelve years, walked nearly the distance around the earth.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2024-03-05 https://www.catholictimes.org/article/202403051038058 (사본 _pages/handeokgol/catholictimes.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "천주가사와 묵주 — 누구나 노래로 외우는 교리",
+      "titleEn": "Catholic Hymns and Rosaries — Doctrine Anyone Could Sing",
+      "location": "야외 제대 앞",
+      "locationEn": "In front of the outdoor altar",
+      "narration": "라틴어와 프랑스어, 중국어에 능통했던 최양업 신부는 한글로 신자들이 교리를 쉽게 익히도록 도왔습니다. '천주성교공과'와 '성교요리문답'을 한글로 옮기는 데 참여했고, 세례와 고해, 성체, 견진에 관한 사본문답을 다 배우려면 몇 해가 걸리고 죽을 때까지 떼지 못하는 사람도 있다고 안타까워하며, 당시 널리 불리던 가사 양식으로 누구나 우리말 노래처럼 외울 수 있는 '천주가사'를 지었습니다. 선종가, 사심판가, 공심판가와 일곱 성사를 노래한 영세, 견진, 고해, 성체, 종부, 신품, 혼배, 그리고 신덕, 망덕, 애덕 같은 노래가 그의 작품으로 전해집니다. 신학생 시절부터 성모성심회에 들 만큼 성모 신심이 깊었던 그는 신자들에게 묵주기도와 함께 묵주 만드는 법도 가르쳤습니다. 리브와 신부에게는 조선 신자들이 묵주를 아주 잘 만든다며 묵주 대신 묵주 만드는 도구를 보내 달라고 청했습니다.",
+      "narrationEn": "Fluent in Latin, French, and Chinese, Father Choe Yang-eop used the Korean script to help believers learn the doctrine easily. He took part in translating the prayer book and the catechism into Korean, and lamenting that most people needed years to learn the catechism on baptism, confession, the Eucharist, and confirmation, and some never finished it in a lifetime, he composed 'Catholic hymns' in the popular gasa verse form so that anyone could memorize the teaching like a song in their own tongue. Hymns on a holy death, the particular judgment, and the last judgment, hymns on the seven sacraments, and hymns on faith, hope, and love are among those attributed to him. Deeply devoted to Our Lady since he joined the Sodality of the Immaculate Heart as a seminarian, he taught believers the rosary and how to make rosaries as well. He told Father Libois that Korean believers made rosaries very well, and asked him to send not rosaries but the tools for making them.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "19세기 조선의 유행 노래 형식에 교리를 담아 글 모르는 사람도 외우게 한 발상입니다.",
+      "forEveryoneEn": "The idea of putting doctrine into the popular song form of 19th-century Korea so that even the illiterate could memorize it.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2024-03-05 https://www.catholictimes.org/article/202403051038058 (사본 _pages/handeokgol/catholictimes.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "한덕골의 순교자들",
+      "titleEn": "The Martyrs of Handeokgol",
+      "location": "대형 십자가 앞",
+      "locationEn": "In front of the great cross",
+      "narration": "이곳 한덕골 출신 순교자로는 성 김대건 신부와 그 아버지 성 김제준 이냐시오를 비롯해, 1870년 마흔 살에 순교한 김 시몬과 1866년 마흔두 살에 순교한 김 마리아가 전해집니다. 신앙 때문에 고향과 가산을 다 버리고 이곳에 피난해 와서 풀뿌리와 나무껍질로 근근이 연명하며 가난과 굶주림에 시달리면서도 신자의 본분을 굳게 지키며 살았던 이들입니다. 안내판은 그 신앙 선조들의 기도 소리가 지금도 바람을 타고 은은히 들려오는 듯하다고 적고 있습니다.",
+      "narrationEn": "Among the martyrs from Handeokgol are St. Kim Taegon and his father St. Ignatius Kim Je-jun, along with Simon Kim, martyred in 1870 at the age of forty, and Maria Kim, martyred in 1866 at forty-two. These were people who gave up home and property for the faith, took refuge here, barely survived on roots and bark, and through poverty and hunger held firmly to the duties of a believer. The site's signboard says that the prayers of those forebears still seem to drift faintly on the wind.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스(한덕골 안내판) https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2831 (사본 _pages/handeokgol/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "한덕골 순교사적지 순례를 마치셨습니다. 문수봉 너머에는 김대건 신부가 자란 골배마실과 은이 성지가, 가까이에는 미리내 성지가 있습니다. '청년 김대건 길'을 따라 두 사제의 발자취를 이어 걸어 보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to the Handeokgol martyrdom site. Beyond Munsu Peak lie Golbaemasil, where Father Kim Taegon grew up, and Euni Shrine, and Mirinae Shrine is close by. You may wish to follow the 'Young Kim Taegon Trail' onward in the footsteps of the two priests.",
+    "photos": []
+  }
+}

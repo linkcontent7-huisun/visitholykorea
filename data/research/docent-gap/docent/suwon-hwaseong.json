@@ -1,0 +1,110 @@
+{
+  "siteId": "8645eda9-5e06-4465-a193-aaaa0cff05ff",
+  "siteName": "수원 화성 순교성지",
+  "slug": "suwon-hwaseong",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "유네스코 세계문화유산 수원 화성의 한가운데, 북수동 성당을 중심으로 한 수원 화성 순교성지에 오셨습니다. 정조의 명으로 다산 정약용이 설계한 이 성은 정조가 세상을 떠난 뒤 박해가 시작되면서 서울과 경기, 충청에서 붙잡힌 신자들이 끌려와 취조와 고문을 당하고 처형된 순교지가 되었습니다. 이름이 전해지는 순교자만 83위, 이름 없이 죽은 이는 헤아릴 수 없습니다. 오늘은 성당과 성지마당에서 시작해 화성 곳곳의 순교 터, 순교자들의 이야기, 십자가 문양이 새겨진 방화수류정과 용연, 그리고 옛 초등학교를 고친 뽈리 화랑까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to the Suwon Hwaseong Martyrs' Shrine, centered on Buksu-dong Church in the very heart of Suwon Hwaseong Fortress, a UNESCO World Heritage site. Designed by the scholar Jeong Yak-yong on the orders of King Jeongjo, the fortress became, once the king had died and persecution began, a place where believers arrested across Seoul, Gyeonggi, and Chungcheong were brought for interrogation, torture, and execution. Eighty-three martyrs are known by name; those who died nameless are beyond counting. Today we will begin at the church and the shrine courtyard, then visit the execution sites around the fortress, hear the martyrs' stories, see the Banghwasuryujeong pavilion with its carved crosses and the Yongyeon pond, and end at the Polly Gallery in a converted old primary school.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "북수동 성당과 성지마당 — 수원 교회의 뿌리",
+      "titleEn": "Buksu-dong Church and the Shrine Courtyard — The Root of the Church in Suwon",
+      "location": "성지마당과 로사리오의 길",
+      "locationEn": "The shrine courtyard and the Rosary Path",
+      "narration": "화성행궁 동쪽 성곽길을 따라 걷다 보면 성당이 나타나고, 가장 먼저 꽃이 화사한 성지마당이 맞이합니다. 마당 가장자리의 '수원 화성 로사리오의 길'은 순교자들을 기리기 위해 만든 길로, 시편이 새겨진 비석이 도열하듯 늘어서 있습니다. 북수동 성당, 옛 수원 성당은 수원 시내에서 가장 역사가 오래된 본당이며 지금 수원시 36개 성당의 뿌리입니다. 2000년 대희년에 수원교구장 최덕기 주교가 화성에서 순교한 이들을 현양하기 위해 이 성당을 중심으로 수원 성지를 선포했고, 2009년 9월 20일 순교성지로 공식 선포되었습니다. 성당은 조선 시대 관청이 있던 터 위에 서 있으며, 제대 위에는 한국 첫 사제 김대건 신부의 상이 있습니다.",
+      "narrationEn": "Walk along the fortress wall east of Hwaseong Haenggung palace and the church appears, with a bright flower-filled courtyard the first to greet you. The 'Suwon Hwaseong Rosary Path' along the courtyard's edge was made in memory of the martyrs, lined with stones inscribed with psalms standing like a guard of honor. Buksu-dong Church, the old Suwon Church, is the oldest parish in the city and the root of Suwon's thirty-six churches today. In the jubilee year 2000 Bishop Choe Deok-gi of Suwon proclaimed the Suwon Shrine centered on this church to honor those martyred in the fortress, and on September 20, 2009, it was formally proclaimed a martyrs' shrine. The church stands on the site of a Joseon-era government office, and above the altar is a statue of Father Kim Taegon, Korea's first priest.",
+      "lookFor": "로사리오의 길에 늘어선 시편 비석",
+      "lookForEn": "The psalm stones lining the Rosary Path",
+      "forEveryone": "화성행궁 바로 옆이라 화성 관광과 함께 찾기 좋은 곳입니다.",
+      "forEveryoneEn": "Right beside Hwaseong Haenggung palace, it is easy to combine with a tour of the fortress.",
+      "photos": [],
+      "sourceNote": "아주대학보 https://press.ajou.ac.kr/news/articleView.html?idxno=10409 (사본 _pages/suwon-hwaseong/ajou.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2323 (사본 _pages/suwon-hwaseong/goodnews.txt) · 가톨릭신문 2025-06-30 https://www.catholictimes.org/article/20250630500119 (사본 _pages/suwon-hwaseong/catholictimes.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "화성 — 다산이 설계한 성이 처형장이 되다",
+      "titleEn": "Hwaseong — A Fortress Designed by Dasan Becomes an Execution Ground",
+      "location": "성당 앞에서 화성 성곽을 바라보며",
+      "locationEn": "In front of the church, looking toward the fortress wall",
+      "narration": "수원 화성은 정조의 명을 받아 다산 정약용이 설계하고 시공해 1794년 1월 착공, 1796년 9월 완성한 둘레 5,743미터의 성곽입니다. 성벽은 바깥쪽만 쌓고 안쪽은 자연 지세를 살려 흙으로 돋운 축성술로 1963년 사적 제3호, 1997년 유네스코 세계문화유산이 되었습니다. 그런데 정조가 승하하고 박해가 시작되자 수원 유수부의 토포청이 있던 이 군사 요충지는 신자들이 끌려와 취조와 고문을 당하고 피를 흘린 순교지가 되었습니다. 지금까지 밝혀진 증거지와 순교지는 화성행궁, 화청관 이아, 중영, 동남각루, 남암문, 형옥, 팔달문 밖 장터와 장안문 밖 장터이고, 종로 십자로와 화령전과 화서문 사이 사형터, 동장대도 순교지로 추정됩니다. 성곽 전체가 순교지인 셈입니다.",
+      "narrationEn": "Suwon Hwaseong is a fortress 5,743 meters around, designed and built by Dasan Jeong Yak-yong on King Jeongjo's orders, begun in January 1794 and completed in September 1796. Its construction, with masonry on the outer face only and earth banked against the natural terrain inside, earned it designation as Historic Site No. 3 in 1963 and World Heritage status in 1997. But once Jeongjo died and persecution began, this military stronghold, seat of the Suwon garrison's police office, became a place where believers were brought for interrogation and torture and shed their blood. Sites of witness and martyrdom identified so far include Hwaseong Haenggung palace, the Hwacheonggwan office, the central garrison, the southeast pavilion, the south secret gate, the prison, and the marketplaces outside Paldal Gate and Jangan Gate, while the Jongno crossroads, the execution ground between Hwaryeongjeon and Hwaseo Gate, and the east command post are presumed sites as well. The whole fortress, in effect, is a place of martyrdom.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "세계문화유산 성곽을 걷는 길이 그대로 순교 터를 걷는 길입니다.",
+      "forEveryoneEn": "Walking the World Heritage walls means walking the sites of martyrdom.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2323 (사본 _pages/suwon-hwaseong/goodnews.txt) · 가톨릭신문 2025-06-30 https://www.catholictimes.org/article/20250630500119 (사본 _pages/suwon-hwaseong/catholictimes.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "83위와 무명 순교자 — 장안문과 팔달문의 공개 처형",
+      "titleEn": "Eighty-three Named Martyrs and the Nameless — Public Executions at Jangan and Paldal Gates",
+      "location": "장안문 밖 장터, 팔달문 밖 장터",
+      "locationEn": "The marketplaces outside Jangan Gate and Paldal Gate",
+      "narration": "병인박해 때 순교 기록에 남은 이들만 80여 명이고, 조선 후기 화성에서 순교한 83위의 명단이 전해집니다. 그 밖에 토포청과 옥터, 성문 밖 장터에서 참수, 교수, 장살, 백지사, 옥사로 죽어 간 무명 순교자는 헤아릴 수 없습니다. 지금도 많은 사람이 오가는 장안문과 팔달문에서는 수많은 신자가 공개 처형되었습니다. 천주교를 믿으면 어떤 벌을 받는지 세상에 알리는 자리였습니다. 장안문 순교 터는 하느님의 종 지 타대오가, 팔달문 밖 장터는 하느님의 종 심원경 스테파노와 아들 심봉학이 모진 매질로 순교한 곳입니다. 수원 관아에서 순교한 하느님의 종 박원서 마르코는, 평소 진실되게 천주를 공경하지 못했는데 오늘 주님께서 부르셨으니 끌려가 죽게 되면 주님과 성모님께 가서 살겠다고 신앙을 고백했습니다. 2차 시복 대상인 이벽 요한 세례자와 동료 132위 가운데 17위가 수원에서 순교했습니다.",
+      "narrationEn": "More than eighty names survive in the records of the Byeongin Persecution, and a list of eighty-three who died in the fortress in the late Joseon period has come down to us. Beyond them, the nameless who died at the police office, the prison, and the marketplaces outside the gates, by beheading, hanging, flogging, the 'white paper' suffocation, or death in prison, are beyond counting. At Jangan Gate and Paldal Gate, through which crowds still pass today, countless believers were publicly executed, as a lesson to the world of what punishment awaited those who held the Catholic faith. The Jangan Gate site is where the Servant of God Thaddeus Ji died, and the market outside Paldal Gate is where the Servant of God Stephen Sim Won-gyeong and his son Sim Bong-hak were beaten to death. The Servant of God Mark Park Won-seo, martyred at the Suwon magistracy, confessed that though he had not honored God truly in ordinary times, the Lord had called him that day, and if he were taken away to die he would go to live with the Lord and Our Lady. Of the 132 companions of John the Baptist Yi Byeok in the second beatification cause, seventeen were martyred in Suwon.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "관광객으로 붐비는 두 성문이 19세기에는 공개 처형장이었습니다.",
+      "forEveryoneEn": "The two gates now crowded with tourists were public execution grounds in the 19th century.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2025-06-30 https://www.catholictimes.org/article/20250630500119 (사본 _pages/suwon-hwaseong/catholictimes.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2323 (사본 _pages/suwon-hwaseong/goodnews.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "방화수류정과 화홍문 — 서쪽 벽에 새긴 86개의 십자가",
+      "titleEn": "Banghwasuryujeong and Hwahongmun — Eighty-six Crosses Carved on the West Wall",
+      "location": "화홍문과 방화수류정",
+      "locationEn": "Hwahongmun gate and the Banghwasuryujeong pavilion",
+      "narration": "다산은 수원 8경의 하나인 화홍문과 그 위에 방화수류정을 세웠습니다. 화홍문은 아름다운 무지개 문이라는 뜻으로 하느님이 노아와 맺은 구약의 계약을, 문을 떠받치는 일곱 수문은 예수님이 인간과 맺은 신약의 계약인 일곱 성사를 상징한다고 성지는 풀이합니다. '꽃을 쫓고 버드나무 길을 따라가는 정자' 방화수류정의 서쪽 벽에는 십자가 문양 86개가 새겨져 있습니다. 당시 천주교가 서양의 학문, 서학이라 불렸기에 서쪽 벽에 새겼고, 해가 져 어두워질 무렵 햇빛에 반사되어 반짝이도록 만들었습니다. 세상에 어둠이 드리울 때 그리스도의 십자가는 빛이라는 뜻입니다. 지붕은 팔각을 바탕으로 남북에 합각을 더해 십자 모양이고, 안에서 천장을 올려다보면 서까래도 십자가 모양입니다.",
+      "narrationEn": "Dasan built Hwahongmun, one of the eight scenic views of Suwon, and above it the Banghwasuryujeong pavilion. The shrine reads Hwahongmun, 'beautiful rainbow gate,' as a symbol of God's covenant with Noah in the Old Testament, and the seven sluices that support it as the seven sacraments, Christ's covenant with humanity in the New. On the west wall of Banghwasuryujeong, 'the pavilion for chasing flowers and following the willow path,' eighty-six cross motifs are carved. Because Catholicism was then called Western Learning, they were carved on the western wall, and placed so that they glint in the last sunlight as dusk falls, signifying that where darkness covers the world, the cross of Christ is light. The roof, octagonal at its base with gables added to north and south, forms a cross, and looking up from inside, the rafters supporting the ceiling form a cross as well.",
+      "lookFor": "해 질 무렵 빛나는 서쪽 벽의 십자가 문양",
+      "lookForEn": "The cross motifs on the west wall catching the light at dusk",
+      "forEveryone": "조선 정자의 장식 문양 속에 십자가가 숨어 있다는 해석이 이 성지만의 볼거리입니다.",
+      "forEveryoneEn": "The reading of crosses hidden in a Joseon pavilion's decorative motifs is a sight unique to this shrine.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2323 (사본 _pages/suwon-hwaseong/goodnews.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "용연 — 달빛 아래 숨죽인 기도와 달빛순례",
+      "titleEn": "Yongyeon Pond — Hushed Prayers Under the Moon and the Moonlight Pilgrimage",
+      "location": "방화수류정 아래 용연",
+      "locationEn": "Yongyeon pond below the Banghwasuryujeong pavilion",
+      "narration": "방화수류정 아래 연못 용연에는 연못에 비친 달이 떠오르는 '용지대월'의 절경이 있습니다. 기우제를 지내던 이 연못에서 박해 시대 신자들은 달을 보며 신앙의 자유를 간절히 빌었습니다. 화성에서 처형된 순교자의 가족들은 사람들의 눈을 피해 밤이면 용연을 찾아와 숨죽인 기도 속에 순교자를 기억했습니다. 밝은 조명이 없던 시절 어렴풋한 달빛에 의지해 몰래 손을 모으고 묵주를 쥐었을 그 기도를 기리기 위해, 성지는 2008년부터 매월 마지막 주 토요일 저녁 7시 30분에 '달빛순례'를 이어 오고 있습니다. 성지를 떠나 장안문 순교 터, 화홍문, 용연, 방화수류정, 형옥 터, 팔달문 순교 터까지 4킬로미터쯤을 걷는 순례입니다. 매주 토요일 오전 11시에는 하느님의 종 20위의 시복시성과 무명 순교자를 위한 현양미사가 봉헌됩니다.",
+      "narrationEn": "The Yongyeon pond below Banghwasuryujeong offers the famous view of the moon rising in its reflection. At this pond, where rain rituals were once held, believers in the age of persecution looked at the moon and prayed fervently for freedom of faith. The families of those executed in the fortress came to Yongyeon by night, out of sight, and remembered the martyrs in hushed prayer. To honor those prayers, offered by faint moonlight with hands secretly folded around a rosary in an age without lamps, the shrine has held a 'Moonlight Pilgrimage' since 2008 on the last Saturday of each month at 7:30 in the evening, a walk of about four kilometers from the shrine to the Jangan Gate site, Hwahongmun, Yongyeon, Banghwasuryujeong, the prison site, and the Paldal Gate site. Every Saturday at 11 in the morning a Mass is offered for the beatification of the twenty Servants of God and in honor of the nameless martyrs.",
+      "lookFor": "용연에 비친 달",
+      "lookForEn": "The moon reflected in Yongyeon pond",
+      "forEveryone": "화성의 야경 명소가 신자들에게는 밤에만 몰래 기도하던 자리였습니다.",
+      "forEveryoneEn": "A famous night view of the fortress was, for believers, a place they could pray only in secret after dark.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2025-06-30 https://www.catholictimes.org/article/20250630500119 (사본 _pages/suwon-hwaseong/catholictimes.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "뽈리 화랑과 심응영 신부 — 성당을 지키다 순교한 사제",
+      "titleEn": "The Polly Gallery and Father Desideratus Polly — A Priest Martyred Guarding His Church",
+      "location": "뽈리 신부상과 옛 소화초등학교 건물",
+      "locationEn": "The statue of Father Polly and the old Sohwa Primary School building",
+      "narration": "로사리오의 길 끝에는 심응영 뽈리 데시데라도 신부의 상이 서 있습니다. 파리외방전교회의 프랑스인 심 신부는 1907년 조선에 들어와 옛 수원 성당 4대 주임으로 일했고, 1932년 화성의 순교를 기념하고 미신을 타파하기 위해 수원에서 처음으로 근대 건축양식의 고딕 성당, 지금의 북수동 성당을 지어 수원교구의 초석을 놓았습니다. 1934년에는 수업료를 낼 수 없는 가난한 아이들을 위해 성당 옆에 소화초등학교를 세웠습니다. 학교는 2002년 건물이 낡아 원천동으로 옮겨 갔고, 삐걱거리는 마룻바닥이 남은 옛 건물은 '뽈리 화랑'이라는 갤러리로 열려 예수를 그린 회화와 성당 사진을 전시하며 순교 박물관과 종교 미술관으로 쓰이고 있습니다. 심 신부는 6·25 때 대전에서 몸을 피하지 않고 성당을 지키며 기도하다 인민군에게 끌려가 순교했으며, 홍용호 주교와 동료 80위 시복 대상자에 들어 있습니다.",
+      "narrationEn": "At the end of the Rosary Path stands a statue of Father Desideratus Polly, known in Korean as Sim Eung-yeong. A Frenchman of the Paris Foreign Missions Society, he came to Korea in 1907 and served as fourth pastor of the old Suwon Church; in 1932, to commemorate the martyrs of the fortress and to counter superstition, he built Suwon's first Gothic church in the modern style, today's Buksu-dong Church, laying the foundation of the Diocese of Suwon. In 1934 he founded Sohwa Primary School beside the church for poor children who could not pay school fees. The school moved to Woncheon-dong in 2002 when the building grew old, and the old building, its wooden floors still creaking, now opens as the 'Polly Gallery,' displaying paintings of Jesus and photographs of the church and serving as a martyrs' museum and religious art gallery. During the Korean War Father Polly refused to flee, stayed praying in his church in Daejeon, and was taken away by North Korean soldiers and martyred; he is among the eighty companions of Bishop Hong Yong-ho whose beatification is being sought.",
+      "lookFor": "뽈리 화랑의 삐걱거리는 옛 마룻바닥",
+      "lookForEn": "The creaking old wooden floor of the Polly Gallery",
+      "forEveryone": "가난한 아이들을 위해 세운 학교 건물이 지금은 누구나 들어가 쉴 수 있는 미술관입니다.",
+      "forEveryoneEn": "A school built for poor children is now an art gallery anyone may enter and rest in.",
+      "photos": [],
+      "sourceNote": "아주대학보 https://press.ajou.ac.kr/news/articleView.html?idxno=10409 (사본 _pages/suwon-hwaseong/ajou.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2323 (사본 _pages/suwon-hwaseong/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "수원 화성 순교성지 순례를 마치셨습니다. 성지의 아픈 역사를 영광의 역사로 바꾸는 것은 오늘을 사는 이들의 몫이라고 이곳 신부는 말합니다. 시간이 되신다면 성곽길을 따라 장안문에서 팔달문까지 순교자들이 걸었던 길을 직접 걸어 보세요.",
+    "narrationEn": "This concludes our visit to the Suwon Hwaseong Martyrs' Shrine. Turning the shrine's painful history into a history of glory, the priest here says, is the task of those living today. If you have time, walk the fortress wall yourself from Jangan Gate to Paldal Gate, along the path the martyrs walked.",
+    "photos": []
+  }
+}
