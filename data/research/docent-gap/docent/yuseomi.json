@@ -1,0 +1,95 @@
+{
+  "siteId": "38454899-b005-43e8-8685-c786a9c5b364",
+  "siteName": "순교자의 딸 유섬이 묘",
+  "slug": "yuseomi",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "거제시 거제면 내간리 양지마을, 순교자의 딸 유섬이의 묘에 오셨습니다. 유섬이는 1801년 신유박해 때 전주에서 순교한 복자 유항검 아우구스티노의 막내딸로, 아홉 살에 연좌제에 따라 거제부 관비로 유배되어 일흔한 살까지 동정녀로 살았습니다. 오랫동안 잊혔던 무덤은 2014년 5월 옛 문집의 기록을 단서로 다시 찾아냈습니다. 오늘은 '유처자묘'라 새긴 묘비에서 시작해 아홉 살의 유배, 문집 속 기록, 2014년의 발견, 그리고 초남이에서 거제까지 이어진 유배길 순례까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to the grave of Yu Seom-i, a martyr's daughter, at Yangji village in Naegan-ri, Geoje-myeon, on Geoje Island. Yu Seom-i was the youngest daughter of Blessed Augustine Yu Hang-geom, martyred at Jeonju in the Sinyu Persecution of 1801; at the age of nine she was banished to Geoje as a government slave under the law of collective punishment, and she lived there as a virgin until she was seventy-one. Her long-forgotten grave was found again in May 2014, with a clue from an old collection of writings. We will begin at the gravestone carved 'Yu Cheoja Myo,' then look at her exile at nine, the record in the old writings, the discovery of 2014, and the pilgrimage along her road of exile from Chonamni to Geoje.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "'유처자묘' — 봉분이 거의 사라진 무덤 곁의 묘비",
+      "titleEn": "'Yu Cheoja Myo' — A Gravestone Beside a Mound Nearly Gone",
+      "location": "묘비 앞",
+      "locationEn": "In front of the gravestone",
+      "narration": "이 무덤은 오랜 세월 돌보는 이가 없어 봉분이 거의 사라져 평지처럼 보입니다. 그러나 곁에 '유처자묘', 곧 유씨 처녀의 묘라고 새긴 묘비가 확인되어 무덤의 위치는 확실한 것으로 판단되었습니다. 문헌에는 '칠십일세 유처녀지묘'라고 새겼다고 적혀 있는데 실제 비석에는 '유처자묘'로 새겨져 있어, 그 경위는 더 연구가 필요하다고 합니다.",
+      "narrationEn": "Left untended for so long, the mound of this grave has nearly vanished and the ground looks almost flat. Yet beside it a stone carved 'Yu Cheoja Myo,' the grave of the Yu maiden, was confirmed, and so the location of the grave is considered certain. The written record says the stone was carved 'Grave of the Yu virgin, aged seventy-one,' while the actual stone reads 'Yu Cheoja Myo,' a difference that scholars say still needs study.",
+      "lookFor": "'유처자묘'라 새긴 묘비",
+      "lookForEn": "The gravestone carved 'Yu Cheoja Myo'",
+      "forEveryone": "비석 한 줄이 200년 전 소녀의 무덤을 증명해 주었습니다.",
+      "forEveryoneEn": "A single line on a stone proved the grave of a girl exiled two centuries ago.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2014-05 '시복 대상 유항검 딸 유섬이 묘 발견' https://www.catholictimes.org/article/201405210090448 (사본 _pages/yuseomi/catholictimes-2014.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "아홉 살의 유배 — 유항검의 막내딸",
+      "titleEn": "Exiled at Nine — The Youngest Daughter of Yu Hang-geom",
+      "location": "묘비 앞",
+      "locationEn": "In front of the gravestone",
+      "narration": "유섬이는 1793년에 태어나 1863년에 세상을 떠났습니다. 1801년 신유박해 때 아버지 유항검 아우구스티노가 전주 남문 밖에서 능지처사형으로 순교하자, 당시 대명률의 연좌제에 따라 아홉 살에 거제부의 관비로 유배되었습니다. 복자 유항검을 비롯해 다섯 명이 순교한 집안의 막내딸이었습니다. 그렇게 거제도에 온 소녀는 일흔한 살까지 동정녀로 살며 평생 신앙을 지켰습니다.",
+      "narrationEn": "Yu Seom-i was born in 1793 and died in 1863. When her father, Augustine Yu Hang-geom, was martyred by dismemberment outside the South Gate of Jeonju in the Sinyu Persecution of 1801, she was banished at the age of nine to Geoje as a government slave under the collective-punishment provisions of the Ming legal code then in force. She was the youngest daughter of a family in which five members, Blessed Yu Hang-geom among them, were martyred. The girl who thus came to Geoje lived there as a virgin until she was seventy-one, keeping her faith all her life.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "아버지의 죄를 자식에게 묻던 법 때문에 아홉 살 아이가 섬으로 보내졌습니다.",
+      "forEveryoneEn": "A law that punished children for their father's crime sent a nine-year-old to an island.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2014-05 https://www.catholictimes.org/article/201405210090448 (사본 _pages/yuseomi/catholictimes-2014.txt); 전주교구 소식(가톨릭신문 전재) http://www.jcatholic.or.kr/bbs/board.php?theme=interbro&bo_table=history_01&wr_id=1582 (사본 _pages/yuseomi/jcatholic-2024.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "「사헌유집」 — 거제도호부사의 문집에서 찾은 단서",
+      "titleEn": "The Saheon Yujip — A Clue Found in a Geoje Magistrate's Writings",
+      "location": "묘비 앞",
+      "locationEn": "In front of the gravestone",
+      "narration": "유섬이에 관한 문헌 기록은 전 수원교회사연구소 고문 하성래 박사가 거제도호부사를 지낸 하겸락의 문집 「사헌유집」의 해제를 쓰던 중 우연히 발견했습니다. 그 내용은 한국교회사연구소가 펴내는 「교회와 역사」 2014년 4월호에 발표되었습니다. 하성래 박사와 전주대 서종태 교수는 묘 옆 바위에 '칠십일세 유처녀지묘'라고 새겼다는 문집의 기록을 근거로 2014년 2월 거제도를 찾았지만 그때는 무덤을 찾지 못했습니다.",
+      "narrationEn": "The written record of Yu Seom-i was found by chance by Dr. Ha Seong-rae, formerly adviser to the Suwon Church History Institute, while he was writing an introduction to the Saheon Yujip, the collected writings of Ha Gyeom-rak, who had served as magistrate of Geoje. His findings were published in the April 2014 issue of 'Church and History,' the journal of the Research Foundation of Korean Church History. Relying on the record that 'Grave of the Yu virgin, aged seventy-one' had been carved on a rock beside the grave, Dr. Ha and Professor Seo Jong-tae of Jeonju University visited Geoje in February 2014, but at that time they could not find the grave.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "관비로 온 소녀의 삶을 그 고을 원님의 문집이 기록해 두었습니다.",
+      "forEveryoneEn": "The life of a girl sent as a slave was recorded in the writings of the district's own magistrate.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2014-05 https://www.catholictimes.org/article/201405210090448 (사본 _pages/yuseomi/catholictimes-2014.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "2014년 5월 16일 — 마을 주민이 기억하던 무덤",
+      "titleEn": "May 16, 2014 — A Grave the Villagers Remembered",
+      "location": "묘비 앞",
+      "locationEn": "In front of the gravestone",
+      "narration": "그 뒤 호남교회사연구소 명예소장 김진소 신부가 거제 옥포본당 주임 허철수 신부에게 유섬이의 무덤을 찾고 있다는 이야기를 전했고, 허철수 신부는 본당 신자들과 함께 무덤 위치를 아는 주민들을 찾아냈습니다. 2014년 5월 16일 김진소 신부와 서종태 교수, 허철수 신부가 이곳 내간리에서 '유처자묘'라 새긴 묘비를 확인했습니다. 유항검의 시복을 석 달 앞둔 때였고, 이 발견으로 유항검과 그 자녀들이 전라도의 사도로서 신앙을 지키고 전한 사실이 더 분명해졌습니다.",
+      "narrationEn": "Later Father Kim Jin-so, honorary director of the Honam Church History Institute, told Father Heo Cheol-su, pastor of Okpo parish on Geoje, that the grave of Yu Seom-i was being sought, and Father Heo and his parishioners found residents who knew where it was. On May 16, 2014, Father Kim, Professor Seo Jong-tae, and Father Heo confirmed the gravestone carved 'Yu Cheoja Myo' here at Naegan-ri. It was three months before the beatification of Yu Hang-geom, and the discovery made clearer how he and his children had kept and spread the faith as apostles of Jeolla.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "학자들이 못 찾은 무덤을 마을 사람들의 기억이 찾아 주었습니다.",
+      "forEveryoneEn": "What scholars could not find, the villagers' memory supplied.",
+      "photos": [],
+      "sourceNote": "가톨릭신문 2014-05 https://www.catholictimes.org/article/201405210090448 (사본 _pages/yuseomi/catholictimes-2014.txt); 전주교구 소식 http://www.jcatholic.or.kr/bbs/board.php?theme=interbro&bo_table=history_01&wr_id=1582 (사본 _pages/yuseomi/jcatholic-2024.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "초남이에서 거제까지 297킬로미터 — 유섬이 유배길",
+      "titleEn": "297 Kilometers from Chonamni to Geoje — The Road of Yu Seom-i's Exile",
+      "location": "묘역 입구",
+      "locationEn": "At the entrance to the grave site",
+      "narration": "마산교구는 2016년 교구 설정 50주년을 맞아 유섬이의 삶을 조명해 시극 '순교자의 딸 유섬이'를 쓰게 하고 이를 바탕으로 뮤지컬을 만들어 공연했습니다. 전주교구 순례사목은 전주 초남이 성지에서 출발해 이곳 거제 유섬이 묘지까지 약 297킬로미터에 이르는 유섬이의 압송로를 걷는 도보 순례를 마련했습니다. 그 길은 상관, 임실, 운봉을 지나 마산교구의 함양, 산청, 고성을 거쳐 거제에 이릅니다. 온 가족이 순교한 고난 속에서도 평생 신앙을 지킨 유섬이가 어릴 적 걸었던 길입니다.",
+      "narrationEn": "For the fiftieth anniversary of its founding in 2016, the Diocese of Masan brought Yu Seom-i's life to light, commissioning a verse drama, 'Yu Seom-i, a Martyr's Daughter,' and producing a musical based on it. The pilgrimage ministry of the Diocese of Jeonju organized a walking pilgrimage along the roughly 297-kilometer route of her deportation, from Chonamni Shrine in Jeonju to her grave here on Geoje. The road passes Sanggwan, Imsil, and Unbong, then Hamyang, Sancheong, and Goseong in the Diocese of Masan, before reaching Geoje. It is the road a young girl once walked, who kept her faith all her life though her whole family had been martyred.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "아홉 살 아이가 끌려온 길을 이제 순례자들이 걸어서 따라옵니다.",
+      "forEveryoneEn": "Pilgrims now walk the road along which a nine-year-old was led away.",
+      "photos": [],
+      "sourceNote": "전주교구 소식(가톨릭신문 전재) '전주 초남이성지에서 거제까지 유섬이 걸었던 유배길 걷는다' http://www.jcatholic.or.kr/bbs/board.php?theme=interbro&bo_table=history_01&wr_id=1582 (사본 _pages/yuseomi/jcatholic-2024.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "순교자의 딸 유섬이 묘 순례를 마치셨습니다. 아버지 유항검이 살던 전주 초남이 성지와, 같은 거제의 사도 윤봉문 요셉 순교성지를 이어 찾으시면 이 섬에 뿌려진 신앙의 두 뿌리를 함께 보실 수 있습니다.",
+    "narrationEn": "This concludes our visit to the grave of Yu Seom-i, a martyr's daughter. Continue to Chonamni Shrine in Jeonju, where her father Yu Hang-geom lived, and to the shrine of Joseph Yun Bong-mun, the apostle of Geoje, and you will see the two roots of the faith planted on this island.",
+    "photos": []
+  }
+}

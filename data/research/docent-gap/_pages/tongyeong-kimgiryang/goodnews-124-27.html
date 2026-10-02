@@ -1,0 +1,1069 @@
+ 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes">
+<meta name="keywords" content="가톨릭정보, 가톨릭,매일미사,성경,성경쓰기,천주교,축일,성지,교회법,성무일도" />
+<meta name="description" content="가톨릭 정보 - 가톨릭,매일미사,성경,성경쓰기,천주교,축일,성지,교회법,성무일도 " />
+<meta name="view-transition" content="same-origin" />
+<title>굿뉴스 모바일</title>
+<link rel="shortcut icon" href="/include/images/index/gn-icon.jpg">
+<link rel="apple-touch-icon" href="/include/images/index/gn-icon.jpg">
+
+<link rel="stylesheet" href="/mobile/common/css/base.css">
+<link rel="stylesheet" href="/mobile/common/css/comm.css">
+<link rel="stylesheet" href="/mobile/common/css/layout.css">
+<link rel="stylesheet" href="/mobile/common/css/slick.css">
+<link rel="stylesheet" href="/mobile/common/css/slick-theme.css">
+<link rel="stylesheet" href="/common/css/jquery-ui.css">
+
+<link rel="stylesheet" href="/cssmGB/common_board.css" />
+<link rel="stylesheet" href="/hostm/inc/css/Hosting_board.css" />
+<link rel="stylesheet" href="/include/fa/css/font-awesome.min.css">
+
+<link rel="stylesheet" type="text/css" href="/cssGB/jquery-ui.css" /> 
+<link rel="stylesheet" href="/cssmGB/common_content.css" />
+<link rel="stylesheet" href="/cssmGB/common_add.css" />
+<link rel="stylesheet" href="/cssmGB/goodnews/goodnews.css" />
+<link rel="stylesheet" href="/cssmGB/goodnews/goodnews.css" />
+
+<script language="javascript" src="/mobile/common/js/jquery-1.10.1.min.js"></script>
+<script language="javascript" src="/mobile/common/js/jquery.touchSwipe.min.js"></script>
+<script language="javascript" src="/js/jquery-ui.js"></script> 
+<script language="javascript" src="/jsm/common_add.js"></script>
+<script language="javascript" src="/js/common_board_add.js"></script>
+<script language="javascript" src="/js/jquery.cookie.js"></script>
+<script language="javascript" src="/js/jquery.form.js"></script> 
+<script language="javascript" src="/mobile/common/js/common.js"></script>
+<script language="javascript" src="/mobile/common/js/jquery.easing.min.js"></script>
+<script language="javascript" src="/mobile/common/js/slick.js"></script>
+<script language="javascript" src="/mobile/js/common_new.js"></script>
+<script language="javascript" src="/mobile/js/font.js"></script>
+<script src="/js/login-router.js"></script>
+
+<style>
+    @keyframes fromRight {
+        from {
+            opacity : 0.5;
+            transform : translateX(50px);
+        }
+    }
+    ::view-transition-new(root){
+        animation:0.5Ws fromRight linear;
+    }
+        
+</style>
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-52J53FG');</script>
+<!-- End Google Tag Manager -->
+
+
+
+<script language="javascript" src="/mobile/sa_ho/js/saint.js"></script>
+
+</head>
+<body>
+
+<!-- wrapper -->
+<div id="wrapper">
+
+	<!-- header -->
+
+
+
+<div id="header" >
+    <div class="header_inner smain">
+        <a href="#" onclick="return false;" class="home" id="btn_gnb_go"><img src="/mobile/common/images/smain/ico_b_home.gif" alt="전체메뉴" /></a>
+        <ul class="sub_nav">
+        	
+                <li><a href="/mobile/sa_ho/saint.asp" class="active">성인/축일</a></li>
+                <li><a href="/mobile/bible/">성경</a></li>
+                <li><a href="/mobile/sa_ho/holyplace.asp">성지/사적지</a></li>
+                
+			
+        </ul>
+        <a href="#none" class="btn_search"><img src="/mobile/common/images/smain/btn_search.gif" alt="search" /></a>
+        <!-- 검색 레이어 -->
+<!-- 검색 레이어 -->
+<link rel="stylesheet" type="text/css" href="/mobile/css/msearch.css" /> 
+<script language='javascript' src="/mobile/js/rcmdWord_new.js"></script>
+
+<script> 
+function searchSubmit() {
+	var vSearch;
+	vSearch	= document.getElementById("qt").value;
+
+	if (vSearch == "")
+	{
+		alert("검색어를 입력하세요.");
+		return false;	
+	}
+	else
+	{
+		with (document.getElementById("searchForm")) {
+			action = "https://msearch.catholic.or.kr/RSA/front_m/Search.jsp";
+			//action = "https://msearch.catholic.or.kr/RSA/front_m/Search.jsp?qt="+encodeURIComponent(vSearch);
+			//action = "https://msearch.catholic.or.kr/RSA/front_m/Search.jsp?qt="+vSearch;
+			console.log('action=',action);
+			//method="get";
+			target = "_self";
+			submit();
+			return true;
+		}
+	}
+}
+
+function searchListClose() {
+
+	//$('#qt').val('');
+	$('#autoComplete').css('display','none');
+}
+
+function addrSearchSubmit() {
+	var vSearch;
+	vSearch	= document.getElementById("search").value;
+
+	if (vSearch == "")
+	{
+		alert("검색어를 입력하세요.");
+		return false;	
+	}
+	else
+	{
+		with (document.getElementById("searchForm")) {
+			action = "/web/addr/sResult.asp";
+			target = "";
+			submit();
+			return true;
+		}
+	}
+}
+</script> 
+
+<div class="search_area">
+    <div class="inner">
+    	<!--<iframe src="" mce_src="about:blank" scrolling="no" frameborder="0" width="100%" height="100%" title="전체 아이프레임 영역"></iframe>-->
+    	<form name="RsaSearchForm1"  method="post" onsubmit="return searchSubmit(this);" action="https://msearch.catholic.or.kr/RSA/front_m/Search.jsp" target="_self">
+			<input type="hidden" name="sect" value="" />
+			<input type="hidden" name="menu" value="통합_" />
+			<input type="hidden" name="nh" value="10" />
+			<input type="hidden" name="st" value="1" />
+			<input type="hidden" name="adv" value="0" />
+			<input type="hidden" name="rf" value="(null)" />
+			<input type="hidden" name="sDate" value="0" />
+			<input type="hidden" name="eDate" value="0" />
+			<input type="hidden" name="ind" value="0" />
+                       
+            <label for="qt">굿뉴스 통합검색</label>
+            <input type="text" id='qt' name='qt' class="sintx mb15" onFocus="return setTextBox_(event);" onMouseDown="setTextBox_(event);" onKeyDown="setTextBox_(event);" onChange="javascript:search_promo_off();" placeholder="검색어를 입력해주세요" />
+            <script type="text/javascript">
+				rcmd_default_set(document.RsaSearchForm1.qt, 200);
+				if (t_ > 0 && c_ > 0) {
+					wd_();
+					setTimeout("wi_()", TimeOut);
+				}
+			</script>
+            
+            <!-- search1 -->
+			<div id="search1">
+                <!-- search1c -->
+                <div id="search1c">
+                    <!-- search1AutoComplete -->
+                    <div id="autoComplete" class="search1AutoComplete" style="display:none;" onMouseOver="set_mouseon_(2);" onMouseOut="set_mouseoff_(2);">
+                        <div id="rcmdResult" ></div>
+                        <a href="javascript:searchListClose();" class="close">닫기 X</a>
+                    </div>
+                    <div id="myQueryComplete" class="search1AutoComplete" style="display:none;" onMouseOver="set_mouseon_(2);" onMouseOut="set_mouseoff_(2);">
+                        <div id="myQueryResult" >
+                            <ul id="myQueryList">
+                            </ul>
+                        </div>
+                        <a href="#search1c" class="close" id="myQueryClose">최근 검색어 내역이 없습니다.</a>
+                    </div>
+                	<!-- /search1AutoComplete -->
+                </div>
+                <!-- /search1c -->
+            </div>
+            <!-- /search1 -->
+        </form>
+
+        <form id="searchForm" method="post" onsubmit="return addrSearchSubmit()" action="/web/addr/sResult.asp" target="_blank">
+            <label for="search"> 한국 천주교 주소록 검색</label>
+            <input type="text" id="search" name="search" class="sintx" placeholder="검색어를 입력해주세요" />
+        </form>
+        
+        <a href="#none" class="btn_sler"><img src="/mobile/common/images/comm/btn_search_layer.gif" alt="" /></a>
+    </div>
+</div>
+        <!--// 검색 레이어 -->
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+	var d = document.createElement('div');
+	d.style.cssText = 'font-size:100px;position:absolute;visibility:hidden';
+	document.body.appendChild(d);
+	var z = parseFloat(getComputedStyle(d).fontSize) / 100 || 1;
+	document.body.removeChild(d);
+	if (z <= 1) return;
+	var maxVisualPx = 14;
+	$('#header .sub_nav li a').each(function() {
+		var visual = parseFloat(getComputedStyle(this).fontSize);
+		if (visual > maxVisualPx) $(this).css('font-size', (maxVisualPx / z) + 'px');
+	});
+});
+</script>
+	<!-- //header -->
+
+	<!-- gnb -->
+
+
+<style>
+    .login .my_info .img-info{
+        display:inline-block;
+        height: 20px;
+        width: 20px;
+        border: none;
+        border-radius: 50%;
+        opacity: 0.5;
+    }
+   
+</style>
+<div id="gnb_area">
+    
+        <div class="gnb_tit">
+            
+                    <!-- 로그인 전 -->
+                    <p class="logout"><span>로그인을 해주세요.</span></p>
+                    
+                        <a href="https://www.catholic.or.kr/oauth/login.asp?redirect_url=https%3A%2F%2Fmaria%2Ecatholic%2Eor%2Ekr%2Fmobile%2Fsa%5Fho%2Fboard%2Fboard%5Fview%2Easp%3Fmenugubun%3Dsaint%26ctxtOrgNum%3D6324%26ctxtSubMenu%3Dpds%26getID%3D44026%26id%3D43721%26page%3D1%26table%3Dgnattboard%26infogubun%3Dinfo%26orggubun%3D101%26bbsgubun%3Dpds%26infoid%3D6324" class="btn">로그인</a>
+                    
+                    <!--// 로그인 전 -->
+                
+        </div>
+    <style>
+        #gnb_area .nav li.gospel-write{
+            width:100%;
+        }
+        #gnb_area .nav .gospel-write a{
+            padding:0 0 0 0;
+        }
+    </style>
+    
+    <ul class="nav">
+        
+    	<li>
+            <a href="/mobile/bible/">성경
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/bible/ebible/ebible.asp?mn=2">성경쓰기
+            </a>
+        </li>
+        <li>
+            <a href="https://news.catholic.or.kr/">가톨릭 뉴스
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/audio/">소리광장
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/sa_ho/saint.asp">가톨릭 성인
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/sa_ho/holyplace.asp">성지/사적지
+            </a>
+        </li>
+    	<li>
+            <a href="/mobile/sungga/">가톨릭 성가
+            </a>
+        </li>
+
+		<li>
+            <a href="/mobile/answersong/">시편성가
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/missa/">매일미사
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/sungmu/">성무일도
+            </a>
+        </li>
+        <!--<li>
+            <a href="/mobile/samok/">성무예절서
+            </a>
+        </li>-->
+        <li>
+            <a href="/mobile/prayer/">기도문</a>
+        </li>
+        <li>
+            <a href="/mobile/vademecum/">VADEMECUM
+            </a>
+        </li>
+      
+            <li>
+                <a href="/mobile/church/">전국/해외한인 본당
+                    <!--span><img src="/mobile/common/images/comm/ico_new.gif" alt="new" /></span-->
+                </a>
+            </li>
+            
+
+            
+                <li>
+                    <a href="/mobile/church/bondang_set.asp">MY 성당 
+                    <!--span><img src="/mobile/common/images/comm/ico_new.gif" alt="new" /></span-->
+                    </a>
+                </li>
+            
+
+        <li>
+            <a href="/mobile/ccm/">생활성가
+        </a>
+        </li>    
+        <li>
+            <a href="/mobile/family/">가정기도 길잡이
+            </a>
+        </li>        
+        <li>
+            <a href="/mobile/doctrine/">가톨릭 교리서
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/doctrine/catechism/catechism.asp">교리서 요약편
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/concil/" class="ellipsis">바티칸공의회문헌
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/canon/">교회 법전
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/sacrament/">7성사
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/dictionary/">가톨릭 사전
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/jubo/">전국주보
+            </a>
+        </li>
+        <li>
+            <a href="/mobile/bondang/">본당정보
+            </a>
+        </li>
+        <li><a href="http://pds.catholic.or.kr/pdsm/">자료실</a></li>
+        <li><a href="https://bbs.catholic.or.kr/bbsm/">게시판</a></li>
+        <li><a href="https://photo.catholic.or.kr/albumm/">가톨릭 갤러리</a></li>
+        <li><a href="https://photo.catholic.or.kr/albumm/gallery.asp">갤러리1898</a></li>
+        <!--li><a href="http://directory.cbck.or.kr/OnlineAddress/Default.aspx" target="_blank">가톨릭 주소록</a></li-->
+        <!-- 180702 주석처리 -->
+        <li><a href="/web/addr/">가톨릭 주소록</a></li>
+
+        <!-- 180614 주석처리
+        <li><a href="http://mobile.catholic.or.kr/web/calendar/" target="_blank">굿뉴스 일정관리</a></li>
+        <li><a href="http://mobile.catholic.or.kr/web/map/" target="_blank">내주변본당</a></li>
+        -->
+        
+        <li><a href="https://club.catholic.or.kr/">클럽</a></li>
+        <li><a href="https://www.cpbc.co.kr" target="_blank">Cpbc라디오</a></li>
+        <!---->	
+
+    </ul>
+    
+    <a href="/mobile/main" class="nav_home"><img src="/mobile/common/images/main/gn_m-home.png" /></a>
+    <a href="#none" class="nav_close"><img src="/mobile/common/images/comm/btn_close.png" alt="닫기" /></a>
+</div>
+
+
+<script type="text/javascript">
+	//$(document).ready(function() { 
+    $(window).ready(function(){          // document.ready 이후에 실행됨 
+		setAjaxMail();
+	});
+
+	function setAjaxMail() {
+
+        $.ajax({ 
+            type: "POST", 
+            url: "/json/topmailchk.asp", 
+            dataType: "html", 
+            success: function(data){ 
+
+                    $(".mail").remove(); 
+
+                    $(".myarea").prepend(data);
+
+            },
+            error: function(request,status,error){
+                    $('#mail_num').append("오류");
+                    //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+
+        }); 
+    }
+        //매일 복음 쓰기 실행
+    function goGospelWrite(){
+        if (window.__gnSend) { window.__gnSend('goGospelWrite', ''); return; }
+        
+            alert("잘못된 경로입니다");
+        
+    }
+</script>
+	<!--// gnb -->
+
+	<!-- contents -->
+	<div id="contents">
+    
+<div class="sub_menu_wrap">
+	<div class="scroll_wrap">
+        <ul class="sub_menu">
+            
+                <li><a href="/mobile/sa_ho/list/list.asp?menugubun=saint&today=on" class="">오늘의성인</a></li>
+                <li><a href="/mobile/sa_ho/list/list.asp?menugubun=saint&today=to" class="">내일의성인</a></li>
+                <li><a href="/mobile/sa_ho/list/list.asp?menugubun=saint" class="">성인목록</a></li>
+                <li><a href="/mobile/sa_ho/list/list.asp?menugubun=saint&today=off&today_tmp=&ctxtCommand=&ctxtLogOn=&ctxtSexcode=&ctxtChukday=&ctxtGaladay=20&Orggubun=101&ctxtHigh=&ctxtLow=&ctxtChecked=Checked&oldrow=&curpage=&ctxtOrder=name1%2Cgaladaym%2Cgaladayd&ctxtOrderType=&ctxtSaintId=&ctxtSCode=&ctxtSearchNm=&ctxtChukmm=9&ctxtChukdd=20&ctxtPosition=&ctxtCity=%ED%95%9C%EA%B5%AD%28korea%29" class="">103위성인</a></li>
+                <li><a href="/mobile/sa_ho/list/list.asp?menugubun=saint&today=off&today_tmp=&ctxtCommand=&ctxtLogOn=&ctxtSexcode=&ctxtChukday=&ctxtGaladay=29&Orggubun=101&ctxtHigh=&ctxtLow=&ctxtChecked=Checked&oldrow=&curpage=&ctxtOrder=name1%2Cgaladaym%2Cgaladayd&ctxtOrderType=&ctxtSaintId=&ctxtSCode=&ctxtSearchNm=&ctxtChukmm=5&ctxtChukdd=29&ctxtPosition=&ctxtCity=%ED%95%9C%EA%B5%AD%28korea%29" class="">복자124위</a></li>
+                <li><a href="/mobile/sa_ho/album/album_list.asp?menugubun=saint" class="">앨범</a></li>
+                <li><a href="/mobile/sa_ho/board/board_list.asp?menugubun=saint&bbsgubun=pds" class="active">자료실</a></li>
+                
+            
+        </ul>
+    </div>
+    
+ 	<div class="more_menus_wrap">
+        <button class="btn_more_menu">
+            <img src="/mobile/common/images/comm/sub_menu01.png" />
+        </button>
+        <ul class="list_more_menu">
+        	
+                <li><a href="/mobile/sa_ho/list/list.asp?menugubun=saint&today=on" class="">오늘의성인</a></li>
+                <li><a href="/mobile/sa_ho/list/list.asp?menugubun=saint&today=to" class="">내일의성인</a></li>
+                <li><a href="/mobile/sa_ho/list/list.asp?menugubun=saint" class="">성인목록</a></li>
+                <li><a href="/mobile/sa_ho/list/list.asp?menugubun=saint&today=off&today_tmp=&ctxtCommand=&ctxtLogOn=&ctxtSexcode=&ctxtChukday=&ctxtGaladay=20&Orggubun=101&ctxtHigh=&ctxtLow=&ctxtChecked=Checked&oldrow=&curpage=&ctxtOrder=name1%2Cgaladaym%2Cgaladayd&ctxtOrderType=&ctxtSaintId=&ctxtSCode=&ctxtSearchNm=&ctxtChukmm=9&ctxtChukdd=20&ctxtPosition=&ctxtCity=%ED%95%9C%EA%B5%AD%28korea%29" class="">103위성인</a></li>
+                <li><a href="/mobile/sa_ho/list/list.asp?menugubun=saint&today=off&today_tmp=&ctxtCommand=&ctxtLogOn=&ctxtSexcode=&ctxtChukday=&ctxtGaladay=29&Orggubun=101&ctxtHigh=&ctxtLow=&ctxtChecked=Checked&oldrow=&curpage=&ctxtOrder=name1%2Cgaladaym%2Cgaladayd&ctxtOrderType=&ctxtSaintId=&ctxtSCode=&ctxtSearchNm=&ctxtChukmm=5&ctxtChukdd=29&ctxtPosition=&ctxtCity=%ED%95%9C%EA%B5%AD%28korea%29" class="">복자124위</a></li>
+                <li><a href="/mobile/sa_ho/album/album_list.asp?menugubun=saint" class="">앨범</a></li>
+                <li><a href="/mobile/sa_ho/board/board_list.asp?menugubun=saint&bbsgubun=pds" class="active">자료실</a></li>
+                
+            
+        </ul>
+    </div>
+
+</div>
+<script>
+$(document).ready(function() {
+	var d = document.createElement('div');
+	d.style.cssText = 'font-size:100px;position:absolute;visibility:hidden';
+	document.body.appendChild(d);
+	var z = parseFloat(getComputedStyle(d).fontSize) / 100 || 1;
+	document.body.removeChild(d);
+	if (z <= 1) return;
+	var maxVisualPx = 14;
+	$('.sub_menu_wrap .sub_menu li a').each(function() {
+		var visual = parseFloat(getComputedStyle(this).fontSize);
+		if (visual > maxVisualPx) $(this).css('font-size', (maxVisualPx / z) + 'px');
+	});
+});
+</script>
+
+
+
+        <!-- main_sec -->
+        <div class="main_sec no_padding no_margin">
+
+	
+<script language="JavaScript">
+$('body').on("keyup", "textarea", function() {
+	if( $(this).attr("name") == "comment" ) {
+		if  ( $(this).val().length > 500) {
+			alert("댓글은 500자까지만 가능합니다.");
+			$(this).val( $(this).val().substring(0,500));
+			} else {
+		}
+			$("#t"+ $(this).attr("id") ).html( $(this).val().length );
+			$("#tc"+ $(this).attr("id") ).html( "("+ $(this).val().length + "/500)");
+	}
+});
+function goListDetail(strMenuGubun,strCtxtSaintId,strOrggubun,strCtxtSubMenu,strInfogubun,strBbsGubun,strInfoid,strRealTable,lngPage)
+{
+	with(document.form1)
+	{
+		document.form1.infoid.value = "";
+		action = "/mobile/sa_ho/list/view.asp?menugubun="+strMenuGubun+"&ctxtSaintId="+strCtxtSaintId+"&Orggubun="+strOrggubun+"&ctxtSubMenu="+strCtxtSubMenu+"&infogubun="+strInfogubun+"&bbsgubun="+strBbsGubun+"&infoid="+strInfoid+"&table="+strRealTable+"&page="+lngPage+"&PSIZE=20";
+		submit();
+	}	
+}
+function goList()
+{
+	with(document.form1)
+	{
+		document.form1.infoid.value = "";
+		action = "/mobile/sa_ho/board/board_list.asp";
+		submit();
+	}	
+}
+function goView(infoid,id,bbscount)
+{
+	document.form1.infoid.value = infoid;
+	document.form1.id.value = id;
+	document.form1.bbscount.value = bbscount;
+	document.form1.action = "/mobile/sa_ho/board/board_view.asp";
+	document.form1.submit();
+}
+function goRecom()
+{
+	with(document.form1)
+	{
+		action = "/pds/include/recom_ok.asp";
+		target = "frmASP";
+		submit();
+		target = "";
+	}	
+}
+function cmdAfterRecom(intResult)
+{
+	with(document.form1)
+	{
+		target = "";	
+		if(intResult == 0)
+		{
+			alert("추천되었습니다.");
+			action = "board_view.asp";
+			submit();
+		}
+		else
+			alert("이미 추천하셨습니다.");
+	}		
+}
+function cmdReadyRecom()
+{
+	alert("본인이 작성한글은 본인이 추천할수 없습니다");	
+	return;
+}
+
+
+function goMod(strID)
+{
+	with(document.form1)
+	{
+		id.value = strID;	
+		action = "/mobile/sa_ho/board/board_write.asp";
+		submit();
+	}	
+}
+function goAns(strID)
+{
+	with(document.form1)
+	{
+		id.value = strID;	
+		action = "write.asp";
+		submit();
+	}	
+}
+function goScrap()
+{
+	document.form1.target = "scrappop";
+	document.form1.action = "/pds/scrappop.asp";
+	window.open("", "scrappop", "width=400,height=290");
+	document.form1.submit();
+	document.form1.target = "";
+}
+function goDel(strID)
+{
+	if(confirm("정말로 삭제하시겠습니까?"))
+	{
+		with(document.form1)
+		{	
+			id.value = strID;
+			target = "frmASP";		
+			action = "/sa_ho/include/del.asp";
+			submit();
+			target = "";
+		}
+	}	
+}
+function cmdAfterAction()
+{
+	alert("삭제되었습니다.");
+	with(document.form1)
+	{
+		target = "";	
+		action = "/mobile/sa_ho/list/view.asp";
+		submit();
+	}
+}
+function onesend(mailid)
+{
+	w=open('http://club.catholic.or.kr/community/asp/main/message/onesend.asp?mailid='+mailid+'&gubun=1','sendmessage','left=100,top=100,width=617,height=595,scrollbars=no'); 
+	w.focus();
+}
+
+var blnInProgress = false;
+function checkForm()
+{
+	if (blnInProgress == true) {
+		alert("등록처리중입니다. 잠시만 기다려 주십시오.");
+		return;
+	}
+	with(document.form2)
+	{
+		blnInProgress = true;
+		target = "frmASP";
+		action = "/pds/include/comment_ok.asp";		
+		submit();
+	}	
+}
+
+function goRecycle(ingID)
+{
+	with(document.form1)
+	{
+		id.value = ingID;
+		Mode.value = "UPDATE";
+		target = "frmASP";	
+		action = "/attbox/bbs/Recycle/recycle_ok.asp";
+		submit();
+		target = "";
+	}	
+}
+
+function goDelete(ingID)
+{
+	with(document.form1)
+	{
+		id.value = ingID;
+		Mode.value = "DELETE";
+		target = "frmASP";	
+		action = "/attbox/bbs/Recycle/recycle_ok.asp";
+		submit();
+		target = "";
+	}	
+}
+
+function cmdRecycleAction()
+{
+	
+	with(document.form1)
+	{
+		action = "/attbox/bbs/Recycle/recycle_list.asp";
+		target = "";
+		submit();	
+	}
+	
+}
+
+
+function cmdAfterComment()
+{
+	alert("처리되었습니다.");
+	with(document.form1)
+	{
+		target = "";	
+		action = "/mobile/sa_ho/list/view.asp";
+		submit();
+	}
+}
+function comment_del(lngNum)
+{
+	with(document.form2)
+	{
+		if (confirm("정말로 삭제하시겠습니까?"))
+		{		
+			num.value = lngNum;
+			action = "/pds/include/comment_del.asp";
+			target = "frmASP";
+			submit();
+			target = "";
+		}
+	}	
+}
+function init()
+{
+	if (document.all.content != null)
+	{
+		document.all.container.bgColor = document.all.content.bgcolor;
+	}
+	if (document.all.content1 != null)
+	{
+		document.all.container.background = document.all.content1.background;
+	}	
+}
+function goCntRecycle()
+{
+	document.form1.RecHostcle.value="T"
+	document.form1.target = "";	
+	document.form1.action = "default.asp";
+	document.form1.submit();
+}
+// 게시판 프린트 (2007.3.9 flyoff)
+function PrintPage() {
+	ans = confirm("글"+""+"번을 출력하시겠습니까?")
+	if(ans == true){
+		document.form1.target = "hidden";
+		document.form1.action = "read_print.asp";		//인쇄할 화면을 보이지않게 하면서 인쇄한다.
+		document.form1.submit(); 
+		document.printPage.focus();
+	}
+}
+function viewdetail(id)
+{
+	w=open('','viewdetail','width=500,height=350,scrollbars=yes'); 	
+	document.Fbbs.id.value = id;
+	document.Fbbs.target = "viewdetail";
+	document.Fbbs.action = "/community/asp/club/memberdetail.asp";
+	document.Fbbs.submit();	
+	w.focus();
+}
+</script>
+<style>
+.data img {margin:5px 12px}
+</style>
+
+
+<form name="OrgForm" action="/mobile/sa_ho/list/list.asp" method="post" onSubmit="fnOrgSearch(this)">
+
+<input type="hidden" name="menugubun" value="saint">
+<input type="hidden" name="bbsgubun" value="pds">
+<input type="hidden" name="infogubun" value="info" >
+<input type="hidden" name="Orggubun" value="101">
+<input type="hidden" name="infoid" value="6324">
+<input type="hidden" name="ctxtHigh" value="">
+<input type="hidden" name="ctxtLow" value="">
+<input type="hidden" name="ctxtSexcode" value="">
+<input type="hidden" name="ctxtChukday" value="">
+<INPUT type="hidden" NAME="ctxtLogOn" VALUE="">
+<input type="hidden" name="ctxtVisit" VALUE="">
+<INPUT type="hidden" NAME="ctxtOrder" VALUE="">
+<INPUT type="hidden" NAME="ctxtOrderType" VALUE="">
+
+<INPUT type="hidden" NAME="ctxtGaladay">
+<INPUT type="hidden" NAME="ctxtVisitLoad">
+<INPUT type="hidden" NAME="ctxtCommand">
+<input type="hidden" name="id" >
+<INPUT type="hidden"  NAME="curpage" VALUE="">
+
+	<input type="hidden" name=ctxtSaintId value="6324">
+	
+</form>
+
+
+<form name="form1" method="get">
+    <input type="hidden" name="menugubun" value="saint">
+    <input type="hidden" name="ctxtOrgNum" value="6324">
+    <!--<input type="hidden" name="ctxtSaintId" value="6324">-->
+    <input type="hidden" name="ctxtSubMenu" value="pds">
+    <input type="hidden" name="Mode">
+    <input type="hidden" name="getSeq" value="">
+    <input type="hidden" name="getID" value="43721">
+    <input type="hidden" name="gubun" value="">
+    <input type="hidden" name="seq" value="">
+    <input type="hidden" name="id" value="43721">
+    <input type="hidden" name="group_id" value="">
+    <input type="hidden" name="sub_id" value="">
+    <input type="hidden" name="flag">
+    <input type="hidden" name="page" value="1">
+    <input type="hidden" name="keyfield" value="">
+    <input type="hidden" name="key" value="">
+    <input type="hidden" name="table" value="gnattboard">
+    <input type="hidden" name="strmember" value="jpatrick">
+    <input type="hidden" name="maingroup" value="">
+    <input type="hidden" name="menunm" value=""><!--전병호추가-->
+    <input type="hidden" name="RecHostcle">
+    <input type="hidden" name="ReadFlag">
+    <input type="hidden" name="ctxtMember" value="jpatrick">
+    <input type="hidden" name="ctxtAuth" value="X">
+    <input type="hidden" name="infogubun" value="info">
+    <input type="hidden" name="orggubun" value="101" >
+    <input type="hidden" name="bbsgubun" value="pds" >
+    <input type="hidden" name="infoid" value="6324" >
+    <input type="hidden" name="bbscode" value=>
+    <input type="hidden" name="bbscount" value="">
+</form>
+
+<form name="Fbbs" method="post">
+    <input type="hidden" name="id">
+    <input type="hidden" name="gubun" value="">
+</form>
+
+
+	<div class="pop_search_saints_modal"></div>
+	<div class="pop_search_saints album">
+
+	<div class="pop_s_inner">
+        <div class="pop_search justify_cont">
+            <span>
+            	해당 성인 검색
+            </span>
+            <button type="button" class="close_pop_s_s"><img src="../../common/images/ah/close_search_w01.jpg" alt="close saints search"></button>
+        </div>
+        
+        	<div class="saint_about">
+                <span class="s_criteria">제목:</span>
+                <input type="text" name="s_title" value="" placeholder="제목" class="input_saint">
+            </div>
+        
+            <div class="saint_about">
+                <span class="s_criteria">내용 :</span>
+                <input type="text" name="s_content" value="" placeholder="내용" class="input_saint">
+            </div>
+            <div class="saint_writer">
+                <span class="s_criteria">작성자 :</span>
+                <input type="text" name="s_name" value="" placeholder="작성자 이름" class="input_saint">
+                <input type="submit" value="검색" class="submit_saint center_v_a">
+            </div>
+        
+    </div>
+
+	</div>
+	<!-- search_field_wrapper -->
+	<div class="search_field_wrapper">
+		
+			<div class="search_saints view">
+				<div>
+					<span class="saint_info dot3">김기량 펠릭스 베드로(5.29) 기본정보 </span> 
+					<button type="button" class="search_saints_btn center_v_a"><img src="../../common/images/ah/view_list_search_ico.jpg" alt="search"></button>
+				</div>
+			</div>
+			<div class="view_sub_menu">
+				<ul>
+					<li><a href="/mobile/sa_ho/list/view.asp?menugubun=saint&ctxtSaintId=6324&Orggubun=101&curpage=&PSIZE=20">기본정보</a></li>
+					<li><a href="/mobile/sa_ho/list/view.asp?menugubun=saint&ctxtSaintId=6324&Orggubun=101&ctxtSubMenu=album&curpage=&PSIZE=20">사진/그림</a></li>
+					<li><a class="active" href="/mobile/sa_ho/list/view.asp?menugubun=saint&ctxtSaintId=6324&Orggubun=101&ctxtSubMenu=pds&curpage=&PSIZE=20">자료실</a></li>
+				</ul>
+			</div>
+		
+	</div>
+	<!-- //search_field_wrapper --> 
+
+
+<dl class="s_view_table">
+	<dt class="s_data_tit">
+		<span class="dat_tit_01">복자 124위 순교지를 가다: 통영 통제영 중영관아, 옥터</span>
+		<span class="dat_tit_02">김기량 펠릭스 베드로(5.29)</span>
+	</dt>
+	<dd class="s_post_info">
+		<p>
+			<span class="usr_dat_name dot3">주호식<span class="usr_nick">[jpatrick]</span></span>
+			<span class="usr_date_posted">2015-02-07</span>
+		</p>
+	</dd>
+	<dd class="s_info_story">
+		<input type="hidden" name="filenm" value="">
+		<span class="story_txt"><p style="text-align: center; " align="center"><b><span style="color: rgb(0, 158, 37); font-size: 11pt;">복자&nbsp;124위&nbsp;순교지를&nbsp;가다 (27&nbsp;·&nbsp;끝)&nbsp;통영&nbsp;통제영&nbsp;중영관아&nbsp;·&nbsp;옥터</span></b></p><p style="text-align: center; " align="center"><b><br></b></p><p style="text-align: center; " align="center"><span style="font-size: 11pt; color: rgb(0, 158, 37);"><b>목&nbsp;졸라&nbsp;죽이고&nbsp;가슴에&nbsp;대못을&nbsp;박아도&nbsp;꺾지&nbsp;못한&nbsp;신앙의&nbsp;꽃</b></span></p><p><span style="font-size: 14.6667px;">&nbsp;</span></p><p><span style="font-size: 14.6667px;">&nbsp;</span></p><img title="" style="width: 425px; float: left;" alt="" src="http://pds.catholic.or.kr/archives/upload/images/001286/%ED%86%B5%EC%A0%9C%EC%98%81_%EC%95%88%EB%82%B4%EB%8F%84.png"><p><span style="font-size: 11pt;">-&nbsp;<i><span style="font-size: 11pt;">조선&nbsp;후기&nbsp;300년&nbsp;삼도수군을&nbsp;관할했던&nbsp;통제영&nbsp;안내도.&nbsp;통제영&nbsp;입구&nbsp;아래&nbsp;건물(왼쪽&nbsp;붉은&nbsp;점선&nbsp;부분)이&nbsp;증거&nbsp;터인&nbsp;중영청,&nbsp;통영시&nbsp;향토역사관과&nbsp;통제영&nbsp;관리사무소&nbsp;앞&nbsp;부지(오른쪽&nbsp;점선)가&nbsp;순교&nbsp;터인&nbsp;중영&nbsp;옥터&nbsp;자리다.</span></i></span></p><p><span style="font-size: 11pt;">&nbsp;</span></p><p><span style="font-size: 11pt;">&nbsp;</span></p><p><span style="font-size: 11pt;">오늘날로&nbsp;치면&nbsp;육군&nbsp;기지라고&nbsp;할&nbsp;수&nbsp;있는&nbsp;‘병영(兵營)&nbsp;순교지’가&nbsp;있다면,&nbsp;해군&nbsp;기지&nbsp;격인&nbsp;‘수영(水營)&nbsp;순교지’도&nbsp;있다.</span></p><p><span style="font-size: 11pt;">&nbsp;</span></p><p><span style="font-size: 11pt;">경상&nbsp;좌병영인&nbsp;‘울산&nbsp;병영&nbsp;순교성지’가&nbsp;대표적&nbsp;병영&nbsp;순교지라면,&nbsp;충청&nbsp;수영인&nbsp;오천성(현&nbsp;충남&nbsp;보령시&nbsp;오천항)&nbsp;인근&nbsp;‘갈매못&nbsp;성지’와&nbsp;경상&nbsp;좌수영인&nbsp;동래(현&nbsp;부산시&nbsp;수영구)&nbsp;수영&nbsp;‘장대골&nbsp;순교성지’는&nbsp;대표적&nbsp;수영&nbsp;순교지다.&nbsp;그런데&nbsp;정2품&nbsp;무관인&nbsp;병마절도사(약칭&nbsp;병사)가&nbsp;관장하던&nbsp;병영보다&nbsp;품계가&nbsp;한&nbsp;단계&nbsp;낮은&nbsp;정3품&nbsp;외관&nbsp;수군절도사(수사)의&nbsp;군영인&nbsp;수영&nbsp;순교지가&nbsp;더&nbsp;많다는&nbsp;점이&nbsp;이채롭다.</span></p><p>&nbsp;</p><p><span style="font-size: 11pt;">임진왜란&nbsp;이후&nbsp;조선&nbsp;후기&nbsp;300년&nbsp;내내&nbsp;충청&nbsp;수영과&nbsp;경상&nbsp;좌ㆍ우수영,&nbsp;전라&nbsp;좌ㆍ우수영의&nbsp;삼도&nbsp;수군을&nbsp;관할하며&nbsp;조선&nbsp;수군의&nbsp;본영이&nbsp;된&nbsp;‘삼도수군통제영’이&nbsp;자리를&nbsp;잡았던&nbsp;통영&nbsp;또한&nbsp;대표적&nbsp;수영&nbsp;순교지다.</span></p><p>&nbsp;</p><p>&nbsp;</p><p><b><span style="font-size: 11pt;">‘제주의&nbsp;사도’&nbsp;순교&nbsp;영성&nbsp;깃든&nbsp;곳&nbsp;</span></b></p><p>&nbsp;</p><p><span style="font-size: 11pt;">124위&nbsp;순교&nbsp;복자&nbsp;가운데&nbsp;‘제주의&nbsp;사도’로&nbsp;불리는&nbsp;김기량(펠릭스&nbsp;베드로,&nbsp;1816∼1867)이&nbsp;삼도수군통제영&nbsp;내&nbsp;중영&nbsp;형소(형리청)에서&nbsp;문초와&nbsp;형벌을&nbsp;받고&nbsp;나서&nbsp;옥사함으로써&nbsp;통제영은&nbsp;교회사와&nbsp;인연을&nbsp;맺는다.&nbsp;이어&nbsp;1869년에도&nbsp;부산&nbsp;동래&nbsp;수영&nbsp;출신&nbsp;신자&nbsp;8명이&nbsp;통제영에&nbsp;끌려와&nbsp;참수됐다는&nbsp;기록이&nbsp;남아&nbsp;있다.&nbsp;또한&nbsp;1887년&nbsp;경상우수영이&nbsp;있던&nbsp;거제에&nbsp;신앙의&nbsp;씨앗을&nbsp;뿌려&nbsp;‘거제의&nbsp;사도’가&nbsp;된&nbsp;윤봉문(요셉,&nbsp;1852∼1888)이&nbsp;거제에서&nbsp;잡혀&nbsp;통제영에서&nbsp;문초를&nbsp;받고&nbsp;이듬해&nbsp;2월&nbsp;진주진영으로&nbsp;이송돼&nbsp;순교했다.&nbsp;이처럼&nbsp;1895년&nbsp;폐영되기까지&nbsp;기록이&nbsp;남아&nbsp;있는&nbsp;순교자만&nbsp;9명이&nbsp;피를&nbsp;흘렸고&nbsp;더&nbsp;많은&nbsp;신자가&nbsp;잡혀&nbsp;와&nbsp;혹독한&nbsp;문초를&nbsp;받으면서도&nbsp;신앙을&nbsp;증거한&nbsp;통제영은,&nbsp;한국&nbsp;교회의&nbsp;빛나는&nbsp;순교성지가&nbsp;됐다.</span></p><p>&nbsp;</p><img title="" style="width: 425px; float: left;" alt="" src="http://pds.catholic.or.kr/archives/upload/images/001286/%ED%86%B5%EC%A0%9C%EC%98%81_%EC%A4%91%EC%98%81_%EC%A0%95%EB%AC%B8_%ED%98%95%EC%86%8C.png"><p><span style="font-size: 11pt;">-</span><i><span style="font-size: 11pt;">&nbsp;김기량&nbsp;복자&nbsp;등이&nbsp;신앙을&nbsp;증거한&nbsp;통제영&nbsp;중영&nbsp;정문&nbsp;형소(오른쪽&nbsp;건물).</span></i></p><p>&nbsp;</p><p>&nbsp;</p><p><span style="font-size: 11pt;">통제영이&nbsp;순교지가&nbsp;된&nbsp;것은&nbsp;김기량&nbsp;복자에게서&nbsp;비롯된다.&nbsp;김기량은&nbsp;1857년&nbsp;2월&nbsp;무역차&nbsp;바다에&nbsp;나갔다가&nbsp;표류하던&nbsp;중&nbsp;중국&nbsp;광둥&nbsp;성&nbsp;해역에서&nbsp;구조돼&nbsp;홍콩&nbsp;파리외방전교회&nbsp;극동대표부에서&nbsp;교리를&nbsp;배우고&nbsp;입교했다.&nbsp;그는&nbsp;1866년&nbsp;병인박해가&nbsp;일어났음에도&nbsp;여느&nbsp;때처럼&nbsp;무역하러&nbsp;동료들과&nbsp;함께&nbsp;통영&nbsp;바다에&nbsp;나갔다가&nbsp;그곳&nbsp;게섬(현&nbsp;경남&nbsp;통영시&nbsp;산양읍&nbsp;풍화리)에서&nbsp;천주교&nbsp;신자라는&nbsp;사실이&nbsp;밝혀져&nbsp;체포된다.&nbsp;통영&nbsp;관아로&nbsp;끌려간&nbsp;그는&nbsp;여러&nbsp;차례&nbsp;문초와&nbsp;형벌을&nbsp;받았음에도&nbsp;굳게&nbsp;신앙을&nbsp;지켰고,&nbsp;통영&nbsp;관장은&nbsp;대구&nbsp;경상&nbsp;감사에게&nbsp;이&nbsp;같은&nbsp;사실을&nbsp;보고한다.&nbsp;경상&nbsp;감사는&nbsp;“김기량&nbsp;일행을&nbsp;때려죽이라”는&nbsp;명령을&nbsp;내렸고,&nbsp;일행은&nbsp;관아&nbsp;포졸들에게&nbsp;혹독한&nbsp;매질을&nbsp;당해야&nbsp;했다.&nbsp;그럼에도&nbsp;이들이&nbsp;목숨을&nbsp;부지하자&nbsp;관장은&nbsp;이들을&nbsp;모두&nbsp;옥으로&nbsp;옮겨&nbsp;교수형에&nbsp;처한다.&nbsp;이날이&nbsp;1867년&nbsp;1월로,&nbsp;관장은&nbsp;특히&nbsp;김기량에겐&nbsp;교수형을&nbsp;집행한&nbsp;뒤&nbsp;가슴에&nbsp;대못을&nbsp;박아&nbsp;다시는&nbsp;살아나지&nbsp;못하도록&nbsp;했다고&nbsp;한다.</span></p><p>&nbsp;</p><p><span style="font-size: 11pt;">이런&nbsp;순교&nbsp;역사를&nbsp;간직하고&nbsp;있지만,&nbsp;통영&nbsp;하면&nbsp;‘예향’이라는&nbsp;이미지가&nbsp;앞선다.&nbsp;유치환의&nbsp;시&nbsp;‘행복’이&nbsp;먼저&nbsp;떠오르고,&nbsp;세계적인&nbsp;작곡가&nbsp;윤이상이나&nbsp;김춘수&nbsp;시인,&nbsp;「토지」의&nbsp;작가&nbsp;박경리,&nbsp;한국의&nbsp;대표적&nbsp;극작가이자&nbsp;연출가인&nbsp;유치진,&nbsp;‘한국의&nbsp;피카소’로&nbsp;불리는&nbsp;전혁림&nbsp;화백&nbsp;등의&nbsp;기억이&nbsp;뒤따른다.&nbsp;예향답게&nbsp;소박하고도&nbsp;운치&nbsp;넘치는&nbsp;항구&nbsp;통영의&nbsp;동피랑&nbsp;벽화&nbsp;골목을&nbsp;지나&nbsp;세병로로&nbsp;들어서니&nbsp;언덕배기에&nbsp;그&nbsp;유명한&nbsp;‘통제영’이&nbsp;한눈에&nbsp;들어온다.&nbsp;일제&nbsp;강점기에&nbsp;대부분&nbsp;헐려&nbsp;2013년까지&nbsp;13년에&nbsp;걸친&nbsp;복원공사&nbsp;끝에&nbsp;겨우&nbsp;3분의&nbsp;1밖에&nbsp;되살리지&nbsp;못했다고&nbsp;하는데도&nbsp;세병관을&nbsp;중심으로&nbsp;좌우에&nbsp;운주당과&nbsp;경무당,&nbsp;병고,&nbsp;주전소,&nbsp;열두&nbsp;공방&nbsp;등&nbsp;관아와&nbsp;부속&nbsp;시설이&nbsp;빼곡히&nbsp;자리를&nbsp;잡고&nbsp;있다.&nbsp;그&nbsp;면적만&nbsp;4만&nbsp;6638㎡에&nbsp;이른다.&nbsp;</span></p><p>&nbsp;</p><p><span style="font-size: 11pt;">그&nbsp;통제영&nbsp;입구인&nbsp;망일루에&nbsp;들어서기&nbsp;전&nbsp;큰길&nbsp;왼쪽에&nbsp;자리한&nbsp;중영(중영청),&nbsp;곧&nbsp;삼도수군통제사의&nbsp;부장이자&nbsp;참모장&nbsp;격인&nbsp;우후(虞侯)의&nbsp;군영인&nbsp;우후영이&nbsp;김기량&nbsp;복자&nbsp;등&nbsp;순교자들이&nbsp;신앙을&nbsp;증거했던&nbsp;증거&nbsp;터로&nbsp;추정된다.</span></p><p>&nbsp;</p><img title="" style="width: 425px; float: left;" alt="" src="http://pds.catholic.or.kr/archives/upload/images/001286/%ED%86%B5%EC%A0%9C%EC%98%81_%EA%B4%80%EB%A6%AC%EC%82%AC%EB%AC%B4%EC%86%8C.png"><p><span style="font-size: 11pt;">-&nbsp;</span><i><span style="font-size: 11pt;">통영시&nbsp;향토역사관&nbsp;아래에&nbsp;있는&nbsp;통제영&nbsp;관리사무소&nbsp;오른쪽&nbsp;앞&nbsp;공터와&nbsp;도로&nbsp;주변&nbsp;부지가&nbsp;김기량&nbsp;복자&nbsp;등이&nbsp;순교한&nbsp;통제영&nbsp;중영&nbsp;옥터다.</span></i></p><p>&nbsp;</p><p>&nbsp;</p><p><span style="font-size: 11pt;">통영&nbsp;향토사&nbsp;연구자인&nbsp;김일룡(68)&nbsp;통영문화원장에&nbsp;따르면,&nbsp;현재&nbsp;복원된&nbsp;중영&nbsp;정문&nbsp;옆&nbsp;건물이&nbsp;통제영에&nbsp;압송된&nbsp;신자들이&nbsp;문초를&nbsp;받던&nbsp;형소(형리청)인데,&nbsp;복원이&nbsp;잘못&nbsp;이뤄져&nbsp;중영청&nbsp;앞&nbsp;담장&nbsp;축대&nbsp;바로&nbsp;밑에&nbsp;세워져야&nbsp;할&nbsp;건물이&nbsp;위에&nbsp;지어져&nbsp;버렸다.&nbsp;옛&nbsp;통영세무서&nbsp;자리로,&nbsp;지금의&nbsp;통영시&nbsp;간창골1길&nbsp;64다.&nbsp;</span></p><p>&nbsp;</p><p><span style="font-size: 11pt;">또한&nbsp;형소에서&nbsp;문초를&nbsp;받던&nbsp;신자들을&nbsp;가두고&nbsp;교수형을&nbsp;집행하던&nbsp;‘중영옥’(중옥)은&nbsp;형소와&nbsp;오른쪽&nbsp;길&nbsp;건너편으로&nbsp;70ｍ&nbsp;거리를&nbsp;두고&nbsp;있었다.&nbsp;지금의&nbsp;통영시&nbsp;향토&nbsp;역사관&nbsp;아래에&nbsp;있는&nbsp;통제영&nbsp;관리사무소&nbsp;앞&nbsp;공터와&nbsp;길&nbsp;주변인데,&nbsp;그&nbsp;정확한&nbsp;위치는&nbsp;통영시&nbsp;세병로&nbsp;111로&nbsp;고증되고&nbsp;있다.&nbsp;</span></p><p>&nbsp;</p><p><span style="font-size: 11pt;">김일룡&nbsp;통영문화원장은&nbsp;“통제영&nbsp;관리사무소&nbsp;입구&nbsp;991.73㎡쯤&nbsp;되는&nbsp;공터와&nbsp;도로변이&nbsp;바로&nbsp;김기량&nbsp;복자가&nbsp;순교한&nbsp;중영옥이&nbsp;자리하고&nbsp;있던&nbsp;옥터인데,&nbsp;아직까지는&nbsp;천주교회의&nbsp;순교사적&nbsp;의미를&nbsp;되살리지&nbsp;못하고&nbsp;있다”고&nbsp;지적했다.</span></p><p>&nbsp;</p><p><span style="font-size: 11pt;">이처럼&nbsp;통제영&nbsp;증거&nbsp;터나&nbsp;순교&nbsp;터는&nbsp;현재&nbsp;향토사적&nbsp;차원에서만&nbsp;연구나&nbsp;조명이&nbsp;이뤄지고&nbsp;있을&nbsp;뿐이어서&nbsp;앞으로&nbsp;정확한&nbsp;고증&nbsp;작업과&nbsp;함께&nbsp;치밀한&nbsp;교회사적&nbsp;연구&nbsp;절실하다.&nbsp;또한&nbsp;증거&nbsp;터나&nbsp;순교&nbsp;터에&nbsp;대한&nbsp;표석&nbsp;설치나&nbsp;증거자나&nbsp;순교자에&nbsp;대한&nbsp;현양&nbsp;운동&nbsp;또한&nbsp;필요할&nbsp;것으로&nbsp;지적되고&nbsp;있다.&nbsp;</span></p><p>&nbsp;</p><p><span style="font-size: 11pt;">통제영&nbsp;내&nbsp;역로청&nbsp;터에&nbsp;세워진&nbsp;마산교구&nbsp;태평동성당&nbsp;주임&nbsp;김길상&nbsp;신부는&nbsp;“통제영&nbsp;관장은&nbsp;사형&nbsp;집행&nbsp;권한을&nbsp;갖고&nbsp;있었기에&nbsp;김기량&nbsp;복자가&nbsp;신앙을&nbsp;증거하고&nbsp;교수형을&nbsp;당한&nbsp;통제영이나&nbsp;옥터는&nbsp;중요한&nbsp;증거&nbsp;현장이자&nbsp;순교&nbsp;터라고&nbsp;본다”며&nbsp;“사안의&nbsp;중대성에&nbsp;비춰&nbsp;앞으로&nbsp;활발한&nbsp;연구와&nbsp;현양&nbsp;운동이&nbsp;병행돼야&nbsp;할&nbsp;것”이라고&nbsp;강조했다.&nbsp;[글ㆍ사진=오세택&nbsp;기자]</span></p><p>&nbsp;</p><p>&nbsp;</p><p><b><span style="font-size: 11pt;">순례를&nbsp;마치며…</span></b></p><p>&nbsp;</p><p><span style="font-size: 11pt;">지난해&nbsp;5월&nbsp;11일&nbsp;자(1264호)로&nbsp;닻을&nbsp;올린&nbsp;‘124위&nbsp;순교지를&nbsp;가다’를&nbsp;9개월&nbsp;만에&nbsp;27회로&nbsp;마무리한다.</span></p><p>&nbsp;</p><p><span style="font-size: 11pt;">기획은&nbsp;평화신문&nbsp;창립&nbsp;26주년을&nbsp;맞아&nbsp;시복을&nbsp;앞둔&nbsp;124위의&nbsp;신앙과&nbsp;삶을&nbsp;순교&nbsp;현장에서&nbsp;체험하고&nbsp;이를&nbsp;독자들에게&nbsp;전하려는&nbsp;취지에서&nbsp;이뤄졌다.&nbsp;윤의병(바오로,&nbsp;1889~1950?)&nbsp;신부의&nbsp;박해&nbsp;소설&nbsp;「은화」(隱花)처럼&nbsp;‘숨은&nbsp;꽃’이&nbsp;드러났고,&nbsp;시대를&nbsp;앞서간&nbsp;선구자들이&nbsp;살아간&nbsp;행적과&nbsp;올곧은&nbsp;믿음&nbsp;살이,&nbsp;순교&nbsp;비화,&nbsp;새로운&nbsp;순교ㆍ증거&nbsp;터도&nbsp;밝혀졌다.&nbsp;물론&nbsp;신앙을&nbsp;버린&nbsp;배교자도&nbsp;있었고,&nbsp;가혹했던&nbsp;박해자들의&nbsp;행적도&nbsp;낱낱이&nbsp;드러났다.&nbsp;그랬기에&nbsp;마치&nbsp;‘꽃과도&nbsp;같은’&nbsp;순교&nbsp;사화를&nbsp;하나하나&nbsp;현장에서&nbsp;보고&nbsp;듣고&nbsp;느끼는&nbsp;취재&nbsp;여정은&nbsp;특별한&nbsp;눈물,&nbsp;특별한&nbsp;감동을&nbsp;안겼다.</span></p><p>&nbsp;</p><p><span style="font-size: 11pt;">124위의&nbsp;시복이&nbsp;단순한&nbsp;시복으로만&nbsp;끝난다면,&nbsp;시복은&nbsp;아무런&nbsp;의미도&nbsp;없다.&nbsp;순교자들의&nbsp;거룩한&nbsp;삶과&nbsp;영웅적&nbsp;성덕,&nbsp;믿음의&nbsp;모범을&nbsp;본받아&nbsp;내면화하고&nbsp;그&nbsp;덕행을&nbsp;실천하는&nbsp;순교&nbsp;신심&nbsp;현양이&nbsp;선행돼야&nbsp;한다.&nbsp;그렇지&nbsp;않다면&nbsp;124위&nbsp;복자들의&nbsp;삶과&nbsp;덕행은&nbsp;고스란히&nbsp;묻혀&nbsp;버릴&nbsp;것이기&nbsp;때문이다.&nbsp;시복은&nbsp;복자가&nbsp;되는&nbsp;당사자들을&nbsp;위한&nbsp;게&nbsp;아니라&nbsp;살아&nbsp;있는&nbsp;우리를&nbsp;위한&nbsp;것이라는&nbsp;의미를&nbsp;다시&nbsp;한&nbsp;번&nbsp;되새긴다.</span></p><p>&nbsp;</p><p><span style="font-size: 11pt;">[평화신문,&nbsp;2015년&nbsp;2월&nbsp;8일,&nbsp;오세택ㆍ백슬기&nbsp;기자]</span></p></span>
+	</dd>
+	<dd class="s_info_btm_btns">
+		<p class="btns_l">
+			<a href="javascript:void(0);" class="btn_heart">1</a>
+			<a href="javascript:void(0);" class="btn_eye">953</a>
+			<a href="javascript:void(0);" class="btn_rep">0</a>
+		</p>
+		<p class="txt_r">
+			<a href='javascript:goRecom();' class="no_c">추천</a>
+			<span class="mr" id="recom_num1">1</span>
+		</p>
+	</dd>
+	<dd class="s_info_edit_btns">
+		<p class="btn_btms_l" style="height: 10px;">
+			
+			<a href="javascript:goList();" class="btn_list01">리스트</a>
+		</p>
+	</dd>
+</dl>
+
+<div class="comment_box_cat_view">
+	<form name="form2" method="post" onSubmit="return false">
+		<input type="hidden" name="menugubun" value="saint">
+		<input type="hidden" name="gubun" value="">
+		<input type="hidden" name="seq" value="">
+		<input type="hidden" name="id" value="43721">
+		<input type="hidden" name="group_id" value="">
+		<input type="hidden" name="sub_id" value="">
+		<input type="hidden" name="table" value="gnattboard">
+		<input type="hidden" name="maingroup" value="">
+		<input type="hidden" name="num">
+		<p class="tit_wrap">
+			<span class="tit">Comments</span>
+			<span class="txt">*로그인후 등록 가능합니다.</span>
+		</p>
+		<div class="inp_box_n">
+			<p class="text_wrap">
+				<textarea name="comment" onclick="alert('로그인을 먼저 하세요.'); return false;" readonly="readonly" id="cmtm" cols="30" rows="10"></textarea>
+				<span class="num" id="tccmtm">(23/500)</span>
+			</p>
+			<p class="btm_btns clearfix pb15">
+				<a href="javascript:checkForm();" class="btn_add01">등록</a>
+			</p>
+		</div>
+	</form>
+</div>
+
+<!-- user_comment_box_container -->
+<div class="user_comment_box_container">
+	
+</div>
+<!-- //user_comment_box_container -->
+
+<ul class="items">
+	
+        <li class="item no_brdr ">
+            <dl>
+                <dt class="s_tit">
+                    <a href="javascript:goView('6324','44026','');" class="dot3 ">복자 124위 열전: 김기량 펠릭스 베드로</a>
+                </dt>
+                <dd class="s_info">
+                    <p>
+                        <span class="usr_name_comment dot3">[김기량 펠릭스 베드로]</span>
+                        <span class="s_date">2015/04/27</span>
+                    </p>
+                </dd>
+                <dd class="btm_btns">
+                    <p class="btns_l">
+                        <a href="javascript:void(0);" class="btn_heart">1</a>
+                        <a href="javascript:void(0);" class="btn_eye">380</a>
+                        <a href="javascript:void(0);" class="btn_rep">0</a>
+                    </p>
+                    <p class="btns_usr_comment">
+                        <span>주호식</span>
+                    </p>
+                </dd>
+            </dl>
+        </li>
+	
+        <li class="item no_brdr  active">
+            <dl>
+                <dt class="s_tit">
+                    <a href="javascript:goView('6324','43721','');" class="dot3  typo-ff0000">복자 124위 순교지를 가다: 통영 통제영 중영관아, 옥터</a>
+                </dt>
+                <dd class="s_info">
+                    <p>
+                        <span class="usr_name_comment dot3">[김기량 펠릭스 베드로]</span>
+                        <span class="s_date">2015/02/07</span>
+                    </p>
+                </dd>
+                <dd class="btm_btns">
+                    <p class="btns_l">
+                        <a href="javascript:void(0);" class="btn_heart">1</a>
+                        <a href="javascript:void(0);" class="btn_eye">952</a>
+                        <a href="javascript:void(0);" class="btn_rep">0</a>
+                    </p>
+                    <p class="btns_usr_comment">
+                        <span>주호식</span>
+                    </p>
+                </dd>
+            </dl>
+        </li>
+	
+        <li class="item no_brdr ">
+            <dl>
+                <dt class="s_tit">
+                    <a href="javascript:goView('6324','42865','');" class="dot3 ">제주 시복시성추진위, 순교자 김기량 영정 공개</a>
+                </dt>
+                <dd class="s_info">
+                    <p>
+                        <span class="usr_name_comment dot3">[김기량 펠릭스 베드로]</span>
+                        <span class="s_date">2014/08/08</span>
+                    </p>
+                </dd>
+                <dd class="btm_btns">
+                    <p class="btns_l">
+                        <a href="javascript:void(0);" class="btn_heart">0</a>
+                        <a href="javascript:void(0);" class="btn_eye">324</a>
+                        <a href="javascript:void(0);" class="btn_rep">0</a>
+                    </p>
+                    <p class="btns_usr_comment">
+                        <span>주호식</span>
+                    </p>
+                </dd>
+            </dl>
+        </li>
+	
+</ul>
+
+
+<div class="go_list">
+	<a href="javascript:goList();">리스트</a>
+</div>
+        </div>
+        <!-- //main_sec -->
+
+	</div>
+	<!-- //contents -->
+
+	<!-- footer -->
+
+<div id="footer" style="padding-bottom:60px;">
+    <div class="foot_inner">
+        <ul>
+            <li><a href="http://rule.catholic.or.kr" target="_blank">이용약관</a></li>
+            <li class="w30"><a href="http://rule.catholic.or.kr/privacy.asp" target="_blank">개인정보취급방침</a></li>
+
+			<!-- 180809 조예원 수정 -->
+			
+				<li><a href="http://maria.catholic.or.kr/sa_ho/saint.asp">pc버전</a></li>
+			
+
+            <li>
+				
+                    <a href="javascript:login();">로그인</a>
+                
+            </li>
+        </ul>
+        <p class="copy">가톨릭 ⓒ GoodNews</p>
+    </div>
+    <a id="toTop" href="#"><img src="/mobile/common/images/ah/m_top.png" width="55" height="45" alt="맨 위로"></a>
+</div>
+
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52J53FG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9XRQ36L1YE"></script>
+-->
+
+
+<script>
+ // window.dataLayer = window.dataLayer || [];
+ // function gtag(){dataLayer.push(arguments);}
+ // gtag('js', new Date());
+ // gtag('config', 'G-9XRQ36L1YE');
+</script>
+
+
+<!-- Google tag (gtag.js) -->
+
+
+
+    <!-- //footer -->
+    
+    <!-- dimm --><div class="dimm"></div><!--// dimm -->
+</div>
+<!--// wrapper -->
+
+	<div id="getsend" style="visibility: hidden;"></div>
+	<iframe src="about:" height="0" width="0" name="filedownsend" style="    border: 0px;    height: 0px;    width: 0px;    display: none;"></iframe>
+    <iframe name="frmASP" style="DISPLAY:none"></iframe>
+
+
+    
+</body>
+</html>
+

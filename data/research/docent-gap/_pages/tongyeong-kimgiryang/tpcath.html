@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<title>태평동성당</title>
+<meta name="description" content="통영 천주교 태평동성당, 태평성당, 천주교 마산교구, 한국천주교 마산교구 태평동성당" />
+<meta property="og:title"                content="태평동성당" />
+<meta property="og:description"          content="통영 천주교 태평동성당, 태평성당, 천주교 마산교구, 한국천주교 마산교구 태평동성당" />
+<meta property="og:type"                 content="website" />
+<meta property="og:url"                  content="http://www.tpcath.or.kr" />
+<link rel="canonical" href="http://www.tpcath.or.kr">
+
+
+<link href="../../css/css.css" rel="stylesheet" type="text/css">
+
+<link href="../../css/colorbox.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+
+
+<script type="text/javascript" src="../../js/gnb.js"></script><!--gnb-->
+<script type="text/javascript" src="../../js/common.js"></script><!--메인이미지-->
+<script type="text/javascript" src="../../js/jquery.bxSlider.js"></script><!--배너-->
+<script type="text/javascript" src="../../js/jquery.colorbox.js"></script><!-- 컬러박스 -->
+
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script type="text/javascript">
+// 자바스크립트에서 사용하는 전역변수 선언
+var g4_path      = "../pbbs/";
+var g4_bbs       = "bbs";
+var g4_bbs_img   = "img";
+var g4_url       = "http://www.tpcath.or.kr";
+var g4_is_member = "";
+var g4_is_admin  = "";
+var g4_bo_table  = "";
+var g4_sca       = "";
+var g4_charset   = "euc-kr";
+var g4_cookie_domain = "";
+var g4_is_gecko  = navigator.userAgent.toLowerCase().indexOf("gecko") != -1;
+var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
+</script>
+<script type="text/javascript" src="../pbbs//js/common.js"></script>
+
+<script>
+//topmenu//
+    jQuery(function($) {
+
+        $('.secret-source').secretSource({
+            includeTag: false
+        });
+        $("#main_menu > li").bind({
+                mouseenter: function(){
+                        $("#header").stop(true, true).animate({height:"300px"});
+                        //$(this).find("span").addClass("on")
+                }, focusin: function(){
+                        $(this).mouseenter();
+                }, mouseleave: function(){
+                        $("#header").delay(300).animate({height:"99px"});
+                        //$(this).find("span").removeClass("on")
+                }, focusout: function(){
+                        $(this).mouseleave();
+                }
+        })
+
+
+    });
+</script>
+<script type="text/javascript">
+jQuery(function($){
+	$(window).scroll(function(){
+		if ($(this).scrollTop() > 350) { //99
+			$('.gnb_wrp').css({position:'fixed',zIndex:10000,top:0});
+		} else {
+			$('.gnb_wrp').css({position:'static'});
+		};
+	});
+});
+</script>
+
+
+<script src="../../js/jquery.secret-source.min.js"></script><!-- 슬로건이미지 -->
+<script src="../../js/fixed.js"></script>
+<div id="wrap"> 
+
+
+	<!--  header  -->
+
+<div id="header" style="width:100%;z-index:1000;position:relative;" class="gnb_wrp">
+<div style="position:relative; width:1150px; margin:0 auto;">
+<!--  topBar  -->
+<div class="topBar_bg">
+	<div class="topBar">
+
+		<ul class="top_right">
+		<li><a href="../../main/index.php">홈</a></li>
+		<li><a href="../../pbbs/bbs/board.php?bo_table=calendar">행사일정</a></li>
+						<li><a href="../../pbbs/bbs/login.php">로그인</a></li>
+				<li><a href="../../pbbs/bbs/register.php">회원가입</a></li>
+				</ul>
+	</div>
+
+</div>
+
+	<h1 id="logo"><a href="/2015/main/main.php"><a href="../index.php"><img src="../../images/common/logo.gif" alt="태평동성당" /></a></a></h1>
+
+
+	<ul id="main_menu" style="z-index:9999;">
+		<li><a href="../../introduce/missa.php">본당소개</a>
+			<div style="position:absolute;left:-420px; top:45px;"><img src="/images/common/top_menu_bg.jpg"></div>
+			<ul>
+				<li><a href="../../introduce/missa.php">미사안내</a></li>							
+				<li><a href="../../introduce/sacred.php">본당신부 인사말씀</a></li>	
+				<li><a href="../../introduce/doctrine.php">교리반안내</a></li>
+				<li><a href="../../introduce/island.php">욕지공소</a></li>
+				<li><a href="../../introduce/martyr.php">복자 김기량 순교자</a></li>
+				<li><a href="../../introduce/map.php">오시는길</a></li>
+				<li><a href="../../introduce/history.php">연혁</a></li>
+			</ul>
+		</li>
+		<li><a href="../../information/blockvotes.php">단체안내</a>
+			<ul>
+				<li><a href="../../information/blockvotes.php">본당조직표</a></li>
+				<li><a href="../../information/organization.php">신심단체장</a></li>
+				<li><a href="../../information/class.php">반/구역장</a></li>
+				<li><a href="../../information/Legion_of_Mary.php">레지오마리애</a></li>
+			</ul>
+		</li>
+		<li><a href="../../pbbs/bbs/board.php?bo_table=gallery">사진앨범</a>
+			<ul>
+				<li class="snb3_1"><a href="../../pbbs/bbs/board.php?bo_table=gallery">사진앨범</a></li>
+			</ul>
+		</li>
+
+		<li><a href="../../pbbs/bbs/board.php?bo_table=free_board">커뮤니티</a>
+			<ul>
+				<!-- <li><a href="../../pbbs/bbs/board.php?bo_table=free_board">자유게시판</a></li> 임시 닫음 20240129 -->
+				<!--<li><a href="/community/org.php">단체별 게시판</a></li>-->
+				<li><a href="../../pbbs/bbs/board.php?bo_table=low">초등부</a></li>
+				<li><a href="../../pbbs/bbs/board.php?bo_table=mid">중고등부</a></li>	
+				<li><a href="../../pbbs/bbs/board.php?bo_table=teach">교사회</a></li>
+				<li><a href="../../pbbs/bbs/board.php?bo_table=young">청년회</a></li>
+				<li><a href="../../pbbs/bbs/board.php?bo_table=consult">신앙상담</a></li>
+			</ul>
+		</li>
+		<li><a href="../../pbbs/bbs/board.php?bo_table=notice">새소식</a>
+			<ul>
+				<li><a href="../../pbbs/bbs/board.php?bo_table=notice">공지사항</a></li>
+				<li><a href="../../pbbs/bbs/board.php?bo_table=paper">주보</a></li>
+				<li><a href="../../pbbs/bbs/board.php?bo_table=discussion">강론/교리자료</a></li>
+				<li><a href="../../pbbs/bbs/board.php?bo_table=walk">성로산책</a></li>	
+				<li><a href="../../pbbs/bbs/board.php?bo_table=calendar">행사일정</a></li>
+			</ul>
+		</li>
+		<li class="top_menu_all" ><img src="../../images/main/top_menu_all.gif" style="cursor: pointer;"></li>
+	</ul>
+</div>
+</div>
+
+	
+	<!--- sub --->
+	<div class="sub_con_div">
+		<div class="banner1">
+<div class="sub_img_div">
+나는부활이요 생명이니... <br>나를 믿는 사람은 죽더라도...
+</div>
+	<div class="banner_rollimg ">
+		<div class="banner_roll_src">
+						<div class="banner_img banner1_img">
+				<a href="#"><img src="http://www.tpcath.or.kr/images/introduce/sub_img1.jpg" alt="dd" /></a>
+			</div>
+			<div class="banner_img banner1_img">
+				<a href="#"><img src="http://www.tpcath.or.kr/images/introduce/sub_img2.jpg" alt="dd" /></a>
+			</div>
+		</div>
+	</div>
+
+	<div class="banner_btn banner_btn_2">
+		<a class="banner_btn_off1" href="#">메인이미지1</a>
+		<!-- off일때 class="banner_btn_off1" -->
+		<a class="banner_btn_off2" href="#">메인이미지2</a>
+		<!-- off일때 class="banner_btn_off2" -->
+		<a class="banner_btn_pause" href="#">정지</a>
+		<!-- play일때 class="banner_btn_play" -->
+	</div>
+</div>
+		
+		<!--- left --->
+		<script>
+$(document).ready(function(){
+	$(".sub_div ul li:eq(4)").addClass("on");
+});
+</script>
+
+
+
+<style>
+.button2 {width:235px; height:75px; background:url("../images/common/sub_ban_1.gif") no-repeat; position:relative; display:block; z-index:100;}
+.button2 span.hover {width:235px; height:75px; background:url("../images/common/sub_ban_1_on.gif") no-repeat; position:absolute; display:block; z-index:100;}
+.button3 {width:235px; height:75px; background:url("../images/common/sub_ban_2.gif") no-repeat; position:relative; display:block; z-index:100;}
+.button3 span.hover {width:235px; height:75px; background:url("../images/common/sub_ban_2_on.gif") no-repeat; position:absolute; display:block; z-index:100;}
+</style>
+<script type="text/javascript">
+        $(function(){ 
+		
+		$('.button2').append('<span class="hover"></span>').each(function () {
+	  		var $span = $('> span.hover', this).css('opacity', 0);
+	  		$(this).hover(function () {
+	    		$span.stop().fadeTo(350, 1);
+	 		}, function () {
+	   	$span.stop().fadeTo(350, 0);
+	  		});
+		});
+		$('.button3').append('<span class="hover"></span>').each(function () {
+	  		var $span = $('> span.hover', this).css('opacity', 0);
+	  		$(this).hover(function () {
+	    		$span.stop().fadeTo(350, 1);
+	 		}, function () {
+	   	$span.stop().fadeTo(350, 0);
+	  		});
+		});
+	});
+</script>
+<div class="sub_div">
+	<h2 class="sub_tit_bg">본당소개</h2>
+	<ul>
+		<li><a href="missa.php">미사안내</a></li>
+		<li><a href="sacred.php">본당신부 인사말씀</a></li>
+		<li><a href="doctrine.php">교리반 안내</a></li>
+		<li><a href="island.php">욕지공소</a></li>
+		<li><a href="martyr.php">복자 김기량 순교자</a></li>
+		<li><a href="map.php">오시는 길</a></li>
+		<li><a href="history.php">연혁</a></li>
+	</ul>
+	<div><a href="/introduce/island.php" class="button2 etc_link"></a></div>
+	<div style="margin-top: 10px;"><a href="http://cathms.kr/" class="button3 etc_link" target="_blank"></a></div>
+	<!--
+	<p class="con_img"><a href="/pbbs/bbs/board.php?bo_table=gallery" class="button1 etc_link"></a></p>-->
+
+	<!--
+	<div class="banner_1">성당 커뮤니티<p>각 단체별 커뮤니티</p></div>
+	<div class="banner_2">천주교마산교구<p>cathms.kr</p></div>-->
+</div>
+		<!--- right ---->
+		<div class="right_div">
+			<h3 class="sub_tit">복자 김기량 순교자(펠릭스 베드로)</h3>
+			<div class="sub_font_1">
+			복자 김기량 (1816-1866)은 제주도 함덕리(지금의 제주시 조천읍 함덕리)에서 김해 김씨 집안의 장남으로 태어났다.<br>성장하여 복자 김기량은 작은 배를 타고 해안 포구를 다니며 장사를 하였으며, 사람들은 그를 ‘김선달(金先達)’이라 불렀다. <br>
+ 
+그러던 그의 나이 42세 때인 1857년 2월이었다.<br>동료 3명과 함께 장삿배를 타고 서귀포에서 서쪽 모슬포로 돌아나가다가 심한 폭풍우를 만나 먼 바다로 표류하게 되었다.<br>그 후 한 달여 만에 중국 광동해역에서 요행히 영국 배를 만나 복자 김기량  혼자만이 구사일생으로 구조되었으며, 홍콩의 영국 총독부로 갔다가 다시 파리 외방전교회의 극동대표부로 가서 약 80일간 머물게 된다. <br><br>
+
+그곳에서 프랑스인 루세이유 신부와 조선인 신학생 이만돌(바울리노)을 만나 천주교 교리를 배우기 시작하여 ‘펠릭스 베드로’라는 이름으로 세례를 받으니, 이로서 제주도 출신의 첫 신자가 되었다. <br>
+그 후 그는 북경을 거쳐 이듬해인 1858년 1월에 조선으로 귀국하여 4월에 고향 제주도로 귀환하게 된다.<br>그리고 열심히 신앙생활을 하며 복음전파에 노력하였다. <br><br>
+
+그러던 중 병인 박해가 일어난 1866년 음력 9월에 동료 4명과 함께 경상도 해안으로 나와 박하유를 팔기 위해 통영의 게섬(지금의 산양읍 풍화리의 옛 지명)에 상륙하여 마을로 들어섰다.<br>그러자 낯선 이들을 수상하게 여긴 주민들의 신고로 당포만호영(산양읍 삼덕리 당포에 있었던 옛 수군진영)의 포졸들에게 체포된다.<br>그리고 그들의 배 안에서 천주교 서적과 성물이 발견됨으로써 천주교 신자라는 사실이 밝혀지자, 다시 통제영 본영으로 압송되었다. <br>
+
+<img src="../images/introduce/martyr_img_1.jpg">
+< 붉은 원으로 표시된 장소에 수감되었음 ><br><br>
+
+이렇게 통제영에 수감된 복자 김기량 외 4명은 수차례의 문초와 모진 고문을 당했으며, 그때마다 초주검되어 주위 사람들은 그들을 마치 죽은 시체로 여길 정도로 형벌은 혹독하고 잔인했었다.<br>
+<img src="../images/introduce/martyr_img_2.jpg">< 당시 처형장소였던 통제영 전경 ><br><br>
+그러나 복자 김기량은 “나는 치명할 터이니, 그대들도 마음을 변치 말고 나를 따르시오.” 라고 하며 교우들을 격려하였다.<br>그가 곤장 60대를 맞고도 죽지 않고 살아나자, 장살형(杖殺刑)만으로는 그들 5명의 목숨을 쉽사리 끊을 수 없음을 알고 그해 음력 12월(양력 1867년 1월) 교수형에 처해졌다. <br>
+
+<img src="../images/introduce/martyr_img_3.jpg"><br><br>
+<img src="../images/introduce/martyr_img_4.jpg">
+< 체포 장소였던 당포의 현재 전경 ><br><br>
+
+그들의 대표자격인 복자 김기량은 다시 살아나지 못하도록 그의 가슴에 대나무를 깎아 만든 커다란 대못을 박기까지 하였다.<br>자신의 신앙을 지키기 위해 목숨을 내던진 복자 김기량의 당시 나이는 51세였다. <br>
+
+복자 김기량은 2014년 8월 16일 프란치스코 교황이 서울 광화문광장에서 집전한 시복식에서 동료 순교자 123위와 함께 복자위에 올랐다.<br>
+제주 교구 최초의 세례자가 제주교구 최초의 복자위에 오른 순교자가 되었다. <br><br>
+
+
+복자 김기량과 그의 동료 4명은 통제영의 형소(刑所. 일명 刑使廳)에서 문초와 고문을 받았으며 그곳에서 교수되었음을 알 수 있다.<br>당시 천주교인들의 교수형은 주로 옥중에서 행한 것으로 알려져 있다.<br>따라서 복자 김기량과 그의 동료들의 순교 터는 통제영의 중영옥(中營獄. 일명 중옥 中獄)이었을 것으로 본다. <br><br>
+
+
+
+( 위의 자료는 통영향토 사학자이신 김일용(현 통영문화원 원장) 선생의 ‘통영 최초의 천주교 순교자는 제주 사람 김기량’ 2014년 9월 6일자 한산신문에 게재된 기록을 발췌하였음 )<br><br>
+
+
+			
+			
+			
+			<img src="../images/introduce/martyr_img_5.jpg">< 현재 통제영 전경 ><br><br></div>
+		</div>
+	</div>
+
+	
+<div id="footer">
+		
+			<ul>
+				<li>경상남도 통영시 태평동 369-1</li>
+				<li>tel : 055.645.3336</li>
+				<li class="last">한국천주교 마산교구 태평동성당</li>
+			</ul>
+		
+		<p>2015(c)Teapyungdong All right reserved. Designed by <a href="http://pnisoft.com" target="_blank"><span>피앤아이</span>소프트</a></p>
+	</div>
+
+
+
+</div><!-- //wrap -->	
+
+</body>
+</html>

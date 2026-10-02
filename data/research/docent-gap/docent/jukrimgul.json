@@ -1,0 +1,95 @@
+{
+  "siteId": "83fa7ec0-8694-4a20-9dd9-31c19020bbcb",
+  "siteName": "언양 죽림굴(대재공소)",
+  "slug": "jukrimgul",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "울주군 상북면 이천리, 간월산 정상 가까이의 죽림굴에 오셨습니다. 대나무로 덮여 '죽림굴'이라 불린 이 석굴은 1840년부터 1868년까지 대재 공소라는 이름의 피난처 공소였습니다. 포졸이 보이면 100여 명의 신자가 한꺼번에 숨던 한국판 카타콤바이고, 1860년 경신박해 때 최양업 신부가 석 달을 은신하며 스승에게 마지막 편지를 쓴 곳이며, 울산 장대에서 순교한 세 복자가 한때 살던 곳입니다. 오늘은 굴 입구에서 시작해 공소의 시작, 최양업 신부의 마지막 서한, 스물네 살 동정녀 김 아가타, 1868년의 흩어짐, 그리고 1986년 굴을 다시 찾은 이야기까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to Jukrimgul, a cave near the summit of Mount Ganwol at Icheon-ri, Sangbuk-myeon, Ulju. Named 'Bamboo Grove Cave' for the bamboo that covered it, this rock cave served from 1840 to 1868 as a refuge station called Daejae. It was a Korean catacomb where a hundred believers could hide at once when constables appeared, the place where Father Thomas Choe Yang-eop hid for three months during the Gyeongsin Persecution of 1860 and wrote his last letter to his teacher, and a home for a time to the three Blesseds martyred at Jangdae in Ulsan. Today we will begin at the cave mouth, then look at the station's beginnings, Father Choe's last letter, the twenty-four-year-old virgin Agatha Kim, the scattering of 1868, and the rediscovery of the cave in 1986.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "폭 7미터, 높이 1.2미터 — 대나무에 가린 낮은 입구",
+      "titleEn": "Seven Meters Wide, 1.2 Meters High — A Low Mouth Hidden by Bamboo",
+      "location": "굴 입구",
+      "locationEn": "At the cave mouth",
+      "narration": "죽림굴, 곧 대재 공소는 간월산 정상 가까이에 있어, 간월산 일대의 옛 신자촌인 간월 공소에서 왕방재라는 고개를 넘어 오가던 박해 시대의 피난처였습니다. 굴은 폭 7미터, 높이 1.2미터 규모이지만 입구가 낮아 눈에 잘 띄지 않아 숨기에 좋았습니다. 오시는 길은 둘인데, 언양에서 간월행 버스로 홍류폭포에서 내려 왕방재를 올라 간월산 정상에서 배내 쪽으로 2킬로미터쯤 내려오면 왕복 세 시간이 걸리고, 24번 국도로 석남사를 지나 이천 마을 입구 전 안내판에서 왼쪽 산길로 들어오면 3.6킬로미터입니다. 1996년 2월 주변을 정리하며 안내석을 새로 세우고 입구에 계단도 만들었습니다.",
+      "narrationEn": "Jukrimgul, the Daejae station, lies near the summit of Mount Ganwol and served as a refuge in the days of persecution, reached from the old believers' village of Ganwol over a pass called Wangbangjae. The cave is seven meters wide and 1.2 meters high, but its low mouth made it hard to spot and easy to hide in. There are two ways here: take the Ganwol bus from Eonyang, get off at Hongryu Falls, climb Wangbangjae, and descend about two kilometers from the summit toward Baenae, a three-hour round trip; or follow National Route 24 past Seongnamsa temple and turn left onto the mountain path at the signboard before the entrance to Icheon village, a walk of about 3.6 kilometers. In February 1996 the surroundings were tidied, a new guide stone set up, and steps built at the entrance.",
+      "lookFor": "대나무와 풀에 가린 낮은 굴 입구와 1996년의 안내석",
+      "lookForEn": "The low cave mouth screened by bamboo and grass, and the guide stone of 1996",
+      "forEveryone": "허리를 굽혀야 들어가는 낮은 굴이 100명을 숨겼습니다.",
+      "forEveryoneEn": "A cave so low you must stoop to enter once hid a hundred people.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '죽림굴(대재 공소)' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2331 (사본 _pages/jukrimgul/goodnews.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "기해박해 피난민의 공소 — 움막과 숯가마",
+      "titleEn": "A Station of Refugees from the Gihae Persecution — Huts and Charcoal Kilns",
+      "location": "굴 앞",
+      "locationEn": "In front of the cave",
+      "narration": "1839년 기해박해로 충청도 일원과 영남 각처에서 피난 온 교우들과 간월 공소의 교우들이 더 안전한 곳을 찾다가 이 굴을 발견해 공소를 이루었습니다. 신자들은 여기 모여 움막을 짓고 토기와 목기를 만들거나 숯을 구워 생계를 이었습니다. 재 너머 간월 쪽에서 포졸들의 움직임이 보이면 100여 명의 신자가 한꺼번에 넓은 굴속에 숨어 위기를 넘기곤 했습니다. 대나무와 풀로 덮인 낮은 입구 덕에 동굴에 숨으면 쉽게 눈에 띄지 않아, 박해 시대 피난처로 안성맞춤인 한국판 카타콤바였습니다.",
+      "narrationEn": "Believers who had fled the Gihae Persecution of 1839 from across Chungcheong and Yeongnam, together with the faithful of the Ganwol station, found this cave while searching for a safer place and made it their station. Gathering here, they built huts and lived by making earthenware and woodenware or burning charcoal. Whenever constables were seen moving on the Ganwol side beyond the pass, a hundred or so believers would hide together in the broad cave and wait out the danger. Thanks to the low entrance covered with bamboo and grass, anyone hiding inside was hard to see, making it a Korean catacomb perfectly suited as a refuge in the age of persecution.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "로마의 카타콤처럼 숨어서 신앙을 지킨 한국의 동굴입니다.",
+      "forEveryoneEn": "A Korean cave where, like the catacombs of Rome, believers hid to keep their faith.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '죽림굴(대재 공소)' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2331 (사본 _pages/jukrimgul/goodnews.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "최양업 신부의 석 달 — 1860년 9월 3일의 마지막 편지",
+      "titleEn": "Father Choe Yang-eop's Three Months — The Last Letter of September 3, 1860",
+      "location": "굴 안",
+      "locationEn": "Inside the cave",
+      "narration": "1840년부터 1860년 사이에는 다블뤼 신부와 최양업 신부가 이 공소의 사목을 맡았습니다. 김대건 신부와 함께 한국 최초의 방인 사제였던 최양업 토마스 신부는 1860년 경신박해 때 이곳에서 약 석 달 동안 은신하며 교우들과 함께 생쌀을 먹으며 박해를 피했고, 미사를 집전했습니다. 스승에게 보낸 그의 마지막 서한, 1860년 9월 3일자 편지도 이 굴에서 썼습니다.",
+      "narrationEn": "Between 1840 and 1860 Fathers Daveluy and Thomas Choe Yang-eop had pastoral charge of this station. Father Choe, who with Andrew Kim Taegon was one of Korea's first native priests, hid here for about three months during the Gyeongsin Persecution of 1860, eating raw rice with the faithful to escape the persecution, and celebrated Mass. His last letter to his teacher, dated September 3, 1860, was written in this cave as well.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "한국인 두 번째 신부가 남긴 마지막 편지가 이 동굴에서 쓰였습니다.",
+      "forEveryoneEn": "The last letter of Korea's second native priest was written in this cave.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '죽림굴(대재 공소)' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2331 (사본 _pages/jukrimgul/goodnews.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "스물네 살의 김 아가타 — 짚신을 팔아 양식을 구하다",
+      "titleEn": "Agatha Kim at Twenty-Four — Selling Straw Sandals for Food",
+      "location": "굴 안",
+      "locationEn": "Inside the cave",
+      "narration": "죽림굴과 관련된 순교자 중에는 스물네 살에 순교한 김 아가타가 있습니다. 부산 지방 첫 신자 김교희 프란치스코의 손녀이자 김영제 베드로의 누이동생입니다. 경신박해 때 아버지와 오빠가 체포되자 그 뒤를 따르려고 열일곱, 열여덟 살 다른 두 처녀와 함께 자진해서 잡혀가기를 청했고, 압송되다가 자신들을 농락하려는 포졸들을 피해 간신히 도망쳐 최양업 신부가 숨어 있던 이 굴로 찾아들었습니다. 탈진해 병석에 누우면서도 석 달 동안 최양업 신부를 도왔고, 양식이 떨어지면 신부가 손수 삼은 짚신을 언양 등지에 나가 팔아 식량을 마련했습니다. 결국 다시 일어나지 못하고 숨을 거둔 그의 유해는 간월 공소 뒷산에 모셔졌다가 2008년 3월 4일 살티의 오빠 묘 옆으로 옮겨졌습니다.",
+      "narrationEn": "Among the martyrs linked to Jukrimgul is Agatha Kim, who died at twenty-four, granddaughter of Francis Kim Gyo-hui, the first Catholic of the Busan region, and younger sister of Peter Kim Yeong-je. When her father and brother were arrested in the Gyeongsin Persecution, she asked to be taken too, together with two other young women of seventeen and eighteen, so as to follow them; on the way she barely escaped constables who tried to molest them and made her way to this cave where Father Choe Yang-eop was hiding. Though exhausted and soon bedridden, she helped Father Choe for three months, and when food ran short she went down to Eonyang and elsewhere to sell straw sandals the priest had woven with his own hands. She never rose from her sickbed, and her remains were laid on the hill behind the Ganwol station until, on March 4, 2008, they were moved to lie beside her brother's grave at Salti.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "밤길에 등불이 나타나 험한 길을 인도했다는 이야기가 그녀에게 전해집니다.",
+      "forEveryoneEn": "A story is told of a lamp appearing on dark nights to guide her up the rough path.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '죽림굴(대재 공소)' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2331 (사본 _pages/jukrimgul/goodnews.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "세 복자의 거처, 1868년의 흩어짐, 1986년의 재발견",
+      "titleEn": "Home of Three Blesseds, the Scattering of 1868, the Rediscovery of 1986",
+      "location": "굴 앞",
+      "locationEn": "In front of the cave",
+      "narration": "1868년 9월 14일 울산 병영 장대에서 순교해 2014년 시복된 대재 공소 회장 이양등 베드로와 허인백 야고보, 김종륜 루카도 한때 이곳에서 살았다고 전해집니다. 1860년 경신박해 때 이 지방에서 교우 20여 명이 체포되었고, 병인박해의 여파로 1868년 교우들이 대거 붙잡히면서 100명이 넘던 신자들은 사방으로 흩어지고 대재 공소는 폐쇄되었습니다. 그 뒤 잊혔던 굴은 1986년 10월 29일 언양 성당 김영곤 신부와 평신도 11명이 찾으려다 실패했고, 그해 11월 9일 평신도 4명이 다시 시도해 대나무와 풀로 뒤덮인 굴을 발견했습니다. 굴 안에서 나온 구유 조각과 나무 지팡이는 지금 언양 성당 신앙유물 전시관에 보관되어 있습니다.",
+      "narrationEn": "Peter Yi Yang-deung, leader of the Daejae station, with James Heo In-baek and Luke Kim Jong-ryun, all martyred at Jangdae in Ulsan on September 14, 1868, and beatified in 2014, are said to have lived here for a time as well. Some twenty believers of the area were arrested in the Gyeongsin Persecution of 1860, and when the faithful were seized in large numbers in 1868 in the wake of the Byeongin Persecution, the community of more than a hundred scattered in every direction and the Daejae station was closed. The forgotten cave was sought on October 29, 1986, by Father Kim Yeong-gon of Eonyang parish and eleven lay people without success; on November 9 that year four lay people tried again and found the cave buried under bamboo and grass. The fragments of a manger and a wooden staff found inside are now kept in the museum of religious relics at Eonyang Church.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "120년 동안 잊혔던 굴을 네 사람의 평신도가 다시 찾아냈습니다.",
+      "forEveryoneEn": "Four lay people found again a cave forgotten for 120 years.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '죽림굴(대재 공소)' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2331 (사본 _pages/jukrimgul/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "죽림굴 순례를 마치셨습니다. 김 아가타와 오빠 김영제가 묻힌 살티 공소, 그리고 이 굴에 살던 세 복자가 순교한 울산 병영 순교성지를 이어 찾으시면 간월산 교우촌의 이야기를 끝까지 따라가실 수 있습니다.",
+    "narrationEn": "This concludes our visit to Jukrimgul. Continue to Salti Mission Station, where Agatha Kim and her brother Kim Yeong-je are buried, and to the Ulsan Byeongyeong Martyrs' Shrine, where the three Blesseds who once lived in this cave gave their lives, and you will follow the story of the Mount Ganwol villages to its end.",
+    "photos": []
+  }
+}
