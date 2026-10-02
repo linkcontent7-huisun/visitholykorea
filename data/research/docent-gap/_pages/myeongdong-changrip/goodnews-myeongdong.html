@@ -1,0 +1,1392 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta http-equiv="Pragma" content="no-cache" />
+
+
+<link rel="stylesheet" href="/hostm/inc/css/Hosting_board.css" />
+<link rel="shortcut icon" href="/include/images/index/gn-icon.jpg">
+<link rel="apple-touch-icon" href="/include/images/index/gn-icon.jpg">
+
+<link href="/common/css/base.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/comm.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/layout.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/slick.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/common_data.css" rel="stylesheet" type="text/css" />
+
+
+
+<link href="/common/css/goodnews/goodnews.css" rel="stylesheet" type="text/css" />
+
+
+<script language="javascript" src="/common/js/jquery-1.11.0.min.js"></script>
+<script language="javascript" src="/common/js/common.js"></script>
+<script language="javascript" src="/common/js/slick.js"></script>
+<script language="javascript" src="https://common.catholic.or.kr/include/scripts/include.js"></script>
+<script language="javascript" src="/js/jquery-ui.js"></script> 
+<script language="javascript" src="/js/jquery.cookie.js"></script>
+<script language="javascript" src="/js/jquery.easing.1.3.js"></script>
+<script language="javascript" src="/js/bible.js"></script>
+<script language="javascript" src="/js/common_board_add.js"></script>
+<script language="javascript" src="/js/jquery.form.js"></script> 
+<script language="javascript" src="/js/font.js"></script>
+<script language="javascript" src="/js/font_size_set.js"></script>
+<script language="javascript" src="https://common.catholic.or.kr/include/js/iframe/js/iframeResizer.contentWindow.min.js"></script>
+
+
+<meta property="og:site_name" content="" />
+<meta property="fb:app_id" id="fb_app_id" content="APP_ID" />
+<meta property="og:type" id="og_type" content="website" />
+
+<meta property="og:url" id="og_url" content="http://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2289" />
+<meta property="og:image" id="fb_image" content="http://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2289" />
+<meta property="og:description" content="가톨릭굿뉴스 가톨릭정보 입니다." />
+<link rel="image_src" href="http://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2289" />
+
+<title>GoodNews 가톨릭정보</title>
+<script>
+/*
+function loginGo(){ 	
+	window.location = 'https://www.catholic.or.kr/oauth/login.asp?redirect_url=https://maria.catholic.or.kr%2Fsa%5Fho%2Flist%2Fview%2Easp%3Fmenugubun%3Dholyplace%26ctxtOrgNum%3D2289'; 
+};
+*/
+function loginGo(){ 	
+	window.location = 'https://www.catholic.or.kr/oauth/login.asp?redirect_url=https://maria.catholic.or.kr%2Fsa%5Fho%2Flist%2Fview%2Easp%3Fmenugubun%3Dholyplace%26ctxtOrgNum%3D2289'; 
+};
+
+
+function isMy(cc_id){
+	if ( cc_id == '' && '' != '' ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+var go_URL =   'http://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2289';
+var isLogin = false;
+</script>
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-52J53FG');</script>
+<!-- End Google Tag Manager -->
+
+<script language="javascript" src="/sa_ho/js/org.js"></script>
+
+<script language="javascript" src="/sa_ho/js/upload.js"></script>
+</head>
+
+<body >
+
+
+<div id="wrapper">
+
+	<!-- header -->
+<script>
+function OpenMenu(n){
+	$("#g_scont").css("display","block");
+	$("div[name=g_smn]").css("display","none");
+	$("#g_smn"+n).css("display" , "block");
+}
+
+function CloseMenu(n) {		
+	$("div[name=g_smn]").css("display","none");
+	if (n != null && n !=''  )	{
+		$("#g_smn"+n).css("display" , "block");
+	}
+}
+
+function pop_message() {		
+	w=open('https://club.catholic.or.kr/community/asp/main/message/rmessage.asp?fwhere=club','message','width=740,height=740,scrollbars=yes'); 
+	w.focus()
+}
+</script>
+	<div id="header" >
+        <div class="header_area">
+            <div class="util_area">
+                <ul class="util">
+                    <li class="last"><a href="http://www.catholic.or.kr" target="">굿뉴스</a></li>
+                    <li><a href="https://aos.catholic.or.kr" target="_blank">서울대교구</a></li>
+                    <li><a href="https://info.catholic.or.kr" target="_self">가톨릭정보</a></li>
+                    <li><a href="https://news.catholic.or.kr" target="_self">뉴스</a></li>
+                    <li><a href="https://photo.catholic.or.kr" target="_self">가톨릭갤러리</a></li>
+                    <li><a href="https://pds.catholic.or.kr/pds/" target="_self">자료실</a></li>
+                    <li><a href="https://bbs.catholic.or.kr/bbs/" target="_self">게시판</a></li>
+                    <li><a href="https://club.catholic.or.kr" target="_self">클럽</a></li>
+                    <li><a href="https://mail.catholic.or.kr/mailGate.ds?act=sso&domain=catholic.or.kr&id=&pw=&language=kr&noPw=1" target="_self">메일</a></li>
+                    
+                </ul>
+                
+				<div class="mber_box">
+                        
+                	
+                        <span class="lg_bf">
+                            <a href="javascript:void(0);" onclick="loginGo();" class="login">로그인</a>
+                        </span>
+                    
+                    
+                    <ul class="mber_mybar">
+                        <li><a href="#none" onclick="View_Cap(''); return false;">미니캡슐</a></li>
+                        <li><a href="/bible/ebible/ebible.asp?mn=2">성경쓰기</a></li>
+                        <li><a href="#none" onclick="pop_message(); return false;">쪽 지</a></li>
+                        <li><a href="http://bbs.catholic.or.kr/bbs/mypage_list.asp">전용게시판</a></li>
+                        <li><a href="http://mail.catholic.or.kr/mailGate.ds?act=sso&domain=catholic.or.kr&id=&pw=&language=kr&noPw=1" target="_self">메 일</a></li>
+                        <li><a href="http://mygoodnews.catholic.or.kr/">MyGoodnews</a></li>
+                        <li><a href="http://club.catholic.or.kr/">클 럽</a></li>
+                    </ul>
+				</div>
+            </div>
+            
+            <script type="text/javascript">
+				$('.mg').click(function(){
+					var mbar = $(this).parent().next();
+					var arw = $(this).find('img').attr('src');
+
+					if (mbar.css('display') == 'none'){
+						$(this).find('img').attr('src',arw.replace("_dw","_up"))
+					}else {
+						$(this).find('img').attr('src',arw.replace("_up","_dw"));
+					}
+
+					mbar.toggle();
+					$(this).toggleClass('active');
+				})
+			</script>
+			
+			
+            
+            <h1 class="logo mt0"><a href="/sa_ho/holyplace.asp"><img src="/common/images/comm/logo_03.png" alt="Good News 가톨릭정보" /></a></h1>
+			<ul class="nav">
+                <li>
+                   <a href="/bible" >성경</a>
+                    <!-- 성경 하위메뉴 -->
+                    <div class="nav_area depth1">
+                        <h3 class="nav_tit">BIBLE</h3>
+                        <div class="nav_box">
+                            <ul>
+                                <li><strong class="n_tit"><a href="/bible/read/bible_list.asp?m=1">성경읽기</a></strong></li>
+								<li><a href="/bible/read/bible_list.asp?m=1">구약성경</a></li>
+								<li><a href="/bible/read/bible_list.asp?m=2">신약성경</a></li>
+								<li><a href="/bible/read/bible_list.asp?m=11">NAB</a></li>
+								<li><a href="/bible/read/bible_list.asp?m=3">구약성서</a></li>
+								<li><a href="/bible/read/bible_list.asp?m=4">신약성서</a></li>
+								<li><a href="/bible/read/bible_list.asp?m=5">200주년기념성서</a></li>
+                            </ul>
+
+                            <ul>
+                                <li><strong class="n_tit"><a href="/bible/ebible/ebible.asp?mn=2">성경쓰기</a></strong></li>
+								<li><a href="/bible/ebible/ebible.asp?mn=1">매일성경쓰기</a></li>
+                                <li><a href="/bible/ebible/ebible.asp?mn=2">개인성경쓰기</a></li>
+                                <li><a href="/bible/ebible/ebible.asp?mn=3">NAB쓰기</a></li>
+								<li><a href="/bible/ebible/ebible.asp?mn=4">클럽성경쓰기</a></li>
+                                <li><a href="/bible/ebible/ebible.asp?mn=5">함께성경쓰기</a></li>
+                                <li><a href="/bible/statistics/stati.asp">통계보기</a></li>
+                            </ul>
+
+                            <ul>
+                                <li><strong class="n_tit"><a href="/bible/search/bible_search.asp">성경정보</a></strong></li>
+                                <li><a href="/bible/search/bible_search.asp">성경 검색</a></li>
+								<li><a href="/bible/compare/cmp_list.asp?m=3">성경-성서-NAB 비교</a></li>
+								<li><a href="/bible/compare_four/cmp_list.asp">4대복음서 대조</a></li>
+								<li><a href="/bible/explain/explain_list.asp">성서해설(공동번역)</a></li>
+                            </ul>
+
+                            <ul>
+                                <li><strong class="n_tit"><a href="/bible/share/share_list.asp">커뮤니티</a></strong></li>
+								<li><a href="/bible/share/share_list.asp">말씀나누기</a></li>
+								<li><a href="/bible/bbs/bbs_list.asp?menu=ebible_bbs2">성경쓰기 느낌나누기</a></li>
+								<li><a href="/bible/bbs/bbs_list.asp?menu=4772">성경 묻고답하기</a></li>
+                                <li><a href="/bible/bbs/bbs_list.asp?menu=4797">성경 자료실</a></li>
+                                <li><a href="/bible/bmk/my_bible_bmk.asp">My 성경 책갈피</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--// 성경 하위메뉴 -->
+                </li>
+                <li>
+                    <a href="/sa_ho/saint.asp" >성인</a>
+                    <!-- 성인 하위메뉴 -->
+                    <div class="nav_area depth2">
+                        <h3 class="nav_tit">SAINT</h3>
+                        <div class="nav_box">
+                            <ul>
+                                <li><strong class="n_tit"><a href="/sa_ho/list/list.asp?menugubun=saint&today=on">성인소개</a></strong></li>
+                                <li><a href="/sa_ho/list/list.asp?menugubun=saint&today=on">오늘의 성인</a></li>
+								<li><a href="/sa_ho/list/list.asp?menugubun=saint&today=to">내일의 성인</a></li>
+								<li><a href="/sa_ho/list/list.asp?menugubun=saint&today=off&today_tmp=&ctxtCommand=&ctxtLogOn=&ctxtSexcode=&ctxtChukday=&ctxtGaladay=20&Orggubun=101&ctxtHigh=&ctxtLow=&ctxtChecked=Checked&oldrow=&curpage=&ctxtOrder=name1%2Cgaladaym%2Cgaladayd&ctxtOrderType=&ctxtSaintId=&ctxtSCode=&ctxtSearchNm=&ctxtChukmm=9&ctxtChukdd=20&ctxtPosition=&ctxtCity=%ED%95%9C%EA%B5%AD%28korea%29">103위 성인</a></li>
+								<li><a href="/sa_ho/list/list.asp?menugubun=saint&today=off&today_tmp=&ctxtCommand=&ctxtLogOn=&ctxtSexcode=&ctxtChukday=&ctxtGaladay=29&Orggubun=101&ctxtHigh=&ctxtLow=&ctxtChecked=Checked&oldrow=&curpage=&ctxtOrder=name1%2Cgaladaym%2Cgaladayd&ctxtOrderType=&ctxtSaintId=&ctxtSCode=&ctxtSearchNm=&ctxtChukmm=5&ctxtChukdd=29&ctxtPosition=&ctxtCity=%ED%95%9C%EA%B5%AD%28korea%29">복자 124위</a></li>
+							</ul>
+							<ul>
+								<li><strong class="n_tit"><a href="/sa_ho/list/list.asp?menugubun=saint">성인정보</a></strong></li>
+                                <li><a href="/sa_ho/list/list.asp?menugubun=saint">성인 목록</a></li>
+                                <li><a href="/sa_ho/album/album_list.asp?menugubun=saint">성인 앨범</a></li>
+                                <li><a href="/sa_ho/board/board_list.asp?menugubun=saint&bbsgubun=pds">성인 자료실</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--// 성인 하위메뉴 -->
+                </li>
+                <li>
+                    <a href="/sa_ho/holyplace.asp" class='active'>성지</a>
+                    <!-- 성지 하위메뉴 -->
+                    <div class="nav_area depth2">
+                        <h3 class="nav_tit">HOLYPLACE</h3>
+                        <div class="nav_box">
+                            <ul>
+                                <li><strong class="n_tit"><a href="/sa_ho/list/list.asp?menugubun=holyplace">성지소개</a></strong></li>
+                                <li><a href="/sa_ho/list/list.asp?menugubun=holyplace">성지/사적지 목록</a></li>
+                                <li><a href="/sa_ho/album/album_list.asp?menugubun=holyplace">성지/사적지 앨범</a></li>
+								<li><a href="/sa_ho/board/board_list.asp?menugubun=holyplace&bbsgubun=pds">성지/사적지 자료실</a></li>
+                                <li><a href="/sa_ho/board/board_list.asp?menugubun=holyplace&bbsgubun=bbs">성지/사적지 게시판</a></li>
+                            </ul>
+							<ul>
+                                <li><strong class="n_tit"><a href="/sa_ho/holyplace.asp">성지순례</a></strong></li>
+                                <li><a href="/sa_ho/holyplace.asp#sunggi_tit" class="holyp">천주교 서울 순례길 안내</a></li>
+                                <li><a href="/sa_ho/holyplace.asp#holyp_prayer" class="holyp_prayer">기도문</a></li>
+								<li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--// 성지 하위메뉴 -->
+                </li>
+                <li>
+                    <a href="/sungga" >성가</a>
+                    <!-- 성가 하위메뉴 -->
+                    <div class="nav_area depth1">
+                        <h3 class="nav_tit">CHANT</h3>
+                        <div class="nav_box">
+                            
+                            <ul>
+								<li><strong class="n_tit"><a href="/sungga/music/sungga_music.asp" style="min-width: 110px;">가톨릭 성가음악</a></strong></li>
+								<li><a href="/sungga/music/sungga_music.asp?searchField=100&menustepField=&menufineField=">성가 정의</a></li>
+								<li><a href="/sungga/music/sungga_music.asp?searchField=200&menustepField=&menufineField=">교회음악사</a></li>
+								<li><a href="/sungga/music/sungga_music.asp?searchField=300&menustepField=&menufineField=">전례속의 성가</a></li>
+								<li><a href="/sungga/music/sungga_music.asp?searchField=400&menustepField=&menufineField=">반주악기</a></li>
+								<li><a href="/sungga/music/sungga_music.asp?searchField=500&menustepField=&menufineField=">성가대운영</a></li>
+								<li><a href="/sungga/music/sungga_music.asp?searchField=600&menustepField=&menufineField=">성가마당</a></li>
+								<li><a href="/sungga/music/sungga_music.asp?searchField=700&menustepField=&menufineField=">링크사이트</a></li>
+                            </ul>
+
+                            <ul>
+								<li><strong class="n_tit"><a href="/sungga/search/sungga_search.asp" style="min-width: 110px;">성가음원</a></strong></li>
+								<li><a href="/sungga/search/sungga_search.asp">가톨릭 성가 검색</a></li>
+								<li><a href="/sungga/answersong/answersong.asp">시편 성가</a></li>
+                                <li><a href="/sungga/ccm/main.asp">CCM 생활성가</a></strong></li>
+								<li><a href="/sungga/bbs/bbs_list.asp?menu=9754">그레고리안</a></strong></li>
+								<li><a href="/sungga/bbs/bbs_list.asp?menu=9755">기타</a></strong></li>
+                            </ul>
+
+                            <ul>
+								<li><strong class="n_tit"><a href="/sungga/bbs/bbs_list.asp?menu=4827" style="min-width: 110px;">성가자료</a></strong></li>
+								<li><a href="/sungga/bbs/bbs_list.asp?menu=4827">악보</a></li>
+								<li><a href="/sungga/bbs/bbs_list.asp?menu=4807">전례음악</a></li>
+								<li><a href="/sungga/bbs/bbs_list.asp?menu=4828">화답송/복음환호송</a></li>
+								<li><a href="/sungga/bbs/bbs_list.asp?menu=9758">성가대 영상 모음</a></li>
+                            </ul>
+
+						    <ul>
+								<li><strong class="n_tit"><a href="/sungga/search/sungga_search.asp" style="min-width: 110px;">성가게시판</a></strong></li>
+								<li><a href="/sungga/bbs/bbs_list.asp?menu=chant_bbs1">공지사항</a></li>
+								<li><a href="/sungga/bbs/bbs_list.asp?menu=4774">게시판</a></li>
+							</ul>
+                        </div>
+                    </div>
+                    <!--// 성가 하위메뉴 -->
+                </li>
+                <li>
+                    <a href="/dictionary" >가톨릭길라잡이</a>
+                    <!-- 가톨릭길라잡이 하위메뉴 -->
+                    <div class="nav_area depth1">
+                        <h3 class="nav_tit">DICTIONARY</h3>
+                        <div class="nav_box">
+                            <ul>
+                                <li><strong class="n_tit"><a href="/dictionary/term/term_search.asp">사전</a></strong></li>
+								<li><a href="https://encyclopedia.catholic.or.kr" target="_blank">한국가톨릭대사전<img src="../../inc/images/icon-new.gif"></a></li>
+                                <li><a href="/dictionary/term/term_search.asp?group=01">한국가톨릭대사전(OLD)</a></li>
+                                <li><a href="/dictionary/term/term_search.asp?group=02">전례사전</a></li>
+                                <li><a href="/dictionary/term/term_search.asp?group=03">천주교 용어사전</a></li>
+								<li><a href="/dictionary/term/term_search.asp?group=04">천주교 용어자료집</a></li>
+                            </ul>
+                            <ul>
+                                <li><strong class="n_tit"><a href="/dictionary/doctrine/doctrine_list.asp">교리서</a></strong></li>
+                                <li><a href="/dictionary/doctrine/doctrine_list.asp">가톨릭 교리서</a></li>
+                                <li><a href="/dictionary/catechism/catechism_list.asp">가톨릭 교리서 요약본</a></li>
+								<li><a href="/dictionary/bbs/bbs_list.asp?menu=4798">교리자료실</a></li>
+                            </ul>
+                            <ul>
+                                <li><strong class="n_tit"><a href="/dictionary/doctrine/doctrine_list.asp?menu=canon">교회법</a></strong></li>
+                                <li><a href="/dictionary/doctrine/doctrine_list.asp?menu=canon">교회법전</a></li>
+								<li><a href="/dictionary/bbs/bbs_list.asp?menu=4818">교회법자료실</a></li>
+                            </ul>
+                            <ul>
+                                <li><strong class="n_tit"><a href="/dictionary/doctrine/doctrine_list.asp?menu=concil">문헌</a></strong></li>
+                                <li><a href="/dictionary/doctrine/doctrine_list.asp?menu=concil">바티칸 공의회 문헌</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--// 가톨릭길라잡이 하위메뉴 -->
+                </li>
+                <li>
+                    <a href="/audio" >소리광장</a>
+                    <!-- 소리광장 하위메뉴 -->
+                    <div class="nav_area depth2">
+                        <h3 class="nav_tit">GOODNEWS AUDIO</h3>
+                        <div class="nav_box">
+                            <ul>
+                                <li><strong class="n_tit"><a href="/audio/playlist/playlist.asp?menu=missa" style="min-width: 100px;">플레이리스트</a></strong></li>
+								<li><a href="/audio/playlist/playlist.asp?menu=missa">매일미사</a></li>
+								<li><a href="/audio/playlist/playlist.asp?menu=sungmu">성무일도</a></li>
+								<li><a href="/audio/playlist/playlist.asp?menu=jubo">주보</a></li>
+								<li><a href="/audio/playlist/playlist.asp?menu=bible">성경</a></li>
+								<li><a href="/audio/playlist/playlist.asp?menu=prayer">기도문</a></li>
+								<li><a href="/audio/playlist/playlist.asp?menu=sungga">성가</a></li>
+                                <li><a href="/audio/book/audiobook_list.asp">소리도서</a></li>
+							</ul>
+							<ul>
+								<li><strong class="n_tit"><a href="/audio/pick/my_audio_pick.asp" style="min-width: 100px;">MY</a></strong></li>
+                                <li><a href="/audio/pick/my_audio_pick.asp">담기리스트</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--// 소리광장 하위메뉴 -->	
+                </li>
+                <li>
+                    <a href="/mi_pr" >미사/기도서</a>
+                    <!-- 미사/기도서 하위메뉴 -->
+                    <div class="nav_area depth1">
+                        <h3 class="nav_tit">MASS / PRAYER</h3>
+                        <div class="nav_box">
+                            <ul>
+                                <li><strong class="n_tit"><a href="/mi_pr/missa/missa.asp">매일미사</a></strong></li>
+                                <li><a href="/mi_pr/missa/missa.asp">오늘의 미사</a></li>
+								<li><a href="/mi_pr/missa/lecture_list.asp">오늘의 강론</a></li>
+                                <li><a href="/mi_pr/missa/jeon_list.asp">전례력으로 찾기</a></li>
+								<li><a href="/mi_pr/missa/ordinary.asp">미사통상문</a></li>
+								<li><a href="/mi_pr/missa/bbs_list.asp?menu=4770">우리들의 묵상 | 체험</a></li>
+								<li><a href="/mi_pr/missa/bbs_list.asp?menu=4801">전례 | 미사</a></li>
+								<li><a href="/mi_pr/missa/bbs_list.asp?menu=8903&mwtype=S">소리매일미사</a></li>
+                            </ul>
+							<ul>
+                                <li><strong class="n_tit"><a href="/mi_pr/sungmu/sungmu.asp">성무일도</a></strong></li>
+                                <li><a href="/mi_pr/sungmu/sungmu.asp">성무일도</a></li>
+                            </ul>
+                            <ul>
+                                <li><strong class="n_tit"><a href="/mi_pr/prayer/prayer.asp">기도서</a></strong></li>
+								<li><a href="/mi_pr/prayer/prayer.asp?sgubun=w">주요기도</a></li>
+								<li><a href="/mi_pr/prayer/prayer.asp?menu=prayer&pgubun=4&ingId=21">성월기도</a></li>
+								<li><a href="/mi_pr/prayer/prayer.asp?menu=prayer&pgubun=5&ingId=27">호칭기도</a></li>
+								<li><a href="/mi_pr/prayer/prayer.asp?menu=prayer&pgubun=6&ingId=34">여러가지기도</a></li>
+								<li><a href="/mi_pr/prayer/prayer.asp?menu=prayer&pgubun=7&ingId=20">고해성사</a></li>
+								<li><a href="/mi_pr/prayer/prayer.asp?menu=prayer&pgubun=8&ingId=67">묵주기도</a></li>
+								<li><a href="/mi_pr/prayer/prayer.asp?menu=prayer&pgubun=9&ingId=32">십자가의 길</a></li>
+								<!--<li><a href="/mi_pr/prayer/prayer.asp?menu=prayer&pgubun=10&ingId=33">위령기도</a></li>-->
+								<li><a href="/mi_pr/prayer/prayer.asp?menu=prayer&pgubun=10&ingId=33">상장예식(위령)</a></li>
+								<li><a href="/mi_pr/prayer/prayer.asp?menu=prayer&pgubun=11&ingId=68">공소예절</a></li>
+								<!--<li><a href="/mi_pr/prayer/prayer.asp?menu=prayer&pgubun=14&ingId=104">성무예절서</a></li>-->
+								<li><a href="/mi_pr/prayer/prayer.asp?menu=prayer&pgubun=29">VADEMECUM</a></li>
+								<li><a href="/mi_pr/prayer/prayer.asp?menu=prayer&pgubun=19">가정기도 길잡이(new)</a></li>
+							</ul>
+							<ul>
+                                <li><strong class="n_tit"><a href="/mi_pr/sacrament/sacrament.asp">7성사</a></strong></li>
+								<li><a href="/mi_pr/sacrament/sacrament.asp?key=0">성사</a></li>
+								<li><a href="/mi_pr/sacrament/sacrament.asp?key=1">세례성사</a></li>
+								<li><a href="/mi_pr/sacrament/sacrament.asp?key=2">견진성사</a></li>
+								<li><a href="/mi_pr/sacrament/sacrament.asp?key=3">성체성사</a></li>
+								<li><a href="/mi_pr/sacrament/sacrament.asp?key=4">고해성사</a></li>
+								<li><a href="/mi_pr/sacrament/sacrament.asp?key=5">혼인성사</a></li>
+								<li><a href="/mi_pr/sacrament/sacrament.asp?key=6">병자성사</a></li>
+								<li><a href="/mi_pr/sacrament/sacrament.asp?key=7">성품성사</a></li>
+								<li><a href="/mi_pr/sacrament/sacrament.asp?key=8">준성사</a></li>
+								<li><a href="/mi_pr/sacrament/faq.asp?fgubun=0&page=1">FAQ</a></li>
+								<li><a href="/bible/bbs/bbs_list.asp?menu=4772&view=&help=&htype=&submenu=96&searchkey=N&searchtext=">묻고답하기</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--// 미사/기도서 하위메뉴 -->
+                </li>
+                <li>
+                    <a href="/jubo" >주보</a>
+                    <!-- 주보 하위메뉴 -->
+                    <div class="nav_area depth8">
+                        <h3 class="nav_tit">WEEKLY</h3>
+                        <div class="nav_box">
+                            <ul>
+                                <li><strong class="n_tit"><a href="/jubo/">주보 안내</a></strong></li>
+								<li><a href="/jubo/">전국 주보</a></li>
+                                <li><a href="/jubo/jubo_list.asp">전례 주일별 주보</a></li>
+								<li><a href="/jubo/jubo_list.asp?jgubun=G">교구별 주보</a></li>
+                            </ul>
+							<ul>
+                                <li><strong class="n_tit"><a href="/jubo/jubo_list.asp">주보 검색</a></strong></li>
+                                <li><a href="/jubo/jubo_list.asp?jgubun=S">통합 검색</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--// 주보 하위메뉴 -->
+                </li>
+				<li>
+					<a href="#" onclick="window.open('/sound/bgsound.asp','배경음악','resizable=no width=700 height=250');return false"><img src="/common/images/comm/ico_lis_sound.png" title="player" alt="player"></a>
+                </li>
+            </ul>
+
+            <a href="#none" class="btn_nav"><img src="/common/images/comm/btn_menu.gif" alt="메뉴" /></a>
+            
+            <div class="tt_nav">
+            	
+					<ul>
+						<li><strong>성경</strong></li>
+						
+						<li><a href="/bible/read/bible_list.asp?m=1">성경읽기</a></li>
+						
+						<li><a href="/bible/search/bible_search.asp">성경검색</a></li>
+						
+						<li><a href="/bible/compare/cmp_list.asp?m=3">성경비교</a></li>
+						
+						<li><a href="/bible/compare_four/cmp_list.asp">4대복음서 대조</a></li>
+						
+						<li><a href="/bible/explain/explain_list.asp">성서해설(공동번역)</a></li>
+						
+						<li><a href="/bible/bbs/bbs_list.asp?menu=4797">성경 자료실</a></li>
+						
+						<li><a href="/bible/bbs/bbs_list.asp?menu=4772">성경 묻고답하기</a></li>
+						
+						<li><a href="/bible/share/share_list.asp">말씀나누기</a></li>
+						
+						<li><a href="/bible/bbs/bbs_list.asp?menu=ebible_bbs2">성경쓰기 느낌나누기</a></li>
+						
+						<li><a href="/bible/bmk/my_bible_bmk.asp">My 성경 책갈피</a></li>
+						
+						<li><a href="/bible/ebible/wr_day.asp">성경쓰기</a></li>
+						
+					</ul>
+				
+					<ul>
+						<li><strong>성인</strong></li>
+						
+						<li><a href="/sa_ho/list/list.asp?menugubun=saint&today=on">오늘의 성인</a></li>
+						
+						<li><a href="/sa_ho/list/list.asp?menugubun=saint">성인 목록</a></li>
+						
+						<li><a href="/sa_ho/album/album_list.asp?menugubun=saint">성인 앨범</a></li>
+						
+						<li><a href="/sa_ho/board/board_list.asp?menugubun=saint&bbsgubun=pds">성인 자료실</a></li>
+						
+					</ul>
+				
+					<ul>
+						<li><strong>성지</strong></li>
+						
+						<li><a href="/sa_ho/list/list.asp?menugubun=holyplace">성지/사적지 목록</a></li>
+						
+						<li><a href="/sa_ho/album/album_list.asp?menugubun=holyplace">성지/사적지 앨범</a></li>
+						
+						<li><a href="/sa_ho/board/board_list.asp?menugubun=holyplace&bbsgubun=pds">성지/사적지 자료실</a></li>
+						
+						<li><a href="/sa_ho/board/board_list.asp?menugubun=holyplace&bbsgubun=bbs">성지/사적지 게시판</a></li>
+						
+					</ul>
+				
+					<ul>
+						<li><strong>성가</strong></li>
+						
+						<li><a href="/sungga/music/sungga_music.asp">가톨릭 성가음악</a></li>
+						
+						<li><a href="/sungga/search/sungga_search.asp">가톨릭 성가 검색</a></li>
+						
+						<li><a href="/sungga/bbs/bbs_list.asp?menu=4827">악보감상실</a></li>
+						
+						<li><a href="/sungga/bbs/bbs_list.asp?menu=4807">전례음악자료실</a></li>
+						
+						<li><a href="/sungga/classify/ccm.asp">CCM 생활성가</a></li>
+						
+						<li><a href="/sungga/bbs/bbs_list.asp?menu=9754">그레고리안 성가</a></li>
+						
+						<li><a href="/sungga/bbs/bbs_list.asp?menu=9755">기타 성가</a></li>
+						
+						<li><a href="/sungga/bbs/bbs_list.asp?menu=chant_bbs1">공지사항</a></li>
+						
+						<li><a href="/sungga/bbs/bbs_list.asp?menu=4828">화답송/복음환호송</a></li>
+						
+						<li><a href="/sungga/bbs/bbs_list.asp?menu=4774">성가 게시판</a></li>
+						
+						<li><a href="/sungga/answersong/answersong.asp">시편 성가</a></li>
+						
+					</ul>
+				
+					<ul>
+						<li><strong>가톨릭길라잡이</strong></li>
+						
+						<li><a href="https://encyclopedia.catholic.or.kr">가톨릭대사전(NEW)</a></li>
+						
+						<li><a href="/dictionary/term/term_search.asp?group=01">가톨릭대사전(OLD)</a></li>
+						
+						<li><a href="/dictionary/term/term_search.asp?group=02">전례사전</a></li>
+						
+						<li><a href="/dictionary/term/term_search.asp?group=03">천주교용어사전</a></li>
+						
+						<li><a href="/dictionary/term/term_search.asp?group=04">천주교 용어자료집</a></li>
+						
+						<li><a href="/dictionary/doctrine/doctrine_list.asp">가톨릭 교리서</a></li>
+						
+						<li><a href="/dictionary/catechism/catechism_list.asp">가톨릭 교리서 요약</a></li>
+						
+						<li><a href="/dictionary/doctrine/doctrine_list.asp?menu=canon">교회법</a></li>
+						
+						<li><a href="/dictionary/doctrine/doctrine_list.asp?menu=concil">바티칸공의회문헌</a></li>
+						
+					</ul>
+				
+					<ul>
+						<li><strong>소리광장</strong></li>
+						
+						<li><a href="/audio/playlist/playlist.asp?menu=missa">플레이리스트</a></li>
+						
+						<li><a href="/audio/book/audiobook_list.asp">소리도서</a></li>
+						
+						<li><a href="/audio/pick/my_audio_pick.asp">담기</a></li>
+						
+					</ul>
+				
+					<ul>
+						<li><strong>미사/기도서</strong></li>
+						
+						<li><a href="/mi_pr/missa/missa.asp">매일미사</a></li>
+						
+						<li><a href="/mi_pr/sungmu/sungmu.asp">성무일도</a></li>
+						
+						<li><a href="/mi_pr/prayer/prayer.asp">가톨릭기도서</a></li>
+						
+						<li><a href="/mi_pr/sacrament/sacrament.asp">7성사</a></li>
+						
+					</ul>
+				
+					<ul>
+						<li><strong>주보</strong></li>
+						
+						<li><a href="/jubo/">전국 주보</a></li>
+						
+						<li><a href="/jubo/jubo_list.asp">전례 주일별 주보</a></li>
+						
+						<li><a href="/jubo/jubo_list.asp?jgubun=G">교구별 주보</a></li>
+						
+						<li><a href="/jubo/jubo_list.asp?jgubun=S">주보 통합검색</a></li>
+						
+					</ul>
+				
+                <div class="tt_foot"><a href="#none"><img src="/common/images/comm/btn_nav_close.gif" alt="닫기" /></a></div>
+			</div>
+		</div>
+    </div>
+	<!-- //header -->
+
+	<!-- container -->
+	<div id="container">
+
+		<!-- left_area -->
+        <div class="left_area " >
+        	
+                <h3>성지<span>HOLYPLACE</span></h3>
+                <ul class="left_menu">
+                    <li class='active'>
+                        <a href="/sa_ho/list/list.asp?menugubun=holyplace">성지/사적지 목록</a>
+                    </li>
+                    <li >
+                        <a href="/sa_ho/album/album_list.asp?menugubun=holyplace">성지/사적지 앨범</a>
+                    </li>
+					<li >
+                        <a href="/sa_ho/board/board_list.asp?menugubun=holyplace&bbsgubun=pds">성지/사적지 자료실</a>
+                    </li>
+                    <li >
+                        <a href="/sa_ho/board/board_list.asp?menugubun=holyplace&bbsgubun=bbs">성지/사적지 게시판</a>
+                    </li>
+                </ul>
+                
+            
+
+            <!--div class="aside">
+                <a href="/bible/ebible/ebible.asp?mn=2" class="btn_b1 mb5">개인성경쓰기 진도율</a>
+                <a href="/bible/bmk/my_bible_bmk.asp" class="btn_b2">MY 성경 책갈피 바로가기</a>
+            </div-->
+        </div>
+		<!--// left_area -->
+
+		<!-- content -->
+		<div class="contents">
+        	<!--div class="lnb">
+                <img src="/common/images/comm/ico_home.gif" alt="home" />
+                <span><img src="/common/images/comm/ico_allow.gif" alt="다음" /></span>
+                <a href="#none">성지</a>
+                <span><img src="/common/images/comm/ico_allow.gif" alt="다음" /></span>
+                <a href="#none">성지/사적지 목록
+				</a>
+            </div-->
+
+            <div class="tit_area">
+                <h2 class="tit">성지/사적지 목록</h2>
+                <!--<div class="font_ctn">
+                    <!-- 글자크기 조정 -->
+<!--# include virtual = "/inc/inc_font_size_chg.inc"-->
+					<!-- //글자크기 조정 -->
+                <!--</div>-->
+            </div>
+            
+            <!-- contents -->
+
+<form name="OrgForm" method="post"  action="?" onSubmit="fnOrgSearch(this.form)">
+
+<input type="hidden" name="menugubun" value="holyplace">
+<input type="hidden" name="bbsgubun" value="">
+<input type="hidden" name="infogubun" value="org" >
+<input type="hidden" name="Orggubun" value="71">
+<input type="hidden" name="infoid" value="">
+<input type="hidden" name="ctxtHigh" value="">
+<input type="hidden" name="ctxtLow" value="">
+<input type="hidden" name="ctxtSexcode" value="">
+<input type="hidden" name="ctxtChukday" value="">
+<INPUT type="hidden" NAME="ctxtLogOn" VALUE="">
+<input type="hidden" name="ctxtVisit" VALUE="">
+<INPUT type="hidden" NAME="ctxtOrder" VALUE="">
+<INPUT type="hidden" NAME="ctxtOrderType" VALUE="">
+
+<INPUT type="hidden" NAME="ctxtGaladay">
+<INPUT type="hidden" NAME="ctxtVisitLoad">
+<INPUT type="hidden" NAME="ctxtCommand">
+<input type="hidden" name="id" VALUE="">
+<input type="hidden" name="mode" VALUE="">
+<INPUT type="hidden"  NAME="curpage" VALUE="">
+
+	<div class="sg_area type2">
+		<div class="st_box ac">
+			교구
+			<select name="ctxtGyoguCode" class="select_a1" style="width:110px" title="구분 선택">
+				<option value=""  selected >ALL</option>
+				
+					<option value="11"  >서울대교구</option>
+				
+					<option value="12"  >대전교구</option>
+				
+					<option value="13"  >수원교구</option>
+				
+					<option value="14"  >인천교구</option>
+				
+					<option value="15"  >춘천교구</option>
+				
+					<option value="16"  >원주교구</option>
+				
+					<option value="17"  >의정부교구</option>
+				
+					<option value="21"  >대구대교구</option>
+				
+					<option value="22"  >부산교구</option>
+				
+					<option value="23"  >청주교구</option>
+				
+					<option value="24"  >마산교구</option>
+				
+					<option value="25"  >안동교구</option>
+				
+					<option value="31"  >광주대교구</option>
+				
+					<option value="32"  >전주교구</option>
+				
+					<option value="33"  >제주교구</option>
+				
+					<option value="41"  >군종교구</option>
+				
+			</select>
+			
+			성지명
+			<input type="text" name="KeyName" value="" class="intx w70" title="성인명 입력" />&nbsp; &nbsp; 
+			
+			지역명
+			<input type="text" name="KeyAddr" value=""class="intx w70" />&nbsp; &nbsp; 
+			
+			내용
+			<input type="text" name="KeyContent" value="" class="intx w70" />
+			
+			<a href="#none" name="bnSearch" onclick="$('#btn_submit').trigger('click'); return false;" class="btn_a1">검색</a>
+			<input type="submit" id="btn_submit" style="opacity:0; position:absolute" />
+		</div>
+	
+		<div class="ac_b">
+			<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=가&ctxtHigh=나 class=''>[ㄱ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=나&ctxtHigh=다 class=''>[ㄴ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=다&ctxtHigh=라 class=''>[ㄷ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=라&ctxtHigh=마 class=''>[ㄹ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=마&ctxtHigh=바 class=''>[ㅁ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=바&ctxtHigh=사 class=''>[ㅂ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=사&ctxtHigh=아 class=''>[ㅅ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=아&ctxtHigh=자 class=''>[ㅇ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=자&ctxtHigh=차 class=''>[ㅈ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=차&ctxtHigh=카 class=''>[ㅊ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=카&ctxtHigh=타 class=''>[ㅋ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=타&ctxtHigh=파 class=''>[ㅌ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=파&ctxtHigh=하 class=''>[ㅍ]</a>&nbsp;<a href = /sa_ho/list/list.asp?menugubun=holyplace&ctxtLow=하&ctxtHigh=zzz class=''>[ㅎ]</a>&nbsp;  
+			<a href = "/sa_ho/list/list.asp?menugubun=holyplace">[전체]</a>
+		</div>
+	</div>
+
+<script>
+	function basicInfoSearch(){
+		menugubun = document.OrgForm.menugubun.value;
+
+		ctxtSCode = document.OrgForm.ctxtSCode.value; 
+		ctxtSearchNm = document.OrgForm.ctxtSearchNm.value; 
+		ctxtChukmm = document.OrgForm.ctxtChukmm.value; 
+		ctxtChukdd = document.OrgForm.ctxtChukdd.value; 
+		ctxtPosition = document.OrgForm.ctxtPosition.value; 
+		ctxtCity = document.OrgForm.ctxtCity.value; 
+		
+		
+		document.OrgForm.target = "_parent";
+		document.OrgForm.action = "/sa_ho/list/list.asp?menugubun="+menugubun+"&ctxtSCode="+ctxtSCode+"&ctxtSearchNm="+ctxtSearchNm+"&ctxtChukmm="+ctxtChukmm+"&ctxtChukdd="+ctxtChukdd+"&ctxtPosition="+ctxtPosition+"&ctxtCity="+ctxtCity;
+		
+		
+		
+
+		document.OrgForm.submit();
+	}	
+
+	function keyTouch(keyCode){
+		if (keyCode == "13"){
+			basicInfoSearch();
+		}
+	}
+</script>
+	<INPUT type="hidden" NAME="ctxtOrgNum" VALUE="2289" >
+	<INPUT type="hidden" NAME="ctxtOtherMenu" VALUE="" >
+	<INPUT type="hidden" NAME="ctxtOtherID" VALUE="" >
+	<input type="hidden" name="ctxtSubMenu" value="basic" >
+	<INPUT type="hidden" NAME="ctxtId" VALUE="2289" ID="Hidden2">
+	
+	
+	<h3 class="bd_tit mt30">
+    	<a href="/sa_ho/list/list.asp?menugubun=holyplace&ctxtOrgCode=71&ctxtGyoguCode=11" style="color: #444;">서울대교구</a>
+		> 명동 주교좌성당        
+	</h3>
+				
+	
+	<!-- tab -->
+	<ul class="list_c1 list_c8">
+		<li class='active'>
+			<a href="/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2289&curpage=&PSIZE=20">소개</a>
+		</li>
+		<li class=''>
+			<a href="/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2289&ctxtSubMenu=map&curpage=&PSIZE=20">찾아가는길</a>
+		</li>
+	
+			<li >
+				<a href="/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2289&ctxtSubMenu=other&ctxtOtherID=65&ctxtOtherMenu=MODIFY&curpage=&PSIZE=20">순교자</a>
+			</li>
+	
+			<li >
+				<a href="/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2289&ctxtSubMenu=other&ctxtOtherID=66&ctxtOtherMenu=MODIFY&curpage=&PSIZE=20">명례방</a>
+			</li>
+	
+		<li >
+			<a href="/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2289&ctxtSubMenu=album&curpage=&PSIZE=20">사진/그림</a>
+		</li>
+		
+		<li >
+			<a href="/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2289&ctxtSubMenu=pds&curpage=&PSIZE=20">자료실</a>
+		</li>
+		<li >
+			<a href="/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2289&ctxtSubMenu=bbs&curpage=&PSIZE=20">게시판</a>
+		</li>
+		
+            <li>
+                <a href="javascript:PrintPage('', '');">인쇄</a>
+            </li>
+        
+	</ul>       
+	<!--// tab -->
+	
+	<div>
+		<table class="register01 register04 mb20" style="width: 60%;">
+            <caption>성인명, 축일, 성인구분, 신분, 활동지역, 활동연도, 같은이름 목록</caption>
+            <colgroup>
+                <col style="width:24%;">
+                <col style="width:*%;">
+            </colgroup>
+            <tbody>
+				
+                    <tr>
+                        <th scope="row">간략설명</th>
+                        <td class="al pl10">한국 천주교회의 심장부</td>
+                    </tr>
+                
+                <tr>
+                    <th scope="row">지번주소</th>
+                    <td class="al pl10">
+                        서울시 중구 명동 2가 1-1&nbsp;
+                    </td>
+                </tr>
+                
+                    <tr>
+                        <th scope="row">도로주소</th>
+                        <td class="al pl10">서울시 중구 명동길 74</td>
+                    </tr>
+                
+                <tr>
+                    <th scope="row">전화번호</th>
+                    <td class="al pl10">
+                        (02)774-1784
+                    </td>
+                </tr>
+                
+                    <tr>
+                        <th scope="row">팩스번호</th>
+                        <td class="al pl10">(02)753-1784</td>
+                    </tr>
+                
+                <tr>
+                    <th scope="row">홈페이지</th>
+                    <td class="al pl10"><a href = "http://www.mdsd.or.kr" target=_new>http://www.mdsd.or.kr</a></td>
+                </tr>
+                
+                <tr>
+                    <th scope="row">문화정보</th>
+                    <td class="al pl10">사적 제258호</td>
+                </tr>
+                
+            </tbody>
+        </table>
+		
+        <div class="reg_img type2" style="max-width: 40%; height:241px;text-align:center;padding-top:25px;" oncontextmenu="return false">
+            
+                    <a href="JavaScript:viewOrgImage('2289','First','%EB%AA%85%EB%8F%99+%EC%84%B1%EB%8B%B9%5F20250528%5F143407%2Ejpg')">
+                        <img src="/GNDATA/ORG/2289/First/명동 성당_20250528_143407.jpg"   width=280;  height=200; >
+                    </a>
+            
+        </div>
+	</div>
+
+
+
+<script type="text/javascript" language="javascript">
+
+function MainImgFile(strFileType){
+	var file = document.OrgForm.upfile.value;
+	//alert(file);
+	var strOpt;
+	var arrMatch;
+	var intLoop;
+
+	if (bUploading == true){
+		alert("자료 업로드 중입니다.");
+		return;
+	}
+
+	arrMatch = file.match(/^[A-Za-z]:(\\.+)+$|^\\(\\.+)+$/ig);
+	if (arrMatch == null) {
+		alert("파일명이 잘못되었습니다.");
+		return;
+	}
+
+	if (file == "") {
+		alert("등록할 파일을 선택하십시오.");
+		return;
+	}
+
+    index = file.lastIndexOf(".");
+    if(index > 0)
+    {
+	    var fext = file.substring(index+1).toLowerCase();
+    
+		if(fext == "asp" || fext == "jsp" || fext == "php" || fext == "vbs")
+		{
+			alert("등록할 수 없는 파일입니다.");
+			return;
+		}
+		if(strFileType == "IMG")
+		{	
+			if((fext != "jpg") && (fext != "jpeg") && (fext != "gif") && (fext != "jpe"))
+			{
+			    alert("그림파일이 아니거나, 지원하지 않는 그림파일입니다.");
+			    return;
+			}	
+		}				
+	}	
+
+	var nIndex = file.lastIndexOf("\\");
+	if (nIndex > 0)
+		file = file.substr(nIndex + 1);
+
+
+	bUploading = true;
+	blnInProgress = true;
+
+	strOpt = new Option(file + "을(를) 등록하고 있습니다.", file, true);
+	//Uploading();
+	document.OrgForm.submit();
+}
+
+function MainImgFileDel(strFileType){
+	document.OrgForm.mode.value = strFileType;
+	document.OrgForm.submit();
+}
+
+</script>
+</form>
+
+
+
+    <script language="JavaScript">
+    function PrintPage(ctxtOtherMenu, ctxtOtherID) {
+        if(confirm("명동 주교좌성당"+" 성지를 출력하시겠습니까?")){
+            window.open("holyplace_print.asp?ctxtSubMenu=basic&ctxtOrgNum=2289&ctxtOtherID="+ctxtOtherID+"&ctxtOtherMenu="+ctxtOtherMenu+"&pType=A","holyplacePrint","width=1000,height=500,status=1, scrollbars=1,top=0,left=0");
+        }
+    }
+    </script>
+    <style>
+    .intro img {margin:5px 15px 0px 15px;}
+    .intro td img {margin:0px; width:100%}
+    </style>
+    
+        <!-- 성당소개 내용 -->
+        <div class="intro cf">
+            <span class="int_txt"><img src="http://info2.catholic.or.kr/archives/upload/images/003016/명례방_주일_집회도_김태_작.jpg" title="명례방 초기 천주교 집회 모습(김태 작)" alt="명례방 초기 천주교 집회 모습(김태 작)" style="float: left;">
+<div align="justify"><font size="2"><span style="font-size: 11pt;">서울대교구 주교좌 명동 대성당은 명실 공히 한국 천주교회의 상징이자 심장이다. 이곳은 한국 교회 공동체가 처음으로 탄생한 곳이자 여러 순교자의 유해가 모셔진 곳이기도 하다.&nbsp;2천 년 교회사 안에서 유례없이 한국 천주교회는 한국인 스스로의 손으로 창립됐다. 한국 천주교회의 출발은 1784년 봄, 이승훈이 북경에서 영세한 뒤 귀국한 때로부터 치지만 그보다 4년이 앞선 1780년 1월 천진암에서는 권철신을 중심으로 하는 강학회가 열렸고 여기에서 당시의 저명한 소장 학자들은 천주학을 접하게 된 것이다.</span></font></div>
+<div align="justify"><span style="font-size: 11pt;">&nbsp;</span></div>
+<div align="justify"><span style="font-size: 11pt;">그 해 가을, 서울 명례방에 살던 통역관 김범우는 이들의 영향을 받아 천주교에 입교하고 자신의 집에서 교회 예절 거행과 교리 강좌를 열게 된다. 그럼으로써 수도 한복판에 겨레 구원 성업의 터전을 닦았고 바로 이곳에 오늘날 한국 천주교회의 산 역사인 명동 대성당이 자리하고 있는 것이다.</span><br>
+<span style="font-size: 11pt;">&nbsp; </span><br>
+<img src="http://info2.catholic.or.kr/archives/upload/images/003016/명동_성당_20250528_143436.jpg.jpg" title="명동 주교좌성당 전경." alt="명동 주교좌성당 전경." style="float: right;"><span style="font-size: 11pt;">이승훈, 정약전 &middot;&nbsp;약종 &middot;&nbsp;약용 3형제, 권일신 형제 등이 이벽을 지도자로 삼아 종교 집회를 가짐으로써 한국 천주교회가 창립됐으나 이 신앙 공동체는 이듬해 형조 금리(刑曹禁吏)에게 발각돼 김범우가 경상도 단장으로 유배되면서 해체됐다. 그 후 1882년 명동은 한미수호 조약의 체결로 종교의 자유를 얻게 될 것을 예견한 제7대 교구장 블랑 주교에 의해 성당 터로 매입된다. 블랑 주교는 이곳에다 우선 종현 서당을 설립, 운영하면서 예비 신학생을 양성하는 한편 성당 건립을 추진해 한불 수호 통상 조약(1886년)을 체결한 이듬해인 1887년 5월, 대지를 마저 구입하면서 그 해 겨울부터 언덕을 깎아 내는 정지 작업을 시작했다.</span></div>
+<div align="justify"><span style="font-size: 11pt;">&nbsp;</span></div>
+<div align="justify"><span style="font-size: 11pt;">이 때 신자들은 손수 팔을 걷어붙이고 정지 작업에 나섰는데 블랑 주교는 파리 외방 전교회에 보낸 보고서에서 이들의 신앙적 열성을 이렇게 적고 있다.&nbsp;"남자 교우들은 사흘씩 무보수로 일하러 왔는데 그것도 12월과 1월의 큰 추위를 무릅쓰고 왔습니다. 늙은이 젊은이 할 것 없이 이 일에 노랄 만한 열성을 쏟았고 그들은 신앙과 만족감에서 추위로 언 손을 녹일 정도로 참아 내는 것이었습니다."</span><br>
+<span style="font-size: 11pt;">&nbsp; </span><br>
+<span style="font-size: 11pt;">신자들의 열성으로 시작된 명동 대성당의 정지 작업은 풍수지리설을 내세운 정부와의 부지 소유권 분쟁에 휘말려 4년이 지난 1892년 5월 8일에 가서야 기공식을 갖는다. 그 사이 초대 주임 블랑 주교가 1890년 선종하고 두세 신부가 2대 주임으로 부임했다. 성당 설계와 공사의 지휘 감독은 코스트 신부가 맡았는데 그는 약현(현 중림동약현) 성당과 용산 신학교의 설계 감독도 맡았다.</span></div>
+<div align="justify"><span style="font-size: 11pt;">&nbsp;</span></div><img src="http://info2.catholic.or.kr/archives/upload/images/003016/명동_성당_제대_20230616_125238.jpg" title="성당 제대와 그 뒤를 병풍처럼 둘러싸고 있는 열네 사도의 초상화 모습." alt="성당 제대와 그 뒤를 병풍처럼 둘러싸고 있는 열네 사도의 초상화 모습." style="float: left;">
+<div align="justify"><span style="font-size: 11pt;">코스트 신부가 1896년 선종하고 그 뒤를 이은 프와넬 신부에 이르러서야 성당 건축을 마무리 짓고 드디어 1898년 5월 29일 성령 강림 대축일에 조선 교구장 뮈텔 주교의 집전으로 역사적인 축성식을 가졌다.&nbsp;기공 후 무려 12년 만에 완공된 명동 성당은 순수한 고딕 양식 건물로 그 문화적인 가치가 높이 평가되고 있다. 1977년 11월 22일 사적 제258호로 지정된 명동 성당이 준공된 후 그 지하 묘소에는 1900년부터 기해 &middot; 병인박해 당시 믿음을 지킨 순교자들의 유해를 안치해 왔다.</span><br>
+<br>
+<span style="font-size: 11pt;">파리 외방 전교회 선교사로 우리나라에 첫 입국해 기해년 1839년 9월 12일 순교한 성 앵베르 주교와 성 모방 신부, 성 샤스탕 신부는 새남터에서 군문효수의 형을 받은 후 한강변 모래밭에 매장되었다. 순교한 지 약 20일 후 7-8명의 신자들이 죽음을 무릅쓰고 세 순교자의&nbsp;유해를 거두어 지금의 서강 대학교가 소재한 노고산에 4년간 매장했다. 그 후 유해는 1843년에 삼성산으로 이장되었다가 1901년에 이곳으로 모셔졌다.</span></div>
+<div align="justify"><span style="font-size: 11pt;">&nbsp;</span></div>
+<div align="justify"><span style="font-size: 11pt;">시복을 앞둔 1924년에 무덤이 다시 발굴되어 이들의 유해는 대부분 로마와 파리외방 전교회 등으로 분배되고 이곳에는 현재 그 일부만이 모셔져 있다. 이들 성인 외에도 지하 묘소에는 성 최경환 프란치스코(1805-1839년), 성 김성우 안토니오(1795-1841년), 병인박해 때 순교한 푸르티에 신부와&nbsp;프티니콜라 신부 그리고 이 에메렌시아(?-1839년)와 무명 순교자(?-1839년) 1명의 유해가 모셔져 있다.</span><br>
+<span style="font-size: 11pt;">&nbsp; </span><br>
+<img src="http://info2.catholic.or.kr/archives/upload/images/003016/명동_성당_보수용_철골구조물_해체작업_IMG_0401.jpg" title="2008년 12월. 성당 정면 보수를 위해 2006년에 설치했던 철골구조물을 해체하는모습." alt="2008년 12월. 성당 정면 보수를 위해 2006년에 설치했던 철골구조물을 해체하는모습." style="float: right;"><span style="font-size: 11pt;">또 병인박해 때인 1866년 3월 서소문 밖 네거리에서 순교한 성 남종삼 요한과 홍봉주 토마스의 시신은 왜고개에 매장되었다가 절두산 순교 기념관 성해실로 모셔지기 전 1909년 이곳 지하 묘소에 잠시 머물러 있기도 했다.</span></div>
+<div align="justify"><span style="font-size: 11pt;">&nbsp;</span></div>
+<div align="justify"><span style="font-size: 11pt;">1998년 5월 29일 축성 100주년을 맞은 명동 대성당은 신앙 자유의 상징으로서, 일제와 6.25 전쟁의 수난을 거쳐 70년대 독재에 맞서 민족의 양심과 지성을 지켜온 민주화의 성지로서 자리매김하였다. 2002년 기존의 문화관과 부속건물을 합쳐 새롭게 문화관을 리모델링하여 문화의 전당으로 탈바꿈하였고, 그해 9월부터 심하게 훼손되고 부식된 외벽에 대한 대대적인 보수공사를 문화재청과 함께 시작하였다. 이미 1974년과 1984년에 대규모 보수 공사를 진행했으나 이번에는 성당의 원형을 유지하기 위해 낡은 벽돌들만 한 장씩 빼낸 뒤 새 벽돌을 끼워 넣는 고난도 보수 공사를 거쳐 2008년 말 공사를 위해 감쌌던 장막을 벗고 새 단장한 모습을 드러냈다.</span></div>
+<div align="justify"><span style="font-size: 11pt;">&nbsp;</span></div>
+<div align="justify"><font size="2"><span style="font-size: 11pt;">2010년에는 명동 대성당을 보존하고 열린 광장을 조성하며 사목 지원공간을 확보하여 신자들은 물론 시민들에게 열린 공간으로 다가가기 위해 성당 일대를 대대적으로 개편하는 '명동성당 종합계획'을 발표하였다. 이어 2011년 9월 16일 성 김대건 신부 순교일에 맞춰 명동성당 종합계획 1단계 기공식을 갖고 3년간의 공사에 들어가&nbsp;2014년 9월 16일&nbsp;1단계를 마무리하며 교구청 신청사 축복식을 가졌다.&nbsp;명동성당 종합계획 1단계를 통해&nbsp;기존의 명동 대성당과 이질감이 없으면서도 교우와 시민들이 편하게 이용할 수 있는 공간 구성이 가능해졌다.&nbsp;교구청 신청사와 지하 주차장,&nbsp;혼배를 위한 파밀리아 채플과 연회장인 프란치스코홀, 들머리 지하에&nbsp;각종 편의시설들이 들어섰고,&nbsp;대성당 진입로 또한 봉헌 당시 원형에 가깝게 복원하였다.&nbsp;</span></font><font size="2"><span style="font-size: 11pt;">[출처 : 주평국, 하늘에서 땅 끝까지 - 향내나는 그분들의 발자국을 따라서, 가톨릭출판사, 1996, 내용 일부 수정 및 추가(최종수정 2025년 6월 19일)]</span></font></div>
+<div align="justify"><span style="font-size: 11pt;"><br></span></div>
+<div align="justify"><a href="https://martyrs.or.kr/_web/mpilgrims/about.html" target="_blank"><span style="font-weight: bold; color: rgb(27, 116, 0); font-size: 11pt;">※ 교황청 승인 국제순례지 &lsquo;천주교 서울 순례길&rsquo; 바로가기</span></a></div>
+<div align="justify"><span style="font-size: 11pt;">&nbsp;</span></div>
+<p align="justify"><img src="http://info2.catholic.or.kr/archives/upload/images/003016/명동성당_지하성당_유해실_SH101215.jpg" title="명동 주교좌성당 지하성당의 유해실 모습." alt="명동 주교좌성당 지하성당의 유해실 모습." style="vertical-align: baseline;"><img src="http://info2.catholic.or.kr/archives/upload/images/003016/명동_성당_20250528_134042.jpg" title="명동 주교좌성당 전경." alt="명동 주교좌성당 전경." style="vertical-align: baseline;"></p>
+<div style="text-align: center;"><font size="2"><span style="font-size: 11pt;"><br></span></font></div>
+<div style="text-align: center;"><font size="2"><span style="font-size: 11pt;"><br></span></font><span style="color: rgb(128, 128, 0);"><span style="font-size: 12pt;"><span style="font-size: 11pt;"><span style="font-weight: bold; color: rgb(27, 116, 0); font-size: 11pt;">한국 천주교회 창립 터 - 수표교 인근</span></span></span></span></div>
+<div align="justify"><br>
+<img src="http://info2.catholic.or.kr/archives/upload/images/003016/수표교_창립터표석_SH105796.jpg" title="청계천변 삼일교와 수표교 사이 인도에 세워진 한국 천주교회 창립 터 기념표석." alt="청계천변 삼일교와 수표교 사이 인도에 세워진 한국 천주교회 창립 터 기념표석." style="float: left;"><span style="font-size: 11pt;">한국 천주교회는 중국 북경에서 조선인으로서는 최초로 세례성사를 받고 돌아온 이승훈(베드로, 1756-1801년)이 1784년 겨울, 수표교(水標橋) 인근 이벽(세례자 요한, 1754-1785년)의 집에서 이벽과 권일신(프란치스코 하비에르), 정약용(사도 요한) 등에게 세례식을 베풀면서 시작되었다. 이로써 평신도에 의한 자발적인 최초의 신앙공동체가 형성되었다. </span><br>
+<br>
+<span style="font-size: 11pt;">서울대교구 순교자현양위원회는 한국 천주교회의 역사적 시작 장소를 기념하기 위해 서울시의 협조를 얻어 2011년 8월 28일 현 서울시 종로구 청계천로 105 건물 앞 삼일교와 수표교 사이 청계천변 인도에 기념표석을 건립하였다. 1784년 당시 이벽의 집이 서울 수표교, 현재의 서울시 중구 수표동 43번지와 종로구 관수동 152번지 사이에 위치해 있었다는 정약용의 &ldquo;여유당전서&rdquo;(與猶堂全書)의 기록에 근거해 그 근처에 기념표석을 건립한 것이다.</span><br>
+<br>
+<img src="http://info2.catholic.or.kr/archives/upload/images/003016/수표교_창립터표석_주변_SH105793.jpg" title="청계천 오른쪽 붉은 벽돌 건물 아래 인도에 한국 천주교회 창립 터 기념표석이 설치되었다." alt="청계천 오른쪽 붉은 벽돌 건물 아래 인도에 한국 천주교회 창립 터 기념표석이 설치되었다." style="float: right;"><span style="font-size: 11pt;">기념표석은 가로 98㎝, 세로 75㎝, 높이 20㎝ 기단석에 가로 75㎝, 세로 75㎝, 높이 76㎝의 화강석 빗돌을 올리고 오석을 붙여 한국 천주교회 창립 터라는 사실을 밝혀놓았다. 기념표석에는 &ldquo;1784(정조 8)년 겨울, 수표교 부근 이벽(李蘗, 1754-1785)의 집이던 이곳이 세례식이 최초로 거행되어 한국 천주교회가 창립된 터이다.&rdquo;라는 내용이 담겼다.</span><br>
+<br>
+<span style="font-size: 11pt;">기념표석 근처에 있는 수표교는 청계천 복원 사업 당시 새로 놓은 다리여서 옛 수표교와는 역사적 관련이 없다. 1441년(세종 23년)에 설치되어 1749년(영조 25년) 지금의 모습을 갖추게 된 원래의 수표교는 청계천 수위를 재던 다리이다. 서울대교구 순교자현양위원회는 2011년 9월 26일 정진석 추기경의 주례로 &lsquo;한국 천주교회 창립 터&rsquo; 기념표석 축복식을 거행하였다. [출처 : 관련 신문기사를 중심으로 편집(최종수정 2013년 6월 7일)]</span><br>
+<br>
+<br></div>
+<div align="center"><span style="font-weight: bold; color: rgb(27, 116, 0); font-size: 11pt;">명례방 공동체와 명동 대성당</span></div>
+<div align="justify"><span style="font-size: 11pt;">&nbsp;</span></div><img src="http://info2.catholic.or.kr/archives/upload/images/003016/명동_성당_성모상_20200319_140431.jpg" title="명동 성당 축성 50주년 기념으로 설치한 원죄 없이 잉태되신 복되신 동정 마리아상." alt="명동 성당 축성 50주년 기념으로 설치한 원죄 없이 잉태되신 복되신 동정 마리아상." style="float: left;">
+<div align="justify"><span style="font-size: 11pt;">100년 전인 1898년 5월 29일. 서울 남부 명례방(지금의 명동) 언덕 위에 세워진 명동 대성당(사적 제 258호)이 축성된 날이다. 당시 대성당의 건립은 지난 1세기 동안 박해를 받아 온 한국 천주교가 완전히 신앙의 자유를 얻게 되었다는 의미로 받아들여졌다. 뿐만 아니라 '뾰족집'의 상징인 종탑은 이후 신자들뿐만 아니라 모든 한국인들에게 평화의 의미로 이해되어 왔으며, 근래에 들어서는 민주화의 요람이요 억압받는 민중들이 해탈을 염원하는 장소로 여겨져 왔다. </span><br>
+<span style="font-size: 11pt;">&nbsp; </span><br>
+<span style="font-size: 11pt;">바로 이곳의 복음사는 200여 년 전에 형성된 신앙 공동체로부터 시작된다. 1784년 봄 이승훈(베드로)이 북경에서 세례를 받고 돌아온 그 해 겨울, 수표교 인근에 있던 이벽(세례자 요한)의 집에서 형성된 신앙 공동체가 곧 명례방으로 이전되었기 때문이다. 지금의 대성당 서쪽에 자리잡고 있던 명례방 마을에는 당시 김범우(토마스)가 살고 있었는데, 그는 이벽의 집이 비좁아 집회 장소로 적당하지 않자 자신의 집을 집회 장소로 제공하였다. </span><br>
+<span style="font-size: 11pt;">&nbsp; </span><br>
+<span style="font-size: 11pt;">이와 같이 1784년 늦게 형성된 '명례방 공동체'는 이듬해 봄까지 유지되었으나, 형조의 아전들에게 공동체의 집회가 발각됨으로써 김범우가 충청도 단양으로 유배를 당하는 수난을 겪게 되었다. 바로 이것이 을사년(1785)의 사건으로, 갓 태어난 한국 천주교회가 얻은 최초의 시련이었다. 명례방 공동체는 이렇게 하여 와해되고 말았다. 이어 김범우는 유배된 지 얼마 안되어 형벌로 인한 상처가 덧나 배소에서 사망하고 말았다. "밀알 하나가 땅에 떨어져 썩지 않으면 한 알 그대로 남아있고, 죽으면 많은 열매를 맺는다. 누구든지 자기 목숨을 아끼는 사람은 잃을 것이며, 이 세상에서 자기 목숨을 미워하는 사람은 목숨을 보존하며 영원히 살게 될 것이다."(요한 12,24-25).&nbsp;</span><br>
+<span style="font-size: 11pt;">&nbsp;</span><br>
+<img src="http://info2.catholic.or.kr/archives/upload/images/003016/명동성당_IMG_2843.jpg" title="성당 뒤편 모습으로 제대와 제의방이 자리하고 있다." alt="성당 뒤편 모습으로 제대와 제의방이 자리하고 있다." style="float: right;"><span style="font-size: 11pt;">김범우의 죽음은 앞으로 한국 교회가 얻게 될 수많은 혈세(血洗) 곧 '피의 세례'를 예견해 주는 것이기도 하였다. 실제로 한국 교회의 주춧돌이 순교자들의 피로 이루어진 것이라면, 가장 아래에 있는 주춧돌은 바로 김범우와 같은 초기 희생자들이었다. </span><br>
+<span style="font-size: 11pt;">&nbsp; </span><br>
+<span style="font-size: 11pt;">을사년 사건 이후 명례방 공동체의 역사는 오랫동안 한국 교회사에서 잊혀지게 되었다. 박해가 계속되는 동안 어느 기록에서도 명례방이란 이름 석 자는 찾아볼 수 없었다. 그렇지만 하느님의 섭리는 결코 그것을 영원한 역사의 단절로 남겨 두지 않았으니, 박해가 끝나 갈 무렵인 1882년부터 이곳은 한국 천주교회의 중심지로 다시 터전을 잡게 되었다. 당시 한국 교회를 책임지고 입국한 제 7대 조선교구장 블랑(Blanc, 白) 주교는 명례방 언덕에 대성당의 터전을 마련하고자 1882년부터 일대의 부지를 매입하는 한편 그 중 한 한옥에 종현 학당(鐘峴學堂)을 설립하고 신학생들을 모아 기초 학문을 가르쳤다. </span><br>
+<span style="font-size: 11pt;">&nbsp; </span><br>
+<span style="font-size: 11pt;">블랑 주교는 이때부터 20여 차례에 걸쳐 부지를 매입하였다. 조선 정부의 방해, 일본인과 개신교인들의 질투도 이를 막지는 못하였다. 1887년 겨울에 부지 정지 작업이 시작되면서 신자들은 차츰 신앙의 자유를 찾았음을 깨닫게 되었다. 이어 1892년 5월 8일에 제 8대 조선교구장 뮈텔(Mutel, 閔) 주교는 대성당 정초식을 거행하는 기쁨을 맞이하였고, 1898년 5월에 마침내 한국 교회는 40m가 넘는 종탑을 갖춘 길이 65m의 고딕식 건물을 갖게 되었다. </span><br>
+<span style="font-size: 11pt;">&nbsp; </span><br>
+<img src="http://info2.catholic.or.kr/archives/upload/images/003016/명동성당_외부_20180404_144123.jpg" title="명동 주교좌성당 옆모습." alt="명동 주교좌성당 옆모습." style="float: left;"><span style="font-size: 11pt;">1900년 9월 5일에는, 1899년에 왜고개(瓦峴, 현 용산 군종 교구청 인근)에서 발굴되어 용산 예수 성심 신학교에 안치되어 있던 베르뇌(Berneux, 張) 주교 등 7명의 순교자 유해와, 1882년에 남포 서들골(현 충남 보령군 미산면 평라리의 서짓골)에서 발굴되어 일본으로 보내졌다가 1894년에 용산 신학교로 옮겨진 성 다블뤼(Daveluy, 安) 주교 등 4명의 순교자 유해를 대성당 지하 묘지로 옮겨 안치하였다. 이어 1901년 11월 2일에는 삼성산(三聖山, 현 관악구 신림동 소재)에서 용산 신학교로 옮겨져 안치되어 있던 성 앵베르(Imbert, 范) 주교 등 3명의 유해를 지하 묘지로 옮겼으며, 1909년 5월 28일에는 남종삼(요한)과 최형(베드로)의 시신을 왜고개에서 발굴하여 지하 묘지로 옮겨 안치하였다.</span></div>
+<div align="justify"><span style="font-size: 11pt;">&nbsp;</span></div>
+<div align="justify"><span style="font-size: 11pt;">이들 중 훗날 복자, 성인품에 오른 이들의 유해는 1967년에 절두산 순교 기념관으로 다시 옮겨지게 되었다. 그렇지만 대성당 지하 묘지는 성인들의 유해가 안치되었던 성스러운 곳이다. 또 지금까지 지하 묘지에 안치되어 있는 1866년 병인박해(丙寅迫害)의 순교자 푸르티에(Pourthie, 申) 신부, 프티니콜라(Petitnicolas, 朴) 신부의 유해가 순례객들을 맞이하고 있다. [출처 : 차기진, 사목, 1999년 3월호]</span></div>
+<div align="justify"><span style="font-size: 11pt;"><br></span></div>
+<div align="justify"><img src="http://info2.catholic.or.kr/archives/upload/images/003016/명동_성당_성모동산_20200319_140613.jpg" title="성당 뒤편 성모동산 전경. 왼쪽으로 교구청 별관이 보인다." alt="성당 뒤편 성모동산 전경. 왼쪽으로 교구청 별관이 보인다." style="vertical-align: baseline;"></div></span>
+        </div>
+        <!--// 성당소개 내용 -->		
+        <br>
+    
+		<TABLE class="color_gray4" cellSpacing="1" cellPadding="0" border="0" style="padding-top:70px;">
+						
+			<TR>
+							
+				<TD class="content_input2" colspan="3" align="center" >
+                    <strong><span style="FONT-SIZE: 13pt; COLOR: #1b7400; text-align:left; font-weight:bold;">_______________________________________ 모바일용 요약 설명 _______________________________________</span></strong>
+					<table width="500px" cellpadding="0" cellspacing="0" border="0">
+					<tr style="font-size: 14px;">
+						<!--<td id="container" height="120" valign="top" style="padding:10px"><div id="DocContent" class="Gulim" style="font-size:9pt;width:628px;overflow:auto"></div></td>-->
+						<td id="" height="120" valign="top" style="padding:20px; LINE-HEIGHT: 2em; text-align: justify;"><div id="DocContent" class="Gulim" style="font-size:11pt;width:100%;overflow:visible">명동 대성당은 서울대교구 주교좌성당이며 우리나라 최초의 본당이자 한국교회의 상징으로 1784년 이곳 명례방에서 최초의 신앙 공동체가 성립되었습니다. 그 후 1882년 한미 수호조약이 체결된 다음 블랑 백 주교가 종현의 땅을 부분적으로 매입하여 성당건립을 시도하던 중 신자수의 증가로 1892년 약현(현 중림동약현) 성당을 분가하고 코스트 신부가 성당 설계에 착수했습니다. 1896년 건립 도중 코스트 신부가 선종한 후 후임인 프와넬 신부가 성당 건축을 마무리하여 1898년 5월 29일 축성식을 갖고 한국교회의 주보인 원죄 없으신 성모 마리아께 성당을 봉헌했습니다.<br><br>
+1900년 병인박해 순교자들의 유해를, 1901년 기해박해 순교자들의 유해를 용산 신학교로부터 받아 지하성당에 모셨고, 1909년에는 왜고개에 매장되어 있던 순교자들의 유해를 지하성당에 안치했습니다. 1927년 백동(현 혜화동) 성당을 분가하고, 1939년 문화관을 신축하였으며, 1945년 광복을 맞아 성당명을 종현 성당에서 명동 성당으로 변경하였습니다. 기공 후 12년 만에 완공된 명동 대성당은 순수한 고딕 양식 건물로 그 문화적 가치를 높이 평가받아 사적 제258호로 지정되었습니다. 2009년 초 6년여의 대대적인 보수공사를 마무리한 명동 대성당은 2010년 성당 보존과 시민에게 열린 광장 조성 및 사목 지원공간 확보를 위한 명동성당 종합계획을 발표하고 2011년 9월 1단계 기공식을 가졌습니다. 3년의 공사 끝에 1단계를 마무리하며 2014년 9월 교구청 신청사 축복식을 거행했습니다.</div></td>
+					</tr>
+					</table>
+				</td>
+			</TR>
+			
+		</TABLE>	
+        
+            <TABLE class="register05"  ID="Table1">
+            
+                <tr>
+                    <th width="900" height="30" colspan=4 align="center" bgcolor=#f5f5f5 style='padding-left:15px;'><!--img src="image/icon2.gif" border="0" align="absmiddle"--> <span style="font-size:14pt;" ><b>미사시간 안내</b></span></th>
+                </tr>			
+        
+
+		<caption>미사시간 안내</caption>
+			<colgroup>
+				<col style="width:20%;" >
+				<col style="width:10%;" >
+				<col style="width:15%;" >
+				<col style="width:55%;" >				
+			</colgroup>
+			
+
+                <tr height="20">
+                    <td width= "18%" align="center" style="font-size:12pt" bgcolor=#f5f5f5>미사구분</td>
+                    <td width= "15%" align="center" style="font-size:12pt" bgcolor=#f5f5f5>요일</td>
+                    <td width= "15%" align="center" style="font-size:12pt" bgcolor=#f5f5f5>시간</td>
+                    <td width= "52%" align="left" style="font-size:12pt" bgcolor=#f5f5f5>기타사항</td>
+                </tr>	
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt" rowspan=10>주일미사</td>
+                            
+                            <td align="center" style="font-size:12pt" rowspan=10>일</td>
+                            
+                            <td align="center" style="font-size:12pt">07:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">09:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;English Mass(at the main altar of cathedral)</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">10:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;(아미쿠스 주일학교와 함께하는 미사)</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">11:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">12:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;교중미사</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">16:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">17:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">18:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">19:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;청년미사</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">21:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt" rowspan=23>평일미사</td>
+                            
+                            <td align="center" style="font-size:12pt" rowspan=3>월</td>
+                            
+                            <td align="center" style="font-size:12pt">07:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">10:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;성지미사(지하성당)</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">18:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt" rowspan=4>화</td>
+                            
+                            <td align="center" style="font-size:12pt">07:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">10:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;성지미사(지하성당)</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">18:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">19:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt" rowspan=4>수</td>
+                            
+                            <td align="center" style="font-size:12pt">07:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">10:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;성지미사(지하성당)</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">18:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">19:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt" rowspan=4>목</td>
+                            
+                            <td align="center" style="font-size:12pt">07:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">10:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;성지미사(지하성당)</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">18:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">19:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt" rowspan=4>금</td>
+                            
+                            <td align="center" style="font-size:12pt">07:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">10:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;성지미사(지하성당)</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">18:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">19:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt" rowspan=4>토</td>
+                            
+                            <td align="center" style="font-size:12pt">07:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">10:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;성지미사</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">18:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;주일미사</td>					
+                        </TR>
+                
+                        <TR height="25">
+                            
+                            <td align="center" style="font-size:12pt">19:00</td>					
+                            <td align="left" style="font-size:12pt">&nbsp;주일미사</td>					
+                        </TR>
+                
+            </table>	
+            <br><span style="font-size:12pt">* 미사시간이 변동될 수 있으니 성지나 관련기관으로 전화 확인하시기 바랍니다.</span>
+        
+    
+    <form name="frmDelete" method="post" action="filedelete.asp" target="frmASP">				
+        <input type="hidden" name="fno">	<!-- 파일 업로드시 필요 -->
+        <input type="hidden" name="ctxtOrgNum" value="2289">
+        <input type="hidden" name="filenm">
+    </form>
+    
+    
+<div>	
+	<!--<a href="javascript:void(0);" class="btn_a1" onclick="goBack()" style="float:right;margin:10px 4px 0 0;">목록으로</a>-->
+	<a href="#" class="btn_a1" style="float:right;margin:10px 4px 0 0;">위로</a>
+</div>
+
+<script type="text/javascript">
+	function goBack () {
+		if ("holyplace" == "holyplace"){
+			window.location = "list.asp?menugubun=holyplace&ctxtOrgCode=&Orggubun=&curpage=&PSIZE=";
+		}else{
+			window.location = "list.asp?menugubun=holyplace&Orggubun=&curpage=&PSIZE=";
+		}
+	}
+</script>
+            <!--// contents -->
+        
+        </div>
+        <!--// content -->
+    </div>
+    <!--// container -->
+    
+    <!-- Quick -->
+<script>
+function goMyGyoguJubo(user_id, gyoguCode) {
+	if ( user_id=="" ) {
+		window.location = 'https://www.catholic.or.kr/oauth/login.asp?redirect_url=http://maria.catholic.or.kr%2Fsa%5Fho%2Flist%2Fview%2Easp%3Fmenugubun%3Dholyplace%26ctxtOrgNum%3D2289'; 
+		return false;
+	}
+	
+	if ( gyoguCode=="" ) {
+		alert("등록된 교구 정보가 없습니다.\n개인정보수정 페이지에서 교구/본당을 등록해주세요.");
+	} else {
+		location.href="/jubo/my_gyogu_jubo.asp?gyoguCode="+gyoguCode;
+	}
+	
+}
+function biblestart(){		
+	window.open("http://ebible.catholic.or.kr/html/ebible.asp","GoodNewseBible","width=1024,height=768,scrollbars=yes,resizable=yes,top=0,left=0");	
+	return;
+}
+function returnlogin(){
+	location.href="https://www.catholic.or.kr/oauth/login.asp?redirect_url=http://info.catholic.or.kr/bible/taja";
+}
+</script>
+<ul class="quick">
+    <li><img src="/common/images/comm/ico_quick.gif" alt="quick" /></li>
+
+    <li><a href="https://maria.catholic.or.kr/bible/ebible/ebible.asp?mn=2" class="type6">성경쓰기</a></li>
+    <li><a href="http://maria.catholic.or.kr/mi_pr/" target="_self" class="type7">미사/기도서</a></li>
+    <li><a href="http://maria.catholic.or.kr/bible/bbs/bbs_view.asp?num=1&id=1915897&ref=4688&menu=ebible_bbs2" target="_self" class="type5">글자크기</br>조절</a></li>
+    <li><a href="/bible/share/share_list.asp">말씀나누기</a></li>
+    <li><a href="/bible/bmk/my_bible_bmk.asp" class="type2">성경책갈피</a></li>
+    <li><a href="#none" onclick="goMyGyoguJubo('', ''); return false;" class="type3">내 교구<br />주보보기</a></li>
+    
+</ul>
+    <!--// Quick -->
+    
+    <!-- footer -->
+<div id="footer">
+    <div class="inner">
+        <ul class="foot_info">
+            <li><a href="http://rule.catholic.or.kr" target="_blank">이용약관</a></li>
+            <li><a href="http://rule.catholic.or.kr/privacy.asp" target="_blank">개인정보취급방침</a></li>
+            <li>
+			<!--<a href="http://mail.catholic.or.kr/pageLinker.ds?act=frame&mode=messenger&linkPage=mailWrite&subject=&to=goodnews%40catholic.or.kr">운영자에게 메일보내기
+			</a>-->
+			<a href="javascript:void(0);" >goodnews@catholic.or.kr</a>
+			</li>					
+			<li class="last"><a href="http://aos.catholic.or.kr/">천주교 서울대교구</a></li>
+        </ul>
+        <div class="address">
+            천주교 서울대교구 ⓒ GoodNews
+        </div>
+    </div>
+</div>
+
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52J53FG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9XRQ36L1YE"></script>
+-->
+
+
+<script>
+ // window.dataLayer = window.dataLayer || [];
+ // function gtag(){dataLayer.push(arguments);}
+ // gtag('js', new Date());
+ // gtag('config', 'G-9XRQ36L1YE');
+</script>
+
+
+<!-- Google tag (gtag.js) -->
+
+
+
+    <!-- //footer -->
+
+</div>
+
+	<div id="getsend" style="visibility: hidden;"></div>
+	<iframe src="about:" height="0" width="0" name="filedownsend" style="    border: 0px;    height: 0px;    width: 0px;    display: none;"></iframe>
+    <iframe name="frmASP" style="DISPLAY:none"></iframe>
+</body>
+</html>
+<script>
+$(document).ready(function(e) {
+	var window_title = '서울대교구>명동 주교좌성당 - ';
+	document.title = window_title + ' 가톨릭정보 - 가톨릭굿뉴스';
+});
+</script>
+
+

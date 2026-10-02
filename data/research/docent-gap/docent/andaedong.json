@@ -1,0 +1,80 @@
+{
+  "siteId": "600a2181-37f3-49d1-a775-f310d78b6e10",
+  "siteName": "안대동 성당지",
+  "slug": "andaedong",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "익산시 안대동, 옛 안대동 성당 터에 오셨습니다. 김대건 신부 일행이 나바위로 들어오고 블랑 신부가 머물고 죠스 신부가 선종한 함열·용안·임피 땅에, 1910년 10월 19일 나바위본당의 베르모렐 신부가 익산과 임피 신자들을 위해 세운 본당입니다. 여덟 칸 초가로 시작해 1922년 새 성당과 사제관, 교우 사랑채를 지었고, 1959년 본당이 함열로 옮겨 가며 공소가 되었습니다. 2020년 익산시 향토유적이 되어 기도와 문화 공간으로 다시 꾸며졌습니다. 오늘은 성당 터에서 시작해 이 지역의 교회사, 1910년의 설립, 1922년의 건물들, 그리고 공소가 된 뒤 되살아난 오늘까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to the site of the old Andae-dong church in Andae-dong, Iksan. In the country of Hamyeol, Yongan, and Impi, where Father Andrew Kim Taegon's party landed at Nabawi, Father Blanc stayed, and Father Josse died, Father Vermorel of Nabawi parish founded this parish on October 19, 1910, for the believers of Iksan and Impi. It began in a thatched house of eight bays, built a new church, rectory, and guest hall in 1922, and became a mission station when the parish moved to Hamyeol in 1959. Designated a local heritage site of Iksan in 2020, it has been refurbished as a place of prayer and culture. Today we will begin at the church site, then look at the church history of this district, the founding of 1910, the buildings of 1922, and the station's revival in our own day.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "성당, 사제관, 사랑채, 구호물자 창고 — 익산시 향토유적 제23호",
+      "titleEn": "Church, Rectory, Guest Hall, Relief Warehouse — Iksan Local Heritage No. 23",
+      "location": "성당 터 입구",
+      "locationEn": "At the entrance to the church site",
+      "narration": "안대동 성당지는 2020년 익산시 향토유적 제23호로 지정되었습니다. 이곳에는 성당과 사제관, 교우들의 사랑채, 구호물자 창고 등이 남아 있고, 익산시의 도움으로 기도와 문화 공간으로 재정비되었습니다.",
+      "narrationEn": "The Andae-dong church site was designated Iksan Local Heritage No. 23 in 2020. The church, the rectory, the guest hall for the faithful, and a relief-supply warehouse survive here, and with the help of the city of Iksan the site has been refurbished as a space for prayer and culture.",
+      "lookFor": "성당과 사제관, 교우 사랑채, 구호물자 창고",
+      "lookForEn": "The church, rectory, guest hall, and relief-supply warehouse",
+      "forEveryone": "전쟁 뒤 구호물자를 나누던 창고까지 그대로 남아 있습니다.",
+      "forEveryoneEn": "Even the warehouse where relief supplies were handed out after the war still stands.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '안대동성당' https://www.jcatholic.or.kr/theme/main/pages/terrasanta21.php (사본 _pages/andaedong/jcatholic.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "나바위 입국, 석매리의 블랑 신부, 동지산의 죠스 신부",
+      "titleEn": "The Landing at Nabawi, Father Blanc at Seongmae-ri, Father Josse at Dongjisan",
+      "location": "성당 터",
+      "locationEn": "The church site",
+      "narration": "함열과 용안, 임피 지역에는 일찍이 박해를 피해 이주한 신자들이 많이 살았고, 그래서 교회사와 관련된 중요한 일도 많았습니다. 1845년 김대건 신부 일행이 나바위를 통해 입국했고, 1878년부터 1880년까지 블랑 신부가 함열 석매리에 머물며 사목했으며, 1886년 1월에는 죠스 신부가 과로와 장티푸스로 이 근처 동지산에서 선종했습니다. 1894년 동학농민혁명 때는 보두네 신부와 비에모 신부가 서울로 피신하는 길에 용안 두동 공소에 잠시 머물렀고, 베르모렐 신부는 이곳에 거처를 마련해 나바위본당을 세웠습니다.",
+      "narrationEn": "Many believers who had fled persecution lived in the Hamyeol, Yongan, and Impi area, and so it saw many events important to church history. In 1845 Father Andrew Kim Taegon and his party entered the country by way of Nabawi; from 1878 to 1880 Father Blanc lived and ministered at Seongmae-ri in Hamyeol; and in January 1886 Father Josse died of overwork and typhoid at nearby Dongjisan. During the Donghak Peasant Revolution of 1894, Fathers Baudounet and Villemot stopped briefly at the Dudong station in Yongan on their flight to Seoul, and Father Vermorel settled here and founded Nabawi parish.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "한국인 첫 신부가 배로 들어온 땅이 이 성당의 배경입니다.",
+      "forEveryoneEn": "The land where Korea's first priest came ashore is the backdrop to this church.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '안대동성당' https://www.jcatholic.or.kr/theme/main/pages/terrasanta21.php (사본 _pages/andaedong/jcatholic.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "1910년 10월 19일 — 여덟 칸 초가에서 시작한 본당, 신자 1,088명",
+      "titleEn": "October 19, 1910 — A Parish Begun in an Eight-Bay Thatched House, 1,088 Believers",
+      "location": "성당 터",
+      "locationEn": "The church site",
+      "narration": "1910년 나바위본당의 베르모렐 신부는 익산과 임피 지역 신자들을 위해 본당을 새로 세울 계획을 세웠고, 그 결과 1910년 10월 19일 안대동본당이 설립되었습니다. 초대 주임은 서병익 신부였고 신자 수는 1,088명이었습니다. 당시 성당은 방 두 개와 사무실 하나로 된 여덟 칸 초가였습니다.",
+      "narrationEn": "In 1910 Father Vermorel of Nabawi parish planned a new parish for the believers of Iksan and Impi, and on October 19 that year Andae-dong parish was founded. Its first pastor was Father Seo Byeong-ik, and its believers numbered 1,088. The church at the time was a thatched house of eight bays with two rooms and an office.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "천 명 넘는 신자가 초가집 한 채를 성당으로 썼습니다.",
+      "forEveryoneEn": "More than a thousand believers used a single thatched house as their church.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '안대동성당' https://www.jcatholic.or.kr/theme/main/pages/terrasanta21.php (사본 _pages/andaedong/jcatholic.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "1922년의 새 성당과 사랑채, 1959년 함열로",
+      "titleEn": "The New Church and Guest Hall of 1922, and the Move to Hamyeol in 1959",
+      "location": "성당 앞",
+      "locationEn": "In front of the church",
+      "narration": "1922년 새 성당을 신축하고 사제관과 교우들의 사랑채를 지었습니다. 멀리서 오는 교우들이 묵어 갈 사랑채까지 갖춘 본당이었습니다. 그러나 1959년 본당이 함열로 옮겨 가면서 안대동은 공소가 되었고, 그 건물들이 지금까지 남아 2020년 향토유적으로 지정되었습니다.",
+      "narrationEn": "In 1922 a new church was built, together with a rectory and a guest hall where the faithful could stay. It was a parish equipped even with lodgings for believers coming from afar. But in 1959 the parish moved to Hamyeol and Andae-dong became a mission station, and the buildings that survived were designated local heritage in 2020.",
+      "lookFor": "1922년에 지은 교우 사랑채",
+      "lookForEn": "The guest hall for the faithful built in 1922",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '안대동성당' https://www.jcatholic.or.kr/theme/main/pages/terrasanta21.php (사본 _pages/andaedong/jcatholic.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "안대동 성당지 순례를 마치셨습니다. 이 본당을 세운 베르모렐 신부의 나바위 성지와, 본당이 옮겨 간 함열 성당을 이어 찾으시면 익산 교회의 처음과 지금을 함께 보실 수 있습니다.",
+    "narrationEn": "This concludes our visit to the Andae-dong church site. Continue to Nabawi Shrine, founded by Father Vermorel who established this parish, and to Hamyeol Church, where the parish moved, to see the beginnings and the present of the church in Iksan.",
+    "photos": []
+  }
+}

@@ -55,7 +55,7 @@
     { "part": "point3", "verdict": "일치" },
     { "part": "point4", "verdict": "일치" },
     { "part": "point5", "verdict": "일치" },
-    { "part": "point6", "verdict": "어긋남", "fix": "A place with a legend of a home borrowed from a tiger." },
+    { "part": "point6", "verdict": "일치" },
     { "part": "outro", "verdict": "일치" }
   ]
 }

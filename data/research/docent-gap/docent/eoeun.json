@@ -1,0 +1,80 @@
+{
+  "siteId": "be44e29e-5906-4ab4-a1e2-69ea6da51023",
+  "siteName": "어은 공소",
+  "slug": "eoeun",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "진안군 진안읍 죽산리, 어은 공소에 오셨습니다. 박해 시대부터 신자들이 살던 진안에 1900년 9월 22일 첫 본당이 세워진 곳으로, 초대 주임 김양홍 스테파노 신부가 교우 999명을 18개 공소로 나누어 돌보았습니다. 1909년 신자들이 백운면의 점판암을 서로 지어 나르고 손수 마루를 다듬어 완공한 돌너와 지붕의 목조 성당은 국가등록문화재 제28호입니다. 오늘은 돌너와 지붕에서 시작해 1900년의 본당 설립, 7칸에서 15칸으로 자란 성당, 1909년의 새 성전, 그리고 이명서 성인이 묻혔던 모시골까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to Eoeun Mission Station at Juksan-ri, Jinan-eup, Jinan. Here, in a district where believers had lived since the age of persecution, the first parish of Jinan was founded on September 22, 1900, and its first pastor, Father Stephen Kim Yang-hong, cared for 999 believers across eighteen stations. The wooden church with a stone-shingle roof, completed in 1909 after the faithful carried slate from Baegun-myeon on their own backs and planed the floorboards by hand, is Registered Cultural Heritage No. 28. Today we will begin at the stone-shingle roof, then look at the founding of 1900, the church that grew from seven bays to fifteen, the new church of 1909, and Mosigol, where St. Yi Myeong-seo once lay buried.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "백운면의 점판암을 얹은 돌너와 지붕 — 등록문화재 제28호",
+      "titleEn": "A Stone-Shingle Roof of Baegun Slate — Registered Cultural Heritage No. 28",
+      "location": "성당 정면",
+      "locationEn": "In front of the church",
+      "narration": "지금 보시는 성당은 1909년 3월에 완공된 돌너와 지붕의 목조 49평 성전입니다. 지붕에는 백운면에서 나오는 점판암을 얹었는데, 그때 교우들은 서로 큰 돌을 나르려고 경쟁까지 했다고 합니다. 바닥 마루도 신자들이 손수 자귀로 다듬어 만들었습니다. 이 성당 건물은 국가등록문화재 제28호로 지정되어 있습니다.",
+      "narrationEn": "The church before you is a wooden building of 49 pyeong with a stone-shingle roof, completed in March 1909. The roof is laid with slate from Baegun-myeon, and it is said that the faithful competed with one another to carry the biggest stones. The floorboards, too, were planed by hand with adzes by the believers themselves. The building is designated Registered Cultural Heritage No. 28.",
+      "lookFor": "점판암 돌너와를 얹은 지붕과 손으로 다듬은 마루",
+      "lookForEn": "The roof of slate shingles and the hand-planed wooden floor",
+      "forEveryone": "신자들이 큰 돌을 서로 지겠다고 다투며 지은 지붕입니다.",
+      "forEveryoneEn": "A roof built by believers who vied with each other to carry the heaviest stones.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '어은공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta16.php (사본 _pages/eoeun/jcatholic.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "1900년 9월 22일 — 진안의 첫 본당, 교우 999명",
+      "titleEn": "September 22, 1900 — Jinan's First Parish, 999 Believers",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "진안 지역에는 박해 시대부터 신자들이 살았지만 본당이 세워진 것은 1900년 9월 22일이었습니다. 초대 주임은 김양홍 스테파노 신부였습니다. 인계 당시 관할 공소는 열한 곳이었으나 교우들의 편의를 위해 열여덟 공소로 나누어 운영했고, 교우 수는 모두 999명이었으며 그 가운데 어은동에만 189명이 살았습니다.",
+      "narrationEn": "Believers had lived in the Jinan area since the age of persecution, but the parish was founded only on September 22, 1900, with Father Stephen Kim Yang-hong as its first pastor. At the handover there were eleven stations under its care, which for the convenience of the faithful were divided into eighteen; the believers numbered 999 in all, 189 of them in Eoeun-dong alone.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "한 명만 더 있었으면 1,000명이었던 신자 수가 기록에 남았습니다.",
+      "forEveryoneEn": "The records preserve a count of believers just one short of a thousand.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '어은공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta16.php (사본 _pages/eoeun/jcatholic.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "7칸에서 15칸으로 — 1901년과 1904년의 한옥 성당",
+      "titleEn": "From Seven Bays to Fifteen — The Hanok Churches of 1901 and 1904",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "1901년 김양홍 신부는 옛 공소를 수리하고 넓혀 목조 7칸의 성당을 마련했습니다. 교세가 점점 불어나자 1904년에는 15칸 크기의 한옥 성당을 새로 지었습니다. 1905년에는 성당에 십자가의 길 14처를 설치하고 뮈텔 주교의 지시로 여교우청을 따로 만들었으며, 이듬해 성당 입구 쪽에 남녀 교우청을 한 칸씩 더 지었습니다.",
+      "narrationEn": "In 1901 Father Kim Yang-hong repaired and enlarged the old station into a wooden church of seven bays. As the congregation grew, in 1904 he built a new hanok church of fifteen bays. In 1905 the fourteen Stations of the Cross were installed and, on Bishop Mutel's instruction, a separate hall for women was built, and the following year a hall each for men and women was added by the church entrance.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "남녀가 따로 모이던 시절이라 교우청도 둘로 지었습니다.",
+      "forEveryoneEn": "In an age when men and women gathered apart, two separate halls were built.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '어은공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta16.php (사본 _pages/eoeun/jcatholic.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "모시골 — 이명서 성인이 잠시 묻혔던 마을",
+      "titleEn": "Mosigol — The Village Where St. Yi Myeong-seo Lay for a Time",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "어은동에서 가까운 모시골은 소양 유상리에서 모셔 온 이명서 베드로 성인의 유해가 절두산으로 옮겨지기까지 묻혀 있던 곳입니다. 또 전주교구에 많은 기부를 한 이학수 회장이 살았던 마을이기도 합니다. 이명서 베드로는 1866년 12월 5일 조화서 베드로, 조윤호 요셉 부자 등과 함께 전주 근처 교우촌 성지동에서 체포된 순교 성인입니다.",
+      "narrationEn": "Mosigol, near Eoeun-dong, is where the remains of St. Peter Yi Myeong-seo, brought from Yusang-ri in Soyang, lay buried until they were moved to Jeoldusan. It is also the village where Yi Hak-su, a lay leader who gave generously to the Diocese of Jeonju, lived. Peter Yi Myeong-seo is a martyr saint who was arrested on December 5, 1866, at Seongjidong, a Catholic village near Jeonju, together with Peter Jo Hwa-seo and his son Joseph Jo Yun-ho.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '어은공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta16.php (사본 _pages/eoeun/jcatholic.txt); 굿뉴스 '서천교' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2358 (사본 _pages/seocheongyo/goodnews.txt — 1866-12-05 성지동 체포)"
+    }
+  ],
+  "outro": {
+    "narration": "어은 공소 순례를 마치셨습니다. 김양홍 신부가 함양 본당과 함께 세운 장수 수분 공소와, 이명서 성인이 순교한 전주 숲정이 성지를 이어 찾아보시기 바랍니다.",
+    "narrationEn": "This concludes our visit to Eoeun Mission Station. Continue to Subun station in Jangsu, which Father Kim Yang-hong built together with Hamyang parish, and to Supjeongi Shrine in Jeonju, where St. Yi Myeong-seo was martyred.",
+    "photos": []
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "siteId": "be26edf1-ce44-4e40-bd8d-36ca2297104c",
+  "siteName": "신성 공소",
+  "slug": "sinseong",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "정읍시 신성리, 신성 공소에 오셨습니다. 내장산 주위로 교우촌이 많았던 정읍 땅에 1903년 수류 본당의 남쪽을 떼어 세운 신성리 본당의 자리로, 황석두 성인과 프랑스 선교사들의 순교를 증언한 황 막달레나가 살던 마을입니다. 1914년 미알롱 신부가 지은 기와집 성당은 정읍 본당이 읍내로 옮겨 가며 팔렸고, 지금 남은 경당은 옛 사제관 건물입니다. 오늘은 옛 사제관 경당에서 시작해 정읍의 교우촌들, 1903년의 본당 설립, 1914년의 기와집 성당, 그리고 1931년 읍내 이전과 남은 흔적까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to Sinseong Mission Station at Sinseong-ri in Jeongeup. In a district dotted with Catholic villages around Mount Naejang, Sinseong-ri parish was founded here in 1903 from the southern part of Suryu parish, in the village where Magdalene Hwang, who testified to the martyrdom of St. Hwang Seok-du and the French missionaries, once lived. The tiled church Father Mialon built in 1914 was sold when the parish moved into Jeongeup town, and the chapel that remains today is the old rectory. We will begin at that chapel, then look at the villages of Jeongeup, the founding of 1903, the tiled church of 1914, and the move to town in 1931 and what was left behind.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "옛 사제관이 된 경당 — 문화재자료 제180호",
+      "titleEn": "A Chapel in the Old Rectory — Cultural Heritage Material No. 180",
+      "location": "경당 앞",
+      "locationEn": "In front of the chapel",
+      "narration": "지금 보시는 경당은 옛 사제관 건물입니다. 신성리 성당은 초창기 한옥 형태의 성당 건축으로 가치를 인정받아 2002년 문화재자료 제180호로 지정되었습니다. 공소와 회합실 외에도 옛 성당 터의 주춧돌과 식료품을 보관하던 지하 창고 등이 남아 있습니다.",
+      "narrationEn": "The chapel before you is the old rectory building. Sinseong-ri church was recognized for its value as an early hanok-style church and designated Cultural Heritage Material No. 180 in 2002. Besides the station and the meeting hall, the foundation stones of the old church and an underground storehouse once used for food still survive.",
+      "lookFor": "옛 성당 터의 주춧돌과 지하 식료품 창고",
+      "lookForEn": "The foundation stones of the old church and the underground food store",
+      "forEveryone": "성당은 사라지고 신부가 살던 집이 기도하는 곳이 되었습니다.",
+      "forEveryoneEn": "The church is gone, and the priest's house has become the place of prayer.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '신성공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta20.php (사본 _pages/sinseong/jcatholic.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "내장산 둘레의 교우촌 — 황 막달레나와 조화서 성인의 후손",
+      "titleEn": "Villages around Mount Naejang — Magdalene Hwang and the Descendants of St. Jo Hwa-seo",
+      "location": "경당 앞",
+      "locationEn": "In front of the chapel",
+      "narration": "정읍 지역에는 내장산 주위로 많은 교우촌이 있었고, 선교사들이 훌륭하다고 칭찬한 공소도 여럿 있었습니다. 이곳 신성리에는 황석두 성인과 기해박해 때 순교한 프랑스 선교사들의 순교 사실을 증언한 황 막달레나가 살고 있었고, 등천 공소에는 조화서 성인의 후손들도 살고 있었습니다.",
+      "narrationEn": "The Jeongeup area had many Catholic villages around Mount Naejang, and several stations that missionaries praised as outstanding. Here at Sinseong-ri lived Magdalene Hwang, who testified to the martyrdom of St. Hwang Seok-du and of the French missionaries killed in the Gihae Persecution, and at the Deungcheon station lived descendants of St. Jo Hwa-seo.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "순교를 직접 증언한 여인이 살던 마을입니다.",
+      "forEveryoneEn": "The village of a woman who gave eyewitness testimony to martyrdom.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '신성공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta20.php (사본 _pages/sinseong/jcatholic.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "1903년 6월 — 수류 본당 남쪽을 떼어 세운 신성리 본당",
+      "titleEn": "June 1903 — Sinseong-ri Parish, Carved from the South of Suryu",
+      "location": "경당 앞",
+      "locationEn": "In front of the chapel",
+      "narration": "1903년 6월 수류 본당의 남쪽을 분리해 신성리 본당이 세워졌고, 초대 주임으로 김승연 아우구스티노 신부가 부임했습니다. 1907년 제2대 주임으로 부임한 미알롱 신부는 1909년 봄 성당 신축 공사를 시작해 8칸의 기와집 성당과 4칸의 사제관, 6칸의 회합실을 짓고 돌로 담을 쌓아 1914년에 완공했습니다. 드망즈 주교가 성 알로이시오를 주보로 성당을 축성했습니다.",
+      "narrationEn": "In June 1903 Sinseong-ri parish was established by separating the southern part of Suryu parish, with Father Augustine Kim Seung-yeon as its first pastor. Father Mialon, who arrived as second pastor in 1907, began building in the spring of 1909 and by 1914 had completed a tiled church of eight bays, a rectory of four bays, and a meeting hall of six, enclosed by a stone wall. Bishop Demange consecrated the church with St. Aloysius as its patron.",
+      "lookFor": "미알롱 신부가 쌓은 돌담",
+      "lookForEn": "The stone wall built in Father Mialon's time",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '신성공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta20.php (사본 _pages/sinseong/jcatholic.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "1931년 — 읍내로 옮겨 간 본당, 팔려 나간 성당",
+      "titleEn": "1931 — The Parish Moves to Town, and the Church Is Sold",
+      "location": "옛 성당 터",
+      "locationEn": "The site of the old church",
+      "narration": "1931년 1월에 부임한 제4대 고군삼 신부는 정읍 읍내 중심지 명덕동에 성당 부지를 마련해 본당을 옮기고 정읍본당으로 이름을 바꾸었습니다. 이때 신성리 본당의 성당 건물은 팔아서 정읍본당을 짓는 비용으로 썼습니다. 그래서 이곳에는 성당 대신 옛 사제관이 경당으로 남게 되었습니다.",
+      "narrationEn": "Father Go Gun-sam, who arrived as fourth pastor in January 1931, secured land at Myeongdeok-dong in the center of Jeongeup town, moved the parish there, and renamed it Jeongeup parish. The church building at Sinseong-ri was sold to pay for the construction of the new church in town. That is why the old rectory, rather than a church, remains here as a chapel.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "시골 성당을 팔아 읍내 성당을 지은 사연이 이 터에 남았습니다.",
+      "forEveryoneEn": "This site holds the story of a country church sold to build one in town.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '신성공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta20.php (사본 _pages/sinseong/jcatholic.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "신성 공소 순례를 마치셨습니다. 이 본당이 갈라져 나온 김제 금산의 수류 성당을 이어 찾으시면 전북 서남부 교회의 뿌리를 함께 보실 수 있습니다.",
+    "narrationEn": "This concludes our visit to Sinseong Mission Station. Continue to Suryu Church at Geumsan in Gimje, the parish from which this one was carved, to see the roots of the church in southwestern Jeonbuk.",
+    "photos": []
+  }
+}

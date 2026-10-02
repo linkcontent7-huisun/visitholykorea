@@ -1,0 +1,80 @@
+{
+  "siteId": "dfade181-063e-4fa9-9b24-9cc1c1e9cadd",
+  "siteName": "김제 순교 성지",
+  "slug": "gimje-sungyo",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "김제시 요촌성당 안에 자리한 김제 순교 성지에 오셨습니다. 1801년 신유박해 때 유항검의 집에서 자녀들을 가르치다 신앙을 받아들인 김제 양반 복자 한정흠 스타니슬라오가 서울에서 사형 선고를 받고 고향 김제로 보내져 참수된 곳입니다. 그가 가르친 유중철, 유문석, 유중성이 모두 신앙을 지켜 순교하고 복자가 되었으니, 스승의 신앙이 얼마나 깊었는지 알 수 있습니다. 오늘은 요촌성당 안의 성지에서 시작해 유항검 집의 스승, 전라 감영과 서울의 문초, '죽는 것이 사는 것이다'라는 말, 그리고 고향에서의 참수까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to the Gimje Martyrs' Shrine within Yochon Church in Gimje. Here Blessed Stanislaus Han Jeong-heum, a Gimje gentleman who came to the faith while teaching the children of Yu Hang-geom, was beheaded in 1801 during the Sinyu Persecution after being sentenced to death in Seoul and sent home to Gimje for execution. That his pupils Yu Jung-cheol, Yu Mun-seok, and Yu Jung-seong all kept the faith, died as martyrs, and were beatified shows how deep their teacher's faith must have been. Today we will begin at the shrine inside Yochon Church, then look at the tutor in Yu Hang-geom's house, the interrogations at the Jeolla governor's office and in Seoul, the words 'to die is to live,' and the beheading in his hometown.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "요촌성당 안의 순교 성지 — 신풍길 253-16",
+      "titleEn": "A Martyrs' Shrine inside Yochon Church — 253-16 Sinpung-gil",
+      "location": "요촌성당 안 성지",
+      "locationEn": "The shrine inside Yochon Church",
+      "narration": "김제 순교 성지는 김제시 신풍길 253-16, 요촌성당 안에 있습니다. 단체 순례객을 위한 미사도 드릴 수 있으며, 문의는 요촌성당으로 하면 됩니다. 1801년 이곳 김제에서 참수된 복자 한정흠 스타니슬라오를 기리는 자리입니다.",
+      "narrationEn": "The Gimje Martyrs' Shrine lies within Yochon Church at 253-16 Sinpung-gil in Gimje. Masses can be arranged for pilgrim groups, and inquiries go to Yochon parish. It honors Blessed Stanislaus Han Jeong-heum, beheaded here in Gimje in 1801.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "동네 성당 안에 순교 성지가 함께 있습니다.",
+      "forEveryoneEn": "A martyrs' shrine sits inside an ordinary parish church.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '김제순교성지' https://www.jcatholic.or.kr/theme/main/pages/terrasanta11.php (사본 _pages/gimje-sungyo/jcatholic-terrasanta11.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "유항검 집의 스승 — 제자 셋이 모두 복자가 되다",
+      "titleEn": "Tutor in Yu Hang-geom's House — Three Pupils Who All Became Blesseds",
+      "location": "성지 안",
+      "locationEn": "Inside the shrine",
+      "narration": "복자 한정흠 스타니슬라오는 1756년에 태어난 전라도 김제의 양반으로, 유항검의 집에서 자녀들의 스승으로 지내면서 천주교를 접했고 세례를 받은 뒤 열심히 신앙생활을 했습니다. 그의 가르침을 받은 유항검 아우구스티노의 아들 유중철 요한과 유문석 요한, 조카 유중성 마태오가 믿음을 충실히 지키며 순교해 다 같이 복자품에 오른 것을 보면, 한정흠이 누구보다 하느님께 충실했음을 알 수 있습니다.",
+      "narrationEn": "Blessed Stanislaus Han Jeong-heum, born in 1756, was a yangban of Gimje in Jeolla who encountered Catholicism while living in Yu Hang-geom's house as tutor to his children; after baptism he practiced the faith with zeal. That Yu Hang-geom's sons John Yu Jung-cheol and John Yu Mun-seok and his nephew Matthew Yu Jung-seong, all taught by Han, kept the faith faithfully, were martyred, and were beatified together shows how faithful to God Han Jeong-heum himself must have been.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "가정교사와 그가 가르친 세 아이가 모두 복자가 되었습니다.",
+      "forEveryoneEn": "A family tutor and the three children he taught all became Blesseds.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '김제순교성지' https://www.jcatholic.or.kr/theme/main/pages/terrasanta11.php (사본 _pages/gimje-sungyo/jcatholic-terrasanta11.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "전라 감영에서 서울 포도청과 형조로 — '죽는 것이 사는 것이다'",
+      "titleEn": "From the Jeolla Governor's Office to the Police Bureau and Board of Punishments in Seoul — 'To Die Is to Live'",
+      "location": "성지 안",
+      "locationEn": "Inside the shrine",
+      "narration": "1801년 신유박해 때 한정흠은 유항검과 함께 체포되어 전라 감영에서 혹독한 고문과 심문을 받았지만 어떤 형벌과 회유에도 마음이 흔들리지 않았습니다. 같은 감옥에 있던 최여겸 마티아, 김천애 안드레아와 서로 용기를 북돋웠다고 전해집니다. 그 뒤 한양으로 압송되어 포도청과 형조에서 문초를 받았지만 죽는 것이 사는 것이라고 말하며 목숨을 구걸하지 않았습니다.",
+      "narrationEn": "In the Sinyu Persecution of 1801 Han Jeong-heum was arrested with Yu Hang-geom and cruelly tortured and questioned at the Jeolla governor's office, but no punishment or persuasion could shake him. He is said to have encouraged and been encouraged by Matthias Choe Yeo-gyeom and Andrew Kim Cheon-ae, who were held in the same prison. Sent on to Seoul, he was interrogated at the Police Bureau and the Board of Punishments, yet he did not beg for his life, saying that to die was to live.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "'죽는 것이 사는 것'이라는 한마디가 이 순교자의 신앙을 요약합니다.",
+      "forEveryoneEn": "A single phrase, 'to die is to live,' sums up this martyr's faith.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '김제순교성지' https://www.jcatholic.or.kr/theme/main/pages/terrasanta11.php (사본 _pages/gimje-sungyo/jcatholic-terrasanta11.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "고향으로 보내져 — 1801년 음력 7월 18일의 참수",
+      "titleEn": "Sent Home to Die — Beheaded on the 18th Day of the Seventh Lunar Month, 1801",
+      "location": "성지 안",
+      "locationEn": "Inside the shrine",
+      "narration": "1801년 음력 7월 13일 한정흠과 최여겸, 김천애 세 사람은 천주교를 고집한다는 죄목으로 사형 선고를 받은 뒤 처형하도록 각자 고향으로 보내졌습니다. 고향 김제에 도착한 한정흠 스타니슬라오는 음력 7월 18일 45세의 나이로 참수되었습니다. 그의 가르침을 받은 유씨 집안의 세 젊은이도 같은 해 순교했습니다.",
+      "narrationEn": "On the 13th day of the seventh lunar month of 1801, Han Jeong-heum, Choe Yeo-gyeom, and Kim Cheon-ae were sentenced to death for persisting in the Catholic faith and sent each to his hometown for execution. Arriving in his native Gimje, Stanislaus Han Jeong-heum was beheaded on the 18th day of the seventh lunar month at the age of forty-five. The three young men of the Yu family whom he had taught were martyred in the same year.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "서울에서 받은 사형을 고향 사람들 앞에서 집행하게 한 것이 당시의 방식이었습니다.",
+      "forEveryoneEn": "A sentence passed in Seoul was carried out before the condemned man's own townspeople.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '김제순교성지' https://www.jcatholic.or.kr/theme/main/pages/terrasanta11.php (사본 _pages/gimje-sungyo/jcatholic-terrasanta11.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "김제 순교 성지 순례를 마치셨습니다. 한정흠이 자녀들을 가르치던 유항검의 집터인 완주 초남이 성지와, 그 제자들이 순교한 전주 숲정이 성지를 이어 찾아보시기 바랍니다.",
+    "narrationEn": "This concludes our visit to the Gimje Martyrs' Shrine. Continue to Chonamni Shrine in Wanju, the site of Yu Hang-geom's house where Han Jeong-heum taught the children, and to Supjeongi Shrine in Jeonju, where his pupils were martyred.",
+    "photos": []
+  }
+}

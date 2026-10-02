@@ -1,0 +1,95 @@
+{
+  "siteId": "6325d481-6f53-4246-b324-a64d18d3ae38",
+  "siteName": "수분 공소",
+  "slug": "subun",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "장수군 장수읍 수분리, 초기 한옥 성당 양식의 수분 공소에 오셨습니다. 최양업 신부가 1850년 무렵 찾아왔다는 기록이 남은 장수 산골은 병인박해 이후 신자들이 숨어들어 교우촌을 이룬 땅이고, 블랑 신부와 두세 신부가 두 해 여름을 숨어 지낸 상여덤굴도 가까이 있습니다. 1915년 함양과 진안 두 본당 사이에 사제가 쉬어 갈 공소로 지어져 1918년 드망즈 주교가 축복했고, 정면 3칸 측면 6칸의 한옥 성당은 2005년 국가 등록문화재가 되었습니다. 오늘은 성당 정면에서 시작해 장수의 옛 교우촌, 백주교굴, 두 신부가 세운 중간 쉼터, 본당에서 공소로, 그리고 2013년의 해체 보수까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to Subun Mission Station at Subun-ri, Jangsu-eup, Jangsu, a church in the early hanok style. The mountain country of Jangsu, where records say Father Thomas Choe Yang-eop visited around 1850, became a refuge for believers who formed Catholic villages after the Byeongin Persecution, and nearby is the Sangyeodeom cave where Fathers Blanc and Doucet hid for two summers. The station was built in 1915 as a resting place for priests midway between the parishes of Hamyang and Jinan, blessed by Bishop Demange in 1918, and its hanok church of three bays by six became a Registered Cultural Heritage of Korea in 2005. Today we will begin at the front of the church, then look at the old villages of Jangsu, the 'White Bishop's Cave,' the halfway house built by two priests, the passage from parish to station, and the dismantling and restoration of 2013.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "정면 3칸, 측면 6칸 — 등록문화재 제189호 한옥 성당",
+      "titleEn": "Three Bays by Six — The Hanok Church, Registered Cultural Heritage No. 189",
+      "location": "성당 정면",
+      "locationEn": "In front of the church",
+      "narration": "지금 보시는 수분리 성당 건물은 정면 3칸, 측면 6칸의 초기 한옥 성당 양식입니다. 전통 한옥 양식에 서양의 바실리카식 평면을 결합한 성당으로, 2005년 6월 18일 국가 등록문화재 제189호로 지정되었습니다. 2013년 4월 13일에는 건물을 해체해 보수한 뒤 축복식을 가졌습니다.",
+      "narrationEn": "The Subun-ri church building before you is in the early hanok church style, three bays across the front and six along the side. Combining the traditional Korean house with the Western basilica plan, it was designated Registered Cultural Heritage No. 189 on June 18, 2005. On April 13, 2013, after being dismantled and restored, it was blessed anew.",
+      "lookFor": "한옥 지붕 아래 길게 뻗은 바실리카식 평면",
+      "lookForEn": "The long basilica plan beneath a Korean tiled roof",
+      "forEveryone": "한옥 지붕에 서양 성당의 긴 평면을 넣은 100년 된 건물입니다.",
+      "forEveryoneEn": "A century-old building that fits a Western church's long floor plan under a Korean roof.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '수분공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta15.php (사본 _pages/subun/jcatholic.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "최양업 신부가 다녀간 장수 — 병인박해 뒤의 산골 교우촌",
+      "titleEn": "Jangsu, Visited by Father Choe Yang-eop — Mountain Villages after the Byeongin Persecution",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "장수 지역은 최양업 신부가 1850년 무렵 방문했다는 기록과, 병인박해 이전에 이미 수분리와 인근에 이춘경을 비롯한 여러 신자가 살고 있었다는 사실로 보아 오래전부터 교우촌이 이루어졌던 것으로 보입니다. 1866년 병인박해 뒤에는 많은 신자가 박해를 피해 장수 산골로 숨어들어 교우촌을 이루었습니다.",
+      "narrationEn": "Records that Father Choe Yang-eop visited the Jangsu area around 1850, and the fact that believers such as Yi Chun-gyeong were already living at Subun-ri and nearby before the Byeongin Persecution, suggest that Catholic villages had formed here long before. After the persecution of 1866 many believers fled into the mountains of Jangsu and built new villages of faith.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "전북 동쪽 끝 산골이 박해를 피한 사람들의 피난처였습니다.",
+      "forEveryoneEn": "The mountains at the eastern edge of Jeonbuk sheltered those fleeing persecution.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '수분공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta15.php (사본 _pages/subun/jcatholic.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "상여덤굴, 백주교굴 — 블랑·두세 신부의 두 해 여름",
+      "titleEn": "The Sangyeodeom Cave, the 'White Bishop's Cave' — Two Summers of Fathers Blanc and Doucet",
+      "location": "성당 마당",
+      "locationEn": "The church yard",
+      "narration": "1878년 리델 주교가 체포된 뒤 블랑 신부와 두세 신부는 박해를 피해 두 해 여름을 장수 큰골의 상여덤굴, 일명 백주교굴에서 숨어 지냈습니다. 그 기간 이곳에서는 신학생 교육도 이루어졌습니다. 뒷날 조선교구장이 된 블랑 주교의 이름을 따 백주교굴이라 불리는 까닭입니다.",
+      "narrationEn": "After Bishop Ridel was arrested in 1878, Fathers Blanc and Doucet hid for two summers from persecution in the Sangyeodeom cave at Keungol in Jangsu, also called the 'White Bishop's Cave.' During that time seminarians were taught here as well. The cave takes its nickname from Father Blanc, 'Baek' in Korean, who later became bishop of the Korean diocese.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "주교가 될 프랑스 신부가 동굴에서 신학생을 가르쳤습니다.",
+      "forEveryoneEn": "A French priest who would become a bishop taught seminarians in a cave.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '수분공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta15.php (사본 _pages/subun/jcatholic.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "함양과 진안 사이 — 1915년 두 신부가 세운 쉼터, 1918년 드망즈 주교의 축복",
+      "titleEn": "Between Hamyang and Jinan — A Rest House Built by Two Priests in 1915, Blessed by Bishop Demange in 1918",
+      "location": "성당 정면",
+      "locationEn": "In front of the church",
+      "narration": "1915년 경남 함양본당의 이상화 신부와 진안 어은동본당의 김양홍 신부는 인접 지역의 전교를 위해 두 본당의 중간 지점인 장수 수분리에 사제가 쉬어 갈 공소 강당과 침실을 지었습니다. 1918년 11월 8일 드망즈 주교의 집전으로 수분리 공소 축복식이 거행되었고, 주보는 성 스테파노였습니다. 이곳에는 소화학원도 세워 학생들을 가르쳤습니다.",
+      "narrationEn": "In 1915 Father Yi Sang-hwa of Hamyang parish in Gyeongnam and Father Kim Yang-hong of Eoeun-dong parish in Jinan built a station hall with sleeping quarters where a priest could rest at Subun-ri in Jangsu, midway between their two parishes, to serve the mission in the surrounding area. On November 8, 1918, Bishop Demange presided over the blessing of the Subun-ri station, with St. Stephen as its patron. A school, the Sohwa Academy, was also founded here to teach the children.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "두 본당 사이를 오가는 신부가 하룻밤 묵도록 지은 집이 성당이 되었습니다.",
+      "forEveryoneEn": "A house built for a traveling priest to spend the night between two parishes became a church.",
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '수분공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta15.php (사본 _pages/subun/jcatholic.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "1926년 본당, 1954년 공소 — 장계본당의 설립",
+      "titleEn": "A Parish in 1926, a Station in 1954 — The Founding of Janggye Parish",
+      "location": "성당 정면",
+      "locationEn": "In front of the church",
+      "narration": "수분리 공소는 1926년 본당으로 승격되었다가, 1954년 장계본당이 설립되면서 다시 공소가 되었습니다. 본당의 자리는 장계로 옮겨 갔지만 한옥 성당은 그대로 남아, 100년 전 두 신부가 세운 쉼터의 모습을 오늘까지 전하고 있습니다.",
+      "narrationEn": "Subun-ri station was raised to a parish in 1926, then became a station once more when Janggye parish was founded in 1954. Though the seat of the parish moved to Janggye, the hanok church remained, carrying down to today the form of the rest house two priests built a century ago.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "전주교구 순교의 땅 '수분공소' https://www.jcatholic.or.kr/theme/main/pages/terrasanta15.php (사본 _pages/subun/jcatholic.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "수분 공소 순례를 마치셨습니다. 이 공소를 함께 세운 김양홍 신부의 진안 어은 공소와, 같은 전주교구의 한옥 성당 수류 성당을 이어 찾으시면 전북 산골 한옥 성당의 길을 따라가실 수 있습니다.",
+    "narrationEn": "This concludes our visit to Subun Mission Station. Continue to Eoeun station in Jinan, home of Father Kim Yang-hong who helped build this station, and to Suryu Church, another hanok church of the Diocese of Jeonju, and you will follow the road of the hanok churches of the Jeonbuk mountains.",
+    "photos": []
+  }
+}
