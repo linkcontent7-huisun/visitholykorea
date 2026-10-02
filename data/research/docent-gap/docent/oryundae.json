@@ -21,8 +21,8 @@
       "narrationEn": "As you enter, the busts of Blessed John Yi Jeong-sik and Blessed Martin Yang Jae-hyeon, erected in 2014 to mark their beatification, are the first to greet pilgrims. Beside them stands a statue of the Madonna and Child in graceful Korean dress. Carved on a rock are the words 'We are the descendants of martyrs,' and beyond it spread the museum, the Martyrs' Church, and the wooded hillside behind. Step inside the museum and the words 'The descendants of the martyrs live on' catch the eye at once.",
       "lookFor": "바위에 새긴 '우리는 순교자의 후손' 글귀",
       "lookForEn": "The words 'We are the descendants of martyrs' carved on the rock",
-      "forEveryone": "한복을 입은 성모자상은 한국 천주교 성지에서 자주 만나는 토착화의 모습입니다.",
-      "forEveryoneEn": "The Madonna and Child in Korean dress is a form of inculturation often seen at Korean Catholic shrines.",
+      "forEveryone": null,
+      "forEveryoneEn": null,
       "photos": [],
       "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2335 (사본 _pages/oryundae/goodnews.txt)"
     },
@@ -33,11 +33,11 @@
       "location": "순교자 성당 앞",
       "locationEn": "In front of the Martyrs' Church",
       "narration": "순교자 성당 앞에 작은 배 한 척이 있습니다. 라파엘호라는 이름의 이 배는 우리나라 첫 사제 성 김대건 안드레아 신부가 사제품을 받은 뒤 페레올 신부와 다블뤼 신부를 모시고 상해를 떠나, 제주도까지 표류한 끝에 강경 부근 황산포에 상륙했던 배를 고증에 따라 절반 크기로 만든 것입니다. 바로 그 옆에는 맷돌처럼 가운데에 구멍이 뚫린 돌 형구가 놓여 있습니다. 병인박해 때 신자들을 처형하는 일로 민심이 흔들리자 대원군이 '소리 없이 죽이는 기계'를 만들라고 명해 고안된 것으로, 목에 밧줄을 맨 신자를 구멍 반대편에서 잡아당겨 목숨을 빼앗았습니다. 복음을 싣고 온 배와 신자를 죽인 돌이 나란히 놓여, 박해 시대를 한눈에 말해 줍니다.",
-      "narrationEn": "A small boat stands in front of the Martyrs' Church. Named the Raphael, it is a half-size reconstruction, based on historical research, of the vessel in which St. Andrew Kim Taegon, Korea's first priest, newly ordained, sailed from Shanghai with Bishop Ferreol and Father Daveluy, drifted as far as Jeju Island, and finally landed at Hwangsanpo near Ganggyeong. Right beside it lies a stone execution device with a hole through its center like a millstone. When executions of believers during the Byeongin Persecution unsettled public opinion, the Regent Daewongun ordered a 'machine that kills without a sound'; a rope tied around the believer's neck was pulled from the other side of the hole until life was gone. The boat that carried the Gospel and the stone that killed the faithful stand side by side, telling the story of the persecution at a glance.",
+      "narrationEn": "A small boat stands in front of the Martyrs' Church. Named the Raphael, it is a half-size reconstruction, based on historical research, of the vessel in which St. Andrew Kim Taegon, Korea's first priest, newly ordained, sailed from Shanghai with Father Ferreol and Father Daveluy, drifted as far as Jeju Island, and finally landed at Hwangsanpo near Ganggyeong. Right beside it lies a stone execution device with a hole through its center like a millstone. When executions of believers during the Byeongin Persecution unsettled public opinion, the Regent Daewongun ordered a 'machine that kills without a sound'; a rope tied around the believer's neck was pulled from the other side of the hole until life was gone. The boat that carried the Gospel and the stone that killed the faithful stand side by side, telling the story of the persecution at a glance.",
       "lookFor": "돌 형구 가운데 뚫린 구멍",
       "lookForEn": "The hole bored through the center of the stone device",
-      "forEveryone": "1840년대 조선 선교사들이 탔던 배의 모습을 실물 크기의 절반으로 볼 수 있습니다.",
-      "forEveryoneEn": "A half-scale model of the kind of boat that carried missionaries to Korea in the 1840s.",
+      "forEveryone": "라파엘호는 성 김대건 안드레아 신부가 탔던 배를 고증에 따라 절반 크기로 만든 모형입니다.",
+      "forEveryoneEn": "The Raphael is a half-size model, based on historical research, of the boat St. Andrew Kim Taegon sailed in.",
       "photos": [],
       "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2335 (사본 _pages/oryundae/goodnews.txt)"
     },
@@ -92,8 +92,8 @@
       "titleEn": "Toward a Shrine of Reconciliation and Healing — The Renovation",
       "location": "성지 전체",
       "locationEn": "Throughout the shrine",
-      "narration": "반세기 동안 성지를 지켜 온 한국순교복자수녀회는 2013년 10월 4일 관리를 부산교구에 넘겼고, 교구는 이곳을 '오륜대 순교자 성지'로 이름 짓고 전담 사제를 보냈습니다. 2023년 9월 2일에는 손삼석 주교가 참석한 가운데 성지 개발 기공식이 열렸습니다. 새 성전동과 박물관, 사제관을 짓는 공사로, 교구는 이곳을 순례자가 하느님과 화해하고 몸과 마음을 치유받는 '화해와 치유의 성지'로 가꾸기로 했습니다. 공사 중에는 박물관과 대성전 출입이 제한될 수 있으니, 방문 전에 성지에 확인하시는 것이 좋습니다.",
-      "narrationEn": "After guarding the shrine for half a century, the Sisters of the Korean Martyrs handed its management to the Diocese of Busan on October 4, 2013; the diocese named it Oryundae Martyrs' Shrine and assigned a resident priest. On September 2, 2023, a groundbreaking ceremony for the shrine's redevelopment was held with Bishop Son Sam-seok present. The project builds a new church building, museum, and rectory, and the diocese intends the place to become a 'shrine of reconciliation and healing,' where pilgrims are reconciled with God and healed in body and mind. During construction access to the museum and main church may be limited, so it is wise to check with the shrine before visiting.",
+      "narration": "반세기 동안 성지를 지켜 온 한국순교복자수녀회는 2013년 10월 4일 관리를 부산교구에 넘겼고, 교구는 이곳을 '오륜대 순교자 성지'로 이름 짓고 전담 사제를 보냈습니다. 2023년 9월 2일에는 손삼석 주교가 참석한 가운데 성지 개발 기공식이 열렸습니다. 새 성전동과 박물관, 사제관을 짓는 공사로, 교구는 이곳을 순례자가 하느님과 화해하고 몸과 마음을 치유받는 '화해와 치유의 성지'로 가꾸기로 했습니다. 현재 박물관과 대성전은 공사 중이니, 방문 전에 성지에 확인하시는 것이 좋습니다.",
+      "narrationEn": "After guarding the shrine for half a century, the Sisters of the Korean Martyrs handed its management to the Diocese of Busan on October 4, 2013; the diocese named it Oryundae Martyrs' Shrine and assigned a resident priest. On September 2, 2023, a groundbreaking ceremony for the shrine's redevelopment was held with Bishop Son Sam-seok present. The project builds a new church building, museum, and rectory, and the diocese intends the place to become a 'shrine of reconciliation and healing,' where pilgrims are reconciled with God and healed in body and mind. The museum and main church are currently under construction, so it is wise to check with the shrine before visiting.",
       "lookFor": null,
       "lookForEn": null,
       "forEveryone": null,
@@ -103,8 +103,8 @@
     }
   ],
   "outro": {
-    "narration": "오륜대 순교자 성지 순례를 마치셨습니다. 여덟 분이 순교하신 수영장대 순교성지도 부산에 있으니, 묘소에서 형장으로 순례를 이어 가 보셔도 좋겠습니다.",
-    "narrationEn": "This concludes our visit to Oryundae Martyrs' Shrine. The Suyeong Jangdae Martyrs' Shrine, where the eight were executed, is also in Busan, so you may wish to continue your pilgrimage from the graves to the place of execution.",
+    "narration": "오륜대 순교자 성지 순례를 마치셨습니다. 여덟 분이 순교하신 부산 수영장대도 함께 찾아보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to Oryundae Martyrs' Shrine. You may also wish to visit Suyeong Jangdae in Busan, where the eight were martyred.",
     "photos": []
   }
 }

@@ -17,12 +17,12 @@
       "titleEn": "The Hanok Church — Jesus in Korean Dress and the Soil Beneath the Altar",
       "location": "성지 안 전통 한옥 양식 성당",
       "locationEn": "The traditional Korean-style church inside the shrine",
-      "narration": "지금 보시는 전통 한옥 양식의 성당은 의정부교구가 2006년 이곳에 전담 사제를 두고 성역화에 나서면서 2007년 새로 마련한 터에 지은 것입니다. 만남의 방인 명례방도 함께 세워졌고, 2008년 9월 28일 이한택 주교의 주례로 축복식을 가졌습니다. 성당 안으로 들어가시면 한복을 입은 예수상과 성모자상을 모시고 있습니다. 그리고 제대 밑에는 정약종 순교자의 무덤에서 가져온 흙이 들어 있습니다. 2012년부터는 조안면 전체와 팔당리를 맡는 본당이 되었습니다.",
-      "narrationEn": "The traditional hanok-style church before you was built on land newly acquired in 2007, after the Diocese of Uijeongbu assigned a resident priest here in 2006 and began developing the site as a shrine. A meeting hall called Myeongnyebang was built alongside it, and the blessing ceremony was held on September 28, 2008, presided over by Bishop Yi Han-taek. Inside you will find a statue of Jesus and a statue of the Madonna and Child, both dressed in Korean hanbok. Beneath the altar lies soil taken from the grave of the martyr Jeong Yak-jong. Since 2012 the shrine has also been a parish serving all of Joan-myeon and Paldang-ri.",
+      "narration": "지금 보시는 전통 한옥 양식의 성당은 의정부교구가 2006년 이곳에 전담 사제를 두고 성역화에 나서면서 2007년 새로 마련한 터에 지은 것입니다. 만남의 방인 명례방도 함께 세워졌고, 2008년 9월 28일 이한택 주교의 주례로 축복식을 가졌습니다. 성당 안으로 들어가시면 한복을 입은 예수상과 성모자상을 모시고 있습니다. 그리고 제대 밑에는 정약종 순교자의 무덤에서 가져온 흙이 들어 있습니다. 2012년부터는 조안면 전체와 와부읍 팔당리 전체를 관할하는 본당이 되었습니다.",
+      "narrationEn": "The traditional hanok-style church before you was built on land newly acquired in 2007, after the Diocese of Uijeongbu assigned a resident priest here in 2006 and began developing the site as a shrine. A meeting hall called Myeongnyebang was built alongside it, and the blessing ceremony was held on September 28, 2008, presided over by Bishop Yi Han-taek. Inside you will find a statue of Jesus and a statue of the Madonna and Child, both dressed in Korean hanbok. Beneath the altar lies soil taken from the grave of the martyr Jeong Yak-jong. Since 2012 the shrine has also been a parish whose territory covers all of Joan-myeon and all of Paldang-ri in Wabu-eup.",
       "lookFor": "한복을 입은 예수상과 성모자상",
       "lookForEn": "The statues of Jesus and the Madonna and Child in Korean dress",
-      "forEveryone": "서양 종교의 성상을 한국 옷차림으로 빚은, 이곳만의 모습입니다.",
-      "forEveryoneEn": "Sacred images of a Western religion rendered in Korean dress, a sight unique to this place.",
+      "forEveryone": "한복을 입은 예수상과 성모자상을 만나 볼 수 있습니다.",
+      "forEveryoneEn": "Here you can see statues of Jesus and of the Madonna and Child dressed in Korean hanbok.",
       "photos": [],
       "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2283 (사본 _pages/majae/goodnews.txt) · 주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/91 (사본 _pages/majae/cbck.txt)"
     },
@@ -36,8 +36,8 @@
       "narrationEn": "Four brothers were born in this village: Jeong Yak-hyeon, Yak-jeon, Yak-jong, and Yak-yong. Their family ties explain why Majae is called the cradle of the Korean Catholic Church. The eldest brother's wife was the sister of Yi Byeok; the brothers' own sister was the wife of Yi Seung-hun, Korea's first baptized Christian; and Yak-hyeon's son-in-law was Hwang Sa-yeong. In 1779 the second brother, Yak-jeon, attended the study gathering at Jueosa Temple led by Gwon Cheol-sin and heard Catholic teaching from Yi Byeok, and in 1784 Yi Byeok visited Majae and debated the doctrine with Yak-jeon and Yak-yong as they sailed up to Seoul together. Beyond the Aengjabong ridge you can see from here lies Cheonjinam; across the river stood Yi Byeok's house; and Yanggeun, home of the Gwon brothers, is close by. Paldang Dam has widened the river like a sea, but two hundred years ago these villages were neighbors across the water.",
       "lookFor": "강 건너 앵자봉 능선",
       "lookForEn": "The Aengjabong ridge across the river",
-      "forEveryone": "한 집안의 혼인 관계가 한국 천주교 창설 주역들을 모두 잇고 있습니다.",
-      "forEveryoneEn": "The marriages of a single family link together nearly all the founders of Korean Catholicism.",
+      "forEveryone": "한 집안의 혼인 관계가 한국 천주교 창설 주역들과 이어져 있습니다.",
+      "forEveryoneEn": "The marriages of a single family tie it to the founders of Korean Catholicism.",
       "photos": [],
       "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2283 (사본 _pages/majae/goodnews.txt) · 주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/91 (사본 _pages/majae/cbck.txt)"
     },
@@ -51,8 +51,8 @@
       "narrationEn": "The third brother, Jeong Yak-jong, was born here in Majae in 1760. He abandoned the path to office, calling study for the civil examinations too shallow, and for a time was absorbed in Taoist secrets of immortality. Only in 1786, two years after the Church was founded, did he hear the doctrine from his brother and enter the faith. His conversion came later than his brothers', but he felt his hesitation resembled that of St. Augustine and took that name at baptism. When the Jinsan incident of 1791 led leader after leader to abandon the faith, and even his father and brothers urged him to give it up, he refused. Father Zhou Wenmo appointed him the first president of the Myeongdohoe, the lay association, and for believers who could not read Chinese he wrote the Jugyo yoji in Korean script, the first catechism written by a Korean. He was beheaded outside Seosomun Gate in the Sinyu Persecution of 1801, and on August 16, 2014, on the very ground where he had been sentenced to death, today's Gwanghwamun Square, he was beatified by Pope Francis.",
       "lookFor": null,
       "lookForEn": null,
-      "forEveryone": "한글로 쓴 첫 교리서 '주교요지'는 한글 출판 역사에서도 의미 있는 책입니다.",
-      "forEveryoneEn": "The Jugyo yoji, the first catechism in Korean script, is a landmark in the history of Korean-language publishing as well.",
+      "forEveryone": "한국인이 한글로 쓴 최초의 교리서가 '주교요지'입니다.",
+      "forEveryoneEn": "The Jugyo yoji is the first catechism written in Korean script by a Korean.",
       "photos": [],
       "sourceNote": "주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/91 (사본 _pages/majae/cbck.txt) · 의정부교구 성지 소개 http://ucatholic.or.kr/bbs/board.php?bo_table=holyland&wr_id=99 (사본 _pages/majae/diocese.txt) · 굿뉴스 (사본 _pages/majae/goodnews.txt)"
     },
@@ -81,8 +81,8 @@
       "narrationEn": "On the hill across from the church stands a sword-shaped cross, recalling the martyrs who bore witness to their faith in agony with long blades fixed around their necks. Pass the statue of the Madonna and Child and climb the Way of the Cross, and at its end you will come face to face with the bronze feet of the crucified Jesus. After the beatification of Jeong Yak-jong and his son in 2014 completed the family's elevation to the altars, the diocese spent two years shaping this hill with the artist Catharina Sim Sun-hwa into a shrine of the Holy Family, and on May 27, 2017, Bishop Yi Gi-heon proclaimed the Majae Holy Family Shrine and blessed the hill and its Way of the Cross.",
       "lookFor": "십자가의 길 끝, 못 박히신 예수님의 청동 발",
       "lookForEn": "The bronze feet of the crucified Jesus at the end of the Way of the Cross",
-      "forEveryone": "십자가 대신 처형 도구인 칼을 형상화한 조형물은 이곳에서만 볼 수 있습니다.",
-      "forEveryoneEn": "A monument shaped not as a cross but as the blade used in executions, found only here.",
+      "forEveryone": "처형 도구인 칼을 형상화한 십자가가 서 있습니다.",
+      "forEveryoneEn": "A cross shaped like the blade used in executions stands here.",
       "photos": [],
       "sourceNote": "주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/91 (사본 _pages/majae/cbck.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2283 (사본 _pages/majae/goodnews.txt)"
     },
@@ -103,8 +103,8 @@
     }
   ],
   "outro": {
-    "narration": "마재 성가정 성지 순례를 마치셨습니다. 아버지에서 자녀로, 두 차례의 박해를 건너 이어진 한 가족의 신앙을 보셨습니다. 강 건너 천진암과 이웃한 양근 성지도 멀지 않으니, 한국 교회가 태어난 이 물길을 따라 순례를 이어 가 보셔도 좋겠습니다.",
-    "narrationEn": "This concludes our visit to the Majae Holy Family Shrine. You have followed one family's faith, handed from parents to children across two great persecutions. Cheonjinam across the river and the neighboring Yanggeun Shrine are not far, so you may wish to continue your pilgrimage along the waters where the Korean Church was born.",
+    "narration": "마재 성가정 성지 순례를 마치셨습니다. 아버지에서 자녀로, 두 차례의 박해를 건너 이어진 한 가족의 신앙을 보셨습니다. 강 건너 천진암과 권철신 형제의 양근은 마재와 지척이니, 순례를 이어 가 보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to the Majae Holy Family Shrine. You have followed one family's faith, handed from parents to children across two great persecutions. Cheonjinam across the river and Yanggeun, home of the Gwon brothers, are close to Majae, so you may wish to continue your pilgrimage there.",
     "photos": []
   }
 }
