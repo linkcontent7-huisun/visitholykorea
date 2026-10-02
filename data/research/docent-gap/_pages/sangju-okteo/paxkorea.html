@@ -1,0 +1,743 @@
+<style>
+.ve8 { font-family:verdana;font-size:8pt; }
+</style>
+<!--
+ZeroBoard에 대한 라이센스 명시입니다.
+
+아래 라이센스에 동의하시는 분만 제로보드를 사용할수 있습니다.
+    
+프로그램명 : Zeroboard
+배포버젼 : 4.1 pl 6 (2005. 1. 23)
+개발자 : zero 
+Homepage : http://zeroboard.com
+
+1. 제로보드의 배포권은 ZEROBOARD.COM에서 허용한 곳에만 있습니다.
+   (허락 맡지 않은 재배포는 허용하지 않습니다.)
+
+2. 제로보드는 저작권을 아래 3번항목에 의해 표기하는 한도내에서
+   개인홈페이지 및 학교나 교회등의 비영리단체, 기업이나 기타 영리단체에서 사용할수 있습니다.
+   (반국가 단체나 불법 싸이트에서의 사용은 금지합니다)
+
+3. 제로보드 사용시 저작권 명시부분을 훼손하면 안됩니다.
+   프로그램 소스, html소스상의 라이센스 및 웹상 출력물 하단에 있는 카피라이트와 링크를 수정하지 마십시요.
+   (저작권 표시는 게시판 배포시 작성된 형식만을 허용합니다. 임의 수정은 금지합니다)
+
+4. 단, 정식 등록버젼은 저작권 표시를 삭제할수 있습니다.
+   정식 등록버젼에 대한 문의는 http://zeroboard.com 에서 문의 방법을 찾아주시기 바랍니다.
+
+5. 링크서비스등의 기본 용도에 맞지 않는 사용은 금지합니다.
+
+6. 제로보드의 사용으로 인한 데이타 손실 및 기타 손해등 어떠한 사고나 문제에 대해서 ZEROBOARD.COM은 절대 책임을 지지 않습니다.
+
+7. 제로보드에 대해 ZEROBOARD.COM은 유지/ 보수의 의무가 없습니다.
+
+8. 제로보드 소스는 개인적으로 사용시 수정하여 사용할수 있지만 수정된 프로그램의 재배포는 금지합니다.
+   (저작권 관련 부분은 수정금지입니다)
+
+9. 제로보드에 쓰인 스킨의 저작권은 스킨 제작자에게 있으며 제작자의 동의하에 수정배포가 가능합니다.
+
+10. 기타 의문사항은 http://zeroboard.com 을 이용해 주시기 바랍니다.
+    (질문등에 대한 내용은 메일로 받지 않습니다)
+
+-->
+<html> 
+<head>
+	<title></title>
+	<meta http-equiv=Content-Type content=text/html; charset=EUC-KR>
+	<link rel=StyleSheet HREF=skin/ggambo7003_travelgallery/style.css type=text/css title=style>
+	<script language='JavaScript'>
+	var select_obj;
+	function ZB_layerAction(name,status) { 
+		var obj=document.all[name];
+		var _tmpx,_tmpy, marginx, marginy;
+		_tmpx = event.clientX + parseInt(obj.offsetWidth);
+		_tmpy = event.clientY + parseInt(obj.offsetHeight);
+		_marginx = document.body.clientWidth - _tmpx;
+		_marginy = document.body.clientHeight - _tmpy ;
+		if(_marginx < 0)
+			_tmpx = event.clientX + document.body.scrollLeft + _marginx ;
+		else
+			_tmpx = event.clientX + document.body.scrollLeft ;
+		if(_marginy < 0)
+			_tmpy = event.clientY + document.body.scrollTop + _marginy +20;
+		else
+			_tmpy = event.clientY + document.body.scrollTop ;
+		obj.style.posLeft=_tmpx-13;
+		obj.style.posTop=_tmpy-12;
+		if(status=='visible') {
+			if(select_obj) {
+				select_obj.style.visibility='hidden';
+				select_obj=null;
+			}
+			select_obj=obj;
+		}else{
+			select_obj=null;
+		}
+		obj.style.visibility=status; 
+	}
+
+
+	function print_ZBlayer(name, homepage, mail, member_no, boardID, writer, traceID, traceType, isAdmin, isMember) {
+		var printHeight = 0;
+		var printMain="";
+	
+		if(homepage) {
+			printMain = "<tr onMouseOver=this.style.backgroundColor='#bbbbbb' onMouseOut=this.style.backgroundColor='' onMousedown=window.open('"+homepage+"');><td style=font-family:굴림;font-size:9pt height=18 nowrap>&nbsp;<img src=images/n_homepage.gif border=0 align=absmiddle>&nbsp;&nbsp;홈페이지&nbsp;&nbsp;</td></tr>";
+			printHeight = printHeight + 16;
+		}
+		if(mail) {
+			printMain = printMain +	"<tr onMouseOver=this.style.backgroundColor='#bbbbbb' onMouseOut=this.style.backgroundColor='' onMousedown=window.open('open_window.php?mode=m&str="+mail+"','ZBremote','width=1,height=1,left=1,top=1');><td style=font-family:굴림;font-size:9pt height=18 nowrap>&nbsp;<img src=images/n_mail.gif border=0 align=absmiddle>&nbsp;&nbsp;메일 보내기&nbsp;&nbsp;</td></tr>";
+			printHeight = printHeight + 16;
+		}
+		if(member_no) {
+			if(isMember) {
+				printMain = printMain +	"<tr onMouseOver=this.style.backgroundColor='#bbbbbb' onMouseOut=this.style.backgroundColor='' onMousedown=window.open('view_info.php?member_no="+member_no+"','view_info','width=400,height=510,toolbar=no,scrollbars=yes');><td style=font-family:굴림;font-size:9pt height=18 nowrap>&nbsp;<img src=images/n_memo.gif border=0 align=absmiddle>&nbsp;&nbsp;쪽지 보내기&nbsp;&nbsp;</td></tr>";
+				printHeight = printHeight + 16;
+			}
+			printMain = printMain +	"<tr onMouseOver=this.style.backgroundColor='#bbbbbb' onMouseOut=this.style.backgroundColor='' onMousedown=window.open('view_info2.php?member_no="+member_no+"','view_info','width=400,height=510,toolbar=no,scrollbars=yes');><td style=font-family:굴림;font-size:9pt height=18 nowrap>&nbsp;<img src=images/n_information.gif border=0 align=absmiddle>&nbsp;&nbsp;회원정보 보기&nbsp;&nbsp;</td></tr>";
+			printHeight = printHeight + 16;
+		}
+		if(writer) {
+			printMain = printMain +	"<tr onMouseOver=this.style.backgroundColor='#bbbbbb' onMouseOut=this.style.backgroundColor='' onMousedown=location.href='zboard.php?id="+boardID+"&sn1=on&sn=on&ss=off&sc=off&keyword="+writer+"';><td style=font-family:굴림;font-size:9pt height=18 nowrap>&nbsp;<img src=images/n_search.gif border=0 align=absmiddle>&nbsp;&nbsp;이름으로 검색&nbsp;&nbsp;</td></tr>";
+			printHeight = printHeight + 16;
+		}
+		if(isAdmin) {
+			if(member_no) {
+				printMain = printMain +	"<tr onMouseOver=this.style.backgroundColor='#bbbbbb' onMouseOut=this.style.backgroundColor='' onMousedown=window.open('open_window.php?mode=i&str="+member_no+"','ZBremote','width=1,height=1,left=1,top=1');><td style=font-family:굴림;font-size:9pt height=18 nowrap>&nbsp;<img src=images/n_modify.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=darkred>회원정보 변경&nbsp;&nbsp;</td></tr>";
+				printHeight = printHeight + 16;
+			}
+			printMain = printMain +	"<tr onMouseOver=this.style.backgroundColor='#bbbbbb' onMouseOut=this.style.backgroundColor='' onMousedown=window.open('open_window.php?mode="+traceType+"&str="+traceID+"','ZBremote','width=1,height=1,left=1,top=1');><td style=font-family:굴림;font-size:9pt height=18 nowrap>&nbsp;<img src=images/n_relationlist.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=darkred>관련글 추적</font>&nbsp;&nbsp;</td></tr>";
+			printHeight = printHeight + 16;
+		
+		}
+		var printHeader = "<div id='"+name+"' style='position:absolute; left:10px; top:25px; width:127; height: "+printHeight+"; z-index:1; visibility: hidden' onMousedown=ZB_layerAction('"+name+"','hidden')><table border=0><tr><td colspan=3 onMouseover=ZB_layerAction('"+name+"','hidden') height=3></td></tr><tr><td width=5 onMouseover=ZB_layerAction('"+name+"','hidden') rowspan=2>&nbsp;</td><td height=5></td></tr><tr><td><table style=cursor:hand border='0' cellspacing='1' cellpadding='0' bgcolor='black' width=100% height=100%><tr><td valign=top bgcolor=white><table border=0 cellspacing=0 cellpadding=3 width=100% height=100%>";
+		var printFooter = "</table></td></tr></table></td><td width=5 rowspan=2 onMouseover=ZB_layerAction('"+name+"','hidden')>&nbsp;</td></tr><tr><td colspan=3 height=10 onMouseover=ZB_layerAction('"+name+"','hidden')></td></tr></table></div>";
+	
+		document.writeln(printHeader+printMain+printFooter);
+	}
+</script>
+	
+<script language="javascript">
+browserName = navigator.appName;
+browserVer = parseInt(navigator.appVersion);
+if(browserName == "Netscape" && browserVer >= 3){ init = "net"; }
+else { init = "ie"; }
+
+
+if(((init == "net")&&(browserVer >=3))||((init == "ie")&&(browserVer >= 4))){
+
+ sn_on=new Image;
+ sn_off=new Image;
+ sn_on.src= "skin/ggambo7003_travelgallery/name_on.gif";
+ sn_off.src= "skin/ggambo7003_travelgallery/name_off.gif";
+
+ ss_on=new Image;
+ ss_off=new Image;
+ ss_on.src= "skin/ggambo7003_travelgallery/subject_on.gif";
+ ss_off.src= "skin/ggambo7003_travelgallery/subject_off.gif";
+
+ sc_on=new Image;
+ sc_off=new Image;
+ sc_on.src= "skin/ggambo7003_travelgallery/content_on.gif";
+ sc_off.src= "skin/ggambo7003_travelgallery/content_off.gif";
+
+}
+
+function OnOff(name) {
+if(((init == "net")&&(browserVer >=3))||((init == "ie")&&(browserVer >= 4))) {
+  if(document.search[name].value=='on')
+  {
+   document.search[name].value='off';
+   ImgSrc=eval(name+"_off.src");
+   document[name].src=ImgSrc;
+  }
+  else
+  {
+   document.search[name].value='on';
+   ImgSrc=eval(name+"_on.src");
+   document[name].src=ImgSrc;
+  }
+ }
+}
+</script>
+
+<script language="javascript">
+  function reverse() {
+   var i, chked=0;
+   if(confirm('목록을 반전하시겠습니까?\n\n반전을 원하지 않는다면 취소를 누르시면 다음으로 넘어갑니다'))
+   {
+    for(i=0;i<document.list.length;i++)
+    {
+     if(document.list[i].type=='checkbox')
+     {
+      if(document.list[i].checked) { document.list[i].checked=false; }
+      else { document.list[i].checked=true; }
+     }
+    }
+   }
+   for(i=0;i<document.list.length;i++)
+   {
+    if(document.list[i].type=='checkbox')
+    {
+     if(document.list[i].checked) chked=1;
+    }
+   }
+   if(chked) {
+    if(confirm('선택된 항목을 보시겠습니까?'))
+     {
+      document.list.selected.value='';
+      document.list.exec.value='view_all';
+      for(i=0;i<document.list.length;i++)
+      {
+       if(document.list[i].type=='checkbox')
+       {
+        if(document.list[i].checked)
+        {
+         document.list.selected.value=document.list[i].value+';'+document.list.selected.value;
+        }
+       }
+      }
+      document.list.submit();
+      return true;
+     }
+    }
+   }
+
+ function delete_all() {
+  var i, chked=0;
+  for(i=0;i<document.list.length;i++)
+  {
+   if(document.list[i].type=='checkbox')
+   {
+    if(document.list[i].checked) chked=1;
+    }
+   }
+  if(chked)
+  {
+    document.list.selected.value='';
+    document.list.exec.value='delete_all';
+    for(i=0;i<document.list.length;i++)
+    {
+     if(document.list[i].type=='checkbox')
+     {
+      if(document.list[i].checked)
+      {
+       document.list.selected.value=document.list[i].value+';'+document.list.selected.value;
+      }
+     }
+    }
+    window.open("select_list_all.php?id=1001&selected="+document.list.selected.value,"게시물정리","width=260,height=180,toolbars=no,resize=no,scrollbars=no");
+  }
+  else {alert('정리할 게시물을 선택하여 주십시요');}
+ }
+
+ function category_change(obj) {
+  var myindex=obj.selectedIndex;
+  document.search.category.value=obj.options[myindex].value;
+  document.search.submit();
+  return true;
+ }
+
+//-->
+</script>
+</head>
+<body topmargin='0'  leftmargin='0' marginwidth='0' marginheight='0'  bgcolor=white >
+			
+<!---------------------------------------------------------------------->
+<!--                                                                                                   -->
+<!--  PAXKOREA.CO.KR INDEX PAGER                                                   -->
+<!--                                                                                                   -->
+<!--  만든사람 : 깜보커뮤니케이션즈                                                       -->
+<!--  홈페이지 : http://work.ggambo.com                                               -->
+<!--  전자우편 : ggambo@ggambo.com                                                 -->
+<!--  만든날짜 : 2004.05.01.                                                                   -->
+<!--                                                                                                   -->
+<!--  Copyright (c) 2004 PAXKOREA, All rights reserved.                          -->
+<!--                                                                                                   -->
+<!---------------------------------------------------------------------->
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=euc-kr">
+<title>한국의 성지와 사적지</title>
+<META HTTP-EQUIV="imagetoolbar" CONTENT="no">
+<script language="JavaScript" src="http://www.paxkorea.kr/pax_main2/work.js"></script>
+<link rel="stylesheet" href="http://www.paxkorea.kr/pax_main2/pax.css">
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" background=http://www.paxkorea.kr/pax_main2/img/back1.gif>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed;">
+<col width=></col><col width=850></col><col width=100></col><col width=></col>
+<tr><td></td>
+<td bgcolor=white>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed;border-width:0 1 0 1;border-color:E0E0E0;border-style:solid;">
+<div id="layer1" style="position:absolute; top:89px;width:150;height:160px;visibility:hidden; z-index:1;margin:0 0 0 190;alpha(opacity=35);line-height:180%;color:white;padding:8 8 8 15;" class=sm> 
+</div>
+<div id="layer2" style="position:absolute; top:82px;width:400;height:30px;visibility:hidden; z-index:1;margin:0 0 0 370;line-height:180%;color:white;padding:8 8 8 15;" class="sm" >
+<img src=http://www.paxkorea.kr/pax_main2/img/lm_021.gif usemap="#ImageMap1_1">
+</div>
+<div id="layer3" style="position:absolute; top:82px;width:710;height:30px/*160px*/;visibility:hidden; z-index:1;margin:0 0 0 100;alpha(opacity=35);line-height:180%;color:white;padding:8 8 8 1;" class=sm> 
+<img src=http://www.paxkorea.kr/pax_main2/img/lm_031.gif  usemap="#ImageMap1_2">
+</div>
+<div id="layer4" style="position:absolute; top:82px;width:210;height:30px/*160px*/;visibility:hidden; z-index:1;margin:0 0 0 570;alpha(opacity=35);line-height:180%;color:white;padding:8 8 8 1;" class=sm> 
+<img src=http://www.paxkorea.kr/pax_main2/img/lm_041.gif  usemap="#ImageMap1_3">
+</div>
+<div id="layer5" style="position:absolute; top:82px;width:250;height:30px/*160px*/;visibility:hidden; z-index:1;margin:0 0 0 590;alpha(opacity=35);line-height:180%;color:white;padding:8 8 8 1;" class=sm> 
+<img src=http://www.paxkorea.kr/pax_main2/img/lm_051.gif  usemap="#ImageMap1_4">
+</div>
+<map name="ImageMap1_1">
+<area shape="rect" coords="5, 2, 42, 20" href="http://www.paxkorea.kr/pax_main2/late.php?id=2001&format=1&num=1" onfocus=blur()>
+<area shape="rect" coords="42, 2, 81, 20" href="http://www.paxkorea.kr/pax_main2/late.php?id=2001&format=2&num=1" onfocus=blur()>
+</map><map name="ImageMap1_2">
+<area shape="rect" coords="4, 1, 74, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=3001" onfocus=blur()>
+<area shape="rect" coords="74, 2, 148, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=3002" onfocus=blur()>
+<area shape="rect" coords="148, 2, 212, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=3003" onfocus=blur()>
+<area shape="rect" coords="212, 1, 274, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=3004" onfocus=blur()>
+<area shape="rect" coords="274, 1, 338, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=3007" onfocus=blur()>
+<area shape="rect" coords="339, 1, 399, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=3008" onfocus=blur()>
+<area shape="rect" coords="400, 2, 452, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=3009" onfocus=blur()>
+<area shape="rect" coords="452, 2, 526, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=3006" onfocus=blur()>
+<area shape="rect" coords="527, 2, 592, 19" href="http://www.paxkorea.kr/bbs/zboard.php?id=3010" onfocus=blur()>
+<area shape="rect" coords="592, 2, 646, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=3011" onfocus=blur()>
+<area shape="rect" coords="647, 2, 707, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=3012" onfocus=blur()>
+</map><map name="ImageMap1_3">
+<area shape="rect" coords="3, 1, 52, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=2311" onfocus=blur()>
+<area shape="rect" coords="52, 1, 104, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=2302" onfocus=blur()>
+<area shape="rect" coords="105, 2, 157, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=2303" onfocus=blur()>
+<area shape="rect" coords="157, 2, 207, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=2304" onfocus=blur()>
+</map><map name="ImageMap1_4">
+<area shape="rect" coords="3, 1, 64, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=4001" onfocus=blur()>
+<area shape="rect" coords="64, 1, 125, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=4002" onfocus=blur()>
+<area shape="rect" coords="126, 2, 187, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=4003" onfocus=blur()>
+<area shape="rect" coords="187, 1, 248, 20" href="http://www.paxkorea.kr/bbs/zboard.php?id=4004" onfocus=blur()>
+</map>
+<tr><td background=http://www.paxkorea.kr/pax_main2/img/title_bg.gif style='padding:0 0 0 20;border-width:0 0 1 0;border-color:727176;border-style:solid;padding:3 0 0 20;' height=50><a href="http://paxkorea.kr"><img src=http://www.paxkorea.kr/pax_main2/img/new_logo.gif></a></td></tr>
+<tr><td bgcolor=727176 align=right style='border-width:0 0 0 0;border-color:FFFFFF;border-style:solid;' height=36>
+<table border="0" cellpadding="0" cellspacing="0"  border=0>
+<tr><td>
+<a href=http://www.paxkorea.kr/pax_main2/late.php?id=1001&format=1&num=1><span onMouseOver="MM_showHideLayers('layer1','','show','layer2','','hide','layer3','','hide','layer4','','hide')" style="cursor:pointer"><img src=http://www.paxkorea.kr/pax_main2/img/lm01.gif border=0 overmode="overlay" oversrc="http://www.paxkorea.kr/pax_main2/img/lm01_on.gif"></span></a>
+</td><td>
+<a href="http://www.paxkorea.kr/pax_main2/late.php?id=2001&format=1&num=1"><span onMouseOver="MM_sl('layer2')" style="cursor:pointer"><img src=http://www.paxkorea.kr/pax_main2/img/lm02.gif border=0 overmode="overlay" oversrc="http://www.paxkorea.kr/pax_main2/img/lm02_on.gif"></span></a><!--MM_showHideLayers('layer1','','hide','layer2','','show','layer3','','hide','layer4','','hide','layer5','','hide')-->
+</td><td>
+<a href=http://www.paxkorea.kr/pax_main2/?id=3000><span onMouseOver="MM_sl('layer3')" style="cursor:pointer"><img src=http://www.paxkorea.kr/pax_main2/img/lm03.gif border=0 overmode="overlay" oversrc="http://www.paxkorea.kr/pax_main2/img/lm03_on.gif"></span></a><!--MM_showHideLayers('layer1','','hide','layer2','','hide','layer3','','show','layer4','','hide','layer5','','hide')-->
+</td><td>
+<a href=http://www.paxkorea.kr/pax_main2/?id=4000><span onMouseOver="MM_sl('layer4')" style="cursor:pointer"><img src=http://www.paxkorea.kr/pax_main2/img/lm04.gif border=0 overmode="overlay" oversrc="http://www.paxkorea.kr/pax_main2/img/lm04_on.gif"></span></a><!--MM_showHideLayers('layer1','','hide','layer2','','hide','layer3','','hide','layer4','','show','layer5','','hide')-->
+</td><td>
+<a href=http://www.paxkorea.kr/pax_main2/?id=5000><span onMouseOver="MM_sl('layer5')" style="cursor:pointer"><img src=http://www.paxkorea.kr/pax_main2/img/lm05.gif border=0 overmode="overlay" oversrc="http://www.paxkorea.kr/pax_main2/img/lm05_on.gif"></span></a><!--MM_showHideLayers('layer1','','hide','layer2','','hide','layer3','','hide','layer4','','hide','layer5','','show')-->
+</td></tr></table>
+</td></tr>
+<tr><td height=25><img src="http://paxkorea.kr/log/nalogd.php?counter=pax&url=" width=0 height=0></td></tr>
+<tr><td style='border-width:0 0 1 0;border-color:FFFFFF;border-style:solid;' height=160 class="sm_out">
+
+<!--
+<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+ codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+ WIDTH="850" HEIGHT="160" id="main" ALIGN="left">
+-->
+
+ <PARAM NAME=movie VALUE="http://www.paxkorea.kr/pax_main2/img/1000.jpg"> <PARAM NAME=quality VALUE=high> <PARAM NAME=bgcolor VALUE=#FFFFFF> <EMBED src="http://www.paxkorea.kr/pax_main2/mp4/1000.gif
+" quality=high bgcolor=#FFFFFF  WIDTH="850" HEIGHT="160" NAME="main" ALIGN="left"
+
+></EMBED>
+</OBJECT>
+</td></tr>
+</table>
+</td><td></td></tr></table>
+<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script>
+function MM_sl(a){
+	var b = a;
+	for(i=1;i<6;i++){
+		if("layer"+i==b) {
+			$('#layer'+i).css("visibility","visible");
+		}
+		else $('#layer'+i).css("visibility","hidden");
+	};
+};
+
+
+$('.sm_out').on('mouseenter', function(){
+				$('.sm').css("visibility","hidden");			
+			});
+</script>
+
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed;">
+<col width=></col><col width=185></col><col width=665></col><col width=100></col><col width=></col>
+<tr><td></td>
+<td style="border-width:0 1 0 1;border-color:CCCCCC;border-style:solid;" align=center valign=top bgcolor=white height=100% valign=top bgcolor=white>
+<div id=divMenu style="position:fixed;top:207;margin:0 0 0 850;background-color:transparent;line-height=100%;">
+<img src=http://www.paxkorea.kr/pax_main2/img/quick.gif border=0 usemap="#ImageMap199">
+</div>
+
+<map name="ImageMap199">
+<area shape="rect" coords="3, 41, 98, 71" href="http://www.paxkorea.kr/pax_main2/late.php?id=1001&format=1&num=1" onfocus=blur()>
+<area shape="rect" coords="4, 71, 97, 101" href="http://www.paxkorea.kr/pax_main2/late.php?id=2001&format=1&num=1" onfocus=blur()>
+<area shape="rect" coords="4, 101, 97, 131" href="http://www.paxkorea.kr/pax_main2/late.php?id=2001&format=2&num=1" onfocus=blur()>
+<area shape="rect" coords="3, 130, 98, 161" href="http://www.paxkorea.kr/pax_main2/late.php?id=2311&format=1&num=1" onfocus=blur()>
+<area shape="rect" coords="3, 160, 99, 191" href="http://www.paxkorea.kr/pax_main2/late.php?id=2311&format=2&num=1" onfocus=blur()>
+</map>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed;" height=100%>
+<tr><td height=100% valign=top>
+<img src=http://www.paxkorea.kr/pax_main2/img/1000_img.gif style='margin:0 0 20 0;'><table width="165" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed;" align=center>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1001.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=1'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1002.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=2'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1003.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=3'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1004.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=4'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1005.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=5'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1006.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=6'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1007.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=7'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1008.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=8'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1009.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=9'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1010.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=10'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1011.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=11'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1012.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=12'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1013.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=13'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1014.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=14'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+<tr><td class=smmenu background=http://www.paxkorea.kr/pax_main2/img/sm1015.gif><a href='http://www.paxkorea.kr/bbs/zboard.php?id=1001&category=15'><img src=http://www.paxkorea.kr/pax_main2/img/sm_off.gif border=0 overmode='overlay' oversrc='http://www.paxkorea.kr/pax_main2/img/sm_on.gif'></a></td></tr>
+</table>
+</td></tr>
+<tr><td height=50 align=center valign=middle><img src=http://www.paxkorea.kr/pax_main2/img/paxkorea2.gif border=0></td></tr>
+<tr><td height=30 align=center>
+<img src="http://www.paxkorea.kr/log/pax_total.jpg"><img src=http://www.paxkorea.kr/log/skin/ggambo/space.jpg border=0><img src="http://www.paxkorea.kr/log/pax_today.jpg"><img src=http://www.paxkorea.kr/log/skin/ggambo/visitor.jpg border=0><br>
+<img src=http://www.paxkorea.kr/log/skin/ggambo/since.jpg border=0></td></tr></table>
+</td>
+<td valign=top style="border-width:0 1 0 0;border-color:CCCCCC;border-style:solid;" height=100% bgcolor=white>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed;" height=100%>
+<tr><td height=30 style='border-width:0 0 1 0;border-color:E0E0E0;border-style:solid;'>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed;" height=100%>
+<tr><td class=locate align=left>
+Home >> 교구별 성지 >> </td><td align=right style="padding:0 30 0 0;">
+<table align=right cellpadding=0 cellspacing=0 border=0>
+<form method=get name=tsearch action=http://www.paxkorea.kr/bbs/zboard.php?id=1001 target=_blank>
+<input type=hidden name=select_arrange value=headnum>
+<input type=hidden name=desc value=asc>
+<input type=hidden name=page_num value=15>
+<input type=hidden name=selected>
+<input type=hidden name=exec>
+<input type=hidden name=sn value=on>
+<input type=hidden name=ss value=on>
+<input type=hidden name=sc value=on>
+<input type=hidden name=category value="">
+<tr>
+<td><img src=http://www.paxkorea.kr/pax_main2/img/search.gif></td>
+<td>
+<select name=id size="1">
+<option value=1000>교구별 성지</option>
+<option value=2000>가족테마여행</option>
+<option value=2301>맛집 정보</option>
+<option value=2303>숙박 정보</option>
+</select></td><td>
+<input type=text name=keyword value="" class=input size=15 style="border-width:1 1 1 1;border-color:CCCCCC;border-style:solid;back-ground-color:white;height:20px;"></td><td>
+<input type="hidden" value="검색">
+</td>
+</tr>
+</form>
+</table>
+</td></tr></table>
+</td></tr>
+<tr><td valign=top height=100% bgcolor=white>
+
+
+<div align=center>			<table border=0 cellspacing=0 cellpadding=0 width=95% height=1 style="table-layout:fixed;"><col width=100%></col><tr><td><img src=images/t.gif border=0 width=98% height=1 name=zb_get_table_width><br><img src=images/t.gif border=0 name=zb_target_resize width=1 height=1></td></tr></table>
+			
+
+
+<!-- ■ DQ'Thumb Engine ver 2.0 R5.0306 for developer - http://www.dqstyle.com -->
+
+<style>
+.ggambo_title {font-family:tahoma;font-size:8pt;color:; font-weight:bold;text-decoration:none;border-width:0 0 1 0;border-color:AAAAAA;border-style:solid;background-color:; }
+.ggambo_list_han { font-family:tahoma;text-align:left;font-size:9pt;color:464646;padding:12 5 9 10;border-color:F0F0F0;border-width:0 0 1 0;border-style:solid; }
+.ggambo_list_eng { font-family:tahoma;font-size:8pt;color:46464;padding:10 0 10 0;border-color:F0F0F0;border-width:0 0 1 0;border-style:solid; }
+.ggambo_notice_han { font-family:tahoma;text-align:left;font-size:9pt;color:464646;padding:3 5 0 10;border-color:F0F0F0;border-width:0 0 1 0;border-style:solid; }
+.ggambo_notice_eng { font-family:tahoma;text-align:center;font-size:8pt;color:464646;padding:0 5 0 10;border-color:F0F0F0;border-width:0 0 1 0;border-style:solid; }
+.list_img { padding:10 10 10 10;border-color:F0F0F0;border-width:0 0 1 0;border-style:solid; }
+.button { font-family:tahoma;font-size:8pt;color:;padding:4 5 3 5;border-width:1 1 1 5;border-color:AAAAAA;border-style:solid;background-color:; }
+.ggambo_ipline {font-family:tahoma;font-size:8pt;color:46464;padding:5 20 5 20;border-width:1 0 0 0;border-color:F0F0F0;border-style:solid;;word-break:break-all; }
+.ggambo_com_table { table-layout:fixed;border-width:0 0 1 0;border-color:F0F0F0;border-style:solid;margin:8 0 0 0; }
+.ggambo_com_name { padding:8 5 0 8;border:1 F0F0F0 solid;font-family:;font-size:9pt;background-color:FCFCFC; }
+.ggambo_ve65 {font-family:tahoma;font-size:7pt;color:AAAAAA; }
+.imgbase  { border:1 AAAAAA solid; }
+.imgover { filter:gray;border:1 AAAAAA solid; }
+</style>
+<script language="JavaScript" src="skin/ggambo7003_travelgallery/ggambo_skin.js"></script>
+<script>
+function N () { alert ("이용권한이 없습니다"); }
+</script>
+
+
+<table border=0 cellspacing=0 cellpadding=0 width=95% style='table-layout:fixed;'>
+<tr><td align=left valign=bottom style='padding:0 0 0 20;'><font class=ggambo_ta60><b>TOTAL ARTICLE : 13</b>, TOTAL PAGE : 1 / 1</font></td>
+<td align=right valign=bottom style='word-break:break-all;padding:0 10 0 0;' nowrap>
+<a onfocus=blur() href=# onclick="window.open('http://www.paxkorea.kr/bbs/member_join.php?group_no=1','zbMemberJoin','width=560,height=590,toolbars=no,resizable=yes,scrollbars=yes')">회원가입</a> <a onfocus=blur() href='login.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&s_url=%2Fbbs%2Fzboard.php%3Fid%3D1001%26page%3D1%26sn1%3Don%26divpage%3D2%26sn%3Don%26ss%3Doff%26sc%3Doff%26keyword%3Dpaxkorea%26select_arrange%3Dheadnum%26desc%3Dasc%26no%3D464'>로그인</a> </td>
+</tr></table>
+<table border=0 cellspacing=0 cellpadding=0 width=95% style='border-width:1 1 1 1;border-color:AAAAAA;border-style:solid;margin:0 0 10 0;table-layout:fixed;'>
+<col width=8></col><col width=80></col><col width=></col>
+<tr><td height=5 colspan=3></td></tr>
+<tr>
+<td></td>
+<td bgcolor=EEEEEE style='padding:3 10 0 10;' align=center><a href=zboard.php?id=1001><b>구분</b></a></td>
+<td style='padding:2 20 0 10;word-break:break-all;line-height:200%;'>
+<a href='zboard.php?category=1&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>서울대교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=2&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>춘천교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=3&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>대전교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=4&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>인천교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=5&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>수원교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=6&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>원주교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=7&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>의정부교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=8&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>대구대교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=9&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>부산교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=10&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>청주교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=11&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>마산교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=12&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>안동교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=13&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>광주대교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=14&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>전주교구</a> <font class=ggambo_bar>|</font> <a href='zboard.php?category=15&id=1001&page=1&page_num=20&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc'>제주교구</a> <font class=ggambo_bar>|</font> </td></tr><tr><td height=5 colspan=3></td></tr></table><script>
+var copyrightAlertMsg = "이곳에 전시된 사진은 저작권법에 의해 보호됩니다";
+var board_width = "585";
+</script>
+<table border=0 cellspacing=0 cellpadding=0 width=95% style='table-layout:fixed;border-width:1 0 1 0;border-color:AAAAAA;border-style:solid;'>
+<tr><td class=ggambo_view_title style='border-color:AAAAAA;'>안동교구 : <span style='font-weight:bold;'>상주 옥터&#8901;관아&#8901;처형 터</span></td></tr>
+<tr><td style='padding:0 20 0 20;height:28px;border-width:0 0 1 0;border-color:CCCCCC;border-style:solid;'>
+<table border=0 cellspacing=0 cellpadding=0 width='100%' style='table-layout:fixed;'><tr>
+<td align=left style='word-break:break-all;padding:3 0 0 0;'>
+테마 분류 :: 성지</td>
+<td align=right style='padding:3 0 0 0;'>지역 분류 :: <a href=zboard.php?id=1001&category= target='_self'>안동교구</a> &gt; 상주,양천/강서</td>
+</td></tr></table>
+</td></tr>
+
+
+
+<tr><td align=right style='padding:3 20 0 0;'>
+<a href="javascript:PlusFont();"><img src="skin/ggambo7003_travelgallery/img/font_plus.gif" border="0"></a>	<a href="javascript:MinusFont();"><img src="skin/ggambo7003_travelgallery/img/font_minus.gif" border="0"></a> <a href="javascript:SetArticleFont();"><img src="skin/ggambo7003_travelgallery/img/font_save.gif" border="0"></a> <a href="javascript:SetDefaultFont();"><img src="skin/ggambo7003_travelgallery/img/font_default.gif" border="0"></a></td></tr>
+<tr><td>
+<div id =article  style="text-align:justify;word-break:break-all;line-height:140%;padding:16 20 16 20;">
+<font style='color:BC0001;font-size:10pt;font-family:돋음;'><b>상주&#8901;문경 지방의 순교자들이 체포되어 문초 받고 순교한 곳</b></font><br >
+<!-- 내용이 시작되는 곳입니다.-->
+
+
+
+
+
+    <div align=left><img src="./data/1001/sangju_ok_1.jpg" border=0 onLoad=resizeImg(this);  style='margin:10 0 10 0;'    onclick="this.src.popupView();" style="cursor:pointer;"></div>
+<br />
+<b>구한말 상주 진영의 옥 터는 현재 상주시 성동동 남문시장 옛 소전걸(현 상주 청과물시장)이다. 박해시대 때, 이곳 감옥에 갇혀 있는 신자들이 왕산 남쪽 아래에 있는 관아로 끌려 나가 문초를 받았는데, 심문을 받는 중에 배교하거나 순교하는 신자들도 많았다. 당시 형장은 옥 터 바로 옆인 성동동의 소전<현 대구여인숙 부근〉과 서문 밖 병정들이 주둔해 있던 병영은〈소방서에서-서문동 천주교회 부근까지〉로 추정되고 있다. <br />
+<div align=left><img src="./data/1001/sangju_ok_2.JPG" border=0 onLoad=resizeImg(this);  style='margin:10 0 10 0;'    onclick="this.src.popupView();" style="cursor:pointer;"></div>
+<br />
+상주 지방은 1592년 임진왜란 전까지 경상도 감영이 있었던 곳으로 유서 깊은 고을이며 소백산맥 동편에 위치하고 낙동강이 이 지방의 동남쪽으로 흐르고 넓은 평야가 펼쳐져 있으며, 예로부터 많은 인재가 배출된 인물의 고장이기도 하다. 고려 때 전국 8목의 하나로 상주목이 설치된 이래 조선 땐 상주목사가 경상감사를 겸할 정도로 중요한 거점도시였다. 일제 강점기 때 구획정리를 하면서 상주성과 4대문이 흔적도 없이 사라졌다. <br />
+<div align=left><img src="data/1001/sangju-ok-3.JPG" border=0 onLoad=resizeImg(this);  style='margin:10 0 10 0;'    onclick="this.src.popupView();" style="cursor:pointer;"></div>
+<br />
+1827년 정해박해 때는 경북 상주 멍에목, 앵무당 등에서 체포된 박보록 바오로, 박사의 안드레아, 김사건 안드레아, 안군심 리카르도 등 31명의 신자들이 모두 상주 진영으로 잡혀 와서 문초를 받은 후에 대구의 경상 감영으로 이송되어 순교했다. 1866년 병인박해 때는 문경의 여우목과 한실 공소와 모전 등 여러 곳에서 체포된 신자들이 상주 진영으로 이송되어 와서 문초를 받고 순교했으며, 성 이윤일(요한)과 한실공소 김회장 형제 및 청리면 질리 사람인 송 아기는 대구의 경상감영으로 이송되어 가서 순교했다.<br />
+<div align=left><img src="data/1001/sangju-ok-4.JPG" border=0 onLoad=resizeImg(this);  style='margin:10 0 10 0;'    onclick="this.src.popupView();" style="cursor:pointer;"></div>
+<br />
+이윤일은 충청도 홍주(洪州) 출신의 태중 교우로, 경상도 문경의 여우목골에 살며 회장으로 활동하였다. 1866년 병인박해의 여파가 경상도에 이르자 그 해 11월 가족, 마을 교우 30여 명과 함께 체포되었다. 문경 관아에서 사흘 동안 혹형과 고문을 받은 뒤 배교하지 않은 교우들과 함께 상주로 이송되었고, 상주에서 한 달에 세 번씩 석 달 동안 혹형과 고문을 받고 나서 대구 감영으로 이송되었다. 그는 대구 감영에서 사형 선고를 받고 여유롭고 기쁜 마음으로 기도하며 지내다가, 1867년 1월 21일 대구 남문 밖 관덕정에서 참수형을 받아 45세의 나이로 순교하였다. <br />
+<div align=left><img src="data/1001/sangju-ok-5.JPG" border=0 onLoad=resizeImg(this);  style='margin:10 0 10 0;'    onclick="this.src.popupView();" style="cursor:pointer;"></div>
+<br />
+<b>■&nbsp;&nbsp;상주 관아 : 왕산역사공원</b><br />
+상주시는 150억원을 들여 2007년부터 서성동 왕산 주변 사유지를 매입한 뒤 유적 발굴조사와 금도랑 재현, 정자와 산책로, 연못 등을 설치하고 소나무 숲을 조성하여 왕산 역사공원을 준공하였다. 왕산은 해발 71.3ｍ의 작은 동산이나 상주의 진산으로 시민의 사랑을 받아왔고 조선조 말기까지 상주 관아가 있었던 곳이기도 하다.<br />
+조선 초기부터 임진왜란 전까지 이 산 주변에서 상주 선비 68명이 과거에 급제하고 장원을 차지한 사람도 많아 장원봉(壯元峯)으로 불리기도 했다. 그러나 임진왜란 때 왜병이 정상부의 봉우리를 자르고서 왜식 다락집을 지었고 일제강점기 때 일본인들이 신사참배를 위한 사당으로 사용하며 이름을 앙산(央山)으로 바꿨다. 금도랑은 상주성 서쪽 파로문(서문) 지역에서 왕산 뒤편으로 흐르는 냇물로, 1천300년의 역사를 지니고 있다. 한때 이 산 아래에 관아가 있고 연못가에는 이향정(二香亭)이라는 정자가 있어 관민(官民)이 연락(宴樂)하는 곳이었고 때로는 목사의 후원(後苑) 내당(內堂)으로 쓰이기도 하였다 <br />
+상주의 고지도인 ＜상주성도 尙州城圖＞를 보면 왕산 주변으로 관아 건물이 들어차 있었음을 알 수 있다. 읍성 속에는 관아들이 배치되어 있다. 읍성의 남문(弘治舊樓)을 들어서면 관아의 정문인 태평루 누문이 우뚝 서 있고, 다음의 내삼문(內三門)에 이른다. 태평루의 동쪽에는 군녕청(軍寧廳)이 있고, 서쪽에는 사령청(使令廳)이 있다. 내삼문을 들어서면 정면으로 동헌인 청유당이 자리잡고, 그 앞 동쪽에 공고(工庫)가, 서쪽에 목민관의 살림집인 내아가 자리 잡고, 기타 여러 채의 부속채들이 둘러서 있다. 객사인 상산관(商山館)은 공고 동쪽에 따로 쌓은 담장 속에 있었다. <br />
+<div align=left><img src="data/1001/sangju-ok-6.jpg" border=0 onLoad=resizeImg(this);  style='margin:10 0 10 0;'    onclick="this.src.popupView();" style="cursor:pointer;"></div>
+<br />
+<b>■&nbsp;&nbsp;천주교 전래 </b><br />
+천주교가 상주 지방에 처음으로 소개된 것은 아마 1700년대 실학운동이 활발해지면서 남인 학자들에 의해서인 듯하다. 실제로 1784년 이승훈이 북경에서 세례를 받고 돌아와서 포교활동을 함으로써 한국 천주교회가 창립되었다. <br />
+그 이듬해인 1785년 3월 명례방 김범우(토마스) 집에서 신앙집회가 있을 때 일어난 을사추조적발 사건에 의해서 문중박해로 문중에서 파적을 당한 서광수의 가족들이 상주 지방의 이안면 배모기로 은거해 옴으로써 천주교 신앙의 씨가 뿌려졌다. 그 후 1791년 신해박해 후인 1798년 황사영이 상주의 이복운에게 복음을 전파하러 왔다가 실패했다는 기록으로 보아 그 무렵부터 복음전파의 노력이 이 지방에 활발했던 것 같다.<br />
+1801년 신유박해가 일어나자 서광수의 아들인 서유도 가정은 문경 한실로 이사를 가고 그 집안을 통하여 천주교를 알게 된 것으로 생각되는 경주 이씨 이응동의 선대 가정도 이곳에 살면서 신앙을 전파하였다. 김 아가다 막달레나 가정은 청송 노래산으로 피난을 갔다. 이 박해(1801) 때 충청도 사람인 김만업이 상주로 귀양을 왔다. <br />
+그후 이안의 배모기뿐 아니라 부근의 사실과 저음리와 멍에목, 앵무당, 삼막터, 오두재, 보문, 서산 화형터와 그 부근의 마을인 율리(밤밭) 등 여러 곳에 신자촌이 형성되었다. 1801년 신유박해, 1827년 정해박해, 1839년 기해박해, 1860년 경신박해, 1866년 병인박해 등 역대 박해 때마다 이 지방에 살던 많은 신자들이 순교하였다. 특히 상주 시내는 목사(牧使)의 아문이 있었으므로 문경, 상주 등지에서 체포되어온 신자들이 관아에서 영장에게 문초를 받다가 사망을 하거나 감옥에서 옥사를 하거나 형장에서 참수를 당하였다. </b><br />
+<br />
+<b>■&nbsp;&nbsp;찾아 가는 길 </b><br />
+<div align=left><img src="data/1001/sangju-ok-7.jpg" border=0 onLoad=resizeImg(this);  style='margin:10 0 10 0;'    onclick="this.src.popupView();" style="cursor:pointer;"></div>
+<br />
+<b>■&nbsp;&nbsp;순례 정보 </b><!--"<-->
+<!-- 내용이 끝나는 곳입니다.-->
+</div>
+
+<table border=0 cellspacing=0 cellpadding=0 width=100% style='table-layout:fixed;margin:0 0 10 0;border-width:0 0 1 0;border-color:CCCCCC;border-style:solid;'>
+<col width=110></col><col width=></col>
+<tr><td class=ggambo_viewline1>소재지</td><td class=ggambo_viewline3>  [옥터] 경상북도 상주시 남문2길 89-15 (성동동 633-2) <br />
+89-15, Nammun 2-gil, Sangju-si, Gyeongsangbuk-do<br />
+[관아터] 경상북도 상주시 서성동 163-48 (왕산역사공원)<br />
+163-48, Susung-dong, Sangju-si, Gyeongsangbuk-do&nbsp;</td></tr><tr><td class=ggambo_viewline1>지리좌표</td><td class=ggambo_viewline3>  [옥터] 북위 36°24′50.1″ 동경 128°09′50.6″&nbsp;</td></tr><tr><td class=ggambo_viewline1>연락처</td><td class=ggambo_viewline3>  남성동 성당 (054) 531-1784(팩스 겸용) 사제관 (054) 531-1781&nbsp;</td></tr><tr><td class=ggambo_viewline1>홈페이지</td><td class=ggambo_viewline3>  남성동 성당 <a href=http://www.deo.or.kr target=_blank>http://www.deo.or.kr</a> &nbsp;</td></tr><tr><td class=ggambo_viewline1>미사시간</td><td class=ggambo_viewline3>  [남성동 성당](하절기)<br />
+평일 : (화수목) 오후 8:00 (금) 오전 10:00<br />
+주일 : 오전 9:00, 10:30, 오후 8:00  (토) 오후 3:00&nbsp;</td></tr><tr><td class=ggambo_viewline1>교통편</td><td class=ggambo_viewline3>  [관아] 상주시내 왕산역사공원 내<br />
+[옥터] 상주 청과물시장<br />
+[형장] 소방서와 서문동 성당 사이&nbsp;</td></tr></table>
+
+<Script language="javascript" src="skin/ggambo7003_travelgallery/font.js"></Script><table border=0 cellspacing=0 cellpadding=0 width=100% style='table-layout:fixed;'>
+<col width=40%></col><col width=60%></col>
+<tr><td></td><td>
+</td></tr></table>
+</td></tr>
+
+
+
+<tr><td>
+<table border=0 cellspacing=0 cellpadding=0 width="100%" class='main_contentbox' style="table-layout:fixed;margin:8 0 10 0;">
+<col width=></col><col width=110 align=right></col><tr><td colspan=2 bgcolor=EEEEEE style="padding:6 5 3 20;"><b>안동교구의 성지</b></td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=1001&no=242 target='_self'><font color=color=#BC0000>문경 건학 교우촌&nbsp;</font>&nbsp;배교자의 밀고로 순교자를 낸 문경시의 최북단 교우촌&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;문경</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=1001&no=241 target='_self'><font color=color=#BC0000>문경 관아와 객사&nbsp;</font>&nbsp;병인박해 때 여우목 성지 교우들이 신앙을 증거하던 곳&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;문경</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=1001&no=434 target='_self'><font color=color=#BC0000>문경 마원 박상근 마티아 묘&nbsp;</font>&nbsp;신부님과 신자의 우정을 기리며 조성된 순교자 박상근의 유해를 모신 성지&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;문경</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=1001&no=239 target='_self'><font color=color=#BC0000>문경 먹뱅이 교우촌 (가은 성당)&nbsp;</font>&nbsp;병인박해 후 새로이 형성된 문경 가은 성당의 전신 교우촌 &nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;문경</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=1001&no=433 target='_self'><font color=color=#BC0000>문경 부럭이 교우촌&nbsp;</font>&nbsp;순교자 전 사베리오와 이 요한이 체포된 박해시대 교우촌&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;문경</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=1001&no=238 target='_self'><font color=color=#BC0000>문경 여우목 성지&nbsp;</font>&nbsp;이윤일 요한 성인과 서치보 요셉 가정에 의하여 이루어진 교우촌&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;문경</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=1001&no=240 target='_self'><font color=color=#BC0000>문경 은재 돌마래미 교우촌&nbsp;</font>&nbsp;하느님의 종 김윤덕이 태어난 박해 초기의 교우촌&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;문경</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=1001&no=237 target='_self'><font color=color=#BC0000>문경 진안리 성지&nbsp;</font>&nbsp;증거자 ‘하느님의 종’ 최양업 신부가 선종한 곳&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;문경</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=1001&no=236 target='_self'><font color=color=#BC0000>문경 한실 교우촌&nbsp;</font>&nbsp;15명의 순교자를 낸 깔레 신부의 사목 중심지&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;문경</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=1001&no=235 target='_self'><font color=color=#BC0000>봉화 건사골  교우촌&nbsp;</font>&nbsp;을해박해 때 대구 경상 감옥에서 옥사한 예비신자 이윤집이 살던 교우촌&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;봉화</td></tr></table><table border=0 cellspacing=0 cellpadding=0 width="100%" class='main_contentbox' style="table-layout:fixed;margin:8 0 10 0;">
+<col width=></col><col width=110 align=right></col><tr><td colspan=2 bgcolor=EEEEEE style="padding:6 5 3 20;"><b>상주의 여행지</b></td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=2001&no=200 target='_self'><font color=color=#BC0000>문장대(文藏臺)&nbsp;</font>&nbsp;속리산에 절경을 이룬 문장대&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;상주</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=2001&no=201 target='_self'><font color=color=#BC0000>상주 경천대 국민관광지(擎天臺國民觀光地)&nbsp;</font>&nbsp;경상북도 상주시 사벌면 삼덕리에 있는 관광지&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;상주</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=2001&no=202 target='_self'><font color=color=#BC0000>상주 동학교당(尙州東學敎堂)&nbsp;</font>&nbsp;동학의 남접주 김주희 선생이 교세 확장을 위하여 건립한 교당&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;상주</td></tr></table><table border=0 cellspacing=0 cellpadding=0 width="100%" class='main_contentbox' style="table-layout:fixed;margin:8 0 10 0;">
+<col width=></col><col width=110 align=right></col><tr><td colspan=2 bgcolor=EEEEEE style="padding:6 5 3 20;"><b>상주의 맛집</b></td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=2311&no=447 target='_self'><font color=color=#BC0000>상주 남성동 : 수라간 <한정식>&nbsp;</font>&nbsp;전통 한옥에서 푸짐하게 즐길수 있는 한정식집&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;상주</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=2311&no=444 target='_self'><font color=color=#BC0000>상주 남적동 : 부흥식당 <석쇠불고기>&nbsp;</font>&nbsp;상주IC 인근에 위치한 50년 전통의 연탄 석쇠구이 전문점&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;상주</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=2311&no=446 target='_self'><font color=color=#BC0000>상주 성동동 : 남천식당 <국밥>&nbsp;</font>&nbsp;1936년부터 운영해온 국밥 전문 한식당&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;상주</td></tr><tr><td class=ggambo_list13 nowrap><font color=#BBBBBB>&#149;</font> &nbsp;<a href=view.php?id=2311&no=445 target='_self'><font color=color=#BC0000>상주 헌신동 : 명실상감한우 <한우요리>&nbsp;</font>&nbsp;상주축산농협 '명실상감한우'를 취급하는 한우구이 전문점&nbsp;</td><td class=ggambo_list14 nowrap>&nbsp;상주</td></tr></table>
+</td></tr>
+
+
+</table>
+
+
+<table width=95% cellspacing=0 cellpadding=0 style='table-layout:fixed;margin:0 0 20 0;border-width:1 0 0 0;border-color:AAAAAA;border-style:solid;'>
+<col width=180></col><col width=></col>
+<tr>
+ <td height=40 style='padding:12 0 15 10;'>
+</td>
+ <td align=right style='padding:12 8 15 0;'>
+     <a onfocus=blur() href='zboard.php?id=1001&page=1&page_num=20&category=&sn=on&ss=off&sc=off&keyword=paxkorea&prev_no=464&sn1=on&divpage=2&select_arrange=headnum&desc='><font class=button>목록</font></a>                     </td>
+</tr>
+</table>
+
+
+
+<table border=0 cellspacing=0 cellpadding=0 width=95% style='table-layout:fixed;border-width:1 0 1 0;border-color:AAAAAA;border-style:solid;'>
+<form method=post name=list action=list_all.php>
+<input type=hidden name=page value=1>
+<input type=hidden name=id value=1001>
+<input type=hidden name=select_arrange value=headnum>
+<input type=hidden name=desc value=asc>
+<input type=hidden name=page_num value=20>
+<input type=hidden name=selected>
+<input type=hidden name=exec>
+<input type=hidden name=keyword value="paxkorea">
+<input type=hidden name=sn value="on">
+<input type=hidden name=ss value="off">
+<input type=hidden name=sc value="off">
+
+<col width=40></col><col width=122 align=center></col><col width=1></col><col width=></col>
+
+
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng>13</td>	<td class=list_img><img src=data/1001/thumb/small_467.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=467"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="467" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>안동교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=467" ><span style='font-weight:bold;'>상주 갈골 교우촌</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>이윤일 성인을 비롯한 순교자들의 피신터</font><br />
+경상북도 상주시 화남면 동관리의 갈골이다. 장자불 서쪽에 있고 매바위들 남쪽에 있다. 작은 갈골의 남서쪽이...</div>	</td>
+	</tr>
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng>12</td>	<td class=list_img><img src=data/1001/thumb/small_465.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=465"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="465" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>안동교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=465" ><span style='font-weight:bold;'>상주 앵무당 교우촌</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>복자 김사건&#8901;안군심 등이 순교하기 전 피신하였던 교우촌</font><br />
+상주시 화남면 소재지인 평온리(坪溫里) 앵무동(鶯舞洞)[앵무당, 안당 골]은 충북 보은군 마로면 속리산면과...</div>	</td>
+	</tr>
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng><img src=skin/ggambo7003_travelgallery/arrow.gif border=0 align=absmiddle></td>	<td class=list_img><img src=data/1001/thumb/small_464.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=464"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="464" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>안동교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=464" ><span style='font-weight:bold;'>상주 옥터&#8901;관아&#8901;처형 터</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>상주&#8901;문경 지방의 순교자들이 체포되어 문초 받고 순교한 곳</font><br />
+구한말 상주 진영의 옥 터는 현재 상주시 성동동 남문시장 옛 소전걸(현 상주 청과물시장)이다. 박해시대 때...</div>	</td>
+	</tr>
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng>10</td>	<td class=list_img><img src=data/1001/thumb/small_463.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=463"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="463" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>안동교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=463" ><span style='font-weight:bold;'>상주 잣골 교우촌</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>순교자 신태보 베드로가 만년에 이곳에 은거하다가 정해박해 때 체포된 곳</font><br />
+경상북도 상주시 모동면 신흥리 잣골은 산막 터와 동일한 장소인데 단지 골짜기가 갈라져 있어서 이름을 달리...</div>	</td>
+	</tr>
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng>9</td>	<td class=list_img><img src=data/1001/thumb/small_462.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=462"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="462" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>안동교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=462" ><span style='font-weight:bold;'>상주 절골 교우촌</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>최양업 신부가 편지를 쓰고 여름휴가를 보낸 곳으로 전해오는 곳</font><br />
+상주 절골은 동관음 동북쪽에 있는 마을이다. 군들바우 동쪽에 있다. 동관음암이란 절이 있었다. 부도(浮屠)....</div>	</td>
+	</tr>
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng>8</td>	<td class=list_img><img src=data/1001/thumb/small_461.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=461"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="461" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>안동교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=461" ><span style='font-weight:bold;'>안동 옥 터</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>을해박해 때 체포된 신자들이 신앙을 증거하고 순교한 현장</font><br />
+안동 진영 감옥이 있던 자리는 현 안동시 옥야동(당시 옥동) 시장터 부근으로 추정하고 있다. 1815년 을해박...</div>	</td>
+	</tr>
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng>7</td>	<td class=list_img><img src=data/1001/thumb/small_460.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=460"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="460" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>광주대교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=460" ><span style='font-weight:bold;'>영광 성당 : 영광 순교자 기념 성당</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>영광 지역 순교자들을 위한 순교자 기념 성당</font><br />
+1801년 신유박해 직전 영광 지역 신자로 붙잡혀 처벌을 받은 신자들로 이우집, 이종집, 오씨, 이화백, 윤종...</div>	</td>
+	</tr>
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng>6</td>	<td class=list_img><img src=data/1001/thumb/small_459.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=459"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="459" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>청주교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=459" ><span style='font-weight:bold;'>진천 동골 교우촌</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>최양업 신부가 귀국 후 거처를 정했던 사목 활동의 중심지</font><br />
+배티 일대 교우촌은 최양업 신부의 사목 활동의 보금자리요 중심지였다. 또한 이곳은 교회사에 길이 남을 최...</div>	</td>
+	</tr>
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng>5</td>	<td class=list_img><img src=data/1001/thumb/small_458.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=458"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="458" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>청주교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=458" ><span style='font-weight:bold;'>진천 절골 교우촌</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>최양업 신부의 사목활동 중심지이며 순교자들의 고향</font><br />
+진천 절골은 최양업 신부가 사제 서품 후 귀국하여 국내에서 사목 활동을 하면서 거점으로 삼았던 교우촌이었...</div>	</td>
+	</tr>
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng>4</td>	<td class=list_img><img src=data/1001/thumb/small_457.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=457"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="457" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>청주교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=457" ><span style='font-weight:bold;'>진천 배티 6인 무명 순교자 묘</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>병인박해 때 고귀한 목숨을 바친 무명 순교자들의 묘역</font><br />
+배티 성지가 지니고 있는 중요한 의미는 순교자들의 고향이라는 점이다. 현재 이곳 배티 골짜기에는 순교자들...</div>	</td>
+	</tr>
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng>3</td>	<td class=list_img><img src=data/1001/thumb/small_456.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=456"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="456" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>원주교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=456" ><span style='font-weight:bold;'>횡성 성 최경환 프란치스코 후손 묘역</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>최양업 신부의 동생들과 후손들의 묘역</font><br />
+풍수원 성당에서 횡성 방면으로 느릅나무가 많다고 해서 ‘느르게’라고 불리는 고개를 넘어 약&#160;&#160;2.5...</div>	</td>
+	</tr>
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng>2</td>	<td class=list_img><img src=data/1001/thumb/small_455.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=455"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="455" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>대전교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=455" ><span style='font-weight:bold;'>부여 도앙골 교우촌</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>순교자를 배출한 교우촌이며 최양업 신부가 첫 사목보고서를 썼던 곳</font><br />
+홍산(鴻山) 도앙골은 옛 교우촌이 있었던 유서 깊은 순교 사적지로 이존창(루도비코)의 전교활동에 의해 교우...</div>	</td>
+	</tr>
+ 
+<tr align=center bgcolor='FFFFFF' onmouseover="this.style.backgroundColor='F8F8F8'" onmouseout="this.style.backgroundColor=''">
+	<td class=ggambo_list_eng>1</td>	<td class=list_img><img src=data/1001/thumb/small_454.thumb  onMouseOver="this.className='imgover'" onMouseOut="this.className='imgbase'" class="imgbase" style="cursor:pointer" onclick=location.href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=454"  onFocus="blur()" border="0"></td>	<td valign=top height=100%><img src=skin/ggambo7003_travelgallery/img/t.gif border=0 width=1 height=70% style='background-color:F0F0F0;'></td>
+	<td class=ggambo_list_han><!--<input type=checkbox name=cart value="454" style='margin:0 5 0 0;' align=absmiddle>--><img src=skin/ggambo7003_travelgallery/old_head.gif border=0 align=absmiddle>&nbsp;&nbsp;<font color=0050B8>대전교구</font>&nbsp;:&nbsp;<a href="zboard.php?id=1001&page=1&sn1=on&divpage=2&sn=on&ss=off&sc=off&keyword=paxkorea&select_arrange=headnum&desc=asc&no=454" ><span style='font-weight:bold;'>예산 간양리 본당 터</span></a> 	<div width=100% class=ggambo_div><font color=BC0001>순교자를 배출한 박해시대 교우촌으로 내포 지역의 첫 본당터</font><br />
+간양골은 《병인박해 순교자증언록》에 보면 순교자 김동, 박 회장, 신여석 등을 배출한 박해시대 교우촌이 ...</div>	</td>
+	</tr>
+ </table>
+<table border=0 cellpadding=0 cellspacing=0 width=95% style='margin:5 0 10 0;'>
+<tr valign=top>
+	<td style='padding:8 0 0 10;' nowrap class=ggambo_ve8><table cellspacing=0 cellpadding=0 border=0 class=p_table><tr align=center><td class=ggambo_p1 OnMouseOut="namosw_cell_rollout(this)" OnMouseOver="namosw_cell_rollover(this, 'ggambo_p2')"  onclick=location.href="/bbs/zboard.php?id=1001&&select_arrange=headnum&desc=asc&category=&sn=on&ss=off&sc=off&keyword=paxkorea&sn1=on&divpage=3"><img src=skin/ggambo7003_travelgallery/img/before_search.gif border=0></td><td class=ggambo_p1 OnMouseOut="namosw_cell_rollout(this)" OnMouseOver="namosw_cell_rollover(this, 'ggambo_p2')"><font color=CC0000><b>1</b></font></td><td class=ggambo_p1 OnMouseOut="namosw_cell_rollout(this)" OnMouseOver="namosw_cell_rollover(this, 'ggambo_p2')"  onclick=location.href="/bbs/zboard.php?id=1001&&select_arrange=headnum&desc=asc&category=&sn=on&ss=off&sc=off&keyword=paxkorea&sn1=on&divpage=1"><img src=skin/ggambo7003_travelgallery/img/continue_search.gif border=0></td></tr></table>	</td>
+	<td align=right style='padding:8 10 5 0;' valign=top>
+	<!--<font class=button>설정</font>--> 
+	<!--<font class=button>삭제</font>--> <!--<font class=button>쓰기</font>-->	</td></tr></form>
+</table>
+
+<script>
+print_ZBlayer('zbLayer1', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer2', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer3', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer4', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer5', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer6', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer7', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer8', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer9', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer10', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer11', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer12', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer13', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+print_ZBlayer('zbLayer14', 'http://paxkorea.kr', 'eWhvaEBzd3UuYWMua3I=', '1', '1001', 'paxkorea', '', '', '', '');
+</script><!--
+			<table border=0 cellpadding=0 cellspacing=0 height=20 width=95%>
+			<tr>
+				<td align=right style=font-family:tahoma,굴림;font-size:8pt;line-height:150%;letter-spacing:0px>
+					<font style=font-size:7pt>Copyright 1999-2026</font> <a href=http://www.zeroboard.com target=_blank onfocus=blur()><font style=font-family:tahoma,굴림;font-size:8pt;>Zeroboard</a> / skin by <a href=http://web.ggambo.com target=_blank onfocus=blur()><span style='font-family:tahoma;font-size:7pt;'>GGAMBO</span></a>				</td>   
+			</tr>
+			</table>
+--->
+			</div></td></tr>
+<tr><td height=30>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed;table-layout:fixed;" height=100%>
+<col width=50></col><col width=></col><col width=50></col>
+<tr><td style='border-width:1 0 0 0;border-color:DDDDDD;border-style:solid;padding:3 0 0 0;'>&nbsp;</td><td align=center style='border-width:1 0 0 0;border-color:DDDDDD;border-style:solid;padding:3 0 0 0;' valign=middle height=100%><a href=http://www.paxkorea.kr/bbs/zboard.php?id=5001>공지사항</a> | <a href=http://www.paxkorea.kr/bbs/zboard.php?id=5002>자주묻는 질문</a> | <a href=http://www.paxkorea.kr/pax_main2/?id=5003>사이트맵</a> | <a href=http://www.paxkorea.kr/bbs/zboard.php?id=5004>건의 및 불편사항</a> | <a href=http://www.paxkorea.kr/bbs/zboard.php?id=5005>사이트 소개</a></td><td valign=middle style='border-width:1 0 0 0;border-color:DDDDDD;border-style:solid;padding:0 10 0 0;'><a href=javascript:scroll(0,0)><img src=http://www.paxkorea.kr/pax_main2/img/top.gif border=0></a></td></tr></table>
+</td></tr></table>
+</td><td></td></tr>
+<tr><td colspan=5 height=100%>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed;" height=100%>
+<col width=></col><col width=185></col><col width=665></col><col width=100></col><col width=></col>
+<tr><td></td><td colspan=2 style="border-width:1 1 0 1;border-color:CCCCCC;border-style:solid;height:50;padding:0 0 0 0;" align=center bgcolor=FAFAFA><a href=# onclick="window.open('http://www.paxkorea.kr/bbs/view_mail.php?member_no=1','mailling','resizable=no width=450 height=500');return false"><font class=copy><b>COPYRIGHT&nbsp; 2004&nbsp;- 2026&nbsp; PAXKOREA, ALL &nbsp;RIGHTS&nbsp; RESERVED.</b></font></td><td></td></tr>
+</table>
+</td></tr>
+</table>
+<!--<script language="JavaScript" src="http://www.paxkorea.kr/pax_main2/ggambo_scroll.js"></script>-->
+
+</body>
+</html>
+
+
+</body>
+</html>
+			
+
+<!--
+ Session Excuted  : 0.0001
+ Connect Checked  : 0.0003
+ Query Excuted  : 0.002
+ PHP Excuted  : 0.022
+ Check Lists : 0.016
+ Skins Excuted  : 0.054
+ Total Excuted Time : 0.078
+-->

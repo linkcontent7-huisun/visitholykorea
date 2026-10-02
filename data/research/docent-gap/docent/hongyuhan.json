@@ -1,0 +1,95 @@
+{
+  "siteId": "5cb4ca8c-f56b-42ad-88eb-9634b1cce497",
+  "siteName": "농은 홍유한 선생 고택지",
+  "slug": "hongyuhan",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "영주시 단산면 구구리 하이목 마을, 농은 홍유한 선생의 고택지에 오셨습니다. 한국 천주교회가 세워진 1784년보다 30여 년 앞서 천주 신앙을 받아들인 홍유한 선생이 1775년부터 세상을 떠난 1785년까지 10년 동안 살며 깨달은 신앙을 실천한 집터입니다. 지금도 그가 쓰던 대문이 남아 있고, 그 위에 1724년 조부가 임금에게 받은 효자문 현판이 걸려 있습니다. 오늘은 효자문에서 시작해 구구리라는 마을 이름, 성호 이익 문하의 공부, 예산 18년과 구구리 10년의 수덕 생활, 그리고 1995년의 유적비까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to the site of the old house of Hong Yu-han, known by his pen name Nongeun, at Haimok village in Gugu-ri, Dansan-myeon, Yeongju. Here Hong Yu-han, who embraced the Catholic faith some thirty years before the Korean Church was founded in 1784, lived for ten years from 1775 until his death in 1785, practicing the faith he had come to understand. The gate he used still stands, and above it hangs the 'filial son' plaque his grandfather received from the king in 1724. Today we will begin at that gate, then look at the name of the village, his studies under Yi Ik, his eighteen years at Yesan and ten at Gugu-ri, and the memorial stone of 1995.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "1724년의 효자문 현판 — 지금도 남은 대문",
+      "titleEn": "The Filial-Son Plaque of 1724 — A Gate That Still Stands",
+      "location": "고택지 대문 앞",
+      "locationEn": "In front of the gate of the old house site",
+      "narration": "구구리 하이목 마을의 홍유한 유택지에는 당시 그가 쓰던 대문이 남아 있습니다. 그 위에는 경종 4년, 1724년에 홍유한의 조부 홍중명이 임금에게 하사받은 효자문 현판이 잘 보존되어 있습니다. 순교자 권일신과 주고받은 홍유한의 친필 서찰들은 후손이 보존해 오다가 지금은 천진암 전시관에 보관되어 있습니다.",
+      "narrationEn": "At the site of Hong Yu-han's house in Haimok village, Gugu-ri, the gate he used in his lifetime still stands. Above it is preserved the 'filial son' plaque that his grandfather Hong Jung-myeong received from the king in 1724, the fourth year of King Gyeongjong. The letters in Hong Yu-han's own hand exchanged with the martyr Gwon Il-sin were kept by his descendants and are now held in the museum at Cheonjinam.",
+      "lookFor": "대문 위의 효자문 현판",
+      "lookForEn": "The filial-son plaque above the gate",
+      "forEveryone": "300년 된 효자 현판이 걸린 대문이 그대로 남아 있습니다.",
+      "forEveryoneEn": "A gate bearing a 300-year-old plaque honoring a filial son still stands.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '홍유한 고택지(휴천동 성당)' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2356 (사본 _pages/hongyuhan/goodnews.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "'학이 구고에서 우니' — 구구리라는 이름",
+      "titleEn": "'The Crane Cries in the Nine Marshes' — The Name Gugu-ri",
+      "location": "고택지 마당",
+      "locationEn": "The yard of the old house site",
+      "narration": "구구리는 본래 순흥부 동원면 지역으로, 마을 뒷산에 무학봉이 있어 「시전」에 나오는 '학이 구고에서 우니 소리가 하늘에 들린다'는 옛 뜻을 따라 '구고'라 불렸다고 합니다. 1914년 행정구역 통폐합 때 오현리, 이목리와 등영리, 상암리 일부를 합쳐 '구구리'가 되어 영주군 단산면에 편입되었습니다. 홍유한이 1775년에 찾아든 소백산 아래 순흥 고을 구고리가 바로 이곳입니다.",
+      "narrationEn": "Gugu-ri originally belonged to Dongwon-myeon in Sunheung prefecture; with Muhakbong, 'Dancing Crane Peak,' rising behind the village, it was called Gugo after the line in the Book of Odes, 'the crane cries in the nine marshes and its voice is heard in heaven.' In the administrative reorganization of 1914 it was merged with Ohyeon-ri, Imok-ri, and parts of Deungyeong-ri and Sangam-ri to become Gugu-ri in Dansan-myeon, Yeongju. This is the Gugo-ri of Sunheung beneath Mount Sobaek to which Hong Yu-han came in 1775.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "마을 이름이 중국 고전의 시 한 구절에서 왔습니다.",
+      "forEveryoneEn": "The village takes its name from a line in a Chinese classic.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '홍유한 고택지(휴천동 성당)' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2356 (사본 _pages/hongyuhan/goodnews.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "안정복, 권일신과 함께 — 성호 문하에서 만난 서학",
+      "titleEn": "With An Jeong-bok and Gwon Il-sin — Western Learning in Yi Ik's School",
+      "location": "고택지 마당",
+      "locationEn": "The yard of the old house site",
+      "narration": "홍유한은 풍산 홍씨 명문가의 16대손으로 1726년 서울 아현동에서 홍창보의 아들로 태어났고, 여덟 살 무렵 사서삼경과 백가제서에 통달한 신동으로 전해집니다. 열여섯 살이던 1742년 실학자 성호 이익의 문하에서 순암 안정복, 녹암 권일신, 복암 이기양 등과 함께 공부했습니다. 1750년 무렵 성호 이익이 「천주실의」와 「칠극」 같은 서학을 연구할 때 제자들도 이 책들을 탐독했는데, 이익은 피상적인 보유론에 머물렀고 안정복은 천주교에 극히 비판적이었지만, 홍유한은 유교와 불교에서 발견하지 못한 진리를 여기서 발견하고 받아들였습니다.",
+      "narrationEn": "Hong Yu-han, sixteenth-generation descendant of the distinguished Pungsan Hong clan, was born in 1726 at Ahyeon-dong in Seoul, the son of Hong Chang-bo, and is said to have mastered the Confucian classics and the hundred schools by the age of eight. In 1742, at sixteen, he studied in the school of the Silhak scholar Yi Ik alongside An Jeong-bok, Gwon Il-sin, and Yi Gi-yang. Around 1750, when Yi Ik was studying Western learning such as the 'True Meaning of the Lord of Heaven' and the 'Seven Victories,' his disciples devoured these books too; Yi Ik went no further than a superficial view of Catholicism as a complement to Confucianism, and An Jeong-bok was sharply critical of it, but Hong Yu-han found in it a truth he had not found in Confucianism or Buddhism, and embraced it.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "같은 스승 밑에서 같은 책을 읽고도 세 사람의 길은 갈렸습니다.",
+      "forEveryoneEn": "Three men read the same books under the same teacher, and their paths diverged.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '홍유한 고택지(휴천동 성당)' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2356 (사본 _pages/hongyuhan/goodnews.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "예산 18년, 구구리 10년 — 천진암보다 앞선 수덕 생활",
+      "titleEn": "Eighteen Years at Yesan, Ten at Gugu-ri — An Ascetic Life Before Cheonjinam",
+      "location": "고택지 마당",
+      "locationEn": "The yard of the old house site",
+      "narration": "홍유한은 1757년 고향 예산으로 내려가 1775년까지 18년 동안 홀로 신앙을 연마했고, 1775년 더 조용한 곳을 찾아 이곳 구구리로 옮겨 1785년 60세로 세상을 떠날 때까지 고행과 절식, 기도와 묵상으로 만년을 보냈습니다. 천주교의 진리를 깨달은 뒤부터 「칠극」에서 터득한 덕행을 쌓기 위해 매월 7일째 되는 날을 주일로 정해 세속의 모든 일을 전폐하고 기도와 묵상에 전념했으며, 30세 이후에는 정절의 덕을 실천했습니다. 천진암 강학회가 시작되기 전부터 서학을 읽고 묵상하며 스스로 신앙생활을 시작한 최초의 수덕자로 기록된 까닭입니다. 세상을 떠난 뒤 그의 시신은 문수산 자락 우곡리에 안장되었습니다.",
+      "narrationEn": "In 1757 Hong Yu-han returned to his family home at Yesan, where for eighteen years until 1775 he cultivated his faith alone; in 1775, seeking a quieter place, he moved here to Gugu-ri and spent his last years in mortification, fasting, prayer, and meditation until his death at sixty in 1785. From the time he grasped the truth of Catholicism, in order to build the virtues he had learned from the 'Seven Victories,' he set every seventh day of the month as the Lord's Day, laying aside all worldly affairs to devote himself to prayer and meditation, and from the age of thirty he practiced chastity. This is why he is recorded as the first ascetic who began a life of faith on his own, reading and meditating on Western learning even before the scholarly gatherings at Cheonjinam began. After his death his body was laid to rest at Ugok-ri on the slopes of Mount Munsu.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "한국 교회가 세워지기 전에 혼자서 28년을 신앙인으로 산 사람의 집터입니다.",
+      "forEveryoneEn": "The home of a man who lived twenty-eight years as a believer, alone, before the Korean Church existed.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '홍유한 고택지(휴천동 성당)' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2356 (사본 _pages/hongyuhan/goodnews.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "효자문 안마당의 유적비 — 1995년 5월 27일",
+      "titleEn": "The Memorial Stone in the Courtyard — May 27, 1995",
+      "location": "효자문 안마당 유적비 앞",
+      "locationEn": "In front of the memorial stone inside the gate",
+      "narration": "안동교구는 홍유한 선생의 신앙을 기리기 위해 1995년 5월 27일, 교구 설정 25주년과 선생 선종 210주년을 맞아 효자문 안마당에 유적비를 세웠습니다. 유적비 앞면에는 '한국 천주교회 최초의 수덕자 풍산 홍공 유한 선생 유적지'라 새기고, 옆과 뒷면에는 그의 생애를 자세히 적었습니다. 홍유한의 신앙은 후손들에게 이어져 13명이 순교했고, 홍병주 베드로와 홍영주 바오로 형제는 1984년 시성, 홍낙민 루카와 강완숙 골룸바, 홍필주 필립보, 홍재영 프로타시오, 심조이 바르바라는 2014년 시복되었습니다.",
+      "narrationEn": "To honor the faith of Hong Yu-han, the Diocese of Andong raised a memorial stone in the courtyard inside the filial-son gate on May 27, 1995, marking the twenty-fifth anniversary of the diocese and the 210th anniversary of his death. Its front reads 'Site of Hong Yu-han of Pungsan, First Ascetic of the Korean Catholic Church,' and its sides and back recount his life in detail. His faith passed to his descendants, thirteen of whom were martyred: the brothers Peter Hong Byeong-ju and Paul Hong Yeong-ju were canonized in 1984, and Luke Hong Nak-min, Columba Kang Wan-suk, Philip Hong Pil-ju, Protasius Hong Jae-yeong, and Barbara Sim Jo-i were beatified in 2014.",
+      "lookFor": "'한국 천주교회 최초의 수덕자' 유적비",
+      "lookForEn": "The memorial stone to the 'First Ascetic of the Korean Catholic Church'",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '홍유한 고택지(휴천동 성당)' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2356 (사본 _pages/hongyuhan/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "홍유한 선생 고택지 순례를 마치셨습니다. 선생의 묘와 후손 순교자 13위의 가묘가 있는 봉화 우곡 성지가 멀지 않으니 이어서 찾아보시기 바랍니다.",
+    "narrationEn": "This concludes our visit to the old house site of Hong Yu-han. Ugok Shrine in Bonghwa, where his grave and the symbolic graves of his thirteen martyred descendants lie, is not far and makes a fitting next stop.",
+    "photos": []
+  }
+}

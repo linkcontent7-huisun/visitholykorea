@@ -1,0 +1,95 @@
+{
+  "siteId": "c8d952ba-cd48-49f7-ac21-af7ed4a36890",
+  "siteName": "진안리 성지",
+  "slug": "jinanri",
+  "surveyedAt": "2026-10-03",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "문경읍 진안리, 새재와 이화령 고개가 갈라지는 길목의 진안리 성지에 오셨습니다. 영남에서 서울로 가는 관문이던 이 길을 최양업 신부와 칼래 신부 같은 선교사들이 관문 옆 수구문으로 몰래 넘나들었고, 1861년 한국의 두 번째 사제 최양업 토마스 신부가 사목 보고를 위해 서울로 가던 길에 이곳 오리터 주막에 들렀다가 병을 얻어 선종했습니다. 오늘은 성지의 돌 제대에서 시작해 새재의 관문, 최양업 신부의 생애, 죽림굴의 마지막 편지, 1861년 6월 15일의 선종, 그리고 성지가 되기까지를 둘러보겠습니다.",
+    "narrationEn": "Welcome to Jinanri Shrine at Jinan-ri in Mungyeong-eup, at the fork where the roads over Saejae and Ihwaryeong passes divide. Missionaries such as Fathers Thomas Choe Yang-eop and Calais slipped secretly through the water gate beside the fortress gate on this road, the gateway from Yeongnam to Seoul, and in 1861 Father Choe, Korea's second native priest, stopped at the Oriteo inn here on his way to Seoul to report on his ministry, fell ill, and died. Today we will begin at the stone altar of the shrine, then look at the gates of Saejae, the life of Father Choe, his last letter from Jukrimgul cave, his death on June 15, 1861, and the making of the shrine.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "새재의 세 관문과 수구문 — 선교사들이 몰래 넘던 길",
+      "titleEn": "The Three Gates of Saejae and the Water Gate — The Road Missionaries Crossed in Secret",
+      "location": "성지 입구",
+      "locationEn": "At the entrance to the shrine",
+      "narration": "소백산맥 자락의 문경과 충청도 경계에는 주흘산, 조령산, 백화산, 대미산 같은 높은 산이 늘어서 있고, 그 사이 조령, 이화령, 하늘재가 옛날부터 경상도에서 서울로 가는 이름난 통로였습니다. 특히 새재라 불리는 조령은 군사 요새여서 1708년 숙종 때 관문과 성벽을 쌓았고, 제1관문 주흘관, 제2관문 조곡관, 제3관문 조령관이 각각 3킬로미터쯤 떨어져 서 있습니다. 과거를 보러 서울로 가는 이들뿐 아니라 최양업 신부와 경상북도의 사도 칼래 신부 같은 선교사와 교우들이 관문 옆 수구문을 통해 몰래 충청도와 경상도를 넘나들며 전교와 피난길로 썼습니다.",
+      "narrationEn": "Along the border of Mungyeong and Chungcheong on the Sobaek range stand high peaks such as Juheulsan, Joryeongsan, Baekhwasan, and Daemisan, and the passes between them, Joryeong, Ihwaryeong, and Haneuljae, were from ancient times the famous routes from Gyeongsang to Seoul. Joryeong, called Saejae, was a military stronghold, fortified with gates and walls in 1708 under King Sukjong, and its three gates, Juheulgwan, Jogokgwan, and Joryeonggwan, stand about three kilometers apart. Not only candidates bound for Seoul to sit the state examination but also missionaries such as Father Choe Yang-eop and Father Calais, the apostle of northern Gyeongsang, and the faithful with them slipped through the water gate beside the fortress gate, crossing secretly between Chungcheong and Gyeongsang on their missionary journeys and flights from persecution.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "과거 보러 가던 선비들의 고갯길이 숨어 다니던 선교사들의 길이기도 했습니다.",
+      "forEveryoneEn": "The pass road of scholars bound for the state exams was also the road of missionaries in hiding.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '진안리 성지' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2347 (사본 _pages/jinanri/goodnews.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "다락골 새터에서 상해까지 — 한국의 두 번째 사제",
+      "titleEn": "From Saeteo at Darakgol to Shanghai — Korea's Second Priest",
+      "location": "돌 제대 앞",
+      "locationEn": "In front of the stone altar",
+      "narration": "최양업 토마스 신부는 1821년 3월 충청남도 청양 다락골 인근 새터 교우촌에서 순교 성인 최경환 프란치스코와 순교 복자 이성례 마리아의 장남으로 태어났습니다. 1836년 열다섯 살에 모방 신부에 의해 한국의 첫 신학생으로 뽑혀 최방제, 김대건과 함께 마카오 유학길에 올랐고, 1837년 11월 동료 최방제가 열병으로 죽는 아픔을, 부제 때인 1846년에는 김대건 신부의 순교 소식을 들어야 했습니다. 1849년 4월 15일 상해 서가회 성당에서 마레스카 주교에게 사제품을 받아 한국의 두 번째 사제가 되었고, 그해 12월 변문을 떠나 어렵게 조선에 들어왔습니다.",
+      "narrationEn": "Father Thomas Choe Yang-eop was born in March 1821 at the Saeteo village near Darakgol in Cheongyang, Chungcheongnam-do, the eldest son of St. Francis Choe Gyeong-hwan and Blessed Mary Yi Seong-rye, both martyrs. Chosen by Father Maubant in 1836, at fifteen, as one of Korea's first seminarians, he set out for Macau with Choe Bang-je and Andrew Kim Taegon; in November 1837 he suffered the loss of his companion Choe Bang-je to fever, and as a deacon in 1846 he learned of Father Kim's martyrdom. On April 15, 1849, he was ordained by Bishop Maresca at the Xujiahui church in Shanghai, becoming Korea's second priest, and that December he left the border gate and made his difficult way into Korea.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "아버지는 성인, 어머니는 복자, 아들은 한국인 두 번째 신부였습니다.",
+      "forEveryoneEn": "His father a saint, his mother a Blessed, and he himself Korea's second native priest.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '진안리 성지' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2347 (사본 _pages/jinanri/goodnews.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "열한 해 반의 순방 — 다섯 도의 산간벽지를 걷다",
+      "titleEn": "Eleven and a Half Years on the Road — Walking the Mountain Villages of Five Provinces",
+      "location": "돌 제대 앞",
+      "locationEn": "In front of the stone altar",
+      "narration": "조선에 들어온 최양업 신부는 쉴 겨를도 없이 다섯 도의 산간벽지를 찾아다니며 숨어 있는 신자들을 순방하고 성사를 집전했습니다. 진천 배티를 사목 중심지로 삼은 그의 열정적인 활동은 11년 6개월 남짓 이어졌습니다. 휴식 기간에는 한문 교리서와 기도서를 한글로 옮겼고, 선교사들의 입국을 도왔으며, 신학생들을 말레이 반도의 페낭 신학교로 보내고 순교자들의 기록을 모았습니다. 그래서 그는 피 흘려 죽지 않았어도 '땀의 순교자'라 불립니다.",
+      "narrationEn": "Once in Korea, Father Choe, with no time to rest, traveled the remote mountain villages of five provinces, visiting believers in hiding and administering the sacraments. With Baeti in Jincheon as his pastoral base, his tireless work continued for some eleven and a half years. In his rest periods he translated Chinese catechisms and prayer books into Korean, helped missionaries enter the country, sent seminarians to the seminary at Penang on the Malay Peninsula, and gathered records of the martyrs. For this reason, though he did not shed his blood, he is called the 'martyr of sweat.'",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "당시 조선에 단 한 명뿐이던 한국인 신부가 전국을 걸어서 돌았습니다.",
+      "forEveryoneEn": "The only Korean priest in the country at the time covered the nation on foot.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '진안리 성지' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2347 (사본 _pages/jinanri/goodnews.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "오리터 주막 — 1861년 6월 15일의 선종",
+      "titleEn": "The Oriteo Inn — Death on June 15, 1861",
+      "location": "돌 제대 앞",
+      "locationEn": "In front of the stone altar",
+      "narration": "1860년 경신박해 때 최양업 신부는 언양 죽림굴에서 석 달을 피신하며 스승에게 보낸 마지막 서한에 이것이 마지막 하직 인사가 될 듯하다고, 어디를 가든 추적하는 포위망을 빠져나갈 희망이 없다고 썼습니다. 다행히 죽림굴을 빠져나와 경상도 남부 사목 방문을 마친 뒤 베르뇌 주교에게 성무 집행 결과를 보고하러 길을 나섰고, 새재와 이화령의 갈림길인 이곳 진안리 오리터 주막에 들렀다가 식중독에 과로가 겹쳐 장티푸스 합병증으로 1861년 6월 15일 문경읍 또는 진천의 한 작은 교우촌에서 선종했습니다. 그때 나이 40세였습니다. 사경을 헤맬 때 배론 신학교 교장 푸르티에 신부가 달려와 임종을 지키며 병자성사를 주었고, 시신은 작은 교우촌에 가매장되었다가 11월 초 베르뇌 주교가 장례를 치른 뒤 배론 신학교 뒷산에 안장되었습니다.",
+      "narrationEn": "During the Gyeongsin Persecution of 1860 Father Choe hid for three months in Jukrimgul cave at Eonyang, and in his last letter to his teacher he wrote that this would likely be his final farewell, for wherever he went he had no hope of escaping the net closing around him. He did escape the cave, finished his pastoral visits in southern Gyeongsang, and set out to report to Bishop Berneux on his ministry; stopping at the Oriteo inn here at Jinan-ri, where the Saejae and Ihwaryeong roads divide, he fell ill with food poisoning compounded by exhaustion, and on June 15, 1861, he died of complications of typhoid in a small Catholic village in Mungyeong-eup or Jincheon. He was forty. As he lay dying, Father Pourthié, rector of the Baeron seminary, hurried to his side, kept watch, and gave him the last sacraments; his body was buried temporarily in a small village until early November, when Bishop Berneux held his funeral and laid him to rest on the hill behind the Baeron seminary.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "마지막 인사라고 쓴 편지에서 1년 뒤, 길 위의 주막에서 쓰러졌습니다.",
+      "forEveryoneEn": "A year after writing what he called his last farewell, he collapsed at a roadside inn.",
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '진안리 성지' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2347 (사본 _pages/jinanri/goodnews.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "356평의 성지 — 2002년의 축복과 시복 추진",
+      "titleEn": "A Shrine of 356 Pyeong — Blessed in 2002, a Cause for Beatification Under Way",
+      "location": "대형 십자가와 돌 제대 앞",
+      "locationEn": "In front of the great cross and the stone altar",
+      "narration": "안동교구는 문경 성당을 중심으로 1999년 진안리 오리터에 마련한 356평 부지에 토목 공사를 하고, 2000년 5월과 11월에 대형 십자가와 돌 제대를 세웠습니다. 조경을 마친 뒤 2002년 9월 29일 안동교구장 권혁주 주교 주례로 성지 축복식을 가졌고, 그 뒤로도 십자가의 길을 조성하고 돌 제대 뒤에 조형 벽체를 세우는 등 순례자를 위한 정비를 이어 왔습니다. 1942년 12월 제천 신자들이 배론의 무덤을 단장하고 묘비를 세웠으며, 한국 교회는 '하느님의 종'으로 선정된 증거자 최양업 토마스 신부의 시복시성 절차를 진행하고 있습니다.",
+      "narrationEn": "With Mungyeong parish at the center, the Diocese of Andong carried out groundwork in 1999 on a 356-pyeong plot secured at Oriteo in Jinan-ri and in May and November 2000 erected a great cross and a stone altar. After landscaping, the shrine was blessed on September 29, 2002, by Bishop Gwon Hyeok-ju of Andong, and since then the Stations of the Cross have been laid out and a sculpted wall raised behind the altar, among other improvements for pilgrims. In December 1942 the faithful of Jecheon restored his grave at Baeron and set up a tombstone, and the Korean Church is pursuing the cause for the beatification and canonization of Father Thomas Choe Yang-eop, a confessor declared a 'Servant of God.'",
+      "lookFor": "대형 십자가와 돌 제대, 제대 뒤의 조형 벽체",
+      "lookForEn": "The great cross, the stone altar, and the sculpted wall behind it",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 성지 소개 '진안리 성지' https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2347 (사본 _pages/jinanri/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "진안리 성지 순례를 마치셨습니다. 최양업 신부가 묻힌 제천 배론 성지와, 그가 사목 중심지로 삼은 진천 배티 성지, 마지막 편지를 쓴 언양 죽림굴을 이어 찾으시면 땀의 순교자의 길을 끝까지 따라가실 수 있습니다.",
+    "narrationEn": "This concludes our visit to Jinanri Shrine. Continue to Baeron Shrine in Jecheon, where Father Choe is buried, Baeti Shrine in Jincheon, his pastoral base, and Jukrimgul cave at Eonyang, where he wrote his last letter, and you will follow the road of the martyr of sweat to its end.",
+    "photos": []
+  }
+}
