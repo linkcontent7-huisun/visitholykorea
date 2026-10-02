@@ -1,0 +1,110 @@
+{
+  "siteId": "4e9dff3b-9aa6-492e-ad61-0b33d9a8ea1d",
+  "siteName": "황경한 묘",
+  "slug": "hwanggyeonghan",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "제주항에서 북쪽으로 45킬로미터, 하추자도 예초리 산등성이의 황경한 묘에 오셨습니다. 1801년 황사영 백서 사건으로 아버지가 능지처참되고 어머니 정난주 마리아가 제주로 유배되던 길에, 두 살 젖먹이였던 황경한은 이 섬 갯바위에 남겨져 어부의 아들로 자랐습니다. 부모를 잃고 절해고도에서 한평생을 산 사람의 묘이고, 140년 넘게 잊혔다가 다시 찾은 묘입니다. 오늘은 묘소에서 시작해 백서 사건과 유배, 아기가 놓인 바위와 눈물의 십자가, 어머니 정난주의 삶, 그리고 이 묘가 다시 발견된 이야기까지 들어 보겠습니다.",
+    "narrationEn": "Welcome to the grave of Hwang Gyeong-han on a ridge above Yecho-ri on Lower Chuja Island, forty-five kilometers north of Jeju Harbor. In 1801, after his father was executed in the silk-letter affair and his mother, Maria Jeong Nan-ju, was being carried into exile on Jeju, the two-year-old Hwang Gyeong-han was left on a seaside rock of this island and raised as a fisherman's son. This is the grave of a man who lost both parents and lived his whole life on a remote island, a grave forgotten for more than 140 years and then found again. Today we will begin at the grave, then hear of the silk-letter affair and the exiles, the rock where the infant was laid and the Cross of Tears, the life of his mother Jeong Nan-ju, and how this grave was rediscovered.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "황경한의 묘 — 먼바다를 바라보는 산등성이",
+      "titleEn": "The Grave of Hwang Gyeong-han — A Ridge Facing the Open Sea",
+      "location": "신양리 남쪽 산 중턱 산등성이",
+      "locationEn": "The ridge halfway up the hill south of Sinyang-ri",
+      "narration": "낯설고 외로운 유배지에서 생을 마친 황경한은 신양리 남쪽 산 중턱 산등성이, 먼바다가 내려다보이는 이 자리에 묻혔습니다. 묘비에는 '순교자 황사영 알렉시오와 신앙의 증인 정난주 마리아의 아들'의 묘라고 적혀 있습니다. 1999년 가톨릭신문 기자가 찾았을 때는 묘비석 하나 없이 잡초로 뒤덮여 있었지만, 그해 제주 선교 100주년을 맞은 제주교구가 묘소 둘레 땅 600여 평을 사들여 소공원으로 가꾸었고, 상추자도 추자공소 신자들이 묘소를 돌봐 왔습니다. 추자도는 42개의 크고 작은 섬이 바둑판에 바둑돌을 펼친 듯하다 하여 붙은 이름으로, 1271년까지 바람을 기다리는 섬, 후풍도라 불렸고 제주와 보길도처럼 유배지로 쓰였습니다.",
+      "narrationEn": "Hwang Gyeong-han, who ended his days in this strange and lonely place of exile, was buried here on the ridge halfway up the hill south of Sinyang-ri, looking out over the open sea. The gravestone reads: the grave of 'the son of the martyr Alexius Hwang Sa-yeong and the witness of faith Maria Jeong Nan-ju.' When a Catholic Times reporter visited in 1999 the grave had no stone and was overgrown with weeds, but that year, marking the centenary of the Jeju mission, the Diocese of Jeju bought some two thousand square meters around it and made a small park, and the Catholics of the Chuja mission station on Upper Chuja have cared for the grave since. Chuja takes its name from its forty-two islands large and small, scattered like stones on a go board; until 1271 it was called the Island of Waiting for the Wind, and like Jeju and Bogil Island it served as a place of banishment.",
+      "lookFor": "묘비에 새긴 '순교자 황사영 알렉시오와 신앙의 증인 정난주 마리아의 아들'",
+      "lookForEn": "The gravestone inscription naming him son of the martyr Hwang Sa-yeong and the witness Jeong Nan-ju",
+      "forEveryone": "제주에서 배로 한 시간쯤 걸리는 섬이라 날씨를 보고 찾아야 하는 곳입니다.",
+      "forEveryoneEn": "About an hour by boat from Jeju, so plan the visit around the weather.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2372 (사본 _pages/hwanggyeonghan/goodnews.txt) · 가톨릭신문 1999-08-29 https://www.catholictimes.org/article/199908290238245 (사본 _pages/hwanggyeonghan/catholictimes.txt) · 서울 세나뚜스 http://senatus.or.kr/?p=14585 (사본 _pages/hwanggyeonghan/senatus.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "백서 사건 — 풍비박산 난 한 집안",
+      "titleEn": "The Silk-Letter Affair — A Family Torn Apart",
+      "location": "묘소 앞",
+      "locationEn": "In front of the grave",
+      "narration": "황경한의 아버지 황사영은 1790년 진사시에 급제한 해에 다산 정약용의 맏형 정약현의 딸 정난주 마리아와 혼인했고, 1800년 아들 경한이 태어났습니다. 1801년 신유박해 때 그는 북경 주교에게 보내려던 비단 편지, 백서가 발각되어 체포되었고, 11월 5일 서소문 밖에서 능지처참형을 받고 순교했습니다. 홀어머니는 거제도로, 아내는 제주도로, 외아들 경한은 추자도로 각각 유배되었고 가산은 모두 몰수되어 명문 세도가였던 집안은 풍비박산이 났습니다. 일성록과 사학징의에는 경한이 추자도로 오게 된 사유가 적혀 있습니다. 나이가 두 살 이하로 어려 법에 따라 교수하지 않고 영광군 추자도에 노비로 유배시킨다는 판결이었습니다.",
+      "narrationEn": "Hwang Gyeong-han's father, Hwang Sa-yeong, married Maria Jeong Nan-ju, daughter of Jeong Yak-hyeon, eldest brother of the scholar Jeong Yak-yong, in 1790, the year he passed the licentiate examination, and their son Gyeong-han was born in 1800. In the Sinyu Persecution of 1801 he was arrested when the silk letter he intended for the bishop of Beijing was discovered, and on November 5 he was martyred outside Seosomun by dismemberment. His widowed mother was banished to Geoje Island, his wife to Jeju, and his only son Gyeong-han to Chuja, and all their property was confiscated; a once-powerful family was shattered. The royal records Ilseongnok and Sahak jingui preserve the reason Gyeong-han was sent to Chuja: being under two years old, he was by law not to be strangled but banished as a slave to Chuja Island in Yeonggwang County.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "두 살 아기에게 '노비로 유배'라는 판결이 내려진 기록이 남아 있습니다.",
+      "forEveryoneEn": "The record survives of a sentence of 'exile as a slave' handed down to a two-year-old.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2372 (사본 _pages/hwanggyeonghan/goodnews.txt) · 가톨릭신문 1999-08-29 https://www.catholictimes.org/article/199908290238245 (사본 _pages/hwanggyeonghan/catholictimes.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "갯바위에 남겨진 아기 — 오씨 어부의 아들이 되다",
+      "titleEn": "An Infant Left on the Rocks — Raised as a Fisherman's Son",
+      "location": "예초리 서남단 황새바위 쪽을 바라보며",
+      "locationEn": "Looking toward Hwangsae Rock at the southwest tip of Yecho-ri",
+      "narration": "어머니 정난주는 죄인으로 제주 땅을 밟으면 아들마저 죄인의 자식, 평생 노비로 멸시받으며 살아야 한다는 것을 차마 받아들일 수 없었습니다. 전해지는 말에 따르면 그녀는 호송선의 뱃사공에게 뇌물을 주어 매수했고, 사공은 나졸 두 명에게 술을 먹여 매수한 뒤 젖먹이를 하추자도 예초리 서남단의 황새바위에 내려놓는 데 성공했습니다. 나졸들은 뱃길에서 아이가 죽어 수장했다고 보고했습니다. 바위에 남겨진 아기는 오씨 성을 가진 어부가 거두었습니다. 아이가 입은 저고리 동정에서 나온 이름과 생년월일로 그가 황경한임을 알았고, 오씨의 아들로 키웠습니다. 장성한 경한은 혼인해 두 아들 건섭과 태섭을 낳았고 그 후손이 지금도 추자도에 삽니다. 그 뒤로 추자도에서는 오씨와 황씨가 혼인하지 않는 풍습이 생겼다고 합니다.",
+      "narrationEn": "His mother Jeong Nan-ju could not bear the thought that if she set foot on Jeju as a convict, her son too would live out his life despised as a criminal's child and a slave. According to tradition she bribed the boatman of the transport ship, who in turn got the two guards drunk and bought them off, and succeeded in setting the infant down on Hwangsae Rock at the southwest tip of Yecho-ri on Lower Chuja; the guards reported that the child had died at sea and been buried in the water. A fisherman named O took in the baby left on the rock. From the name and birth date found in the collar of the child's jacket they learned he was Hwang Gyeong-han, and they raised him as O's son. Grown to manhood, Gyeong-han married and had two sons, Geon-seop and Tae-seop, whose descendants still live on Chuja. From then on, it is said, the O and Hwang families of Chuja did not intermarry.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "저고리 깃에 적힌 이름 덕분에 아이의 신원이 전해졌습니다.",
+      "forEveryoneEn": "The child's identity survived thanks to a name written inside the collar of his jacket.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2372 (사본 _pages/hwanggyeonghan/goodnews.txt) · 서울 세나뚜스 http://senatus.or.kr/?p=14585 (사본 _pages/hwanggyeonghan/senatus.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "눈물의 십자가 — 물생이 바위 끝",
+      "titleEn": "The Cross of Tears — At the Tip of Mulsaengi Rock",
+      "location": "묘에서 1.1킬로미터, 물생이 바위 끝",
+      "locationEn": "At the tip of Mulsaengi Rock, 1.1 kilometers from the grave",
+      "narration": "묘 맞은편으로 내려다보이는 물생이 바위 끝, 묘에서 1.1킬로미터 떨어진 곳에 눈물 모양의 십자가와 두 살 난 아기 황경한의 조형물이 있습니다. 가로 3미터, 세로 5.5미터의 십자가는 정난주 마리아의 눈물이 십자가에 맺혀 하늘로 오르는 모습을 나타냈고, 아기 조형물은 묵주를 손에 쥐고 누워 하늘을 바라보는 모습입니다. 어머니가 아기를 두고 눈물로 떠났다는 그 바닷가입니다.",
+      "narrationEn": "At the tip of Mulsaengi Rock, visible below across from the grave and 1.1 kilometers away, stand a cross in the shape of a teardrop and a sculpture of the two-year-old Hwang Gyeong-han. The cross, three meters wide and five and a half high, depicts the tears of Maria Jeong Nan-ju gathering on the cross and rising to heaven, and the infant figure lies gazing skyward with a rosary in his hand. This is the shore where, the story goes, a mother left her baby and departed in tears.",
+      "lookFor": "눈물 모양 십자가와 묵주를 쥔 아기 조형물",
+      "lookForEn": "The teardrop cross and the infant figure holding a rosary",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "서울 세나뚜스 http://senatus.or.kr/?p=14585 (사본 _pages/hwanggyeonghan/senatus.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "정난주 마리아 — '서울 할머니'와 아들에게 온 부고",
+      "titleEn": "Maria Jeong Nan-ju — 'The Grandmother from Seoul' and the Death Notice Sent to Her Son",
+      "location": "묘소 앞",
+      "locationEn": "In front of the grave",
+      "narration": "제주목 관비로 유배된 정난주 마리아는 온갖 시련을 신앙으로 이겨 냈고, 풍부한 교양과 학식으로 주민들을 교화해 관비 신분에도 '서울 할머니'라 불리며 이웃의 칭송 속에 살았습니다. 대정 고을 유지 김석구는 그녀를 침모로 두고 별채까지 마련해 주었습니다. 신앙을 유일한 위안으로 37년을 살다가 1838년 66세로 병으로 세상을 떠나자 김석구의 아들 김상집이 김씨 선산에 묻어 주었고, 추자도의 황경한에게 어머니의 부고를 보냈습니다. 지난해 2월 초하루에 별세하여 장례를 잘 지냈고 부고를 진작 보냈으나 회답이 없어 다시 편지한다는, 제사와 명절 차례도 주인 된 도리로 지내고 있다는 그 편지가 제주 용수 성지 기념관에 전시되어 있습니다. 1994년 제주교구장 김창렬 주교는 정 마리아를 '피 흘리지 않은 순교자'로 선포했고, 그 뒤 순교자의 후손을 찾는 발길이 이어져 1997년 11월 4일에는 김수환 추기경도 이 묘를 다녀갔습니다.",
+      "narrationEn": "Exiled as a government slave to the Jeju magistracy, Maria Jeong Nan-ju overcame every hardship through faith, and by her learning and refinement so edified the people around her that despite her status she was called 'the grandmother from Seoul' and lived esteemed by her neighbors. Kim Seok-gu, a leading man of Daejeong, employed her as a seamstress and even built her a separate cottage. After thirty-seven years with faith as her only consolation, she died of illness in 1838 at sixty-six, and Kim Seok-gu's son Kim Sang-jip buried her on the Kim family's hill and sent word of her death to Hwang Gyeong-han on Chuja. That letter, saying she had passed away on the first day of the second month of the previous year, that the funeral had been properly held, that an earlier notice had gone unanswered and so he wrote again, and that as host he was keeping her memorial rites and holiday offerings, is displayed at the memorial hall of Yongsu Shrine on Jeju. In 1994 Bishop Kim Chang-ryeol of Jeju proclaimed Maria Jeong a 'martyr without bloodshed,' after which people began seeking out the martyrs' descendants, and on November 4, 1997, Cardinal Kim Su-hwan too visited this grave.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "노비 신분의 유배자가 마을의 존경을 받다 묻힌 자리를 그 집 후손들이 돌봐 온 이야기입니다.",
+      "forEveryoneEn": "The story of an exiled slave who won a village's respect, and of the family whose descendants tended her grave.",
+      "photos": [],
+      "sourceNote": "서울 세나뚜스 http://senatus.or.kr/?p=14585 (사본 _pages/hwanggyeonghan/senatus.txt) · 가톨릭신문 1999-08-29 https://www.catholictimes.org/article/199908290238245 (사본 _pages/hwanggyeonghan/catholictimes.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "잊힘과 발견 — 라크루 신부가 만난 손자",
+      "titleEn": "Forgotten and Found — The Grandson Father Lacrouts Met",
+      "location": "묘소에서 추자공소 방향",
+      "locationEn": "From the grave, toward the Chuja mission station",
+      "narration": "황경한의 묘는 후손들이 흩어지고 교회도 알지 못한 채 140년에서 150년 동안 잊혀 있었습니다. 1900년 제주 선교를 위해 파견된 파리외방전교회 라크루 신부가 추자도를 오가던 중 1909년 황경한의 손자를 만나 전후 사정을 알게 되었고, 샤르즈뵈프 신부에게 편지로 순교자의 아들 경한과 그 후손들의 비참한 생활을 알렸으며, 프랑스 은인들의 후원금으로 손자에게 집과 농토를 사 주었습니다. 황경한이 살던 오씨 집은 1965년 불타 없어졌고 집안에서 간직해 온 젖먹이 때 옷과 가첩도 그때 모두 타 버렸습니다. 추자도에는 1908년 5월부터 선교사가 들어온 기록이 있고 1956년부터 공소가 시작되었습니다. 1975년에 지은 공소 건물이 2001년 태풍으로 큰 피해를 입자 새로 지어 2003년 6월 30일 축복했고, 20여 명이 머물 수 있는 방과 식당을 두어 육지에서 오는 순례객의 숙소로 쓰고 있습니다.",
+      "narrationEn": "With the descendants scattered and the Church unaware, Hwang Gyeong-han's grave lay forgotten for 140 to 150 years. Father Lacrouts of the Paris Foreign Missions Society, sent to the Jeju mission in 1900, met Hwang Gyeong-han's grandson in 1909 while traveling to and from Chuja and learned the whole story; he wrote to Father Chargeboeuf describing the wretched life of the martyr's son and his descendants, and with donations from benefactors in France he bought the grandson a house and farmland. The O family house where Hwang Gyeong-han had lived burned down in 1965, and the infant's clothing and the family register kept there were lost in the fire. Records show missionaries coming to Chuja from May 1908, and a mission station was established in 1956. When the station building of 1975 was badly damaged by a typhoon in 2001 it was rebuilt and blessed on June 30, 2003, with rooms and a dining hall for some twenty people, used as lodging for pilgrims from the mainland.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "프랑스 신부의 편지와 후원금이 이 집안을 세상에 다시 알렸습니다.",
+      "forEveryoneEn": "A French priest's letter and the donations it drew brought this family back to the world's attention.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2372 (사본 _pages/hwanggyeonghan/goodnews.txt) · 가톨릭신문 1999-08-29 https://www.catholictimes.org/article/199908290238245 (사본 _pages/hwanggyeonghan/catholictimes.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "황경한 묘 순례를 마치셨습니다. 어머니 정난주 마리아의 묘는 제주 대정성지에 있고, 부고 편지는 용수 성지 기념관에서 볼 수 있습니다. 추자도를 떠나 제주에서 어머니의 묘까지 이어 가시면 두 모자의 이야기가 비로소 하나로 맺어집니다.",
+    "narrationEn": "This concludes our visit to the grave of Hwang Gyeong-han. His mother Maria Jeong Nan-ju lies at Daejeong Shrine on Jeju, and the letter announcing her death can be seen at the Yongsu Shrine memorial hall. If you go on from Chuja to the mother's grave on Jeju, the story of mother and son at last comes together.",
+    "photos": []
+  }
+}

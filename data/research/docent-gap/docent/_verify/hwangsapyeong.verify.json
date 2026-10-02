@@ -1,0 +1,274 @@
+{
+  "slug": "hwangsapyeong",
+  "checkedAt": "2026-10-02",
+  "siteVerdict": "OK",
+  "sentences": [
+    {
+      "text": "제주시 화북, 약 1만 8천 평의 너른 땅 황사평 성지에 오셨습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "이곳은 1901년 신축교안으로 희생된 천주교 신자들의 시신을 묻기 위해 나라에서 양도받은 땅에서 시작해, 지금은 제주교구 신자들의 묘지와 납골당까지 품은 추모의 공간입니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "오늘은 신축교안의 전말을 들은 뒤 순교자 합장묘와 복사 신재순의 묘, 복자 김기량의 순교비, 그리고 화해의 탑까지 걸어 보겠습니다.",
+      "verdict": "근거있음",
+      "evidence": "Navigation guidance, not a factual claim.",
+      "note": "안내문"
+    },
+    {
+      "text": "황사평 성지 순례를 마치셨습니다.",
+      "verdict": "근거있음",
+      "evidence": "Navigation guidance, not a factual claim.",
+      "note": "안내문"
+    },
+    {
+      "text": "1901년의 비극과 100년 뒤의 화해가 한자리에 있는 곳입니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "170여 명이 처형된 제주 관덕정 앞 광장과, 김기량 복자의 고향 함덕의 순교 기념관도 멀지 않으니 함께 찾아보셔도 좋겠습니다.",
+      "verdict": "근거있음",
+      "evidence": "Navigation guidance, not a factual claim.",
+      "note": "안내문"
+    },
+    {
+      "text": "황사평은 총면적이 약 1만 8천 평에 이릅니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "1903년 제주본당의 라크루 신부가 제주 목사 홍종우에게서 이 땅을 양도받을 때는 신축교안 희생자만 묻도록 되어 있었지만, 지금은 제주교구 신자들의 공동 안장지로도 쓰이고 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "1977년 9월부터 제주교구는 해마다 이곳에서 순교자 현양대회를 열어 왔고, 1980년에는 울타리 석축과 성상을 세워 공원묘지로 가꾸었습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "2008년부터는 순교자 묘역 앞에 납골당이 마련되어 돌아가신 이들을 기리는 추모공원이 되었습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "제주 천주교 신자들에게는 순교 성지이면서 조상을 모신 가족 묘지이기도 한 곳입니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "제주에 선교사가 처음 들어온 것은 1899년 5월, 파리외방전교회 페네 신부와 한국인 김원영 신부였습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "2년도 안 되어 본당 두 곳에 신자 241명, 예비신자 620명으로 늘어났습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "그런데 1900년 황실 재정을 채우려 새로 둔 봉세관이 온갖 잡세를 거두자 도민들의 원성이 높아졌고, 일부 신자가 그 징세를 돕고 토착 신앙의 신당을 부수는 일까지 겹쳤습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "1901년 5월, 대정의 상무사 회원들이 신자들을 잡아들이며 시작된 민란은 이재수를 우두머리로 제주성으로 향했고, 민군은 바로 이 황사평에 주둔했습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "5월 28일 제주성이 함락되면서 성안으로 피신했던 신자들이 학살당했습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "관덕정 앞 광장에서만 170여 명이 매를 맞고 처형되었고, 희생된 신자는 모두 300명에서 350명으로 추산됩니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "교회는 이 일을 두고 전통 사회와 문화를 제대로 이해하지 못한 채 선교했던 점을 뒤에 인정했습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "세금 수탈에 맞선 민란이 천주교 박해로 번진 사건으로, 제주에서는 '이재수의 난'으로도 불립니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "희생자들의 시신은 한동안 관덕정 앞에 그대로 놓여 있다가, 대부분은 가족이 거두어 갔고 연고 없는 시신은 별도봉과 화북천 사이 기슭에 가매장되었습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "1902년 8월 제주를 찾은 뮈텔 주교가 매장지를 강하게 요구했고, 프랑스 공사와 조정의 교섭 끝에 1903년 황사평이 천주교인 매장지로 결정되었습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "그렇게 옮겨 온 무연고 묘가 26기, 시신이 28구였습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "1980년에는 평장으로 모셨다가, 제주 선교 100주년을 준비하던 1995년 11월에 28구의 유해를 한곳에 모아 지금의 합장묘를 만들고 묘역을 새로 단장했습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "기록이 모자라 신자와 비신자, 순교자와 단순 희생자를 가려내기는 어렵지만, 제주 신자들은 이곳을 순교자 묘역으로 여기며 기도해 왔습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "28구의 유해를 한데 모신 합장묘",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "순교자 묘역에는 1993년에 옮겨 온 두 기의 무덤이 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "신축교안 희생자 김 토마스와, 라크루 신부의 복사였던 열여덟 살 신재순 아우구스티노입니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "라크루 신부가 뮈텔 주교에게 보낸 1901년 6월 11일자 편지에는 그날의 일이 적혀 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "동헌 마당에서 천주교 아이놈은 어디 있느냐는 외침이 들렸고, 벽장에 숨어 있던 아우구스티노는 붙잡혀 고문을 당한 뒤 뺨에 총을 맞고 '아버지, 예수님, 성모님'을 부르며 숨졌습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "신부는 그를 순진하고 양식을 갖춘 신자로, 천사와 같은 삶을 살았던 헌신적인 젊은이로 기억했습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "신축교안 희생자 가운데 이름과 행적이 전해지는 한 사람입니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "1998년 9월 27일 순교자 현양대회에서 제막한 이 비는 제주 출신 첫 신자 김기량 펠릭스 베드로의 순교비입니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "그는 1816년 함덕리의 중인 집안에서 태어나 배를 타고 장사를 하던 사람으로, 1857년 2월 바다에서 풍랑을 만나 표류하다 중국 광동 해역에서 영국 배에 구조되었습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "홍콩의 파리외방전교회 극동 대표부로 보내진 그는 그곳에서 교리를 배워 그해 5월 31일 세례를 받고 돌아왔습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "페롱 신부와 최양업 신부는 그가 '제주의 사도'가 되리라 믿었고, 실제로 그는 가족과 사공들에게 열심히 복음을 전했습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "1866년 병인박해가 일어난 직후 무역을 하러 통영에 갔다가 신자임이 드러나 체포되었고, 여러 차례 형벌에도 굴하지 않다가 1867년 1월 동료들과 함께 옥에서 교수형으로 순교했습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "2014년 8월 16일 광화문 광장에서 프란치스코 교황에 의해 복자품에 올랐습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "풍랑에 떠밀려 홍콩까지 갔다가 신자가 되어 돌아온, 바다 사람의 이야기입니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "묘역 한편의 성직자 묘역에는 초대 제주지목구장 현 해롤드 대주교와 서귀포본당에서 일한 나 토마스 신부, 성서학자 임승필 요셉 신부가 잠들어 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "1998년 9월 20일에는 이곳에 공덕비를 세웠습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "1899년 이후 100여 년 동안 제주에 들어와 사목한 외국인 사제 55명 가운데 먼저 선종한 열여섯 분의 이름이 새겨져 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "그리고 2022년 5월 29일, 신축교안 120주년을 맞아 '화해의 탑'이 세워졌습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "제주교구와 '1901년 제주항쟁 100주년 기념사업회'는 2003년 11월 7일 화해 선언문을 함께 발표하며 100년 동안 평행선을 달려온 양쪽의 과거사를 새로 정리했습니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "교회는 전통 사회를 이해하지 못한 채 선교했던 점을, 도민 사회는 봉기 과정에서 무고한 신자들이 희생된 점을 서로 인정했고, 그때 약속한 탑이 이것입니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "공덕비에 새겨진 외국인 사제 열여섯 분의 이름",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    },
+    {
+      "text": "교회와 지역 사회가 화해 선언문으로 과거사를 함께 정리한 사례입니다.",
+      "verdict": "근거있음",
+      "evidence": "encykorea.txt / goodnews.txt: source text supports this statement."
+    }
+  ],
+  "english": [
+    {
+      "part": "intro",
+      "verdict": "일치"
+    },
+    {
+      "part": "point1",
+      "verdict": "일치"
+    },
+    {
+      "part": "point2",
+      "verdict": "일치"
+    },
+    {
+      "part": "point3",
+      "verdict": "일치"
+    },
+    {
+      "part": "point4",
+      "verdict": "일치"
+    },
+    {
+      "part": "point5",
+      "verdict": "일치"
+    },
+    {
+      "part": "point6",
+      "verdict": "일치"
+    },
+    {
+      "part": "outro",
+      "verdict": "일치"
+    }
+  ]
+}
