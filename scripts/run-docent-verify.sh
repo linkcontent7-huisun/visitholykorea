@@ -2,6 +2,7 @@
 # T-050 원고 검증 실행기 — 검증 파일이 검사기를 통과하지 못한 곳만 Codex 에 한 곳씩 맡긴다.
 # (run-trail-verify.sh 와 같은 방식: 한 번에 한 곳, 두 번까지 재시도, 검사기로 끝났는지 판정)
 set -u
+export PYTHONIOENCODING=utf-8  # 10/6 실측: 없으면 Windows 콘솔(cp949)에서 검사기가 「—」 출력 중 죽어 exit 1 → 매번 Codex 를 두 번 돌리게 됨
 cd "$(dirname "$0")/.."
 
 COMPANION="$HOME/.claude/plugins/cache/openai-codex/codex/1.0.6/scripts/codex-companion.mjs"
