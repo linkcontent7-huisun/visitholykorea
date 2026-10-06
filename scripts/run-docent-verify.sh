@@ -7,6 +7,7 @@ cd "$(dirname "$0")/.."
 COMPANION="$HOME/.claude/plugins/cache/openai-codex/codex/1.0.6/scripts/codex-companion.mjs"
 BRIEF="${BRIEF:-docs/70-agent-workspace/tasks/T-050-빠진-성지-오디오가이드/검증-지시서.md}"
 DIR="${DIR:-data/research/missing-sites/docent}"
+EFFORT="${EFFORT:-medium}"  # 9/18 지침: 낮은 추론으로 검증하지 않는다
 LOG="$DIR/_verify/_run.log"
 CODES="${*:-$(ls $DIR/*.json | xargs -n1 basename | sed 's/\.json$//')}"
 
@@ -18,7 +19,7 @@ for code in $CODES; do
   for try in 1 2; do
     if python scripts/docent-verify-check.py "$doc" "$out" $MODE >/dev/null 2>&1; then break; fi
     echo "== $(date '+%H:%M') $code 시도 $try" | tee -a "$LOG"
-    node "$COMPANION" task --write --fresh --effort low \
+    node "$COMPANION" task --write --fresh --effort "$EFFORT" \
       "$BRIEF 를 읽고 그대로 따르라. 이번에 검증할 것은 $doc 의 $what 이다. 결과는 $out 에 쓰고, python scripts/docent-verify-check.py $doc $out $MODE 이 OK 를 낼 때까지 고쳐라." \
       >> "$LOG" 2>&1
   done
