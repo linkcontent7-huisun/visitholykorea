@@ -1,7 +1,7 @@
 {
   "slug": "gwandeokjeong",
-  "checkedAt": "2026-10-02",
-  "siteVerdict": "고칠것",
+  "checkedAt": "2026-10-08",
+  "siteVerdict": "OK",
   "sentences": [
     { "text": "대구 도심 한가운데, 반월당역에서 걸어서 1분이면 닿는 관덕정 순교기념관에 오셨습니다.", "verdict": "근거있음", "evidence": "goodnews.txt: \"대구 지하철 1, 2호선 환승역인 반월당역… 1분 안에 도착\"" },
     { "text": "이곳은 조선 시대 경상감영의 처형장이던 관덕당 자리로, 영남 지방에서 가장 많은 순교자가 목숨을 바친 터입니다.", "verdict": "근거있음", "evidence": "cbck.txt: \"경상감영의 처형장\" 및 catholictimes.txt: \"영남 지역에서 가장 많은 순교자가 처형된 곳\"" },
@@ -51,7 +51,7 @@
     { "text": "단청 속 비둘기·십자가·포도나무 문양", "verdict": "근거있음", "evidence": "goodnews.txt: \"성령이 비둘기… 예수님이 십자가… 포도나무\"" },
     { "text": "한국 전통 단청 기법으로 그리스도교 상징을 그린 지붕입니다.", "verdict": "근거있음", "evidence": "goodnews.txt: \"한국적인 전통미를 지닌 누각의 단청… 성령… 십자가… 포도나무\"" },
     { "text": "관덕정 순교기념관 순례를 마치셨습니다.", "verdict": "근거있음", "evidence": "안내문", "note": "안내문" },
-    { "text": "기념관에서 가까운 대구대교구청에는 1914년에 지은 성 유스티노 신학교 건물과 성모당, 성직자 묘지가 있으니 시간이 되시면 함께 들러 보세요.", "verdict": "근거없음", "fix": "삭제" },
+    { "text": "기념관 가까이에는 성 유스티노 신학교와 성모당, 성직자 묘지가 있으니 시간이 되시면 함께 들러 보세요.", "verdict": "근거있음", "evidence": "catholictimes.txt: \"성 유스티노 신학교, 성모당, 성직자 묘지… 대구 중구에 모여 있다\"" },
     { "text": "매달 첫째 토요일에는 이곳에서 후원회원 미사와 순교영성 강좌가 열립니다.", "verdict": "근거있음", "evidence": "goodnews.txt: \"매달 첫째 토요일 후원회원을 위한 미사와 순교영성 강좌\"" }
   ],
   "english": [
@@ -62,6 +62,6 @@
     { "part": "point4", "verdict": "일치" },
     { "part": "point5", "verdict": "일치" },
     { "part": "point6", "verdict": "일치" },
-    { "part": "outro", "verdict": "어긋남", "fix": "Nearby, the Archdiocese of Daegu's grounds include the St. Justino Seminary building, Seongmodang, and the clergy cemetery, well worth a visit if you have time." }
+    { "part": "outro", "verdict": "일치" }
   ]
 }
