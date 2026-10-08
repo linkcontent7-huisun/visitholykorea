@@ -6,8 +6,8 @@
   "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
   "status": "draft",
   "intro": {
-    "narration": "대구 서구 비산동, 옛 이름 '날뫼'의 비산 성당에 오셨습니다. 이 성당 자리는 경상 감영의 사형 터 가운데 하나였고, 박해 시대부터 신자들이 모여 살던 교우촌이었습니다. 최양업 신부가 편지에 적은 열심한 노파가 세운 교우촌이 이곳으로 추정되고, 관덕정에서 순교한 이윤일 요한 성인의 유해가 45년 동안 묻혀 있던 날뫼 뒷산도 여기입니다. 1927년 본당이 되어 1958년 지금의 성전을 축성했습니다. 오늘은 성당에서 시작해 날뫼 교우촌의 노파, 이윤일 성인의 첫 무덤과 성 이윤일 요한 길, 이곳에서 자란 순교자 이 알로이시오 곤자가, 그리고 성당의 역사까지 둘러보겠습니다.",
-    "narrationEn": "Welcome to Bisan Church in Bisan-dong, Seo-gu, Daegu, a neighborhood once called 'Nalmoe.' The church stands on one of the execution grounds of the provincial governor's office, and believers lived here as a Catholic village from the days of persecution. The village founded by a devout old woman whom Father Thomas Choe Yang-eop described in a letter is thought to be this place, and the hill behind Nalmoe where the remains of St. John Yi Yun-il, martyred at Gwandeokjeong, lay buried for forty-five years is here as well. It became a parish in 1927 and consecrated the present church in 1958. Today we will begin at the church, then look at the old woman of the Nalmoe village, the first grave of St. John Yi and the pilgrimage path named for him, the martyr Aloysius Gonzaga Yi who grew up here, and the history of the church itself.",
+    "narration": "대구 서구 비산동, 옛 이름 '날뫼'의 비산 성당에 오셨습니다. 이 성당 자리는 경상 감영의 사형 터 가운데 하나였고, 순교자 이 알로이시오 곤자가의 선대 때부터 신자들이 살던 곳이었습니다. 최양업 신부가 편지에 적은 열심한 노파가 세운 교우촌이 이곳으로 추정되고, 관덕정에서 순교한 이윤일 요한 성인의 유해가 45년 동안 묻혀 있던 날뫼 뒷산도 여기입니다. 1927년 본당이 되어 1958년 지금의 성전을 축성했습니다. 오늘은 성당에서 시작해 날뫼 교우촌의 노파, 이윤일 성인의 첫 무덤과 성 이윤일 요한 길, 이곳에서 자란 순교자 이 알로이시오 곤자가, 그리고 성당의 역사까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to Bisan Church in Bisan-dong, Seo-gu, Daegu, a neighborhood once called 'Nalmoe.' The church stands on one of the execution grounds of the provincial governor's office, and believers had lived here since the forebears of the martyr Aloysius Gonzaga Yi. The village founded by a devout old woman whom Father Thomas Choe Yang-eop described in a letter is thought to be this place, and the hill behind Nalmoe where the remains of St. John Yi Yun-il, martyred at Gwandeokjeong, lay buried for forty-five years is here as well. It became a parish in 1927 and consecrated the present church in 1958. Today we will begin at the church, then look at the old woman of the Nalmoe village, the first grave of St. John Yi and the pilgrimage path named for him, the martyr Aloysius Gonzaga Yi who grew up here, and the history of the church itself.",
     "photos": []
   },
   "points": [
@@ -36,8 +36,8 @@
       "narrationEn": "The letters of Father Thomas Choe Yang-eop show that the Catholic village at Nalmoe owed its beginnings to the efforts of a certain old woman. In his nineteenth letter Father Choe tells of a very devout old woman in Daegu who explained the faith to many people, founded a village made up of many believers, and sustained it by thorough catechesis and the example of her devotion. That village is thought to be Nalmoe, this very place. Father Robert's pastoral report of 1887 records thirty believers living at Nalmoe.",
       "lookFor": null,
       "lookForEn": null,
-      "forEveryone": "이름이 남지 않은 한 할머니가 이 마을의 신앙 공동체를 세웠습니다.",
-      "forEveryoneEn": "An old woman whose name is lost founded this village's community of faith.",
+      "forEveryone": "한 노파가 이 마을의 신앙 공동체를 세웠습니다.",
+      "forEveryoneEn": "An old woman founded this village's community of faith.",
       "photos": [],
       "sourceNote": "대구대교구 순교 사적지 소개 https://www.daegu-archdiocese.or.kr/page/shrine.html?srl=martyr&process=read&idx=10&view_option= (사본 _pages/bisan/official.txt)"
     },
