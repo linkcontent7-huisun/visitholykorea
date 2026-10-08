@@ -1,0 +1,110 @@
+{
+  "siteId": "4cae0947-f017-4e39-bd66-5c5ae2315f2c",
+  "siteName": "요당리 성지",
+  "slug": "yodangri",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "화성시 양감면, 39번 국도에서 시골길로 2킬로미터쯤 들어온 들판의 요당리 성지에 오셨습니다. 옛 이름 '느지지'로 불리던 이곳은 성 장주기 요셉이 태어나 신앙을 다진 곳이자 장씨 집성촌으로, 복자 장 토마스를 비롯한 여러 순교자의 고향입니다. 200년 넘게 잊혔다가 2006년에야 성지로 가꾸어지기 시작했습니다. 오늘은 기도의 광장에서 시작해 교우촌의 역사, 두 분 순교자의 이야기, 묘역과 성당까지 둘러보겠습니다.",
+    "narrationEn": "Welcome to Yodang-ri Shrine, set among the fields of Yanggam-myeon in Hwaseong, about two kilometers down a country lane from National Route 39. Known of old as Neujiji, this is the birthplace of St. Joseph Jang Ju-gi, where he grew in faith, and the clan village of the Jang family, home of Blessed Thomas Jang and many other martyrs. Forgotten for more than two centuries, it began to be developed as a shrine only in 2006. Today we will begin at the Prayer Square, then hear the history of the Catholic village and the stories of the two martyrs, and visit the graves and the church.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "기도의 광장 — 성모자상과 두 갈래 기도길",
+      "titleEn": "Prayer Square — The Madonna and Child and Two Prayer Paths",
+      "location": "주차장에서 계단을 오른 곳",
+      "locationEn": "At the top of the steps from the parking lot",
+      "narration": "주차장에서 계단을 몇 개 오르면 '기도의 광장'이 먼저 순례자를 맞습니다. 가운데에는 성모자상이 모셔져 있고 오른쪽으로 십자가의 길, 왼쪽으로 묵주기도 길이 갈라집니다. 이 성모자상은 남양 성모성지의 성모상과 같은 것으로, 성지를 처음 가꿀 때 남양 성모성지 전담 이상각 신부가 기증했습니다. 십자가의 길 14처는 샬트르 성 바오로 수녀회의 조각가 이숙자 체칠리아 수녀가 만든 작품입니다.",
+      "narrationEn": "A few steps up from the parking lot, the Prayer Square is the first to greet pilgrims. At its center stands a statue of the Madonna and Child, with the Way of the Cross branching to the right and the Rosary Path to the left. The statue is the same as the one at Namyang Marian Shrine, donated when this shrine was first being developed by Father Yi Sang-gak, then in charge of Namyang. The fourteen Stations of the Cross are the work of the sculptor Sister Cecilia Yi Suk-ja of the Sisters of St. Paul of Chartres.",
+      "lookFor": "이숙자 수녀가 만든 십자가의 길 14처",
+      "lookForEn": "The fourteen Stations of the Cross by Sister Yi Suk-ja",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스(평화신문 2009-09-06) https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2820 (사본 _pages/yodangri/goodnews.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "양간 공소 — 뱃길이 닿던 교우촌",
+      "titleEn": "Yanggan Mission Station — A Catholic Village Reached by Boat",
+      "location": "기도의 광장에서 들판을 바라보며",
+      "locationEn": "At the Prayer Square, looking out over the fields",
+      "narration": "요당리는 1801년 신유박해를 기점으로 서울과 충청도 내포의 신자들이 피난해 오면서 형성된 교우촌으로 추정됩니다. 이 교우촌은 양간 공소라 불리며 갓등이, 지금의 왕림과 은이 공소, 지금의 양지와 깊이 이어져 활발하게 복음을 전했습니다. 당시에는 바닷물이 들어와 뱃길이 열려 있었기에, 충청도와 경기도 내륙, 서울을 잇는 선교 길의 교두보 역할을 했던 곳으로 봅니다. 1839년 기해박해와 1866년 병인박해, 두 차례의 박해를 거치며 수많은 신자가 순교로 신앙을 증거한 요람이었습니다. 교회 재정을 마련하기 위한 전답이 운영되던 곳이기도 해서, 그 책임을 맡은 성 민극가 스테파노와 공소회장을 지낸 성 정화경 안드레아가 이곳에서 활동했습니다.",
+      "narrationEn": "Yodang-ri is believed to have formed as a Catholic village when believers from Seoul and the Naepo region of Chungcheong fled here after the Sinyu Persecution of 1801. Known as the Yanggan mission station, it was closely linked with Gatdeungi, today's Wangnim, and the Euni station, today's Yangji, and spread the Gospel actively. In those days the tide reached here and boats could come in, so the village is thought to have served as a bridgehead on the mission route linking Chungcheong, inland Gyeonggi, and Seoul. Through the two persecutions of 1839 and 1866 it was a cradle of faith where many believers bore witness by martyrdom. Farmland was also managed here to support the Church, and St. Stephen Min Geuk-ga, who was responsible for it, and St. Andrew Jeong Hwa-gyeong, who served as the station's leader, were active in this village.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "지금은 들판이지만 당시에는 바닷물이 들어와 뱃길이 열렸던 곳입니다.",
+      "forEveryoneEn": "Fields today, but in those days the tide came in and boats could reach the village.",
+      "photos": [],
+      "sourceNote": "주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/40 (사본 _pages/yodangri/cbck.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2820 (사본 _pages/yodangri/goodnews.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "성 장주기 요셉 — 느지지에서 배론, 갈매못까지",
+      "titleEn": "St. Joseph Jang Ju-gi — From Neujiji to Baeron and Galmaemot",
+      "location": "대성당 앞 장주기 성인 흉상",
+      "locationEn": "The bust of St. Jang Ju-gi in front of the main church",
+      "narration": "대성당 앞의 이 흉상은 2014년 5월 6일 한국 103위 성인 시성 30주년을 기념해 세운 성 장주기 요셉의 상입니다. 성인은 1803년 수원 느지지, 바로 이 요당리에서 태어나 농사를 지으면서도 한문에 밝은 유식한 사람이었습니다. 1826년 세례를 받은 뒤 거의 모든 집안 식구를 개종시켰고, 모방 신부는 조선에 도착하자마자 그의 학식과 슬기로움, 드문 신심을 보고 회장으로 임명했습니다. 1843년 박해를 피해 배론으로 옮겨 간 뒤에는 자기 집을 신학교로 내놓고 신학생들에게 한문을 가르치며 선교사들을 뒷바라지했습니다. 1866년 병인박해 때 붙잡혀 서울로 압송되었고, 그해 3월 30일 성금요일에 보령 갈매못 바닷가 모래사장에서 다블뤼 주교, 황석두 루카 회장과 함께 64세의 나이로 참수되었습니다.",
+      "narrationEn": "This bust before the main church, erected on May 6, 2014, for the thirtieth anniversary of the canonization of Korea's 103 martyr saints, portrays St. Joseph Jang Ju-gi. Born in 1803 at Neujiji in Suwon, this very village, he farmed for a living but was a learned man well versed in Chinese letters. After his baptism in 1826 he converted nearly his whole household, and Father Maubant, on arriving in Korea and seeing his learning, wisdom, and rare devotion, appointed him a catechist leader at once. After moving to Baeron in 1843 to escape persecution, he gave up his house to serve as a seminary, taught the seminarians Chinese, and supported the missionaries. Arrested in the Byeongin Persecution of 1866 and taken to Seoul, he was beheaded on March 30 that year, Good Friday, on the sandy shore of Galmaemot in Boryeong, together with Bishop Daveluy and the catechist Luke Hwang Seok-du, at the age of sixty-four.",
+      "lookFor": "대성당 앞 장주기 성인 흉상",
+      "lookForEn": "The bust of St. Jang Ju-gi in front of the main church",
+      "forEveryone": "자기 집을 신학교로 내놓은 농부 학자의 고향입니다.",
+      "forEveryoneEn": "The home village of a farmer-scholar who gave his own house to serve as a seminary.",
+      "photos": [],
+      "sourceNote": "주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/40 (사본 _pages/yodangri/cbck.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2820 (사본 _pages/yodangri/goodnews.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "복자 장 토마스 — \"세간과 목숨은 버릴지언정\"",
+      "titleEn": "Blessed Thomas Jang — \"Though I Lose My Goods and My Life\"",
+      "location": "성역화 광장 묘역",
+      "locationEn": "The graves at the Sanctification Square",
+      "narration": "장 토마스는 1815년 이곳에서 태어난 장주기 요셉 성인의 6촌 형제입니다. 두 사람은 신앙생활을 위해 여러 곳으로 옮겨 다니며 교회 일을 돕다가 장주기는 충청도 배론에, 장 토마스는 진천 배티에 자리를 잡았습니다. 1866년 병인박해 때 장 토마스는 청주 포졸들에게 체포되어 진천 관아로 끌려갔습니다. 관장이 배교를 종용하자 그는 세간과 목숨은 버릴지언정 천주교를 배반할 수는 없다고 대답했습니다. 문초와 형벌을 받은 뒤 군대가 주둔하는 청주로 이송되어 참수형으로 순교했습니다. 2014년 8월 16일 광화문 광장에서 프란치스코 교황에 의해 복자품에 올랐습니다.",
+      "narrationEn": "Thomas Jang, born here in 1815, was a second cousin of St. Joseph Jang Ju-gi. The two moved from place to place to practice their faith and serve the Church, until Jang Ju-gi settled at Baeron in Chungcheong and Thomas Jang at Baeti in Jincheon. In the Byeongin Persecution of 1866 Thomas Jang was arrested by constables from Cheongju and taken to the Jincheon magistracy. When the magistrate pressed him to renounce his faith, he answered that he could give up his goods and his life but could never betray the Catholic religion. After interrogation and torture he was transferred to Cheongju, where troops were garrisoned, and was martyred by beheading. He was beatified by Pope Francis in Gwanghwamun Square on August 16, 2014.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/40 (사본 _pages/yodangri/cbck.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2820 (사본 _pages/yodangri/goodnews.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "성역화 광장 — 대형 십자가 아래 순교자 의묘",
+      "titleEn": "Sanctification Square — Symbolic Graves Beneath the Great Cross",
+      "location": "십자가의 길이 끝나는 성역화 광장",
+      "locationEn": "The Sanctification Square at the end of the Way of the Cross",
+      "narration": "십자가의 길 기도가 끝날 무렵 '성역화 광장'에 이릅니다. 대형 십자가 아래에 요당리와 관련된 성인과 순교자들의 묘역이 조성되어 있습니다. 시신이 묻힌 것은 아닌 의묘이지만, 성지는 장주기 요셉 성인의 유해를 모시고 순교 선조들을 기리고 있습니다. 이곳 출신 순교자로는 지 타대오, 림 베드로, 조명오 베드로, 흥원여 가롤로와 장주기 성인의 친인척인 장경언, 장치선, 장한여, 장요한, 방씨가 전해집니다. 또 박해를 피해 이곳으로 피신했다가 체포되어 순교한 성 앵베르 주교와, 그 피신을 도운 손경서 안드레아 순교자의 자취도 이 땅에 서려 있습니다.",
+      "narrationEn": "As the prayers of the Way of the Cross draw to a close you reach the Sanctification Square. Beneath a great cross lie the graves of the saints and martyrs connected with Yodang-ri. They are symbolic graves holding no bodies, but the shrine keeps relics of St. Joseph Jang Ju-gi here and honors the forebears who died for the faith. Martyrs from this village include Thaddeus Ji, Peter Lim, Peter Jo Myeong-o, and Charles Heung Won-yeo, along with relatives of St. Jang Ju-gi: Jang Gyeong-eon, Jang Chi-seon, Jang Han-yeo, John Jang, and a woman of the Bang family. The land also holds the memory of St. Bishop Imbert, who hid here from persecution before his arrest and martyrdom, and of the martyr Andrew Son Gyeong-seo, who helped him hide.",
+      "lookFor": "묘역 가운데 모신 장주기 성인의 유해",
+      "lookForEn": "The relics of St. Jang Ju-gi kept among the graves",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2820 (사본 _pages/yodangri/goodnews.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "성당 — 나무향과 불탄 목재로 만든 14처",
+      "titleEn": "The Church — The Scent of Wood and Stations Carved from Burnt Timber",
+      "location": "대성당과 소성당 안",
+      "locationEn": "Inside the main and small churches",
+      "narration": "묘역을 참배하고 왼쪽을 보시면 넓은 잔디밭 너머로 성당이 한눈에 들어옵니다. 수원교구는 2006년 전담 사제를 보내 성지 개발을 시작했고, 초대 전담 김대영 신부는 2006년 12월 24일 허허벌판에 천막을 치고 첫 미사를 봉헌했습니다. 그 자리에 2008년 3월 착공해 2009년 6월 4일 입당미사를 드렸고, 2010년 5월 11일 부속 건물과 함께 봉헌식을 가졌습니다. 성당 안에 들어서면 나무 기둥과 서까래에서 은은한 나무향이 납니다. 대성당과 소성당의 제대 벽화는 도예가 박성백 모세의 작품입니다. 소성당의 십자가의 길 14처는 1998년 2월 화재로 일부가 불탄 서울 중림동 약현성당의 목재로 조각가 이효주 아나스타시아가 만든 작품으로, 불에 타다 남은 나무에서 성물을 빚어낸 것이 박해를 겪고도 신앙을 지킨 선조들의 모습을 닮았습니다. 성지 미사는 월요일을 뺀 매일 오전 11시에 봉헌됩니다.",
+      "narrationEn": "After paying your respects at the graves, look to the left and the church comes into view beyond a broad lawn. The Diocese of Suwon sent a resident priest in 2006 to begin developing the shrine, and the first priest in charge, Father Kim Dae-yeong, pitched a tent on the empty field and celebrated the first Mass on December 24, 2006. Construction began on that spot in March 2008; the first Mass in the new church was celebrated on June 4, 2009, and the church was dedicated with its annex buildings on May 11, 2010. Inside, a gentle scent of wood rises from the pillars and rafters. The altar murals in both the main and small churches are by the ceramic artist Moses Park Seong-baek. The fourteen Stations of the Cross in the small church were carved by the sculptor Anastasia Yi Hyo-ju from timber of Yakhyeon Church in Jungnim-dong, Seoul, partly destroyed by fire in February 1998; sacred art drawn from half-burnt wood mirrors the forebears who kept their faith through persecution. Shrine Mass is celebrated daily at 11 a.m. except Mondays.",
+      "lookFor": "소성당의 14처, 약현성당의 불탄 목재로 만든 작품",
+      "lookForEn": "The Stations in the small church, carved from Yakhyeon Church's fire-damaged timber",
+      "forEveryone": "제대 앞 십자고상은 힘없이 늘어진 팔과 어깨로 고통의 무게를 보여 줍니다.",
+      "forEveryoneEn": "The crucifix before the altar shows the weight of suffering in its limp, sagging arms and shoulders.",
+      "photos": [],
+      "sourceNote": "굿뉴스(평화신문 2009-09-06) https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2820 (사본 _pages/yodangri/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "요당리 성지 순례를 마치셨습니다. 단체로 오시면 묘역 참배와 미사, 유해 친구, 영성 강의로 이어지는 하루 피정도 미리 청할 수 있습니다. 성인이 순교한 갈매못과 신학교를 세운 배론까지, 장주기 요셉 성인의 길을 이어 가 보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to Yodang-ri Shrine. Groups may arrange in advance a day retreat with a visit to the graves, Mass, veneration of the relics, and a spiritual talk. You may also wish to follow St. Jang Ju-gi's path onward to Galmaemot, where he was martyred, and Baeron, where he founded the seminary.",
+    "photos": []
+  }
+}

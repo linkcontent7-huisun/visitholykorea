@@ -1,0 +1,110 @@
+{
+  "siteId": "a35a6b67-90d6-4da2-969a-af259380f959",
+  "siteName": "오륜대 한국 순교자 박물관",
+  "slug": "oryundae",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "부산역에서 전철로 30분 남짓 장전역, 거기서 마을버스로 10분, 우거진 숲 속에 자리한 오륜대 순교자 성지에 오셨습니다. 이곳에는 1868년 부산 수영장대에서 순교한 여덟 분의 묘소와 한국 순교 성인 26위의 유해를 모신 순교자 성당, 그리고 소장품으로는 한국 최고로 꼽히는 한국순교자박물관이 있습니다. 오늘은 입구의 복자 흉상에서 시작해 라파엘호와 돌 형구, 순교자 성당, 여덟 분의 묘역, 박물관까지 차례로 둘러보겠습니다.",
+    "narrationEn": "Welcome to Oryundae Martyrs' Shrine, set in thick woods about thirty minutes by subway from Busan Station to Jangjeon Station and ten more minutes by village bus. Here you will find the graves of the eight martyrs executed at Suyeong Jangdae in Busan in 1868, the Martyrs' Church holding the relics of twenty-six Korean martyr saints, and the Korean Martyrs' Museum, regarded for its collection as the finest of its kind in Korea. Today we will begin at the busts of the blesseds by the entrance, then see the ship Raphael and the stone execution device, the Martyrs' Church, the graves of the eight, and finally the museum.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "입구 — 복자 흉상과 '우리는 순교자의 후손'",
+      "titleEn": "Entrance — Busts of the Blesseds and 'We Are the Descendants of Martyrs'",
+      "location": "성지 입구",
+      "locationEn": "At the shrine entrance",
+      "narration": "입구에 들어서면 2014년 시복식을 기념해 세운 순교복자 이정식 요한과 양재현 마르티노의 흉상이 먼저 순례자를 맞이합니다. 그 곁에는 한복을 단아하게 입은 성모자상이 서 있습니다. 바위에는 '우리는 순교자의 후손'이라는 글귀가 새겨져 있고, 그 너머로 박물관과 순교자 성당, 뒤편 산비탈의 숲이 펼쳐집니다. 박물관 안으로 들어서면 '순교자의 후손은 살아 있다'라는 글이 한눈에 들어옵니다.",
+      "narrationEn": "As you enter, the busts of Blessed John Yi Jeong-sik and Blessed Martin Yang Jae-hyeon, erected in 2014 to mark their beatification, are the first to greet pilgrims. Beside them stands a statue of the Madonna and Child in graceful Korean dress. Carved on a rock are the words 'We are the descendants of martyrs,' and beyond it spread the museum, the Martyrs' Church, and the wooded hillside behind. Step inside the museum and the words 'The descendants of the martyrs live on' catch the eye at once.",
+      "lookFor": "바위에 새긴 '우리는 순교자의 후손' 글귀",
+      "lookForEn": "The words 'We are the descendants of martyrs' carved on the rock",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2335 (사본 _pages/oryundae/goodnews.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "라파엘호와 돌 형구",
+      "titleEn": "The Ship Raphael and the Stone Execution Device",
+      "location": "순교자 성당 앞",
+      "locationEn": "In front of the Martyrs' Church",
+      "narration": "순교자 성당 앞에 작은 배 한 척이 있습니다. 라파엘호라는 이름의 이 배는 우리나라 첫 사제 성 김대건 안드레아 신부가 사제품을 받은 뒤 페레올 신부와 다블뤼 신부를 모시고 상해를 떠나, 제주도까지 표류한 끝에 강경 부근 황산포에 상륙했던 배를 고증에 따라 절반 크기로 만든 것입니다. 바로 그 옆에는 맷돌처럼 가운데에 구멍이 뚫린 돌 형구가 놓여 있습니다. 병인박해 때 신자들을 처형하는 일로 민심이 흔들리자 대원군이 '소리 없이 죽이는 기계'를 만들라고 명해 고안된 것으로, 목에 밧줄을 맨 신자를 구멍 반대편에서 잡아당겨 목숨을 빼앗았습니다. 복음을 싣고 온 배와 신자를 죽인 돌이 나란히 놓여, 박해 시대를 한눈에 말해 줍니다.",
+      "narrationEn": "A small boat stands in front of the Martyrs' Church. Named the Raphael, it is a half-size reconstruction, based on historical research, of the vessel in which St. Andrew Kim Taegon, Korea's first priest, newly ordained, sailed from Shanghai with Father Ferreol and Father Daveluy, drifted as far as Jeju Island, and finally landed at Hwangsanpo near Ganggyeong. Right beside it lies a stone execution device with a hole through its center like a millstone. When executions of believers during the Byeongin Persecution unsettled public opinion, the Regent Daewongun ordered a 'machine that kills without a sound'; a rope tied around the believer's neck was pulled from the other side of the hole until life was gone. The boat that carried the Gospel and the stone that killed the faithful stand side by side, telling the story of the persecution at a glance.",
+      "lookFor": "돌 형구 가운데 뚫린 구멍",
+      "lookForEn": "The hole bored through the center of the stone device",
+      "forEveryone": "라파엘호는 성 김대건 안드레아 신부가 탔던 배를 고증에 따라 절반 크기로 만든 모형입니다.",
+      "forEveryoneEn": "The Raphael is a half-size model, based on historical research, of the boat St. Andrew Kim Taegon sailed in.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2335 (사본 _pages/oryundae/goodnews.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "순교자 성당 — 26위 성인 유해",
+      "titleEn": "The Martyrs' Church — Relics of Twenty-six Saints",
+      "location": "박물관 옆 순교자 성당 안",
+      "locationEn": "Inside the Martyrs' Church next to the museum",
+      "narration": "박물관 옆 순교자 성당은 1977년 7월 20일 축복되었으며, 제대 뒷벽에 한국 순교 성인 26위의 유해를 모시고 있습니다. 이 성당과 성지의 역사는 한국순교복자수녀회에서 시작됩니다. 수녀회는 성 김대건 신부 순교 100주년인 1946년 방유룡 안드레아 신부가 '복음 선포와 순교자 현양'을 목적으로 세웠습니다. 서울대교구가 1967년 절두산에 순교기념관과 성당을 세우자, 수녀회는 서울에서 가장 먼 부산에 기념관을 짓기로 하고 부산 순교자 8위의 순교 100주년인 1968년 이곳에 분원을 두었습니다. 이어 순교자 성당과 기념관, 척화비 복제, 라파엘호 모형, 십자가의 길과 묵주기도의 길, 성모동굴이 차례로 만들어졌습니다.",
+      "narrationEn": "The Martyrs' Church beside the museum was blessed on July 20, 1977, and holds the relics of twenty-six Korean martyr saints in the wall behind the altar. The history of this church and shrine begins with the Sisters of the Korean Martyrs. The congregation was founded in 1946, the centenary of St. Andrew Kim Taegon's martyrdom, by Father Andrew Bang Yu-ryong 'to proclaim the Gospel and honor the martyrs.' When the Archdiocese of Seoul built a martyrs' memorial and church at Jeoldusan in 1967, the sisters decided to build their memorial in Busan, as far from Seoul as possible, and in 1968, the centenary of the eight Busan martyrs, they opened a branch house here. The Martyrs' Church and memorial hall followed, along with a replica of the anti-foreign stele, the model of the Raphael, the Way of the Cross, the Rosary Path, and the Marian grotto.",
+      "lookFor": "제대 뒷벽의 성인 유해",
+      "lookForEn": "The relics of the saints in the wall behind the altar",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2335 (사본 _pages/oryundae/goodnews.txt) · 비짓부산 https://www.visitbusan.net/kr/index.do?menuCd=DOM_000000201001001000&uc_seq=2206&lang_cd=ko (사본 _pages/oryundae/visitbusan.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "부산 순교자 8위 묘역",
+      "titleEn": "The Graves of the Eight Busan Martyrs",
+      "location": "순교자 성당 왼쪽을 돌아 십자가의 길 초입",
+      "locationEn": "Around the left side of the Martyrs' Church, at the start of the Way of the Cross",
+      "narration": "성당을 왼쪽에 두고 돌아가면 십자가의 길과 묵주기도의 길이 이어지고, 그 초입에 부산 순교자 8위의 무덤이 정갈하게 모셔져 있습니다. 1868년 9월 병인박해의 서슬 아래 여덟 분이 부산 수영장대에서 군문효수형으로 순교하셨습니다. 일흔세 살의 노구로 모진 고문 끝에 처형된 이정식 요한, 그의 아들 이월주 프란치스코와 아내 박조이 마리아, 조카 이삼근 베드로 등 한 집안이 포함되어 있습니다. 이정식 요한과 그의 대자 양재현 마르티노는 2014년 8월 16일 광화문 광장에서 프란치스코 교황에 의해 복자품에 올랐습니다. 이정식 일가 네 분의 시신은 친척들이 거두어 동래 명장동 가르멜 수녀원 뒷산에 모셨다가 1977년 9월 19일 이곳 박물관 뒷동산으로 옮겨 왔습니다. 나머지 네 분의 무덤은 찾지 못해 기념비만 세워 두었습니다.",
+      "narrationEn": "Go around the left side of the church and you will find the Way of the Cross and the Rosary Path, with the neatly kept graves of the eight Busan martyrs at their start. In September 1868, under the terror of the Byeongin Persecution, eight believers were executed by military beheading at Suyeong Jangdae in Busan. Among them was one family: John Yi Jeong-sik, put to death after cruel torture at the age of seventy-three, his son Francis Yi Wol-ju, his wife Mary Pak, and his nephew Peter Yi Sam-geun. John Yi Jeong-sik and his godson Martin Yang Jae-hyeon were beatified by Pope Francis in Gwanghwamun Square on August 16, 2014. The bodies of the four members of the Yi family were recovered by relatives and buried on the hill behind the Carmelite convent in Myeongjang-dong, Dongnae, then moved here to the hill behind the museum on September 19, 1977. The graves of the other four were never found, so only a memorial stone stands for them.",
+      "lookFor": "무덤을 찾지 못한 네 분의 기념비",
+      "lookForEn": "The memorial stone for the four whose graves were never found",
+      "forEveryone": "부산교구에서 순교복자와 관련된 유일한 성지입니다.",
+      "forEveryoneEn": "This is the only shrine in the Diocese of Busan connected with beatified martyrs.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2335 (사본 _pages/oryundae/goodnews.txt) · 가톨릭신문 2023-09-05 https://www.catholictimes.org/article/202309050207016 (사본 _pages/oryundae/catholictimes.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "한국순교자박물관 — 형구와 김대건 신부의 친필",
+      "titleEn": "The Korean Martyrs' Museum — Instruments of Torture and St. Kim Taegon's Handwriting",
+      "location": "박물관 1층 한국 천주교회사 전시관",
+      "locationEn": "The Korean Church History Hall on the museum's first floor",
+      "narration": "1982년 9월 25일 개관한 이 박물관은 수녀회 창설 초기부터 윤병현 안드레아, 홍은순 라우렌시오 수녀를 비롯한 수녀들이 전국에서 모은 순교자 유물과 서책, 형구를 전시하고 있으며, 2009년 부산시 1종 전문 박물관으로 등록되었습니다. 소장품은 교회 유물과 조선 궁중 유물, 민속품까지 4천여 점에 이릅니다. 1층 전시관 가운데에는 한꺼번에 많은 사람을 죽이기 위해 만든 대들보 사형틀이 있고, 참수에 쓰던 칼과 태형대, 수십 종의 곤장, 목에 씌우던 칼이 고증을 거쳐 복원되어 있습니다. 성 김대건 신부의 유해를 관에 넣고 덮었던 횡대와 친필 편지, 다산 정약용과 성 베르뇌 주교, 권일신의 십자가도 있습니다. 한 면에는 소학을, 다른 면에는 교리를 적어 둔 순교복자 윤봉문 요셉의 위장 교리서처럼 희귀한 자료도 만나실 수 있습니다. 2층과 3층에는 순명효황후와 의친왕비 김수덕 마리아가 기증한 궁중 유물, 수백 점의 성모상, 조선 시대 민속품이 전시되어 있습니다.",
+      "narrationEn": "Opened on September 25, 1982, the museum displays the martyrs' relics, books, and instruments of torture gathered from all over the country since the congregation's early days by sisters such as Andrea Yun Byeong-hyeon and Laurentia Hong Eun-sun, and in 2009 it was registered by Busan City as a first-class specialized museum. Its collection runs to some four thousand items, from church relics to Joseon court objects and folk articles. In the center of the first-floor hall stands a beam-shaped gallows built to kill many people at once, and alongside it, restored through careful research, are beheading swords, a flogging bench, dozens of kinds of cudgels, and the wooden cangue worn around the neck. Here too are the crossbars that covered St. Andrew Kim Taegon's coffin and letters in his own hand, and crosses belonging to Dasan Jeong Yak-yong, Bishop Berneux, and Gwon Il-sin. You will also find rare items such as the disguised catechism of Blessed Joseph Yun Bong-mun, with a Confucian primer on one side and Catholic doctrine on the other. The second and third floors hold court objects donated by Empress Sunmyeonghyo and Princess Kim Su-deok Maria, hundreds of statues of Our Lady, and folk articles of the Joseon era.",
+      "lookFor": "소학과 교리를 양면에 적은 윤봉문 요셉의 위장 교리서",
+      "lookForEn": "Blessed Joseph Yun Bong-mun's disguised catechism, with a Confucian primer on one side and doctrine on the other",
+      "forEveryone": "조선 왕실 유물과 민속품까지 있어 신자가 아니어도 조선 말기의 생활을 볼 수 있는 박물관입니다. 관람은 오전 10시부터 오후 5시, 월요일과 명절은 휴관입니다.",
+      "forEveryoneEn": "With Joseon royal objects and folk articles as well, the museum shows late-Joseon life to any visitor, believer or not. It is open from 10 a.m. to 5 p.m. and closed on Mondays and holidays.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2335 (사본 _pages/oryundae/goodnews.txt) · 박물관 누리집 https://oryundaemuseum-mo3.imweb.me/ (사본 _pages/oryundae/museum.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "화해와 치유의 성지로 — 새 단장 공사",
+      "titleEn": "Toward a Shrine of Reconciliation and Healing — The Renovation",
+      "location": "성지 전체",
+      "locationEn": "Throughout the shrine",
+      "narration": "반세기 동안 성지를 지켜 온 한국순교복자수녀회는 2013년 10월 4일 관리를 부산교구에 넘겼고, 교구는 이곳을 '오륜대 순교자 성지'로 이름 짓고 전담 사제를 보냈습니다. 2023년 9월 2일에는 손삼석 주교가 참석한 가운데 성지 개발 기공식이 열렸습니다. 새 성전동과 박물관, 사제관을 짓는 공사로, 교구는 이곳을 순례자가 하느님과 화해하고 몸과 마음을 치유받는 '화해와 치유의 성지'로 가꾸기로 했습니다. 현재 박물관과 대성전은 공사 중이니, 방문 전에 성지에 확인하시는 것이 좋습니다.",
+      "narrationEn": "After guarding the shrine for half a century, the Sisters of the Korean Martyrs handed its management to the Diocese of Busan on October 4, 2013; the diocese named it Oryundae Martyrs' Shrine and assigned a resident priest. On September 2, 2023, a groundbreaking ceremony for the shrine's redevelopment was held with Bishop Son Sam-seok present. The project builds a new church building, museum, and rectory, and the diocese intends the place to become a 'shrine of reconciliation and healing,' where pilgrims are reconciled with God and healed in body and mind. The museum and main church are currently under construction, so it is wise to check with the shrine before visiting.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "가톨릭신문 2023-09-05 https://www.catholictimes.org/article/202309050207016 (사본 _pages/oryundae/catholictimes.txt) · 굿뉴스 (사본 _pages/oryundae/goodnews.txt) · 비짓부산 (사본 _pages/oryundae/visitbusan.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "오륜대 순교자 성지 순례를 마치셨습니다. 여덟 분이 순교하신 부산 수영장대도 함께 찾아보셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to Oryundae Martyrs' Shrine. You may also wish to visit Suyeong Jangdae in Busan, where the eight were martyred.",
+    "photos": []
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "siteId": "6c4aa646-b1b9-49e8-a7bb-e6972e47cfb4",
+  "siteName": "수리산 성지",
+  "slug": "surisan",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "안양 시내에서 몇 킬로미터밖에 떨어지지 않았는데도 첩첩산중 같은 골짜기, 수리산 성지에 오셨습니다. 이곳은 최양업 신부님의 아버지 성 최경환 프란치스코가 박해를 피해 온 신자들과 담배 농사를 지으며 일군 교우촌이고, 성인이 처음 묻히셨던 땅입니다. 오늘은 성지 입구에서 시작해 성인의 생가터에 지은 기념성당을 거쳐, 십자가의 길을 따라 산 위의 묘역까지 올라가 보겠습니다.",
+    "narrationEn": "Welcome to Surisan Shrine, a valley that feels like deep mountains though it lies only a few kilometers from downtown Anyang. This is the Catholic village that St. Francis Choe Gyeong-hwan, father of Father Thomas Choe Yang-eop, built with believers fleeing persecution, growing tobacco to survive, and it is the ground where the saint was first buried. Today we will start at the entrance, visit the memorial church built on the site of his home, and climb the Way of the Cross to the grave on the hillside.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "성지 입구 — '담배촌' 표지석",
+      "titleEn": "Shrine Entrance — The 'Tobacco Village' Marker Stone",
+      "location": "성지 입구, 순례자 성당 앞",
+      "locationEn": "At the shrine entrance, in front of the pilgrims' church",
+      "narration": "성지 입구의 표지석에 '담배촌'이라는 글자가 보이실 겁니다. 이 골짜기는 예로부터 담배를 길러 '담배골'이라 불렸고, 골짜기 모양이 병목처럼 잘록하다 하여 '병목골'이라고도 했습니다. 박해 시대에 바깥세상과 끊어진 이 산골은 신자들에게 하늘이 내린 피난처였습니다. 땅이 척박해 최경환 성인과 신자들은 담배 농사로 근근이 살림을 이었고, 지금 담배밭은 남아 있지 않지만 지명이 그 삶을 기억하고 있습니다. 입구에는 순례자 성당과 피정의 집인 성례 마리아의 집이 자리하고 있습니다.",
+      "narrationEn": "On the marker stone at the entrance you will see the words 'Tobacco Village.' This valley was long called Tobacco Hollow because tobacco was grown here, and also Bottleneck Hollow because the valley narrows like the neck of a bottle. In the age of persecution this mountain hollow, cut off from the outside world, was a heaven-sent refuge for believers. The soil was poor, so St. Choe Gyeong-hwan and the faithful scraped by growing tobacco; no tobacco fields remain today, but the place name keeps the memory of that life. At the entrance stand the pilgrims' church and the retreat house named after Mary Yi Seong-rye.",
+      "lookFor": "표지석의 '담배촌' 글자",
+      "lookForEn": "The words 'Tobacco Village' on the marker stone",
+      "forEveryone": "2009년 도립공원으로 지정된 수리산은 시민들이 즐겨 찾는 산이고, 이 성지는 안양8경 가운데 하나로 꼽힙니다.",
+      "forEveryoneEn": "Surisan, designated a provincial park in 2009, is a mountain loved by local residents, and the shrine is counted among Anyang's Eight Scenic Views.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2322 (사본 _pages/surisan/goodnews.txt) · 가톨릭신문 2018-08-07 https://www.catholictimes.org/article/201808070269735 (사본 _pages/surisan/catholictimes.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "최경환 기념성당 — 생가터에 지은 한옥 성당",
+      "titleEn": "Choe Gyeong-hwan Memorial Church — A Hanok Church on the Site of His Home",
+      "location": "입구에서 50미터쯤 올라간 곳",
+      "locationEn": "About fifty meters up from the entrance",
+      "narration": "입구에서 50미터쯤 오르면 한옥 모양의 성당이 나옵니다. 최경환 성인이 살던 집터에 2008년 고택을 복원해 성당으로 쓰고 있는 최경환 기념성당입니다. 성인은 본래 충청도 청양 다락골 사람으로, 한국 교회가 처음 세워지던 때부터 천주교를 믿어 온 집안에서 태어났습니다. 서울로 올라가 살다가 거처가 드러날 위험에 강원도 금성, 경기도 부천을 거쳐 떠돌았고, 마침내 이 수리산 골짜기에 정착해 교우촌을 일구었습니다. 이 집에서 성인은 낮에는 밭일을 하고 저녁이면 집안사람과 교우들을 모아 교리를 가르쳤다고 기해일기는 전합니다.",
+      "narrationEn": "About fifty meters up from the entrance stands a church shaped like a traditional Korean house. This is the Choe Gyeong-hwan Memorial Church, the saint's old home restored in 2008 on its original site and now used as a church. St. Choe came from Darakgol in Cheongyang, Chungcheong Province, born into a family that had kept the Catholic faith since the Korean Church's founding days. He lived in Seoul, then wandered through Geumseong in Gangwon and Bucheon in Gyeonggi when his home risked discovery, and finally settled in this Surisan valley and built a Catholic village. In this house, the Gihae Diary records, he worked the fields by day and in the evening gathered his household and fellow believers to teach them the catechism.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "성인이 살던 집을 복원해 성당으로 쓰는 곳입니다.",
+      "forEveryoneEn": "The saint's own house, restored and used as a church.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2322 (사본 _pages/surisan/goodnews.txt) · 주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/44 (사본 _pages/surisan/cbck.txt) · 가톨릭신문 2018-08-07 (사본 _pages/surisan/catholictimes.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "교우촌 뒤뜸이 — 최양업이 신학생으로 뽑힌 마을",
+      "titleEn": "The Catholic Village of Dwitteumi — Where Choe Yang-eop Was Chosen as a Seminarian",
+      "location": "기념성당 앞마당, 골짜기를 바라보며",
+      "locationEn": "The yard in front of the memorial church, looking over the valley",
+      "narration": "이 골짜기에는 최경환 성인과 교우 60여 명이 함께 살았다고 전해집니다. 교우촌의 중심이던 뒤뜸이는 본래 아무도 살지 않던 곳인데 신자들이 새 마을을 이루면서 새말, 담배촌으로 불리게 되었습니다. 가진 것 없는 신자들이었지만 새로 오는 이들을 언제나 환영했고, 신부님이 오시면 함께 모은 공소전을 바쳤으며, 아침저녁으로 모여 기도하는 일을 가장 중요하게 여겼습니다. 1836년 초, 이 마을에서 교우들의 추천으로 성인의 맏아들 열다섯 살 최양업이 신학생으로 뽑혀 모방 신부의 손을 거쳐 마카오로 떠났습니다. 1970년대까지도 남아 있던 뒤뜸이 마을은 지금 모두 개발되어 흔적을 찾기 어렵습니다.",
+      "narrationEn": "Some sixty believers are said to have lived in this valley with St. Choe Gyeong-hwan. Dwitteumi, the heart of the Catholic village, had been uninhabited until believers founded a new settlement there, which came to be called New Village and Tobacco Village. Though they owned almost nothing, they always welcomed newcomers, offered the money they pooled for the mission whenever a priest visited, and held morning and evening prayer together as the most important part of each day. In early 1836, on the recommendation of the faithful here, the saint's eldest son Choe Yang-eop, then fifteen, was chosen as a seminarian and sent through Father Maubant to Macau. The village of Dwitteumi survived into the 1970s, but it has since been entirely developed and hardly a trace remains.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "한국의 두 번째 사제 최양업이 이 마을에서 열다섯 살에 유학길에 올랐습니다.",
+      "forEveryoneEn": "Choe Yang-eop, Korea's second priest, left this village for study abroad at the age of fifteen.",
+      "photos": [],
+      "sourceNote": "굿뉴스 (차기진, 사목 1998·1999) https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2322 (사본 _pages/surisan/goodnews.txt) · 주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/44 (사본 _pages/surisan/cbck.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "체포의 새벽 — 포졸들에게 아침을 차려 준 집",
+      "titleEn": "The Dawn of the Arrest — The House That Served Breakfast to the Constables",
+      "location": "기념성당 안",
+      "locationEn": "Inside the memorial church",
+      "narration": "1839년 기해박해가 일어나자 성인은 순교자들의 시신을 거두어 묻고 옥에 갇힌 이들을 돌보며 교우들을 위로했습니다. 그해 7월 31일 새벽, 서울에서 내려온 포졸들이 이 집 앞에 들이닥쳤습니다. 성인은 어찌 이리 늦게 오셨느냐며, 아직 동이 트지 않았으니 쉬었다 가자고 포졸들을 맞이했고, 아내 이성례 마리아에게 아침을 차려 대접하게 했습니다. 포졸들은 마을의 40여 집에서 한 명씩 잡아갔지만 최경환의 집만은 아들을 외국에 유학 보냈다는 죄목으로 아내와 어린 아들들, 젖먹이까지 일곱 식구를 모두 끌고 갔습니다. 교우 40여 명이 긴 행렬을 지어 한양 포도청으로 끌려가는 길에 성인은 형제들에게 용기를 내라고, 주의 천사가 금자로 걸음을 재고 계신다고 말했습니다.",
+      "narrationEn": "When the Gihae Persecution broke out in 1839, the saint gathered and buried the bodies of martyrs, cared for those in prison, and comforted the faithful. At dawn on July 31 that year, constables sent from Seoul burst in at this house. He greeted them by asking why they had come so late, suggested they rest since day had not yet broken, and had his wife Mary Yi Seong-rye serve them breakfast. The constables took one person from each of some forty households, but from Choe's house alone, on the charge of sending a son abroad to study, they took all seven: his wife, his young sons, and a nursing infant. As some forty believers were marched in a long line to the police bureau in Seoul, the saint told his brothers and sisters to take courage, for the Lord's angel was measuring their steps with a golden rule.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "체포하러 온 포졸들에게 아침을 차려 대접했다고 전해집니다.",
+      "forEveryoneEn": "He is said to have served breakfast to the constables who came to arrest him.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2322 (사본 _pages/surisan/goodnews.txt) · 주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/44 (사본 _pages/surisan/cbck.txt) · 가톨릭신문 2018-08-07 (사본 _pages/surisan/catholictimes.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "십자가의 길과 성인 묘역",
+      "titleEn": "The Way of the Cross and the Saint's Grave",
+      "location": "기념성당 왼편 계곡을 건너 산을 오르는 길과 그 끝의 묘역",
+      "locationEn": "The path up the hill across the stream to the left of the memorial church, and the grave at its end",
+      "narration": "성당 왼편 계곡을 건너 산길을 오르면 묘역이 나옵니다. 오르는 길에는 1987년 안양 시내 교우들이 세운 십자가의 길 14처가 있고, 묘역에는 동굴 성모상과 야외 미사를 위한 제대가 있습니다. 성인은 포도청에서 두 달 동안 하루걸러 형벌을 받아 태장 340대, 곤장 110대를 맞았고, 형리조차 바위 같은 사람이라 혀를 내둘렀다고 합니다. 1839년 9월 12일, 매 맞은 상처를 이기지 못하고 옥에서 숨을 거두셨습니다. 옥졸들이 가마니에 넣어 노고산 밑에 버린 시신을 가족이 찾아 산중턱에 가매장했다가 몇 해 뒤 이 수리산으로 옮겨 모셨습니다. 1925년 복자품에 오르자 교회는 1930년 5월 이 무덤에서 유해를 발굴해 명동성당 지하 묘지로, 1967년에는 다시 절두산으로 모셨습니다. 그래서 지금 이 묘역은 유해가 아니라 성인이 처음 묻히셨던 자리를 기억하는 곳입니다.",
+      "narrationEn": "Cross the stream to the left of the church and climb the hillside path to reach the grave. Along the way are the fourteen Stations of the Cross erected in 1987 by the faithful of Anyang, and at the grave are a grotto statue of Our Lady and an altar for outdoor Mass. At the police bureau the saint was beaten every other day for two months, receiving 340 strokes of the light rod and 110 of the heavy one; even the jailers marveled that he was like a rock. On September 12, 1839, unable to recover from his wounds, he died in prison. The jailers threw his body, wrapped in a straw sack, at the foot of Nogosan; his family found it and buried it temporarily on the hillside, and some years later moved it here to Surisan. After his beatification in 1925 the Church exhumed his remains from this grave in May 1930 and placed them in the crypt of Myeongdong Cathedral, then moved them to Jeoldusan in 1967. So today this grave holds no relics; it marks the place where the saint was first laid to rest.",
+      "lookFor": "묘역의 동굴 성모상",
+      "lookForEn": "The grotto statue of Our Lady at the grave",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2322 (사본 _pages/surisan/goodnews.txt) · 주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/44 (사본 _pages/surisan/cbck.txt) · 가톨릭신문 2018-08-07 (사본 _pages/surisan/catholictimes.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "복자 이성례 마리아 — 어머니의 순교",
+      "titleEn": "Blessed Mary Yi Seong-rye — A Mother's Martyrdom",
+      "location": "묘역 야외 제대 앞",
+      "locationEn": "In front of the outdoor altar at the grave",
+      "narration": "이 성지에서 꼭 기억해야 할 또 한 분이 성인의 아내 이성례 마리아입니다. 다섯 아이와 함께 옥에 갇힌 그녀는 젖먹이 막내가 굶주림으로 숨을 거두자 남은 아이들마저 잃을까 두려워 배교하겠다고 말하고 풀려났습니다. 그러나 옥에 갇힌 남편을 생각하며 마음을 다잡고, 아이들이 동냥을 나간 사이 다시 옥으로 들어갔습니다. 어린 사형제가 옥 앞에서 어머니를 목메어 불렀지만 그녀는 다시 배교할까 두려워 등을 돌린 채 외면했고, 아이들은 그 뒤로 동냥한 음식을 부모에게 넣어 주었습니다. 1840년 1월 31일, 그녀는 당고개에서 참수되었습니다. 그날 아이들은 온종일 동냥한 쌀자루를 망나니에게 건네며 어머니를 단칼에 보내 달라고 청했다고 전해집니다. 첫 배교 때문에 시복에서 오래 제외되었던 이성례 마리아는 2014년 8월 16일 광화문 광장에서 프란치스코 교황에 의해 복자품에 올랐습니다.",
+      "narrationEn": "One more person must be remembered at this shrine: the saint's wife, Mary Yi Seong-rye. Imprisoned with her five children, she watched her nursing infant die of hunger, and fearing she would lose the others too, she declared she would renounce the faith and was released. But thinking of her husband still in prison she recovered her resolve, and while the children were out begging she returned to the jail. Her four young sons cried out for their mother at the prison gate, but she turned her back and would not look at them for fear of apostatizing again; from then on the children brought the food they begged to their parents in prison. On January 31, 1840, she was beheaded at Danggogae. That day, it is told, the children handed the executioner the sack of rice they had begged all day and asked him to send their mother to heaven with a single stroke. Long excluded from beatification because of her first denial, Mary Yi Seong-rye was beatified by Pope Francis in Gwanghwamun Square on August 16, 2014.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "아이들을 지키려다 신념을 잠시 버렸고, 다시 돌아가 죽음을 택한 어머니의 이야기입니다.",
+      "forEveryoneEn": "The story of a mother who briefly gave up her convictions to protect her children, then went back and chose death.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2322 (사본 _pages/surisan/goodnews.txt) · 주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/44 (사본 _pages/surisan/cbck.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "수리산 성지 순례를 마치셨습니다. 걸어서 오시려면 안양역에서 병목안 삼거리와 수리산 산림욕장을 거쳐 성지까지 두 시간 반쯤 걸리는 길이 있습니다. 성인이 순교자들의 시신을 거두러 산을 넘어 한양을 오가던 길을 떠올리며 내려가 보세요.",
+    "narrationEn": "This concludes our visit to Surisan Shrine. If you wish to come on foot, a route from Anyang Station through the Byeongmogan junction and the Surisan forest park reaches the shrine in about two and a half hours. As you walk down, remember the saint crossing these mountains to and from Seoul to gather the bodies of the martyrs.",
+    "photos": []
+  }
+}

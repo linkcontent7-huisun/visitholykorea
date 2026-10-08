@@ -1,0 +1,110 @@
+{
+  "siteId": "abce3890-fff0-4549-8eb3-7df5e43a6c9e",
+  "siteName": "어농 성지",
+  "slug": "eonong",
+  "surveyedAt": "2026-10-02",
+  "surveyedBy": "문헌: Claude (T-051, 현장 미방문)",
+  "status": "draft",
+  "intro": {
+    "narration": "기름진 쌀로 이름난 이천의 너른 들 한가운데, 어농 성지에 오셨습니다. '어농'은 말 그대로 농사짓기에 알맞은 땅이라는 뜻으로, 박해 시대 교우들이 숨어들어 농사를 짓고 신앙을 지키며 뼈를 묻은 곳입니다. 이곳에는 한국 교회에 처음으로 사제를 모셔 오기 위해 중국을 세 번이나 오간 밀사 윤유일 바오로와 그 일가의 묘, 그리고 그가 모셔 온 주문모 신부를 비롯한 열일곱 분 복자의 묘역이 있습니다. 오늘은 밀사의 북경 길에서 시작해 세 밀사의 순교, 윤씨 일가의 수난, 그리고 묘역을 차례로 둘러보겠습니다.",
+    "narrationEn": "Welcome to Eonong Shrine, set in the broad fields of Icheon, a region famed for its rich rice. 'Eonong' means land fit for farming, and in the age of persecution believers hid here, tilled the soil, kept their faith, and were buried in this ground. Here lie the graves of Paul Yun Yu-il, the secret envoy who crossed into China three times to bring the Korean Church its first priest, and his family, together with the memorial graves of seventeen blesseds, including Father Zhou Wenmo, the priest he brought back. Today we will begin with the envoy's journeys to Beijing, then hear of the martyrdom of the three envoys and the sufferings of the Yun family, and finally visit the graves.",
+    "photos": []
+  },
+  "points": [
+    {
+      "seq": 1,
+      "title": "윤유일 바오로 — 북경을 오간 밀사",
+      "titleEn": "Paul Yun Yu-il — The Secret Envoy to Beijing",
+      "location": "순교자 묘역 입구",
+      "locationEn": "At the entrance to the martyrs' cemetery",
+      "narration": "윤유일은 양근 대감마을 권철신의 제자로, 교회가 세워진 지 서너 해가 지나서야 복음을 받아들였습니다. 그 무렵 성직자 없이 시작한 조선 교회는 평신도가 성사를 집전해도 되는지, 조상 제사가 우상 숭배인지 스스로 답을 찾지 못해 북경에 물어볼 밀사를 찾고 있었습니다. 성격이 온순하고 입이 무거운 서른 살의 윤유일이 추천되었고, 그는 천한 상인 신분으로 험한 북경 길을 오가야 하는 임무를 순순히 받아들였습니다. 1789년 10월 북경 북당에 가서 구베아 주교에게 답을 청하고, 머무는 동안 바오로라는 이름으로 세례와 견진을 받고 돌아왔습니다. 평신도의 성무 집행은 안 된다는 회답을 받은 교회는 1790년 9월 다시 그를 보내 신부를 보내 달라고 간청해 약속을 받았습니다. 두 번째 길에서 그는 훗날 선교사가 쓸 성작과 제의를 받아 왔고, 구베아 주교는 포도나무 묘목과 함께 포도주 담그는 법까지 가르쳐 주었습니다.",
+      "narrationEn": "Yun Yu-il was a disciple of Gwon Cheol-sin of Daegam village in Yanggeun, and accepted the Gospel only three or four years after the Church was founded. At that time the Korean Church, begun without clergy, could not answer for itself whether lay people might administer the sacraments or whether ancestral rites were idolatry, and it was seeking an envoy to put these questions to Beijing. Yun, thirty years old, gentle in temper and discreet, was recommended, and he readily accepted a mission that meant traveling the hard road to Beijing in the lowly guise of a merchant. In October 1789 he reached the North Church in Beijing, put the questions to Bishop de Gouvea, and while there was baptized and confirmed under the name Paul. When the reply came that lay people could not perform priestly functions, the Church sent him again in September 1790 to plead for a priest, and he returned with a promise. On that second journey he brought back a chalice and vestments for a future missionary, and Bishop de Gouvea gave him grapevine cuttings and taught him how to grow them and make wine.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "18세기 조선 사람이 상인으로 변장해 북경의 서양 주교를 찾아간 이야기입니다.",
+      "forEveryoneEn": "The story of an 18th-century Korean who disguised himself as a merchant to seek out a Western bishop in Beijing.",
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2325 (사본 _pages/eonong/goodnews.txt) · 주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/41 (사본 _pages/eonong/cbck.txt)"
+    },
+    {
+      "seq": 2,
+      "title": "주문모 신부 영입과 조선 땅 첫 부활절 미사",
+      "titleEn": "Bringing Father Zhou Wenmo and the First Easter Mass on Korean Soil",
+      "location": "순교자 묘역, 주문모 신부 의묘 앞",
+      "locationEn": "At the memorial grave of Father Zhou Wenmo in the martyrs' cemetery",
+      "narration": "1791년 신해박해의 회오리가 잦아든 1794년 말, 윤유일은 지황과 함께 다시 북경으로 떠났고, 그해 12월 24일 밤 마침내 중국인 주문모 야고보 신부를 서울로 모셔 오는 데 성공했습니다. 역관이던 최인길 마티아가 북촌 자기 집에 신부를 숨기고 통역을 맡아 우리말까지 가르쳤습니다. 1795년 4월 5일, 주 신부의 집전으로 조선 땅에서 처음으로 부활절 미사가 봉헌되었습니다. 그 미사에 쓰인 포도주는 5년 전 윤유일이 북경에서 가져와 가꾼 포도나무에서 거둔 포도로 빚은 것이었습니다. 한국 땅에서 처음 가꾼 포도나무, 처음 빚은 포도주였습니다.",
+      "narrationEn": "At the end of 1794, after the storm of the Sinhae Persecution of 1791 had subsided, Yun Yu-il set out for Beijing once more with Ji Hwang, and on the night of December 24 that year they at last succeeded in bringing the Chinese priest James Zhou Wenmo into Seoul. Matthias Choe In-gil, an interpreter by profession, hid the priest in his house in Bukchon, served as his interpreter, and even taught him Korean. On April 5, 1795, Father Zhou celebrated the first Easter Mass ever offered on Korean soil. The wine for that Mass was made from grapes of the vines Yun Yu-il had brought from Beijing five years earlier and tended since: the first grapevines grown and the first wine made in Korea.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "한국에서 처음 기른 포도나무가 미사 포도주를 위한 것이었다는 사실이 이 성지의 숨은 이야기입니다.",
+      "forEveryoneEn": "A hidden story of this shrine: the first grapevines grown in Korea were planted for Mass wine.",
+      "photos": [],
+      "sourceNote": "굿뉴스 (차기진, 사목 1999년 5월호 포함) https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2325 (사본 _pages/eonong/goodnews.txt) · 주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/41 (사본 _pages/eonong/cbck.txt)"
+    },
+    {
+      "seq": 3,
+      "title": "세 밀사의 순교 — 시신조차 강물에 던져지다",
+      "titleEn": "The Martyrdom of the Three Envoys — Even Their Bodies Thrown into the River",
+      "location": "윤유일·지황·최인길 의묘 앞",
+      "locationEn": "At the memorial graves of Yun Yu-il, Ji Hwang, and Choe In-gil",
+      "narration": "부활절이 지난 어느 날 한 밀고자가 신부의 입국을 조정에 알렸습니다. 주 신부는 여회장 강완숙의 집으로 피신했고, 최인길은 시간을 벌기 위해 자신이 신부인 척 위장하고 포졸들을 기다렸습니다. 위장은 오래가지 못했고 윤유일, 지황, 최인길 세 사람이 모두 붙잡혔습니다. 포도청은 신부의 행방을 캐내려고 혹독한 형벌을 가했지만 세 사람은 끝내 입을 열지 않았고, 참 천주님이신 예수 그리스도를 모독하기보다 천만 번 죽을 각오가 되어 있다고 신앙을 고백했습니다. 체포된 지 하루도 못 되어 매를 맞아 숨졌으니 1795년 6월 28일이었습니다. 신자들은 그들이 천상의 기쁨이 넘친 얼굴로 순교를 받아들였다고 전했습니다. 시신은 광희문을 지나 살곶이다리 부근 강물에 던져져 끝내 찾지 못했기에, 이곳의 무덤은 시신 없는 의묘입니다.",
+      "narrationEn": "One day after Easter an informer told the court of the priest's entry. Father Zhou fled to the house of Columba Kang Wan-suk, the women's leader, while Choe In-gil, to buy time, disguised himself as the priest and waited for the constables. The disguise did not hold for long, and Yun Yu-il, Ji Hwang, and Choe In-gil were all arrested. At the police bureau they were tortured savagely to reveal the priest's whereabouts, but none of them spoke; they professed instead that they were ready to die ten million times rather than blaspheme Jesus Christ, true God and Savior. Beaten to death within a day of their arrest, they died on June 28, 1795. The faithful said they accepted martyrdom with faces full of heavenly joy. Their bodies were carried out through Gwanghui Gate and thrown into the river near Salgoji Bridge, never to be recovered, which is why the graves here are memorial graves without remains.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "한 사람을 숨기려고 다른 사람이 그 사람인 척한 이야기가 2백 년 전 서울에서 실제로 있었습니다.",
+      "forEveryoneEn": "Two hundred years ago in Seoul, a man really did impersonate another to let him escape.",
+      "photos": [],
+      "sourceNote": "주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/41 (사본 _pages/eonong/cbck.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2325 (사본 _pages/eonong/goodnews.txt)"
+    },
+    {
+      "seq": 4,
+      "title": "파평 윤씨 일가 — 유배와 순교로 흩어진 집안",
+      "titleEn": "The Yun Family of Papyeong — A House Scattered by Exile and Martyrdom",
+      "location": "윤장·윤유오 묘 앞",
+      "locationEn": "At the graves of Yun Jang and Yun Yu-o",
+      "narration": "윤유일의 순교가 곧바로 양근의 본가에 화를 부르지는 않았지만, 1801년 신유박해가 일어나자 온 집안이 수난을 겪었습니다. 아버지 윤장은 양근에서 체포되어 신안 앞바다의 먼 섬 임자도로, 숙부 윤현은 강진으로 유배되었고, 또 다른 숙부 윤관수 안드레아와 동생 윤유오 야고보는 참수되었습니다. 동정녀로 살던 사촌 누이 윤점혜 아가타는 양근에서, 윤운혜 루치아는 서소문 밖에서 참수되었고, 운혜의 남편 정광수 바르나바도 이듬해 순교했습니다. 이 가운데 윤유일, 윤유오, 윤점혜, 윤운혜, 정광수가 2014년 8월 16일 광화문 광장에서 복자품에 올랐습니다. 온 가족이 희생된 뒤 후손은 200여 년 동안 족보도 없이 흩어졌고 교회 안에는 후손이 없는 것으로 알려져 왔습니다. 이 묘역의 무덤 가운데 실제 시신이 묻힌 곳은 동생 윤유오의 묘뿐입니다.",
+      "narrationEn": "Yun Yu-il's martyrdom did not immediately bring disaster on the family home in Yanggeun, but when the Sinyu Persecution broke out in 1801 the whole house suffered. His father Yun Jang was arrested in Yanggeun and banished to Imja Island, far off the coast of Sinan; his uncle Yun Hyeon was exiled to Gangjin; another uncle, Andrew Yun Gwan-su, and his younger brother James Yun Yu-o were beheaded. His cousins Agatha Yun Jeom-hye, who lived as a consecrated virgin, and Lucia Yun Un-hye were beheaded, the one in Yanggeun and the other outside Seosomun, and Un-hye's husband Barnabas Jeong Gwang-su was martyred the following year. Of these, Yun Yu-il, Yun Yu-o, Yun Jeom-hye, Yun Un-hye, and Jeong Gwang-su were beatified in Gwanghwamun Square on August 16, 2014. After the whole family perished, the descendants were scattered for two centuries without even a genealogy, and the Church believed none remained. Among the graves in this cemetery, only that of the younger brother Yun Yu-o actually holds a body.",
+      "lookFor": "실제 유해가 묻힌 윤유오 야고보의 묘",
+      "lookForEn": "The grave of James Yun Yu-o, the only one holding actual remains",
+      "forEveryone": null,
+      "forEveryoneEn": null,
+      "photos": [],
+      "sourceNote": "굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2325 (사본 _pages/eonong/goodnews.txt) · 주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/41 (사본 _pages/eonong/cbck.txt)"
+    },
+    {
+      "seq": 5,
+      "title": "1987년, 후손이 나타나다 — 묘역의 성역화",
+      "titleEn": "1987, a Descendant Appears — The Cemetery Becomes a Shrine",
+      "location": "순교자 묘역 전체와 예수상",
+      "locationEn": "The whole martyrs' cemetery and the statue of Jesus",
+      "narration": "1987년에 이르러서야 후손 윤필용 씨가 나타났고, 그의 증언에 따라 이 선산 안에서 윤유일의 아버지 윤장과 동생 윤유오의 묘가 확인되었습니다. 이를 계기로 윤유일과 숙부 윤현, 윤관수, 사촌 누이 윤점혜와 윤운혜, 그리고 주문모 신부와 지황, 최인길, 강완숙 골룸바의 의묘가 만들어졌고, 1987년 6월 28일 수원교구장 김남수 주교의 주례로 축복식을 가졌습니다. 1999년에는 묘역에 예수상과 십자가의 길 14처가 세워졌고, 2002년 사제관과 성당이 마련되어 그해 8월 13일 최덕기 주교가 이곳을 '을묘·신유박해 순교자 현양성지'로 선포했습니다. 성지는 주문모 신부를 모셔 오다 순교한 을묘박해 순교자 세 분과, 신부를 모시고 6년 동안 조선 교회의 기틀을 놓다가 순교한 신유박해 순교자 열네 분, 모두 열일곱 분을 기리고 있으며, 이분들 모두 2014년 8월 16일 복자품에 올랐습니다.",
+      "narrationEn": "Only in 1987 did a descendant, Yun Pil-yong, come forward, and on his testimony the graves of Yun Yu-il's father Yun Jang and his brother Yun Yu-o were identified within this family burial ground. Memorial graves were then made for Yun Yu-il, his uncles Yun Hyeon and Yun Gwan-su, his cousins Yun Jeom-hye and Yun Un-hye, and for Father Zhou Wenmo, Ji Hwang, Choe In-gil, and Columba Kang Wan-suk, and on June 28, 1987, Bishop Kim Nam-su of Suwon presided over the blessing. In 1999 a statue of Jesus and the fourteen Stations of the Cross were added to the cemetery, and in 2002 a rectory and church were built; on August 13 that year Bishop Choe Deok-gi proclaimed the site the 'Shrine Honoring the Martyrs of the Eulmyo and Sinyu Persecutions.' The shrine honors seventeen martyrs in all: the three of the Eulmyo Persecution of 1795 who died bringing in Father Zhou, and the fourteen of the Sinyu Persecution of 1801 who died after laying the foundations of the Korean Church with him for six years. All seventeen were beatified on August 16, 2014.",
+      "lookFor": "1999년에 세운 묘역의 예수상",
+      "lookForEn": "The statue of Jesus erected in the cemetery in 1999",
+      "forEveryone": "200년 만에 나타난 후손 한 사람의 증언으로 무덤을 찾아 성지가 된 곳입니다.",
+      "forEveryoneEn": "A shrine born when a single descendant, appearing after two centuries, led the way to the graves.",
+      "photos": [],
+      "sourceNote": "주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/41 (사본 _pages/eonong/cbck.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2325 (사본 _pages/eonong/goodnews.txt)"
+    },
+    {
+      "seq": 6,
+      "title": "주문모 신부와 강완숙 골룸바 — 목자와 첫 여회장",
+      "titleEn": "Father Zhou Wenmo and Columba Kang Wan-suk — The Shepherd and the First Women's Leader",
+      "location": "주문모 신부·강완숙 의묘 앞",
+      "locationEn": "At the memorial graves of Father Zhou Wenmo and Kang Wan-suk",
+      "narration": "주문모 신부는 6년 동안 조선 교회의 유일한 목자로 일하다가 1801년 4월 19일 의금부에 자수한 뒤 새남터에서 순교했습니다. 1811년 조선 교우들이 북경 주교에게 보낸 편지에는 그날 맑던 하늘이 갑자기 어두워지고 광풍과 소나기가 쏟아졌다가 형 집행이 끝나자 해가 다시 빛나고 무지개가 떴다고, 군사와 백성이 착한 사람이 억울하게 죽은 징조라 여겼다고 적혀 있습니다. 강완숙 골룸바는 성직자 영입을 재정으로 뒷받침했고, 주 신부가 서울에 도착했을 때부터 그를 도와 최초의 여회장으로 임명되어 신자들을 돌보았습니다. 1801년 체포되어 혹독한 고문을 받으면서도 포졸들이 지칠 때까지 교리를 설명했고, 형리들조차 이 여인은 사람이 아니라 신이라고 감탄했습니다. 그해 서소문 밖에서 동료들과 함께 참수되었으니 마흔 살이었습니다.",
+      "narrationEn": "Father Zhou Wenmo served for six years as the sole shepherd of the Korean Church, then on April 19, 1801, gave himself up to the State Tribunal and was martyred at Saenamteo. A letter the Korean faithful sent to the bishop of Beijing in 1811 records that on that day a clear sky suddenly darkened, a violent wind and downpour broke, and when the execution was over the sun shone again and a rainbow appeared, so that soldiers and people alike took it as a sign that a good man had died unjustly. Columba Kang Wan-suk financed the effort to bring in a priest, helped Father Zhou from the moment he reached Seoul, and was appointed by him the first women's leader to care for the faithful. Arrested in 1801, she kept explaining the faith under brutal torture until the constables were exhausted, and even the jailers marveled that this woman was not a human being but a god. That year she was beheaded outside Seosomun with her companions, at the age of forty.",
+      "lookFor": null,
+      "lookForEn": null,
+      "forEveryone": "조선 교회에 처음 들어온 중국인 사제와 그를 숨겨 준 여성 지도자가 나란히 기려지고 있습니다.",
+      "forEveryoneEn": "The first Chinese priest to enter Korea and the woman leader who sheltered him are honored side by side.",
+      "photos": [],
+      "sourceNote": "주교회의 시복시성위 https://cbck.or.kr/koreanmartyrs/Shrines/41 (사본 _pages/eonong/cbck.txt) · 굿뉴스 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2325 (사본 _pages/eonong/goodnews.txt)"
+    }
+  ],
+  "outro": {
+    "narration": "어농 성지 순례를 마치셨습니다. 이 성지는 사제를 모셔 오고 지키려다 목숨을 바친 분들의 땅이라, 청소년에게 순교 영성과 성소를 심어 주는 청소년 성지로 가꾸어지고 있습니다. 병인박해 순교자 정은 바오로의 묘가 있는 단내 성지가 6킬로미터 남짓 거리에 있으니 함께 순례하셔도 좋겠습니다.",
+    "narrationEn": "This concludes our visit to Eonong Shrine. Because this is the land of those who gave their lives to bring in and protect a priest, it is being developed as a youth shrine, nurturing in young people the spirit of the martyrs and a sense of vocation. Dannae Shrine, with the grave of Paul Jeong Eun, a martyr of the Byeongin Persecution, lies little more than six kilometers away and makes a good companion pilgrimage.",
+    "photos": []
+  }
+}
