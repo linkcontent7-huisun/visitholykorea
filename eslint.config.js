@@ -19,6 +19,9 @@ export default tseslint.config(
       // 저장소에 섞여 들어온 구버전 앱 사본·학습자료. 우리 코드가 아니다 (ADR 0005).
       'supabase/visitholykorea_버전보관',
       'visitholykorea-학습자료',
+      // 다른 브랜치 작업트리(worktree) 복사본이 저장소 안에 남은 것(10/12 실측: issue47·t050).
+      // 추적되지 않는 폴더라 우리 lint 대상이 아니다.
+      'visitholykorea-*',
       // 일회성 진단 스크립트. 한 번 돌려 보고 버린다.
       'scripts/tmp-*.ts',
       // 협력자가 보내온 시안·참고 자료(2026-09-07 PR #13). 브라우저로 열어보는

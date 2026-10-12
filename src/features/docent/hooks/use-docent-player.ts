@@ -8,6 +8,12 @@ import {
   verifyWithMicPermission,
   type HeadphoneState,
 } from '../lib/headphones';
+import {
+  applyMediaSession,
+  clearMediaSession,
+  createSilentLoop,
+  type SilentLoop,
+} from '../lib/pocket-playback';
 
 /** 확인을 한 번 받으면 같은 방문(세션) 동안은 다시 묻지 않는다. */
 const EARPHONE_OK_KEY = 'vhk_docent_earphone_ok';
@@ -188,6 +194,15 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
   // 크롬이 지역변수 utterance 를 GC 로 수거해 소리가 끊기는 버그 방지
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
+  /**
+   * 주머니 재생(2026-10-12): 화면을 꺼도 읽기가 이어지게 하는 장치들.
+   * - silentLoopRef: 재생 중 무음 오디오를 틀어 OS 가 탭을 재우지 않게 한다
+   * - resumeRef: OS 가 TTS 를 끊었을 때 **읽던 문장부터** 다시 시작하는 함수
+   * 자세한 배경은 `../lib/pocket-playback.ts`.
+   */
+  const silentLoopRef = useRef<SilentLoop | null | undefined>(undefined);
+  const resumeRef = useRef<(() => void) | null>(null);
+
   // 화면을 나가거나 성지(챕터 목록)가 바뀌면 읽던 음성을 멈춘다.
   useEffect(() => {
     setCurrentIndex(0);
@@ -204,6 +219,56 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
     const keepalive = window.setInterval(() => window.speechSynthesis.resume(), 10000);
     return () => window.clearInterval(keepalive);
   }, [isPlaying, isSupported]);
+
+  // 재생이 끝나거나 멈추면 무음 오디오도 끈다 — 켜 둔 채 두면 배터리만 먹는다
+  useEffect(() => {
+    if (isPlaying) return;
+    silentLoopRef.current?.stop();
+  }, [isPlaying]);
+  useEffect(() => () => silentLoopRef.current?.stop(), []);
+
+  /**
+   * 화면이 다시 켜졌는데 "재생 중"인 채 조용하면 OS 가 TTS 를 끊은 것이다
+   * (iOS 가 잠금 시 그렇게 한다). 읽던 문장부터 다시 읽는다.
+   * 문장 사이의 짧은 공백과 구분하려고 잠깐 기다린 뒤 판정한다.
+   */
+  useEffect(() => {
+    if (!isPlaying || !isSupported) return;
+    let timer = 0;
+    const onVisible = () => {
+      if (document.visibilityState !== 'visible') return;
+      window.speechSynthesis.resume();
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        if (window.speechSynthesis.speaking || window.speechSynthesis.pending) return;
+        resumeRef.current?.();
+      }, 300);
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisible);
+      window.clearTimeout(timer);
+    };
+  }, [isPlaying, isSupported]);
+
+  // 잠금화면·이어폰 버튼 → 도슨트 조작. 최신 함수를 ref 로 넘겨 매 렌더 재등록을 피한다.
+  const actionsRef = useRef({ play: () => {}, pause: () => {}, next: () => {}, prev: () => {} });
+  useEffect(() => {
+    if (!isSupported) return;
+    const chapter = chapters[currentIndex];
+    if (!chapter) return;
+    applyMediaSession(
+      {
+        title: chapter.title,
+        onPlay: () => actionsRef.current.play(),
+        onPause: () => actionsRef.current.pause(),
+        onNext: currentIndex + 1 < chapters.length ? () => actionsRef.current.next() : null,
+        onPrevious: currentIndex > 0 ? () => actionsRef.current.prev() : null,
+      },
+      isPlaying,
+    );
+  }, [isSupported, chapters, currentIndex, isPlaying]);
+  useEffect(() => () => clearMediaSession(), []);
 
   const playFrom = (index: number) => {
     const chapter = chaptersRef.current[index];
@@ -223,10 +288,17 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
     const session = sessionRef.current;
     setHasError(false);
 
+    // 주머니 재생: 버튼을 누른 그 동작 안에서 무음 오디오를 시작해야 모바일이 허용한다.
+    // 자동으로 다음 챕터로 넘어올 때는 이미 켜져 있어 아무 일도 안 한다.
+    if (silentLoopRef.current === undefined) silentLoopRef.current = createSilentLoop();
+    silentLoopRef.current?.start();
+
     // 문장 단위로 끊어 읽어야 사이에 호흡이 생긴다 (한 문단 통짜는 기계처럼 들린다)
     const sentences = splitSentences(chapter.narration);
     setTotalSentences(sentences.length);
     setSentenceIndex(0);
+    // OS 가 끊었을 때 돌아올 문장 — onend 가 넘어갈 때마다 갱신된다
+    let spokenSentence = 0;
 
     /**
      * 매번 새 utterance 를 만든다. 이미 한 번 speak 에 넘긴 객체를 다시 넘기면
@@ -243,6 +315,7 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
         if (sessionRef.current !== session) return;
         const nextSentence = sentenceIndex + 1;
         if (nextSentence < sentences.length) {
+          spokenSentence = nextSentence;
           setSentenceIndex(nextSentence);
           window.speechSynthesis.speak(build(nextSentence));
           return;
@@ -267,6 +340,10 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
     if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
       window.speechSynthesis.cancel();
     }
+    resumeRef.current = () => {
+      if (sessionRef.current !== session) return;
+      window.speechSynthesis.speak(build(spokenSentence));
+    };
     window.speechSynthesis.speak(build(0));
     // 안드로이드 크롬: cancel 직후의 speak 가 무시되는 버그 — 시작 안 됐으면 한 번 재시도
     window.setTimeout(() => {
@@ -281,6 +358,7 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
 
   const stop = () => {
     sessionRef.current += 1;
+    resumeRef.current = null;
     window.speechSynthesis?.cancel();
     setIsPlaying(false);
     setSentenceIndex(0);
@@ -330,6 +408,14 @@ export function useDocentPlayer(chapters: DocentChapter[], language: Language) {
   const toggle = () => {
     if (isPlaying) stop();
     else playFrom(currentIndex);
+  };
+
+  // 잠금화면 버튼이 부를 함수 — 렌더마다 최신 상태(currentIndex)를 물린다
+  actionsRef.current = {
+    play: () => playFrom(currentIndex),
+    pause: stop,
+    next: () => playFrom(currentIndex + 1),
+    prev: () => playFrom(currentIndex - 1),
   };
 
   /** 느리게 → 보통 → 빠르게 순환. 재생 중이면 현재 챕터를 새 속도로 다시 읽는다. */
