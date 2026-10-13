@@ -8,7 +8,11 @@
   "intro": {
     "narration": "김해 진례면 청천리 책골, 복자 박대식 빅토리노의 묘에 오셨습니다. 박대식은 1812년 김해 예동의 부유한 집안에서 태어나 1868년 무진박해 때 조카와 함께 체포되어 대구 관덕정에서 참수된 순교자입니다. 가족이 시신을 모셔 왔지만 마을의 반대로 선산에 묻지 못하고 이곳 유씨 문중 산에 봉분 없이 묻었고, 그 뒤 한 번도 이장하지 않은 무덤이 지금까지 남아 있습니다. 오늘은 묘역에서 시작해 체포와 순교, 평장으로 묻힌 사연, 1956년과 1966년의 정비, 그리고 2001년에 되찾은 세례명까지 둘러보겠습니다.",
     "narrationEn": "Welcome to the grave of Blessed Victorinus Park Dae-sik at Chaekgol in Cheongcheon-ri, Jillye-myeon, Gimhae. Born in 1812 to a wealthy family at Yedong in Gimhae, Park was arrested with his nephew in the Mujin Persecution of 1868 and beheaded at Gwandeokjeong in Daegu. His family brought the body home, but the village would not allow burial in the ancestral plot, so he was laid without a mound on this hillside belonging to the Yu clan, and the grave has never since been moved. Today we will begin at the grave, then look at his arrest and martyrdom, the story of the unmarked burial, the restorations of 1956 and 1966, and the baptismal name recovered in 2001.",
-    "photos": []
+    "photos": [],
+    "narrationEs": "Bienvenidos a la tumba del beato Victorino Park Dae-sik, en Chaekgol, Cheongcheon-ri, Jillye-myeon, Gimhae. Nacido en 1812 en una familia acomodada de Yedong, en Gimhae, Park fue arrestado con su sobrino en la persecución de Mujin de 1868 y decapitado en Gwandeokjeong, en Daegu. Su familia trajo el cuerpo a casa, pero la aldea no permitió enterrarlo en el panteón familiar, así que fue sepultado sin túmulo en esta ladera perteneciente al clan Yu, y la tumba nunca se ha movido desde entonces. Hoy empezaremos en la tumba y luego veremos su arresto y martirio, la historia del enterramiento sin señal, las restauraciones de 1956 y 1966 y el nombre de bautismo recuperado en 2001.",
+    "narrationFr": "Bienvenue à la tombe du bienheureux Victorin Park Dae-sik, à Chaekgol, Cheongcheon-ri, Jillye-myeon, à Gimhae. Né en 1812 dans une famille aisée de Yedong, à Gimhae, Park fut arrêté avec son neveu lors de la persécution de Mujin en 1868 et décapité à Gwandeokjeong, à Daegu. Sa famille ramena le corps, mais le village refusa l'inhumation dans le caveau familial ; il fut donc enterré sans tertre sur ce versant appartenant au clan Yu, et la tombe n'a jamais été déplacée depuis. Aujourd'hui, nous commencerons par la tombe, puis nous verrons son arrestation et son martyre, l'histoire de cette sépulture sans tertre, les restaurations de 1956 et 1966, et le nom de baptême retrouvé en 2001.",
+    "narrationIt": "Benvenuti alla tomba del beato Vittorino Park Dae-sik, a Chaekgol, Cheongcheon-ri, Jillye-myeon, Gimhae. Nato nel 1812 in una famiglia benestante di Yedong, a Gimhae, Park fu arrestato con il nipote nella persecuzione di Mujin del 1868 e decapitato a Gwandeokjeong, a Daegu. La famiglia riportò a casa il corpo, ma il villaggio non permise la sepoltura nel cimitero di famiglia, così fu deposto senza tumulo su questo pendio appartenente al clan Yu, e da allora la tomba non è mai stata spostata. Oggi cominceremo dalla tomba, poi vedremo l'arresto e il martirio, la storia della sepoltura senza segno, i restauri del 1956 e del 1966 e il nome di battesimo ritrovato nel 2001.",
+    "narrationPt": "Bem-vindos à sepultura do beato Vitorino Park Dae-sik, em Chaekgol, Cheongcheon-ri, Jillye-myeon, Gimhae. Nascido em 1812 numa família abastada de Yedong, em Gimhae, Park foi preso com o sobrinho na perseguição de Mujin, em 1868, e decapitado em Gwandeokjeong, em Daegu. A família trouxe o corpo para casa, mas a aldeia não permitiu o sepultamento no jazigo familiar, pelo que foi deposto sem montículo nesta encosta pertencente ao clã Yu, e a sepultura nunca mais foi mudada. Hoje começaremos na sepultura e depois veremos a sua prisão e martírio, a história do sepultamento sem sinal, as restaurações de 1956 e 1966 e o nome de batismo recuperado em 2001."
   },
   "points": [
     {
@@ -24,7 +28,19 @@
       "forEveryone": "150년 넘게 자리를 옮기지 않은 순교자의 무덤입니다.",
       "forEveryoneEn": "A martyr's grave that has stayed in one place for more than 150 years.",
       "photos": [],
-      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2259 (사본 _pages/bakdaesik/goodnews.txt)"
+      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2259 (사본 _pages/bakdaesik/goodnews.txt)",
+      "narrationEs": "La tumba que tienen delante nunca se ha movido desde que el cuerpo fue depositado aquí poco después del martirio de 1868. Viniendo de Busan por la autopista Namhae, se pasa el túnel de Gimhae y, justo antes del túnel de Jinyeong, hoy cerrado, se siguen las señales por un camino de montaña hasta las tumbas del mártir y de su esposa. La parroquia de Jillye, que cuida el lugar, celebra aquí cada año una misa conmemorativa junto con los descendientes del mártir.",
+      "titleEs": "Una tumba nunca trasladada: la ladera del clan Yu en Chaekgol",
+      "lookForEs": "Las tumbas del mártir y de su esposa, una junto a otra",
+      "narrationFr": "La tombe devant vous n'a jamais été déplacée depuis que le corps y fut déposé peu après le martyre de 1868. En venant de Busan par l'autoroute Namhae, on passe le tunnel de Gimhae et, juste avant le tunnel de Jinyeong, aujourd'hui fermé, on suit les panneaux par un chemin de montagne jusqu'aux tombes du martyr et de son épouse. La paroisse de Jillye, qui entretient le site, y célèbre chaque année une messe commémorative avec les descendants du martyr.",
+      "titleFr": "Une tombe jamais déplacée : le versant du clan Yu à Chaekgol",
+      "lookForFr": "Les tombes du martyr et de son épouse, côte à côte",
+      "narrationIt": "La tomba davanti a voi non è mai stata spostata da quando il corpo vi fu deposto poco dopo il martirio del 1868. Venendo da Busan lungo l'autostrada Namhae, si supera il tunnel di Gimhae e, poco prima del tunnel di Jinyeong, oggi chiuso, si seguono le indicazioni lungo un sentiero di montagna fino alle tombe del martire e della moglie. La parrocchia di Jillye, che cura il luogo, vi celebra ogni anno una messa commemorativa insieme ai discendenti del martire.",
+      "titleIt": "Una tomba mai spostata: il pendio del clan Yu a Chaekgol",
+      "lookForIt": "Le tombe del martire e della moglie, una accanto all'altra",
+      "narrationPt": "A sepultura à vossa frente nunca foi mudada desde que o corpo aqui foi depositado pouco depois do martírio de 1868. Vindo de Busan pela autoestrada Namhae, passa-se o túnel de Gimhae e, pouco antes do túnel de Jinyeong, hoje encerrado, seguem-se as placas por um caminho de montanha até às sepulturas do mártir e da mulher. A paróquia de Jillye, que cuida do local, celebra aqui todos os anos uma missa memorial com os descendentes do mártir.",
+      "titlePt": "Uma sepultura nunca mudada: a encosta do clã Yu em Chaekgol",
+      "lookForPt": "As sepulturas do mártir e da mulher, lado a lado"
     },
     {
       "seq": 2,
@@ -39,7 +55,15 @@
       "forEveryone": "아직 세례도 받지 않은 조카가 삼촌과 함께 끌려갔습니다.",
       "forEveryoneEn": "A nephew not yet baptized was taken away together with his uncle.",
       "photos": [],
-      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2259 (사본 _pages/bakdaesik/goodnews.txt); 주교회의 시복시성특위 https://cbck.or.kr/koreanmartyrs/Shrines/22?page=6 (사본 _pages/bakdaesik/cbck-shrines-22.txt)"
+      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2259 (사본 _pages/bakdaesik/goodnews.txt); 주교회의 시복시성특위 https://cbck.or.kr/koreanmartyrs/Shrines/22?page=6 (사본 _pages/bakdaesik/cbck-shrines-22.txt)",
+      "narrationEs": "Victorino Park Dae-sik nació en 1812 en una familia acomodada de Yedong, en Gimhae, el actual Sirye-ri de Jillye-myeon, y tuvo tres hijos. No se sabe cuándo abrazó la fe, pero la practicaba junto con su padre Park Man-hyeok y sus hermanos Dae-bung y Dae-heung, y en la persecución de Byeongin de 1866 toda la familia escapó escondiéndose. Sin embargo, el 7 de julio de 1868, en la persecución de Mujin, alguaciles enviados desde Daegu y desde Gimhae cayeron sobre su casa; fue arrestado con su hermano Park Dae-hong y su sobrino Park Su-yeon, catecúmeno, y llevado a la oficina de Gimhae. Allí se encontraron con Mateo Song y José Park y, a lo largo de tres días de interrogatorio, se animaron unos a otros y mantuvieron su fe.",
+      "titleEs": "Julio de 1868: llevado con su sobrino Park Su-yeon a la oficina de Gimhae",
+      "narrationFr": "Victorin Park Dae-sik naquit en 1812 dans une famille aisée de Yedong, à Gimhae, l'actuel Sirye-ri de Jillye-myeon, et eut trois fils. On ignore quand il embrassa la foi, mais il la pratiquait avec son père Park Man-hyeok et ses frères Dae-bung et Dae-heung, et lors de la persécution de Byeongin en 1866, toute la famille échappa en se cachant. Mais le 7 juillet 1868, lors de la persécution de Mujin, des sbires envoyés de Daegu et de Gimhae fondirent sur sa maison ; il fut arrêté avec son frère Park Dae-hong et son neveu Park Su-yeon, catéchumène, et conduit au bureau de Gimhae. Ils y rencontrèrent Matthieu Song et Joseph Park et, pendant trois jours d'interrogatoire, s'encouragèrent mutuellement et gardèrent leur foi.",
+      "titleFr": "Juillet 1868 : emmené avec son neveu Park Su-yeon au bureau de Gimhae",
+      "narrationIt": "Vittorino Park Dae-sik nacque nel 1812 in una famiglia benestante di Yedong, a Gimhae, l'odierna Sirye-ri di Jillye-myeon, ed ebbe tre figli. Non si sa quando abbracciò la fede, ma la praticava insieme al padre Park Man-hyeok e ai fratelli Dae-bung e Dae-heung, e nella persecuzione di Byeongin del 1866 tutta la famiglia si salvò nascondendosi. Il 7 luglio 1868, però, nella persecuzione di Mujin, guardie inviate da Daegu e da Gimhae piombarono sulla sua casa; fu arrestato con il fratello Park Dae-hong e il nipote Park Su-yeon, catecumeno, e condotto all'ufficio di Gimhae. Lì incontrarono Matteo Song e Giuseppe Park e, durante tre giorni di interrogatorio, si incoraggiarono a vicenda e conservarono la fede.",
+      "titleIt": "Luglio 1868: condotto con il nipote Park Su-yeon all'ufficio di Gimhae",
+      "narrationPt": "Vitorino Park Dae-sik nasceu em 1812 numa família abastada de Yedong, em Gimhae, o atual Sirye-ri de Jillye-myeon, e teve três filhos. Não se sabe quando abraçou a fé, mas praticava-a juntamente com o pai Park Man-hyeok e os irmãos Dae-bung e Dae-heung, e na perseguição de Byeongin, em 1866, toda a família escapou escondendo-se. No entanto, a 7 de julho de 1868, na perseguição de Mujin, guardas enviados de Daegu e de Gimhae caíram sobre a sua casa; foi preso com o irmão Park Dae-hong e o sobrinho Park Su-yeon, catecúmeno, e levado para a repartição de Gimhae. Aí encontraram Mateus Song e José Park e, ao longo de três dias de interrogatório, encorajaram-se uns aos outros e mantiveram a fé.",
+      "titlePt": "Julho de 1868: levado com o sobrinho Park Su-yeon para a repartição de Gimhae"
     },
     {
       "seq": 3,
@@ -54,7 +78,15 @@
       "forEveryone": null,
       "forEveryoneEn": null,
       "photos": [],
-      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2259 (사본 _pages/bakdaesik/goodnews.txt); 주교회의 시복시성특위 https://cbck.or.kr/koreanmartyrs/Shrines/22?page=6 (사본 _pages/bakdaesik/cbck-shrines-22.txt)"
+      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2259 (사본 _pages/bakdaesik/goodnews.txt); 주교회의 시복시성특위 https://cbck.or.kr/koreanmartyrs/Shrines/22?page=6 (사본 _pages/bakdaesik/cbck-shrines-22.txt)",
+      "narrationEs": "Enviados a Daegu, fueron torturados en la gobernación hasta que se les rompieron los huesos y se les retorcieron los cuerpos, pero hasta el final se negaron a renegar de su fe. Se cuenta que, cuando su familia fue a visitarlo, Park se cubrió el cuerpo con la ropa para que no vieran sus heridas. Por fin el gobernador de Gyeongsang pronunció la sentencia de muerte, y el 12 de octubre de 1868 Park Dae-sik fue decapitado en Gwandeokjeong, en Daegu, junto con su sobrino, Mateo Song y José Park. Tenía cincuenta y seis años, y el gobernador ordenó exponer las cabezas de los mártires como advertencia al pueblo.",
+      "titleEs": "La tortura en la gobernación de Daegu y Gwandeokjeong, 12 de octubre de 1868",
+      "narrationFr": "Envoyés à Daegu, ils furent torturés au siège du gouverneur jusqu'à ce que leurs os se brisent et que leurs corps se tordent, mais jusqu'au bout ils refusèrent de renier leur foi. On raconte que, lorsque sa famille vint le voir, Park couvrit son corps de ses vêtements pour qu'elle ne voie pas ses blessures. Le gouverneur du Gyeongsang finit par prononcer la sentence de mort et, le 12 octobre 1868, Park Dae-sik fut décapité à Gwandeokjeong, à Daegu, avec son neveu, Matthieu Song et Joseph Park. Il avait cinquante-six ans, et le gouverneur ordonna d'exposer les têtes des martyrs en guise d'avertissement au peuple.",
+      "titleFr": "La torture au siège du gouverneur de Daegu et Gwandeokjeong, 12 octobre 1868",
+      "narrationIt": "Inviati a Daegu, furono torturati nella sede del governatore finché le ossa si spezzarono e i corpi si contorsero, ma fino alla fine rifiutarono di rinnegare la fede. Si racconta che, quando la famiglia venne a trovarlo, Park si coprì il corpo con le vesti perché non vedessero le sue ferite. Infine il governatore del Gyeongsang pronunciò la sentenza di morte e, il 12 ottobre 1868, Park Dae-sik fu decapitato a Gwandeokjeong, a Daegu, insieme al nipote, a Matteo Song e a Giuseppe Park. Aveva cinquantasei anni, e il governatore ordinò di esporre le teste dei martiri come monito per il popolo.",
+      "titleIt": "La tortura nella sede del governatore di Daegu e Gwandeokjeong, 12 ottobre 1868",
+      "narrationPt": "Enviados para Daegu, foram torturados na sede do governador até os ossos se partirem e os corpos se retorcerem, mas até ao fim recusaram renegar a fé. Conta-se que, quando a família o foi visitar, Park cobriu o corpo com a roupa para que não lhe vissem as feridas. Por fim o governador de Gyeongsang pronunciou a sentença de morte e, a 12 de outubro de 1868, Park Dae-sik foi decapitado em Gwandeokjeong, em Daegu, juntamente com o sobrinho, Mateus Song e José Park. Tinha cinquenta e seis anos, e o governador mandou expor as cabeças dos mártires como aviso ao povo.",
+      "titlePt": "A tortura na sede do governador de Daegu e Gwandeokjeong, 12 de outubro de 1868"
     },
     {
       "seq": 4,
@@ -69,7 +101,15 @@
       "forEveryone": "마을의 반대로 선산에 묻지 못하고 봉분조차 없이 묻혔습니다.",
       "forEveryoneEn": "Barred from the ancestral plot by the village, he was buried without even a mound.",
       "photos": [],
-      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2259 (사본 _pages/bakdaesik/goodnews.txt); 주교회의 시복시성특위 https://cbck.or.kr/koreanmartyrs/Shrines/22?page=6 (사본 _pages/bakdaesik/cbck-shrines-22.txt)"
+      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2259 (사본 _pages/bakdaesik/goodnews.txt); 주교회의 시복시성특위 https://cbck.or.kr/koreanmartyrs/Shrines/22?page=6 (사본 _pages/bakdaesik/cbck-shrines-22.txt)",
+      "narrationEs": "Al enterarse del martirio, la familia fue a Daegu, pagó a los alguaciles por el cuerpo y lo trajo a casa para enterrarlo en el panteón familiar. Pero los aldeanos y los parientes no cristianos se opusieron, así que sus hijos y allegados lo depositaron en una tumba llana, sin túmulo, en la ladera del clan Yu en Chaekgol, detrás de la aldea. Solo en la primavera de 1956, unos noventa años después, sus descendientes levantaron un túmulo como es debido y trasladaron aquí la tumba de la esposa del mártir para completar el lugar.",
+      "titleEs": "Sin acceso al panteón familiar: un enterramiento sin túmulo",
+      "narrationFr": "À l'annonce du martyre, la famille se rendit à Daegu, paya les sbires pour obtenir le corps et le ramena pour l'inhumer dans le caveau familial. Mais les villageois et les parents non chrétiens s'y opposèrent, si bien que ses fils et ses proches le déposèrent dans une tombe plate, sans tertre, sur le versant du clan Yu à Chaekgol, derrière le village. Ce n'est qu'au printemps 1956, quelque quatre-vingt-dix ans plus tard, que ses descendants élevèrent un vrai tertre et transférèrent ici la tombe de l'épouse du martyr pour compléter le site.",
+      "titleFr": "Exclu du caveau familial : une sépulture sans tertre",
+      "narrationIt": "Alla notizia del martirio, la famiglia andò a Daegu, pagò le guardie per avere il corpo e lo riportò a casa per seppellirlo nel cimitero di famiglia. Ma gli abitanti del villaggio e i parenti non cristiani si opposero, così i figli e i congiunti lo deposero in una tomba piana, senza tumulo, sul pendio del clan Yu a Chaekgol, dietro il villaggio. Solo nella primavera del 1956, circa novant'anni dopo, i discendenti eressero un vero tumulo e trasferirono qui la tomba della moglie del martire per completare il luogo.",
+      "titleIt": "Escluso dal cimitero di famiglia: una sepoltura senza tumulo",
+      "narrationPt": "Ao saber do martírio, a família foi a Daegu, pagou aos guardas pelo corpo e trouxe-o para casa para o sepultar no jazigo familiar. Mas os aldeões e os parentes não cristãos opuseram-se, pelo que os filhos e familiares o depositaram numa campa rasa, sem montículo, na encosta do clã Yu em Chaekgol, atrás da aldeia. Só na primavera de 1956, cerca de noventa anos depois, os descendentes ergueram um montículo como devido e trasladaram para aqui a sepultura da mulher do mártir para completar o local.",
+      "titlePt": "Impedido do jazigo familiar: um sepultamento sem montículo"
     },
     {
       "seq": 5,
@@ -84,12 +124,28 @@
       "forEveryone": "비석에 새긴 이름이 틀렸다는 것을 35년 뒤에야 알았습니다.",
       "forEveryoneEn": "It took thirty-five years to learn that the name carved on the stone was wrong.",
       "photos": [],
-      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2259 (사본 _pages/bakdaesik/goodnews.txt); 주교회의 시복시성특위 https://cbck.or.kr/koreanmartyrs/Shrines/22?page=6 (사본 _pages/bakdaesik/cbck-shrines-22.txt)"
+      "sourceNote": "굿뉴스 성지 소개 https://maria.catholic.or.kr/sa_ho/list/view.asp?menugubun=holyplace&ctxtOrgNum=2259 (사본 _pages/bakdaesik/goodnews.txt); 주교회의 시복시성특위 https://cbck.or.kr/koreanmartyrs/Shrines/22?page=6 (사본 _pages/bakdaesik/cbck-shrines-22.txt)",
+      "narrationEs": "El 15 de abril de 1966, gracias a los esfuerzos del padre Tomás Yu Chang-ho, párroco de Jinyeong, se colocó una lápida ante la tumba. Como aún se desconocía el nombre de bautismo del mártir, se grabó en ella el nombre provisional 'Noryenjo', es decir, Lorenzo. Más tarde, por el trabajo del historiador eclesiástico Clemente Ma Baek-rak y del tataranieto del mártir, Joaquín Park Yeong-sik, su nombre de bautismo quedó identificado en agosto de 2001 como Victorino. Victorino Park Dae-sik fue beatificado por el papa Francisco en la plaza de Gwanghwamun, en Seúl, el 16 de agosto de 2014.",
+      "titleEs": "'Noryenjo' en la lápida: el nombre de bautismo Victorino, recuperado en 2001",
+      "lookForEs": "La lápida erigida en 1966",
+      "narrationFr": "Le 15 avril 1966, grâce aux efforts du père Thomas Yu Chang-ho, curé de Jinyeong, une stèle fut placée devant la tombe. Comme le nom de baptême du martyr restait inconnu, on y grava le nom provisoire « Noryenjo », c'est-à-dire Laurent. Plus tard, grâce aux travaux de l'historien de l'Église Clément Ma Baek-rak et de l'arrière-arrière-petit-fils du martyr, Joachim Park Yeong-sik, son nom de baptême fut identifié en août 2001 comme étant Victorin. Victorin Park Dae-sik fut béatifié par le pape François sur la place Gwanghwamun, à Séoul, le 16 août 2014.",
+      "titleFr": "« Noryenjo » sur la stèle : le nom de baptême Victorin retrouvé en 2001",
+      "lookForFr": "La stèle dressée en 1966",
+      "narrationIt": "Il 15 aprile 1966, grazie agli sforzi del padre Tommaso Yu Chang-ho, parroco di Jinyeong, fu posta una lapide davanti alla tomba. Poiché il nome di battesimo del martire era ancora sconosciuto, vi fu inciso il nome provvisorio 'Noryenjo', cioè Lorenzo. In seguito, grazie al lavoro dello storico della Chiesa Clemente Ma Baek-rak e del pronipote del martire Gioacchino Park Yeong-sik, il suo nome di battesimo fu identificato nell'agosto 2001 come Vittorino. Vittorino Park Dae-sik fu beatificato da papa Francesco nella piazza Gwanghwamun, a Seul, il 16 agosto 2014.",
+      "titleIt": "'Noryenjo' sulla lapide: il nome di battesimo Vittorino ritrovato nel 2001",
+      "lookForIt": "La lapide eretta nel 1966",
+      "narrationPt": "A 15 de abril de 1966, pelos esforços do padre Tomás Yu Chang-ho, pároco de Jinyeong, foi colocada uma lápide diante da sepultura. Como o nome de batismo do mártir ainda era desconhecido, gravou-se nela o nome provisório 'Noryenjo', isto é, Lourenço. Mais tarde, pelo trabalho do historiador da Igreja Clemente Ma Baek-rak e do trineto do mártir, Joaquim Park Yeong-sik, o seu nome de batismo foi identificado em agosto de 2001 como Vitorino. Vitorino Park Dae-sik foi beatificado pelo Papa Francisco na praça Gwanghwamun, em Seul, a 16 de agosto de 2014.",
+      "titlePt": "'Noryenjo' na lápide: o nome de batismo Vitorino recuperado em 2001",
+      "lookForPt": "A lápide erguida em 1966"
     }
   ],
   "outro": {
     "narration": "복자 박대식 빅토리노 묘 순례를 마치셨습니다. 그가 순교한 대구 관덕정 순교성지를 이어 찾아보셔도 좋겠습니다.",
     "narrationEn": "This concludes our visit to the grave of Blessed Victorinus Park Dae-sik. If you can, continue to Gwandeokjeong Martyrs' Shrine in Daegu, where he died.",
-    "photos": []
+    "photos": [],
+    "narrationEs": "Así concluye nuestra visita a la tumba del beato Victorino Park Dae-sik. Si pueden, continúen hasta el Santuario de los Mártires de Gwandeokjeong, en Daegu, donde murió.",
+    "narrationFr": "Ainsi s'achève notre visite de la tombe du bienheureux Victorin Park Dae-sik. Si vous le pouvez, poursuivez jusqu'au sanctuaire des martyrs de Gwandeokjeong, à Daegu, où il mourut.",
+    "narrationIt": "Si conclude così la nostra visita alla tomba del beato Vittorino Park Dae-sik. Se potete, proseguite fino al Santuario dei Martiri di Gwandeokjeong, a Daegu, dove morì.",
+    "narrationPt": "Assim termina a nossa visita à sepultura do beato Vitorino Park Dae-sik. Se puder, continue até ao Santuário dos Mártires de Gwandeokjeong, em Daegu, onde morreu."
   }
 }
