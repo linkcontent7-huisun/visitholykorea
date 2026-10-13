@@ -1,6 +1,7 @@
 import { Navigation } from 'lucide-react';
+import type { MouseEvent } from 'react';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { buildMapLinks, type Destination } from '@/shared/lib/map-links';
+import { buildMapLinks, type Destination, type MapLink } from '@/shared/lib/map-links';
 
 /**
  * 목록 행(검색 결과·지역 랜딩·주변 본당 카드·나침반 결과)에서 쓰는 길찾기 버튼 묶음.
@@ -22,6 +23,21 @@ export function QuickDirectionsButtons({
   const { t, language } = useSettings();
   const links = buildMapLinks(destination, language === 'ko');
 
+  /**
+   * iOS 에서 앱 스킴이 있는 링크(네이버지도): 앱을 먼저 열어 보고, 1.5초 뒤에도
+   * 이 화면이 그대로 보이면 앱이 없는 것이므로 웹 지도(href)로 간다.
+   * 앱이 열리면 화면이 가려져(hidden) 타이머가 아무것도 안 한다 — 네이버 공식 가이드 방식.
+   */
+  const openWithAppFirst = (link: MapLink) => (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!link.appUrl) return;
+    event.preventDefault();
+    const fallback = link.url;
+    window.location.href = link.appUrl;
+    window.setTimeout(() => {
+      if (!document.hidden) window.location.href = fallback;
+    }, 1500);
+  };
+
   return (
     <div className="flex flex-wrap items-center gap-2">
       {links.map((link) => (
@@ -30,6 +46,7 @@ export function QuickDirectionsButtons({
           href={link.url}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={link.appUrl ? openWithAppFirst(link) : undefined}
           aria-label={`${siteName} — ${link.label} ${t('directions')}`}
           title={`${link.label} — ${t(link.noteKey)}`}
           className="inline-flex min-h-10 items-center gap-1 rounded-lg bg-app-panel px-3 text-sm font-bold text-brand-blue transition-colors hover:bg-brand-soft"

@@ -12,6 +12,13 @@
  *
  * **한국어 화면 순서(2026-09-08, 실기기 테스트 피드백)** — 한국 사용자가
  * 실제로 쓰는 순서(카카오맵 → 티맵 → 네이버지도).
+ *
+ * **2026-10-13 — 세 앱 모두 좌표로 보낸다(사장님: "잘못된 곳으로 안내하면 안 된다").**
+ * 네이버지도를 이름 검색으로 보내던 것이 문제였다 — 「전라 감영」「석전」처럼 흔한
+ * 이름은 엉뚱한 곳이 먼저 나온다. 휴대폰에서는 네이버 공식 앱 스킴(`nmap://route/…`,
+ * 위도·경도·이름)으로 열고, 안드로이드는 인텐트 URL 이라 앱이 없으면 웹 지도로
+ * 넘어간다. 티맵도 안드로이드에서는 인텐트 URL 로 바꿔 앱이 없으면 설치 화면이 뜬다
+ * (전에는 아무 반응이 없었다). 데스크톱은 앱 스킴이 없으므로 웹 검색을 그대로 둔다.
  */
 
 export type MapProvider = 'kakao' | 'tmap' | 'naver';
@@ -19,7 +26,14 @@ export type MapProvider = 'kakao' | 'tmap' | 'naver';
 export interface MapLink {
   provider: MapProvider;
   label: string;
+  /** `<a href>` 에 넣을 주소. 안드로이드 인텐트·티맵 스킴·웹 주소 중 하나다. */
   url: string;
+  /**
+   * iOS 전용: 먼저 이 앱 스킴을 열어 보고, 앱이 없어 화면이 그대로면 `url`(웹)로 간다.
+   * iOS 사파리는 설치 안 된 스킴을 `href` 로 열면 "주소가 잘못됐다"는 경고를 띄우므로
+   * 호출부가 클릭 핸들러에서 타이머로 분기한다(네이버 공식 가이드 방식).
+   */
+  appUrl?: string;
   /** 이 앱이 한국에서 무엇을 잘하고 못하는지 */
   noteKey: 'kakaoNote' | 'tmapNote' | 'naverNote';
 }
@@ -30,26 +44,63 @@ export interface Destination {
   lng: number;
 }
 
-/** 카카오맵 — 한국에서 가장 정확한 길찾기 */
+export type Platform = 'android' | 'ios' | 'other';
+
+/** 앱 스킴을 어떻게 열지 정하려고만 쓴다. 서버·테스트(navigator 없음)에서는 'other'. */
+export function detectPlatform(): Platform {
+  if (typeof navigator === 'undefined') return 'other';
+  const ua = navigator.userAgent;
+  if (/android/i.test(ua)) return 'android';
+  if (/iPhone|iPad|iPod/i.test(ua)) return 'ios';
+  return 'other';
+}
+
+/** 네이버 공식 스킴은 호출한 웹 주소를 appname 으로 요구한다. */
+const APP_NAME = 'https://visitholykorea.com';
+
+/** 카카오맵 — 한국에서 가장 정확한 길찾기. 이 주소 하나로 웹·앱 모두 열린다. */
 function kakaoUrl({ name, lat, lng }: Destination): string {
   return `https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`;
 }
 
 /**
- * 티맵 — 한국 운전자가 가장 많이 쓰는 내비게이션.
- * SK텔레콤이 공개한 딥링크 스킴만 있고 웹 대체 주소가 없다 — 앱이 없으면
- * 아무 반응이 없을 수 있다. 그래도 실제 운전자 비중이 커서 선택지에 넣는다.
+ * 티맵 — 한국 운전자가 가장 많이 쓰는 내비게이션. SK텔레콤이 공개한 딥링크 스킴만
+ * 있고 웹 대체 주소가 없다. 안드로이드는 인텐트 URL 로 감싸 앱이 없으면 Play 스토어가
+ * 뜨게 한다. iOS·데스크톱은 스킴 그대로(없으면 반응이 없거나 경고가 뜬다).
  */
-function tmapUrl({ name, lat, lng }: Destination): string {
-  return `tmap://route?goalname=${encodeURIComponent(name)}&goalx=${lng}&goaly=${lat}`;
+function tmapUrl({ name, lat, lng }: Destination, platform: Platform): string {
+  const query = `route?goalname=${encodeURIComponent(name)}&goalx=${lng}&goaly=${lat}`;
+  if (platform === 'android') {
+    return `intent://${query}#Intent;scheme=tmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.skt.tmap;end`;
+  }
+  return `tmap://${query}`;
+}
+
+/** 네이버지도 웹 — 이름 검색. 좌표를 못 받는 데스크톱과, 앱이 없을 때의 대체 경로다. */
+function naverWebUrl({ name }: Destination): string {
+  return `https://map.naver.com/p/search/${encodeURIComponent(name)}`;
 }
 
 /**
- * 네이버지도 — 대중교통에 강하다.
- * 좌표 기반 길찾기 URL은 형식이 자주 바뀌어, 안정적인 검색 링크로 보낸다.
+ * 네이버지도 앱 — 대중교통 길찾기(`route/public`), 목적지는 위도·경도·이름.
+ * 공식 가이드: https://guide.ncloud-docs.com/docs/maps-url-scheme
  */
-function naverUrl({ name }: Destination): string {
-  return `https://map.naver.com/p/search/${encodeURIComponent(name)}`;
+function naverAppQuery({ name, lat, lng }: Destination): string {
+  return `route/public?dlat=${lat}&dlng=${lng}&dname=${encodeURIComponent(name)}&appname=${encodeURIComponent(APP_NAME)}`;
+}
+
+function naverLink(destination: Destination, platform: Platform): Pick<MapLink, 'url' | 'appUrl'> {
+  const web = naverWebUrl(destination);
+  if (platform === 'android') {
+    // 앱이 없으면 S.browser_fallback_url 로 — 스토어 대신 웹 지도로 보낸다
+    return {
+      url: `intent://${naverAppQuery(destination)}#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;S.browser_fallback_url=${encodeURIComponent(web)};end`,
+    };
+  }
+  if (platform === 'ios') {
+    return { url: web, appUrl: `nmap://${naverAppQuery(destination)}` };
+  }
+  return { url: web };
 }
 
 /**
@@ -57,7 +108,11 @@ function naverUrl({ name }: Destination): string {
  * 구글·애플을 빼면서 언어별로 순서를 바꿀 이유도 같이 없어졌다. `preferKorean`
  * 은 브랜드명 라벨(카카오맵/KakaoMap 등)에만 쓴다.
  */
-export function buildMapLinks(destination: Destination, preferKorean: boolean): MapLink[] {
+export function buildMapLinks(
+  destination: Destination,
+  preferKorean: boolean,
+  platform: Platform = detectPlatform(),
+): MapLink[] {
   // 브랜드명이라 번역하지 않는다 — 한국어 화면 밖에서는 로마자 표기로 통일한다.
   const kakao: MapLink = {
     provider: 'kakao',
@@ -68,13 +123,13 @@ export function buildMapLinks(destination: Destination, preferKorean: boolean): 
   const tmap: MapLink = {
     provider: 'tmap',
     label: preferKorean ? 'T맵' : 'T map',
-    url: tmapUrl(destination),
+    url: tmapUrl(destination, platform),
     noteKey: 'tmapNote',
   };
   const naver: MapLink = {
     provider: 'naver',
     label: preferKorean ? '네이버지도' : 'Naver Map',
-    url: naverUrl(destination),
+    ...naverLink(destination, platform),
     noteKey: 'naverNote',
   };
 
