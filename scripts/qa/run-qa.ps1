@@ -15,9 +15,13 @@ $env:AGENT_BROWSER_SESSION = 'qa'
 $env:AGENT_BROWSER_ARGS = '--mute-audio'
 $env:AGENT_BROWSER_INIT_SCRIPTS = Join-Path $repo 'scripts\qa\silence.js'
 
+# 아침 7시와 컴퓨터 켤 때 둘 다 불리므로, 오늘 보고서가 이미 있으면 다시 돌지 않는다
+if (Test-Path (Join-Path $repo "docs/70-agent-workspace/qa/reports/$day.md")) { exit 0 }
 "== $(Get-Date -Format o) 시작" | Out-File $log -Append -Encoding utf8
 git pull --ff-only *>> $log
 $prompt = "docs/70-agent-workspace/qa/QA-지시서.md 를 읽고 그대로 따르라. 오늘은 $day 이다. 저장소 보고서와 바탕화면 회원·기록 보고서를 쓰고, 저장소 보고서만 커밋·푸시한 뒤 요약 한 줄로 끝내라."
 & claude -p $prompt --dangerously-skip-permissions *>> $log
 "== $(Get-Date -Format o) 끝 (exit $LASTEXITCODE)" | Out-File $log -Append -Encoding utf8
 & agent-browser close *>> $log
+# 끝나면 새 보고서를 바로 보여 준다 (사장님 10/14: "QA 로그 보여드릴게요")
+& node (Join-Path $repo 'scripts\qa\show-qa.mjs') *>> $log

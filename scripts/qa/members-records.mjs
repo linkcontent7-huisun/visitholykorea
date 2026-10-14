@@ -57,6 +57,23 @@ const members = users
   .sort((a, b) => (b.lastSignInAt ?? '').localeCompare(a.lastSignInAt ?? ''));
 const emailOf = new Map(members.map((m) => [m._id, m.email]));
 
+// 계정 분류(관리자·사장님·팀원·제외)는 이메일이 들어가므로 저장소 밖 <출력폴더>/../계정-분류.json 에 둔다.
+// 여기 없는 계정은 '일반'. 제외 계정도 목록에서 지우지 않고 kind 로만 표시한다(숨기는 것 없이).
+let kinds = {};
+try {
+  kinds = JSON.parse(readFileSync(join(out, '..', '계정-분류.json'), 'utf8'));
+} catch {
+  // 분류표가 없으면 모두 '일반'
+}
+const kindOf = new Map();
+for (const [kind, emails] of Object.entries(kinds)) {
+  if (Array.isArray(emails)) for (const e of emails) kindOf.set(e.toLowerCase(), kind);
+}
+for (const m of members) m.kind = kindOf.get((m.email ?? '').toLowerCase()) ?? '일반';
+const isGeneral = (m) => m.kind === '일반';
+// 회원 수는 '제외'(사장님 다른 계정·시험·중복 가입)만 빼고 센다 (사장님 10/14)
+const isCounted = (m) => m.kind !== '제외';
+
 // 기간 안에 올라온 순례 기록(글·사진)
 const sites = new Map((await get('/rest/v1/holy_sites?select=id,name')).map((s) => [s.id, s.name]));
 const stamps = await get(
@@ -91,6 +108,7 @@ for (const s of stamps) {
     at: s.created_at,
     site: sites.get(s.site_id) ?? s.site_id,
     author: emailOf.get(s.user_id) ?? s.user_id,
+    authorKind: members.find((m) => m._id === s.user_id)?.kind ?? '알 수 없음',
     note: s.note,
     hidden: s.hidden,
     featured: s.photo_featured,
@@ -105,8 +123,12 @@ const data = {
   since,
   totals: {
     members: members.length,
+    countedMembers: members.filter(isCounted).length,
+    generalMembers: members.filter(isGeneral).length,
     newMembers: members.filter((m) => m.newSince).length,
+    newGeneralMembers: members.filter((m) => m.newSince && isGeneral(m)).length,
     signedIn: members.filter((m) => m.signedInSince).length,
+    signedInGeneral: members.filter((m) => m.signedInSince && isGeneral(m)).length,
     unconfirmed: members.filter((m) => !m.confirmed).length,
     records: records.length,
     photos: records.reduce((n, r) => n + r.photos.length, 0),
