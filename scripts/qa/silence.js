@@ -1,4 +1,4 @@
-/* global window, HTMLMediaElement, Event */
+/* global window, HTMLMediaElement */
 // QA 브라우저 전용 — 사장님 스피커로 소리가 나가지 않게 한다 (2026-09 TTS 가 스피커로 나간 사고).
 // 낭독(speechSynthesis)은 브라우저 음소거(--mute-audio)를 무시하고 OS 음성으로 나갈 수 있어서,
 // 실제로 말하지 않고 "무엇을 말하려 했는지"만 window.__qaTts 에 쌓는다. QA 는 이걸로 재생 여부를 판단한다.
