@@ -127,6 +127,15 @@ for (const f of readdirSync(DIR).filter(
     console.warn(`건너뜀 (siteId 없음): ${f}`);
     continue;
   }
+  // 여는 말·맺음말 제목도 그 언어로 — 전에는 ko 외 전부 'Welcome'/'Farewell'(영어)이었다 (2026-10-14 실측 수정).
+  const POINT_TITLES: Record<string, { intro: string; outro: string }> = {
+    ko: { intro: '여는 말', outro: '맺음말' },
+    en: { intro: 'Welcome', outro: 'Farewell' },
+    es: { intro: 'Bienvenida', outro: 'Despedida' },
+    it: { intro: 'Benvenuti', outro: 'Congedo' },
+    fr: { intro: 'Bienvenue', outro: 'Au revoir' },
+    pt: { intro: 'Boas-vindas', outro: 'Despedida' },
+  };
   // 6개 국어 — JSON 필드 접미사(narrationEn·narrationIt …). 2026-09-20 사장님: 새 원고도 6개 국어로.
   const langs: [string, string][] = [
     ['ko', ''],
@@ -150,7 +159,7 @@ for (const f of readdirSync(DIR).filter(
       language: lang,
       kind: 'point',
       seq: 0,
-      title: lang === 'ko' ? '여는 말' : 'Welcome',
+      title: POINT_TITLES[lang]?.intro ?? 'Welcome',
       body: intro,
       look_for: null,
       sources: src,
@@ -176,7 +185,7 @@ for (const f of readdirSync(DIR).filter(
         language: lang,
         kind: 'point',
         seq: 99,
-        title: lang === 'ko' ? '맺음말' : 'Farewell',
+        title: POINT_TITLES[lang]?.outro ?? 'Farewell',
         body: outro,
         look_for: null,
         sources: src,

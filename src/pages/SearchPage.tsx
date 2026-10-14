@@ -37,7 +37,7 @@ import { SquircleSurface } from '@/shared/components/ui/SquircleSurface';
 import { useLocalizedSites, useSiteSearch, useSites } from '@/features/sites/hooks/use-sites';
 import { useDirectorySearch } from '@/features/sites/hooks/use-nearby-directory';
 import type { DirectoryEntry } from '@/features/sites/api/directory.repository';
-import { normalizeSearchText, siteMatchesQuery } from '@/features/sites/lib/site-search-match';
+import { searchNeedles, siteMatchesQuery } from '@/features/sites/lib/site-search-match';
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { dioceseLabel, localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
@@ -153,8 +153,9 @@ export default function SearchPage() {
   // 208곳 밖의 본당·공소 주소록
   const { data: directoryResults = [] } = useDirectorySearch(debouncedQuery);
 
-  const needle = normalizeSearchText(debouncedQuery.trim());
-  const hasQuery = needle.length > 0;
+  // 원문과 「영문 자판으로 친 한글」 보정본 둘 다로 맞춰 본다 (audehdtjdekd → 명동성당)
+  const needles = useMemo(() => searchNeedles(debouncedQuery.trim()), [debouncedQuery]);
+  const hasQuery = needles[0]!.length > 0;
   // "내 위치로 검색" — 출발지 추정(origin)이 아니라 실제 GPS 권한을 받았을 때만 켠다.
   const nearMeActive = Boolean(gpsLocation);
   const locationRequestInProgress = gpsStatus === 'loading';
@@ -166,7 +167,7 @@ export default function SearchPage() {
     if (hasQuery) {
       const merged = new Map<string, HolySite>();
       for (const site of allSites) {
-        if (siteMatchesQuery(site, needle)) merged.set(site.id, site);
+        if (needles.some((n) => siteMatchesQuery(site, n))) merged.set(site.id, site);
       }
       for (const site of serverResults) merged.set(site.id, site);
       list = [...merged.values()];
@@ -191,7 +192,7 @@ export default function SearchPage() {
       list = [...list].sort((a, b) => a.name.localeCompare(b.name, 'ko'));
     }
     return list;
-  }, [allSites, serverResults, needle, hasQuery, nearMeActive, gpsLocation]);
+  }, [allSites, serverResults, needles, hasQuery, nearMeActive, gpsLocation]);
 
   const active = hasQuery || nearMeActive;
   const searching =

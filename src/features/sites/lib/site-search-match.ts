@@ -1,5 +1,6 @@
 import { dioceseLabel, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { regionOfAddress } from '@/shared/lib/regions';
+import { fixKoreanTypedInEnglish } from '@/shared/lib/keyboard-hangul';
 import type { HolySite } from '@/shared/types/domain';
 
 /**
@@ -12,6 +13,16 @@ import type { HolySite } from '@/shared/types/domain';
  */
 export function normalizeSearchText(text: string): string {
   return text.toLowerCase().replace(/[\s\-_·,()]/g, '');
+}
+
+/**
+ * 검색어 후보 — 원문과, 한/영 전환을 잊고 친 경우의 한글(「audehdtjdekd」→「명동성당」).
+ * 쌍자음(Shift)을 살리려고 정규화 **전** 원문으로 바꾼다 (2026-10-14 사장님).
+ */
+export function searchNeedles(rawQuery: string): string[] {
+  const plain = normalizeSearchText(rawQuery);
+  const fixed = normalizeSearchText(fixKoreanTypedInEnglish(rawQuery));
+  return fixed && fixed !== plain ? [plain, fixed] : [plain];
 }
 
 /** 검색어(정규화된 값)와 맞는 성지인가 — 이름·주소·교구(한/영)·시도(한/영). */

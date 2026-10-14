@@ -14,6 +14,7 @@
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import modelList from './models.json' with { type: 'json' };
+import { fixKoreanTypedInEnglish } from '../_shared/keyboard-hangul.ts';
 
 const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
 /**
@@ -105,7 +106,8 @@ const MICHAEL_SYSTEM_INSTRUCTION = `당신은 천주교 성지순례 안내 챗�
 - 질문이 모호하거나 정보가 부족하면 바로 답하지 말고, 필요한 것(지역, 출발지, 인원, 일정 등)을 최대 3개까지 짧게 먼저 되물으세요.
 
 [금지 사항]
-- 특정 신앙 강요, 사이비·이단 관련 정보, 강압적 언어("절대 안 돼요") 금지.`;
+- 특정 신앙 강요, 사이비·이단 관련 정보, 강압적 언어("절대 안 돼요") 금지.
+- 사용자가 한국어가 아닌 언어(영어·스페인어·프랑스어·이탈리아어·포르투갈어 등)로 물으면 **그 언어로** 답한다. 성지 이름은 그 언어 표기 뒤에 한국어 원어를 괄호로 한 번 붙인다. 예: Haemi Martyrs' Shrine (해미순교성지). (2026-10-14 — WYD 해외 방문객 대비)`;
 
 interface GeminiResponse {
   candidates?: { content?: { parts?: { text?: string }[] } }[];
@@ -397,12 +399,28 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
       if (t.length - p.length >= 2 && t.endsWith(p)) return t.slice(0, -p.length);
     return t;
   };
+  // 외국어 질문의 흔한 단어(shrine·dónde·où …) — 고유명사가 아니라 검색어에서 뺀다 (2026-10-14)
+  const LATIN_STOP = new Set([
+    'shrine', 'shrines', 'cathedral', 'church', 'churches', 'holy', 'site', 'sites', 'martyr',
+    'martyrs', 'catholic', 'korea', 'korean', 'where', 'what', 'when', 'how', 'which', 'who',
+    'the', 'and', 'for', 'from', 'with', 'there', 'here', 'this', 'that', 'get', 'can', 'you',
+    'about', 'tell', 'near', 'visit', 'mass', 'time', 'times', 'santuario', 'iglesia', 'catedral',
+    'sanctuaire', 'eglise', 'église', 'chiesa', 'igreja', 'santuário', 'donde', 'dónde', 'como',
+    'cómo', 'où', 'comment', 'dove', 'come', 'onde', 'quando', 'quand', 'est', 'sono', 'está',
+    'esta', 'este', 'essa', 'esse', 'aqui', 'allí', 'ahí', 'sobre', 'para', 'puis', 'faire',
+    'aller', 'andare', 'llegar', 'chegar', 'arriver', 'arrivare', 'visitar', 'visiter', 'visitare',
+  ]);
   const rawTokens = question
     .split(/[\s,.!?·]+/)
     // L-04: PostgREST or() 문법을 흔드는 문자(쉼표·괄호·% 등)를 버린다. 글자·숫자만 남긴다.
     .map((t) => stripParticle(t.trim().replace(/[^\p{L}\p{N}]/gu, '')))
     .filter((t) => t.length >= 2)
-    .slice(0, 5);
+    .filter(
+      (t) =>
+        !/^[\p{Script=Latin}]+$/u.test(t) || (t.length >= 4 && !LATIN_STOP.has(t.toLowerCase())),
+    )
+    // 「Où se trouve le sanctuaire de Jeoldusan」— 앞 5개만 자르면 고유명사가 밀린다 (2026-10-14 실측) → 8개
+    .slice(0, 8);
   const compactTokens = new Set<string>();
   for (const t of rawTokens) {
     const c = t.replace(/\s+/g, '');
@@ -515,6 +533,26 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
         .limit(5)
     ).data,
   );
+  // ①-b 외국어 이름으로 물은 경우 (Haemi Shrine, Myeongdong Cathedral …) — 번역 표의 이름으로도 찾는다.
+  //     2026-10-14 실측: 영어로 물으면 한국어 이름만 뒤져 "모른다"고 답했다. shrine/church 같은
+  //     흔한 영어 단어는 거의 모든 번역 이름에 들어가므로 뺀다.
+  if (picked.length < 5) {
+    const latin = tokens
+      .filter((t) => /^[\p{Script=Latin}\p{N}]+$/u.test(t) && t.length >= 4 && !LATIN_STOP.has(t.toLowerCase()))
+      .sort((a, b) => b.length - a.length); // 긴 토큰(고유명사)부터 — 'está' 같은 짧은 말이 먼저 걸리지 않게
+    for (const t of latin) {
+      if (picked.length >= 5) break;
+      const { data: tr } = await supabase
+        .from('holy_site_translations')
+        .select('site_id')
+        .ilike('name', `%${t}%`)
+        .limit(30);
+      const ids = [...new Set((tr ?? []).map((r: { site_id: string }) => r.site_id))];
+      // 20곳 넘게 걸리는 말은 고유명사가 아니다(estación·santuario 류) — 버린다
+      if (ids.length === 0 || ids.length > 20) continue;
+      take((await supabase.from('holy_sites').select(SELECT).in('id', ids.slice(0, 5))).data);
+    }
+  }
   const nameHits = picked.length; // 여기까지가 이름으로 맞은 곳
   // ② 그다음 주소에 지역명이 있는 곳 (천안 · 서울 …)
   if (picked.length < 5)
@@ -656,11 +694,22 @@ Deno.serve(async (req) => {
           .map((h) => ({ role: h.role, text: String(h.text).slice(0, MAX_QUESTION_LEN) }))
       : [];
 
-    const ctx = await buildSiteContext(question);
+    // 한/영 전환을 잊고 친 한글(「audehdtjdekd」=명동성당)을 되돌려 검색한다 (2026-10-14 사장님)
+    const fixedQuestion = fixKoreanTypedInEnglish(question);
+    // 바뀐 단어만 뽑는다 — 문장 전체를 되풀이하면 「절두산 어떻게 가요를 찾으신…」처럼 어색하다
+    const fixedWords = (question.match(/[A-Za-z]+/g) ?? [])
+      .map((w) => fixKoreanTypedInEnglish(w))
+      .filter((w) => /^[가-힣]+$/.test(w));
+    const typoNote =
+      fixedWords.length > 0
+        ? `[입력 보정] 사용자가 한/영 전환을 잊고 영문 자판으로 친 것으로 보여 「${question}」을 「${fixedQuestion}」로 읽었다. 답 첫머리에 "혹시 「${fixedWords.join(' ')}」을(를) 찾으셨나요?" 하고 짧게 확인한 뒤 바로 답한다.`
+        : null;
+    const ctx = await buildSiteContext(fixedQuestion);
     const contextBlock = ctx.text || '(관련된 성지 정보를 찾지 못했습니다)';
     const sources = ctx.primary.map((s) => s.name);
     const prompt = [
       audienceLine ? `[사용자가 직접 알려준 프로필]\n${audienceLine}` : null,
+      typoNote,
       `[성지 정보]\n${contextBlock}`,
       `[질문]\n${question}`,
     ]
