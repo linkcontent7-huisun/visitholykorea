@@ -94,6 +94,10 @@ export default defineConfig(({ mode }) => ({
         skipWaiting: true,
         clientsClaim: true,
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        // 오디오 가이드 원고 묶음(use-docent-script)이 번역이 늘며 2.6MB 가 돼 기본 한도 2MB 를 넘었고,
+        // 넘으면 빌드가 실패해 10/13 밤부터 배포가 4번 연속 막혔다. 오프라인 재생을 위해 미리 저장은 유지하고 한도만 올린다.
+        // 원고가 더 늘어 이 한도도 넘으면, 원고를 DB 로 옮겨 묶음에서 빼는 쪽을 검토한다 (2026-10-14).
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         // 카카오 페이지에는 매번 다른 state 쿼리가 붙는다. 앱 셸로 바뀌면 로그인이 중단된다.
         navigateFallbackDenylist: [/^\/api\//, /^\/kakao-login\.html(?:\?|$)/],
         // 성지 정보(자체 큐레이션 DB)는 오프라인 대비 캐싱한다.
