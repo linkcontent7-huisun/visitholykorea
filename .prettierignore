@@ -22,3 +22,6 @@ docs/**/*.md
 .claude/
 .agents/
 .codex/
+
+# gemini-models 워크플로우가 매일 자동으로 다시 쓰는 파일이라 서식을 맞춰도 다음날 또 깨진다 (2026-10-14)
+supabase/functions/ai-guide/models.json

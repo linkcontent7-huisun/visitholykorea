@@ -1,7 +1,11 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { fixKoreanTypedInEnglish, keyboardToHangul, likelyKoreanTypedInEnglish } from './keyboard-hangul';
+import {
+  fixKoreanTypedInEnglish,
+  keyboardToHangul,
+  likelyKoreanTypedInEnglish,
+} from './keyboard-hangul';
 
 describe('영문 자판으로 친 한글 되돌리기 (2026-10-14)', () => {
   it('성지·성당 이름을 되돌린다', () => {

@@ -50,7 +50,9 @@ describe('휴대폰에서는 세 앱 모두 좌표로 연다 (2026-10-13 — 이
     expect(naver.url).toContain(`dlat=${HAEMI.lat}&dlng=${HAEMI.lng}`);
     expect(naver.url).toContain('scheme=nmap');
     expect(naver.url).toContain('package=com.nhn.android.nmap');
-    expect(naver.url).toContain('S.browser_fallback_url=https%3A%2F%2Fmap.naver.com%2Fp%2Fsearch%2F');
+    expect(naver.url).toContain(
+      'S.browser_fallback_url=https%3A%2F%2Fmap.naver.com%2Fp%2Fsearch%2F',
+    );
     expect(naver.url).toContain('appname=https%3A%2F%2Fvisitholykorea.com');
     expect(naver.appUrl).toBeUndefined();
   });
