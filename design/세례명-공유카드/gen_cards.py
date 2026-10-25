@@ -12,32 +12,30 @@ from pathlib import Path
 from make_card import HERE, ROOT, card
 
 NOT_SITE = {"옥사", "포청옥", "형조전옥", ""}
-FEMALE = {
-    "바르바라", "아가타", "안나", "마리아", "막달레나", "데레사", "루치아", "로사", "마르타",
-    "율리에타", "가타리나", "아녜스", "체칠리아", "골룸바", "페르페투아", "베네딕타",
-    "엘리사벳", "수산나",
-}
 
+# 합친 표(굿뉴스+주교회의): 성/성녀 구분은 굿뉴스 값 그대로 쓴다
+merged = list(csv.reader(open(ROOT / "data/research/saints103-merged.tsv", encoding="utf-8"), delimiter="\t"))[1:]
+KIND = {m[0]: m[2] for m in merged}
 rows = list(csv.reader(open(ROOT / "data/research/saints103-cbck.tsv", encoding="utf-8"), delimiter="\t"))[1:]
 
 by_bapt = defaultdict(list)
 for no, name, status, date, *rest in rows:
     site = rest[0] if rest else ""  # 95번은 관련성지 칸이 비어 있다
     main = name.split("(")[0].strip()  # 선교사는 앞의 한국식 이름을 쓴다
-    by_bapt[main.split()[-1]].append((int(no), main, date, site))
+    by_bapt[main.split()[-1]].append((int(no), main, date, site, KIND[no]))
 
 out_dir = HERE / "cards"
 out_dir.mkdir(exist_ok=True)
 index = []
 for bapt, items in sorted(by_bapt.items()):
     items.sort(key=lambda x: (x[2].replace("?", "9"), x[0]))
-    no, main, date, site = items[0]
+    no, main, date, site, kind = items[0]
     year = date[:4]
-    prefix = "성녀" if bapt in FEMALE else "성"
+    prefix = kind
     n = len(items)
     saint = f"{prefix} {main}" + (f" 외 {n - 1}분" if n > 1 else "")
     sites = []
-    for _, _, _, s in items:
+    for _, _, _, s, _ in items:
         if s not in NOT_SITE and s not in sites:
             sites.append(s)
     where = site if site not in NOT_SITE else "옥중"
