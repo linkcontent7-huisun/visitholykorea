@@ -1,9 +1,10 @@
-import { CalendarHeart, ChevronRight, Footprints, Search } from 'lucide-react';
+import { CalendarHeart, ChevronRight, Droplets, Footprints, Search } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
 import { useSession } from '@/features/auth/hooks/use-session';
+import { BaptismCardSheet } from '@/features/baptism-card/components/BaptismCardSheet';
 import {
   usePilgrimageRoutes,
   useLocalizedRoutes,
@@ -110,6 +111,7 @@ export default function HomePage() {
   const { language, t, gpsLocation } = useSettings();
   const { session } = useSession();
   const [aiOpen, setAiOpen] = useState(false);
+  const [baptismOpen, setBaptismOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   // `/ai-guide` 옛 주소나 외부 링크로 온 `?ai=1` 은 미카엘을 바로 연다. 카카오·네이버 함수가
   // 실패하면 `?auth_error=…` 로 돌아오는데, 그동안 주소창에만 남아 이용자가 몰랐다(9/20 실측).
@@ -233,6 +235,16 @@ export default function HomePage() {
             filled
           />
         </div>
+        {/* 세례명 카드 팝업 (2026-10-28, 사장님 지시: 심사 결과와 상관없이 바로 올림) — 입구 3개 아래 한 줄 */}
+        <div className="mt-2.5">
+          <EntryCard
+            onClick={() => setBaptismOpen(true)}
+            id="entry-baptism-card"
+            icon={<Droplets size={24} aria-hidden />}
+            title={t('baptismCardEntryTitle')}
+            sub={t('baptismCardEntrySub')}
+          />
+        </div>
       </PageContainer>
 
       {/* 3. 처음 방문하기 좋은 성지 — 모바일은 가로 슬라이드(2026-09-19, 2×2 격자에서 바꿈).
@@ -342,6 +354,7 @@ export default function HomePage() {
       </div>
 
       <AiGuideSheet isOpen={aiOpen} onClose={() => setAiOpen(false)} />
+      <BaptismCardSheet isOpen={baptismOpen} onClose={() => setBaptismOpen(false)} />
     </div>
   );
 }
