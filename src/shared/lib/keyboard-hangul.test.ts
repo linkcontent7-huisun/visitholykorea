@@ -5,6 +5,7 @@ import {
   fixKoreanTypedInEnglish,
   keyboardToHangul,
   likelyKoreanTypedInEnglish,
+  looksLikeForeignSentence,
 } from './keyboard-hangul';
 
 describe('영문 자판으로 친 한글 되돌리기 (2026-10-14)', () => {
@@ -31,6 +32,26 @@ describe('영문 자판으로 친 한글 되돌리기 (2026-10-14)', () => {
   it('문장 안에서 해당 단어만 바꾼다', () => {
     expect(fixKoreanTypedInEnglish('audehdtjdekd 어디야')).toBe('명동성당 어디야');
     expect(fixKoreanTypedInEnglish('Where is Haemi Shrine')).toBe('Where is Haemi Shrine');
+  });
+
+  it('진짜 외국어 문장은 한글로 되돌리지 않는다 (Which → 퍄냣 오작동, 2026-10-29)', () => {
+    for (const q of [
+      'Which shrine should I visit in Jeju?',
+      '¿Qué santuario puedo visitar en Seúl?',
+      'Où se trouve le sanctuaire de Jeoldusan ?',
+      'Dove si trova il santuario di Haemi?',
+      'Onde fica o santuário de Myeongdong?',
+    ]) {
+      expect(looksLikeForeignSentence(q)).toBe(true);
+      expect(fixKoreanTypedInEnglish(q)).toBe(q);
+    }
+  });
+
+  it('영문 자판으로 친 한글은 외국어 문장으로 보지 않는다', () => {
+    for (const q of ['audehdtjdekd', 'wjfentn tjdwl', 'anjwj tjdwl']) {
+      expect(looksLikeForeignSentence(q)).toBe(false);
+    }
+    expect(fixKoreanTypedInEnglish('audehdtjdekd')).toBe('명동성당');
   });
 
   it('Edge Function 복사본과 내용이 같다', () => {

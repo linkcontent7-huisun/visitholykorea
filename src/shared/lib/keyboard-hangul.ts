@@ -173,7 +173,20 @@ export function likelyKoreanTypedInEnglish(word: string): string | null {
   return hangul;
 }
 
+/**
+ * 진짜 외국어 문장인가 — 영어·스페인어·프랑스어·이탈리아어·포르투갈어의 흔한 말이 하나라도 있거나
+ * 악센트 글자·「¿」「¡」가 있으면 그렇다. 이런 문장은 한글로 되돌리면 안 된다:
+ * 「Which shrine …」의 Which 가 「퍄냣」으로 바뀌어 미카엘 답 첫머리에 붙었다(2026-10-29 실측).
+ * 한/영을 잊고 친 한글(「audehdtjdekd」)에는 이런 말이 없어 그대로 되돌려진다.
+ */
+const FOREIGN_WORDS =
+  /\b(the|an|is|are|was|in|on|to|of|for|which|what|where|when|how|who|tell|about|shrines?|church|cathedral|visit|can|should|near|me|my|you|we|please|and|from|with|que|qu[eé]|d[oó]nde|c[oó]mo|santuario|iglesia|o[uù]|est|sanctuaire|[eé]glise|dove|chiesa|onde|igreja|por|para|del|des|les|une|uma)\b/i;
+export function looksLikeForeignSentence(text: string): boolean {
+  return FOREIGN_WORDS.test(text) || /[À-ɏ¿¡]/.test(text);
+}
+
 /** 문장 안에서 그런 단어만 골라 한글로 바꾼다. 하나도 없으면 원문 그대로. */
 export function fixKoreanTypedInEnglish(text: string): string {
+  if (looksLikeForeignSentence(text)) return text;
   return text.replace(/[A-Za-z]+/g, (w) => likelyKoreanTypedInEnglish(w) ?? w);
 }

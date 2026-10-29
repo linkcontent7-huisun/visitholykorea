@@ -14,7 +14,7 @@
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import modelList from './models.json' with { type: 'json' };
-import { fixKoreanTypedInEnglish } from '../_shared/keyboard-hangul.ts';
+import { fixKoreanTypedInEnglish, looksLikeForeignSentence } from '../_shared/keyboard-hangul.ts';
 
 const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
 /**
@@ -66,7 +66,7 @@ const MICHAEL_SYSTEM_INSTRUCTION = `당신은 천주교 성지순례 안내 챗�
 
 [역할]
 - 사용자가 원하는 지역, 시간, 상황에 최적화된 성지순례 일정 및 경로를 제안합니다.
-- 성당 미사 시간, 개방 여부 등 사실 정보는 정확하게 안내합니다.
+- 주소·연락처·주변 명소 같은 사실 정보는 [성지 정보]에 적힌 그대로 정확하게 안내합니다. 미사 시간·개방 시간처럼 자주 바뀌는 정보는 이 자료에 없으니 지어내지 말고, 성지의 「문의」에 적힌 홈페이지·전화번호를 알려 주세요.
 
 [말투 규칙]
 - 밝고 긍정적이며 따뜻한 어조를 유지하세요 — 순례를 앞둔 설렘을 북돋우는 안내자입니다. 무겁거나 애잔한 표현, 걱정·근심을 묻는 말은 피하세요.
@@ -97,13 +97,17 @@ const MICHAEL_SYSTEM_INSTRUCTION = `당신은 천주교 성지순례 안내 챗�
 [사실 정보 규칙] — 가장 중요
 - 아래 [성지 정보] 컨텍스트에 있는 사실만 근거로 답하세요.
 - 컨텍스트에 없는 내용은 절대 지어내지 말고, "부끄럽지만 저 미카엘 천사도 잘 모르는 부분이에요. 공식 홈페이지나 성지 사무실을 통해 당일 확인을 부탁드려요."라고 안내하세요.
+  이때 "모른다"로만 끝내지 마세요. 컨텍스트에 있는 가장 가까운 정보(그 성지의 홈페이지·전화번호, 주변 명소, 같은 지역의 다른 성지)를 이어서 알려 주세요.
+- 컨텍스트에 질문과 관련된 성지가 있는데도 "모른다"고 하지 마세요. 소개·역사 글을 꼼꼼히 읽고 거기 있는 내용으로 먼저 답하세요 (예: 인물을 물으면 그 인물이 나오는 성지의 역사 글에서 찾는다).
+- 질문이 앞선 대화를 이어 가는 말("거기", "그곳", "미사 시간은?")이면 직전에 말한 성지를 가리키는 것으로 보고 답하세요.
 - 날짜, 인물, 사건은 특히 추측하지 마세요.
 - 추측에 기반한 단정적 표현("~일 것입니다", "확실합니다")을 쓰지 마세요.
 - [성지 정보]가 비어 있거나 "찾지 못했습니다"이면, 일반 지식으로 장소 이름을 들지 마세요(예시로도 금지 — 다른 종교 시설이나 해외 순례지가 섞여 들어갑니다).
   "성지가 뭐예요?" 같은 개념 질문에는 한두 문장으로 풀어 설명하고, 이 앱은 한국 천주교 성지를 안내한다고 밝힌 뒤 어느 지역·어떤 성지가 궁금한지 되물으세요.
 
 [되묻기]
-- 질문이 모호하거나 정보가 부족하면 바로 답하지 말고, 필요한 것(지역, 출발지, 인원, 일정 등)을 최대 3개까지 짧게 먼저 되물으세요.
+- 컨텍스트에 후보 성지가 있으면 되묻기 전에 먼저 그 후보를 소개하세요. 그 위에서 더 좁히고 싶을 때만 필요한 것(지역, 출발지, 동행, 일정 중 한두 가지)을 끝에 짧게 되물으세요.
+- 후보가 전혀 없고 정말 정보가 부족할 때만, 필요한 것을 최대 3개까지 짧게 먼저 되물으세요.
 
 [금지 사항]
 - 특정 신앙 강요, 사이비·이단 관련 정보, 강압적 언어("절대 안 돼요") 금지.
@@ -351,26 +355,126 @@ type DirRow = {
   address: string | null;
   phone: string | null;
 };
+type SiteRow = {
+  name: string;
+  category: string | null;
+  diocese: string | null;
+  location: string | null;
+  description: string | null;
+  history: string | null;
+  nearby_attractions: string | null;
+  nearby_lodging: string | null;
+  phone: string | null;
+  homepage_url: string | null;
+  name_compact: string | null;
+};
 interface SiteContext {
   text: string;
-  /** 질문에 이름이 직접 맞은 성지 — 「참고한 성지」와 폴백 카드는 이것만 보여준다. 없으면 검색 1순위 하나 */
-  primary: SiteContext['sites'];
-  sites: {
-    name: string;
-    category: string | null;
-    diocese: string | null;
-    location: string | null;
-    description: string | null;
-  }[];
+  /** 질문에 이름이 직접 맞은 성지 — 폴백 카드는 이것만 보여준다. 없으면 검색 1순위 하나 */
+  primary: SiteRow[];
+  sites: SiteRow[];
   dirs: DirRow[];
+  /** 이름(또는 직전 대화에 나온 이름)으로 맞은 성지 수 */
+  nameHits: number;
 }
 
-async function buildSiteContext(question: string): Promise<SiteContext> {
+const SITE_SELECT =
+  'name, category, diocese, location, description, history, nearby_attractions, nearby_lodging, phone, homepage_url, name_compact';
+
+/**
+ * 성지 213곳 전체를 함수 인스턴스 메모리에 10분 들고 있는다. 예전에는 질문마다 DB 를 세 번 뒤졌고,
+ * 「소개·역사에 언급된 곳」은 흔한 단어(「주교」)에 걸린 앞 40곳만 받아 정작 물은 인물(다블뤼)이 밀렸다
+ * (2026-10-29 실측). 전체를 갖고 있으면 희귀한 단어에 가중치를 줘 정확히 고를 수 있다.
+ */
+let siteCache: { at: number; rows: SiteRow[] } | null = null;
+async function allSites(supabase: ReturnType<typeof createClient>): Promise<SiteRow[]> {
+  if (siteCache && Date.now() - siteCache.at < 10 * 60_000) return siteCache.rows;
+  const { data, error } = await supabase.from('holy_sites').select(SITE_SELECT).limit(1000);
+  if (error || !data) {
+    console.error('ai-guide: holy_sites 전체 조회 실패', error?.message);
+    return siteCache?.rows ?? [];
+  }
+  siteCache = { at: Date.now(), rows: data as unknown as SiteRow[] };
+  return siteCache.rows;
+}
+
+/** 외국어 도시 이름(악센트 뺀 소문자) → 한국어. 주소가 한국어라 이 표가 없으면 「Seúl」로는 아무것도 못 찾는다. */
+const CITY_KO: Record<string, string> = {
+  seoul: '서울',
+  seul: '서울',
+  jeju: '제주',
+  cheju: '제주',
+  busan: '부산',
+  pusan: '부산',
+  daegu: '대구',
+  taegu: '대구',
+  incheon: '인천',
+  inchon: '인천',
+  gwangju: '광주',
+  daejeon: '대전',
+  taejon: '대전',
+  ulsan: '울산',
+  suwon: '수원',
+  jeonju: '전주',
+  chonju: '전주',
+  cheongju: '청주',
+  chuncheon: '춘천',
+  wonju: '원주',
+  gangneung: '강릉',
+  andong: '안동',
+  gyeongju: '경주',
+  pohang: '포항',
+  mokpo: '목포',
+  changwon: '창원',
+  asan: '아산',
+  dangjin: '당진',
+  seosan: '서산',
+  gongju: '공주',
+  cheonan: '천안',
+  gyeonggi: '경기',
+  chungcheong: '충청',
+  jeolla: '전라',
+  gyeongsang: '경상',
+  gangwon: '강원',
+};
+
+const stripAccents = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+/** 성지 이름에서 「순교성지」「성당」 같은 꼬리를 뗀 짧은 이름 — 답변 속 언급을 찾을 때 쓴다 */
+function shortSiteName(name: string): string {
+  const c = name.replace(/\s+/g, '');
+  for (const s of ['순교성지', '순교지', '성지성당', '성지', '성당', '본당', '공소']) {
+    if (c.length - s.length >= 2 && c.endsWith(s)) return c.slice(0, -s.length);
+  }
+  return c;
+}
+
+/** 이름이 질문·대화에 직접 나오지 않을 때 보여 줄 대표 성지 — 「성지 추천」「처음인데」 같은 열린 질문용 */
+const FEATURED = [
+  '절두산순교성지',
+  '명동대성당',
+  '솔뫼성지',
+  '해미순교성지',
+  '배론성지',
+  '전동성당',
+  '새남터순교성지',
+  '치명자산성지',
+];
+const OPEN_QUESTION =
+  /추천|어디|처음|코스|일정|가볼|갈만|갈 만|아이|가족|부모|여행|순례|둘러|recommend|suggest|first|where|which|visit|best|trip|pilgrim|itinerar|famil|kids|child|santuario|sanctuaire|santuário|visitar|visiter|visitare|recomend|conseill|consigli|dónde|donde|où|dove|onde/i;
+
+async function buildSiteContext(question: string, recentText = ''): Promise<SiteContext> {
   const supabase = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_ANON_KEY')!);
 
   // 질문에서 2글자 이상 토큰만 뽑는다. 「대산성당에」처럼 조사가 붙은 채로 오므로 흔한 조사를 떼고,
   // 「대산성당」→「대산」처럼 성당/성지 같은 꼬리도 뗀 후보를 함께 만든다 (2026-09-13 사장님 실기기 보고).
   const PARTICLES = [
+    '부터',
+    '까지',
+    '인데',
+    '한테',
+    '처럼',
+    '보다',
     '에서는',
     '에서',
     '에는',
@@ -386,6 +490,7 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
     '을',
     '를',
     '의',
+    '님',
     '도',
     '로',
     '과',
@@ -574,37 +679,125 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
     '오늘',
     '내일',
     '주말',
+    // 2026-10-29: 질문 말투가 검색어로 새어 들어가 엉뚱한 성지가 잡혔다 (「누구야」「가장」…)
+    '누구',
+    '누구야',
+    '누구예',
+    '뭐야',
+    '뭐예',
+    '무엇',
+    '이야기',
+    '이야기해',
+    '해줘',
+    '해주세',
+    '궁금',
+    '궁금해',
+    '가장',
+    '유명한',
+    '유명',
+    '대표',
+    '대표적',
+    '방법',
+    '코스',
+    '일정',
+    '하루',
+    '당일',
+    '당일치기',
+    '처음',
+    '아이',
+    '가족',
+    '어때',
+    '어떤곳',
+    '어디야',
+    '어디예요',
+    '오래된',
+    '가능',
+    '있어요',
+    '주세요',
+    '알려주세요',
+    '성지순례',
+    '안녕',
+    '안녕하세',
+    '안녕하세요',
+    '감사',
+    '감사합니다',
+    '고마워',
+    '고맙습니다',
+    '순례지',
+    '순례길',
+    '다녀가신',
+    '다녀간',
+    '다녀온',
+    '방문한',
+    '방문하신',
+    '가야',
+    '좋을까',
+    '좋은',
+    '괜찮은',
+    '볼만한',
+    '가볼만한',
   ]);
+  // 외국어 도시 이름 → 한국어 (Seúl → 서울). 주소가 한국어라 이 변환이 없으면 외국어 질문은 지역 검색이 비게 된다.
+  for (const w of question.match(/[\p{L}]+/gu) ?? []) {
+    const ko = CITY_KO[stripAccents(w).toLowerCase()];
+    if (ko) compactTokens.add(ko);
+  }
   const tokens = [...compactTokens].filter((t) => !STOP.has(t));
-  if (tokens.length === 0) return { text: '', primary: [], sites: [], dirs: [] };
+  const empty: SiteContext = { text: '', primary: [], sites: [], dirs: [], nameHits: 0 };
+  const all = await allSites(supabase);
+  // 직전 대화에 나온 성지 — 「거기 어떻게 가요?」「미사 시간은?」처럼 이름 없는 되물음을 이어 준다 (2026-10-29).
+  // 최근에 나온 것부터, 최대 2곳. 이름이 짧은 것(2글자 이하)은 우연히 걸리기 쉬워 뺀다.
+  const recentCompact = recentText.replace(/\s+/g, '');
+  const mentioned: SiteRow[] = [];
+  if (recentCompact) {
+    // 전체 이름(해미순교성지)이 나왔으면 그대로, 꼬리 뗀 이름(해미)은 3글자 이상일 때만 — 2글자는 우연히 걸리기 쉽다
+    const scored = all
+      .map((s) => {
+        const full = s.name.replace(/\s+/g, '');
+        const short = shortSiteName(s.name);
+        return {
+          s,
+          at: Math.max(
+            recentCompact.lastIndexOf(full),
+            short.length >= 3 ? recentCompact.lastIndexOf(short) : -1,
+          ),
+        };
+      })
+      .filter((x) => x.at >= 0)
+      .sort((a, b) => b.at - a.at);
+    for (const x of scored) if (mentioned.length < 2) mentioned.push(x.s);
+  }
+  if (tokens.length === 0 && mentioned.length === 0) {
+    return await withFeatured(question, all, empty);
+  }
 
-  type Row = {
-    name: string;
-    category: string | null;
-    diocese: string | null;
-    location: string | null;
-    description: string | null;
-    history: string | null;
-  };
-  const picked: Row[] = [];
+  const picked: SiteRow[] = [];
   const seen = new Set<string>();
-  const take = (rows: Row[] | null | undefined) => {
+  const take = (rows: SiteRow[] | null | undefined) => {
     for (const r of rows ?? []) {
       if (picked.length >= 5 || seen.has(r.name)) continue;
       seen.add(r.name);
       picked.push(r);
     }
   };
-  const SELECT = 'name, category, diocese, location, description, history';
-  // ① 이름이 맞는 곳부터 (name_compact: 공백 제거 열, 띄어쓰기 무관)
+  const lower = tokens.map((t) => t.toLowerCase());
+  const compactName = (s: SiteRow) => (s.name_compact ?? s.name.replace(/\s+/g, '')).toLowerCase();
+
+  // ① 이름이 맞는 곳부터 (name_compact: 공백 제거 열, 띄어쓰기 무관).
+  //    성지 12곳 넘게 이름에 들어 있는 말(「주교」「대전」)은 고유명사가 아니라 뺀다 —
+  //    「다블뤼 주교는 누구야」가 「주교좌성당」 5곳을 이름 일치로 잡았다 (2026-10-29 실측).
+  const nameTokens = lower.filter(
+    (t) => all.filter((s) => compactName(s).includes(t)).length <= 12,
+  );
   take(
-    (
-      await supabase
-        .from('holy_sites')
-        .select(SELECT)
-        .or(tokens.map((t) => `name_compact.ilike.%${t}%`).join(','))
-        .limit(5)
-    ).data,
+    all
+      .map((s) => ({
+        s,
+        hit: nameTokens.filter((t) => compactName(s).includes(t)).reduce((n, t) => n + t.length, 0),
+      }))
+      .filter((x) => x.hit > 0)
+      .sort((a, b) => b.hit - a.hit)
+      .map((x) => x.s),
   );
   // ①-b 외국어 이름으로 물은 경우 (Haemi Shrine, Myeongdong Cathedral …) — 번역 표의 이름으로도 찾는다.
   //     2026-10-14 실측: 영어로 물으면 한국어 이름만 뒤져 "모른다"고 답했다. shrine/church 같은
@@ -625,66 +818,88 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
         .select('site_id')
         .ilike('name', `%${t}%`)
         .limit(30);
-      const ids = [...new Set((tr ?? []).map((r: { site_id: string }) => r.site_id))];
+      const ids = new Set((tr ?? []).map((r: { site_id: string }) => r.site_id));
       // 20곳 넘게 걸리는 말은 고유명사가 아니다(estación·santuario 류) — 버린다
-      if (ids.length === 0 || ids.length > 20) continue;
-      take((await supabase.from('holy_sites').select(SELECT).in('id', ids.slice(0, 5))).data);
+      if (ids.size === 0 || ids.size > 20) continue;
+      const { data: rows } = await supabase
+        .from('holy_sites')
+        .select(SITE_SELECT)
+        .in('id', [...ids].slice(0, 5));
+      take(rows as unknown as SiteRow[]);
     }
   }
-  const nameHits = picked.length; // 여기까지가 이름으로 맞은 곳
+  // ①-c 이름 앞 두세 글자만 맞는 경우 — 「해미읍성」→「해미순교성지」. 읍성·성당 같은 꼬리가 붙은 말을 위해.
+  if (picked.length === 0) {
+    for (const t of tokens.filter((x) => /^[가-힣]{4,}$/.test(x))) {
+      for (const n of [3, 2]) {
+        const head = t.slice(0, n);
+        const hits = all.filter((s) => compactName(s).includes(head));
+        if (hits.length > 0 && hits.length <= 6) {
+          take(hits);
+          break;
+        }
+      }
+    }
+  }
+  let nameHits = picked.length; // 여기까지가 이름으로 맞은 곳
+  // 이름이 하나도 안 맞았고 직전 대화에 성지가 나왔다면 그 성지를 앞세운다
+  if (nameHits === 0 && mentioned.length > 0) {
+    take(mentioned);
+    nameHits = picked.length;
+  }
   // ② 그다음 주소에 지역명이 있는 곳 (천안 · 서울 …)
   if (picked.length < 5)
-    take(
-      (
-        await supabase
-          .from('holy_sites')
-          .select(SELECT)
-          .or(tokens.map((t) => `location.ilike.%${t}%`).join(','))
-          .limit(5)
-      ).data,
+    take(all.filter((s) => lower.some((t) => (s.location ?? '').toLowerCase().includes(t))));
+  // ③ 마지막으로 소개·역사·주변 명소에 언급된 곳 (김대건 → 솔뫼, 다블뤼 → 신리 …)
+  //    흔한 단어가 점수를 휩쓸지 않도록 드문 단어일수록 무겁게 센다(문서 빈도의 역수) — 「주교」는 가볍고
+  //    「다블뤼」는 무겁다. 질문 단어를 여러 개 맞춘 곳일수록 위로.
+  if (picked.length < 5 && lower.length > 0) {
+    const texts = all.map((s) =>
+      `${s.name} ${s.description ?? ''} ${s.history ?? ''} ${s.nearby_attractions ?? ''}`.toLowerCase(),
     );
-  // ③ 마지막으로 소개·역사에 언급된 곳 (김대건 → 솔뫼 …)
-  //    「김대건」은 26곳에 나온다 — 앞 5곳을 임의로 자르면 솔뫼가 밀린다 (2026-09-20 실측). 넉넉히 받아
-  //    질문 단어를 여러 개 맞춘 곳 → 많이 언급한 곳 순으로 고른다 (「김대건」+「태어난」 둘 다 있는 솔뫼가 1순위).
-  if (picked.length < 5) {
-    const { data } = await supabase
-      .from('holy_sites')
-      .select(SELECT)
-      .or(tokens.flatMap((t) => [`description.ilike.%${t}%`, `history.ilike.%${t}%`]).join(','))
-      .limit(40);
-    const score = (r: Row) => {
-      const text = `${r.name} ${r.description ?? ''} ${r.history ?? ''}`.toLowerCase();
-      let distinct = 0;
-      let total = 0;
-      for (const t of tokens) {
-        const n = text.split(t.toLowerCase()).length - 1;
-        if (n > 0) distinct++;
-        total += n;
-      }
-      return distinct * 100 + total;
-    };
-    take((data ?? []).sort((a, b) => score(b) - score(a)));
+    const weight = lower.map((t) => {
+      const df = texts.filter((x) => x.includes(t)).length;
+      return df === 0 ? 0 : Math.log(1 + all.length / df);
+    });
+    const scored = all
+      .map((s, i) => {
+        let score = 0;
+        lower.forEach((t, k) => {
+          const n = texts[i]!.split(t).length - 1;
+          if (n > 0) score += weight[k]! * (1 + Math.min(n, 4) * 0.25);
+        });
+        return { s, score };
+      })
+      .filter((x) => x.score > 0)
+      .sort((a, b) => b.score - a.score);
+    take(scored.map((x) => x.s));
   }
 
-  const siteLines =
-    picked.length === 0
-      ? []
-      : picked.map(
-          (s) =>
-            `- ${s.name} (${s.category ?? '성지'}, ${s.diocese ?? ''}교구)\n` +
-            `  주소: ${s.location ?? '정보 없음'}\n` +
-            `  소개: ${s.description ?? '정보 없음'}\n` +
-            `  역사: ${s.history ?? '정보 없음'}`,
-        );
+  const siteLines = picked.map(
+    (s) =>
+      `- ${s.name} (${s.category ?? '성지'}, ${s.diocese ?? ''}교구)\n` +
+      `  주소: ${s.location ?? '정보 없음'}\n` +
+      `  소개: ${s.description ?? '정보 없음'}\n` +
+      `  역사: ${s.history ?? '정보 없음'}` +
+      (s.nearby_attractions ? `\n  주변 명소: ${s.nearby_attractions}` : '') +
+      (s.nearby_lodging ? `\n  주변 숙박: ${s.nearby_lodging}` : '') +
+      (s.phone || s.homepage_url
+        ? `\n  문의: ${[s.phone ? `전화 ${s.phone}` : null, s.homepage_url ? `홈페이지 ${s.homepage_url}` : null].filter(Boolean).join(' · ')}`
+        : '') +
+      `\n  (미사 시간 정보는 이 자료에 없음 — 위 문의처를 안내할 것)`,
+  );
 
   // 성지 목록에 없는 본당·공소는 주소록(5,918건)에서 이름·주소·연락처만 준다 — 미사 시간은 답하지 않게
-  const dirFilter = tokens.map((t) => `name_compact.ilike.%${t}%`).join(',');
-  const { data: dir } = await supabase
-    .from('directory_public') // H-02: 원본 표는 anon 이 못 읽는다 — 공개 뷰만
-    .select('name, category, diocese, address, phone')
-    .or(dirFilter)
-    .limit(5);
-  const dirs = (dir ?? []) as DirRow[];
+  let dirs: DirRow[] = [];
+  if (tokens.length > 0) {
+    const dirFilter = tokens.map((t) => `name_compact.ilike.%${t}%`).join(',');
+    const { data: dir } = await supabase
+      .from('directory_public') // H-02: 원본 표는 anon 이 못 읽는다 — 공개 뷰만
+      .select('name, category, diocese, address, phone')
+      .or(dirFilter)
+      .limit(5);
+    dirs = (dir ?? []) as DirRow[];
+  }
   const dirLines = dirs.map(
     (d) =>
       `- ${d.name} (${d.category ?? '본당'}, ${d.diocese ?? ''}) — 주소: ${d.address ?? '정보 없음'}, 전화: ${d.phone ?? '정보 없음'} [주소록 정보만 있음]`,
@@ -701,7 +916,45 @@ async function buildSiteContext(question: string): Promise<SiteContext> {
         ].join('\n\n');
   // 사용자가 여러 성지를 물은 게 아니면 하나만 앞세운다 (2026-09-19 사장님) — 이름이 맞은 곳들, 없으면 1순위 하나
   const primary = nameHits > 0 ? picked.slice(0, nameHits) : picked.slice(0, 1);
-  return { text, primary, sites: picked, dirs };
+  const ctx: SiteContext = { text, primary, sites: picked, dirs, nameHits };
+  return picked.length === 0 && dirs.length === 0 ? await withFeatured(question, all, ctx) : ctx;
+}
+
+/**
+ * 질문과 직접 맞는 성지를 못 찾은 열린 질문(「성지 추천」「처음인데」「아이랑」)에는 대표 성지 몇 곳을 컨텍스트로 준다.
+ * 예전에는 컨텍스트가 비어 "모른다/어디가 궁금하세요?"로만 끝났다 (2026-10-29 사장님 보고).
+ * 대표 성지도 우리 DB 의 레코드라, 「DB 밖 지식 금지」 규칙은 그대로 지켜진다.
+ */
+async function withFeatured(
+  question: string,
+  all: SiteRow[],
+  ctx: SiteContext,
+): Promise<SiteContext> {
+  if (!OPEN_QUESTION.test(question)) return ctx;
+  const rows = FEATURED.map((f) =>
+    all.find((s) => (s.name_compact ?? '').toLowerCase() === f),
+  ).filter((s): s is SiteRow => Boolean(s));
+  if (rows.length === 0) return ctx;
+  const lines = rows.map(
+    (s) =>
+      `- ${s.name} (${s.category ?? '성지'}, ${s.diocese ?? ''}교구)\n` +
+      `  주소: ${s.location ?? '정보 없음'}\n` +
+      `  소개: ${s.description ?? '정보 없음'}` +
+      (s.nearby_attractions ? `\n  주변 명소: ${s.nearby_attractions}` : '') +
+      (s.phone || s.homepage_url
+        ? `\n  문의: ${[s.phone ? `전화 ${s.phone}` : null, s.homepage_url ? `홈페이지 ${s.homepage_url}` : null].filter(Boolean).join(' · ')}`
+        : ''),
+  );
+  return {
+    text: [
+      '[질문과 딱 맞는 성지를 찾지 못해 대표 성지를 보여줍니다. 이 중에서 질문에 어울리는 곳을 골라 소개하고, 더 좁히려면 지역·동행·시간 중 한 가지만 되물으세요.]',
+      ...lines,
+    ].join('\n\n'),
+    primary: rows.slice(0, 1),
+    sites: rows,
+    dirs: [],
+    nameHits: 0,
+  };
 }
 
 /** 소개글 첫 두 문장. 폴백 카드는 DB 글자를 그대로 쓴다 — 지어내는 것이 없다. */
@@ -743,8 +996,9 @@ Deno.serve(async (req) => {
     return new Response('ok', { headers: corsFor(req) });
   }
 
-  if (!GEMINI_API_KEY) {
-    return new Response(JSON.stringify({ error: 'GEMINI_API_KEY 미설정' }), {
+  // Claude 가 1순위인 지금은 Gemini 키가 없어도 돌아간다 — 둘 다 없을 때만 막는다
+  if (!GEMINI_API_KEY && !ANTHROPIC_API_KEY) {
+    return new Response(JSON.stringify({ error: 'AI 키 미설정' }), {
       status: 500,
       headers: { ...corsFor(req), 'content-type': 'application/json' },
     });
@@ -773,18 +1027,37 @@ Deno.serve(async (req) => {
       : [];
 
     // 한/영 전환을 잊고 친 한글(「audehdtjdekd」=명동성당)을 되돌려 검색한다 (2026-10-14 사장님)
-    const fixedQuestion = fixKoreanTypedInEnglish(question);
+    // 영어·스페인어 등 진짜 외국어 문장은 건드리지 않는다 — 「Which」가 「퍄냣」으로 바뀌어 답 첫머리에 붙던 오작동 (2026-10-29)
+    const fixedQuestion = looksLikeForeignSentence(question)
+      ? question
+      : fixKoreanTypedInEnglish(question);
     // 바뀐 단어만 뽑는다 — 문장 전체를 되풀이하면 「절두산 어떻게 가요를 찾으신…」처럼 어색하다
-    const fixedWords = (question.match(/[A-Za-z]+/g) ?? [])
+    const fixedWords = (
+      looksLikeForeignSentence(question) ? [] : (question.match(/[A-Za-z]+/g) ?? [])
+    )
       .map((w) => fixKoreanTypedInEnglish(w))
       .filter((w) => /^[가-힣]+$/.test(w));
     const typoNote =
       fixedWords.length > 0
         ? `[입력 보정] 사용자가 한/영 전환을 잊고 영문 자판으로 친 것으로 보여 「${question}」을 「${fixedQuestion}」로 읽었다. 답 첫머리에 "혹시 「${fixedWords.join(' ')}」을(를) 찾으셨나요?" 하고 짧게 확인한 뒤 바로 답한다.`
         : null;
-    const ctx = await buildSiteContext(fixedQuestion);
+    // 직전 대화(사용자 질문·미카엘 답)에 나온 성지 이름 — 「거기 미사 시간은?」 같은 후속 질문을 잇는다
+    const recentText = history
+      .slice(-4)
+      .map((h) => h.text)
+      .join(' ');
+    const ctx = await buildSiteContext(fixedQuestion, recentText);
     const contextBlock = ctx.text || '(관련된 성지 정보를 찾지 못했습니다)';
-    const sources = ctx.primary.map((s) => s.name);
+    const primarySources = ctx.primary.map((s) => s.name);
+    // 「참고한 성지」는 답에 실제로 나온 성지만 — 검색 1순위와 답이 어긋나던 문제 (김대건 탄생지 → 용수성지로 표시, 2026-10-29)
+    const sourcesFor = (answer: string) => {
+      const named = ctx.sites
+        .filter((s) => answer.includes(s.name) || answer.includes(shortSiteName(s.name)))
+        .map((s) => s.name)
+        .slice(0, 3);
+      return named.length > 0 ? named : primarySources;
+    };
+    const sources = primarySources;
     const prompt = [
       audienceLine ? `[사용자가 직접 알려준 프로필]\n${audienceLine}` : null,
       typoNote,
@@ -808,6 +1081,7 @@ Deno.serve(async (req) => {
     let firstReason = '';
     for (const provider of order) {
       if (provider === 'claude' && !ANTHROPIC_API_KEY) continue;
+      if (provider === 'gemini' && !GEMINI_API_KEY) continue;
       try {
         const text =
           provider === 'claude'
@@ -817,8 +1091,14 @@ Deno.serve(async (req) => {
           console.warn(`ai-guide: ${order[0]} 실패(${firstReason}) → ${provider} 가 답함`);
         return json(
           firstErr
-            ? { text, sources, provider, fallbackFrom: order[0], reason: firstReason }
-            : { text, sources, provider },
+            ? {
+                text,
+                sources: sourcesFor(text),
+                provider,
+                fallbackFrom: order[0],
+                reason: firstReason,
+              }
+            : { text, sources: sourcesFor(text), provider },
         );
       } catch (err) {
         const reason =
