@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { HolySite } from '@/shared/types/domain';
-import { normalizeSearchText, siteMatchesQuery } from './site-search-match';
+import { nameAliases, normalizeSearchText, siteMatchesQuery } from './site-search-match';
 
 function site(name: string, region: string, location: string): HolySite {
   return {
@@ -59,5 +59,33 @@ describe('siteMatchesQuery — 성지 찾기 자체 매칭', () => {
   it('맞지 않으면 false, 빈 검색어면 true', () => {
     expect(siteMatchesQuery(명동, q('부산'))).toBe(false);
     expect(siteMatchesQuery(명동, '')).toBe(true);
+  });
+});
+
+describe('흔히 부르는 이름으로도 찾는다 (2026-10-29)', () => {
+  const 답동 = site('답동주교좌성당', '인천', '인천광역시 중구 우현로 50');
+  const 해미 = site('해미순교성지', '대전', '충남 서산시 해미면 성지1로 13');
+  const 절두산 = site('절두산 순교성지', '서울', '서울 마포구 토정로6');
+  const 공세리 = site('공세리성지성당', '대전', '충남 아산시 인주면 공세리성당길 10');
+
+  it.each([
+    [명동, '명동성당'],
+    [답동, '답동성당'],
+    [해미, '해미성지'],
+    [절두산, '절두산성지'],
+    [공세리, '공세리성당'],
+    [공세리, '공세리성지'],
+  ])('%j 은(는) 「%s」로 찾아진다', (s, q) => {
+    expect(siteMatchesQuery(s, normalizeSearchText(q))).toBe(true);
+  });
+
+  it('엉뚱한 곳은 걸리지 않는다', () => {
+    expect(siteMatchesQuery(해미, normalizeSearchText('명동성당'))).toBe(false);
+    expect(siteMatchesQuery(명동, normalizeSearchText('해미성지'))).toBe(false);
+  });
+
+  it('별칭 목록에 정식 이름도 들어 있다', () => {
+    expect(nameAliases('명동대성당')).toContain('명동대성당');
+    expect(nameAliases('명동대성당')).toContain('명동성당');
   });
 });

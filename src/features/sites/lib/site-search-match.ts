@@ -25,12 +25,30 @@ export function searchNeedles(rawQuery: string): string[] {
   return fixed && fixed !== plain ? [plain, fixed] : [plain];
 }
 
+/**
+ * 사람들이 흔히 부르는 이름들 — DB 의 정식 이름과 다르게 부른다 (2026-10-29 운영 실측).
+ * 「명동성당」은 「명동대성당」에, 「답동성당」은 「답동주교좌성당」에, 「해미성지」는 「해미순교성지」에
+ * 걸리지 않아 결과가 비었다. 정식 이름에서 대·주교좌·순교를 뗀 이름과 「성지성당」→「성지」/「성당」도 같이 찾는다.
+ */
+export function nameAliases(name: string): string[] {
+  const n = normalizeSearchText(name);
+  const plain = n.replace(/주교좌대성당|주교좌성당|대성당/g, '성당');
+  const out = new Set([n, plain]);
+  for (const v of [n, plain]) {
+    out.add(v.replace(/순교성지|순교지/g, '성지'));
+    out.add(v.replace(/성지성당/g, '성지'));
+    out.add(v.replace(/성지성당/g, '성당'));
+  }
+  return [...out];
+}
+
 /** 검색어(정규화된 값)와 맞는 성지인가 — 이름·주소·교구(한/영)·시도(한/영). */
 export function siteMatchesQuery(site: HolySite, needle: string): boolean {
   if (!needle) return true;
   const region = regionOfAddress(site.location);
   const haystack = [
     site.name,
+    ...nameAliases(site.name),
     site.location,
     site.region,
     localizeRegionName(site.region, 'en'),
