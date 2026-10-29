@@ -785,8 +785,10 @@ async function buildSiteContext(question: string, recentText = ''): Promise<Site
   const seen = new Set<string>();
   const take = (rows: SiteRow[] | null | undefined) => {
     for (const r of rows ?? []) {
-      if (picked.length >= 5 || seen.has(r.name)) continue;
-      seen.add(r.name);
+      // 같은 이름의 다른 성지(천호성지 — 광주 퇴촌·완주 비봉)가 있어 이름+주소로 구분한다
+      const k = `${r.name}|${r.location ?? ''}`;
+      if (picked.length >= 5 || seen.has(k)) continue;
+      seen.add(k);
       picked.push(r);
     }
   };
