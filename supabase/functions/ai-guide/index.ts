@@ -197,7 +197,11 @@ async function candidateModels(): Promise<string[]> {
 }
 
 class ClaudeHttpError extends Error {
-  constructor(public status: number) {
+  constructor(
+    public status: number,
+    /** 업스트림이 알려 준 오류 종류와 한 줄 사유(예: 크레딧 부족). 키·요청 내용은 들어 있지 않다. */
+    public detail = '',
+  ) {
     super(`Claude HTTP ${status}`);
   }
 }
@@ -231,11 +235,16 @@ async function callClaude(
     }),
   });
   if (!res.ok) {
-    console.error(
-      `Claude 호출 실패 (${CLAUDE_MODEL}, HTTP ${res.status}):`,
-      (await res.text()).slice(0, 300),
-    );
-    throw new ClaudeHttpError(res.status);
+    const body = (await res.text()).slice(0, 300);
+    console.error(`Claude 호출 실패 (${CLAUDE_MODEL}, HTTP ${res.status}):`, body);
+    let detail = '';
+    try {
+      const e = (JSON.parse(body) as { error?: { type?: string; message?: string } }).error;
+      detail = `${e?.type ?? ''} ${(e?.message ?? '').slice(0, 90)}`.trim();
+    } catch {
+      detail = body.slice(0, 90);
+    }
+    throw new ClaudeHttpError(res.status, detail);
   }
   const data = (await res.json()) as { content?: { type: string; text?: string }[] };
   const text = data.content?.find((c) => c.type === 'text')?.text ?? '';
@@ -460,6 +469,8 @@ const FEATURED = [
   '새남터순교성지',
   '치명자산성지',
 ];
+const REGION_WORDS =
+  /^(서울|부산|대구|인천|광주|대전|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주|충청|전라|경상|수원|청주|전주|춘천|원주|강릉|안동|경주|포항|목포|창원|천안|아산|당진|서산|공주|보령|홍성|논산|익산|군산|여수|순천|양평|포천|파주|고양|용인|안성|이천|제천|충주|단양|영월|청양|예산|진주|통영|마산|김해|양산|거제|속초|동해|태백|삼척|영주|상주|문경|김천|구미|칠곡|영천|경산|성남|안양|부천|의정부|남양주|화성|평택|시흥|광명|하남|여주|양주|동두천|연천|가평)/;
 const OPEN_QUESTION =
   /추천|어디|처음|코스|일정|가볼|갈만|갈 만|아이|가족|부모|여행|순례|둘러|recommend|suggest|first|where|which|visit|best|trip|pilgrim|itinerar|famil|kids|child|santuario|sanctuaire|santuário|visitar|visiter|visitare|recomend|conseill|consigli|dónde|donde|où|dove|onde/i;
 
@@ -710,7 +721,6 @@ async function buildSiteContext(question: string, recentText = ''): Promise<Site
     '어떤곳',
     '어디야',
     '어디예요',
-    '오래된',
     '가능',
     '있어요',
     '주세요',
@@ -784,11 +794,9 @@ async function buildSiteContext(question: string, recentText = ''): Promise<Site
   const compactName = (s: SiteRow) => (s.name_compact ?? s.name.replace(/\s+/g, '')).toLowerCase();
 
   // ① 이름이 맞는 곳부터 (name_compact: 공백 제거 열, 띄어쓰기 무관).
-  //    성지 12곳 넘게 이름에 들어 있는 말(「주교」「대전」)은 고유명사가 아니라 뺀다 —
+  //    성지 6곳 넘게 이름에 들어 있는 말(「주교」「대전」)은 고유명사가 아니라 뺀다 —
   //    「다블뤼 주교는 누구야」가 「주교좌성당」 5곳을 이름 일치로 잡았다 (2026-10-29 실측).
-  const nameTokens = lower.filter(
-    (t) => all.filter((s) => compactName(s).includes(t)).length <= 12,
-  );
+  const nameTokens = lower.filter((t) => all.filter((s) => compactName(s).includes(t)).length <= 6);
   take(
     all
       .map((s) => ({
@@ -848,8 +856,13 @@ async function buildSiteContext(question: string, recentText = ''): Promise<Site
     nameHits = picked.length;
   }
   // ② 그다음 주소에 지역명이 있는 곳 (천안 · 서울 …)
-  if (picked.length < 5)
-    take(all.filter((s) => lower.some((t) => (s.location ?? '').toLowerCase().includes(t))));
+  //    지역 이름처럼 보이는 검색어만 쓴다 — 「주교」「신부」 같은 일반 단어가 주소에 우연히 들어 있어도(예: 「주교좌성당 인근」)
+  //    지역 질문으로 오해하지 않게 (2026-10-29 「다블뤼 주교는 누구야」에 춘천교구 주교관이 앞섰다).
+  const regionTokens = lower.filter(
+    (t) => REGION_WORDS.test(t) || (t.length >= 3 && /[시군구읍면동리]$/.test(t)),
+  );
+  if (picked.length < 5 && regionTokens.length > 0)
+    take(all.filter((s) => regionTokens.some((t) => (s.location ?? '').toLowerCase().includes(t))));
   // ③ 마지막으로 소개·역사·주변 명소에 언급된 곳 (김대건 → 솔뫼, 다블뤼 → 신리 …)
   //    흔한 단어가 점수를 휩쓸지 않도록 드문 단어일수록 무겁게 센다(문서 빈도의 역수) — 「주교」는 가볍고
   //    「다블뤼」는 무겁다. 질문 단어를 여러 개 맞춘 곳일수록 위로.
@@ -929,8 +942,9 @@ async function withFeatured(
   question: string,
   all: SiteRow[],
   ctx: SiteContext,
+  force = false,
 ): Promise<SiteContext> {
-  if (!OPEN_QUESTION.test(question)) return ctx;
+  if (!force && !OPEN_QUESTION.test(question)) return ctx;
   const rows = FEATURED.map((f) =>
     all.find((s) => (s.name_compact ?? '').toLowerCase() === f),
   ).filter((s): s is SiteRow => Boolean(s));
@@ -971,24 +985,75 @@ function firstSentences(s: string | null, n = 2): string {
  * Gemini 가 못 답할 때(한도 · 장애) 검색 결과를 정해진 틀로 보여준다 — 스펙 5절 B.
  * 말투 없음, 표 없음. 심사 시연 중 "AI 가 죽었다"는 화면이 뜨지 않게 하는 보험이다.
  */
-function fallbackCard(ctx: SiteContext): string | null {
+function fallbackCard(ctx: SiteContext, question = '', featured = false): string | null {
   if (ctx.sites.length === 0 && ctx.dirs.length === 0) return null;
-  const lines: string[] = ['미카엘이 잠시 쉬는 중이라, 찾은 정보를 그대로 보여드릴게요.', ''];
-  for (const s of ctx.primary) {
+  const lines: string[] = [
+    featured
+      ? '미카엘이 잠시 쉬는 중이라, 대표 성지 몇 곳을 먼저 소개해 드릴게요.'
+      : '미카엘이 잠시 쉬는 중이라, 찾은 정보를 그대로 보여드릴게요.',
+    '',
+  ];
+  // 이름이 맞은 성지(또는 직전 대화의 성지)면 그 곳을 자세히, 지역·주제 질문이면 후보를 짧게 여러 곳 보여준다.
+  const detailed = ctx.nameHits > 0 && !featured;
+  const shown = detailed ? ctx.primary.slice(0, 2) : ctx.sites.slice(0, 4);
+  for (const s of shown) {
     lines.push(`**${s.name}** (${s.category ?? '성지'} · ${s.diocese ?? ''}교구)`);
     if (s.location) lines.push(s.location);
-    const intro = firstSentences(s.description);
+    const intro = firstSentences(s.description, detailed ? 2 : 1);
     if (intro) lines.push(intro);
+    if (detailed && s.nearby_attractions) lines.push(`주변 명소: ${s.nearby_attractions}`);
+    const contact = [s.phone ? `전화 ${s.phone}` : null, s.homepage_url ? s.homepage_url : null]
+      .filter(Boolean)
+      .join(' · ');
+    if (contact) lines.push(`문의: ${contact}`);
     lines.push('');
   }
-  for (const d of ctx.dirs) {
-    lines.push(`**${d.name}** (${d.category ?? '본당'} · ${d.diocese ?? ''})`);
-    if (d.address) lines.push(d.address);
-    if (d.phone) lines.push(`전화 ${d.phone}`);
-    lines.push('');
+  if (!featured && ctx.sites.length === 0) {
+    for (const d of ctx.dirs) {
+      lines.push(`**${d.name}** (${d.category ?? '본당'} · ${d.diocese ?? ''})`);
+      if (d.address) lines.push(d.address);
+      if (d.phone) lines.push(`전화 ${d.phone}`);
+      lines.push('');
+    }
+  }
+  if (/미사|시간|운영|개방|휴관/.test(question)) {
+    lines.push('미사·운영 시간은 자주 바뀌니, 위 문의처로 확인해 주세요.');
   }
   lines.push('자세한 내용은 성지 상세 화면에서 보실 수 있어요.');
   return lines.join('\n');
+}
+
+/**
+ * AI 가 둘 다 못 답했을 때의 답. 질문과 맞는 성지가 없어도 대표 성지를 보여준다 — 예전에는 이때
+ * 500 오류라 이용자에게 "서비스를 이용할 수 없습니다"만 떴다 (2026-10-29, Claude 크레딧 소진·Gemini 한도 때).
+ */
+async function fallbackAnswer(question: string, ctx: SiteContext): Promise<string | null> {
+  if (ctx.sites.length > 0 || ctx.dirs.length > 0) return fallbackCard(ctx, question);
+  const supabase = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_ANON_KEY')!);
+  const all = await allSites(supabase);
+  const withFeaturedSites = await withFeatured(question, all, ctx, true);
+  return fallbackCard(withFeaturedSites, question, true);
+}
+
+/**
+ * 호출 남용 방지 — 이 주소는 앱에 공개된 키로 누구나 부를 수 있고, 한 번 부를 때마다 유료 AI 비용이 든다.
+ * 같은 IP 가 1분에 RATE_PER_MINUTE 번을 넘으면 429 로 돌려보낸다. 함수 인스턴스 메모리라 인스턴스가 여럿이면
+ * 허용치가 늘어나지만, 한 사람이 반복문으로 긁는 것은 충분히 막는다 (2026-10-29).
+ */
+const RATE_PER_MINUTE = 20;
+const hits = new Map<string, number[]>();
+function overRateLimit(req: Request): boolean {
+  const ip =
+    req.headers.get('cf-connecting-ip') ??
+    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+    'unknown';
+  const now = Date.now();
+  const recent = (hits.get(ip) ?? []).filter((t) => now - t < 60_000);
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 5000)
+    for (const [k, v] of hits) if (now - (v.at(-1) ?? 0) > 60_000) hits.delete(k);
+  return recent.length > RATE_PER_MINUTE;
 }
 
 Deno.serve(async (req) => {
@@ -1004,7 +1069,10 @@ Deno.serve(async (req) => {
     });
   }
 
+  // 실패 사유 코드만 모은다(rate_limited·claude_401 …). 비밀·업스트림 본문은 없다 — 운영에서 원인을 바로 보려고 응답에 싣는다 (2026-10-29)
+  const failReasons: string[] = [];
   try {
+    if (overRateLimit(req)) throw new RateLimitError();
     const payload = await req.json();
     const question: string = String(payload.question ?? '').slice(0, MAX_QUESTION_LEN);
 
@@ -1115,6 +1183,9 @@ Deno.serve(async (req) => {
           firstErr = err;
           firstReason = reason;
         }
+        failReasons.push(
+          `${provider}:${reason}${err instanceof ClaudeHttpError && err.detail ? ` [${err.detail}]` : ''}`,
+        );
         console.error(`ai-guide: ${provider} 실패 (${reason})`);
       }
     }
@@ -1122,7 +1193,7 @@ Deno.serve(async (req) => {
       const err = firstErr;
       const reason = firstReason;
       // 2) 둘 다 못 답해도 검색 결과가 있으면 정보 카드로 답한다 (200). 없을 때만 오류로.
-      const card = fallbackCard(ctx);
+      const card = await fallbackAnswer(question, ctx);
       if (card) {
         console.warn('ai-guide fallback:', reason);
         return new Response(JSON.stringify({ text: card, sources, fallback: true, reason }), {
@@ -1144,7 +1215,10 @@ Deno.serve(async (req) => {
     // L-03: 상세(업스트림 응답·모델명·프로젝트 식별자)는 서버 로그로만. 사용자에겐 안내문만.
     console.error('ai-guide error:', err);
     return new Response(
-      JSON.stringify({ error: '미카엘 천사가 잠시 자리를 비웠어요. 잠시 후 다시 시도해 주세요.' }),
+      JSON.stringify({
+        error: '미카엘 천사가 잠시 자리를 비웠어요. 잠시 후 다시 시도해 주세요.',
+        reason: failReasons.join(',') || undefined,
+      }),
       { status: 500, headers: { ...corsFor(req), 'content-type': 'application/json' } },
     );
   }
