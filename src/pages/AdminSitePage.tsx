@@ -61,6 +61,10 @@ function SiteEditor() {
       seo_description: draft.seoDescription,
       nearby_attractions: draft.nearbyAttractions,
       nearby_lodging: draft.nearbyLodging,
+      mass_times: draft.massTimes,
+      mass_times_source: draft.massTimesSource,
+      mass_times_checked_on: draft.massTimesCheckedOn,
+      mass_times_confirmed: draft.massTimesConfirmed,
     });
   }, [draft]);
 
@@ -76,8 +80,19 @@ function SiteEditor() {
     return <p className="px-6 py-20 text-center font-bold text-red-500">성지를 찾지 못했습니다.</p>;
   }
 
-  const set = (key: keyof AdminSitePatch, value: string) =>
+  const set = (key: Exclude<keyof AdminSitePatch, 'mass_times_confirmed'>, value: string) =>
     setForm((prev) => (prev ? { ...prev, [key]: value } : prev));
+  // 「확인했어요」를 누르면 확인한 날을 오늘로 채운다 — 「○월 ○일 기준」이 이 날짜로 보인다
+  const confirmMass = (checked: boolean) =>
+    setForm((prev) =>
+      prev
+        ? {
+            ...prev,
+            mass_times_confirmed: checked,
+            mass_times_checked_on: checked ? todayKey() : prev.mass_times_checked_on,
+          }
+        : prev,
+    );
 
   const handlePick = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -267,6 +282,52 @@ function SiteEditor() {
           </p>
         </section>
 
+        {/* 미사 시간 — 미카엘이 이 값으로 바로 답한다 */}
+        <section className="rounded-lg bg-white p-4 shadow-sm" id="admin-mass-times">
+          <h2 className="mb-1 text-sm font-black text-slate-900">미사 시간</h2>
+          {form.mass_times.trim() !== '' && !form.mass_times_confirmed && (
+            <p className="mb-3 rounded-lg bg-amber-50 px-3 py-2 text-xs font-bold text-amber-800">
+              자동으로 모은 값입니다. 출처를 열어 맞는지 보고 「확인했어요」에 표시한 뒤 저장해야
+              이용자에게 보입니다.
+            </p>
+          )}
+          <TextArea
+            label="미사 시간 (성지 공지 그대로, 예: 평일 07:00, 11:00 / 주일 10:00)"
+            value={form.mass_times}
+            onChange={(v) => set('mass_times', v)}
+            rows={4}
+          />
+          <Field
+            label="확인한 곳 (홈페이지 주소 또는 「전화 확인」)"
+            value={form.mass_times_source}
+            onChange={(v) => set('mass_times_source', v)}
+          />
+          {/^https?:\/\//.test(form.mass_times_source.trim()) && (
+            <a
+              href={form.mass_times_source.trim()}
+              target="_blank"
+              rel="noreferrer"
+              className="mb-3 inline-block text-xs font-bold text-blue-700 underline"
+            >
+              출처 열어 보기
+            </a>
+          )}
+          <Field
+            label="확인한 날 (YYYY-MM-DD)"
+            value={form.mass_times_checked_on}
+            onChange={(v) => set('mass_times_checked_on', v)}
+          />
+          <label className="flex min-h-11 items-center gap-2 text-sm font-bold text-slate-900">
+            <input
+              type="checkbox"
+              checked={form.mass_times_confirmed}
+              onChange={(e) => confirmMass(e.target.checked)}
+              className="h-5 w-5"
+            />
+            확인했어요 (이용자에게 보이기)
+          </label>
+        </section>
+
         {/* 주변 안내 */}
         <section className="rounded-lg bg-white p-4 shadow-sm">
           <h2 className="mb-3 text-sm font-black text-slate-900">주변 안내 (직접 쓰는 글)</h2>
@@ -355,6 +416,11 @@ function SiteEditor() {
       </div>
     </div>
   );
+}
+
+function todayKey(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
 function Field({

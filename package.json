@@ -25,6 +25,7 @@
     "icons": "node scripts/generate-icons.mjs",
     "congestion:coverage": "tsx scripts/congestion-coverage.ts",
     "content": "tsx scripts/content-report.ts",
+    "mass:collect": "tsx scripts/mass-times-collect.ts",
     "docs": "tsx scripts/docs-hub.ts --open",
     "docs:hub": "tsx scripts/docs-hub.ts",
     "db:status": "tsx scripts/db-migrate.ts --status",

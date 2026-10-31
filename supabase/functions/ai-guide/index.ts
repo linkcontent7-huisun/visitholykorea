@@ -376,6 +376,10 @@ type SiteRow = {
   phone: string | null;
   homepage_url: string | null;
   name_compact: string | null;
+  /** 미사 시간 — confirmed 가 true 인 것만 이용자에게 쓴다(자동 수집값은 사장님 확인 전) */
+  mass_times: string | null;
+  mass_times_checked_on: string | null;
+  mass_times_confirmed: boolean | null;
 };
 interface SiteContext {
   text: string;
@@ -388,7 +392,7 @@ interface SiteContext {
 }
 
 const SITE_SELECT =
-  'name, category, diocese, location, description, history, nearby_attractions, nearby_lodging, phone, homepage_url, name_compact';
+  'name, category, diocese, location, description, history, nearby_attractions, nearby_lodging, phone, homepage_url, name_compact, mass_times, mass_times_checked_on, mass_times_confirmed';
 
 /**
  * 성지 213곳 전체를 함수 인스턴스 메모리에 10분 들고 있는다. 예전에는 질문마다 DB 를 세 번 뒤졌고,
@@ -901,7 +905,7 @@ async function buildSiteContext(question: string, recentText = ''): Promise<Site
       (s.phone || s.homepage_url
         ? `\n  문의: ${[s.phone ? `전화 ${s.phone}` : null, s.homepage_url ? `홈페이지 ${s.homepage_url}` : null].filter(Boolean).join(' · ')}`
         : '') +
-      `\n  (미사 시간 정보는 이 자료에 없음 — 위 문의처를 안내할 것)`,
+      massLine(s),
   );
 
   // 성지 목록에 없는 본당·공소는 주소록(5,918건)에서 이름·주소·연락처만 준다 — 미사 시간은 답하지 않게
@@ -1019,9 +1023,74 @@ function fallbackCard(ctx: SiteContext, question = '', featured = false): string
     }
   }
   if (/미사|시간|운영|개방|휴관/.test(question)) {
+    for (const s of shown) {
+      const mass = confirmedMass(s);
+      if (mass) lines.push(`${s.name} 미사 시간 (${mass.asOf} 기준): ${mass.text}`);
+    }
     lines.push('미사·운영 시간은 자주 바뀌니, 위 문의처로 확인해 주세요.');
   }
   lines.push('자세한 내용은 성지 상세 화면에서 보실 수 있어요.');
+  return lines.join('\n');
+}
+
+/** 사람이 확인한 미사 시간만 꺼낸다. 날짜는 「2026년 10월 31일」처럼 읽기 쉽게 */
+function confirmedMass(s: SiteRow): { text: string; asOf: string } | null {
+  if (!s.mass_times_confirmed || !s.mass_times?.trim()) return null;
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s.mass_times_checked_on ?? '');
+  const asOf = m ? `${m[1]}년 ${Number(m[2])}월 ${Number(m[3])}일` : '확인일 미상';
+  return { text: s.mass_times.trim(), asOf };
+}
+
+/** AI 에게 주는 성지 정보의 미사 줄 — 확인된 값이 없으면 지어내지 말라고 못 박는다 */
+function massLine(s: SiteRow): string {
+  const mass = confirmedMass(s);
+  return mass
+    ? `\n  미사 시간(${mass.asOf} 기준 성지 공지 — 바뀔 수 있으니 방문 전 문의처 확인을 권할 것): ${mass.text}`
+    : `\n  (미사 시간 정보는 이 자료에 없음 — 위 문의처를 안내할 것)`;
+}
+
+/**
+ * 주소·전화·홈페이지·미사 시간처럼 DB 에 답이 그대로 있는 질문은 AI 를 부르지 않고 바로 답한다
+ * (2026-10-31 사장님: "우리 서버에 저장되어 있다면 거기서 불러서 답을 해줘야지").
+ * 빠르고(DB 0.3초 vs AI 3~5초, 10/31 실측) 번지수를 옮기다 틀릴 일이 없다.
+ * 성지가 딱 한 곳으로 정해지고, 사실 질문 말고 다른 뜻(이야기·추천·가는 길)이 섞이지 않았을 때만 —
+ * 애매하면 null 을 돌려 지금처럼 AI 가 답한다.
+ */
+function factAnswer(question: string, ctx: SiteContext): string | null {
+  if (ctx.nameHits !== 1) return null;
+  const site = ctx.primary[0];
+  if (!site) return null;
+  const q = question.replace(/\s+/g, '');
+  if (
+    /이야기|역사|소개|어떤곳|어떤데|왜|누구|추천|가는|어떻게|버스|지하철|주차|맛집|숙소|숙박|근처|주변/.test(
+      q,
+    )
+  )
+    return null;
+  const wants = {
+    address: /주소|어디|위치/.test(q),
+    phone: /전화|연락|번호/.test(q),
+    homepage: /홈페이지|사이트|웹/.test(q),
+    mass: /미사/.test(q),
+  };
+  if (!Object.values(wants).some(Boolean)) return null;
+
+  const lines = [`**${site.name}**`];
+  if (wants.address) lines.push(`주소: ${site.location ?? '등록된 주소가 없어요.'}`);
+  if (wants.mass) {
+    const mass = confirmedMass(site);
+    lines.push(
+      mass
+        ? `미사 시간 (${mass.asOf} 기준 성지 공지): ${mass.text}\n미사 시간은 바뀔 수 있으니 가시기 전에 한 번 확인해 주세요.`
+        : '미사 시간은 아직 확인된 자료가 없어요. 아래 문의처로 확인해 주세요.',
+    );
+  }
+  if (wants.phone || wants.mass || wants.homepage) {
+    if (site.phone) lines.push(`전화: ${site.phone}`);
+    if (site.homepage_url) lines.push(`홈페이지: ${site.homepage_url}`);
+    if (!site.phone && !site.homepage_url) lines.push('등록된 전화·홈페이지가 없어요.');
+  }
+  lines.push('', '더 궁금한 점은 이어서 물어보세요.');
   return lines.join('\n');
 }
 
@@ -1117,6 +1186,14 @@ Deno.serve(async (req) => {
       .map((h) => h.text)
       .join(' ');
     const ctx = await buildSiteContext(fixedQuestion, recentText);
+    // 외국어 질문은 AI 가 그 언어로 답해야 하므로, DB 로 바로 답하기는 한국어 질문만
+    const direct = looksLikeForeignSentence(question) ? null : factAnswer(fixedQuestion, ctx);
+    if (direct) {
+      return new Response(
+        JSON.stringify({ text: direct, sources: ctx.primary.map((s) => s.name), provider: 'db' }),
+        { headers: { ...corsFor(req), 'content-type': 'application/json' } },
+      );
+    }
     const contextBlock = ctx.text || '(관련된 성지 정보를 찾지 못했습니다)';
     const primarySources = ctx.primary.map((s) => s.name);
     // 「참고한 성지」는 답에 실제로 나온 성지만 — 검색 1순위와 답이 어긋나던 문제 (김대건 탄생지 → 용수성지로 표시, 2026-10-29)

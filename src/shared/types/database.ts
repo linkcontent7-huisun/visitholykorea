@@ -29,6 +29,11 @@ export interface HolySiteRow {
   phone: string | null;
   homepage_url: string | null;
   fax: string | null;
+  /** 미사 시간 — 확인한 날·출처와 함께 둔다. confirmed 가 false 면 자동 수집값이라 이용자에게 안 보인다 (20261031120000) */
+  mass_times: string | null;
+  mass_times_checked_on: string | null;
+  mass_times_source: string | null;
+  mass_times_confirmed: boolean;
   created_at: string;
 }
 

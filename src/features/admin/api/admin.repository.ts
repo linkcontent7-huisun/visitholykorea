@@ -19,7 +19,13 @@ export interface AdminSiteSummary {
   hasPhoto: boolean;
   hasDescription: boolean;
   hasHistory: boolean;
-  /** 비어 있는 항목 수. 많이 빈 곳을 위로 올리는 데 쓴다. */
+  hasPhone: boolean;
+  hasHomepage: boolean;
+  /** 사람이 확인한 미사 시간이 있는가 — 이것만 이용자에게 보인다 */
+  hasMassTimes: boolean;
+  /** 자동 수집됐지만 아직 확인 안 한 미사 시간이 있는가 — 「확인 필요」 */
+  massTimesToReview: boolean;
+  /** 비어 있는 항목 수(사진·소개·역사). 많이 빈 곳을 위로 올리는 데 쓴다. */
   missingCount: number;
 }
 
@@ -41,6 +47,11 @@ export interface AdminSiteDraft {
   seoDescription: string;
   nearbyAttractions: string;
   nearbyLodging: string;
+  massTimes: string;
+  massTimesSource: string;
+  /** YYYY-MM-DD 또는 '' */
+  massTimesCheckedOn: string;
+  massTimesConfirmed: boolean;
 }
 
 /** 저장 가능한 칸. DB 칸 이름 그대로 두어 update 에 바로 넘긴다. */
@@ -59,6 +70,11 @@ export interface AdminSitePatch {
   seo_description: string;
   nearby_attractions: string;
   nearby_lodging: string;
+  mass_times: string;
+  mass_times_source: string;
+  mass_times_checked_on: string;
+  /** 사장님이 「확인했어요」에 표시했는가 — 다른 칸을 고치다 자동 수집값이 덩달아 공개되지 않게 따로 받는다 */
+  mass_times_confirmed: boolean;
 }
 
 /** 편집 화면이 저장하는 DB 칸. fetch·update·revert 셋이 같은 목록을 써야 빠지는 칸이 없다. */
@@ -76,6 +92,9 @@ const EDITABLE_COLUMNS = [
   'seo_description',
   'nearby_attractions',
   'nearby_lodging',
+  'mass_times',
+  'mass_times_source',
+  'mass_times_checked_on',
 ] as const;
 
 export interface AdminPendingPhoto {
@@ -138,7 +157,9 @@ export async function fetchMyRole(): Promise<AdminRole> {
 export async function fetchAdminQueue(): Promise<AdminSiteSummary[]> {
   const { data, error } = await supabase
     .from('holy_sites')
-    .select('id, name, diocese, image_url, description, history')
+    .select(
+      'id, name, diocese, image_url, description, history, phone, homepage_url, mass_times, mass_times_confirmed',
+    )
     .order('name');
 
   if (error) {
@@ -154,6 +175,7 @@ export function toSiteSummary(row: Record<string, unknown>): AdminSiteSummary {
   const hasPhoto = filled(row.image_url);
   const hasDescription = filled(row.description);
   const hasHistory = filled(row.history);
+  const hasMass = filled(row.mass_times);
 
   return {
     id: row.id as string,
@@ -162,6 +184,10 @@ export function toSiteSummary(row: Record<string, unknown>): AdminSiteSummary {
     hasPhoto,
     hasDescription,
     hasHistory,
+    hasPhone: filled(row.phone),
+    hasHomepage: filled(row.homepage_url),
+    hasMassTimes: hasMass && row.mass_times_confirmed === true,
+    massTimesToReview: hasMass && row.mass_times_confirmed !== true,
     missingCount: [hasPhoto, hasDescription, hasHistory].filter((v) => !v).length,
   };
 }
@@ -178,7 +204,7 @@ export async function fetchSiteDraft(id: string): Promise<AdminSiteDraft> {
     // supabase-js 는 select 문자열을 타입으로 해석하므로 글자 그대로 적어야 한다.
     // EDITABLE_COLUMNS 와 같은 목록이어야 한다 — 칸을 늘리면 여기도 같이.
     .select(
-      'id, diocese, image_url, name, location, description, history, image_source, image_license, phone, homepage_url, fax, seo_title, seo_description, nearby_attractions, nearby_lodging',
+      'id, diocese, image_url, name, location, description, history, image_source, image_license, phone, homepage_url, fax, seo_title, seo_description, nearby_attractions, nearby_lodging, mass_times, mass_times_source, mass_times_checked_on, mass_times_confirmed',
     )
     .eq('id', id)
     .single();
@@ -204,6 +230,10 @@ export async function fetchSiteDraft(id: string): Promise<AdminSiteDraft> {
     seoDescription: text(data.seo_description),
     nearbyAttractions: text(data.nearby_attractions),
     nearbyLodging: text(data.nearby_lodging),
+    massTimes: text(data.mass_times),
+    massTimesSource: text(data.mass_times_source),
+    massTimesCheckedOn: text(data.mass_times_checked_on),
+    massTimesConfirmed: data.mass_times_confirmed === true,
   };
 }
 
@@ -214,10 +244,12 @@ export async function updateSite(id: string, patch: AdminSitePatch): Promise<Adm
     return { success: false, error: '성지 이름은 비울 수 없습니다.' };
   }
 
-  const row: Record<string, string | null> = {};
+  const row: Record<string, string | boolean | null> = {};
   for (const column of EDITABLE_COLUMNS) {
     row[column] = column === 'name' ? patch.name.trim() : nullable(patch[column]);
   }
+  // 미사 시간이 비면 「확인함」도 의미가 없다
+  row.mass_times_confirmed = patch.mass_times_confirmed && row.mass_times !== null;
 
   const { error } = await supabase.from('holy_sites').update(row).eq('id', id);
 
@@ -347,8 +379,9 @@ export async function revertSite(
   siteId: string,
   before: Record<string, unknown>,
 ): Promise<AdminResult> {
-  const row: Record<string, string | null> = {
+  const row: Record<string, string | boolean | null> = {
     image_url: (before.image_url as string | null) ?? null,
+    mass_times_confirmed: before.mass_times_confirmed === true,
   };
   for (const column of EDITABLE_COLUMNS) {
     row[column] = (before[column] as string | null) ?? null;

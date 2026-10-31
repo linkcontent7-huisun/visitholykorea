@@ -25,6 +25,10 @@ function makeRow(overrides: Partial<HolySiteRow> = {}): HolySiteRow {
     phone: null,
     homepage_url: null,
     fax: null,
+    mass_times: null,
+    mass_times_checked_on: null,
+    mass_times_source: null,
+    mass_times_confirmed: false,
     created_at: '2026-01-01T00:00:00Z',
     ...overrides,
   };

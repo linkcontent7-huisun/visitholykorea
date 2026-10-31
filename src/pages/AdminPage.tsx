@@ -102,7 +102,7 @@ function TabButton({
   );
 }
 
-type QueueFilter = 'all' | 'photo' | 'description' | 'history';
+type QueueFilter = 'all' | 'photo' | 'description' | 'history' | 'massReview' | 'mass' | 'phone';
 
 function QueueTab() {
   const { data, isLoading, error } = useAdminQueue();
@@ -116,18 +116,24 @@ function QueueTab() {
       photo: sites.filter((s) => !s.hasPhoto).length,
       description: sites.filter((s) => !s.hasDescription).length,
       history: sites.filter((s) => !s.hasHistory).length,
+      massReview: sites.filter((s) => s.massTimesToReview).length,
+      mass: sites.filter((s) => !s.hasMassTimes).length,
+      phone: sites.filter((s) => !s.hasPhone).length,
     };
   }, [data]);
 
   const visible = useMemo(() => {
     const keyword = term.trim();
     return (data ?? []).filter((site) => {
-      // 검색어를 치면 대기열 칩과 상관없이 208곳 전체에서 찾는다 — 이미 사진이 있는
+      // 검색어를 치면 대기열 칩과 상관없이 전체에서 찾는다 — 이미 사진이 있는
       // 성지도 글·사진을 고치러 들어와야 하는데, "사진 없음" 칩에 가려 못 찾는 일이 있었다.
       if (keyword) return site.name.includes(keyword) || site.diocese.includes(keyword);
       if (filter === 'photo' && site.hasPhoto) return false;
       if (filter === 'description' && site.hasDescription) return false;
       if (filter === 'history' && site.hasHistory) return false;
+      if (filter === 'massReview' && !site.massTimesToReview) return false;
+      if (filter === 'mass' && site.hasMassTimes) return false;
+      if (filter === 'phone' && site.hasPhone) return false;
       return true;
     });
   }, [data, filter, term]);
@@ -141,6 +147,9 @@ function QueueTab() {
         <Stat label="사진 없음" value={counts.photo} total={counts.total} />
         <Stat label="소개글 없음" value={counts.description} total={counts.total} />
         <Stat label="역사 없음" value={counts.history} total={counts.total} />
+        <Stat label="미사 확인 필요" value={counts.massReview} total={counts.total} />
+        <Stat label="미사 시간 없음" value={counts.mass} total={counts.total} />
+        <Stat label="전화 없음" value={counts.phone} total={counts.total} />
       </div>
 
       <div className="relative mb-3">
@@ -148,7 +157,7 @@ function QueueTab() {
         <input
           value={term}
           onChange={(e) => setTerm(e.target.value)}
-          placeholder="성지 이름 또는 교구로 찾기 (208곳 전체)"
+          placeholder="성지 이름 또는 교구로 찾기 (전체)"
           className="w-full rounded-lg border border-slate-200 bg-white py-3.5 pl-11 pr-4 text-sm font-bold text-slate-900 focus:border-slate-900 focus:outline-none"
         />
       </div>
@@ -162,6 +171,15 @@ function QueueTab() {
         </Chip>
         <Chip active={filter === 'history'} onClick={() => setFilter('history')}>
           역사 없음
+        </Chip>
+        <Chip active={filter === 'massReview'} onClick={() => setFilter('massReview')}>
+          미사 확인 필요
+        </Chip>
+        <Chip active={filter === 'mass'} onClick={() => setFilter('mass')}>
+          미사 시간 없음
+        </Chip>
+        <Chip active={filter === 'phone'} onClick={() => setFilter('phone')}>
+          전화 없음
         </Chip>
         <Chip active={filter === 'all'} onClick={() => setFilter('all')}>
           전체
@@ -186,7 +204,10 @@ function QueueTab() {
                   {!site.hasPhoto && <MissingTag>사진</MissingTag>}
                   {!site.hasDescription && <MissingTag>소개글</MissingTag>}
                   {!site.hasHistory && <MissingTag>역사</MissingTag>}
-                  {site.missingCount === 0 && (
+                  {site.massTimesToReview && <MissingTag>미사 확인</MissingTag>}
+                  {!site.hasMassTimes && !site.massTimesToReview && <MissingTag>미사</MissingTag>}
+                  {!site.hasPhone && <MissingTag>전화</MissingTag>}
+                  {site.missingCount === 0 && site.hasMassTimes && site.hasPhone && (
                     <span className="rounded-lg bg-emerald-50 px-2 py-1 text-[11px] font-bold text-emerald-600">
                       다 채워짐
                     </span>
