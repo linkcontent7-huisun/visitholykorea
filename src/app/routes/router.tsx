@@ -133,13 +133,10 @@ export const router = createBrowserRouter([
       },
       // 하단 탭 없이 전체 화면으로 뜨는 화면들 — 로그인·관리자·404 만
       { path: paths.login, element: withSuspense(<LoginPage />) },
-      // 제출판은 본선 기능만 보이게 하므로 직접 주소로도 관리자 화면에 닿지 못하게 한다 — T-013
-      ...(SUBMISSION_MODE
-        ? []
-        : [
-            { path: paths.admin, element: withSuspense(<AdminPage />) },
-            { path: paths.adminSitePattern, element: withSuspense(<AdminSitePage />) },
-          ]),
+      // 심사 중에는 제출판에서 관리자 주소까지 막았다(T-013). 10/31 동결 해제 — 사장님이 미사 시간 등을
+      // 직접 확인·수정해야 하므로 다시 연다. 실제로 고칠 수 있는지는 DB 권한(RLS)이 정한다.
+      { path: paths.admin, element: withSuspense(<AdminPage />) },
+      { path: paths.adminSitePattern, element: withSuspense(<AdminSitePage />) },
       { path: '*', element: withSuspense(<NotFoundPage />) },
     ],
   },

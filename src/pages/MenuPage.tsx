@@ -30,7 +30,6 @@ import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { LanguagePicker } from '@/shared/i18n/LanguagePicker';
 import { TextSizePicker } from '@/shared/i18n/TextSizePicker';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { copyText } from '@/shared/lib/map-links';
 import { shareApp, type ShareResult } from '@/shared/lib/share-app';
 import { OFFICIAL_LINKS } from '@/shared/config/official-links';
@@ -373,7 +372,7 @@ export default function MenuPage() {
           </section>
         ))}
 
-        {canEnterAdmin && !SUBMISSION_MODE && (
+        {canEnterAdmin && (
           // 제출판은 본선 기능만 보이게 한다 — T-013
           // 운영자 전용 입구라 다국어로 만들지 않는다 — 이 줄을 보는 사람은 한국인 운영자뿐이다.
           <Button
