@@ -1,4 +1,5 @@
-import { Phone } from 'lucide-react';
+import { ChevronDown, ExternalLink, Phone } from 'lucide-react';
+import { useState } from 'react';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
 import { Card } from '@/shared/components/ui/Card';
@@ -47,6 +48,8 @@ export function DirectoryEntryCard({
     ? null
     : (distanceKm ?? ('distanceKm' in entry ? entry.distanceKm : null));
   const hasCoords = entry.lat != null && entry.lng != null;
+  const details = entry.details ?? null;
+  const [open, setOpen] = useState(false);
 
   const body = (
     <>
@@ -81,6 +84,66 @@ export function DirectoryEntryCard({
           )}
         </div>
       </div>
+      {/* 본당 안내 — 접어 둔다. 목록이 길어지면 전화·길찾기를 찾기 어려워진다 */}
+      {details && (
+        <div className="mt-2">
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            className="flex min-h-11 items-center gap-1 rounded-lg px-1 text-sm font-bold text-brand-blue"
+          >
+            {t('directoryDetailsToggle')}
+            <ChevronDown
+              size={16}
+              aria-hidden
+              className={`transition-transform ${open ? 'rotate-180' : ''}`}
+            />
+          </button>
+          {open && (
+            <dl className="mt-1 space-y-2 rounded-lg bg-app-panel p-3 text-sm leading-relaxed text-app-text">
+              {details.patron && (
+                <div>
+                  <dt className="font-bold">{t('directoryPatron')}</dt>
+                  <dd>{details.patron}</dd>
+                </div>
+              )}
+              {details.foundedOn && (
+                <div>
+                  <dt className="font-bold">{t('directoryFounded')}</dt>
+                  <dd>{details.foundedOn}</dd>
+                </div>
+              )}
+              {details.massTimes && (
+                <div>
+                  <dt className="font-bold">{t('directoryMassTimes')}</dt>
+                  <dd className="whitespace-pre-line">
+                    {details.massTimes.replace(/ \/ /g, '\n').replace(/ \(출처/, '\n(출처')}
+                  </dd>
+                  <dd className="mt-1 text-xs text-app-text-muted">{t('directoryMassNote')}</dd>
+                </div>
+              )}
+              {details.description && (
+                <div>
+                  <dt className="font-bold">{t('directoryAbout')}</dt>
+                  <dd className="whitespace-pre-line">{details.description}</dd>
+                </div>
+              )}
+              {details.homepage && (
+                <a
+                  href={details.homepage}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center gap-1 font-bold text-brand-blue underline"
+                >
+                  <ExternalLink size={14} aria-hidden />
+                  {t('directoryHomepage')}
+                </a>
+              )}
+            </dl>
+          )}
+        </div>
+      )}
       {showDirections && hasCoords && (
         <div className={`mt-3 ${bare ? '' : 'border-t border-app-border pt-3'}`}>
           <QuickDirectionsButtons

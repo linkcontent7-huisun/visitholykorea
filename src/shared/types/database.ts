@@ -303,6 +303,8 @@ export interface CatholicDirectoryRow {
   address_en?: string | null;
   name_en?: string | null;
   cbck_synced_at?: string | null;
+  description?: string | null;
+  mass_times?: string | null;
 }
 
 export interface FavoriteRow {

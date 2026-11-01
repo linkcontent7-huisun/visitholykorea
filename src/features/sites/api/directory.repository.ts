@@ -9,7 +9,13 @@
 import { supabase } from '@/shared/api/supabase';
 import type { Coordinates } from '@/shared/types/domain';
 import type { CatholicDirectoryRow } from '@/shared/types/database';
-import { bboxAround, rankNearby, type NearbyPlace } from '../lib/nearby-directory';
+import {
+  bboxAround,
+  rankNearby,
+  toDirectoryDetails,
+  type DirectoryDetails,
+  type NearbyPlace,
+} from '../lib/nearby-directory';
 
 /** 순례자에게 보여줄 가치가 있는 구분만. 출판사·단체까지 내밀면 소음이 된다. */
 const VISITOR_CATEGORIES = ['본당', '공소', '피정의집'];
@@ -25,10 +31,12 @@ export interface DirectoryEntry {
   lng: number | null;
   nameRomanized: string | null;
   addressRomanized: string | null;
+  details?: DirectoryDetails | null;
 }
 
 const DIRECTORY_COLUMNS =
-  'id, name, category, diocese, phone, address, lat, lng, name_romanized, address_romanized';
+  'id, name, category, diocese, phone, address, lat, lng, name_romanized, address_romanized, ' +
+  'description, mass_times, patron, founded_on, homepage';
 
 function toDirectoryEntry(row: CatholicDirectoryRow): DirectoryEntry {
   return {
@@ -42,6 +50,7 @@ function toDirectoryEntry(row: CatholicDirectoryRow): DirectoryEntry {
     lng: row.lng,
     nameRomanized: row.name_romanized,
     addressRomanized: row.address_romanized,
+    details: toDirectoryDetails(row),
   };
 }
 

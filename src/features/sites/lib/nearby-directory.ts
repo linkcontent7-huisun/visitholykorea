@@ -28,6 +28,29 @@ export function bboxAround(lat: number, lng: number, radiusKm: number): Director
   };
 }
 
+/**
+ * 본당 안내 — 설명·미사 시간·주보성인·설립일·홈페이지 (2026-11-02, 제주교구부터 채움).
+ * 값이 하나도 없으면 null 이라, 카드는 「자세히」 단추를 그리지 않는다.
+ */
+export interface DirectoryDetails {
+  description: string | null;
+  massTimes: string | null;
+  patron: string | null;
+  foundedOn: string | null;
+  homepage: string | null;
+}
+
+export function toDirectoryDetails(row: CatholicDirectoryRow): DirectoryDetails | null {
+  const details: DirectoryDetails = {
+    description: row.description ?? null,
+    massTimes: row.mass_times ?? null,
+    patron: row.patron ?? null,
+    foundedOn: row.founded_on ?? null,
+    homepage: row.homepage ?? null,
+  };
+  return Object.values(details).some(Boolean) ? details : null;
+}
+
 export interface NearbyPlace {
   id: string;
   name: string;
@@ -41,6 +64,7 @@ export interface NearbyPlace {
   /** 기계적 로마자 표기(2026-09-07). 사람이 감수하지 않았다 — 화면에서 그 사실을 밝힌다. */
   nameRomanized: string | null;
   addressRomanized: string | null;
+  details?: DirectoryDetails | null;
 }
 
 /** 사각 범위로 받아온 행을 실제 거리로 걸러 가까운 순으로 낸다. */
@@ -64,6 +88,7 @@ export function rankNearby(
       lng: r.lng!,
       nameRomanized: r.name_romanized,
       addressRomanized: r.address_romanized,
+      details: toDirectoryDetails(r),
     }))
     .filter((p) => p.distanceKm <= radiusKm)
     .sort((a, b) => a.distanceKm - b.distanceKm)
