@@ -12,6 +12,8 @@ export const paths = {
   account: '/account',
   search: '/search',
   login: '/login',
+  /** 비밀번호 재설정 메일의 링크가 돌아오는 곳 (2026-11-01) */
+  resetPassword: '/reset-password',
   /** 마음 나침반 — 질문으로 성지를 찾아주는 화면 */
   compass: '/compass',
   siteDetail: (id: string) => `/sites/${id}`,

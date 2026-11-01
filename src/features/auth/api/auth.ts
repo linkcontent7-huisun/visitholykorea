@@ -1,3 +1,4 @@
+import { paths } from '@/app/routes/paths';
 import { supabase } from '@/shared/api/supabase';
 import { ENABLED_LANGUAGES, type Language } from '@/shared/i18n/dictionary';
 
@@ -76,6 +77,19 @@ export async function updateMyName(name: string): Promise<{ success: boolean }> 
   const trimmed = name.trim();
   if (!trimmed) return { success: false };
   const { error } = await supabase.auth.updateUser({ data: { name: trimmed } });
+  return { success: !error };
+}
+
+/**
+ * 비밀번호 재설정 메일 보내기 — 기존 이메일 가입자 누구나 쓸 수 있다(2026-11-01 사장님 요청).
+ * 메일의 링크를 누르면 `/reset-password` 로 돌아오고, supabase-js 가 URL 의 토큰으로 로그인시킨다.
+ * 돌아올 주소는 운영 허용 목록(`visitholykorea.com/**`)에 들어 있다(11/1 관리 API 로 확인).
+ * 메일 언어는 가입 때 넣은 `lang` 으로 서식(`supabase/auth-emails/recovery.html`)이 고른다.
+ */
+export async function sendPasswordResetMail(email: string): Promise<{ success: boolean }> {
+  const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+    redirectTo: `${window.location.origin}${paths.resetPassword}`,
+  });
   return { success: !error };
 }
 

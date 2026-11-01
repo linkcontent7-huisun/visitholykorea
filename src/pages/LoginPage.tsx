@@ -3,6 +3,7 @@ import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import {
+  sendPasswordResetMail,
   signInWithEmail,
   signInWithNaver,
   signInWithOAuth,
@@ -30,6 +31,7 @@ export default function LoginPage() {
   const [name, setName] = useState('');
   const [agreed, setAgreed] = useState(false);
   const [emailAuthOpen, setEmailAuthOpen] = useState(false);
+  const [forgotOpen, setForgotOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'error' | 'info'; text: string } | null>(null);
   // 오류가 어느 칸 때문인지 — 그 칸에 aria-invalid 를 붙여 스크린리더가 칸과 오류를 잇는다(WCAG 3.3.1)
@@ -107,6 +109,23 @@ export default function LoginPage() {
     setIsLogin(true);
   };
 
+  /**
+   * 비밀번호 찾기 — 가입 여부와 상관없이 같은 안내를 보인다. 「없는 이메일」이라고 알려 주면
+   * 남의 이메일이 가입돼 있는지 떠볼 수 있기 때문이다.
+   */
+  const handleForgot = async (e: FormEvent) => {
+    e.preventDefault();
+    setMessage(null);
+    setLoading(true);
+    const { success } = await sendPasswordResetMail(email);
+    setLoading(false);
+    setMessage(
+      success
+        ? { type: 'info', text: t('resetMailSent') }
+        : { type: 'error', text: t('resetMailFailed') },
+    );
+  };
+
   /** 소셜 로그인 — 성공하면 Supabase 콜백을 거쳐 이 앱으로 돌아온다. */
   const handleOAuth = async (provider: 'google' | 'kakao' | 'facebook') => {
     setMessage(null);
@@ -145,7 +164,7 @@ export default function LoginPage() {
         </div>
 
         {/* 오류는 alert(즉시 읽음), 안내는 status(차례 기다림) — 오류를 polite 로 두면 스크린리더가 놓친다 */}
-        {message && (
+        {message && !forgotOpen && (
           <p
             className={`px-1 text-base font-bold ${
               message.type === 'error' ? 'text-red-600' : 'text-brand-blue'
@@ -265,7 +284,67 @@ export default function LoginPage() {
             />
           </button>
 
-          {emailAuthOpen && (
+          {emailAuthOpen && forgotOpen && (
+            <div id="email-auth-panel" className="mt-5">
+              <form onSubmit={handleForgot} className="space-y-4">
+                <h3 className="text-base font-bold text-app-text">{t('forgotPassword')}</h3>
+                <p className="text-sm text-app-text-muted">{t('forgotPasswordGuide')}</p>
+                <div>
+                  <label htmlFor="forgot-email" className={labelClass}>
+                    {t('emailField')}
+                  </label>
+                  <div className="group relative">
+                    <Mail
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted transition-colors group-focus-within:text-brand-blue"
+                      size={20}
+                      aria-hidden
+                    />
+                    <input
+                      id="forgot-email"
+                      type="email"
+                      name="email"
+                      inputMode="email"
+                      spellCheck={false}
+                      autoComplete="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+                <p className="px-1 text-sm text-app-text-muted">{t('socialNoPassword')}</p>
+                <Button type="submit" block disabled={loading} className="mt-6 min-h-14 text-lg">
+                  {loading ? t('processing') : t('sendResetMail')}
+                </Button>
+                {/* 결과는 단추 바로 밑에 — 맨 위 안내는 스크롤에 가려 「눌렀는데 아무 일 없음」으로 보인다 */}
+                {message && (
+                  <p
+                    className={`px-1 text-base font-bold ${
+                      message.type === 'error' ? 'text-red-600' : 'text-brand-blue'
+                    }`}
+                    role={message.type === 'error' ? 'alert' : 'status'}
+                  >
+                    {message.text}
+                  </p>
+                )}
+              </form>
+              <div className="mt-8 text-center">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setForgotOpen(false);
+                    setMessage(null);
+                  }}
+                  className="min-h-11 rounded-lg px-3 text-base font-bold text-brand-blue transition-colors hover:bg-app-bg"
+                >
+                  {t('backToLogin')}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {emailAuthOpen && !forgotOpen && (
             <div id="email-auth-panel" className="mt-5">
               <form onSubmit={handleSubmit} className="space-y-4">
                 {!isLogin && (
@@ -336,7 +415,13 @@ export default function LoginPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       aria-invalid={invalidField === 'password' || undefined}
-                      aria-describedby={invalidField === 'password' ? 'login-message' : undefined}
+                      aria-describedby={
+                        invalidField === 'password'
+                          ? 'login-message'
+                          : !isLogin
+                            ? 'password-hint'
+                            : undefined
+                      }
                       className={`${inputClass} pr-14`}
                     />
                     {/* 비밀번호 보기 — 브라우저 기본 기능이 아니다(Chrome·Safari 에 없음). 오타로 로그인에 실패하는
@@ -356,6 +441,26 @@ export default function LoginPage() {
                       )}
                     </button>
                   </div>
+                  {/* 숫자 6자리는 「안내」만 — 기존 회원의 영문 섞인 비밀번호도 그대로 통한다(11/1 사장님 결정) */}
+                  {!isLogin && (
+                    <p id="password-hint" className="mt-2 px-1 text-sm text-app-text-muted">
+                      {t('passwordHint')}
+                    </p>
+                  )}
+                  {isLogin && (
+                    <div className="mt-2 text-right">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setForgotOpen(true);
+                          setMessage(null);
+                        }}
+                        className="min-h-11 rounded-lg px-2 text-sm font-bold text-brand-blue underline underline-offset-2 hover:bg-app-bg"
+                      >
+                        {t('forgotPassword')}
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {!isLogin && (
@@ -371,7 +476,7 @@ export default function LoginPage() {
                       />
                       <input
                         id="login-password-confirmation"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         name="passwordConfirmation"
                         autoComplete="new-password"
                         required
