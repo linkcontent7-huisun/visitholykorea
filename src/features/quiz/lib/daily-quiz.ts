@@ -9,12 +9,18 @@ export function dayKey(date: Date): string {
   return `${date.getFullYear()}-${mm}-${dd}`;
 }
 
-/** 날짜마다 문항을 한 칸씩 돌린다 — 모두가 같은 날 같은 문제를 풀고, 문항 수만큼 지나면 한 바퀴 돈다. */
+/** 한 판의 문제 수 — 11/1 사장님 결정(「한 문제는 너무 빨리 끝난다」 → 3문제 + 결과 카드). */
+export const QUIZ_SET_SIZE = 3;
+
+/**
+ * 오늘 한 판의 첫 문항 위치 — 날짜마다 3칸씩 돌린다. 모두가 같은 날 같은 3문제를 푼다.
+ * 40과 3은 서로소라 40일이면 모든 문항이 한 번씩 첫 문제가 되고 한 바퀴 돈다.
+ */
 export function quizIndexOfDay(date: Date, count: number = HOLY_QUIZZES.length): number {
   const days = Math.floor(
     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / 86_400_000,
   );
-  return days % count;
+  return (days * QUIZ_SET_SIZE) % count;
 }
 
 /**

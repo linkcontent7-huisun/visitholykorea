@@ -17,11 +17,11 @@ describe('holy quiz data', () => {
 });
 
 describe('quizIndexOfDay', () => {
-  it('같은 날은 같은 문제, 다음 날은 다음 문제, 40일이면 한 바퀴', () => {
+  it('같은 날은 같은 판, 다음 날은 3칸 뒤, 40일이면 한 바퀴', () => {
     const d = new Date(2026, 9, 29);
     const i = quizIndexOfDay(d);
     expect(quizIndexOfDay(new Date(2026, 9, 29, 23, 59))).toBe(i);
-    expect(quizIndexOfDay(new Date(2026, 9, 30))).toBe((i + 1) % 40);
+    expect(quizIndexOfDay(new Date(2026, 9, 30))).toBe((i + 3) % 40);
     expect(quizIndexOfDay(new Date(2026, 11, 8))).toBe(i); // 10/29 + 40일
   });
 

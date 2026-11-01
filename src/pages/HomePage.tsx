@@ -1,11 +1,4 @@
-import {
-  CalendarHeart,
-  ChevronRight,
-  CircleHelp,
-  Droplets,
-  Footprints,
-  Search,
-} from 'lucide-react';
+import { CalendarHeart, ChevronRight, Droplets, Footprints, Search } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -267,15 +260,25 @@ export default function HomePage() {
           />
         </div>
         {/* 퀴즈 다시 열기 — 팝업은 하루 한 번이라, 더 풀고 싶은 사람이 언제든 들어올 입구 */}
-        <div className="mt-2.5">
-          <EntryCard
-            onClick={() => setQuizOpen(true)}
-            id="entry-quiz"
-            icon={<CircleHelp size={24} aria-hidden />}
-            title={t('quizEntryTitle')}
-            sub={t('quizEntrySub')}
-          />
-        </div>
+        {/* 다른 입구와 같은 줄 모양이면 눈에 안 띈다(11/1 사장님 지적) — 세례명 카드 틀의 배너로 */}
+        <button
+          type="button"
+          onClick={() => setQuizOpen(true)}
+          id="entry-quiz"
+          className="mt-2.5 block w-full rounded-xl bg-[#1f2f55] p-2 text-left shadow-md transition-transform active:scale-[0.99]"
+        >
+          <span className="flex items-center gap-4 rounded-lg bg-[#f4f3ef] px-4 py-4">
+            <img src="/brand/dove.png" alt="" aria-hidden className="h-12 w-auto shrink-0" />
+            <span className="min-w-0 flex-1">
+              <span className="block text-sm font-bold text-[#c0703a]">{t('quizCoverKicker')}</span>
+              <span className="mt-0.5 block font-display text-xl leading-tight text-[#1f2f55]">
+                {t('quizPopupTitle')}
+              </span>
+              <span className="mt-1 block text-sm text-app-text-muted">{t('quizEntrySub')}</span>
+            </span>
+            <ChevronRight size={22} aria-hidden className="shrink-0 text-[#1f2f55]" />
+          </span>
+        </button>
       </PageContainer>
 
       {/* 3. 처음 방문하기 좋은 성지 — 모바일은 가로 슬라이드(2026-09-19, 2×2 격자에서 바꿈).
