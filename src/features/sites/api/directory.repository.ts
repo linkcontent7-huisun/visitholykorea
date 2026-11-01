@@ -34,9 +34,9 @@ export interface DirectoryEntry {
   details?: DirectoryDetails | null;
 }
 
+// 한 문자열이어야 한다 — `+` 로 이으면 supabase-js 가 열 이름을 못 읽어 타입이 깨진다(11/2)
 const DIRECTORY_COLUMNS =
-  'id, name, category, diocese, phone, address, lat, lng, name_romanized, address_romanized, ' +
-  'description, mass_times, patron, founded_on, homepage';
+  'id, name, category, diocese, phone, address, lat, lng, name_romanized, address_romanized, description, mass_times, patron, founded_on, homepage';
 
 function toDirectoryEntry(row: CatholicDirectoryRow): DirectoryEntry {
   return {
