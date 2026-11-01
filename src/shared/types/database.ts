@@ -331,3 +331,20 @@ export interface DocentScriptRow {
   created_at: string;
   updated_at: string;
 }
+
+/** 나만의 장소 기록 — 성지 213곳 밖의 성당·건물 (2026-11-01, `20261101120000_create_user_places.sql`) */
+export interface UserPlaceRow {
+  id: string;
+  user_id: string;
+  directory_id: string | null;
+  name: string;
+  address: string | null;
+  description: string | null;
+  photo_url: string;
+  emotion: string;
+  emotion_note: string | null;
+  visited_on: string;
+  status: 'pending' | 'approved' | 'rejected';
+  reviewed_at: string | null;
+  created_at: string;
+}

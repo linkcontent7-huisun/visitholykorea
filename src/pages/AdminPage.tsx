@@ -4,6 +4,7 @@ import {
   Inbox,
   ListTodo,
   LogOut,
+  MapPin,
   Search,
   Star,
 } from 'lucide-react';
@@ -18,6 +19,7 @@ import {
   usePhotoReview,
 } from '@/features/admin/hooks/use-admin';
 import { signOut } from '@/features/auth/api/auth';
+import { usePendingPlaces, useReviewPlace } from '@/features/places/hooks/use-places';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 
 /**
@@ -38,7 +40,7 @@ export default function AdminPage() {
   );
 }
 
-type Tab = 'queue' | 'photos';
+type Tab = 'queue' | 'photos' | 'places';
 
 function AdminConsole() {
   const { role } = useAdminAccess();
@@ -70,10 +72,13 @@ function AdminConsole() {
           <TabButton active={tab === 'photos'} onClick={() => setTab('photos')} icon={Inbox}>
             사진 승인
           </TabButton>
+          <TabButton active={tab === 'places'} onClick={() => setTab('places')} icon={MapPin}>
+            장소 확인
+          </TabButton>
         </div>
       </header>
 
-      {tab === 'queue' ? <QueueTab /> : <PhotoReviewTab />}
+      {tab === 'queue' ? <QueueTab /> : tab === 'photos' ? <PhotoReviewTab /> : <PlaceReviewTab />}
     </div>
   );
 }
@@ -293,6 +298,76 @@ function PhotoReviewTab() {
                   className="rounded-lg border border-slate-200 px-4 py-3 text-sm font-bold text-slate-500 disabled:opacity-50"
                 >
                   내리기
+                </button>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/**
+ * 순례자가 새로 만든 장소(성지 213곳 밖) 확인 — 11/1 사장님 결정 「관리자 확인 후 공개」.
+ * 「공개」하면 다른 사람에게 보이고, 「나만 보기」는 올린 사람의 기록에만 남는다.
+ */
+function PlaceReviewTab() {
+  const { data, isLoading, error } = usePendingPlaces();
+  const review = useReviewPlace();
+
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <ErrorNote message="확인할 장소를 불러오지 못했습니다." />;
+  const places = data ?? [];
+  if (places.length === 0) {
+    return (
+      <div className="px-5 py-20 text-center">
+        <MapPin size={32} className="mx-auto mb-4 text-slate-300" />
+        <p className="text-sm font-bold text-slate-400">확인을 기다리는 장소가 없습니다.</p>
+      </div>
+    );
+  }
+  return (
+    <div className="px-5 py-5">
+      <p className="mb-3 px-1 text-xs font-bold leading-relaxed text-slate-400">
+        이름·사진이 실제 가톨릭 장소인지 보고 「공개」를 누르세요. 얼굴이 크게 나오거나 무관한
+        사진이면 「나만 보기」로 두면 올린 분의 기록에만 남습니다.
+      </p>
+      <ul className="flex flex-col gap-4">
+        {places.map((place) => (
+          <li key={place.id} className="overflow-hidden rounded-lg bg-white shadow-sm">
+            <img
+              src={place.photoUrl}
+              alt={`${place.name} 순례자 사진`}
+              loading="lazy"
+              className="aspect-[4/3] w-full object-cover"
+            />
+            <div className="px-4 py-3">
+              <p className="text-base font-bold text-slate-900">{place.name}</p>
+              <p className="text-xs font-bold text-slate-400">
+                {place.visitedOn}
+                {place.address ? ` · ${place.address}` : ' · 주소 없음'}
+                {place.directoryId ? ' · 주소록 연결됨' : ' · 직접 입력'}
+              </p>
+              {place.description && (
+                <p className="mt-1 text-sm font-medium leading-relaxed text-slate-500">
+                  {place.description}
+                </p>
+              )}
+              <div className="mt-3 flex gap-2">
+                <button
+                  onClick={() => review.mutate({ id: place.id, status: 'approved' })}
+                  disabled={review.isPending}
+                  className="flex-1 rounded-lg bg-slate-900 py-3 text-sm font-bold text-white disabled:opacity-50"
+                >
+                  공개
+                </button>
+                <button
+                  onClick={() => review.mutate({ id: place.id, status: 'rejected' })}
+                  disabled={review.isPending}
+                  className="rounded-lg border border-slate-200 px-4 py-3 text-sm font-bold text-slate-500 disabled:opacity-50"
+                >
+                  나만 보기
                 </button>
               </div>
             </div>

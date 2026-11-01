@@ -24,6 +24,8 @@ import {
   type StampedSite,
 } from '@/features/passport/api/stamps.repository';
 import { CrowdLevelPicker } from '@/features/passport/components/CrowdLevelPicker';
+import { MyPlacesList } from '@/features/places/components/MyPlacesList';
+import { NewPlaceSheet } from '@/features/places/components/NewPlaceSheet';
 import { CROWD_LEVEL_LABEL_KEY } from '@/features/passport/lib/crowd-level-label';
 import {
   useDeleteStamp,
@@ -333,6 +335,7 @@ export default function RecordsPage() {
   const { session } = useSession();
   const { data: stamps = [], isLoading } = useMyStamps();
   const { data: favoriteIds = [] } = useMyFavoriteIds();
+  const [newPlaceOpen, setNewPlaceOpen] = useState(false);
   const { data: allSites = [] } = useSites({ limit: 300 });
   const favoriteSitesRaw = useMemo(() => {
     if (favoriteIds.length === 0) return [];
@@ -380,6 +383,19 @@ export default function RecordsPage() {
             <Plus size={22} aria-hidden />
             {t('recordsPickSite')}
           </ButtonLink>
+          {/* 성지 213곳 밖의 성당·건물 — 11/1 사장님 지시 */}
+          <Button
+            variant="secondary"
+            block
+            className="mb-6 min-h-14 text-base"
+            onClick={() => setNewPlaceOpen(true)}
+            id="records-new-place"
+          >
+            <MapPin size={20} aria-hidden />
+            {t('placeNewButton')}
+          </Button>
+          <NewPlaceSheet isOpen={newPlaceOpen} onClose={() => setNewPlaceOpen(false)} />
+          <MyPlacesList />
 
           {favoriteSites.length > 0 && (
             // 즐겨찾기는 아직 방문하지 않은 성지를 기록 화면에서 바로 다시 찾는 입구다.
