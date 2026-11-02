@@ -1,0 +1,44 @@
+# 운영 서버 매일 점검 (2026-11-02 사장님 지시).
+# 매일 07:00 KST 에 운영 사이트·DB·TourAPI·로그인·미카엘을 실제 요청으로 확인하고,
+# 결과를 「🩺 운영 서버 매일 점검」 이슈 본문에 덮어쓴다(다음 세션이 첫 보고로 읽는다).
+# 고장이 있으면 작업이 빨간불이 되어 GitHub 가 저장소 주인에게 메일도 보낸다.
+# main 에 커밋하지 않는다 — main 푸시는 곧 Vercel 배포라 매일 재배포가 생기기 때문.
+name: health-check
+
+on:
+  schedule:
+    - cron: '0 22 * * *' # UTC 22:00 = KST 07:00
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 점검
+        id: run
+        continue-on-error: true
+        run: node scripts/ops/health-check.mjs report.md
+      - name: 이슈에 결과 쓰기
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="🩺 운영 서버 매일 점검 (자동 갱신)"
+          NUM=$(gh issue list --state all --search "$TITLE in:title" --json number --jq '.[0].number')
+          if [ -z "$NUM" ]; then
+            gh issue create --title "$TITLE" --body-file report.md
+          else
+            gh issue edit "$NUM" --body-file report.md
+            gh issue reopen "$NUM" 2>/dev/null || true
+          fi
+      - name: 고장이면 빨간불
+        if: steps.run.outcome == 'failure'
+        run: exit 1
