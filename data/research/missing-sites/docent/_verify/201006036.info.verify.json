@@ -1,0 +1,77 @@
+{
+  "cbckCode": "201006036",
+  "checkedAt": "2026-09-30",
+  "siteVerdict": "고칠것",
+  "sentences": [
+    {
+      "text": "회문산 깊은 골짜기에 성 김대건 안드레아 신부의 친동생 김난식 프란치스코(1827~1873)와 7촌 조카 김현채 토마스(1825~1888)가 잠들어 있다.",
+      "verdict": "근거있음",
+      "evidence": "jcatholic-terrasanta13.txt: \"회문산 자락 깊숙한 이 곳에는 김대건 안드레아 신부의 동생 김난식 프란치스코(1827~1873)와 7촌 조카 김현채 토마스(1825~1888)의 묘가 자리하고 있다.\""
+    },
+    {
+      "text": "두 사람은 1866년 병인박해 때 이곳으로 피난 와 교우촌 「먹구니」를 이루고 화전을 일구며 신앙을 지켰다.",
+      "verdict": "근거있음",
+      "evidence": "jcatholic-terrasanta13.txt: \"여기 ‘먹구니’는 김난식 프란치스코와 김현채 토마스가 1866년 병인박해 때 이 곳으로 피난을 오면서 교우촌이 만들어졌다. 그들은 화전을 일구고 살면서 신앙에 매진하다\""
+    },
+    {
+      "text": "지금은 마을이 없어지고 두 분의 묘만 남았다.",
+      "verdict": "근거있음",
+      "evidence": "catholictimes-200409120104265.txt: \"먹구니(지금은 마을이 없어졌음)\"; \"김난식(프란치스코)의 묘 옆에 나란히 묻힌다.\""
+    },
+    {
+      "text": "1866년 병인박해 때 김난식·김현채가 피난 와 교우촌 먹구니 형성.",
+      "verdict": "근거있음",
+      "evidence": "jcatholic-terrasanta13.txt: \"김난식 프란치스코와 김현채 토마스가 1866년 병인박해 때 이 곳으로 피난을 오면서 교우촌이 만들어졌다.\""
+    },
+    {
+      "text": "김난식 1873년, 김현채 1888년 선종.",
+      "verdict": "근거있음",
+      "evidence": "catholictimes-200409120104265.txt: \"1873년 46세의 나이로 세상을 떠났다\"; \"1888년 63세로 세상을 떠나자\""
+    },
+    {
+      "text": "박해가 잇따르자 경기·충청의 신자들은 전라도와 경상도의 깊은 산속으로 피난해 교우촌을 이루었습니다.",
+      "verdict": "근거있음",
+      "evidence": "jcatholic-terrasanta13.txt: \"천주교인에 대한 대대적인 박해가 잇따르자 경기․충청지역의 신자들이 대거 전라도와 경상도로 피난을 떠났고, 그들은 사람들의 발길이 미치지 않은 깊숙한 산중에 교우촌을 형성하고\""
+    },
+    {
+      "text": "이 골짜기의 「먹구니」도 1866년 병인박해 때 김난식과 김현채가 들어오면서 생긴 교우촌입니다.",
+      "verdict": "근거있음",
+      "evidence": "jcatholic-terrasanta13.txt: \"여기 ‘먹구니’는 김난식 프란치스코와 김현채 토마스가 1866년 병인박해 때 이 곳으로 피난을 오면서 교우촌이 만들어졌다.\""
+    },
+    {
+      "text": "김난식은 김대건 신부의 친동생으로, 아버지와 형이 순교한 뒤 어머니와 떠돌다 이곳에서 토종벌을 치며 수도자처럼 살다 1873년 세상을 떠났습니다.",
+      "verdict": "근거있음",
+      "evidence": "catholictimes-200409120104265.txt: \"김대건 신부의 친 동생인 김난식\"; \"아버지 김제준(이냐시오)이 순교\"; \"형인 김대건 신부가 ... 순교를 당하자, 어머니 고 우술라와 함께\"; \"토종벌을 치며 생계를 유지했고 ... 수도자처럼 신앙생활을 하다 1873년 46세의 나이로 세상을 떠났다.\""
+    },
+    {
+      "text": "김현채는 김대건 신부 큰집의 7촌 조카로, 이곳에서 강 막달레나와 혼인해 동정을 지키며 살았다는 이야기가 전해집니다.",
+      "verdict": "근거있음",
+      "evidence": "catholictimes-200409120104265.txt: \"김대건 신부의 큰 집 7촌 조카인 김현채\"; \"이곳에서 10살 아래인 강 막달레나와 혼인했는데, 이들이 서로 동정을 지키며 살았다는 이야기가 전해지고 있다.\""
+    },
+    {
+      "text": "먹구니는 정읍·임실·순창이 만나는 경계에 있어 박해 시대 신자들이 숨어 살기 좋은 곳이었습니다.",
+      "verdict": "근거있음",
+      "evidence": "martyr-people26.txt: \"박해시대 천주교 신자들은 경계지역으로 피난가서 많이 살았는데, 먹구니는 정읍, 임실, 순창의 경계지역이다.\""
+    },
+    {
+      "text": "지금은 마을이 없어졌고, 신자들이 산길을 내며 두 분의 묘를 찾아 미사를 봉헌하기도 합니다.",
+      "verdict": "틀림",
+      "fix": "지금은 마을이 없어졌고, 묘소를 찾은 신자들이 길을 만들고 미사를 봉헌한 기록이 있습니다."
+    }
+  ],
+  "english": [
+    {
+      "part": "description",
+      "verdict": "일치"
+    },
+    {
+      "part": "history",
+      "verdict": "일치"
+    },
+    {
+      "part": "story",
+      "verdict": "어긋남",
+      "fix": "As persecutions followed one another, Catholics from Gyeonggi and Chungcheong fled deep into the mountains of Jeolla and Gyeongsang and formed hidden villages. Meokguni in this valley began when Kim Nan-sik and Kim Hyeon-chae arrived during the Byeongin Persecution of 1866.\n\nKim Nan-sik, Father Andrew Kim Taegon's younger brother, wandered with his mother after his father and brother were martyred; here he kept native bees and lived like a monk until his death in 1873. Kim Hyeon-chae, a cousin from the senior branch of the Kim family, married Magdalene Kang here, and according to a relative's testimony the couple lived in celibacy.\n\nMeokguni lay where Jeongeup, Imsil and Sunchang meet, a border area where persecuted believers could hide. The village is gone now, and there is a record of visitors making the mountain path and celebrating Mass at the two tombs."
+    }
+  ]
+}

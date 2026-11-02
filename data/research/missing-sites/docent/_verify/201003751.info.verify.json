@@ -1,0 +1,87 @@
+{
+  "cbckCode": "201003751",
+  "checkedAt": "2026-09-30",
+  "siteVerdict": "고칠것",
+  "sentences": [
+    {
+      "text": "병인박해 때 피난 온 신자들이 이룬 산골 교우촌에서 비롯된 공소다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"병인박해(1866) 때 난을 피하여 ... 장자터라는 골짜기에서 교우촌을 형성\""
+    },
+    {
+      "text": "박해 뒤 김보록 신부가 판공성사를 주러 찾았다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"병인박해가 끝난 후 ... 김보록 신부가 이곳 황점 공소에 판공성사를 주러왔었다.\""
+    },
+    {
+      "text": "1936년 수해와 한국전쟁을 거치며 교우촌이 지금의 황점으로 옮겨 왔고, 현재 공소 건물은 1972년에 지었다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"병자년 수해(1936)로 마을이 유실되었으며 ... 6.25 전쟁 후 ... 황점이 새로운 교우촌으로 형성되어 ... 현 황점리 공소는 1972년 윤 에릭 신부가 ... 신축한 것이다.\""
+    },
+    {
+      "text": "해발 600m 고지에 있다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"해발 600m 고지에 위치한 마을\""
+    },
+    {
+      "text": "병인박해 때 장자터 교우촌 형성.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"병인박해(1866) 때 난을 피하여 ... 장자터라는 골짜기에서 교우촌을 형성\""
+    },
+    {
+      "text": "1936년 수해, 한국전쟁 뒤 황점으로 이주.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"병자년 수해(1936)로 마을이 유실되었으며 ... 6.25 전쟁 후 ... 황점이 새로운 교우촌으로 형성\""
+    },
+    {
+      "text": "1972년 윤 에릭 신부가 현 공소 신축.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"현 황점리 공소는 1972년 윤 에릭 신부가 16평의 공소 건물을 신축한 것이다.\""
+    },
+    {
+      "text": "황점 공소의 뿌리는 황점리에서 약 1km 떨어진 골짜기 장자터입니다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"황점리에서 약1km 떨어진 장자터라는 골짜기\"; \"황점 공소는 원래 장자터 공소에서부터 비롯된 공소\""
+    },
+    {
+      "text": "병인박해 때 박해를 피해 들어온 신자들이 이곳에서 숯과 옹기를 굽고 화전을 일구며 교우촌을 이루었습니다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"병인박해(1866) 때 난을 피하여 천주교 교우들이 이곳으로 숨어 들어와 ... 숯과 옹기를 굽고 화전을 일구며 살았다.\""
+    },
+    {
+      "text": "1936년 수해로 장자터 마을이 떠내려갔고, 한국전쟁 뒤 무장 공비가 자주 나타나자 남은 집들이 철거되어 교우촌은 지금의 황점으로 옮겨 왔습니다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"병자년 수해(1936)로 마을이 유실되었으며 ... 6.25 전쟁 후 이 지역에 공비들의 출몰이 극심하여 관에 의하여 황점으로 4가구마저 철거되어 ... 황점이 새로운 교우촌으로 형성\""
+    },
+    {
+      "text": "원황점이라는 지명은 옛날 유황을 구워 조정에 바친 데서 왔다고 전해집니다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"원황점(元黃店)이란 지명의 유래는 원래 황을 구운 황점이 있었던 마을 ... 유황을 구워 조정에 상납한 것\""
+    },
+    {
+      "text": "지금의 공소는 1972년 윤 에릭 신부가 지었고, 그는 독일에서 가져온 발전기로 전기가 없던 마을에 전기를 댔습니다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"현 황점리 공소는 1972년 윤 에릭 신부가 ... 신축한 것이다. 그 당시에는 전기가 들어 오지 않아 윤 에릭 신부가 독일에서 가져온 발전기를 설치하여 ... 전기를 제일 먼저 사용 하게 되었다.\""
+    },
+    {
+      "text": "대구대교구는 장자터를 중심으로 땅을 사들여 신앙 유적지로 가꾸고 있습니다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"대구대교구에서는 장자터를 중심으로 마을 일대의 땅을 매입하여 황점 신앙유적지로 조성중이다.\""
+    }
+  ],
+  "english": [
+    {
+      "part": "description",
+      "verdict": "일치"
+    },
+    {
+      "part": "history",
+      "verdict": "일치"
+    },
+    {
+      "part": "story",
+      "verdict": "어긋남",
+      "fix": "Hwangjeom's roots lie in Jangjateo, a valley about a kilometer from Hwangjeom-ri. During the Byeongin Persecution, Catholics fleeing persecution formed a village here, burning charcoal, firing pottery and clearing mountain fields.\n\nThe 1936 flood swept away the Jangjateo village, and after the Korean War, when armed guerrillas often appeared, the remaining houses were removed and the community moved to present-day Hwangjeom. The name Wonhwangjeom is said to come from the sulfur once baked here and sent to the royal court.\n\nThe present chapel was built in 1972 by Father Eric Yun, who brought a generator from Germany to provide electricity to the village, which had none. The Archdiocese of Daegu has been buying land around Jangjateo to develop it as a faith heritage site."
+    }
+  ]
+}

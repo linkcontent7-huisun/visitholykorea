@@ -1,0 +1,83 @@
+{
+  "cbckCode": "201008529",
+  "checkedAt": "2026-09-30",
+  "siteVerdict": "고칠것",
+  "sentences": [
+    {
+      "text": "병인박해기(1866년 이후로 추정)에 순교한 서응권 요한과 아내 안나의 쌍분이다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"요한과 안나 부부는… 다른 교우들과 함께 순교\", \"지금의 장소…로 함께 이장되어 쌍분이 조성\""
+    },
+    {
+      "text": "김해 노루목의 농부였던 부부는 포교들에게 어린 자녀 셋을 잃은 뒤 스스로 김해 관아에 자수해 배교를 거부하고 순교했다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"요한과 안나 부부는 농사로 생계를 유지\", \"어린 자녀 세 명이 포교들에 의해… 살해\", \"김해 관아로 찾아가 자수\", \"배교하면… 그러나 그들 부부는 이를 거부\", \"다른 교우들과 함께 순교\""
+    },
+    {
+      "text": "뒷날 셋째 아들 서석수 비오가 두 분을 이곳에 함께 모셨다.",
+      "verdict": "근거있음",
+      "evidence": "goodnews-pdsm259.txt: \"1909년 4월 순교자의 삼남 서석수 비오가 현 위치에 모셨다\""
+    },
+    {
+      "text": "시복 추진 대상인 「하느님의 종」이다.",
+      "verdict": "근거없음",
+      "fix": "서응권 요한은 「하느님의 종 이벽 요한 세례자와 동료 132위」에 포함되어 시복이 추진 중이다."
+    },
+    {
+      "text": "병인박해기 순교(1866년 이후 추정).",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"요한이 체포되어 순교한 시기는 1866년 이후의 병인박해기로 추정\""
+    },
+    {
+      "text": "1909년 4월 셋째 아들 서석수 비오가 현 위치로 이장.",
+      "verdict": "근거있음",
+      "evidence": "goodnews-pdsm259.txt: \"1909년 4월 순교자의 삼남 서석수 비오가 현 위치에 모셨다\""
+    },
+    {
+      "text": "「이벽 요한 세례자와 동료 132위」 시복 추진 대상.",
+      "verdict": "근거있음",
+      "evidence": "goodnews-pdsm259.txt: \"서응권 요한은 하느님의 종 ‘이벽 요한 세례자와 동료 132위’에 포함되어 시복이 추진 중\""
+    },
+    {
+      "text": "서응권 요한은 달성 서씨 집안 출신으로, 벼슬에 나가지 않고 세례를 받은 뒤 김해 노루목에서 농사를 지으며 아내 윤 안나, 여섯 자녀와 함께 신앙생활에 전념했습니다.",
+      "verdict": "근거있음",
+      "evidence": "official.txt: \"본관은 달성\", \"파평 윤씨 안나를 아내로 맞이하여 자녀 여섯\", \"농사로 생계를 유지\", \"열심히 교리를 실천\""
+    },
+    {
+      "text": "부산에서 신앙의 자유를 호소하려던 일이 드러나 체포령이 내려지자 부부는 노루목에 숨었습니다.",
+      "verdict": "근거있음",
+      "evidence": "goodnews-pdsm259.txt: \"부산에 사는 왜인들을 통해 서양 사람들에게 호소하여 신앙의 자유를 얻기 위해… 체포령\", \"김해 노루목에 피신해 숨어 있었다\""
+    },
+    {
+      "text": "포졸들은 부부를 찾지 못하자 어린 자녀 셋을 죽였고, 부부는 스스로 김해 관아에 자수해 끝까지 신앙을 지키다 순교했습니다.",
+      "verdict": "근거있음",
+      "evidence": "goodnews-pdsm259.txt: \"찾지 못하자… 어린 자녀 셋을 죽이고\", \"김해 관아에 자수\", \"끝까지 신앙을 지켰다\", \"그와 그의 부인… 모두 순교\""
+    },
+    {
+      "text": "친척들의 반대로 한동안 다른 산에 임시로 모셨던 두 분을 1909년 4월 셋째 아들 서석수 비오가 이곳으로 옮겼습니다.",
+      "verdict": "근거있음",
+      "evidence": "goodnews-pdsm259.txt: \"친족들의 반대로… 야산에 임시 안장했다가 1909년 4월 순교자의 삼남 서석수 비오가 현 위치에 모셨다\""
+    },
+    {
+      "text": "두 분은 「하느님의 종 이벽 요한 세례자와 동료 132위」에 포함되어 시복이 추진되고 있습니다.",
+      "verdict": "틀림",
+      "fix": "서응권 요한은 「하느님의 종 이벽 요한 세례자와 동료 132위」에 포함되어 시복이 추진되고 있습니다."
+    }
+  ],
+  "english": [
+    {
+      "part": "description",
+      "verdict": "어긋남",
+      "fix": "Replace ‘Both are Servants of God whose cause for beatification is under way’ with ‘John Seo is included in the beatification cause of John Baptist Yi Byeok and 132 companions.’"
+    },
+    {
+      "part": "history",
+      "verdict": "일치"
+    },
+    {
+      "part": "story",
+      "verdict": "어긋남",
+      "fix": "Replace ‘Both are included in the beatification cause of the Servants of God John Baptist Yi Byeok and 132 companions’ with ‘John Seo is included in the beatification cause of John Baptist Yi Byeok and 132 companions.’"
+    }
+  ]
+}
