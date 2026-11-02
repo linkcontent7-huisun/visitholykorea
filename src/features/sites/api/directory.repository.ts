@@ -16,6 +16,7 @@ import {
   type DirectoryDetails,
   type NearbyPlace,
 } from '../lib/nearby-directory';
+import { directoryCoreTerm, rankDirectoryResults } from '../lib/directory-search';
 
 /** 순례자에게 보여줄 가치가 있는 구분만. 출판사·단체까지 내밀면 소음이 된다. */
 const VISITOR_CATEGORIES = ['본당', '공소', '피정의집'];
@@ -65,25 +66,33 @@ function toDirectoryEntry(row: CatholicDirectoryRow): DirectoryEntry {
  * `name_romanized`/`address_romanized`(기계적 로마자 표기, 2026-09-07)도 함께
  * 훑는다 — 한글을 못 치는 외국인이 "Myeongdong" 처럼 로마자로 검색해도 찾아야 한다.
  */
-export async function searchDirectory(term: string, limit = 8): Promise<DirectoryEntry[]> {
+export async function searchDirectory(term: string, limit = 10): Promise<DirectoryEntry[]> {
   const trimmed = term.trim();
   if (!trimmed) return [];
+  // 「서귀포성당」 → 「서귀포」 (이름은 「성당」 없이 저장돼 있다 — lib/directory-search.ts)
+  const core = directoryCoreTerm(trimmed);
 
+  // 넉넉히 받아 화면에서 이름이 같은 곳을 앞으로 올린다. DB 순서대로 자르면
+  // 「서귀포」 본당이 서귀포시 주소의 다른 공소들에 밀려 안 보였다(11/2 실측).
   const { data, error } = await supabase
     .from('directory_public')
     .select(DIRECTORY_COLUMNS)
     .in('category', VISITOR_CATEGORIES)
     .or(
-      `name.ilike.%${trimmed}%,address.ilike.%${trimmed}%,diocese.ilike.%${trimmed}%,` +
+      `name.ilike.%${core}%,name_compact.ilike.%${core}%,address.ilike.%${core}%,diocese.ilike.%${core}%,` +
         `name_romanized.ilike.%${trimmed}%,address_romanized.ilike.%${trimmed}%`,
     )
-    .limit(limit);
+    .limit(60);
 
   if (error) {
     console.warn('searchDirectory 건너뜀:', error.message);
     return [];
   }
-  return ((data ?? []) as CatholicDirectoryRow[]).map(toDirectoryEntry);
+  return rankDirectoryResults(
+    ((data ?? []) as CatholicDirectoryRow[]).map(toDirectoryEntry),
+    trimmed,
+    limit,
+  );
 }
 
 export async function fetchNearbyDirectory(
