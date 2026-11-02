@@ -6237,6 +6237,22 @@ export const DICTIONARY = {
     pt: 'Aparece logo nos seus registos; os outros veem-no depois de um administrador o verificar.',
     it: 'Compare subito nei tuoi ricordi; gli altri lo vedranno dopo la verifica di un amministratore.',
   },
+  placeNearbyTitle: {
+    ko: '순례자들이 이 근처에서 기록한 장소',
+    en: 'Places pilgrims recorded nearby',
+    es: 'Lugares que los peregrinos registraron cerca',
+    fr: 'Lieux notés par des pèlerins à proximité',
+    pt: 'Locais que os peregrinos registaram perto',
+    it: 'Luoghi registrati dai pellegrini qui vicino',
+  },
+  placeNearbySub: {
+    ko: '관리자가 확인한 기록만 보여요.',
+    en: 'Only records checked by an administrator are shown.',
+    es: 'Solo se muestran registros revisados por un administrador.',
+    fr: 'Seules les notes vérifiées par un administrateur sont affichées.',
+    pt: 'Só são mostrados registos verificados por um administrador.',
+    it: 'Sono mostrati solo i ricordi verificati da un amministratore.',
+  },
   placeMineTitle: {
     ko: '내가 기록한 장소',
     en: 'Places I recorded',

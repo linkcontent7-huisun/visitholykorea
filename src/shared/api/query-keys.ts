@@ -57,6 +57,7 @@ export const queryKeys = {
   places: {
     mine: ['places', 'mine'] as const,
     pending: ['places', 'pending'] as const,
+    public: ['places', 'public'] as const,
   },
   compass: {
     latest: (userId: string) => ['compass', 'latest', userId] as const,

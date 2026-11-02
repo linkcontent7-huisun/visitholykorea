@@ -5,6 +5,7 @@ import {
   deleteMyPlace,
   fetchMyPlaces,
   fetchPendingPlaces,
+  fetchPublicPlaces,
   reviewPlace,
   type NewUserPlace,
   type UserPlace,
@@ -30,6 +31,14 @@ export function useDeletePlace() {
   });
 }
 
+export function usePublicPlaces() {
+  return useQuery({
+    queryKey: queryKeys.places.public,
+    queryFn: fetchPublicPlaces,
+    staleTime: 1000 * 60 * 10,
+  });
+}
+
 export function usePendingPlaces() {
   return useQuery({ queryKey: queryKeys.places.pending, queryFn: fetchPendingPlaces });
 }
@@ -39,6 +48,9 @@ export function useReviewPlace() {
   return useMutation({
     mutationFn: ({ id, status }: { id: string; status: 'approved' | 'rejected' }) =>
       reviewPlace(id, status),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.places.pending }),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: queryKeys.places.pending });
+      void queryClient.invalidateQueries({ queryKey: queryKeys.places.public });
+    },
   });
 }

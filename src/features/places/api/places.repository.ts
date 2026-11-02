@@ -109,6 +109,57 @@ export async function deleteMyPlace(place: UserPlace): Promise<{ success: boolea
   return { success: true };
 }
 
+/** 공개된 장소 — 성지 상세 화면용. 쓴 사람 정보는 뷰에서 이미 빠져 있다. */
+export interface PublicPlace {
+  id: string;
+  name: string;
+  address: string | null;
+  description: string | null;
+  photoUrl: string;
+  emotion: string;
+  emotionNote: string | null;
+  visitedOn: string;
+  lat: number | null;
+  lng: number | null;
+}
+
+interface PublicPlaceRow {
+  id: string;
+  name: string;
+  address: string | null;
+  description: string | null;
+  photo_url: string;
+  emotion: string;
+  emotion_note: string | null;
+  visited_on: string;
+  lat: number | null;
+  lng: number | null;
+}
+
+/** 공개 장소는 아직 많지 않아 한 번에 받아 화면에서 성지별로 거른다(500건 넘으면 바꿀 것). */
+export async function fetchPublicPlaces(): Promise<PublicPlace[]> {
+  const { data, error } = await supabase
+    .from('user_places_public')
+    .select(
+      'id, name, address, description, photo_url, emotion, emotion_note, visited_on, lat, lng',
+    )
+    .order('visited_on', { ascending: false })
+    .limit(500);
+  if (error) throw error;
+  return ((data ?? []) as PublicPlaceRow[]).map((r) => ({
+    id: r.id,
+    name: r.name,
+    address: r.address,
+    description: r.description,
+    photoUrl: r.photo_url,
+    emotion: r.emotion,
+    emotionNote: r.emotion_note,
+    visitedOn: r.visited_on,
+    lat: r.lat,
+    lng: r.lng,
+  }));
+}
+
 /** 관리자 — 확인을 기다리는 장소. 남의 pending 행은 RLS 가 admin 에게만 보여 준다. */
 export async function fetchPendingPlaces(): Promise<UserPlace[]> {
   const { data, error } = await supabase

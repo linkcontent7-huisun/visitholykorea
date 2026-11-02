@@ -44,6 +44,7 @@ import { ContactCard } from '@/features/sites/components/ContactCard';
 import { splitMassInfo } from '@/features/sites/lib/mass-info';
 import { localizeMassLabel, localizeMassValue } from '@/features/sites/lib/mass-info-localize';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
+import { NearbyPilgrimPlaces } from '@/features/places/components/NearbyPilgrimPlaces';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { sizedImageUrl } from '@/shared/lib/image-url';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
@@ -1089,6 +1090,10 @@ export default function SiteDetailPage() {
         <section className="pb-10">
           <NearbyParishesCard site={site} />
         </section>
+        {/* 순례자가 새로 기록하고 관리자가 공개한 근처 장소 — 11/2 사장님 지시 「성지 상세 화면 아래에」 */}
+        <div className="pb-10">
+          <NearbyPilgrimPlaces site={site} />
+        </div>
       </PageContainer>
 
       <PhotoLightbox
