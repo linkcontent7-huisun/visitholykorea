@@ -7,6 +7,8 @@ import { useSession } from '@/features/auth/hooks/use-session';
 import { BaptismCardSheet } from '@/features/baptism-card/components/BaptismCardSheet';
 import { DailyQuizPopup } from '@/features/quiz/components/DailyQuizPopup';
 import { claimTodaysPopup, quizIndexOfDay } from '@/features/quiz/lib/daily-quiz';
+import { ProgramCardPopup } from '@/features/programs/components/ProgramCardPopup';
+import { PROGRAMS } from '@/features/programs/data/programs';
 import {
   usePilgrimageRoutes,
   useLocalizedRoutes,
@@ -109,6 +111,9 @@ function EntryCard({
   );
 }
 
+/** 홈에 띄울 체험여행 프로그램 — 지금은 1호 하나 */
+const homeProgram = PROGRAMS[0];
+
 export default function HomePage() {
   const { language, t, gpsLocation } = useSettings();
   const { session } = useSession();
@@ -118,15 +123,27 @@ export default function HomePage() {
   // 하루 한 번 퀴즈 팝업. 미카엘로 바로 들어오는 링크(?ai=1)나 로그인 오류 안내가 있는 화면에선 띄우지 않는다.
   const [quizOpen, setQuizOpen] = useState(false);
   const quizChecked = useRef(false);
+  const quizPending = useRef(false);
+  const [programOpen, setProgramOpen] = useState(false);
   const todaysQuizIndex = useMemo(() => quizIndexOfDay(new Date()), []);
   useEffect(() => {
     // 개발 모드(StrictMode)는 효과를 두 번 돌려 두 번째엔 「이미 띄움」으로 보이므로 ref 로 한 번만 확인한다.
     if (quizChecked.current) return;
     quizChecked.current = true;
-    if (!searchParams.has('ai') && !searchParams.has('auth_error') && claimTodaysPopup()) {
+    if (searchParams.has('ai') || searchParams.has('auth_error')) return;
+    // 체험여행 프로그램 카드를 먼저(들어올 때마다, 2026-11-03 사장님 지시), 퀴즈는 카드를 닫은 뒤에.
+    // 두 팝업이 겹쳐 뜨면 뒤의 것이 가려진다.
+    quizPending.current = claimTodaysPopup();
+    if (homeProgram) setProgramOpen(true);
+    else if (quizPending.current) setQuizOpen(true);
+  }, [searchParams]);
+  const closeProgram = () => {
+    setProgramOpen(false);
+    if (quizPending.current) {
+      quizPending.current = false;
       setQuizOpen(true);
     }
-  }, [searchParams]);
+  };
   // `/ai-guide` 옛 주소나 외부 링크로 온 `?ai=1` 은 미카엘을 바로 연다. 카카오·네이버 함수가
   // 실패하면 `?auth_error=…` 로 돌아오는데, 그동안 주소창에만 남아 이용자가 몰랐다(9/20 실측).
   const authError = searchParams.get('auth_error');
@@ -389,6 +406,9 @@ export default function HomePage() {
 
       <AiGuideSheet isOpen={aiOpen} onClose={() => setAiOpen(false)} />
       <BaptismCardSheet isOpen={baptismOpen} onClose={() => setBaptismOpen(false)} />
+      {homeProgram && (
+        <ProgramCardPopup program={homeProgram} isOpen={programOpen} onClose={closeProgram} />
+      )}
       <DailyQuizPopup
         isOpen={quizOpen}
         onClose={() => setQuizOpen(false)}
