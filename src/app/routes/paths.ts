@@ -48,6 +48,9 @@ export const paths = {
    * 관리자 콘솔 — 어디에도 링크하지 않는다(권한 있는 사람만 「더보기」에 뜬다).
    * 주소를 안다고 들어와지지도 않는다. 권한 판단은 DB 가 한다.
    */
+  /** 체험여행 프로그램 접수 (2026-11-03 본선 시연) */
+  programApply: (slug: string) => `/programs/${slug}/apply`,
+  programApplyPattern: '/programs/:programSlug/apply',
   admin: '/admin',
   adminSite: (id: string) => `/admin/sites/${id}`,
   adminSitePattern: '/admin/sites/:siteId',

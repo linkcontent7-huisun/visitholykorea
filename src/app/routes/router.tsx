@@ -25,6 +25,7 @@ const LoginPage = lazy(() => import('@/pages/LoginPage'));
 const ResetPasswordPage = lazy(() => import('@/pages/ResetPasswordPage'));
 const TermsPage = lazy(() => import('@/pages/TermsPage'));
 const FaqPage = lazy(() => import('@/pages/FaqPage'));
+const ProgramApplyPage = lazy(() => import('@/pages/ProgramApplyPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 // 관리자 콘솔 — 순례자 화면과 함께 내려받지 않도록 여기서도 lazy 로 둔다.
 const AdminPage = lazy(() => import('@/pages/AdminPage'));
@@ -132,6 +133,7 @@ export const router = createBrowserRouter([
           // 성지 상세도 상단바·하단 탭 안에서 뜬다 (2026-09-17 사장님 지시). 전엔 큰 사진 히어로를 위해
           // 전체 화면이었는데, 상세에서 다른 탭으로 못 가고 헤더가 사라져 길을 잃었다.
           { path: paths.siteDetailPattern, element: withSuspense(<SiteDetailPage />) },
+          { path: paths.programApplyPattern, element: withSuspense(<ProgramApplyPage />) },
         ],
       },
       // 하단 탭 없이 전체 화면으로 뜨는 화면들 — 로그인·관리자·404 만

@@ -7,6 +7,7 @@ import {
   MapPin,
   Search,
   Star,
+  Ticket,
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -20,6 +21,7 @@ import {
 } from '@/features/admin/hooks/use-admin';
 import { signOut } from '@/features/auth/api/auth';
 import { usePendingPlaces, useReviewPlace } from '@/features/places/hooks/use-places';
+import { ApplicationsAdminTab } from '@/features/programs/components/ApplicationsAdminTab';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 
 /**
@@ -40,7 +42,7 @@ export default function AdminPage() {
   );
 }
 
-type Tab = 'queue' | 'photos' | 'places';
+type Tab = 'queue' | 'photos' | 'places' | 'programs';
 
 function AdminConsole() {
   const { role } = useAdminAccess();
@@ -75,10 +77,21 @@ function AdminConsole() {
           <TabButton active={tab === 'places'} onClick={() => setTab('places')} icon={MapPin}>
             장소 확인
           </TabButton>
+          <TabButton active={tab === 'programs'} onClick={() => setTab('programs')} icon={Ticket}>
+            프로그램 접수
+          </TabButton>
         </div>
       </header>
 
-      {tab === 'queue' ? <QueueTab /> : tab === 'photos' ? <PhotoReviewTab /> : <PlaceReviewTab />}
+      {tab === 'queue' ? (
+        <QueueTab />
+      ) : tab === 'photos' ? (
+        <PhotoReviewTab />
+      ) : tab === 'places' ? (
+        <PlaceReviewTab />
+      ) : (
+        <ApplicationsAdminTab />
+      )}
     </div>
   );
 }

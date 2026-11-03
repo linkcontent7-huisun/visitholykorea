@@ -44,6 +44,7 @@ import { ContactCard } from '@/features/sites/components/ContactCard';
 import { splitMassInfo } from '@/features/sites/lib/mass-info';
 import { localizeMassLabel, localizeMassValue } from '@/features/sites/lib/mass-info-localize';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
+import { ProgramPromo } from '@/features/programs/components/ProgramCardPopup';
 import { NearbyPilgrimPlaces } from '@/features/places/components/NearbyPilgrimPlaces';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { sizedImageUrl } from '@/shared/lib/image-url';
@@ -468,6 +469,8 @@ export default function SiteDetailPage() {
       {/* 상단 라운드 처리를 없앴다(사장님 지적, 2026-09-17) — 사진 바로 아래가 흰 면으로
           깔끔하게 이어진다. margin-top 도 0으로 — 사진과 겹치지 않고 바로 이어진다(사장님 지적, 2026-09-18). */}
       <PageContainer className="relative z-10 mt-0 space-y-8 bg-white py-6">
+        {/* 그 교구의 체험여행 프로그램 — 지금은 대전만(2026-11-03 본선 시연) */}
+        <ProgramPromo region={site.region} />
         {/* 성지 이야기를 맨 위로 — 사진 다음에는 "여기가 어떤 곳인지" 이야기부터 읽고,
             미사 시간 같은 실용 정보는 그다음이 자연스럽다(사장님 지적, 2026-09-17).
             ⚠️ 이 순서는 재기획(2026-09-14) §4-1 이 정한 "방문 정보가 역사보다 위" 결정을
