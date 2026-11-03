@@ -4,7 +4,10 @@ export const BRAND = 'Visit Holy Korea';
 export const HOME_TITLE = 'Visit Holy Korea - 길 위에서 나를 만나는 성지순례';
 
 /** 화면 제목(h1) → 탭 제목. 홈·빈 제목이면 null(기본 제목 유지). 테스트용으로 따로 낸다. */
-export function titleFromHeading(heading: string | null | undefined, pathname: string): string | null {
+export function titleFromHeading(
+  heading: string | null | undefined,
+  pathname: string,
+): string | null {
   if (pathname === '/') return null;
   const text = (heading ?? '').replace(/\s+/g, ' ').trim();
   if (!text || text.startsWith(BRAND)) return null;
