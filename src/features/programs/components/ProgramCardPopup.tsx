@@ -6,25 +6,11 @@ import { paths } from '@/app/routes/paths';
 import { useModalFocus } from '@/shared/hooks/use-modal-focus';
 import { programsForRegion, type ExperienceProgram } from '../data/programs';
 
-const SHOWN_KEY = 'vhk.programPopup.shown';
-
-/** 하루 한 번만 저절로 띄운다. 저장소를 못 쓰면 매번 뜬다(막히는 것보다 낫다). */
-function claimToday(slug: string): boolean {
-  const today = new Date().toISOString().slice(0, 10);
-  try {
-    const key = `${SHOWN_KEY}.${slug}`;
-    if (localStorage.getItem(key) === today) return false;
-    localStorage.setItem(key, today);
-  } catch {
-    // 그대로 보여 준다
-  }
-  return true;
-}
-
 /**
  * 성지 상세 화면용 — 그 교구에서 열리는 체험여행 프로그램이 있으면
- * ① 화면 안에 작은 배너를 두고 ② 하루 한 번 카드 팝업을 저절로 띄운다.
+ * ① 화면 안에 작은 배너를 두고 ② 들어올 때마다 카드 팝업을 저절로 띄운다.
  * 대전 성지 화면에서만 보인다(2026-11-03 사장님 선택).
+ * 처음엔 하루 한 번이었으나 사장님 지시(11/3 「접속할 때마다 자동으로」)로 매번 뜨게 바꿨다.
  */
 export function ProgramPromo({ region }: { region: string | undefined }) {
   const program = programsForRegion(region)[0];
@@ -33,9 +19,7 @@ export function ProgramPromo({ region }: { region: string | undefined }) {
   useEffect(() => {
     if (!program) return;
     // 화면이 다 그려진 뒤에 띄운다 — 들어오자마자 가리면 어디인지 모른다
-    const timer = window.setTimeout(() => {
-      if (claimToday(program.slug)) setOpen(true);
-    }, 1200);
+    const timer = window.setTimeout(() => setOpen(true), 1200);
     return () => window.clearTimeout(timer);
   }, [program]);
 
