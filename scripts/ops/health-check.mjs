@@ -228,4 +228,23 @@ const md = [
 
 const out = process.argv[2];
 if (out) writeFileSync(out, md);
+
+// 사장님 디스코드로 매일 아침 한 통 (11/3 지시: 정상이어도 매일). 주소가 없으면 건너뛴다.
+const hook = process.env.DISCORD_WEBHOOK_URL;
+if (hook) {
+  const lines =
+    failed.length === 0
+      ? [`🩺 **운영 점검 ${now}** — ✅ ${rows.length}개 모두 정상`]
+      : [
+          `🩺 **운영 점검 ${now}** — 🔴 고장 ${failed.length}개`,
+          ...failed.map((r) => `• ${r.name}: ${r.detail} (안 보이는 것: ${r.impact})`),
+        ];
+  const issue = process.env.HEALTH_ISSUE_URL;
+  if (issue) lines.push(issue);
+  await fetch(hook, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ content: lines.join('\n').slice(0, 1900) }),
+  }).catch((e) => console.warn('디스코드 알림 실패:', e.message));
+}
 process.exit(failed.length === 0 ? 0 : 1);

@@ -26,6 +26,9 @@ jobs:
       - name: 점검
         id: run
         continue-on-error: true
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          HEALTH_ISSUE_URL: https://github.com/${{ github.repository }}/issues/93
         run: node scripts/ops/health-check.mjs report.md
       - name: 이슈에 결과 쓰기
         env:
