@@ -250,6 +250,8 @@ export default function MenuPage() {
   return (
     <PageContainer className="flex min-h-page flex-col pb-16 pt-6">
       <InstallShareSheet open={installSheetOpen} onClose={() => setInstallSheetOpen(false)} />
+      {/* 화면 제목 — 보이는 제목은 없지만 화면 읽기 프로그램·탭 제목이 이 화면 이름을 알게 한다(11/3) */}
+      <h1 className="sr-only">{t('moreTab')}</h1>
 
       {/* 내 정보 — 화면 맨 위로(사장님 지적, 2026-09-18). 로그인 안 했으면 로그인·회원가입 입구.
           「계정 설정」 절이 여기 톱니바퀴 단추 하나로 합쳐졌다 — 아래 sections 에서 그 절은 뺐다. */}

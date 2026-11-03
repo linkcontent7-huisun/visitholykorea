@@ -1,6 +1,7 @@
 import { lazy, Suspense, type ReactNode } from 'react';
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import { ScrollShell } from '@/app/layouts/ScrollShell';
+import { DocumentTitleSync } from './DocumentTitleSync';
 import { AppLayout } from '@/app/layouts/AppLayout';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
@@ -78,6 +79,7 @@ function RouteErrorPage() {
 function RootRoute() {
   return (
     <ScrollShell>
+      <DocumentTitleSync />
       <Outlet />
     </ScrollShell>
   );
