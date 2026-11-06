@@ -36,9 +36,11 @@ function 콜백주소(req: Request): string {
 }
 
 /** 로그인 실패 시 사용자를 앱으로 돌려보내며 이유를 쿼리로 남긴다. */
-function 실패(reason: string): Response {
+function 실패(reason: string, via?: string): Response {
   const to = new URL(APP_URL);
   to.searchParams.set('auth_error', reason);
+  // 이미 다른 방법으로 가입한 이메일이면 그 방법을 알려 줘야 이용자가 「불안정」이 아니라 「다른 단추」임을 안다
+  if (via) to.searchParams.set('auth_via', via);
   return Response.redirect(to.toString(), 302);
 }
 
@@ -129,7 +131,7 @@ Deno.serve(async (req) => {
         const { data: existing } = await admin.auth.admin.getUserById(prof.id);
         const madeBy =
           existing?.user?.user_metadata?.provider ?? existing?.user?.app_metadata?.provider;
-        if (madeBy && madeBy !== 'naver') return 실패('account_exists_other_provider');
+        if (madeBy && madeBy !== 'naver') return 실패('account_exists_other_provider', madeBy);
       }
     }
 

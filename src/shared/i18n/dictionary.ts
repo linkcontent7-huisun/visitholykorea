@@ -2650,6 +2650,34 @@ export const DICTIONARY = {
     pt: 'O login social falhou. Tente novamente em instantes.',
     it: 'Accesso social non riuscito. Riprova tra poco.',
   },
+  // 같은 이메일이 이미 다른 방법으로 가입돼 있어 막힌 경우(보안 M-02) — 다시 시도해도 계속 실패하므로
+  // 「잠시 후 다시」가 아니라 처음 가입한 방법을 알려 준다. {via} 는 카카오·네이버·구글·이메일.
+  socialLoginOtherProvider: {
+    ko: '이 이메일은 이미 {via}(으)로 가입되어 있어요. {via} 로그인을 이용해 주세요.',
+    en: 'This email is already registered with {via}. Please sign in with {via}.',
+    es: 'Este correo ya está registrado con {via}. Inicia sesión con {via}.',
+    fr: 'Cet e-mail est déjà inscrit via {via}. Connectez-vous avec {via}.',
+    pt: 'Este e-mail já está registrado com {via}. Entre com {via}.',
+    it: 'Questa email è già registrata con {via}. Accedi con {via}.',
+  },
+  // 네이버·카카오 동의 화면에서 이메일 제공을 빼면 계정을 만들 수 없다
+  socialLoginNoEmail: {
+    ko: '로그인하려면 이메일 제공에 동의해 주세요. 다시 로그인하면 동의 화면이 나와요.',
+    en: 'Please allow access to your email to sign in, then try again.',
+    es: 'Permite el acceso a tu correo para iniciar sesión e inténtalo de nuevo.',
+    fr: 'Autorisez l’accès à votre e-mail pour vous connecter, puis réessayez.',
+    pt: 'Permita o acesso ao seu e-mail para entrar e tente novamente.',
+    it: 'Consenti l’accesso alla tua email per accedere, poi riprova.',
+  },
+  // 로그인 도중 시간이 지났거나 다른 브라우저로 돌아온 경우(state 쿠키 불일치)
+  socialLoginRetry: {
+    ko: '로그인 확인 시간이 지났어요. 같은 브라우저에서 한 번 더 눌러 주세요.',
+    en: 'The sign-in check expired. Please try again in the same browser.',
+    es: 'La verificación caducó. Inténtalo de nuevo en el mismo navegador.',
+    fr: 'La vérification a expiré. Réessayez dans le même navigateur.',
+    pt: 'A verificação expirou. Tente novamente no mesmo navegador.',
+    it: 'La verifica è scaduta. Riprova nello stesso browser.',
+  },
 
   // 메뉴 요약 카드
   countShrines: {
