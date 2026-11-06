@@ -4,6 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { AiGuideSheet } from '@/features/ai-guide/components/AiGuideSheet';
 import { useSession } from '@/features/auth/hooks/use-session';
+import { authErrorMessage } from '@/features/auth/lib/auth-error-message';
 import { BaptismCardSheet } from '@/features/baptism-card/components/BaptismCardSheet';
 import { DailyQuizPopup } from '@/features/quiz/components/DailyQuizPopup';
 import { claimTodaysPopup, quizIndexOfDay } from '@/features/quiz/lib/daily-quiz';
@@ -141,6 +142,7 @@ export default function HomePage() {
   const dismissAuthError = () => {
     const next = new URLSearchParams(searchParams);
     next.delete('auth_error');
+    next.delete('auth_via');
     setSearchParams(next, { replace: true });
   };
 
@@ -205,7 +207,8 @@ export default function HomePage() {
             className="mt-4 flex flex-wrap items-start justify-between gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-base text-red-800"
           >
             <p className="leading-relaxed">
-              {t('socialLoginFailed')} {t('signupContact')}:{' '}
+              {authErrorMessage(authError, searchParams.get('auth_via'), language, t)}{' '}
+              {t('signupContact')}:{' '}
               <a href="mailto:visitholykorea@gmail.com" className="font-bold underline">
                 visitholykorea@gmail.com
               </a>
