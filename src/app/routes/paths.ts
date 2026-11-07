@@ -51,6 +51,9 @@ export const paths = {
   /** 체험여행 프로그램 운영 안내 — 전·당일·후 흐름 (2026-11-08) */
   programGuide: (slug: string) => `/programs/${slug}`,
   programGuidePattern: '/programs/:programSlug',
+  /** 참가자 「나의 체험 링크」 — 접수 id 로 들어온다 (2026-11-08) */
+  myProgram: (applicationId: string) => `/my/${applicationId}`,
+  myProgramPattern: '/my/:applicationId',
   /** 체험여행 프로그램 접수 (2026-11-03 본선 시연) */
   programApply: (slug: string) => `/programs/${slug}/apply`,
   programApplyPattern: '/programs/:programSlug/apply',

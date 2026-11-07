@@ -80,6 +80,41 @@ export async function deleteApplication(id: string): Promise<void> {
   if (error) throw new Error(error.message);
 }
 
+/** 「나의 체험 링크」에 보이는 접수 한 건 — 연락처 없음, 이름은 가림 */
+export interface MyApplication {
+  id: string;
+  programSlug: string;
+  course: string;
+  visitDate: string;
+  nameMasked: string;
+  adults: number;
+  children: number;
+  seniors: number;
+  noticeConsent: boolean;
+  createdAt: string;
+}
+
+/** 접수 id 를 아는 사람(링크를 가진 참가자)만 — DB 함수가 필요한 칸만 돌려준다 */
+export async function fetchMyApplication(id: string): Promise<MyApplication | null> {
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return null;
+  const { data, error } = await supabase.rpc('get_my_program_application', { p_id: id });
+  if (error) throw new Error(error.message);
+  const r = (data as Record<string, unknown>[] | null)?.[0];
+  if (!r) return null;
+  return {
+    id: r.id as string,
+    programSlug: r.program_slug as string,
+    course: r.course as string,
+    visitDate: r.visit_date as string,
+    nameMasked: r.name_masked as string,
+    adults: r.adults as number,
+    children: r.children as number,
+    seniors: r.seniors as number,
+    noticeConsent: r.notice_consent === true,
+    createdAt: r.created_at as string,
+  };
+}
+
 /** 접수번호 — 사람이 부르기 쉽게 앞 8자리만 */
 export function receiptCode(id: string): string {
   return id.slice(0, 8).toUpperCase();

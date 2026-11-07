@@ -65,7 +65,7 @@ export default function ProgramApplyPage() {
         requestNote: note,
         noticeConsent,
       });
-      setReceipt(receiptCode(id));
+      setReceipt(id);
     } catch {
       setError('접수를 저장하지 못했어요. 잠시 뒤 다시 눌러 주세요.');
     } finally {
@@ -84,7 +84,9 @@ export default function ProgramApplyPage() {
             「{program.title}」 접수되었습니다
           </p>
           <p className="mt-4 text-sm text-slate-500">접수번호</p>
-          <p className="text-2xl font-black tracking-widest text-[#c2410c]">{receipt}</p>
+          <p className="text-2xl font-black tracking-widest text-[#c2410c]">
+            {receiptCode(receipt)}
+          </p>
           <dl className="mt-5 space-y-1 text-left text-sm text-slate-700">
             <Row label="코스" value={`${course} ${chosen?.name ?? ''}`} />
             <Row label="희망 날짜" value={visitDate} />
@@ -97,6 +99,7 @@ export default function ProgramApplyPage() {
             {program.notice} 확정되면 남겨 주신 연락처로 안내드립니다.
           </p>
         </div>
+        <MyLinkBox applicationId={receipt} />
         <Link to={paths.home} className="mt-4 block text-center text-sm font-bold text-[#1f4e8c]">
           홈으로
         </Link>
@@ -299,6 +302,48 @@ function Counter({
           <Plus size={18} />
         </button>
       </span>
+    </div>
+  );
+}
+
+/** 접수 직후 — 「나의 체험 링크」를 바로 열거나 복사해 둔다(문자 발송은 이후 단계) */
+function MyLinkBox({ applicationId }: { applicationId: string }) {
+  const [copied, setCopied] = useState(false);
+  const path = paths.myProgram(applicationId);
+  const url = `${window.location.origin}${path}`;
+
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  }
+
+  return (
+    <div className="mt-4 rounded-2xl bg-[#fbe7a1] p-5">
+      <p className="text-base font-black text-slate-900">나의 체험 링크</p>
+      <p className="mt-1 text-sm leading-relaxed text-slate-700">
+        당일 이 링크 하나로 순서 안내, 줄에서 듣는 이야기, 퀴즈와 포인트를 받습니다. 꼭 저장해
+        두세요.
+      </p>
+      <p className="mt-3 break-all rounded-lg bg-white px-3 py-2 text-xs text-slate-600">{url}</p>
+      <div className="mt-3 flex gap-2">
+        <button
+          type="button"
+          onClick={copy}
+          className="flex-1 rounded-xl border-2 border-[#1f4e8c] bg-white py-3 text-sm font-black text-[#1f4e8c]"
+        >
+          {copied ? '복사했어요' : '링크 복사'}
+        </button>
+        <Link
+          to={path}
+          className="flex-1 rounded-xl bg-[#1f4e8c] py-3 text-center text-sm font-black text-white"
+        >
+          나의 체험 열기
+        </Link>
+      </div>
     </div>
   );
 }

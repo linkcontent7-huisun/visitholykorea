@@ -27,6 +27,7 @@ const TermsPage = lazy(() => import('@/pages/TermsPage'));
 const FaqPage = lazy(() => import('@/pages/FaqPage'));
 const ProgramApplyPage = lazy(() => import('@/pages/ProgramApplyPage'));
 const ProgramGuidePage = lazy(() => import('@/pages/ProgramGuidePage'));
+const MyProgramPage = lazy(() => import('@/pages/MyProgramPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 // 관리자 콘솔 — 순례자 화면과 함께 내려받지 않도록 여기서도 lazy 로 둔다.
 const AdminPage = lazy(() => import('@/pages/AdminPage'));
@@ -135,6 +136,7 @@ export const router = createBrowserRouter([
           // 전체 화면이었는데, 상세에서 다른 탭으로 못 가고 헤더가 사라져 길을 잃었다.
           { path: paths.siteDetailPattern, element: withSuspense(<SiteDetailPage />) },
           { path: paths.programGuidePattern, element: withSuspense(<ProgramGuidePage />) },
+          { path: paths.myProgramPattern, element: withSuspense(<MyProgramPage />) },
           { path: paths.programApplyPattern, element: withSuspense(<ProgramApplyPage />) },
         ],
       },
