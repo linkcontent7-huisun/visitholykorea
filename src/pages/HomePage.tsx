@@ -252,36 +252,53 @@ export default function HomePage() {
             filled
           />
         </div>
-        {/* 세례명 카드 팝업 (2026-10-28, 사장님 지시: 심사 결과와 상관없이 바로 올림) — 입구 3개 아래 한 줄 */}
-        <div className="mt-2.5">
-          <EntryCard
+        {/* 세례명 카드(10/28) · 퀴즈 다시 열기(팝업은 하루 한 번이라 언제든 들어올 입구) —
+            11/7 사장님 지시로 한 줄 두 칸에. 둘을 색으로 가른다: 세례명 보라, 퀴즈 짙은 녹색.
+            PC 는 좌우 반반(격자라 두 칸 높이가 자동으로 같아짐), 휴대폰은 위 줄처럼 위아래로. */}
+        <div className="mt-2.5 grid gap-2.5 lg:grid-cols-2">
+          <button
+            type="button"
             onClick={() => setBaptismOpen(true)}
             id="entry-baptism-card"
-            icon={<Droplets size={24} aria-hidden />}
-            title={t('baptismCardEntryTitle')}
-            sub={t('baptismCardEntrySub')}
-          />
-        </div>
-        {/* 퀴즈 다시 열기 — 팝업은 하루 한 번이라, 더 풀고 싶은 사람이 언제든 들어올 입구 */}
-        {/* 다른 입구와 같은 줄 모양이면 눈에 안 띈다(11/1 사장님 지적) — 세례명 카드 틀의 배너로 */}
-        <button
-          type="button"
-          onClick={() => setQuizOpen(true)}
-          id="entry-quiz"
-          className="mt-2.5 block w-full rounded-xl bg-[#1f2f55] p-2 text-left shadow-md transition-transform active:scale-[0.99]"
-        >
-          <span className="flex items-center gap-4 rounded-lg bg-[#f4f3ef] px-4 py-4">
-            <img src="/brand/dove.png" alt="" aria-hidden className="h-12 w-auto shrink-0" />
+            className="flex w-full items-center gap-4 rounded-xl bg-[#5b3a8e] px-4 py-4 text-left text-white shadow-md transition-transform active:scale-[0.99]"
+          >
+            <span
+              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-white/15"
+              aria-hidden
+            >
+              <Droplets size={28} aria-hidden />
+            </span>
             <span className="min-w-0 flex-1">
-              <span className="block text-sm font-bold text-[#c0703a]">{t('quizCoverKicker')}</span>
-              <span className="mt-0.5 block font-display text-xl leading-tight text-[#1f2f55]">
+              <span className="block font-display text-xl leading-tight">
+                {t('baptismCardEntryTitle')}
+              </span>
+              <span className="mt-1 block text-sm text-white/90">{t('baptismCardEntrySub')}</span>
+            </span>
+            <ChevronRight size={22} aria-hidden className="shrink-0" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setQuizOpen(true)}
+            id="entry-quiz"
+            className="flex w-full items-center gap-4 rounded-xl bg-[#1e4d3b] px-4 py-4 text-left text-white shadow-md transition-transform active:scale-[0.99]"
+          >
+            {/* 비둘기 그림은 남색 선이라 녹색 위에선 안 보인다 — 밝은 바탕 칸에 넣는다 */}
+            <span
+              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-[#f4f3ef]"
+              aria-hidden
+            >
+              <img src="/brand/dove.png" alt="" aria-hidden className="h-10 w-auto" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-sm font-bold text-[#f2c48d]">{t('quizCoverKicker')}</span>
+              <span className="mt-0.5 block font-display text-xl leading-tight">
                 {t('quizPopupTitle')}
               </span>
-              <span className="mt-1 block text-sm text-app-text-muted">{t('quizEntrySub')}</span>
+              <span className="mt-1 block text-sm text-white/90">{t('quizEntrySub')}</span>
             </span>
-            <ChevronRight size={22} aria-hidden className="shrink-0 text-[#1f2f55]" />
-          </span>
-        </button>
+            <ChevronRight size={22} aria-hidden className="shrink-0" />
+          </button>
+        </div>
       </PageContainer>
 
       {/* 3. 처음 방문하기 좋은 성지 — 모바일은 가로 슬라이드(2026-09-19, 2×2 격자에서 바꿈).
