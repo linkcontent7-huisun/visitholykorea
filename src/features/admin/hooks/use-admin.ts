@@ -34,7 +34,8 @@ export function useAdminAccess(): AdminAccess {
   const { session, isLoading: sessionLoading } = useSession();
 
   const query = useQuery({
-    queryKey: queryKeys.admin.role,
+    // 계정을 바꿔 로그인하면 앞 계정의 등급(5분 캐시)이 남지 않도록 계정 id 를 키에 넣는다
+    queryKey: [...queryKeys.admin.role, session?.user.id ?? 'guest'],
     queryFn: fetchMyRole,
     enabled: Boolean(session),
     staleTime: 5 * 60 * 1000,
