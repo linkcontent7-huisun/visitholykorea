@@ -13,6 +13,8 @@ export interface NewApplication {
   seniors: number;
   needsMobilityHelp: boolean;
   requestNote: string;
+  /** 선택 동의 — 다음 관련 행사 안내 받기(1년 보관) */
+  noticeConsent: boolean;
 }
 
 export interface ProgramApplication extends NewApplication {
@@ -41,6 +43,8 @@ export async function submitApplication(input: NewApplication): Promise<string> 
     needs_mobility_help: input.needsMobilityHelp,
     request_note: input.requestNote.trim() || null,
     privacy_consent: true,
+    // 동의했을 때만 칸을 보낸다 — 칸이 아직 없는 DB 에서도 기본 접수는 되도록
+    ...(input.noticeConsent ? { notice_consent: true } : {}),
   });
   if (error) throw new Error(error.message);
   return id;
@@ -67,6 +71,7 @@ export async function fetchApplications(): Promise<ProgramApplication[]> {
     seniors: r.seniors as number,
     needsMobilityHelp: r.needs_mobility_help as boolean,
     requestNote: (r.request_note as string | null) ?? '',
+    noticeConsent: r.notice_consent === true,
   }));
 }
 
@@ -117,4 +122,57 @@ export function summarize(rows: ProgramApplication[]): ApplicationSummary {
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([date, people]) => ({ date, people }));
   return s;
+}
+
+const CSV_HEAD = [
+  '접수번호',
+  '접수일시',
+  '방문일',
+  '코스',
+  '대표자',
+  '연락처',
+  '성인',
+  '아동',
+  '어르신',
+  '총 인원',
+  '이동 도움',
+  '요청 사항',
+  '다음 행사 안내 동의',
+];
+
+function hyphenPhone(p: string): string {
+  const m = /^(\d{3})(\d{3,4})(\d{4})$/.exec(p);
+  return m ? `${m[1]}-${m[2]}-${m[3]}` : p;
+}
+
+function csvCell(v: string | number): string {
+  const s = String(v);
+  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+/**
+ * 엑셀에서 바로 열리는 CSV(한글 깨짐 방지 BOM 포함). 기관이 내려받아 기록·다음 행사 안내에 쓴다.
+ * 연락처는 하이픈을 넣어 내보낸다 — 숫자만 있으면 엑셀이 앞의 0 을 지운다.
+ */
+export function applicationsToCsv(rows: ProgramApplication[]): string {
+  const lines = rows.map((r) =>
+    [
+      receiptCode(r.id),
+      new Date(r.createdAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+      r.visitDate,
+      r.course,
+      r.contactName,
+      hyphenPhone(r.contactPhone),
+      r.adults,
+      r.children,
+      r.seniors,
+      r.adults + r.children + r.seniors,
+      r.needsMobilityHelp ? '필요' : '',
+      r.requestNote,
+      r.noticeConsent ? '동의' : '',
+    ]
+      .map(csvCell)
+      .join(','),
+  );
+  return '﻿' + [CSV_HEAD.join(','), ...lines].join('\r\n');
 }

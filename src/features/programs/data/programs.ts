@@ -25,6 +25,8 @@ export interface ExperienceProgram {
   /** 이 프로그램 카드를 띄울 교구(holy_sites.region) */
   region: string;
   series: string;
+  /** 주최 기관 — 접수 동의 문구에 「명단을 받는 곳」으로 나온다 */
+  organizer: string;
   title: string;
   hook: string;
   lines: string[];
@@ -38,6 +40,7 @@ export const PROGRAMS: ExperienceProgram[] = [
     slug: 'bread-from-heaven',
     region: '대전',
     series: '체험여행 1호 · 대전',
+    organizer: '한남대',
     title: '하늘에서 빵이 내린다면',
     hook: '빵 줄에서 시작해, 종소리로 이어지는 하루',
     lines: [

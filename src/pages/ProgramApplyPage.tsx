@@ -28,6 +28,7 @@ export default function ProgramApplyPage() {
   const [mobility, setMobility] = useState(false);
   const [note, setNote] = useState('');
   const [consent, setConsent] = useState(false);
+  const [noticeConsent, setNoticeConsent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
   const [receipt, setReceipt] = useState('');
@@ -62,6 +63,7 @@ export default function ProgramApplyPage() {
         seniors,
         needsMobilityHelp: mobility,
         requestNote: note,
+        noticeConsent,
       });
       setReceipt(receiptCode(id));
     } catch {
@@ -195,11 +197,12 @@ export default function ProgramApplyPage() {
         </Field>
 
         <div className="rounded-xl bg-slate-100 p-4 text-xs leading-relaxed text-slate-600">
-          <p className="font-bold text-slate-800">개인정보 수집·이용 동의</p>
+          <p className="font-bold text-slate-800">[필수] 개인정보 수집·이용 및 주최 기관 제공 동의</p>
           <p className="mt-1">
-            수집 항목: 대표자 이름, 연락처 · 목적: 프로그램 일정 안내와 확정 연락 · 보관: 프로그램이
-            끝난 뒤 1개월 안에 지웁니다. 아동의 이름·생년월일은 받지 않습니다. 동의하지 않으면
-            접수할 수 없습니다.
+            수집 항목: 대표자 이름, 연락처, 참가 인원 · 목적: 접수 확인, 일정 안내와 확정 연락 ·
+            제공: 접수 명단은 주최 기관({program.organizer})이 집계·기록하는 데 쓰입니다 · 보관:
+            프로그램이 끝난 뒤 1개월 안에 지웁니다. 아동의 이름·생년월일은 받지 않습니다. 동의하지
+            않으면 접수할 수 없습니다.
           </p>
           <label className="mt-3 flex items-center gap-2 text-sm font-bold text-slate-800">
             <input
@@ -208,7 +211,25 @@ export default function ProgramApplyPage() {
               onChange={(e) => setConsent(e.target.checked)}
               className="h-5 w-5"
             />
-            동의합니다
+            동의합니다 (필수)
+          </label>
+        </div>
+
+        <div className="rounded-xl bg-slate-100 p-4 text-xs leading-relaxed text-slate-600">
+          <p className="font-bold text-slate-800">[선택] 다음 관련 행사 안내 받기</p>
+          <p className="mt-1">
+            주최 기관({program.organizer})이 비슷한 체험여행·행사를 열 때 문자로 알려 드립니다.
+            이를 위해 대표자 이름·연락처를 접수일로부터 1년 동안 보관합니다. 동의하지 않아도
+            접수할 수 있고, 언제든 그만 받겠다고 하시면 바로 지웁니다.
+          </p>
+          <label className="mt-3 flex items-center gap-2 text-sm font-bold text-slate-800">
+            <input
+              type="checkbox"
+              checked={noticeConsent}
+              onChange={(e) => setNoticeConsent(e.target.checked)}
+              className="h-5 w-5"
+            />
+            안내를 받겠습니다 (선택)
           </label>
         </div>
 
