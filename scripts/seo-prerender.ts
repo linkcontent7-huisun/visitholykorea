@@ -19,6 +19,7 @@ import {
   routeMeta,
   siteMeta,
   sitemapXml,
+  SITE_ORIGIN,
   type SeoRoute,
   type SeoSite,
 } from './lib/seo-pages.ts';
@@ -50,6 +51,15 @@ async function main() {
   const template = readFileSync(join(DIST, 'index.html'), 'utf-8');
   // robots.txt 는 DB 와 상관없이 늘 쓴다
   write('robots.txt', robotsTxt());
+
+  // 첫 화면에만 canonical(대표 주소)을 단다 — www·맨주소가 같은 화면을 내므로 검색엔진에 하나로 알린다 (2026-11-07).
+  // 다른 모든 주소의 대비책은 spa.html(vercel.json rewrites). index.html 을 대비책으로 두면
+  // /map·/quiz 같은 주소까지 "첫 화면의 복사본"으로 신고하게 된다.
+  write('spa.html', template);
+  write(
+    'index.html',
+    template.replace('</head>', `  <link rel="canonical" href="${SITE_ORIGIN}/" />\n  </head>`),
+  );
 
   if (!url || !key) {
     console.warn('[seo] Supabase 환경변수가 없어 성지별 HTML·sitemap 을 건너뜁니다.');
