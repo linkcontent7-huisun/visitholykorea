@@ -49,7 +49,8 @@ describe('renderPage — 실제 index.html 로', () => {
 
   it('JSON 안의 </script> 가 태그를 닫지 못한다', () => {
     const evil = renderPage(template, siteMeta({ ...site, name: '</script><b>' }));
-    const ld = evil.split('application/ld+json">')[1]!.split('</script>')[0]!;
+    // index.html 에도 사이트 이름 블록(WebSite)이 있어 페이지 것은 맨 끝에 붙는다(2026-11-07)
+    const ld = evil.split('application/ld+json">').at(-1)!.split('</script>')[0]!;
     expect(ld).toContain('\\u003c/script>');
   });
 });
