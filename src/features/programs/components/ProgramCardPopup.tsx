@@ -166,9 +166,17 @@ export function ProgramCardPopup({
               </p>
 
               <Link
+                to={paths.programGuide(program.slug)}
+                onClick={onClose}
+                className="mt-4 flex w-full items-center justify-center gap-1 rounded-xl border-2 border-[#1f4e8c] py-3 text-sm font-black text-[#1f4e8c]"
+              >
+                어떻게 진행되나요?
+                <ChevronRight size={16} aria-hidden />
+              </Link>
+              <Link
                 to={`${paths.programApply(program.slug)}?course=${course.code}`}
                 onClick={onClose}
-                className="mt-4 flex w-full items-center justify-center gap-1 rounded-xl bg-[#c2410c] py-3.5 text-base font-black text-white"
+                className="mt-2 flex w-full items-center justify-center gap-1 rounded-xl bg-[#c2410c] py-3.5 text-base font-black text-white"
               >
                 이 프로그램 접수하기
                 <ChevronRight size={18} aria-hidden />
