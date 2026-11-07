@@ -28,8 +28,8 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
 
   const options = useMemo(
     () =>
-      BAPTISM_NAMES.map((n) => ({ slug: n.slug, label: n.names[language] })).sort((a, b) =>
-        a.label.localeCompare(b.label, language),
+      BAPTISM_NAMES.map((n) => ({ slug: n.slug, kind: n.kind, label: n.names[language] })).sort(
+        (a, b) => a.label.localeCompare(b.label, language),
       ),
     [language],
   );
@@ -141,26 +141,33 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
                 </section>
               )}
 
-              <section>
-                <h4 className="mb-2 text-base font-bold text-app-text">{t('baptismCardPick')}</h4>
-                <div className="flex flex-wrap gap-2">
-                  {options.map((o) => (
-                    <button
-                      key={o.slug}
-                      type="button"
-                      onClick={() => pick(o.slug)}
-                      aria-pressed={o.slug === slug}
-                      className={`min-h-11 rounded-lg border-[1.5px] px-3 text-base font-bold ${
-                        o.slug === slug
-                          ? 'border-brand-blue bg-brand-blue text-white'
-                          : 'border-brand-blue bg-white text-brand-blue'
-                      }`}
-                    >
-                      {o.label}
-                    </button>
-                  ))}
-                </div>
-              </section>
+              {/* 세례명 43개 다음에 「김대건 안드레아」처럼 한국 성인 한 분의 카드 (2026-11-08, CPBC 「모두의 세례명」 참고) */}
+              {(['name', 'saint'] as const).map((kind) => (
+                <section key={kind}>
+                  <h4 className="mb-2 text-base font-bold text-app-text">
+                    {t(kind === 'name' ? 'baptismCardPick' : 'baptismCardPickSaint')}
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {options
+                      .filter((o) => o.kind === kind)
+                      .map((o) => (
+                        <button
+                          key={o.slug}
+                          type="button"
+                          onClick={() => pick(o.slug)}
+                          aria-pressed={o.slug === slug}
+                          className={`min-h-11 rounded-lg border-[1.5px] px-3 text-base font-bold ${
+                            o.slug === slug
+                              ? 'border-brand-blue bg-brand-blue text-white'
+                              : 'border-brand-blue bg-white text-brand-blue'
+                          }`}
+                        >
+                          {o.label}
+                        </button>
+                      ))}
+                  </div>
+                </section>
+              ))}
 
               <p className="text-xs leading-relaxed text-app-text-muted">{t('baptismCardNote')}</p>
             </div>
