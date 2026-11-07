@@ -4,7 +4,7 @@
 실행: python gen_cards_langs.py  → cards-es|fr|pt|it/*.png , cards-*/index.tsv
 """
 
-from gen_cards_en import HERE, NOT_SITE, SITE_EN, card_en, load_groups, name_tail
+from gen_cards_en import HERE, NOT_SITE, SITE_EN, card_en, load_groups, name_tail, short_tail
 
 # 한국어 세례명 → 영어 세례명(검증용) → (es, fr, pt, it)
 NAMES = {
@@ -59,7 +59,7 @@ LANGS = {
     "es": dict(
         L=dict(title="Lugares santos según tu nombre de bautismo", mine="Mi nombre de bautismo",
                box="Santuarios para visitar", footer="Guía de peregrinación católica en Corea · 6 idiomas"),
-        none="En investigación", gate_short="Fuera de Seosomun", gate_where="fuera de la puerta de Seosomun",
+        none="En investigación", note=lambda n: f"{n} santos con este nombre", header=lambda n: f"{n} santos coreanos con este nombre", gate_short="Fuera de Seosomun", gate_where="fuera de la puerta de Seosomun",
         prison="en prisión", more=lambda k: f"y {k} más",
         many=lambda n, y: f"{n} santos con este nombre · el primero, mártir en {y}",
         one=lambda f, y, w: f"{'Martirizada' if f else 'Martirizado'} en {y} {w}",
@@ -67,7 +67,7 @@ LANGS = {
     "fr": dict(
         L=dict(title="Les lieux saints selon votre nom de baptême", mine="Mon nom de baptême",
                box="Lieux saints à visiter", footer="Guide du pèlerinage catholique en Corée · 6 langues"),
-        none="En cours de recherche", gate_short="Hors de Seosomun", gate_where="hors de la porte de Seosomun",
+        none="En cours de recherche", note=lambda n: f"{n} saints portent ce nom", header=lambda n: f"{n} saints coréens portent ce nom", gate_short="Hors de Seosomun", gate_where="hors de la porte de Seosomun",
         prison="en prison", more=lambda k: f"et {k} autre{'s' if k > 1 else ''}",
         many=lambda n, y: f"{n} saints portent ce nom · le premier, martyr en {y}",
         one=lambda f, y, w: f"Martyr en {y} {w}",
@@ -75,7 +75,7 @@ LANGS = {
     "pt": dict(
         L=dict(title="Lugares santos pelo seu nome de batismo", mine="Meu nome de batismo",
                box="Lugares santos para visitar", footer="Guia de peregrinação católica na Coreia · 6 idiomas"),
-        none="Em pesquisa", gate_short="Fora de Seosomun", gate_where="fora da porta de Seosomun",
+        none="Em pesquisa", note=lambda n: f"{n} santos com este nome", header=lambda n: f"{n} santos coreanos com este nome", gate_short="Fora de Seosomun", gate_where="fora da porta de Seosomun",
         prison="na prisão", more=lambda k: f"e mais {k}",
         many=lambda n, y: f"{n} santos com este nome · o primeiro, mártir em {y}",
         one=lambda f, y, w: f"{'Martirizada' if f else 'Martirizado'} em {y} {w}",
@@ -83,7 +83,7 @@ LANGS = {
     "it": dict(
         L=dict(title="I luoghi santi dal tuo nome di battesimo", mine="Il mio nome di battesimo",
                box="Luoghi santi da visitare", footer="Guida al pellegrinaggio cattolico in Corea · 6 lingue"),
-        none="In fase di ricerca", gate_short="Fuori da Seosomun", gate_where="fuori dalla porta di Seosomun",
+        none="In fase di ricerca", note=lambda n: f"{n} santi con questo nome", header=lambda n: f"{n} santi coreani con questo nome", gate_short="Fuori da Seosomun", gate_where="fuori dalla porta di Seosomun",
         prison="in prigione", more=lambda k: f"e altri {k}",
         many=lambda n, y: f"{n} santi con questo nome · il primo, martire nel {y}",
         one=lambda f, y, w: f"{'Martirizzata' if f else 'Martirizzato'} nel {y} {w}",
@@ -118,23 +118,36 @@ def main():
             assert loc not in seen, (lang, loc, bapt_ko, seen.get(loc))
             seen[loc] = bapt_ko
             first, n = items[0], len(items)
-            female = first["kind"] == "성녀"
-            name = f"{saint_title(lang, female, loc)} {name_tail(first['main'], en)}".strip()
-            saint = name + (" " + cfg["more"](n - 1) if n > 1 else "")
+
+            def title(i):
+                return f"{saint_title(lang, i['kind'] == '성녀', loc)} {name_tail(i['main'], en)}".strip()
+
+            def label(site):
+                return cfg["gate_short"] if site == "서소문 밖" else SITE_EN[site][0] if site in SITE_EN else ""
+
+            def died(i):
+                s, year = i["site"], i["date"][:4]
+                where = cfg["prison"] if s in NOT_SITE else cfg["gate_where"] if s == "서소문 밖" else f"{PREP[lang]} {SITE_EN[s][0]}"
+                return cfg["one"](i["kind"] == "성녀", year, where)
+
             sites = []
             for i in items:
-                label = cfg["gate_short"] if i["site"] == "서소문 밖" else SITE_EN[i["site"]][0] if i["site"] in SITE_EN else ""
-                if i["site"] not in NOT_SITE and label not in sites:
-                    sites.append(label)
-            year = first["date"][:4]
-            if n == 1:
-                s = first["site"]
-                where = cfg["prison"] if s in NOT_SITE else cfg["gate_where"] if s == "서소문 밖" else f"{PREP[lang]} {SITE_EN[s][0]}"
-                detail = cfg["one"](female, year, where)
-            else:
-                detail = cfg["many"](n, year)
-            card_en(loc, saint, detail, sites[:3] if sites else [cfg["none"]], out_dir / f"{loc}.png", cfg["L"])
-            index.append((bapt_ko, loc, n, name, " · ".join(sites) or cfg["none"]))
+                if i["site"] not in NOT_SITE and label(i["site"]) not in sites:
+                    sites.append(label(i["site"]))
+            short = [short_tail(i["main"], en).replace(en, loc, 1) for i in items]
+            card_en(loc, [title(i) for i in items], short, died(first), cfg["note"](n), cfg["header"](n),
+                    sites[:3] if sites else [cfg["none"]], out_dir / f"{loc}.png", cfg["L"])
+            index.append((bapt_ko, loc, n, title(first), " · ".join(sites) or cfg["none"]))
+            # 한국 성인 개인 카드 (예: Andrés Kim Dae-geon)
+            for i in items:
+                if not i["personal"]:
+                    continue
+                big = f"{loc} {name_tail(i['main'], en)}"
+                assert big not in seen, (lang, big)
+                seen[big] = i["main"]
+                site = [label(i["site"])] if i["site"] not in NOT_SITE else [cfg["none"]]
+                card_en(big, [title(i)], [], died(i), "", "", site, out_dir / f"{big}.png", cfg["L"])
+                index.append((i["main"], big, 1, title(i), site[0]))
         with open(out_dir / "index.tsv", "w", encoding="utf-8") as f:
             f.write("세례명\t" + lang + "\t성인수\t대표 성인\t성지\n")
             for r in index:

@@ -1,9 +1,9 @@
-"""만든 카드(6개 언어 × 43장)를 앱이 쓰는 모양으로 내보낸다.
+"""만든 카드(6개 언어 × 119장 = 세례명 43 + 한국 성인 개인 카드 76, 2026-11-08)를 앱이 쓰는 모양으로 내보낸다.
 
 - public/baptism-cards/{언어}/{영어 세례명}.webp  — PWA 사전 저장 대상(png·svg…)에서 빠지도록 webp 로 둔다
   (vite.config.ts 의 globPatterns 에 webp 가 없다 — 258장이 첫 방문 때 통째로 내려받아지지 않게).
-- src/features/baptism-card/data/baptism-names.ts — 세례명 43개의 언어별 표기 (화면 목록용, 이 스크립트가 만든다).
-파일 이름은 영어 세례명으로 통일한다 — 한글·악센트 파일명은 주소에서 깨지기 쉽다.
+- src/features/baptism-card/data/baptism-names.ts — 카드 119개의 언어별 표기와 종류(세례명/한국 성인) (화면 목록용, 이 스크립트가 만든다).
+파일 이름은 영어 표기로 통일한다(개인 카드는 띄어쓰기를 '-' 로: Andrew-Kim-Dae-geon) — 한글·악센트 파일명은 주소에서 깨지기 쉽다.
 실행: python export_to_app.py
 """
 
@@ -26,8 +26,8 @@ def read_index(lang: str) -> dict[str, str]:
 
 
 names = {lang: read_index(lang) for lang in LANGS}
-slug_of = names["en"]  # 한국어 → 영어 = 파일 이름
-assert len(slug_of) == 43 and all(set(names[l]) == set(slug_of) for l in LANGS)
+slug_of = {ko: en.replace(" ", "-") for ko, en in names["en"].items()}  # 한국어 → 영어 = 파일 이름
+assert len(slug_of) == 119 and len(set(slug_of.values())) == 119 and all(set(names[l]) == set(slug_of) for l in LANGS)
 
 out_root = ROOT / "public" / "baptism-cards"
 total = 0
@@ -44,7 +44,7 @@ ts = ROOT / "src" / "features" / "baptism-card" / "data" / "baptism-names.ts"
 ts.parent.mkdir(parents=True, exist_ok=True)
 lines = [
     "/**",
-    " * 세례명 카드 43종의 언어별 표기. design/세례명-공유카드/export_to_app.py 가 만든 파일이라 손으로 고치지 않는다.",
+    " * 세례명 카드 119종(세례명 43 + 한국 성인 76)의 언어별 표기. design/세례명-공유카드/export_to_app.py 가 만든 파일이라 손으로 고치지 않는다.",
     " * 영어 외 표기는 검수 전이다(가톨릭 용어는 신자·번역자 확인 필요).",
     " */",
     "import type { Language } from '@/shared/i18n/dictionary';",
@@ -52,6 +52,8 @@ lines = [
     "export interface BaptismName {",
     "  /** 카드 이미지 파일 이름(영어 세례명) */",
     "  slug: string;",
+    "  /** name: 세례명 카드, saint: 「김대건 안드레아」처럼 한국 성인 한 분의 카드 */",
+    "  kind: 'name' | 'saint';",
     "  names: Record<Language, string>;",
     "}",
     "",
@@ -59,7 +61,8 @@ lines = [
 ]
 for ko in sorted(slug_of):
     inner = ", ".join(f"{l}: '{names[l][ko]}'" for l in LANGS)
-    lines.append(f"  {{ slug: '{slug_of[ko]}', names: {{ {inner} }} }},")
+    kind = "saint" if " " in ko else "name"
+    lines.append(f"  {{ slug: '{slug_of[ko]}', kind: '{kind}', names: {{ {inner} }} }},")
 lines.append("];")
 ts.write_text("\n".join(lines) + "\n", encoding="utf-8")
 print("wrote", ts.relative_to(ROOT))

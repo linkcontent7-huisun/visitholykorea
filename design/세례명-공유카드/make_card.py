@@ -50,6 +50,77 @@ def fit(d: ImageDraw.ImageDraw, text: str, maker, start: int, max_w: int):
     return maker(size)
 
 
+# CPBC 「모두의 세례명」이 세례명으로 따로 올린 한국 성인 14분 — 같은 세례명 카드에서 이분들을 맨 앞에 둔다.
+# 나머지는 순교일 순. (2026-11-08 사장님 지시: 김대건 신부가 「외 1분」에 가려져 있었다)
+REPRESENTATIVE = {
+    "김대건 안드레아", "정하상 바오로", "유대철 베드로", "임치백 요셉", "전장운 요한", "황석두 루카", "김효주 아녜스",
+    "김효임 골룸바", "정정혜 엘리사벳", "이연희 마리아", "박희순 루치아", "권진이 아가타", "김임이 데레사", "홍금주 페르페투아",
+}
+
+
+def order_key(main: str, date: str, no: int):
+    return (main not in REPRESENTATIVE, date.replace("?", "9"), no)
+
+
+def personal(main: str, raw_name: str) -> bool:
+    """개인 카드를 만들 분 — 한국인(선교사는 괄호 표기)이고 이름이 전해진 분(「김 바르바라」처럼 성만 있으면 서로 구별이 안 된다)."""
+    return "(" not in raw_name and len(main.split()[0]) > 1
+
+
+def short_name(main: str) -> str:
+    """성인이 많은 카드에 쓰는 짧은 이름 — 세례명을 뺀 한국 이름. 성만 전해진 분은 세례명을 붙여 둔다(「조」만으로는 누군지 모른다)."""
+    head = main.rsplit(" ", 1)[0]
+    return main if len(head) == 1 else head
+
+
+def wrap(d, words: list[str], f, max_w: int, sep: str = "  ·  ") -> list[str]:
+    lines, cur = [], ""
+    for w in words:
+        t = w if not cur else cur + sep + w
+        if not cur or d.textlength(t, font=f) <= max_w:
+            cur = t
+        else:
+            lines.append(cur)
+            cur = w
+    return lines + [cur]
+
+
+def draw_big(d, text: str, serif_b) -> None:
+    """가운데 큰 글씨(세례명·성인 이름). 길어서 줄어들면 같은 자리 가운데에 오게 내린다."""
+    f = fit(d, text, serif_b, 190, W - 220)
+    centered(d, 425 + (190 - f.size) // 2, text, f, NAVY)
+
+
+def draw_saints(d, full: list[str], short: list[str], one: str, note: str, header: str, serif, sans) -> None:
+    """구분선 아래 성인 칸 — 1분이면 이름과 순교 한 줄, 2~3분이면 모두 이름으로, 4분 이상이면 「같은 세례명 한국 성인 N분」 아래 이름만."""
+    if len(full) == 1:
+        centered(d, 730, full[0], fit(d, full[0], serif, 56, W - 200), NAVY)
+        centered(d, 810, one, fit(d, one, sans, 36, W - 200), MUTED)
+        return
+    if len(full) <= 3:
+        for size in (52, 46, 40, 36, 32):
+            f = serif(size)
+            lines = wrap(d, full, f, W - 200)
+            if len(lines) * (size + 12) <= 130:
+                break
+        y = 712 + (130 - len(lines) * (size + 12)) // 2
+        for line in lines:
+            centered(d, y, line, f, NAVY)
+            y += size + 12
+        centered(d, 850, note, fit(d, note, sans, 30, W - 200), MUTED)
+        return
+    centered(d, 712, header, fit(d, header, sans, 32, W - 200), MUTED)
+    for size in (40, 36, 32, 30, 28):
+        f = serif(size)
+        lines = wrap(d, short, f, W - 220)
+        if len(lines) * (size + 10) <= 140:
+            break
+    y = 758
+    for line in lines:
+        centered(d, y, line, f, NAVY)
+        y += size + 10
+
+
 def dove(size: int) -> Image.Image:
     im = Image.open(ROOT / "public" / "brand" / "dove.png").convert("RGBA")
     # 흰 바탕을 투명으로 — 크림색 카드 위에서 네모가 보이지 않게
@@ -63,7 +134,7 @@ def dove(size: int) -> Image.Image:
     return im.resize((size, int(im.height * ratio)), Image.LANCZOS)
 
 
-def card(baptism: str, saint: str, detail: str, sites: list[str], out: Path) -> None:
+def card(baptism: str, full: list[str], short: list[str], one: str, note: str, header: str, sites: list[str], out: Path) -> None:
     img = Image.new("RGB", (W, H), NAVY)
     d = ImageDraw.Draw(img)
     # 크림색 안쪽 카드
@@ -75,16 +146,11 @@ def card(baptism: str, saint: str, detail: str, sites: list[str], out: Path) -> 
 
     centered(d, 300, "세례명으로 만나는 성지", SERIF(40), OLIVE)
     centered(d, 370, "나의 세례명", SANS(34), MUTED)
-    f = fit(d, baptism, SERIF_B, 190, W - 220)
-    centered(d, 425, baptism, f, NAVY)
+    draw_big(d, baptism, SERIF_B)
 
     # 가는 구분선
     d.line((W // 2 - 60, 690, W // 2 + 60, 690), fill=ACCENT, width=4)
-
-    f = fit(d, saint, SERIF, 56, W - 200)
-    centered(d, 730, saint, f, NAVY)
-    f = fit(d, detail, SANS, 36, W - 200)
-    centered(d, 810, detail, f, MUTED)
+    draw_saints(d, full, short, one, note, header, SERIF, SANS)
 
     # 성지 상자
     top = 910
@@ -102,17 +168,6 @@ def card(baptism: str, saint: str, detail: str, sites: list[str], out: Path) -> 
 
 
 if __name__ == "__main__":
-    card(
-        "안드레아",
-        "성 김대건 안드레아 신부",
-        "한국인 최초의 사제 · 1846년 새남터에서 순교",
-        ["솔뫼", "새남터", "미리내"],
-        HERE / "card-sample.png",
-    )
-    card(
-        "세례명",
-        "성인 이름",
-        "한 줄 소개 · 순교 연도와 장소",
-        ["성지 1", "성지 2", "성지 3"],
-        HERE / "card-blank.png",
-    )
+    card("안드레아", ["성 김대건 안드레아 신부"], [], "한국인 최초의 사제 · 1846년 새남터에서 순교", "", "",
+         ["솔뫼", "새남터", "미리내"], HERE / "card-sample.png")
+    card("세례명", ["성인 이름"], [], "한 줄 소개 · 순교 연도와 장소", "", "", ["성지 1", "성지 2", "성지 3"], HERE / "card-blank.png")

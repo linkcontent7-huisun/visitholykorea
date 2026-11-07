@@ -11,7 +11,8 @@
 import csv
 from collections import defaultdict
 
-from make_card import (ACCENT, BG, H, HERE, MUTED, NAVY, OLIVE, ROOT, SOFT, W, centered, dove, fit, font)
+from make_card import (ACCENT, BG, H, HERE, MUTED, NAVY, OLIVE, ROOT, SOFT, W, centered, dove, draw_big, draw_saints, fit,
+                       font, order_key, personal)
 from PIL import Image, ImageDraw
 
 # ── 로마자 (국어 로마자 표기법, 음절 단위) ─────────────────────────
@@ -80,7 +81,19 @@ def name_tail(main: str, bapt_en: str) -> str:
     return f"{surname(first[0])} " + "-".join(syll(c) for c in first[1:]).capitalize()
 
 
-def card_en(bapt: str, saint: str, detail: str, sites: list[str], out, L=EN_LABELS) -> None:
+def short_tail(main: str, bapt_en: str) -> str:
+    """성인이 많은 카드의 짧은 이름 — 성·이름만. 성만 전해진 분은 세례명을 붙인다 (make_card.short_name 과 같은 규칙)."""
+    tail = name_tail(main, bapt_en)
+    return f"{bapt_en} {tail}" if " " not in tail and len(main.split()[0]) == 1 and main not in MISSIONARY else tail
+
+
+def died(item: dict, year: str) -> str:
+    where = SITE_EN[item["site"]][1] if item["site"] not in NOT_SITE else "in prison"
+    return f"Martyred in {year} {where}"
+
+
+def card_en(bapt: str, full: list[str], short: list[str], one: str, note: str, header: str, sites: list[str], out,
+            L=EN_LABELS) -> None:
     img = Image.new("RGB", (W, H), NAVY)
     d = ImageDraw.Draw(img)
     d.rounded_rectangle((48, 48, W - 48, H - 48), radius=40, fill=BG)
@@ -90,14 +103,10 @@ def card_en(bapt: str, saint: str, detail: str, sites: list[str], out, L=EN_LABE
 
     centered(d, 300, L["title"], fit(d, L["title"], SERIF, 40, W - 200), OLIVE)
     centered(d, 370, L["mine"], fit(d, L["mine"], SANS, 34, W - 200), MUTED)
-    f = fit(d, bapt, SERIF_B, 190, W - 220)
-    centered(d, 425, bapt, f, NAVY)
+    draw_big(d, bapt, SERIF_B)
     d.line((W // 2 - 60, 690, W // 2 + 60, 690), fill=ACCENT, width=4)
 
-    f = fit(d, saint, SERIF, 56, W - 200)
-    centered(d, 730, saint, f, NAVY)
-    f = fit(d, detail, SANS, 36, W - 200)
-    centered(d, 810, detail, f, MUTED)
+    draw_saints(d, full, short, one, note, header, SERIF, SANS)
 
     top = 910
     d.rounded_rectangle((120, top, W - 120, top + 200), radius=26, fill=SOFT)
@@ -114,13 +123,15 @@ def card_en(bapt: str, saint: str, detail: str, sites: list[str], out, L=EN_LABE
 def load_groups():
     """세례명(한국어) → 성인 목록. 영어 표기가 둘로 갈리면 멈춘다."""
     rows = [r + [""] * (10 - len(r)) for r in csv.reader(open(ROOT / "data/research/saints103-merged.tsv", encoding="utf-8"), delimiter="\t")][1:]
+    # 개인 카드 여부는 한국어판과 같게 주교회의 이름으로 정한다 (굿뉴스는 「김아기 아가타」처럼 아명까지 적은 분이 있다)
+    cbck = {r[0]: r[1] for r in csv.reader(open(ROOT / "data/research/saints103-cbck.tsv", encoding="utf-8"), delimiter="	")}
     by_bapt = defaultdict(list)
     for no, _, kind, name, _, eng, _, _, date, site in rows:
         main = name.split("(")[0].strip()
         by_bapt[main.split()[-1]].append(dict(main=main, kind=kind, bapt_en=eng.split("(")[0].strip().split()[-1],
-                                             date=date, site=site, no=int(no)))
+                                             date=date, site=site, no=int(no), personal=personal(cbck[no].split("(")[0].strip(), cbck[no])))
     for items in by_bapt.values():
-        items.sort(key=lambda x: (x["date"].replace("?", "9"), x["no"]))
+        items.sort(key=lambda x: order_key(x["main"], x["date"], x["no"]))
     return by_bapt
 
 
@@ -137,19 +148,26 @@ def main():
         seen_en[bapt_en] = bapt_ko
         first, n = items[0], len(items)
         year = first["date"][:4]
-        name = f"St. {bapt_en} {name_tail(first['main'], bapt_en)}".strip()
-        saint = name + (f" and {n - 1} more" if n > 1 else "")
+        full = [f"St. {bapt_en} {name_tail(i['main'], bapt_en)}".strip() for i in items]
+        short = [short_tail(i["main"], bapt_en) for i in items]
         sites = []
         for i in items:
             if i["site"] not in NOT_SITE and SITE_EN[i["site"]][0] not in sites:
                 sites.append(SITE_EN[i["site"]][0])
-        if n == 1:
-            where = SITE_EN[first["site"]][1] if first["site"] not in NOT_SITE else "in prison"
-            detail = f"Martyred in {year} {where}"
-        else:
-            detail = f"{n} saints share this name · earliest martyred {year}"
-        card_en(bapt_en, saint, detail, sites[:3] if sites else ["Being researched"], out_dir / f"{bapt_en}.png")
-        index.append((bapt_ko, bapt_en, n, name, " · ".join(sites) or "Being researched"))
+        card_en(bapt_en, full, short, died(first, year), f"{n} saints share this name",
+                f"{n} Korean saints share this name", sites[:3] if sites else ["Being researched"],
+                out_dir / f"{bapt_en}.png")
+        index.append((bapt_ko, bapt_en, n, full[0], " · ".join(sites) or "Being researched"))
+        # 한국 성인 개인 카드 (예: Andrew Kim Dae-geon)
+        for i in items:
+            if not i["personal"]:
+                continue
+            title = f"{bapt_en} {name_tail(i['main'], bapt_en)}"
+            assert title not in seen_en, title
+            seen_en[title] = i["main"]
+            site = [SITE_EN[i["site"]][0]] if i["site"] not in NOT_SITE else ["Being researched"]
+            card_en(title, [f"St. {title}"], [], died(i, i["date"][:4]), "", "", site, out_dir / f"{title}.png")
+            index.append((i["main"], title, 1, f"St. {title}", site[0]))
 
     with open(out_dir / "index.tsv", "w", encoding="utf-8") as f:
         f.write("세례명\tEnglish\t성인수\t대표 성인(영어)\t성지(영어)\n")
