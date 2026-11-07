@@ -86,11 +86,18 @@ export default function MyProgramPage() {
         </ol>
       </Block>
 
-      <Block title="줄에서 듣는 이야기" note="준비 중">
+      <Block title="줄에서 보는 이야기" note="3화 · 약 11분">
         <p className="text-sm leading-relaxed text-slate-600">
-          성심당 줄을 기다리는 동안, 성심당·대흥동성당·옛 충남도청 일대의 이야기를 이 화면에서
-          보고 듣습니다. 기다리는 시간에 맞춰 길이를 고를 수 있습니다.
+          성심당 줄을 기다리는 동안, 성심당 → 대흥동성당 → 옛 충남도청으로 이어지는 이야기를
+          웹툰으로 보고 「듣기」로 들을 수 있습니다.
         </p>
+        <Link
+          to={paths.programStory(program.slug)}
+          className="mt-3 flex items-center justify-center gap-1 rounded-xl bg-[#1f4e8c] py-3 text-sm font-black text-white"
+        >
+          1화부터 보기
+          <ChevronRight size={16} aria-hidden />
+        </Link>
       </Block>
 
       <Block title="내 포인트" note="준비 중">
