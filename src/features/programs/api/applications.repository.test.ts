@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 vi.mock('@/shared/api/supabase', () => ({ supabase: {} }));
 
 import {
-  applicationsToCsv,
+  applicationsToSheet,
   receiptCode,
   summarize,
   type ProgramApplication,
@@ -58,15 +58,16 @@ describe('receiptCode', () => {
   });
 });
 
-describe('applicationsToCsv', () => {
-  it('엑셀용 BOM·머리줄을 넣고, 연락처 하이픈·쉼표 따옴표·안내 동의를 표시한다', () => {
-    const csv = applicationsToCsv([
+describe('applicationsToSheet', () => {
+  it('머리줄 + 접수 한 줄, 연락처는 하이픈 글자, 인원은 숫자, 안내 동의 표시', () => {
+    const sheet = applicationsToSheet([
       row({ adults: 2, contactPhone: '01012345678', requestNote: '휠체어, 1대', noticeConsent: true }),
     ]);
-    expect(csv.startsWith('﻿접수번호,')).toBe(true);
-    const line = csv.split('\r\n')[1]!;
-    expect(line).toContain('010-1234-5678');
-    expect(line).toContain('"휠체어, 1대"');
-    expect(line.endsWith(',동의')).toBe(true);
+    expect(sheet[0]![0]).toBe('접수번호');
+    const line = sheet[1]!;
+    expect(line[5]).toBe('010-1234-5678');
+    expect(line[6]).toBe(2);
+    expect(line[11]).toBe('휠체어, 1대');
+    expect(line[12]).toBe('동의');
   });
 });

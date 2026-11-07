@@ -3,7 +3,7 @@ import { Download, Trash2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import {
-  applicationsToCsv,
+  applicationsToSheet,
   deleteApplication,
   fetchApplications,
   receiptCode,
@@ -60,7 +60,7 @@ export function ApplicationsAdminTab() {
 
       <div className="flex flex-wrap items-center gap-3">
         <button
-          onClick={() => downloadCsv(applicationsToCsv(rows), `${program.title}_접수명단`)}
+          onClick={() => void downloadXlsx(applicationsToSheet(rows), `${program.title}_접수명단`)}
           disabled={rows.length === 0}
           className="flex items-center gap-1.5 rounded-lg bg-[#15803d] px-4 py-2 text-sm font-black text-white disabled:bg-slate-300"
         >
@@ -150,13 +150,19 @@ export function ApplicationsAdminTab() {
   );
 }
 
-/** 오늘 날짜를 붙여 CSV 파일로 내려받는다(엑셀에서 바로 열림) */
-function downloadCsv(csv: string, base: string) {
+/** 오늘 날짜를 붙여 엑셀(.xlsx) 파일로 내려받는다. 만드는 코드는 누를 때만 불러온다 */
+async function downloadXlsx(rows: (string | number)[][], base: string) {
+  const { buildXlsx } = await import('@/shared/lib/xlsx');
   const day = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
-  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  const bytes = buildXlsx(rows, '접수명단');
+  const url = URL.createObjectURL(
+    new Blob([bytes as BlobPart], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    }),
+  );
   const a = document.createElement('a');
   a.href = url;
-  a.download = `${base}_${day}.csv`;
+  a.download = `${base}_${day}.xlsx`;
   a.click();
   URL.revokeObjectURL(url);
 }

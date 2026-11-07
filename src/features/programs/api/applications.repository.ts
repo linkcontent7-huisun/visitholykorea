@@ -124,7 +124,7 @@ export function summarize(rows: ProgramApplication[]): ApplicationSummary {
   return s;
 }
 
-const CSV_HEAD = [
+const SHEET_HEAD = [
   '접수번호',
   '접수일시',
   '방문일',
@@ -145,18 +145,14 @@ function hyphenPhone(p: string): string {
   return m ? `${m[1]}-${m[2]}-${m[3]}` : p;
 }
 
-function csvCell(v: string | number): string {
-  const s = String(v);
-  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-}
-
 /**
- * 엑셀에서 바로 열리는 CSV(한글 깨짐 방지 BOM 포함). 기관이 내려받아 기록·다음 행사 안내에 쓴다.
- * 연락처는 하이픈을 넣어 내보낸다 — 숫자만 있으면 엑셀이 앞의 0 을 지운다.
+ * 엑셀 시트에 넣을 표(머리줄 + 한 줄에 접수 한 건). 기관이 내려받아 기록·다음 행사 안내에 쓴다.
+ * 연락처는 글자로 넣어 앞의 0 이 지워지지 않게 한다.
  */
-export function applicationsToCsv(rows: ProgramApplication[]): string {
-  const lines = rows.map((r) =>
-    [
+export function applicationsToSheet(rows: ProgramApplication[]): (string | number)[][] {
+  return [
+    SHEET_HEAD,
+    ...rows.map((r) => [
       receiptCode(r.id),
       new Date(r.createdAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
       r.visitDate,
@@ -170,9 +166,6 @@ export function applicationsToCsv(rows: ProgramApplication[]): string {
       r.needsMobilityHelp ? '필요' : '',
       r.requestNote,
       r.noticeConsent ? '동의' : '',
-    ]
-      .map(csvCell)
-      .join(','),
-  );
-  return '﻿' + [CSV_HEAD.join(','), ...lines].join('\r\n');
+    ]),
+  ];
 }
