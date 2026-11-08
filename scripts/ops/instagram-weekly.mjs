@@ -1,4 +1,4 @@
-// 인스타 참고 계정 주간 점검 (2026-11-08 사장님 지시: 매주 월요일 아침, 참고 계정 4곳 벤치마킹).
+// 인스타 참고 계정 주간 점검 (2026-11-08 사장님 지시: 매주 월요일 아침, 참고 계정 5곳 벤치마킹).
 // 인스타 공식 API 의 「비즈니스 계정 조회(business_discovery)」만 쓴다 — 화면 긁기(스크래핑)는 약관 위반이고
 // 보안 확인(reCAPTCHA)에 막힌다(11/8 Aside 실측).
 // 상대가 비즈니스·크리에이터 계정이어야 조회된다. 개인 계정이면 표에 「조회 안 됨」으로 남긴다.
@@ -8,11 +8,13 @@
 // 실행: node scripts/ops/instagram-weekly.mjs report.md
 import { writeFileSync } from 'node:fs';
 
-/** 참고 계정 — 사장님이 고른 4곳. 바꾸려면 여기만 고친다. */
+/** 참고 계정 — 사장님이 고른 5곳. 바꾸려면 여기만 고친다. */
 const ACCOUNTS = [
   'lucky7_chilgok', // 칠곡 「시간여행자의 고백」 (docs/50-research/벤치마킹/2026-10-19-칠곡-시간여행자의고백.md)
   'mynolto', // 문화상상연구소
-  // TODO(사장님): 나머지 두 곳
+  'cpbc_news', // 가톨릭평화방송 뉴스
+  'wydseoul2027', // 2027 서울 세계청년대회
+  'soop_jewelry', // 사장님 지정 (11/8)
 ];
 
 const VERSION = process.env.GRAPH_VERSION ?? 'v23.0'; // ⏳ Meta 앱 만들 때 화면에 나오는 최신 버전으로 맞춘다
