@@ -3,7 +3,7 @@ const pptxgen = require('pptxgenjs');
 const C = require('./content');
 
 const out = process.argv[2];
-const IMG = path.join(__dirname, '..', 'img');
+const IMG = path.join(__dirname, 'img');
 const img = (n) => path.join(IMG, `${n}.jpg`);
 
 const DARK = '1E2430';
