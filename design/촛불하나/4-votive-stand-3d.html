@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>촛불 하나</title>
+<style>
+:root{--ink:#f3eee2;--muted:#b3ab9c;--flame:#ffcf6b;--bg:#07070b}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#0b0a10}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;user-select:none;-webkit-user-select:none;word-break:keep-all}
+canvas{display:block;touch-action:none}
+.ui{position:fixed;inset:0;pointer-events:none;display:flex;flex-direction:column;align-items:center}
+.ui>*{pointer-events:auto}
+.proto{margin-top:.5rem;font-size:.7rem;color:#8b8577;border:1px dashed #4a4538;border-radius:.5rem;padding:.15rem .6rem;max-width:calc(100% - 1rem);text-align:center;pointer-events:none}
+.line{margin-top:1.1rem;min-height:3.6rem;text-align:center;padding:0 1.2rem;font-size:1.15rem;text-shadow:0 1px 8px #000;transition:opacity .6s;pointer-events:none}
+.line small{display:block;color:var(--muted);font-size:.9rem;margin-top:.2rem}
+.count{font-size:.8rem;color:var(--muted);pointer-events:none;text-shadow:0 1px 6px #000}
+.count b{color:var(--flame)}
+.bottom{margin-top:auto;margin-bottom:calc(1.2rem + env(safe-area-inset-bottom));display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;padding:0 1rem}
+.bottom button{font:inherit;font-size:.95rem;padding:.7rem 1.1rem;border-radius:999px;border:1px solid #5a5242;background:#1b1712cc;color:var(--ink);backdrop-filter:blur(6px);cursor:pointer}
+.bottom button.fire{background:var(--flame);color:#2a1a05;border:0;font-weight:800}
+.bottom button[hidden]{display:none}
+.reset{position:fixed;right:.6rem;top:2.1rem;font-size:.7rem;padding:.2rem .5rem;border-radius:.4rem;border:1px dashed #4a4538;background:none;color:#8b8577;cursor:pointer}
+.hands{position:fixed;left:50%;top:44%;translate:-50% -50%;font-size:4rem;opacity:0;letter-spacing:6rem;transition:opacity .5s,letter-spacing .6s;pointer-events:none}
+.hands.on{opacity:.9;letter-spacing:.4rem}
+.breath{position:fixed;left:50%;top:44%;width:16rem;height:16rem;translate:-50% -50%;border-radius:50%;border:2px solid rgba(255,207,107,.45);scale:.5;opacity:0;transition:scale 4s ease-in-out,opacity .5s;pointer-events:none}
+.breath.on{opacity:1}
+.scissors{position:fixed;left:calc(50% + 4.5rem);top:30%;font-size:2.4rem;background:none;border:0;cursor:pointer;animation:bob 1.2s ease-in-out infinite}
+.scissors[hidden]{display:none}
+@keyframes bob{50%{translate:0 -.4rem}}
+.need{position:fixed;translate:-50% -100%;font-size:.72rem;background:#2a1f14e6;border:1px solid #6b5636;color:#ffd99a;padding:.1rem .45rem;border-radius:999px;white-space:nowrap;pointer-events:none}
+.toast{position:fixed;left:50%;top:4.6rem;translate:-50% 0;background:#2a2318ee;border:1px solid #6b5636;padding:.6rem 1rem;border-radius:.8rem;font-size:.92rem;max-width:calc(100% - 2rem);text-align:center;z-index:5;pointer-events:none}
+.toast[hidden]{display:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="ui">
+  <div class="proto">🧪 시안 · 다른 사람의 초는 예시 · 시련은 빨리 오게 당겨 둠</div>
+  <div class="line" id="line"></div>
+  <div class="count" id="count"></div>
+  <div class="bottom">
+    <button id="bPlace" class="fire" hidden>받침대에 놓기</button>
+    <button id="bMine" hidden>🕯 내 초 가까이</button>
+    <button id="bStand" hidden>⛪ 받침대 보기</button>
+  </div>
+</div>
+<button class="reset" id="reset">처음부터</button>
+<div class="hands" id="hands">🤲</div>
+<div class="breath" id="breath"></div>
+<button class="scissors" id="sc" hidden aria-label="심지 다듬기">✂️</button>
+<div id="needs"></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script id="main">
+const $=id=>document.getElementById(id);
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const vib=n=>{try{navigator.vibrate&&navigator.vibrate(n)}catch(e){}};
+let tt;function toast(m,ms=3600){const t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,ms)}
+function say(a,b=''){const l=$('line');l.style.opacity=0;setTimeout(()=>{l.innerHTML=a+(b?`<small>${b}</small>`:'');l.style.opacity=1},300)}
+const NAMES=['작은 등불','새벽 별','따스한 심지','고요한 불빛','은은한 촛농','조용한 기도','늦은 저녁별','작은 온기'];
+
+/* ---------- 장면 ---------- */
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(2,devicePixelRatio));renderer.setSize(innerWidth,innerHeight);
+renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;
+document.body.prepend(renderer.domElement);
+const scene=new THREE.Scene();
+const COLD=new THREE.Color('#06070d'),WARM=new THREE.Color('#1c120a');
+scene.background=COLD.clone();scene.fog=new THREE.Fog(COLD.clone(),4,11);
+const camera=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,.02,40);
+const amb=new THREE.HemisphereLight(0x8a90b0,0x1a1410,.08);scene.add(amb);
+const standLight=new THREE.PointLight(0xffa850,0,6,2);standLight.position.set(0,1.25,-1.2);scene.add(standLight);
+const myLight=new THREE.PointLight(0xffb060,0,3,2);scene.add(myLight);
+const statueLight=new THREE.SpotLight(0xfff0d8,.0,8,.5,.6,1.5);statueLight.position.set(0,3.4,-.6);scene.add(statueLight);
+
+const mat=(c,o={})=>new THREE.MeshStandardMaterial({color:c,roughness:.85,metalness:0,...o});
+// 바닥·벽·기둥·아치
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(14,14),mat('#2a231d'));floor.rotation.x=-Math.PI/2;scene.add(floor);
+const wall=new THREE.Mesh(new THREE.PlaneGeometry(14,7),mat('#3b342c'));wall.position.set(0,3.5,-3.2);scene.add(wall);
+const niche=new THREE.Mesh(new THREE.PlaneGeometry(1.7,2.8),mat('#2c4268',{roughness:1}));niche.position.set(0,2.05,-3.18);scene.add(niche);
+const archTop=new THREE.Mesh(new THREE.CircleGeometry(.85,32,0,Math.PI),mat('#2c4268',{roughness:1}));archTop.position.set(0,3.45,-3.18);scene.add(archTop);
+for(const x of[-1.15,1.15]){const p=new THREE.Mesh(new THREE.BoxGeometry(.3,4.2,.3),mat('#4a4136'));p.position.set(x,2.1,-3.05);scene.add(p)}
+const ring=new THREE.Mesh(new THREE.TorusGeometry(1.0,.06,8,48,Math.PI),mat('#4a4136'));ring.position.set(0,3.45,-3.05);scene.add(ring);
+// 성모상 (단순한 형태)
+const statue=new THREE.Group();
+const ped=new THREE.Mesh(new THREE.BoxGeometry(.7,.9,.5),mat('#4d453a'));ped.position.y=.45;statue.add(ped);
+const robe=new THREE.Mesh(new THREE.ConeGeometry(.34,1.35,28,1,true),mat('#ece6da',{side:THREE.DoubleSide}));robe.position.y=1.55;statue.add(robe);
+const mantle=new THREE.Mesh(new THREE.ConeGeometry(.38,1.15,28,1,true,Math.PI*.15,Math.PI*1.7),mat('#4f6fa8',{side:THREE.DoubleSide}));mantle.position.set(0,1.6,-.02);mantle.rotation.y=Math.PI;statue.add(mantle);
+const head=new THREE.Mesh(new THREE.SphereGeometry(.13,24,16),mat('#eadccb'));head.position.y=2.3;statue.add(head);
+const veil=new THREE.Mesh(new THREE.SphereGeometry(.155,24,16,0,Math.PI*2,0,Math.PI*.62),mat('#4f6fa8'));veil.position.y=2.32;veil.rotation.x=-.25;statue.add(veil);
+const hands=new THREE.Mesh(new THREE.ConeGeometry(.05,.16,8),mat('#eadccb'));hands.position.set(0,1.9,.24);hands.rotation.x=-.2;statue.add(hands);
+const halo=new THREE.Mesh(new THREE.TorusGeometry(.22,.012,8,48),mat('#d9b25a',{emissive:'#a8781e',emissiveIntensity:.6,metalness:.6,roughness:.4}));halo.position.set(0,2.36,-.1);statue.add(halo);
+statue.position.set(0,0,-2.65);scene.add(statue);
+statueLight.target=statue;
+
+// 3단 받침대 (18 + 17 + 15 = 50자리)
+const ROWS=[18,17,15],SPACING=.17;
+const stand=new THREE.Group();scene.add(stand);
+const iron=mat('#1d1b19',{metalness:.7,roughness:.45});
+const slots=[];
+ROWS.forEach((n,r)=>{
+  const y=.78+r*.2,z=-1.0-r*.3,w=n*SPACING+.2;
+  const tray=new THREE.Mesh(new THREE.BoxGeometry(w,.04,.22),iron);tray.position.set(0,y,z);stand.add(tray);
+  const sand=new THREE.Mesh(new THREE.BoxGeometry(w-.06,.03,.17),mat('#6d5b44'));sand.position.set(0,y+.03,z);stand.add(sand);
+  for(const x of[-w/2+.05,w/2-.05]){const leg=new THREE.Mesh(new THREE.CylinderGeometry(.015,.015,y,8),iron);leg.position.set(x,y/2,z);stand.add(leg)}
+  for(let i=0;i<n;i++)slots.push({x:(i-(n-1)/2)*SPACING,y:y+.045,z,row:r});
+});
+// 불꽃 텍스처
+function flameTex(){const c=document.createElement('canvas');c.width=64;c.height=128;const g=c.getContext('2d');
+  const gr=g.createRadialGradient(32,92,2,32,80,60);gr.addColorStop(0,'rgba(255,255,240,1)');gr.addColorStop(.18,'rgba(255,225,140,1)');gr.addColorStop(.45,'rgba(255,150,50,.85)');gr.addColorStop(1,'rgba(255,90,20,0)');
+  g.fillStyle=gr;g.beginPath();g.moveTo(32,4);g.bezierCurveTo(58,60,56,118,32,122);g.bezierCurveTo(8,118,6,60,32,4);g.fill();return new THREE.CanvasTexture(c)}
+function glowTex(){const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d');
+  const gr=g.createRadialGradient(64,64,0,64,64,64);gr.addColorStop(0,'rgba(255,190,100,.9)');gr.addColorStop(.35,'rgba(255,140,60,.25)');gr.addColorStop(1,'rgba(255,120,40,0)');
+  g.fillStyle=gr;g.fillRect(0,0,128,128);return new THREE.CanvasTexture(c)}
+const FT=flameTex(),GT=glowTex();
+const waxMat=mat('#efe4cc',{roughness:.6,emissive:'#3a2008',emissiveIntensity:0});
+
+/* ---------- 초 ---------- */
+const H0=.26;
+function makeCandle(){
+  const g=new THREE.Group();
+  const body=new THREE.Mesh(new THREE.CylinderGeometry(.022,.024,1,16),waxMat.clone());body.scale.y=H0;body.position.y=H0/2;g.add(body);
+  const wick=new THREE.Mesh(new THREE.CylinderGeometry(.003,.003,.02,6),mat('#1a120a'));g.add(wick);
+  const f=new THREE.Sprite(new THREE.SpriteMaterial({map:FT,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));
+  const gl=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:.7}));
+  g.add(f);g.add(gl);
+  const hit=new THREE.Mesh(new THREE.CylinderGeometry(.07,.07,.5,8),new THREE.MeshBasicMaterial({visible:false}));hit.position.y=.2;g.add(hit);
+  return {g,body,wick,f,gl,hit,h:H0,life:0,lit:false,phase:Math.random()*10};
+}
+function setHeight(c,h){c.h=Math.max(.05,h);c.body.scale.y=c.h;c.body.position.y=c.h/2;c.wick.position.y=c.h+.01;c.f.position.y=c.h+.045;c.gl.position.y=c.h+.04}
+
+// 다른 사람의 초 (시안 예시)
+const candles=slots.map((s,i)=>{const c=makeCandle();c.g.position.set(s.x,s.y,s.z);c.hit.userData.slot=i;stand.add(c.g);setHeight(c,H0*(.5+Math.random()*.5));return c});
+const saved=store.get('stand_me');
+let mySlot=saved?.slot??null, myName=saved?.name??NAMES[Math.floor(Math.random()*NAMES.length)];
+(function seed(){let s=7,r=()=>(s=(s*9301+49297)%233280)/233280;
+  candles.forEach((c,i)=>{if(i===mySlot)return;const v=r();if(v<.6){c.lit=true;c.life=v<.14?8+r()*14:45+r()*55}});})();
+
+// 처음 손에 든 큰 초
+const handC=makeCandle();handC.g.scale.set(2.4,1.6,2.4);handC.g.position.set(0,.66,.55);const fill=new THREE.PointLight(0xffd2a0,.5,3,2);fill.position.set(.3,1.2,1.6);scene.add(fill);window.__fill=fill;handC.body.material.emissive.set('#2a1c10');handC.body.material.emissiveIntensity=.25;scene.add(handC.g);setHeight(handC,H0);
+
+/* ---------- 상태 ---------- */
+let phase=saved?'stand':'dark';   // dark → lit → place → stand(+close)
+let myLife=saved?.life??100, warmth=0, rubbing=false, lastX=null, lastDir=0, trial=null, holdT=null, breathT=null;
+let threads=[];
+const save=()=>{if(mySlot!==null)store.set('stand_me',{slot:mySlot,name:myName,life:myLife})};
+function myC(){return mySlot===null?null:candles[mySlot]}
+
+/* ---------- 카메라 ---------- */
+let camT={p:new THREE.Vector3(0,.95,2.25),l:new THREE.Vector3(0,.95,.9)}, yaw=0, pitch=0, dist=0;
+const camP=camT.p.clone(),camL=camT.l.clone();
+function goView(v){
+  if(v==='hand'){camT={p:new THREE.Vector3(0,1.05,2.1),l:new THREE.Vector3(0,1.05,.9)}}
+  if(v==='stand'){const far=camera.aspect<1?(1-camera.aspect)*4.2:0;camT={p:new THREE.Vector3(0,1.55+far*.25,2.4+far),l:new THREE.Vector3(0,1.15,-1.4)}}
+  if(v==='close'){const s=slots[mySlot];camT={p:new THREE.Vector3(s.x*.9,s.y+.32,s.z+.75),l:new THREE.Vector3(s.x,s.y+.2,s.z)}}
+  view=v;yaw=0;pitch=0;dist=0;
+  $('bMine').hidden=!(v==='stand'&&mySlot!==null);$('bStand').hidden=v!=='close';
+}
+let view='hand';
+
+/* ---------- ① 두 손 비비기 ---------- */
+function rub(x){
+  if(lastX!==null){const dx=x-lastX;if(Math.abs(dx)>3){const d=Math.sign(dx);if(d!==lastDir){warmth+=7;lastDir=d;vib(4)}warmth+=Math.abs(dx)*.05}}
+  lastX=x;warmth=Math.min(100,warmth);
+  if(warmth>=100)ignite();else if(warmth>55)say('조금만 더…','손바닥이 따뜻해지고 있어요');
+}
+function ignite(){phase='lit';warmth=0;handC.lit=true;handC.life=100;vib([20,40,30]);
+  say('불이 붙었어요.','당신의 손에서 온 온기로.');
+  setTimeout(()=>{say('저 앞에 다른 촛불들이 있어요.','받침대에, 아직 불이 없는 자리에 놓아 주세요.');$('bPlace').hidden=false;goView('stand')},3800)}
+$('bPlace').onclick=()=>{phase='place';$('bPlace').hidden=true;say('빈자리를 눌러 주세요.','희미하게 빛나는 곳이 아직 불이 없는 자리예요.')};
+
+/* ---------- 자리 놓기 ---------- */
+function placeAt(i){
+  mySlot=i;myLife=100;const c=candles[i];c.lit=true;c.life=100;setHeight(c,H0);
+  handC.g.visible=false;phase='stand';save();vib(20);
+  say(`「${myName}」의 초가 자리를 잡았어요.`,'당신 곁에도 누군가의 불이 타고 있어요.');
+  setTimeout(()=>{goView('close');setTimeout(()=>nextTrial(),5000)},3200);
+}
+
+/* ---------- ② 시련 ---------- */
+const TR=['wind','tremble','drip','wick'];let lastTrial=null,drips=[];
+function nextTrial(){
+  if(trial||mySlot===null||myLife<=0)return;
+  const t=TR.filter(x=>x!==lastTrial)[Math.floor(Math.random()*3)];lastTrial=t;trial=t;
+  if(view!=='close')goView('close');
+  if(t==='wind')say('바람이 불어요.','화면을 꾹 누르고 있으면 두 손으로 감싸 줄 수 있어요.');
+  if(t==='tremble')say('불꽃이 떨려요. 마음처럼.','화면을 누른 채, 안내에 맞춰 숨을 두 번 쉬어 보세요.');
+  if(t==='drip'){say('촛농이 흘러내려요.','흐른 방울을 하나씩 눌러 다시 모아 주세요.');makeDrips()}
+  if(t==='wick'){say('심지가 길어져 그을음이 나요.','가위로 살짝 다듬어 주세요.');$('sc').hidden=false;myC().wick.scale.y=3}
+}
+function makeDrips(){const c=myC();drips=[];
+  for(let i=0;i<3;i++){const d=new THREE.Mesh(new THREE.SphereGeometry(.011,10,8),mat('#ffe9b8',{emissive:'#7a4a10',emissiveIntensity:.5}));
+    const a=i*2.1;d.position.set(Math.cos(a)*.024,c.h-.01,Math.sin(a)*.024+.006);d.userData.drip=true;d.userData.v=.004+Math.random()*.004;
+    const hit=new THREE.Mesh(new THREE.SphereGeometry(.04,8,6),new THREE.MeshBasicMaterial({visible:false}));hit.userData.dripOf=d;d.add(hit);
+    c.g.add(d);drips.push(d)}}
+function overcome(msg){
+  if(!trial)return;$('sc').hidden=true;$('hands').classList.remove('on');$('breath').classList.remove('on');
+  const c=myC();c.wick.scale.y=1;drips.forEach(d=>c.g.remove(d));drips=[];
+  trial=null;myLife=Math.min(100,myLife+25);save();vib(30);say('지켜 냈어요.',msg);
+  setTimeout(()=>{if(!trial){goView('stand');say('곁을 둘러보세요.','꺼져 가는 불이 있으면 눌러서 내 불을 건네줄 수 있어요.')}},3600);
+  setTimeout(nextTrial,22000+Math.random()*10000);
+}
+$('sc').onclick=()=>overcome('심지를 다듬었어요. 그을음이 걷혔어요.');
+function holdStart(){
+  if(trial==='wind'){$('hands').classList.add('on');holdT=setTimeout(()=>overcome('두 손으로 감싸 바람을 막았어요.'),3000)}
+  if(trial==='tremble'&&!breathT)breathe();
+}
+function holdEnd(){clearTimeout(holdT);$('hands').classList.remove('on');
+  if(breathT){clearTimeout(breathT);breathT=null;$('breath').classList.remove('on');$('breath').style.scale='.5';say('잠깐 멈췄어요.','서두르지 않아도 괜찮아요. 다시 누르면 이어서 쉬어요.')}}
+let calm=0;
+function breathe(){let n=0;const b=$('breath');b.classList.add('on');
+  const step=ph=>{if(ph==='in'){b.style.transitionDuration='4s';b.style.scale='1';say('들이쉬세요',`${n+1} / 2 · 넷까지 천천히`);breathT=setTimeout(()=>step('out'),4000)}
+    else{b.style.transitionDuration='5s';b.style.scale='.5';say('내쉬세요',`${n+1} / 2 · 다섯까지 길게`);
+      breathT=setTimeout(()=>{n++;calm=n/2;if(n>=2){breathT=null;calm=0;overcome('숨을 고르자 불꽃도 잔잔해졌어요.')}else step('in')},5000)}};
+  step('in')}
+
+/* ---------- ③ 불 건네기 ---------- */
+const sparks=[];
+function giveTo(i){
+  const me=myC(),t=candles[i];if(!me||!me.lit||myLife<=0){toast('먼저 내 초에 불이 있어야 건넬 수 있어요.');return}
+  if(t.lit&&t.life>=30){toast('이 불은 아직 잘 타고 있어요. 꺼져 가는 불에 건네주세요.');return}
+  const a=new THREE.Vector3(),b=new THREE.Vector3();me.f.getWorldPosition(a);t.wick.getWorldPosition(b);b.y+=.03;
+  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:FT,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));s.scale.set(.05,.09,1);scene.add(s);
+  const mid=a.clone().lerp(b,.5);mid.y+=.35;
+  sparks.push({s,a,b,mid,t:0,done:()=>{
+    const wasOut=!t.lit;t.lit=true;t.life=95;if(wasOut)setHeight(t,H0*.8);myLife=Math.min(100,myLife+10);save();vib([15,30,15]);
+    const g=new THREE.BufferGeometry().setFromPoints(new THREE.QuadraticBezierCurve3(a,mid,b).getPoints(24));
+    const line=new THREE.Line(g,new THREE.LineBasicMaterial({color:0xffd690,transparent:true,opacity:.55,blending:THREE.AdditiveBlending}));scene.add(line);threads.push(line);
+    say(threads.length===1?'불이 건너갔어요.':`빛의 실이 ${threads.length}개가 되었어요.`,threads.length===1?'불은 나눠도 줄지 않아요. 둘 사이에 빛의 실이 남았어요.':'받침대가 조금씩 따뜻해지고 있어요.')}});
+}
+
+/* ---------- 입력 ---------- */
+const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
+function pick(e){ndc.set(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1);ray.setFromCamera(ndc,camera);
+  const objs=[];candles.forEach(c=>objs.push(c.hit));drips.forEach(d=>objs.push(d.children[0]));
+  return ray.intersectObjects(objs,false)[0]}
+let down=null;
+renderer.domElement.addEventListener('pointerdown',e=>{
+  down={x:e.clientX,y:e.clientY,yaw,pitch,moved:false};
+  if(phase==='dark'){rubbing=true;lastX=e.clientX;try{renderer.domElement.setPointerCapture(e.pointerId)}catch(_){}return}
+  if(view==='close'&&trial)holdStart();
+});
+renderer.domElement.addEventListener('pointermove',e=>{
+  if(phase==='dark'&&rubbing){rub(e.clientX);return}
+  if(down&&view==='stand'&&!trial){const dx=e.clientX-down.x,dy=e.clientY-down.y;if(Math.hypot(dx,dy)>6)down.moved=true;
+    yaw=Math.max(-.6,Math.min(.6,down.yaw-dx*.004));pitch=Math.max(-.25,Math.min(.3,down.pitch+dy*.003))}
+});
+renderer.domElement.addEventListener('pointerup',e=>{
+  rubbing=false;lastX=null;holdEnd();
+  if(!down)return;const moved=down.moved;down=null;if(moved||phase==='dark')return;
+  const h=pick(e);if(!h)return;
+  if(h.object.userData.dripOf){const d=h.object.userData.dripOf;myC().g.remove(d);drips=drips.filter(x=>x!==d);setHeight(myC(),myC().h+.012);vib(10);if(!drips.length)overcome('흘린 것을 다시 모았어요. 초가 조금 길어졌어요.');return}
+  const i=h.object.userData.slot;if(i===undefined)return;
+  if(phase==='place'){if(candles[i].lit){say('여기는 이미 불이 있어요.','아직 불이 없는 자리를 찾아볼까요?');return}placeAt(i);return}
+  if(phase==='stand'&&i!==mySlot)giveTo(i);
+  if(i===mySlot&&view==='stand')goView('close');
+});
+addEventListener('wheel',e=>{if(view==='stand')dist=Math.max(-1.2,Math.min(1.5,dist+e.deltaY*.0015))},{passive:true});
+document.addEventListener('keydown',e=>{
+  if(phase==='dark'&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){rub((lastX??0)+(e.key==='ArrowLeft'?-30:30))}
+  if(e.key===' '&&!e.repeat&&view==='close'&&trial){e.preventDefault();holdStart()}});
+document.addEventListener('keyup',e=>{if(e.key===' ')holdEnd()});
+$('bMine').onclick=()=>goView('close');$('bStand').onclick=()=>{if(!trial)goView('stand');else toast('지금은 내 초를 지켜 주세요.')};
+$('reset').onclick=()=>{store.del('stand_me');location.reload()};
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+
+/* ---------- 매 프레임 ---------- */
+const clock=new THREE.Clock();let acc=0;const tmp=new THREE.Vector3();
+function flameUpdate(c,t,wind){
+  const on=c.lit&&c.life>0;c.f.visible=c.gl.visible=on;
+  c.body.material.emissiveIntensity=on?.12:0;
+  if(!on)return;
+  const s=.35+.65*Math.min(1,c.life/60), fl=1+Math.sin(t*9+c.phase)*.06+Math.sin(t*23+c.phase*3)*.04;
+  c.f.scale.set(.045*s,.085*s*fl,1);c.gl.scale.setScalar(.38*s*(1+Math.sin(t*3+c.phase)*.05));
+  c.f.material.rotation=Math.sin(t*(wind?11:2)+c.phase)*(wind?.35:.05);c.gl.material.opacity=c.life<30?.35:.7;
+}
+function frame(){
+  const dt=Math.min(.05,clock.getDelta()),t=clock.elapsedTime;acc+=dt;
+  // 시간 흐름 (시안: 빠르게)
+  if(acc>1){acc=0;
+    candles.forEach((c,i)=>{if(!c.lit||i===mySlot)return;c.life-=.5;setHeight(c,c.h-.0006);if(c.life<=0){c.lit=false;c.life=0}});
+    if(Math.random()<.05){const e=candles.findIndex((c,i)=>!c.lit&&i!==mySlot);if(e>=0&&phase==='stand'){candles[e].lit=true;candles[e].life=90;setHeight(candles[e],H0)}}
+    const me=myC();if(me&&phase==='stand'){myLife-=trial?1.4:.12;me.life=myLife;setHeight(me,me.h-(trial==='drip'?.0015:.0003));
+      if(myLife<=0){myLife=0;me.lit=false;trial=null;$('sc').hidden=true;drips.forEach(d=>me.g.remove(d));drips=[];
+        say('불이 꺼졌어요.','괜찮아요. 곁에 있는 누군가가 건네줄 거예요.');
+        setTimeout(()=>{me.lit=true;myLife=60;me.life=60;save();say('곁의 누군가가 당신에게 불을 건네주었어요.','(시안 예시)');vib([20,40,30]);setTimeout(nextTrial,15000)},6000)}
+      save()}
+  }
+  const me=myC();if(me)me.life=myLife;
+  // 불꽃
+  candles.forEach(c=>flameUpdate(c,t,trial==='wind'&&c===me));
+  if(handC.g.visible)flameUpdate(handC,t,false);
+  if(me&&trial==='tremble'){me.f.material.rotation=Math.sin(t*30)*(.2-calm*.15)}
+  // 빈자리 표시 (놓기 단계)
+  candles.forEach(c=>{c.body.material.color.set(phase==='place'&&!c.lit?'#fff2c0':'#f3ead6')});
+  // 온기: 켜진 초가 많을수록 따뜻해진다
+  const lit=candles.filter(c=>c.lit&&c.life>0).length+(handC.lit&&handC.g.visible?3:0),k=Math.min(1,lit/50);
+  const dim=phase==='dark'?.25:1;standLight.intensity=(.15+1.1*k)*dim;amb.intensity=(.03+.1*k)*dim;statueLight.intensity=(.08+.55*k)*dim;
+  scene.background.copy(COLD).lerp(WARM,k);scene.fog.color.copy(scene.background);
+  if(me&&me.lit){me.f.getWorldPosition(tmp);myLight.position.copy(tmp);myLight.intensity=.8+.8*(myLife/100)}else if(handC.lit&&handC.g.visible){handC.f.getWorldPosition(tmp);myLight.position.copy(tmp);myLight.intensity=1.6}else myLight.intensity=0;
+  // 불씨 날아가기
+  for(let i=sparks.length-1;i>=0;i--){const sp=sparks[i];sp.t+=dt/1.1;const u=Math.min(1,sp.t);
+    const p=new THREE.Vector3().copy(sp.a).multiplyScalar((1-u)*(1-u)).add(sp.mid.clone().multiplyScalar(2*(1-u)*u)).add(sp.b.clone().multiplyScalar(u*u));sp.s.position.copy(p);
+    if(u>=1){scene.remove(sp.s);sparks.splice(i,1);sp.done()}}
+  drips.forEach(d=>{if(d.position.y>.03)d.position.y-=d.userData.v*dt*4});
+  if(window.__fill){window.__fill.position.copy(camera.position);window.__fill.intensity=view==='close'?.35:.5}
+  // 카메라
+  const tp=camT.p.clone().sub(camT.l);const r=tp.length()+dist;tp.normalize().multiplyScalar(r);
+  tp.applyAxisAngle(new THREE.Vector3(0,1,0),yaw);tp.y+=pitch*r;
+  camP.lerp(camT.l.clone().add(tp),.06);camL.lerp(camT.l,.06);camera.position.copy(camP);camera.lookAt(camL);
+  // 꺼져 가는 불 표시 (받침대 보기에서)
+  let html='';if(view==='stand'&&phase==='stand'){candles.forEach((c,i)=>{if(i!==mySlot&&c.lit&&c.life<30){c.f.getWorldPosition(tmp);tmp.y+=.06;tmp.project(camera);
+    if(tmp.z<1)html+=`<div class="need" style="left:${(tmp.x+1)/2*innerWidth}px;top:${(1-tmp.y)/2*innerHeight}px">불이 약해요</div>`}})}
+  $('needs').innerHTML=html;
+  $('count').innerHTML=phase==='dark'?'':`받침대 50자리 · 켜진 초 <b>${candles.filter(c=>c.lit&&c.life>0).length}</b> · 내가 이은 빛의 실 <b>${threads.length}</b>`;
+  renderer.render(scene,camera);requestAnimationFrame(frame);
+}
+
+/* ---------- 시작 ---------- */
+if(phase==='dark'){goView('hand');camP.copy(camT.p);camL.copy(camT.l);
+  setTimeout(()=>say('어둡고, 조금 춥네요.'),900);
+  setTimeout(()=>{if(phase==='dark')say('어둡고, 조금 춥네요.','두 손을 비벼 볼까요? 화면을 좌우로 빠르게 문질러 보세요.')},4200);}
+else{handC.g.visible=false;const c=myC();c.lit=true;c.life=myLife;setHeight(c,H0*.9);goView('stand');camP.copy(camT.p);camL.copy(camT.l);
+  say(`다시 왔군요, 「${myName}」.`,'당신의 초는 아직 받침대에서 타고 있어요.');setTimeout(nextTrial,9000)}
+frame();
+</script>
+</body>
+</html>
