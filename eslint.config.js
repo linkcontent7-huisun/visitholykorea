@@ -16,6 +16,8 @@ export default tseslint.config(
       'node_modules',
       'coverage',
       'supabase/functions',
+      // 발표 Word·PPT 생성 스크립트(Node 일회용, 앱 코드 아님) — 2026-11-08
+      'docs/**',
       // 저장소에 섞여 들어온 구버전 앱 사본·학습자료. 우리 코드가 아니다 (ADR 0005).
       'supabase/visitholykorea_버전보관',
       'visitholykorea-학습자료',
