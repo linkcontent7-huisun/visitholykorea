@@ -6,7 +6,7 @@ import { fetchMyApplication } from '@/features/programs/api/applications.reposit
 import { QuizCard } from '@/features/programs/components/QuizCard';
 import { StoryScene } from '@/features/programs/components/StoryScenes';
 import {
-  BREAD_QUIZ,
+  pickQuizzes,
   BREAD_STORY,
   STORY_SOURCES,
   type StoryEpisode,
@@ -33,6 +33,8 @@ export default function ProgramStoryPage() {
   });
   const [points, setPoints] = useState<number | null>(null);
   const shownPoints = points ?? mine?.points ?? 0;
+  // 신청자 인원(아이·어르신)에 맞춰 30문제 중에서 고른다
+  const quizzes = pickQuizzes(mine ?? undefined);
   const canSpeak = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
   useEffect(
@@ -130,16 +132,52 @@ export default function ProgramStoryPage() {
             ))}
           </div>
 
+          {ep.more.length > 0 && (
+            <section className="mt-8 rounded-2xl bg-[#eef4fc] p-4">
+              <h3 className="text-sm font-black text-[#1f4e8c]">알고 가면 더 재미있는 이야기</h3>
+              <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-700">
+                {ep.more.map((m) => (
+                  <li key={m.text}>
+                    · {m.text}{' '}
+                    <span className="text-[11px] text-slate-400">출처 {m.src.join(', ')}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {ep.videos.length > 0 && (
+            <section className="mt-4">
+              <h3 className="text-sm font-black text-slate-700">관련 영상 보기</h3>
+              <ul className="mt-2 space-y-1.5">
+                {ep.videos.map((v) => (
+                  <li key={v.url}>
+                    <a
+                      href={v.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="block rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm font-bold text-[#1f4e8c]"
+                    >
+                      ▶ {v.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <div className="mt-8 space-y-3">
-            {BREAD_QUIZ.filter((q) => q.episode === ep.no).map((q) => (
-              <QuizCard
-                key={q.id}
-                quiz={q}
-                applicationId={mine ? applicationId : undefined}
-                alreadyAnswered={mine?.answered.includes(q.id) ?? false}
-                onTotal={setPoints}
-              />
-            ))}
+            {quizzes
+              .filter((q) => q.episode === ep.no)
+              .map((q) => (
+                <QuizCard
+                  key={q.id}
+                  quiz={q}
+                  applicationId={mine ? applicationId : undefined}
+                  alreadyAnswered={mine?.answered.includes(q.id) ?? false}
+                  onTotal={setPoints}
+                />
+              ))}
           </div>
 
           <p className="mt-6 rounded-xl bg-[#fbe7a1] px-4 py-3 text-sm font-bold text-[#1f4e8c]">

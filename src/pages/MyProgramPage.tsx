@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { fetchMyApplication, receiptCode } from '@/features/programs/api/applications.repository';
+import { QUIZ_PER_EPISODE } from '@/features/programs/data/bread-story';
 import { findProgram } from '@/features/programs/data/programs';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
@@ -102,13 +103,13 @@ export default function MyProgramPage() {
         </Link>
       </Block>
 
-      <Block title="내 포인트" note={`퀴즈 ${app.answered.length}/6`}>
+      <Block title="내 포인트" note={`퀴즈 ${app.answered.length}/${QUIZ_PER_EPISODE * 3}`}>
         <p className="text-3xl font-black text-[#1f4e8c]">
           {app.points} <span className="text-base">P</span>
         </p>
         <p className="mt-1 text-sm text-slate-600">
-          이야기 각 화 끝의 돌발 퀴즈를 맞히면 10P씩 쌓입니다. 대전 제휴 상점에서 쓰는 방법은 협의
-          중입니다.
+          이야기 각 화 끝의 돌발 퀴즈를 맞히면 10P씩 쌓입니다. 문제는 함께 오신 분(아이·어르신)에
+          맞춰 나옵니다. 대전 제휴 상점에서 쓰는 방법은 협의 중입니다.
         </p>
       </Block>
 
