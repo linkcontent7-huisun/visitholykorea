@@ -1,0 +1,41 @@
+# 인스타 참고 계정 주간 점검 (2026-11-08 사장님 지시: 매주 월요일 아침).
+# 인스타 공식 API(business_discovery)로 참고 계정 4곳의 지난 7일 게시물·반응을 조회해
+# 「📸 인스타 참고 계정 주간 점검」 이슈 본문에 덮어쓴다. 세션이 월요일에 읽고 세 줄로 보고한다.
+# main 에 커밋하지 않는다 — main 푸시는 곧 Vercel 배포다.
+name: instagram-weekly
+
+on:
+  schedule:
+    - cron: '30 22 * * 0' # UTC 일 22:30 = KST 월 07:30
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 조회
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: node scripts/ops/instagram-weekly.mjs report.md
+      - name: 이슈에 결과 쓰기
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="📸 인스타 참고 계정 주간 점검 (자동 갱신)"
+          NUM=$(gh issue list --state all --search "$TITLE in:title" --json number --jq '.[0].number')
+          if [ -z "$NUM" ]; then
+            gh issue create --title "$TITLE" --body-file report.md
+          else
+            gh issue edit "$NUM" --body-file report.md
+            gh issue reopen "$NUM" 2>/dev/null || true
+          fi

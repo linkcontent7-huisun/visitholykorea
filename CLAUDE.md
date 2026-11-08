@@ -21,6 +21,12 @@
 ✅ 모두 정상이면 한 줄, 🔴 고장이 있으면 무엇이 안 보이는지와 고칠 방법을 먼저 말한다.
 점검은 `.github/workflows/health-check.yml`(매일 07:00 KST) → `scripts/ops/health-check.mjs`. 이슈가 오래됐으면(하루 넘게) 작업이 멈춘 것이니 그것도 알린다.
 
+**인스타 참고 계정 주간 점검 (2026-11-08 사장님 지시):** **월요일**에 세션을 열면 서버 점검 다음에
+`gh issue list --state all --search "인스타 참고 계정 주간 점검 in:title" --json body --jq '.[0].body'` 를 읽고
+계정별로 **세 줄 안**으로 보고한다(지난 7일 게시물 수·반응 좋은 글 형식·우리가 옮길 점). 옮길 점이 크면
+`docs/50-research/벤치마킹/` 에 정리한다(스킬 `program-benchmark`). 조회는 `.github/workflows/instagram-weekly.yml`(월 07:30 KST)
+→ `scripts/ops/instagram-weekly.mjs`, 인스타 공식 API 만 쓴다(스크래핑·보안 확인 우회 금지).
+
 숫자(성지 수·사진 수·테스트 수)를 문서에서 인용할 때는 **언제 잰 값인지** 같이 적는다.
 확인하지 못한 것은 추측해서 적지 말고 "확인 못 했다" 라고 적는다.
 
