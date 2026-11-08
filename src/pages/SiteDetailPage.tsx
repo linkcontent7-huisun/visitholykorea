@@ -45,6 +45,8 @@ import { splitMassInfo } from '@/features/sites/lib/mass-info';
 import { localizeMassLabel, localizeMassValue } from '@/features/sites/lib/mass-info-localize';
 import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
 import { ProgramPromo } from '@/features/programs/components/ProgramCardPopup';
+import { VirtualTourCard } from '@/features/virtual-tour/components/VirtualTourCard';
+import { virtualTourForSite } from '@/features/virtual-tour/data/virtual-tours';
 import { NearbyPilgrimPlaces } from '@/features/places/components/NearbyPilgrimPlaces';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { sizedImageUrl } from '@/shared/lib/image-url';
@@ -338,6 +340,7 @@ export default function SiteDetailPage() {
     (tag): tag is string => Boolean(tag),
   );
   const heroPhoto = sitePhoto;
+  const virtualTour = virtualTourForSite(siteId);
   const photoCredit = photoCreditText(site.imageSource, site.imageLicense, language);
 
   // 소개글 끝의 「▷ 미사 시간」 문단은 인용문에서 떼어 방문 정보 카드로 보낸다 (2026-09-13)
@@ -471,6 +474,10 @@ export default function SiteDetailPage() {
       <PageContainer className="relative z-10 mt-0 space-y-8 bg-white py-6">
         {/* 그 교구의 체험여행 프로그램 — 지금은 대전만(2026-11-03 본선 시연) */}
         <ProgramPromo region={site.region} />
+        {/* 3D 가상 순례가 있는 성지만(지금은 명동대성당) — 성지 이야기보다 위에 둔다(2026-11-09 F1) */}
+        {virtualTour && (
+          <VirtualTourCard tour={virtualTour} variant="site" id="site-virtual-tour" />
+        )}
         {/* 성지 이야기를 맨 위로 — 사진 다음에는 "여기가 어떤 곳인지" 이야기부터 읽고,
             미사 시간 같은 실용 정보는 그다음이 자연스럽다(사장님 지적, 2026-09-17).
             ⚠️ 이 순서는 재기획(2026-09-14) §4-1 이 정한 "방문 정보가 역사보다 위" 결정을

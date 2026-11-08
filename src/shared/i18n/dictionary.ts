@@ -6547,6 +6547,55 @@ export const DICTIONARY = {
     pt: 'Qual é o seu nível de peregrino? Descubra',
     it: 'Qual è il tuo livello di pellegrino? Scoprilo',
   },
+  // 3D 가상 순례 진입 (2026-11-09 F1) — 3D 화면 자체는 아직 한국어만 있다. 외국어 표기는 검수 전.
+  virtualTourKicker: {
+    ko: '3D 가상 순례 · 시범',
+    en: '3D virtual pilgrimage · Beta',
+    es: 'Peregrinación virtual 3D · Beta',
+    fr: 'Pèlerinage virtuel 3D · Bêta',
+    pt: 'Peregrinação virtual 3D · Beta',
+    it: 'Pellegrinaggio virtuale 3D · Beta',
+  },
+  virtualTourHomeTitle: {
+    ko: '명동대성당 안으로 걸어 들어가 보세요',
+    en: 'Walk inside Myeongdong Cathedral',
+    es: 'Entra caminando en la catedral de Myeongdong',
+    fr: 'Entrez dans la cathédrale de Myeongdong',
+    pt: 'Entre caminhando na Catedral de Myeongdong',
+    it: 'Entra nella cattedrale di Myeongdong',
+  },
+  virtualTourHomeSub: {
+    ko: '앱 설치 없이 3D로 둘러보고 봉헌초를 켜 보세요',
+    en: 'Explore in 3D and light a candle, no app needed',
+    es: 'Recórrela en 3D y enciende una vela, sin instalar nada',
+    fr: 'Visitez en 3D et allumez un cierge, sans application',
+    pt: 'Explore em 3D e acenda uma vela, sem instalar nada',
+    it: 'Visita in 3D e accendi un cero, senza app',
+  },
+  virtualTourSiteTitle: {
+    ko: '3D로 둘러보기',
+    en: 'Explore in 3D',
+    es: 'Recorrer en 3D',
+    fr: 'Visiter en 3D',
+    pt: 'Explorar em 3D',
+    it: 'Visita in 3D',
+  },
+  virtualTourSiteSub: {
+    ko: '정문을 열고 실내까지 걸어 보세요. 다른 순례자와 함께 걸을 수 있어요',
+    en: 'Open the doors and walk inside, together with other pilgrims',
+    es: 'Abre la puerta y camina por dentro, junto a otros peregrinos',
+    fr: 'Ouvrez la porte et marchez à l’intérieur, avec d’autres pèlerins',
+    pt: 'Abra a porta e caminhe por dentro, com outros peregrinos',
+    it: 'Apri la porta e cammina all’interno, insieme ad altri pellegrini',
+  },
+  virtualTourNote: {
+    ko: '실측 복제가 아닌 시범 모델이며, 성당의 공식 콘텐츠가 아닙니다',
+    en: 'A trial model, not an exact replica or official content of the cathedral',
+    es: 'Modelo de prueba: no es una réplica exacta ni contenido oficial de la catedral',
+    fr: 'Modèle d’essai : ni réplique exacte ni contenu officiel de la cathédrale',
+    pt: 'Modelo de teste: não é réplica exata nem conteúdo oficial da catedral',
+    it: 'Modello di prova: non è una replica esatta né contenuto ufficiale della cattedrale',
+  },
 } as const satisfies Record<string, Record<Language, string>>;
 
 export type TranslationKey = keyof typeof DICTIONARY;

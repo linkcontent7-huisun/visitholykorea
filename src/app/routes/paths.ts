@@ -51,6 +51,11 @@ export const paths = {
   /** 체험여행 프로그램 접수 (2026-11-03 본선 시연) */
   programApply: (slug: string) => `/programs/${slug}/apply`,
   programApplyPattern: '/programs/:programSlug/apply',
+  /**
+   * 3D 가상 순례 — 별도 Vercel 프로젝트(visitholykorea-visit)를 vercel.json rewrite 로 /visit/ 아래에 붙였다(2026-11-09).
+   * SPA 라우트가 아니므로 `<Link>` 대신 `<a href>` 로 페이지 전체를 이동한다. `from` 은 어디서 들어왔는지(home·site).
+   */
+  virtualTour: (space: string, from: 'home' | 'site') => `/visit/?space=${space}&from=${from}`,
   admin: '/admin',
   adminSite: (id: string) => `/admin/sites/${id}`,
   adminSitePattern: '/admin/sites/:siteId',

@@ -25,6 +25,8 @@ import { OFFICIAL_LINKS } from '@/shared/config/official-links';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { VirtualTourCard } from '@/features/virtual-tour/components/VirtualTourCard';
+import { HOME_VIRTUAL_TOUR } from '@/features/virtual-tour/data/virtual-tours';
 import type { HolySite } from '@/shared/types/domain';
 
 /**
@@ -228,6 +230,11 @@ export default function HomePage() {
       {/* 2. 입구 3개 — 성지 찾기 · 미카엘 순례 가이드 · 오늘의 성지 일정 순서(사장님 지적, 2026-09-18).
           미카엘은 화면 이동이 아니라 그 자리에서 시트를 연다 — `to` 대신 `onClick`. */}
       <PageContainer className="pt-3 lg:pt-4">
+        {/* 3D 가상 순례(2026-11-09 F1, 사장님 지시) — 첫 화면에서 「3D 로 성지 안에 들어갈 수 있다」가
+            보이도록 입구 맨 위에 둔다. 2027 WYD 해외 순례자가 귀국 뒤에도 다시 들어올 자리. */}
+        <div className="mb-2.5">
+          <VirtualTourCard tour={HOME_VIRTUAL_TOUR} variant="home" id="entry-virtual-tour" />
+        </div>
         <div className="grid gap-2.5 lg:grid-cols-3">
           <EntryCard
             to={paths.search}
