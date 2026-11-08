@@ -1,8 +1,12 @@
+import { useQuery } from '@tanstack/react-query';
 import { Pause, Volume2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { fetchMyApplication } from '@/features/programs/api/applications.repository';
+import { QuizCard } from '@/features/programs/components/QuizCard';
 import { StoryScene } from '@/features/programs/components/StoryScenes';
 import {
+  BREAD_QUIZ,
   BREAD_STORY,
   STORY_SOURCES,
   type StoryEpisode,
@@ -19,6 +23,16 @@ export default function ProgramStoryPage() {
   const { programSlug } = useParams<{ programSlug: string }>();
   const program = findProgram(programSlug);
   const [reading, setReading] = useState<number | null>(null);
+  // 나의 체험 링크에서 들어오면 ?a=<접수 id> — 그때만 포인트가 쌓인다
+  const [params] = useSearchParams();
+  const applicationId = params.get('a') ?? undefined;
+  const { data: mine } = useQuery({
+    queryKey: ['my-program-application', applicationId],
+    queryFn: () => fetchMyApplication(applicationId!),
+    enabled: !!applicationId,
+  });
+  const [points, setPoints] = useState<number | null>(null);
+  const shownPoints = points ?? mine?.points ?? 0;
   const canSpeak = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
   useEffect(
@@ -64,6 +78,11 @@ export default function ProgramStoryPage() {
         title="줄에서 보는 이야기"
         sub={`「${program.title}」 · 전체 약 ${total}분`}
       />
+      {mine && (
+        <p className="sticky top-16 z-10 mb-4 rounded-full bg-[#1f4e8c] px-4 py-2 text-center text-sm font-black text-white shadow">
+          내 포인트 {shownPoints} P
+        </p>
+      )}
 
       {BREAD_STORY.map((ep) => (
         <article key={ep.no} className="mb-10">
@@ -108,6 +127,18 @@ export default function ProgramStoryPage() {
                 )}
                 <p className="mt-1 px-1 text-[11px] text-slate-400">출처 {p.src.join(', ')}</p>
               </section>
+            ))}
+          </div>
+
+          <div className="mt-8 space-y-3">
+            {BREAD_QUIZ.filter((q) => q.episode === ep.no).map((q) => (
+              <QuizCard
+                key={q.id}
+                quiz={q}
+                applicationId={mine ? applicationId : undefined}
+                alreadyAnswered={mine?.answered.includes(q.id) ?? false}
+                onTotal={setPoints}
+              />
             ))}
           </div>
 

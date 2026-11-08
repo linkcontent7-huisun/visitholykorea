@@ -92,6 +92,10 @@ export interface MyApplication {
   seniors: number;
   noticeConsent: boolean;
   createdAt: string;
+  /** 퀴즈 포인트 합계 */
+  points: number;
+  /** 이미 푼 퀴즈 id */
+  answered: string[];
 }
 
 /** 접수 id 를 아는 사람(링크를 가진 참가자)만 — DB 함수가 필요한 칸만 돌려준다 */
@@ -112,7 +116,24 @@ export async function fetchMyApplication(id: string): Promise<MyApplication | nu
     seniors: r.seniors as number,
     noticeConsent: r.notice_consent === true,
     createdAt: r.created_at as string,
+    points: Number(r.points ?? 0),
+    answered: (r.answered as string[] | null) ?? [],
   };
+}
+
+/** 퀴즈 답 기록 — 한 문제 한 번, 맞히면 10점. 돌려주는 값 = 포인트 합계 */
+export async function answerQuiz(
+  applicationId: string,
+  quizId: string,
+  correct: boolean,
+): Promise<number> {
+  const { data, error } = await supabase.rpc('answer_program_quiz', {
+    p_id: applicationId,
+    p_quiz: quizId,
+    p_correct: correct,
+  });
+  if (error) throw new Error(error.message);
+  return Number(data ?? 0);
 }
 
 /** 접수번호 — 사람이 부르기 쉽게 앞 8자리만 */

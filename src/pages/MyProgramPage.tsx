@@ -15,7 +15,11 @@ import { PageHeader } from '@/shared/components/ui/PageHeader';
  */
 export default function MyProgramPage() {
   const { applicationId = '' } = useParams<{ applicationId: string }>();
-  const { data: app, isLoading, isError } = useQuery({
+  const {
+    data: app,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ['my-program-application', applicationId],
     queryFn: () => fetchMyApplication(applicationId),
     staleTime: 60_000,
@@ -51,9 +55,7 @@ export default function MyProgramPage() {
 
       <div className="rounded-2xl bg-[#fbe7a1] p-5">
         <p className="text-xs font-bold text-[#1f4e8c]">접수번호</p>
-        <p className="text-2xl font-black tracking-widest text-[#c2410c]">
-          {receiptCode(app.id)}
-        </p>
+        <p className="text-2xl font-black tracking-widest text-[#c2410c]">{receiptCode(app.id)}</p>
         <dl className="mt-3 grid grid-cols-[4.5rem_1fr] gap-y-1 text-sm text-slate-800">
           <dt className="text-slate-500">대표자</dt>
           <dd className="font-bold">{app.nameMasked}</dd>
@@ -92,7 +94,7 @@ export default function MyProgramPage() {
           웹툰으로 보고 「듣기」로 들을 수 있습니다.
         </p>
         <Link
-          to={paths.programStory(program.slug)}
+          to={`${paths.programStory(program.slug)}?a=${app.id}`}
           className="mt-3 flex items-center justify-center gap-1 rounded-xl bg-[#1f4e8c] py-3 text-sm font-black text-white"
         >
           1화부터 보기
@@ -100,12 +102,13 @@ export default function MyProgramPage() {
         </Link>
       </Block>
 
-      <Block title="내 포인트" note="준비 중">
+      <Block title="내 포인트" note={`퀴즈 ${app.answered.length}/6`}>
         <p className="text-3xl font-black text-[#1f4e8c]">
-          0 <span className="text-base">P</span>
+          {app.points} <span className="text-base">P</span>
         </p>
         <p className="mt-1 text-sm text-slate-600">
-          이야기를 듣고 퀴즈를 맞히면 쌓입니다. 대전 제휴 상점에서 쓰는 방법은 협의 중입니다.
+          이야기 각 화 끝의 돌발 퀴즈를 맞히면 10P씩 쌓입니다. 대전 제휴 상점에서 쓰는 방법은 협의
+          중입니다.
         </p>
       </Block>
 

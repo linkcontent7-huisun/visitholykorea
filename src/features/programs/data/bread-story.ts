@@ -239,3 +239,64 @@ export const BREAD_STORY: StoryEpisode[] = [
     next: '이야기를 다 들으셨나요? 들은 이야기로 퀴즈를 풀면 포인트가 쌓입니다.',
   },
 ];
+
+/** 돌발 퀴즈 — 각 화 끝(쉬는 지점)에 2문제. 이야기 원고의 출처 확인된 사실에서만 낸다. 맞히면 10포인트 */
+export interface StoryQuiz {
+  id: string;
+  episode: number;
+  q: string;
+  choices: string[];
+  answer: number;
+  explain: string;
+}
+
+export const BREAD_QUIZ: StoryQuiz[] = [
+  {
+    id: 'bread-1-start',
+    episode: 1,
+    q: '성심당이 처음 문을 연 곳은 어디일까요?',
+    choices: ['대전역 앞 천막', '서울 백화점', '은행동 2층 건물'],
+    answer: 0,
+    explain: '1956년, 대전역 앞 천막 찐빵집에서 시작했어요.',
+  },
+  {
+    id: 'bread-1-flour',
+    episode: 1,
+    q: '대흥동의 성당에서 받은 것은 무엇이었을까요?',
+    choices: ['쌀 한 가마', '밀가루 두 포대', '설탕 한 상자'],
+    answer: 1,
+    explain: '밀가루 두 포대로 찐빵 장사를 시작했어요.',
+  },
+  {
+    id: 'bread-2-built',
+    episode: 2,
+    q: '지금의 대흥동성당 건물이 지어진 해는?',
+    choices: ['1919년', '1962년', '2014년'],
+    answer: 1,
+    explain: '1962년에 지어졌고, 2014년 국가등록문화유산이 되었어요.',
+  },
+  {
+    id: 'bread-2-stairs',
+    episode: 2,
+    q: '종지기가 종을 치러 오른 종탑 계단은 몇 개였을까요?',
+    choices: ['50개', '120개', '300개'],
+    answer: 1,
+    explain: '120개의 계단을 50년 동안 오르내렸어요.',
+  },
+  {
+    id: 'bread-3-moved',
+    episode: 3,
+    q: '충청남도 도청이 공주에서 대전으로 옮겨 온 해는?',
+    choices: ['1932년', '1950년', '2013년'],
+    answer: 0,
+    explain: '1932년에 옮겨 왔어요. 2013년에는 대전근현대사전시관이 되었고요.',
+  },
+  {
+    id: 'bread-3-capital',
+    episode: 3,
+    q: '1950년, 대전은 며칠 동안 임시 수도였을까요?',
+    choices: ['7일', '21일', '100일'],
+    answer: 1,
+    explain: '7월 1일부터 21일 동안이었어요.',
+  },
+];
