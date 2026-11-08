@@ -9,6 +9,7 @@
   ],
   "rewrites": [
     { "source": "/visit", "destination": "https://visitholykorea-visit.vercel.app/visit/" },
+    { "source": "/visit/", "destination": "https://visitholykorea-visit.vercel.app/visit/" },
     {
       "source": "/visit/:path*",
       "destination": "https://visitholykorea-visit.vercel.app/visit/:path*"
