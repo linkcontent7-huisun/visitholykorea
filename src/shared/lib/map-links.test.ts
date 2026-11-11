@@ -5,8 +5,18 @@ const HAEMI: Destination = { name: '해미순교성지', lat: 36.7137, lng: 126.
 
 describe('buildMapLinks — 국내 실사용 순 뒤에 구글지도 (2026-11-12 구글을 되살렸다)', () => {
   it('언어와 무관하게 카카오·티맵·네이버·구글 순서로 고정한다', () => {
-    expect(buildMapLinks(HAEMI, false).map((l) => l.provider)).toEqual(['kakao', 'tmap', 'naver', 'google']);
-    expect(buildMapLinks(HAEMI, true).map((l) => l.provider)).toEqual(['kakao', 'tmap', 'naver', 'google']);
+    expect(buildMapLinks(HAEMI, false).map((l) => l.provider)).toEqual([
+      'kakao',
+      'tmap',
+      'naver',
+      'google',
+    ]);
+    expect(buildMapLinks(HAEMI, true).map((l) => l.provider)).toEqual([
+      'kakao',
+      'tmap',
+      'naver',
+      'google',
+    ]);
   });
 
   it('네 개만 준다 — 애플 지도는 주지 않는다', () => {
