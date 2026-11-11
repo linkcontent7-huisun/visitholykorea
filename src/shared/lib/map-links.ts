@@ -23,6 +23,9 @@
  * 위도·경도·이름)으로 열고, 안드로이드는 인텐트 URL 이라 앱이 없으면 웹 지도로
  * 넘어간다. 티맵도 안드로이드에서는 인텐트 URL 로 바꿔 앱이 없으면 설치 화면이 뜬다
  * (전에는 아무 반응이 없었다). 데스크톱은 앱 스킴이 없으므로 웹 검색을 그대로 둔다.
+ *
+ * **2026-11-12 — 티맵 연결을 고쳤다.** 패키지 이름 오류로 안드로이드에서 열리지 않던 것을 바로잡고,
+ * iOS 는 앱이 없으면 App Store 로, 데스크톱은 단추를 내지 않게 했다(`tmapLink` 참고).
  */
 
 export type MapProvider = 'kakao' | 'tmap' | 'naver' | 'google';
@@ -67,17 +70,38 @@ function kakaoUrl({ name, lat, lng }: Destination): string {
   return `https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`;
 }
 
+/** 티맵 앱의 스토어 주소 — 2026-11-12 에 두 스토어에서 「티맵」 앱임을 확인했다. */
+const TMAP_ANDROID_PACKAGE = 'com.skt.tmap.ku';
+const TMAP_PLAY_STORE = `https://play.google.com/store/apps/details?id=${TMAP_ANDROID_PACKAGE}`;
+const TMAP_APP_STORE = 'https://apps.apple.com/kr/app/id431589174';
+
 /**
  * 티맵 — 한국 운전자가 가장 많이 쓰는 내비게이션. SK텔레콤이 공개한 딥링크 스킴만
- * 있고 웹 대체 주소가 없다. 안드로이드는 인텐트 URL 로 감싸 앱이 없으면 Play 스토어가
- * 뜨게 한다. iOS·데스크톱은 스킴 그대로(없으면 반응이 없거나 경고가 뜬다).
+ * 있고 웹 대체 주소가 없다. 그래서 기기마다 여는 법이 다르다.
+ *
+ * - 안드로이드: 인텐트 URL. 앱이 없으면 Play 스토어의 티맵 화면으로 간다.
+ * - iOS: 앱 스킴을 먼저 열어 보고(`appUrl`), 앱이 없으면 App Store 의 티맵 화면(`url`)으로 간다
+ *   — 네이버지도와 같은 방식이라 호출부(`QuickDirectionsButtons`)를 고칠 필요가 없다.
+ * - 데스크톱: 열 수 있는 것이 없으므로 **단추를 내지 않는다**(null).
+ *
+ * **2026-11-12 고침(사장님 「티맵은 아예 연결이 안 된다」).** 안드로이드 패키지 이름이
+ * `com.skt.tmap` 으로 적혀 있었는데 Play 스토어에 없는 이름이라(404) 앱이 깔려 있어도
+ * 열리지 않았다. 실제 이름은 `com.skt.tmap.ku`. iOS·데스크톱은 앱이 없으면 아무 반응이 없었다.
  */
-function tmapUrl({ name, lat, lng }: Destination, platform: Platform): string {
+function tmapLink(
+  { name, lat, lng }: Destination,
+  platform: Platform,
+): Pick<MapLink, 'url' | 'appUrl'> | null {
   const query = `route?goalname=${encodeURIComponent(name)}&goalx=${lng}&goaly=${lat}`;
   if (platform === 'android') {
-    return `intent://${query}#Intent;scheme=tmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.skt.tmap;end`;
+    return {
+      url: `intent://${query}#Intent;scheme=tmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=${TMAP_ANDROID_PACKAGE};S.browser_fallback_url=${encodeURIComponent(TMAP_PLAY_STORE)};end`,
+    };
   }
-  return `tmap://${query}`;
+  if (platform === 'ios') {
+    return { url: TMAP_APP_STORE, appUrl: `tmap://${query}` };
+  }
+  return null;
 }
 
 /**
@@ -120,6 +144,7 @@ function naverLink(destination: Destination, platform: Platform): Pick<MapLink, 
 /**
  * 길찾기 링크 묶음. 국내 실사용 순(카카오맵 → 티맵 → 네이버지도) 뒤에 구글지도를
  * 붙여 고정한다(언어와 무관). `preferKorean` 은 브랜드명 라벨(카카오맵/KakaoMap 등)에만 쓴다.
+ * 휴대폰은 네 개, 데스크톱은 티맵을 뺀 세 개다(티맵은 앱으로만 열린다).
  */
 export function buildMapLinks(
   destination: Destination,
@@ -133,10 +158,12 @@ export function buildMapLinks(
     url: kakaoUrl(destination),
     noteKey: 'kakaoNote',
   };
-  const tmap: MapLink = {
+  // 티맵은 휴대폰 앱으로만 열린다 — 데스크톱에서는 단추를 내지 않는다
+  const tmapTarget = tmapLink(destination, platform);
+  const tmap: MapLink | null = tmapTarget && {
     provider: 'tmap',
     label: preferKorean ? 'T맵' : 'T map',
-    url: tmapUrl(destination, platform),
+    ...tmapTarget,
     noteKey: 'tmapNote',
   };
   const naver: MapLink = {
@@ -152,7 +179,7 @@ export function buildMapLinks(
     noteKey: 'googleNote',
   };
 
-  return [kakao, tmap, naver, google];
+  return [kakao, ...(tmap ? [tmap] : []), naver, google];
 }
 
 /** 좌표를 보기 좋게. 지도 앱에 직접 붙여넣을 수 있는 형식이다. */
