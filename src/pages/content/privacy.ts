@@ -58,7 +58,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: '외부 서비스 이용',
-        body: '인증·데이터 저장은 Supabase, 웹 호스팅은 Vercel, 가입 확인 메일은 Resend 를 사용합니다. 주변 관광 정보와 예상 밀집도는 한국관광공사 OpenAPI(TourAPI)를 실시간으로 호출하며 응답을 저장하지 않습니다. 외부 지도(Google·Apple·카카오·T맵·네이버)는 링크로만 열리며 각 서비스의 정책을 따릅니다.',
+        body: '인증·데이터 저장은 Supabase, 웹 호스팅은 Vercel, 가입 확인 메일은 Resend 를 사용합니다. 주변 관광 정보와 예상 밀집도는 한국관광공사 OpenAPI(TourAPI)를 실시간으로 호출하며 응답을 저장하지 않습니다. 외부 지도(카카오·T맵·네이버·Google)는 링크로만 열리며 각 서비스의 정책을 따릅니다.',
       },
       {
         title: '안전조치',
@@ -112,7 +112,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Third-party services',
-        body: 'Authentication and data storage use Supabase, web hosting uses Vercel, and sign-up confirmation emails use Resend. Nearby tourism information and expected crowding are fetched live from the Korea Tourism Organization OpenAPI (TourAPI) and responses are not stored. External maps (Google, Apple, Kakao, T map, Naver) open by link only and follow their own policies.',
+        body: 'Authentication and data storage use Supabase, web hosting uses Vercel, and sign-up confirmation emails use Resend. Nearby tourism information and expected crowding are fetched live from the Korea Tourism Organization OpenAPI (TourAPI) and responses are not stored. External maps (Kakao, T map, Naver, Google) open by link only and follow their own policies.',
       },
       {
         title: 'Security measures',
@@ -166,7 +166,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Servicios de terceros',
-        body: 'La autenticación y el almacenamiento de datos usan Supabase, el alojamiento web usa Vercel y los correos de confirmación de registro usan Resend. La información turística cercana y la afluencia prevista se obtienen en tiempo real de la OpenAPI de la Organización de Turismo de Corea (TourAPI) y las respuestas no se guardan. Los mapas externos (Google, Apple, Kakao, T map, Naver) se abren solo mediante enlace y siguen sus propias políticas.',
+        body: 'La autenticación y el almacenamiento de datos usan Supabase, el alojamiento web usa Vercel y los correos de confirmación de registro usan Resend. La información turística cercana y la afluencia prevista se obtienen en tiempo real de la OpenAPI de la Organización de Turismo de Corea (TourAPI) y las respuestas no se guardan. Los mapas externos (Kakao, T map, Naver, Google) se abren solo mediante enlace y siguen sus propias políticas.',
       },
       {
         title: 'Medidas de seguridad',
@@ -220,7 +220,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Services tiers',
-        body: 'L’authentification et le stockage des données utilisent Supabase, l’hébergement web utilise Vercel et les e-mails de confirmation d’inscription utilisent Resend. Les informations touristiques à proximité et l’affluence prévue sont récupérées en temps réel via l’OpenAPI de l’Office du tourisme de Corée (TourAPI) et les réponses ne sont pas stockées. Les cartes externes (Google, Apple, Kakao, T map, Naver) s’ouvrent uniquement par lien et suivent leurs propres politiques.',
+        body: 'L’authentification et le stockage des données utilisent Supabase, l’hébergement web utilise Vercel et les e-mails de confirmation d’inscription utilisent Resend. Les informations touristiques à proximité et l’affluence prévue sont récupérées en temps réel via l’OpenAPI de l’Office du tourisme de Corée (TourAPI) et les réponses ne sont pas stockées. Les cartes externes (Kakao, T map, Naver, Google) s’ouvrent uniquement par lien et suivent leurs propres politiques.',
       },
       {
         title: 'Mesures de sécurité',
@@ -274,7 +274,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Serviços de terceiros',
-        body: 'A autenticação e o armazenamento de dados usam o Supabase, a hospedagem web usa a Vercel e os e-mails de confirmação de cadastro usam o Resend. As informações turísticas próximas e o movimento previsto são obtidos em tempo real da OpenAPI da Organização de Turismo da Coreia (TourAPI), e as respostas não são armazenadas. Os mapas externos (Google, Apple, Kakao, T map, Naver) abrem apenas por link e seguem suas próprias políticas.',
+        body: 'A autenticação e o armazenamento de dados usam o Supabase, a hospedagem web usa a Vercel e os e-mails de confirmação de cadastro usam o Resend. As informações turísticas próximas e o movimento previsto são obtidos em tempo real da OpenAPI da Organização de Turismo da Coreia (TourAPI), e as respostas não são armazenadas. Os mapas externos (Kakao, T map, Naver, Google) abrem apenas por link e seguem suas próprias políticas.',
       },
       {
         title: 'Medidas de segurança',
@@ -328,7 +328,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Servizi di terzi',
-        body: 'Autenticazione e archiviazione dei dati usano Supabase, l’hosting web usa Vercel e le e-mail di conferma della registrazione usano Resend. Le informazioni turistiche nelle vicinanze e l’affollamento previsto sono recuperati in tempo reale dall’OpenAPI dell’Organizzazione del Turismo Coreano (TourAPI) e le risposte non vengono memorizzate. Le mappe esterne (Google, Apple, Kakao, T map, Naver) si aprono solo tramite link e seguono le proprie politiche.',
+        body: 'Autenticazione e archiviazione dei dati usano Supabase, l’hosting web usa Vercel e le e-mail di conferma della registrazione usano Resend. Le informazioni turistiche nelle vicinanze e l’affollamento previsto sono recuperati in tempo reale dall’OpenAPI dell’Organizzazione del Turismo Coreano (TourAPI) e le risposte non vengono memorizzate. Le mappe esterne (Kakao, T map, Naver, Google) si aprono solo tramite link e seguono le proprie politiche.',
       },
       {
         title: 'Misure di sicurezza',

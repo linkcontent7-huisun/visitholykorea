@@ -7,7 +7,7 @@ import { buildMapLinks, type Destination, type MapLink } from '@/shared/lib/map-
  * 목록 행(검색 결과·지역 랜딩·주변 본당 카드·나침반 결과)에서 쓰는 길찾기 버튼 묶음.
  *
  * 카카오맵만 있어서 안드로이드가 아닌 사람이 막힌다는 실기기 피드백(2026-09-08)
- * 으로, 하나로 줄이지 않고 `buildMapLinks` 가 주는 카카오맵·티맵·네이버지도(실사용
+ * 으로, 하나로 줄이지 않고 `buildMapLinks` 가 주는 카카오맵·티맵·네이버지도·구글지도(실사용
  * 순) 전부를 보여준다. 성지 상세의 `DirectionsCard` 와 같은 데이터(`buildMapLinks`)를
  * 쓰므로 목록에서 보이는 순서와 상세 화면의 순서가 어긋나지 않는다. 전부 새 탭 실제
  * URL 로 열리는 진짜 길찾기다 — 자리표시자가 아니다.

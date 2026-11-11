@@ -3,15 +3,30 @@ import { buildMapLinks, formatCoordinates, type Destination } from './map-links'
 
 const HAEMI: Destination = { name: '해미순교성지', lat: 36.7137, lng: 126.5433 };
 
-describe('buildMapLinks — 국내 실사용 순, 구글·애플은 안 준다(2026-09-19)', () => {
-  it('언어와 무관하게 카카오·티맵·네이버 순서로 고정한다', () => {
-    expect(buildMapLinks(HAEMI, false).map((l) => l.provider)).toEqual(['kakao', 'tmap', 'naver']);
-    expect(buildMapLinks(HAEMI, true).map((l) => l.provider)).toEqual(['kakao', 'tmap', 'naver']);
+describe('buildMapLinks — 국내 실사용 순 뒤에 구글지도 (2026-11-12 구글을 되살렸다)', () => {
+  it('언어와 무관하게 카카오·티맵·네이버·구글 순서로 고정한다', () => {
+    expect(buildMapLinks(HAEMI, false).map((l) => l.provider)).toEqual([
+      'kakao',
+      'tmap',
+      'naver',
+      'google',
+    ]);
+    expect(buildMapLinks(HAEMI, true).map((l) => l.provider)).toEqual([
+      'kakao',
+      'tmap',
+      'naver',
+      'google',
+    ]);
   });
 
-  it('세 개만 준다 — 구글·애플은 국내에서 안 쓰여 뺐다', () => {
-    expect(buildMapLinks(HAEMI, true)).toHaveLength(3);
-    expect(buildMapLinks(HAEMI, false)).toHaveLength(3);
+  it('네 개만 준다 — 애플 지도는 주지 않는다', () => {
+    expect(buildMapLinks(HAEMI, true)).toHaveLength(4);
+    expect(buildMapLinks(HAEMI, false)).toHaveLength(4);
+  });
+
+  it('구글지도 이름은 한국어 화면에서 구글지도, 그 밖에서는 Google Maps', () => {
+    expect(buildMapLinks(HAEMI, true).at(-1)?.label).toBe('구글지도');
+    expect(buildMapLinks(HAEMI, false).at(-1)?.label).toBe('Google Maps');
   });
 });
 
@@ -35,6 +50,12 @@ describe('링크 형식', () => {
     expect(byProvider.tmap).toContain(`goaly=${HAEMI.lat}`);
   });
 
+  it('구글지도는 공식 길찾기 주소에 좌표를 넣고 대중교통으로 연다', () => {
+    expect(byProvider.google).toBe(
+      `https://www.google.com/maps/dir/?api=1&destination=${HAEMI.lat},${HAEMI.lng}&travelmode=transit`,
+    );
+  });
+
   it('이름에 공백이 있어도 링크가 깨지지 않는다', () => {
     const withSpace = buildMapLinks({ ...HAEMI, name: '갈매못 순교성지' }, true);
     for (const link of withSpace) {
@@ -43,7 +64,7 @@ describe('링크 형식', () => {
   });
 });
 
-describe('휴대폰에서는 세 앱 모두 좌표로 연다 (2026-10-13 — 이름 검색은 엉뚱한 곳이 나온다)', () => {
+describe('휴대폰에서는 모든 앱을 좌표로 연다 (2026-10-13 — 이름 검색은 엉뚱한 곳이 나온다)', () => {
   it('안드로이드 네이버: 공식 스킴(nmap) 인텐트에 위도·경도·이름, 앱 없으면 웹 지도로', () => {
     const naver = buildMapLinks(HAEMI, true, 'android').find((l) => l.provider === 'naver')!;
     expect(naver.url).toMatch(/^intent:\/\/route\/public\?/);
@@ -75,6 +96,13 @@ describe('휴대폰에서는 세 앱 모두 좌표로 연다 (2026-10-13 — 이
   it('iOS 티맵은 스킴 그대로', () => {
     const tmap = buildMapLinks(HAEMI, true, 'ios').find((l) => l.provider === 'tmap')!;
     expect(tmap.url).toMatch(/^tmap:\/\/route\?/);
+  });
+
+  it('구글지도는 플랫폼과 무관하게 같은 주소 — 앱이 있으면 앱, 없으면 웹', () => {
+    const urls = (['android', 'ios', 'other'] as const).map(
+      (p) => buildMapLinks(HAEMI, true, p).find((l) => l.provider === 'google')!.url,
+    );
+    expect(new Set(urls).size).toBe(1);
   });
 
   it('카카오맵은 플랫폼과 무관하게 같은 주소 — 하나로 웹·앱이 다 열린다', () => {
