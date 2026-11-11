@@ -66,11 +66,20 @@
       탭도 그 즉시 컨트롤러가 바뀐다 — 그때 한 번 새로고침해야 새 번들이 실제로 반영된다.
       vite-plugin-pwa 의 등록 스크립트(`injectRegister: 'inline'`)는 register() 만 하고 이 처리를
       안 해줘서 따로 붙였다(2026-09-19).
+
+      단, **처음 방문**(이 페이지가 서비스워커 없이 열린 경우)에는 새로고침하지 않는다. 처음 설치된
+      서비스워커가 페이지를 넘겨받을 때도 controllerchange 가 나는데, 그때는 이미 최신 화면이다.
+      여기서 새로고침하면 접속 몇 초 뒤 화면이 한 번 깜빡이며 입력하던 가입 폼이 지워진다(2026-11-11 QA).
     -->
     <script>
       if ('serviceWorker' in navigator) {
         var vhkSwRefreshing = false;
+        var vhkHadSwController = !!navigator.serviceWorker.controller;
         navigator.serviceWorker.addEventListener('controllerchange', function () {
+          if (!vhkHadSwController) {
+            vhkHadSwController = true;
+            return;
+          }
           if (vhkSwRefreshing) return;
           vhkSwRefreshing = true;
           window.location.reload();
