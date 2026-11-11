@@ -11,6 +11,7 @@ import { chatStore } from '../lib/chat-store';
 
 vi.mock('@/shared/i18n/use-settings', () => ({
   useSettings: () => ({
+    language: 'ko',
     t: (key: string) => (DICTIONARY as Record<string, Record<string, string>>)[key]?.ko ?? key,
   }),
 }));
@@ -32,6 +33,11 @@ vi.mock('../api/ai-chat.repository', () => ({
   fetchChatHistory: () => fetchHistoryMock(),
   saveChatTurns: (...args: unknown[]) => saveMock(...args),
   clearChatHistory: () => clearMock(),
+}));
+
+const logMock = vi.fn();
+vi.mock('../api/ai-question-log', () => ({
+  logQuestion: (...args: unknown[]) => logMock(...args),
 }));
 
 const GREETING = DICTIONARY.aiGreeting.ko;
@@ -71,6 +77,15 @@ describe('AiGuideSheet', () => {
       { role: 'bot', text: '절두산은 마포구에 있어요.' },
     ]);
     expect(fetchHistoryMock).not.toHaveBeenCalled();
+    // 재학습용 익명 기록 — 비로그인이어도 질문·답·언어를 넘긴다 (계정 정보는 없다)
+    expect(logMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        question: '절두산 어디예요?',
+        answer: '절두산은 마포구에 있어요.',
+        language: 'ko',
+        signedIn: false,
+      }),
+    );
   });
 
   it('두 번째 질문에는 직전 대화가 문맥으로 실린다', async () => {

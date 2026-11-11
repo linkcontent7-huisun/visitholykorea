@@ -8,6 +8,7 @@ import type { Language } from '@/shared/i18n/dictionary';
  * 이용자 권리(이름·비밀번호는 계정 설정에서 직접), 자동 수집(기기 저장소·접속 기록·분석 도구 없음),
  * 시행일 2026-09-21 과 개정 이력. 앱의 실제 저장·삭제 동작과 운영자가 확정한 값만 적는다 —
  * 한국어가 원문, 나머지는 번역. 절을 고칠 때는 여섯 언어를 함께 고친다.
+ * 2026-11-12: AI 가이드 질문·답의 익명 보관(`ai_question_logs`, 재학습 자료)을 적었다 — 사장님 지시 2026-11-11.
  */
 export interface PrivacyItem {
   title: string;
@@ -33,7 +34,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'AI 가이드(미카엘) 대화',
-        body: '로그인한 상태에서 미카엘에게 한 질문과 답은 계정에 저장되어 다음에 열어도 이어서 볼 수 있습니다. 본인만 볼 수 있고, 대화창의 「대화 지우기」로 언제든 전부 삭제됩니다. 로그인하지 않으면 저장하지 않습니다. 질문에 이름·연락처 같은 개인정보를 넣지 마세요. 답변 생성에는 Anthropic Claude 를 사용하며(장애 시 Google Gemini 로 대신 답합니다) 질문 내용이 그 서비스로 전송됩니다.',
+        body: '로그인한 상태에서 미카엘에게 한 질문과 답은 계정에 저장되어 다음에 열어도 이어서 볼 수 있습니다. 본인만 볼 수 있고, 대화창의 「대화 지우기」로 언제든 전부 삭제됩니다. 로그인하지 않으면 계정에는 저장하지 않습니다. 이와 별도로, 로그인 여부와 관계없이 미카엘에게 한 질문과 답은 답변 품질을 높이고 미카엘을 다시 학습시키는 자료로 쓰기 위해 이름·계정과 연결하지 않고 따로 보관합니다. 이 보관분은 누가 물었는지 알 수 없어 「대화 지우기」나 탈퇴로 지워지지 않습니다. 질문에 이름·연락처 같은 개인정보를 넣지 마세요. 답변 생성에는 Anthropic Claude 를 사용하며(장애 시 Google Gemini 로 대신 답합니다) 질문 내용이 그 서비스로 전송됩니다.',
       },
       {
         title: '이용 목적',
@@ -69,7 +70,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: '시행일과 개정 이력',
-        body: '이 안내는 2026년 9월 21일부터 시행합니다.\n· 2026-08-18 첫 공개\n· 2026-09-21 국외 이전·이용자 권리·자동 저장 항목·보호책임자·안전조치 추가',
+        body: '이 안내는 2026년 9월 21일부터 시행합니다.\n· 2026-08-18 첫 공개\n· 2026-09-21 국외 이전·이용자 권리·자동 저장 항목·보호책임자·안전조치 추가\n· 2026-11-12 AI 가이드 질문·답의 익명 보관(답변 개선·재학습용) 추가',
       },
     ],
   },
@@ -87,7 +88,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'AI guide (Michael) conversations',
-        body: 'While signed in, your questions to Michael and its answers are saved to your account so the conversation continues next time. Only you can see them, and “Clear chat” in the chat window deletes them all at any time. Nothing is saved when you are not signed in. Please do not include personal details such as names or contact information in questions. Answers are generated with Anthropic Claude (Google Gemini as a backup when Claude is unavailable), so question text is sent to that service.',
+        body: 'While signed in, your questions to Michael and its answers are saved to your account so the conversation continues next time. Only you can see them, and “Clear chat” in the chat window deletes them all at any time. When you are not signed in, nothing is saved to an account. Separately, whether or not you are signed in, questions to Michael and its answers are kept without your name or account so that we can improve answer quality and retrain Michael. Because these copies cannot be traced to a person, “Clear chat” and closing your account do not delete them. Please do not include personal details such as names or contact information in questions. Answers are generated with Anthropic Claude (Google Gemini as a backup when Claude is unavailable), so question text is sent to that service.',
       },
       {
         title: 'Why we use it',
@@ -123,7 +124,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Effective date and revisions',
-        body: 'This notice takes effect on September 21, 2026.\n· 2026-08-18 first published\n· 2026-09-21 added international transfers, your rights, automatic storage, privacy officer and security measures',
+        body: 'This notice takes effect on September 21, 2026.\n· 2026-08-18 first published\n· 2026-09-21 added international transfers, your rights, automatic storage, privacy officer and security measures\n· 2026-11-12 added anonymous retention of AI guide questions and answers (to improve and retrain the guide)',
       },
     ],
   },
@@ -141,7 +142,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Conversaciones con el guía de IA (Miguel)',
-        body: 'Si has iniciado sesión, tus preguntas a Miguel y sus respuestas se guardan en tu cuenta para que la conversación continúe la próxima vez. Solo tú puedes verlas, y «Borrar la conversación» en la ventana de chat las elimina todas en cualquier momento. Si no has iniciado sesión, no se guarda nada. No incluyas en las preguntas datos personales como nombres o datos de contacto. Las respuestas se generan con Anthropic Claude (Google Gemini como respaldo si Claude no está disponible), por lo que el texto de la pregunta se envía a ese servicio.',
+        body: 'Si has iniciado sesión, tus preguntas a Miguel y sus respuestas se guardan en tu cuenta para que la conversación continúe la próxima vez. Solo tú puedes verlas, y «Borrar la conversación» en la ventana de chat las elimina todas en cualquier momento. Si no has iniciado sesión, no se guarda nada en una cuenta. Aparte de eso, hayas iniciado sesión o no, las preguntas a Miguel y sus respuestas se conservan sin tu nombre ni tu cuenta para mejorar la calidad de las respuestas y volver a entrenar a Miguel. Como esas copias no pueden vincularse a una persona, «Borrar la conversación» y el cierre de la cuenta no las eliminan. No incluyas en las preguntas datos personales como nombres o datos de contacto. Las respuestas se generan con Anthropic Claude (Google Gemini como respaldo si Claude no está disponible), por lo que el texto de la pregunta se envía a ese servicio.',
       },
       {
         title: 'Para qué los usamos',
@@ -177,7 +178,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Fecha de vigencia y revisiones',
-        body: 'Este aviso entra en vigor el 21 de septiembre de 2026.\n· 2026-08-18 primera publicación\n· 2026-09-21 se añaden transferencias internacionales, tus derechos, almacenamiento automático, responsable de privacidad y medidas de seguridad',
+        body: 'Este aviso entra en vigor el 21 de septiembre de 2026.\n· 2026-08-18 primera publicación\n· 2026-09-21 se añaden transferencias internacionales, tus derechos, almacenamiento automático, responsable de privacidad y medidas de seguridad\n· 2026-11-12 se añade la conservación anónima de preguntas y respuestas del guía de IA (para mejorarlo y reentrenarlo)',
       },
     ],
   },
@@ -195,7 +196,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Conversations avec le guide IA (Michel)',
-        body: 'Lorsque vous êtes connecté, vos questions à Michel et ses réponses sont enregistrées dans votre compte afin que la conversation reprenne la fois suivante. Vous seul pouvez les voir, et « Effacer la conversation » dans la fenêtre de discussion les supprime toutes à tout moment. Rien n’est enregistré si vous n’êtes pas connecté. N’indiquez pas de données personnelles (noms, coordonnées) dans vos questions. Les réponses sont générées avec Anthropic Claude (Google Gemini en secours si Claude est indisponible) ; le texte de la question est donc transmis à ce service.',
+        body: 'Lorsque vous êtes connecté, vos questions à Michel et ses réponses sont enregistrées dans votre compte afin que la conversation reprenne la fois suivante. Vous seul pouvez les voir, et « Effacer la conversation » dans la fenêtre de discussion les supprime toutes à tout moment. Si vous n’êtes pas connecté, rien n’est enregistré dans un compte. Par ailleurs, que vous soyez connecté ou non, les questions posées à Michel et ses réponses sont conservées sans votre nom ni votre compte afin d’améliorer la qualité des réponses et de réentraîner Michel. Ces copies ne pouvant être rattachées à une personne, « Effacer la conversation » et la fermeture du compte ne les suppriment pas. N’indiquez pas de données personnelles (noms, coordonnées) dans vos questions. Les réponses sont générées avec Anthropic Claude (Google Gemini en secours si Claude est indisponible) ; le texte de la question est donc transmis à ce service.',
       },
       {
         title: 'Finalités',
@@ -231,7 +232,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Date d’entrée en vigueur et révisions',
-        body: 'Le présent avis entre en vigueur le 21 septembre 2026.\n· 2026-08-18 première publication\n· 2026-09-21 ajout des transferts internationaux, de vos droits, des données enregistrées automatiquement, du responsable de la confidentialité et des mesures de sécurité',
+        body: 'Le présent avis entre en vigueur le 21 septembre 2026.\n· 2026-08-18 première publication\n· 2026-09-21 ajout des transferts internationaux, de vos droits, des données enregistrées automatiquement, du responsable de la confidentialité et des mesures de sécurité\n· 2026-11-12 ajout de la conservation anonyme des questions et réponses du guide IA (pour l’améliorer et le réentraîner)',
       },
     ],
   },
@@ -249,7 +250,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Conversas com o guia de IA (Miguel)',
-        body: 'Com o login feito, suas perguntas ao Miguel e as respostas dele são salvas na sua conta para que a conversa continue da próxima vez. Só você pode vê-las, e “Apagar a conversa” na janela de chat as exclui todas a qualquer momento. Sem login, nada é salvo. Não inclua nas perguntas dados pessoais, como nomes ou contatos. As respostas são geradas com Anthropic Claude (Google Gemini como reserva quando o Claude está indisponível), portanto o texto da pergunta é enviado a esse serviço.',
+        body: 'Com o login feito, suas perguntas ao Miguel e as respostas dele são salvas na sua conta para que a conversa continue da próxima vez. Só você pode vê-las, e “Apagar a conversa” na janela de chat as exclui todas a qualquer momento. Sem login, nada é salvo em uma conta. Além disso, com ou sem login, as perguntas ao Miguel e as respostas dele são guardadas sem o seu nome nem a sua conta, para melhorar a qualidade das respostas e treinar o Miguel novamente. Como essas cópias não podem ser ligadas a uma pessoa, “Apagar a conversa” e o encerramento da conta não as excluem. Não inclua nas perguntas dados pessoais, como nomes ou contatos. As respostas são geradas com Anthropic Claude (Google Gemini como reserva quando o Claude está indisponível), portanto o texto da pergunta é enviado a esse serviço.',
       },
       {
         title: 'Para que usamos',
@@ -285,7 +286,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Data de vigência e revisões',
-        body: 'Este aviso entra em vigor em 21 de setembro de 2026.\n· 2026-08-18 primeira publicação\n· 2026-09-21 inclusão de transferências internacionais, seus direitos, dados salvos automaticamente, responsável pela privacidade e medidas de segurança',
+        body: 'Este aviso entra em vigor em 21 de setembro de 2026.\n· 2026-08-18 primeira publicação\n· 2026-09-21 inclusão de transferências internacionais, seus direitos, dados salvos automaticamente, responsável pela privacidade e medidas de segurança\n· 2026-11-12 inclusão da guarda anônima de perguntas e respostas do guia de IA (para melhorá-lo e treiná-lo novamente)',
       },
     ],
   },
@@ -303,7 +304,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Conversazioni con la guida IA (Michele)',
-        body: 'Se hai effettuato l’accesso, le tue domande a Michele e le sue risposte vengono salvate nel tuo account, così la conversazione riprende la volta successiva. Solo tu puoi vederle, e «Cancella la conversazione» nella finestra di chat le elimina tutte in qualsiasi momento. Senza accesso non viene salvato nulla. Non inserire nelle domande dati personali come nomi o contatti. Le risposte sono generate con Anthropic Claude (Google Gemini come riserva quando Claude non è disponibile), quindi il testo della domanda viene inviato a quel servizio.',
+        body: 'Se hai effettuato l’accesso, le tue domande a Michele e le sue risposte vengono salvate nel tuo account, così la conversazione riprende la volta successiva. Solo tu puoi vederle, e «Cancella la conversazione» nella finestra di chat le elimina tutte in qualsiasi momento. Senza accesso non viene salvato nulla in un account. A parte questo, con o senza accesso, le domande a Michele e le sue risposte vengono conservate senza il tuo nome né il tuo account, per migliorare la qualità delle risposte e riaddestrare Michele. Poiché queste copie non sono riconducibili a una persona, «Cancella la conversazione» e la chiusura dell’account non le eliminano. Non inserire nelle domande dati personali come nomi o contatti. Le risposte sono generate con Anthropic Claude (Google Gemini come riserva quando Claude non è disponibile), quindi il testo della domanda viene inviato a quel servizio.',
       },
       {
         title: 'Finalità',
@@ -339,7 +340,7 @@ export const PRIVACY: Record<Language, PrivacyContent> = {
       },
       {
         title: 'Data di entrata in vigore e revisioni',
-        body: 'La presente informativa entra in vigore il 21 settembre 2026.\n· 2026-08-18 prima pubblicazione\n· 2026-09-21 aggiunti trasferimenti internazionali, i tuoi diritti, dati salvati automaticamente, responsabile della privacy e misure di sicurezza',
+        body: 'La presente informativa entra in vigore il 21 settembre 2026.\n· 2026-08-18 prima pubblicazione\n· 2026-09-21 aggiunti trasferimenti internazionali, i tuoi diritti, dati salvati automaticamente, responsabile della privacy e misure di sicurezza\n· 2026-11-12 aggiunta la conservazione anonima di domande e risposte della guida IA (per migliorarla e riaddestrarla)',
       },
     ],
   },

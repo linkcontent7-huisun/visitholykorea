@@ -9,6 +9,7 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import { useSession } from '@/features/auth/hooks/use-session';
 import { askAIGuide } from '../api/ai-guide.client';
 import { clearChatHistory, fetchChatHistory, saveChatTurns } from '../api/ai-chat.repository';
+import { logQuestion } from '../api/ai-question-log';
 import { chatStore, useChatMessages } from '../lib/chat-store';
 
 /**
@@ -30,7 +31,7 @@ interface AiGuideSheetProps {
  * 최근 대화를 채우고 질문 · 답을 쌍으로 저장한다(스펙 7절). 비로그인은 세션 안에서만.
  */
 export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
-  const { t } = useSettings();
+  const { language, t } = useSettings();
   const { session } = useSession();
   const userId = session?.user.id ?? null;
   const messages = useChatMessages();
@@ -89,6 +90,15 @@ export function AiGuideSheet({ isOpen, onClose }: AiGuideSheetProps) {
       { role: 'user', text: question },
       { role: 'bot', text: answer.text },
     ]);
+    // 재학습 자료용 익명 기록 — 로그인과 무관, 계정과 연결하지 않는다. 실패해도 대화에는 영향이 없다.
+    void logQuestion({
+      question,
+      answer: answer.text,
+      language,
+      sources: answer.sources,
+      fallback: answer.fallback,
+      signedIn: Boolean(userId),
+    });
   };
 
   const handleClear = async () => {
