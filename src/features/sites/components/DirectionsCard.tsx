@@ -10,7 +10,7 @@ import { QuickDirectionsButtons } from './QuickDirectionsButtons';
  * 찾아가는 길.
  *
  * 지도 앱을 하나로 몰지 않고 나란히 두고(`QuickDirectionsButtons` — 주변 본당
- * 목록과 같은 작은 단추: 카카오맵·티맵·네이버지도, 국내 실사용 순), 무엇보다
+ * 목록과 같은 작은 단추: 카카오맵·티맵·네이버지도·구글지도, 국내 실사용 순 뒤에 구글), 무엇보다
  * **한국어 주소를 크게 보여준다.** 구글·애플 지도는 국내에서는 거의 안 쓰여
  * 코드 전체에서 뺐다(사장님 지적, 2026-09-19 — `shared/lib/map-links.ts` 참고).
  *

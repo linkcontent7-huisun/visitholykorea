@@ -2829,6 +2829,14 @@ export const DICTIONARY = {
     pt: 'O app de direção mais popular na Coreia — só abre se estiver instalado',
     it: 'L’app di guida più popolare in Corea: si apre solo se è installata',
   },
+  googleNote: {
+    ko: '외국에서 쓰던 그대로예요. 대중교통 길찾기로 열려요',
+    en: 'The map you already know — opens public transport directions',
+    es: 'El mapa que ya conoces: abre la ruta en transporte público',
+    fr: 'La carte que vous connaissez déjà — ouvre l’itinéraire en transports en commun',
+    pt: 'O mapa que você já conhece — abre a rota de transporte público',
+    it: 'La mappa che conosci già: apre il percorso con i mezzi pubblici',
+  },
   noCoordinates: {
     ko: '아직 좌표가 확인되지 않은 성지예요',
     en: 'Coordinates for this site are not confirmed yet',

@@ -7,6 +7,10 @@
  * 성지 상세의 길찾기 버튼을 포함해 코드 전체에서 뺐다 — 카카오맵·티맵·네이버지도만 남는다.
  * 외국인 방문자에게 필요한 대안(구글·애플)이 다시 필요해지면 이 파일을 참고해 되살릴 것.
  *
+ * **2026-11-12 — 구글지도를 되살렸다(사장님 결정).** 2027 서울 세계청년대회로 오는 외국인
+ * 순례자는 자기 나라에서 쓰던 구글지도가 가장 익숙하다. 카카오맵·티맵·네이버지도는
+ * 그대로 두고 구글지도를 네 번째로 붙였다. 애플 지도는 되살리지 않았다.
+ *
  * 그리고 가장 중요한 것은 지도가 아니라 **한국어 주소 그 자체**다.
  * 택시 기사에게 화면을 보여주는 것이 외국인에게는 가장 확실한 길찾기다.
  *
@@ -21,7 +25,7 @@
  * (전에는 아무 반응이 없었다). 데스크톱은 앱 스킴이 없으므로 웹 검색을 그대로 둔다.
  */
 
-export type MapProvider = 'kakao' | 'tmap' | 'naver';
+export type MapProvider = 'kakao' | 'tmap' | 'naver' | 'google';
 
 export interface MapLink {
   provider: MapProvider;
@@ -35,7 +39,7 @@ export interface MapLink {
    */
   appUrl?: string;
   /** 이 앱이 한국에서 무엇을 잘하고 못하는지 */
-  noteKey: 'kakaoNote' | 'tmapNote' | 'naverNote';
+  noteKey: 'kakaoNote' | 'tmapNote' | 'naverNote' | 'googleNote';
 }
 
 export interface Destination {
@@ -76,6 +80,16 @@ function tmapUrl({ name, lat, lng }: Destination, platform: Platform): string {
   return `tmap://${query}`;
 }
 
+/**
+ * 구글지도 — 외국인 방문자가 자기 나라에서 쓰던 지도. 구글 공식 Maps URLs 형식이라
+ * 이 주소 하나로 앱이 있으면 앱, 없으면 웹이 열린다. 목적지는 좌표로 보낸다(이름 검색은
+ * 엉뚱한 곳이 나올 수 있다). 대중교통 길찾기(`travelmode=transit`)로 연다.
+ * 공식 문서: https://developers.google.com/maps/documentation/urls/get-started
+ */
+function googleUrl({ lat, lng }: Destination): string {
+  return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=transit`;
+}
+
 /** 네이버지도 웹 — 이름 검색. 좌표를 못 받는 데스크톱과, 앱이 없을 때의 대체 경로다. */
 function naverWebUrl({ name }: Destination): string {
   return `https://map.naver.com/p/search/${encodeURIComponent(name)}`;
@@ -104,9 +118,8 @@ function naverLink(destination: Destination, platform: Platform): Pick<MapLink, 
 }
 
 /**
- * 길찾기 링크 묶음. 실사용 순(카카오맵 → 티맵 → 네이버지도)으로 고정한다 —
- * 구글·애플을 빼면서 언어별로 순서를 바꿀 이유도 같이 없어졌다. `preferKorean`
- * 은 브랜드명 라벨(카카오맵/KakaoMap 등)에만 쓴다.
+ * 길찾기 링크 묶음. 국내 실사용 순(카카오맵 → 티맵 → 네이버지도) 뒤에 구글지도를
+ * 붙여 고정한다(언어와 무관). `preferKorean` 은 브랜드명 라벨(카카오맵/KakaoMap 등)에만 쓴다.
  */
 export function buildMapLinks(
   destination: Destination,
@@ -132,8 +145,14 @@ export function buildMapLinks(
     ...naverLink(destination, platform),
     noteKey: 'naverNote',
   };
+  const google: MapLink = {
+    provider: 'google',
+    label: preferKorean ? '구글지도' : 'Google Maps',
+    url: googleUrl(destination),
+    noteKey: 'googleNote',
+  };
 
-  return [kakao, tmap, naver];
+  return [kakao, tmap, naver, google];
 }
 
 /** 좌표를 보기 좋게. 지도 앱에 직접 붙여넣을 수 있는 형식이다. */
