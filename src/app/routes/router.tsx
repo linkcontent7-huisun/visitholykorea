@@ -4,7 +4,7 @@ import { ScrollShell } from '@/app/layouts/ScrollShell';
 import { DocumentTitleSync } from './DocumentTitleSync';
 import { AppLayout } from '@/app/layouts/AppLayout';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
-import { SUBMISSION_MODE } from '@/shared/lib/feature-flags';
+import { PROGRAMS_HIDDEN, SUBMISSION_MODE } from '@/shared/lib/feature-flags';
 import { paths } from './paths';
 
 // 첫 화면 이후의 페이지는 필요할 때 내려받는다(초기 로딩 시간 단축).
@@ -134,7 +134,15 @@ export const router = createBrowserRouter([
           // 성지 상세도 상단바·하단 탭 안에서 뜬다 (2026-09-17 사장님 지시). 전엔 큰 사진 히어로를 위해
           // 전체 화면이었는데, 상세에서 다른 탭으로 못 가고 헤더가 사라져 길을 잃었다.
           { path: paths.siteDetailPattern, element: withSuspense(<SiteDetailPage />) },
-          { path: paths.programApplyPattern, element: withSuspense(<ProgramApplyPage />) },
+          // 체험여행 접수는 숨김 스위치가 켜져 있으면 첫 화면으로 보낸다 (2026-11-11)
+          {
+            path: paths.programApplyPattern,
+            element: PROGRAMS_HIDDEN ? (
+              <Navigate to={paths.home} replace />
+            ) : (
+              withSuspense(<ProgramApplyPage />)
+            ),
+          },
         ],
       },
       // 하단 탭 없이 전체 화면으로 뜨는 화면들 — 로그인·관리자·404 만

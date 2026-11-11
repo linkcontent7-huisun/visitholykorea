@@ -6,6 +6,8 @@
  * 기관이 직접 등록하는 단계가 오면 이 파일 대신 DB 표에서 읽는다.
  */
 
+import { PROGRAMS_HIDDEN } from '@/shared/lib/feature-flags';
+
 export interface ProgramStop {
   time: string;
   place: string;
@@ -83,6 +85,8 @@ export function findProgram(slug: string | undefined): ExperienceProgram | undef
   return PROGRAMS.find((p) => p.slug === slug);
 }
 
+/** 성지 화면에 띄울 프로그램. 숨김 스위치(PROGRAMS_HIDDEN)가 켜져 있으면 아무것도 띄우지 않는다. */
 export function programsForRegion(region: string | undefined): ExperienceProgram[] {
+  if (PROGRAMS_HIDDEN) return [];
   return region ? PROGRAMS.filter((p) => p.region === region) : [];
 }

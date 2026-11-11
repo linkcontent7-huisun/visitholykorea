@@ -5,3 +5,10 @@
  * Vercel 환경 변수 VITE_SUBMISSION_MODE=true로 켜며, 없으면 개발 중 기능이 보이도록 false다.
  */
 export const SUBMISSION_MODE = import.meta.env.VITE_SUBMISSION_MODE === 'true';
+
+/**
+ * 체험여행 접수(「하늘에서 빵이 내린다면」) 숨김 — 2026-11-11 사장님 지시: 이번 발표(11/12)에서는 다루지 않는다.
+ * true 인 동안 대전 성지 화면의 모집 배너·카드 팝업이 뜨지 않고, 접수 주소(/programs/…/apply)는 첫 화면으로 보낸다.
+ * 접수 코드·DB 표·관리자 「프로그램 접수」 탭은 그대로 둔다. 다시 보이게 하려면 false 로 바꾼다.
+ */
+export const PROGRAMS_HIDDEN = true;
