@@ -1,5 +1,6 @@
 /**
- * 세례명 카드 119종(세례명 43 + 한국 성인 76)의 언어별 표기. design/세례명-공유카드/export_to_app.py 가 만든 파일이라 손으로 고치지 않는다.
+ * 세례명 카드의 언어별 표기 — 103위 성인 표에서 만든 119종(세례명 43 + 한국 성인 76)과, 그 표에 없는 흔한 세례명(plain).
+ * design/세례명-공유카드/export_to_app.py(119종)와 gen_cards_plain.py(plain)가 만든 파일이라 손으로 고치지 않는다.
  * 영어 외 표기는 검수 전이다(가톨릭 용어는 신자·번역자 확인 필요).
  */
 import type { Language } from '@/shared/i18n/dictionary';
@@ -7,8 +8,8 @@ import type { Language } from '@/shared/i18n/dictionary';
 export interface BaptismName {
   /** 카드 이미지 파일 이름(영어 세례명) */
   slug: string;
-  /** name: 세례명 카드, saint: 「김대건 안드레아」처럼 한국 성인 한 분의 카드 */
-  kind: 'name' | 'saint';
+  /** name: 같은 이름의 한국 성인이 있는 세례명, saint: 「김대건 안드레아」처럼 한국 성인 한 분의 카드, plain: 한국 성인이 없는 흔한 세례명 */
+  kind: 'name' | 'saint' | 'plain';
   names: Record<Language, string>;
 }
 
@@ -132,4 +133,35 @@ export const BAPTISM_NAMES: readonly BaptismName[] = [
   { slug: 'Peter-Hong-Byeong-ju', kind: 'saint', names: { ko: '홍병주 베드로', en: 'Peter Hong Byeong-ju', es: 'Pedro Hong Byeong-ju', fr: 'Pierre Hong Byeong-ju', pt: 'Pedro Hong Byeong-ju', it: 'Pietro Hong Byeong-ju' } },
   { slug: 'Paul-Hong-Yeong-ju', kind: 'saint', names: { ko: '홍영주 바오로', en: 'Paul Hong Yeong-ju', es: 'Pablo Hong Yeong-ju', fr: 'Paul Hong Yeong-ju', pt: 'Paulo Hong Yeong-ju', it: 'Paolo Hong Yeong-ju' } },
   { slug: 'Luke-Hwang-Seok-du', kind: 'saint', names: { ko: '황석두 루카', en: 'Luke Hwang Seok-du', es: 'Lucas Hwang Seok-du', fr: 'Luc Hwang Seok-du', pt: 'Lucas Hwang Seok-du', it: 'Luca Hwang Seok-du' } },
+  { slug: 'Gabriel', kind: 'plain', names: { ko: '가브리엘', en: 'Gabriel', es: 'Gabriel', fr: 'Gabriel', pt: 'Gabriel', it: 'Gabriele' } },
+  { slug: 'Grace', kind: 'plain', names: { ko: '그라시아', en: 'Grace', es: 'Gracia', fr: 'Grâce', pt: 'Graça', it: 'Grazia' } },
+  { slug: 'Gregory', kind: 'plain', names: { ko: '그레고리오', en: 'Gregory', es: 'Gregorio', fr: 'Grégoire', pt: 'Gregório', it: 'Gregorio' } },
+  { slug: 'Noel', kind: 'plain', names: { ko: '노엘', en: 'Noel', es: 'Noel', fr: 'Noël', pt: 'Noel', it: 'Natale' } },
+  { slug: 'Nicholas', kind: 'plain', names: { ko: '니콜라오', en: 'Nicholas', es: 'Nicolás', fr: 'Nicolas', pt: 'Nicolau', it: 'Nicola' } },
+  { slug: 'Daniel', kind: 'plain', names: { ko: '다니엘', en: 'Daniel', es: 'Daniel', fr: 'Daniel', pt: 'Daniel', it: 'Daniele' } },
+  { slug: 'David', kind: 'plain', names: { ko: '다윗', en: 'David', es: 'David', fr: 'David', pt: 'Davi', it: 'Davide' } },
+  { slug: 'Dominic', kind: 'plain', names: { ko: '도미니코', en: 'Dominic', es: 'Domingo', fr: 'Dominique', pt: 'Domingos', it: 'Domenico' } },
+  { slug: 'Raphael', kind: 'plain', names: { ko: '라파엘', en: 'Raphael', es: 'Rafael', fr: 'Raphaël', pt: 'Rafael', it: 'Raffaele' } },
+  { slug: 'Leo', kind: 'plain', names: { ko: '레오', en: 'Leo', es: 'León', fr: 'Léon', pt: 'Leão', it: 'Leone' } },
+  { slug: 'Margaret', kind: 'plain', names: { ko: '마르가리타', en: 'Margaret', es: 'Margarita', fr: 'Marguerite', pt: 'Margarida', it: 'Margherita' } },
+  { slug: 'Matthew', kind: 'plain', names: { ko: '마태오', en: 'Matthew', es: 'Mateo', fr: 'Matthieu', pt: 'Mateus', it: 'Matteo' } },
+  { slug: 'Matthias', kind: 'plain', names: { ko: '마티아', en: 'Matthias', es: 'Matías', fr: 'Matthias', pt: 'Matias', it: 'Mattia' } },
+  { slug: 'Monica', kind: 'plain', names: { ko: '모니카', en: 'Monica', es: 'Mónica', fr: 'Monique', pt: 'Mônica', it: 'Monica' } },
+  { slug: 'Michael', kind: 'plain', names: { ko: '미카엘', en: 'Michael', es: 'Miguel', fr: 'Michel', pt: 'Miguel', it: 'Michele' } },
+  { slug: 'Veronica', kind: 'plain', names: { ko: '베로니카', en: 'Veronica', es: 'Verónica', fr: 'Véronique', pt: 'Verônica', it: 'Veronica' } },
+  { slug: 'Bibiana', kind: 'plain', names: { ko: '비비안나', en: 'Bibiana', es: 'Bibiana', fr: 'Bibiane', pt: 'Bibiana', it: 'Bibiana' } },
+  { slug: 'Vincent', kind: 'plain', names: { ko: '빈첸시오', en: 'Vincent', es: 'Vicente', fr: 'Vincent', pt: 'Vicente', it: 'Vincenzo' } },
+  { slug: 'Samuel', kind: 'plain', names: { ko: '사무엘', en: 'Samuel', es: 'Samuel', fr: 'Samuel', pt: 'Samuel', it: 'Samuele' } },
+  { slug: 'Sophia', kind: 'plain', names: { ko: '소피아', en: 'Sophia', es: 'Sofía', fr: 'Sophie', pt: 'Sofia', it: 'Sofia' } },
+  { slug: 'Stella', kind: 'plain', names: { ko: '스텔라', en: 'Stella', es: 'Estela', fr: 'Stella', pt: 'Estela', it: 'Stella' } },
+  { slug: 'Simon', kind: 'plain', names: { ko: '시몬', en: 'Simon', es: 'Simón', fr: 'Simon', pt: 'Simão', it: 'Simone' } },
+  { slug: 'Angela', kind: 'plain', names: { ko: '안젤라', en: 'Angela', es: 'Ángela', fr: 'Angèle', pt: 'Ângela', it: 'Angela' } },
+  { slug: 'Esther', kind: 'plain', names: { ko: '에스텔', en: 'Esther', es: 'Ester', fr: 'Esther', pt: 'Ester', it: 'Ester' } },
+  { slug: 'Joanna', kind: 'plain', names: { ko: '요안나', en: 'Joanna', es: 'Juana', fr: 'Jeanne', pt: 'Joana', it: 'Giovanna' } },
+  { slug: 'Julia', kind: 'plain', names: { ko: '율리아', en: 'Julia', es: 'Julia', fr: 'Julie', pt: 'Júlia', it: 'Giulia' } },
+  { slug: 'Gemma', kind: 'plain', names: { ko: '젬마', en: 'Gemma', es: 'Gema', fr: 'Gemma', pt: 'Gema', it: 'Gemma' } },
+  { slug: 'Christina', kind: 'plain', names: { ko: '크리스티나', en: 'Christina', es: 'Cristina', fr: 'Christine', pt: 'Cristina', it: 'Cristina' } },
+  { slug: 'Clare', kind: 'plain', names: { ko: '클라라', en: 'Clare', es: 'Clara', fr: 'Claire', pt: 'Clara', it: 'Chiara' } },
+  { slug: 'Philip', kind: 'plain', names: { ko: '필립보', en: 'Philip', es: 'Felipe', fr: 'Philippe', pt: 'Filipe', it: 'Filippo' } },
+  { slug: 'Helena', kind: 'plain', names: { ko: '헬레나', en: 'Helena', es: 'Elena', fr: 'Hélène', pt: 'Helena', it: 'Elena' } },
 ];

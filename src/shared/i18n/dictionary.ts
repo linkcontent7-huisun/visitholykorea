@@ -5954,6 +5954,15 @@ export const DICTIONARY = {
     pt: 'Escolha um nome de batismo',
     it: 'Scegli un nome di battesimo',
   },
+  // 103위 성인 가운데 같은 이름이 없는 흔한 세례명 묶음 (2026-11-11)
+  baptismCardPickMore: {
+    ko: '더 많은 세례명',
+    en: 'More baptismal names',
+    es: 'Más nombres de bautismo',
+    fr: 'Autres noms de baptême',
+    pt: 'Mais nomes de batismo',
+    it: 'Altri nomi di battesimo',
+  },
   baptismCardPickSaint: {
     ko: '한국 성인의 이름으로 골라 보세요',
     en: 'Or choose a Korean saint',
@@ -6021,12 +6030,12 @@ export const DICTIONARY = {
     it: 'Impossibile creare l’immagine. Riprova.',
   },
   baptismCardNote: {
-    ko: '같은 세례명 성인을 모두 적었어요(널리 알려진 분 먼저). 성지는 주교회의 「103위 성인 약전」 기준이고, 연결된 성지가 없으면 「정리 중」으로 표시해요.',
-    en: 'All saints who share a name are listed, the best known first. Sites follow the CBCK biographies of the 103 saints; if none is linked, the card says it is being researched.',
-    es: 'Se indican todos los santos que comparten el nombre, primero los más conocidos. Los lugares siguen las biografías de los 103 santos (Conferencia Episcopal de Corea); si no hay ninguno vinculado, la tarjeta indica que se está investigando.',
-    fr: 'Tous les saints qui portent ce nom sont indiqués, les plus connus d’abord. Les lieux suivent les notices des 103 saints (Conférence épiscopale de Corée) ; s’il n’y en a pas, la carte indique que la recherche est en cours.',
-    pt: 'Indicamos todos os santos com o mesmo nome, primeiro os mais conhecidos. Os lugares seguem as biografias dos 103 santos (Conferência Episcopal da Coreia); se não houver nenhum ligado, o cartão indica que está em pesquisa.',
-    it: 'Sono indicati tutti i santi con lo stesso nome, prima i più noti. I luoghi seguono le biografie dei 103 santi (Conferenza Episcopale Coreana); se non ce n’è nessuno collegato, la carta indica che è in fase di ricerca.',
+    ko: '같은 세례명 성인을 모두 적었어요(널리 알려진 분 먼저). 성지는 주교회의 「103위 성인 약전」 기준이고, 연결된 성지가 없으면 「정리 중」으로 표시해요. 「더 많은 세례명」은 103위 성인 가운데 같은 이름이 없는 세례명이라 성인과 성지를 적지 않았어요.',
+    en: 'All saints who share a name are listed, the best known first. Sites follow the CBCK biographies of the 103 saints; if none is linked, the card says it is being researched. The “More baptismal names” have no namesake among the 103 saints, so no saint or site is listed.',
+    es: 'Se indican todos los santos que comparten el nombre, primero los más conocidos. Los lugares siguen las biografías de los 103 santos (Conferencia Episcopal de Corea); si no hay ninguno vinculado, la tarjeta indica que se está investigando. Los «Más nombres de bautismo» no tienen un santo homónimo entre los 103, por eso no se indica santo ni lugar.',
+    fr: 'Tous les saints qui portent ce nom sont indiqués, les plus connus d’abord. Les lieux suivent les notices des 103 saints (Conférence épiscopale de Corée) ; s’il n’y en a pas, la carte indique que la recherche est en cours. Les « Autres noms de baptême » n’ont pas d’homonyme parmi les 103 saints ; aucun saint ni lieu n’est donc indiqué.',
+    pt: 'Indicamos todos os santos com o mesmo nome, primeiro os mais conhecidos. Os lugares seguem as biografias dos 103 santos (Conferência Episcopal da Coreia); se não houver nenhum ligado, o cartão indica que está em pesquisa. Os «Mais nomes de batismo» não têm um santo homônimo entre os 103; por isso não indicamos santo nem lugar.',
+    it: 'Sono indicati tutti i santi con lo stesso nome, prima i più noti. I luoghi seguono le biografie dei 103 santi (Conferenza Episcopale Coreana); se non ce n’è nessuno collegato, la carta indica che è in fase di ricerca. Gli «Altri nomi di battesimo» non hanno un omonimo tra i 103 santi; per questo non sono indicati né santo né luogo.',
   },
   // 오늘의 성지순례 퀴즈 팝업 (2026-10-29) — 문제·해설은 한국어·영어만 있고 나머지 언어는 영어로 보여 준다.
   quizPopupTitle: {
