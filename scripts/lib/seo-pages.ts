@@ -109,6 +109,63 @@ export function routeMeta(route: SeoRoute): PageMeta {
   return { path, title, description, image: DEFAULT_IMAGE, jsonLd, bodyHtml };
 }
 
+/** 메신저 미리보기에 뜨는 카드 제목·설명 — 앱의 `baptismCardShareText` 와 같은 말 */
+const CARD_TEXT: Record<string, { title: string; description: string }> = {
+  ko: {
+    title: '「{name}」 세례명 카드',
+    description:
+      '「{name}」 세례명으로 만나는 한국 성지예요. 눌러서 카드를 보고, 내 세례명 카드도 만들어 보세요.',
+  },
+  en: {
+    title: 'Baptismal name card: {name}',
+    description:
+      'Korean holy sites for the baptismal name {name}. Open the card and make one for your own name.',
+  },
+  es: {
+    title: 'Tarjeta del nombre de bautismo: {name}',
+    description:
+      'Santuarios de Corea para el nombre de bautismo {name}. Abre la tarjeta y crea la de tu nombre.',
+  },
+  fr: {
+    title: 'Carte du nom de baptême : {name}',
+    description:
+      'Les sanctuaires de Corée pour le nom de baptême {name}. Ouvrez la carte et créez celle de votre nom.',
+  },
+  pt: {
+    title: 'Cartão do nome de batismo: {name}',
+    description:
+      'Santuários da Coreia para o nome de batismo {name}. Abra o cartão e crie o do seu nome.',
+  },
+  it: {
+    title: 'Carta del nome di battesimo: {name}',
+    description:
+      'I santuari della Corea per il nome di battesimo {name}. Apri la carta e crea quella del tuo nome.',
+  },
+};
+
+/**
+ * 공유받은 세례명 카드(`/card/<언어>/<영어 세례명>`)의 미리보기.
+ * 그림은 `public/baptism-cards/og/` 의 JPG — 카카오톡 등 미리보기 수집기가 webp 를 못 읽는 경우가 있어
+ * 따로 만들어 둔다(scripts/make-card-og.sh).
+ */
+export function cardMeta(language: string, slug: string, name: string): PageMeta {
+  const path = `/card/${language}/${slug}`;
+  const text = CARD_TEXT[language] ?? CARD_TEXT.en!;
+  const title = `${text.title.replace('{name}', name)} | Visit Holy Korea`;
+  const description = text.description.replace('{name}', name);
+  const image = `${SITE_ORIGIN}/baptism-cards/og/${language}/${slug}.jpg`;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description,
+    url: `${SITE_ORIGIN}${path}`,
+    image,
+  };
+  const bodyHtml = `<h1>${escapeHtml(title)}</h1><p>${escapeHtml(description)}</p><p><a href="/">visitholykorea.com</a></p>`;
+  return { path, title, description, image, jsonLd, bodyHtml };
+}
+
 /**
  * index.html 의 제목·설명·OG 태그를 갈아 끼우고 canonical·구조화 데이터·본문을 넣는다.
  * 원본 태그를 정규식으로 찾으므로, index.html 의 해당 태그 모양이 바뀌면 테스트가 먼저 깨진다.
