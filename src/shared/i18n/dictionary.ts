@@ -5986,6 +5986,15 @@ export const DICTIONARY = {
     pt: 'Compartilhar',
     it: 'Condividi',
   },
+  // 카드를 공유할 때 그림과 함께 가는 한 줄 — 뒤에 사이트 주소가 붙는다 (2026-11-11)
+  baptismCardShareText: {
+    ko: '「{name}」 세례명으로 만나는 한국 성지예요. 내 세례명 카드도 만들어 보세요.',
+    en: 'Korean holy sites for the baptismal name {name}. Make a card for your own name.',
+    es: 'Santuarios de Corea para el nombre de bautismo {name}. Crea la tarjeta de tu nombre.',
+    fr: 'Les sanctuaires de Corée pour le nom de baptême {name}. Créez la carte de votre nom.',
+    pt: 'Santuários da Coreia para o nome de batismo {name}. Crie o cartão do seu nome.',
+    it: 'I santuari della Corea per il nome di battesimo {name}. Crea la carta del tuo nome.',
+  },
   baptismCardFailed: {
     ko: '이미지를 만들지 못했어요. 다시 눌러 주세요.',
     en: 'Couldn’t create the image. Please try again.',

@@ -5,7 +5,7 @@ import { useModalFocus } from '@/shared/hooks/use-modal-focus';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { BAPTISM_NAMES } from '../data/baptism-names';
-import { cardImageUrl, cardPngFile } from '../lib/card-image';
+import { cardImageUrl, cardPngFile, cardShareData } from '../lib/card-image';
 
 interface BaptismCardSheetProps {
   isOpen: boolean;
@@ -47,9 +47,17 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
     setFailed(false);
     try {
       const file = await cardPngFile(language, selected.slug);
-      if (share && navigator.canShare?.({ files: [file] })) {
-        await navigator.share({ files: [file] });
-        return;
+      if (share) {
+        // 카드와 함께 사이트 주소를 보낸다 — 받은 사람이 카드 아래 링크로 들어올 수 있게
+        const data = cardShareData(
+          file,
+          fillPlaceholders(t('baptismCardShareText'), { name: selected.label }),
+          window.location.origin,
+        );
+        if (data) {
+          await navigator.share(data);
+          return;
+        }
       }
       const url = URL.createObjectURL(file);
       const a = document.createElement('a');
