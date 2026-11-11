@@ -11,9 +11,11 @@
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
+import { BAPTISM_NAMES } from '../src/features/baptism-card/data/baptism-names.ts';
 import { REGIONS } from '../src/shared/lib/regions.ts';
 import { loadEnvLocal } from './lib/env.ts';
 import {
+  cardMeta,
   renderPage,
   robotsTxt,
   routeMeta,
@@ -60,6 +62,17 @@ async function main() {
     'index.html',
     template.replace('</head>', `  <link rel="canonical" href="${SITE_ORIGIN}/" />\n  </head>`),
   );
+
+  // 공유받은 세례명 카드 — 메신저가 주소를 읽어 카드 그림·제목을 미리보기로 띄우게 한다. DB 가 필요 없어 먼저 쓴다.
+  let cards = 0;
+  for (const card of BAPTISM_NAMES) {
+    for (const [language, name] of Object.entries(card.names)) {
+      const meta = cardMeta(language, card.slug, name);
+      write(join(meta.path, 'index.html'), renderPage(template, meta));
+      cards += 1;
+    }
+  }
+  console.log(`[seo] 세례명 카드 ${cards}장 HTML`);
 
   if (!url || !key) {
     console.warn('[seo] Supabase 환경변수가 없어 성지별 HTML·sitemap 을 건너뜁니다.');

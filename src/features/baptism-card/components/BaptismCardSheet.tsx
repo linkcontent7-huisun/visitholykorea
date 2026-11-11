@@ -5,7 +5,8 @@ import { useModalFocus } from '@/shared/hooks/use-modal-focus';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { BAPTISM_NAMES } from '../data/baptism-names';
-import { cardImageUrl, cardPngFile, cardShareData } from '../lib/card-image';
+import { paths } from '@/app/routes/paths';
+import { cardImageUrl, cardPngFile } from '../lib/card-image';
 
 interface BaptismCardSheetProps {
   isOpen: boolean;
@@ -34,37 +35,47 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
     [language],
   );
   const selected = options.find((o) => o.slug === slug) ?? null;
-  const canShare = typeof navigator !== 'undefined' && typeof navigator.canShare === 'function';
+  const [copied, setCopied] = useState(false);
 
   const pick = (next: string) => {
     setSlug(next);
     setFailed(false);
+    setCopied(false);
     bodyRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const save = async (share: boolean) => {
+  /** 카드를 PNG 로 내려받는다 (인스타 등에 그림으로 올릴 때) */
+  const save = async () => {
     if (!selected) return;
     setFailed(false);
     try {
       const file = await cardPngFile(language, selected.slug);
-      if (share) {
-        // 카드와 함께 사이트 주소를 보낸다 — 받은 사람이 카드 아래 링크로 들어올 수 있게
-        const data = cardShareData(
-          file,
-          fillPlaceholders(t('baptismCardShareText'), { name: selected.label }),
-          window.location.origin,
-        );
-        if (data) {
-          await navigator.share(data);
-          return;
-        }
-      }
       const url = URL.createObjectURL(file);
       const a = document.createElement('a');
       a.href = url;
       a.download = file.name;
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 10_000);
+    } catch {
+      setFailed(true);
+    }
+  };
+
+  /**
+   * 공유는 그림이 아니라 **카드 주소**를 보낸다 (사장님 지시 2026-11-11).
+   * 그림 파일 안에는 누를 수 있는 버튼을 넣을 수 없다. 주소를 보내면 메신저가 카드 미리보기를 띄우고,
+   * 받은 사람이 누르면 카드 화면(/card/…)이 열려 그 안의 버튼으로 우리 사이트에 들어온다.
+   * 공유 창이 없는 브라우저(PC 등)는 주소를 복사한다.
+   */
+  const share = async () => {
+    if (!selected) return;
+    setFailed(false);
+    const text = fillPlaceholders(t('baptismCardShareText'), { name: selected.label });
+    const url = `${window.location.origin}${paths.baptismCard(language, selected.slug)}`;
+    try {
+      if (navigator.share) return await navigator.share({ text, url });
+      await navigator.clipboard.writeText(`${text} ${url}`);
+      setCopied(true);
     } catch (e) {
       // 공유 창을 사용자가 닫은 것(AbortError)은 실패가 아니다
       if (!(e instanceof DOMException && e.name === 'AbortError')) setFailed(true);
@@ -122,25 +133,28 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
                   <div className="mx-auto flex max-w-[20rem] gap-2">
                     <button
                       type="button"
-                      onClick={() => void save(false)}
+                      onClick={() => void save()}
                       className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-lg bg-brand-blue px-3 font-bold text-white"
                       id="baptism-card-save"
                     >
                       <Download size={18} aria-hidden />
                       {t('baptismCardSave')}
                     </button>
-                    {canShare && (
-                      <button
-                        type="button"
-                        onClick={() => void save(true)}
-                        className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-lg border-[1.5px] border-brand-blue px-3 font-bold text-brand-blue"
-                        id="baptism-card-share"
-                      >
-                        <Share2 size={18} aria-hidden />
-                        {t('baptismCardShare')}
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      onClick={() => void share()}
+                      className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-lg border-[1.5px] border-brand-blue px-3 font-bold text-brand-blue"
+                      id="baptism-card-share"
+                    >
+                      <Share2 size={18} aria-hidden />
+                      {t('baptismCardShare')}
+                    </button>
                   </div>
+                  {copied && (
+                    <p role="status" className="text-center text-sm text-brand-blue">
+                      {t('baptismCardLinkCopied')}
+                    </p>
+                  )}
                   {failed && (
                     <p role="alert" className="text-center text-sm text-red-700">
                       {t('baptismCardFailed')}

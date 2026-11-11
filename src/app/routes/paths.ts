@@ -56,6 +56,12 @@ export const paths = {
    * SPA 라우트가 아니므로 `<Link>` 대신 `<a href>` 로 페이지 전체를 이동한다. `from` 은 어디서 들어왔는지(home·site).
    */
   virtualTour: (space: string, from: 'home' | 'site') => `/visit/?space=${space}&from=${from}`,
+  /**
+   * 세례명 카드 한 장의 주소 — 공유로 받은 사람이 들어오는 곳(2026-11-11).
+   * 언어를 주소에 넣는 이유: 메신저 미리보기(OG)는 주소마다 따로 구워 두기 때문이다(scripts/seo-prerender.ts).
+   */
+  baptismCard: (language: string, slug: string) => `/card/${language}/${slug}`,
+  baptismCardPattern: '/card/:language/:slug',
   admin: '/admin',
   adminSite: (id: string) => `/admin/sites/${id}`,
   adminSitePattern: '/admin/sites/:siteId',

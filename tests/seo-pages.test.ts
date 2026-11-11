@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
+  cardMeta,
   renderPage,
   robotsTxt,
   routeMeta,
@@ -69,5 +70,25 @@ describe('seo 보조', () => {
   it('sitemap 은 한글 주소를 인코딩한다, robots 는 sitemap 을 가리킨다', () => {
     expect(sitemapXml(['/region/서울'])).toContain('/region/%EC%84%9C%EC%9A%B8</loc>');
     expect(robotsTxt()).toContain('Sitemap: https://visitholykorea.com/sitemap.xml');
+  });
+});
+
+describe('cardMeta — 공유받은 세례명 카드의 미리보기', () => {
+  const html = renderPage(template, cardMeta('ko', 'Andrew', '안드레아'));
+
+  it('주소·제목·그림이 그 카드 것이다', () => {
+    expect(html).toContain(
+      '<link rel="canonical" href="https://visitholykorea.com/card/ko/Andrew" />',
+    );
+    expect(html).toContain('<title>「안드레아」 세례명 카드 | Visit Holy Korea</title>');
+    expect(html).toContain(
+      '<meta property="og:image" content="https://visitholykorea.com/baptism-cards/og/ko/Andrew.jpg" />',
+    );
+  });
+
+  it('모르는 언어는 영어 문구로 떨어진다', () => {
+    expect(cardMeta('xx', 'Andrew', 'Andrew').title).toBe(
+      'Baptismal name card: Andrew | Visit Holy Korea',
+    );
   });
 });

@@ -27,6 +27,7 @@ const TermsPage = lazy(() => import('@/pages/TermsPage'));
 const FaqPage = lazy(() => import('@/pages/FaqPage'));
 const ProgramApplyPage = lazy(() => import('@/pages/ProgramApplyPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
+const BaptismCardPage = lazy(() => import('@/pages/BaptismCardPage'));
 // 관리자 콘솔 — 순례자 화면과 함께 내려받지 않도록 여기서도 lazy 로 둔다.
 const AdminPage = lazy(() => import('@/pages/AdminPage'));
 const AdminSitePage = lazy(() => import('@/pages/AdminSitePage'));
@@ -139,6 +140,8 @@ export const router = createBrowserRouter([
       // 하단 탭 없이 전체 화면으로 뜨는 화면들 — 로그인·관리자·404 만
       { path: paths.login, element: withSuspense(<LoginPage />) },
       { path: paths.resetPassword, element: withSuspense(<ResetPasswordPage />) },
+      // 공유받은 세례명 카드 — 카드 한 장과 「사이트 열기」 버튼만 있는 전체 화면
+      { path: paths.baptismCardPattern, element: withSuspense(<BaptismCardPage />) },
       // 심사 중에는 제출판에서 관리자 주소까지 막았다(T-013). 10/31 동결 해제 — 사장님이 미사 시간 등을
       // 직접 확인·수정해야 하므로 다시 연다. 실제로 고칠 수 있는지는 DB 권한(RLS)이 정한다.
       { path: paths.admin, element: withSuspense(<AdminPage />) },

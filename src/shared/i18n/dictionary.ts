@@ -5995,6 +5995,23 @@ export const DICTIONARY = {
     pt: 'Santuários da Coreia para o nome de batismo {name}. Crie o cartão do seu nome.',
     it: 'I santuari della Corea per il nome di battesimo {name}. Crea la carta del tuo nome.',
   },
+  // 공유받은 카드 화면(/card/…)에서 카드 안에 겹쳐 놓는 버튼 — 좁은 폰에서도 한 줄에 들어가게 짧게 (2026-11-11)
+  baptismCardVisit: {
+    ko: 'visitholykorea.com 눌러보세요',
+    en: 'Open visitholykorea.com',
+    es: 'Abrir visitholykorea.com',
+    fr: 'Ouvrir visitholykorea.com',
+    pt: 'Abrir visitholykorea.com',
+    it: 'Apri visitholykorea.com',
+  },
+  baptismCardLinkCopied: {
+    ko: '카드 링크를 복사했어요. 메시지에 붙여 넣어 보내세요.',
+    en: 'Card link copied. Paste it into a message.',
+    es: 'Enlace de la tarjeta copiado. Pégalo en un mensaje.',
+    fr: 'Lien de la carte copié. Collez-le dans un message.',
+    pt: 'Link do cartão copiado. Cole em uma mensagem.',
+    it: 'Link della carta copiato. Incollalo in un messaggio.',
+  },
   baptismCardFailed: {
     ko: '이미지를 만들지 못했어요. 다시 눌러 주세요.',
     en: 'Couldn’t create the image. Please try again.',
