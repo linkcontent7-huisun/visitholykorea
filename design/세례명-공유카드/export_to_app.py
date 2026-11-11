@@ -42,9 +42,12 @@ print(total, "images")
 
 ts = ROOT / "src" / "features" / "baptism-card" / "data" / "baptism-names.ts"
 ts.parent.mkdir(parents=True, exist_ok=True)
+# 흔한 세례명(plain) 줄은 gen_cards_plain.py 가 넣는다 — 이 스크립트가 파일을 다시 쓸 때 지우지 않게 그대로 옮긴다
+plain_lines = [ln for ln in ts.read_text(encoding="utf-8").split("\n") if "kind: 'plain'" in ln] if ts.exists() else []
 lines = [
     "/**",
-    " * 세례명 카드 119종(세례명 43 + 한국 성인 76)의 언어별 표기. design/세례명-공유카드/export_to_app.py 가 만든 파일이라 손으로 고치지 않는다.",
+    " * 세례명 카드의 언어별 표기 — 103위 성인 표에서 만든 119종(세례명 43 + 한국 성인 76)과, 그 표에 없는 흔한 세례명(plain).",
+    " * design/세례명-공유카드/export_to_app.py(119종)와 gen_cards_plain.py(plain)가 만든 파일이라 손으로 고치지 않는다.",
     " * 영어 외 표기는 검수 전이다(가톨릭 용어는 신자·번역자 확인 필요).",
     " */",
     "import type { Language } from '@/shared/i18n/dictionary';",
@@ -52,8 +55,8 @@ lines = [
     "export interface BaptismName {",
     "  /** 카드 이미지 파일 이름(영어 세례명) */",
     "  slug: string;",
-    "  /** name: 세례명 카드, saint: 「김대건 안드레아」처럼 한국 성인 한 분의 카드 */",
-    "  kind: 'name' | 'saint';",
+    "  /** name: 같은 이름의 한국 성인이 있는 세례명, saint: 「김대건 안드레아」처럼 한국 성인 한 분의 카드, plain: 한국 성인이 없는 흔한 세례명 */",
+    "  kind: 'name' | 'saint' | 'plain';",
     "  names: Record<Language, string>;",
     "}",
     "",
@@ -63,6 +66,7 @@ for ko in sorted(slug_of):
     inner = ", ".join(f"{l}: '{names[l][ko]}'" for l in LANGS)
     kind = "saint" if " " in ko else "name"
     lines.append(f"  {{ slug: '{slug_of[ko]}', kind: '{kind}', names: {{ {inner} }} }},")
+lines.extend(plain_lines)
 lines.append("];")
 ts.write_text("\n".join(lines) + "\n", encoding="utf-8")
 print("wrote", ts.relative_to(ROOT))

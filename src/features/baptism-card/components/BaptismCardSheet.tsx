@@ -164,10 +164,16 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
               )}
 
               {/* 세례명 43개 다음에 「김대건 안드레아」처럼 한국 성인 한 분의 카드 (2026-11-08, CPBC 「모두의 세례명」 참고) */}
-              {(['name', 'saint'] as const).map((kind) => (
+              {(['name', 'plain', 'saint'] as const).map((kind) => (
                 <section key={kind}>
                   <h4 className="mb-2 text-base font-bold text-app-text">
-                    {t(kind === 'name' ? 'baptismCardPick' : 'baptismCardPickSaint')}
+                    {t(
+                      kind === 'name'
+                        ? 'baptismCardPick'
+                        : kind === 'plain'
+                          ? 'baptismCardPickMore'
+                          : 'baptismCardPickSaint',
+                    )}
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {options
