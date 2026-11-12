@@ -27,6 +27,9 @@
 `docs/50-research/벤치마킹/` 에 정리한다(스킬 `program-benchmark`). 조회는 `.github/workflows/instagram-weekly.yml`(월 07:30 KST)
 → `scripts/ops/instagram-weekly.mjs`, 인스타 공식 API 만 쓴다(스크래핑·보안 확인 우회 금지).
 
+**개발클로드 (2026-11-12 사장님 지시):** 개발 일을 받거나 마케팅 조사 결과를 기능으로 바꾸는 일을 하면
+`.claude/skills/개발클로드/SKILL.md` 를 먼저 읽고 그대로 일한다. 조사 결과 우편함은 `docs/50-research/개발요청/`.
+
 숫자(성지 수·사진 수·테스트 수)를 문서에서 인용할 때는 **언제 잰 값인지** 같이 적는다.
 확인하지 못한 것은 추측해서 적지 말고 "확인 못 했다" 라고 적는다.
 
