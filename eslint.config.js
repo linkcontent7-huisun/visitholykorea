@@ -22,6 +22,8 @@ export default tseslint.config(
       // 다른 브랜치 작업트리(worktree) 복사본이 저장소 안에 남은 것(10/12 실측: issue47·t050).
       // 추적되지 않는 폴더라 우리 lint 대상이 아니다.
       'visitholykorea-*',
+      // Claude Code 가 만드는 작업트리 복사본(2026-11-12 실측: 이것 때문에 lint 오류 1,584개).
+      '.claude/worktrees',
       // 세션 임시 파일(내려받은 번들 등). 코드가 아니다.
       '.scratch',
       // 일회성 진단 스크립트. 한 번 돌려 보고 버린다.

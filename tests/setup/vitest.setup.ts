@@ -27,3 +27,30 @@ class ResizeObserverStub {
   disconnect() {}
 }
 globalThis.ResizeObserver ??= ResizeObserverStub as unknown as typeof ResizeObserver;
+
+// Node 25+ 는 자체 localStorage 를 전역에 두는데, --localstorage-file 없이 돌면
+// 값이 비어(undefined) jsdom 의 저장소를 가린다. 2026-11-13 맥(Node 26)에서
+// 퀴즈 팝업 테스트 2개가 이 때문에 깨졌다. 쓸 수 없을 때만 메모리 저장소로 채운다.
+function usableStorage(s: Storage | undefined): boolean {
+  try {
+    s?.setItem('__probe', '1');
+    s?.removeItem('__probe');
+    return !!s;
+  } catch {
+    return false;
+  }
+}
+if (!usableStorage(globalThis.localStorage)) {
+  const data = new Map<string, string>();
+  const memory: Storage = {
+    get length() {
+      return data.size;
+    },
+    clear: () => data.clear(),
+    getItem: (k) => data.get(k) ?? null,
+    key: (i) => [...data.keys()][i] ?? null,
+    removeItem: (k) => void data.delete(k),
+    setItem: (k, v) => void data.set(k, String(v)),
+  };
+  Object.defineProperty(globalThis, 'localStorage', { value: memory, configurable: true });
+}
