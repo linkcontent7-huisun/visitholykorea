@@ -12,7 +12,18 @@
  * 열이 없다는 사실을 화면에 그대로 적는다.
  */
 
-import { Calendar, Camera, Heart, MapPin, PenLine, Plus, Search, Trash2, X } from 'lucide-react';
+import {
+  Calendar,
+  Camera,
+  Heart,
+  MapPin,
+  PenLine,
+  Plus,
+  Search,
+  Sparkles,
+  Trash2,
+  X,
+} from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -27,6 +38,8 @@ import { CrowdLevelPicker } from '@/features/passport/components/CrowdLevelPicke
 import { MyPlacesList } from '@/features/places/components/MyPlacesList';
 import { NewPlaceSheet } from '@/features/places/components/NewPlaceSheet';
 import { CROWD_LEVEL_LABEL_KEY } from '@/features/passport/lib/crowd-level-label';
+import { generateChronicleCard } from '@/features/passport/lib/recap-card';
+import { shareOrDownloadCard } from '@/features/passport/lib/share-card';
 import {
   useDeleteStamp,
   useDeleteStampPhoto,
@@ -330,6 +343,82 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
   );
 }
 
+/**
+ * 순례 별자리 카드(1080×1920, 인스타 스토리 규격) 만들기 단추 — v7.0(2026-11-13).
+ * 방문한 성지를 실제 좌표 그대로 별로 찍어 한 장으로 만들고, 공유창으로 바로 보낸다.
+ * 9/16 재기획에서 여권 영역을 뺄 때 함께 사라졌던 것을, 공유 장치 하나로만 되살린다.
+ */
+function ChronicleCardButton({
+  stamps,
+  sites,
+}: {
+  stamps: StampedSite[];
+  sites: { id: string; name: string; coordinates: { lat: number | null; lng: number | null } }[];
+}) {
+  const { t, language } = useSettings();
+  const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  const handleClick = async () => {
+    setBusy(true);
+    setFailed(false);
+    try {
+      const byId = new Map(sites.map((s) => [s.id, s]));
+      // 기록 순서가 아니라 실제 방문일(있으면) 순으로 잇는다
+      const when = (s: StampedSite) => new Date(s.visitedOn ?? s.visitedAt);
+      const asc = [...stamps].sort((a, b) => when(a).getTime() - when(b).getTime());
+      const blob = await generateChronicleCard({
+        stars: asc.map((s) => {
+          const site = byId.get(s.siteId);
+          return {
+            siteName: site?.name ?? s.siteName,
+            lat: site?.coordinates.lat ?? null,
+            lng: site?.coordinates.lng ?? null,
+            visitedAt: when(s),
+          };
+        }),
+        dioceseCount: new Set(stamps.map((s) => s.diocese).filter(Boolean)).size,
+        totalSites: sites.length,
+        text: {
+          title: t('chronicleCardTitle'),
+          stats: t('chronicleCardStats'),
+          since: t('chronicleCardSince'),
+          unplotted: t('chronicleCardUnplotted'),
+          footer: t('chronicleCardFooter'),
+          locale: SPEECH_LOCALE[language],
+        },
+      });
+      await shareOrDownloadCard(blob, 'visitholykorea-constellation.png', t('chronicleCardTitle'));
+    } catch (e) {
+      console.error('별자리 카드 생성 실패:', e);
+      setFailed(true);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="mb-6">
+      <Button
+        block
+        className="min-h-14 text-base"
+        onClick={() => void handleClick()}
+        // 성지 목록이 오기 전엔 "전국 0곳 중" 이 찍히므로 기다린다
+        disabled={busy || sites.length === 0}
+        id="chronicle-card-btn"
+      >
+        <Sparkles size={20} aria-hidden />
+        {busy ? t('chronicleCardLoading') : t('chronicleCardButton')}
+      </Button>
+      {failed && (
+        <p role="alert" className="mt-2 text-sm text-red-600">
+          {t('cardGenerationFailed')}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function RecordsPage() {
   const { t } = useSettings();
   const { session } = useSession();
@@ -345,6 +434,8 @@ export default function RecordsPage() {
       .sort((a, b) => order.get(a.id)! - order.get(b.id)!);
   }, [allSites, favoriteIds]);
   const favoriteSites = useLocalizedSites(favoriteSitesRaw);
+  // 별자리 카드에 성지 이름을 화면 언어로 쓰고, 좌표를 찾는 데 쓴다
+  const localizedAllSites = useLocalizedSites(allSites);
 
   return (
     <PageContainer width="narrow" className="min-h-page pb-16">
@@ -443,11 +534,14 @@ export default function RecordsPage() {
               />
             </Card>
           ) : (
-            <ul className="space-y-3" aria-label={t('recordsMinimalTitle')}>
+            <>
+              <ChronicleCardButton stamps={stamps} sites={localizedAllSites} />
+              <ul className="space-y-3" aria-label={t('recordsMinimalTitle')}>
               {stamps.map((stamp) => (
-                <RecordItem key={stamp.stampId} stamp={stamp} />
-              ))}
-            </ul>
+                  <RecordItem key={stamp.stampId} stamp={stamp} />
+                ))}
+              </ul>
+            </>
           )}
         </>
       )}

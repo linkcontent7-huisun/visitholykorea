@@ -25,6 +25,32 @@ export interface ChronicleCardOptions {
   stars: ChronicleStar[]; // 방문 순서(과거 → 최근)로 정렬해서 넘길 것
   dioceseCount: number;
   totalSites: number;
+  /** 카드 속 글자 — 화면 언어로 미리 채워 넘긴다(v7.0). 없으면 한국어. */
+  text?: ChronicleCardText;
+}
+
+/** 자리표시({count} 등)는 그리는 쪽이 채운다. */
+export interface ChronicleCardText {
+  title: string;
+  stats: string;
+  since: string;
+  unplotted: string;
+  footer: string;
+  /** 날짜 표기용 BCP 47 언어 태그 (ko-KR, en-US …) */
+  locale: string;
+}
+
+const KO_TEXT: ChronicleCardText = {
+  title: '나의 순례 별자리',
+  stats: '{count}곳 순례 · {dioceses}개 교구 · 전국 {total}곳 중',
+  since: '{date} {site}에서 시작',
+  unplotted: '좌표가 준비되지 않은 {count}곳은 별로 표시하지 못했어요',
+  footer: '한국 천주교 성지순례 · visitholykorea.com',
+  locale: 'ko-KR',
+};
+
+function fill(template: string, values: Record<string, string | number>): string {
+  return template.replace(/\{(\w+)\}/g, (m, k: string) => (k in values ? String(values[k]) : m));
 }
 
 const FONT = '"Pretendard", "Apple SD Gothic Neo", sans-serif';
@@ -60,7 +86,8 @@ export async function generateChronicleCard(options: ChronicleCardOptions): Prom
   ctx.fillText('VISIT HOLY KOREA', 64, 80);
   ctx.font = `800 72px ${FONT}`;
   ctx.fillStyle = '#ffffff';
-  ctx.fillText('나의 순례 별자리', 64, 140);
+  const text = options.text ?? KO_TEXT;
+  ctx.fillText(text.title, 64, 140);
 
   // 별자리 영역 — 실제 위경도를 그대로 투영한다 (지리적 상대 위치 보존)
   const plot = { x: 150, y: 380, w: 780, h: 1000 };
@@ -114,27 +141,30 @@ export async function generateChronicleCard(options: ChronicleCardOptions): Prom
   }
 
   // 통계
-  const stats = [
-    `${options.stars.length}곳 순례`,
-    `${options.dioceseCount}개 교구`,
-    `전국 ${options.totalSites}곳 중`,
-  ];
-  ctx.font = `800 48px ${FONT}`;
+  ctx.font = `800 44px ${FONT}`;
   ctx.fillStyle = '#ffffff';
-  ctx.fillText(stats.join('  ·  '), 64, 1500);
+  ctx.fillText(
+    fill(text.stats, {
+      count: options.stars.length,
+      dioceses: options.dioceseCount,
+      total: options.totalSites,
+    }),
+    64,
+    1500,
+    CARD_WIDTH - 128,
+  );
 
   // 기간
   const firstStar = options.stars[0];
   if (firstStar) {
-    const fmt = (d: Date) =>
-      d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+    const date = firstStar.visitedAt.toLocaleDateString(text.locale, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
     ctx.font = `500 32px ${FONT}`;
     ctx.fillStyle = '#a5b4fc';
-    const range =
-      options.stars.length === 1
-        ? `${fmt(firstStar.visitedAt)} · ${firstStar.siteName}에서 시작`
-        : `${fmt(firstStar.visitedAt)} ${firstStar.siteName}에서 시작해 지금까지`;
-    ctx.fillText(range, 64, 1580);
+    ctx.fillText(fill(text.since, { date, site: firstStar.siteName }), 64, 1580, CARD_WIDTH - 128);
   }
 
   // 좌표가 없어 별로 찍지 못한 곳도 세었음을 정직하게 남긴다
@@ -142,12 +172,12 @@ export async function generateChronicleCard(options: ChronicleCardOptions): Prom
   if (unplotted > 0) {
     ctx.font = `500 26px ${FONT}`;
     ctx.fillStyle = '#818cf8';
-    ctx.fillText(`좌표가 준비되지 않은 ${unplotted}곳은 별로 표시하지 못했어요`, 64, 1650);
+    ctx.fillText(fill(text.unplotted, { count: unplotted }), 64, 1650, CARD_WIDTH - 128);
   }
 
   ctx.font = `700 30px ${FONT}`;
   ctx.fillStyle = '#c4b5fd';
-  ctx.fillText('한국 천주교 성지순례 · visitholykorea', 64, CARD_HEIGHT - 120);
+  ctx.fillText(text.footer, 64, CARD_HEIGHT - 120);
 
   return toBlob(canvas);
 }
