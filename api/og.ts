@@ -13,7 +13,8 @@
 import { ImageResponse } from '@vercel/og';
 import type { ReactElement } from 'react';
 
-export const config = { runtime: 'edge' };
+// Edge 런타임은 Vite 프로젝트에서 그림 엔진(WebAssembly)을 못 띄운다(2026-11-13 미리보기 실측:
+// "Wasm code generation disallowed by embedder", 0바이트 응답). 그래서 Node 런타임 + 웹 표준 GET 으로 둔다.
 
 const BG = '#1b1814';
 const GOLD = '#d4a017';
@@ -48,7 +49,7 @@ const el = (type: string, style: Record<string, unknown>, children?: unknown): N
   props: { style, children },
 });
 
-export default async function handler(req: Request): Promise<Response> {
+export async function GET(req: Request): Promise<Response> {
   const q = new URL(req.url).searchParams;
   const title = clip(q.get('title'), 28) || '비지트홀리코리아';
   const sub = clip(q.get('sub'), 40) || '길 위에서 나를 만나는 성지순례';
