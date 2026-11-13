@@ -8,7 +8,16 @@
  */
 
 export const SITE_ORIGIN = 'https://visitholykorea.com';
-const DEFAULT_IMAGE = `${SITE_ORIGIN}/logo.png`;
+
+/**
+ * 공유 미리보기 그림 주소 — `api/og.ts` 가 제목·부제를 넣어 1200×630 으로 그린다(v7.0).
+ * 사진이 없는 성지·코스·첫 화면이 로고 대신 이것을 쓴다.
+ */
+export function ogCardUrl(title: string, sub?: string | null): string {
+  const q = new URLSearchParams({ title });
+  if (sub) q.set('sub', sub);
+  return `${SITE_ORIGIN}/api/og?${q.toString()}`;
+}
 
 export interface SeoSite {
   id: string;
@@ -61,7 +70,7 @@ export function siteMeta(site: SeoSite): PageMeta {
   const description = clip(
     site.seoDescription?.trim() || site.description?.trim() || `${site.name} — 한국 천주교 성지`,
   );
-  const image = site.imageUrl || DEFAULT_IMAGE;
+  const image = site.imageUrl || ogCardUrl(site.name, site.regionProvince || site.location);
   const jsonLd: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': ['TouristAttraction', 'PlaceOfWorship'],
@@ -106,7 +115,7 @@ export function routeMeta(route: SeoRoute): PageMeta {
     route.subtitle ? `<p>${escapeHtml(route.subtitle)}</p>` : '',
     route.description ? `<p>${escapeHtml(route.description)}</p>` : '',
   ].join('');
-  return { path, title, description, image: DEFAULT_IMAGE, jsonLd, bodyHtml };
+  return { path, title, description, image: ogCardUrl(route.title, route.subtitle), jsonLd, bodyHtml };
 }
 
 /** 메신저 미리보기에 뜨는 카드 제목·설명 — 앱의 `baptismCardShareText` 와 같은 말 */

@@ -22,6 +22,7 @@ import {
   siteMeta,
   sitemapXml,
   SITE_ORIGIN,
+  ogCardUrl,
   type SeoRoute,
   type SeoSite,
 } from './lib/seo-pages.ts';
@@ -57,10 +58,15 @@ async function main() {
   // 첫 화면에만 canonical(대표 주소)을 단다 — www·맨주소가 같은 화면을 내므로 검색엔진에 하나로 알린다 (2026-11-07).
   // 다른 모든 주소의 대비책은 spa.html(vercel.json rewrites). index.html 을 대비책으로 두면
   // /map·/quiz 같은 주소까지 "첫 화면의 복사본"으로 신고하게 된다.
-  write('spa.html', template);
+  // 첫 화면·그 밖의 주소에도 공유 미리보기 그림을 단다(v7.0) — 전에는 og:image 가 아예 없어 카톡에 글자만 떴다.
+  const homeImage = `  <meta property="og:image" content="${ogCardUrl('비지트홀리코리아', '길 위에서 나를 만나는 성지순례')}" />\n`;
+  write('spa.html', template.replace('</head>', `${homeImage}  </head>`));
   write(
     'index.html',
-    template.replace('</head>', `  <link rel="canonical" href="${SITE_ORIGIN}/" />\n  </head>`),
+    template.replace(
+      '</head>',
+      `  <link rel="canonical" href="${SITE_ORIGIN}/" />\n${homeImage}  </head>`,
+    ),
   );
 
   // 공유받은 세례명 카드 — 메신저가 주소를 읽어 카드 그림·제목을 미리보기로 띄우게 한다. DB 가 필요 없어 먼저 쓴다.

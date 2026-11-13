@@ -92,3 +92,18 @@ describe('cardMeta — 공유받은 세례명 카드의 미리보기', () => {
     );
   });
 });
+
+describe('공유 미리보기 그림 (v7.0)', () => {
+  it('사진이 없는 성지는 로고 대신 이름·지역 카드 그림을 쓴다', () => {
+    const image = siteMeta(site).image;
+    expect(image).not.toContain('logo.png');
+    const q = new URL(image).searchParams;
+    expect(new URL(image).pathname).toBe('/api/og');
+    expect(q.get('title')).toBe('서짓골 성지');
+    expect(q.get('sub')).toBe('충남');
+  });
+
+  it('사진이 있는 성지는 사진을 그대로 쓴다', () => {
+    expect(siteMeta({ ...site, imageUrl: 'https://x/p.jpg' }).image).toBe('https://x/p.jpg');
+  });
+});
