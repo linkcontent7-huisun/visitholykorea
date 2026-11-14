@@ -30,8 +30,8 @@ import { useCompassMemory, useSaveCompassResponse } from '../hooks/use-compass-m
 import { useCandidatePlans } from '../hooks/use-candidate-plans';
 import { CandidateCards } from './CandidateCards';
 import { PlanResult } from './PlanResult';
-import { DirectoryEntryCard } from '@/features/sites/components/DirectoryEntryCard';
-import { useNearbyDirectory } from '@/features/sites/hooks/use-nearby-directory';
+import { DirectoryEntryCard } from '@/features/directory/components/DirectoryEntryCard';
+import { useNearbyDirectory } from '@/features/directory/hooks/use-nearby-directory';
 import { Button } from '@/shared/components/ui/Button';
 import { Card } from '@/shared/components/ui/Card';
 import { PageContainer } from '@/shared/components/ui/PageContainer';

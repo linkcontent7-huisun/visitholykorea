@@ -5,7 +5,7 @@ import { useIsFavorite, useToggleFavorite } from '@/features/favorites/hooks/use
 import { SiteNotesSection } from '@/features/passport/components/site-notes/SiteNotesSection';
 import { NearbyPilgrimPlaces } from '@/features/places/components/NearbyPilgrimPlaces';
 import { ProgramPromo } from '@/features/programs/components/ProgramCardPopup';
-import { NearbyParishesCard } from '@/features/sites/components/NearbyParishesCard';
+import { NearbyParishesCard } from '@/features/directory/components/NearbyParishesCard';
 import { useSitePhoto } from '@/features/sites/hooks/use-featured-photos';
 import { useSite } from '@/features/sites/hooks/use-sites';
 import { useTranslatedSite } from '@/features/sites/hooks/use-site-translation';

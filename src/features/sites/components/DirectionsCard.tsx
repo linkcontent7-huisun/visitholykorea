@@ -4,7 +4,7 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
 import { copyText } from '@/shared/lib/map-links';
 import type { HolySite } from '@/shared/types/domain';
-import { QuickDirectionsButtons } from './QuickDirectionsButtons';
+import { QuickDirectionsButtons } from '@/shared/components/ui/QuickDirectionsButtons';
 
 /**
  * 찾아가는 길.
