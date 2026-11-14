@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { resolveStampMotif } from '@/features/passport/lib/stamp-motifs';
-import { StampMotifIcon } from '@/features/passport/components/StampMotifIcon';
+import { resolveStampMotif } from '@/shared/lib/stamp-motifs';
+import { StampMotifIcon } from '@/shared/components/ui/StampMotifIcon';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { sizedImageUrl } from '@/shared/lib/image-url';

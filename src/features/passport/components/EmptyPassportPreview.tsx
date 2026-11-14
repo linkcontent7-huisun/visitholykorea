@@ -10,8 +10,8 @@ import { haversineKm } from '@/shared/lib/geo';
 import { regionCoords } from '@/shared/lib/regions';
 import { localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { resolveStampMotif } from '../lib/stamp-motifs';
-import { StampMotifIcon } from './StampMotifIcon';
+import { resolveStampMotif } from '@/shared/lib/stamp-motifs';
+import { StampMotifIcon } from '@/shared/components/ui/StampMotifIcon';
 
 /**
  * 스탬프가 0개일 때의 여권 화면.
