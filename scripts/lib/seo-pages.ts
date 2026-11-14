@@ -115,7 +115,14 @@ export function routeMeta(route: SeoRoute): PageMeta {
     route.subtitle ? `<p>${escapeHtml(route.subtitle)}</p>` : '',
     route.description ? `<p>${escapeHtml(route.description)}</p>` : '',
   ].join('');
-  return { path, title, description, image: ogCardUrl(route.title, route.subtitle), jsonLd, bodyHtml };
+  return {
+    path,
+    title,
+    description,
+    image: ogCardUrl(route.title, route.subtitle),
+    jsonLd,
+    bodyHtml,
+  };
 }
 
 /** 메신저 미리보기에 뜨는 카드 제목·설명 — 앱의 `baptismCardShareText` 와 같은 말 */

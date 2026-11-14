@@ -74,8 +74,22 @@ export async function GET(req: Request): Promise<Response> {
     [
       // 위: 금색 십자가 (선 두 개 — 글꼴에 기대지 않는다)
       el('div', { display: 'flex', position: 'relative', width: 56, height: 80 }, [
-        el('div', { position: 'absolute', left: 22, top: 0, width: 12, height: 80, background: GOLD }),
-        el('div', { position: 'absolute', left: 0, top: 20, width: 56, height: 12, background: GOLD }),
+        el('div', {
+          position: 'absolute',
+          left: 22,
+          top: 0,
+          width: 12,
+          height: 80,
+          background: GOLD,
+        }),
+        el('div', {
+          position: 'absolute',
+          left: 0,
+          top: 20,
+          width: 56,
+          height: 12,
+          background: GOLD,
+        }),
       ]),
       el('div', { display: 'flex', flexDirection: 'column' }, [
         el('div', { fontSize: titleSize, fontWeight: 700, lineHeight: 1.15 }, title),
@@ -83,7 +97,13 @@ export async function GET(req: Request): Promise<Response> {
       ]),
       el(
         'div',
-        { display: 'flex', fontSize: 28, opacity: 0.7, borderTop: `2px solid ${GOLD}`, paddingTop: 24 },
+        {
+          display: 'flex',
+          fontSize: 28,
+          opacity: 0.7,
+          borderTop: `2px solid ${GOLD}`,
+          paddingTop: 24,
+        },
         brand,
       ),
     ],
