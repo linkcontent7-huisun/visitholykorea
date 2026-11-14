@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { MapPin, Stamp as StampIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
-import { fetchSiteLocationIndex } from '@/features/sites/api/holy-sites.repository';
+import { fetchSiteIndex, withCoordinates } from '@/features/sites/api/holy-sites.repository';
 import { useLocalizedSites } from '@/features/sites/hooks/use-sites';
 import { queryKeys } from '@/shared/api/query-keys';
 import { distanceLabel } from '../lib/distance-label';
@@ -34,8 +34,9 @@ export function EmptyPassportPreview() {
       ? localizeRegionName(origin, language)
       : null;
   const { data: sitesRaw = [] } = useQuery({
-    queryKey: queryKeys.sites.coordsIndex,
-    queryFn: fetchSiteLocationIndex,
+    queryKey: queryKeys.sites.index,
+    queryFn: fetchSiteIndex,
+    select: withCoordinates,
     enabled: coords !== null,
     staleTime: 1000 * 60 * 60,
   });
