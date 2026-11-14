@@ -13,13 +13,13 @@
   - 기능끼리 서로 가져다 쓰는 순환 의존이 있다.
   - 저장소 파일 안에서 조회 함수가 겹친다.
 
-| 순위 | 이슈                                                                                                 | 종류     | 크기 ❓      | 위험                      |
-| ---- | ---------------------------------------------------------------------------------------------------- | -------- | ------------ | ------------------------- |
-| 1    | [#103](https://github.com/linkcontent7-huisun/visitholykorea/issues/103) 검색어 필터 이스케이프      | 버그     | 작음(반나절) | 낮음                      |
-| 2    | [#102](https://github.com/linkcontent7-huisun/visitholykorea/issues/102) SiteDetailPage 쪼개기       | 리팩토링 | 큼(1~2일)    | 중간: 화면 회귀 확인 필요 |
-| 3    | [#104](https://github.com/linkcontent7-huisun/visitholykorea/issues/104) 주소록 → features/directory | 리팩토링 | 작음         | 낮음: 경로만 바뀜         |
-| 4    | [#105](https://github.com/linkcontent7-huisun/visitholykorea/issues/105) sites↔passport 순환 끊기    | 리팩토링 | 작음~중간    | 낮음                      |
-| 5    | [#106](https://github.com/linkcontent7-huisun/visitholykorea/issues/106) repository 조회 정리        | 리팩토링 | 중간         | 중간: 쿼리가 바뀜         |
+| 순위 | 이슈                                                                                                                              | 종류     | 크기 ❓      | 위험                      |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------ | ------------------------- |
+| 1    | [#103](https://github.com/linkcontent7-huisun/visitholykorea/issues/103) 검색어 필터 이스케이프 ✅ 완료(PR #107, 11/14 운영 반영) | 버그     | 작음(반나절) | 낮음                      |
+| 2    | [#102](https://github.com/linkcontent7-huisun/visitholykorea/issues/102) SiteDetailPage 쪼개기                                    | 리팩토링 | 큼(1~2일)    | 중간: 화면 회귀 확인 필요 |
+| 3    | [#104](https://github.com/linkcontent7-huisun/visitholykorea/issues/104) 주소록 → features/directory                              | 리팩토링 | 작음         | 낮음: 경로만 바뀜         |
+| 4    | [#105](https://github.com/linkcontent7-huisun/visitholykorea/issues/105) sites↔passport 순환 끊기                                 | 리팩토링 | 작음~중간    | 낮음                      |
+| 5    | [#106](https://github.com/linkcontent7-huisun/visitholykorea/issues/106) repository 조회 정리                                     | 리팩토링 | 중간         | 중간: 쿼리가 바뀜         |
 
 순서 이유:
 
