@@ -10,7 +10,7 @@ import {
   formatDistanceKm,
   type NearbyPlace,
 } from '../lib/nearby-directory';
-import { QuickDirectionsButtons } from './QuickDirectionsButtons';
+import { QuickDirectionsButtons } from '@/shared/components/ui/QuickDirectionsButtons';
 
 /**
  * 본당·공소 주소록 한 줄 — 가까운 성당 탭 · 지역 랜딩 · 오늘의 성지 일정 · 검색 결과 · 성지 상세 주변 본당이 함께 쓴다.

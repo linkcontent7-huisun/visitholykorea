@@ -42,7 +42,7 @@ vi.mock('../hooks/use-compass-memory', () => ({
   useCompassMemory: () => ({ data: null }),
 }));
 
-vi.mock('@/features/sites/hooks/use-nearby-directory', () => ({
+vi.mock('@/features/directory/hooks/use-nearby-directory', () => ({
   useNearbyDirectory: () => ({ data: [] }),
 }));
 

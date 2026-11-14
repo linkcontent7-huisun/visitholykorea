@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { Camera, MapPin, X } from 'lucide-react';
 import { useEffect, useState, type FormEvent } from 'react';
-import { useDirectorySearch } from '@/features/sites/hooks/use-nearby-directory';
+import { useDirectorySearch } from '@/features/directory/hooks/use-nearby-directory';
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
 import { useModalFocus } from '@/shared/hooks/use-modal-focus';
 import { useSettings } from '@/shared/i18n/use-settings';

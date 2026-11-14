@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { MapLegend, NationalMap } from '@/features/map/components/NationalMap';
 import { DioceseProgressList } from '@/features/map/components/DioceseProgressList';
-import { QuickDirectionsButtons } from '@/features/sites/components/QuickDirectionsButtons';
+import { QuickDirectionsButtons } from '@/shared/components/ui/QuickDirectionsButtons';
 import { useVisitedSites } from '@/features/map/hooks/use-visited';
 import { almostSiteIds, buildNudge, computeDioceseProgress } from '@/features/map/lib/progress';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
