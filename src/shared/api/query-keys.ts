@@ -14,11 +14,10 @@ export const queryKeys = {
     list: (filters: Record<string, unknown> = {}) => ['sites', 'list', filters] as const,
     detail: (id: string) => ['sites', 'detail', id] as const,
     search: (term: string) => ['sites', 'search', term] as const,
-    dioceseIndex: () => ['sites', 'diocese-index'] as const,
     byDiocese: (diocese: string, category?: string) =>
       ['sites', 'diocese', diocese, category ?? 'all'] as const,
-    /** 순례 별자리 카드용 좌표 인덱스. 성지 좌표는 거의 안 바뀐다. */
-    coordsIndex: ['sites', 'coords-index'] as const,
+    /** 가벼운 성지 색인(id·이름·교구·좌표). 탐색 교구 수와 여권 가까운 성지가 공유한다. */
+    index: ['sites', 'index'] as const,
     /** 순례자가 올린 승인된 대표 사진 (site_id → url). 목록·상세가 공유한다. */
     featuredPhotos: ['sites', 'featured-photos'] as const,
   },

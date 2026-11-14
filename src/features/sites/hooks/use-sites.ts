@@ -6,12 +6,12 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
 import {
   fetchSiteById,
-  fetchSiteListTranslations,
   fetchSites,
   fetchSitesByDiocese,
   fetchSitesInSameDiocese,
   searchSites,
 } from '../api/holy-sites.repository';
+import { fetchSiteListTranslations } from '../api/site-translations.repository';
 
 /** 성지 목록. 자체 큐레이션 데이터라 자주 바뀌지 않으므로 staleTime 을 길게 둔다. */
 export function useSites(options: { limit?: number; withImageOnly?: boolean } = {}) {

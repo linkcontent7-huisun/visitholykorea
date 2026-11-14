@@ -162,214 +162,30 @@ export async function fetchSitesByEmotion(emotion: EmotionTag): Promise<HolySite
   return unwrap(data, error, 'fetchSitesByEmotion').map(toHolySite);
 }
 
-/** 교구별 전체 성지 수 집계 (순례 여권 진행률 계산용). */
-export async function fetchSiteDioceseIndex(): Promise<{ id: string; diocese: string | null }[]> {
-  const { data, error } = await supabase.from(TABLE).select('id, diocese');
-  return unwrap(data, error, 'fetchSiteDioceseIndex');
+/** 가벼운 성지 색인 한 줄 — 목록 전체(긴 소개글 포함) 없이 수·위치만 필요할 때 쓴다. */
+export interface SiteIndexEntry {
+  id: string;
+  name: string;
+  diocese: string | null;
+  lat: number | null;
+  lng: number | null;
 }
 
 /**
- * 순례자가 올린 사진 중 **운영자가 승인한** 성지 대표 사진 (site_id → url).
- *
- * 사진이 없는 성지(2026-09 기준 157곳)의 빈자리를 실방문자의 사진으로 메운다.
- * 승인된 것만 뷰에 들어오므로 여기서 따로 거를 것이 없다. 전체가 수백 행을
- * 넘지 않아 한 번에 받아 캐시한다 — 목록 화면이 카드마다 질의하지 않도록.
- *
- * 마이그레이션(20260903000000) 미적용 환경에서는 빈 맵을 돌려준다.
- * 대표 사진은 있으면 좋은 것이지 없다고 화면이 깨져서는 안 된다.
+ * 성지 색인 — 교구별 성지 수(탐색·여권 진행률)와 "여기서 가장 가까운 성지"가 함께 쓴다.
+ * 예전엔 쓰는 곳마다 열만 다른 조회 3개(교구·이름좌표·좌표)로 같은 테이블을 따로 읽었다(#106).
+ * 200여 행이라 전부 받아 클라이언트에서 계산하는 편이 질의보다 단순하고 빠르다.
  */
-export async function fetchFeaturedPilgrimPhotos(): Promise<Record<string, string>> {
-  const { data, error } = await supabase.from('site_featured_photos').select('site_id, photo_url');
-
-  if (error) {
-    console.warn('fetchFeaturedPilgrimPhotos skipped:', error.message);
-    return {};
-  }
-
-  const photos: Record<string, string> = {};
-  for (const row of data ?? []) {
-    const url = row.photo_url as string | null;
-    if (url) photos[row.site_id as string] = url;
-  }
-  return photos;
+export async function fetchSiteIndex(): Promise<SiteIndexEntry[]> {
+  const { data, error } = await supabase.from(TABLE).select('id, name, diocese, lat, lng');
+  return unwrap(data, error, 'fetchSiteIndex');
 }
 
-/**
- * 이름까지 붙은 좌표 인덱스 — "여기서 가장 가까운 성지"를 고를 때 쓴다.
- * 208행이라 전부 받아 클라이언트에서 계산하는 편이 질의보다 단순하고 빠르다.
- */
-export async function fetchSiteLocationIndex(): Promise<
-  { id: string; name: string; lat: number; lng: number }[]
-> {
-  const { data, error } = await supabase
-    .from(TABLE)
-    .select('id, name, lat, lng')
-    .not('lat', 'is', null)
-    .not('lng', 'is', null);
-
-  const rows = unwrap(data, error, 'fetchSiteLocationIndex');
-  return rows.map((r) => ({
-    id: r.id as string,
-    name: r.name as string,
-    lat: r.lat as number,
-    lng: r.lng as number,
-  }));
-}
-
-/** 성지 좌표 인덱스 — 순례 별자리 카드가 방문지를 실제 위치에 찍을 때 쓴다. */
-export async function fetchSiteCoordsIndex(): Promise<
-  { id: string; lat: number | null; lng: number | null }[]
-> {
-  const { data, error } = await supabase.from(TABLE).select('id, lat, lng');
-  return unwrap(data, error, 'fetchSiteCoordsIndex');
-}
-
-// ---------------------------------------------------------------------------
-// 성지 콘텐츠 번역 (holy_site_translations)
-// ---------------------------------------------------------------------------
-
-import type { SiteTranslation } from '../lib/translated-site';
-
-/**
- * 한 성지를 여러 언어로 한 번에 받아 온다.
- *
- * 스페인어 사용자에게 스페인어 번역이 없다고 한국어를 보여주면 아무것도 못 읽는다.
- * 요청 언어와 폴백 언어(영어)를 **한 번의 조회로** 같이 받아, 칸 단위로 겹친다
- * (`resolveTranslation`). 언어마다 따로 부르면 왕복이 늘어난다.
- */
-export async function fetchSiteTranslations(
-  siteId: string,
-  languages: string[],
-): Promise<Partial<Record<string, SiteTranslation>>> {
-  if (languages.length === 0) return {};
-
-  const { data, error } = await supabase
-    .from('holy_site_translations')
-    .select('language, name, description, history, address_romanized')
-    .eq('site_id', siteId)
-    .in('language', languages);
-
-  if (error) {
-    console.error('fetchSiteTranslations error:', error);
-    return {};
-  }
-
-  const byLanguage: Partial<Record<string, SiteTranslation>> = {};
-  for (const row of data ?? []) {
-    byLanguage[row.language as string] = {
-      name: row.name as string | null,
-      description: row.description as string | null,
-      history: row.history as string | null,
-      addressRomanized: row.address_romanized as string | null,
-    };
-  }
-  return byLanguage;
-}
-
-/**
- * 목록·카드용 — 여러 성지의 **이름만** 한 번에 번역해 온다.
- *
- * 상세 페이지의 `fetchSiteTranslations`는 성지 1곳의 전문(설명·역사 포함)을 받는
- * 용도라 목록에 그대로 쓰면 N+1 조회가 된다. 여기는 site_id 전체를 `in()` 한 번으로
- * 묶고 이름 칸만 받아, 카드가 많은 화면(홈 그리드·검색 결과·지도)에서도 조회가 하나다.
- * languages 는 우선순위 순서(요청 언어 → 폴백)로 넘기고, 그 순서대로 첫 값을 채택한다.
- */
-/** 목록·카드가 쓰는 번역 두 칸. 주소는 모든 언어에서 영문 로마자 표기 한 벌을 같이 쓴다. */
-export interface SiteListTranslation {
-  name: string | null;
-  address: string | null;
-}
-
-/**
- * 여러 성지의 이름·영문 주소를 한 번의 조회로 받는다(카드 수만큼 조회하지 않는다).
- * 언어 우선순위는 `languages` 순서 — 칸마다 따로 고른다. 스페인어 이름은 있는데
- * 주소가 비어 있으면 영어 주소를 쓴다 (주소는 208곳 전부 영어 번역이 있다, 2026-09-12).
- */
-export async function fetchSiteListTranslations(
-  siteIds: string[],
-  languages: string[],
-): Promise<Record<string, SiteListTranslation>> {
-  if (siteIds.length === 0 || languages.length === 0) return {};
-
-  const { data, error } = await supabase
-    .from('holy_site_translations')
-    .select('site_id, language, name, address_romanized')
-    .in('site_id', siteIds)
-    .in('language', languages);
-
-  if (error) {
-    console.warn('fetchSiteListTranslations skipped:', error.message);
-    return {};
-  }
-
-  const languagePriority = new Map(languages.map((lang, i) => [lang, i]));
-  const best = new Map<
-    string,
-    { name: string | null; namePriority: number; address: string | null; addressPriority: number }
-  >();
-  for (const row of data ?? []) {
-    const siteId = row.site_id as string;
-    const priority = languagePriority.get(row.language as string) ?? Number.MAX_SAFE_INTEGER;
-    const name = (row.name as string | null)?.trim() || null;
-    const address = (row.address_romanized as string | null)?.trim() || null;
-    const current = best.get(siteId) ?? {
-      name: null,
-      namePriority: Number.MAX_SAFE_INTEGER,
-      address: null,
-      addressPriority: Number.MAX_SAFE_INTEGER,
-    };
-    if (name && priority < current.namePriority) {
-      current.name = name;
-      current.namePriority = priority;
-    }
-    if (address && priority < current.addressPriority) {
-      current.address = address;
-      current.addressPriority = priority;
-    }
-    best.set(siteId, current);
-  }
-
-  return Object.fromEntries(
-    [...best]
-      .filter(([, v]) => v.name || v.address)
-      .map(([id, v]) => [id, { name: v.name, address: v.address }]),
+/** 좌표가 있는 성지만 — 거리 계산에 쓴다. */
+export function withCoordinates(
+  index: SiteIndexEntry[],
+): (SiteIndexEntry & { lat: number; lng: number })[] {
+  return index.filter(
+    (s): s is SiteIndexEntry & { lat: number; lng: number } => s.lat !== null && s.lng !== null,
   );
-}
-
-/** 이름만 필요한 호출부(코스 매칭)용. */
-export async function fetchSiteNameTranslations(
-  siteIds: string[],
-  languages: string[],
-): Promise<Record<string, string>> {
-  const rows = await fetchSiteListTranslations(siteIds, languages);
-  return Object.fromEntries(
-    Object.entries(rows)
-      .filter(([, v]) => v.name)
-      .map(([id, v]) => [id, v.name as string]),
-  );
-}
-
-/** 한 성지의 특정 언어 번역. 없으면 null — 호출부는 원문으로 폴백한다. */
-export async function fetchSiteTranslation(
-  siteId: string,
-  language: string,
-): Promise<SiteTranslation | null> {
-  const { data, error } = await supabase
-    .from('holy_site_translations')
-    .select('name, description, history, address_romanized')
-    .eq('site_id', siteId)
-    .eq('language', language)
-    .maybeSingle();
-
-  if (error) {
-    console.error('fetchSiteTranslation error:', error);
-    return null;
-  }
-  if (!data) return null;
-  return {
-    name: data.name as string | null,
-    description: data.description as string | null,
-    history: data.history as string | null,
-    addressRomanized: data.address_romanized as string | null,
-  };
 }

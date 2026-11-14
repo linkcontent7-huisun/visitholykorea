@@ -11,10 +11,8 @@
  * 스펙: docs/10-product/재기획/2026-09-15-오늘의-성지-일정-스펙.md 6절.
  */
 
-import {
-  fetchSiteNameTranslations,
-  fetchSitesByEmotion,
-} from '@/features/sites/api/holy-sites.repository';
+import { fetchSitesByEmotion } from '@/features/sites/api/holy-sites.repository';
+import { fetchSiteNameTranslations } from '@/features/sites/api/site-translations.repository';
 import { FALLBACK_CHAIN, type Language } from '@/shared/i18n/dictionary';
 import { haversineKm } from '@/shared/lib/geo';
 import type { EmotionTag, HolySite } from '@/shared/types/domain';

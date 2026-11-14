@@ -5,7 +5,7 @@
  * 개수에 따라 인증서 등급이 올라간다. RLS 로 본인 데이터만 접근할 수 있다.
  */
 
-import { fetchSiteDioceseIndex } from '@/features/sites/api/holy-sites.repository';
+import { fetchSiteIndex } from '@/features/sites/api/holy-sites.repository';
 import { supabase } from '@/shared/api/supabase';
 
 const TABLE = 'pilgrimage_stamps';
@@ -519,7 +519,7 @@ export type DioceseProgress = Record<string, { visited: number; total: number }>
 
 /** 교구별 완주 현황 (모은 스탬프 수 / 해당 교구 전체 성지 수). */
 export async function getDioceseProgress(): Promise<DioceseProgress> {
-  const [allSites, stamps] = await Promise.all([fetchSiteDioceseIndex(), getMyStamps()]);
+  const [allSites, stamps] = await Promise.all([fetchSiteIndex(), getMyStamps()]);
 
   const visitedSiteIds = new Set(stamps.map((s) => s.siteId));
   const progress: DioceseProgress = {};
