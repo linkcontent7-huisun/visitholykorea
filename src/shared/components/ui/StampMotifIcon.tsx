@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import { localizeMotifLabel } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
-import type { StampMotif } from '../lib/stamp-motifs';
+import type { StampMotif } from '@/shared/lib/stamp-motifs';
 
 /**
  * 스탬프 모티프를 SVG 로 그린다 (여권 화면용).
