@@ -7,7 +7,7 @@ import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { useMyFavoriteIds } from '@/features/favorites/hooks/use-favorites';
 import { SiteListItem } from '@/features/sites/components/SiteListItem';
-import { fetchSiteDioceseIndex } from '@/features/sites/api/holy-sites.repository';
+import { fetchSiteIndex } from '@/features/sites/api/holy-sites.repository';
 import { countByDiocese } from '@/features/sites/lib/diocese-count';
 import { sortByDistance } from '@/features/sites/lib/nearest';
 import { queryKeys } from '@/shared/api/query-keys';
@@ -32,8 +32,8 @@ export default function ExplorePage() {
 
   // 교구 카드에 성지 수를 붙인다. 목록 전체가 아니라 id·교구만 받아 가볍다.
   const { data: dioceseIndex = [] } = useQuery({
-    queryKey: queryKeys.sites.dioceseIndex(),
-    queryFn: fetchSiteDioceseIndex,
+    queryKey: queryKeys.sites.index,
+    queryFn: fetchSiteIndex,
     staleTime: 1000 * 60 * 60,
   });
   const dioceseCounts = useMemo(() => countByDiocese(dioceseIndex), [dioceseIndex]);

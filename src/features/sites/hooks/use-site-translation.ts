@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/shared/api/query-keys';
 import { FALLBACK_CHAIN } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
-import { fetchSiteTranslations } from '../api/holy-sites.repository';
+import { fetchSiteTranslations } from '../api/site-translations.repository';
 import {
   applyTranslation,
   resolveTranslation,

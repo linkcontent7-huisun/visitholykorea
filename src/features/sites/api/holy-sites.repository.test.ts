@@ -1,6 +1,11 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type { HolySiteRow } from '@/shared/types/database';
-import { toHolySite } from './holy-sites.repository';
+import { fetchSiteIndex, toHolySite, withCoordinates } from './holy-sites.repository';
+
+const select = vi.fn();
+vi.mock('@/shared/api/supabase', () => ({
+  supabase: { from: (table: string) => ({ select: (cols: string) => select(table, cols) }) },
+}));
 
 function makeRow(overrides: Partial<HolySiteRow> = {}): HolySiteRow {
   return {
@@ -75,5 +80,30 @@ describe('toHolySite', () => {
     expect(site.phone).toBeNull();
     expect(site.homepageUrl).toBeNull();
     expect(site.fax).toBeNull();
+  });
+});
+
+describe('fetchSiteIndex (#106 색인 3개 → 1개)', () => {
+  it('holy_sites 에서 id·이름·교구·좌표만 한 번에 받는다', async () => {
+    const rows = [{ id: 'a', name: '절두산', diocese: '서울', lat: 37.5, lng: 126.9 }];
+    select.mockResolvedValueOnce({ data: rows, error: null });
+    await expect(fetchSiteIndex()).resolves.toEqual(rows);
+    expect(select).toHaveBeenCalledWith('holy_sites', 'id, name, diocese, lat, lng');
+  });
+
+  it('조회가 실패하면 오류를 던진다', async () => {
+    select.mockResolvedValueOnce({ data: null, error: { message: 'boom' } });
+    await expect(fetchSiteIndex()).rejects.toThrow('fetchSiteIndex: boom');
+  });
+});
+
+describe('withCoordinates', () => {
+  it('위도·경도가 둘 다 있는 성지만 남긴다', () => {
+    const index = [
+      { id: 'a', name: 'A', diocese: '서울', lat: 37.5, lng: 126.9 },
+      { id: 'b', name: 'B', diocese: '서울', lat: null, lng: 126.9 },
+      { id: 'c', name: 'C', diocese: null, lat: 35.1, lng: null },
+    ];
+    expect(withCoordinates(index).map((s) => s.id)).toEqual(['a']);
   });
 });

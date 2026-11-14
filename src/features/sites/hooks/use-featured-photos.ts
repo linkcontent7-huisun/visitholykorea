@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/shared/api/query-keys';
-import { fetchFeaturedPilgrimPhotos } from '../api/holy-sites.repository';
+import { fetchFeaturedPilgrimPhotos } from '../api/featured-photos.repository';
 
 /**
  * 순례자가 올린 승인 대표 사진 맵 (site_id → url).
