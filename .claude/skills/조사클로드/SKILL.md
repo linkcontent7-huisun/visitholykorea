@@ -16,7 +16,7 @@ description: Use when 사장님이 "조사 클로드", "/조사클로드", "마�
 |---|---|---|---|
 | **cpbc 가톨릭평화방송 유튜브** (구독 69만, 공식 인증) | youtube.com/@cpbc | ✅ | RSS `https://www.youtube.com/feeds/videos.xml?channel_id=UCBoZynea6G3hIgMA1NEQ-zw` |
 | cpbc 여행사 유튜브(성지순례) | youtube.com/@cpbctour | ✅ | RSS `...channel_id=UC0k9hfK5OrH2HvSK6dGAwqA` |
-| 가톨릭평화신문(cpbc 뉴스) | news.cpbc.co.kr | ✅ | 사이트맵 `https://news.cpbc.co.kr/seo?type=basic_sitemap` (RSS는 403) |
+| 가톨릭평화신문(cpbc 뉴스) | news.cpbc.co.kr | ✅ | 사이트맵 `https://news.cpbc.co.kr/seo?type=basic_sitemap` (RSS는 403). 앞 40개 주소를 열어 og:title·article:published_time 읽기 |
 | 가톨릭뉴스 지금여기 | catholicnews.co.kr | ✅ | RSS `https://www.catholicnews.co.kr/rss/allArticle.xml` |
 | 2027 서울 WYD 조직위 | wydseoul.org | ✅ | `https://wydseoul.org/sitemap.xml` |
 | **가톨릭신문** | catholictimes.org | ❌ | robots.txt가 ClaudeBot·GPTBot을 막음 → **자동 수집 금지.** 사장님이 준 주소만 `scripts/crawl/manual-urls.txt`로 처리 |
