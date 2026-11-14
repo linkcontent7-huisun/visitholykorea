@@ -8,6 +8,7 @@
 import { supabase } from '@/shared/api/supabase';
 import type { HolySiteRow } from '@/shared/types/database';
 import type { EmotionTag, HolySite } from '@/shared/types/domain';
+import { ilikeContains } from '@/shared/api/postgrest-filter';
 
 const TABLE = 'holy_sites';
 
@@ -105,13 +106,13 @@ export async function searchSites(term: string, limit = 8): Promise<HolySite[]> 
   const nativeQuery = supabase
     .from(TABLE)
     .select('*')
-    .or(`name.ilike.%${trimmed}%,location.ilike.%${trimmed}%`)
+    .or([ilikeContains('name', trimmed), ilikeContains('location', trimmed)].join(','))
     .limit(limit);
 
   const translationQuery = supabase
     .from('holy_site_translations')
     .select('site_id')
-    .or(`name.ilike.%${trimmed}%,address_romanized.ilike.%${trimmed}%`)
+    .or([ilikeContains('name', trimmed), ilikeContains('address_romanized', trimmed)].join(','))
     .limit(limit);
 
   const [nativeResult, translationResult] = await Promise.all([nativeQuery, translationQuery]);

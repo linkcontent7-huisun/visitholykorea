@@ -537,7 +537,7 @@ export default function RecordsPage() {
             <>
               <ChronicleCardButton stamps={stamps} sites={localizedAllSites} />
               <ul className="space-y-3" aria-label={t('recordsMinimalTitle')}>
-              {stamps.map((stamp) => (
+                {stamps.map((stamp) => (
                   <RecordItem key={stamp.stampId} stamp={stamp} />
                 ))}
               </ul>

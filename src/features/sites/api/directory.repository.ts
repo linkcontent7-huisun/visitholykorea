@@ -6,6 +6,7 @@
  * 2단계로 한다 — 근거는 lib/nearby-directory.ts 상단 주석.
  */
 
+import { ilikeContains } from '@/shared/api/postgrest-filter';
 import { supabase } from '@/shared/api/supabase';
 import type { Coordinates } from '@/shared/types/domain';
 import type { CatholicDirectoryRow } from '@/shared/types/database';
@@ -79,8 +80,14 @@ export async function searchDirectory(term: string, limit = 10): Promise<Directo
     .select(DIRECTORY_COLUMNS)
     .in('category', VISITOR_CATEGORIES)
     .or(
-      `name.ilike.%${core}%,name_compact.ilike.%${core}%,address.ilike.%${core}%,diocese.ilike.%${core}%,` +
-        `name_romanized.ilike.%${trimmed}%,address_romanized.ilike.%${trimmed}%`,
+      [
+        ilikeContains('name', core),
+        ilikeContains('name_compact', core),
+        ilikeContains('address', core),
+        ilikeContains('diocese', core),
+        ilikeContains('name_romanized', trimmed),
+        ilikeContains('address_romanized', trimmed),
+      ].join(','),
     )
     .limit(60);
 
