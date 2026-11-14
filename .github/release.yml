@@ -1,0 +1,16 @@
+# GitHub 릴리스의 「자동 변경 목록」을 이슈 분류표(label)별로 묶는다 (2026-11-15).
+# 릴리스를 만들 때 `gh release create vX.Y --generate-notes` 를 쓰면 PR 제목이 아래 묶음으로 들어간다.
+changelog:
+  categories:
+    - title: 🆕 새 기능
+      labels: [기능]
+    - title: 🐞 오류 수정
+      labels: [버그]
+    - title: 📝 콘텐츠
+      labels: [콘텐츠]
+    - title: 🧹 코드 정리
+      labels: [리팩토링]
+    - title: ⚙️ 운영·문서
+      labels: [운영, 문서]
+    - title: 그 밖
+      labels: ['*']
