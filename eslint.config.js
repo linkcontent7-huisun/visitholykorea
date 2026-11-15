@@ -16,6 +16,8 @@ export default tseslint.config(
       'node_modules',
       'coverage',
       'supabase/functions',
+      // 3D 가상 순례(Three.js)는 자기 tsconfig·빌드를 가진 별도 앱이다 (2026-11-15 저장소 통합)
+      'visit-3d',
       // 저장소에 섞여 들어온 구버전 앱 사본·학습자료. 우리 코드가 아니다 (ADR 0005).
       'supabase/visitholykorea_버전보관',
       'visitholykorea-학습자료',

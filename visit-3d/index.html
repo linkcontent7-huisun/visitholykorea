@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <title>명동대성당 3D 가상 순례 · 비지트홀리코리아</title>
+  <meta name="description" content="고딕 리바이벌 성당 양식을 참고해 새로 지은 가상 성당과 경당을 여럿이 함께 걸으며 둘러보는 시범 서비스" />
+  <meta name="theme-color" content="#1b1814" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231b1814'/%3E%3Cpath d='M16 4v24M9 11h14' stroke='%23d4a017' stroke-width='3'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <div id="app"></div>
+
+  <section id="entry" class="overlay">
+    <div class="panel entry-panel">
+      <a id="backEntry" class="back-link" href="/sites/4b4199cf-2236-4842-8996-38ee9d36e542">← 성지 정보로 돌아가기</a>
+      <p class="eyebrow">VISIT HOLY KOREA · 시범</p>
+      <h1>성지 가상 순례</h1>
+      <p class="lead">첫 사례는 <b>명동대성당 구내</b>입니다. 실제 구내 건물 배치(OpenStreetMap) 속에서 성당을 바라보다가, 정문을 열고 들어가 실내를 둘러보세요. 초를 켜고 종을 울리고, 다른 관람객과 함께 걸을 수 있습니다.</p>
+      <label class="field">
+        <span>별칭 (다른 관람객에게 보입니다 · 9자)</span>
+        <input id="nick" maxlength="9" autocomplete="off" placeholder="예: 순례자" />
+      </label>
+      <div class="field">
+        <span class="pick-head">오늘의 순례 모습 <button type="button" id="avatarRandom" class="mini" hidden>🎲</button></span>
+        <div class="avatar-wrap destiny">
+          <canvas id="avatarPreview" width="150" height="190" aria-hidden="true"></canvas>
+          <div class="destiny-text">
+            <p id="avatarName" class="avatar-name"></p>
+            <p class="destiny-sub">들어올 때마다 천사나 순례자 가운데 하나로 새로 정해집니다.</p>
+          </div>
+          <div id="avatarPick" class="avatar-pick" role="radiogroup" aria-label="캐릭터" hidden></div>
+        </div>
+      </div>
+      <div class="row">
+        <label class="field half">
+          <span>시작 공간</span>
+          <select id="startSpace">
+            <option value="cathedral">명동대성당 구내 (첫 사례)</option>
+            <option value="chapel">언덕 위 경당</option>
+          </select>
+        </label>
+        <label class="field half">
+          <span>화질</span>
+          <select id="quality">
+            <option value="high">높음 (그림자)</option>
+            <option value="low">가볍게 (모바일)</option>
+          </select>
+        </label>
+      </div>
+      <button id="enter" class="primary">입장하기</button>
+      <p id="entryNote" class="note"></p>
+      <details class="help">
+        <summary>조작 방법</summary>
+        <ul>
+          <li><b>컴퓨터</b> — 땅을 클릭하면 그곳으로 걸어갑니다 · W A S D(방향키) 이동 · Shift 달리기 · Space 점프 · 마우스를 끌어 둘러보기 · 휠로 가까이/멀리(끝까지 당기면 1인칭) · 물건을 클릭하거나 E 로 상호작용</li>
+          <li><b>휴대폰</b> — 땅을 누르면 그곳으로 걸어갑니다 · 왼쪽 아래 원으로 이동 · 화면을 끌어 둘러보기 · 두 손가락으로 가까이/멀리 · 물건을 눌러 상호작용</li>
+          <li>바닥의 <b>금빛 화살표</b>를 따라가면 성당 정문에 닿습니다.</li>
+        </ul>
+      </details>
+      <p class="fine">둘레 건물의 자리·윤곽·높이는 © OpenStreetMap contributors (ODbL) 자료입니다. 성당 건물과 실내는 고딕 리바이벌 양식을 참고해 다시 지은 시범 모델이며, 실측 복제가 아니고 명동대성당의 공식 콘텐츠도 아닙니다. 별칭 외의 개인정보는 받지 않습니다. 배경 음악: 그레고리오 성가 「Gaudeamus omnes」(christislord, Freesound, CC0 1.0) · 드뷔시 「달빛(Clair de lune)」 피아노 연주(Wikimedia Commons, 퍼블릭 도메인). 종소리: 프라하 성 비투스 대성당 부활절 타종 녹음(Wikimedia Commons, 퍼블릭 도메인). 십자가의 길 14처+제15처 부활은 명동성당 최종태 작 청동 부조(1989)를 참고한 번호 표지이며 작품을 옮긴 것이 아닙니다.</p>
+    </div>
+  </section>
+
+  <section id="hud" hidden>
+    <div class="hud-top">
+      <div class="where">
+        <div id="spaceTitle" class="space-title"></div>
+        <div class="sub"><span id="zoneName"></span><span class="dot">·</span><span id="people">혼자 보기</span></div>
+      </div>
+      <div class="tools">
+        <a id="btnBack" class="chip" href="/sites/4b4199cf-2236-4842-8996-38ee9d36e542">성지 정보</a>
+        <button id="btnTour" class="chip">안내 투어</button>
+        <button id="btnSay" class="chip">인사</button>
+        <button id="btnSpace" class="chip">공간 이동</button>
+        <button id="btnSound" class="chip" aria-pressed="true">소리 켬</button>
+        <label class="chip time"><span>시간</span><input id="hour" type="range" min="6" max="19" step="0.25" /><span id="hourLabel"></span></label>
+      </div>
+    </div>
+    <div id="crosshair"></div>
+    <div id="hint" hidden></div>
+    <button id="actBtn" class="act" hidden>누르기</button>
+    <div id="joy"></div>
+    <div id="toast"></div>
+    <div id="loading" hidden>공간을 준비하고 있습니다…</div>
+    <div id="caption" hidden></div>
+    <div id="lockTip" class="lock-tip" hidden>땅을 클릭하면 그곳으로 걸어가요 · 끌어서 둘러보기 · 휠로 확대/축소 · 금빛 화살표를 따라가면 정문</div>
+    <div id="attrib" class="attrib" hidden></div>
+  </section>
+
+  <section id="card" class="card" hidden>
+    <button id="cardClose" class="close" aria-label="닫기">닫기</button>
+    <p id="cardKind" class="eyebrow"></p>
+    <h2 id="cardTitle"></h2>
+    <p id="cardMeta" class="meta"></p>
+    <p id="cardBody"></p>
+    <div id="cardActions" class="actions"></div>
+  </section>
+</body>
+<script type="module" src="/src/main.ts"></script>
+</html>
