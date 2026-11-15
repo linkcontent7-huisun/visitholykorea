@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>명동대성당 구내 지도</title>
+  <style>
+    html, body { margin: 0; height: 100%; font-family: system-ui, 'Apple SD Gothic Neo', sans-serif; background: #cfe0ee; }
+    #app { position: fixed; inset: 0; }
+    #app canvas { display: block; }
+    .labels { position: absolute; inset: 0; }
+    .label { font: 12px/1.2 inherit; padding: 3px 7px; border: 0; border-radius: 10px; background: rgba(255,255,255,.85); color: #333; cursor: pointer; }
+    .label.main { background: #7a3b2e; color: #fff; font-weight: 600; font-size: 13px; }
+    #card { position: fixed; z-index: 2; left: 16px; right: 16px; bottom: 32px; max-width: 360px; padding: 14px 16px; border-radius: 12px; background: #fff; box-shadow: 0 6px 24px rgba(0,0,0,.18); }
+    #card h2 { margin: 0 0 6px; font-size: 17px; }
+    #card p { margin: 0 0 10px; font-size: 13px; color: #555; }
+    #card a { display: block; margin-top: 6px; font-size: 14px; color: #7a3b2e; }
+    #card a.primary { padding: 9px 12px; border-radius: 8px; background: #7a3b2e; color: #fff; text-align: center; text-decoration: none; font-weight: 600; }
+    #attribution { position: fixed; z-index: 2; right: 8px; bottom: 6px; font-size: 11px; color: #333; background: rgba(255,255,255,.7); padding: 2px 6px; border-radius: 4px; }
+    #title { position: fixed; left: 16px; top: 12px; margin: 0; font-size: 16px; color: #2b2b2b; text-shadow: 0 1px 2px rgba(255,255,255,.7); }
+    #views { position: fixed; z-index: 2; left: 16px; top: 44px; display: flex; flex-wrap: wrap; gap: 6px; }
+    #views { max-width: calc(100vw - 32px); align-items: center; }
+    #views .sep { font-size: 12px; color: #fff; background: rgba(60,40,30,.7); padding: 6px 9px; border-radius: 8px; }
+    #views button.active { background: #7a3b2e; color: #fff; }
+    #views button { font: 13px/1 inherit; padding: 7px 11px; border: 0; border-radius: 8px; background: rgba(255,255,255,.88); color: #333; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.15); }
+  </style>
+</head>
+<body>
+  <h1 id="title">명동대성당 구내 — 건물을 눌러 보세요</h1>
+  <nav id="views" aria-label="시점">
+    <button data-view="front">본당 정면</button>
+    <button data-view="side">본당 측면</button>
+    <button data-view="rear">본당 후진</button>
+    <button data-view="street">길에서 보기</button>
+    <button data-view="door">정문 앞</button>
+    <button data-view="site">구내 전체</button>
+    <button data-view="namsan">남산 쪽 원경</button>
+    <span class="sep">실내</span>
+    <button data-view="in-nave">신랑 → 제대</button>
+    <button data-view="in-altar">제대</button>
+    <button data-view="in-organ">성가대석 오르간</button>
+    <button data-view="in-aisle">측랑</button>
+    <button data-view="in-vault">볼트 천장</button>
+  </nav>
+  <div id="app"></div>
+  <section id="card" hidden></section>
+  <div id="attribution"></div>
+  <script type="module" src="/src/sitemap/main.ts"></script>
+</body>
+</html>

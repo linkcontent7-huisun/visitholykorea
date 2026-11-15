@@ -1,0 +1,35 @@
+{
+  "name": "visitholykorea-3d",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Visit Holy Korea — 성지 가상 순례 시범 서비스 (three.js + Colyseus)",
+  "type": "module",
+  "scripts": {
+    "dev:client": "vite",
+    "build": "tsc --noEmit -p tsconfig.json && vite build",
+    "start": "tsx --tsconfig server/tsconfig.json server/index.ts",
+    "check": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p server/tsconfig.json"
+  },
+  "dependencies": {
+    "@colyseus/schema": "^5.0.45",
+    "@colyseus/sdk": "^0.18.9",
+    "@colyseus/ws-transport": "^0.18.4",
+    "@supabase/supabase-js": "2.112.0",
+    "colyseus": "^0.18.12",
+    "express": "^4.22.3",
+    "nipplejs": "^1.0.4",
+    "three": "^0.187.0",
+    "three-mesh-bvh": "^0.9.18"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.25",
+    "@types/node": "^26.6.6",
+    "@types/three": "^0.187.0",
+    "tsx": "^4.23.15",
+    "typescript": "5.9",
+    "vite": "^8.3.6"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}
