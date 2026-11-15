@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react';
-import { Download, Share2, X } from 'lucide-react';
+import { Download, Search, Share2, X } from 'lucide-react';
 import { useMemo, useRef, useState } from 'react';
 import { useModalFocus } from '@/shared/hooks/use-modal-focus';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
@@ -7,6 +7,14 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import { BAPTISM_NAMES } from '../data/baptism-names';
 import { paths } from '@/app/routes/paths';
 import { cardImageUrl, cardPngFile } from '../lib/card-image';
+import {
+  featuredSaints,
+  filterNames,
+  nameSlugOf,
+  saintsOfName,
+  sortedNames,
+  type BaptismOption,
+} from '../lib/baptism-groups';
 
 interface BaptismCardSheetProps {
   isOpen: boolean;
@@ -27,14 +35,18 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
   const [slug, setSlug] = useState<string | null>(null);
   const [failed, setFailed] = useState(false);
 
-  const options = useMemo(
-    () =>
-      BAPTISM_NAMES.map((n) => ({ slug: n.slug, kind: n.kind, label: n.names[language] })).sort(
-        (a, b) => a.label.localeCompare(b.label, language),
-      ),
-    [language],
-  );
-  const selected = options.find((o) => o.slug === slug) ?? null;
+  const [query, setQuery] = useState('');
+
+  const featured = useMemo(() => featuredSaints(language), [language]);
+  const names = useMemo(() => sortedNames(language), [language]);
+  const shownNames = useMemo(() => filterNames(names, query, language), [names, query, language]);
+
+  const selectedEntry = BAPTISM_NAMES.find((n) => n.slug === slug) ?? null;
+  const selected: BaptismOption | null = selectedEntry
+    ? { slug: selectedEntry.slug, kind: selectedEntry.kind, label: selectedEntry.names[language] }
+    : null;
+  /** 고른 카드가 속한 세례명의 한국 성인들 — 성인 카드를 골라도 같은 세례명의 다른 성인이 이어서 보인다 */
+  const groupSaints = selectedEntry ? saintsOfName(nameSlugOf(selectedEntry), language) : [];
   const [copied, setCopied] = useState(false);
 
   const pick = (next: string) => {
@@ -163,39 +175,55 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
                 </section>
               )}
 
-              {/* 세례명 43개 다음에 「김대건 안드레아」처럼 한국 성인 한 분의 카드 (2026-11-08, CPBC 「모두의 세례명」 참고) */}
-              {(['name', 'plain', 'saint'] as const).map((kind) => (
-                <section key={kind}>
+              {groupSaints.length > 0 && (
+                <section>
                   <h4 className="mb-2 text-base font-bold text-app-text">
-                    {t(
-                      kind === 'name'
-                        ? 'baptismCardPick'
-                        : kind === 'plain'
-                          ? 'baptismCardPickMore'
-                          : 'baptismCardPickSaint',
-                    )}
+                    {t('baptismCardSaintsOfName')}
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {options
-                      .filter((o) => o.kind === kind)
-                      .map((o) => (
-                        <button
-                          key={o.slug}
-                          type="button"
-                          onClick={() => pick(o.slug)}
-                          aria-pressed={o.slug === slug}
-                          className={`min-h-11 rounded-lg border-[1.5px] px-3 text-base font-bold ${
-                            o.slug === slug
-                              ? 'border-brand-blue bg-brand-blue text-white'
-                              : 'border-brand-blue bg-white text-brand-blue'
-                          }`}
-                        >
-                          {o.label}
-                        </button>
-                      ))}
+                    {groupSaints.map((o) => (
+                      <PickButton key={o.slug} option={o} active={o.slug === slug} onPick={pick} />
+                    ))}
                   </div>
                 </section>
-              ))}
+              )}
+
+              {/* 세례명으로 많이 부르는 한국 성인 다섯 분 (사장님 결정 2026-11-15) */}
+              <section>
+                <h4 className="mb-2 text-base font-bold text-app-text">
+                  {t('baptismCardPickSaint')}
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {featured.map((o) => (
+                    <PickButton key={o.slug} option={o} active={o.slug === slug} onPick={pick} />
+                  ))}
+                </div>
+              </section>
+
+              {/* 세례명 전부 가나다순 — 다른 한국 성인은 각 세례명 카드 안에 모았다 */}
+              <section>
+                <h4 className="mb-2 text-base font-bold text-app-text">{t('baptismCardPick')}</h4>
+                <label className="mb-3 flex min-h-11 items-center gap-2 rounded-lg border-[1.5px] border-app-border px-3 focus-within:border-brand-blue">
+                  <Search size={18} aria-hidden className="shrink-0 text-app-text-muted" />
+                  <input
+                    type="search"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder={t('baptismCardSearch')}
+                    aria-label={t('baptismCardSearch')}
+                    className="min-w-0 flex-1 bg-transparent py-2 text-base outline-none"
+                  />
+                </label>
+                {shownNames.length > 0 ? (
+                  <div className="flex flex-wrap gap-2">
+                    {shownNames.map((o) => (
+                      <PickButton key={o.slug} option={o} active={o.slug === slug} onPick={pick} />
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-app-text-muted">{t('baptismCardNoMatch')}</p>
+                )}
+              </section>
 
               <p className="text-xs leading-relaxed text-app-text-muted">{t('baptismCardNote')}</p>
             </div>
@@ -203,5 +231,30 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
         </div>
       )}
     </AnimatePresence>
+  );
+}
+
+function PickButton({
+  option,
+  active,
+  onPick,
+}: {
+  option: BaptismOption;
+  active: boolean;
+  onPick: (slug: string) => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => onPick(option.slug)}
+      aria-pressed={active}
+      className={`min-h-11 rounded-lg border-[1.5px] px-3 text-base font-bold ${
+        active
+          ? 'border-brand-blue bg-brand-blue text-white'
+          : 'border-brand-blue bg-white text-brand-blue'
+      }`}
+    >
+      {option.label}
+    </button>
   );
 }
