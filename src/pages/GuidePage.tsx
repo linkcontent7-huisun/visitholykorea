@@ -6,10 +6,10 @@ import { PageHeader } from '@/shared/components/ui/PageHeader';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { GUIDE } from './content/guide';
 
-/** 「성지순례, 처음이라면」 — 글은 content/guide.ts. 외국어 번역 전엔 한국어를 보인다. */
+/** 「성지순례, 처음이라면」 — 글은 content/guide.ts (6개 국어). */
 export default function GuidePage() {
   const { language } = useSettings();
-  const g = GUIDE[language] ?? GUIDE.ko;
+  const g = GUIDE[language];
 
   return (
     <PageContainer width="narrow" className="min-h-page pb-16">
