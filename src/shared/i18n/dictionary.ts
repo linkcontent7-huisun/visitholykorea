@@ -2730,6 +2730,14 @@ export const DICTIONARY = {
     pt: 'Perguntas frequentes',
     it: 'Domande frequenti',
   },
+  guideMenuLabel: {
+    ko: '성지순례, 처음이라면',
+    en: 'First pilgrimage guide',
+    es: 'Guía para tu primera peregrinación',
+    fr: 'Guide du premier pèlerinage',
+    pt: 'Guia da primeira peregrinação',
+    it: 'Guida al primo pellegrinaggio',
+  },
   faqPageTitle: {
     ko: '자주 묻는 질문',
     en: 'Frequently asked questions',

@@ -16,6 +16,7 @@ import { REGIONS } from '../src/shared/lib/regions.ts';
 import { loadEnvLocal } from './lib/env.ts';
 import {
   cardMeta,
+  guideMeta,
   renderPage,
   robotsTxt,
   routeMeta,
@@ -116,7 +117,7 @@ async function main() {
     'pilgrimage_routes?select=slug,title,subtitle,description&order=sort_order',
   );
 
-  for (const meta of [...sites.map(siteMeta), ...routes.map(routeMeta)]) {
+  for (const meta of [...sites.map(siteMeta), ...routes.map(routeMeta), guideMeta()]) {
     write(join(meta.path, 'index.html'), renderPage(template, meta));
   }
 
@@ -127,6 +128,7 @@ async function main() {
     '/nearby',
     '/compass',
     '/faq',
+    '/guide',
     ...REGIONS.map((r) => `/region/${r}`),
     ...routes.map((r) => `/routes/${r.slug}`),
     ...sites.map((s) => `/sites/${s.id}`),

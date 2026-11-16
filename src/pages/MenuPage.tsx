@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { useState } from 'react';
 import {
   BookmarkPlus,
+  BookOpen,
   ChevronRight,
   Globe,
   Share2,
@@ -212,6 +213,13 @@ export default function MenuPage() {
     {
       title: t('supportInfo'),
       items: [
+        // '성지순례' 검색어 안내 글(2026-11-16) — 앱 안에서도 링크가 있어야 검색엔진이 중요한 글로 본다
+        {
+          id: 'guide',
+          icon: BookOpen,
+          label: t('guideMenuLabel'),
+          onClick: () => navigate(paths.guide),
+        },
         {
           id: 'help',
           icon: ShieldQuestion,

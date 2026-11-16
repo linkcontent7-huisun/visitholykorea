@@ -25,6 +25,7 @@ const LoginPage = lazy(() => import('@/pages/LoginPage'));
 const ResetPasswordPage = lazy(() => import('@/pages/ResetPasswordPage'));
 const TermsPage = lazy(() => import('@/pages/TermsPage'));
 const FaqPage = lazy(() => import('@/pages/FaqPage'));
+const GuidePage = lazy(() => import('@/pages/GuidePage'));
 const ProgramApplyPage = lazy(() => import('@/pages/ProgramApplyPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 const BaptismCardPage = lazy(() => import('@/pages/BaptismCardPage'));
@@ -130,6 +131,7 @@ export const router = createBrowserRouter([
           { path: paths.regionPattern, element: withSuspense(<RegionLandingPage />) },
           { path: paths.nearby, element: withSuspense(<NearbyPage />) },
           { path: paths.faq, element: withSuspense(<FaqPage />) },
+          { path: paths.guide, element: withSuspense(<GuidePage />) },
           { path: paths.terms, element: withSuspense(<TermsPage />) },
           // 성지 상세도 상단바·하단 탭 안에서 뜬다 (2026-09-17 사장님 지시). 전엔 큰 사진 히어로를 위해
           // 전체 화면이었는데, 상세에서 다른 탭으로 못 가고 헤더가 사라져 길을 잃었다.
