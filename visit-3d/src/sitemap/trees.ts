@@ -20,6 +20,11 @@ type P2 = [number, number];
 export const WIND = { time: { value: 0 } };
 /** 카메라 가까이(이 거리 m 안)의 잎·가지는 점점이 지워 시야를 가리지 않게 한다 — 여는 장면에서는 크게 */
 export const NEAR_FADE = { value: 1.6 };
+/**
+ * 가지 올리기(지하고, m) — 잎·가지의 가장 낮은 곳이 땅에서 이만큼은 떨어지게 한다.
+ * 3인칭 카메라가 사람 뒤 5 m · 발 위 3 m 쯤에 있어, 그보다 낮은 잎은 사람 얼굴을 가린다(2026-11-17 사장님).
+ */
+export const BRANCH_CLEAR = { value: 4.0 };
 
 // ── 잎 · 껍질 텍스처 ─────────────────────────────────────────────────────
 
@@ -260,17 +265,30 @@ export function grassTex(): THREE.CanvasTexture {
 
 // ── 재질(바람 · 부피감 있는 잎 그늘) ───────────────────────────────────────
 
-function windPatch(m: THREE.MeshStandardMaterial, leaf: boolean) {
+/** low = 이 모양에서 잎이 가장 낮게 내려오는 높이(키 1 기준). 0 이면 가지 올리기를 하지 않는다(관목 · 풀) */
+function windPatch(m: THREE.MeshStandardMaterial, leaf: boolean, low = 0) {
   m.onBeforeCompile = (sh) => {
     sh.uniforms.uWind = WIND.time;
+    sh.uniforms.uClear = BRANCH_CLEAR;
+    sh.uniforms.uLow = { value: low };
     sh.uniforms.uNear = NEAR_FADE;
     sh.vertexShader = sh.vertexShader
-      .replace('#include <common>', '#include <common>\nuniform float uWind;\nvarying vec3 vWPos;')
+      .replace('#include <common>', '#include <common>\nuniform float uWind;\nuniform float uClear;\nuniform float uLow;\nvarying vec3 vWPos;')
       .replace('#include <begin_vertex>', `#include <begin_vertex>
         {
           vec3 org = (modelMatrix * instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
           float ph = org.x * 0.13 + org.z * 0.11;
-          float hh = max(position.y, 0.0);
+          // 가지 올리기: 나무마다 키가 달라(같은 모양을 늘여 쓴다) 여기서 그루별로 한다.
+          // 줄기는 늘이고 수관 아래쪽만 위로 눌러 올린다 — 무릎(knee) 위는 그대로
+          float sy = length((modelMatrix * instanceMatrix * vec4(0.0, 1.0, 0.0, 0.0)).xyz);
+          float cu = min(uClear / sy, 0.7);
+          if (uLow > 0.0 && cu > uLow) {
+            float knee = max(mix(uLow, 1.0, 0.5), cu + 0.12);
+            float y0 = transformed.y;
+            if (y0 < uLow) transformed.y = y0 > 0.0 ? y0 * cu / uLow : y0;
+            else if (y0 < knee) transformed.y = cu + (y0 - uLow) * (knee - cu) / (knee - uLow);
+          }
+          float hh = max(transformed.y, 0.0);
           float sway = hh * hh;
           transformed.x += (sin(uWind * 0.9 + ph) * 0.010 + sin(uWind * 2.1 + ph * 1.7) * 0.004) * sway;
           transformed.z += (cos(uWind * 0.7 + ph * 1.3) * 0.008) * sway;
@@ -328,6 +346,9 @@ function buildShape(sp: Species, seed: number, lowDetail: boolean) {
   const bark: THREE.BufferGeometry[] = [];
   const tips: { p: THREE.Vector3; d: THREE.Vector3; s: number }[] = [];
   const radial = lowDetail ? 4 : 6;
+  // 가지가 이 높이(키 1 기준) 아래로는 처지지 않는다 — 소나무 가지가 땅까지 늘어져 사람을 가렸다(2026-11-17).
+  // 원줄기가 이어지는 나무는 맨 아래 가지가 나오는 높이, 나머지는 첫 갈라짐 조금 아래. 관목은 그대로 둔다
+  const floorY = sp.startsWith('shrub') ? -1 : S.leader ? 0.2 : S.trunkH * 0.8;
 
   const seg = (a: THREE.Vector3, b: THREE.Vector3, ra: number, rb: number, rad: number) => {
     const d = b.clone().sub(a), L = d.length();
@@ -353,6 +374,7 @@ function buildShape(sp: Species, seed: number, lowDetail: boolean) {
       d.add(new THREE.Vector3((r() - 0.5) * 0.35, S.up * 0.25 + (r() - 0.5) * 0.15, (r() - 0.5) * 0.35)).normalize();
       if (sp === 'pine' && level === 0) d.add(new THREE.Vector3(Math.sin(seed) * 0.12, 0, Math.cos(seed) * 0.12)).normalize(); // 소나무 줄기는 한쪽으로 휜다
       const q = p.clone().addScaledVector(d, len / parts);
+      if (level >= 1 && q.y < floorY) { q.y = floorY; d.y = Math.max(d.y, 0.05); d.normalize(); }
       // 가볍게(먼 나무 · 모바일): 잎에 가려 안 보이는 잔가지는 껍질을 그리지 않는다(잎 자리는 그대로).
       // 관목은 2단계부터, 큰 나무는 맨 끝 단계만 뺀다 — 2026-11-13 측정: 껍질이 삼각형의 절반 이상이었다
       if (!(lowDetail && level >= (sp.startsWith('shrub') ? 2 : S.depth))) seg(p, q, ra, rb, level >= 2 ? (lowDetail ? 3 : 4) : radial);
@@ -404,6 +426,7 @@ function buildShape(sp: Species, seed: number, lowDetail: boolean) {
     const k = Math.round(per * t.s);
     for (let i = 0; i < k; i++) {
       const c = t.p.clone().add(new THREE.Vector3((r() - 0.5), (r() - 0.35), (r() - 0.5)).multiplyScalar(S.cardS * 0.9));
+      c.y = Math.max(c.y, floorY);
       const out = c.clone().sub(ctr);
       const dist = out.length() / maxD;
       out.normalize();
@@ -433,7 +456,9 @@ function buildShape(sp: Species, seed: number, lowDetail: boolean) {
   leafGeo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
   leafGeo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
   leafGeo.computeBoundingSphere();
-  return { barkGeo, leafGeo, cards: pos.length / 18 };
+  let low = Infinity;
+  for (let i = 1; i < pos.length; i += 3) low = Math.min(low, pos[i]);
+  return { barkGeo, leafGeo, cards: pos.length / 18, low: Number.isFinite(low) && low > 0.05 ? low : 0 };
 }
 
 // ── 심기 ──────────────────────────────────────────────────────────────────
@@ -459,15 +484,16 @@ export function plantTrees(list: Planting[], H: (x: number, z: number) => number
     (bySp.get(key) ?? bySp.set(key, []).get(key)!).push(t);
   });
   const shapes = new Map<string, ReturnType<typeof buildShape>>();
-  const barkMats = new Map<boolean, THREE.MeshStandardMaterial>();
-  const barkMat = (pine: boolean) => {
-    let m = barkMats.get(pine);
-    if (!m) { m = new THREE.MeshStandardMaterial({ map: barkTex(pine), roughness: 0.95 }); windPatch(m, false); barkMats.set(pine, m); }
+  // 재질은 모양(수종 · 변형 · 상세도)마다 하나 — 가지 올리기 기준(low)이 모양마다 달라서다. 셰이더 프로그램은 함께 쓴다
+  const barkMats = new Map<string, THREE.MeshStandardMaterial>();
+  const barkMat = (sk: string, pine: boolean, low: number) => {
+    let m = barkMats.get(sk);
+    if (!m) { m = new THREE.MeshStandardMaterial({ map: barkTex(pine), roughness: 0.95 }); windPatch(m, false, low); barkMats.set(sk, m); }
     return m;
   };
-  const leafMats = new Map<Species, THREE.MeshStandardMaterial>();
-  const leafMat = (sp: Species) => {
-    let m = leafMats.get(sp);
+  const leafMats = new Map<string, THREE.MeshStandardMaterial>();
+  const leafMat = (sk: string, sp: Species, low: number) => {
+    let m = leafMats.get(sk);
     if (!m) {
       m = new THREE.MeshStandardMaterial({
         map: clusterTex(sp), alphaTest: 0.5, side: THREE.DoubleSide, vertexColors: true,
@@ -475,8 +501,8 @@ export function plantTrees(list: Planting[], H: (x: number, z: number) => number
         // 햇빛이 잎을 비쳐 나오는 느낌(아주 약하게 스스로 밝다)
         emissive: new THREE.Color(sp === 'pine' || sp === 'shrubGreen' ? 0x0c1408 : sp === 'ginkgo' ? 0x4a3604 : 0x461004),
       });
-      windPatch(m, true);
-      leafMats.set(sp, m);
+      windPatch(m, true, low);
+      leafMats.set(sk, m);
     }
     return m;
   };
@@ -488,8 +514,9 @@ export function plantTrees(list: Planting[], H: (x: number, z: number) => number
     const sk = `${sp}:${vi}:${far}`;
     let shape = shapes.get(sk);
     if (!shape) { shape = buildShape(sp, seed * 97 + sp.length * 31 + Number(vi) * 1013, far === '1'); shapes.set(sk, shape); }
-    const barkI = new THREE.InstancedMesh(shape.barkGeo, barkMat(sp === 'pine'), trees.length);
-    const leafI = new THREE.InstancedMesh(shape.leafGeo, leafMat(sp), trees.length);
+    const low = sp.startsWith('shrub') ? 0 : shape.low; // 관목은 원래 낮다 — 올리지 않는다
+    const barkI = new THREE.InstancedMesh(shape.barkGeo, barkMat(sk, sp === 'pine', low), trees.length);
+    const leafI = new THREE.InstancedMesh(shape.leafGeo, leafMat(sk, sp, low), trees.length);
     trees.forEach((t, i) => {
       const w = 0.9 + r() * 0.25;
       m4.compose(ps.set(t.p[0], H(t.p[0], t.p[1]) - 0.05, t.p[1]), q.setFromAxisAngle(Y_UP, r() * Math.PI * 2), sc.set(t.h * w, t.h, t.h * w * (0.9 + r() * 0.2)));
