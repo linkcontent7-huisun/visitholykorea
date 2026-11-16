@@ -9,6 +9,9 @@ describe('titleFromHeading', () => {
     );
   });
   it('홈·빈 제목·이미 앱 이름인 제목은 바꾸지 않는다', () => {
+    expect(titleFromHeading('대정성지', '/sites/abc')).toBe(
+      '대정성지 | 천주교 성지순례 · 비지트홀리코리아',
+    );
     expect(titleFromHeading('무엇이든', '/')).toBeNull();
     expect(titleFromHeading('', '/records')).toBeNull();
     expect(titleFromHeading(undefined, '/records')).toBeNull();
