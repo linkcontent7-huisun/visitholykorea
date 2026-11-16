@@ -11,7 +11,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Gowun+Batang:wght@700&display=swap"
       media="print"
-      onload="this.media = 'all'"
+      onload="this.media='all'"
     />
     <noscript>
       <link
@@ -40,10 +40,7 @@
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="비지트홀리코리아" />
-    <meta
-      property="og:title"
-      content="성지순례 - 한국 천주교 성지 200여 곳 지도·미사·순교 이야기 | 비지트홀리코리아"
-    />
+    <meta property="og:title" content="성지순례 - 한국 천주교 성지 200여 곳 지도·미사·순교 이야기 | 비지트홀리코리아" />
     <meta
       property="og:description"
       content="비지트홀리코리아(비지트 홀리 코리아) — 붐비는 관광지 대신 마음에 필요한 쉼표 하나. 감정 기반 한국 가톨릭 성지순례 추천."
@@ -116,9 +113,7 @@
           if (root && root.children.length > 0) return; // 정상
 
           var last = 0;
-          try {
-            last = parseInt(sessionStorage.getItem(KEY) || '0', 10);
-          } catch (e) {}
+          try { last = parseInt(sessionStorage.getItem(KEY) || '0', 10); } catch (e) {}
           if (last) {
             root.innerHTML =
               '<div style="padding:32px;font-family:system-ui,sans-serif;line-height:1.7;color:#334155">' +
@@ -129,44 +124,23 @@
             return;
           }
 
-          try {
-            sessionStorage.setItem(KEY, String(Date.now()));
-          } catch (e) {}
+          try { sessionStorage.setItem(KEY, String(Date.now())); } catch (e) {}
 
-          var done = function () {
-            location.reload();
-          };
+          var done = function () { location.reload(); };
           try {
             if (window.caches && caches.keys) {
-              caches
-                .keys()
-                .then(function (keys) {
-                  return Promise.all(
-                    keys.map(function (k) {
-                      return caches.delete(k);
-                    }),
-                  );
-                })
-                .catch(function () {});
+              caches.keys().then(function (keys) {
+                return Promise.all(keys.map(function (k) { return caches.delete(k); }));
+              }).catch(function () {});
             }
             if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
-              navigator.serviceWorker
-                .getRegistrations()
-                .then(function (rs) {
-                  return Promise.all(
-                    rs.map(function (r) {
-                      return r.unregister();
-                    }),
-                  );
-                })
-                .then(done)
-                .catch(done);
+              navigator.serviceWorker.getRegistrations().then(function (rs) {
+                return Promise.all(rs.map(function (r) { return r.unregister(); }));
+              }).then(done).catch(done);
             } else {
               done();
             }
-          } catch (e) {
-            done();
-          }
+          } catch (e) { done(); }
         }, 8000);
       })();
     </script>
