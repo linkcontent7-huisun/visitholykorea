@@ -66,7 +66,8 @@ function clip(s: string, max = 160): string {
 
 export function siteMeta(site: SeoSite): PageMeta {
   const path = `/sites/${site.id}`;
-  const title = `${site.seoTitle?.trim() || site.name} | Visit Holy Korea`;
+  // '성지순례' 검색어를 노린 꼬리(2026-11-16 사장님 결정, B안). src/app/routes/document-title.ts 와 같아야 한다
+  const title = `${site.seoTitle?.trim() || site.name} | 천주교 성지순례 · 비지트홀리코리아`;
   const description = clip(
     site.seoDescription?.trim() || site.description?.trim() || `${site.name} — 한국 천주교 성지`,
   );

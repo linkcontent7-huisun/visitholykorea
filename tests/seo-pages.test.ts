@@ -30,7 +30,7 @@ describe('renderPage — 실제 index.html 로', () => {
 
   it('제목·설명·OG 가 성지 것으로 바뀐다 (원래 앱 소개 문구가 남지 않는다)', () => {
     expect(html).toContain(
-      '<title>서짓골 성지 - 15년을 떠돈 순교자의 유해 | Visit Holy Korea</title>',
+      '<title>서짓골 성지 - 15년을 떠돈 순교자의 유해 | 천주교 성지순례 · 비지트홀리코리아</title>',
     );
     expect(html).toMatch(/name="description"\s+content="충남 보령 서짓골성지/);
     expect(html).toMatch(/og:title" content="서짓골 성지 - 15년/);
@@ -58,7 +58,9 @@ describe('renderPage — 실제 index.html 로', () => {
 
 describe('seo 보조', () => {
   it('seo_title 이 없으면 성지 이름을 쓴다', () => {
-    expect(siteMeta({ ...site, seoTitle: null }).title).toBe('서짓골 성지 | Visit Holy Korea');
+    expect(siteMeta({ ...site, seoTitle: null }).title).toBe(
+      '서짓골 성지 | 천주교 성지순례 · 비지트홀리코리아',
+    );
   });
 
   it('코스 메타', () => {
