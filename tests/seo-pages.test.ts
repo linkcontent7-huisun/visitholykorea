@@ -109,3 +109,14 @@ describe('공유 미리보기 그림 (v7.0)', () => {
     expect(siteMeta({ ...site, imageUrl: 'https://x/p.jpg' }).image).toBe('https://x/p.jpg');
   });
 });
+
+describe('guideMeta — 성지순례 안내 글', () => {
+  it("제목에 '성지순례' 가 앞에 오고 본문이 HTML 에 들어간다", async () => {
+    const { guideMeta } = await import('../scripts/lib/seo-pages');
+    const meta = guideMeta();
+    expect(meta.path).toBe('/guide');
+    expect(meta.title.startsWith('성지순례')).toBe(true);
+    expect(meta.bodyHtml).toContain('<h1>성지순례, 처음이라면</h1>');
+    expect(meta.bodyHtml).toContain('미사 시간');
+  });
+});

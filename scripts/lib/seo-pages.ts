@@ -7,6 +7,8 @@
  * 네트워크·파일을 만지지 않는 순수 함수만 둔다 — 테스트하기 쉽게.
  */
 
+import { GUIDE } from '../../src/pages/content/guide.ts';
+
 export const SITE_ORIGIN = 'https://visitholykorea.com';
 
 /**
@@ -98,6 +100,46 @@ export function siteMeta(site: SeoSite): PageMeta {
     site.description ? `<p>${escapeHtml(site.description.trim())}</p>` : '',
   ].join('');
   return { path, title, description, image, jsonLd, bodyHtml };
+}
+
+/** 「성지순례, 처음이라면」 안내 글 — '성지순례' 검색어를 노린다(2026-11-16) */
+export function guideMeta(): PageMeta {
+  const path = '/guide';
+  const title =
+    '성지순례 처음 가는 법 - 어디로·미사 시간·순례 예절 | 천주교 성지순례 · 비지트홀리코리아';
+  const description =
+    '처음 가는 한국 천주교 성지순례 안내. 가까운 성지 찾기, 하루 순례 코스, 미사 시간 확인, 성지에서 지킬 예절까지.';
+  return {
+    path,
+    title,
+    description,
+    image: ogCardUrl('성지순례, 처음이라면', '비지트홀리코리아'),
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: '성지순례, 처음이라면',
+      inLanguage: 'ko',
+      url: `${SITE_ORIGIN}${path}`,
+    },
+    bodyHtml: guideBodyHtml(),
+  };
+}
+
+/** 자바스크립트를 안 돌리는 검색기도 안내 글 전체를 읽게 한국어 본문을 그대로 넣는다 */
+function guideBodyHtml(): string {
+  const g = GUIDE.ko;
+  return [
+    `<h1>${escapeHtml(g.title)}</h1>`,
+    `<p>${escapeHtml(g.lead)}</p>`,
+    ...g.sections.map(
+      (s) =>
+        `<h2>${escapeHtml(s.heading)}</h2>` +
+        (s.body ? `<p>${escapeHtml(s.body)}</p>` : '') +
+        (s.items
+          ? `<ul>${s.items.map((i) => `<li>${escapeHtml(i.text)}</li>`).join('')}</ul>`
+          : ''),
+    ),
+  ].join('');
 }
 
 export function routeMeta(route: SeoRoute): PageMeta {
