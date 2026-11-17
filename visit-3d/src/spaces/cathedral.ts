@@ -1084,14 +1084,19 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
     const from = spawnPos.clone();
     const L = Math.hypot(goal.x - from.x, goal.z - from.z);
     const yaw = Math.atan2(-(goal.x - from.x), -(goal.z - from.z));
-    for (let d = 3; d < L - 1; d += 3.2) {
+    for (let d = 1.8; d < L - 1; d += 2.4) { // 2026-11-17: 눈에 잘 안 띄어 더 촘촘히(3.2 → 2.4 m) · 크게 · 또렷하게
       const x = from.x + ((goal.x - from.x) * d) / L, z = from.z + ((goal.z - from.z) * d) / L;
       // 보이는 지형 메시는 격자라 계산 높이보다 조금 높을 수 있다 — 넉넉히 띄운다
-      const y = (hill && placed ? placed.groundAt(x, z) : 0) + 0.28;
-      const m = new THREE.MeshBasicMaterial({ color: 0xffc21a, transparent: true, opacity: 0.6, depthWrite: false, toneMapped: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide });
+      // 계단에서는 평평한 화살표가 디딤판에 잘려 안 보였다 — 앞뒤 땅 높이로 비탈에 맞춰 눕힌다(2026-11-17)
+      const gAt = (k: number) => (hill && placed ? placed.groundAt(x + ((goal.x - from.x) * k) / L, z + ((goal.z - from.z) * k) / L) : 0);
+      const yTip = gAt(0.9), yTail = gAt(-0.9);
+      const y = Math.max(gAt(0), (yTip + yTail) / 2) + 0.34;
+      const pitch = Math.atan2(yTip - yTail, 1.8);
+      const m = new THREE.MeshBasicMaterial({ color: 0xffb400, transparent: true, opacity: 0.8, depthWrite: false, toneMapped: false, side: THREE.DoubleSide });
       arrows.push(m);
       const a = kit.add(chevGeo, m, { parent: outdoor, pos: [x, y, z], rot: [0, yaw, 0], dynamic: true, shadow: false });
-      a.renderOrder = 4; a.scale.setScalar(1.35);
+      a.renderOrder = 4; a.scale.setScalar(2.1);
+      a.rotation.set(pitch, yaw, 0, 'YXZ');
     }
   }
   const portalT = { t: 0 };
@@ -1145,7 +1150,7 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
       }
       dp.needsUpdate = true;
       // 화살표가 정문 쪽으로 흘러가듯 차례로 밝아진다
-      arrows.forEach((m, i) => { m.opacity = 0.55 + 0.45 * Math.max(0, Math.sin(portalT.t * 3.2 - i * 0.55)); });
+      arrows.forEach((m, i) => { m.opacity = 0.7 + 0.3 * Math.max(0, Math.sin(portalT.t * 3.2 - i * 0.55)); });
     },
   };
 }

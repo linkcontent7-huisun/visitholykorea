@@ -73,7 +73,7 @@ export class Player {
       else return;
     }
     const steps = 4, h = Math.min(dt, 0.05) / steps;
-    const speed = input.run ? 5.0 : 2.4; // v2: 사람 걸음에 가깝게(2.4 m/s — 화면이 넓어 실제 1.4 보다 조금 빠르게)
+    const speed = input.run ? 6.0 : 3.6; // 2026-11-17 사장님: 2.4 는 느리다 → 1.5배(3.6 m/s). 달리기도 5 → 6
     const fx = -Math.sin(this.yaw), fz = -Math.cos(this.yaw);
     const rx = Math.cos(this.yaw), rz = -Math.sin(this.yaw);
     const mx = (fx * input.z + rx * input.x) * speed, mz = (fz * input.z + rz * input.x) * speed;
