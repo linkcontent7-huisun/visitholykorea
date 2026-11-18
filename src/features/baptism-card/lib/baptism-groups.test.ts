@@ -48,3 +48,22 @@ describe('세례명 묶음', () => {
     expect(filterNames(names, ' ', 'ko')).toHaveLength(names.length);
   });
 });
+
+describe('많이 쓰는 다른 표기 (2026-11-19)', () => {
+  it('한국어 버튼은 공식 표기 뒤에 괄호로 붙고, 가나다 자리는 공식 표기 그대로다', () => {
+    const labels = sortedNames('ko').map((n) => n.label);
+    expect(labels).toContain('체칠리아(세실리아)');
+    expect(labels).toContain('데레사(테레사)');
+    expect(labels).toEqual([...labels].sort((a, b) => a.localeCompare(b, 'ko')));
+  });
+
+  it('익숙한 표기로 검색해도 찾는다', () => {
+    const found = filterNames(sortedNames('ko'), '세실리아', 'ko').map((n) => n.slug);
+    expect(found).toEqual(['Cecilia']);
+  });
+
+  it('외국어 화면과 성인 이름에는 붙이지 않는다', () => {
+    expect(sortedNames('en').some((n) => n.label.includes('('))).toBe(false);
+    expect(saintsOfName('Teresa', 'ko').some((s) => s.label.includes('('))).toBe(false);
+  });
+});
