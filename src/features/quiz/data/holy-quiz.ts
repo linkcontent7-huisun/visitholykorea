@@ -1,5 +1,6 @@
 import type { Language } from '@/shared/i18n/dictionary';
 import { EXTRA_QUIZZES } from './holy-quiz-extra';
+import { FUN_QUIZZES } from './holy-quiz-fun';
 
 /** 한국어·영어는 필수, 나머지 언어는 아직 번역 전이라 영어로 대신 보여 준다. */
 export type QuizText = { ko: string; en: string } & Partial<Record<Language, string>>;
@@ -238,5 +239,5 @@ const CORE_QUIZZES: HolyQuiz[] = [
   },
 ];
 
-/** 전체 40문항. 순서가 곧 날짜별 순환 순서다. */
-export const HOLY_QUIZZES: HolyQuiz[] = [...CORE_QUIZZES, ...EXTRA_QUIZZES];
+/** 전체 100문항. 순서가 곧 날짜별 순환 순서다. */
+export const HOLY_QUIZZES: HolyQuiz[] = [...CORE_QUIZZES, ...EXTRA_QUIZZES, ...FUN_QUIZZES];
