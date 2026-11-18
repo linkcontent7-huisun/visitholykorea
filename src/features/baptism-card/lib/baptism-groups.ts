@@ -1,4 +1,5 @@
 import type { Language } from '@/shared/i18n/dictionary';
+import { KO_NAME_ALIASES } from '../data/baptism-name-aliases';
 import { BAPTISM_NAMES, type BaptismName } from '../data/baptism-names';
 
 /**
@@ -37,10 +38,16 @@ export function featuredLabel(entry: BaptismName, language: Language): string {
   return language === 'ko' ? full.slice(1) : full;
 }
 
+/** 한국어 세례명 버튼은 많이 쓰는 다른 표기를 괄호로 붙인다 — 「체칠리아(세실리아)」 (2026-11-19) */
+function nameLabel(n: BaptismName, language: Language): string {
+  const alias = language === 'ko' && n.kind !== 'saint' ? KO_NAME_ALIASES[n.slug] : undefined;
+  return alias ? `${n.names[language]}(${alias})` : n.names[language];
+}
+
 const option = (n: BaptismName, language: Language): BaptismOption => ({
   slug: n.slug,
   kind: n.kind,
-  label: n.names[language],
+  label: nameLabel(n, language),
 });
 
 export function featuredSaints(language: Language): BaptismOption[] {
