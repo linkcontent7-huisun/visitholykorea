@@ -23,4 +23,6 @@ export const KO_NAME_ALIASES: Readonly<Record<string, string>> = {
   Francis: '프란체스코',
   Augustine: '아우구스띠노',
   Bibiana: '비비아나',
+  Julia: '줄리아',
+  Vincent: '빈센트',
 };
