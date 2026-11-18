@@ -952,7 +952,9 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     canvas.addEventListener('pointercancel', end);
     const stick: any = nipplejs.create({ zone: $('joy'), mode: 'dynamic', color: '#d4a017', size: 110 });
     stick.on('move', (_e: unknown, d: any) => { const f = Math.min(1, d.force ?? 1); joy.set(d.vector.x * f, d.vector.y * f); });
-    stick.on('end', () => joy.set(0, 0));
+    stick.on('end', () => { joy.set(0, 0); $('joyGuide').classList.remove('using'); });
+    // 안내 그림(동서남북 화살표)은 손을 대면 흐려지고, 떼면 다시 보인다 — 조이스틱 자리를 몰라 못 걷던 문제(2026-11-17 사장님)
+    stick.on('start', () => { $('joyGuide').classList.add('using'); $('lookTip').classList.add('gone'); });
     $('actBtn').addEventListener('click', () => act(target));
   }
 

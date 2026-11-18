@@ -50,6 +50,16 @@ a.chip { text-decoration: none; }
 .act { position: absolute; right: 22px; bottom: calc(40px + env(safe-area-inset-bottom)); width: 86px; height: 86px; border-radius: 50%; border: 2px solid var(--gold); background: var(--bg); color: var(--ink); font-weight: 700; pointer-events: auto; }
 #joy { position: absolute; left: 0; bottom: 0; width: 45%; height: 45%; pointer-events: auto; display: none; }
 .touch #joy { display: block; }
+/* 휴대폰 걷기 안내 — 왼쪽 아래 원 안의 네 방향 화살표. 손을 대면 그 자리에 실제 조이스틱이 뜬다 */
+#joyGuide { position: absolute; left: calc(22px + env(safe-area-inset-left)); bottom: calc(34px + env(safe-area-inset-bottom)); width: 132px; height: 132px; border-radius: 50%; border: 2px solid rgba(255,214,120,.75); background: rgba(28,22,14,.45); pointer-events: none; transition: opacity .25s; }
+#joyGuide.using { opacity: .15; }
+#joyGuide i { position: absolute; font-style: normal; color: #ffd678; font-size: 20px; line-height: 1; text-shadow: 0 1px 3px #000; }
+#joyGuide .u { left: 50%; top: 7px; transform: translateX(-50%); } #joyGuide .d { left: 50%; bottom: 7px; transform: translateX(-50%); }
+#joyGuide .l { left: 8px; top: 50%; transform: translateY(-50%); } #joyGuide .r { right: 8px; top: 50%; transform: translateY(-50%); }
+#joyGuide b { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; color: #fff3d6; font-size: 13px; line-height: 1.25; text-shadow: 0 1px 3px #000; }
+#lookTip { display: none; position: absolute; right: calc(16px + env(safe-area-inset-right)); bottom: calc(140px + env(safe-area-inset-bottom)); background: rgba(28,22,14,.7); border: 1px solid rgba(255,214,120,.6); color: #fff3d6; border-radius: 999px; padding: 8px 12px; font-size: 13px; pointer-events: none; transition: opacity .6s; }
+.touch #lookTip { display: block; } #lookTip.gone { opacity: 0; }
+body.cinema #lookTip { opacity: 0; }
 .touch #crosshair { display: none; }
 #toast { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; flex-direction: column; gap: 6px; align-items: center; }
 #toast div { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 7px 14px; font-size: 14px; animation: fade 4s forwards; }
