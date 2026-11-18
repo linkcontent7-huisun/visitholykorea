@@ -2,7 +2,7 @@ import type { HolyQuiz } from './holy-quiz';
 import { q } from './holy-quiz-extra';
 
 /**
- * 퀴즈 41~100번 — 촬영지 · 교황 방문 · 성당 건축 · 성지 이야기(2026-11-19, 사장님 지시).
+ * 퀴즈 41~100번 — 촬영지 · 교황 방문 · 유명 인물 · 성당 건축 · 성지 이야기(2026-11-19, 사장님 지시).
  * 근거는 docs/40-knowledge/07-퀴즈근거/퀴즈-41-100-근거.md 에 문항별로 적었다.
  * 「최초」「유래」처럼 자료마다 표현이 갈리는 것은 해설에서 「~로 알려져 있습니다」「~라고 전해집니다」로 쓴다.
  */
@@ -253,8 +253,8 @@ export const FUN_QUIZZES: HolyQuiz[] = [
     0,
     ['103위의 절반에 조금 못 미칩니다.', 'A little under half of the 103.'],
     [
-      '서소문 밖 네거리에서는 103위 성인 가운데 44위, 124위 복자 가운데 27위가 순교했습니다. 한 곳에서 가장 많은 성인과 복자가 나온 순교지입니다.',
-      'At Seosomun, 44 of the 103 saints and 27 of the 124 blesseds were martyred — more than at any other single site.',
+      '서소문 밖 네거리에서는 103위 성인 가운데 44위가 순교했습니다. 한 곳에서 가장 많은 성인이 나온 순교지입니다.',
+      'At Seosomun, 44 of the 103 saints were martyred — more than at any other single site.',
     ],
   ),
   q(
@@ -403,7 +403,7 @@ export const FUN_QUIZZES: HolyQuiz[] = [
       ['미리내성지', 'Mirinae Shrine'],
     ],
     0,
-    ['그날 복자가 된 분들 가운데 27위가 순교한 곳입니다.', 'Twenty-seven of those beatified that day were martyred there.'],
+    ['103위 성인 가운데 44위가 순교한 곳입니다.', 'Forty-four of the 103 saints were martyred there.'],
     [
       '교황은 시복식 날 첫 일정으로 서소문 순교성지를 찾아 현양탑 앞에서 기도한 뒤 광화문으로 갔습니다.',
       'The Pope began the day of the beatification at Seosomun Martyrs’ Shrine, praying before the memorial before going on to Gwanghwamun.',
@@ -610,44 +610,6 @@ export const FUN_QUIZZES: HolyQuiz[] = [
     [
       '1801년 신유박해 때 순교한 유항검 가족 일곱 분이 전주 치명자산(승암산)에 함께 묻혀 있고, 동정 부부 유중철·이순이도 그 가운데 있습니다.',
       'Seven members of Yu Hang-geom’s family, martyred in 1801, are buried together on Chimyeongjasan in Jeonju — among them the virgin couple Yu Jung-cheol and Yi Sun-i.',
-    ],
-  ),
-  q(
-    'film-love-letter',
-    [
-      'MBC 드라마 「러브레터」(2003년)의 배경이 된 강원도 횡성의 성당은?',
-      'Which church in Hoengseong, Gangwon Province, was the setting of the 2003 MBC drama “Love Letter”?',
-    ],
-    [
-      ['풍수원성당', 'Pungsuwon Church'],
-      ['용소막성당', 'Yongsomak Church'],
-      ['죽림동성당', 'Jungnim-dong Cathedral'],
-      ['임당동성당', 'Imdang-dong Church'],
-    ],
-    0,
-    ['강원도에 가장 먼저 세워진 성당입니다.', 'It was the first Catholic church built in Gangwon Province.'],
-    [
-      '횡성 풍수원성당은 드라마 「러브레터」의 촬영지로 알려져 있습니다. 1907년에 완공된 강원도 첫 성당입니다.',
-      'Pungsuwon Church in Hoengseong is known as a filming location of “Love Letter.” Completed in 1907, it was the first church in Gangwon Province.',
-    ],
-  ),
-  q(
-    'jp2-daegu',
-    [
-      '1984년 5월 5일 교황 요한 바오로 2세가 대구에서 미사 중에 집전한 예식은?',
-      'What rite did Pope John Paul II celebrate during Mass in Daegu on 5 May 1984?',
-    ],
-    [
-      ['시성식', 'A canonization'],
-      ['사제 서품식', 'Priestly ordinations'],
-      ['시복식', 'A beatification'],
-      ['혼인 성사', 'A wedding'],
-    ],
-    1,
-    ['새 신부들이 태어나는 예식입니다.', 'It is the rite in which new priests are made.'],
-    [
-      '교황은 1984년 5월 5일 대구에서 사제 서품 미사를 집전했습니다. 103위 시성식은 이튿날 서울 여의도에서 열렸습니다.',
-      'On 5 May 1984 the Pope ordained new priests at a Mass in Daegu. The canonization of the 103 martyrs took place in Seoul the next day.',
     ],
   ),
   q(
@@ -860,25 +822,6 @@ export const FUN_QUIZZES: HolyQuiz[] = [
     ],
   ),
   q(
-    'iec-motto',
-    [
-      '1989년 서울에서 열린 제44차 세계성체대회의 주제는?',
-      'What was the theme of the 44th International Eucharistic Congress, held in Seoul in 1989?',
-    ],
-    [
-      ['일어나 비추어라', 'Arise, shine'],
-      ['그리스도 우리의 평화', 'Christ, our Peace'],
-      ['나를 따라라', 'Follow me'],
-      ['두려워하지 마라', 'Do not be afraid'],
-    ],
-    1,
-    ['갈라진 땅에서 열린 대회답게 「평화」가 들어갑니다.', 'Fittingly for a divided land, it speaks of peace.'],
-    [
-      '1989년 서울 세계성체대회의 주제는 「그리스도 우리의 평화」(Christus Pax nostra)였습니다.',
-      'The theme of the 1989 Congress in Seoul was “Christ, our Peace” (Christus Pax nostra).',
-    ],
-  ),
-  q(
     'jinjiahang',
     [
       '1845년 김대건이 사제품을 받은 상하이의 성당은?',
@@ -1019,15 +962,15 @@ export const FUN_QUIZZES: HolyQuiz[] = [
     ],
     [
       ['서울에 큰 홍수가 나서', 'Because of a great flood in Seoul'],
-      ['임금의 혼인이 가까워서', 'Because the king’s wedding was near'],
+      ['임금의 혼례를 앞두고 있어서', 'Because the king’s wedding was near'],
       ['프랑스 함대가 한강에 와 있어서', 'Because the French fleet was on the Han River'],
       ['주교가 그곳을 원해서', 'Because the bishop asked for it'],
     ],
     1,
     ['나라의 큰 경사를 앞두고 서울에서 피를 보는 일을 꺼렸습니다.', 'With a great royal celebration approaching, bloodshed in the capital was avoided.'],
     [
-      '고종의 혼인이 한 달쯤 앞으로 다가와 서울에서 처형하기를 꺼렸고, 그래서 충청 수영이 있던 보령으로 옮겨 처형했다고 전해집니다.',
-      'With King Gojong’s wedding about a month away, an execution in Seoul was avoided, and the prisoners were sent to Boryeong, where the Chungcheong naval headquarters stood.',
+      '고종의 혼례를 앞두고 서울에서 처형하기를 꺼려, 충청 수영이 있던 보령으로 옮겨 처형했다고 전해집니다.',
+      'With King Gojong’s wedding approaching, an execution in Seoul was avoided, and the prisoners were sent to Boryeong, where the Chungcheong naval headquarters stood.',
     ],
   ),
   q(
@@ -1050,41 +993,6 @@ export const FUN_QUIZZES: HolyQuiz[] = [
     ],
   ),
   q(
-    'wyd-theme',
-    [
-      '2027년 서울 세계청년대회의 주제 성구 「용기를 내어라. 내가 세상을 이겼다」는 성경 어디에 나올까?',
-      'Where in the Bible is the theme of World Youth Day Seoul 2027, “Take courage! I have overcome the world,” found?',
-    ],
-    [
-      ['마태오 복음서', 'The Gospel of Matthew'],
-      ['시편', 'The Psalms'],
-      ['로마 신자들에게 보낸 서간', 'The Letter to the Romans'],
-      ['요한 복음서', 'The Gospel of John'],
-    ],
-    3,
-    ['네 복음서 가운데 마지막 복음서입니다.', 'It is the last of the four Gospels.'],
-    [
-      '이 말씀은 요한 복음서 16장 33절에 나옵니다. 예수님이 수난을 앞두고 제자들에게 하신 말씀입니다.',
-      'The verse is John 16:33, spoken by Jesus to his disciples before his Passion.',
-    ],
-  ),
-  q(
-    'myeongdong-1898',
-    ['명동대성당이 축성된 해는?', 'In what year was Myeongdong Cathedral consecrated?'],
-    [
-      ['1898년', '1898'],
-      ['1784년', '1784'],
-      ['1845년', '1845'],
-      ['1925년', '1925'],
-    ],
-    0,
-    ['약현성당이 지어지고 6년 뒤입니다.', 'It was six years after Yakhyeon Church was built.'],
-    [
-      '명동대성당은 1892년에 짓기 시작해 1898년 5월 29일 축성되었습니다.',
-      'Construction of Myeongdong Cathedral began in 1892, and it was consecrated on 29 May 1898.',
-    ],
-  ),
-  q(
     'jp2-analects',
     [
       '교황 요한 바오로 2세는 한국을 찾아 「벗이 있어 먼 데서 찾아오면 이 또한 기쁘지 아니한가」라는 옛글을 인용했다. 이 구절이 실린 책은?',
@@ -1104,41 +1012,133 @@ export const FUN_QUIZZES: HolyQuiz[] = [
     ],
   ),
   q(
-    'seoul-route-courses',
+    'rain-kim-wedding',
     [
-      '교황청이 승인한 「천주교 서울 순례길」은 모두 몇 개 코스일까?',
-      'How many courses make up the Vatican-approved Catholic Pilgrimage Routes in Seoul?',
+      '2017년 가수 비와 배우 김태희가 혼배 미사로 결혼식을 올린 서울 북촌의 성당은?',
+      'In which church in Bukchon, Seoul, did singer Rain and actress Kim Tae-hee marry at a nuptial Mass in 2017?',
     ],
     [
-      ['1개', 'One'],
-      ['2개', 'Two'],
-      ['3개', 'Three'],
-      ['7개', 'Seven'],
+      ['명동대성당', 'Myeongdong Cathedral'],
+      ['가회동성당', 'Gahoe-dong Catholic Church'],
+      ['약현성당', 'Yakhyeon Catholic Church'],
+      ['혜화동성당', 'Hyehwa-dong Catholic Church'],
     ],
-    2,
-    ['모두 합쳐 44.1km입니다.', 'Together they total 44.1 km.'],
+    1,
+    ['한옥과 어우러진 성당으로 알려져 있습니다.', 'It is known for the hanok (traditional house) that forms part of it.'],
     [
-      '서울 순례길은 명동대성당, 삼성산 성지 등 순례지 24곳을 3개 코스, 44.1km로 잇습니다.',
-      'The routes link 24 sites, including Myeongdong Cathedral and Samseongsan, over three courses totaling 44.1 km.',
+      '두 사람은 2017년 1월 19일 서울 종로구 가회동성당에서 가족과 가까운 이들만 모인 가운데 혼배 미사를 올렸습니다.',
+      'They were married on 19 January 2017 at Gahoe-dong Catholic Church in Jongno-gu, Seoul, at a Mass attended only by family and close friends.',
     ],
   ),
   q(
-    'kim-age',
+    'yuna-stella',
     [
-      '1821년에 태어난 김대건 신부는 1846년 새남터에서 순교했다. 그때 나이는?',
-      'Born in 1821, Fr. Andrew Kim was martyred at Saenamteo in 1846. How old was he?',
+      '「피겨 여왕」 김연아 선수가 2008년 세례를 받으며 고른 세례명은?',
+      'What baptismal name did figure skater Kim Yuna choose when she was baptized in 2008?',
     ],
     [
-      ['열일곱 살', 'Seventeen'],
-      ['서른세 살', 'Thirty-three'],
-      ['마흔 살', 'Forty'],
-      ['스물다섯 살', 'Twenty-five'],
+      ['스텔라', 'Stella'],
+      ['마리아', 'Maria'],
+      ['아녜스', 'Agnes'],
+      ['베로니카', 'Veronica'],
+    ],
+    0,
+    ['라틴어로 「별」이라는 뜻입니다.', 'It means “star” in Latin.'],
+    [
+      '김연아 선수는 2008년 5월 세례를 받았고, 세례명은 「별」을 뜻하는 스텔라입니다.',
+      'Kim Yuna was baptized in May 2008 and took the name Stella, meaning “star.”',
+    ],
+  ),
+  q(
+    'tonj',
+    [
+      '다큐멘터리 영화 「울지마 톤즈」의 주인공 이태석 신부가 의사이자 선생님으로 살았던 「톤즈」는 어느 나라에 있을까?',
+      'Tonj, where Fr. John Lee Tae-seok of the documentary “Don’t Cry for Me, Sudan” served as doctor and teacher, is in which country?',
+    ],
+    [
+      ['케냐', 'Kenya'],
+      ['에티오피아', 'Ethiopia'],
+      ['남수단', 'South Sudan'],
+      ['탄자니아', 'Tanzania'],
+    ],
+    2,
+    ['오랜 내전을 겪은 아프리카의 나라입니다.', 'It is an African country that endured a long civil war.'],
+    [
+      '살레시오회 이태석 신부는 2001년부터 남수단 톤즈에서 병원과 학교를 세우고 아이들을 돌보다 2010년 세상을 떠났습니다. 그 삶이 영화 「울지마 톤즈」(2010년)에 담겼습니다.',
+      'Fr. Lee Tae-seok, a Salesian, built a clinic and a school in Tonj, South Sudan, from 2001 and cared for its children until his death in 2010. His life is told in the 2010 film.',
+    ],
+  ),
+  q(
+    'first-prefect',
+    [
+      '2021년 한국인으로서 처음 교황청 장관(성직자부)이 된 사람은?',
+      'Who in 2021 became the first Korean to head a department of the Roman Curia (the Dicastery for the Clergy)?',
+    ],
+    [
+      ['염수정 추기경', 'Cardinal Yeom Soo-jung'],
+      ['정진석 추기경', 'Cardinal Cheong Jin-suk'],
+      ['김수환 추기경', 'Cardinal Kim Sou-hwan'],
+      ['유흥식 추기경', 'Cardinal You Heung-sik'],
     ],
     3,
-    ['사제가 된 지 1년 남짓 지났을 때입니다.', 'It was little more than a year after his ordination.'],
+    ['대전교구장을 지낸 분입니다.', 'He had been Bishop of Daejeon.'],
     [
-      '김대건 신부는 1821년 8월에 태어나 1846년 9월 16일 순교했습니다. 만 스물다섯 살, 사제가 된 지 1년 남짓 만이었습니다.',
-      'Born in August 1821, Fr. Kim was martyred on 16 September 1846, aged twenty-five, little more than a year after his ordination.',
+      '대전교구장이던 유흥식 대주교는 2021년 교황청 성직자부 장관에 임명되었고, 이듬해 추기경이 되었습니다. 김대건 신부 성상을 바티칸에 세우자고 교황에게 제안한 사람이기도 합니다.',
+      'Archbishop You Heung-sik of Daejeon was named prefect for the Clergy in 2021 and made a cardinal the following year. He was also the one who proposed to the Pope that a statue of St. Andrew Kim be placed at the Vatican.',
+    ],
+  ),
+  q(
+    'an-jung-geun',
+    ['독립운동가 안중근 의사의 세례명은?', 'What was the baptismal name of the independence activist An Jung-geun?'],
+    [
+      ['토마스', 'Thomas'],
+      ['베드로', 'Peter'],
+      ['요한', 'John'],
+      ['안드레아', 'Andrew'],
+    ],
+    0,
+    ['그래서 「도마 안중근」이라고도 부릅니다.', 'This is why he is also called “Doma An Jung-geun.”'],
+    [
+      '안중근 의사의 세례명은 토마스이고, 옛 표기로 「도마」라고 합니다. 그의 신앙을 이끈 사람은 빌렘 신부입니다.',
+      'An Jung-geun’s baptismal name was Thomas, written “Doma” in the old Korean style. Fr. Wilhelm was his spiritual guide.',
+    ],
+  ),
+  q(
+    'kim-dae-jung',
+    [
+      '노벨 평화상을 받은 김대중 대통령의 세례명은?',
+      'What was the baptismal name of President Kim Dae-jung, the Nobel Peace Prize laureate?',
+    ],
+    [
+      ['프란치스코', 'Francis'],
+      ['토마스 모어', 'Thomas More'],
+      ['아우구스티노', 'Augustine'],
+      ['이냐시오', 'Ignatius'],
+    ],
+    1,
+    ['임금의 뜻을 거스르고 신념을 지키다 순교한 영국의 성인입니다.', 'He was an English saint martyred for holding to his conscience against the king.'],
+    [
+      '김대중 대통령은 장면 박사를 대부로 세례를 받았고, 세례명은 토마스 모어입니다.',
+      'Kim Dae-jung was baptized with Dr. Chang Myon as his godfather, taking the name Thomas More.',
+    ],
+  ),
+  q(
+    'film-tangerines-gasil',
+    [
+      '드라마 「폭싹 속았수다」에서 금명이의 결혼식장 겉모습으로 나온 경북 칠곡의 성당은?',
+      'Which church in Chilgok appeared as the exterior of Geum-myeong’s wedding venue in “When Life Gives You Tangerines”?',
+    ],
+    [
+      ['한티 순교성지', 'Hanti Martyrs’ Shrine'],
+      ['왜관성당', 'Waegwan Catholic Church'],
+      ['가실성당', 'Gasil Catholic Church'],
+      ['계산성당', 'Gyesan Cathedral'],
+    ],
+    2,
+    ['낙동강 가까이에 있는 오래된 붉은 벽돌 성당입니다.', 'It is an old red-brick church near the Nakdong River.'],
+    [
+      '결혼식장 겉모습은 칠곡 가실성당, 내부는 대구 계산성당에서 촬영했습니다.',
+      'The exterior was filmed at Gasil Church in Chilgok, and the interior at Gyesan Cathedral in Daegu.',
     ],
   ),
 ];
