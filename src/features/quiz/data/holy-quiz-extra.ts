@@ -2,7 +2,7 @@ import type { HolyQuiz } from './holy-quiz';
 
 type Pair = [ko: string, en: string];
 
-function q(
+export function q(
   id: string,
   question: Pair,
   choices: [Pair, Pair, Pair, Pair],

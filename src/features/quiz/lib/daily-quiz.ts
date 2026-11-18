@@ -14,7 +14,7 @@ export const QUIZ_SET_SIZE = 3;
 
 /**
  * 오늘 한 판의 첫 문항 위치 — 날짜마다 3칸씩 돌린다. 모두가 같은 날 같은 3문제를 푼다.
- * 40과 3은 서로소라 40일이면 모든 문항이 한 번씩 첫 문제가 되고 한 바퀴 돈다.
+ * 100과 3은 서로소라 100일이면 모든 문항이 한 번씩 첫 문제가 되고 한 바퀴 돈다.
  */
 export function quizIndexOfDay(date: Date, count: number = HOLY_QUIZZES.length): number {
   const days = Math.floor(
