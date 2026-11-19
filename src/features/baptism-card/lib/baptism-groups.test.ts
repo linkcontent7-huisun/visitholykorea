@@ -67,3 +67,11 @@ describe('많이 쓰는 다른 표기 (2026-11-19)', () => {
     expect(saintsOfName('Teresa', 'ko').some((s) => s.label.includes('('))).toBe(false);
   });
 });
+
+describe('사장님 추가 표기 (2026-11-19)', () => {
+  it('줄리아·빈센트로도 찾는다', () => {
+    const names = sortedNames('ko');
+    expect(filterNames(names, '줄리아', 'ko').map((n) => n.label)).toEqual(['율리아(줄리아)']);
+    expect(filterNames(names, '빈센트', 'ko').map((n) => n.label)).toEqual(['빈첸시오(빈센트)']);
+  });
+});
