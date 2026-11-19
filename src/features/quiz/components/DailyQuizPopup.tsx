@@ -5,6 +5,7 @@ import { useModalFocus } from '@/shared/hooks/use-modal-focus';
 import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { HOLY_QUIZZES, pickText, type HolyQuiz } from '../data/holy-quiz';
+import { playCorrectDing } from '../lib/correct-ding';
 import { QUIZ_SET_SIZE } from '../lib/daily-quiz';
 
 interface DailyQuizPopupProps {
@@ -193,7 +194,10 @@ function Play({ set, onDone }: { set: HolyQuiz[]; onDone: (right: number) => voi
 
   const choose = (i: number) => {
     setPicked(i);
-    if (i === quiz.answer) setRight((n) => n + 1);
+    if (i === quiz.answer) {
+      setRight((n) => n + 1);
+      playCorrectDing(); // 정답에만 작은 「딩동」 (2026-11-20 사장님 지시)
+    }
   };
   const next = () => {
     if (isLast) return onDone(right);
