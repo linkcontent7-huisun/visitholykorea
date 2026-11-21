@@ -16,7 +16,9 @@ import { REGIONS } from '../src/shared/lib/regions.ts';
 import { loadEnvLocal } from './lib/env.ts';
 import {
   cardMeta,
+  faqMeta,
   guideMeta,
+  regionMeta,
   renderPage,
   robotsTxt,
   routeMeta,
@@ -80,6 +82,9 @@ async function main() {
     }
   }
   console.log(`[seo] 세례명 카드 ${cards}장 HTML`);
+  // 자주 묻는 질문 — 글이 코드에 있어 DB 가 필요 없다
+  const faq = faqMeta();
+  write(join(faq.path, 'index.html'), renderPage(template, faq));
 
   if (!url || !key) {
     console.warn('[seo] Supabase 환경변수가 없어 성지별 HTML·sitemap 을 건너뜁니다.');
@@ -117,7 +122,12 @@ async function main() {
     'pilgrimage_routes?select=slug,title,subtitle,description&order=sort_order',
   );
 
-  for (const meta of [...sites.map(siteMeta), ...routes.map(routeMeta), guideMeta()]) {
+  for (const meta of [
+    ...sites.map(siteMeta),
+    ...routes.map(routeMeta),
+    guideMeta(),
+    ...REGIONS.map((r) => regionMeta(r, sites)),
+  ]) {
     write(join(meta.path, 'index.html'), renderPage(template, meta));
   }
 
@@ -132,6 +142,9 @@ async function main() {
     ...REGIONS.map((r) => `/region/${r}`),
     ...routes.map((r) => `/routes/${r.slug}`),
     ...sites.map((s) => `/sites/${s.id}`),
+    // 세례명 카드는 한국어·영어만 신고한다 — 나머지 4개 언어는 HTML 은 있지만 같은 그림·짧은 글이 반복돼
+    // 검색엔진에 비슷한 쪽 600개를 더 내미는 꼴이 된다(2026-11-21 지시서 3호, 개발클로드 판단)
+    ...BAPTISM_NAMES.flatMap((c) => [`/card/ko/${c.slug}`, `/card/en/${c.slug}`]),
   ];
   write('sitemap.xml', sitemapXml(paths));
   console.log(
