@@ -1,5 +1,4 @@
 import { BookOpen, Heart } from 'lucide-react';
-import { isWydVenue, WYD_LABEL } from '@/features/passport/lib/wyd';
 import { NearbyCrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { photoCreditText } from '@/features/sites/lib/photo-credit';
@@ -122,12 +121,8 @@ export function SiteHero({
         <span className="inline-block rounded-full bg-brand-blue px-3 py-1 text-xs font-bold">
           {localizeDomainValue(site.category, t)}
         </span>
-        {/* WYD 2027 공식 일정지 — 해외 청년 20~30만 명이 오는 확정 행사다 */}
-        {isWydVenue(site.name) && (
-          <span className="ml-2 inline-block rounded-full bg-amber-400/90 px-3 py-1 text-xs font-bold text-amber-950">
-            {WYD_LABEL[language]}
-          </span>
-        )}
+        {/* 「WYD 2027 공식 일정지」 표시는 2026-11-22 내렸다(사장님 결정). 대회 이름은 등록 상표이고
+            재단의 서면 동의를 받지 않았다. 동의를 받으면 features/passport/lib/wyd.ts 의 WYD_LABEL 로 되살린다. */}
         <h1 className="mb-3 mt-3 font-display text-[2rem] leading-tight lg:text-[2.5rem]">
           {view?.name ?? site.name}
         </h1>
