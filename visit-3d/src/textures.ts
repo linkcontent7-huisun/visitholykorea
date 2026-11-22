@@ -10,7 +10,8 @@ export function rng(seed: number) {
 function canvas(w: number, h: number): [HTMLCanvasElement, CanvasRenderingContext2D] {
   const c = document.createElement('canvas');
   c.width = w; c.height = h;
-  return [c, c.getContext('2d')!];
+  // 2026-11-22 빠른 입장: 그림을 다시 읽는(getImageData) 캔버스는 처음부터 CPU 쪽에 둔다 — 읽을 때마다 GPU 에서 끌어오느라 입장이 4초 늦었다. 모습은 같다
+  return [c, c.getContext('2d', { willReadFrequently: true })!];
 }
 
 function toTexture(c: HTMLCanvasElement, repeatMeters?: number, color = true): THREE.CanvasTexture {
