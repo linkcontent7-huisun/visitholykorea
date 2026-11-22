@@ -12,18 +12,7 @@
  * 열이 없다는 사실을 화면에 그대로 적는다.
  */
 
-import {
-  Calendar,
-  Camera,
-  Heart,
-  MapPin,
-  PenLine,
-  Plus,
-  Search,
-  Sparkles,
-  Trash2,
-  X,
-} from 'lucide-react';
+import { Calendar, Heart, MapPin, PenLine, Plus, Search, Sparkles, Trash2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
@@ -33,6 +22,7 @@ import {
   isVisitedOnAvailable,
   type CrowdLevel,
   type StampedSite,
+  type StampPhoto,
 } from '@/features/passport/api/stamps.repository';
 import { CrowdLevelPicker } from '@/features/passport/components/CrowdLevelPicker';
 import { MyPlacesList } from '@/features/places/components/MyPlacesList';
@@ -40,6 +30,11 @@ import { NewPlaceSheet } from '@/features/places/components/NewPlaceSheet';
 import { CROWD_LEVEL_LABEL_KEY } from '@/features/passport/lib/crowd-level-label';
 import { generateChronicleCard } from '@/features/passport/lib/recap-card';
 import { nextPhotoPosition } from '@/features/passport/lib/photo-position';
+import {
+  RecordPhotoTray,
+  shrinkPending,
+  usePendingPhotos,
+} from '@/features/passport/components/RecordPhotoTray';
 import { shareOrDownloadCard } from '@/features/passport/lib/share-card';
 import {
   useDeleteStamp,
@@ -62,7 +57,6 @@ import { dioceseLabel } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { useUnsavedChangesGuard } from '@/shared/hooks/use-unsaved-changes-guard';
 import { koreaTodayIso } from '@/shared/lib/korea-date';
-import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 
 function formatDate(value: string, locale: string): string {
   const d = new Date(value);
@@ -86,51 +80,58 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
   const [note, setNote] = useState(stamp.note ?? '');
   const [visitedOn, setVisitedOn] = useState(defaultVisitedOn(stamp));
   const [crowdLevel, setCrowdLevel] = useState<CrowdLevel | null>(stamp.crowdLevel);
-  const [failed, setFailed] = useState(false);
+  const [failed, setFailed] = useState<null | 'save' | 'photo' | 'delete'>(null);
+  const [saving, setSaving] = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
+  // 사진은 고르면 바로 올라가지 않고 「저장」 때 함께(세 기록 칸 통일, 한 기록 3장, 2026-11-22)
+  const tray = usePendingPhotos(stamp.photos.length);
   const canEditDate = isVisitedOnAvailable();
 
   const isDirty =
     editing &&
-    (note !== (stamp.note ?? '') ||
+    (tray.pending.length > 0 ||
+      note !== (stamp.note ?? '') ||
       visitedOn !== defaultVisitedOn(stamp) ||
       crowdLevel !== stamp.crowdLevel);
   useUnsavedChangesGuard(isDirty);
 
   const save = async () => {
-    setFailed(false);
-    const result = await update.mutateAsync({
-      stampId: stamp.stampId,
-      note: note.trim() || null,
-      ...(canEditDate ? { visitedOn: visitedOn || null, crowdLevel } : {}),
-    });
-    if (!result.success) {
-      setFailed(true);
-      return;
+    setFailed(null);
+    setSaving(true);
+    try {
+      const result = await update.mutateAsync({
+        stampId: stamp.stampId,
+        note: note.trim() || null,
+        ...(canEditDate ? { visitedOn: visitedOn || null, crowdLevel } : {}),
+      });
+      if (!result.success) return setFailed('save');
+      if (tray.pending.length > 0) {
+        const photos = await shrinkPending(tray.pending);
+        const uploaded = await uploadPhotos.mutateAsync({
+          stampId: stamp.stampId,
+          // 지운 사진 자리를 다시 쓰면 남은 사진을 덮어썼다 — 가장 큰 자리 다음에(2026-11-22)
+          startPosition: nextPhotoPosition(stamp.photos),
+          photos,
+        });
+        if (!uploaded.success) return setFailed('photo');
+        tray.clear();
+      }
+      setEditing(false);
+    } finally {
+      setSaving(false);
     }
-    setEditing(false);
+  };
+
+  const removeExisting = async (photo: StampPhoto) => {
+    setFailed(null);
+    const result = await deletePhoto.mutateAsync(photo);
+    if (!result.success) setFailed('delete');
   };
 
   const confirmDelete = async () => {
     if (!window.confirm(t('recordsDeleteConfirm'))) return;
     const result = await remove.mutateAsync(stamp.stampId);
-    if (!result.success) setFailed(true);
-  };
-
-  const handlePhotoPick = async (files: FileList | null) => {
-    if (!files) return;
-    const policy = photoPolicy();
-    const room = Math.max(0, policy.maxCount - stamp.photos.length);
-    const picked = Array.from(files).slice(0, room);
-    if (files.length > room)
-      window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
-    const photos = await Promise.all(picked.map((file) => shrinkPhoto(file, policy)));
-    uploadPhotos.mutate({
-      stampId: stamp.stampId,
-      // 지운 사진 자리를 다시 쓰면 남은 사진을 덮어썼다 — 가장 큰 자리 다음에(2026-11-22)
-      startPosition: nextPhotoPosition(stamp.photos),
-      photos,
-    });
+    if (!result.success) setFailed('save');
   };
 
   return (
@@ -231,61 +232,24 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
               />
             </SquircleSurface>
           </label>
-          {/* 사진 — 누르면 전체 화면 모달로 보고, 각 사진에 삭제 단추가 붙는다(SiteDetailPage 와 같은 부품) */}
-          <div className="no-scrollbar flex gap-2 overflow-x-auto">
-            {stamp.photos.map((photo, i) => (
-              <div key={photo.id} className="relative shrink-0">
-                <SquircleSurface
-                  as="button"
-                  type="button"
-                  onClick={() => setLightbox(i)}
-                  aria-label={t('photoEnlarge')}
-                  className="block h-24 w-24 overflow-hidden"
-                >
-                  <img src={photo.url} alt="" className="h-full w-full object-cover" />
-                </SquircleSurface>
-                <button
-                  type="button"
-                  onClick={() => deletePhoto.mutate(photo)}
-                  disabled={deletePhoto.isPending}
-                  aria-label={t('photoDelete')}
-                  className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/70 text-white disabled:opacity-50"
-                >
-                  <X size={12} />
-                </button>
-              </div>
-            ))}
-            {stamp.photos.length < photoPolicy().maxCount && (
-              <SquircleSurface
-                as="label"
-                borderColor="color-mix(in srgb, var(--color-brand-blue) 50%, transparent)"
-                borderWidth={2}
-                borderDashed
-                className={`flex h-24 w-16 shrink-0 cursor-pointer flex-col items-center justify-center gap-1 px-1 text-center text-brand-blue transition-colors hover:bg-brand-soft ${
-                  uploadPhotos.isPending ? 'opacity-50' : ''
-                }`}
-              >
-                <Camera size={16} aria-hidden />
-                <span className="text-xs font-bold leading-tight">
-                  {uploadPhotos.isPending ? t('photoUploading') : t('photoAdd')}
-                </span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  className="hidden"
-                  disabled={uploadPhotos.isPending}
-                  onChange={(e) => {
-                    void handlePhotoPick(e.target.files);
-                    e.target.value = '';
-                  }}
-                />
-              </SquircleSurface>
-            )}
-          </div>
+          {/* 사진 — 세 기록 칸이 같은 부품. 누르면 크게 보고, 고른 사진은 「저장」 때 함께 올라간다 */}
+          <RecordPhotoTray
+            existing={stamp.photos}
+            onOpenExisting={(i) => setLightbox(i)}
+            onRemoveExisting={(photo) => void removeExisting(photo)}
+            removingExisting={deletePhoto.isPending}
+            tray={tray}
+            disabled={saving}
+          />
           {failed && (
             <p className="text-sm font-bold text-red-600" role="alert">
-              {t('recordsSaveFailed')}
+              {t(
+                failed === 'photo'
+                  ? 'photoUploadFailed'
+                  : failed === 'delete'
+                    ? 'photoDeleteFailed'
+                    : 'recordsSaveFailed',
+              )}
             </p>
           )}
           <div className="flex gap-2">
@@ -293,7 +257,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
             <Button
               type="submit"
               size="sm"
-              disabled={update.isPending || (stamp.note != null && note.trim() === '')}
+              disabled={saving || (stamp.note != null && note.trim() === '')}
             >
               {t('recordsSave')}
             </Button>
@@ -486,16 +450,21 @@ export default function RecordsPage() {
             {t('recordsPickSite')}
           </ButtonLink>
           {/* 성지 213곳 밖의 성당·건물 — 11/1 사장님 지시 */}
-          <Button
-            variant="secondary"
-            block
-            className="mb-6 min-h-14 text-base"
-            onClick={() => setNewPlaceOpen(true)}
-            id="records-new-place"
-          >
-            <MapPin size={20} aria-hidden />
-            {t('placeNewButton')}
-          </Button>
+          {/* 성지 기록과 헷갈려 이미 있는 성지를 「내 장소」로 올리는 일이 있었다(2026-11-22 점검) —
+              「성지 찾기」보다 작게 두고 무엇을 하는 칸인지 한 줄로 알린다(사장님 권장안대로) */}
+          <div className="mb-6">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setNewPlaceOpen(true)}
+              id="records-new-place"
+              className="text-brand-blue"
+            >
+              <MapPin size={16} aria-hidden />
+              {t('placeNewButton')}
+            </Button>
+            <p className="mt-1 text-sm leading-relaxed text-app-text-muted">{t('placeNewHint')}</p>
+          </div>
           <NewPlaceSheet isOpen={newPlaceOpen} onClose={() => setNewPlaceOpen(false)} />
           <MyPlacesList />
 

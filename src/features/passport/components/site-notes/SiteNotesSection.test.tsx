@@ -25,7 +25,16 @@ const state = {
   myStamp: null as null | Record<string, unknown>,
   notes: [] as Array<Record<string, unknown>>,
 };
-const mutation = (mutate: ReturnType<typeof vi.fn>) => ({ mutate, isPending: false });
+const mutation = (mutate: ReturnType<typeof vi.fn>) => ({
+  mutate,
+  // 고치기 칸은 저장·사진 올리기를 차례로 기다린다(2026-11-22) — mutate 를 부른 기록을 남기고 성공을 돌려준다
+  mutateAsync: vi.fn(async (input: unknown) => {
+    mutate(input);
+    return { success: true };
+  }),
+  isPending: false,
+});
+const uploadMutate = vi.fn();
 vi.mock('@/features/passport/hooks/use-stamps', () => ({
   useMyStamp: () => ({ data: state.myStamp }),
   useMyStamps: () => ({ data: [] }),
@@ -33,7 +42,7 @@ vi.mock('@/features/passport/hooks/use-stamps', () => ({
   useAddStamp: () => mutation(addMutate),
   useReportNote: () => mutation(reportMutate),
   useUpdateStamp: () => mutation(updateMutate),
-  useUploadStampPhotos: () => mutation(vi.fn()),
+  useUploadStampPhotos: () => mutation(uploadMutate),
   useDeleteStampPhoto: () => mutation(vi.fn()),
 }));
 vi.mock('@/features/passport/api/stamps.repository', () => ({
@@ -123,7 +132,7 @@ describe('SiteNotesSection', () => {
     fireEvent.click(report);
 
     expect(confirm).toHaveBeenCalledWith(ko('reportConfirm'));
-    expect(reportMutate).toHaveBeenCalledWith('n-other');
+    expect(reportMutate.mock.calls[0]![0]).toBe('n-other');
     expect(report).toBeDisabled();
     expect(report).toHaveTextContent(ko('reportedAction'));
   });
@@ -170,5 +179,70 @@ describe('SiteNotesSection', () => {
       fireEvent.change(screen.getByDisplayValue(myNote.note), { target: { value: '   ' } });
       expect(screen.getByRole('button', { name: ko('recordsSave') })).toBeDisabled();
     });
+  });
+
+  describe('세 기록 칸 통일 (2026-11-22 사장님 권장안)', () => {
+    it('고치기에서 사진을 고르면 바로 올라가지 않고, 「저장」을 눌러야 올라간다', async () => {
+      Object.assign(URL, { createObjectURL: vi.fn(() => 'blob:x'), revokeObjectURL: vi.fn() });
+      state.myStamp = {
+        id: 'n-mine',
+        note: myNote.note,
+        photos: [],
+        visitedOn: null,
+        visitedAt: null,
+        crowdLevel: null,
+      };
+      state.notes = [myNote];
+      const { container } = renderSection();
+      fireEvent.click(screen.getByRole('button', { name: ko('recordsEdit') }));
+      fireEvent.change(container.querySelector('input[type="file"]') as HTMLInputElement, {
+        target: { files: [new File(['x'], 'a.jpg', { type: 'image/jpeg' })] },
+      });
+      expect(uploadMutate).not.toHaveBeenCalled();
+      expect(screen.getByText('1/3')).toBeInTheDocument();
+      fireEvent.click(screen.getByRole('button', { name: ko('recordsSave') }));
+      await vi.waitFor(() => expect(uploadMutate).toHaveBeenCalledTimes(1));
+      expect(uploadMutate.mock.calls[0]![0]).toMatchObject({ stampId: 'n-mine', startPosition: 1 });
+    });
+
+    it('예전에 3장 넘게 올린 기록은 그대로 보이되 더 올리는 칸이 없다', () => {
+      const photo = (n: number) => ({ id: `p${n}`, url: `https://x/${n}.jpg`, position: n });
+      state.myStamp = {
+        id: 'n-mine',
+        note: myNote.note,
+        photos: [1, 2, 3, 4].map(photo),
+        visitedOn: null,
+        visitedAt: null,
+        crowdLevel: null,
+      };
+      state.notes = [myNote];
+      const { container } = renderSection();
+      fireEvent.click(screen.getByRole('button', { name: ko('recordsEdit') }));
+      expect(container.querySelectorAll('img[src^="https://x/"]')).toHaveLength(4);
+      expect(container.querySelector('input[type="file"]')).toBeNull();
+    });
+
+    it('신고가 실패하면 단추가 다시 켜진다', () => {
+      state.notes = [othersNote];
+      vi.spyOn(window, 'confirm').mockReturnValue(true);
+      const alert = vi.spyOn(window, 'alert').mockImplementation(() => {});
+      reportMutate.mockImplementationOnce(
+        (_id: string, opts: { onSuccess: (r: { success: boolean }) => void }) =>
+          opts.onSuccess({ success: false }),
+      );
+      renderSection();
+      const report = screen.getByRole('button', { name: ko('reportAction') });
+      fireEvent.click(report);
+      expect(alert).toHaveBeenCalledWith(ko('reportFailed'));
+      expect(screen.getByRole('button', { name: ko('reportAction') })).toBeEnabled();
+    });
+  });
+
+  it('로그인 화면에 다녀오면 쓰던 한 줄이 되살아난다', () => {
+    sessionStorage.setItem('vhk.noteDraft.site-1', JSON.stringify({ note: '다녀와서 쓴 한 줄' }));
+    renderSection();
+    expect(screen.getByDisplayValue('다녀와서 쓴 한 줄')).toBeInTheDocument();
+    expect(screen.getByText(ko('noteDraftRestored'))).toBeInTheDocument();
+    expect(sessionStorage.getItem('vhk.noteDraft.site-1')).toBeNull();
   });
 });
