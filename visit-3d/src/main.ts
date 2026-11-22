@@ -238,7 +238,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   const myTag = document.createElement('div'); myTag.className = 'tag';
   const ptsEl = document.createElement('div'); ptsEl.className = 'pts';
   const nickEl = document.createElement('div'); nickEl.className = 'nick'; nickEl.textContent = myName;
-  myTag.append(ptsEl, nickEl);
+  myTag.append(nickEl); // 2026-11-22 사장님: 머리 위에는 이름만(「⭐ N」은 오른쪽 위 칩에만)
   const myTagObj = new CSS2DObject(myTag); myTagObj.position.set(0, 2.15, 0); me.root.add(myTagObj);
   const chip = document.createElement('div'); chip.id = 'pointsChip';
   // 위쪽 단추 줄 끝에 끼워 넣는다 — 따로 띄우면 「시간」 막대를 덮었다(2026-11-22 진단 a)
