@@ -81,7 +81,10 @@ export function DirectionsCard({
       {/* 지도 앱 — 주변 본당 목록과 같은 작은 단추로(2026-09-17). 앱 이름만 보이고
           설명은 길게 누르면(title) 나온다 — 큰 상자·화살표 아이콘 같은 군더더기를 뺐다 */}
       {hasCoordinates ? (
-        <QuickDirectionsButtons destination={{ name: site.name, lat, lng }} siteName={site.name} />
+        <QuickDirectionsButtons
+          destination={{ name: site.name, lat, lng, address: site.location }}
+          siteName={site.name}
+        />
       ) : (
         <div className="flex items-center gap-3 rounded-lg border border-dashed border-app-border bg-white px-5 py-4">
           <MapPin size={20} className="shrink-0 text-app-text-muted" aria-hidden />

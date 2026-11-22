@@ -1,4 +1,5 @@
 import { ChevronDown, ExternalLink, Phone } from 'lucide-react';
+import { telHref } from '@/shared/lib/phone';
 import { useState } from 'react';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { localizeDomainValue } from '@/shared/i18n/domain-labels';
@@ -75,7 +76,7 @@ export function DirectoryEntryCard({
           )}
           {entry.phone && (
             <a
-              href={`tel:${entry.phone.replace(/[^0-9+]/g, '')}`}
+              href={telHref(entry.phone) ?? undefined}
               aria-label={`${entry.name} ${t('callPhone')}`}
               className="flex h-11 w-11 items-center justify-center rounded-lg bg-app-panel text-brand-blue transition-colors hover:bg-brand-soft"
             >

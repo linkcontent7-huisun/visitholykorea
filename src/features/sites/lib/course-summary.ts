@@ -7,6 +7,9 @@ export function plainCourseSummary(raw: string): string {
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<[^>]+>/g, '')
     .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
     .replace(/\n{2,}/g, '\n')
     .trim();
 }
