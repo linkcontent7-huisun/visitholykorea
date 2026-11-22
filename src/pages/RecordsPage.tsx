@@ -283,7 +283,12 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
             </p>
           )}
           <div className="flex gap-2">
-            <Button type="submit" size="sm" disabled={update.isPending}>
+            {/* 있던 한 줄을 비우면 성지 화면의 공개 목록·「수정」에서 사라진다(2026-11-22 조사) — 비울 수 없게 */}
+            <Button
+              type="submit"
+              size="sm"
+              disabled={update.isPending || (stamp.note != null && note.trim() === '')}
+            >
               {t('recordsSave')}
             </Button>
             <Button

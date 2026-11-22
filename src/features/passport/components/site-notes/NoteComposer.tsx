@@ -1,5 +1,5 @@
 import { Camera, ChevronDown, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import {
@@ -46,8 +46,12 @@ export function NoteComposer({ site }: { site: HolySite }) {
   const [notePhotos, setNotePhotos] = useState<{ file: File; preview: string }[]>([]);
   const [notePhotoNotice, setNotePhotoNotice] = useState<string | null>(null);
 
-  // 기록 입력 칸의 사진 — 올리기 전 미리보기 URL 은 메모리를 잡으므로 바뀔 때마다 놓아준다
-  useEffect(() => () => notePhotos.forEach((p) => URL.revokeObjectURL(p.preview)), [notePhotos]);
+  // 올리기 전 미리보기 URL 은 메모리를 잡는다. 예전에는 목록이 바뀔 때마다 **남아 있는 사진의 미리보기까지**
+  // 놓아 버려, 두 번째 사진을 고르면 첫 사진이 빈 칸이 됐다(2026-11-22 사장님: 「1개만 넣으니 바로 넘어간다」 조사).
+  // 지금은 빼낸 사진만 그 자리에서 놓고, 나머지는 화면을 떠날 때 한 번에 놓는다.
+  const notePhotosRef = useRef(notePhotos);
+  notePhotosRef.current = notePhotos;
+  useEffect(() => () => notePhotosRef.current.forEach((p) => URL.revokeObjectURL(p.preview)), []);
   const pickNotePhotos = (files: FileList | null) => {
     if (!files) return;
     const room = Math.max(0, NOTE_PHOTO_MAX - notePhotos.length);
@@ -61,7 +65,11 @@ export function NoteComposer({ site }: { site: HolySite }) {
     ]);
   };
   const removeNotePhoto = (index: number) =>
-    setNotePhotos((prev) => prev.filter((_, i) => i !== index));
+    setNotePhotos((prev) => {
+      const gone = prev[index];
+      if (gone) URL.revokeObjectURL(gone.preview);
+      return prev.filter((_, i) => i !== index);
+    });
 
   /**
    * 기록 저장 — 이 한 번의 호출이 "기록"(스탬프)도 함께 만든다(2026-09-17).
@@ -94,6 +102,8 @@ export function NoteComposer({ site }: { site: HolySite }) {
           if (notePhotos.length > 0) {
             const pending = notePhotos;
             setNotePhotos([]);
+            // 미리보기는 더 쓰지 않는다(파일은 pending 에 남아 있다)
+            pending.forEach((p) => URL.revokeObjectURL(p.preview));
             const fresh = await getMyStamps();
             const stampId = fresh.find((s) => s.siteId === siteId)?.stampId;
             if (stampId) {
@@ -148,9 +158,9 @@ export function NoteComposer({ site }: { site: HolySite }) {
               className="min-h-12 w-full bg-transparent px-4 text-base text-app-text focus-visible:outline-none"
               value={noteDraft}
               onChange={(e) => setNoteDraft(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') handleSaveNote();
-              }}
+              // 휴대폰 자판의 「완료·이동」도 Enter 라, 예전에는 사진을 고르기 전에 저장되고 칸이 닫혔다.
+              // 저장은 「남기기」 단추로만 한다(2026-11-22).
+              enterKeyHint="next"
             />
           </SquircleSurface>
           {/* 방문일 — 기본은 오늘(기록하는 날), 지난 방문을 나중에 적을 때는 고른다 */}

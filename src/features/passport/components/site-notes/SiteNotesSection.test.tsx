@@ -127,4 +127,48 @@ describe('SiteNotesSection', () => {
     expect(report).toBeDisabled();
     expect(report).toHaveTextContent(ko('reportedAction'));
   });
+
+  describe('사진·수정 오류 (2026-11-22 사장님 조사)', () => {
+    it('사진을 한 장씩 두 번 골라도 앞 사진의 미리보기가 남는다', () => {
+      let n = 0;
+      const create = vi.fn(() => `blob:p${++n}`);
+      const revoke = vi.fn();
+      Object.assign(URL, { createObjectURL: create, revokeObjectURL: revoke });
+      const { container } = renderSection();
+      const input = () => container.querySelector('input[type="file"]') as HTMLInputElement;
+      const pick = (name: string) =>
+        fireEvent.change(input(), {
+          target: { files: [new File(['x'], name, { type: 'image/jpeg' })] },
+        });
+      pick('a.jpg');
+      pick('b.jpg');
+      expect(revoke).not.toHaveBeenCalled();
+      expect(container.querySelectorAll('img[src^="blob:p"]')).toHaveLength(2);
+      expect(screen.getByText('2/3')).toBeInTheDocument();
+    });
+
+    it('한 줄 칸에서 Enter(휴대폰 「완료」)를 눌러도 저장되지 않는다 — 사진을 고를 기회를 남긴다', () => {
+      renderSection();
+      const box = screen.getByLabelText(ko('noteAriaLabel'));
+      fireEvent.change(box, { target: { value: '고요했다' } });
+      fireEvent.keyDown(box, { key: 'Enter' });
+      expect(addMutate).not.toHaveBeenCalled();
+    });
+
+    it('이미 남긴 한 줄을 다 지우면 저장 단추가 꺼진다(기록이 사라져 다시 못 고치는 일 방지)', () => {
+      state.myStamp = {
+        id: 'n-mine',
+        note: myNote.note,
+        photos: [],
+        visitedOn: null,
+        visitedAt: null,
+        crowdLevel: null,
+      };
+      state.notes = [myNote];
+      renderSection();
+      fireEvent.click(screen.getByRole('button', { name: ko('recordsEdit') }));
+      fireEvent.change(screen.getByDisplayValue(myNote.note), { target: { value: '   ' } });
+      expect(screen.getByRole('button', { name: ko('recordsSave') })).toBeDisabled();
+    });
+  });
 });
