@@ -1104,7 +1104,7 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
   const bvh = kit.finalize();
 
   return {
-    id: 'cathedral', title: placed ? '명동대성당 구내 · 첫 사례' : SPACES.cathedral.title, root: kit.root, bvh,
+    id: 'cathedral', title: placed ? '명동대성당' : SPACES.cathedral.title, root: kit.root, bvh,
     attribution: placed ? `구내 건물·평면 © OpenStreetMap contributors (ODbL) · 성당 모양·실내는 양식 참고 재구성(실측 복제 아님)` : undefined,
     interactables: reg.interactables, pickables: reg.pickables,
     doors, candles: [...candles, ...outdoorCandles], zones, stations, windows,

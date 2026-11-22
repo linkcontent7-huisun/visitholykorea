@@ -305,7 +305,9 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   let lastCount = 1;
   function setPeople(n: number) {
     lastCount = n;
-    $('people').textContent = status === 'online' ? (n > 1 ? `${n}명 함께 보는 중` : '지금은 혼자 · 실시간 연결됨') : status === 'connecting' ? '연결 중…' : '혼자 보기 (실시간 연결 안 됨)';
+    // 2026-11-22 사장님: 제목은 「명동대성당」만. 함께 보는 사람이 있을 때만 사람 수를 보인다(혼자일 때·연결 안 됨은 쓰지 않는다)
+    const ppl = status === 'online' && n > 1 ? `${n}명 함께 보는 중` : '';
+    $('people').textContent = ppl; $('people').hidden = !ppl; document.querySelector<HTMLElement>('.where .dot')!.hidden = !ppl;
   }
 
   // ── 공간 불러오기 ──
