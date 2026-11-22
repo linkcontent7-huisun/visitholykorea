@@ -4,6 +4,8 @@ import type { MeshBVH } from 'three-mesh-bvh';
 import type { DoorRt } from './spaces/types.ts';
 
 const R = 0.32, HEIGHT = 1.7, EYE = 1.6, SIT_EYE = 1.15, GRAVITY = -24;
+/** 한 장면에서 쓰는 시간의 상한(초) · 충돌을 계산하는 한 걸음의 최대 길이(m) */
+export const MAX_DT = 0.1, MAX_STEP = 0.08;
 
 export interface MoveInput { x: number; z: number; run: boolean }
 
@@ -72,8 +74,11 @@ export class Player {
       if (Math.abs(input.x) > 0.2 || Math.abs(input.z) > 0.2) this.stand();
       else return;
     }
-    const steps = 4, h = Math.min(dt, 0.05) / steps;
     const speed = input.run ? 6.0 : 3.6; // 2026-11-17 사장님: 2.4 는 느리다 → 1.5배(3.6 m/s). 달리기도 5 → 6
+    // 2026-11-22: 전에는 한 장면의 시간을 0.05초(초당 20장)로 잘라, 휴대폰처럼 화면이 느리면 실제로 느리게 걸었다(초당 10장이면 절반).
+    // 이제 0.1초(초당 10장)까지는 그대로 쓰고, 한 번에 8 cm 넘게 움직이지 않도록 잘게 나눠 충돌을 계산한다(몸 반지름 32 cm — 벽을 뚫지 않는다)
+    const total = Math.min(dt, MAX_DT);
+    const steps = Math.max(4, Math.ceil((total * speed) / MAX_STEP)), h = total / steps;
     const fx = -Math.sin(this.yaw), fz = -Math.cos(this.yaw);
     const rx = Math.cos(this.yaw), rz = -Math.sin(this.yaw);
     const mx = (fx * input.z + rx * input.x) * speed, mz = (fz * input.z + rz * input.x) * speed;
