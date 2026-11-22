@@ -764,7 +764,8 @@ export function buildLandscape(site: LandscapeData, opts: LandscapeOptions = {})
     }
   }
   for (const s of shrubs) plantings.push({ p: s.p, sp: s.c === 0x4a5a2a || s.c === 0x5b6b30 ? 'shrubGreen' : 'shrubRed', h: s.s * 2.1 });
-  const planted = plantTrees(plantings, H, detail === 0, 77, tc, 100);
+  // 2026-11-22 가볍게: 칸(100 m)으로 나누지 않고 같은 나무는 한 번에 그린다 — 그리는 횟수가 칸 수만큼 줄고 모습은 같다
+  const planted = plantTrees(plantings, H, detail === 0, 77, tc, 1e6);
   group.add(planted.group);
   stats.leafCards = planted.cards;
   // 낙엽 카펫 · 풀 포기

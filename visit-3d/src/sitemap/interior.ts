@@ -34,7 +34,7 @@ export interface Interior {
 
 function paint(w: number, h: number, seed: number, draw: (g: CanvasRenderingContext2D, r: () => number) => void) {
   const c = document.createElement('canvas'); c.width = w; c.height = h;
-  draw(c.getContext('2d')!, rng(seed));
+  draw(c.getContext('2d', { willReadFrequently: true })!, rng(seed)); // 빠른 입장(2026-11-22): 아래에서 다시 읽는다
   return c;
 }
 function tex(c: HTMLCanvasElement, color = true) {
