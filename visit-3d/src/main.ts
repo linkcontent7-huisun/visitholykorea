@@ -895,6 +895,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // ── 입력 ──
   const keys = new Set<string>();
   const joy = new THREE.Vector2();
+  let joyFull = 0; // 조이스틱을 끝까지 민 채로 지난 시간(초)
   addEventListener('keydown', (e) => {
     if ((e.target as HTMLElement)?.tagName === 'INPUT') return;
     keys.add(e.code);
@@ -1048,6 +1049,9 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           }
         }
       }
+      // 휴대폰 달리기(2026-11-22): 조이스틱을 끝까지 민 채 1초가 지나면 달린다. 덜 밀거나 떼면 걷기로
+      if (joy.length() > 0.95) joyFull += dt; else joyFull = 0;
+      if (joyFull > 1) mv.run = true;
       if (len > 1) { mv.x /= len; mv.z /= len; }
       if (tour && len > 0.2 && !moveTarget) stopTour();
       lastPos.copy(player.pos);
