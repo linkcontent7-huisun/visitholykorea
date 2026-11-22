@@ -63,7 +63,8 @@
 
     <!--
       새 서비스워커가 활성화되면(vite.config.ts 의 workbox.skipWaiting/clientsClaim) 이미 열려 있는
-      탭도 그 즉시 컨트롤러가 바뀐다 — 그때 한 번 새로고침해야 새 번들이 실제로 반영된다.
+      탭도 그 즉시 컨트롤러가 바뀐다 — 한 번 새로고침해야 새 번들이 실제로 반영된다.
+      그 새로고침은 **다음 화면 이동 때** 한다(쓰던 칸이 지워지지 않게, 2026-11-22).
       vite-plugin-pwa 의 등록 스크립트(`injectRegister: 'inline'`)는 register() 만 하고 이 처리를
       안 해줘서 따로 붙였다(2026-09-19).
 
@@ -82,7 +83,9 @@
           }
           if (vhkSwRefreshing) return;
           vhkSwRefreshing = true;
-          window.location.reload();
+          // 바로 새로고침하지 않는다 — 쓰던 기록·사진이 지워졌다(2026-11-22). 다음 화면 이동 때
+          // src/shared/lib/update-reload.ts 가 새로고침한다.
+          window.vhkUpdateReady = true;
         });
       }
     </script>
