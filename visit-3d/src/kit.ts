@@ -129,3 +129,39 @@ export function disposeTree(root: THREE.Object3D) {
     mat.dispose();
   }
 }
+
+/**
+ * 2026-11-22 가볍게: 한 묶음(group) 안의 움직이지 않는 메시를 재질·그림자 설정이 같은 것끼리 하나로 합친다.
+ * 충돌 BVH 를 만든 **뒤에** 부른다(충돌은 이미 따로 복사돼 있어 그대로다). 모습은 같고 그리는 횟수만 줄어든다.
+ * 묶음 안에 코드가 따로 움직이거나 숨기는 물체가 있으면 쓰지 않는다.
+ */
+export function mergeStaticGroup(group: THREE.Object3D): number {
+  group.updateMatrixWorld(true);
+  const inv = new THREE.Matrix4().copy(group.matrixWorld).invert();
+  const buckets = new Map<string, { mat: THREE.Material; cast: boolean; recv: boolean; geos: THREE.BufferGeometry[] }>();
+  const remove: THREE.Mesh[] = [];
+  group.traverse((o) => {
+    const m = o as THREE.Mesh;
+    if (!m.isMesh || (m as any).isInstancedMesh || !m.visible || Array.isArray(m.material)) return;
+    const mat = m.material as THREE.Material;
+    const key = `${mat.uuid}:${m.castShadow ? 1 : 0}:${m.receiveShadow ? 1 : 0}`;
+    const g = m.geometry.clone().applyMatrix4(new THREE.Matrix4().multiplyMatrices(inv, m.matrixWorld));
+    for (const k of Object.keys(g.attributes)) if (!['position', 'normal', 'uv'].includes(k)) g.deleteAttribute(k);
+    if (!g.attributes.uv) g.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2));
+    if (!g.attributes.normal) g.computeVertexNormals();
+    const b = buckets.get(key) ?? buckets.set(key, { mat, cast: m.castShadow, recv: m.receiveShadow, geos: [] }).get(key)!;
+    b.geos.push(g.index ? g.toNonIndexed() : g);
+    remove.push(m);
+  });
+  for (const m of remove) { m.parent?.remove(m); m.geometry.dispose(); }
+  let n = 0;
+  for (const b of buckets.values()) {
+    const g = mergeGeometries(b.geos, false);
+    b.geos.forEach((x) => x.dispose());
+    if (!g) continue;
+    const mesh = new THREE.Mesh(g, b.mat);
+    mesh.castShadow = b.cast; mesh.receiveShadow = b.recv; mesh.userData.dynamic = true;
+    group.add(mesh); n++;
+  }
+  return remove.length - n; // 줄어든 메시 수
+}

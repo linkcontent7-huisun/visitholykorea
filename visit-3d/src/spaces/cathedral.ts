@@ -8,7 +8,7 @@
 import * as THREE from 'three';
 import * as T from '../textures.ts';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { Kit } from '../kit.ts';
+import { Kit, mergeStaticGroup } from '../kit.ts';
 import type { Mats } from '../materials.ts';
 import { wall, arcade, archBand, archPane, extrude, box, cyl, rect, shapeFrom, archPoints, type ArchHole, type V2 } from '../geo.ts';
 import { roseWindow, textPanel, stationRelief, lancetGlass, saintNiche, floralGlass } from '../textures.ts';
@@ -644,6 +644,10 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
   const outdoor = new THREE.Group();
   outdoor.userData.dynamic = true;
   kit.root.add(outdoor);
+  // 움직이지 않는 바깥 소품(가로등·의자·꽃밭 테두리) — 충돌을 만든 뒤 재질별로 합친다(mergeStaticGroup, 2026-11-22 가볍게)
+  const outdoorStatic = new THREE.Group();
+  outdoorStatic.userData.dynamic = true;
+  outdoor.add(outdoorStatic);
   if (placed?.landscape) { placed.landscape.userData.noCollide = true; outdoor.add(placed.landscape); } // 실내에서는 풍경도 숨긴다. 풍경 충돌(땅·나무 줄기)은 site.ts 가 따로 넣는다
   const treeSpots: [number, number][] = [];
   if (!placed?.landscape) for (let z = 12; z <= 34; z += 6) treeSpots.push([-18, z], [18, z], [-25, z + 3], [25, z + 3]);
@@ -662,12 +666,12 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
     outdoor.add(trunk, crown);
   }
   for (const [x, z] of ([[-6, 13], [6, 13], [-6, 26], [6, 26], [-12, 19], [12, 19]] as [number, number][]).filter(([x, z]) => free(x, z, 0.5))) {
-    kit.add(cyl(0.06, 0.09, 3.6, 8), M.iron, { parent: outdoor, pos: [x, 1.8, z], collide: true, dynamic: true });
-    kit.add(new THREE.SphereGeometry(0.2, 12, 8), M.lampGlow, { parent: outdoor, pos: [x, 3.75, z], dynamic: true, shadow: false });
+    kit.add(cyl(0.06, 0.09, 3.6, 8), M.iron, { parent: outdoorStatic, pos: [x, 1.8, z], collide: true, dynamic: true });
+    kit.add(new THREE.SphereGeometry(0.2, 12, 8), M.lampGlow, { parent: outdoorStatic, pos: [x, 3.75, z], dynamic: true, shadow: false });
   }
   for (const x of [-9, 9].filter((x) => free(x, 16, 1.4))) {
-    kit.add(box(2.2, 0.08, 0.5), M.wood, { parent: outdoor, pos: [x, 0.45, 16], collide: true, dynamic: true });
-    kit.add(box(2.2, 0.45, 0.06), M.wood, { parent: outdoor, pos: [x, 0.75, 16.25], dynamic: true });
+    kit.add(box(2.2, 0.08, 0.5), M.wood, { parent: outdoorStatic, pos: [x, 0.45, 16], collide: true, dynamic: true });
+    kit.add(box(2.2, 0.45, 0.06), M.wood, { parent: outdoorStatic, pos: [x, 0.75, 16.25], dynamic: true });
   }
 
   floorPlate(kit, M, reg, v3(5.0, 0.02, 14.0), Math.PI * 0.08, '이 공간에 대하여',
@@ -1001,17 +1005,17 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
       }
       // 검은 쌍등 가로등 — 난간벽 바깥 양쪽, 약 7 m 마다
       const lantern = (x: number, y: number, z: number) => {
-        kit.add(cyl(0.07, 0.11, 3.4, 10), M.iron, { parent: outdoor, pos: [x, y + 1.7, z], dynamic: true });
-        kit.add(cyl(0.16, 0.2, 0.35, 10), M.iron, { parent: outdoor, pos: [x, y + 0.18, z], dynamic: true });
-        kit.add(box(1.0, 0.06, 0.06), M.iron, { parent: outdoor, pos: [x, y + 3.35, z], dynamic: true });
+        kit.add(cyl(0.07, 0.11, 3.4, 10), M.iron, { parent: outdoorStatic, pos: [x, y + 1.7, z], dynamic: true });
+        kit.add(cyl(0.16, 0.2, 0.35, 10), M.iron, { parent: outdoorStatic, pos: [x, y + 0.18, z], dynamic: true });
+        kit.add(box(1.0, 0.06, 0.06), M.iron, { parent: outdoorStatic, pos: [x, y + 3.35, z], dynamic: true });
         for (const dx of [-0.48, 0.48]) {
-          kit.add(box(0.26, 0.04, 0.26), M.iron, { parent: outdoor, pos: [x + dx, y + 3.15, z], dynamic: true });
-          kit.add(box(0.2, 0.36, 0.2), M.lampGlow, { parent: outdoor, pos: [x + dx, y + 2.95, z], dynamic: true, shadow: false });
-          kit.add(new THREE.ConeGeometry(0.2, 0.22, 4).rotateY(Math.PI / 4), M.iron, { parent: outdoor, pos: [x + dx, y + 3.3 + 0.08, z], dynamic: true });
-          kit.add(cyl(0.012, 0.012, 0.36, 4), M.iron, { parent: outdoor, pos: [x + dx, y + 2.95, z], dynamic: true });
-          kit.add(cyl(0.02, 0.02, 0.2, 6), M.iron, { parent: outdoor, pos: [x + dx, y + 3.25, z], dynamic: true });
+          kit.add(box(0.26, 0.04, 0.26), M.iron, { parent: outdoorStatic, pos: [x + dx, y + 3.15, z], dynamic: true });
+          kit.add(box(0.2, 0.36, 0.2), M.lampGlow, { parent: outdoorStatic, pos: [x + dx, y + 2.95, z], dynamic: true, shadow: false });
+          kit.add(new THREE.ConeGeometry(0.2, 0.22, 4).rotateY(Math.PI / 4), M.iron, { parent: outdoorStatic, pos: [x + dx, y + 3.3 + 0.08, z], dynamic: true });
+          kit.add(cyl(0.012, 0.012, 0.36, 4), M.iron, { parent: outdoorStatic, pos: [x + dx, y + 2.95, z], dynamic: true });
+          kit.add(cyl(0.02, 0.02, 0.2, 6), M.iron, { parent: outdoorStatic, pos: [x + dx, y + 3.25, z], dynamic: true });
         }
-        kit.add(new THREE.SphereGeometry(0.06, 8, 6), M.iron, { parent: outdoor, pos: [x, y + 3.5, z], dynamic: true });
+        kit.add(new THREE.SphereGeometry(0.06, 8, 6), M.iron, { parent: outdoorStatic, pos: [x, y + 3.5, z], dynamic: true });
         kit.add(cyl(0.2, 0.2, 3.6, 6), M.iron, { pos: [x, y + 1.8, z], colliderOnly: true });
       };
       for (let zz = zAt(-0.3); zz < zAt(-HILL + 0.3) + 0.1; zz += 6.8) for (const sx of [-1, 1]) {
@@ -1032,9 +1036,9 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
       const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
       for (const [x, z, w, d] of okBeds) {
         const gy = placed!.groundAt(x, z);
-        kit.add(box(w + 0.3, 0.22, d + 0.3), M.stone, { parent: outdoor, pos: [x, gy + 0.11, z], dynamic: true });
+        kit.add(box(w + 0.3, 0.22, d + 0.3), M.stone, { parent: outdoorStatic, pos: [x, gy + 0.11, z], dynamic: true });
         kit.add(box(w + 0.3, 1.2, d + 0.3), M.stone, { pos: [x, gy + 0.6, z], colliderOnly: true }); // 꽃밭은 밟고 지나가지 않는다
-        kit.add(box(w, 0.06, d), M.voidDark, { parent: outdoor, pos: [x, gy + 0.2, z], dynamic: true });
+        kit.add(box(w, 0.06, d), M.voidDark, { parent: outdoorStatic, pos: [x, gy + 0.2, z], dynamic: true });
         const tone = cols[(k / 7) % cols.length | 0];
         for (let i = 0; i < 260; i++) {
           const fx = x + (rnd() - 0.5) * w * 0.95, fz = z + (rnd() - 0.5) * d * 0.95, h = 0.25 + rnd() * 0.25;
@@ -1102,6 +1106,8 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
   const portalT = { t: 0 };
   // 충돌·합치기는 맨 끝에 — 그 뒤에 더한 물건(성모 동굴·꽃밭·봉헌함·화살표)도 충돌에 들어가고, 충돌 전용 상자는 그려지지 않는다
   const bvh = kit.finalize();
+  const mergedOut = mergeStaticGroup(outdoorStatic); // 충돌을 만든 뒤에 합친다
+  console.info(`[가볍게] 바깥 소품 ${mergedOut}개를 합쳐 덜 그림`);
 
   return {
     id: 'cathedral', title: placed ? '명동대성당 구내 · 첫 사례' : SPACES.cathedral.title, root: kit.root, bvh,
