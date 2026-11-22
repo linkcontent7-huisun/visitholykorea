@@ -8,7 +8,7 @@ export const SIMPLE = {
   /** 바닥 낙엽 — 수관 아래·잔디 위 낙엽 카드 */
   litter: true,
   /** 잔디 위 풀 포기 — 두 장 엇갈린 풀 카드 */
-  grassTufts: false,
+  grassTufts: true,
   /** 덤불의 가지 — 잎 뭉치 속에 묻혀 거의 보이지 않는 가지(잎은 남긴다) */
   shrubBranches: false,
   /** 덤불 전체(빨간·초록 덤불의 잎까지) — 계단 가운데 화단·길가의 덤불이 사라져 목업처럼 트인다 */
