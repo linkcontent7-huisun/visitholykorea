@@ -4,6 +4,7 @@
 // 데이터: public/site/myeongdong.json 의 roads·areas·trees·farBuildings (© OpenStreetMap contributors, ODbL)
 // 지형은 평지로 둔다. 공개 DEM(SRTM 30 m)은 도심에서 건물 지붕을 지면으로 읽어 성당 언덕 높낮이를 재지 못한다.
 // 원경 시가지 상자와 정원 안 나무 배치는 OSM 에 없는 «채움» 이다(실제 위치 아님).
+import { skipBuild } from '../simplify.ts';
 import * as THREE from 'three';
 import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
@@ -763,6 +764,8 @@ export function buildLandscape(site: LandscapeData, opts: LandscapeOptions = {})
       if (inTreeRange(p) && !inBuilding(p, 0.6) && !onRoad(p, 0.3) && !anyRoad(p, 0.7) && !clear.some((c) => inside(p, c))) shrubs.push({ p, s: 0.55 + r() * 0.35, c: [0xa8322a, 0x8e2a22, 0x4a5a2a, 0xb84a2a, 0x5b6b30][(r() * 5) | 0] });
     }
   }
+  // 2026-11-22 빠른 입장: 덤불을 그리지 않기로 했으면(simplify.ts) 짓지도 않는다 — 보이지 않는 덤불 충돌도 함께 없어진다
+  if (skipBuild('shrubs') && skipBuild('shrubBranches')) shrubs.length = 0;
   for (const s of shrubs) plantings.push({ p: s.p, sp: s.c === 0x4a5a2a || s.c === 0x5b6b30 ? 'shrubGreen' : 'shrubRed', h: s.s * 2.1 });
   // 2026-11-22 가볍게: 칸(100 m)으로 나누지 않고 같은 나무는 한 번에 그린다 — 그리는 횟수가 칸 수만큼 줄고 모습은 같다
   const planted = plantTrees(plantings, H, detail === 0, 77, tc, 1e6);
@@ -770,7 +773,8 @@ export function buildLandscape(site: LandscapeData, opts: LandscapeOptions = {})
   stats.leafCards = planted.cards;
   // 낙엽 카펫 · 풀 포기
   const greenIdx = polyIndex(gardenRings);
-  group.add(groundCover(
+  // 2026-11-22 빠른 입장: 낙엽·풀 포기를 그리지 않기로 했으면 짓지도 않는다(입장 약 1.5초)
+  if (!(skipBuild('litter') && skipBuild('grassTufts'))) group.add(groundCover(
     trees.filter((t) => t.sp !== 'pine').map((t) => ({ p: t.p, h: t.h })), H, leavesOn,
     detail === 0 ? null : {
       center: tc, radius: 115, count: 22000,

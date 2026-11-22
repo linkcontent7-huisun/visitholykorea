@@ -108,7 +108,7 @@ function enterNow() {
   const name = cleanNick(nickInput.value).slice(0, 9);
   try { localStorage.setItem(KEY_NICK, name); localStorage.setItem(KEY_NICK_SELF, isSelfName(name, localStorage) ? '1' : '0'); localStorage.setItem('vhk.avatar', avatarId); } catch { /* 무시 */ }
   $<HTMLButtonElement>('enter').disabled = true;
-  previewOn = false; pvRenderer?.dispose();
+  previewOn = false; pvRenderer?.dispose(); pvRenderer?.forceContextLoss(); pvRenderer = null; // 미리보기 그래픽 장치(문맥)도 바로 놓는다(휴대폰은 문맥 수에 한도가 있다)
   start(encodeNick(name, avatarId), startSel.value as SpaceId, qualitySel.value === 'high', avatarId);
 }
 $('enter').addEventListener('click', enterNow);
