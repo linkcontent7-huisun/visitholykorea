@@ -1,7 +1,9 @@
+import { useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { InstallBanner } from '@/shared/components/ui/InstallBanner';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { reloadIfUpdateReady } from '@/shared/lib/update-reload';
 import { BottomNav } from './BottomNav';
 import { TopNav } from './TopNav';
 
@@ -31,6 +33,17 @@ const KEEP_BOTTOM_NAV_ON_MOBILE = true;
 export function AppLayout() {
   const { pathname } = useLocation();
   const { t } = useSettings();
+
+  // 새 판이 와 있으면 화면을 옮기는 이 순간에 새로고침한다(쓰던 칸을 지우지 않게, 2026-11-22).
+  // 처음 그릴 때는 건너뛴다 — 그때는 막 열린 화면이다.
+  const firstPath = useRef(true);
+  useEffect(() => {
+    if (firstPath.current) {
+      firstPath.current = false;
+      return;
+    }
+    reloadIfUpdateReady();
+  }, [pathname]);
 
   return (
     <div className="flex min-h-full flex-col bg-app-bg font-sans text-app-text selection:bg-brand-violet/20">
