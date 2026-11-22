@@ -8,7 +8,6 @@ import {
 import { CrowdLevelPicker } from '@/features/passport/components/CrowdLevelPicker';
 import {
   useDeleteStampPhoto,
-  useMyStamps,
   useUpdateStamp,
   useUploadStampPhotos,
 } from '@/features/passport/hooks/use-stamps';
@@ -18,6 +17,7 @@ import { SquircleSurface } from '@/shared/components/ui/SquircleSurface';
 import { useUnsavedChangesGuard } from '@/shared/hooks/use-unsaved-changes-guard';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { koreaTodayIso } from '@/shared/lib/korea-date';
+import { nextPhotoPosition } from '@/features/passport/lib/photo-position';
 import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 
 interface MyNoteEditorProps {
@@ -33,7 +33,6 @@ interface MyNoteEditorProps {
  */
 export function MyNoteEditor({ siteId, myStamp, onClose, onOpenPhoto }: MyNoteEditorProps) {
   const { t } = useSettings();
-  const { data: myStamps = [] } = useMyStamps();
   const updateStamp = useUpdateStamp();
   const uploadPhotos = useUploadStampPhotos(siteId);
   const deletePhoto = useDeleteStampPhoto(siteId);
@@ -74,8 +73,10 @@ export function MyNoteEditor({ siteId, myStamp, onClose, onOpenPhoto }: MyNoteEd
       window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
     const photos = await Promise.all(picked.map((file) => shrinkPhoto(file, policy)));
     uploadPhotos.mutate({
-      stampId: myStamp.stamped ? (myStamps.find((s) => s.siteId === siteId)?.stampId ?? '') : '',
-      startPosition: myStamp.photos.length + 1,
+      // 내 기록 id 는 myStamp.id 에 있다 — 예전처럼 「내 기록 목록」에서 찾으면 목록이 아직 안 왔을 때
+      // 빈 id 로 올려 조용히 실패했다(2026-11-22)
+      stampId: myStamp.id ?? '',
+      startPosition: nextPhotoPosition(myStamp.photos),
       photos,
     });
   };
