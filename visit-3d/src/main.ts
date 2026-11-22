@@ -82,7 +82,9 @@ const pvScene = new THREE.Scene(), pvCam = new THREE.PerspectiveCamera(28, 110 /
 pvCam.position.set(0, 1.25, 4.6); pvCam.lookAt(0, 0.95, 0);
 pvScene.add(new THREE.HemisphereLight(0xfff4e0, 0x3a2e22, 2.2));
 const pvSun = new THREE.DirectionalLight(0xffffff, 2.2); pvSun.position.set(2, 3, -3); pvScene.add(pvSun);
-try { pvRenderer = new THREE.WebGLRenderer({ canvas: pv, alpha: true, antialias: true }); pvRenderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); pvRenderer.setSize(110, 140, false); } catch { pvRenderer = null; }
+// 다시 온 사람은 입장 화면을 보지 않으므로 미리보기 그래픽 장치를 만들지 않는다(페이지 여는 시간 약 1초)
+const returningEarly = (() => { try { return !params.has('entry') && !!localStorage.getItem(KEY_NICK); } catch { return false; } })();
+if (!returningEarly) try { pvRenderer = new THREE.WebGLRenderer({ canvas: pv, alpha: true, antialias: true }); pvRenderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); pvRenderer.setSize(110, 140, false); } catch { pvRenderer = null; }
 function selectAvatar(id: string) {
   avatarId = id;
   pickBox.querySelectorAll('button').forEach((b) => b.setAttribute('aria-checked', String((b as HTMLElement).dataset.id === id)));
