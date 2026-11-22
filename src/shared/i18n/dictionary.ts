@@ -341,12 +341,13 @@ export const DICTIONARY = {
     it: 'Informativa privacy',
   },
   officialLinksTitle: {
-    ko: 'WYD 2027 · DID 공식 안내',
-    en: 'WYD 2027 · DID official information',
-    es: 'Información oficial JMJ 2027 · DID',
-    fr: 'Infos officielles JMJ 2027 · DID',
-    pt: 'Informação oficial JMJ 2027 · DID',
-    it: 'Informazioni ufficiali GMG 2027 · DID',
+    // 「공식」과 대회 이름을 뺐다(2026-11-22) — 대회 이름은 등록 상표이고 재단 동의 전이다(#130 과 같은 이유)
+    ko: '관련 사이트 바로가기',
+    en: 'Related websites',
+    es: 'Sitios relacionados',
+    fr: 'Sites liés',
+    pt: 'Sites relacionados',
+    it: 'Siti collegati',
   },
   officialLinksSub: {
     ko: '등록·일정·숙박·단체 이동은 공식 채널에서만. 이 앱은 공식 협력 서비스가 아닙니다.',
