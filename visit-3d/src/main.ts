@@ -255,7 +255,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // 수호천사의 빛(시제품, guardian-lights.ts) — 순례를 마치면 빛을 하나 받는다. ?nolights 로 끈다
   const glights = GuardianLights.wanted() ? new GuardianLights(scene) : null;
   if (glights) glights.onMessage = (m) => toast(m);
-  let camDist = touch ? 4.4 : 5.0;       // 0.7 아래면 1인칭
+  let camDist = touch ? 8.5 : 9.0;       // 0.7 아래면 1인칭. 2026-11-22 사장님: 목업처럼 멀리(8~11 m) — 캐릭터와 성당이 함께 보이게
   let bodyYaw = 0, mySpeed = 0;
   const lastPos = new THREE.Vector3();
   let moveTarget: THREE.Vector3 | null = null, moveStuck = 0;
