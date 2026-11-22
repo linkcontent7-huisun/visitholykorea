@@ -10,6 +10,7 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { GTAOPass } from 'three/examples/jsm/postprocessing/GTAOPass.js';
 import { WIND, NEAR_FADE } from './sitemap/trees.ts';
 import { lightBeam, glassPool } from './textures.ts';
+import { GuardianLights } from './guardian-lights.ts';
 import { AVATARS, avatarOf, randomAvatarId, encodeNick, decodeNick, buildAvatar, animateAvatar } from './avatars.ts';
 import nipplejs from 'nipplejs';
 import { makeMaterials } from './materials.ts';
@@ -250,6 +251,9 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   };
   /** 한 번만 오르는 미션 — 처음이면 포인트와 안내 */
   const award = (key: string, pts: number, label: string) => { if (points.award(key, pts)) toast(`⭐ +${pts} 포인트 — ${label}`); };
+  // 수호천사의 빛(시제품, guardian-lights.ts) — 순례를 마치면 빛을 하나 받는다. ?nolights 로 끈다
+  const glights = GuardianLights.wanted() ? new GuardianLights(scene) : null;
+  if (glights) glights.onMessage = (m) => toast(m);
   let camDist = touch ? 4.4 : 5.0;       // 0.7 아래면 1인칭
   let bodyYaw = 0, mySpeed = 0;
   const lastPos = new THREE.Vector3();
@@ -523,6 +527,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       closeCard();
       if (last) {
         award('stations-all', PTS.allStations, '십자가의 길 열다섯 처를 모두 걸었습니다');
+        glights?.grant(player.pos);
         quest = 'candle'; setGuide(anchorOf((ia) => ia.kind === 'candle' && ia.title.includes('제대')), '제대 앞 봉헌초 — 초를 하나 켜고 기도를 고르세요'); toast('십자가의 길을 다 걸었습니다 🙏 마지막으로 제대 앞에서 초를 봉헌해 보세요'); return;
       }
       stationK = k + 1; setGuide(stationAnchor(stationK), `십자가의 길 제${stationK + 1}처 — ${STATION_NAMES[stationK]}`);
@@ -875,7 +880,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   function tourStep() {
     if (!tour || !space) return;
     const s = space.stations[tour.i];
-    if (!s) { stopTour(); toast('안내 투어를 마쳤습니다'); return; }
+    if (!s) { stopTour(); toast('안내 투어를 마쳤습니다'); glights?.grant(player.pos); return; }
     $('caption').hidden = false;
     $('caption').textContent = `${tour.i + 1} / ${space.stations.length} · ${s.caption}`;
     player.glideTo(s.pos, s.yaw, s.pitch, 2.6, () => {
@@ -1097,6 +1102,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
         camera.rotation.set(cp, player.yaw, 0, 'YXZ');
       }
 
+      if (glights) { glights.bvh = space.bvh; glights.update(dt, t, player.pos, camera); }
+
       if (!introDone && !spaceLoading && space.id === 'cathedral' && space.spawn.pos.y < -3 && player.pos.distanceTo(space.spawn.pos) < 3) startIntro(space.spawn.pos);
       runIntro(dt);
 
@@ -1197,5 +1204,5 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   void loadSpace(first);
   requestAnimationFrame(frame);
   // 점검용 손잡이(브라우저 콘솔 · 자동 시험)
-  (window as any).__vhk = { points, startStations, showStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
+  (window as any).__vhk = { glights, points, startStations, showStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
 }
