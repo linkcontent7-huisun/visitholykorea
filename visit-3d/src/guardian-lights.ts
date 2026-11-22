@@ -10,6 +10,7 @@
 // 빛 열두 개를 모두 합쳐 ① 단단한 속 한 덩어리(정점 셰이더가 빛마다 자리·크기·돌기를 옮김) ② 번짐·빛살·꼬리 한 묶음
 // ③ 선 한 묶음(천사 선 + 수정 모서리) = 그리는 횟수 3회.
 import * as THREE from 'three';
+import { loadLights, saveLights, localDay, receivedToday, type StoredLight } from './pilgrim-store.ts';
 
 // ───────────── 값 표 (여기만 고치면 된다) ─────────────
 export const GL = {
@@ -59,8 +60,6 @@ export const GL = {
   fireflies: 14,
   /** 후보 화면의 길이 단위 → m (후보 화면의 순례자 키와 견주어 1:1) */
   unit: 1,
-  /** 기기 저장 이름 */
-  storeKey: 'vhk-guardian-lights-v1',
 };
 
 /** 수호천사 안 — 별 12개 자리(x 좌우, y 높이, m)와 잇는 선(별 번호 쌍). 그림: 성지-작업/명동/비교/2026-11-22-수호천사-빛/ */
@@ -79,8 +78,7 @@ const ANGELS: Record<1 | 2 | 3, { pts: [number, number][]; lines: [number, numbe
   },
 };
 
-interface Light { shape: number; color: string; at: string; seed?: number }
-interface Saved { lights: Light[] }
+type Light = StoredLight;
 
 const MAX = 28 + 14; // 하늘의 빛 28 + 내 빛 12(미리보기 ?lineup 은 14)
 const TAILS = 4;
@@ -240,7 +238,7 @@ export class GuardianLights {
         const shape = one !== null ? THREE.MathUtils.clamp(Number(one) | 0, 0, GL.shapes.length - 1) : q.has('shapes') || this.lineup ? i % GL.shapes.length : Math.floor(rnd() * GL.shapes.length);
         this.lights.push({ shape, color: pickColor(rnd, shape), at: 'preview', seed: Math.floor(rnd() * 1e9) });
       }
-    } else this.lights = load().lights.filter((l) => l.shape < GL.shapes.length).slice(0, GL.full);
+    } else this.lights = loadLights().filter((l) => l.shape < GL.shapes.length).slice(0, GL.full);
     const h = Number(q.get('hail'));
     if (h > 0) GL.hailEvery = h;
     if (q.has('nosky') || this.lineup) GL.skyCount = 0;
@@ -313,12 +311,12 @@ export class GuardianLights {
   /** 순례를 마쳤을 때 부른다. 받았으면 true */
   grant(from?: THREE.Vector3): boolean {
     if (this.lights.length >= GL.full) return false;
-    const today = new Date().toISOString().slice(0, 10);
-    if (!this.preview && this.lights.filter((l) => l.at === today).length >= GL.perDay) return false;
+    const today = localDay();
+    if (!this.preview && receivedToday(this.lights) >= GL.perDay) return false;
     const shape = Math.floor(Math.random() * GL.shapes.length);
     const L: Light = { shape, color: pickColor(Math.random, shape), at: today, seed: Math.floor(Math.random() * 1e9) };
     this.lights.push(L);
-    if (!this.preview) save({ lights: this.lights });
+    if (!this.preview) saveLights(this.lights);
     const S = slotOf(L.shape, L.color, L.seed!);
     this.mine.push(S);
     this.rebuild();
@@ -570,9 +568,4 @@ function pickColor(r: () => number, shape: number): string {
   const c = new THREE.Color(GL.shapeColors[shape] ?? 0xffd27a); const h = { h: 0, s: 0, l: 0 }; c.getHSL(h);
   return '#' + c.setHSL((h.h + (r() - 0.5) * 0.04 + 1) % 1, h.s, THREE.MathUtils.clamp(h.l + (r() - 0.5) * 0.08, 0, 0.92)).getHexString();
 }
-function load(): Saved {
-  try { const s = JSON.parse(localStorage.getItem(GL.storeKey) || 'null') as Saved | null; if (s && Array.isArray(s.lights)) return s; } catch { /* 저장소 없음 */ }
-  return { lights: [] };
-}
-function save(s: Saved) { try { localStorage.setItem(GL.storeKey, JSON.stringify(s)); } catch { /* 무시 */ } }
 function mulberry(a: number) { return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }

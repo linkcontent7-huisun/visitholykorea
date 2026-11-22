@@ -5,6 +5,7 @@
   "description": "Visit Holy Korea — 성지 가상 순례 시범 서비스 (three.js + Colyseus)",
   "type": "module",
   "scripts": {
+    "test": "node --test tests/",
     "dev:client": "vite",
     "build": "tsc --noEmit -p tsconfig.json && vite build",
     "start": "tsx --tsconfig server/tsconfig.json server/index.ts",
