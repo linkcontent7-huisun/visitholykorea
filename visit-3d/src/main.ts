@@ -10,6 +10,8 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { GTAOPass } from 'three/examples/jsm/postprocessing/GTAOPass.js';
 import { WIND, NEAR_FADE } from './sitemap/trees.ts';
 import { lightBeam, glassPool } from './textures.ts';
+import { GuardianLights } from './guardian-lights.ts';
+import { simplifyOutdoor } from './simplify.ts';
 import { AVATARS, avatarOf, randomAvatarId, encodeNick, decodeNick, buildAvatar, animateAvatar } from './avatars.ts';
 import nipplejs from 'nipplejs';
 import { makeMaterials } from './materials.ts';
@@ -236,9 +238,11 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   const myTag = document.createElement('div'); myTag.className = 'tag';
   const ptsEl = document.createElement('div'); ptsEl.className = 'pts';
   const nickEl = document.createElement('div'); nickEl.className = 'nick'; nickEl.textContent = myName;
-  myTag.append(ptsEl, nickEl);
+  myTag.append(nickEl); // 2026-11-22 사장님: 머리 위에는 이름만(「⭐ N」은 오른쪽 위 칩에만)
   const myTagObj = new CSS2DObject(myTag); myTagObj.position.set(0, 2.15, 0); me.root.add(myTagObj);
-  const chip = document.createElement('div'); chip.id = 'pointsChip'; document.body.append(chip);
+  const chip = document.createElement('div'); chip.id = 'pointsChip';
+  // 위쪽 단추 줄 끝에 끼워 넣는다 — 따로 띄우면 「시간」 막대를 덮었다(2026-11-22 진단 a)
+  (document.querySelector('#hud .tools') ?? document.body).append(chip);
   const showPoints = () => { ptsEl.textContent = `⭐ ${points.total}`; chip.textContent = `⭐ ${points.total} 포인트`; };
   showPoints();
   points.onChange = (_t, gained) => {
@@ -248,7 +252,10 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   };
   /** 한 번만 오르는 미션 — 처음이면 포인트와 안내 */
   const award = (key: string, pts: number, label: string) => { if (points.award(key, pts)) toast(`⭐ +${pts} 포인트 — ${label}`); };
-  let camDist = touch ? 4.4 : 5.0;       // 0.7 아래면 1인칭
+  // 수호천사의 빛(시제품, guardian-lights.ts) — 순례를 마치면 빛을 하나 받는다. ?nolights 로 끈다
+  const glights = GuardianLights.wanted() ? new GuardianLights(scene) : null;
+  if (glights) glights.onMessage = (m) => toast(m);
+  let camDist = touch ? 8.5 : 9.0;       // 0.7 아래면 1인칭. 2026-11-22 사장님: 목업처럼 멀리(8~11 m) — 캐릭터와 성당이 함께 보이게
   let bodyYaw = 0, mySpeed = 0;
   const lastPos = new THREE.Vector3();
   let moveTarget: THREE.Vector3 | null = null, moveStuck = 0;
@@ -298,7 +305,9 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   let lastCount = 1;
   function setPeople(n: number) {
     lastCount = n;
-    $('people').textContent = status === 'online' ? (n > 1 ? `${n}명 함께 보는 중` : '지금은 혼자 · 실시간 연결됨') : status === 'connecting' ? '연결 중…' : '혼자 보기 (실시간 연결 안 됨)';
+    // 2026-11-22 사장님: 제목은 「명동대성당」만. 함께 보는 사람이 있을 때만 사람 수를 보인다(혼자일 때·연결 안 됨은 쓰지 않는다)
+    const ppl = status === 'online' && n > 1 ? `${n}명 함께 보는 중` : '';
+    $('people').textContent = ppl; $('people').hidden = !ppl; document.querySelector<HTMLElement>('.where .dot')!.hidden = !ppl;
   }
 
   // ── 공간 불러오기 ──
@@ -327,6 +336,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     }
     space = id === 'cathedral' ? buildCathedral(M, site, { light: !high }) : buildChapel(M);
     scene.add(space.root);
+    simplifyOutdoor(space.root); // 바깥 둘레를 단순하게(simplify.ts, ?full 이면 그대로)
     // 쓸 수 있는 것 머리 위에 떠 있는 표지(포켓몬·로블록스처럼 «여기서 무엇을 할 수 있는지» 바로 보이게). 누르면 걸어가서 쓴다
     for (const b of badges) scene.remove(b.o);
     badges.length = 0;
@@ -521,6 +531,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       closeCard();
       if (last) {
         award('stations-all', PTS.allStations, '십자가의 길 열다섯 처를 모두 걸었습니다');
+        glights?.grant(player.pos);
         quest = 'candle'; setGuide(anchorOf((ia) => ia.kind === 'candle' && ia.title.includes('제대')), '제대 앞 봉헌초 — 초를 하나 켜고 기도를 고르세요'); toast('십자가의 길을 다 걸었습니다 🙏 마지막으로 제대 앞에서 초를 봉헌해 보세요'); return;
       }
       stationK = k + 1; setGuide(stationAnchor(stationK), `십자가의 길 제${stationK + 1}처 — ${STATION_NAMES[stationK]}`);
@@ -873,7 +884,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   function tourStep() {
     if (!tour || !space) return;
     const s = space.stations[tour.i];
-    if (!s) { stopTour(); toast('안내 투어를 마쳤습니다'); return; }
+    if (!s) { stopTour(); toast('안내 투어를 마쳤습니다'); glights?.grant(player.pos); return; }
     $('caption').hidden = false;
     $('caption').textContent = `${tour.i + 1} / ${space.stations.length} · ${s.caption}`;
     player.glideTo(s.pos, s.yaw, s.pitch, 2.6, () => {
@@ -1095,6 +1106,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
         camera.rotation.set(cp, player.yaw, 0, 'YXZ');
       }
 
+      if (glights) { glights.bvh = space.bvh; glights.update(dt, t, player.pos, camera); }
+
       if (!introDone && !spaceLoading && space.id === 'cathedral' && space.spawn.pos.y < -3 && player.pos.distanceTo(space.spawn.pos) < 3) startIntro(space.spawn.pos);
       runIntro(dt);
 
@@ -1195,5 +1208,5 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   void loadSpace(first);
   requestAnimationFrame(frame);
   // 점검용 손잡이(브라우저 콘솔 · 자동 시험)
-  (window as any).__vhk = { points, startStations, showStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
+  (window as any).__vhk = { glights, points, startStations, showStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
 }
