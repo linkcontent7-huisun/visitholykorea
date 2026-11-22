@@ -96,15 +96,18 @@ export class Sound {
     this.thudBuf = thudBuffer(ctx);
     void ctx.resume();
     new THREE.AudioLoader().load(`${import.meta.env.BASE_URL}audio/bell-peal.mp3`, (buf) => { this.pealBuf = buf; }, undefined, () => { /* 못 받으면 합성 종소리로 */ });
-    // 배경 음악 두 곡 — 파일을 다 받기 전에도 흘려 재생(스트리밍), 반복
+    // 배경 음악 두 곡 — 파일을 다 받기 전에도 흘려 재생(스트리밍), 반복.
+    // 2026-11-22 가볍게: 들릴 곡만 받는다. 전에는 두 곡(약 7 MB)을 입장하자마자 함께 받았다 — 실내 곡은 처음 성당에 들어갈 때 받기 시작한다(mixBgm)
     const base = import.meta.env.BASE_URL;
     for (const src of [`${base}audio/calm-clairdelune.mp3`, `${base}audio/chant-gaudeamus.mp3`]) {
       const el = new Audio(src);
-      el.loop = true; el.preload = 'auto'; el.crossOrigin = 'anonymous';
+      el.loop = true; el.preload = 'none'; el.crossOrigin = 'anonymous';
+      // 휴대폰(특히 아이폰)은 사용자가 누른 그 순간에 한 번 재생해 둔 소리만 나중에 다시 틀 수 있다 — 지금(입장 단추) 틀었다가 바로 멈춰 둔다.
+      // 실제로 받는 것은 그 곡이 들릴 때(mixBgm)부터
+      void el.play().then(() => { if (!this.bgm.find((b) => b.el === el && b.level > 0.01)) el.pause(); }).catch(() => { /* 사용자 동작 뒤 다시 시도 */ });
       const node = ctx.createMediaElementSource(el);
       const gain = ctx.createGain(); gain.gain.value = 0;
       node.connect(gain); gain.connect(this.listener.getInput());
-      void el.play().catch(() => { /* 사용자 동작 뒤 다시 시도 */ });
       this.bgm.push({ el, gain, level: 0 });
     }
   }
@@ -120,7 +123,10 @@ export class Sound {
     this.bgm.forEach((b, i) => {
       b.level += (want[i] - b.level) * Math.min(1, dt * 0.8);
       b.gain.gain.value = b.level * this.duckGain;
-      if (this.enabled && b.el.paused) void b.el.play().catch(() => {});
+      const audible = want[i]! > 0.01 || b.level > 0.01;
+      if (audible && b.el.preload !== 'auto') b.el.preload = 'auto'; // 처음 들릴 때 받기 시작
+      if (this.enabled && audible && b.el.paused) void b.el.play().catch(() => {});
+      else if (!audible && !b.el.paused) b.el.pause(); // 안 들리는 곡은 멈춰 둔다(받기도 멈춘다)
     });
   }
 
@@ -131,7 +137,7 @@ export class Sound {
     this.enabled = on;
     this.listener?.setMasterVolume(on ? 1 : 0);
     if (on) void this.listener?.context.resume();
-    for (const b of this.bgm) { if (on) void b.el.play().catch(() => {}); else b.el.pause(); }
+    for (const b of this.bgm) { if (on) { if (b.level > 0.01) void b.el.play().catch(() => {}); } else b.el.pause(); }
   }
 
   /** 큰 종소리(세 번 성공·남이 울릴 때) — 실제 녹음 14초. 음악은 그동안 낮아진다 */
