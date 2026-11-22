@@ -10,6 +10,7 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { GTAOPass } from 'three/examples/jsm/postprocessing/GTAOPass.js';
 import { WIND, NEAR_FADE } from './sitemap/trees.ts';
 import { lightBeam, glassPool } from './textures.ts';
+import { simplifyOutdoor } from './simplify.ts';
 import { AVATARS, avatarOf, randomAvatarId, encodeNick, decodeNick, buildAvatar, animateAvatar } from './avatars.ts';
 import nipplejs from 'nipplejs';
 import { makeMaterials } from './materials.ts';
@@ -327,6 +328,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     }
     space = id === 'cathedral' ? buildCathedral(M, site, { light: !high }) : buildChapel(M);
     scene.add(space.root);
+    simplifyOutdoor(space.root); // 바깥 둘레를 단순하게(simplify.ts, ?full 이면 그대로)
     // 쓸 수 있는 것 머리 위에 떠 있는 표지(포켓몬·로블록스처럼 «여기서 무엇을 할 수 있는지» 바로 보이게). 누르면 걸어가서 쓴다
     for (const b of badges) scene.remove(b.o);
     badges.length = 0;
