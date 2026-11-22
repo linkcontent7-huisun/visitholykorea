@@ -716,7 +716,7 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
     // 언덕 아래이면서 나무 줄기에서 4 m 넘게 떨어져 앞이 트인 자리(성당 쪽이 보이게)를 고른다
     const clear = (x: number, z: number) => placed!.trunks.every((t) => Math.hypot(t.x - x, t.y - z) > 3)
       && [6, 12, 18].every((d) => placed!.trunks.every((t) => Math.hypot(t.x - x, t.y - (z - d)) > 2.5));
-    outer: for (let z = 52; z <= 130; z += 2) {
+    outer: for (let z = 74; z <= 130; z += 2) { // 2026-11-22: 계단 가운데 화단(덤불) 대신 계단 앞 넓은 바닥에서 시작한다
       for (const x of [3.5, 3, 4, 2.5, 4.5, 0, -3, 6, 10, -10, 14, -14]) { // 정면 오르막 길(가운데 x≈3.5) 위를 먼저 찾는다
         if (placed.groundAt(x, z) <= -HILL + 0.1 && free(x, z, 2) && clear(x, z)) { spawnPos = v3(x, placed.groundAt(x, z) + 0.02, z); break outer; }
       }

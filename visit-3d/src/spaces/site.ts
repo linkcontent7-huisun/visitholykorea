@@ -114,8 +114,10 @@ export function placeSite(kit: Kit, M: Mats, site: SiteData, towerFrontLocal: nu
     const kc = keepOut;
     const clearRing: [number, number][] = [[kc.min.x, kc.min.y], [kc.max.x, kc.min.y], [kc.max.x, kc.max.y], [kc.min.x, kc.max.y]].map(([x, z]) => toSite(x, z));
     const plaza: [number, number][] = [[-15, kc.max.y], [15, kc.max.y], [15, kc.max.y + 26], [-15, kc.max.y + 26]].map(([x, z]) => toSite(x, z));
+    // 2026-11-22 사장님: 출발점 머리 위 가지를 걷는다 — 언덕 아래 정면 계단 앞(출발점과 9 m 뒤 카메라 자리)에는 나무를 심지 않는다
+    const approach: [number, number][] = [[-7, 58], [14, 58], [14, 96], [-7, 96]].map(([x, z]) => toSite(x, z));
     const ls = buildLandscape(site as any, {
-      keepClear: [clearRing, plaza], groundScale: 0.15, distant: true,
+      keepClear: [clearRing, plaza, approach], groundScale: 0.15, distant: true,
       // 화질 «가볍게»(모바일 기본) = 20면체 나무 · 반경 200m, «높게» = 상세 나무 · 반경 260m. 중심 = 성당 가운데
       treeDetail: opts.light ? 'low' : 'high', treeRadius: opts.light ? 200 : 260, treeCenter: toSite(0, -15),
       terrain: { height: heightAt, center: toSite(0, -15), size: 230, top: HILL },
