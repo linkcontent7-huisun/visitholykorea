@@ -82,7 +82,9 @@ const pvScene = new THREE.Scene(), pvCam = new THREE.PerspectiveCamera(28, 110 /
 pvCam.position.set(0, 1.25, 4.6); pvCam.lookAt(0, 0.95, 0);
 pvScene.add(new THREE.HemisphereLight(0xfff4e0, 0x3a2e22, 2.2));
 const pvSun = new THREE.DirectionalLight(0xffffff, 2.2); pvSun.position.set(2, 3, -3); pvScene.add(pvSun);
-try { pvRenderer = new THREE.WebGLRenderer({ canvas: pv, alpha: true, antialias: true }); pvRenderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); pvRenderer.setSize(110, 140, false); } catch { pvRenderer = null; }
+// 다시 온 사람은 입장 화면을 보지 않으므로 미리보기 그래픽 장치를 만들지 않는다(페이지 여는 시간 약 1초)
+const returningEarly = (() => { try { return !params.has('entry') && !!localStorage.getItem(KEY_NICK); } catch { return false; } })();
+if (!returningEarly) try { pvRenderer = new THREE.WebGLRenderer({ canvas: pv, alpha: true, antialias: true }); pvRenderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); pvRenderer.setSize(110, 140, false); } catch { pvRenderer = null; }
 function selectAvatar(id: string) {
   avatarId = id;
   pickBox.querySelectorAll('button').forEach((b) => b.setAttribute('aria-checked', String((b as HTMLElement).dataset.id === id)));
@@ -102,13 +104,25 @@ selectAvatar(avatarId);
   requestAnimationFrame(spin);
 })(0);
 
-$('enter').addEventListener('click', () => {
+function enterNow() {
   const name = cleanNick(nickInput.value).slice(0, 9);
   try { localStorage.setItem(KEY_NICK, name); localStorage.setItem(KEY_NICK_SELF, isSelfName(name, localStorage) ? '1' : '0'); localStorage.setItem('vhk.avatar', avatarId); } catch { /* 무시 */ }
   $<HTMLButtonElement>('enter').disabled = true;
   previewOn = false; pvRenderer?.dispose();
   start(encodeNick(name, avatarId), startSel.value as SpaceId, qualitySel.value === 'high', avatarId);
-});
+}
+$('enter').addEventListener('click', enterNow);
+
+// 다시 온 사람은 입장 화면을 건너뛰고 바로 마당으로(2026-11-22 사장님 결정). 「한 번 들어와 봤다」 = 기기에 이름이 남아 있음.
+// 이름 칸은 처음 들어올 때와 같은 순서(직접 고친 이름 → 계정 이름 → 전에 쓴 이름)로 이미 채워져 있다.
+// 주소에 ?entry 를 붙이면 입장 화면을 다시 본다(이름·캐릭터 바꾸기, 시험). 소리는 첫 손짓에 켠다(start 안의 unlock).
+const returning = (() => { try { return !params.has('entry') && !!localStorage.getItem(KEY_NICK) && webglOk(); } catch { return false; } })();
+if (returning) {
+  $('entry').classList.add('skipped');
+  // 페이지가 다 열린 뒤(첫 화면을 한 번 그린 뒤) 짓기 시작한다 — 열리는 도중에 지으면 더 오래 걸렸다
+  const go = () => requestAnimationFrame(() => setTimeout(enterNow, 0));
+  if (document.readyState === 'complete') go(); else addEventListener('load', go, { once: true });
+}
 
 // ── 본체 ──────────────────────────────────────────────────────
 function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
@@ -262,6 +276,10 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   const camRay = new THREE.Ray();
   const firstPerson = () => camDist < 0.7 || player.gliding || !!player.sitting;
   sound.init(camera);
+  // 입장 단추를 누르지 않고 들어오면(다시 온 사람) 브라우저가 소리를 막는다 — 첫 손짓(누름·키)에서 소리를 켠다
+  const unlockSound = () => { sound.unlock(); removeEventListener('pointerdown', unlockSound, true); removeEventListener('keydown', unlockSound, true); removeEventListener('touchend', unlockSound, true); };
+  addEventListener('pointerdown', unlockSound, true); addEventListener('keydown', unlockSound, true); addEventListener('touchend', unlockSound, true);
+  $('btnMe')?.addEventListener('click', () => { const u = new URL(location.href); u.searchParams.set('entry', '1'); location.href = u.toString(); });
 
   let space: SpaceBuild | null = null;
   let site: SiteData | null | undefined;

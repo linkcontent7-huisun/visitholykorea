@@ -127,6 +127,13 @@ export class Sound {
   /** 종 줄 놀이가 열려 있는 동안 음악을 끈다(true) / 다시 서서히 켠다(false) */
   holdMusic(on: boolean) { this.musicHold = on; if (!on) this.duckLeft = Math.max(this.duckLeft, 1.5); }
 
+  /** 사용자의 손짓 안에서 부른다 — 소리 장치를 깨우고 배경 음악을 다시 튼다(입장 화면을 건너뛴 경우) */
+  unlock() {
+    if (!this.listener) return;
+    void this.listener.context.resume();
+    if (this.enabled) for (const b of this.bgm) if (b.el.paused) void b.el.play().catch(() => { /* 다음 손짓에 */ });
+  }
+
   setEnabled(on: boolean) {
     this.enabled = on;
     this.listener?.setMasterVolume(on ? 1 : 0);
