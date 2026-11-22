@@ -181,7 +181,15 @@ export function MyNoteEditor({ siteId, myStamp, onClose, onOpenPhoto }: MyNoteEd
         )}
       </div>
       <div className="mt-3 flex gap-2">
-        <Button size="sm" onClick={handleUpdateMyNote} disabled={updateStamp.isPending}>
+        {/* 이미 남긴 한 줄을 다 지우고 저장하면 기록이 공개 목록과 이 화면의 「수정」에서 함께 사라져
+              다시 고칠 길이 없어졌다(2026-11-22 조사). 한 줄은 비울 수 없다 — 기록을 없애려면 「내 기록」에서 지운다 */}
+        <Button
+          size="sm"
+          onClick={handleUpdateMyNote}
+          disabled={
+            updateStamp.isPending || (myStamp.note != null && normalizeNote(myNoteDraft) === null)
+          }
+        >
           {t('recordsSave')}
         </Button>
         <Button variant="neutral" size="sm" onClick={onClose}>
