@@ -11,6 +11,7 @@ import { GTAOPass } from 'three/examples/jsm/postprocessing/GTAOPass.js';
 import { WIND, NEAR_FADE } from './sitemap/trees.ts';
 import { lightBeam, glassPool } from './textures.ts';
 import { simplifyOutdoor } from './simplify.ts';
+import { initialName, isSelfName, KEY_NICK, KEY_NICK_SELF } from './pilgrim-name.ts';
 import { AVATARS, avatarOf, randomAvatarId, encodeNick, decodeNick, buildAvatar, animateAvatar } from './avatars.ts';
 import nipplejs from 'nipplejs';
 import { makeMaterials } from './materials.ts';
@@ -43,7 +44,8 @@ const startParam = params.get('space');
 const nickInput = $<HTMLInputElement>('nick');
 const startSel = $<HTMLSelectElement>('startSpace');
 const qualitySel = $<HTMLSelectElement>('quality');
-try { nickInput.value = localStorage.getItem('vhk.nick') ?? ''; } catch { /* 저장소 없음 */ }
+// 로그인한 순례자의 계정 이름을 칸에 넣는다(직접 고친 이름이 먼저) — pilgrim-name.ts
+try { nickInput.value = initialName(localStorage); } catch { /* 저장소 없음 */ }
 if (isSpaceId(startParam)) startSel.value = startParam;
 qualitySel.value = touch ? 'low' : 'high';
 
@@ -102,7 +104,7 @@ selectAvatar(avatarId);
 
 $('enter').addEventListener('click', () => {
   const name = cleanNick(nickInput.value).slice(0, 9);
-  try { localStorage.setItem('vhk.nick', name); localStorage.setItem('vhk.avatar', avatarId); } catch { /* 무시 */ }
+  try { localStorage.setItem(KEY_NICK, name); localStorage.setItem(KEY_NICK_SELF, isSelfName(name, localStorage) ? '1' : '0'); localStorage.setItem('vhk.avatar', avatarId); } catch { /* 무시 */ }
   $<HTMLButtonElement>('enter').disabled = true;
   previewOn = false; pvRenderer?.dispose();
   start(encodeNick(name, avatarId), startSel.value as SpaceId, qualitySel.value === 'high', avatarId);
