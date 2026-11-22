@@ -238,7 +238,9 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   const nickEl = document.createElement('div'); nickEl.className = 'nick'; nickEl.textContent = myName;
   myTag.append(ptsEl, nickEl);
   const myTagObj = new CSS2DObject(myTag); myTagObj.position.set(0, 2.15, 0); me.root.add(myTagObj);
-  const chip = document.createElement('div'); chip.id = 'pointsChip'; document.body.append(chip);
+  const chip = document.createElement('div'); chip.id = 'pointsChip';
+  // 위쪽 단추 줄 끝에 끼워 넣는다 — 따로 띄우면 「시간」 막대를 덮었다(2026-11-22 진단 a)
+  (document.querySelector('#hud .tools') ?? document.body).append(chip);
   const showPoints = () => { ptsEl.textContent = `⭐ ${points.total}`; chip.textContent = `⭐ ${points.total} 포인트`; };
   showPoints();
   points.onChange = (_t, gained) => {

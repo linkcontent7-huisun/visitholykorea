@@ -209,6 +209,7 @@ body.ringing #hint, body.ringing #crosshair, body.ringing #actBtn { display: non
 @keyframes ptsBump { 0% { transform: scale(1); } 25% { transform: scale(1.35); } 100% { transform: scale(1); } }
 @keyframes ptsPop { 0% { opacity: 0; transform: translate(-50%, 6px); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -46px); } }
 #pointsChip { position: fixed; top: calc(10px + env(safe-area-inset-top)); right: 12px; z-index: 6; background: rgba(27,24,20,.82); border: 1px solid var(--line); color: #f1d27a; font: 700 14px/1 var(--font); padding: 7px 12px; border-radius: 999px; pointer-events: none; }
+.tools #pointsChip { position: static; align-self: center; }
 
 /* v3-14: 손가락으로 누르는 화면(휴대폰)에서는 버튼을 손가락 크기(약 40px)로 */
 @media (pointer: coarse) {
