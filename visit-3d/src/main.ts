@@ -1056,11 +1056,15 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       mySpeed += (Math.hypot(vx, vz) - mySpeed) * Math.min(1, dt * 10);
       const fp = firstPerson();
       if (fp) bodyYaw = player.yaw;
-      else if (mySpeed > 0.35) {
-        let dy = Math.atan2(-vx, -vz) - bodyYaw;
+      else if (len > 0.2) {
+        // 누른 방향(카메라 기준 입력)으로 돈다. 실제로 움직인 거리로 계산하면 멈출 때 atan2(0,0) 이 반 바퀴가 되어
+        // 몸이 뒤로 홱 돌고, 벽에 막혀 미끄러질 때도 옆으로 돈다(2026-11-22 진단, 멘토 목업 방식).
+        const wx = -Math.sin(player.yaw) * mv.z + Math.cos(player.yaw) * mv.x;
+        const wz = -Math.cos(player.yaw) * mv.z - Math.sin(player.yaw) * mv.x;
+        let dy = Math.atan2(-wx, -wz) - bodyYaw;
         while (dy > Math.PI) dy -= Math.PI * 2;
         while (dy < -Math.PI) dy += Math.PI * 2;
-        bodyYaw += dy * Math.min(1, dt * 12);
+        bodyYaw += dy * (1 - Math.exp(-12 * dt));
       }
       document.body.classList.toggle('ringing', !!camFix);
       if (camFix && space.bellRinger) bodyYaw = space.bellRinger.yaw; // 줄을 잡은 동안은 줄 쪽을 본다(자리에 옮겨 설 때 생기는 속도로 몸이 돌지 않게)
