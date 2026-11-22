@@ -39,6 +39,7 @@ import { MyPlacesList } from '@/features/places/components/MyPlacesList';
 import { NewPlaceSheet } from '@/features/places/components/NewPlaceSheet';
 import { CROWD_LEVEL_LABEL_KEY } from '@/features/passport/lib/crowd-level-label';
 import { generateChronicleCard } from '@/features/passport/lib/recap-card';
+import { nextPhotoPosition } from '@/features/passport/lib/photo-position';
 import { shareOrDownloadCard } from '@/features/passport/lib/share-card';
 import {
   useDeleteStamp,
@@ -124,7 +125,12 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
     if (files.length > room)
       window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
     const photos = await Promise.all(picked.map((file) => shrinkPhoto(file, policy)));
-    uploadPhotos.mutate({ stampId: stamp.stampId, startPosition: stamp.photos.length + 1, photos });
+    uploadPhotos.mutate({
+      stampId: stamp.stampId,
+      // 지운 사진 자리를 다시 쓰면 남은 사진을 덮어썼다 — 가장 큰 자리 다음에(2026-11-22)
+      startPosition: nextPhotoPosition(stamp.photos),
+      photos,
+    });
   };
 
   return (
