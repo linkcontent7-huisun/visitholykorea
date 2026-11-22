@@ -53,6 +53,8 @@ export function siteMatchesQuery(site: HolySite, needle: string): boolean {
     site.region,
     localizeRegionName(site.region, 'en'),
     dioceseLabel(site.region, 'ko'),
+    // 「서울교구」「대구교구」「광주교구」로 쳐도 찾게 — 정식 이름은 「○○대교구」(점검 A 고장 4, 2026-11-22)
+    dioceseLabel(site.region, 'ko').replace('대교구', '교구'),
     dioceseLabel(site.region, 'en'),
     region ?? '',
     region ? localizeRegionName(region, 'en') : '',

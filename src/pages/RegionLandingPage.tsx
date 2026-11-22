@@ -100,6 +100,7 @@ export default function RegionLandingPage() {
         title={
           <>
             {fillPlaceholders(t('regionHeroTitle'), { region: regionLabel })}
+            {/* 줄바꿈 앞에 빈칸 — 탭 제목은 h1 의 글자만 읽어 「떠나는성지순례」로 붙어 나왔다(점검 B 고장 10) */}{' '}
             <br />
             {fillPlaceholders(t('regionHeroTitleLine2'), { region: regionLabel })}
           </>

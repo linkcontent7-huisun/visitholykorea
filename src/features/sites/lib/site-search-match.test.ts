@@ -89,3 +89,15 @@ describe('흔히 부르는 이름으로도 찾는다 (2026-10-29)', () => {
     expect(nameAliases('명동대성당')).toContain('명동성당');
   });
 });
+
+describe('교구를 「○○교구」로 쳐도 찾는다 (점검 A, 2026-11-22)', () => {
+  it('서울대교구 성지를 「서울교구」로 찾는다', () => {
+    const s = site('명동대성당', '서울', '서울특별시 중구 명동길 74');
+    expect(siteMatchesQuery(s, normalizeSearchText('서울교구'))).toBe(true);
+    expect(siteMatchesQuery(s, normalizeSearchText('서울대교구'))).toBe(true);
+  });
+  it('교구가 아닌 이름에는 걸리지 않는다', () => {
+    const s = site('명동대성당', '서울', '서울특별시 중구 명동길 74');
+    expect(siteMatchesQuery(s, normalizeSearchText('대구교구'))).toBe(false);
+  });
+});
