@@ -20,6 +20,12 @@ export const SIMPLE = {
   smallShadows: true,
 };
 
+/** 덜어 낸 것을 아예 짓지 않아도 되는가(?full 이면 전부 짓는다) — 짓고 숨기면 시간만 들고, 덤불은 보이지 않는 충돌까지 남았다 */
+export function skipBuild(key: keyof typeof SIMPLE): boolean {
+  try { if (new URLSearchParams(location.search).has('full')) return false; } catch { /* 주소 없음 */ }
+  return SIMPLE[key];
+}
+
 /** 공간을 지은 뒤 한 번 부른다. 숨긴 것의 이름 목록을 돌려준다 */
 export function simplifyOutdoor(root: THREE.Object3D): string[] {
   try { if (new URLSearchParams(location.search).has('full')) return []; } catch { /* 주소 없음 */ }
