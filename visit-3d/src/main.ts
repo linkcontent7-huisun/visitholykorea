@@ -968,7 +968,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     });
     const end = (e: PointerEvent) => {
       if (!tp || e.pointerId !== tp.id) return;
-      if (tp.moved < 10 && performance.now() - tp.t < 350) clickAt(e.clientX, e.clientY);
+      if (tp.moved < 10 && performance.now() - tp.t < 350) { clickAt(e.clientX, e.clientY); $('lookTip').classList.add('gone'); } // 한 번 눌러 걸으면 안내 글을 거둔다
       tp = null;
     };
     canvas.addEventListener('pointerup', end);
