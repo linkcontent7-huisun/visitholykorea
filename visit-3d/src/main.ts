@@ -104,7 +104,9 @@ selectAvatar(avatarId);
   requestAnimationFrame(spin);
 })(0);
 
+let enterAt = 0; // 입장하기를 누른 시각(주소에 ?time 을 붙이면 입장에 걸린 초를 화면에 알린다 — 휴대폰에서 직접 재 보는 용도)
 function enterNow() {
+  enterAt = performance.now();
   const name = cleanNick(nickInput.value).slice(0, 9);
   try { localStorage.setItem(KEY_NICK, name); localStorage.setItem(KEY_NICK_SELF, isSelfName(name, localStorage) ? '1' : '0'); localStorage.setItem('vhk.avatar', avatarId); } catch { /* 무시 */ }
   $<HTMLButtonElement>('enter').disabled = true;
@@ -128,6 +130,7 @@ if (returning) {
 function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   const myName = decodeNick(nick).name; // 화면에 보이는 이름(별명 끝의 캐릭터 번호를 뺀 것)
   const renderer = new THREE.WebGLRenderer({ antialias: high, powerPreference: 'high-performance' });
+  renderer.debug.checkShaderErrors = false; // 입장 빠르게(2026-11-24): 그리기 하나마다 셰이더 결과를 동기로 기다리지 않는다(three 공식 권장 — 오류 검사만 끈다)
   const PR_MAX = Math.min(window.devicePixelRatio || 1, high ? 2 : 1);
   renderer.setPixelRatio(Math.min(PR_MAX, 1.25)); // 처음은 1.25 — 아래 자동 화질이 기기에 맞춰 올리거나 내린다
   renderer.setSize(innerWidth, innerHeight);
@@ -419,7 +422,10 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     history.replaceState(null, '', u.pathname + u.search + u.hash);
     spaceLoading = false;
     // 새 공간의 첫 화면이 그려진 다음(두 프레임 뒤)에 «준비 중» 을 지운다
-    requestAnimationFrame(() => requestAnimationFrame(() => { if (!spaceLoading) $('loading').hidden = true; }));
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (!spaceLoading) $('loading').hidden = true;
+      if (enterAt && params.has('time')) { toast(`입장에 ${((performance.now() - enterAt) / 1000).toFixed(1)}초 걸렸습니다`); enterAt = 0; }
+    }));
     savedIds.clear(); saved = null;
     void refreshSaved(id, true);
     await net.join(id, nick);

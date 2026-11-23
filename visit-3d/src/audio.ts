@@ -91,9 +91,8 @@ export class Sound {
     const ctx = this.listener.context;
     // 합성 종소리·오르간 지속음은 쓸 때 만든다 — 입장할 때 미리 만들면 1초쯤 화면이 멈추는데,
     // 실제 녹음(종 mp3 · 배경 음악)이 있으면 둘 다 쓰이지 않는다(2026-11-12)
-    this.tingBuf = tingBuffer(ctx);
-    this.dropBuf = dropBuffer(ctx);
-    this.thudBuf = thudBuffer(ctx);
+    // 입장 빠르게(2026-11-24): 짧은 효과음 세 개를 합성하는 데 0.3초쯤 걸린다 — 첫 화면이 뜬 뒤(2초 뒤)에 만든다. 그 전에 누른 소리는 건너뛴다(play·ting 이 버퍼 없으면 조용히 돌아간다)
+    setTimeout(() => { this.tingBuf = tingBuffer(ctx); this.dropBuf = dropBuffer(ctx); this.thudBuf = thudBuffer(ctx); }, 2000);
     void ctx.resume();
     new THREE.AudioLoader().load(`${import.meta.env.BASE_URL}audio/bell-peal.mp3`, (buf) => { this.pealBuf = buf; }, undefined, () => { /* 못 받으면 합성 종소리로 */ });
     // 배경 음악 두 곡 — 파일을 다 받기 전에도 흘려 재생(스트리밍), 반복
