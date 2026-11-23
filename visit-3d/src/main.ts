@@ -269,6 +269,16 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   /** 한 번만 오르는 미션 — 처음이면 포인트와 안내 */
   const award = (key: string, pts: number, label: string) => { if (points.award(key, pts)) toast(`⭐ +${pts} 포인트 — ${label}`); };
   let camDist = touch ? 4.4 : 5.0;       // 0.7 아래면 1인칭
+  // ── 두 손가락 확대·축소(2026-11-24 사장님: 휴대폰 사진 보듯이) ──
+  // 두 손가락을 모으면 멀어져(camDist 증가) 11 m 를 넘는 순간부터 카메라가 하늘로 올라 성당과 계단 «전체 그림» 으로, 벌리면 다시 내려와 캐릭터에게 초점이 모인다.
+  // 11 m 까지는 전과 같은 어깨 뒤 따라가기다. 확정된 조작이다(성지만들기 스킬 6-2) — 성지가 바뀌어도 같게: 전체 그림의 중심·높이만 그 성지 크기에 맞춘다.
+  const CAM_CHASE_MAX = 11, CAM_OVER = 60;
+  const OV_CENTER = new THREE.Vector3(0.5, 0, 11), OV_H = 118, OV_PITCH = (78 * Math.PI) / 180; // 성당(z 7 ~ -52)과 계단(z 70)까지 세로로 다 들어오는 높이
+  const ovPos = new THREE.Vector3(OV_CENTER.x, OV_CENTER.y + OV_H * Math.sin(OV_PITCH), OV_CENTER.z + OV_H * Math.cos(OV_PITCH));
+  const ovQuat = (() => { const o = new THREE.PerspectiveCamera(); // 카메라여야 -Z 쪽을 바라본다(Object3D 는 +Z)
+    o.position.copy(ovPos); o.lookAt(OV_CENTER); return o.quaternion.clone(); })();
+  const youRing = new THREE.Mesh(new THREE.RingGeometry(0.9, 1.3, 40).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xffd678, transparent: true, opacity: 0.95, depthTest: false, blending: THREE.AdditiveBlending, toneMapped: false }));
+  youRing.renderOrder = 9; youRing.visible = false; scene.add(youRing);
   let bodyYaw = 0, mySpeed = 0;
   const lastPos = new THREE.Vector3();
   let moveTarget: THREE.Vector3 | null = null, moveStuck = 0;
@@ -1024,7 +1034,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     canvas.addEventListener('pointermove', (e) => {
       if (!touches.has(e.pointerId)) return;
       touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (touches.size === 2) { const [a, b] = [...touches.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); camDist = THREE.MathUtils.clamp(camDist - (d - pinch) * 0.02, 0, 11); pinch = d; }
+      // 모으면 멀리(전체 그림)·벌리면 가까이(초점) — 손가락이 움직인 만큼 같은 비율로 확대·축소(사진 보기와 같다)
+      if (touches.size === 2) { const [a, b] = [...touches.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (d > 1 && pinch > 1) camDist = THREE.MathUtils.clamp(camDist * (pinch / d), 0.2, CAM_OVER); pinch = d; }
     });
     const lift = (e: PointerEvent) => touches.delete(e.pointerId);
     canvas.addEventListener('pointerup', lift); canvas.addEventListener('pointercancel', lift);
@@ -1192,12 +1203,18 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
         const pivot = player.pos.clone().setY(player.pos.y + 1.45 * me.def.scale + 0.2);
         const cp = Math.min(player.pitch, 0.9);
         const fwd = new THREE.Vector3(-Math.sin(player.yaw) * Math.cos(cp), Math.sin(cp), -Math.cos(player.yaw) * Math.cos(cp));
-        let d = camDist;
+        let d = Math.min(camDist, CAM_CHASE_MAX);
         camRay.origin.copy(pivot); camRay.direction.copy(fwd).negate();
         const block = space.bvh.raycastFirst(camRay, THREE.DoubleSide);
         if (block && block.distance < d + 0.3) d = Math.max(0.35, block.distance - 0.3);
         camera.position.copy(pivot).addScaledVector(fwd, -d);
         camera.rotation.set(cp, player.yaw, 0, 'YXZ');
+        // 11 m 보다 더 멀어지면 전체 그림으로 올라간다(s: 0 따라가기 … 1 전체 그림)
+        const ov = THREE.MathUtils.smoothstep(camDist, CAM_CHASE_MAX, CAM_OVER);
+        if (ov > 0) { camera.position.lerp(ovPos, ov); camera.quaternion.slerp(ovQuat, ov); }
+        document.body.classList.toggle('overview', ov > 0.25); // 전체 그림에서는 안내 표지·설명 글을 감춘다(CSS)
+        youRing.visible = ov > 0.05;
+        if (youRing.visible) { youRing.position.set(player.pos.x, player.pos.y + 0.15, player.pos.z); youRing.scale.setScalar((1 + 7 * ov) * (1 + 0.12 * Math.sin(t * 5))); }
       }
 
       if (!introDone && !spaceLoading && space.id === 'cathedral' && space.introFrom && player.pos.distanceTo(space.spawn.pos) < 3) startIntro(player.pos.clone(), space.introFrom);
@@ -1300,5 +1317,5 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   void loadSpace(first);
   requestAnimationFrame(frame);
   // 점검용 손잡이(브라우저 콘솔 · 자동 시험)
-  (window as any).__vhk = { points, startStations, showStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
+  (window as any).__vhk = { get camDist() { return camDist; }, points, startStations, showStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
 }
