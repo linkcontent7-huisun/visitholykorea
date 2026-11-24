@@ -22,6 +22,7 @@ import type { Interactable, SpaceBuild } from './spaces/types.ts';
 import { Player } from './player.ts';
 import { Sound } from './audio.ts';
 import { Net } from './net.ts';
+import { createPilgrimLights, SANCTUARY_LIGHTS } from './lights.ts';
 import { fetchSummary, lightCandle, isLoggedIn, guessCountry, flag, daysLeft, sharesMainSession, type CandleSummary } from './candles.ts';
 import { startBellGame, startSignOfCross } from './rites.ts';
 import { Points, PTS } from './points.ts';
@@ -248,6 +249,13 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // ── 내 캐릭터 · 3인칭 카메라(로블록스식) ──
   const me = buildAvatar(avatarOf(myAvatar));
   scene.add(me.root);
+  // 순례자의 빛 — 점 한 묶음(그리기 1번). 움직임은 전부 셰이더가 한다
+  const lights = createPilgrimLights({ low: touch, pixelRatio: Math.min(PR_MAX, 1.25), viewH: () => innerHeight });
+  scene.add(lights.object);
+  const lightsAt = new THREE.Vector3();
+  const grantLight = (spaceId: string) => {
+    if (lights.award(spaceId)) toast(`✨ ${SANCTUARY_LIGHTS[spaceId]?.name ?? '새 빛'}이 순례자를 따라나섭니다`);
+  };
   // v3-8 포인트: 내 머리 위에 이름, 그 위에 포인트를 크게. 화면 오른쪽 위에도 작은 칩(1인칭일 때 머리 위가 안 보이므로)
   const points = new Points();
   const myTag = document.createElement('div'); myTag.className = 'tag';
@@ -729,6 +737,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     if (changed && lit && by === myName) {
       // v3-8: 성모 동굴의 초는 +30, 제대 앞 봉헌대의 초는 +20 (각 봉헌대 한 번)
       const grotto = candleTitle.includes('성모');
+      const sid = space?.id; if (!grotto && sid) setTimeout(() => grantLight(sid), 1200); // 제대 앞에서 초를 봉헌하면 그 성지의 큰 빛을 받는다
       award(grotto ? 'candle-grotto' : 'candle-altar', grotto ? PTS.candleGrotto : PTS.candleAltar, grotto ? '성모님께 초를 봉헌' : '제대 앞에 초를 봉헌');
       if (quest === 'candle') { quest = 'done'; setGuide(null); toast('순례를 마쳤습니다 🙏 성당 안을 자유롭게 둘러보세요'); }
     }
@@ -1098,6 +1107,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       me.root.rotation.y = bodyYaw;
       me.root.visible = !fp || !!camFix; myTagObj.visible = me.root.visible;
       animateAvatar(me, dt, mySpeed, t, !!player.sitting);
+      lights.update(t, dt, lightsAt.set(player.pos.x, player.pos.y, player.pos.z));
       if (camFix && space.fx?.ropeGrab) {
         // 줄이 두 손 사이를 지나가게 — 손 자리를 세계 좌표로 읽어 공간에 넘긴다
         me.root.updateMatrixWorld(true);
@@ -1221,5 +1231,5 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   void loadSpace(first);
   requestAnimationFrame(frame);
   // 점검용 손잡이(브라우저 콘솔 · 자동 시험)
-  (window as any).__vhk = { points, startStations, showStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
+  (window as any).__vhk = { lights, grantLight, points, startStations, showStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
 }
