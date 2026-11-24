@@ -13,7 +13,7 @@ import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import type { AvatarDef, AvatarRig } from './avatars.ts';
 
-type Hat = 'jokduri' | 'gat' | 'satgat' | 'veil' | 'nunveil' | 'sangtu' | 'jjok' | 'daenggi' | 'cap' | 'long';
+type Hat = 'hwagwan' | 'samo' | 'jangot' | 'jeongjagwan' | 'bokgeon' | 'jokduri' | 'gat' | 'satgat' | 'veil' | 'nunveil' | 'sangtu' | 'jjok' | 'daenggi' | 'cap' | 'long';
 const HOLD_ITEMS = false; // 캐릭터가 무언가를 들게 하려면 사장님 허락 뒤에만 true
 type Hold = '' | 'rosary' | 'flower' | 'book' | 'candle' | 'staff' | 'cane' | 'sword' | 'flag' | 'horn';
 interface Look {
@@ -46,10 +46,14 @@ const LOOKS: Record<string, Look> = {
   dad:      { robe: true, hat: 'gat', top: 0x2f6fcf, vest: 0xc8202a, ribbon: 0xe0b040, hold: '' },                             // 청색 도포 + 다홍 쾌자 + 갓
   mom:      { robe: false, hat: 'jokduri', top: 0xffc21a, skirt: 0xc8203a, ribbon: 0x2f4a8a, nori: 0xe0a030, hold: 'flower' }, // 노랑 저고리 + 다홍 치마 + 쪽두리·비녀·노리개
   teen:     { robe: true, hat: 'cap', top: 0x5fc24a, belt: 0xd9344c, ribbon: 0xd9344c, bundle: true, hold: '' },               // 연두 두루마기 + 다홍 띠
-  boy:      { robe: true, child: true, hat: 'cap', top: 0xffc81a, belt: 0xd9344c, ribbon: 0x2f4a8a, hold: 'flag' },           // 노랑 + 색동 소매
+  boy:      { robe: true, child: true, hat: 'bokgeon', top: 0xffc81a, belt: 0xd9344c, ribbon: 0x2f4a8a, hold: 'flag' },           // 노랑 + 색동 소매
   girl:     { robe: false, child: true, hat: 'daenggi', top: 0xff7aa8, skirt: 0xd91e36, ribbon: 0x2f4a8a, hold: 'flower' },  // 분홍 저고리 + 다홍 치마 + 댕기 + 색동 소매
   sister:   { robe: true, hat: 'nunveil', top: 0x2b2a2e, belt: 0x2b2a2e, ribbon: 0x2b2a2e, hold: 'rosary' },
   priest:   { robe: true, hat: 'cap', top: 0x232327, belt: 0x232327, ribbon: 0x232327, collar: 'roman', hold: 'book' },
+  gungnyeo: { robe: false, hat: 'hwagwan', top: 0x2fa070, skirt: 0xc8202a, ribbon: 0xe0b040, nori: 0xe0a030, hold: '' },             // 녹원삼 + 다홍 치마 + 화관(궁중 여인)
+  official: { robe: true, hat: 'samo', top: 0x2c5fb8, belt: 0xe0b040, ribbon: 0xc8202a, hold: '' },                                 // 청색 단령 + 금띠 + 사모(관리)
+  jangot:   { robe: false, hat: 'jangot', top: 0x2fae68, skirt: 0xe0507a, ribbon: 0xf2efe8, hold: '' },                             // 초록 장옷을 머리부터 쓰고 분홍 치마
+  scholar:  { robe: true, hat: 'jeongjagwan', top: 0xa9c8f2, belt: 0x3a2f8a, ribbon: 0x3a2f8a, hold: '' },                          // 연청 도포 + 정자관(선비)
   pilgrim:  { robe: true, hat: 'satgat', top: 0x3fa89c, belt: 0xd9344c, ribbon: 0xd9344c, bundle: true, hold: 'staff' },
 };
 
@@ -264,6 +268,38 @@ export function buildHanji(def: AvatarDef): AvatarRig {
       cap();
       hb.add(new THREE.SphereGeometry(0.07, 7, 5), HAIR, 0, -0.04, 0.19);
       hb.add(new THREE.CylinderGeometry(0.008, 0.008, 0.24, 5), 0xc9a85a, 0, -0.04, 0.2, 0, 0, Math.PI / 2);
+      break;
+    case 'hwagwan':                                                                   // 화관(궁중·혼례): 금관 + 보석 + 떨잠 + 땋은 머리
+      cap();
+      hb.add(new THREE.CylinderGeometry(0.14, 0.16, 0.07, 10), 0xe0b040, 0, 0.11, 0);
+      for (let k = 0; k < 6; k++) hb.add(new THREE.ConeGeometry(0.03, 0.09, 4), 0xe0b040, Math.cos(k * 1.047) * 0.14, 0.2, Math.sin(k * 1.047) * 0.14);
+      for (let k = 0; k < 6; k++) hb.add(new THREE.SphereGeometry(0.014, 6, 4), k % 2 ? 0xd9344c : 0x4aa0d8, Math.cos(k * 1.047) * 0.15, 0.12, Math.sin(k * 1.047) * 0.15);
+      hb.add(new THREE.SphereGeometry(0.07, 7, 5), HAIR, 0, -0.04, 0.19);
+      hb.add(new THREE.BoxGeometry(0.05, 0.4, 0.03), HAIR, 0, -0.28, 0.19, -0.08);
+      hb.add(new THREE.BoxGeometry(0.08, 0.18, 0.02), 0xd9344c, 0, -0.5, 0.21);
+      break;
+    case 'samo':                                                                      // 사모(관리): 둥근 검은 관 + 양옆 날개
+      cap();
+      hb.add(new THREE.CylinderGeometry(0.12, 0.14, 0.2, 9), INK, 0, 0.17, 0);
+      hb.add(new THREE.BoxGeometry(0.3, 0.07, 0.012), INK, -0.2, 0.2, 0.1);
+      hb.add(new THREE.BoxGeometry(0.3, 0.07, 0.012), INK, 0.2, 0.2, 0.1);
+      break;
+    case 'jangot':                                                                    // 장옷(외출 때 머리부터 쓰는 겉옷)
+      hb.add(new THREE.SphereGeometry(0.205, 10, 8, 0, Math.PI * 2, 0, Math.PI * 0.86), 0x2fae68, 0, 0.0, 0.01, 0.15);
+      hb.add(new THREE.BoxGeometry(0.4, 0.5, 0.05), 0x2fae68, 0, -0.26, 0.13, -0.1);   // 어깨 뒤로 드리운 자락
+      hb.add(new THREE.BoxGeometry(0.1, 0.34, 0.04), 0x2fae68, -0.18, -0.2, -0.06, 0, 0, 0.12);
+      hb.add(new THREE.BoxGeometry(0.1, 0.34, 0.04), 0x2fae68, 0.18, -0.2, -0.06, 0, 0, -0.12);
+      break;
+    case 'jeongjagwan':                                                               // 정자관(선비): 두 겹 층이 진 검은 관
+      cap();
+      hb.add(new THREE.BoxGeometry(0.26, 0.13, 0.2), INK, 0, 0.14, 0);
+      hb.add(new THREE.BoxGeometry(0.2, 0.13, 0.16), INK, 0, 0.27, 0);
+      hb.add(new THREE.BoxGeometry(0.1, 0.07, 0.12), INK, 0, 0.37, 0);
+      break;
+    case 'bokgeon':                                                                   // 복건(소년): 검은 두건 + 뒤로 늘어진 두 자락
+      hb.add(new THREE.SphereGeometry(0.19, 10, 7, 0, Math.PI * 2, 0, Math.PI * 0.62), INK, 0, 0.02, 0);
+      hb.add(new THREE.BoxGeometry(0.1, 0.3, 0.02), INK, -0.05, -0.12, 0.19, -0.1);
+      hb.add(new THREE.BoxGeometry(0.1, 0.3, 0.02), INK, 0.05, -0.12, 0.19, -0.1);
       break;
     case 'jokduri':                                                                   // 쪽두리 + 쪽머리 + 비녀 + 긴 댕기(도투락)
       cap();

@@ -20,7 +20,7 @@ console.log(await ev(`new Promise(async r=>{document.getElementById('quality').v
  const V=__vhk; const p=V.player; p.place(p.pos.clone().set(-4,1,40),0); V.me.root.scale.setScalar(0.0001);
  await new Promise(q=>setTimeout(q,1500));
  const y0=V.me.root.position.y+0.9; const rigs=[]; let calls0=V.renderer.info.render.calls;
- V.AVATARS.forEach((d,i)=>{const rig=V.buildAvatar(d); rig.root.position.set(-4+(i-7)*0.95, y0-0.9, 36.3); rig.root.rotation.y=Math.PI; V.scene.add(rig.root); rigs.push(rig);});
+ V.AVATARS.forEach((d,i)=>{const rig=V.buildAvatar(d); rig.root.position.set(-4+(i-(V.AVATARS.length-1)/2)*0.74, y0-0.9, 36.3); rig.root.rotation.y=Math.PI; V.scene.add(rig.root); rigs.push(rig);});
  let meshes=0; rigs.forEach(g=>g.root.traverse(o=>{if(o.isMesh) meshes++;}));
  window.__cam={p:[-4,y0+0.25,42.5],t:[-4,y0-0.1,36.3],fov:62};
  await new Promise(q=>setTimeout(q,2500)); r('meshes per 15 avatars: '+meshes);})`));
