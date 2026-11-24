@@ -23,10 +23,10 @@ import { Player } from './player.ts';
 import { Sound } from './audio.ts';
 import { Net } from './net.ts';
 import { fetchSummary, lightCandle, isLoggedIn, guessCountry, flag, daysLeft, sharesMainSession, type CandleSummary } from './candles.ts';
-import { startBellGame, startSignOfCross } from './rites.ts';
+import { startBellGame } from './rites.ts';
 import { Points, PTS } from './points.ts';
 import { STATION_SCENES, STATION_VERSICLE } from './prayers.ts';
-import { startGesture } from './avatars.ts';
+import { startGesture, crossProgress, CROSS_BEATS } from './avatars.ts';
 import { loadSite, type SiteData } from './sitemap/siteMap.ts';
 import { SPACES, INTENTIONS, GREETINGS, REACTS, REACT_LABEL, STATION_NAMES, CANDLE_TEXT_MAX, cleanCandleText, isSpaceId, siteHref, type SpaceId } from '../shared/spaces.ts';
 
@@ -104,7 +104,9 @@ selectAvatar(avatarId);
   requestAnimationFrame(spin);
 })(0);
 
+let enterAt = 0; // 입장하기를 누른 시각(주소에 ?time 을 붙이면 입장에 걸린 초를 화면에 알린다 — 휴대폰에서 직접 재 보는 용도)
 function enterNow() {
+  enterAt = performance.now();
   const name = cleanNick(nickInput.value).slice(0, 9);
   try { localStorage.setItem(KEY_NICK, name); localStorage.setItem(KEY_NICK_SELF, isSelfName(name, localStorage) ? '1' : '0'); localStorage.setItem('vhk.avatar', avatarId); } catch { /* 무시 */ }
   $<HTMLButtonElement>('enter').disabled = true;
@@ -128,6 +130,7 @@ if (returning) {
 function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   const myName = decodeNick(nick).name; // 화면에 보이는 이름(별명 끝의 캐릭터 번호를 뺀 것)
   const renderer = new THREE.WebGLRenderer({ antialias: high, powerPreference: 'high-performance' });
+  renderer.debug.checkShaderErrors = false; // 입장 빠르게(2026-11-24): 그리기 하나마다 셰이더 결과를 동기로 기다리지 않는다(three 공식 권장 — 오류 검사만 끈다)
   const PR_MAX = Math.min(window.devicePixelRatio || 1, high ? 2 : 1);
   renderer.setPixelRatio(Math.min(PR_MAX, 1.25)); // 처음은 1.25 — 아래 자동 화질이 기기에 맞춰 올리거나 내린다
   renderer.setSize(innerWidth, innerHeight);
@@ -266,6 +269,16 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   /** 한 번만 오르는 미션 — 처음이면 포인트와 안내 */
   const award = (key: string, pts: number, label: string) => { if (points.award(key, pts)) toast(`⭐ +${pts} 포인트 — ${label}`); };
   let camDist = touch ? 4.4 : 5.0;       // 0.7 아래면 1인칭
+  // ── 두 손가락 확대·축소(2026-11-24 사장님: 휴대폰 사진 보듯이) ──
+  // 두 손가락을 모으면 멀어져(camDist 증가) 11 m 를 넘는 순간부터 카메라가 하늘로 올라 성당과 계단 «전체 그림» 으로, 벌리면 다시 내려와 캐릭터에게 초점이 모인다.
+  // 11 m 까지는 전과 같은 어깨 뒤 따라가기다. 확정된 조작이다(성지만들기 스킬 6-2) — 성지가 바뀌어도 같게: 전체 그림의 중심·높이만 그 성지 크기에 맞춘다.
+  const CAM_CHASE_MAX = 11, CAM_OVER = 60;
+  const OV_CENTER = new THREE.Vector3(0.5, 0, 11), OV_H = 118, OV_PITCH = (78 * Math.PI) / 180; // 성당(z 7 ~ -52)과 계단(z 70)까지 세로로 다 들어오는 높이
+  const ovPos = new THREE.Vector3(OV_CENTER.x, OV_CENTER.y + OV_H * Math.sin(OV_PITCH), OV_CENTER.z + OV_H * Math.cos(OV_PITCH));
+  const ovQuat = (() => { const o = new THREE.PerspectiveCamera(); // 카메라여야 -Z 쪽을 바라본다(Object3D 는 +Z)
+    o.position.copy(ovPos); o.lookAt(OV_CENTER); return o.quaternion.clone(); })();
+  const youRing = new THREE.Mesh(new THREE.RingGeometry(0.9, 1.3, 40).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xffd678, transparent: true, opacity: 0.95, depthTest: false, blending: THREE.AdditiveBlending, toneMapped: false }));
+  youRing.renderOrder = 9; youRing.visible = false; scene.add(youRing);
   let bodyYaw = 0, mySpeed = 0;
   const lastPos = new THREE.Vector3();
   let moveTarget: THREE.Vector3 | null = null, moveStuck = 0;
@@ -329,7 +342,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     // 짓는 동안 화면이 멈추므로 먼저 «준비 중» 을 그리게 한 프레임을 넘긴다(옛 공간은 아직 그대로라 그 사이 한 번 그려져도 안전하다)
     $('loading').hidden = false;
     await new Promise<void>((done) => requestAnimationFrame(() => setTimeout(done, 0)));
-    closeCard(); stopTour(); bellGameClose?.(); riteClose?.(); endRinging(); quest = 'none'; setGuide(null);
+    closeCard(); stopTour(); bellGameClose?.(); riteClose?.(); endRinging(); endCross(false); quest = 'none'; setGuide(null);
     if (space) {
       scene.remove(space.root);
       sound.setOrgan(null);
@@ -423,7 +436,10 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     history.replaceState(null, '', u.pathname + u.search + u.hash);
     spaceLoading = false;
     // 새 공간의 첫 화면이 그려진 다음(두 프레임 뒤)에 «준비 중» 을 지운다
-    requestAnimationFrame(() => requestAnimationFrame(() => { if (!spaceLoading) $('loading').hidden = true; }));
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (!spaceLoading) $('loading').hidden = true;
+      if (enterAt && params.has('time')) { toast(`입장에 ${((performance.now() - enterAt) / 1000).toFixed(1)}초 걸렸습니다`); enterAt = 0; }
+    }));
     savedIds.clear(); saved = null;
     void refreshSaved(id, true);
     await net.join(id, nick);
@@ -522,6 +538,70 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   let ringing = false;                                         // 종 줄을 잡으러 가는 중이거나 잡고 있는 동안: 걷기 막고 옆에서 본다
   let camFix: { pos: THREE.Vector3; target: THREE.Vector3 } | null = null;
   let arrive: (() => void) | null = null;                      // 클릭 걷기로 자리에 닿으면 부른다
+  // ── 성수 찍기 = 캐릭터의 손동작(2026-11-24 사장님): 성수대 앞에 서서 손끝을 성수에 담그고 이마 → 가슴 → 왼쪽 어깨 → 오른쪽 어깨를 짚는다.
+  //    따로 누르는 창은 없다. 동작이 끝나야 성수를 찍은 것으로 친다(포인트·다음 안내). 걷기·다른 누르기는 동작 중 막는다 ──
+  let crossing = false, crossBeat = 0;
+  const sparks: { m: THREE.Mesh; age: number }[] = [];
+  const CROSS_WORDS = ['성수에 손끝을 적십니다', '성부와', '성부와 성자와', '성부와 성자와 성령의', '성부와 성자와 성령의 이름으로 아멘'];
+  function spark(at: THREE.Vector3) {
+    const m = new THREE.Mesh(new THREE.SphereGeometry(0.04, 10, 8), new THREE.MeshBasicMaterial({ color: 0xffd678, transparent: true, opacity: 0.9, depthTest: false, blending: THREE.AdditiveBlending, toneMapped: false }));
+    m.position.copy(at); m.renderOrder = 10; scene.add(m); sparks.push({ m, age: 0 });
+  }
+  function endCross(finished: boolean) {
+    if (!crossing) return;
+    crossing = false; camFix = null; me.gesture = undefined; me.body.rotation.x = 0; $('caption').hidden = true;
+    if (finished) {
+      toast('십자성호를 그었습니다 — 성부와 성자와 성령의 이름으로. 아멘');
+      setTimeout(() => award('font', PTS.font, '성수를 찍고 십자성호'), 900);
+      setTimeout(() => offerNext(), 1700);
+    }
+  }
+  /** 성수대 앞에 서서 시작 — 몸을 성수대 쪽으로 돌리고(서 있을 자리까지 조금 더 다가간 뒤), 손이 보이게 비스듬히 앞에서 비춘다 */
+  let crossStarted = false;
+  const crossStand = new THREE.Vector3();
+  function beginCross(anchor: THREE.Vector3) {
+    if (crossing || !space) return;
+    closeCard(); stopTour(); moveTarget = null; pendingAct = null; marker.visible = false;
+    if (player.sitting) player.stand();
+    crossing = true; crossBeat = 0; crossStarted = false; joy.set(0, 0);
+    // 서 있을 자리: 성수대 중심에서 0.76 m(몸 반지름 0.32 + 그릇 반지름 0.37 + 여유) — 걸어서 닿는 오차(0.3 m)를 여기서 마저 메운다
+    const dx = anchor.x - player.pos.x, dz = anchor.z - player.pos.z, d = Math.hypot(dx, dz) || 1;
+    crossStand.set(anchor.x - (dx / d) * 0.76, player.pos.y, anchor.z - (dz / d) * 0.76);
+    bodyYaw = Math.atan2(-dx, -dz);
+    me.root.rotation.y = bodyYaw;
+  }
+  function startCrossNow() {
+    if (!space) return;
+    crossStarted = true;
+    const head = player.pos.clone().setY(player.pos.y + 1.4 * me.def.scale);
+    const f = new THREE.Vector3(-Math.sin(bodyYaw), 0, -Math.cos(bodyYaw));
+    // 손동작이 잘 보이는 자리 — 앞 오른쪽·앞 왼쪽·옆·뒤 순으로, 벽에 막히지 않는 첫 자리
+    for (const deg of [50, -50, 90, -90, 135, 180]) {
+      const a = (deg * Math.PI) / 180, c = Math.cos(a), sn = Math.sin(a);
+      const dir = new THREE.Vector3(f.x * c - f.z * sn, 0, f.x * sn + f.z * c);
+      const pos = head.clone().addScaledVector(dir, 2.0).setY(player.pos.y + 1.55);
+      const to = pos.clone().sub(head), len = to.length();
+      camRay.origin.copy(head); camRay.direction.copy(to).normalize();
+      const hit = space.bvh.raycastFirst(camRay, THREE.DoubleSide);
+      if (!hit || hit.distance > len + 0.3) { camFix = { pos, target: player.pos.clone().setY(player.pos.y + 1.05 * me.def.scale) }; break; }
+    }
+    startGesture(me, 'cross');
+  }
+  function driveCross(dt: number) {
+    if (!crossStarted) {
+      const dx = crossStand.x - player.pos.x, dz = crossStand.z - player.pos.z, d = Math.hypot(dx, dz);
+      if (d > 0.03) { const st = Math.min(d, 1.4 * dt); player.pos.x += (dx / d) * st; player.pos.z += (dz / d) * st; return; }
+      startCrossNow();
+    }
+    const u = crossProgress(me);
+    if (u === null || u >= 0.999) { endCross(true); return; }
+    while (crossBeat < CROSS_BEATS.length && u >= CROSS_BEATS[crossBeat]) {
+      if (crossBeat === 0) { sound.play('drop', 0.7); space?.fx?.fontDip?.(); } else sound.ting();
+      me.root.updateMatrixWorld(true); spark(me.handR.getWorldPosition(new THREE.Vector3()));
+      $('caption').hidden = false; $('caption').textContent = CROSS_WORDS[crossBeat];
+      crossBeat++;
+    }
+  }
   let quest: 'none' | 'font' | 'choose' | 'candle' | 'stations' | 'done' = 'none';
   let stationK = 0, stationShown = -1;
   const handA = new THREE.Vector3(), handB = new THREE.Vector3();
@@ -645,7 +725,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     if (g && g.distance < 80 && (!g.face || Math.abs(g.face.normal.y) > 0.45)) { pendingAct = null; setMoveTarget(g.point); }
   }
   function setMoveTarget(p: THREE.Vector3) {
-    if (ringing && !arrive) return; // 줄을 잡고 있는 동안은 걷지 않는다
+    if ((ringing && !arrive) || crossing) return; // 줄을 잡고 있는 동안, 십자성호를 긋는 동안은 걷지 않는다
     if (player.sitting) player.stand();
     stopTour();
     moveTarget = p.clone(); moveStuck = 0;
@@ -653,7 +733,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   }
 
   function act(t: { ia: Interactable; hit: THREE.Intersection } | null) {
-    if (!t || !space) return;
+    if (!t || !space || crossing) return;
     const ia = t.ia;
     if (ringing && ia.kind !== 'bell') return;
     switch (ia.kind) {
@@ -698,16 +778,15 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
         break;
       }
       case 'font': {
-        // v3-6 성수 찍고 십자성호 긋기 → v3-7: 마치면 봉헌초·십자가의 길 가운데 고르게 안내
+        // 2026-11-24: 성수 찍기 = 캐릭터가 성수대 앞에서 손끝을 적시고 이마 → 가슴 → 왼쪽 어깨 → 오른쪽 어깨를 짚는 것(위 beginCross).
+        // 성수대 둘레(몸 반지름 + 그릇 반지름)에 서서 시작한다. 멀면 그 자리까지 걸어간 뒤 시작한다
         if (riteClose) break;
         closeCard();
-        let done = false;
-        riteClose = startSignOfCross({
-          onDip: () => { sound.play('drop', 0.7); space?.fx?.fontDip?.(); },
-          onStep: () => sound.ting(),
-          onDone: () => { done = true; startGesture(me, 'cross'); toast('십자성호를 그었습니다 — 성부와 성자와 성령의 이름으로. 아멘'); setTimeout(() => award('font', PTS.font, '성수를 찍고 십자성호'), 900); },
-          onClose: () => { riteClose = null; if (done) offerNext(); },
-        });
+        const dx = ia.anchor.x - player.pos.x, dz = ia.anchor.z - player.pos.z, d = Math.hypot(dx, dz) || 1;
+        const stand = new THREE.Vector3(ia.anchor.x - (dx / d) * 0.76, player.pos.y, ia.anchor.z - (dz / d) * 0.76);
+        const anchor = ia.anchor.clone();
+        if (Math.hypot(stand.x - player.pos.x, stand.z - player.pos.z) > 0.4) { arrive = () => beginCross(anchor); setMoveTarget(stand); }
+        else beginCross(anchor);
         break;
       }
       case 'candle': candleGroup = ia.group ?? null; candleTitle = ia.title; openCandleCard(); break;
@@ -969,7 +1048,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     canvas.addEventListener('pointermove', (e) => {
       if (!touches.has(e.pointerId)) return;
       touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (touches.size === 2) { const [a, b] = [...touches.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); camDist = THREE.MathUtils.clamp(camDist - (d - pinch) * 0.02, 0, 11); pinch = d; }
+      // 모으면 멀리(전체 그림)·벌리면 가까이(초점) — 손가락이 움직인 만큼 같은 비율로 확대·축소(사진 보기와 같다)
+      if (touches.size === 2) { const [a, b] = [...touches.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (d > 1 && pinch > 1) camDist = THREE.MathUtils.clamp(camDist * (pinch / d), 0.2, CAM_OVER); pinch = d; }
     });
     const lift = (e: PointerEvent) => touches.delete(e.pointerId);
     canvas.addEventListener('pointerup', lift); canvas.addEventListener('pointercancel', lift);
@@ -1018,17 +1098,20 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   let intro: { t: number; dur: number; pos: THREE.CatmullRomCurve3; look: THREE.CatmullRomCurve3 } | null = null;
   let introDone = new URLSearchParams(location.search).has('nointro');
   const camHold = new THREE.Vector3(), quatHold = new THREE.Quaternion();
-  function startIntro(sp: THREE.Vector3) {
+  function startIntro(end: THREE.Vector3, from: THREE.Vector3) {
     introDone = true;
-    const at = (x: number, y: number, z: number) => new THREE.Vector3(sp.x + x, sp.y + y, sp.z + z);
+    // 2026-11-24 사장님: 드론샷은 언덕 아래 ㄷ 계단 맨 아래(from)에서 낮게 시작해, 계단을 따라 올라가 계단 위 평지에 선 캐릭터(end)의 어깨 뒤에 내려앉는다.
+    // 카메라 높이는 아래 땅에서 1.7 m 이상으로 지킨다(runIntro). 6.5초, 누르면 끝으로 건너뛴다
+    const f = (x: number, y: number, z: number) => new THREE.Vector3(from.x + x, from.y + y, from.z + z);
+    const e = (x: number, y: number, z: number) => new THREE.Vector3(end.x + x, end.y + y, end.z + z);
     intro = {
-      t: 0, dur: 10,
-      pos: new THREE.CatmullRomCurve3([at(-34, 32, 70), at(-16, 26, 36), at(-4, 21, 14), at(0, 11, 6), at(0, 2.6, 5)], false, 'centripetal'),
-      look: new THREE.CatmullRomCurve3([at(-6, 12, -40), at(-3, 16, -60), at(-2, 15, -62), at(-1, 8, -40), at(0, 1.8, -8)], false, 'centripetal'),
+      t: 0, dur: 6.5,
+      pos: new THREE.CatmullRomCurve3([f(-2, 1.8, 12), f(1, 3.4, -6), new THREE.Vector3(end.x + 2.5, end.y + 5.5, end.z + 16), e(1, 3.8, 9), e(0, 2.9, 4.4)], false, 'centripetal'),
+      look: new THREE.CatmullRomCurve3([new THREE.Vector3(0, 14, 8), new THREE.Vector3(0, 10, 8), new THREE.Vector3(0, 5, 14), e(0, 1.8, -4), e(0, 1.5, 0)], false, 'centripetal'),
     };
     document.body.classList.add('cinema');
-    setTimeout(() => cine.classList.add('on'), 1600);
-    setTimeout(() => cine.classList.remove('on'), 7000);
+    setTimeout(() => cine.classList.add('on'), 1100);
+    setTimeout(() => cine.classList.remove('on'), 5000);
     const skip = () => { if (intro && intro.t < intro.dur * 0.86) intro.t = intro.dur * 0.86; };
     addEventListener('pointerdown', skip, { once: true });
     addEventListener('keydown', skip, { once: true });
@@ -1040,6 +1123,11 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     const e = u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; // 천천히 떠나 천천히 내려앉는다
     camHold.copy(camera.position); quatHold.copy(camera.quaternion);
     camera.position.copy(intro.pos.getPoint(e));
+    { // 땅 위 1.7 m 아래로 내려가지 않게(언덕 계단을 스치지 않도록)
+      camRay.origin.set(camera.position.x, camera.position.y + 40, camera.position.z); camRay.direction.set(0, -1, 0);
+      const g = space?.bvh.raycastFirst(camRay, THREE.DoubleSide);
+      if (g) camera.position.y = Math.max(camera.position.y, g.point.y + 1.7);
+    }
     camera.lookAt(intro.look.getPoint(e));
     const k = THREE.MathUtils.smoothstep(u, 0.86, 1);
     if (k > 0) { camera.position.lerp(camHold, k); camera.quaternion.slerp(quatHold, k); }
@@ -1057,7 +1145,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     const dt = Math.min(timer.getDelta(), 0.1), t = timer.getElapsed(), now = performance.now();
     if (space) {
       const mv = { x: 0, z: 0, run: keys.has('ShiftLeft') || keys.has('ShiftRight') };
-      if ((!cardOpen() || touch) && !ringing) {
+      if ((!cardOpen() || touch) && !ringing && !crossing) {
         mv.z = (keys.has('KeyW') || keys.has('ArrowUp') ? 1 : 0) - (keys.has('KeyS') || keys.has('ArrowDown') ? 1 : 0) + joy.y;
         mv.x = (keys.has('KeyD') || keys.has('ArrowRight') ? 1 : 0) - (keys.has('KeyA') || keys.has('ArrowLeft') ? 1 : 0) + joy.x;
       }
@@ -1088,6 +1176,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       if (joyFull > 1) mv.run = true;
       if (len > 1) { mv.x /= len; mv.z /= len; }
       if (tour && len > 0.2 && !moveTarget) stopTour();
+      if (crossing) { mv.x = mv.z = 0; len = 0; driveCross(dt); }
       lastPos.copy(player.pos);
       player.update(dt, mv, space.bvh, space.doors);
       if (player.pos.y < -20) player.place(space.spawn.pos, space.spawn.yaw);
@@ -1112,6 +1201,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       me.root.rotation.y = bodyYaw;
       me.root.visible = !fp || !!camFix; myTagObj.visible = me.root.visible;
       animateAvatar(me, dt, mySpeed, t, !!player.sitting);
+      for (let i = sparks.length - 1; i >= 0; i--) { const sp = sparks[i]; sp.age += dt; sp.m.scale.setScalar(1 + sp.age * 4); (sp.m.material as THREE.MeshBasicMaterial).opacity = Math.max(0, 0.9 * (1 - sp.age / 0.7)); if (sp.age > 0.7) { scene.remove(sp.m); sp.m.geometry.dispose(); (sp.m.material as THREE.Material).dispose(); sparks.splice(i, 1); } }
       if (camFix && space.fx?.ropeGrab) {
         // 줄이 두 손 사이를 지나가게 — 손 자리를 세계 좌표로 읽어 공간에 넘긴다
         me.root.updateMatrixWorld(true);
@@ -1127,15 +1217,21 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
         const pivot = player.pos.clone().setY(player.pos.y + 1.45 * me.def.scale + 0.2);
         const cp = Math.min(player.pitch, 0.9);
         const fwd = new THREE.Vector3(-Math.sin(player.yaw) * Math.cos(cp), Math.sin(cp), -Math.cos(player.yaw) * Math.cos(cp));
-        let d = camDist;
+        let d = Math.min(camDist, CAM_CHASE_MAX);
         camRay.origin.copy(pivot); camRay.direction.copy(fwd).negate();
         const block = space.bvh.raycastFirst(camRay, THREE.DoubleSide);
         if (block && block.distance < d + 0.3) d = Math.max(0.35, block.distance - 0.3);
         camera.position.copy(pivot).addScaledVector(fwd, -d);
         camera.rotation.set(cp, player.yaw, 0, 'YXZ');
+        // 11 m 보다 더 멀어지면 전체 그림으로 올라간다(s: 0 따라가기 … 1 전체 그림)
+        const ov = THREE.MathUtils.smoothstep(camDist, CAM_CHASE_MAX, CAM_OVER);
+        if (ov > 0) { camera.position.lerp(ovPos, ov); camera.quaternion.slerp(ovQuat, ov); }
+        document.body.classList.toggle('overview', ov > 0.25); // 전체 그림에서는 안내 표지·설명 글을 감춘다(CSS)
+        youRing.visible = ov > 0.05;
+        if (youRing.visible) { youRing.position.set(player.pos.x, player.pos.y + 0.15, player.pos.z); youRing.scale.setScalar((1 + 7 * ov) * (1 + 0.12 * Math.sin(t * 5))); }
       }
 
-      if (!introDone && !spaceLoading && space.id === 'cathedral' && space.spawn.pos.y < -3 && player.pos.distanceTo(space.spawn.pos) < 3) startIntro(space.spawn.pos);
+      if (!introDone && !spaceLoading && space.id === 'cathedral' && space.introFrom && player.pos.distanceTo(space.spawn.pos) < 3) startIntro(player.pos.clone(), space.introFrom);
       runIntro(dt);
 
       for (const d of space.doors) {
@@ -1246,5 +1342,5 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   void loadSpace(first);
   requestAnimationFrame(frame);
   // 점검용 손잡이(브라우저 콘솔 · 자동 시험)
-  (window as any).__vhk = { holos, points, startStations, reachStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
+  (window as any).__vhk = { get camDist() { return camDist; }, holos, points, startStations, reachStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
 }

@@ -221,3 +221,6 @@ body.ringing #hint, body.ringing #crosshair, body.ringing #actBtn { display: non
    걷기는 땅을 누르면 그 자리로 걸어가는 방식(clickAt)이 맡는다. PC 화면은 그대로다. 되돌리려면 이 묶음을 지운다. */
 .touch #joy, .touch .tools { display: none; }
 .touch #lookTip { left: 50%; right: auto; bottom: calc(96px + env(safe-area-inset-bottom)); transform: translateX(-50%); width: max-content; max-width: calc(100vw - 32px); text-align: center; background: rgba(20,15,8,.88); border: 2px solid #ffd678; color: #fff; font-size: 19px; font-weight: 700; padding: 12px 20px; }
+
+/* 전체 그림(두 손가락을 모아 멀리 본 모습)에서는 성지 위 안내 표지·설명 글이 겹쳐 지저분하다 — 감춘다 */
+body.overview .badge, body.overview .holo { opacity: 0; pointer-events: none; transition: opacity .3s; }
