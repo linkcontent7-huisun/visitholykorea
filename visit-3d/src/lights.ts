@@ -31,6 +31,8 @@ export interface PilgrimLights {
   owned(): string[];
   /** 그 성지의 큰 빛을 받는다. 처음이면 true */
   award(spaceId: string): boolean;
+  /** 시험용(?demo): 저장하지 않고 큰 빛을 색깔별로 n 개 채워 «성지를 많이 돈 순례자»의 성단을 미리 본다 */
+  demoFill(n: number, colors: number[]): void;
   update(t: number, dt: number, center: THREE.Vector3, scale?: number): void;
   dispose(): void;
 }
@@ -104,14 +106,14 @@ export function createPilgrimLights(opts: { low: boolean; pixelRatio: number; vi
   let t0 = 0;
   const owned = readOwned();
 
-  function placeBig(spaceId: string, born: number) {
-    const def = SANCTUARY_LIGHTS[spaceId];
+  function placeBig(spaceId: string, born: number, custom?: { core: number; rim: number; orbit: number }) {
+    const def = custom ?? SANCTUARY_LIGHTS[spaceId];
     if (!def) return;
     const k = bigSlots.length; if (k >= MAX_BIG) return;
     const i = MAX_SMALL + k;
     bigSlots.push(spaceId);
     orbit.set([def.orbit + (k % 3) * 0.28 + rnd(i, 1) * 0.15, (0.28 + rnd(i, 2) * 0.22) * (k % 2 ? -1 : 1), (k / MAX_BIG) * 6.283 + rnd(i, 3), 0.55 + (k % 4) * 0.28 + rnd(i, 4) * 0.2], i * 4);
-    look.set([1.1 + rnd(i, 5) * 0.12, 0.22, 0.8 + rnd(i, 7) * 0.6, born], i * 4);
+    look.set([0.55 + rnd(i, 5) * 0.1, 0.22, 0.8 + rnd(i, 7) * 0.6, born], i * 4);
     c.setHex(def.core); core.set([c.r, c.g, c.b], i * 3);
     c.setHex(def.rim); rim.set([c.r, c.g, c.b], i * 3);
     aOrbit.needsUpdate = aLook.needsUpdate = aCore.needsUpdate = aRim.needsUpdate = true;
@@ -134,6 +136,14 @@ export function createPilgrimLights(opts: { low: boolean; pixelRatio: number; vi
   return {
     object,
     owned: () => Object.keys(owned),
+    demoFill(n, colors) {
+      while (bigSlots.length < Math.min(n, MAX_BIG)) {
+        const c0 = colors[bigSlots.length % colors.length];
+        const rimC = new THREE.Color(c0).multiplyScalar(0.8).getHex();
+        placeBig(`demo${bigSlots.length}`, t0 - 0.3 * bigSlots.length, { core: c0, rim: rimC, orbit: 0.95 });
+      }
+      applyRange();
+    },
     award(spaceId) {
       if (!SANCTUARY_LIGHTS[spaceId] || owned[spaceId]) return false;
       owned[spaceId] = Date.now(); writeOwned(owned);

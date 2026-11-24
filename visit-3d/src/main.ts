@@ -23,6 +23,7 @@ import { Player } from './player.ts';
 import { Sound } from './audio.ts';
 import { Net } from './net.ts';
 import { createBarrier } from './barrier.ts';
+import { createPrayerFloat, fakePrayers, demoBigColors } from './demo.ts';
 import { createPilgrimLights, SANCTUARY_LIGHTS } from './lights.ts';
 import { fetchSummary, lightCandle, isLoggedIn, guessCountry, flag, daysLeft, sharesMainSession, type CandleSummary } from './candles.ts';
 import { startBellGame, startSignOfCross } from './rites.ts';
@@ -256,8 +257,34 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // 기도의 결계 — 켠 초가 성전 둘레에 겹겹의 빛 고리로 쌓인다(그리기 2번)
   const barrier = createBarrier({ low: touch, pixelRatio: Math.min(PR_MAX, 1.25), viewH: () => innerHeight });
   scene.add(barrier.object);
-  const barrierLevel = () => barrier.setLevel(Math.max(saved?.total ?? 0, space ? space.candles.filter((c) => c.lit).length : 0));
+  const barrierLevel = () => barrier.setLevel(params.has('demo') ? 100 : Math.max(saved?.total ?? 0, space ? space.candles.filter((c) => c.lit).length : 0));
   const flamePos = new THREE.Vector3();
+  // ── 시험용 보기(?demo): 가짜 초 100개·가짜 기도 100개. 기기 안에서만 그리고 아무것도 저장·전송하지 않는다 ──
+  let demoTick: ((t: number) => void) | null = null;
+  function startDemo() {
+    if (demoTick || !params.has('demo')) return;
+    const prayers = fakePrayers(100);
+    barrier.setLevel(100); lights.demoFill(10, demoBigColors);
+    const pf = createPrayerFloat({ count: touch ? 6 : 9, prayers });
+    scene.add(pf.group); pf.stagger(0);
+    const fwd = new THREE.Vector3();
+    demoTick = (t) => { fwd.set(-Math.sin(bodyYaw), 0, -Math.cos(bodyYaw)); pf.update(t, player.pos, fwd); };
+    const bar = document.createElement('div');
+    bar.style.cssText = 'position:fixed;left:8px;right:8px;top:64px;z-index:40;display:flex;gap:8px;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:10px;background:rgba(20,14,6,.78);color:#ffe6a8;font:600 12px/1.4 system-ui,sans-serif;border:1px solid rgba(255,214,128,.5)';
+    bar.innerHTML = '<span>🧪 시험용 — 가짜 초 100개 · 가짜 기도 100개 (실제 글이 아닙니다)</span><button style="all:unset;cursor:pointer;padding:6px 10px;border-radius:8px;background:#d4a017;color:#2a1c04;font-weight:700;white-space:nowrap">🔭 하늘 보기</button>';
+    document.body.append(bar);
+    const btn = bar.querySelector('button')!; let sky = false;
+    btn.addEventListener('click', () => {
+      sky = !sky; btn.textContent = sky ? '🚶 돌아오기' : '🔭 하늘 보기';
+      (window as any).__cam = sky ? { p: [2, 62, 86], t: [0.5, 14, 11] } : undefined;
+    });
+    let n = 0; // 4.5초마다 누군가 초를 켠다 — 솟는 빛 · 고리 틈 · 이음을 계속 볼 수 있게
+    setInterval(() => {
+      const p = prayers[n++ % prayers.length];
+      barrier.pulse(flamePos.set(0.5 + (Math.random() - 0.5) * 10, 1, 11 + Math.random() * 14));
+      toast(`🕯 ${p.who} 님이 초를 켰습니다 — ${p.text}`);
+    }, 4500);
+  }
   const lightsAt = new THREE.Vector3();
   const grantLight = (spaceId: string) => {
     if (lights.award(spaceId)) toast(`✨ ${SANCTUARY_LIGHTS[spaceId]?.name ?? '새 빛'}이 순례자를 따라나섭니다`);
@@ -437,7 +464,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     savedIds.clear(); saved = null;
     // 결계의 중심·크기: 명동은 성당 한가운데·반지름 60 m, 그 밖은 출발점 둘레 28 m
     if (id === 'cathedral') barrier.setSite(new THREE.Vector3(0.5, 0, 11), 60); else barrier.setSite(space.spawn.pos.clone().setY(space.spawn.pos.y), 28);
-    barrierLevel();
+    barrierLevel(); startDemo();
     void refreshSaved(id, true);
     await net.join(id, nick);
   }
@@ -1120,6 +1147,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       me.root.visible = !fp || !!camFix; myTagObj.visible = me.root.visible;
       animateAvatar(me, dt, mySpeed, t, !!player.sitting);
       barrier.update(t);
+      demoTick?.(t);
       lights.update(t, dt, lightsAt.set(player.pos.x, player.pos.y, player.pos.z));
       if (camFix && space.fx?.ropeGrab) {
         // 줄이 두 손 사이를 지나가게 — 손 자리를 세계 좌표로 읽어 공간에 넘긴다
