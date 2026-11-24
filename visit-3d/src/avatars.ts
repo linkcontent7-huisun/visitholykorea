@@ -515,7 +515,8 @@ export function animateAvatar(rig: AvatarRig, dt: number, speed: number, t: numb
   rig.elbowR.rotation.x = 0.06 + Math.max(0, sw) * armAmp * 0.45 + run * 0.35;
   // 몸: 한 걸음에 두 번 오르내림 · 조금 앞으로 기울임 · 어깨가 골반 반대로 비틀림
   const bounce = Math.abs(Math.cos(p)) * 0.014 * walk * sc;
-  const hover = rig.def.angel ? 0.1 + Math.sin(t * 1.4 + rig.idle * 0.05) * 0.03 : 0;
+  const hover = 0; // 천사도 공중에 뜨지 않고 발이 바닥에 닿는다(사장님 2026-11-24)
+  void t;
   rig.body.position.y = hover + bounce + Math.sin(rig.idle * 1.6) * 0.004;
   rig.body.rotation.x = -(0.04 * walk + 0.08 * run);
   rig.body.rotation.y = sw * 0.02 * walk;

@@ -531,10 +531,24 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   }
   const anchorOf = (f: (ia: Interactable) => boolean) => space?.interactables.find(f)?.anchor ?? null;
   const stationAnchor = (k: number) => anchorOf((ia) => ia.id === `station${k}`);
+  /** 여러 자리를 차례로 걸어간다(막히면 거기서 멈춘다 — 벽은 뚫지 않는다) */
+  function walkVia(pts: THREE.Vector3[], done: () => void) {
+    const step = (i: number) => {
+      if (i >= pts.length) { done(); return; }
+      arrive = () => step(i + 1);
+      setMoveTarget(pts[i]);
+    };
+    step(0);
+  }
   function startStations() {
     quest = 'stations'; stationK = 0; stationShown = -1;
-    setGuide(stationAnchor(0), `십자가의 길 제1처 — ${STATION_NAMES[0]}`);
-    toast('측랑 오른쪽 벽의 제1처부터 차례로 걸어가 보세요 — 중앙 통로에서 아치 사이로 옆 측랑에 들어갑니다');
+    const a = stationAnchor(0);
+    setGuide(a, `십자가의 길 제1처 — ${STATION_NAMES[0]}`);
+    if (!a) return;
+    // 제1처 앞으로 저절로 걸어가 선다: 중앙 통로로 들어서 → 제1처와 같은 높이까지 → 옆 측랑으로 → 벽 앞 1 m
+    const mid = new THREE.Vector3(0, player.pos.y, a.z), stand = new THREE.Vector3(a.x - 1.0, player.pos.y, a.z);
+    toast('제1처 앞으로 걸어갑니다 — 움직이면 멈춥니다');
+    walkVia([new THREE.Vector3(0, player.pos.y, player.pos.z), mid, stand], () => {});
   }
   function showStation(k: number) {
     stationShown = k;
