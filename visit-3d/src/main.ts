@@ -285,7 +285,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       toast(`🕯 ${p.who} 님이 초를 켰습니다 — ${p.text}`);
     }, 4500);
   }
-  const lightsAt = new THREE.Vector3();
+  const lightsAt = new THREE.Vector3(), lightsFwd = new THREE.Vector3();
   const grantLight = (spaceId: string) => {
     if (lights.award(spaceId)) toast(`✨ ${SANCTUARY_LIGHTS[spaceId]?.name ?? '새 빛'}이 순례자를 따라나섭니다`);
   };
@@ -1148,7 +1148,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       animateAvatar(me, dt, mySpeed, t, !!player.sitting);
       barrier.update(t);
       demoTick?.(t);
-      lights.update(t, dt, lightsAt.set(player.pos.x, player.pos.y, player.pos.z));
+      lights.update(t, dt, lightsAt.set(player.pos.x, player.pos.y, player.pos.z), 1, lightsFwd.set(-Math.sin(bodyYaw), 0, -Math.cos(bodyYaw)));
       if (camFix && space.fx?.ropeGrab) {
         // 줄이 두 손 사이를 지나가게 — 손 자리를 세계 좌표로 읽어 공간에 넘긴다
         me.root.updateMatrixWorld(true);

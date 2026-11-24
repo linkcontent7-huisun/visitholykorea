@@ -33,7 +33,7 @@ export interface PilgrimLights {
   award(spaceId: string): boolean;
   /** 시험용(?demo): 저장하지 않고 큰 빛을 색깔별로 n 개 채워 «성지를 많이 돈 순례자»의 성단을 미리 본다 */
   demoFill(n: number, colors: number[]): void;
-  update(t: number, dt: number, center: THREE.Vector3, scale?: number): void;
+  update(t: number, dt: number, center: THREE.Vector3, scale?: number, facing?: THREE.Vector3): void;
   dispose(): void;
 }
 
@@ -43,12 +43,15 @@ const VERT = /* glsl */ `
   attribute vec3 aCore;
   attribute vec3 aRim;
   uniform float uTime; uniform vec3 uCenter; uniform float uScale; uniform float uPx;
+  uniform vec3 uPos[22];   // 줄 서서 따라오는 자리(순례자 바로 뒤부터 1열) — CPU 가 걸어온 길을 따라 정한다
+  uniform vec3 uSide;      // 걸어온 길의 옆 방향(좌우로 살짝 흔들리게)
   varying vec3 vCore; varying vec3 vRim; varying float vTw;
   void main() {
-    float a = aOrbit.z + uTime * aOrbit.y;
-    float r = aOrbit.x * uScale;
-    float h = aOrbit.w * uScale + sin(uTime * aLook.z + aOrbit.z * 3.0) * aLook.y * uScale;
-    vec3 p = uCenter + vec3(cos(a) * r, h, sin(a) * r);
+    int idx = int(aOrbit.x + 0.5);
+    vec3 base = uPos[idx];
+    float bob = sin(uTime * aLook.z + aOrbit.z * 3.0) * aLook.y * 0.8 * uScale;   // 오르락내리락
+    float sway = sin(uTime * 1.3 + aOrbit.z * 2.0) * 0.07 * uScale;
+    vec3 p = base + uSide * sway + vec3(0.0, 1.2 * uScale + bob, 0.0);
     float age = uTime - aLook.w;
     float grow = clamp(age / 2.5, 0.0, 1.0);
     grow = grow * grow * (3.0 - 2.0 * grow);
@@ -83,8 +86,8 @@ export function createPilgrimLights(opts: { low: boolean; pixelRatio: number; vi
   // 작은 빛 — 늘 있음(앞쪽 칸)
   const smallCount = opts.low ? 6 : MAX_SMALL;
   for (let i = 0; i < MAX_SMALL; i++) {
-    orbit.set([0.7 + rnd(i, 1) * 0.9, (0.5 + rnd(i, 2) * 0.7) * (i % 2 ? 1 : -1), rnd(i, 3) * 6.283, 0.35 + rnd(i, 4) * 1.5], i * 4);
-    look.set([0.34 + rnd(i, 5) * 0.14, 0.12 + rnd(i, 6) * 0.1, 1.0 + rnd(i, 7) * 1.4, -100], i * 4);
+    orbit.set([i, 0, rnd(i, 3) * 6.283, 0], i * 4);
+    look.set([0.22 + rnd(i, 5) * 0.1, 0.12 + rnd(i, 6) * 0.1, 1.0 + rnd(i, 7) * 1.4, -100], i * 4);
     c.setHex(0xfff6dc); core.set([c.r, c.g, c.b], i * 3);
     c.setHex(0xf6d68a); rim.set([c.r, c.g, c.b], i * 3);
   }
@@ -97,7 +100,7 @@ export function createPilgrimLights(opts: { low: boolean; pixelRatio: number; vi
 
   const mat = new THREE.ShaderMaterial({
     vertexShader: VERT, fragmentShader: FRAG, transparent: true, depthWrite: false, blending: THREE.NormalBlending, toneMapped: false,
-    uniforms: { uTime: { value: 0 }, uCenter: { value: new THREE.Vector3() }, uScale: { value: 1 }, uPx: { value: 1 } },
+    uniforms: { uTime: { value: 0 }, uCenter: { value: new THREE.Vector3() }, uScale: { value: 1 }, uPx: { value: 1 }, uPos: { value: Array.from({ length: MAX_SMALL + MAX_BIG }, () => new THREE.Vector3()) }, uSide: { value: new THREE.Vector3(1, 0, 0) } },
   });
   const object = new THREE.Points(geo, mat);
   object.frustumCulled = false; object.renderOrder = 20; object.name = 'pilgrim-lights';
@@ -112,8 +115,8 @@ export function createPilgrimLights(opts: { low: boolean; pixelRatio: number; vi
     const k = bigSlots.length; if (k >= MAX_BIG) return;
     const i = MAX_SMALL + k;
     bigSlots.push(spaceId);
-    orbit.set([def.orbit + (k % 3) * 0.28 + rnd(i, 1) * 0.15, (0.28 + rnd(i, 2) * 0.22) * (k % 2 ? -1 : 1), (k / MAX_BIG) * 6.283 + rnd(i, 3), 0.55 + (k % 4) * 0.28 + rnd(i, 4) * 0.2], i * 4);
-    look.set([0.55 + rnd(i, 5) * 0.1, 0.22, 0.8 + rnd(i, 7) * 0.6, born], i * 4);
+    orbit.set([i, 0, (k / MAX_BIG) * 6.283 + rnd(i, 3), 0], i * 4);
+    look.set([0.38 + rnd(i, 5) * 0.08, 0.22, 0.8 + rnd(i, 7) * 0.6, born], i * 4);
     c.setHex(def.core); core.set([c.r, c.g, c.b], i * 3);
     c.setHex(def.rim); rim.set([c.r, c.g, c.b], i * 3);
     aOrbit.needsUpdate = aLook.needsUpdate = aCore.needsUpdate = aRim.needsUpdate = true;
@@ -128,10 +131,37 @@ export function createPilgrimLights(opts: { low: boolean; pixelRatio: number; vi
   let avg = 16, slowFor = 0, smallShown = MAX_SMALL;
   const setSmallShown = (n: number) => {
     if (n === smallShown) return; smallShown = n;
-    for (let i = 0; i < MAX_SMALL; i++) look[i * 4] = i < n ? 0.34 + rnd(i, 5) * 0.14 : 0;
+    for (let i = 0; i < MAX_SMALL; i++) look[i * 4] = i < n ? 0.22 + rnd(i, 5) * 0.1 : 0;
     aLook.needsUpdate = true;
   };
   setSmallShown(smallCount);
+
+  // ── 순례자 뒤를 1열로 바짝 따라온다 ──
+  // 걸어온 길(trail)을 기억해 두고, 순례자로부터 길을 따라 0.5 m 간격으로 한 칸씩 자리를 준다. 큰 빛이 앞(순례자 바로 뒤), 작은 빛이 그 뒤.
+  const trail: THREE.Vector3[] = [];
+  const lineAt = (d: number, behind: THREE.Vector3, out: THREE.Vector3, center: THREE.Vector3) => {
+    // center → trail[0] → trail[1] … 를 따라 d m 떨어진 점. 길이 모자라면 마지막 방향(behind)으로 이어 붙인다
+    let prev = center, left = d;
+    for (let i = 0; i < trail.length; i++) {
+      const seg = prev.distanceTo(trail[i]);
+      if (seg >= left) { return out.lerpVectors(prev, trail[i], seg > 1e-4 ? left / seg : 0); }
+      left -= seg; prev = trail[i];
+    }
+    return out.copy(prev).addScaledVector(behind, left);
+  };
+  const behindV = new THREE.Vector3(), tmp = new THREE.Vector3();
+  function followTrail(center: THREE.Vector3, facing?: THREE.Vector3) {
+    if (!trail.length || trail[0].distanceTo(center) > 0.25) { trail.unshift(center.clone()); if (trail.length > 40) trail.pop(); }
+    // 서 있을 때는 바라보는 방향의 반대쪽(등 뒤)으로 줄을 선다
+    if (facing) behindV.set(-facing.x, 0, -facing.z).normalize(); else behindV.set(0, 0, 1);
+    if (trail.length > 1) { tmp.subVectors(trail[1], trail[0]); tmp.y = 0; if (tmp.lengthSq() > 1e-4) behindV.copy(tmp.normalize()); }
+    mat.uniforms.uSide.value.set(-behindV.z, 0, behindV.x);
+    const pos = mat.uniforms.uPos.value as THREE.Vector3[];
+    let line = 0;
+    const put = (slot: number, gap: number) => { lineAt(0.6 + line * gap, behindV, pos[slot], center); line++; };
+    for (let k = 0; k < bigSlots.length; k++) put(MAX_SMALL + k, 0.34);         // 큰 빛은 앞쪽(순례자 바로 뒤)
+    for (let i = 0; i < MAX_SMALL; i++) if (i < smallShown) put(i, 0.26);     // 작은 빛이 그 뒤로 줄지어
+  }
 
   return {
     object,
@@ -150,8 +180,9 @@ export function createPilgrimLights(opts: { low: boolean; pixelRatio: number; vi
       placeBig(spaceId, t0); applyRange();
       return true;
     },
-    update(t, dt, center, scale = 1) {
+    update(t, dt, center, scale = 1, facing) {
       t0 = t;
+      followTrail(center, facing);
       mat.uniforms.uTime.value = t;
       mat.uniforms.uCenter.value.copy(center);
       mat.uniforms.uScale.value = scale;
