@@ -55,6 +55,10 @@ export const AVATARS: AvatarDef[] = [
   { id: 'sister', name: '수녀님', emoji: '🙏', robe: true, skin: 0xe2c2a0, hair: 0x1c1c22, hairStyle: 'veil', top: 0x26262c, bottom: 0x26262c, accent: 0xf2efe8, prop: 'rosary', scale: 0.95 },
   { id: 'priest', name: '신부님', emoji: '✝️', robe: true, skin: 0xd9b48e, hair: 0x2a2420, hairStyle: 'short', top: 0x18181c, bottom: 0x18181c, accent: 0xf2efe8, prop: 'book', scale: 1.0 },
   { id: 'pilgrim', name: '순례자', emoji: '🎒', robe: true, skin: 0xe8ccb2, hair: 0xb89050, hairStyle: 'hood', top: 0x6e5a44, bottom: 0x4a3c30, accent: 0xd8c8a8, mantle: 0x5a4a3a, backpack: true, prop: 'staff', scale: 0.98 },
+  { id: 'gungnyeo', name: '궁중 여인', emoji: '👸', skin: 0xeed0b4, hair: 0x1c1410, hairStyle: 'bun', top: 0x2fa070, bottom: 0xc8202a, accent: 0xe0b040, scale: 0.96 },
+  { id: 'official', name: '관리', emoji: '🎩', robe: true, skin: 0xe2c2a0, hair: 0x15120f, hairStyle: 'short', top: 0x2c5fb8, bottom: 0x2c5fb8, accent: 0xe0b040, scale: 1.0 },
+  { id: 'jangot', name: '장옷 여인', emoji: '🧕', skin: 0xeed0b4, hair: 0x1c1410, hairStyle: 'bun', top: 0x2fae68, bottom: 0xe0507a, accent: 0xf2efe8, scale: 0.97 },
+  { id: 'scholar', name: '선비', emoji: '📜', robe: true, skin: 0xe2c2a0, hair: 0x15120f, hairStyle: 'short', top: 0xa9c8f2, bottom: 0xa9c8f2, accent: 0x3a2f8a, scale: 1.0 },
 ];
 
 const byId = new Map(AVATARS.map((a, i) => [a.id, i]));
