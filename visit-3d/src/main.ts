@@ -22,6 +22,7 @@ import type { Interactable, SpaceBuild } from './spaces/types.ts';
 import { Player } from './player.ts';
 import { Sound } from './audio.ts';
 import { Net } from './net.ts';
+import { createBarrier } from './barrier.ts';
 import { createPilgrimLights, SANCTUARY_LIGHTS } from './lights.ts';
 import { fetchSummary, lightCandle, isLoggedIn, guessCountry, flag, daysLeft, sharesMainSession, type CandleSummary } from './candles.ts';
 import { startBellGame, startSignOfCross } from './rites.ts';
@@ -252,6 +253,11 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // 순례자의 빛 — 점 한 묶음(그리기 1번). 움직임은 전부 셰이더가 한다
   const lights = createPilgrimLights({ low: touch, pixelRatio: Math.min(PR_MAX, 1.25), viewH: () => innerHeight });
   scene.add(lights.object);
+  // 기도의 결계 — 켠 초가 성전 둘레에 겹겹의 빛 고리로 쌓인다(그리기 2번)
+  const barrier = createBarrier({ low: touch, pixelRatio: Math.min(PR_MAX, 1.25), viewH: () => innerHeight });
+  scene.add(barrier.object);
+  const barrierLevel = () => barrier.setLevel(Math.max(saved?.total ?? 0, space ? space.candles.filter((c) => c.lit).length : 0));
+  const flamePos = new THREE.Vector3();
   const lightsAt = new THREE.Vector3();
   const grantLight = (spaceId: string) => {
     if (lights.award(spaceId)) toast(`✨ ${SANCTUARY_LIGHTS[spaceId]?.name ?? '새 빛'}이 순례자를 따라나섭니다`);
@@ -429,6 +435,9 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     // 새 공간의 첫 화면이 그려진 다음(두 프레임 뒤)에 «준비 중» 을 지운다
     requestAnimationFrame(() => requestAnimationFrame(() => { if (!spaceLoading) $('loading').hidden = true; }));
     savedIds.clear(); saved = null;
+    // 결계의 중심·크기: 명동은 성당 한가운데·반지름 60 m, 그 밖은 출발점 둘레 28 m
+    if (id === 'cathedral') barrier.setSite(new THREE.Vector3(0.5, 0, 11), 60); else barrier.setSite(space.spawn.pos.clone().setY(space.spawn.pos.y), 28);
+    barrierLevel();
     void refreshSaved(id, true);
     await net.join(id, nick);
   }
@@ -440,6 +449,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     const [sum, li] = await Promise.all([fetchSummary(siteId), isLoggedIn()]);
     if (space?.id !== id) return;
     saved = sum; loggedIn = li;
+    barrierLevel();
     if (!sum) return;
     // 뒤쪽 자리부터 저장된 초를 켠다 — 실시간으로 새로 켜는 초는 앞쪽 빈자리를 쓴다
     const slots = [...space.candles].reverse();
@@ -749,6 +759,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     const light = stand?.userData.light as THREE.PointLight | undefined;
     if (light && space) light.intensity = space.candles.filter((x) => x.lit && x.flame.parent === stand).length * 0.9;
     if (changed && lit && by && !quiet) toast(`${by} 님이 초를 켰습니다 — ${candleLabel(c)}`);
+    barrierLevel();
+    if (changed && lit && !quiet) { c.flame.getWorldPosition(flamePos); barrier.pulse(flamePos); } // 빛이 솟아 결계를 밝힌다
     if (cardKind === 'candle') openCandleCard();
   }
 
@@ -1107,6 +1119,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       me.root.rotation.y = bodyYaw;
       me.root.visible = !fp || !!camFix; myTagObj.visible = me.root.visible;
       animateAvatar(me, dt, mySpeed, t, !!player.sitting);
+      barrier.update(t);
       lights.update(t, dt, lightsAt.set(player.pos.x, player.pos.y, player.pos.z));
       if (camFix && space.fx?.ropeGrab) {
         // 줄이 두 손 사이를 지나가게 — 손 자리를 세계 좌표로 읽어 공간에 넘긴다
@@ -1231,5 +1244,5 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   void loadSpace(first);
   requestAnimationFrame(frame);
   // 점검용 손잡이(브라우저 콘솔 · 자동 시험)
-  (window as any).__vhk = { lights, grantLight, points, startStations, showStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
+  (window as any).__vhk = { barrier, lights, grantLight, points, startStations, showStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
 }
