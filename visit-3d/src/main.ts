@@ -506,7 +506,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   raycaster.far = 4;
   let target: { ia: Interactable; hit: THREE.Intersection } | null = null;
   const badges: { o: CSS2DObject; el: HTMLButtonElement; ia: Interactable }[] = [];
-  const holos: { o: CSS2DObject; el: HTMLDivElement; ia: Interactable; on: boolean }[] = [];
+  const holos: { o: CSS2DObject; el: HTMLDivElement; ia: Interactable; on: boolean; hidden?: boolean; fx?: number; fz?: number }[] = [];
   let candleGroup: string[] | null = null, candleTitle = '봉헌초';
   // v3-6 놀이 덧판(열려 있으면 닫는 함수) · 내가 직접 쓴 기도(예전 방 서버는 글을 돌려주지 않으므로 내 화면에서는 여기서 보충한다)
   let bellGameClose: (() => void) | null = null, riteClose: (() => void) | null = null;
@@ -768,7 +768,12 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     card.hidden = false;
     $('hint').hidden = true;
   }
-  function closeCard() { card.hidden = true; cardKind = ''; cardArt = null; }
+  function closeCard() {
+    // 설명 카드를 닫으면 공중에 떠 있던 글도 함께 사라진다(그 설명대에서 멀어졌다 다시 올 때까지 다시 뜨지 않는다)
+    // (설명 카드뿐 아니라 십자가의 길 카드 등 어떤 카드든 닫으면 떠 있던 글을 거둔다)
+    for (const h of holos) if (h.on) h.hidden = true;
+    card.hidden = true; cardKind = ''; cardArt = null;
+  }
   $('cardClose').addEventListener('click', closeCard);
 
   function openCandleCard() {
@@ -1184,7 +1189,12 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
         for (const h of holos) {
           const dh = Math.hypot(h.ia.anchor.x - player.pos.x, h.ia.anchor.z - player.pos.z);
           const dy = Math.abs(h.ia.anchor.y - (player.pos.y + 1));
-          const on = dh < 3.2 && dy < 2.5;
+          if (dh > 3.6) h.hidden = false;            // 멀어지면 다시 보일 수 있게
+          // 떠오른 자리에서 1.6 m 넘게 움직이거나 카드가 열려 있으면 글은 거둔다 — 길을 가리지 않게
+          if (h.on && h.fx !== undefined && Math.hypot(player.pos.x - h.fx, player.pos.z - h.fz!) > 1.6) h.hidden = true;
+          if (cardOpen()) h.hidden = true;
+          const on = dh < 3.2 && dy < 2.5 && !h.hidden;
+          if (on && !h.on) { h.fx = player.pos.x; h.fz = player.pos.z; }
           if (on !== h.on) { h.on = on; if (on) { h.o.visible = true; h.el.classList.remove('show'); void h.el.offsetWidth; h.el.classList.add('show'); } else { h.el.classList.remove('show'); setTimeout(() => { if (!h.on) h.o.visible = false; }, 400); } }
         }
         if (quest === 'stations' && stationShown !== stationK && !cardOpen()) {
