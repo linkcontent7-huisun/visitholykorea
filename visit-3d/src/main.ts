@@ -25,7 +25,7 @@ import { Net } from './net.ts';
 import { fetchSummary, lightCandle, isLoggedIn, guessCountry, flag, daysLeft, sharesMainSession, type CandleSummary } from './candles.ts';
 import { startBellGame, startSignOfCross } from './rites.ts';
 import { Points, PTS } from './points.ts';
-import { PRAYERS, STATION_SCENES, STATION_VERSICLE, STATION_CLOSING } from './prayers.ts';
+import { STATION_SCENES, STATION_VERSICLE } from './prayers.ts';
 import { startGesture } from './avatars.ts';
 import { loadSite, type SiteData } from './sitemap/siteMap.ts';
 import { SPACES, INTENTIONS, GREETINGS, REACTS, REACT_LABEL, STATION_NAMES, CANDLE_TEXT_MAX, cleanCandleText, isSpaceId, siteHref, type SpaceId } from '../shared/spaces.ts';
@@ -376,15 +376,19 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       if (ia.kind !== 'info' || !ia.body) continue;
       const el = document.createElement('div');
       el.className = 'holo';
+      const sm = /^station(\d+)$/.exec(ia.id);
       const t = document.createElement('div'); t.className = 'holo-title'; t.textContent = ia.title;
-      const b = document.createElement('div'); b.className = 'holo-body'; b.textContent = ia.body;
-      el.append(t, b);
+      const b = document.createElement('div'); b.className = 'holo-body'; b.textContent = sm ? `${STATION_SCENES[Number(sm[1])] ?? ''}\n\n${STATION_VERSICLE}` : ia.body;
+      const x = document.createElement('button'); x.type = 'button'; x.className = 'holo-close'; x.textContent = '닫기';
+      el.append(t, b, x);
       const wrap = document.createElement('div'); wrap.append(el);
       const o = new CSS2DObject(wrap);
       o.position.copy(ia.anchor).add(new THREE.Vector3(0, 1.15, 0));
       o.visible = false;
       scene.add(o);
-      holos.push({ o, el, ia, on: false });
+      const hh = { o, el, ia, on: false } as (typeof holos)[number];
+      x.addEventListener('click', (e) => { e.stopPropagation(); for (const h of holos) if (h === hh || Math.hypot(h.ia.anchor.x - player.pos.x, h.ia.anchor.z - player.pos.z) < 4) hideHolo(h); }); // 닫기 — 그 옆을 떠났다 다시 올 때까지 뜨지 않는다
+      holos.push(hh);
     }
     // 같은 자리에 겹쳐 서지 않게 출발점을 조금씩 흩는다
     player.place(space.spawn.pos.clone().add(new THREE.Vector3((Math.random() - 0.5) * 4, 0, (Math.random() - 0.5) * 2)), space.spawn.yaw);
@@ -506,7 +510,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   raycaster.far = 4;
   let target: { ia: Interactable; hit: THREE.Intersection } | null = null;
   const badges: { o: CSS2DObject; el: HTMLButtonElement; ia: Interactable }[] = [];
-  const holos: { o: CSS2DObject; el: HTMLDivElement; ia: Interactable; on: boolean; hidden?: boolean; fx?: number; fz?: number }[] = [];
+  const holos: { o: CSS2DObject; el: HTMLDivElement; ia: Interactable; on: boolean; hidden?: boolean; md?: number; hx?: number; hz?: number }[] = [];
+  const hideHolo = (h: (typeof holos)[number]) => { h.hidden = true; h.hx = player.pos.x; h.hz = player.pos.z; };
   let candleGroup: string[] | null = null, candleTitle = '봉헌초';
   // v3-6 놀이 덧판(열려 있으면 닫는 함수) · 내가 직접 쓴 기도(예전 방 서버는 글을 돌려주지 않으므로 내 화면에서는 여기서 보충한다)
   let bellGameClose: (() => void) | null = null, riteClose: (() => void) | null = null;
@@ -550,27 +555,17 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     toast('제1처 앞으로 걸어갑니다 — 움직이면 멈춥니다');
     walkVia([new THREE.Vector3(0, player.pos.y, player.pos.z), mid, stand], () => {});
   }
-  function showStation(k: number) {
+  /** 제k처 앞에 도착했다 — 카드는 열지 않는다(설명은 공중에 뜨는 글 하나뿐). 포인트를 주고 다음 처로 안내한다 */
+  function reachStation(k: number) {
     stationShown = k;
-    const total = STATION_NAMES.length, last = k >= total - 1;
-    const next = () => {
-      closeCard();
-      if (last) {
-        award('stations-all', PTS.allStations, '십자가의 길 열다섯 처를 모두 걸었습니다');
-        quest = 'candle'; setGuide(anchorOf((ia) => ia.kind === 'candle' && ia.title.includes('제대')), '제대 앞 봉헌초 — 초를 하나 켜고 기도를 고르세요'); toast('십자가의 길을 다 걸었습니다 🙏 마지막으로 제대 앞에서 초를 봉헌해 보세요'); return;
-      }
-      stationK = k + 1; setGuide(stationAnchor(stationK), `십자가의 길 제${stationK + 1}처 — ${STATION_NAMES[stationK]}`);
-    };
-    const nextLabel = last ? '🙏 십자가의 길을 마칩니다' : `다음 — 제${k + 2}처로 →`;
-    const prayed = points.has(`station${k}`);
-    openCard('십자가의 길', `제${k + 1}처 — ${STATION_NAMES[k]}`, `${k + 1} / ${total}`, `${STATION_SCENES[k]}\n\n${STATION_VERSICLE}`, [
-      { label: prayed ? '🙏 기도문 다시 보기' : `🙏 기도하기 (⭐ +${PTS.station})`, on: () => {
-        award(`station${k}`, PTS.station, `제${k + 1}처에서 기도`);
-        const text = PRAYERS.map((p) => `${p.title}\n${p.text}`).join('\n\n') + `\n\n( 제${Math.min(k + 2, total)}처로 가며 )\n${STATION_CLOSING}`;
-        openCard('십자가의 길', `제${k + 1}처 — 기도`, `${k + 1} / ${total}`, `${STATION_VERSICLE}\n\n${text}`, [{ label: nextLabel, on: next }]);
-      } },
-      { label: nextLabel, on: next },
-    ]);
+    const total = STATION_NAMES.length;
+    award(`station${k}`, PTS.station, `제${k + 1}처에 이르렀습니다`);
+    if (k >= total - 1) {
+      award('stations-all', PTS.allStations, '십자가의 길 열다섯 처를 모두 걸었습니다');
+      quest = 'candle'; setGuide(anchorOf((ia) => ia.kind === 'candle' && ia.title.includes('제대')), '제대 앞 봉헌초 — 초를 하나 켜고 기도를 고르세요'); toast('십자가의 길을 다 걸었습니다 🙏 마지막으로 제대 앞에서 초를 봉헌해 보세요');
+      return;
+    }
+    stationK = k + 1; setGuide(stationAnchor(stationK), `십자가의 길 제${stationK + 1}처 — ${STATION_NAMES[stationK]}`);
   }
   /** 성수를 찍은 뒤: 봉헌초와 십자가의 길 가운데 고른다 */
   function offerNext() {
@@ -716,7 +711,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
         break;
       }
       case 'candle': candleGroup = ia.group ?? null; candleTitle = ia.title; openCandleCard(); break;
-      case 'info': openCard('설명', ia.title, '', ia.body ?? '', []); break;
+      case 'info': if (ia.id.startsWith('station')) break; /* 십자가의 길은 공중에 뜨는 글만 — 벽을 눌러도 카드는 없다 */ openCard('설명', ia.title, '', ia.body ?? '', []); break;
       case 'art': openArtCard(ia); break;
       case 'seat': {
         const at = ia.seatAt?.(t.hit.instanceId ?? 0);
@@ -785,7 +780,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   function closeCard() {
     // 설명 카드를 닫으면 공중에 떠 있던 글도 함께 사라진다(그 설명대에서 멀어졌다 다시 올 때까지 다시 뜨지 않는다)
     // (설명 카드뿐 아니라 십자가의 길 카드 등 어떤 카드든 닫으면 떠 있던 글을 거둔다)
-    for (const h of holos) if (h.on) h.hidden = true;
+    for (const h of holos) if (h.on) hideHolo(h);
     card.hidden = true; cardKind = ''; cardArt = null;
   }
   $('cardClose').addEventListener('click', closeCard);
@@ -1200,20 +1195,26 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           else if (dr.open && dh > 11) dr.open = false;
         }
         // 설명대 홀로그램: 3.2 m 안에 들어오면 떠오르고, 벗어나면 사라진다
+        let nearH: (typeof holos)[number] | null = null, nearD = 1e9;   // 가까이 다가가면 «가장 가까운 글 하나»만 뜬다
+        for (const h of holos) {
+          const d = Math.hypot(h.ia.anchor.x - player.pos.x, h.ia.anchor.z - player.pos.z);
+          if (d < nearD && !h.hidden && Math.abs(h.ia.anchor.y - (player.pos.y + 1)) < 2.5) { nearD = d; nearH = h; }
+        }
         for (const h of holos) {
           const dh = Math.hypot(h.ia.anchor.x - player.pos.x, h.ia.anchor.z - player.pos.z);
           const dy = Math.abs(h.ia.anchor.y - (player.pos.y + 1));
-          if (dh > 3.6) h.hidden = false;            // 멀어지면 다시 보일 수 있게
-          // 떠오른 자리에서 1.6 m 넘게 움직이거나 카드가 열려 있으면 글은 거둔다 — 길을 가리지 않게
-          if (h.on && h.fx !== undefined && Math.hypot(player.pos.x - h.fx, player.pos.z - h.fz!) > 1.6) h.hidden = true;
-          if (cardOpen()) h.hidden = true;
-          const on = dh < 3.2 && dy < 2.5 && !h.hidden;
-          if (on && !h.on) { h.fx = player.pos.x; h.fz = player.pos.z; }
+          // 멀어지거나(3.6 m) 닫은 자리에서 2.2 m 넘게 걸어가면 다시 보일 수 있게 — 다음 처로 가면 그 처의 글이 뜬다
+          if (h.hidden && (dh > 3.6 || (h.hx !== undefined && Math.hypot(player.pos.x - h.hx, player.pos.z - h.hz!) > 2.2))) h.hidden = false;
+          // 다가갈 때는 그대로 두고, 가장 가까이 갔던 때보다 1.6 m 넘게 멀어지면 글은 거둔다 — 길을 가리지 않게
+          if (h.on) { h.md = Math.min(h.md ?? dh, dh); if (dh - h.md > 1.6) hideHolo(h); }
+          if (cardOpen()) hideHolo(h);
+          const on = dh < 3.2 && dy < 2.5 && !h.hidden && h === nearH;
+          if (on && !h.on) h.md = dh;
           if (on !== h.on) { h.on = on; if (on) { h.o.visible = true; h.el.classList.remove('show'); void h.el.offsetWidth; h.el.classList.add('show'); } else { h.el.classList.remove('show'); setTimeout(() => { if (!h.on) h.o.visible = false; }, 400); } }
         }
-        if (quest === 'stations' && stationShown !== stationK && !cardOpen()) {
+        if (quest === 'stations' && stationShown !== stationK) {
           const a = stationAnchor(stationK);
-          if (a && Math.hypot(a.x - player.pos.x, a.z - player.pos.z) < 2.6) showStation(stationK);
+          if (a && Math.hypot(a.x - player.pos.x, a.z - player.pos.z) < 2.6) reachStation(stationK);
         }
         for (const b of badges) {
           const d = b.ia.anchor.distanceTo(player.pos);
@@ -1245,5 +1246,5 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   void loadSpace(first);
   requestAnimationFrame(frame);
   // 점검용 손잡이(브라우저 콘솔 · 자동 시험)
-  (window as any).__vhk = { points, startStations, showStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
+  (window as any).__vhk = { holos, points, startStations, reachStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
 }
