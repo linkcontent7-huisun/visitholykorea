@@ -506,24 +506,23 @@ export function animateAvatar(rig: AvatarRig, dt: number, speed: number, t: numb
   // 천사는 팔을 활기차게(크게) 흔든다
   const armAmp = amp * (rig.def.angel ? 1.0 : rig.def.robe ? 0.75 : 0.95);
   // 천사는 들고 있는 것이 있어도 양손을 앞뒤로 자연스럽게 흔든다
-  const prop = false; // 아무것도 들지 않으므로 양팔을 똑같이 흔든다
   rig.armL.rotation.x = -sw * armAmp + breathe;
-  rig.armR.rotation.x = prop ? 0.25 + sw * armAmp * 0.35 : sw * armAmp + breathe;
+  rig.armR.rotation.x = sw * armAmp + breathe;
   rig.armL.rotation.z = -0.07 - walk * 0.03; rig.armR.rotation.z = 0.07 + walk * 0.03;
   // 팔꿈치: 앞으로 흔들 때 더 굽는다(사람 팔은 앞에서 굽고 뒤에서 펴진다)
-  rig.elbowL.rotation.x = 0.12 + Math.max(0, -sw) * armAmp * 1.1 + run * 0.6;
-  rig.elbowR.rotation.x = prop ? 0.9 : 0.12 + Math.max(0, sw) * armAmp * 1.1 + run * 0.6;
+  // 두 팔 똑같이: 서 있을 때는 곧게 내리고, 걸을 때 앞으로 갈 때만 살짝(0.3 이하) 굽는다 — 한쪽만 접혀 있지 않게
+  rig.elbowL.rotation.x = 0.06 + Math.max(0, -sw) * armAmp * 0.45 + run * 0.35;
+  rig.elbowR.rotation.x = 0.06 + Math.max(0, sw) * armAmp * 0.45 + run * 0.35;
   // 몸: 한 걸음에 두 번 오르내림 · 조금 앞으로 기울임 · 어깨가 골반 반대로 비틀림
-  const joy = rig.def.angel ? 1 : 0; // 천사는 신나게 — 통통 튀듯 걷고 고개를 박자에 맞춰 흔든다
-  const bounce = Math.abs(Math.cos(p)) * (0.035 + joy * 0.05) * walk * sc;
+  const bounce = Math.abs(Math.cos(p)) * 0.014 * walk * sc;
   const hover = rig.def.angel ? 0.1 + Math.sin(t * 1.4 + rig.idle * 0.05) * 0.03 : 0;
   rig.body.position.y = hover + bounce + Math.sin(rig.idle * 1.6) * 0.004;
   rig.body.rotation.x = -(0.04 * walk + 0.08 * run);
-  rig.body.rotation.y = sw * 0.06 * walk;
-  rig.body.rotation.z = Math.cos(p) * (0.018 + joy * 0.045) * walk;
+  rig.body.rotation.y = sw * 0.02 * walk;
+  rig.body.rotation.z = 0; // 좌우로 기우뚱하지 않는다
   // 머리: 몸의 흔들림을 덜어 앞을 바라본다 + 서 있을 때 가끔 둘러본다
   rig.head.rotation.y = -sw * 0.05 * walk + Math.sin(rig.idle * 0.37) * 0.18 * (1 - walk);
-  rig.head.rotation.z = joy * Math.sin(p) * 0.12 * walk; // 박자에 맞춰 갸웃
+  rig.head.rotation.z = 0; // 박자에 맞춰 갸웃
   rig.head.rotation.x = 0.04 * walk;
   // 옷자락: 걸음에 맞춰 흔들림
   if (rig.skirt) { rig.skirt.rotation.x = walk * 0.04; rig.skirt.rotation.z = Math.sin(p) * 0.02 * walk; }

@@ -112,7 +112,7 @@ export class Sound {
   /** 배경 음악 섞기 — outdoor 1 = 바깥(성가), 0 = 실내(피아노). 매 프레임 부른다 */
   mixBgm(outdoor: number, dt: number) {
     if (!this.listener || this.bgm.length < 2) return;
-    const want = [0.4 * (1 - outdoor), 0.3 * outdoor]; // v3-8: 실내는 잔잔한 피아노(드뷔시 「달빛」)를 아주 낮게 — 오르간은 찢어지는 느낌이라 뺐다
+    const want = [0.07 * (1 - outdoor), 0.05 * outdoor]; // 2026-11-24 사장님: 처음 음악이 너무 커서 아주 조용하게(원래 0.4 / 0.3) // v3-8: 실내는 잔잔한 피아노(드뷔시 「달빛」)를 아주 낮게 — 오르간은 찢어지는 느낌이라 뺐다
     // 종이 울리면 음악이 멈추다시피 낮아졌다가(0.3초) 종이 잦아들면 3초에 걸쳐 돌아온다
     this.duckLeft = Math.max(0, this.duckLeft - dt);
     const duckTo = this.duckLeft > 0 || this.musicHold ? 0 : 1;
