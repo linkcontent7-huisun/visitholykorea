@@ -14,6 +14,7 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import type { AvatarDef, AvatarRig } from './avatars.ts';
 
 type Hat = 'gat' | 'satgat' | 'veil' | 'nunveil' | 'sangtu' | 'jjok' | 'daenggi' | 'cap' | 'long';
+const HOLD_ITEMS = false; // 캐릭터가 무언가를 들게 하려면 사장님 허락 뒤에만 true
 type Hold = '' | 'rosary' | 'flower' | 'book' | 'candle' | 'staff' | 'cane' | 'sword' | 'flag' | 'horn';
 interface Look {
   /** 두루마기(남자 · 천사 · 사제) 또는 치마저고리 */
@@ -301,8 +302,8 @@ export function buildHanji(def: AvatarDef): AvatarRig {
   };
   const aL = arm(-1), aR = arm(1);
 
-  // 오른손에 든 것 — 팔이 벌어진 만큼 되돌려 곧게 세운다
-  if (L.hold) {
+  // 오른손에 든 것 — 사장님 2026-11-24: 지팡이·풍선·막대기 등 아무것도 들지 않는다. 그래서 만들지 않는다(L.hold 는 쓰지 않음).
+  if (HOLD_ITEMS && L.hold) {
     const g = new THREE.Group(); g.position.set(0, -0.21, 0); g.rotation.z = -SPREAD; aR.el.add(g);
     const h = new Batch();
     switch (L.hold) {

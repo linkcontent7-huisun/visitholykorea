@@ -424,40 +424,8 @@ export function buildAvatarV2(def: AvatarDef): AvatarRig {
   if (def.beard) head.add(mesh(new THREE.SphereGeometry(0.08, 14, 10, 0, Math.PI * 2, Math.PI * 0.5, Math.PI * 0.5).scale(0.95, 1.1, 0.9), plain(def.beard, { roughness: 0.9 }), 0, -0.035, -0.035));
   if (child) head.scale.setScalar(1.18); // 아이는 머리가 몸에 비해 조금 크다
 
-  // ── 들고 있는 것(오른손) ──
-  const hand = new THREE.Group(); hand.position.set(0, -0.31, -0.02); aR.el.add(hand);
-  let balloon: THREE.Object3D | undefined;
-  switch (def.prop) {
-    case 'lily':
-      hand.add(mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.55, 5), plain(0x4f6a32), 0, 0.22, -0.04));
-      for (let i = 0; i < 3; i++) hand.add(mesh(new THREE.ConeGeometry(0.035, 0.1, 6, 1, true), plain(0xfbf7ee, { side: THREE.DoubleSide, emissive: 0x222018 }), (i - 1) * 0.03, 0.48 + (i % 2) * 0.04, -0.04));
-      break;
-    case 'sword':
-      hand.add(mesh(new THREE.BoxGeometry(0.032, 0.72, 0.008), plain(0xdfe4ea, { metalness: 0.95, roughness: 0.18 }), 0, 0.42, -0.03));
-      hand.add(mesh(new THREE.BoxGeometry(0.16, 0.022, 0.03), gold(), 0, 0.05, -0.03));
-      break;
-    case 'staff': hand.add(mesh(new THREE.CylinderGeometry(0.014, 0.018, 1.6, 6), plain(0x6a4a2c, { roughness: 0.9 }), 0, 0.28, -0.03)); break;
-    case 'trumpet': hand.add(mesh(new THREE.CylinderGeometry(0.008, 0.045, 0.3, 12, 1, true), plain(0xd9b45a, { metalness: 0.85, roughness: 0.25, side: THREE.DoubleSide }), 0, 0.08, -0.14).rotateX(-Math.PI / 2.4)); break;
-    case 'cane': hand.add(mesh(new THREE.CylinderGeometry(0.013, 0.013, 0.9, 6), plain(0x4a3220), 0, -0.4, -0.05)); break;
-    case 'book': hand.add(mesh(new THREE.BoxGeometry(0.13, 0.17, 0.035), plain(0x5a1a1e, { roughness: 0.6 }), 0, 0.04, -0.06)); break;
-    case 'rosary': hand.add(mesh(new THREE.TorusGeometry(0.045, 0.005, 4, 18), plain(0x4a3426), 0, -0.04, -0.03)); break;
-    case 'candle': {
-      hand.add(mesh(new THREE.CylinderGeometry(0.016, 0.016, 0.2, 10), plain(0xf4ecd8), 0, 0.1, -0.04));
-      const fl = mesh(new THREE.SphereGeometry(0.014, 8, 6).scale(1, 2, 1), new THREE.MeshBasicMaterial({ color: 0xffc860, toneMapped: false }), 0, 0.23, -0.04);
-      fl.castShadow = false; hand.add(fl);
-      break;
-    }
-    case 'flag':
-      hand.add(mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.6, 5), plain(0xcccccc), 0, 0.22, -0.03));
-      hand.add(mesh(new THREE.PlaneGeometry(0.24, 0.15), cloth(def.accent ?? 0xf0e6dc), 0.12, 0.43, -0.03));
-      break;
-    case 'balloon': {
-      balloon = new THREE.Group(); balloon.position.set(0.05, 0.75, 0); hand.add(balloon);
-      balloon.add(mesh(new THREE.SphereGeometry(0.11, 16, 12).scale(1, 1.15, 1), plain(0xd9e4ee, { roughness: 0.25 }), 0, 0.12, 0));
-      hand.add(mesh(new THREE.CylinderGeometry(0.002, 0.002, 0.75, 3), plain(0xffffff), 0.025, 0.37, 0));
-      break;
-    }
-  }
+  // 들고 있는 것은 없다 — 지팡이·풍선·막대기 등 아무것도 들지 않는다(사장님 2026-11-24). def.prop 은 쓰지 않는다.
+  const balloon: THREE.Object3D | undefined = undefined;
 
   // ── 천사: 날개 · 후광 ──
   let wingL: THREE.Object3D | undefined, wingR: THREE.Object3D | undefined, halo: THREE.Object3D | undefined;
@@ -538,24 +506,23 @@ export function animateAvatar(rig: AvatarRig, dt: number, speed: number, t: numb
   // 천사는 팔을 활기차게(크게) 흔든다
   const armAmp = amp * (rig.def.angel ? 1.0 : rig.def.robe ? 0.75 : 0.95);
   // 천사는 들고 있는 것이 있어도 양손을 앞뒤로 자연스럽게 흔든다
-  const prop = !rig.def.angel && rig.def.prop && !['balloon', 'rosary', 'cane'].includes(rig.def.prop);
   rig.armL.rotation.x = -sw * armAmp + breathe;
-  rig.armR.rotation.x = prop ? 0.25 + sw * armAmp * 0.35 : sw * armAmp + breathe;
+  rig.armR.rotation.x = sw * armAmp + breathe;
   rig.armL.rotation.z = -0.07 - walk * 0.03; rig.armR.rotation.z = 0.07 + walk * 0.03;
   // 팔꿈치: 앞으로 흔들 때 더 굽는다(사람 팔은 앞에서 굽고 뒤에서 펴진다)
-  rig.elbowL.rotation.x = 0.12 + Math.max(0, -sw) * armAmp * 1.1 + run * 0.6;
-  rig.elbowR.rotation.x = prop ? 0.9 : 0.12 + Math.max(0, sw) * armAmp * 1.1 + run * 0.6;
+  // 두 팔 똑같이: 서 있을 때는 곧게 내리고, 걸을 때 앞으로 갈 때만 살짝(0.3 이하) 굽는다 — 한쪽만 접혀 있지 않게
+  rig.elbowL.rotation.x = 0.06 + Math.max(0, -sw) * armAmp * 0.45 + run * 0.35;
+  rig.elbowR.rotation.x = 0.06 + Math.max(0, sw) * armAmp * 0.45 + run * 0.35;
   // 몸: 한 걸음에 두 번 오르내림 · 조금 앞으로 기울임 · 어깨가 골반 반대로 비틀림
-  const joy = rig.def.angel ? 1 : 0; // 천사는 신나게 — 통통 튀듯 걷고 고개를 박자에 맞춰 흔든다
-  const bounce = Math.abs(Math.cos(p)) * (0.035 + joy * 0.05) * walk * sc;
+  const bounce = Math.abs(Math.cos(p)) * 0.014 * walk * sc;
   const hover = rig.def.angel ? 0.1 + Math.sin(t * 1.4 + rig.idle * 0.05) * 0.03 : 0;
   rig.body.position.y = hover + bounce + Math.sin(rig.idle * 1.6) * 0.004;
   rig.body.rotation.x = -(0.04 * walk + 0.08 * run);
-  rig.body.rotation.y = sw * 0.06 * walk;
-  rig.body.rotation.z = Math.cos(p) * (0.018 + joy * 0.045) * walk;
+  rig.body.rotation.y = sw * 0.02 * walk;
+  rig.body.rotation.z = 0; // 좌우로 기우뚱하지 않는다
   // 머리: 몸의 흔들림을 덜어 앞을 바라본다 + 서 있을 때 가끔 둘러본다
   rig.head.rotation.y = -sw * 0.05 * walk + Math.sin(rig.idle * 0.37) * 0.18 * (1 - walk);
-  rig.head.rotation.z = joy * Math.sin(p) * 0.12 * walk; // 박자에 맞춰 갸웃
+  rig.head.rotation.z = 0; // 박자에 맞춰 갸웃
   rig.head.rotation.x = 0.04 * walk;
   // 옷자락: 걸음에 맞춰 흔들림
   if (rig.skirt) { rig.skirt.rotation.x = walk * 0.04; rig.skirt.rotation.z = Math.sin(p) * 0.02 * walk; }
