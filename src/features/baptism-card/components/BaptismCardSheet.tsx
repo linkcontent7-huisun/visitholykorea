@@ -7,6 +7,7 @@ import { useSettings } from '@/shared/i18n/use-settings';
 import { BAPTISM_NAMES } from '../data/baptism-names';
 import { paths } from '@/app/routes/paths';
 import { cardImageUrl, cardPngFile } from '../lib/card-image';
+import { useBackClosesSheet } from '../lib/use-back-closes-sheet';
 import {
   CHIP_LIMIT,
   featuredSaints,
@@ -34,6 +35,7 @@ interface BaptismCardSheetProps {
 export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
   const { language, t } = useSettings();
   const dialogRef = useModalFocus<HTMLDivElement>(isOpen, onClose);
+  useBackClosesSheet(isOpen, onClose); // 뒤로 가기는 창만 닫는다(사이트를 벗어나지 않게)
   const bodyRef = useRef<HTMLDivElement>(null);
   const [slug, setSlug] = useState<string | null>(null);
   const [failed, setFailed] = useState(false);
