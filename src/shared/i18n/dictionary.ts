@@ -6104,6 +6104,23 @@ export const DICTIONARY = {
     pt: 'Não foi possível criar a imagem. Tente novamente.',
     it: 'Impossibile creare l’immagine. Riprova.',
   },
+  baptismCardRelated: {
+    ko: '함께 묶인 세례명',
+    en: 'Related names',
+    es: 'Nombres relacionados',
+    fr: 'Prénoms liés',
+    pt: 'Nomes relacionados',
+    it: 'Nomi collegati',
+  },
+  // 카드 그림 맨 아래 «참고:» 와 같은 출처 (지시서 9호 0-2 — 실제로 쓴 자료만, 문장은 새로 썼다)
+  baptismCardSources: {
+    ko: '카드의 «이름과 성인» 글은 주교회의 103위 성인 자료·굿뉴스 성인 정보·바티칸 뉴스를 참고해 새로 썼어요.',
+    en: 'The “name and saint” text on each card was written by us with reference to the CBCK 103 Martyr Saints, Goodnews saint pages and Vatican News.',
+    es: 'El texto «el nombre y el santo» de cada tarjeta lo escribimos consultando los 103 santos mártires (CBCK), Goodnews y Vatican News.',
+    fr: 'Le texte « le prénom et le saint » de chaque carte a été rédigé par nos soins d’après les 103 saints martyrs (CBCK), Goodnews et Vatican News.',
+    pt: 'O texto «o nome e o santo» de cada cartão foi escrito por nós com base nos 103 santos mártires (CBCK), Goodnews e Vatican News.',
+    it: 'Il testo «il nome e il santo» di ogni carta è stato scritto da noi consultando i 103 santi martiri (CBCK), Goodnews e Vatican News.',
+  },
   baptismCardNote: {
     ko: '같은 세례명 성인을 모두 적었어요(널리 알려진 분 먼저). 성지는 주교회의 「103위 성인 약전」 기준이고, 연결된 성지가 없으면 「정리 중」으로 표시해요. 103위 성인 가운데 같은 이름이 없는 세례명은 성인과 성지를 적지 않았어요.',
     en: 'All saints who share a name are listed, the best known first. Sites follow the CBCK biographies of the 103 saints; if none is linked, the card says it is being researched. Names with no namesake among the 103 saints list no saint or site.',

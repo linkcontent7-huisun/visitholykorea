@@ -4,9 +4,11 @@ import {
   featuredSaints,
   filterNames,
   nameSlugOf,
+  relatedNames,
   saintsOfName,
   sortedNames,
 } from './baptism-groups';
+import { RELATED_NAMES } from '../data/baptism-related';
 
 describe('세례명 묶음', () => {
   it('맨 위 성인 다섯 분은 한국어에서 성을 빼고 부른다', () => {
@@ -73,5 +75,32 @@ describe('사장님 추가 표기 (2026-11-19)', () => {
     const names = sortedNames('ko');
     expect(filterNames(names, '줄리아', 'ko').map((n) => n.label)).toEqual(['율리아(줄리아)']);
     expect(filterNames(names, '빈센트', 'ko').map((n) => n.label)).toEqual(['빈첸시오(빈센트)']);
+  });
+});
+
+describe('세례명 2판 (지시서 9호)', () => {
+  it('마틸다·사비나를 검색하면 나온다', () => {
+    const names = sortedNames('ko');
+    expect(filterNames(names, '마틸다', 'ko').map((n) => n.slug)).toEqual(['Matilda']);
+    expect(filterNames(names, '사비나', 'ko').map((n) => n.slug)).toEqual(['Sabina']);
+  });
+
+  it('함께 묶인 세례명은 양쪽으로 이어진다 — 안나 ↔ 요아킴', () => {
+    expect(relatedNames('Anne', 'ko').map((n) => n.label)).toContain('요아킴');
+    expect(relatedNames('Joachim', 'ko').map((n) => n.label)).toContain('안나');
+  });
+
+  it('성인 카드를 골라도 그 세례명의 묶음이 보인다', () => {
+    const saint = BAPTISM_NAMES.find((n) => n.kind === 'saint' && nameSlugOf(n) === 'Anne');
+    expect(saint).toBeDefined();
+    expect(relatedNames(saint!.slug, 'ko').map((n) => n.slug)).toContain('Joachim');
+  });
+
+  it('묶음에 적힌 이름은 모두 목록에 있다', () => {
+    const slugs = new Set(BAPTISM_NAMES.map((n) => n.slug));
+    for (const [k, v] of Object.entries(RELATED_NAMES)) {
+      expect(slugs.has(k)).toBe(true);
+      for (const s of v) expect(slugs.has(s)).toBe(true);
+    }
   });
 });
