@@ -28,6 +28,7 @@ import { createPilgrimLights, SANCTUARY_LIGHTS } from './lights.ts';
 import { fetchSummary, lightCandle, isLoggedIn, guessCountry, flag, daysLeft, sharesMainSession, type CandleSummary } from './candles.ts';
 import { startBellGame } from './rites.ts';
 import { Points, PTS } from './points.ts';
+import { Nav } from './nav.ts';
 import { STATION_SCENES, STATION_VERSICLE } from './prayers.ts';
 import { startGesture, crossProgress, CROSS_BEATS } from './avatars.ts';
 import { loadSite, type SiteData } from './sitemap/siteMap.ts';
@@ -323,6 +324,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   let bodyYaw = 0, mySpeed = 0;
   const lastPos = new THREE.Vector3();
   let moveTarget: THREE.Vector3 | null = null, moveStuck = 0;
+  let moveWps: THREE.Vector3[] = []; // 길 찾기로 정한 중간 지점들(벽을 돌아가는 길) — moveTarget 은 그중 지금 가는 곳
+  let nav: Nav | null = null;
   let pendingAct: { ia: Interactable; hit: THREE.Intersection } | null = null;
   const marker = new THREE.Mesh(new THREE.RingGeometry(0.28, 0.42, 32).rotateX(-Math.PI / 2),
     new THREE.MeshBasicMaterial({ color: 0xffd34d, transparent: true, opacity: 0.9, depthWrite: false, toneMapped: false }));
@@ -402,6 +405,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     }
     space = id === 'cathedral' ? buildCathedral(M, site, { light: !high }) : buildChapel(M);
     scene.add(space.root);
+    nav = new Nav(space.bvh); // 눌러서 걸을 때 벽을 피해 길을 찾는다
     simplifyOutdoor(space.root); // 바깥 둘레를 단순하게(simplify.ts, ?full 이면 그대로)
     // 쓸 수 있는 것 머리 위에 떠 있는 표지(포켓몬·로블록스처럼 «여기서 무엇을 할 수 있는지» 바로 보이게). 누르면 걸어가서 쓴다
     for (const b of badges) scene.remove(b.o);
@@ -773,7 +777,12 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     if ((ringing && !arrive) || crossing) return; // 줄을 잡고 있는 동안, 십자성호를 긋는 동안은 걷지 않는다
     if (player.sitting) player.stand();
     stopTour();
-    moveTarget = p.clone(); moveStuck = 0;
+    moveTarget = p.clone(); moveStuck = 0; moveWps = [];
+    // 벽을 피해 길을 따라 간다(길 찾기) — 길이 없으면 예전처럼 곧게 간다
+    if (nav) {
+      const path = nav.find(player.pos, p);
+      if (path && path.length) { moveTarget = path[0]!.clone(); moveWps = path.slice(1).map((v) => v.clone()); }
+    }
     marker.position.set(p.x, p.y + 0.04, p.z); marker.visible = true; marker.scale.setScalar(1);
   }
 
@@ -1202,8 +1211,10 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       // 클릭한 자리로 걸어가기 — 카메라 방향 기준 입력으로 바꿔 넣는다
       if (moveTarget && len <= 0.2) {
         const dx = moveTarget.x - player.pos.x, dz = moveTarget.z - player.pos.z, dist = Math.hypot(dx, dz);
-        const reach = pendingAct ? 2.0 : arrive ? 0.3 : 0.35;
-        if (dist < reach) {
+        const last = moveWps.length === 0;
+        const reach = !last ? 0.4 : pendingAct ? 2.0 : arrive ? 0.3 : 0.35;
+        if (dist < reach && !last) { moveTarget = moveWps.shift()!; moveStuck = 0; }
+        else if (dist < reach) {
           moveTarget = null; marker.visible = false;
           if (pendingAct) { const a = pendingAct; pendingAct = null; act(a); }
           else if (arrive) { const f = arrive; arrive = null; f(); }
@@ -1214,7 +1225,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           len = 1;
           moveStuck = mySpeed < 0.25 ? moveStuck + dt : 0;
           if (moveStuck > 0.45) { // 막혔다 — 벽 앞에서 바로 멈춘다(방향키로 다시 움직인다). 종 줄로 가던 길이면 마지막 한 걸음은 옮겨 준다
-            moveTarget = null; pendingAct = null; marker.visible = false;
+            moveTarget = null; moveWps = []; pendingAct = null; marker.visible = false;
             if (arrive) { const f = arrive; arrive = null; if (dist < 1.6) f(); else ringing = false; }
           }
         }
@@ -1393,5 +1404,5 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   void loadSpace(first);
   requestAnimationFrame(frame);
   // 점검용 손잡이(브라우저 콘솔 · 자동 시험)
-  (window as any).__vhk = { barrier, lights, grantLight, get camDist() { return camDist; }, holos, points, startStations, reachStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
+  (window as any).__vhk = { get nav() { return nav; }, barrier, lights, grantLight, get camDist() { return camDist; }, holos, points, startStations, reachStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
 }
