@@ -698,6 +698,15 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       return;
     }
     stationK = k + 1; setGuide(stationAnchor(stationK), `십자가의 길 제${stationK + 1}처 — ${STATION_NAMES[stationK]}`);
+    // 천천히 한 처씩(사장님 2026-11-25): 설명을 읽을 시간을 주고, «다음 처로»를 눌러야 함께 걸어간다(혼자 걸어가도 된다)
+    const nk = stationK;
+    askBar(`제${k + 1}처 — ${STATION_NAMES[k]}\n공중에 뜬 설명을 천천히 읽어 보세요. 다 읽으셨으면 다음 처로 함께 가요.`, [
+      { label: `다음 — 제${nk + 1}처로 함께 가기 →`, on: () => {
+        const na = stationAnchor(nk); if (!na) return;
+        toast(`제${nk + 1}처 앞으로 함께 걸어갑니다 — 움직이면 멈춥니다`);
+        walkVia([new THREE.Vector3(na.x + (na.x > 0 ? -1.0 : 1.0), player.pos.y, na.z)], () => {});
+      } },
+    ], () => { /* 닫으면 그대로 서서 읽는다 */ });
   }
 
   // ══ 순례 순서 안내 (사장님 2026-11-25) ══
