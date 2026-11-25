@@ -129,7 +129,7 @@ DRAFT = [
           source="Vatican News · Wikipedia")),
     ("Anne", "old",
      dict(name="안나", middle=dict(lines=["성녀 박 안나", "성녀 김장금 안나"], note="같은 세례명 성인 2분"),
-          sites=["서소문 밖"], meaning="전승에 따르면 성모 마리아의 어머니. 요아킴과 함께 기억한다. 이름은 히브리어로 «은총».",
+          sites=["서소문 밖"], meaning="전승으로 전하는 성모 마리아의 어머니. 요아킴과 함께 기억한다. 이름 뜻은 «은총».",
           source="주교회의 103위 성인 · 바티칸 뉴스"),
      dict(name="Anne", middle=dict(lines=["St. Anne Park A-gi", "St. Anne Kim Jang-geum"], note="2 saints share this name"),
           sites=["Outside Seosomun Gate"], meaning="By tradition, mother of the Virgin Mary, honoured with Joachim. The name means “grace” in Hebrew.",
