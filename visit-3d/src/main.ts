@@ -690,6 +690,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   /** 제k처 앞에 도착했다 — 카드는 열지 않는다(설명은 공중에 뜨는 글 하나뿐). 포인트를 주고 다음 처로 안내한다 */
   function reachStation(k: number) {
     stationShown = k;
+    const hk = holos.find((h) => h.ia.id === `station${k}`); if (hk) { hk.hidden = false; hk.md = undefined; } // 이 처 앞에 닿았으면 그 처의 설명 글이 반드시 뜨게(앞서 가려졌던 상태를 풀어 준다)
     const total = STATION_NAMES.length;
     award(`station${k}`, PTS.station, `제${k + 1}처에 이르렀습니다`);
     if (k >= total - 1) {
@@ -1365,7 +1366,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       if (camFix && space.bellRinger) bodyYaw = space.bellRinger.yaw; // 줄을 잡은 동안은 줄 쪽을 본다(자리에 옮겨 설 때 생기는 속도로 몸이 돌지 않게)
       me.root.position.copy(player.pos);
       me.root.rotation.y = bodyYaw;
-      me.root.visible = !fp || !!camFix; myTagObj.visible = me.root.visible;
+      me.root.visible = !fp || !!camFix; myTagObj.visible = me.root.visible && !holos.some((h) => h.on); // 설명 글이 떠 있는 동안은 내 이름표·포인트가 글을 가리지 않게 감춘다(사장님 2026-11-25)
       animateAvatar(me, dt, mySpeed, t, !!player.sitting);
       for (let i = sparks.length - 1; i >= 0; i--) { const sp = sparks[i]; sp.age += dt; sp.m.scale.setScalar(1 + sp.age * 4); (sp.m.material as THREE.MeshBasicMaterial).opacity = Math.max(0, 0.9 * (1 - sp.age / 0.7)); if (sp.age > 0.7) { scene.remove(sp.m); sp.m.geometry.dispose(); (sp.m.material as THREE.Material).dispose(); sparks.splice(i, 1); } }
       barrier.update(t);
