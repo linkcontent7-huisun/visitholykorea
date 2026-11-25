@@ -388,7 +388,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     // 짓는 동안 화면이 멈추므로 먼저 «준비 중» 을 그리게 한 프레임을 넘긴다(옛 공간은 아직 그대로라 그 사이 한 번 그려져도 안전하다)
     $('loading').hidden = false;
     await new Promise<void>((done) => requestAnimationFrame(() => setTimeout(done, 0)));
-    closeCard(); stopTour(); bellGameClose?.(); riteClose?.(); endRinging(); endCross(false); quest = 'none'; setGuide(null); askHide(); askKind = null; maryAsked = false; wasInside = false; guideTried = false; prayUntil = 0; me.pray = false;
+    closeCard(); stopTour(); bellGameClose?.(); riteClose?.(); endRinging(); endCross(false); quest = 'none'; setGuide(null); askHide(); botShow(false); botCall.hidden = true; askKind = null; maryAsked = false; wasInside = false; guideTried = false; prayUntil = 0; me.pray = false;
     if (space) {
       scene.remove(space.root);
       sound.setOrgan(null);
@@ -737,6 +737,86 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     arrive = done; setMoveTarget(stand);
   }
   const faceTo = (p: THREE.Vector3) => { bodyYaw = Math.atan2(-(p.x - player.pos.x), -(p.z - player.pos.z)); };
+
+
+  // ══ 아기 천사 가이드봇 (사장님 2026-11-25) — 순례자를 돕는 작은 아기 천사 ══
+  // 참고: vreal 가상 전시관의 «도슨트»(입장하면 앞에 나타나 «혼자 / 같이» → 같이면 옆을 따라다니며 가까운 것을 설명하고 다음으로 데려가 준다, 오른쪽 아래 «부르기» 단추).
+  // 나만 보이는 장식(접속자 목록·다른 사람 화면에는 없음). 아무것도 들지 않고, 벽을 지나지 않으며, 장면에 캐릭터 1명만 더한다.
+  const bot = buildAvatar(avatarOf('cherub'));
+  bot.root.visible = false; bot.root.scale.setScalar(1);
+  scene.add(bot.root);
+  let botOn = false, botFollow = false, botPopT = 0;
+  const botPos = new THREE.Vector3(), botGoal = new THREE.Vector3(), botRay = new THREE.Ray(), botDir = new THREE.Vector3();
+  const KEY_BOT = 'vhk.botSeen';
+  const botSeen = () => { try { return localStorage.getItem(KEY_BOT) === '1'; } catch { return false; } };
+  const botMark = () => { try { localStorage.setItem(KEY_BOT, '1'); } catch { /* 무시 */ } };
+  const botCall = document.createElement('button'); botCall.id = 'botCall'; botCall.type = 'button'; botCall.hidden = true; botCall.textContent = '👼 아기 천사 부르기'; botCall.setAttribute('aria-label', '아기 천사 부르기');
+  $('hud').append(botCall);
+  function botShow(on: boolean, front = false) {
+    botOn = on; bot.root.visible = on;
+    if (on) {
+      const y = bodyYaw;
+      botPos.set(player.pos.x - Math.sin(y) * (front ? 2.2 : -0.9) + Math.cos(y) * 0.9, player.pos.y + 1.3, player.pos.z - Math.cos(y) * (front ? 2.2 : -0.9) - Math.sin(y) * 0.9);
+      bot.root.position.copy(botPos); botPopT = performance.now();
+    }
+  }
+  /** 순례자 옆(오른쪽 뒤)에 떠서 따라온다. 목표 자리가 벽 뒤면 순례자 바로 뒤로 물러난다(벽을 지나지 않는다) */
+  function botUpdate(dt: number, t: number) {
+    if (!botOn || !space) return;
+    const y = bodyYaw, fx = -Math.sin(y), fz = -Math.cos(y), rx = Math.cos(y), rz = -Math.sin(y);
+    botGoal.set(player.pos.x + rx * 0.85 - fx * 0.6, player.pos.y + 1.35 + Math.sin(t * 2.1) * 0.08, player.pos.z + rz * 0.85 - fz * 0.6);
+    // 순례자 머리 높이에서 목표까지 벽이 있으면 뒤로
+    botRay.origin.set(player.pos.x, player.pos.y + 1.2, player.pos.z); botDir.set(botGoal.x - player.pos.x, botGoal.y - (player.pos.y + 1.2), botGoal.z - player.pos.z);
+    const len = botDir.length(); botDir.normalize(); botRay.direction.copy(botDir);
+    const hit = space.bvh.raycastFirst(botRay, THREE.DoubleSide);
+    if (hit && hit.distance < len + 0.3) botGoal.copy(player.pos).setY(player.pos.y + 1.35).addScaledVector(botDir, Math.max(0.25, hit.distance - 0.35));
+    const k = 1 - Math.exp(-dt * (botFollow ? 4.6 : 6));
+    botPos.lerp(botGoal, k);
+    bot.root.position.set(botPos.x, botPos.y - 0.45, botPos.z); // 작은 아기 천사가 어깨 높이쯤에 떠 있게(발 기준)
+    // 순례자를 바라보다가 움직이면 가는 쪽을 본다
+    const toP = Math.atan2(-(player.pos.x - botPos.x), -(player.pos.z - botPos.z));
+    let dy = toP - bot.root.rotation.y; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2;
+    bot.root.rotation.y += dy * (1 - Math.exp(-dt * 5));
+    const pop = Math.min(1, (performance.now() - botPopT) / 450); bot.root.scale.setScalar(0.01 + 0.99 * (pop * (2 - pop)));  // 나타날 때 톡 튀어나온다
+    animateAvatar(bot, dt, Math.min(2, mySpeed * 0.6) , t, false);
+  }
+  /** 입장 때(처음 온 기기): 앞에 나타나 «같이 / 혼자»를 묻는다 */
+  function botGreet() {
+    botShow(true, true);
+    askBar('안녕하세요! 저는 순례를 돕는 아기 천사예요. 어떻게 둘러보실래요?', [
+      { label: '👼 같이 순례해요', on: () => { botMark(); botFollow = true; botCall.hidden = true; toast('옆에서 따라다닐게요'); startGuide(); } },
+      { label: '혼자 둘러볼게요', on: () => { botMark(); botFollow = false; botShow(false); botCall.hidden = false; } },
+    ], () => { botMark(); botShow(false); botCall.hidden = false; });
+  }
+  /** «가까운 곳 설명»: 가까운 설명대·성수대·제대 등의 이름과 글을 말풍선으로 */
+  function botExplain() {
+    if (!space) return;
+    let best: Interactable | null = null, bd = 1e9;
+    for (const ia of space.interactables) {
+      if (!(ia.kind === 'info' || ia.kind === 'font' || ia.kind === 'candle' || ia.kind === 'bell')) continue;
+      const d = Math.hypot(ia.anchor.x - player.pos.x, ia.anchor.z - player.pos.z); if (d < bd) { bd = d; best = ia; }
+    }
+    const body = best ? (best.body ?? { font: '성당에 들어서며 손끝에 성수를 찍고 십자성호를 긋습니다.', candle: '초를 하나 켜고 기도를 올립니다.', bell: '종 줄을 세 번 당겨 종을 울립니다.' }[best.kind as 'font' | 'candle' | 'bell'] ?? '') : '';
+    askBar(best ? `${best.title}\n${body}` : '가까이에 설명할 곳이 없어요.', [{ label: '다음 순례 순서로 데려가 줘', on: () => botNext() }, { label: '고마워요', on: () => botMenuDone() }], () => botMenuDone());
+  }
+  function botMenuDone() { askHide(); botFollow = true; }
+  /** 「다음 순례 순서」: 성모상 → 종 → 성수 → 십자가의 길/제대 초 — 지금 단계에서 이어 간다 */
+  function botNext() {
+    askHide();
+    if (quest === 'none' || quest === 'done') { guideTried = true; startGuide(); goMary(); }
+    else if (quest === 'mary') goMary();
+    else if (quest === 'bell') nextBell();
+    else if (quest === 'font') nextFont();
+    else if (quest === 'choose') offerNext();
+  }
+  botCall.addEventListener('click', () => {
+    botShow(true, true); botFollow = true; botCall.hidden = true;
+    askBar('부르셨어요? 무엇을 도와 드릴까요?', [
+      { label: '가까운 곳 설명해 줘', on: () => botExplain() },
+      { label: '다음 순례 순서로 데려가 줘', on: () => botNext() },
+      { label: '혼자 둘러볼게요', on: () => { botShow(false); botFollow = false; botCall.hidden = false; } },
+    ], () => botMenuDone());
+  });
 
   function startGuide() {
     quest = 'mary'; maryAsked = false; guideIdle = performance.now();
@@ -1364,6 +1444,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       for (let i = sparks.length - 1; i >= 0; i--) { const sp = sparks[i]; sp.age += dt; sp.m.scale.setScalar(1 + sp.age * 4); (sp.m.material as THREE.MeshBasicMaterial).opacity = Math.max(0, 0.9 * (1 - sp.age / 0.7)); if (sp.age > 0.7) { scene.remove(sp.m); sp.m.geometry.dispose(); (sp.m.material as THREE.Material).dispose(); sparks.splice(i, 1); } }
       barrier.update(t);
       demoTick?.(t);
+      botUpdate(dt, t);
       lights.update(t, dt, lightsAt.set(player.pos.x, player.pos.y, player.pos.z), 1, lightsFwd.set(-Math.sin(bodyYaw), 0, -Math.cos(bodyYaw)));
       // 종 줄은 «종 줄 놀이로 줄을 잡고 있을 때»만 손으로 끌려온다. 성수 찍기(십자성호)도 카메라를 고정(camFix)하므로 camFix 만으로 판단하면 종 줄이 손에 딸려와 «막대기»처럼 보인다(사장님 2026-11-25)
       if (camFix && me.holdRope && space.fx?.ropeGrab) {
@@ -1473,7 +1554,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           if (on !== h.on) { h.on = on; if (on) { h.o.visible = true; h.el.classList.remove('show'); void h.el.offsetWidth; h.el.classList.add('show'); } else { h.el.classList.remove('show'); setTimeout(() => { if (!h.on) h.o.visible = false; }, 400); } }
         }
         // ── 순례 순서 안내: 시작 · 4초 가만히 있으면 성모상으로 · 밖으로 나오면 새 빛 ──
-        if (space.id === 'cathedral' && introDone && !intro && !spaceLoading && quest === 'none' && !guideTried && (!points.has('pilgrimage-done') || params.has('guide'))) { guideTried = true; startGuide(); }
+        if (space.id === 'cathedral' && introDone && !intro && !spaceLoading && quest === 'none' && !guideTried && (!points.has('pilgrimage-done') || params.has('guide'))) { guideTried = true; if (botSeen() || params.has('nobot')) { startGuide(); botCall.hidden = false; } else botGreet(); }
         if (quest === 'mary' && !maryAsked) {
           const gi = grottoIa();
           const busy = joy.length() > 0.1 || keys.size > 0 || !!moveTarget || !!pendingAct || cardOpen() || ringing || crossing || !!intro;
@@ -1518,5 +1599,5 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   void loadSpace(first);
   requestAnimationFrame(frame);
   // 점검용 손잡이(브라우저 콘솔 · 자동 시험)
-  (window as any).__vhk = { get quest() { return quest; }, get nav() { return nav; }, barrier, lights, grantLight, get camDist() { return camDist; }, holos, points, startStations, reachStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
+  (window as any).__vhk = { bot, get botOn() { return botOn; }, get quest() { return quest; }, get nav() { return nav; }, barrier, lights, grantLight, get camDist() { return camDist; }, holos, points, startStations, reachStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
 }

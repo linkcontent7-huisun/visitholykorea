@@ -232,3 +232,6 @@ body.overview .badge, body.overview .holo { opacity: 0; pointer-events: none; tr
 #askBar button.ask-x { background: transparent; color: #ffe9b8; margin-left: auto; }
 .touch #askBar { top: calc(env(safe-area-inset-top, 0px) + 70px); }
 .nick-row { display: flex; gap: 8px; align-items: center; } .nick-row input { flex: 1; min-width: 0; }
+/* 아기 천사 부르기 단추(2026-11-25) — 오른쪽 아래 */
+#botCall { position: fixed; right: max(12px, env(safe-area-inset-right, 0px)); bottom: calc(env(safe-area-inset-bottom, 0px) + 84px); z-index: 30; min-height: 44px; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255, 214, 128, .6); background: rgba(28, 20, 8, .88); color: #ffe9b8; font-weight: 800; font-size: 14px; box-shadow: 0 4px 16px rgba(0,0,0,.4); }
+#askBar p { white-space: pre-line; }
