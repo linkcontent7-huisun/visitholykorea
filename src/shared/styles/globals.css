@@ -187,3 +187,13 @@
     padding-top: env(safe-area-inset-top, 0px);
   }
 }
+
+/* 성지 찾기 교구 지도의 바다 장식(구름·물결·배)이 천천히 흔들린다 — 움직임 줄이기 설정이면 멈춘다(motion-safe) */
+@keyframes sea-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(26px);
+  }
+}

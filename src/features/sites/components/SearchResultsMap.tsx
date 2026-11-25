@@ -29,21 +29,25 @@
  * 왼쪽 목록엔 매치된 곳만 나오므로, 그 밖의 점을 눌러 봤자 스크롤해 갈 줄 자체가 없었다.
  */
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import type { HolySite } from '@/shared/types/domain';
-import { DioceseLayer } from '@/features/map/components/DioceseLayer';
+import { DioceseInfoCard } from '@/features/map/components/DioceseInfoCard';
+import { DioceseLabels, DioceseRelief } from '@/features/map/components/DioceseRelief';
+import { TILT } from '@/features/map/lib/relief';
 import { jitterFor, MAP_ASPECT, projectToMap } from '@/features/map/lib/projection';
 import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 
 const VIEW = { width: 1000, height: Math.round(1000 / MAP_ASPECT) };
+/** 눕힌 지도(TILT)의 보이는 칸 — 위아래로 떠오름·그림자 자리를 조금 둔다 */
+const VIEW_BOX = `0 -30 ${VIEW.width} ${Math.round(VIEW.height * TILT) + 60}`;
 const JITTER = 6;
 
 type PinState = 'default' | 'matched' | 'unmatched';
 
 const PIN_STYLE: Record<PinState, { r: number; className: string }> = {
   // 검색 전 — 208곳 전체를 톤다운한 색으로. 메인 색은 실제 검색 결과에만 쓴다.
-  default: { r: 5, className: 'fill-brand-blue/30' },
+  default: { r: 5, className: 'fill-white stroke-[#13244a] [stroke-width:2]' },
   // 지금 검색·조건에 맞는 곳 — 메인 색, 가장 또렷하게.
   matched: { r: 7, className: 'fill-brand-blue' },
   // 검색 중인데 맞지 않는 곳 — 테두리만.
@@ -83,6 +87,13 @@ export function SearchResultsMap({
   directoryPoints = [],
 }: SearchResultsMapProps) {
   const { t, language } = useSettings();
+  /** 지도에서 누른 교구 — 떠오르고 설명 카드가 뜬다 (지시서 10호) */
+  const [diocese, setDiocese] = useState<string | null>(null);
+  const counts = useMemo(() => {
+    const c: Record<string, number> = {};
+    for (const site of sites) if (site.region) c[site.region] = (c[site.region] ?? 0) + 1;
+    return c;
+  }, [sites]);
 
   const pins = useMemo(() => {
     const placed: Array<{ site: HolySite; x: number; y: number; state: PinState }> = [];
@@ -96,7 +107,7 @@ export function SearchResultsMap({
         : matchedIds.has(site.id)
           ? 'matched'
           : 'unmatched';
-      placed.push({ site, x: point.x + j.x, y: point.y + j.y, state });
+      placed.push({ site, x: point.x + j.x, y: (point.y + j.y) * TILT, state });
     }
 
     placed.sort((a, b) => DRAW_ORDER[a.state] - DRAW_ORDER[b.state]);
@@ -108,24 +119,29 @@ export function SearchResultsMap({
       const point = projectToMap(p.lat, p.lng, VIEW);
       if (!point) return [];
       const j = jitterFor(p.id, JITTER);
-      return [{ point: p, x: point.x + j.x, y: point.y + j.y }];
+      return [{ point: p, x: point.x + j.x, y: (point.y + j.y) * TILT }];
     });
   }, [directoryPoints]);
 
   const matchedCount = pins.filter((p) => p.state === 'matched').length;
 
   return (
-    <div className="w-full">
+    <div className="w-full space-y-3">
       <svg
-        viewBox={`0 0 ${VIEW.width} ${VIEW.height}`}
-        className="h-auto w-full"
+        viewBox={VIEW_BOX}
+        className="h-auto w-full rounded-lg border border-app-border bg-[linear-gradient(180deg,#bfe0f3_0%,#a7d3ee_55%,#94c6e6_100%)]"
         role="img"
         aria-label={fillPlaceholders(t('searchMapAria'), {
           total: pins.length,
           matched: hasActiveSearch ? matchedCount : pins.length,
         })}
       >
-        <DioceseLayer language={language} highlight={highlightDiocese} />
+        <DioceseRelief
+          language={language}
+          selected={diocese}
+          onSelect={(d) => setDiocese((cur) => (cur === d ? null : d))}
+          highlight={highlightDiocese}
+        />
 
         {/* 본당·공소 — 성지(원)와 모양부터 다른 작은 사각형, 올리브색 */}
         {directoryPins.map(({ point, x, y }) => (
@@ -144,7 +160,15 @@ export function SearchResultsMap({
           const isSelected = site.id === selectedId;
           const style = PIN_STYLE[state];
           return (
-            <g key={site.id}>
+            <g
+              key={site.id}
+              className="motion-safe:transition-[transform,opacity] motion-safe:duration-[250ms]"
+              // 누른 교구의 점은 판과 함께 떠오르고, 다른 교구의 점은 흐려진다
+              style={{
+                transform: diocese && site.region === diocese ? 'translateY(-12px)' : undefined,
+                opacity: diocese && site.region !== diocese ? 0.55 : 1,
+              }}
+            >
               {isSelected && <circle cx={x} cy={y} r={15} className="fill-brand-accent/20" />}
               <circle
                 cx={x}
@@ -173,7 +197,10 @@ export function SearchResultsMap({
             </g>
           );
         })}
+
+        <DioceseLabels language={language} selected={diocese} highlight={highlightDiocese} />
       </svg>
+      <DioceseInfoCard diocese={diocese} counts={counts} onClose={() => setDiocese(null)} />
     </div>
   );
 }
