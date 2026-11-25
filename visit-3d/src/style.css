@@ -224,4 +224,11 @@ body.ringing #hint, body.ringing #crosshair, body.ringing #actBtn { display: non
 
 /* 전체 그림(두 손가락을 모아 멀리 본 모습)에서는 성지 위 안내 표지·설명 글이 겹쳐 지저분하다 — 감춘다 */
 body.overview .badge, body.overview .holo { opacity: 0; pointer-events: none; transition: opacity .3s; }
+/* 순례 순서 안내줄(2026-11-25) — 창이 아니라 화면 위쪽의 안내. 누르지 않고 직접 움직여도 된다 */
+#askBar { position: fixed; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 76px); transform: translateX(-50%); z-index: 40; width: min(92vw, 440px); box-sizing: border-box; padding: 10px 12px 12px; border-radius: 14px; background: rgba(28, 20, 8, .88); border: 1px solid rgba(255, 214, 128, .55); color: #ffe9b8; box-shadow: 0 6px 22px rgba(0,0,0,.45); }
+#askBar p { margin: 0 0 8px; font-size: 15px; line-height: 1.45; font-weight: 700; }
+#askBar .ask-row { display: flex; flex-wrap: wrap; gap: 8px; }
+#askBar button { min-height: 44px; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255, 214, 128, .6); background: #d4a017; color: #2a1c04; font-weight: 800; font-size: 14px; }
+#askBar button.ask-x { background: transparent; color: #ffe9b8; margin-left: auto; }
+.touch #askBar { top: calc(env(safe-area-inset-top, 0px) + 70px); }
 .nick-row { display: flex; gap: 8px; align-items: center; } .nick-row input { flex: 1; min-width: 0; }
