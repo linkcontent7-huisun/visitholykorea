@@ -11,7 +11,7 @@ import { GTAOPass } from 'three/examples/jsm/postprocessing/GTAOPass.js';
 import { WIND, NEAR_FADE } from './sitemap/trees.ts';
 import { lightBeam, glassPool } from './textures.ts';
 import { simplifyOutdoor } from './simplify.ts';
-import { initialName, isSelfName, KEY_NICK, KEY_NICK_SELF } from './pilgrim-name.ts';
+import { initialName, isSelfName, KEY_NICK, KEY_NICK_SELF, randomPilgrimName } from './pilgrim-name.ts';
 import { AVATARS, avatarOf, randomAvatarId, encodeNick, decodeNick, buildAvatar, animateAvatar } from './avatars.ts';
 import nipplejs from 'nipplejs';
 import { makeMaterials } from './materials.ts';
@@ -49,10 +49,12 @@ const startSel = $<HTMLSelectElement>('startSpace');
 const qualitySel = $<HTMLSelectElement>('quality');
 // 로그인한 순례자의 계정 이름을 칸에 넣는다(직접 고친 이름이 먼저) — pilgrim-name.ts
 try { nickInput.value = initialName(localStorage); } catch { /* 저장소 없음 */ }
+if (!nickInput.value) nickInput.value = randomPilgrimName(); // 로그인한 이름도, 직접 적은 이름도 없으면 성경 인물 이름을 한 칸에 넣어 준다(고치거나 🎲 로 다시 뽑는다)
+$('nickRandom').addEventListener('click', () => { nickInput.value = randomPilgrimName(); });
 if (isSpaceId(startParam)) startSel.value = startParam;
 qualitySel.value = touch ? 'low' : 'high';
 
-const cleanNick = (s: string) => s.normalize('NFC').replace(/[^\p{L}\p{N} _-]/gu, '').trim().slice(0, 12) || `순례자${Math.floor(1000 + Math.random() * 9000)}`;
+const cleanNick = (s: string) => s.normalize('NFC').replace(/[^\p{L}\p{N} _-]/gu, '').trim().slice(0, 12) || randomPilgrimName();
 
 function webglOk() {
   try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; }
