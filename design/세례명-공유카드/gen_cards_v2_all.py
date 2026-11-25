@@ -14,6 +14,7 @@
 """
 
 import csv
+import os
 import re
 from collections import defaultdict
 
@@ -145,18 +146,40 @@ def main() -> None:
         jobs.append((r["slug"], (r["ko"], dict(lines=forms(langs, ""), note="세계 곳곳에서 불리는 같은 이름", latin=True), KO_WAIT, r["meaning_ko"], SRC_NAME[0]),
                      (r["en"], dict(lines=forms(langs, r["en"]), note="The same name around the world"), EN_WAIT, r["meaning_en"], SRC_NAME[1])))
 
+    # 같은 이름·다른 축일(사장님 2026-11-25): feasts.tsv 에 있는 이름은 뜻 문장 대신 «축일 · 성인» 줄(축일순, 최대 4분)
+    MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    feasts = defaultdict(list)
+    for r in tsv("feasts.tsv"):
+        feasts[r["ko"]].append(r)
+    def feast_lines(ko: str) -> tuple[list[str], list[str]]:
+        rows = sorted(feasts[ko], key=lambda r: r["feast"])
+        kos = [f"{int(r['feast'][:2])}/{int(r['feast'][3:])} · {r['saint_ko']}" for r in rows]
+        ens = [f"{int(r['feast'][3:])} {MON[int(r['feast'][:2]) - 1]} · {r['saint_en']}" for r in rows]
+        if len(rows) > 4:  # 지금 표에는 없지만 다섯 분 이상이면 넷 + «그 밖에도 있음»
+            kos, ens = kos[:3] + ["그 밖에도 같은 이름의 성인이 있다"], ens[:3] + ["…and other saints of this name"]
+        return kos, ens
+    for i, (slug, ko, en) in enumerate(jobs):
+        if ko[0] in feasts:
+            fk, fe = feast_lines(ko[0])
+            jobs[i] = (slug, ko[:3] + (fk,) + ko[4:], en[:3] + (fe,) + en[4:])
+    assert sum(1 for _, ko, _ in jobs if isinstance(ko[3], list)) == len(feasts), "feasts.tsv 의 이름이 카드 목록에 다 있어야 한다"
+
     slugs = [j[0] for j in jobs]
     assert len(jobs) == 150 + len(new) and len(set(slugs)) == len(slugs), (len(jobs), len(set(slugs)))
     root = ROOT / "public" / "baptism-cards"
+    only_feasts = os.environ.get("ONLY") == "feasts"  # 축일 카드만 다시 찍기(다른 카드는 그대로 둔다)
     for slug, ko, en in jobs:
+        if only_feasts and not isinstance(ko[3], list):
+            continue
         for lang, (name, mid, sites, meaning, src) in (("ko", ko), ("en", en)):
             im = card(lang, name, mid, sites, meaning, src)
             (root / lang).mkdir(parents=True, exist_ok=True)
             (root / "og" / lang).mkdir(parents=True, exist_ok=True)
             im.save(root / lang / f"{slug}.webp", "WEBP", quality=82, method=6)
             im.resize((480, 600), Image.LANCZOS).save(root / "og" / lang / f"{slug}.jpg", "JPEG", quality=72, optimize=True)
-    print(len(jobs), "cards × 2 languages")
-    write_app_data(new, by_ko)
+    print(len(jobs), "cards × 2 languages", "(축일 카드만)" if only_feasts else "")
+    if not only_feasts:
+        write_app_data(new, by_ko)
 
 
 def write_app_data(new: list[dict], by_ko: dict) -> None:

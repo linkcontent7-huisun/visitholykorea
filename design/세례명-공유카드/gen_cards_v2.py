@@ -31,10 +31,10 @@ KR_FONTS = dict(serif=_f(KR / "NotoSerifKR-Regular.otf"), serif_b=_f(KR / "NotoS
                 sans=_f(KR / "NotoSansKR-Regular.otf"), sans_b=_f(KR / "NotoSansKR-Bold.otf"))
 
 LABELS = {
-    "ko": dict(title="세례명으로 만나는 성지", mine="나의 세례명", box="함께 걸어 볼 성지", meaning="이름과 성인",
+    "ko": dict(title="세례명으로 만나는 성지", mine="나의 세례명", box="함께 걸어 볼 성지", meaning="이름과 성인", feasts="같은 이름 · 다른 축일",
                footer="성지 순례 안내 · 6개 국어", source="참고: "),
     "en": dict(title="Holy places, by your baptismal name", mine="My baptismal name", box="Holy sites to visit",
-               meaning="The name and the saint", footer="Korean Catholic pilgrimage guide · 6 languages",
+               meaning="The name and the saint", feasts="Same name, different feast days", footer="Korean Catholic pilgrimage guide · 6 languages",
                source="Sources: "),
 }
 
@@ -84,8 +84,18 @@ def card(lang: str, name: str, middle: dict, sites: list[str], meaning: str, sou
     centered(d, 664, middle["note"], fit(d, middle["note"], F["sans"], 28, W - 200), MUTED)
 
     # 뜻 칸 — 휴대폰에서 카드 한 장을 열어도 읽히게 글자를 40px 아래로 줄이지 않는다
-    top, bottom = 712, 962
+    top, bottom = (704, 972) if isinstance(meaning, list) else (712, 962)  # 축일 네 줄이면 칸을 조금 키운다
     d.rounded_rectangle((110, top, W - 110, bottom), radius=26, fill="#ffffff", outline="#ddd8cf", width=2)
+    if isinstance(meaning, list):
+        # 같은 이름의 성인이 여럿이고 축일이 다르면(사장님 2026-11-25) «축일 · 성인» 을 축일순으로 한 줄씩, 최대 4줄
+        centered(d, top + 20, L["feasts"], F["sans_b"](28), OLIVE)
+        rows = meaning[:4]
+        gap = 48 if len(rows) == 4 else 58
+        y = top + 60 + (bottom - top - 72 - len(rows) * gap) // 2
+        for row in rows:
+            centered(d, y, row, fit(d, row, F["serif"], 40, W - 250), NAVY)
+            y += gap
+        return finish(d, img, L, F, sites, source)
     centered(d, top + 20, L["meaning"], F["sans_b"](28), OLIVE)
     for size, gap in ((44, 16), (42, 14), (40, 12)):
         f = F["serif"](size)
@@ -97,6 +107,11 @@ def card(lang: str, name: str, middle: dict, sites: list[str], meaning: str, sou
         centered(d, y, line, f, NAVY)
         y += size + gap
 
+    return finish(d, img, L, F, sites, source)
+
+
+def finish(d, img, L, F, sites, source):
+    """성지 상자·주소·출처 줄 — 모든 카드에 같은 자리"""
     top = 980
     d.rounded_rectangle((120, top, W - 120, top + 132), radius=26, fill=SOFT)
     centered(d, top + 14, L["box"], fit(d, L["box"], F["sans_b"], 28, W - 300), OLIVE)
