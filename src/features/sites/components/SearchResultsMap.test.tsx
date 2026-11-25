@@ -49,7 +49,8 @@ describe('성지 찾기 교구 지도', () => {
     expect(screen.getByText(DICTIONARY.dioceseWhat.ko)).toBeInTheDocument();
   });
 
-  it('15개 교구를 하나씩 누르면 그 교구의 설명 카드가 뜬다', () => {
+  // 15번 눌러 보는 시험이라 전체 시험을 병렬로 돌리면 기본 5초를 넘길 때가 있다(팀장 창, 2026-11-25) — 넉넉히 20초
+  it('15개 교구를 하나씩 누르면 그 교구의 설명 카드가 뜬다', { timeout: 20_000 }, () => {
     renderMap();
     for (const info of DIOCESE_INFO) {
       fireEvent.click(screen.getByRole('button', { name: info.name.ko }));
