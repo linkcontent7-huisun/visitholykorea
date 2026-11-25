@@ -124,7 +124,7 @@ export function placeSite(kit: Kit, M: Mats, site: SiteData, towerFrontLocal: nu
     const ls = buildLandscape(site as any, {
       keepClear: [clearRing, plaza], groundScale: 0.15, distant: true,
       // 화질 «가볍게»(모바일 기본) = 20면체 나무 · 반경 200m, «높게» = 상세 나무 · 반경 260m. 중심 = 성당 가운데
-      treeDetail: opts.light ? 'low' : 'high', treeRadius: opts.light ? 200 : 260, treeCenter: toSite(0, -15),
+      treeDetail: opts.light ? 'low' : 'high', treeRadius: opts.light ? 150 : 260, // 휴대폰은 150 m 까지만(200→150) treeCenter: toSite(0, -15),
       terrain: { height: heightAt, center: toSite(0, -15), size: 230, top: HILL },
     });
     const lh = new THREE.Group();

@@ -9,6 +9,7 @@ import * as THREE from 'three';
 
 const RINGS = 8;      // 하늘 가득(사장님 2026-11-25): 고리를 늘려 위로 여러 겹
 const PER_RING = 200;
+const RINGS_LOW = 5;     // 휴대폰은 5겹·겹당 70점(사장님 2026-11-25: 휴대폰에서만 줄임, 컴퓨터는 그대로)
 const BEAM = 40;
 
 export interface Barrier {
@@ -97,11 +98,12 @@ const BEAM_FRAG = /* glsl */ `
 `;
 
 export function createBarrier(opts: { low: boolean; pixelRatio: number; viewH: () => number }): Barrier {
-  const perRing = opts.low ? 100 : PER_RING;
-  const n = RINGS * perRing;
+  const perRing = opts.low ? 70 : PER_RING;
+  const ringCount = opts.low ? RINGS_LOW : RINGS;
+  const n = ringCount * perRing;
   const ring = new Float32Array(n * 4), zero = new Float32Array(n * 3);
   const rnd = (i: number, k: number) => { const s = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return s - Math.floor(s); };
-  for (let i = 0; i < RINGS; i++) for (let j = 0; j < perRing; j++) {
+  for (let i = 0; i < ringCount; i++) for (let j = 0; j < perRing; j++) {
     const o = (i * perRing + j) * 4;
     ring.set([i, (j / perRing) * Math.PI * 2 + rnd(j, i) * 0.04, (i % 2 ? -1 : 1) * (0.03 + i * 0.008), 0.7 + rnd(j, i + 9) * 0.9], o);
   }
@@ -133,7 +135,7 @@ export function createBarrier(opts: { low: boolean; pixelRatio: number; viewH: (
   return {
     object,
     setSite(center, radius) { U.uCenter.value.copy(center); U.uRadius.value = radius; UB.uTop.value = radius * 0.62 * Math.sin(THREE.MathUtils.degToRad(10 + 4 * 13)) + 3; },
-    setLevel(count) { U.uLevel.value = Math.min(RINGS, 5 + Math.floor(count / 8)); }, // 처음부터 다섯 겹은 하늘에 떠 있고, 초가 모일수록 위로 겹이 늘어 하늘을 채운다
+    setLevel(count) { U.uLevel.value = Math.min(ringCount, Math.min(5, ringCount) + Math.floor(count / 8)); }, // 처음부터 다섯 겹은 하늘에 떠 있고, 초가 모일수록 위로 겹이 늘어 하늘을 채운다
     pulse(from) {
       UB.uFrom.value.copy(from);
       U.uPulseT.value = lastT;

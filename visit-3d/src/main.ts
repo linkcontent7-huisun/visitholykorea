@@ -236,19 +236,47 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     composer.addPass(grade);
   }
 
+
+  // ── 속도 보기 도구: 주소 끝에 ?fps (사장님 2026-11-25) — 휴대폰에서 걸으며 초당 장수를 눈으로 본다 ──
+  const fpsOn = params.has('fps');
+  let fpsEl: HTMLDivElement | null = null, fpsAcc = 0, fpsFrames = 0, fpsMin = 999, fpsSum = 0, fpsN = 0;
+  if (fpsOn) {
+    fpsEl = document.createElement('div'); fpsEl.id = 'fpsBox';
+    fpsEl.style.cssText = 'position:fixed;left:6px;bottom:calc(env(safe-area-inset-bottom,0px) + 6px);z-index:99;padding:6px 8px;border-radius:8px;background:rgba(0,0,0,.72);color:#9dffb0;font:600 11px/1.35 ui-monospace,monospace;pointer-events:none;white-space:pre';
+    document.body.append(fpsEl);
+  }
+  function fpsTick(dt: number) {
+    if (!fpsEl) return;
+    fpsAcc += dt; fpsFrames++;
+    if (dt > 0) { const f = 1 / dt; fpsMin = Math.min(fpsMin, f); }
+    if (fpsAcc >= 0.5) {
+      const f = fpsFrames / fpsAcc; fpsSum += f; fpsN++; fpsAcc = 0; fpsFrames = 0;
+      const info = renderer.info.render;
+      fpsEl.textContent = `${f.toFixed(0)} fps  (최저 ${fpsMin.toFixed(0)} · 평균 ${(fpsSum / fpsN).toFixed(0)})\n해상도 ${renderer.getPixelRatio().toFixed(2)}x · 호출 ${info.calls} · 삼각형 ${(info.triangles / 1000).toFixed(0)}k\n${walkingNow() ? '걷는 중' : '서 있음'}  목표 45`;
+      fpsFrames = 0;
+    }
+    if (fpsAcc === 0 && fpsN % 20 === 0) fpsMin = 999;
+  }
+
   // v2: 자동 해상도 — 잎·풀 같은 투명 무늬가 많은 바깥은 픽셀 수가 곧 속도다. 초당 50 장 아래면 내리고 58 장 넘으면 올린다
-  let prAcc = 0, prFrames = 0, prCool = 2;
+  let prAcc = 0, prFrames = 0, prCool = 2, prUpOk = 0;
+  const walkingNow = () => mySpeed > 0.3 || !!moveTarget;
   function adaptRes(dt: number) {
     if ((window as any).__fixedPR) return; // 영상 촬영 중에는 해상도를 고정한다
     prAcc += dt; prFrames++; prCool -= dt;
-    if (prAcc < 1.2) return;
+    if (prAcc < 1.0) return;
     const fps = prFrames / prAcc; prAcc = 0; prFrames = 0;
     if (prCool > 0) return;
     const cur = renderer.getPixelRatio();
+    const MIN_PR = touch ? 0.6 : 0.8;
     let next = cur;
-    if (fps < 48 && cur > 0.8) next = Math.max(0.8, cur - (fps < 35 ? 0.25 : 0.125));
-    else if (fps > 58 && cur < PR_MAX) next = Math.min(PR_MAX, cur + 0.125);
-    if (next !== cur) { renderer.setPixelRatio(next); composer?.setPixelRatio(next); prCool = 2.5; }
+    // 내리기는 빨리: 휴대폰은 초당 45장 아래면(목표), 컴퓨터는 48장 아래면. 많이 느리면 크게 내린다
+    const lowFps = touch ? 45 : 48;
+    if (fps < lowFps && cur > MIN_PR) next = Math.max(MIN_PR, cur - (fps < 30 ? 0.25 : 0.125));
+    // 올리기는 아주 천천히·가만히 서 있을 때만: 해상도를 바꾸면 화면 버퍼를 새로 만들어 순간 멈추므로 걷는 동안에는 바꾸지 않는다
+    else if (fps > 58 && cur < PR_MAX && !walkingNow()) { if (++prUpOk >= 6) { next = Math.min(PR_MAX, cur + 0.125); prUpOk = 0; } }
+    else prUpOk = 0;
+    if (next !== cur) { renderer.setPixelRatio(next); composer?.setPixelRatio(next); prCool = next < cur ? 2.0 : 10; }
   }
 
   const player = new Player();
@@ -257,11 +285,12 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // ── 내 캐릭터 · 3인칭 카메라(로블록스식) ──
   const me = buildAvatar(avatarOf(myAvatar));
   scene.add(me.root);
+  let viewHcache = innerHeight; addEventListener('resize', () => { viewHcache = innerHeight; }); // 화면 높이는 매 프레임 읽지 않는다(읽을 때마다 화면 배치를 다시 계산하게 만든다)
   // 순례자의 빛 — 점 한 묶음(그리기 1번). 움직임은 전부 셰이더가 한다
-  const lights = createPilgrimLights({ low: touch, pixelRatio: Math.min(PR_MAX, 1.25), viewH: () => innerHeight });
+  const lights = createPilgrimLights({ low: touch, pixelRatio: Math.min(PR_MAX, 1.25), viewH: () => viewHcache });
   scene.add(lights.object);
   // 기도의 결계 — 켠 초가 성전 둘레에 겹겹의 빛 고리로 쌓인다(그리기 2번)
-  const barrier = createBarrier({ low: touch, pixelRatio: Math.min(PR_MAX, 1.25), viewH: () => innerHeight });
+  const barrier = createBarrier({ low: touch, pixelRatio: Math.min(PR_MAX, 1.25), viewH: () => viewHcache });
   scene.add(barrier.object);
   const barrierLevel = () => barrier.setLevel(params.has('demo') ? 100 : Math.max(saved?.total ?? 0, space ? space.candles.filter((c) => c.lit).length : 0));
   const flamePos = new THREE.Vector3();
@@ -1603,6 +1632,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     const dbg = (window as any).__cam;
     if (dbg) { camera.position.set(dbg.p[0], dbg.p[1], dbg.p[2]); camera.lookAt(dbg.t[0], dbg.t[1], dbg.t[2]); if (dbg.fov && camera.fov !== dbg.fov) { camera.fov = dbg.fov; camera.updateProjectionMatrix(); } }
     adaptRes(dt);
+    fpsTick(dt);
     WIND.time.value = t;
     if (su.time) su.time.value = t;
     grade.uniforms.uTime.value = t;
