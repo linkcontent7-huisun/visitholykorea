@@ -719,6 +719,7 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
 
   // 출발점 — 언덕이 있으면 정면 쪽 언덕 아래(성당을 올려다보며 걸어 올라온다)
   let spawnPos = v3(0, 0.02, 28);
+  let introFrom: THREE.Vector3 | undefined;
   if (hill && placed) {
     // 언덕 아래이면서 나무 줄기에서 4 m 넘게 떨어져 앞이 트인 자리(성당 쪽이 보이게)를 고른다
     const clear = (x: number, z: number) => placed!.trunks.every((t) => Math.hypot(t.x - x, t.y - z) > 3)
@@ -728,6 +729,7 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
         if (placed.groundAt(x, z) <= -HILL + 0.1 && free(x, z, 2) && clear(x, z)) { spawnPos = v3(x, placed.groundAt(x, z) + 0.02, z); break outer; }
       }
     }
+    introFrom = spawnPos.clone(); // 2026-11-24: 여는 장면(드론샷)은 계속 언덕 아래 계단 맨 아래에서 시작한다. 캐릭터만 계단 위에서 움직인다
     // 2026-11-23 사장님: 언덕 아래에서 시작하면 소개 영상(10초)과 긴 계단 때문에 성당까지 너무 오래 걸린다
     // → 계단 맨 위 칸에서 시작해 바로 성당으로 간다. 언덕 아래 자리에서 정문 쪽으로 올라가다 처음 평지가 되는 곳의 1.5 m 안쪽
     {
@@ -1129,6 +1131,7 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
     interactables: reg.interactables, pickables: reg.pickables,
     doors, candles: [...candles, ...outdoorCandles], zones, stations, windows,
     spawn: { pos: spawnPos, yaw: 0 },
+    introFrom,
     outdoorGroup: outdoor, shellGroup: shell ?? undefined, organPos, bellPos, floorY: F,
     interior: new THREE.Box3(v3(-AISLE_IN, -1, APSE_C - AMB_IN), v3(AISLE_IN, 30, XWALL)),
     fx: { bellPull, fontDip, ropeGrab },

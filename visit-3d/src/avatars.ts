@@ -55,6 +55,10 @@ export const AVATARS: AvatarDef[] = [
   { id: 'sister', name: '수녀님', emoji: '🙏', robe: true, skin: 0xe2c2a0, hair: 0x1c1c22, hairStyle: 'veil', top: 0x26262c, bottom: 0x26262c, accent: 0xf2efe8, prop: 'rosary', scale: 0.95 },
   { id: 'priest', name: '신부님', emoji: '✝️', robe: true, skin: 0xd9b48e, hair: 0x2a2420, hairStyle: 'short', top: 0x18181c, bottom: 0x18181c, accent: 0xf2efe8, prop: 'book', scale: 1.0 },
   { id: 'pilgrim', name: '순례자', emoji: '🎒', robe: true, skin: 0xe8ccb2, hair: 0xb89050, hairStyle: 'hood', top: 0x6e5a44, bottom: 0x4a3c30, accent: 0xd8c8a8, mantle: 0x5a4a3a, backpack: true, prop: 'staff', scale: 0.98 },
+  { id: 'gungnyeo', name: '궁중 여인', emoji: '👸', skin: 0xeed0b4, hair: 0x1c1410, hairStyle: 'bun', top: 0x2fa070, bottom: 0xc8202a, accent: 0xe0b040, scale: 0.96 },
+  { id: 'official', name: '관리', emoji: '🎩', robe: true, skin: 0xe2c2a0, hair: 0x15120f, hairStyle: 'short', top: 0x2c5fb8, bottom: 0x2c5fb8, accent: 0xe0b040, scale: 1.0 },
+  { id: 'jangot', name: '장옷 여인', emoji: '🧕', skin: 0xeed0b4, hair: 0x1c1410, hairStyle: 'bun', top: 0x2fae68, bottom: 0xe0507a, accent: 0xf2efe8, scale: 0.97 },
+  { id: 'scholar', name: '선비', emoji: '📜', robe: true, skin: 0xe2c2a0, hair: 0x15120f, hairStyle: 'short', top: 0xa9c8f2, bottom: 0xa9c8f2, accent: 0x3a2f8a, scale: 1.0 },
 ];
 
 const byId = new Map(AVATARS.map((a, i) => [a.id, i]));
@@ -204,7 +208,30 @@ export interface AvatarRig {
 
 /** 동작을 시작한다(같은 동작이 진행 중이면 처음부터 다시). k: 세기 — 종 줄은 1이면 힘껏(몸이 떠오른다), 0.45면 헛당김 */
 export function startGesture(rig: AvatarRig, kind: 'pull' | 'cross', k = 1, skip = 0) { rig.gesture = { kind, start: rig.idle - skip * GESTURE_DUR[kind], k }; } // skip: 동작의 앞 몇 할을 건너뛰고 시작(손잡이를 이미 끌어내린 채 시작할 때)
-const GESTURE_DUR = { pull: 1.5, cross: 3.2 } as const;
+const GESTURE_DUR = { pull: 1.5, cross: 5.6 } as const;
+/** 십자성호 동작의 진행(0~1). 동작 중이 아니면 null — 화면 쪽이 «이마에 닿았다» 같은 순간에 소리·반짝임을 맞춘다 */
+export function crossProgress(rig: AvatarRig): number | null {
+  const g = rig.gesture; if (!g || g.kind !== 'cross') return null;
+  return Math.min(1, (rig.idle - g.start) / GESTURE_DUR.cross);
+}
+/** 십자성호의 순간들(진행 0~1): 손끝이 성수에 닿음 · 이마 · 가슴 · 왼쪽 어깨 · 오른쪽 어깨에 닿는 때 */
+export const CROSS_BEATS = [0.17, 0.37, 0.56, 0.75, 0.93] as const;
+// 오른팔 열쇠 자세 [어깨 앞뒤, 어깨 비틂, 어깨 옆, 팔꿈치] — 한지 인형의 팔이 짧아(44 cm) 닿는 자리를 수치로 풀어 정했다(2026-11-24, 오차 5~12 cm).
+// 이 값은 확정이다: 성지가 바뀌어도 바꾸지 않는다(성지만들기 스킬 6-2). lean: 몸을 앞으로 숙이는 정도(음수가 앞)
+const CROSS_KEYS: { u: number; lean: number; a: readonly [number, number, number, number] }[] = [
+  { u: 0.00, lean: 0,     a: [0.00, 0, 0.08, 0.30] },  // 서 있는 자세
+  { u: 0.12, lean: -0.32, a: [0.20, 0, -0.50, 1.30] }, // 성수대 쪽으로 숙여 손을 뻗는다
+  { u: 0.21, lean: -0.32, a: [0.20, 0, -0.50, 1.30] }, // 손끝을 성수에 담근다(잠깐)
+  { u: 0.37, lean: 0,     a: [2.20, 0, -1.05, 0.80] }, // 이마
+  { u: 0.43, lean: 0,     a: [2.20, 0, -1.05, 0.80] },
+  { u: 0.56, lean: 0,     a: [0.19, 0, -1.30, 1.10] }, // 가슴
+  { u: 0.62, lean: 0,     a: [0.19, 0, -1.30, 1.10] },
+  { u: 0.75, lean: 0,     a: [0.72, 0, -1.87, 0.43] }, // 왼쪽 어깨
+  { u: 0.81, lean: 0,     a: [0.72, 0, -1.87, 0.43] },
+  { u: 0.93, lean: 0,     a: [0.22, 0, 0.42, 2.65] },  // 오른쪽 어깨
+  { u: 0.97, lean: 0,     a: [0.22, 0, 0.42, 2.65] },
+  { u: 1.00, lean: 0,     a: [0.00, 0, 0.08, 0.30] },  // 손을 내린다
+];
 /** 줄을 잡은 자세: 두 팔을 앞 위로 뻗어(머리 높이 위, 몸 앞 0.4 m) 줄을 쥐고 위를 본다.
  *  어깨 rotation.x 는 +가 앞(다리와 같다) — 이 모델은 -z 를 바라본다 */
 const HOLD_ARM = 2.3, PULL_ARM = 1.05; // 줄을 잡은 팔(위) · 끝까지 당긴 팔(가슴 앞)
@@ -252,16 +279,14 @@ function applyGesture(rig: AvatarRig) {
     if (rig.footL && rig.footR) { rig.footL.position.y += lift * 0.1; rig.footR.position.y += lift * 0.1; }
     rig.head.rotation.x = -0.45 + 0.35 * down; rig.head.rotation.y = 0;
   } else {
-    // 십자성호: 오른손 이마(0~.25) → 가슴(.25~.5) → 왼쪽 어깨(.5~.75) → 오른쪽 어깨(.75~1). 왼손은 가슴에
-    const seg = Math.min(3, Math.floor(u * 4)), k = smooth((u * 4 - seg) * 1.6);
-    // 어깨 rotation.x 는 +가 앞. 팔꿈치를 접어(+) 손이 몸 쪽으로 돌아오게 한다
-    const pts = [[2.1, -0.05], [1.0, -0.05], [1.35, -0.6], [1.35, 0.5]]; // [어깨 x 회전, 어깨 z 회전] — 이마 · 가슴 · 왼어깨 · 오른어깨
-    const from = seg === 0 ? [1.0, -0.05] : pts[seg - 1], to = pts[seg];
-    rig.armR.rotation.x = from[0] + (to[0] - from[0]) * k;
-    rig.armR.rotation.z = from[1] + (to[1] - from[1]) * k;
-    rig.elbowR.rotation.x = 1.9;
-    rig.armL.rotation.x = 1.0; rig.armL.rotation.z = 0.35; rig.elbowL.rotation.x = 1.9; // 왼손은 가슴에 모은다
-    rig.head.rotation.x = 0.12; rig.head.rotation.y = 0;
+    // 십자성호(5.6초): 몸을 숙여 오른손을 성수에 담그고 → 이마 → 가슴 → 왼쪽 어깨 → 오른쪽 어깨(성부와 · 성자와 · 성령의 · 이름으로). 왼팔은 그대로 둔다
+    let i = 0; while (i < CROSS_KEYS.length - 2 && u > CROSS_KEYS[i + 1].u) i++;
+    const k0 = CROSS_KEYS[i], k1 = CROSS_KEYS[i + 1], f = smooth((u - k0.u) / (k1.u - k0.u || 1));
+    const mix = (x: number, y: number) => x + (y - x) * f;
+    rig.armR.rotation.set(mix(k0.a[0], k1.a[0]), mix(k0.a[1], k1.a[1]), mix(k0.a[2], k1.a[2]));
+    rig.elbowR.rotation.x = mix(k0.a[3], k1.a[3]);
+    rig.body.rotation.x = mix(k0.lean, k1.lean);
+    rig.head.rotation.x = 0.05 + (u > 0.12 && u < 0.3 ? 0.18 : 0); rig.head.rotation.y = 0; // 성수를 바라본다
   }
 }
 

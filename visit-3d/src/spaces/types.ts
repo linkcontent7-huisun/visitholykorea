@@ -75,6 +75,8 @@ export interface SpaceBuild {
   candles: CandleRt[];
   zones: Zone[];
   spawn: { pos: THREE.Vector3; yaw: number };
+  /** 여는 장면(드론샷)이 시작하는 자리 — 언덕 아래 ㄷ 계단 맨 아래. 있으면 입장할 때 여기서 날아올라 spawn(계단 위)의 캐릭터에게 내려앉는다 */
+  introFrom?: THREE.Vector3;
   stations: Station[];
   windows: WindowLight[];
   /** 실내에 있을 때 숨겨도 되는 바깥 소품 */
