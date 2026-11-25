@@ -8,9 +8,12 @@ import { BAPTISM_NAMES } from '../data/baptism-names';
 import { paths } from '@/app/routes/paths';
 import { cardImageUrl, cardPngFile } from '../lib/card-image';
 import {
+  CHIP_LIMIT,
   featuredSaints,
   filterNames,
+  LIST_PAGE,
   nameSlugOf,
+  relatedNames,
   saintsOfName,
   sortedNames,
   type BaptismOption,
@@ -36,6 +39,8 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
   const [failed, setFailed] = useState(false);
 
   const [query, setQuery] = useState('');
+  /** 검색어가 없을 때 목록에 보이는 개수 — 휴대폰에서 230여 개를 한꺼번에 늘어놓지 않는다 */
+  const [listCount, setListCount] = useState(LIST_PAGE);
 
   const featured = useMemo(() => featuredSaints(language), [language]);
   const names = useMemo(() => sortedNames(language), [language]);
@@ -47,6 +52,9 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
     : null;
   /** 고른 카드가 속한 세례명의 한국 성인들 — 성인 카드를 골라도 같은 세례명의 다른 성인이 이어서 보인다 */
   const groupSaints = selectedEntry ? saintsOfName(nameSlugOf(selectedEntry), language) : [];
+  /** 함께 묶인 세례명 — 같은 날 기념·가족·같은 이름 뿌리 (지시서 9호) */
+  const related = selectedEntry ? relatedNames(selectedEntry.slug, language) : [];
+  const listed = query.trim() ? shownNames : shownNames.slice(0, listCount);
   const [copied, setCopied] = useState(false);
 
   const pick = (next: string) => {
@@ -180,11 +188,16 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
                   <h4 className="mb-2 text-base font-bold text-app-text">
                     {t('baptismCardSaintsOfName')}
                   </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {groupSaints.map((o) => (
-                      <PickButton key={o.slug} option={o} active={o.slug === slug} onPick={pick} />
-                    ))}
-                  </div>
+                  <ChipList key={slug} options={groupSaints} selected={slug} onPick={pick} />
+                </section>
+              )}
+
+              {related.length > 0 && (
+                <section>
+                  <h4 className="mb-2 text-base font-bold text-app-text">
+                    {t('baptismCardRelated')}
+                  </h4>
+                  <ChipList key={slug} options={related} selected={slug} onPick={pick} />
                 </section>
               )}
 
@@ -215,22 +228,80 @@ export function BaptismCardSheet({ isOpen, onClose }: BaptismCardSheetProps) {
                   />
                 </label>
                 {shownNames.length > 0 ? (
-                  <div className="flex flex-wrap gap-2">
-                    {shownNames.map((o) => (
-                      <PickButton key={o.slug} option={o} active={o.slug === slug} onPick={pick} />
-                    ))}
-                  </div>
+                  <>
+                    <div className="flex flex-wrap gap-2">
+                      {listed.map((o) => (
+                        <PickButton
+                          key={o.slug}
+                          option={o}
+                          active={o.slug === slug}
+                          onPick={pick}
+                        />
+                      ))}
+                    </div>
+                    {listed.length < shownNames.length && (
+                      <MoreButton
+                        label={`${t('planMore')} (${shownNames.length - listed.length})`}
+                        onClick={() => setListCount((n) => n + LIST_PAGE)}
+                      />
+                    )}
+                  </>
                 ) : (
                   <p className="text-sm text-app-text-muted">{t('baptismCardNoMatch')}</p>
                 )}
               </section>
 
               <p className="text-xs leading-relaxed text-app-text-muted">{t('baptismCardNote')}</p>
+              <p className="text-xs leading-relaxed text-app-text-muted">
+                {t('baptismCardSources')}
+              </p>
             </div>
           </motion.div>
         </div>
       )}
     </AnimatePresence>
+  );
+}
+
+/** 칩 몇 개만 보이고 나머지는 「더 보기」 — 베드로처럼 성인이 열네 분이어도 화면이 길어지지 않게 */
+function ChipList({
+  options,
+  selected,
+  onPick,
+}: {
+  options: BaptismOption[];
+  selected: string | null;
+  onPick: (slug: string) => void;
+}) {
+  const { t } = useSettings();
+  const [all, setAll] = useState(false);
+  const shown = all ? options : options.slice(0, CHIP_LIMIT);
+  return (
+    <>
+      <div className="flex flex-wrap gap-2">
+        {shown.map((o) => (
+          <PickButton key={o.slug} option={o} active={o.slug === selected} onPick={onPick} />
+        ))}
+      </div>
+      {shown.length < options.length && (
+        <MoreButton
+          label={`${t('planMore')} (${options.length - shown.length})`}
+          onClick={() => setAll(true)}
+        />
+      )}
+    </>
+  );
+}
+
+function MoreButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="mt-2 min-h-11 w-full rounded-lg border-[1.5px] border-app-border px-3 text-base font-bold text-app-text"
+    >
+      {label}
+    </button>
   );
 }
 

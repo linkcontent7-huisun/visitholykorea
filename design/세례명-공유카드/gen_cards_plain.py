@@ -165,7 +165,9 @@ def main() -> None:
     print(len(PLAIN) * len(LANGS), "cards")
 
     # baptism-names.ts: 예전에 넣은 plain 줄을 지우고 다시 넣는다 (목록 끝, 닫는 ]; 바로 앞)
-    kept = [ln for ln in text.split("\n") if "kind: 'plain'" not in ln]
+    # 지우는 것은 이 파일이 넣은 줄(PLAIN)만 — 2판에서 더한 새 이름(gen_cards_v2_all.py, 역시 plain)은 남긴다
+    mine = {r[1] for r in PLAIN}
+    kept = [ln for ln in text.split("\n") if not ("kind: 'plain'" in ln and re.search(r"slug: '([^']+)'", ln).group(1) in mine)]
     end = max(i for i, ln in enumerate(kept) if ln.strip() == "];")
     rows = []
     for row in sorted(PLAIN, key=lambda r: r[0]):

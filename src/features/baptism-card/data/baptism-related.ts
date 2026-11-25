@@ -1,0 +1,46 @@
+/**
+ * 함께 묶인 세례명 — 한 이름을 고르면 이 이름들이 칩으로 함께 보인다 (지시서 9호, 2026-11-25).
+ * 묶는 까닭: 같은 날 함께 기념(안나·요아킴), 가족(마르타·라자로 등), 같은 이름 뿌리(유스토·유스티노).
+ * 근거: docs/50-research/개발요청/2026-11-25-개발클로드-세례명-추가-목록.md 3절.
+ * 만드는 곳: design/세례명-공유카드/gen_cards_v2_all.py (손으로 고치지 않는다)
+ */
+export const RELATED_NAMES: Readonly<Record<string, readonly string[]>> = {
+  'Ambrose': ['Augustine'],
+  'Anne': ['Joachim'],
+  'Augustine': ['Ambrose'],
+  'Basil': ['Gregory'],
+  'Benedict': ['Benedicta'],
+  'Benedicta': ['Benedict', 'Scholastica'],
+  'Bridget': ['Brigid'],
+  'Brigid': ['Bridget'],
+  'Cornelius': ['Cyprian'],
+  'Cyprian': ['Cornelius'],
+  'Cyril': ['Methodius'],
+  'Elizabeth': ['Zechariah'],
+  'Frances': ['Francis'],
+  'Francis': ['Frances'],
+  'Gregory': ['Basil', 'Silvia'],
+  'Joachim': ['Anne'],
+  'Joseph': ['Josephine'],
+  'Josephine': ['Joseph'],
+  'Jude': ['Simon'],
+  'Julia': ['Juliana'],
+  'Juliana': ['Julia'],
+  'Justin': ['Justus'],
+  'Justina': ['Justus'],
+  'Justus': ['Justin', 'Justina'],
+  'Maria-Goretti': ['Mary'],
+  'Mariana': ['Mary'],
+  'Mary': ['Mariana', 'Maria-Goretti'],
+  'Methodius': ['Cyril'],
+  'Peter': ['Petronilla'],
+  'Petronilla': ['Peter'],
+  'Rafaela': ['Raphael'],
+  'Raphael': ['Rafaela'],
+  'Scholastica': ['Benedicta'],
+  'Silvia': ['Gregory'],
+  'Simon': ['Jude'],
+  'Timothy': ['Titus'],
+  'Titus': ['Timothy'],
+  'Zechariah': ['Elizabeth'],
+};

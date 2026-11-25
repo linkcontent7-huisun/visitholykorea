@@ -8,6 +8,7 @@
  */
 
 import { FAQ } from '../../src/pages/content/faq.ts';
+import { cardLanguage } from '../../src/features/baptism-card/lib/card-image.ts';
 import { GUIDE } from '../../src/pages/content/guide.ts';
 import { DICTIONARY, fillPlaceholders } from '../../src/shared/i18n/dictionary.ts';
 import { haversineKm } from '../../src/shared/lib/geo.ts';
@@ -218,7 +219,7 @@ export function cardMeta(language: string, slug: string, name: string): PageMeta
   const text = CARD_TEXT[language] ?? CARD_TEXT.en!;
   const title = `${text.title.replace('{name}', name)} | Visit Holy Korea`;
   const description = text.description.replace('{name}', name);
-  const image = `${SITE_ORIGIN}/baptism-cards/og/${language}/${slug}.jpg`;
+  const image = `${SITE_ORIGIN}/baptism-cards/og/${cardLanguage(language, slug)}/${slug}.jpg`;
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',

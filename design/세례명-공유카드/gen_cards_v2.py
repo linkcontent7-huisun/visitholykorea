@@ -71,15 +71,16 @@ def card(lang: str, name: str, middle: dict, sites: list[str], meaning: str, sou
     # 성인(또는 같은 이름의 다른 언어 표기) — 최대 두 줄
     lines_in = middle["lines"]
     latin_only = middle.get("latin", False)
-    for size in (46, 42, 38, 34, 30):
+    # 한 줄이면 크게, 성인이 많으면(베드로 등) 세 줄까지 작게 — 칸 높이(550~650)를 넘지 않게
+    for size in (46, 42, 38, 34, 30, 28, 26, 24):
         f = (LATIN_FONTS if latin_only else F)["serif"](size)
         lines = wrap(d, lines_in, f, W - 200)
-        if len(lines) <= 2:
+        if len(lines) * (size + 8) <= 100:
             break
-    y = 550 if len(lines) == 2 else 574
+    y = 550 + (100 - len(lines) * (size + 8)) // 2 + (12 if len(lines) == 1 else 0)
     for line in lines:
         centered(d, y, line, f, NAVY)
-        y += size + 10
+        y += size + 8
     centered(d, 664, middle["note"], fit(d, middle["note"], F["sans"], 28, W - 200), MUTED)
 
     # 뜻 칸 — 휴대폰에서 카드 한 장을 열어도 읽히게 글자를 40px 아래로 줄이지 않는다
