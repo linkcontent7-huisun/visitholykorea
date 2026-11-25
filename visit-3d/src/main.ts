@@ -601,6 +601,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   function endCross(finished: boolean) {
     if (!crossing) return;
     crossing = false; camFix = null; me.gesture = undefined; me.body.rotation.x = 0; $('caption').hidden = true;
+    space?.fx?.ropeGrab?.(null); // 종 줄은 늘 제자리로
     if (finished) {
       toast('십자성호를 그었습니다 — 성부와 성자와 성령의 이름으로. 아멘');
       setTimeout(() => award('font', PTS.font, '성수를 찍고 십자성호'), 900);
@@ -1364,7 +1365,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       barrier.update(t);
       demoTick?.(t);
       lights.update(t, dt, lightsAt.set(player.pos.x, player.pos.y, player.pos.z), 1, lightsFwd.set(-Math.sin(bodyYaw), 0, -Math.cos(bodyYaw)));
-      if (camFix && space.fx?.ropeGrab) {
+      // 종 줄은 «종 줄 놀이로 줄을 잡고 있을 때»만 손으로 끌려온다. 성수 찍기(십자성호)도 카메라를 고정(camFix)하므로 camFix 만으로 판단하면 종 줄이 손에 딸려와 «막대기»처럼 보인다(사장님 2026-11-25)
+      if (camFix && me.holdRope && space.fx?.ropeGrab) {
         // 줄이 두 손 사이를 지나가게 — 손 자리를 세계 좌표로 읽어 공간에 넘긴다
         me.root.updateMatrixWorld(true);
         me.handL.getWorldPosition(handA); me.handR.getWorldPosition(handB);
