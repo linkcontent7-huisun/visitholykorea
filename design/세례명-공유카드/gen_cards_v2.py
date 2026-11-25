@@ -40,9 +40,9 @@ LABELS = {
 
 
 def wrap_text(d, text: str, f, max_w: int) -> list[str]:
-    """띄어쓰기 단위로 줄을 나눈다 (한국어·영어 모두)."""
+    """띄어쓰기 단위로 줄을 나눈다 (한국어·영어 모두). 날짜처럼 끊기면 안 되는 곳은 줄바꿈 없는 공백(\u00a0)으로 묶는다."""
     lines, cur = [], ""
-    for w in text.split():
+    for w in text.split(" "):
         t = w if not cur else f"{cur} {w}"
         if not cur or d.textlength(t, font=f) <= max_w:
             cur = t
@@ -122,11 +122,11 @@ DRAFT = [
           source="Goodnews Catholic saints · Wikipedia")),
     ("Sabina", "new",
      dict(name="사비나", middle=dict(lines=["Sabina", "Sabine"], note="세계 곳곳에서 불리는 같은 이름", latin=True),
-          sites=KO_WAIT, meaning="전승에 따르면 로마의 귀부인으로, 하녀 세라피아의 신앙에 감화되어 순교한 성녀.",
-          source="바티칸 뉴스 · 위키백과"),
+          sites=KO_WAIT, meaning="이름은 라틴어로 «사비니 사람의 여인». 8월 29일에 기념하며, 같은 이름의 성녀가 로마·트루아 등 여러 분 전해진다.",
+          source="굿뉴스 성인 정보 · 바티칸 뉴스 · 위키낱말사전"),
      dict(name="Sabina", middle=dict(lines=["Sabine"], note="The same name around the world"),
-          sites=EN_WAIT, meaning="A Roman noblewoman who, tradition says, came to faith through her servant and died a martyr.",
-          source="Vatican News · Wikipedia")),
+          sites=EN_WAIT, meaning="Latin for “a Sabine woman”. Remembered on 29 August; several saints bear the name, in Rome, Troyes and elsewhere.",
+          source="Goodnews · Vatican News · Wiktionary")),
     ("Anne", "old",
      dict(name="안나", middle=dict(lines=["성녀 박 안나", "성녀 김장금 안나"], note="같은 세례명 성인 2분"),
           sites=["서소문 밖"], meaning="전승으로 전하는 성모 마리아의 어머니. 요아킴과 함께 기억한다. 이름 뜻은 «은총».",
@@ -136,7 +136,7 @@ DRAFT = [
           source="CBCK 103 Martyr Saints · Vatican News")),
     ("Andrew-Kim-Dae-geon", "old",
      dict(name="김대건 안드레아", middle=dict(lines=["성 김대건 안드레아"], note="신부 · 1846년 새남터에서 순교"),
-          sites=["새남터"], meaning="한국인 첫 사제. 1846년 새남터에서 순교했다. 한국 교회는 7월 5일에 기념한다.",
+          sites=["새남터"], meaning="한국인 첫 사제. 1846년 새남터에서 순교했다. 한국 교회는 7월 5일에 기념한다.",
           source="주교회의 103위 성인"),
      dict(name="Andrew Kim Dae-geon", middle=dict(lines=["St. Andrew Kim Dae-geon"], note="Martyred in 1846 at Saenamteo"),
           sites=["Saenamteo"], meaning="Korea’s first native priest, martyred at Saenamteo in 1846. Honoured in Korea on 5 July.",
