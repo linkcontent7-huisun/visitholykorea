@@ -484,8 +484,9 @@ export default function SearchPage() {
 
       {/* ── 오른쪽(데스크톱 전용) 지도 ─────────────────────────────────── */}
       {wideView && (
-        <div className="relative hidden flex-1 items-center justify-center bg-app-bg p-10 lg:flex">
-          <div className="w-full max-w-[620px]">{mapNode}</div>
+        // 지도 아래에 교구 설명 카드가 붙으므로(지시서 10호) 화면보다 길어지면 이 칸만 스크롤한다 — 짧으면 가운데(my-auto)
+        <div className="relative hidden flex-1 justify-center overflow-y-auto bg-app-bg p-10 lg:flex">
+          <div className="my-auto w-full max-w-[620px]">{mapNode}</div>
         </div>
       )}
     </div>
