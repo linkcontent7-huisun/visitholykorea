@@ -224,3 +224,4 @@ body.ringing #hint, body.ringing #crosshair, body.ringing #actBtn { display: non
 
 /* 전체 그림(두 손가락을 모아 멀리 본 모습)에서는 성지 위 안내 표지·설명 글이 겹쳐 지저분하다 — 감춘다 */
 body.overview .badge, body.overview .holo { opacity: 0; pointer-events: none; transition: opacity .3s; }
+.nick-row { display: flex; gap: 8px; align-items: center; } .nick-row input { flex: 1; min-width: 0; }

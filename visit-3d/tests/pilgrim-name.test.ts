@@ -1,7 +1,7 @@
 // node --test tests/
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { cleanName, initialName, isSelfName } from '../src/pilgrim-name.ts';
+import { BIBLE_NAMES, NAME_MAX, cleanName, initialName, isSelfName, randomPilgrimName } from '../src/pilgrim-name.ts';
 
 const store = (o: Record<string, string>) => ({ getItem: (k: string) => (k in o ? o[k]! : null) });
 
@@ -32,4 +32,20 @@ test('입장할 때 계정 이름과 같으면 직접 고친 것이 아니다', 
   assert.equal(isSelfName('마리아', s), false);
   assert.equal(isSelfName('데레사', s), true);
   assert.equal(isSelfName('요셉', store({})), true);
+});
+
+test('무작위 이름은 성경 인물이고 9자를 넘지 않으며 별칭 규칙에 맞는다', () => {
+  const seen = new Set<string>();
+  for (let i = 0; i < 2000; i++) {
+    const n = randomPilgrimName();
+    assert.ok(n.length >= 1 && n.length <= NAME_MAX, n);
+    assert.equal(cleanName(n), n, `별칭 규칙에 맞아야 한다: ${n}`);
+    assert.ok(BIBLE_NAMES.some((b) => n === b || n.startsWith(`${b} `)), n);
+    seen.add(n);
+  }
+  assert.ok(seen.size > 40, `다양해야 한다(${seen.size})`);
+  assert.ok([...seen].some((n) => n.includes(' ')), '덧말이 붙는 이름도 나와야 한다');
+});
+test('무작위 이름 목록에 열두 사도와 예언자·사제가 들어 있다', () => {
+  for (const n of ['베드로', '안드레아', '야고보', '요한', '필립보', '바르톨로메오', '토마스', '마태오', '타대오', '시몬', '마티아', '이사야', '엘리야', '아론']) assert.ok(BIBLE_NAMES.includes(n), n);
 });
