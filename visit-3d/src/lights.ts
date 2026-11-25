@@ -96,17 +96,19 @@ const FRAG = /* glsl */ `
     return min(seg(f, vec2(0.0), vec2(0.8, 0.0)), abs(length(p) - 0.4) * 0.9);
   }
   void main() {
-    vec2 p = rot((gl_PointCoord - 0.5) * 2.0, vAng);
+    vec2 p = rot((gl_PointCoord - 0.5) * 2.0, vAng) * 1.32;       // 모양이 점 가장자리에서 잘리지 않게 한 칸 작게 그린다
     float r = length(p);
-    if (r > 1.0) discard;
-    float d = shapeD(p, vShape);
-    float line = smoothstep(0.06, 0.0, d);                       // 또렷한 결정 선
-    float glow = exp(-d * 8.0) * (1.0 - smoothstep(0.62, 1.0, r)); // 선 둘레로 번지는 빛
-    float heart = smoothstep(0.2, 0.0, r);                       // 가운데 밝은 점
-    vec3 col = vRim * glow * 1.5 + vCore * (line * 2.4 + heart * 2.0);
-    col *= 0.88 + 0.28 * vTw;                                    // 반짝임
-    float a = clamp(glow * 0.85 + line + heart, 0.0, 1.0);
-    gl_FragColor = vec4(min(col, vec3(1.6)), a);                  // 가운데는 하얗게 넘치도록 밝게
+    if (length(gl_PointCoord - 0.5) > 0.5) discard;
+    // 통통하고 몽글몽글하게: 눈결정의 선을 부풀리고 가장자리를 크게 번지게 해서, 결정 모양은 은은히 비치고 «빛덩어리»로 보이게 한다
+    float d = shapeD(p, vShape) - 0.055;
+    float body = smoothstep(0.2, -0.02, d) * 0.85;                // 부푼 몸통(부드러운 가장자리)
+    float glow = exp(-max(d, 0.0) * 3.4) * (1.0 - smoothstep(0.7, 1.3, r));  // 넓게 번지는 빛
+    float heart = smoothstep(0.3, 0.0, r);                        // 가운데 환한 덩어리
+    float haze = exp(-r * r * 2.2);                               // 전체를 감싸는 몽환적인 안개빛
+    vec3 col = vRim * (glow * 1.2 + haze * 0.6) + mix(vRim, vCore, 0.5) * (body * 1.15) + vCore * (heart * 1.2);
+    col *= 0.9 + 0.25 * vTw;                                      // 반짝임
+    float a = clamp(glow * 0.7 + body * 0.8 + heart * 0.8 + haze * 0.3, 0.0, 1.0) * (1.0 - smoothstep(0.42, 0.5, length(gl_PointCoord - 0.5)));
+    gl_FragColor = vec4(min(col, vec3(1.5)), a);
   }
 `;
 
