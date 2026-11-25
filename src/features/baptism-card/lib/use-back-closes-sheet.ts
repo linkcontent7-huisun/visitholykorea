@@ -19,7 +19,10 @@ export function useBackClosesSheet(isOpen: boolean, onClose: () => void) {
   useEffect(() => {
     if (!isOpen) return;
     let ownsEntry = true;
-    window.history.pushState({ ...(window.history.state as object | null), vhkSheet: 'baptism' }, '');
+    window.history.pushState(
+      { ...(window.history.state as object | null), vhkSheet: 'baptism' },
+      '',
+    );
 
     const onPop = () => {
       ownsEntry = false; // 뒤로 가기로 이미 빠졌다
