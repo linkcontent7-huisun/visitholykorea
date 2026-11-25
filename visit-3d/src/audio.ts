@@ -68,7 +68,20 @@ function thudBuffer(ctx: BaseAudioContext): AudioBuffer {
 }
 
 /** 종소리가 울리는 시간의 끝(초) — 치고 난 뒤 이 안에 소리가 다 사라진다 */
-export const BELL_TAIL_S = 2;
+export const BELL_TAIL_S = 1.8;
+/**
+ * 종소리의 크기 곡선 — 치는 순간 정해진 크기에서 시작해 곧바로 줄곧 작아지고(여운), len 초에 0 이 된다.
+ * 이전에는 시작 값을 1 로 박아 정해 둔 크기(volume)를 무시했다. 앞의 소리 예약은 모두 지우고 시작한다.
+ */
+export function bellEnvelope(g: AudioParam, t0: number, volume: number, len: number) {
+  const v = Math.max(0.0001, volume);
+  g.cancelScheduledValues(t0);
+  g.setValueAtTime(0.0001, t0);
+  g.linearRampToValueAtTime(v, t0 + 0.012);                          // 치는 순간(딸깍 소리 없이 짧게 올라간다)
+  g.exponentialRampToValueAtTime(v * 0.22, t0 + 0.35);               // 울림이 빠르게 내려앉고
+  g.exponentialRampToValueAtTime(v * 0.002, t0 + len * 0.94);        // 여운이 길게 페이드아웃
+  g.linearRampToValueAtTime(0, t0 + len);
+}
 
 export class Sound {
   listener: THREE.AudioListener | null = null;
@@ -155,18 +168,15 @@ export class Sound {
     a.setBuffer(buf); a.setRefDistance(22); a.setRolloffFactor(0.4); a.setVolume(volume);
     a.offset = start; a.duration = len;
     a.position.copy(pos); parent.add(a); a.play();
-    const g = a.gain.gain, t0 = this.listener.context.currentTime;
-    g.setValueAtTime(1, t0);
-    g.exponentialRampToValueAtTime(0.001, t0 + len - 0.1); // 처음부터 줄곧 작아져서 2초 안에 사라진다
-    g.linearRampToValueAtTime(0, t0 + len);
+    bellEnvelope(a.gain.gain, this.listener.context.currentTime, volume, len);
     this.duckLeft = Math.max(this.duckLeft, len + 0.8);
-    setTimeout(() => { a.stop(); parent.remove(a); a.disconnect(); }, len * 1000 + 150);
+    setTimeout(() => { a.stop(); parent.remove(a); a.disconnect(); }, len * 1000 + 100);
   }
 
-  /** 큰 종소리(세 번 성공·남이 울릴 때) */
+  /** 남이 친 종소리(한 번) */
   bell(parent: THREE.Object3D, pos: THREE.Vector3, volume = 1) { this.bellClip(parent, pos, volume, 0.4); }
 
-  /** 줄을 한 번 당겼을 때(박자 맞음) — n: 몇 번째 성공(1~3). 같은 녹음의 다른 자리를 쓴다 */
+  /** 줄을 한 번 당겼을 때 — 한 번 울리고 여운이 사라진다. 세 번 당기면 세 번 울린다(앞 소리의 여운 위에 다음 종이 겹쳐 이어진다). n: 몇 번째(1~3) */
   bellStrike(parent: THREE.Object3D, pos: THREE.Vector3, n: number) { this.bellClip(parent, pos, 0.55 + n * 0.15, 0.4 + (n - 1) * 3.7); }
 
   /** 짧은 효과음 — drop: 성수 물방울 · thud: 헛당김 */

@@ -38,14 +38,14 @@ export interface PilgrimLights {
 }
 
 const VERT = /* glsl */ `
-  attribute vec4 aOrbit;   // x 반지름, y 속도, z 처음 각도, w 높이 기준
+  attribute vec4 aOrbit;   // x 칸 번호, y 모양(0~5), z 처음 각도, w 도는 빠르기
   attribute vec4 aLook;    // x 크기, y 오르내림 폭, z 오르내림 속도, w 태어난 때(초)
   attribute vec3 aCore;
   attribute vec3 aRim;
   uniform float uTime; uniform vec3 uCenter; uniform float uScale; uniform float uPx;
   uniform vec3 uPos[22];   // 줄 서서 따라오는 자리(순례자 바로 뒤부터 1열) — CPU 가 걸어온 길을 따라 정한다
   uniform vec3 uSide;      // 걸어온 길의 옆 방향(좌우로 살짝 흔들리게)
-  varying vec3 vCore; varying vec3 vRim; varying float vTw;
+  varying vec3 vCore; varying vec3 vRim; varying float vTw; varying float vShape; varying float vAng;
   void main() {
     int idx = int(aOrbit.x + 0.5);
     vec3 base = uPos[idx];
@@ -57,22 +57,58 @@ const VERT = /* glsl */ `
     grow = grow * grow * (3.0 - 2.0 * grow);
     float burst = age > 0.0 && age < 2.5 ? 1.0 + 2.2 * (1.0 - grow) : 1.0; // 받는 순간 크게 반짝이다 자리를 잡는다
     vTw = 0.75 + 0.25 * sin(uTime * (1.7 + aLook.z * 0.3) + aOrbit.z * 5.0);
-    vCore = aCore; vRim = aRim;
+    vCore = aCore; vRim = aRim; vShape = aOrbit.y; vAng = aOrbit.z + uTime * aOrbit.w; // 모양마다 천천히 돈다
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
     gl_Position = projectionMatrix * mv;
     gl_PointSize = aLook.x * grow * burst * uPx / max(0.5, -mv.z);
   }
 `;
 const FRAG = /* glsl */ `
-  varying vec3 vCore; varying vec3 vRim; varying float vTw;
+  varying vec3 vCore; varying vec3 vRim; varying float vTw; varying float vShape; varying float vAng;
+  const float PI = 3.14159265;
+  // 눈결정을 참고한 여섯 가지 빛 모양(사장님 2026-11-25: 「눈결정 모양을 참고해서 다양한 형태, 아주 밝게」)
+  float seg(vec2 p, vec2 a, vec2 b) { vec2 pa = p - a, ba = b - a; float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0); return length(pa - ba * h); }
+  vec2 foldN(vec2 p, float n) { float a = atan(p.y, p.x); float s = 2.0 * PI / n; a = mod(a + 0.5 * s, s) - 0.5 * s; return length(p) * vec2(cos(a), sin(a)); }
+  vec2 rot(vec2 p, float a) { float c = cos(a), s = sin(a); return vec2(c * p.x - s * p.y, s * p.x + c * p.y); }
+  float branch(vec2 f, float at, float len, float ang) { return seg(f, vec2(at, 0.0), vec2(at, 0.0) + vec2(cos(ang), sin(ang)) * len); }
+  float shapeD(vec2 p, float id) {
+    vec2 f = foldN(p, 6.0); f.y = abs(f.y);
+    if (id < 0.5) {            // 0 눈결정: 여섯 가지에 곁가지 둘
+      float d = seg(f, vec2(0.0), vec2(0.88, 0.0));
+      d = min(d, branch(f, 0.32, 0.27, 1.0472)); d = min(d, branch(f, 0.58, 0.20, 1.0472));
+      return d;
+    } else if (id < 1.5) {     // 1 육각 결정판: 육각 테두리 + 안쪽 별
+      float hexd = abs(length(p) - 0.62 * cos(PI / 6.0) / cos(mod(atan(p.y, p.x), PI / 3.0) - PI / 6.0)) * 0.85;
+      return min(hexd, seg(f, vec2(0.0), vec2(0.46, 0.0)));
+    } else if (id < 2.5) {     // 2 열두 갈래 별
+      float d = seg(f, vec2(0.0), vec2(0.9, 0.0));
+      vec2 g = foldN(rot(p, PI / 6.0), 6.0); g.y = abs(g.y);
+      return min(d, seg(g, vec2(0.0), vec2(0.55, 0.0)));
+    } else if (id < 3.5) {     // 3 네 갈래 반짝임 + 작은 대각선
+      vec2 q = foldN(p, 4.0); q.y = abs(q.y);
+      vec2 g = foldN(rot(p, PI / 4.0), 4.0); g.y = abs(g.y);
+      return min(seg(q, vec2(0.0), vec2(0.95, 0.0)), seg(g, vec2(0.0), vec2(0.42, 0.0)));
+    } else if (id < 4.5) {     // 4 깃털(수상돌기): 가지마다 곁가지 셋
+      float d = seg(f, vec2(0.0), vec2(0.9, 0.0));
+      d = min(d, branch(f, 0.24, 0.22, 0.9)); d = min(d, branch(f, 0.44, 0.18, 0.9)); d = min(d, branch(f, 0.64, 0.13, 0.9));
+      return d;
+    }                           // 5 별 + 고리
+    return min(seg(f, vec2(0.0), vec2(0.8, 0.0)), abs(length(p) - 0.4) * 0.9);
+  }
   void main() {
-    vec2 d = gl_PointCoord - 0.5;
-    float r = length(d) * 2.0;
-    if (r > 1.0) discard;
-    float core = smoothstep(0.55, 0.0, r);          // 밝은 가운데
-    float halo = pow(1.0 - r, 0.7);                  // 번지는 둘레
-    vec3 col = mix(vRim, vCore, core) * (0.55 + core * 1.1) * vTw;
-    gl_FragColor = vec4(col, clamp(halo * 0.75 + core * 0.4, 0.0, 1.0));
+    vec2 p = rot((gl_PointCoord - 0.5) * 2.0, vAng) * 1.32;       // 모양이 점 가장자리에서 잘리지 않게 한 칸 작게 그린다
+    float r = length(p);
+    if (length(gl_PointCoord - 0.5) > 0.5) discard;
+    // 통통하고 몽글몽글하게: 눈결정의 선을 부풀리고 가장자리를 크게 번지게 해서, 결정 모양은 은은히 비치고 «빛덩어리»로 보이게 한다
+    float d = shapeD(p, vShape) - 0.055;
+    float body = smoothstep(0.2, -0.02, d) * 0.85;                // 부푼 몸통(부드러운 가장자리)
+    float glow = exp(-max(d, 0.0) * 3.4) * (1.0 - smoothstep(0.7, 1.3, r));  // 넓게 번지는 빛
+    float heart = smoothstep(0.3, 0.0, r);                        // 가운데 환한 덩어리
+    float haze = exp(-r * r * 2.2);                               // 전체를 감싸는 몽환적인 안개빛
+    vec3 col = vRim * (glow * 1.2 + haze * 0.6) + mix(vRim, vCore, 0.5) * (body * 1.15) + vCore * (heart * 1.2);
+    col *= 0.9 + 0.25 * vTw;                                      // 반짝임
+    float a = clamp(glow * 0.7 + body * 0.8 + heart * 0.8 + haze * 0.3, 0.0, 1.0) * (1.0 - smoothstep(0.42, 0.5, length(gl_PointCoord - 0.5)));
+    gl_FragColor = vec4(min(col, vec3(1.5)), a);
   }
 `;
 
@@ -86,8 +122,8 @@ export function createPilgrimLights(opts: { low: boolean; pixelRatio: number; vi
   // 작은 빛 — 늘 있음(앞쪽 칸)
   const smallCount = opts.low ? 6 : MAX_SMALL;
   for (let i = 0; i < MAX_SMALL; i++) {
-    orbit.set([i, 0, rnd(i, 3) * 6.283, 0], i * 4);
-    look.set([0.22 + rnd(i, 5) * 0.1, 0.12 + rnd(i, 6) * 0.1, 1.0 + rnd(i, 7) * 1.4, -100], i * 4);
+    orbit.set([i, i % 6, rnd(i, 3) * 6.283, (i % 2 ? 1 : -1) * (0.25 + rnd(i, 8) * 0.5)], i * 4);
+    look.set([0.5 + rnd(i, 5) * 0.14, 0.12 + rnd(i, 6) * 0.1, 1.0 + rnd(i, 7) * 1.4, -100], i * 4);
     c.setHex(0xfff6dc); core.set([c.r, c.g, c.b], i * 3);
     c.setHex(0xf6d68a); rim.set([c.r, c.g, c.b], i * 3);
   }
@@ -115,8 +151,8 @@ export function createPilgrimLights(opts: { low: boolean; pixelRatio: number; vi
     const k = bigSlots.length; if (k >= MAX_BIG) return;
     const i = MAX_SMALL + k;
     bigSlots.push(spaceId);
-    orbit.set([i, 0, (k / MAX_BIG) * 6.283 + rnd(i, 3), 0], i * 4);
-    look.set([0.38 + rnd(i, 5) * 0.08, 0.22, 0.8 + rnd(i, 7) * 0.6, born], i * 4);
+    orbit.set([i, (k * 5 + 1) % 6, (k / MAX_BIG) * 6.283 + rnd(i, 3), (k % 2 ? -1 : 1) * 0.2], i * 4); // 큰 빛은 성지마다 다른 눈결정
+    look.set([0.85 + rnd(i, 5) * 0.1, 0.22, 0.8 + rnd(i, 7) * 0.6, born], i * 4);
     c.setHex(def.core); core.set([c.r, c.g, c.b], i * 3);
     c.setHex(def.rim); rim.set([c.r, c.g, c.b], i * 3);
     aOrbit.needsUpdate = aLook.needsUpdate = aCore.needsUpdate = aRim.needsUpdate = true;
@@ -131,7 +167,7 @@ export function createPilgrimLights(opts: { low: boolean; pixelRatio: number; vi
   let avg = 16, slowFor = 0, smallShown = MAX_SMALL;
   const setSmallShown = (n: number) => {
     if (n === smallShown) return; smallShown = n;
-    for (let i = 0; i < MAX_SMALL; i++) look[i * 4] = i < n ? 0.22 + rnd(i, 5) * 0.1 : 0;
+    for (let i = 0; i < MAX_SMALL; i++) look[i * 4] = i < n ? 0.5 + rnd(i, 5) * 0.14 : 0;
     aLook.needsUpdate = true;
   };
   setSmallShown(smallCount);
