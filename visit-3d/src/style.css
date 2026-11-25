@@ -231,3 +231,4 @@ body.overview .badge, body.overview .holo { opacity: 0; pointer-events: none; tr
 #askBar button { min-height: 44px; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255, 214, 128, .6); background: #d4a017; color: #2a1c04; font-weight: 800; font-size: 14px; }
 #askBar button.ask-x { background: transparent; color: #ffe9b8; margin-left: auto; }
 .touch #askBar { top: calc(env(safe-area-inset-top, 0px) + 70px); }
+.nick-row { display: flex; gap: 8px; align-items: center; } .nick-row input { flex: 1; min-width: 0; }

@@ -43,6 +43,7 @@ import { fillPlaceholders } from '@/shared/i18n/dictionary';
 import { dioceseLabel, localizeDomainValue, localizeRegionName } from '@/shared/i18n/domain-labels';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
+import { recallQuery, recallScroll, rememberQuery, rememberScroll } from '@/shared/lib/back-memory';
 import { regionOfAddress } from '@/shared/lib/regions';
 import type { HolySite } from '@/shared/types/domain';
 
@@ -127,7 +128,9 @@ export default function SearchPage() {
     useSettings();
 
   const [query, setQuery] = useState(() =>
-    navigationType === 'POP' ? (searchQueryCache.get(location.key) ?? '') : '',
+    navigationType === 'POP'
+      ? (searchQueryCache.get(location.key) ?? recallQuery(location.key) ?? '')
+      : '',
   );
   const debouncedQuery = useDebouncedValue(query, 250);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -135,6 +138,7 @@ export default function SearchPage() {
   // 뒤로가기로 돌아왔을 때 검색어·스크롤이 그대로 있어야 한다(사장님 지적, 2026-09-19).
   useEffect(() => {
     searchQueryCache.set(location.key, query);
+    rememberQuery(location.key, query); // 새로고침·탭이 비워진 뒤에도 뒤로 가기에서 검색 화면이 그대로 돌아오게
   }, [location.key, query]);
 
   // 자체 목록 — 네트워크가 끊겨도 서비스워커 캐시(holy_sites)로 온다
@@ -232,10 +236,11 @@ export default function SearchPage() {
     const list = listRef.current;
     if (!list) return;
     if (navigationType === 'POP') {
-      list.scrollTop = searchScrollCache.get(location.key) ?? 0;
+      list.scrollTop = searchScrollCache.get(location.key) ?? recallScroll(location.key) ?? 0;
     }
     return () => {
       searchScrollCache.set(location.key, list.scrollTop);
+      rememberScroll(location.key, list.scrollTop);
     };
   }, [location.key, navigationType]);
 

@@ -67,6 +67,9 @@ function thudBuffer(ctx: BaseAudioContext): AudioBuffer {
   return buf;
 }
 
+/** 종소리가 울리는 시간의 끝(초) — 치고 난 뒤 이 안에 소리가 다 사라진다 */
+export const BELL_TAIL_S = 2;
+
 export class Sound {
   listener: THREE.AudioListener | null = null;
   enabled = true;
@@ -140,31 +143,31 @@ export class Sound {
     for (const b of this.bgm) { if (on) void b.el.play().catch(() => {}); else b.el.pause(); }
   }
 
-  /** 큰 종소리(세 번 성공·남이 울릴 때) — 실제 녹음 14초. 음악은 그동안 낮아진다 */
-  bell(parent: THREE.Object3D, pos: THREE.Vector3, volume = 1) {
+  /**
+   * 종소리 한 번 — 치고 난 뒤 소리가 점점 작아지며 2초 안에 멈춘다(사장님 2026-11-25: 「종이 계속 너무 울린다」).
+   * 큰 종소리(세 번 성공·남이 울릴 때)도, 줄을 한 번 당길 때의 소리도 같다. 녹음은 앞부분(치는 순간)만 쓴다.
+   */
+  private bellClip(parent: THREE.Object3D, pos: THREE.Vector3, volume: number, startAt: number) {
     if (!this.listener) return;
     const buf = this.pealBuf ?? (this.bellBuf ??= bellBuffer(this.listener.context)); if (!buf) return;
     const a = new THREE.PositionalAudio(this.listener);
+    const len = BELL_TAIL_S, start = this.pealBuf ? Math.max(0, Math.min(buf.duration - len - 0.1, startAt)) : 0;
     a.setBuffer(buf); a.setRefDistance(22); a.setRolloffFactor(0.4); a.setVolume(volume);
-    a.position.copy(pos); parent.add(a); a.play();
-    this.duckLeft = Math.max(this.duckLeft, buf.duration - 2.5);
-    setTimeout(() => { a.stop(); parent.remove(a); a.disconnect(); }, buf.duration * 1000 + 300);
-  }
-
-  /** 줄을 한 번 당겼을 때(박자 맞음) — 같은 녹음의 다른 자리를 2.6초 울리고 잦아들게 한다. n: 몇 번째 성공(1~3) */
-  bellStrike(parent: THREE.Object3D, pos: THREE.Vector3, n: number) {
-    if (!this.listener) return;
-    const buf = this.pealBuf ?? (this.bellBuf ??= bellBuffer(this.listener.context)); if (!buf) return;
-    const a = new THREE.PositionalAudio(this.listener);
-    const len = 2.6, start = this.pealBuf ? Math.min(buf.duration - len - 0.1, 0.4 + (n - 1) * 3.7) : 0;
-    a.setBuffer(buf); a.setRefDistance(22); a.setRolloffFactor(0.4); a.setVolume(0.55 + n * 0.15);
     a.offset = start; a.duration = len;
     a.position.copy(pos); parent.add(a); a.play();
     const g = a.gain.gain, t0 = this.listener.context.currentTime;
-    g.setValueAtTime(1, t0 + len - 1.1); g.linearRampToValueAtTime(0.0001, t0 + len);
-    this.duckLeft = Math.max(this.duckLeft, len + 1.5);
-    setTimeout(() => { a.stop(); parent.remove(a); a.disconnect(); }, len * 1000 + 200);
+    g.setValueAtTime(1, t0);
+    g.exponentialRampToValueAtTime(0.001, t0 + len - 0.1); // 처음부터 줄곧 작아져서 2초 안에 사라진다
+    g.linearRampToValueAtTime(0, t0 + len);
+    this.duckLeft = Math.max(this.duckLeft, len + 0.8);
+    setTimeout(() => { a.stop(); parent.remove(a); a.disconnect(); }, len * 1000 + 150);
   }
+
+  /** 큰 종소리(세 번 성공·남이 울릴 때) */
+  bell(parent: THREE.Object3D, pos: THREE.Vector3, volume = 1) { this.bellClip(parent, pos, volume, 0.4); }
+
+  /** 줄을 한 번 당겼을 때(박자 맞음) — n: 몇 번째 성공(1~3). 같은 녹음의 다른 자리를 쓴다 */
+  bellStrike(parent: THREE.Object3D, pos: THREE.Vector3, n: number) { this.bellClip(parent, pos, 0.55 + n * 0.15, 0.4 + (n - 1) * 3.7); }
 
   /** 짧은 효과음 — drop: 성수 물방울 · thud: 헛당김 */
   play(kind: 'drop' | 'thud', volume = 0.5) {

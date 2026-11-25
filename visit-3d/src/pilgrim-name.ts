@@ -31,3 +31,30 @@ export function isSelfName(name: string, store: NameStore | null | undefined): b
   try { account = cleanName(store?.getItem(KEY_ACCOUNT)); } catch { /* 저장소 없음 */ }
   return !account || name !== account;
 }
+
+// ── 무작위 순례자 이름 (사장님 2026-11-25: 「성경에 나온 인물들 — 열두 제자부터 사제, 예언자들 이름으로, ‘순례길을 다니는 중’ 같은 다양한 이름」) ──
+// 이름 칸이 비어 있으면(로그인한 이름도, 직접 적은 이름도 없으면) 이 가운데 하나를 칸에 넣어 준다. 고치거나 🎲 로 다시 뽑을 수 있다.
+// 한국 천주교 표기. 별칭은 9자까지이므로(NAME_MAX) 덧말은 들어갈 때만 붙인다.
+export const BIBLE_NAMES: readonly string[] = [
+  // 열두 사도
+  '베드로', '안드레아', '야고보', '요한', '필립보', '바르톨로메오', '토마스', '마태오', '타대오', '시몬', '마티아',
+  // 예언자
+  '모세', '사무엘', '나단', '엘리야', '엘리사', '이사야', '예레미야', '에제키엘', '다니엘', '호세아', '요엘', '아모스', '요나', '미카', '나훔', '하바쿡', '스바니야', '하까이', '즈카르야', '말라키',
+  // 사제와 초대 교회
+  '아론', '엘리', '에즈라', '멜키체덱', '스테파노', '바르나바', '바오로', '루카', '마르코', '티모테오', '티토',
+  // 성경 속 여성
+  '한나', '룻', '에스테르', '유딧', '엘리사벳', '안나', '루디아', '프리스카',
+];
+/** 이름 뒤에 붙는 덧말 — 순례길을 다니는 중이라는 뜻(3분의 1쯤만, 9자 안일 때만) */
+export const NAME_TAILS: readonly string[] = ['순례중', '걷는중', '기도중', '순례길'];
+
+/** 무작위 순례자 이름 한 개. rnd 를 넘기면 시험에서 정해진 값을 얻는다 */
+export function randomPilgrimName(rnd: () => number = Math.random): string {
+  const base = BIBLE_NAMES[Math.floor(rnd() * BIBLE_NAMES.length)] ?? '순례자';
+  if (rnd() < 0.34) {
+    const tail = NAME_TAILS[Math.floor(rnd() * NAME_TAILS.length)] ?? '';
+    const withTail = `${base} ${tail}`;
+    if (withTail.length <= NAME_MAX) return withTail;
+  }
+  return base;
+}
