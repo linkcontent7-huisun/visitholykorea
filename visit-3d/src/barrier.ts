@@ -7,8 +7,8 @@
 // 가볍게: 그리기 2번(Points 둘) · 점 수 고정(고리 ≤ 5×96 + 솟는 빛 40) · 움직임은 전부 셰이더 · JS 는 값 몇 개만 넣는다.
 import * as THREE from 'three';
 
-const RINGS = 5;
-const PER_RING = 160;
+const RINGS = 8;      // 하늘 가득(사장님 2026-11-25): 고리를 늘려 위로 여러 겹
+const PER_RING = 200;
 const BEAM = 40;
 
 export interface Barrier {
@@ -27,15 +27,15 @@ const RING_VERT = /* glsl */ `
   attribute vec4 aRing;   // x 고리 번호, y 처음 각도, z 도는 속도(부호가 방향), w 점 크기 배율
   uniform float uTime, uRadius, uLevel, uPulseT, uPulseAng, uPx;
   uniform vec3 uCenter;
-  varying float vA; varying float vHot;
+  varying float vA; varying float vHot; varying vec3 vTint;
   const float PI = 3.14159265;
   float wrap(float x) { return mod(x + PI, 2.0 * PI) - PI; }
   void main() {
     float i = aRing.x;
     float a = aRing.y + uTime * aRing.z;
-    float elev = radians(10.0 + i * 13.0);                    // 아래 고리는 낮고 넓게, 위 고리는 높고 좁게(둥근 지붕처럼)
+    float elev = radians(8.0 + i * 9.6);                      // 아래 고리는 낮고 넓게, 위 고리는 높고 좁게(둥근 지붕처럼) — 8겹이 하늘을 덮는다
     float r = uRadius * cos(elev);
-    float h = uRadius * sin(elev) * 0.62 + 3.0 + sin(uTime * 0.6 + i * 1.7 + a * 2.0) * 0.6;
+    float h = uRadius * sin(elev) * 0.62 + 3.0 + sin(uTime * 0.6 + i * 1.7 + a * 2.0) * 0.9 + sin(aRing.y * 37.0 + i) * 1.6; // 몽글몽글 위아래로 흩어진다
     vec3 p = uCenter + vec3(cos(a) * r, h, sin(a) * r);
     float shown = clamp(uLevel - i + 1.0, 0.0, 1.0);          // 고리가 하나씩 켜진다
     float tw = 0.7 + 0.3 * sin(uTime * 2.1 + aRing.y * 9.0 + i);
@@ -48,20 +48,24 @@ const RING_VERT = /* glsl */ `
     float seal = (dt > 1.3 && dt < 2.6) ? smoothstep(0.5, 0.0, ang) * 1.2 * sin((dt - 1.3) / 1.3 * PI) : 0.0; // 닫힐 때 이음새가 번쩍
     vA = shown * tw * (1.0 - 0.92 * hole);
     vHot = clamp(flash + seal, 0.0, 1.0);
+    // 몽환적인 빛깔: 겹마다 금빛 · 분홍 · 연보라 · 하늘 · 연두가 번갈아(아주 옅게)
+    float k = mod(i, 5.0);
+    vTint = k < 0.5 ? vec3(1.0, 0.78, 0.42) : k < 1.5 ? vec3(1.0, 0.62, 0.78) : k < 2.5 ? vec3(0.78, 0.66, 1.0) : k < 3.5 ? vec3(0.62, 0.84, 1.0) : vec3(0.72, 1.0, 0.82);
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
     gl_Position = projectionMatrix * mv;
-    gl_PointSize = (3.4 + vHot * 3.0) * aRing.w * uPx / max(1.0, -mv.z) * shown;
+    gl_PointSize = (11.0 + vHot * 6.0) * aRing.w * uPx / max(1.0, -mv.z) * shown;   // 통통하게(전엔 3.4)
   }
 `;
 const RING_FRAG = /* glsl */ `
-  varying float vA; varying float vHot;
+  varying float vA; varying float vHot; varying vec3 vTint;
   void main() {
     float r = length(gl_PointCoord - 0.5) * 2.0;
     if (r > 1.0 || vA < 0.01) discard;
-    float core = smoothstep(0.5, 0.0, r);
-    vec3 gold = mix(vec3(1.0, 0.72, 0.28), vec3(1.0, 0.95, 0.75), core);
-    gold = mix(gold, vec3(1.0, 0.98, 0.9), vHot);
-    gl_FragColor = vec4(gold, clamp(pow(1.0 - r, 0.8) * 0.8 * vA * (0.8 + vHot), 0.0, 1.0));
+    float core = exp(-r * r * 4.0);                  // 통통하고 몽글한 빛덩어리(가장자리는 부드럽게 사라진다)
+    float halo = exp(-r * r * 1.6);
+    vec3 c = mix(vTint, vec3(1.0, 0.97, 0.9), core * 0.8);
+    c = mix(c, vec3(1.0, 0.98, 0.92), vHot);
+    gl_FragColor = vec4(c, clamp((halo * 0.55 + core * 0.55) * vA * (0.85 + vHot), 0.0, 1.0));
   }
 `;
 const BEAM_VERT = /* glsl */ `
@@ -99,7 +103,7 @@ export function createBarrier(opts: { low: boolean; pixelRatio: number; viewH: (
   const rnd = (i: number, k: number) => { const s = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return s - Math.floor(s); };
   for (let i = 0; i < RINGS; i++) for (let j = 0; j < perRing; j++) {
     const o = (i * perRing + j) * 4;
-    ring.set([i, (j / perRing) * Math.PI * 2 + rnd(j, i) * 0.04, (i % 2 ? -1 : 1) * (0.035 + i * 0.012), 0.8 + rnd(j, i + 9) * 0.5], o);
+    ring.set([i, (j / perRing) * Math.PI * 2 + rnd(j, i) * 0.04, (i % 2 ? -1 : 1) * (0.03 + i * 0.008), 0.7 + rnd(j, i + 9) * 0.9], o);
   }
   const g1 = new THREE.BufferGeometry();
   g1.setAttribute('position', new THREE.BufferAttribute(zero, 3));
@@ -129,7 +133,7 @@ export function createBarrier(opts: { low: boolean; pixelRatio: number; viewH: (
   return {
     object,
     setSite(center, radius) { U.uCenter.value.copy(center); U.uRadius.value = radius; UB.uTop.value = radius * 0.62 * Math.sin(THREE.MathUtils.degToRad(10 + 4 * 13)) + 3; },
-    setLevel(count) { U.uLevel.value = Math.min(RINGS, 2 + Math.floor(count / 6)); },
+    setLevel(count) { U.uLevel.value = Math.min(RINGS, 5 + Math.floor(count / 8)); }, // 처음부터 다섯 겹은 하늘에 떠 있고, 초가 모일수록 위로 겹이 늘어 하늘을 채운다
     pulse(from) {
       UB.uFrom.value.copy(from);
       U.uPulseT.value = lastT;
