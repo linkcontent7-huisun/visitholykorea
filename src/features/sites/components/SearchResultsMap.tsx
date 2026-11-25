@@ -29,7 +29,7 @@
  * 왼쪽 목록엔 매치된 곳만 나오므로, 그 밖의 점을 눌러 봤자 스크롤해 갈 줄 자체가 없었다.
  */
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { HolySite } from '@/shared/types/domain';
 import { DioceseInfoCard } from '@/features/map/components/DioceseInfoCard';
 import { DioceseLabels, DioceseRelief } from '@/features/map/components/DioceseRelief';
@@ -89,6 +89,13 @@ export function SearchResultsMap({
   const { t, language } = useSettings();
   /** 지도에서 누른 교구 — 떠오르고 설명 카드가 뜬다 (지시서 10호) */
   const [diocese, setDiocese] = useState<string | null>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  // 지도가 화면을 거의 채워 카드가 아래로 밀린다 — 교구를 고르면 카드가 보이게 그 칸만 내린다
+  useEffect(() => {
+    if (!diocese) return;
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    cardRef.current?.scrollIntoView?.({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
+  }, [diocese]);
   const counts = useMemo(() => {
     const c: Record<string, number> = {};
     for (const site of sites) if (site.region) c[site.region] = (c[site.region] ?? 0) + 1;
@@ -200,7 +207,9 @@ export function SearchResultsMap({
 
         <DioceseLabels language={language} selected={diocese} highlight={highlightDiocese} />
       </svg>
-      <DioceseInfoCard diocese={diocese} counts={counts} onClose={() => setDiocese(null)} />
+      <div ref={cardRef}>
+        <DioceseInfoCard diocese={diocese} counts={counts} onClose={() => setDiocese(null)} />
+      </div>
     </div>
   );
 }
