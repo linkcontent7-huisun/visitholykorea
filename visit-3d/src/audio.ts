@@ -68,7 +68,17 @@ function thudBuffer(ctx: BaseAudioContext): AudioBuffer {
 }
 
 /** 종소리가 울리는 시간의 끝(초) — 치고 난 뒤 이 안에 소리가 다 사라진다 */
-export const BELL_TAIL_S = 2;
+export const BELL_TAIL_S = 1.8;
+/**
+ * 종소리의 크기 곡선 — 치는 순간 정해진 크기에서 시작해 곧바로 줄곧 작아지고(여운), len 초에 0 이 된다.
+ * 이전에는 시작 값을 1 로 박아 정해 둔 크기(volume)를 무시했다. 앞의 소리 예약은 모두 지우고 시작한다.
+ */
+export function bellEnvelope(g: AudioParam, t0: number, volume: number, len: number) {
+  g.cancelScheduledValues(t0);
+  g.setValueAtTime(Math.max(0.0001, volume), t0);
+  g.exponentialRampToValueAtTime(Math.max(0.0001, volume) * 0.002, t0 + len * 0.92); // 약 -54 dB — 사실상 들리지 않는다
+  g.linearRampToValueAtTime(0, t0 + len);
+}
 
 export class Sound {
   listener: THREE.AudioListener | null = null;
@@ -155,12 +165,9 @@ export class Sound {
     a.setBuffer(buf); a.setRefDistance(22); a.setRolloffFactor(0.4); a.setVolume(volume);
     a.offset = start; a.duration = len;
     a.position.copy(pos); parent.add(a); a.play();
-    const g = a.gain.gain, t0 = this.listener.context.currentTime;
-    g.setValueAtTime(1, t0);
-    g.exponentialRampToValueAtTime(0.001, t0 + len - 0.1); // 처음부터 줄곧 작아져서 2초 안에 사라진다
-    g.linearRampToValueAtTime(0, t0 + len);
+    bellEnvelope(a.gain.gain, this.listener.context.currentTime, volume, len);
     this.duckLeft = Math.max(this.duckLeft, len + 0.8);
-    setTimeout(() => { a.stop(); parent.remove(a); a.disconnect(); }, len * 1000 + 150);
+    setTimeout(() => { a.stop(); parent.remove(a); a.disconnect(); }, len * 1000 + 100);
   }
 
   /** 큰 종소리(세 번 성공·남이 울릴 때) */
