@@ -200,6 +200,8 @@ export interface AvatarRig {
   idle: number;
   /** 잠깐 하는 동작 — 종 줄 당기기(pull, 1.5초) · 십자성호(cross, 3.2초). start 는 rig.idle 기준 시각, k 는 세기(0~1) */
   gesture?: { kind: 'pull' | 'cross'; start: number; k: number };
+  /** 기도하는 자세(두 손을 모아 가슴 앞에, 고개를 살짝 숙임) — 앉아 기도하기 · 성모상 앞 기도. 켜면 부드럽게 모였다가 끄면 풀린다 */
+  pray?: boolean; prayW?: number;
   /** v3-7: 종 줄을 잡고 있는 중(두 손을 머리 위 줄에 올린 채 선다). pull 동작은 이 자세에서 시작해 이 자세로 돌아온다 */
   holdRope?: boolean;
   /** v3-8: 손잡이를 끌어내리는 정도(0 위 … 1 맨 아래). holdRope 일 때 팔이 그만큼 내려온다 */
@@ -556,6 +558,14 @@ export function animateAvatar(rig: AvatarRig, dt: number, speed: number, t: numb
   if (rig.wingL && rig.wingR) { rig.wingL.rotation.set(0, 0, 0); rig.wingR.rotation.set(0, 0, 0); }
   if (rig.halo) rig.halo.rotation.z = Math.sin(t * 0.7) * 0.05;
   if (rig.balloon) rig.balloon.position.x = 0.05 + Math.sin(t * 1.3) * 0.06;
+  // 기도: 두 손을 가슴 앞에 모은다(십자성호 «가슴» 자세를 양팔에 마주 놓는다 — 확정된 십자성호 열쇠 값은 그대로 두고 읽기만 한다)
+  rig.prayW = (rig.prayW ?? 0) + ((rig.pray ? 1 : 0) - (rig.prayW ?? 0)) * Math.min(1, dt * 5);
+  if (rig.prayW > 0.001) {
+    const w = rig.prayW;
+    rig.armR.rotation.x += (0.19 - rig.armR.rotation.x) * w; rig.armR.rotation.z += (-1.3 - rig.armR.rotation.z) * w; rig.elbowR.rotation.x += (1.1 - rig.elbowR.rotation.x) * w;
+    rig.armL.rotation.x += (0.19 - rig.armL.rotation.x) * w; rig.armL.rotation.z += (1.3 - rig.armL.rotation.z) * w; rig.elbowL.rotation.x += (1.1 - rig.elbowL.rotation.x) * w;
+    rig.head.rotation.x += (0.32 - rig.head.rotation.x) * w; rig.head.rotation.y *= 1 - w;
+  }
   applyGesture(rig);
 }
 
