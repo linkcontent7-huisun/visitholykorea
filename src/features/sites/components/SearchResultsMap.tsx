@@ -134,6 +134,10 @@ export function SearchResultsMap({
 
   return (
     <div className="w-full space-y-3">
+      {/* 교구 안내·설명 카드는 지도 «바로 위»(사장님 2026-11-25: 아래에 있으면 스크롤하기 전에는 교구가 뭔지 모른다) */}
+      <div ref={cardRef}>
+        <DioceseInfoCard diocese={diocese} counts={counts} onClose={() => setDiocese(null)} />
+      </div>
       <svg
         viewBox={VIEW_BOX}
         className="h-auto w-full rounded-lg border border-app-border bg-[linear-gradient(180deg,#bfe0f3_0%,#a7d3ee_55%,#94c6e6_100%)]"
@@ -207,9 +211,6 @@ export function SearchResultsMap({
 
         <DioceseLabels language={language} selected={diocese} highlight={highlightDiocese} />
       </svg>
-      <div ref={cardRef}>
-        <DioceseInfoCard diocese={diocese} counts={counts} onClose={() => setDiocese(null)} />
-      </div>
     </div>
   );
 }
