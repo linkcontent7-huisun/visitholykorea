@@ -388,7 +388,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     // 짓는 동안 화면이 멈추므로 먼저 «준비 중» 을 그리게 한 프레임을 넘긴다(옛 공간은 아직 그대로라 그 사이 한 번 그려져도 안전하다)
     $('loading').hidden = false;
     await new Promise<void>((done) => requestAnimationFrame(() => setTimeout(done, 0)));
-    closeCard(); stopTour(); bellGameClose?.(); riteClose?.(); endRinging(); endCross(false); quest = 'none'; setGuide(null); askHide(); askKind = null; maryAsked = false; wasInside = false; guideTried = false; prayUntil = 0; me.pray = false;
+    closeCard(); stopTour(); bellGameClose?.(); riteClose?.(); endRinging(); endCross(false); quest = 'none'; setGuide(null); askHide(); askKind = null; maryAsked = false; bellAsked = false; wasInside = false; guideTried = false; prayUntil = 0; me.pray = false;
     if (space) {
       scene.remove(space.root);
       sound.setOrgan(null);
@@ -705,7 +705,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // ② 종: «성당 안으로 들어가 종을 울려 볼까요?» (건너뛰거나 닫으면 ③ 으로, 안내를 안 누르고 직접 종을 울려도 끝나면 ③ 으로)
   // ③ 성수대 앞으로 가서 성수 찍기(손동작) → ④ 십자가의 길 / 제대 앞 초 가운데 고르면 그곳으로 걸어가 선다 → ⑤ 자유 → ⑥ 밖으로 나오면 새 빛
   const GUIDE_IDLE_MS = 4000; // 이 시간 동안 아무것도 안 누르면 안내가 시작한다(느린 기기에서도 실제 시간으로 잰다)
-  let guideIdle = 0, guideTried = false, maryAsked = false, wasInside = false, prayUntil = 0, askKind: 'mary' | 'bell' | null = null;
+  let guideIdle = 0, guideTried = false, maryAsked = false, bellAsked = false, wasInside = false, prayUntil = 0, askKind: 'mary' | 'bell' | null = null;
   const doorIa = () => space?.interactables.find((i) => i.kind === 'door');
   const grottoIa = () => space?.interactables.find((i) => i.kind === 'candle' && i.title.includes('성모'));
   const altarIa = () => space?.interactables.find((i) => i.kind === 'candle' && i.title.includes('제대'));
@@ -739,7 +739,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   const faceTo = (p: THREE.Vector3) => { bodyYaw = Math.atan2(-(p.x - player.pos.x), -(p.z - player.pos.z)); };
 
   function startGuide() {
-    quest = 'mary'; maryAsked = false; guideIdle = performance.now();
+    quest = 'mary'; maryAsked = false; bellAsked = false; guideIdle = performance.now();
     const g = grottoIa(); if (!g) { nextBell(); return; }
     setGuide(g.anchor, '성모상 — 성모님께 인사드리고 기도해 보세요');
   }
@@ -756,11 +756,17 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       { label: '🕯️ 봉헌초 올리기', on: () => { const g2 = grottoIa(); if (!g2) return nextBell(); candleGroup = g2.group ?? null; candleTitle = g2.title; openCandleCard(); askKind = 'mary'; } },
       { label: '🙏 잠시 기도하기', on: () => { prayUntil = performance.now() + 4200; setTimeout(() => nextBell(), 4400); } },
       { label: '다음으로', on: () => nextBell() },
-    ], () => nextBell());
+    ], () => quietBell());
+  }
+  /** «닫기» — 창은 그대로 닫히고, 종 안내는 표지만 남긴다. 가만히 8초 있으면 그때 종 안내줄이 다시 나온다(닫자마자 다음 창이 뜨지 않게) */
+  function quietBell() {
+    askKind = null; if (quest !== 'mary') return;
+    quest = 'bell'; bellAsked = false; guideIdle = performance.now();
+    const b = bellIa(); if (b) setGuide(b.anchor, '종 — 성당 안으로 들어가 종 줄을 당겨 보세요');
   }
   function nextBell() {
     askKind = null; if (quest === 'font' || quest === 'choose' || quest === 'candle' || quest === 'stations' || quest === 'done') return;
-    quest = 'bell'; const b = bellIa();
+    quest = 'bell'; bellAsked = true; const b = bellIa();
     if (!b) { nextFont(); return; }
     setGuide(b.anchor, '종 — 성당 안으로 들어가 종 줄을 당겨 보세요');
     askBar('성당 안으로 들어가 종을 울려 볼까요? (닫으면 성수 찍기로 갑니다)', [
@@ -1481,7 +1487,11 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           if (guideIdle !== Infinity && now - guideIdle >= GUIDE_IDLE_MS) goMary();
           else if (gi && Math.hypot(gi.anchor.x - player.pos.x, gi.anchor.z - player.pos.z) < 2.6 && !cardOpen()) maryArrive();
         }
-        if (askKind === 'mary' && !cardOpen()) { askKind = null; setTimeout(() => nextBell(), 700); }
+        if (askKind === 'mary' && !cardOpen()) { askKind = null; if (points.has('candle-grotto')) setTimeout(() => nextBell(), 700); else quietBell(); }
+        if (quest === 'bell' && !bellAsked && askEl.hidden) {
+          const busy2 = joy.length() > 0.1 || keys.size > 0 || !!moveTarget || !!pendingAct || cardOpen() || ringing || crossing;
+          if (busy2) guideIdle = now; else if (now - guideIdle >= 8000) nextBell();
+        }
         me.pray = !!player.sitting || performance.now() < prayUntil;
         checkExit();
         if (quest === 'stations' && stationShown !== stationK) {
