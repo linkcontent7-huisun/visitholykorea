@@ -74,9 +74,12 @@ export const BELL_TAIL_S = 1.8;
  * 이전에는 시작 값을 1 로 박아 정해 둔 크기(volume)를 무시했다. 앞의 소리 예약은 모두 지우고 시작한다.
  */
 export function bellEnvelope(g: AudioParam, t0: number, volume: number, len: number) {
+  const v = Math.max(0.0001, volume);
   g.cancelScheduledValues(t0);
-  g.setValueAtTime(Math.max(0.0001, volume), t0);
-  g.exponentialRampToValueAtTime(Math.max(0.0001, volume) * 0.002, t0 + len * 0.92); // 약 -54 dB — 사실상 들리지 않는다
+  g.setValueAtTime(0.0001, t0);
+  g.linearRampToValueAtTime(v, t0 + 0.012);                          // 치는 순간(딸깍 소리 없이 짧게 올라간다)
+  g.exponentialRampToValueAtTime(v * 0.22, t0 + 0.35);               // 울림이 빠르게 내려앉고
+  g.exponentialRampToValueAtTime(v * 0.002, t0 + len * 0.94);        // 여운이 길게 페이드아웃
   g.linearRampToValueAtTime(0, t0 + len);
 }
 
@@ -170,10 +173,10 @@ export class Sound {
     setTimeout(() => { a.stop(); parent.remove(a); a.disconnect(); }, len * 1000 + 100);
   }
 
-  /** 큰 종소리(세 번 성공·남이 울릴 때) */
+  /** 남이 친 종소리(한 번) */
   bell(parent: THREE.Object3D, pos: THREE.Vector3, volume = 1) { this.bellClip(parent, pos, volume, 0.4); }
 
-  /** 줄을 한 번 당겼을 때(박자 맞음) — n: 몇 번째 성공(1~3). 같은 녹음의 다른 자리를 쓴다 */
+  /** 줄을 한 번 당겼을 때 — 한 번 울리고 여운이 사라진다. 세 번 당기면 세 번 울린다(앞 소리의 여운 위에 다음 종이 겹쳐 이어진다). n: 몇 번째(1~3) */
   bellStrike(parent: THREE.Object3D, pos: THREE.Vector3, n: number) { this.bellClip(parent, pos, 0.55 + n * 0.15, 0.4 + (n - 1) * 3.7); }
 
   /** 짧은 효과음 — drop: 성수 물방울 · thud: 헛당김 */

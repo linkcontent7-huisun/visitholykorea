@@ -919,7 +919,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
             },
             onSuccess: () => {
               won = true;
-              if (net.online) net.send('bell', { id: ia.id }); else ringBell(0.9, true);
+              if (net.online) net.send('bell', { id: ia.id }); // 남에게만 울린다. 내 소리는 줄을 당길 때마다 한 번씩(총 3번) 이미 났다
               if (scored && points.awardBell()) toast(`종지기 완료 ⭐ +${PTS.bell} 포인트 — 다시 하려면 성당 안을 둘러보고 3분 뒤에 오세요`);
               else toast('종소리가 울립니다 🔔 (포인트는 3분 뒤부터 다시 오릅니다)');
             },
