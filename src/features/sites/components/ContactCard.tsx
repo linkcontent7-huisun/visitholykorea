@@ -81,6 +81,11 @@ export function ContactCard({ site }: { site: HolySite }) {
                 <span className="sr-only"> {t('contactNewWindow')}</span>
               </span>
             </a>
+            {/* 누리집은 성지가 직접 운영하는 바깥 서버라 열리지 않을 때가 있다(QA 2026-11-27: 마재·제주 중앙 등).
+                브라우저에서 남의 사이트가 살아 있는지 미리 알 수 없어(CORS) 안내 한 줄로 대신한다 */}
+            <p className="px-5 pb-3 text-xs leading-relaxed text-app-text-muted">
+              {t('contactHomepageNote')}
+            </p>
           </li>
         )}
 
