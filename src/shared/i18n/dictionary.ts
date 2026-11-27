@@ -5824,11 +5824,12 @@ export const DICTIONARY = {
   /** 성지 이름이 집중률에 없는 곳 — 색 점·등급 없이 이 문장만 그린다(2026-09-21). {word} 는 crowdingWord* */
   crowdingDistrictOnly: {
     ko: '{district} 관광지 예측 {word} · 이 성지 데이터 없음',
-    en: '{district} attractions forecast: {word} · no data for this shrine',
-    es: 'Previsión de atracciones en {district}: {word} · sin datos de este santuario',
-    fr: 'Prévision des sites de {district} : {word} · pas de données pour ce sanctuaire',
-    pt: 'Previsão das atrações de {district}: {word} · sem dados deste santuário',
-    it: 'Previsione attrazioni di {district}: {word} · nessun dato per questo santuario',
+    // 외국어는 시군구 이름을 뺀다 — 관광공사가 한국어 이름만 줘서 영어 화면에 한글이 남았다(QA 2026-11-27, 사장님 «권장대로»)
+    en: 'Nearby tourist spots: forecast {word} · no data for this shrine',
+    es: 'Atracciones cercanas: previsión {word} · sin datos de este santuario',
+    fr: 'Sites touristiques proches : prévision {word} · pas de données pour ce sanctuaire',
+    pt: 'Atrações próximas: previsão {word} · sem dados deste santuário',
+    it: 'Attrazioni vicine: previsione {word} · nessun dato per questo santuario',
   },
 
   // ── 홈 재정돈(2026-09-16 시안 확정) — 히어로 슬라이드·입구 2개 ──
