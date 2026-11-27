@@ -136,13 +136,15 @@ body.cinema #hud, body.cinema .labels, body.cinema #joy { opacity: 0; pointer-ev
 
 /* v2 — 설명대 위 홀로그램(빛으로 떠 있는 글자) */
 .labels .holo { position: relative; width: min(360px, 78vw); padding: 14px 16px 16px; border-radius: 10px; pointer-events: none;
-  background: linear-gradient(180deg, rgba(120,200,255,.16), rgba(255,220,150,.10)), repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 3px);
-  border: 1px solid rgba(170,225,255,.55); box-shadow: 0 0 24px rgba(120,200,255,.35), inset 0 0 18px rgba(120,200,255,.18);
-  color: #eaf7ff; text-shadow: 0 0 8px rgba(130,210,255,.9); backdrop-filter: blur(2px);
+  /* 글자가 잘 보이게 뒷배경을 거의 불투명한 어두운 판으로(사장님 2026-11-25: 뒤가 비쳐 글자가 안 보인다) — 홀로그램 느낌은 푸른 테두리·은은한 빛으로 남긴다 */
+  background: linear-gradient(180deg, rgba(18,30,48,.93), rgba(26,22,14,.93));
+  border: 1px solid rgba(170,225,255,.65); box-shadow: 0 0 22px rgba(120,200,255,.35), inset 0 0 14px rgba(120,200,255,.14);
+  color: #f6fbff; text-shadow: 0 1px 2px rgba(0,0,0,.85);
   opacity: 0; transform: translateY(14px) scale(.96); transition: opacity .45s ease, transform .45s ease; }
-.labels .holo.show { opacity: 1; transform: translateY(0) scale(1); animation: holoFlicker 3.2s ease-in-out infinite .5s; }
+.labels .holo.show { opacity: 1; transform: translateY(0) scale(1); }  /* 깜박임(holoFlicker)은 글자가 흐려져 뺐다 */
+.labels .holo-close { pointer-events: auto; margin-top: 8px; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(255,214,128,.6); background: rgba(40,28,10,.7); color: #ffe6a8; font: 600 12px system-ui, sans-serif; cursor: pointer; }
 .labels .holo-title { font: 700 15px/1.3 'Noto Serif KR', AppleMyungjo, serif; letter-spacing: .06em; color: #fff3d6; text-shadow: 0 0 10px rgba(255,210,120,.9); margin-bottom: 8px; }
-.labels .holo-body { font: 500 13px/1.6 system-ui, sans-serif; }
+.labels .holo-body { font: 500 14px/1.6 system-ui, sans-serif; }
 .labels .holo::after { content: ''; position: absolute; left: 50%; bottom: -46px; width: 2px; height: 46px; transform: translateX(-50%); background: linear-gradient(rgba(150,215,255,.8), rgba(150,215,255,0)); }
 @keyframes holoFlicker { 0%,100% { opacity: 1; } 48% { opacity: .92; } 50% { opacity: .75; } 52% { opacity: .95; } }
 
@@ -215,3 +217,22 @@ body.ringing #hint, body.ringing #crosshair, body.ringing #actBtn { display: non
   .chip { min-height: 40px; }
   #card .close, #cardClose { min-height: 40px; min-width: 56px; }
 }
+
+/* 2026-11-23 사장님: 휴대폰은 화면이 좁다 — 조이스틱과 위쪽 단추를 모두 감추고 「화면을 터치해서 이동해보세요」 한 줄만 보인다.
+   걷기는 땅을 누르면 그 자리로 걸어가는 방식(clickAt)이 맡는다. PC 화면은 그대로다. 되돌리려면 이 묶음을 지운다. */
+.touch #joy, .touch .tools { display: none; }
+.touch #lookTip { left: 50%; right: auto; bottom: calc(96px + env(safe-area-inset-bottom)); transform: translateX(-50%); width: max-content; max-width: calc(100vw - 32px); text-align: center; background: rgba(20,15,8,.88); border: 2px solid #ffd678; color: #fff; font-size: 19px; font-weight: 700; padding: 12px 20px; }
+
+/* 전체 그림(두 손가락을 모아 멀리 본 모습)에서는 성지 위 안내 표지·설명 글이 겹쳐 지저분하다 — 감춘다 */
+body.overview .badge, body.overview .holo { opacity: 0; pointer-events: none; transition: opacity .3s; }
+/* 순례 순서 안내줄(2026-11-25) — 창이 아니라 화면 위쪽의 안내. 누르지 않고 직접 움직여도 된다 */
+#askBar { position: fixed; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 76px); transform: translateX(-50%); z-index: 40; width: min(92vw, 440px); box-sizing: border-box; padding: 10px 12px 12px; border-radius: 14px; background: rgba(28, 20, 8, .88); border: 1px solid rgba(255, 214, 128, .55); color: #ffe9b8; box-shadow: 0 6px 22px rgba(0,0,0,.45); }
+#askBar p { margin: 0 0 8px; font-size: 15px; line-height: 1.45; font-weight: 700; }
+#askBar .ask-row { display: flex; flex-wrap: wrap; gap: 8px; }
+#askBar button { min-height: 44px; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255, 214, 128, .6); background: #d4a017; color: #2a1c04; font-weight: 800; font-size: 14px; }
+#askBar button.ask-x { background: transparent; color: #ffe9b8; margin-left: auto; }
+.touch #askBar { top: calc(env(safe-area-inset-top, 0px) + 70px); }
+.nick-row { display: flex; gap: 8px; align-items: center; } .nick-row input { flex: 1; min-width: 0; }
+/* 아기 천사 부르기 단추(2026-11-25) — 오른쪽 아래 */
+#botCall { position: fixed; right: max(12px, env(safe-area-inset-right, 0px)); bottom: calc(env(safe-area-inset-bottom, 0px) + 84px); z-index: 30; min-height: 44px; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255, 214, 128, .6); background: rgba(28, 20, 8, .88); color: #ffe9b8; font-weight: 800; font-size: 14px; box-shadow: 0 4px 16px rgba(0,0,0,.4); }
+#askBar p { white-space: pre-line; }

@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
   cardMeta,
+  faqMeta,
+  regionMeta,
   renderPage,
   robotsTxt,
   routeMeta,
@@ -118,5 +120,38 @@ describe('guideMeta — 성지순례 안내 글', () => {
     expect(meta.title.startsWith('성지순례')).toBe(true);
     expect(meta.bodyHtml).toContain('<h1>성지순례, 처음이라면</h1>');
     expect(meta.bodyHtml).toContain('미사 시간');
+  });
+});
+
+describe('카드·지역·자주 묻는 질문 쪽 (2026-11-21 지시서 3호)', () => {
+  it('영어 카드는 <html lang="en"> 이고 본문이 화면의 그림 설명·버튼 글이다', () => {
+    const html = renderPage(template, cardMeta('en', 'Cecilia', 'Cecilia'));
+    expect(html).toContain('<html lang="en">');
+    expect(html).toContain('<h1>Card for the baptismal name Cecilia</h1>');
+    expect(html).toContain('>Open visitholykorea.com</a>');
+  });
+
+  it('성지 쪽은 lang 을 따로 주지 않아 ko 그대로다', () => {
+    expect(renderPage(template, siteMeta(site))).toContain('<html lang="ko">');
+  });
+
+  it('지역 쪽은 45km 안 성지만 가까운 순으로 넣고 제목이 첫 화면과 다르다', () => {
+    const near: SeoSite = { ...site, id: 'a', name: '가까운 성지', lat: 37.57, lng: 126.98 };
+    const mid: SeoSite = { ...site, id: 'b', name: '중간 성지', lat: 37.7, lng: 127.1 };
+    const far: SeoSite = { ...site, id: 'c', name: '먼 성지', lat: 35.1, lng: 129.0 };
+    const meta = regionMeta('서울', [far, mid, near]);
+    expect(meta.title).toBe('서울에서 떠나는 성지순례 | Visit Holy Korea');
+    expect(meta.bodyHtml.indexOf('가까운 성지')).toBeLessThan(meta.bodyHtml.indexOf('중간 성지'));
+    expect(meta.bodyHtml).not.toContain('먼 성지');
+    expect(meta.bodyHtml).toContain('2곳 · 서울에서 45km 안 · 전국 3곳 중');
+  });
+
+  it('자주 묻는 질문 쪽은 두 탭의 문답을 모두 넣고 FAQPage 구조화 데이터를 단다', () => {
+    const meta = faqMeta();
+    expect(meta.title).toBe('자주 묻는 질문 | Visit Holy Korea');
+    expect(meta.bodyHtml).toContain('<h2>회원가입 및 로그인</h2>');
+    expect(meta.bodyHtml).toContain('<h2>서비스 이용</h2>');
+    expect(meta.jsonLd['@type']).toBe('FAQPage');
+    expect((meta.jsonLd.mainEntity as unknown[]).length).toBeGreaterThan(4);
   });
 });

@@ -1,6 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSettings } from '@/shared/i18n/use-settings';
+import { hasPreviousInApp } from '@/shared/lib/back-memory';
 
 /**
  * 「← 뒤로」 — 모든 화면이 같은 모양·같은 자리(제목 위)에 둔다 (2026-09-17 화면 규칙).
@@ -19,6 +20,7 @@ export function BackButton({
   label,
   className = '',
   variant = 'default',
+  fallbackTo = '/',
 }: {
   to?: string;
   /** `to` 가 없을 때 기본 동작(브라우저 뒤로가기) 대신 쓸 함수. 정리(reset)가 필요한 화면에서만 */
@@ -28,6 +30,8 @@ export function BackButton({
   className?: string;
   /** 사진 위에 투명하게 뜰 때(성지 상세 히어로) */
   variant?: 'default' | 'onDark';
+  /** 이 사이트 안에 앞선 화면이 없을 때(주소로 바로 열었을 때) 보낼 곳 — 사이트 밖으로 나가지 않게. 기본은 홈 */
+  fallbackTo?: string;
 }) {
   const navigate = useNavigate();
   const { t } = useSettings();
@@ -50,7 +54,10 @@ export function BackButton({
   return (
     <button
       type="button"
-      onClick={onClick ?? (() => navigate(-1))}
+      onClick={
+        onClick ??
+        (() => (hasPreviousInApp() ? navigate(-1) : navigate(fallbackTo, { replace: true })))
+      }
       className={cls}
       id="back-button"
     >

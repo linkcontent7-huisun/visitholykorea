@@ -162,7 +162,8 @@ export class Net {
     });
     cb.onAdd('reacts', (n: number, key: string) => this.h.onReactCount(key, n));
     cb.onChange('reacts', (key: string, n: number) => this.h.onReactCount(key, n));
-    room.onMessage('bell', (m: { id: string }) => this.h.onBell(m.id));
+    // 내가 친 종은 줄을 당길 때 이미 한 번씩 울렸다 — 서버가 돌려보낸 내 종소리는 다시 울리지 않는다(남이 친 종만 울린다)
+    room.onMessage('bell', (m: { id: string; from?: string }) => { if (m.from && m.from === room.sessionId) return; this.h.onBell(m.id); });
     room.onMessage('react', (m: { art: string; kind: string; from: string }) => this.h.onReact(m.art, m.kind, m.from));
     room.onMessage('say', (m: { from: string; idx: number }) => this.h.onSay(m.from, m.idx));
     room.onLeave(() => {

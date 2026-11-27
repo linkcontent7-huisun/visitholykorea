@@ -11,7 +11,7 @@ import { GTAOPass } from 'three/examples/jsm/postprocessing/GTAOPass.js';
 import { WIND, NEAR_FADE } from './sitemap/trees.ts';
 import { lightBeam, glassPool } from './textures.ts';
 import { simplifyOutdoor } from './simplify.ts';
-import { initialName, isSelfName, KEY_NICK, KEY_NICK_SELF } from './pilgrim-name.ts';
+import { initialName, isSelfName, KEY_NICK, KEY_NICK_SELF, randomPilgrimName } from './pilgrim-name.ts';
 import { AVATARS, avatarOf, randomAvatarId, encodeNick, decodeNick, buildAvatar, animateAvatar } from './avatars.ts';
 import nipplejs from 'nipplejs';
 import { makeMaterials } from './materials.ts';
@@ -22,11 +22,15 @@ import type { Interactable, SpaceBuild } from './spaces/types.ts';
 import { Player } from './player.ts';
 import { Sound } from './audio.ts';
 import { Net } from './net.ts';
+import { createBarrier } from './barrier.ts';
+import { createPrayerFloat, fakePrayers, demoBigColors } from './demo.ts';
+import { createPilgrimLights, SANCTUARY_LIGHTS } from './lights.ts';
 import { fetchSummary, lightCandle, isLoggedIn, guessCountry, flag, daysLeft, sharesMainSession, type CandleSummary } from './candles.ts';
-import { startBellGame, startSignOfCross } from './rites.ts';
+import { startBellGame } from './rites.ts';
 import { Points, PTS } from './points.ts';
-import { PRAYERS, STATION_SCENES, STATION_VERSICLE, STATION_CLOSING } from './prayers.ts';
-import { startGesture } from './avatars.ts';
+import { Nav } from './nav.ts';
+import { STATION_SCENES, STATION_VERSICLE } from './prayers.ts';
+import { startGesture, crossProgress, CROSS_BEATS } from './avatars.ts';
 import { loadSite, type SiteData } from './sitemap/siteMap.ts';
 import { SPACES, INTENTIONS, GREETINGS, REACTS, REACT_LABEL, STATION_NAMES, CANDLE_TEXT_MAX, cleanCandleText, isSpaceId, siteHref, type SpaceId } from '../shared/spaces.ts';
 
@@ -46,10 +50,12 @@ const startSel = $<HTMLSelectElement>('startSpace');
 const qualitySel = $<HTMLSelectElement>('quality');
 // 로그인한 순례자의 계정 이름을 칸에 넣는다(직접 고친 이름이 먼저) — pilgrim-name.ts
 try { nickInput.value = initialName(localStorage); } catch { /* 저장소 없음 */ }
+if (!nickInput.value) nickInput.value = randomPilgrimName(); // 로그인한 이름도, 직접 적은 이름도 없으면 성경 인물 이름을 한 칸에 넣어 준다(고치거나 🎲 로 다시 뽑는다)
+$('nickRandom').addEventListener('click', () => { nickInput.value = randomPilgrimName(); });
 if (isSpaceId(startParam)) startSel.value = startParam;
 qualitySel.value = touch ? 'low' : 'high';
 
-const cleanNick = (s: string) => s.normalize('NFC').replace(/[^\p{L}\p{N} _-]/gu, '').trim().slice(0, 12) || `순례자${Math.floor(1000 + Math.random() * 9000)}`;
+const cleanNick = (s: string) => s.normalize('NFC').replace(/[^\p{L}\p{N} _-]/gu, '').trim().slice(0, 12) || randomPilgrimName();
 
 function webglOk() {
   try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; }
@@ -104,7 +110,9 @@ selectAvatar(avatarId);
   requestAnimationFrame(spin);
 })(0);
 
+let enterAt = 0; // 입장하기를 누른 시각(주소에 ?time 을 붙이면 입장에 걸린 초를 화면에 알린다 — 휴대폰에서 직접 재 보는 용도)
 function enterNow() {
+  enterAt = performance.now();
   const name = cleanNick(nickInput.value).slice(0, 9);
   try { localStorage.setItem(KEY_NICK, name); localStorage.setItem(KEY_NICK_SELF, isSelfName(name, localStorage) ? '1' : '0'); localStorage.setItem('vhk.avatar', avatarId); } catch { /* 무시 */ }
   $<HTMLButtonElement>('enter').disabled = true;
@@ -128,6 +136,7 @@ if (returning) {
 function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   const myName = decodeNick(nick).name; // 화면에 보이는 이름(별명 끝의 캐릭터 번호를 뺀 것)
   const renderer = new THREE.WebGLRenderer({ antialias: high, powerPreference: 'high-performance' });
+  renderer.debug.checkShaderErrors = false; // 입장 빠르게(2026-11-24): 그리기 하나마다 셰이더 결과를 동기로 기다리지 않는다(three 공식 권장 — 오류 검사만 끈다)
   const PR_MAX = Math.min(window.devicePixelRatio || 1, high ? 2 : 1);
   renderer.setPixelRatio(Math.min(PR_MAX, 1.25)); // 처음은 1.25 — 아래 자동 화질이 기기에 맞춰 올리거나 내린다
   renderer.setSize(innerWidth, innerHeight);
@@ -248,6 +257,44 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // ── 내 캐릭터 · 3인칭 카메라(로블록스식) ──
   const me = buildAvatar(avatarOf(myAvatar));
   scene.add(me.root);
+  // 순례자의 빛 — 점 한 묶음(그리기 1번). 움직임은 전부 셰이더가 한다
+  const lights = createPilgrimLights({ low: touch, pixelRatio: Math.min(PR_MAX, 1.25), viewH: () => innerHeight });
+  scene.add(lights.object);
+  // 기도의 결계 — 켠 초가 성전 둘레에 겹겹의 빛 고리로 쌓인다(그리기 2번)
+  const barrier = createBarrier({ low: touch, pixelRatio: Math.min(PR_MAX, 1.25), viewH: () => innerHeight });
+  scene.add(barrier.object);
+  const barrierLevel = () => barrier.setLevel(params.has('demo') ? 100 : Math.max(saved?.total ?? 0, space ? space.candles.filter((c) => c.lit).length : 0));
+  const flamePos = new THREE.Vector3();
+  // ── 시험용 보기(?demo): 가짜 초 100개·가짜 기도 100개. 기기 안에서만 그리고 아무것도 저장·전송하지 않는다 ──
+  let demoTick: ((t: number) => void) | null = null;
+  function startDemo() {
+    if (demoTick || !params.has('demo')) return;
+    const prayers = fakePrayers(100);
+    barrier.setLevel(100); lights.demoFill(10, demoBigColors);
+    const pf = createPrayerFloat({ count: touch ? 6 : 9, prayers });
+    scene.add(pf.group); pf.stagger(0);
+    const fwd = new THREE.Vector3();
+    demoTick = (t) => { fwd.set(-Math.sin(bodyYaw), 0, -Math.cos(bodyYaw)); pf.update(t, player.pos, fwd); };
+    const bar = document.createElement('div');
+    bar.style.cssText = 'position:fixed;left:8px;right:8px;top:64px;z-index:40;display:flex;gap:8px;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:10px;background:rgba(20,14,6,.78);color:#ffe6a8;font:600 12px/1.4 system-ui,sans-serif;border:1px solid rgba(255,214,128,.5)';
+    bar.innerHTML = '<span>🧪 시험용 — 가짜 초 100개 · 가짜 기도 100개 (실제 글이 아닙니다)</span><button style="all:unset;cursor:pointer;padding:6px 10px;border-radius:8px;background:#d4a017;color:#2a1c04;font-weight:700;white-space:nowrap">🔭 하늘 보기</button>';
+    document.body.append(bar);
+    const btn = bar.querySelector('button')!; let sky = false;
+    btn.addEventListener('click', () => {
+      sky = !sky; btn.textContent = sky ? '🚶 돌아오기' : '🔭 하늘 보기';
+      (window as any).__cam = sky ? { p: [2, 62, 86], t: [0.5, 14, 11] } : undefined;
+    });
+    let n = 0; // 4.5초마다 누군가 초를 켠다 — 솟는 빛 · 고리 틈 · 이음을 계속 볼 수 있게
+    setInterval(() => {
+      const p = prayers[n++ % prayers.length];
+      barrier.pulse(flamePos.set(0.5 + (Math.random() - 0.5) * 10, 1, 11 + Math.random() * 14));
+      toast(`🕯 ${p.who} 님이 초를 켰습니다 — ${p.text}`);
+    }, 4500);
+  }
+  const lightsAt = new THREE.Vector3(), lightsFwd = new THREE.Vector3();
+  const grantLight = (spaceId: string) => {
+    if (lights.award(spaceId)) toast(`✨ ${SANCTUARY_LIGHTS[spaceId]?.name ?? '새 빛'}이 순례자를 따라나섭니다`);
+  };
   // v3-8 포인트: 내 머리 위에 이름, 그 위에 포인트를 크게. 화면 오른쪽 위에도 작은 칩(1인칭일 때 머리 위가 안 보이므로)
   const points = new Points();
   const myTag = document.createElement('div'); myTag.className = 'tag';
@@ -266,15 +313,27 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   /** 한 번만 오르는 미션 — 처음이면 포인트와 안내 */
   const award = (key: string, pts: number, label: string) => { if (points.award(key, pts)) toast(`⭐ +${pts} 포인트 — ${label}`); };
   let camDist = touch ? 4.4 : 5.0;       // 0.7 아래면 1인칭
+  // ── 두 손가락 확대·축소(2026-11-24 사장님: 휴대폰 사진 보듯이) ──
+  // 두 손가락을 모으면 멀어져(camDist 증가) 11 m 를 넘는 순간부터 카메라가 하늘로 올라 성당과 계단 «전체 그림» 으로, 벌리면 다시 내려와 캐릭터에게 초점이 모인다.
+  // 11 m 까지는 전과 같은 어깨 뒤 따라가기다. 확정된 조작이다(성지만들기 스킬 6-2) — 성지가 바뀌어도 같게: 전체 그림의 중심·높이만 그 성지 크기에 맞춘다.
+  const CAM_CHASE_MAX = 11, CAM_OVER = 60;
+  const OV_CENTER = new THREE.Vector3(0.5, 0, 11), OV_H = 118, OV_PITCH = (78 * Math.PI) / 180; // 성당(z 7 ~ -52)과 계단(z 70)까지 세로로 다 들어오는 높이
+  const ovPos = new THREE.Vector3(OV_CENTER.x, OV_CENTER.y + OV_H * Math.sin(OV_PITCH), OV_CENTER.z + OV_H * Math.cos(OV_PITCH));
+  const ovQuat = (() => { const o = new THREE.PerspectiveCamera(); // 카메라여야 -Z 쪽을 바라본다(Object3D 는 +Z)
+    o.position.copy(ovPos); o.lookAt(OV_CENTER); return o.quaternion.clone(); })();
+  const youRing = new THREE.Mesh(new THREE.RingGeometry(0.9, 1.3, 40).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xffd678, transparent: true, opacity: 0.95, depthTest: false, blending: THREE.AdditiveBlending, toneMapped: false }));
+  youRing.renderOrder = 9; youRing.visible = false; scene.add(youRing);
   let bodyYaw = 0, mySpeed = 0;
   const lastPos = new THREE.Vector3();
   let moveTarget: THREE.Vector3 | null = null, moveStuck = 0;
+  let moveWps: THREE.Vector3[] = []; // 길 찾기로 정한 중간 지점들(벽을 돌아가는 길) — moveTarget 은 그중 지금 가는 곳
+  let nav: Nav | null = null;
   let pendingAct: { ia: Interactable; hit: THREE.Intersection } | null = null;
   const marker = new THREE.Mesh(new THREE.RingGeometry(0.28, 0.42, 32).rotateX(-Math.PI / 2),
     new THREE.MeshBasicMaterial({ color: 0xffd34d, transparent: true, opacity: 0.9, depthWrite: false, toneMapped: false }));
   marker.visible = false; marker.renderOrder = 5; scene.add(marker);
   const camRay = new THREE.Ray();
-  const firstPerson = () => camDist < 0.7 || player.gliding || !!player.sitting;
+  const firstPerson = () => camDist < 0.7 || player.gliding; // 앉아 있어도 3인칭 — 앉아 기도하는 모습이 보이게(사장님 2026-11-25)
   sound.init(camera);
   // 입장 단추를 누르지 않고 들어오면(다시 온 사람) 브라우저가 소리를 막는다 — 첫 손짓(누름·키)에서 소리를 켠다
   const unlockSound = () => { sound.unlock(); removeEventListener('pointerdown', unlockSound, true); removeEventListener('keydown', unlockSound, true); removeEventListener('touchend', unlockSound, true); };
@@ -329,7 +388,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     // 짓는 동안 화면이 멈추므로 먼저 «준비 중» 을 그리게 한 프레임을 넘긴다(옛 공간은 아직 그대로라 그 사이 한 번 그려져도 안전하다)
     $('loading').hidden = false;
     await new Promise<void>((done) => requestAnimationFrame(() => setTimeout(done, 0)));
-    closeCard(); stopTour(); bellGameClose?.(); riteClose?.(); endRinging(); quest = 'none'; setGuide(null);
+    closeCard(); stopTour(); bellGameClose?.(); riteClose?.(); endRinging(); endCross(false); quest = 'none'; setGuide(null); askHide(); botShow(false); botCall.hidden = true; askKind = null; maryAsked = false; bellAsked = false; wasInside = false; guideTried = false; prayUntil = 0; me.pray = false;
     if (space) {
       scene.remove(space.root);
       sound.setOrgan(null);
@@ -348,6 +407,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     }
     space = id === 'cathedral' ? buildCathedral(M, site, { light: !high }) : buildChapel(M);
     scene.add(space.root);
+    nav = new Nav(space.bvh); // 눌러서 걸을 때 벽을 피해 길을 찾는다
     simplifyOutdoor(space.root); // 바깥 둘레를 단순하게(simplify.ts, ?full 이면 그대로)
     // 쓸 수 있는 것 머리 위에 떠 있는 표지(포켓몬·로블록스처럼 «여기서 무엇을 할 수 있는지» 바로 보이게). 누르면 걸어가서 쓴다
     for (const b of badges) scene.remove(b.o);
@@ -376,15 +436,19 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       if (ia.kind !== 'info' || !ia.body) continue;
       const el = document.createElement('div');
       el.className = 'holo';
+      const sm = /^station(\d+)$/.exec(ia.id);
       const t = document.createElement('div'); t.className = 'holo-title'; t.textContent = ia.title;
-      const b = document.createElement('div'); b.className = 'holo-body'; b.textContent = ia.body;
-      el.append(t, b);
+      const b = document.createElement('div'); b.className = 'holo-body'; b.textContent = sm ? `${STATION_SCENES[Number(sm[1])] ?? ''}\n\n${STATION_VERSICLE}` : ia.body;
+      const x = document.createElement('button'); x.type = 'button'; x.className = 'holo-close'; x.textContent = '닫기';
+      el.append(t, b, x);
       const wrap = document.createElement('div'); wrap.append(el);
       const o = new CSS2DObject(wrap);
       o.position.copy(ia.anchor).add(new THREE.Vector3(0, 1.15, 0));
       o.visible = false;
       scene.add(o);
-      holos.push({ o, el, ia, on: false });
+      const hh = { o, el, ia, on: false } as (typeof holos)[number];
+      x.addEventListener('click', (e) => { e.stopPropagation(); for (const h of holos) if (h === hh || Math.hypot(h.ia.anchor.x - player.pos.x, h.ia.anchor.z - player.pos.z) < 4) hideHolo(h); }); // 닫기 — 그 옆을 떠났다 다시 올 때까지 뜨지 않는다
+      holos.push(hh);
     }
     // 같은 자리에 겹쳐 서지 않게 출발점을 조금씩 흩는다
     player.place(space.spawn.pos.clone().add(new THREE.Vector3((Math.random() - 0.5) * 4, 0, (Math.random() - 0.5) * 2)), space.spawn.yaw);
@@ -419,8 +483,14 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     history.replaceState(null, '', u.pathname + u.search + u.hash);
     spaceLoading = false;
     // 새 공간의 첫 화면이 그려진 다음(두 프레임 뒤)에 «준비 중» 을 지운다
-    requestAnimationFrame(() => requestAnimationFrame(() => { if (!spaceLoading) $('loading').hidden = true; }));
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (!spaceLoading) $('loading').hidden = true;
+      if (enterAt && params.has('time')) { toast(`입장에 ${((performance.now() - enterAt) / 1000).toFixed(1)}초 걸렸습니다`); enterAt = 0; }
+    }));
     savedIds.clear(); saved = null;
+    // 결계의 중심·크기: 명동은 성당 한가운데·반지름 60 m, 그 밖은 출발점 둘레 28 m
+    if (id === 'cathedral') barrier.setSite(new THREE.Vector3(0.5, 0, 11), 60); else barrier.setSite(space.spawn.pos.clone().setY(space.spawn.pos.y), 28);
+    barrierLevel(); startDemo();
     void refreshSaved(id, true);
     await net.join(id, nick);
   }
@@ -432,6 +502,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     const [sum, li] = await Promise.all([fetchSummary(siteId), isLoggedIn()]);
     if (space?.id !== id) return;
     saved = sum; loggedIn = li;
+    barrierLevel();
     if (!sum) return;
     // 뒤쪽 자리부터 저장된 초를 켠다 — 실시간으로 새로 켜는 초는 앞쪽 빈자리를 쓴다
     const slots = [...space.candles].reverse();
@@ -506,7 +577,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   raycaster.far = 4;
   let target: { ia: Interactable; hit: THREE.Intersection } | null = null;
   const badges: { o: CSS2DObject; el: HTMLButtonElement; ia: Interactable }[] = [];
-  const holos: { o: CSS2DObject; el: HTMLDivElement; ia: Interactable; on: boolean }[] = [];
+  const holos: { o: CSS2DObject; el: HTMLDivElement; ia: Interactable; on: boolean; hidden?: boolean; md?: number; hx?: number; hz?: number }[] = [];
+  const hideHolo = (h: (typeof holos)[number]) => { h.hidden = true; h.hx = player.pos.x; h.hz = player.pos.z; };
   let candleGroup: string[] | null = null, candleTitle = '봉헌초';
   // v3-6 놀이 덧판(열려 있으면 닫는 함수) · 내가 직접 쓴 기도(예전 방 서버는 글을 돌려주지 않으므로 내 화면에서는 여기서 보충한다)
   let bellGameClose: (() => void) | null = null, riteClose: (() => void) | null = null;
@@ -517,7 +589,72 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   let ringing = false;                                         // 종 줄을 잡으러 가는 중이거나 잡고 있는 동안: 걷기 막고 옆에서 본다
   let camFix: { pos: THREE.Vector3; target: THREE.Vector3 } | null = null;
   let arrive: (() => void) | null = null;                      // 클릭 걷기로 자리에 닿으면 부른다
-  let quest: 'none' | 'font' | 'choose' | 'candle' | 'stations' | 'done' = 'none';
+  // ── 성수 찍기 = 캐릭터의 손동작(2026-11-24 사장님): 성수대 앞에 서서 손끝을 성수에 담그고 이마 → 가슴 → 왼쪽 어깨 → 오른쪽 어깨를 짚는다.
+  //    따로 누르는 창은 없다. 동작이 끝나야 성수를 찍은 것으로 친다(포인트·다음 안내). 걷기·다른 누르기는 동작 중 막는다 ──
+  let crossing = false, crossBeat = 0;
+  const sparks: { m: THREE.Mesh; age: number }[] = [];
+  const CROSS_WORDS = ['성수에 손끝을 적십니다', '성부와', '성부와 성자와', '성부와 성자와 성령의', '성부와 성자와 성령의 이름으로 아멘'];
+  function spark(at: THREE.Vector3) {
+    const m = new THREE.Mesh(new THREE.SphereGeometry(0.04, 10, 8), new THREE.MeshBasicMaterial({ color: 0xffd678, transparent: true, opacity: 0.9, depthTest: false, blending: THREE.AdditiveBlending, toneMapped: false }));
+    m.position.copy(at); m.renderOrder = 10; scene.add(m); sparks.push({ m, age: 0 });
+  }
+  function endCross(finished: boolean) {
+    if (!crossing) return;
+    crossing = false; camFix = null; me.gesture = undefined; me.body.rotation.x = 0; $('caption').hidden = true;
+    space?.fx?.ropeGrab?.(null); // 종 줄은 늘 제자리로
+    if (finished) {
+      toast('십자성호를 그었습니다 — 성부와 성자와 성령의 이름으로. 아멘');
+      setTimeout(() => award('font', PTS.font, '성수를 찍고 십자성호'), 900);
+      setTimeout(() => offerNext(), 1700);
+    }
+  }
+  /** 성수대 앞에 서서 시작 — 몸을 성수대 쪽으로 돌리고(서 있을 자리까지 조금 더 다가간 뒤), 손이 보이게 비스듬히 앞에서 비춘다 */
+  let crossStarted = false;
+  const crossStand = new THREE.Vector3();
+  function beginCross(anchor: THREE.Vector3) {
+    if (crossing || !space) return;
+    closeCard(); stopTour(); moveTarget = null; pendingAct = null; marker.visible = false; askHide();
+    if (player.sitting) player.stand();
+    crossing = true; crossBeat = 0; crossStarted = false; joy.set(0, 0);
+    // 서 있을 자리: 성수대 중심에서 0.76 m(몸 반지름 0.32 + 그릇 반지름 0.37 + 여유) — 걸어서 닿는 오차(0.3 m)를 여기서 마저 메운다
+    const dx = anchor.x - player.pos.x, dz = anchor.z - player.pos.z, d = Math.hypot(dx, dz) || 1;
+    crossStand.set(anchor.x - (dx / d) * 0.76, player.pos.y, anchor.z - (dz / d) * 0.76);
+    bodyYaw = Math.atan2(-dx, -dz);
+    me.root.rotation.y = bodyYaw;
+  }
+  function startCrossNow() {
+    if (!space) return;
+    crossStarted = true;
+    const head = player.pos.clone().setY(player.pos.y + 1.4 * me.def.scale);
+    const f = new THREE.Vector3(-Math.sin(bodyYaw), 0, -Math.cos(bodyYaw));
+    // 손동작이 잘 보이는 자리 — 앞 오른쪽·앞 왼쪽·옆·뒤 순으로, 벽에 막히지 않는 첫 자리
+    for (const deg of [50, -50, 90, -90, 135, 180]) {
+      const a = (deg * Math.PI) / 180, c = Math.cos(a), sn = Math.sin(a);
+      const dir = new THREE.Vector3(f.x * c - f.z * sn, 0, f.x * sn + f.z * c);
+      const pos = head.clone().addScaledVector(dir, 2.0).setY(player.pos.y + 1.55);
+      const to = pos.clone().sub(head), len = to.length();
+      camRay.origin.copy(head); camRay.direction.copy(to).normalize();
+      const hit = space.bvh.raycastFirst(camRay, THREE.DoubleSide);
+      if (!hit || hit.distance > len + 0.3) { camFix = { pos, target: player.pos.clone().setY(player.pos.y + 1.05 * me.def.scale) }; break; }
+    }
+    startGesture(me, 'cross');
+  }
+  function driveCross(dt: number) {
+    if (!crossStarted) {
+      const dx = crossStand.x - player.pos.x, dz = crossStand.z - player.pos.z, d = Math.hypot(dx, dz);
+      if (d > 0.03) { const st = Math.min(d, 1.4 * dt); player.pos.x += (dx / d) * st; player.pos.z += (dz / d) * st; return; }
+      startCrossNow();
+    }
+    const u = crossProgress(me);
+    if (u === null || u >= 0.999) { endCross(true); return; }
+    while (crossBeat < CROSS_BEATS.length && u >= CROSS_BEATS[crossBeat]) {
+      if (crossBeat === 0) { sound.play('drop', 0.7); space?.fx?.fontDip?.(); } else sound.ting();
+      me.root.updateMatrixWorld(true); spark(me.handR.getWorldPosition(new THREE.Vector3()));
+      $('caption').hidden = false; $('caption').textContent = CROSS_WORDS[crossBeat];
+      crossBeat++;
+    }
+  }
+  let quest: 'none' | 'mary' | 'bell' | 'font' | 'choose' | 'candle' | 'stations' | 'done' = 'none';
   let stationK = 0, stationShown = -1;
   const handA = new THREE.Vector3(), handB = new THREE.Vector3();
   const questEl = document.createElement('div'); questEl.id = 'quest'; questEl.hidden = true; $('hud').append(questEl);
@@ -531,38 +668,237 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   }
   const anchorOf = (f: (ia: Interactable) => boolean) => space?.interactables.find(f)?.anchor ?? null;
   const stationAnchor = (k: number) => anchorOf((ia) => ia.id === `station${k}`);
+  /** 여러 자리를 차례로 걸어간다(막히면 거기서 멈춘다 — 벽은 뚫지 않는다) */
+  function walkVia(pts: THREE.Vector3[], done: () => void) {
+    const step = (i: number) => {
+      if (i >= pts.length) { done(); return; }
+      arrive = () => step(i + 1);
+      setMoveTarget(pts[i]);
+    };
+    step(0);
+  }
   function startStations() {
     quest = 'stations'; stationK = 0; stationShown = -1;
-    setGuide(stationAnchor(0), `십자가의 길 제1처 — ${STATION_NAMES[0]}`);
-    toast('측랑 오른쪽 벽의 제1처부터 차례로 걸어가 보세요 — 중앙 통로에서 아치 사이로 옆 측랑에 들어갑니다');
+    const a = stationAnchor(0);
+    setGuide(a, `십자가의 길 제1처 — ${STATION_NAMES[0]}`);
+    if (!a) return;
+    // 제1처 앞으로 저절로 걸어가 선다: 중앙 통로로 들어서 → 제1처와 같은 높이까지 → 옆 측랑으로 → 벽 앞 1 m
+    const mid = new THREE.Vector3(0, player.pos.y, a.z), stand = new THREE.Vector3(a.x - 1.0, player.pos.y, a.z);
+    toast('제1처 앞으로 걸어갑니다 — 움직이면 멈춥니다');
+    walkVia([new THREE.Vector3(0, player.pos.y, player.pos.z), mid, stand], () => {});
   }
-  function showStation(k: number) {
+  /** 제k처 앞에 도착했다 — 카드는 열지 않는다(설명은 공중에 뜨는 글 하나뿐). 포인트를 주고 다음 처로 안내한다 */
+  function reachStation(k: number) {
     stationShown = k;
-    const total = STATION_NAMES.length, last = k >= total - 1;
-    const next = () => {
-      closeCard();
-      if (last) {
-        award('stations-all', PTS.allStations, '십자가의 길 열다섯 처를 모두 걸었습니다');
-        quest = 'candle'; setGuide(anchorOf((ia) => ia.kind === 'candle' && ia.title.includes('제대')), '제대 앞 봉헌초 — 초를 하나 켜고 기도를 고르세요'); toast('십자가의 길을 다 걸었습니다 🙏 마지막으로 제대 앞에서 초를 봉헌해 보세요'); return;
-      }
-      stationK = k + 1; setGuide(stationAnchor(stationK), `십자가의 길 제${stationK + 1}처 — ${STATION_NAMES[stationK]}`);
-    };
-    const nextLabel = last ? '🙏 십자가의 길을 마칩니다' : `다음 — 제${k + 2}처로 →`;
-    const prayed = points.has(`station${k}`);
-    openCard('십자가의 길', `제${k + 1}처 — ${STATION_NAMES[k]}`, `${k + 1} / ${total}`, `${STATION_SCENES[k]}\n\n${STATION_VERSICLE}`, [
-      { label: prayed ? '🙏 기도문 다시 보기' : `🙏 기도하기 (⭐ +${PTS.station})`, on: () => {
-        award(`station${k}`, PTS.station, `제${k + 1}처에서 기도`);
-        const text = PRAYERS.map((p) => `${p.title}\n${p.text}`).join('\n\n') + `\n\n( 제${Math.min(k + 2, total)}처로 가며 )\n${STATION_CLOSING}`;
-        openCard('십자가의 길', `제${k + 1}처 — 기도`, `${k + 1} / ${total}`, `${STATION_VERSICLE}\n\n${text}`, [{ label: nextLabel, on: next }]);
+    const hk = holos.find((h) => h.ia.id === `station${k}`); if (hk) { hk.hidden = false; hk.md = undefined; } // 이 처 앞에 닿았으면 그 처의 설명 글이 반드시 뜨게(앞서 가려졌던 상태를 풀어 준다)
+    const total = STATION_NAMES.length;
+    award(`station${k}`, PTS.station, `제${k + 1}처에 이르렀습니다`);
+    if (k >= total - 1) {
+      award('stations-all', PTS.allStations, '십자가의 길 열다섯 처를 모두 걸었습니다');
+      quest = 'candle'; setGuide(anchorOf((ia) => ia.kind === 'candle' && ia.title.includes('제대')), '제대 앞 봉헌초 — 초를 하나 켜고 기도를 고르세요'); toast('십자가의 길을 다 걸었습니다 🙏 마지막으로 제대 앞에서 초를 봉헌해 보세요');
+      return;
+    }
+    stationK = k + 1; setGuide(stationAnchor(stationK), `십자가의 길 제${stationK + 1}처 — ${STATION_NAMES[stationK]}`);
+    // 천천히 한 처씩(사장님 2026-11-25): 설명을 읽을 시간을 주고, «다음 처로»를 눌러야 함께 걸어간다(혼자 걸어가도 된다)
+    const nk = stationK;
+    askBar(`제${k + 1}처 — ${STATION_NAMES[k]}\n공중에 뜬 설명을 천천히 읽어 보세요. 다 읽으셨으면 다음 처로 함께 가요.`, [
+      { label: `다음 — 제${nk + 1}처로 함께 가기 →`, on: () => {
+        const na = stationAnchor(nk); if (!na) return;
+        toast(`제${nk + 1}처 앞으로 함께 걸어갑니다 — 움직이면 멈춥니다`);
+        walkVia([new THREE.Vector3(na.x + (na.x > 0 ? -1.0 : 1.0), player.pos.y, na.z)], () => {});
       } },
-      { label: nextLabel, on: next },
-    ]);
+    ], () => { /* 닫으면 그대로 서서 읽는다 */ });
+  }
+
+  // ══ 순례 순서 안내 (사장님 2026-11-25) ══
+  // ① 야외: 화면을 4초 안 누르면 캐릭터가 성모상 앞으로 가서 선다 → 기도 · 봉헌초 · 다음으로
+  // ② 종: «성당 안으로 들어가 종을 울려 볼까요?» (건너뛰거나 닫으면 ③ 으로, 안내를 안 누르고 직접 종을 울려도 끝나면 ③ 으로)
+  // ③ 성수대 앞으로 가서 성수 찍기(손동작) → ④ 십자가의 길 / 제대 앞 초 가운데 고르면 그곳으로 걸어가 선다 → ⑤ 자유 → ⑥ 밖으로 나오면 새 빛
+  const GUIDE_IDLE_MS = 4000; // 이 시간 동안 아무것도 안 누르면 안내가 시작한다(느린 기기에서도 실제 시간으로 잰다)
+  let guideIdle = 0, guideTried = false, maryAsked = false, bellAsked = false, wasInside = false, prayUntil = 0, askKind: 'mary' | 'bell' | null = null;
+  const doorIa = () => space?.interactables.find((i) => i.kind === 'door');
+  const grottoIa = () => space?.interactables.find((i) => i.kind === 'candle' && i.title.includes('성모'));
+  const altarIa = () => space?.interactables.find((i) => i.kind === 'candle' && i.title.includes('제대'));
+  const bellIa = () => space?.interactables.find((i) => i.kind === 'bell');
+  const fontIa = () => space?.interactables.find((i) => i.kind === 'font');
+  // 누르지 않아도 되는 안내줄(창이 아니다 — 뒤 화면을 그대로 보며 안내를 무시하고 직접 움직여도 된다)
+  const askEl = document.createElement('div'); askEl.id = 'askBar'; askEl.hidden = true; $('hud').append(askEl);
+  function askBar(text: string, buttons: { label: string; on: () => void }[], onDismiss?: () => void) {
+    askEl.replaceChildren();
+    const p = document.createElement('p'); p.textContent = text; askEl.append(p);
+    const row = document.createElement('div'); row.className = 'ask-row';
+    for (const b of buttons) { const el = document.createElement('button'); el.type = 'button'; el.textContent = b.label; el.addEventListener('click', () => { askEl.hidden = true; b.on(); }); row.append(el); }
+    const x = document.createElement('button'); x.type = 'button'; x.className = 'ask-x'; x.textContent = '닫기'; x.setAttribute('aria-label', '닫기');
+    x.addEventListener('click', () => { askEl.hidden = true; onDismiss?.(); });
+    row.append(x); askEl.append(row); askEl.hidden = false;
+  }
+  const askHide = () => { askEl.hidden = true; };
+  /** 성당 밖(정문 앞)에 있으면 정문을 지나 안으로 들어간 뒤 done 을 부른다 */
+  function goInside(done: () => void) {
+    const d = doorIa();
+    if (!d || player.pos.z < d.anchor.z + 0.8) { done(); return; }
+    walkVia([new THREE.Vector3(d.anchor.x, player.pos.y, d.anchor.z + 3.2), new THREE.Vector3(d.anchor.x, player.pos.y, d.anchor.z - 2.4)], done);
+  }
+  /** 물건 앞 dist m 에 서서(물건을 바라보며) 닿으면 done */
+  function standBefore(ia: Interactable, dist: number, done: () => void) {
+    const dx = ia.anchor.x - player.pos.x, dz = ia.anchor.z - player.pos.z, d = Math.hypot(dx, dz) || 1;
+    const stand = new THREE.Vector3(ia.anchor.x - (dx / d) * dist, player.pos.y, ia.anchor.z - (dz / d) * dist);
+    if (Math.hypot(stand.x - player.pos.x, stand.z - player.pos.z) < 0.4) { done(); return; }
+    arrive = done; setMoveTarget(stand);
+  }
+  const faceTo = (p: THREE.Vector3) => { bodyYaw = Math.atan2(-(p.x - player.pos.x), -(p.z - player.pos.z)); };
+
+
+  // ══ 아기 천사 가이드봇 (사장님 2026-11-25) — 순례자를 돕는 작은 아기 천사 ══
+  // 참고: vreal 가상 전시관의 «도슨트»(입장하면 앞에 나타나 «혼자 / 같이» → 같이면 옆을 따라다니며 가까운 것을 설명하고 다음으로 데려가 준다, 오른쪽 아래 «부르기» 단추).
+  // 나만 보이는 장식(접속자 목록·다른 사람 화면에는 없음). 아무것도 들지 않고, 벽을 지나지 않으며, 장면에 캐릭터 1명만 더한다.
+  const bot = buildAvatar(avatarOf('cherub'));
+  bot.root.visible = false; bot.root.scale.setScalar(1);
+  scene.add(bot.root);
+  let botOn = false, botFollow = false, botPopT = 0;
+  const botPos = new THREE.Vector3(), botGoal = new THREE.Vector3(), botRay = new THREE.Ray(), botDir = new THREE.Vector3();
+  const KEY_BOT = 'vhk.botSeen';
+  const botSeen = () => { try { return localStorage.getItem(KEY_BOT) === '1'; } catch { return false; } };
+  const botMark = () => { try { localStorage.setItem(KEY_BOT, '1'); } catch { /* 무시 */ } };
+  const botCall = document.createElement('button'); botCall.id = 'botCall'; botCall.type = 'button'; botCall.hidden = true; botCall.textContent = '👼 아기 천사 부르기'; botCall.setAttribute('aria-label', '아기 천사 부르기');
+  $('hud').append(botCall);
+  function botShow(on: boolean, front = false) {
+    botOn = on; bot.root.visible = on;
+    if (on) {
+      const y = bodyYaw;
+      botPos.set(player.pos.x - Math.sin(y) * (front ? 2.2 : -0.9) + Math.cos(y) * 0.9, player.pos.y + 1.3, player.pos.z - Math.cos(y) * (front ? 2.2 : -0.9) - Math.sin(y) * 0.9);
+      bot.root.position.copy(botPos); botPopT = performance.now();
+    }
+  }
+  /** 순례자 옆(오른쪽 뒤)에 떠서 따라온다. 목표 자리가 벽 뒤면 순례자 바로 뒤로 물러난다(벽을 지나지 않는다) */
+  function botUpdate(dt: number, t: number) {
+    if (!botOn || !space) return;
+    const y = bodyYaw, fx = -Math.sin(y), fz = -Math.cos(y), rx = Math.cos(y), rz = -Math.sin(y);
+    botGoal.set(player.pos.x + rx * 0.85 - fx * 0.6, player.pos.y + 1.35 + Math.sin(t * 2.1) * 0.08, player.pos.z + rz * 0.85 - fz * 0.6);
+    // 순례자 머리 높이에서 목표까지 벽이 있으면 뒤로
+    botRay.origin.set(player.pos.x, player.pos.y + 1.2, player.pos.z); botDir.set(botGoal.x - player.pos.x, botGoal.y - (player.pos.y + 1.2), botGoal.z - player.pos.z);
+    const len = botDir.length(); botDir.normalize(); botRay.direction.copy(botDir);
+    const hit = space.bvh.raycastFirst(botRay, THREE.DoubleSide);
+    if (hit && hit.distance < len + 0.3) botGoal.copy(player.pos).setY(player.pos.y + 1.35).addScaledVector(botDir, Math.max(0.25, hit.distance - 0.35));
+    const k = 1 - Math.exp(-dt * (botFollow ? 4.6 : 6));
+    botPos.lerp(botGoal, k);
+    bot.root.position.set(botPos.x, botPos.y - 0.45, botPos.z); // 작은 아기 천사가 어깨 높이쯤에 떠 있게(발 기준)
+    // 순례자를 바라보다가 움직이면 가는 쪽을 본다
+    const toP = Math.atan2(-(player.pos.x - botPos.x), -(player.pos.z - botPos.z));
+    let dy = toP - bot.root.rotation.y; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2;
+    bot.root.rotation.y += dy * (1 - Math.exp(-dt * 5));
+    const pop = Math.min(1, (performance.now() - botPopT) / 450); bot.root.scale.setScalar(0.01 + 0.99 * (pop * (2 - pop)));  // 나타날 때 톡 튀어나온다
+    animateAvatar(bot, dt, Math.min(2, mySpeed * 0.6) , t, false);
+  }
+  /** 입장 때(처음 온 기기): 앞에 나타나 «같이 / 혼자»를 묻는다 */
+  function botGreet() {
+    botShow(true, true);
+    askBar('안녕하세요! 저는 순례를 돕는 아기 천사예요. 어떻게 둘러보실래요?', [
+      { label: '👼 같이 순례해요', on: () => { botMark(); botFollow = true; botCall.hidden = true; toast('옆에서 따라다닐게요'); startGuide(); } },
+      { label: '혼자 둘러볼게요', on: () => { botMark(); botFollow = false; botShow(false); botCall.hidden = false; } },
+    ], () => { botMark(); botShow(false); botCall.hidden = false; });
+  }
+  /** «가까운 곳 설명»: 가까운 설명대·성수대·제대 등의 이름과 글을 말풍선으로 */
+  function botExplain() {
+    if (!space) return;
+    let best: Interactable | null = null, bd = 1e9;
+    for (const ia of space.interactables) {
+      if (!(ia.kind === 'info' || ia.kind === 'font' || ia.kind === 'candle' || ia.kind === 'bell')) continue;
+      const d = Math.hypot(ia.anchor.x - player.pos.x, ia.anchor.z - player.pos.z); if (d < bd) { bd = d; best = ia; }
+    }
+    const body = best ? (best.body ?? { font: '성당에 들어서며 손끝에 성수를 찍고 십자성호를 긋습니다.', candle: '초를 하나 켜고 기도를 올립니다.', bell: '종 줄을 세 번 당겨 종을 울립니다.' }[best.kind as 'font' | 'candle' | 'bell'] ?? '') : '';
+    askBar(best ? `${best.title}\n${body}` : '가까이에 설명할 곳이 없어요.', [{ label: '다음 순례 순서로 데려가 줘', on: () => botNext() }, { label: '고마워요', on: () => botMenuDone() }], () => botMenuDone());
+  }
+  function botMenuDone() { askHide(); botFollow = true; }
+  /** 「다음 순례 순서」: 성모상 → 종 → 성수 → 십자가의 길/제대 초 — 지금 단계에서 이어 간다 */
+  function botNext() {
+    askHide();
+    if (quest === 'none' || quest === 'done') { guideTried = true; startGuide(); goMary(); }
+    else if (quest === 'mary') goMary();
+    else if (quest === 'bell') nextBell();
+    else if (quest === 'font') nextFont();
+    else if (quest === 'choose') offerNext();
+  }
+  botCall.addEventListener('click', () => {
+    botShow(true, true); botFollow = true; botCall.hidden = true;
+    askBar('부르셨어요? 무엇을 도와 드릴까요?', [
+      { label: '가까운 곳 설명해 줘', on: () => botExplain() },
+      { label: '다음 순례 순서로 데려가 줘', on: () => botNext() },
+      { label: '혼자 둘러볼게요', on: () => { botShow(false); botFollow = false; botCall.hidden = false; } },
+    ], () => botMenuDone());
+  });
+
+  function startGuide() {
+    quest = 'mary'; maryAsked = false; bellAsked = false; guideIdle = performance.now();
+    const g = grottoIa(); if (!g) { nextBell(); return; }
+    setGuide(g.anchor, '성모상 — 성모님께 인사드리고 기도해 보세요');
+  }
+  function goMary() {
+    const g = grottoIa(); if (!g) { nextBell(); return; }
+    guideIdle = Infinity; toast('성모상 앞으로 갑니다 — 움직이면 멈춥니다');
+    standBefore(g, 1.8, maryArrive);
+  }
+  function maryArrive() {
+    if (maryAsked || quest !== 'mary') return;
+    maryAsked = true; const g = grottoIa(); if (g) faceTo(g.anchor);
+    setGuide(null);
+    askBar('성모님 앞입니다. 잠시 기도하거나 봉헌초를 올려 보세요.', [
+      { label: '🕯️ 봉헌초 올리기', on: () => { const g2 = grottoIa(); if (!g2) return nextBell(); candleGroup = g2.group ?? null; candleTitle = g2.title; openCandleCard(); askKind = 'mary'; } },
+      { label: '🙏 잠시 기도하기', on: () => { prayUntil = performance.now() + 4200; setTimeout(() => nextBell(), 4400); } },
+      { label: '다음으로', on: () => nextBell() },
+    ], () => quietBell());
+  }
+  /** «닫기» — 창은 그대로 닫히고, 종 안내는 표지만 남긴다. 가만히 8초 있으면 그때 종 안내줄이 다시 나온다(닫자마자 다음 창이 뜨지 않게) */
+  function quietBell() {
+    askKind = null; if (quest !== 'mary') return;
+    quest = 'bell'; bellAsked = false; guideIdle = performance.now();
+    const b = bellIa(); if (b) setGuide(b.anchor, '종 — 성당 안으로 들어가 종 줄을 당겨 보세요');
+  }
+  function nextBell() {
+    askKind = null; if (quest === 'font' || quest === 'choose' || quest === 'candle' || quest === 'stations' || quest === 'done') return;
+    quest = 'bell'; bellAsked = true; const b = bellIa();
+    if (!b) { nextFont(); return; }
+    setGuide(b.anchor, '종 — 성당 안으로 들어가 종 줄을 당겨 보세요');
+    askBar('성당 안으로 들어가 종을 울려 볼까요? (닫으면 성수 찍기로 갑니다)', [
+      { label: '🔔 종 울리러 가기', on: () => { setGuide(null); goInside(() => act({ ia: b, hit: { distance: 1 } as THREE.Intersection })); } },
+      { label: '건너뛰기', on: () => nextFont() },
+    ], () => nextFont());
+  }
+  /** 성수대 앞으로 걸어가 성수 찍기(손동작)를 한다 — 끝나면 기존대로 «십자가의 길 / 제대 앞 초» 선택이 뜬다 */
+  function nextFont() {
+    askHide(); askKind = null; if (points.has('font')) { offerNext(); return; }
+    quest = 'font'; const f = fontIa();
+    if (!f) { offerNext(); return; }
+    setGuide(f.anchor, '성수대 — 성수를 찍고 십자성호를 긋습니다');
+    // 정문을 지나 중앙 통로 쪽으로 들어온 뒤, 성수대 옆(통로 쪽)까지 와서 성수대 앞에 선다 — 신랑의 긴 의자를 비스듬히 가로지르지 않게
+    goInside(() => walkVia([new THREE.Vector3(f.anchor.x + (f.anchor.x > 0 ? -2.4 : 2.4), player.pos.y, f.anchor.z + 1.5)], () => act({ ia: f, hit: { distance: 1 } as THREE.Intersection })));
+  }
+  /** 제대 앞 봉헌대 앞으로 걸어가 서면 봉헌초 카드를 연다 */
+  function goAltarCandle() {
+    const a = altarIa(); if (!a) return;
+    quest = 'candle'; setGuide(a.anchor, '제대 앞 봉헌초 — 초를 하나 켜고 기도를 고르세요');
+    // 긴 의자를 가로지르지 않게 중앙 통로로 나가 제대 앞까지 곧게 걸은 뒤 봉헌대 앞에 선다
+    const y = player.pos.y;
+    goInside(() => walkVia([new THREE.Vector3(0, y, player.pos.z), new THREE.Vector3(0, y, a.anchor.z + 2.6)], () => standBefore(a, 1.5, () => { faceTo(a.anchor); candleGroup = a.group ?? null; candleTitle = a.title; openCandleCard(); })));
+  }
+  /** 밖으로 나오는 순간: 순례를 마쳤으면 이 성지의 큰 빛 한 개를 받는다 */
+  function checkExit() {
+    if (!space || space.id !== 'cathedral') return;
+    const inside = !!space.interior && space.interior.containsPoint(player.pos);
+    if (inside) { wasInside = true; return; }
+    if (!wasInside) return;
+    wasInside = false;
+    const complete = points.has('font') && (points.has('candle-altar') || points.has('stations-all'));
+    if (complete && !points.has('pilgrimage-done')) {
+      points.award('pilgrimage-done', 0);
+      grantLight(space.id);
+    }
   }
   /** 성수를 찍은 뒤: 봉헌초와 십자가의 길 가운데 고른다 */
   function offerNext() {
     quest = 'choose'; setGuide(null);
     openCard('순례 안내', '이제 성당 안을 걸어 보세요', '', '제대 앞에서 초를 봉헌하거나, 측랑 벽을 따라 십자가의 길(제1처~제15처 부활)을 차례로 걸으며 기도할 수 있습니다. 미션을 마칠 때마다 포인트가 오릅니다.', [
-      { label: '🕯️ 제대 앞 봉헌초로', on: () => { closeCard(); quest = 'candle'; setGuide(anchorOf((ia) => ia.kind === 'candle' && ia.title.includes('제대')), '제대 앞 봉헌초 — 초를 하나 켜고 기도를 고르세요'); } },
+      { label: '🕯️ 제대 앞 봉헌초로', on: () => { closeCard(); goAltarCandle(); } },
       { label: '✝️ 십자가의 길 걷기 — 제1처부터 제15처 부활까지', on: () => { closeCard(); startStations(); } },
     ]);
   }
@@ -636,15 +972,20 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     if (g && g.distance < 80 && (!g.face || Math.abs(g.face.normal.y) > 0.45)) { pendingAct = null; setMoveTarget(g.point); }
   }
   function setMoveTarget(p: THREE.Vector3) {
-    if (ringing && !arrive) return; // 줄을 잡고 있는 동안은 걷지 않는다
+    if ((ringing && !arrive) || crossing) return; // 줄을 잡고 있는 동안, 십자성호를 긋는 동안은 걷지 않는다
     if (player.sitting) player.stand();
     stopTour();
-    moveTarget = p.clone(); moveStuck = 0;
+    moveTarget = p.clone(); moveStuck = 0; moveWps = [];
+    // 벽을 피해 길을 따라 간다(길 찾기) — 길이 없으면 예전처럼 곧게 간다
+    if (nav) {
+      const path = nav.find(player.pos, p);
+      if (path && path.length) { moveTarget = path[0]!.clone(); moveWps = path.slice(1).map((v) => v.clone()); }
+    }
     marker.position.set(p.x, p.y + 0.04, p.z); marker.visible = true; marker.scale.setScalar(1);
   }
 
   function act(t: { ia: Interactable; hit: THREE.Intersection } | null) {
-    if (!t || !space) return;
+    if (!t || !space || crossing) return;
     const ia = t.ia;
     if (ringing && ia.kind !== 'bell') return;
     switch (ia.kind) {
@@ -674,13 +1015,13 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
             },
             onSuccess: () => {
               won = true;
-              if (net.online) net.send('bell', { id: ia.id }); else ringBell(0.9, true);
+              if (net.online) net.send('bell', { id: ia.id }); // 남에게만 울린다. 내 소리는 줄을 당길 때마다 한 번씩(총 3번) 이미 났다
               if (scored && points.awardBell()) toast(`종지기 완료 ⭐ +${PTS.bell} 포인트 — 다시 하려면 성당 안을 둘러보고 3분 뒤에 오세요`);
               else toast('종소리가 울립니다 🔔 (포인트는 3분 뒤부터 다시 오릅니다)');
             },
             onClose: () => {
               bellGameClose = null; endRinging(); sound.holdMusic(false);
-              if (won && !points.has('font')) { quest = 'font'; setGuide(anchorOf((x) => x.kind === 'font'), '성수대 — 성당 안으로 들어가 성수를 찍고 십자성호를 긋습니다'); toast('이제 문을 열고 들어가 성수를 찍어 보세요 💧'); }
+              if (won && !points.has('font')) { askHide(); toast('이제 성수대 앞으로 갑니다 💧'); setTimeout(() => nextFont(), 900); }
             },
           }, scored ? { scored: true, bonus: PTS.bell } : { scored: false, note: `※ 방금 포인트를 받았습니다. 지금은 소리만 납니다 — 성당 안을 둘러보고 ${Math.max(1, Math.ceil(wait / 60))}분쯤 뒤에 오세요 (남은 ${Math.floor(wait / 60)}분 ${wait % 60}초)` });
         };
@@ -689,24 +1030,23 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
         break;
       }
       case 'font': {
-        // v3-6 성수 찍고 십자성호 긋기 → v3-7: 마치면 봉헌초·십자가의 길 가운데 고르게 안내
+        // 2026-11-24: 성수 찍기 = 캐릭터가 성수대 앞에서 손끝을 적시고 이마 → 가슴 → 왼쪽 어깨 → 오른쪽 어깨를 짚는 것(위 beginCross).
+        // 성수대 둘레(몸 반지름 + 그릇 반지름)에 서서 시작한다. 멀면 그 자리까지 걸어간 뒤 시작한다
         if (riteClose) break;
         closeCard();
-        let done = false;
-        riteClose = startSignOfCross({
-          onDip: () => { sound.play('drop', 0.7); space?.fx?.fontDip?.(); },
-          onStep: () => sound.ting(),
-          onDone: () => { done = true; startGesture(me, 'cross'); toast('십자성호를 그었습니다 — 성부와 성자와 성령의 이름으로. 아멘'); setTimeout(() => award('font', PTS.font, '성수를 찍고 십자성호'), 900); },
-          onClose: () => { riteClose = null; if (done) offerNext(); },
-        });
+        const dx = ia.anchor.x - player.pos.x, dz = ia.anchor.z - player.pos.z, d = Math.hypot(dx, dz) || 1;
+        const stand = new THREE.Vector3(ia.anchor.x - (dx / d) * 0.76, player.pos.y, ia.anchor.z - (dz / d) * 0.76);
+        const anchor = ia.anchor.clone();
+        if (Math.hypot(stand.x - player.pos.x, stand.z - player.pos.z) > 0.4) { arrive = () => beginCross(anchor); setMoveTarget(stand); }
+        else beginCross(anchor);
         break;
       }
       case 'candle': candleGroup = ia.group ?? null; candleTitle = ia.title; openCandleCard(); break;
-      case 'info': openCard('설명', ia.title, '', ia.body ?? '', []); break;
+      case 'info': if (ia.id.startsWith('station')) break; /* 십자가의 길은 공중에 뜨는 글만 — 벽을 눌러도 카드는 없다 */ openCard('설명', ia.title, '', ia.body ?? '', []); break;
       case 'art': openArtCard(ia); break;
       case 'seat': {
         const at = ia.seatAt?.(t.hit.instanceId ?? 0);
-        if (at) { player.sit(at); toast('앉았습니다 — 움직이면 일어납니다'); }
+        if (at) { player.sit(at); toast('앉아서 조용히 기도합니다 🙏 — 움직이면 일어납니다'); }
         break;
       }
       case 'portal':
@@ -730,7 +1070,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       // v3-8: 성모 동굴의 초는 +30, 제대 앞 봉헌대의 초는 +20 (각 봉헌대 한 번)
       const grotto = candleTitle.includes('성모');
       award(grotto ? 'candle-grotto' : 'candle-altar', grotto ? PTS.candleGrotto : PTS.candleAltar, grotto ? '성모님께 초를 봉헌' : '제대 앞에 초를 봉헌');
-      if (quest === 'candle') { quest = 'done'; setGuide(null); toast('순례를 마쳤습니다 🙏 성당 안을 자유롭게 둘러보세요'); }
+      if (quest === 'candle') { quest = 'done'; setGuide(null); toast('순례를 마쳤습니다 🙏 성당 안을 둘러보고, 앉아서 기도해 보세요. 다 보시면 밖으로 나오세요'); }
     }
     c.lit = lit; c.phrase = phrase; c.by = by;
     c.text = text || (lit && by === myName ? myTexts.get(id) ?? '' : '');
@@ -740,6 +1080,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     const light = stand?.userData.light as THREE.PointLight | undefined;
     if (light && space) light.intensity = space.candles.filter((x) => x.lit && x.flame.parent === stand).length * 0.9;
     if (changed && lit && by && !quiet) toast(`${by} 님이 초를 켰습니다 — ${candleLabel(c)}`);
+    barrierLevel();
+    if (changed && lit && !quiet) { c.flame.getWorldPosition(flamePos); barrier.pulse(flamePos); } // 빛이 솟아 결계를 밝힌다
     if (cardKind === 'candle') openCandleCard();
   }
 
@@ -768,7 +1110,12 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     card.hidden = false;
     $('hint').hidden = true;
   }
-  function closeCard() { card.hidden = true; cardKind = ''; cardArt = null; }
+  function closeCard() {
+    // 설명 카드를 닫으면 공중에 떠 있던 글도 함께 사라진다(그 설명대에서 멀어졌다 다시 올 때까지 다시 뜨지 않는다)
+    // (설명 카드뿐 아니라 십자가의 길 카드 등 어떤 카드든 닫으면 떠 있던 글을 거둔다)
+    for (const h of holos) if (h.on) hideHolo(h);
+    card.hidden = true; cardKind = ''; cardArt = null;
+  }
   $('cardClose').addEventListener('click', closeCard);
 
   function openCandleCard() {
@@ -955,7 +1302,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     canvas.addEventListener('pointermove', (e) => {
       if (!touches.has(e.pointerId)) return;
       touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (touches.size === 2) { const [a, b] = [...touches.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); camDist = THREE.MathUtils.clamp(camDist - (d - pinch) * 0.02, 0, 11); pinch = d; }
+      // 모으면 멀리(전체 그림)·벌리면 가까이(초점) — 손가락이 움직인 만큼 같은 비율로 확대·축소(사진 보기와 같다)
+      if (touches.size === 2) { const [a, b] = [...touches.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (d > 1 && pinch > 1) camDist = THREE.MathUtils.clamp(camDist * (pinch / d), 0.2, CAM_OVER); pinch = d; }
     });
     const lift = (e: PointerEvent) => touches.delete(e.pointerId);
     canvas.addEventListener('pointerup', lift); canvas.addEventListener('pointercancel', lift);
@@ -968,7 +1316,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     });
     const end = (e: PointerEvent) => {
       if (!tp || e.pointerId !== tp.id) return;
-      if (tp.moved < 10 && performance.now() - tp.t < 350) clickAt(e.clientX, e.clientY);
+      if (tp.moved < 10 && performance.now() - tp.t < 350) { clickAt(e.clientX, e.clientY); $('lookTip').classList.add('gone'); } // 한 번 눌러 걸으면 안내 글을 거둔다
       tp = null;
     };
     canvas.addEventListener('pointerup', end);
@@ -1004,17 +1352,20 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   let intro: { t: number; dur: number; pos: THREE.CatmullRomCurve3; look: THREE.CatmullRomCurve3 } | null = null;
   let introDone = new URLSearchParams(location.search).has('nointro');
   const camHold = new THREE.Vector3(), quatHold = new THREE.Quaternion();
-  function startIntro(sp: THREE.Vector3) {
+  function startIntro(end: THREE.Vector3, from: THREE.Vector3) {
     introDone = true;
-    const at = (x: number, y: number, z: number) => new THREE.Vector3(sp.x + x, sp.y + y, sp.z + z);
+    // 2026-11-24 사장님: 드론샷은 언덕 아래 ㄷ 계단 맨 아래(from)에서 낮게 시작해, 계단을 따라 올라가 계단 위 평지에 선 캐릭터(end)의 어깨 뒤에 내려앉는다.
+    // 카메라 높이는 아래 땅에서 1.7 m 이상으로 지킨다(runIntro). 6.5초, 누르면 끝으로 건너뛴다
+    const f = (x: number, y: number, z: number) => new THREE.Vector3(from.x + x, from.y + y, from.z + z);
+    const e = (x: number, y: number, z: number) => new THREE.Vector3(end.x + x, end.y + y, end.z + z);
     intro = {
-      t: 0, dur: 10,
-      pos: new THREE.CatmullRomCurve3([at(-34, 32, 70), at(-16, 26, 36), at(-4, 21, 14), at(0, 11, 6), at(0, 2.6, 5)], false, 'centripetal'),
-      look: new THREE.CatmullRomCurve3([at(-6, 12, -40), at(-3, 16, -60), at(-2, 15, -62), at(-1, 8, -40), at(0, 1.8, -8)], false, 'centripetal'),
+      t: 0, dur: 6.5,
+      pos: new THREE.CatmullRomCurve3([f(-2, 1.8, 12), f(1, 3.4, -6), new THREE.Vector3(end.x + 2.5, end.y + 5.5, end.z + 16), e(1, 3.8, 9), e(0, 2.9, 4.4)], false, 'centripetal'),
+      look: new THREE.CatmullRomCurve3([new THREE.Vector3(0, 14, 8), new THREE.Vector3(0, 10, 8), new THREE.Vector3(0, 5, 14), e(0, 1.8, -4), e(0, 1.5, 0)], false, 'centripetal'),
     };
     document.body.classList.add('cinema');
-    setTimeout(() => cine.classList.add('on'), 1600);
-    setTimeout(() => cine.classList.remove('on'), 7000);
+    setTimeout(() => cine.classList.add('on'), 1100);
+    setTimeout(() => cine.classList.remove('on'), 5000);
     const skip = () => { if (intro && intro.t < intro.dur * 0.86) intro.t = intro.dur * 0.86; };
     addEventListener('pointerdown', skip, { once: true });
     addEventListener('keydown', skip, { once: true });
@@ -1026,6 +1377,11 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     const e = u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; // 천천히 떠나 천천히 내려앉는다
     camHold.copy(camera.position); quatHold.copy(camera.quaternion);
     camera.position.copy(intro.pos.getPoint(e));
+    { // 땅 위 1.7 m 아래로 내려가지 않게(언덕 계단을 스치지 않도록)
+      camRay.origin.set(camera.position.x, camera.position.y + 40, camera.position.z); camRay.direction.set(0, -1, 0);
+      const g = space?.bvh.raycastFirst(camRay, THREE.DoubleSide);
+      if (g) camera.position.y = Math.max(camera.position.y, g.point.y + 1.7);
+    }
     camera.lookAt(intro.look.getPoint(e));
     const k = THREE.MathUtils.smoothstep(u, 0.86, 1);
     if (k > 0) { camera.position.lerp(camHold, k); camera.quaternion.slerp(quatHold, k); }
@@ -1043,7 +1399,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     const dt = Math.min(timer.getDelta(), 0.1), t = timer.getElapsed(), now = performance.now();
     if (space) {
       const mv = { x: 0, z: 0, run: keys.has('ShiftLeft') || keys.has('ShiftRight') };
-      if ((!cardOpen() || touch) && !ringing) {
+      if ((!cardOpen() || touch) && !ringing && !crossing) {
         mv.z = (keys.has('KeyW') || keys.has('ArrowUp') ? 1 : 0) - (keys.has('KeyS') || keys.has('ArrowDown') ? 1 : 0) + joy.y;
         mv.x = (keys.has('KeyD') || keys.has('ArrowRight') ? 1 : 0) - (keys.has('KeyA') || keys.has('ArrowLeft') ? 1 : 0) + joy.x;
       }
@@ -1052,8 +1408,10 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       // 클릭한 자리로 걸어가기 — 카메라 방향 기준 입력으로 바꿔 넣는다
       if (moveTarget && len <= 0.2) {
         const dx = moveTarget.x - player.pos.x, dz = moveTarget.z - player.pos.z, dist = Math.hypot(dx, dz);
-        const reach = pendingAct ? 2.0 : arrive ? 0.3 : 0.35;
-        if (dist < reach) {
+        const last = moveWps.length === 0;
+        const reach = !last ? 0.4 : pendingAct ? 2.0 : arrive ? 0.3 : 0.35;
+        if (dist < reach && !last) { moveTarget = moveWps.shift()!; moveStuck = 0; }
+        else if (dist < reach) {
           moveTarget = null; marker.visible = false;
           if (pendingAct) { const a = pendingAct; pendingAct = null; act(a); }
           else if (arrive) { const f = arrive; arrive = null; f(); }
@@ -1064,7 +1422,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           len = 1;
           moveStuck = mySpeed < 0.25 ? moveStuck + dt : 0;
           if (moveStuck > 0.45) { // 막혔다 — 벽 앞에서 바로 멈춘다(방향키로 다시 움직인다). 종 줄로 가던 길이면 마지막 한 걸음은 옮겨 준다
-            moveTarget = null; pendingAct = null; marker.visible = false;
+            moveTarget = null; moveWps = []; pendingAct = null; marker.visible = false;
             if (arrive) { const f = arrive; arrive = null; if (dist < 1.6) f(); else ringing = false; }
           }
         }
@@ -1074,6 +1432,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       if (joyFull > 1) mv.run = true;
       if (len > 1) { mv.x /= len; mv.z /= len; }
       if (tour && len > 0.2 && !moveTarget) stopTour();
+      if (crossing) { mv.x = mv.z = 0; len = 0; driveCross(dt); }
       lastPos.copy(player.pos);
       player.update(dt, mv, space.bvh, space.doors);
       if (player.pos.y < -20) player.place(space.spawn.pos, space.spawn.yaw);
@@ -1096,9 +1455,15 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       if (camFix && space.bellRinger) bodyYaw = space.bellRinger.yaw; // 줄을 잡은 동안은 줄 쪽을 본다(자리에 옮겨 설 때 생기는 속도로 몸이 돌지 않게)
       me.root.position.copy(player.pos);
       me.root.rotation.y = bodyYaw;
-      me.root.visible = !fp || !!camFix; myTagObj.visible = me.root.visible;
+      me.root.visible = !fp || !!camFix; myTagObj.visible = me.root.visible && !holos.some((h) => h.on); // 설명 글이 떠 있는 동안은 내 이름표·포인트가 글을 가리지 않게 감춘다(사장님 2026-11-25)
       animateAvatar(me, dt, mySpeed, t, !!player.sitting);
-      if (camFix && space.fx?.ropeGrab) {
+      for (let i = sparks.length - 1; i >= 0; i--) { const sp = sparks[i]; sp.age += dt; sp.m.scale.setScalar(1 + sp.age * 4); (sp.m.material as THREE.MeshBasicMaterial).opacity = Math.max(0, 0.9 * (1 - sp.age / 0.7)); if (sp.age > 0.7) { scene.remove(sp.m); sp.m.geometry.dispose(); (sp.m.material as THREE.Material).dispose(); sparks.splice(i, 1); } }
+      barrier.update(t);
+      demoTick?.(t);
+      botUpdate(dt, t);
+      lights.update(t, dt, lightsAt.set(player.pos.x, player.pos.y, player.pos.z), 1, lightsFwd.set(-Math.sin(bodyYaw), 0, -Math.cos(bodyYaw)));
+      // 종 줄은 «종 줄 놀이로 줄을 잡고 있을 때»만 손으로 끌려온다. 성수 찍기(십자성호)도 카메라를 고정(camFix)하므로 camFix 만으로 판단하면 종 줄이 손에 딸려와 «막대기»처럼 보인다(사장님 2026-11-25)
+      if (camFix && me.holdRope && space.fx?.ropeGrab) {
         // 줄이 두 손 사이를 지나가게 — 손 자리를 세계 좌표로 읽어 공간에 넘긴다
         me.root.updateMatrixWorld(true);
         me.handL.getWorldPosition(handA); me.handR.getWorldPosition(handB);
@@ -1113,15 +1478,21 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
         const pivot = player.pos.clone().setY(player.pos.y + 1.45 * me.def.scale + 0.2);
         const cp = Math.min(player.pitch, 0.9);
         const fwd = new THREE.Vector3(-Math.sin(player.yaw) * Math.cos(cp), Math.sin(cp), -Math.cos(player.yaw) * Math.cos(cp));
-        let d = camDist;
+        let d = Math.min(camDist, CAM_CHASE_MAX);
         camRay.origin.copy(pivot); camRay.direction.copy(fwd).negate();
         const block = space.bvh.raycastFirst(camRay, THREE.DoubleSide);
         if (block && block.distance < d + 0.3) d = Math.max(0.35, block.distance - 0.3);
         camera.position.copy(pivot).addScaledVector(fwd, -d);
         camera.rotation.set(cp, player.yaw, 0, 'YXZ');
+        // 11 m 보다 더 멀어지면 전체 그림으로 올라간다(s: 0 따라가기 … 1 전체 그림)
+        const ov = THREE.MathUtils.smoothstep(camDist, CAM_CHASE_MAX, CAM_OVER);
+        if (ov > 0) { camera.position.lerp(ovPos, ov); camera.quaternion.slerp(ovQuat, ov); }
+        document.body.classList.toggle('overview', ov > 0.25); // 전체 그림에서는 안내 표지·설명 글을 감춘다(CSS)
+        youRing.visible = ov > 0.05;
+        if (youRing.visible) { youRing.position.set(player.pos.x, player.pos.y + 0.15, player.pos.z); youRing.scale.setScalar((1 + 7 * ov) * (1 + 0.12 * Math.sin(t * 5))); }
       }
 
-      if (!introDone && !spaceLoading && space.id === 'cathedral' && space.spawn.pos.y < -3 && player.pos.distanceTo(space.spawn.pos) < 3) startIntro(space.spawn.pos);
+      if (!introDone && !spaceLoading && space.id === 'cathedral' && space.introFrom && player.pos.distanceTo(space.spawn.pos) < 3) startIntro(player.pos.clone(), space.introFrom);
       runIntro(dt);
 
       for (const d of space.doors) {
@@ -1181,15 +1552,42 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           else if (dr.open && dh > 11) dr.open = false;
         }
         // 설명대 홀로그램: 3.2 m 안에 들어오면 떠오르고, 벗어나면 사라진다
+        let nearH: (typeof holos)[number] | null = null, nearD = 1e9;   // 가까이 다가가면 «가장 가까운 글 하나»만 뜬다
+        for (const h of holos) {
+          const d = Math.hypot(h.ia.anchor.x - player.pos.x, h.ia.anchor.z - player.pos.z);
+          if (d < nearD && !h.hidden && Math.abs(h.ia.anchor.y - (player.pos.y + 1)) < 2.5) { nearD = d; nearH = h; }
+        }
         for (const h of holos) {
           const dh = Math.hypot(h.ia.anchor.x - player.pos.x, h.ia.anchor.z - player.pos.z);
           const dy = Math.abs(h.ia.anchor.y - (player.pos.y + 1));
-          const on = dh < 3.2 && dy < 2.5;
+          // 멀어지거나(3.6 m) 닫은 자리에서 2.2 m 넘게 걸어가면 다시 보일 수 있게 — 다음 처로 가면 그 처의 글이 뜬다
+          if (h.hidden && (dh > 3.6 || (h.hx !== undefined && Math.hypot(player.pos.x - h.hx, player.pos.z - h.hz!) > 2.2))) h.hidden = false;
+          // 다가갈 때는 그대로 두고, 가장 가까이 갔던 때보다 1.6 m 넘게 멀어지면 글은 거둔다 — 길을 가리지 않게
+          if (h.on) { h.md = Math.min(h.md ?? dh, dh); if (dh - h.md > 1.6) hideHolo(h); }
+          if (cardOpen()) hideHolo(h);
+          const on = dh < 3.2 && dy < 2.5 && !h.hidden && h === nearH;
+          if (on && !h.on) h.md = dh;
           if (on !== h.on) { h.on = on; if (on) { h.o.visible = true; h.el.classList.remove('show'); void h.el.offsetWidth; h.el.classList.add('show'); } else { h.el.classList.remove('show'); setTimeout(() => { if (!h.on) h.o.visible = false; }, 400); } }
         }
-        if (quest === 'stations' && stationShown !== stationK && !cardOpen()) {
+        // ── 순례 순서 안내: 시작 · 4초 가만히 있으면 성모상으로 · 밖으로 나오면 새 빛 ──
+        if (space.id === 'cathedral' && introDone && !intro && !spaceLoading && quest === 'none' && !guideTried && (!points.has('pilgrimage-done') || params.has('guide'))) { guideTried = true; if (botSeen() || params.has('nobot')) { startGuide(); botCall.hidden = false; } else botGreet(); }
+        if (quest === 'mary' && !maryAsked) {
+          const gi = grottoIa();
+          const busy = joy.length() > 0.1 || keys.size > 0 || !!moveTarget || !!pendingAct || cardOpen() || ringing || crossing || !!intro;
+          if (busy) guideIdle = now;
+          if (guideIdle !== Infinity && now - guideIdle >= GUIDE_IDLE_MS) goMary();
+          else if (gi && Math.hypot(gi.anchor.x - player.pos.x, gi.anchor.z - player.pos.z) < 2.6 && !cardOpen()) maryArrive();
+        }
+        if (askKind === 'mary' && !cardOpen()) { askKind = null; if (points.has('candle-grotto')) setTimeout(() => nextBell(), 700); else quietBell(); }
+        if (quest === 'bell' && !bellAsked && askEl.hidden) {
+          const busy2 = joy.length() > 0.1 || keys.size > 0 || !!moveTarget || !!pendingAct || cardOpen() || ringing || crossing;
+          if (busy2) guideIdle = now; else if (now - guideIdle >= 8000) nextBell();
+        }
+        me.pray = !!player.sitting || performance.now() < prayUntil;
+        checkExit();
+        if (quest === 'stations' && stationShown !== stationK) {
           const a = stationAnchor(stationK);
-          if (a && Math.hypot(a.x - player.pos.x, a.z - player.pos.z) < 2.6) showStation(stationK);
+          if (a && Math.hypot(a.x - player.pos.x, a.z - player.pos.z) < 2.6) reachStation(stationK);
         }
         for (const b of badges) {
           const d = b.ia.anchor.distanceTo(player.pos);
@@ -1221,5 +1619,5 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   void loadSpace(first);
   requestAnimationFrame(frame);
   // 점검용 손잡이(브라우저 콘솔 · 자동 시험)
-  (window as any).__vhk = { points, startStations, showStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
+  (window as any).__vhk = { bot, get botOn() { return botOn; }, get quest() { return quest; }, get nav() { return nav; }, barrier, lights, grantLight, get camDist() { return camDist; }, holos, points, startStations, reachStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
 }
