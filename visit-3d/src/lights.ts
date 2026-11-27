@@ -64,51 +64,28 @@ const VERT = /* glsl */ `
   }
 `;
 const FRAG = /* glsl */ `
+  uniform sampler2D uTex;
   varying vec3 vCore; varying vec3 vRim; varying float vTw; varying float vShape; varying float vAng;
-  const float PI = 3.14159265;
-  // 눈결정을 참고한 여섯 가지 빛 모양(사장님 2026-11-25: 「눈결정 모양을 참고해서 다양한 형태, 아주 밝게」)
-  float seg(vec2 p, vec2 a, vec2 b) { vec2 pa = p - a, ba = b - a; float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0); return length(pa - ba * h); }
-  vec2 foldN(vec2 p, float n) { float a = atan(p.y, p.x); float s = 2.0 * PI / n; a = mod(a + 0.5 * s, s) - 0.5 * s; return length(p) * vec2(cos(a), sin(a)); }
-  vec2 rot(vec2 p, float a) { float c = cos(a), s = sin(a); return vec2(c * p.x - s * p.y, s * p.x + c * p.y); }
-  float branch(vec2 f, float at, float len, float ang) { return seg(f, vec2(at, 0.0), vec2(at, 0.0) + vec2(cos(ang), sin(ang)) * len); }
-  float shapeD(vec2 p, float id) {
-    vec2 f = foldN(p, 6.0); f.y = abs(f.y);
-    if (id < 0.5) {            // 0 눈결정: 여섯 가지에 곁가지 둘
-      float d = seg(f, vec2(0.0), vec2(0.88, 0.0));
-      d = min(d, branch(f, 0.32, 0.27, 1.0472)); d = min(d, branch(f, 0.58, 0.20, 1.0472));
-      return d;
-    } else if (id < 1.5) {     // 1 육각 결정판: 육각 테두리 + 안쪽 별
-      float hexd = abs(length(p) - 0.62 * cos(PI / 6.0) / cos(mod(atan(p.y, p.x), PI / 3.0) - PI / 6.0)) * 0.85;
-      return min(hexd, seg(f, vec2(0.0), vec2(0.46, 0.0)));
-    } else if (id < 2.5) {     // 2 열두 갈래 별
-      float d = seg(f, vec2(0.0), vec2(0.9, 0.0));
-      vec2 g = foldN(rot(p, PI / 6.0), 6.0); g.y = abs(g.y);
-      return min(d, seg(g, vec2(0.0), vec2(0.55, 0.0)));
-    } else if (id < 3.5) {     // 3 네 갈래 반짝임 + 작은 대각선
-      vec2 q = foldN(p, 4.0); q.y = abs(q.y);
-      vec2 g = foldN(rot(p, PI / 4.0), 4.0); g.y = abs(g.y);
-      return min(seg(q, vec2(0.0), vec2(0.95, 0.0)), seg(g, vec2(0.0), vec2(0.42, 0.0)));
-    } else if (id < 4.5) {     // 4 깃털(수상돌기): 가지마다 곁가지 셋
-      float d = seg(f, vec2(0.0), vec2(0.9, 0.0));
-      d = min(d, branch(f, 0.24, 0.22, 0.9)); d = min(d, branch(f, 0.44, 0.18, 0.9)); d = min(d, branch(f, 0.64, 0.13, 0.9));
-      return d;
-    }                           // 5 별 + 고리
-    return min(seg(f, vec2(0.0), vec2(0.8, 0.0)), abs(length(p) - 0.4) * 0.9);
-  }
+  // 사장님이 주신 금빛 보석 그림 여섯 가지(2026-11-27): 0 마름모 · 1 길쭉한 결정 · 2 타원(금테) · 3 물방울 · 4 하트 · 5 둥근 보석. 한 장의 그림판(3×2)에서 모양 번호로 골라 그린다.
   void main() {
-    vec2 p = rot((gl_PointCoord - 0.5) * 2.0, vAng) * 1.32;       // 모양이 점 가장자리에서 잘리지 않게 한 칸 작게 그린다
-    float r = length(p);
-    if (length(gl_PointCoord - 0.5) > 0.5) discard;
-    // 통통하고 몽글몽글하게: 눈결정의 선을 부풀리고 가장자리를 크게 번지게 해서, 결정 모양은 은은히 비치고 «빛덩어리»로 보이게 한다
-    float d = shapeD(p, vShape) - 0.055;
-    float body = smoothstep(0.2, -0.02, d) * 0.85;                // 부푼 몸통(부드러운 가장자리)
-    float glow = exp(-max(d, 0.0) * 3.4) * (1.0 - smoothstep(0.7, 1.3, r));  // 넓게 번지는 빛
-    float heart = smoothstep(0.3, 0.0, r);                        // 가운데 환한 덩어리
-    float haze = exp(-r * r * 2.2);                               // 전체를 감싸는 몽환적인 안개빛
-    vec3 col = vRim * (glow * 1.2 + haze * 0.6) + mix(vRim, vCore, 0.5) * (body * 1.15) + vCore * (heart * 1.2);
-    col *= 0.9 + 0.25 * vTw;                                      // 반짝임
-    float a = clamp(glow * 0.7 + body * 0.8 + heart * 0.8 + haze * 0.3, 0.0, 1.0) * (1.0 - smoothstep(0.42, 0.5, length(gl_PointCoord - 0.5)));
-    gl_FragColor = vec4(min(col, vec3(1.5)), a);
+    vec2 pc = (gl_PointCoord - 0.5) * 2.0;
+    float r = length(pc);
+    float w = sin(vAng) * 0.28;                                  // 보석은 돌리지 않고 살짝 흔들리게(하트·물방울이 거꾸로 서지 않게)
+    float cs = cos(w), sn = sin(w);
+    vec2 q = vec2(cs * pc.x - sn * pc.y, sn * pc.x + cs * pc.y) * 0.7 + 0.5;   // 보석이 점 한 칸보다 작게(1.4 배 키워 읽는다)
+    vec4 t = vec4(0.0);
+    if (q.x > 0.0 && q.x < 1.0 && q.y > 0.0 && q.y < 1.0) {
+      float idx = floor(vShape + 0.5);
+      float col = mod(idx, 3.0), row = floor(idx / 3.0);
+      t = texture2D(uTex, vec2((col + q.x) / 3.0, 1.0 - (row + (1.0 - q.y)) / 2.0));
+      t.a *= smoothstep(0.0, 0.07, q.x) * smoothstep(0.0, 0.07, 1.0 - q.x) * smoothstep(0.0, 0.07, q.y) * smoothstep(0.0, 0.07, 1.0 - q.y);   // 그림판 칸 가장자리 잔흔적 제거
+    }
+    float haze = exp(-r * r * 2.6);                              // 보석을 감싸는 몽글한 안개빛
+    vec3 gem = pow(t.rgb, vec3(0.78)) * (1.25 + 0.3 * vTw);                       // 반짝임
+    gem = mix(gem, gem * (0.55 + 0.9 * vRim), 0.22);             // 성지 빛깔을 아주 조금 섞는다
+    vec3 c = gem * t.a + vRim * haze * 0.5;
+    float a = clamp(t.a + haze * 0.38, 0.0, 1.0) * (1.0 - smoothstep(0.85, 1.0, r));
+    gl_FragColor = vec4(min(c / max(a, 0.001), vec3(1.6)), a);
   }
 `;
 
@@ -134,9 +111,11 @@ export function createPilgrimLights(opts: { low: boolean; pixelRatio: number; vi
   geo.setAttribute('aOrbit', aOrbit); geo.setAttribute('aLook', aLook); geo.setAttribute('aCore', aCore); geo.setAttribute('aRim', aRim);
   geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1e6); // 셰이더가 자리를 정하니 가려내기에서 빠지지 않게
 
+  const gemTex = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}guide/gem-atlas.webp`);
+  gemTex.colorSpace = THREE.SRGBColorSpace; gemTex.generateMipmaps = false; gemTex.minFilter = THREE.LinearFilter;
   const mat = new THREE.ShaderMaterial({
     vertexShader: VERT, fragmentShader: FRAG, transparent: true, depthWrite: false, blending: THREE.NormalBlending, toneMapped: false,
-    uniforms: { uTime: { value: 0 }, uCenter: { value: new THREE.Vector3() }, uScale: { value: 1 }, uPx: { value: 1 }, uPos: { value: Array.from({ length: MAX_SMALL + MAX_BIG }, () => new THREE.Vector3()) }, uSide: { value: new THREE.Vector3(1, 0, 0) } },
+    uniforms: { uTex: { value: gemTex }, uTime: { value: 0 }, uCenter: { value: new THREE.Vector3() }, uScale: { value: 1 }, uPx: { value: 1 }, uPos: { value: Array.from({ length: MAX_SMALL + MAX_BIG }, () => new THREE.Vector3()) }, uSide: { value: new THREE.Vector3(1, 0, 0) } },
   });
   const object = new THREE.Points(geo, mat);
   object.frustumCulled = false; object.renderOrder = 20; object.name = 'pilgrim-lights';
