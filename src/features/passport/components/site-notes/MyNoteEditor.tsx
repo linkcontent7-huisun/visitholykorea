@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import {
   isVisitedOnAvailable,
-  type CrowdLevel,
   type MyStamp,
   type StampPhoto,
 } from '@/features/passport/api/stamps.repository';
-import { CrowdLevelPicker } from '@/features/passport/components/CrowdLevelPicker';
 import {
   RecordPhotoTray,
   shrinkPending,
@@ -44,9 +42,6 @@ export function MyNoteEditor({ siteId, myStamp, onClose, onOpenPhoto }: MyNoteEd
   const savedVisitedOn = (myStamp.visitedOn ?? myStamp.visitedAt ?? '').slice(0, 10);
   const [myNoteDraft, setMyNoteDraft] = useState(myStamp.note ?? '');
   const [myVisitedOnDraft, setMyVisitedOnDraft] = useState(savedVisitedOn);
-  const [myCrowdLevelDraft, setMyCrowdLevelDraft] = useState<CrowdLevel | null>(
-    myStamp.crowdLevel ?? null,
-  );
   // 사진은 고르면 바로 올라가지 않고 「저장」 때 함께 올라간다(2026-11-22, 세 기록 칸 통일)
   const tray = usePendingPhotos(myStamp.photos.length);
   const [failed, setFailed] = useState<null | 'save' | 'photo' | 'delete'>(null);
@@ -54,8 +49,7 @@ export function MyNoteEditor({ siteId, myStamp, onClose, onOpenPhoto }: MyNoteEd
   const isMyNoteDirty =
     tray.pending.length > 0 ||
     myNoteDraft !== (myStamp.note ?? '') ||
-    myVisitedOnDraft !== savedVisitedOn ||
-    myCrowdLevelDraft !== (myStamp.crowdLevel ?? null);
+    myVisitedOnDraft !== savedVisitedOn;
   useUnsavedChangesGuard(isMyNoteDirty);
 
   const handleUpdateMyNote = async () => {
@@ -66,9 +60,8 @@ export function MyNoteEditor({ siteId, myStamp, onClose, onOpenPhoto }: MyNoteEd
       const result = await updateStamp.mutateAsync({
         stampId: myStamp.id,
         note: normalizeNote(myNoteDraft),
-        ...(isVisitedOnAvailable()
-          ? { visitedOn: myVisitedOnDraft || null, crowdLevel: myCrowdLevelDraft }
-          : {}),
+        // «그날 붐볐나요?» 는 뺐다(붐빔 지수 중단, 2026-11-27) — crowdLevel 을 보내지 않아 저장된 값은 DB 에 그대로 남는다
+        ...(isVisitedOnAvailable() ? { visitedOn: myVisitedOnDraft || null } : {}),
       });
       if (!result.success) return setFailed('save');
       if (tray.pending.length > 0) {
@@ -129,13 +122,6 @@ export function MyNoteEditor({ siteId, myStamp, onClose, onOpenPhoto }: MyNoteEd
             />
           </SquircleSurface>
         </label>
-      )}
-      {isVisitedOnAvailable() && (
-        <CrowdLevelPicker
-          value={myCrowdLevelDraft}
-          onChange={setMyCrowdLevelDraft}
-          name="myCrowdLevel"
-        />
       )}
       <div className="mt-3">
         <RecordPhotoTray

@@ -121,7 +121,6 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
   const [moreInNextRadius, setMoreInNextRadius] = useState(0);
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
-  const [afternoonIndex, setAfternoonIndex] = useState<Record<string, number>>({});
   const [poolLoading, setPoolLoading] = useState(false);
   const [poolError, setPoolError] = useState(false);
   // 카드에서 성지를 처음 고른 때 1회만 저장. 「처음부터 다시」 하면 다시 1회.
@@ -167,7 +166,6 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
     setMoreInNextRadius(0);
     setPage(0);
     setSelected(null);
-    setAfternoonIndex({});
     setPoolError(false);
     savedRef.current = false;
   };
@@ -508,13 +506,6 @@ export function HealingQuiz({ isOpen, onClose, onSelectSite }: HealingQuizProps)
                   <PlanResult
                     candidate={chosen}
                     timeBudget={timeBudget ?? '하루'}
-                    afternoonIndex={afternoonIndex[chosen.site.id] ?? 0}
-                    onSwapAfternoon={() =>
-                      setAfternoonIndex((m) => ({
-                        ...m,
-                        [chosen.site.id]: (m[chosen.site.id] ?? 0) + 1,
-                      }))
-                    }
                     onBack={() => setSelected(null)}
                     // 이동만 한다. 예전엔 여기서 닫기까지 불러 상세로 간 직후 나침반으로 되돌아왔다 (2026-09-12).
                     onGo={() => onSelectSite(chosen.site.id)}

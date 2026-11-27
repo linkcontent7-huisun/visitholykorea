@@ -77,12 +77,7 @@ describe('DICTIONARY', () => {
   });
 
   // 두 줄 제목이라 한국어는 1행에, 나머지는 2행에 지역 이름이 온다 — 나눠 쓰는 것이 의도다.
-  // crowdingDistrictOnly: 외국어는 {district}(관광공사 한국어 시군구 이름)를 일부러 뺀다 — QA 2026-11-27
-  const PLACEHOLDERS_DIFFER_BY_DESIGN = new Set([
-    'regionHeroTitle',
-    'regionHeroTitleLine2',
-    'crowdingDistrictOnly',
-  ]);
+  const PLACEHOLDERS_DIFFER_BY_DESIGN = new Set(['regionHeroTitle', 'regionHeroTitleLine2']);
 
   it('{n} 같은 자리표시자는 여섯 언어가 같은 것을 쓴다 — 빠지면 그 언어만 값이 안 찍힌다', () => {
     const names = (text: string) =>

@@ -2,12 +2,7 @@ import { ChevronDown } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
-import {
-  getMyStamps,
-  isVisitedOnAvailable,
-  type CrowdLevel,
-} from '@/features/passport/api/stamps.repository';
-import { CrowdLevelPicker } from '@/features/passport/components/CrowdLevelPicker';
+import { getMyStamps, isVisitedOnAvailable } from '@/features/passport/api/stamps.repository';
 import {
   RecordPhotoTray,
   shrinkPending,
@@ -38,8 +33,6 @@ export function NoteComposer({ site }: { site: HolySite }) {
   // 방문일 — 기본값은 오늘(기록하는 날)이지만, 지난 방문을 나중에 적는 경우도 있어
   // 날짜 선택을 열어둔다(사장님 지적, 2026-09-20: "무조건 기록한 날짜로 고정이다").
   const [visitedOnDraft, setVisitedOnDraft] = useState(() => koreaTodayIso());
-  // 그날 붐볐나요 — 관광공사 예측을 검증할 실측 한 칸. 안 골라도(null) 저장된다(2026-09-21).
-  const [crowdLevelDraft, setCrowdLevelDraft] = useState<CrowdLevel | null>(null);
   // 기록 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-17).
   // 접어도 사라지지 않는다 — 줄만 남아서 다시 누르면 펼칠 수 있다.
   const [noteComposerOpen, setNoteComposerOpen] = useState(true);
@@ -54,14 +47,9 @@ export function NoteComposer({ site }: { site: HolySite }) {
       const raw = sessionStorage.getItem(draftKey);
       if (!raw) return;
       sessionStorage.removeItem(draftKey);
-      const d = JSON.parse(raw) as {
-        note?: string;
-        visitedOn?: string;
-        crowdLevel?: CrowdLevel | null;
-      };
+      const d = JSON.parse(raw) as { note?: string; visitedOn?: string };
       if (d.note) setNoteDraft(d.note);
       if (d.visitedOn) setVisitedOnDraft(d.visitedOn);
-      if (d.crowdLevel !== undefined) setCrowdLevelDraft(d.crowdLevel);
       setDraftRestored(true);
     } catch {
       // 저장소를 못 쓰는 브라우저 — 되살리지 못할 뿐 기록은 그대로 쓸 수 있다
@@ -82,7 +70,6 @@ export function NoteComposer({ site }: { site: HolySite }) {
       {
         note,
         visitedOn: isVisitedOnAvailable() ? visitedOnDraft : null,
-        crowdLevel: isVisitedOnAvailable() ? crowdLevelDraft : null,
       },
       {
         onSuccess: async (result) => {
@@ -91,11 +78,7 @@ export function NoteComposer({ site }: { site: HolySite }) {
               try {
                 sessionStorage.setItem(
                   draftKey,
-                  JSON.stringify({
-                    note: noteDraft,
-                    visitedOn: visitedOnDraft,
-                    crowdLevel: crowdLevelDraft,
-                  }),
+                  JSON.stringify({ note: noteDraft, visitedOn: visitedOnDraft }),
                 );
               } catch {
                 // 되살리기만 못 한다
@@ -187,9 +170,6 @@ export function NoteComposer({ site }: { site: HolySite }) {
                 />
               </SquircleSurface>
             </label>
-          )}
-          {isVisitedOnAvailable() && (
-            <CrowdLevelPicker value={crowdLevelDraft} onChange={setCrowdLevelDraft} />
           )}
           {/* 사진 — 한 기록에 3장. 기록 문장과 함께 한 번에 올라간다 */}
           <div className="mt-3">

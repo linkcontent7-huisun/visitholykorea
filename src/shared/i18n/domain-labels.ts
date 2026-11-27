@@ -101,18 +101,6 @@ export function dioceseLabel(diocese: string, language: Language): string {
   return `${localizeRegionName(diocese, language)} ${arch ? 'Archdiocese' : 'Diocese'}`;
 }
 
-/** 붐빔 등급(`CrowdingLevel`)을 지금 언어로. 모르는 값은 원문 그대로. */
-export const CROWDING_LEVEL_KEY: Record<string, TranslationKey> = {
-  조용: 'crowdingLevelQuiet',
-  보통: 'crowdingLevelNormal',
-  붐빔: 'crowdingLevelBusy',
-};
-
-export function localizeCrowdingLevel(value: string, t: (key: TranslationKey) => string): string {
-  const key = CROWDING_LEVEL_KEY[value];
-  return key ? t(key) : value;
-}
-
 /**
  * 스탬프 모티프(`resolveStampMotif`)의 표시 이름을 지금 언어로.
  * `motif.label` 자체는 한국어 원문이라 매핑은 `motif.id`(gothic·brick 등, 언어와

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { BookOpen, Heart } from 'lucide-react';
-import { NearbyCrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { photoCreditText } from '@/features/sites/lib/photo-credit';
 import type { TranslatedSiteView } from '@/features/sites/lib/translated-site';
@@ -133,8 +132,7 @@ export function SiteHero({
         </h1>
         {/* 주소는 삭제 — 「찾아가는 길」에 한국어·영문 병기로 이미 나온다(2026-09-17 사장님 지적) */}
         <div className="flex flex-wrap items-center gap-2">
-          {/* 인근 밀집도 라벨 — 조회 중에는 분석 상태를, 완료되면 하·중·상을 표시한다 */}
-          <NearbyCrowdingLabel site={site} labelMode="density" variant="onDark" />
+          {/* 인근 밀집도(붐빔) 라벨은 뺐다 — 공모전이 끝나 붐빔 지수를 재지도 보이지도 않는다(사장님 2026-11-27) */}
           {tags.map((tag) => (
             <span
               key={tag}

@@ -60,26 +60,6 @@ export interface TourApiSpot {
   dist?: string;
 }
 
-/**
- * 관광지 집중률 — 일반 관광지 응답과 필드가 다르다. **좌표 필드는 없다**(2026-09-15 실측).
- * 응답은 오늘부터 30일치가 한 번에 온다(`baseYmd` 로 구분).
- */
-export interface CongestionRate {
-  baseYmd: string;
-  areaCd: string;
-  areaNm: string;
-  signguCd: string;
-  signguNm: string;
-  tAtsNm: string;
-  cnctrRate: string;
-}
-
-/** 법정동 코드표(`ldongCode2`) 한 행. 시·도 목록이면 2자리, 시·군·구 목록이면 3자리 코드. */
-export interface LdongCode {
-  code: string;
-  name: string;
-}
-
 export interface RelatedSpot {
   rlteTatsNm?: string;
   tatsNm?: string;
@@ -468,34 +448,6 @@ export function getBarrierFreeNearby(
       arrange: 'E', // 거리순
     },
     BARRIER_FREE_SERVICE,
-  );
-}
-
-/**
- * 시·군·구의 관광지 집중률 예측(오늘부터 30일). `areaCd`·`signguCd` 둘 다 필수 —
- * 시·도만 넘기면 API 가 거절한다(2026-09-16 실측). 메모리에서만 잠깐 쓴다.
- *
- * 응답은 관광지별 30일치가 연달아 온다. 300행이면 관광지 약 10곳만 받아 서울 중구처럼
- * 1,650행이 필요한 지역에서 성지 이름 매칭이 잘린다. 현재 최대치를 한 번에 받아야
- * "정보 없음"을 실제 데이터 부재와 구분할 수 있다.
- */
-export function getCongestionRates(areaCd: string, signguCd: string): Promise<CongestionRate[]> {
-  return callTourApi<CongestionRate>(
-    'tatsCnctrRatedList',
-    { areaCd, signguCd, numOfRows: 2000, pageNo: 1 },
-    'TatsCnctrRateService',
-  );
-}
-
-/**
- * 법정동 코드표. `lDongRegnCd` 없이 부르면 시·도 목록, 시·도 코드를 넘기면 그 안의 시·군·구 목록.
- * 집중률 API 가 요구하는 `signguCd` = 시·도 2자리 + 시·군·구 3자리.
- */
-export function getLdongCodes(lDongRegnCd?: string): Promise<LdongCode[]> {
-  return callTourApi<LdongCode>(
-    'ldongCode2',
-    { numOfRows: 100, pageNo: 1, ...(lDongRegnCd ? { lDongRegnCd } : {}) },
-    'KorService2',
   );
 }
 
