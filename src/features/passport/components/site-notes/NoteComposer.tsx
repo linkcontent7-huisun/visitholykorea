@@ -1,5 +1,5 @@
-import { Camera, ChevronDown, X } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { ChevronDown } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import {
@@ -8,6 +8,11 @@ import {
   type CrowdLevel,
 } from '@/features/passport/api/stamps.repository';
 import { CrowdLevelPicker } from '@/features/passport/components/CrowdLevelPicker';
+import {
+  RecordPhotoTray,
+  shrinkPending,
+  usePendingPhotos,
+} from '@/features/passport/components/RecordPhotoTray';
 import { useAddStamp, useUploadStampPhotos } from '@/features/passport/hooks/use-stamps';
 import { resolveReflectionQuestion } from '@/features/passport/lib/reflection-questions';
 import { normalizeNote, NOTE_MAX_LENGTH } from '@/features/passport/lib/stamp-note';
@@ -16,11 +21,7 @@ import { Card } from '@/shared/components/ui/Card';
 import { SquircleSurface } from '@/shared/components/ui/SquircleSurface';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { koreaTodayIso } from '@/shared/lib/korea-date';
-import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 import type { HolySite } from '@/shared/types/domain';
-
-/** 순례 기록에 붙이는 사진 최대 장수(2026-09-17) — 일반 사진 추가(최대 5·10장)와는 다른 값 */
-const NOTE_PHOTO_MAX = 3;
 
 /**
  * 아직 한 줄을 남기지 않은 사람의 기록 입력 칸 — 한 줄·방문일·붐빔·사진 3장.
@@ -42,34 +43,30 @@ export function NoteComposer({ site }: { site: HolySite }) {
   // 기록 입력 아코디언 — 처음엔 펼쳐 두고, 「다음에요」를 누르면 접는다(2026-09-17).
   // 접어도 사라지지 않는다 — 줄만 남아서 다시 누르면 펼칠 수 있다.
   const [noteComposerOpen, setNoteComposerOpen] = useState(true);
-  // 기록과 함께 올릴 사진 — 최대 3장(2026-09-17, 올리기 전 미리보기 방식)
-  const [notePhotos, setNotePhotos] = useState<{ file: File; preview: string }[]>([]);
-  const [notePhotoNotice, setNotePhotoNotice] = useState<string | null>(null);
-
-  // 올리기 전 미리보기 URL 은 메모리를 잡는다. 예전에는 목록이 바뀔 때마다 **남아 있는 사진의 미리보기까지**
-  // 놓아 버려, 두 번째 사진을 고르면 첫 사진이 빈 칸이 됐다(2026-11-22 사장님: 「1개만 넣으니 바로 넘어간다」 조사).
-  // 지금은 빼낸 사진만 그 자리에서 놓고, 나머지는 화면을 떠날 때 한 번에 놓는다.
-  const notePhotosRef = useRef(notePhotos);
-  notePhotosRef.current = notePhotos;
-  useEffect(() => () => notePhotosRef.current.forEach((p) => URL.revokeObjectURL(p.preview)), []);
-  const pickNotePhotos = (files: FileList | null) => {
-    if (!files) return;
-    const room = Math.max(0, NOTE_PHOTO_MAX - notePhotos.length);
-    const picked = Array.from(files).slice(0, room);
-    if (files.length > room)
-      setNotePhotoNotice(t('reviewPhotosMax').replace('{count}', String(NOTE_PHOTO_MAX)));
-    else setNotePhotoNotice(null);
-    setNotePhotos((prev) => [
-      ...prev,
-      ...picked.map((file) => ({ file, preview: URL.createObjectURL(file) })),
-    ]);
-  };
-  const removeNotePhoto = (index: number) =>
-    setNotePhotos((prev) => {
-      const gone = prev[index];
-      if (gone) URL.revokeObjectURL(gone.preview);
-      return prev.filter((_, i) => i !== index);
-    });
+  // 기록과 함께 올릴 사진 — 세 기록 칸이 같은 부품(RecordPhotoTray)을 쓴다(2026-11-22)
+  const tray = usePendingPhotos(0);
+  const draftKey = `vhk.noteDraft.${siteId}`;
+  const [draftRestored, setDraftRestored] = useState(false);
+  // 로그인 없이 쓰고 「남기기」를 눌러 로그인 화면에 다녀오면 쓴 글이 사라졌다(점검 영역 A·C, 2026-11-22).
+  // 로그인 화면으로 가기 전에 글을 이 기기(탭)에 잠깐 두었다가, 돌아오면 되살린다. 사진 파일은 둘 수 없다.
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(draftKey);
+      if (!raw) return;
+      sessionStorage.removeItem(draftKey);
+      const d = JSON.parse(raw) as {
+        note?: string;
+        visitedOn?: string;
+        crowdLevel?: CrowdLevel | null;
+      };
+      if (d.note) setNoteDraft(d.note);
+      if (d.visitedOn) setVisitedOnDraft(d.visitedOn);
+      if (d.crowdLevel !== undefined) setCrowdLevelDraft(d.crowdLevel);
+      setDraftRestored(true);
+    } catch {
+      // 저장소를 못 쓰는 브라우저 — 되살리지 못할 뿐 기록은 그대로 쓸 수 있다
+    }
+  }, [draftKey]);
 
   /**
    * 기록 저장 — 이 한 번의 호출이 "기록"(스탬프)도 함께 만든다(2026-09-17).
@@ -91,6 +88,18 @@ export function NoteComposer({ site }: { site: HolySite }) {
         onSuccess: async (result) => {
           if (!result.success) {
             if (result.error === 'UNAUTHENTICATED') {
+              try {
+                sessionStorage.setItem(
+                  draftKey,
+                  JSON.stringify({
+                    note: noteDraft,
+                    visitedOn: visitedOnDraft,
+                    crowdLevel: crowdLevelDraft,
+                  }),
+                );
+              } catch {
+                // 되살리기만 못 한다
+              }
               navigate(paths.login);
               return;
             }
@@ -99,18 +108,16 @@ export function NoteComposer({ site }: { site: HolySite }) {
           }
           // 기록과 같이 고른 사진이 있으면 이어서 올린다 — stamp 는 방금 생겼으므로
           // (myStamps 캐시가 아직 갱신 전일 수 있어) 직접 다시 조회해 stampId 를 얻는다.
-          if (notePhotos.length > 0) {
-            const pending = notePhotos;
-            setNotePhotos([]);
-            // 미리보기는 더 쓰지 않는다(파일은 pending 에 남아 있다)
-            pending.forEach((p) => URL.revokeObjectURL(p.preview));
+          if (tray.pending.length > 0) {
+            const photos = await shrinkPending(tray.pending);
+            tray.clear();
             const fresh = await getMyStamps();
             const stampId = fresh.find((s) => s.siteId === siteId)?.stampId;
-            if (stampId) {
-              const policy = photoPolicy();
-              const photos = await Promise.all(pending.map((p) => shrinkPhoto(p.file, policy)));
-              uploadPhotos.mutate({ stampId, photos });
-            }
+            // 예전에는 실패해도 아무 말이 없었다(Codex 점검 D) — 글은 저장됐으니 사진만 다시 올리게 알린다
+            const uploaded = stampId
+              ? await uploadPhotos.mutateAsync({ stampId, photos })
+              : { success: false };
+            if (!uploaded.success) window.alert(t('photoUploadFailed'));
           }
         },
       },
@@ -184,50 +191,14 @@ export function NoteComposer({ site }: { site: HolySite }) {
           {isVisitedOnAvailable() && (
             <CrowdLevelPicker value={crowdLevelDraft} onChange={setCrowdLevelDraft} />
           )}
-          {/* 사진 — 최대 3장. 기록 문장과 함께 한 번에 올라간다 */}
-          <div className="mt-3 flex flex-wrap gap-2">
-            {notePhotos.map((p, i) => (
-              <div key={p.preview} className="relative">
-                <SquircleSurface className="h-16 w-16 overflow-hidden">
-                  <img src={p.preview} alt="" className="h-full w-full object-cover" />
-                </SquircleSurface>
-                <button
-                  type="button"
-                  onClick={() => removeNotePhoto(i)}
-                  aria-label={t('logPhotoRemove')}
-                  className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/70 text-white"
-                >
-                  <X size={12} />
-                </button>
-              </div>
-            ))}
-            {notePhotos.length < NOTE_PHOTO_MAX && (
-              <SquircleSurface
-                as="label"
-                borderColor="color-mix(in srgb, var(--color-brand-blue) 40%, transparent)"
-                borderWidth={2}
-                borderDashed
-                className="flex h-16 w-16 cursor-pointer flex-col items-center justify-center gap-0.5 text-brand-blue transition-colors hover:bg-brand-soft"
-              >
-                <Camera size={16} aria-hidden />
-                <span className="text-xs font-bold">
-                  {notePhotos.length}/{NOTE_PHOTO_MAX}
-                </span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  className="hidden"
-                  onChange={(e) => {
-                    pickNotePhotos(e.target.files);
-                    e.target.value = '';
-                  }}
-                />
-              </SquircleSurface>
-            )}
+          {/* 사진 — 한 기록에 3장. 기록 문장과 함께 한 번에 올라간다 */}
+          <div className="mt-3">
+            <RecordPhotoTray tray={tray} disabled={addStamp.isPending} />
           </div>
-          {notePhotoNotice && (
-            <p className="mt-1.5 text-xs text-app-text-muted">{notePhotoNotice}</p>
+          {draftRestored && (
+            <p className="mt-2 text-sm text-brand-blue" role="status">
+              {t('noteDraftRestored')}
+            </p>
           )}
           <p className="mt-3 text-sm leading-relaxed text-app-text-muted">
             {t('reviewPublicNotice')}

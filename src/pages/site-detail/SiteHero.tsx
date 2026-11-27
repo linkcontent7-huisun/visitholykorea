@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BookOpen, Heart } from 'lucide-react';
 import { NearbyCrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
@@ -35,12 +36,13 @@ export function SiteHero({
   const tags = [site.emotionTag, localizeRegionName(site.region, language), site.category].filter(
     (tag): tag is string => Boolean(tag),
   );
+  const [heroFailed, setHeroFailed] = useState(false);
   const photoCredit = photoCreditText(site.imageSource, site.imageLicense, language);
 
   return (
     // 사진 높이는 화면의 절반 — 상단바(60px)를 뺀 나머지에서 잰다
     <div className="relative flex h-[min(55vh,520px)] w-full items-center justify-center overflow-hidden bg-app-bg">
-      {heroPhoto.url ? (
+      {heroPhoto.url && !heroFailed ? (
         <>
           {/* 확대되며 나타나는 연출을 없앴다(사장님 지적, 2026-09-17) — 사진이 바로 보인다 */}
           <img
@@ -50,6 +52,9 @@ export function SiteHero({
             className="h-full w-full object-cover"
             fetchPriority="high"
             decoding="async"
+            // 순례자가 대표 사진(1번)을 지우면 옛 대표 칸 photo_url 이 지운 파일을 가리킨 채 남는다(2026-11-22 점검).
+            // DB 값은 그대로 두고, 그림을 못 받으면 성지 그림(기본 모양)으로 바꿔 깨진 그림을 보이지 않는다.
+            onError={() => setHeroFailed(true)}
           />
           {/* 순례자 사진은 누가 보내준 것인지 밝힌다 — 공식 사진과 같아 보이면 안 된다 */}
           {heroPhoto.fromPilgrim && (

@@ -1,11 +1,16 @@
-import { Camera, X } from 'lucide-react';
 import { useState } from 'react';
 import {
   isVisitedOnAvailable,
   type CrowdLevel,
   type MyStamp,
+  type StampPhoto,
 } from '@/features/passport/api/stamps.repository';
 import { CrowdLevelPicker } from '@/features/passport/components/CrowdLevelPicker';
+import {
+  RecordPhotoTray,
+  shrinkPending,
+  usePendingPhotos,
+} from '@/features/passport/components/RecordPhotoTray';
 import {
   useDeleteStampPhoto,
   useUpdateStamp,
@@ -18,7 +23,6 @@ import { useUnsavedChangesGuard } from '@/shared/hooks/use-unsaved-changes-guard
 import { useSettings } from '@/shared/i18n/use-settings';
 import { koreaTodayIso } from '@/shared/lib/korea-date';
 import { nextPhotoPosition } from '@/features/passport/lib/photo-position';
-import { photoPolicy, shrinkPhoto } from '@/shared/lib/photo';
 
 interface MyNoteEditorProps {
   siteId: string;
@@ -43,42 +47,51 @@ export function MyNoteEditor({ siteId, myStamp, onClose, onOpenPhoto }: MyNoteEd
   const [myCrowdLevelDraft, setMyCrowdLevelDraft] = useState<CrowdLevel | null>(
     myStamp.crowdLevel ?? null,
   );
+  // 사진은 고르면 바로 올라가지 않고 「저장」 때 함께 올라간다(2026-11-22, 세 기록 칸 통일)
+  const tray = usePendingPhotos(myStamp.photos.length);
+  const [failed, setFailed] = useState<null | 'save' | 'photo' | 'delete'>(null);
+  const [saving, setSaving] = useState(false);
   const isMyNoteDirty =
+    tray.pending.length > 0 ||
     myNoteDraft !== (myStamp.note ?? '') ||
     myVisitedOnDraft !== savedVisitedOn ||
     myCrowdLevelDraft !== (myStamp.crowdLevel ?? null);
   useUnsavedChangesGuard(isMyNoteDirty);
 
-  const handleUpdateMyNote = () => {
+  const handleUpdateMyNote = async () => {
     if (!myStamp?.id) return;
-    updateStamp.mutate(
-      {
+    setFailed(null);
+    setSaving(true);
+    try {
+      const result = await updateStamp.mutateAsync({
         stampId: myStamp.id,
         note: normalizeNote(myNoteDraft),
         ...(isVisitedOnAvailable()
           ? { visitedOn: myVisitedOnDraft || null, crowdLevel: myCrowdLevelDraft }
           : {}),
-      },
-      { onSuccess: (result) => result.success && onClose() },
-    );
+      });
+      if (!result.success) return setFailed('save');
+      if (tray.pending.length > 0) {
+        const photos = await shrinkPending(tray.pending);
+        const uploaded = await uploadPhotos.mutateAsync({
+          // 내 기록 id 는 myStamp.id — 「내 기록 목록」에서 찾으면 목록이 덜 왔을 때 빈 id 로 실패했다
+          stampId: myStamp.id,
+          // 지운 사진 자리를 다시 쓰면 남은 사진을 덮어썼다 — 가장 큰 자리 다음에
+          startPosition: nextPhotoPosition(myStamp.photos),
+          photos,
+        });
+        if (!uploaded.success) return setFailed('photo');
+        tray.clear();
+      }
+      onClose();
+    } finally {
+      setSaving(false);
+    }
   };
-  const handlePhotoPick = async (files: FileList | null) => {
-    if (!files || !myStamp) return;
-    const policy = photoPolicy();
-    // 이미 있는 사진 뒤에 이어 붙인다 — 위치(position)가 겹치면 기존 사진을 덮어쓰므로
-    // 새로 고른 만큼만 남은 자리에서 자른다(2026-09-20, 「바꾸기」 아닌 「추가」로 고침).
-    const room = Math.max(0, policy.maxCount - myStamp.photos.length);
-    const picked = Array.from(files).slice(0, room);
-    if (files.length > room)
-      window.alert(t('reviewPhotosMax').replace('{count}', String(policy.maxCount)));
-    const photos = await Promise.all(picked.map((file) => shrinkPhoto(file, policy)));
-    uploadPhotos.mutate({
-      // 내 기록 id 는 myStamp.id 에 있다 — 예전처럼 「내 기록 목록」에서 찾으면 목록이 아직 안 왔을 때
-      // 빈 id 로 올려 조용히 실패했다(2026-11-22)
-      stampId: myStamp.id ?? '',
-      startPosition: nextPhotoPosition(myStamp.photos),
-      photos,
-    });
+  const removeExisting = async (photo: StampPhoto) => {
+    setFailed(null);
+    const result = await deletePhoto.mutateAsync(photo);
+    if (!result.success) setFailed('delete');
   };
 
   return (
@@ -124,72 +137,39 @@ export function MyNoteEditor({ siteId, myStamp, onClose, onOpenPhoto }: MyNoteEd
           name="myCrowdLevel"
         />
       )}
-      <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
-        {myStamp.photos.map((photo, i) => (
-          <div key={photo.id} className="relative shrink-0">
-            <SquircleSurface
-              as="button"
-              type="button"
-              onClick={() =>
-                onOpenPhoto(
-                  myStamp.photos.map((p) => p.url),
-                  i,
-                )
-              }
-              aria-label={t('photoEnlarge')}
-              className="block h-24 w-24 overflow-hidden"
-            >
-              <img src={photo.url} alt={t('photoMineAlt')} className="h-full w-full object-cover" />
-            </SquircleSurface>
-            <button
-              type="button"
-              onClick={() => deletePhoto.mutate(photo)}
-              disabled={deletePhoto.isPending}
-              aria-label={t('photoDelete')}
-              className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/70 text-white disabled:opacity-50"
-            >
-              <X size={12} />
-            </button>
-          </div>
-        ))}
-        {myStamp.photos.length < photoPolicy().maxCount && (
-          <SquircleSurface
-            as="label"
-            borderColor="color-mix(in srgb, var(--color-brand-blue) 50%, transparent)"
-            borderWidth={2}
-            borderDashed
-            className={`flex h-24 w-16 shrink-0 cursor-pointer flex-col items-center justify-center gap-1 px-1 text-center text-brand-blue transition-colors hover:bg-brand-soft ${
-              uploadPhotos.isPending ? 'opacity-50' : ''
-            }`}
-          >
-            <Camera size={16} aria-hidden />
-            <span className="text-[0.625rem] font-bold leading-tight">
-              {uploadPhotos.isPending ? t('photoUploading') : t('photoAdd')}
-            </span>
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              className="hidden"
-              disabled={uploadPhotos.isPending}
-              onChange={(e) => {
-                void handlePhotoPick(e.target.files);
-                e.target.value = '';
-              }}
-              data-testid="photo-input"
-            />
-          </SquircleSurface>
-        )}
+      <div className="mt-3">
+        <RecordPhotoTray
+          existing={myStamp.photos}
+          onOpenExisting={(i) =>
+            onOpenPhoto(
+              myStamp.photos.map((p) => p.url),
+              i,
+            )
+          }
+          onRemoveExisting={(photo) => void removeExisting(photo)}
+          removingExisting={deletePhoto.isPending}
+          tray={tray}
+          disabled={saving}
+        />
       </div>
+      {failed && (
+        <p className="mt-2 text-sm font-bold text-red-600" role="alert">
+          {t(
+            failed === 'photo'
+              ? 'photoUploadFailed'
+              : failed === 'delete'
+                ? 'photoDeleteFailed'
+                : 'recordsSaveFailed',
+          )}
+        </p>
+      )}
       <div className="mt-3 flex gap-2">
         {/* 이미 남긴 한 줄을 다 지우고 저장하면 기록이 공개 목록과 이 화면의 「수정」에서 함께 사라져
               다시 고칠 길이 없어졌다(2026-11-22 조사). 한 줄은 비울 수 없다 — 기록을 없애려면 「내 기록」에서 지운다 */}
         <Button
           size="sm"
-          onClick={handleUpdateMyNote}
-          disabled={
-            updateStamp.isPending || (myStamp.note != null && normalizeNote(myNoteDraft) === null)
-          }
+          onClick={() => void handleUpdateMyNote()}
+          disabled={saving || (myStamp.note != null && normalizeNote(myNoteDraft) === null)}
         >
           {t('recordsSave')}
         </Button>

@@ -1,7 +1,10 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { Camera, MapPin, X } from 'lucide-react';
 import { useEffect, useState, type FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { paths } from '@/app/routes/paths';
 import { useDirectorySearch } from '@/features/directory/hooks/use-nearby-directory';
+import { useSiteSearch } from '@/features/sites/hooks/use-sites';
 import { useDebouncedValue } from '@/shared/hooks/use-debounced-value';
 import { useModalFocus } from '@/shared/hooks/use-modal-focus';
 import { useSettings } from '@/shared/i18n/use-settings';
@@ -93,6 +96,12 @@ function PlaceForm({ onDone }: { onDone: () => void }) {
   const { data: suggestions = [] } = useDirectorySearch(
     debouncedName.trim().length >= 2 ? debouncedName : '',
   );
+  // 이미 사이트에 있는 성지를 「내 장소」로 올리는 일이 있었다(수리산 성지 — 2026-11-22 점검).
+  // 이름 추천이 본당·공소 주소록만 찾았기 때문이다. 성지 목록도 찾아, 있으면 그 성지의 기록 칸으로 보낸다.
+  // 「수리산성지」처럼 붙여 써도 찾도록 빈칸과 끝의 「성지·성당」을 떼고 찾는다.
+  const siteTerm = debouncedName.replace(/\s+/g, '').replace(/(성지|성당)$/, '');
+  const { data: existingSites = [] } = useSiteSearch(siteTerm.length >= 2 ? siteTerm : '');
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!photo) return;
@@ -163,6 +172,33 @@ function PlaceForm({ onDone }: { onDone: () => void }) {
           aria-invalid={(showMissing && missing.name) || undefined}
         />
         {showMissing && missing.name && <p className={missingNote}>{t('placeNameMissing')}</p>}
+        {existingSites.length > 0 && (
+          <div
+            className="mt-2 rounded-lg border border-brand-blue/30 bg-brand-soft p-3"
+            role="status"
+          >
+            <p className="text-sm font-bold text-app-text">{t('placeExistingSite')}</p>
+            <ul className="mt-2 space-y-1.5">
+              {existingSites.slice(0, 3).map((site) => (
+                <li key={site.id}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onDone();
+                      navigate(`${paths.siteDetail(site.id)}#reviews-heading`);
+                    }}
+                    className="flex min-h-12 w-full items-center justify-between gap-2 rounded-md bg-white px-3 text-left text-base hover:bg-app-bg"
+                  >
+                    <span className="font-bold text-app-text">{site.name}</span>
+                    <span className="shrink-0 text-sm font-bold text-brand-blue">
+                      {t('placeGoToSite')} →
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         {suggestions.length > 0 && (
           <ul className="mt-2 divide-y divide-app-border overflow-hidden rounded-lg border border-app-border">
             {suggestions.slice(0, 5).map((entry) => (

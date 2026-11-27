@@ -32,7 +32,21 @@ export function SiteNotesSection({ site }: { site: HolySite }) {
   const handleReport = (stampId: string) => {
     if (!window.confirm(t('reportConfirm'))) return;
     setReportedIds((prev) => new Set(prev).add(stampId));
-    reportNote.mutate(stampId);
+    // 예전에는 실패해도 단추가 꺼진 채로 남아 다시 누를 수 없었다(Codex 점검 D, 2026-11-22)
+    const undo = () => {
+      setReportedIds((prev) => {
+        const next = new Set(prev);
+        next.delete(stampId);
+        return next;
+      });
+      window.alert(t('reportFailed'));
+    };
+    reportNote.mutate(stampId, {
+      onSuccess: (result) => {
+        if (!result.success) undo();
+      },
+      onError: undo,
+    });
   };
 
   // "다녀온 사람의 한 줄"이 실제로 화면에 보였을 때만 읽힘 수를 올린다.
