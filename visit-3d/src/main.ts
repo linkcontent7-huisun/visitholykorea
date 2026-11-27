@@ -458,26 +458,12 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       scene.add(o);
       badges.push({ o, el, ia });
     }
-    // 설명대 위 홀로그램 — 앞에 서면 글자가 공중에 떠오른다
-    for (const h of holos) scene.remove(h.o);
+    // 설명대의 글 — 앞에 서면 아기 천사의 말풍선(화면 위 상자 하나)에 떠오른다. 3D 공중 글(CSS2D)은 더 만들지 않는다(사장님 2026-11-27: 안내줄·공중 글을 말풍선 하나로)
     holos.length = 0;
     for (const ia of space.interactables) {
       if (ia.kind !== 'info' || !ia.body) continue;
-      const el = document.createElement('div');
-      el.className = 'holo';
       const sm = /^station(\d+)$/.exec(ia.id);
-      const t = document.createElement('div'); t.className = 'holo-title'; t.textContent = ia.title;
-      const b = document.createElement('div'); b.className = 'holo-body'; b.textContent = sm ? `${STATION_SCENES[Number(sm[1])] ?? ''}\n\n${STATION_VERSICLE}` : ia.body;
-      const x = document.createElement('button'); x.type = 'button'; x.className = 'holo-close'; x.textContent = '닫기';
-      el.append(t, b, x);
-      const wrap = document.createElement('div'); wrap.append(el);
-      const o = new CSS2DObject(wrap);
-      o.position.copy(ia.anchor).add(new THREE.Vector3(0, 1.15, 0));
-      o.visible = false;
-      scene.add(o);
-      const hh = { o, el, ia, on: false } as (typeof holos)[number];
-      x.addEventListener('click', (e) => { e.stopPropagation(); for (const h of holos) if (h === hh || Math.hypot(h.ia.anchor.x - player.pos.x, h.ia.anchor.z - player.pos.z) < 4) hideHolo(h); }); // 닫기 — 그 옆을 떠났다 다시 올 때까지 뜨지 않는다
-      holos.push(hh);
+      holos.push({ ia, on: false, title: ia.title, body: sm ? `${STATION_SCENES[Number(sm[1])] ?? ''}\n\n${STATION_VERSICLE}` : ia.body });
     }
     // 같은 자리에 겹쳐 서지 않게 출발점을 조금씩 흩는다
     player.place(space.spawn.pos.clone().add(new THREE.Vector3((Math.random() - 0.5) * 4, 0, (Math.random() - 0.5) * 2)), space.spawn.yaw);
@@ -606,7 +592,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   raycaster.far = 4;
   let target: { ia: Interactable; hit: THREE.Intersection } | null = null;
   const badges: { o: CSS2DObject; el: HTMLButtonElement; ia: Interactable }[] = [];
-  const holos: { o: CSS2DObject; el: HTMLDivElement; ia: Interactable; on: boolean; hidden?: boolean; md?: number; hx?: number; hz?: number }[] = [];
+  const holos: { title: string; body: string; ia: Interactable; on: boolean; hidden?: boolean; md?: number; hx?: number; hz?: number }[] = [];
   const hideHolo = (h: (typeof holos)[number]) => { h.hidden = true; h.hx = player.pos.x; h.hz = player.pos.z; };
   let candleGroup: string[] | null = null, candleTitle = '봉헌초';
   // v3-6 놀이 덧판(열려 있으면 닫는 함수) · 내가 직접 쓴 기도(예전 방 서버는 글을 돌려주지 않으므로 내 화면에서는 여기서 보충한다)
@@ -730,7 +716,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     stationK = k + 1; setGuide(stationAnchor(stationK), `십자가의 길 제${stationK + 1}처 — ${STATION_NAMES[stationK]}`);
     // 천천히 한 처씩(사장님 2026-11-25): 설명을 읽을 시간을 주고, «다음 처로»를 눌러야 함께 걸어간다(혼자 걸어가도 된다)
     const nk = stationK;
-    askBar(`제${k + 1}처 — ${STATION_NAMES[k]}\n공중에 뜬 설명을 천천히 읽어 보세요. 다 읽으셨으면 다음 처로 함께 가요.`, [
+    const sIa = holos.find((h) => h.ia.id === `station${k}`);
+    askBar(`제${k + 1}처 — ${STATION_NAMES[k]}\n${sIa ? sIa.body : ''}`, [
       { label: `다음 — 제${nk + 1}처로 함께 가기 →`, on: () => {
         const na = stationAnchor(nk); if (!na) return;
         toast(`제${nk + 1}처 앞으로 함께 걸어갑니다 — 움직이면 멈춥니다`);
@@ -752,16 +739,50 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   const fontIa = () => space?.interactables.find((i) => i.kind === 'font');
   // 누르지 않아도 되는 안내줄(창이 아니다 — 뒤 화면을 그대로 보며 안내를 무시하고 직접 움직여도 된다)
   const askEl = document.createElement('div'); askEl.id = 'askBar'; askEl.hidden = true; $('hud').append(askEl);
-  function askBar(text: string, buttons: { label: string; on: () => void }[], onDismiss?: () => void) {
-    askEl.replaceChildren();
+  // ── 아기 천사의 말풍선: 안내줄·설명 글을 이 상자 하나로(사장님 2026-11-27). 자막(글)과 소리(읽어 주기)를 켜고 끌 수 있다(유튜브 자막처럼) ──
+  const prefGet = (k: string, d: boolean) => { try { const v = localStorage.getItem(k); return v === null ? d : v === '1'; } catch { return d; } };
+  const prefSet = (k: string, v: boolean) => { try { localStorage.setItem(k, v ? '1' : '0'); } catch { /* 무시 */ } };
+  let ccOn = prefGet('vhk.cc', true), voiceOn = prefGet('vhk.say', false), bubbleKey = '', bubbleText = '';
+  const canSpeak = typeof speechSynthesis !== 'undefined' && typeof SpeechSynthesisUtterance !== 'undefined';
+  function stopSpeech() { try { if (canSpeak) speechSynthesis.cancel(); } catch { /* 무시 */ } }
+  function speak(t: string) {
+    if (!canSpeak || !voiceOn) return;
+    try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/\s*\n+\s*/g, ' ')); u.lang = 'ko-KR'; u.rate = 0.95; speechSynthesis.speak(u); } catch { /* 무시 */ }
+  }
+  function renderBubbleText() {
+    const p = askEl.querySelector('p'); if (!p) return;
+    // 자막을 껐어도 소리가 꺼져 있으면 글은 보인다(둘 다 없으면 읽을 방법이 없다)
+    p.hidden = !ccOn && voiceOn;
+    (askEl.querySelector('.ask-cc') as HTMLElement | null)?.classList.toggle('on', ccOn);
+    (askEl.querySelector('.ask-vo') as HTMLElement | null)?.classList.toggle('on', voiceOn);
+  }
+  function askBar(text: string, buttons: { label: string; on: () => void }[], onDismiss?: () => void, key = 'ask') {
+    askEl.replaceChildren(); bubbleKey = key; bubbleText = text;
+    const head = document.createElement('div'); head.className = 'ask-head';
+    const nm = document.createElement('span'); nm.className = 'ask-name'; nm.textContent = '👼 아기 천사'; head.append(nm);
+    const cc = document.createElement('button'); cc.type = 'button'; cc.className = 'ask-tog ask-cc'; cc.textContent = '자막'; cc.setAttribute('aria-label', '자막 켜기/끄기');
+    cc.addEventListener('click', () => { ccOn = !ccOn; prefSet('vhk.cc', ccOn); renderBubbleText(); });
+    head.append(cc);
+    if (canSpeak) {
+      const vo = document.createElement('button'); vo.type = 'button'; vo.className = 'ask-tog ask-vo'; vo.textContent = '🔊 소리'; vo.setAttribute('aria-label', '소리 켜기/끄기');
+      vo.addEventListener('click', () => { voiceOn = !voiceOn; prefSet('vhk.say', voiceOn); if (voiceOn) speak(bubbleText); else stopSpeech(); renderBubbleText(); });
+      head.append(vo);
+    }
+    askEl.append(head);
     const p = document.createElement('p'); p.textContent = text; askEl.append(p);
     const row = document.createElement('div'); row.className = 'ask-row';
-    for (const b of buttons) { const el = document.createElement('button'); el.type = 'button'; el.textContent = b.label; el.addEventListener('click', () => { askEl.hidden = true; b.on(); }); row.append(el); }
+    for (const b of buttons) { const el = document.createElement('button'); el.type = 'button'; el.textContent = b.label; el.addEventListener('click', () => { askEl.hidden = true; bubbleKey = ''; stopSpeech(); b.on(); }); row.append(el); }
     const x = document.createElement('button'); x.type = 'button'; x.className = 'ask-x'; x.textContent = '닫기'; x.setAttribute('aria-label', '닫기');
-    x.addEventListener('click', () => { askEl.hidden = true; onDismiss?.(); });
+    x.addEventListener('click', () => { askEl.hidden = true; bubbleKey = ''; stopSpeech(); onDismiss?.(); });
     row.append(x); askEl.append(row); askEl.hidden = false;
+    renderBubbleText(); speak(text);
   }
-  const askHide = () => { askEl.hidden = true; };
+  /** 설명대·십자가의 길 처의 글을 말풍선으로. 다른 안내(질문)가 떠 있으면 건드리지 않는다 */
+  function holoSay(h: (typeof holos)[number]) {
+    if (!askEl.hidden && bubbleKey !== '' && !bubbleKey.startsWith('holo')) return;
+    askBar(`${h.title}\n${h.body}`, [], () => { hideHolo(h); }, `holo:${h.ia.id}`);
+  }
+  const askHide = () => { askEl.hidden = true; bubbleKey = ''; stopSpeech(); };
   /** 성당 밖(정문 앞)에 있으면 정문을 지나 안으로 들어간 뒤 done 을 부른다 */
   function goInside(done: () => void) {
     const d = doorIa();
@@ -1484,7 +1505,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       if (camFix && space.bellRinger) bodyYaw = space.bellRinger.yaw; // 줄을 잡은 동안은 줄 쪽을 본다(자리에 옮겨 설 때 생기는 속도로 몸이 돌지 않게)
       me.root.position.copy(player.pos);
       me.root.rotation.y = bodyYaw;
-      me.root.visible = !fp || !!camFix; myTagObj.visible = me.root.visible && !holos.some((h) => h.on); // 설명 글이 떠 있는 동안은 내 이름표·포인트가 글을 가리지 않게 감춘다(사장님 2026-11-25)
+      me.root.visible = !fp || !!camFix; myTagObj.visible = me.root.visible; // (말풍선은 화면 위 상자라 이름표를 가리지 않는다)
       animateAvatar(me, dt, mySpeed, t, !!player.sitting);
       for (let i = sparks.length - 1; i >= 0; i--) { const sp = sparks[i]; sp.age += dt; sp.m.scale.setScalar(1 + sp.age * 4); (sp.m.material as THREE.MeshBasicMaterial).opacity = Math.max(0, 0.9 * (1 - sp.age / 0.7)); if (sp.age > 0.7) { scene.remove(sp.m); sp.m.geometry.dispose(); (sp.m.material as THREE.Material).dispose(); sparks.splice(i, 1); } }
       barrier.update(t);
@@ -1596,7 +1617,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           if (cardOpen()) hideHolo(h);
           const on = dh < 3.2 && dy < 2.5 && !h.hidden && h === nearH;
           if (on && !h.on) h.md = dh;
-          if (on !== h.on) { h.on = on; if (on) { h.o.visible = true; h.el.classList.remove('show'); void h.el.offsetWidth; h.el.classList.add('show'); } else { h.el.classList.remove('show'); setTimeout(() => { if (!h.on) h.o.visible = false; }, 400); } }
+          if (on !== h.on) { h.on = on; if (on) holoSay(h); else if (bubbleKey === `holo:${h.ia.id}`) { askEl.hidden = true; bubbleKey = ''; stopSpeech(); } }
         }
         // ── 순례 순서 안내: 시작 · 4초 가만히 있으면 성모상으로 · 밖으로 나오면 새 빛 ──
         if (space.id === 'cathedral' && introDone && !intro && !spaceLoading && quest === 'none' && !guideTried && (!points.has('pilgrimage-done') || params.has('guide'))) { guideTried = true; if (botSeen() || params.has('nobot')) { startGuide(); botCall.hidden = false; } else botGreet(); }
