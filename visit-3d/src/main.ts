@@ -802,9 +802,25 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // ══ 아기 천사 가이드봇 (사장님 2026-11-25) — 순례자를 돕는 작은 아기 천사 ══
   // 참고: vreal 가상 전시관의 «도슨트»(입장하면 앞에 나타나 «혼자 / 같이» → 같이면 옆을 따라다니며 가까운 것을 설명하고 다음으로 데려가 준다, 오른쪽 아래 «부르기» 단추).
   // 나만 보이는 장식(접속자 목록·다른 사람 화면에는 없음). 아무것도 들지 않고, 벽을 지나지 않으며, 장면에 캐릭터 1명만 더한다.
-  const bot = buildAvatar(avatarOf('cherub'));
-  bot.root.visible = false; bot.root.scale.setScalar(1);
+  // 사장님이 만든 아기 천사 그림(2026-11-27: 앞 · 비스듬 · 뒤 세 모습)을 한 장의 판에 붙여 세운다 — 그리기 1번, 그림 1장(57 KB).
+  // 크기: 순례자 키(1.75 m)의 약 0.7 배 = 1.2 m, 땅에서 0.25 m 떠 있다(사장님 참고 그림 기준). 판은 늘 카메라를 보고, 천사가 바라보는 쪽과 카메라 각도에 따라 세 모습 가운데 하나를 고른다.
+  const BOT_H = 1.2, BOT_FLOAT = 0.25;
+  const bot = { root: new THREE.Group(), ready: false };
+  bot.root.visible = false;
   scene.add(bot.root);
+  let botMesh: THREE.Mesh | null = null, botTex: THREE.Texture | null = null, botFrame = -1, botFlip = false;
+  const botHalo = { m: null as THREE.Mesh | null };
+  function ensureBot() {
+    if (bot.ready) return; bot.ready = true;
+    botTex = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}guide/angel-atlas.webp`);
+    botTex.colorSpace = THREE.SRGBColorSpace; botTex.repeat.set(1 / 3, 1);
+    const mat = new THREE.MeshBasicMaterial({ map: botTex, transparent: true, alphaTest: 0.4, color: 0xf2f2f2, side: THREE.DoubleSide });
+    botMesh = new THREE.Mesh(new THREE.PlaneGeometry(BOT_H * (250 / 480), BOT_H), mat);
+    botMesh.position.y = BOT_H / 2; botMesh.frustumCulled = false;
+    const halo = new THREE.Mesh(new THREE.RingGeometry(0.13, 0.165, 40), new THREE.MeshBasicMaterial({ color: 0xffe08a, transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+    halo.scale.y = 0.32; halo.position.y = BOT_H * 0.99 + 0.04; halo.frustumCulled = false; botHalo.m = halo;
+    const pivot = new THREE.Group(); pivot.name = 'bot-pivot'; pivot.add(botMesh, halo); bot.root.add(pivot);
+  }
   let botOn = false, botFollow = false, botPopT = 0;
   const botPos = new THREE.Vector3(), botGoal = new THREE.Vector3(), botRay = new THREE.Ray(), botDir = new THREE.Vector3();
   const KEY_BOT = 'vhk.botSeen';
@@ -815,6 +831,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   function botShow(on: boolean, front = false) {
     botOn = on; bot.root.visible = on;
     if (on) {
+      ensureBot();
       const y = bodyYaw;
       botPos.set(player.pos.x - Math.sin(y) * (front ? 2.2 : -0.9) + Math.cos(y) * 0.9, player.pos.y + 1.3, player.pos.z - Math.cos(y) * (front ? 2.2 : -0.9) - Math.sin(y) * 0.9);
       bot.root.position.copy(botPos); botPopT = performance.now();
@@ -832,13 +849,26 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     if (hit && hit.distance < len + 0.3) botGoal.copy(player.pos).setY(player.pos.y + 1.35).addScaledVector(botDir, Math.max(0.25, hit.distance - 0.35));
     const k = 1 - Math.exp(-dt * (botFollow ? 4.6 : 6));
     botPos.lerp(botGoal, k);
-    bot.root.position.set(botPos.x, botPos.y - 0.45, botPos.z); // 작은 아기 천사가 어깨 높이쯤에 떠 있게(발 기준)
-    // 순례자를 바라보다가 움직이면 가는 쪽을 본다
-    const toP = Math.atan2(-(player.pos.x - botPos.x), -(player.pos.z - botPos.z));
-    let dy = toP - bot.root.rotation.y; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2;
-    bot.root.rotation.y += dy * (1 - Math.exp(-dt * 5));
+    bot.root.position.set(botPos.x, botPos.y - 1.35 + BOT_FLOAT, botPos.z); // 땅에서 0.25 m 떠 있다(+ 살짝 오르내림)
+    if (botMesh && botTex) {
+      const pivot = botMesh.parent!;
+      // 판은 늘 카메라를 본다(세로축만)
+      const vx = camera.position.x - botPos.x, vz = camera.position.z - botPos.z, vl = Math.hypot(vx, vz) || 1;
+      pivot.rotation.y = Math.atan2(vx, vz);
+      // 천사는 순례자를 바라본다 — 바라보는 방향 f 와 카메라 방향 v 로 앞·비스듬·뒤를 고른다
+      const fx2 = player.pos.x - botPos.x, fz2 = player.pos.z - botPos.z, fl = Math.hypot(fx2, fz2) || 1;
+      const nvx = vx / vl, nvz = vz / vl, nfx = fx2 / fl, nfz = fz2 / fl;
+      const dotv = nfx * nvx + nfz * nvz;                 // 1: 카메라를 마주 봄, -1: 등을 보임
+      const side = nfx * nvz - nfz * nvx;                  // 화면 오른쪽(+)·왼쪽(-)을 바라봄
+      const fr = dotv > 0.82 ? 0 : dotv < -0.45 ? 2 : 1;
+      const flip = fr === 1 && side > 0;                   // 그림의 비스듬한 모습은 화면 왼쪽을 본다 → 오른쪽을 볼 때는 뒤집는다
+      if (fr !== botFrame || flip !== botFlip) {
+        botFrame = fr; botFlip = flip;
+        botTex.repeat.x = flip ? -1 / 3 : 1 / 3; botTex.offset.x = flip ? (fr + 1) / 3 : fr / 3;
+      }
+    }
     const pop = Math.min(1, (performance.now() - botPopT) / 450); bot.root.scale.setScalar(0.01 + 0.99 * (pop * (2 - pop)));  // 나타날 때 톡 튀어나온다
-    animateAvatar(bot, dt, Math.min(2, mySpeed * 0.6) , t, false);
+    if (botHalo.m) (botHalo.m.material as THREE.MeshBasicMaterial).opacity = 0.8 + 0.15 * Math.sin(t * 2.4);
   }
   /** 입장 때(처음 온 기기): 앞에 나타나 «같이 / 혼자»를 묻는다 */
   function botGreet() {
