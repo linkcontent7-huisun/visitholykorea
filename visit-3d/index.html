@@ -7,6 +7,8 @@
   <meta name="description" content="고딕 리바이벌 성당 양식을 참고해 새로 지은 가상 성당과 경당을 여럿이 함께 걸으며 둘러보는 시범 서비스" />
   <meta name="theme-color" content="#1b1814" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231b1814'/%3E%3Cpath d='M16 4v24M9 11h14' stroke='%23d4a017' stroke-width='3'/%3E%3C/svg%3E" />
+    <!-- 입장 빠르게(2026-11-24): 구내 지도(264 KB)를 «입장하기» 를 누르기 전에 미리 받아 둔다 -->
+    <link rel="preload" href="/visit/site/myeongdong.json" as="fetch" crossorigin="anonymous" />
 </head>
 <body>
   <div id="app"></div>
@@ -19,7 +21,7 @@
       <p class="lead">첫 사례는 <b>명동대성당 구내</b>입니다. 실제 구내 건물 배치(OpenStreetMap) 속에서 성당을 바라보다가, 정문을 열고 들어가 실내를 둘러보세요. 초를 켜고 종을 울리고, 다른 관람객과 함께 걸을 수 있습니다.</p>
       <label class="field">
         <span>별칭 (다른 관람객에게 보입니다 · 9자)</span>
-        <input id="nick" maxlength="9" autocomplete="off" placeholder="예: 순례자" />
+        <span class="nick-row"><input id="nick" maxlength="9" autocomplete="off" placeholder="예: 베드로" /><button type="button" id="nickRandom" class="mini" aria-label="다른 이름으로 바꾸기" title="다른 이름">🎲</button></span>
       </label>
       <div class="field">
         <span class="pick-head">오늘의 순례 모습 <button type="button" id="avatarRandom" class="mini" hidden>🎲</button></span>
@@ -82,7 +84,7 @@
     <div id="hint" hidden></div>
     <button id="actBtn" class="act" hidden>누르기</button>
     <div id="joy"><div id="joyGuide" aria-hidden="true"><i class="u">▲</i><i class="l">◀</i><b>밀어서<br>걷기</b><i class="r">▶</i><i class="d">▼</i></div></div>
-    <div id="lookTip" aria-hidden="true">👆 화면을 밀며 둘러봐요</div>
+    <div id="lookTip" aria-hidden="true">화면을 터치해서 이동해보세요</div>
     <div id="toast"></div>
     <div id="loading" hidden>공간을 준비하고 있습니다…</div>
     <div id="caption" hidden></div>

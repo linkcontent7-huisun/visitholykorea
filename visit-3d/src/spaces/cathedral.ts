@@ -74,7 +74,14 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
   let placed: SitePlacement | null = null;
   if (site) {
     try {
-      placed = placeSite(kit, M, site, TOWER_FRONT, new THREE.Box2(new THREE.Vector2(-17, APSE_C - AMB_R - 1.5), new THREE.Vector2(17, TOWER_FRONT + 1.5)), opts);
+      // 실내가 차지하는 자리(현관 · 신랑과 측랑·익랑 · 회랑 · 정문 통로) — 이 안쪽의 껍데기 면은 충돌에 넣지 않는다(실내 벽이 막는다)
+      const interiorAt = (x: number, z: number) =>
+        (Math.abs(x) <= NAR_IN + 0.4 && z <= FRONT_IN + FRONT_T && z >= NAVE_Z0)
+        || (Math.abs(x) <= AISLE_IN + OT && z <= XWALL && z >= APSE_C)
+        || (z <= APSE_C + 0.5 && Math.hypot(x, z - APSE_C) <= AMB_IN + OT);
+      // 정문 통로(문 폭 3.4 m) — 면의 한가운데가 이 안에 있을 때만 뺀다. 문설주는 막는다
+      const passageAt = (x: number, z: number) => Math.abs(x) <= 1.7 && z >= FRONT_IN && z <= TOWER_FRONT + 2.5;
+      placed = placeSite(kit, M, site, TOWER_FRONT, new THREE.Box2(new THREE.Vector2(-17, APSE_C - AMB_R - 1.5), new THREE.Vector2(17, TOWER_FRONT + 1.5)), { ...opts, interiorAt, passageAt });
       if (placed.dims) checkDims(placed.dims);
     } catch (e) { console.warn('[cathedral] 구내 지도를 붙이지 못했다 — 일반 앞마당으로 진행', e); }
   }
@@ -712,6 +719,7 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
 
   // 출발점 — 언덕이 있으면 정면 쪽 언덕 아래(성당을 올려다보며 걸어 올라온다)
   let spawnPos = v3(0, 0.02, 28);
+  let introFrom: THREE.Vector3 | undefined;
   if (hill && placed) {
     // 언덕 아래이면서 나무 줄기에서 4 m 넘게 떨어져 앞이 트인 자리(성당 쪽이 보이게)를 고른다
     const clear = (x: number, z: number) => placed!.trunks.every((t) => Math.hypot(t.x - x, t.y - z) > 3)
@@ -721,8 +729,22 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
         if (placed.groundAt(x, z) <= -HILL + 0.1 && free(x, z, 2) && clear(x, z)) { spawnPos = v3(x, placed.groundAt(x, z) + 0.02, z); break outer; }
       }
     }
+    introFrom = spawnPos.clone(); // 2026-11-24: 여는 장면(드론샷)은 계속 언덕 아래 계단 맨 아래에서 시작한다. 캐릭터만 계단 위에서 움직인다
+    // 2026-11-23 사장님: 언덕 아래에서 시작하면 소개 영상(10초)과 긴 계단 때문에 성당까지 너무 오래 걸린다
+    // → 계단 맨 위 칸에서 시작해 바로 성당으로 간다. 언덕 아래 자리에서 정문 쪽으로 올라가다 처음 평지가 되는 곳의 1.5 m 안쪽
+    {
+      const gx = 0, gz = TOWER_FRONT + 3.2, bx = spawnPos.x, bz = spawnPos.z, L = Math.hypot(gx - bx, gz - bz);
+      for (let d = 0; d < L - 4; d += 0.25) {
+        const x = bx + ((gx - bx) * d) / L, z = bz + ((gz - bz) * d) / L;
+        if (placed.groundAt(x, z) >= -0.03) {
+          const d2 = Math.min(L - 4, d + 1.5), x2 = bx + ((gx - bx) * d2) / L, z2 = bz + ((gz - bz) * d2) / L;
+          spawnPos = v3(x2, placed.groundAt(x2, z2) + 0.02, z2);
+          break;
+        }
+      }
+    }
     const sp = spawnPos.clone();
-    stations.unshift({ pos: sp, yaw: Math.atan2(-sp.x, sp.z - 0) * 0, pitch: 0.22, caption: '언덕 아래 — 종현 언덕 위의 성당을 올려다봅니다. 길을 따라 올라가 보세요.' });
+    stations.unshift({ pos: sp, yaw: Math.atan2(-sp.x, sp.z - 0) * 0, pitch: 0.22, caption: '계단 위 — 성당 정면입니다. 화살표를 따라 정문으로 가 보세요.' });
   }
   // ── 성모 동굴(루르드) — 명동대성당 영상: 회색 바위를 넓게 쌓은 벽에 담쟁이가 덮이고, 오른쪽 높은 벽감에 흰 성모상,
   //    앞에 돌 제대 탁자와 꽃, 왼쪽에 유리로 둘러싼 봉헌함(붉은 유리컵 초). 위치·크기는 실측이 아니다 ──
@@ -1109,6 +1131,7 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
     interactables: reg.interactables, pickables: reg.pickables,
     doors, candles: [...candles, ...outdoorCandles], zones, stations, windows,
     spawn: { pos: spawnPos, yaw: 0 },
+    introFrom,
     outdoorGroup: outdoor, shellGroup: shell ?? undefined, organPos, bellPos, floorY: F,
     interior: new THREE.Box3(v3(-AISLE_IN, -1, APSE_C - AMB_IN), v3(AISLE_IN, 30, XWALL)),
     fx: { bellPull, fontDip, ropeGrab },

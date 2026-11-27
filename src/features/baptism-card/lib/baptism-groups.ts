@@ -1,6 +1,7 @@
 import type { Language } from '@/shared/i18n/dictionary';
 import { KO_NAME_ALIASES } from '../data/baptism-name-aliases';
 import { BAPTISM_NAMES, type BaptismName } from '../data/baptism-names';
+import { RELATED_NAMES } from '../data/baptism-related';
 
 /**
  * 세례명 목록을 「한국 성인 5분 + 세례명 가나다순」으로 묶는다 (사장님 결정 2026-11-15).
@@ -70,6 +71,23 @@ export function saintsOfName(nameSlug: string, language: Language): BaptismOptio
     .map((n) => option(n, language))
     .sort((a, b) => a.label.localeCompare(b.label, language));
 }
+
+/**
+ * 함께 묶인 세례명(같은 날 기념·가족·같은 이름 뿌리) — 고른 카드 아래 칩으로 보인다 (지시서 9호).
+ * 성인 카드를 골랐으면 그 세례명 기준으로 찾는다.
+ */
+export function relatedNames(slug: string, language: Language): BaptismOption[] {
+  const entry = BAPTISM_NAMES.find((n) => n.slug === slug);
+  if (!entry) return [];
+  return (RELATED_NAMES[nameSlugOf(entry)] ?? []).flatMap((s) => {
+    const n = BAPTISM_NAMES.find((x) => x.slug === s);
+    return n ? [option(n, language)] : [];
+  });
+}
+
+/** 칩·목록을 한꺼번에 길게 늘어놓지 않는다 — 처음 몇 개만, 나머지는 「더 보기」 (사장님 결정 2026-11-25) */
+export const CHIP_LIMIT = 6;
+export const LIST_PAGE = 24;
 
 /**
  * 검색: 세례명 자체가 맞거나, 그 세례명의 성인 이름이 맞으면 보여 준다

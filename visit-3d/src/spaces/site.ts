@@ -48,7 +48,7 @@ function inside(ring: THREE.Vector2[], x: number, z: number) {
   return c;
 }
 
-export function placeSite(kit: Kit, M: Mats, site: SiteData, towerFrontLocal: number, keepOut: THREE.Box2, opts: { light?: boolean } = {}): SitePlacement {
+export function placeSite(kit: Kit, M: Mats, site: SiteData, towerFrontLocal: number, keepOut: THREE.Box2, opts: { light?: boolean; interiorAt?: (x: number, z: number) => boolean; passageAt?: (x: number, z: number) => boolean } = {}): SitePlacement {
   const main = site.buildings.find((b) => b.osmId === site.mainBuilding);
   const tower = site.buildings.find((b) => b.kind === 'bell_tower');
   if (!main) throw new Error('site: 본당 윤곽이 없다');
@@ -103,6 +103,13 @@ export function placeSite(kit: Kit, M: Mats, site: SiteData, towerFrontLocal: nu
     holder.add(shellGroup);
     kit.root.add(holder);
     shell = holder;
+    // 영구 규칙(사장님 2026-11-10, 2026-11-23 다시): 눈에 보이는 벽은 지나갈 수 없다.
+    // 껍데기 전체를 충돌에 넣으면 신랑 벽면이 측랑 한복판을 막으므로, 실내(interiorAt) 밖에 있는 «겉면»의 선 벽만 골라 충돌 전용으로 넣는다.
+    // 전에는 겉면에 충돌이 없어 종탑 옆 계단탑(3 × 7 m)·버팀벽·정면 문설주를 그대로 지나갔다.
+    if (opts.interiorAt) {
+      const skin = shellSkinCollider(holder, opts.interiorAt, opts.passageAt ?? (() => false), kit.walkBottom, kit.walkTop);
+      if (skin) kit.add(skin, M.bark, { colliderOnly: true });
+    }
   }
 
   // 3) 가을 풍경(구내 지도 세션 landscape.ts) — 바닥 층·나무·바깥 건물·남산. 없으면 구내 포석만 깐다
@@ -218,4 +225,37 @@ function disposeObject(o: THREE.Object3D) {
     const mats = Array.isArray(m.material) ? m.material : m.material ? [m.material] : [];
     mats.forEach((mm) => { for (const v of Object.values(mm)) if (v instanceof THREE.Texture) v.dispose(); mm.dispose(); });
   });
+}
+
+/** 껍데기의 겉면 가운데 사람 키 높이에 걸리는 선 벽 삼각형만 모은다(성당 로컬 좌표). 실내 쪽에 놓인 면은 뺀다 */
+function shellSkinCollider(holder: THREE.Object3D, interiorAt: (x: number, z: number) => boolean, passageAt: (x: number, z: number) => boolean, yMin: number, yMax: number): THREE.BufferGeometry | null {
+  holder.updateMatrixWorld(true);
+  const out: number[] = [];
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3(), n = new THREE.Vector3(), e1 = new THREE.Vector3(), e2 = new THREE.Vector3();
+  holder.traverse((o) => {
+    const m = o as THREE.Mesh;
+    if (!m.isMesh || (m as any).isInstancedMesh) return;
+    const mat = m.material as THREE.Material & { transparent?: boolean; opacity?: number };
+    if (mat && (mat.transparent || (mat.opacity ?? 1) < 0.99)) return; // 유리·빛
+    const pos = m.geometry.getAttribute('position'), idx = m.geometry.getIndex();
+    const count = idx ? idx.count : pos.count;
+    for (let i = 0; i + 2 < count; i += 3) {
+      a.fromBufferAttribute(pos, idx ? idx.getX(i) : i).applyMatrix4(m.matrixWorld);
+      b.fromBufferAttribute(pos, idx ? idx.getX(i + 1) : i + 1).applyMatrix4(m.matrixWorld);
+      c.fromBufferAttribute(pos, idx ? idx.getX(i + 2) : i + 2).applyMatrix4(m.matrixWorld);
+      if (Math.max(a.y, b.y, c.y) < yMin || Math.min(a.y, b.y, c.y) > yMax) continue; // 머리 위·땅 아래
+      n.crossVectors(e1.subVectors(b, a), e2.subVectors(c, a));
+      const len = n.length(); if (len < 1e-8) continue;
+      if (Math.abs(n.y / len) > 0.5) continue; // 바닥·지붕·디딤판은 뺀다(계단은 경사로 충돌이 따로 있다)
+      const pts: [number, number][] = [[(a.x + b.x + c.x) / 3, (a.z + b.z + c.z) / 3], [(a.x + b.x) / 2, (a.z + b.z) / 2], [(b.x + c.x) / 2, (b.z + c.z) / 2], [(c.x + a.x) / 2, (c.z + a.z) / 2]];
+      if (pts.some(([x, z]) => interiorAt(x, z))) continue; // 실내에 걸친 면 — 실내 벽 충돌이 맡는다
+      if (passageAt(pts[0][0], pts[0][1])) continue; // 문 통로 한가운데의 면
+      out.push(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z);
+    }
+  });
+  if (!out.length) return null;
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(out, 3));
+  g.computeVertexNormals();
+  return g;
 }

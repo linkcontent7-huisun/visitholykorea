@@ -7,7 +7,12 @@
  * 네트워크·파일을 만지지 않는 순수 함수만 둔다 — 테스트하기 쉽게.
  */
 
+import { FAQ } from '../../src/pages/content/faq.ts';
+import { cardLanguage } from '../../src/features/baptism-card/lib/card-image.ts';
 import { GUIDE } from '../../src/pages/content/guide.ts';
+import { DICTIONARY, fillPlaceholders } from '../../src/shared/i18n/dictionary.ts';
+import { haversineKm } from '../../src/shared/lib/geo.ts';
+import { REGION_COORDS, type Region } from '../../src/shared/lib/regions.ts';
 
 export const SITE_ORIGIN = 'https://visitholykorea.com';
 
@@ -50,6 +55,8 @@ export interface PageMeta {
   jsonLd: Record<string, unknown>;
   /** 자바스크립트를 안 돌리는 크롤러가 읽을 본문. 앱이 뜨면 React 가 이 자리를 덮어쓴다 */
   bodyHtml: string;
+  /** `<html lang>` — 없으면 index.html 의 ko 그대로. 영어 카드가 ko 로 신고되지 않게 */
+  lang?: string;
 }
 
 export function escapeHtml(s: string): string {
@@ -212,7 +219,7 @@ export function cardMeta(language: string, slug: string, name: string): PageMeta
   const text = CARD_TEXT[language] ?? CARD_TEXT.en!;
   const title = `${text.title.replace('{name}', name)} | Visit Holy Korea`;
   const description = text.description.replace('{name}', name);
-  const image = `${SITE_ORIGIN}/baptism-cards/og/${language}/${slug}.jpg`;
+  const image = `${SITE_ORIGIN}/baptism-cards/og/${cardLanguage(language, slug)}/${slug}.jpg`;
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -221,8 +228,110 @@ export function cardMeta(language: string, slug: string, name: string): PageMeta
     url: `${SITE_ORIGIN}${path}`,
     image,
   };
-  const bodyHtml = `<h1>${escapeHtml(title)}</h1><p>${escapeHtml(description)}</p><p><a href="/">visitholykorea.com</a></p>`;
-  return { path, title, description, image, jsonLd, bodyHtml };
+  // 본문은 카드 화면(BaptismCardPage)에 실제로 있는 글 — 그림 설명(h1)과 사이트로 가는 버튼
+  const lang = language in DICTIONARY.baptismCardAlt ? (language as 'ko') : 'en';
+  const alt = fillPlaceholders(DICTIONARY.baptismCardAlt[lang], { name });
+  const bodyHtml = [
+    `<h1>${escapeHtml(alt)}</h1>`,
+    `<p>${escapeHtml(description)}</p>`,
+    `<p><a href="/">${escapeHtml(DICTIONARY.baptismCardVisit[lang])}</a></p>`,
+  ].join('');
+  return { path, title, description, image, jsonLd, bodyHtml, lang: language };
+}
+
+/** 시·도 화면(RegionLandingPage)과 같은 반경 — 바꾸면 둘을 같이 바꾼다 */
+export const REGION_RADIUS_KM = 45;
+
+/**
+ * `/region/<시·도>` — 화면과 같은 계산(시·도 중심에서 45km 안, 가까운 순)으로 성지 목록을 넣는다.
+ * 글은 화면의 한국어 문구(regionHero* 등)를 그대로 쓴다. 새 문장을 짓지 않는다.
+ */
+export function regionMeta(region: Region, sites: readonly SeoSite[]): PageMeta {
+  const path = `/region/${region}`;
+  const ko = (key: keyof typeof DICTIONARY) =>
+    fillPlaceholders((DICTIONARY[key] as { ko: string }).ko, {
+      region,
+      radius: REGION_RADIUS_KM,
+    });
+  const heading = `${ko('regionHeroTitle')} ${ko('regionHeroTitleLine2')}`;
+  // 탭 제목 규칙(document-title.ts titleFromHeading)과 같은 모양: 「화면 제목 | Visit Holy Korea」
+  const title = `${heading} | Visit Holy Korea`;
+  const description = ko('regionHeroSubtitle');
+  const center = REGION_COORDS[region];
+  const nearby = sites
+    .filter((s) => s.lat != null && s.lng != null)
+    .map((s) => ({ site: s, km: haversineKm(center.lat, center.lng, s.lat!, s.lng!) }))
+    .filter((x) => x.km <= REGION_RADIUS_KM)
+    .sort((a, b) => a.km - b.km);
+  const countLine = `${fillPlaceholders(DICTIONARY.siteCountUnit.ko, { count: nearby.length })} · ${fillPlaceholders(
+    DICTIONARY.regionSiteCountLabel.ko,
+    { region, radius: REGION_RADIUS_KM, total: sites.length },
+  )}`;
+  const bodyHtml = [
+    `<h1>${escapeHtml(heading)}</h1>`,
+    `<p>${escapeHtml(description)}</p>`,
+    `<p>${escapeHtml(countLine)}</p>`,
+    nearby.length
+      ? `<ul>${nearby
+          .map(
+            ({ site }) =>
+              `<li><a href="/sites/${encodeURIComponent(site.id)}">${escapeHtml(site.name)}</a>${
+                site.location ? ` — ${escapeHtml(site.location)}` : ''
+              }</li>`,
+          )
+          .join('')}</ul>`
+      : '',
+  ].join('');
+  return {
+    path,
+    title,
+    description,
+    image: ogCardUrl(heading, '비지트홀리코리아'),
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: heading,
+      description,
+      inLanguage: 'ko',
+      url: `${SITE_ORIGIN}${path}`,
+    },
+    bodyHtml,
+  };
+}
+
+/** `/faq` — 화면(FaqPage)의 한국어 문답을 그대로 넣는다. 탭에 숨은 둘째 묶음도 함께 */
+export function faqMeta(): PageMeta {
+  const path = '/faq';
+  const heading = DICTIONARY.faqPageTitle.ko;
+  const description = DICTIONARY.faqPageSub.ko;
+  const f = FAQ.ko;
+  const bodyHtml = [
+    `<h1>${escapeHtml(heading)}</h1>`,
+    `<p>${escapeHtml(description)}</p>`,
+    ...f.tabs.map(
+      (tab, i) =>
+        `<h2>${escapeHtml(tab)}</h2>` +
+        f.items[i]!.map((it) => `<h3>${escapeHtml(it.q)}</h3><p>${escapeHtml(it.a)}</p>`).join(''),
+    ),
+  ].join('');
+  return {
+    path,
+    title: `${heading} | Visit Holy Korea`,
+    description,
+    image: ogCardUrl(heading, '비지트홀리코리아'),
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'ko',
+      url: `${SITE_ORIGIN}${path}`,
+      mainEntity: f.items.flat().map((it) => ({
+        '@type': 'Question',
+        name: it.q,
+        acceptedAnswer: { '@type': 'Answer', text: it.a },
+      })),
+    },
+    bodyHtml,
+  };
 }
 
 /**
@@ -243,6 +352,7 @@ export function renderPage(template: string, meta: PageMeta): string {
   ].join('\n    ');
 
   const out = template
+    .replace(/<html lang="[^"]*">/, `<html lang="${escapeHtml(meta.lang ?? 'ko')}">`)
     .replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`)
     .replace(/(<meta\s+name="description"\s+content=")[^"]*(")/, `$1${d}$2`)
     .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${t}$2`)

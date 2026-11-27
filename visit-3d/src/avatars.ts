@@ -55,6 +55,10 @@ export const AVATARS: AvatarDef[] = [
   { id: 'sister', name: '수녀님', emoji: '🙏', robe: true, skin: 0xe2c2a0, hair: 0x1c1c22, hairStyle: 'veil', top: 0x26262c, bottom: 0x26262c, accent: 0xf2efe8, prop: 'rosary', scale: 0.95 },
   { id: 'priest', name: '신부님', emoji: '✝️', robe: true, skin: 0xd9b48e, hair: 0x2a2420, hairStyle: 'short', top: 0x18181c, bottom: 0x18181c, accent: 0xf2efe8, prop: 'book', scale: 1.0 },
   { id: 'pilgrim', name: '순례자', emoji: '🎒', robe: true, skin: 0xe8ccb2, hair: 0xb89050, hairStyle: 'hood', top: 0x6e5a44, bottom: 0x4a3c30, accent: 0xd8c8a8, mantle: 0x5a4a3a, backpack: true, prop: 'staff', scale: 0.98 },
+  { id: 'gungnyeo', name: '궁중 여인', emoji: '👸', skin: 0xeed0b4, hair: 0x1c1410, hairStyle: 'bun', top: 0x2fa070, bottom: 0xc8202a, accent: 0xe0b040, scale: 0.96 },
+  { id: 'official', name: '관리', emoji: '🎩', robe: true, skin: 0xe2c2a0, hair: 0x15120f, hairStyle: 'short', top: 0x2c5fb8, bottom: 0x2c5fb8, accent: 0xe0b040, scale: 1.0 },
+  { id: 'jangot', name: '장옷 여인', emoji: '🧕', skin: 0xeed0b4, hair: 0x1c1410, hairStyle: 'bun', top: 0x2fae68, bottom: 0xe0507a, accent: 0xf2efe8, scale: 0.97 },
+  { id: 'scholar', name: '선비', emoji: '📜', robe: true, skin: 0xe2c2a0, hair: 0x15120f, hairStyle: 'short', top: 0xa9c8f2, bottom: 0xa9c8f2, accent: 0x3a2f8a, scale: 1.0 },
 ];
 
 const byId = new Map(AVATARS.map((a, i) => [a.id, i]));
@@ -196,6 +200,8 @@ export interface AvatarRig {
   idle: number;
   /** 잠깐 하는 동작 — 종 줄 당기기(pull, 1.5초) · 십자성호(cross, 3.2초). start 는 rig.idle 기준 시각, k 는 세기(0~1) */
   gesture?: { kind: 'pull' | 'cross'; start: number; k: number };
+  /** 기도하는 자세(두 손을 모아 가슴 앞에, 고개를 살짝 숙임) — 앉아 기도하기 · 성모상 앞 기도. 켜면 부드럽게 모였다가 끄면 풀린다 */
+  pray?: boolean; prayW?: number;
   /** v3-7: 종 줄을 잡고 있는 중(두 손을 머리 위 줄에 올린 채 선다). pull 동작은 이 자세에서 시작해 이 자세로 돌아온다 */
   holdRope?: boolean;
   /** v3-8: 손잡이를 끌어내리는 정도(0 위 … 1 맨 아래). holdRope 일 때 팔이 그만큼 내려온다 */
@@ -204,7 +210,30 @@ export interface AvatarRig {
 
 /** 동작을 시작한다(같은 동작이 진행 중이면 처음부터 다시). k: 세기 — 종 줄은 1이면 힘껏(몸이 떠오른다), 0.45면 헛당김 */
 export function startGesture(rig: AvatarRig, kind: 'pull' | 'cross', k = 1, skip = 0) { rig.gesture = { kind, start: rig.idle - skip * GESTURE_DUR[kind], k }; } // skip: 동작의 앞 몇 할을 건너뛰고 시작(손잡이를 이미 끌어내린 채 시작할 때)
-const GESTURE_DUR = { pull: 1.5, cross: 3.2 } as const;
+const GESTURE_DUR = { pull: 1.5, cross: 5.6 } as const;
+/** 십자성호 동작의 진행(0~1). 동작 중이 아니면 null — 화면 쪽이 «이마에 닿았다» 같은 순간에 소리·반짝임을 맞춘다 */
+export function crossProgress(rig: AvatarRig): number | null {
+  const g = rig.gesture; if (!g || g.kind !== 'cross') return null;
+  return Math.min(1, (rig.idle - g.start) / GESTURE_DUR.cross);
+}
+/** 십자성호의 순간들(진행 0~1): 손끝이 성수에 닿음 · 이마 · 가슴 · 왼쪽 어깨 · 오른쪽 어깨에 닿는 때 */
+export const CROSS_BEATS = [0.17, 0.37, 0.56, 0.75, 0.93] as const;
+// 오른팔 열쇠 자세 [어깨 앞뒤, 어깨 비틂, 어깨 옆, 팔꿈치] — 한지 인형의 팔이 짧아(44 cm) 닿는 자리를 수치로 풀어 정했다(2026-11-24, 오차 5~12 cm).
+// 이 값은 확정이다: 성지가 바뀌어도 바꾸지 않는다(성지만들기 스킬 6-2). lean: 몸을 앞으로 숙이는 정도(음수가 앞)
+const CROSS_KEYS: { u: number; lean: number; a: readonly [number, number, number, number] }[] = [
+  { u: 0.00, lean: 0,     a: [0.00, 0, 0.08, 0.30] },  // 서 있는 자세
+  { u: 0.12, lean: -0.32, a: [0.20, 0, -0.50, 1.30] }, // 성수대 쪽으로 숙여 손을 뻗는다
+  { u: 0.21, lean: -0.32, a: [0.20, 0, -0.50, 1.30] }, // 손끝을 성수에 담근다(잠깐)
+  { u: 0.37, lean: 0,     a: [2.20, 0, -1.05, 0.80] }, // 이마
+  { u: 0.43, lean: 0,     a: [2.20, 0, -1.05, 0.80] },
+  { u: 0.56, lean: 0,     a: [0.19, 0, -1.30, 1.10] }, // 가슴
+  { u: 0.62, lean: 0,     a: [0.19, 0, -1.30, 1.10] },
+  { u: 0.75, lean: 0,     a: [0.72, 0, -1.87, 0.43] }, // 왼쪽 어깨
+  { u: 0.81, lean: 0,     a: [0.72, 0, -1.87, 0.43] },
+  { u: 0.93, lean: 0,     a: [0.22, 0, 0.42, 2.65] },  // 오른쪽 어깨
+  { u: 0.97, lean: 0,     a: [0.22, 0, 0.42, 2.65] },
+  { u: 1.00, lean: 0,     a: [0.00, 0, 0.08, 0.30] },  // 손을 내린다
+];
 /** 줄을 잡은 자세: 두 팔을 앞 위로 뻗어(머리 높이 위, 몸 앞 0.4 m) 줄을 쥐고 위를 본다.
  *  어깨 rotation.x 는 +가 앞(다리와 같다) — 이 모델은 -z 를 바라본다 */
 const HOLD_ARM = 2.3, PULL_ARM = 1.05; // 줄을 잡은 팔(위) · 끝까지 당긴 팔(가슴 앞)
@@ -252,16 +281,14 @@ function applyGesture(rig: AvatarRig) {
     if (rig.footL && rig.footR) { rig.footL.position.y += lift * 0.1; rig.footR.position.y += lift * 0.1; }
     rig.head.rotation.x = -0.45 + 0.35 * down; rig.head.rotation.y = 0;
   } else {
-    // 십자성호: 오른손 이마(0~.25) → 가슴(.25~.5) → 왼쪽 어깨(.5~.75) → 오른쪽 어깨(.75~1). 왼손은 가슴에
-    const seg = Math.min(3, Math.floor(u * 4)), k = smooth((u * 4 - seg) * 1.6);
-    // 어깨 rotation.x 는 +가 앞. 팔꿈치를 접어(+) 손이 몸 쪽으로 돌아오게 한다
-    const pts = [[2.1, -0.05], [1.0, -0.05], [1.35, -0.6], [1.35, 0.5]]; // [어깨 x 회전, 어깨 z 회전] — 이마 · 가슴 · 왼어깨 · 오른어깨
-    const from = seg === 0 ? [1.0, -0.05] : pts[seg - 1], to = pts[seg];
-    rig.armR.rotation.x = from[0] + (to[0] - from[0]) * k;
-    rig.armR.rotation.z = from[1] + (to[1] - from[1]) * k;
-    rig.elbowR.rotation.x = 1.9;
-    rig.armL.rotation.x = 1.0; rig.armL.rotation.z = 0.35; rig.elbowL.rotation.x = 1.9; // 왼손은 가슴에 모은다
-    rig.head.rotation.x = 0.12; rig.head.rotation.y = 0;
+    // 십자성호(5.6초): 몸을 숙여 오른손을 성수에 담그고 → 이마 → 가슴 → 왼쪽 어깨 → 오른쪽 어깨(성부와 · 성자와 · 성령의 · 이름으로). 왼팔은 그대로 둔다
+    let i = 0; while (i < CROSS_KEYS.length - 2 && u > CROSS_KEYS[i + 1].u) i++;
+    const k0 = CROSS_KEYS[i], k1 = CROSS_KEYS[i + 1], f = smooth((u - k0.u) / (k1.u - k0.u || 1));
+    const mix = (x: number, y: number) => x + (y - x) * f;
+    rig.armR.rotation.set(mix(k0.a[0], k1.a[0]), mix(k0.a[1], k1.a[1]), mix(k0.a[2], k1.a[2]));
+    rig.elbowR.rotation.x = mix(k0.a[3], k1.a[3]);
+    rig.body.rotation.x = mix(k0.lean, k1.lean);
+    rig.head.rotation.x = 0.05 + (u > 0.12 && u < 0.3 ? 0.18 : 0); rig.head.rotation.y = 0; // 성수를 바라본다
   }
 }
 
@@ -424,40 +451,8 @@ export function buildAvatarV2(def: AvatarDef): AvatarRig {
   if (def.beard) head.add(mesh(new THREE.SphereGeometry(0.08, 14, 10, 0, Math.PI * 2, Math.PI * 0.5, Math.PI * 0.5).scale(0.95, 1.1, 0.9), plain(def.beard, { roughness: 0.9 }), 0, -0.035, -0.035));
   if (child) head.scale.setScalar(1.18); // 아이는 머리가 몸에 비해 조금 크다
 
-  // ── 들고 있는 것(오른손) ──
-  const hand = new THREE.Group(); hand.position.set(0, -0.31, -0.02); aR.el.add(hand);
-  let balloon: THREE.Object3D | undefined;
-  switch (def.prop) {
-    case 'lily':
-      hand.add(mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.55, 5), plain(0x4f6a32), 0, 0.22, -0.04));
-      for (let i = 0; i < 3; i++) hand.add(mesh(new THREE.ConeGeometry(0.035, 0.1, 6, 1, true), plain(0xfbf7ee, { side: THREE.DoubleSide, emissive: 0x222018 }), (i - 1) * 0.03, 0.48 + (i % 2) * 0.04, -0.04));
-      break;
-    case 'sword':
-      hand.add(mesh(new THREE.BoxGeometry(0.032, 0.72, 0.008), plain(0xdfe4ea, { metalness: 0.95, roughness: 0.18 }), 0, 0.42, -0.03));
-      hand.add(mesh(new THREE.BoxGeometry(0.16, 0.022, 0.03), gold(), 0, 0.05, -0.03));
-      break;
-    case 'staff': hand.add(mesh(new THREE.CylinderGeometry(0.014, 0.018, 1.6, 6), plain(0x6a4a2c, { roughness: 0.9 }), 0, 0.28, -0.03)); break;
-    case 'trumpet': hand.add(mesh(new THREE.CylinderGeometry(0.008, 0.045, 0.3, 12, 1, true), plain(0xd9b45a, { metalness: 0.85, roughness: 0.25, side: THREE.DoubleSide }), 0, 0.08, -0.14).rotateX(-Math.PI / 2.4)); break;
-    case 'cane': hand.add(mesh(new THREE.CylinderGeometry(0.013, 0.013, 0.9, 6), plain(0x4a3220), 0, -0.4, -0.05)); break;
-    case 'book': hand.add(mesh(new THREE.BoxGeometry(0.13, 0.17, 0.035), plain(0x5a1a1e, { roughness: 0.6 }), 0, 0.04, -0.06)); break;
-    case 'rosary': hand.add(mesh(new THREE.TorusGeometry(0.045, 0.005, 4, 18), plain(0x4a3426), 0, -0.04, -0.03)); break;
-    case 'candle': {
-      hand.add(mesh(new THREE.CylinderGeometry(0.016, 0.016, 0.2, 10), plain(0xf4ecd8), 0, 0.1, -0.04));
-      const fl = mesh(new THREE.SphereGeometry(0.014, 8, 6).scale(1, 2, 1), new THREE.MeshBasicMaterial({ color: 0xffc860, toneMapped: false }), 0, 0.23, -0.04);
-      fl.castShadow = false; hand.add(fl);
-      break;
-    }
-    case 'flag':
-      hand.add(mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.6, 5), plain(0xcccccc), 0, 0.22, -0.03));
-      hand.add(mesh(new THREE.PlaneGeometry(0.24, 0.15), cloth(def.accent ?? 0xf0e6dc), 0.12, 0.43, -0.03));
-      break;
-    case 'balloon': {
-      balloon = new THREE.Group(); balloon.position.set(0.05, 0.75, 0); hand.add(balloon);
-      balloon.add(mesh(new THREE.SphereGeometry(0.11, 16, 12).scale(1, 1.15, 1), plain(0xd9e4ee, { roughness: 0.25 }), 0, 0.12, 0));
-      hand.add(mesh(new THREE.CylinderGeometry(0.002, 0.002, 0.75, 3), plain(0xffffff), 0.025, 0.37, 0));
-      break;
-    }
-  }
+  // 들고 있는 것은 없다 — 지팡이·풍선·막대기 등 아무것도 들지 않는다(사장님 2026-11-24). def.prop 은 쓰지 않는다.
+  const balloon: THREE.Object3D | undefined = undefined;
 
   // ── 천사: 날개 · 후광 ──
   let wingL: THREE.Object3D | undefined, wingR: THREE.Object3D | undefined, halo: THREE.Object3D | undefined;
@@ -538,24 +533,24 @@ export function animateAvatar(rig: AvatarRig, dt: number, speed: number, t: numb
   // 천사는 팔을 활기차게(크게) 흔든다
   const armAmp = amp * (rig.def.angel ? 1.0 : rig.def.robe ? 0.75 : 0.95);
   // 천사는 들고 있는 것이 있어도 양손을 앞뒤로 자연스럽게 흔든다
-  const prop = !rig.def.angel && rig.def.prop && !['balloon', 'rosary', 'cane'].includes(rig.def.prop);
   rig.armL.rotation.x = -sw * armAmp + breathe;
-  rig.armR.rotation.x = prop ? 0.25 + sw * armAmp * 0.35 : sw * armAmp + breathe;
+  rig.armR.rotation.x = sw * armAmp + breathe;
   rig.armL.rotation.z = -0.07 - walk * 0.03; rig.armR.rotation.z = 0.07 + walk * 0.03;
   // 팔꿈치: 앞으로 흔들 때 더 굽는다(사람 팔은 앞에서 굽고 뒤에서 펴진다)
-  rig.elbowL.rotation.x = 0.12 + Math.max(0, -sw) * armAmp * 1.1 + run * 0.6;
-  rig.elbowR.rotation.x = prop ? 0.9 : 0.12 + Math.max(0, sw) * armAmp * 1.1 + run * 0.6;
+  // 두 팔 똑같이: 서 있을 때는 곧게 내리고, 걸을 때 앞으로 갈 때만 살짝(0.3 이하) 굽는다 — 한쪽만 접혀 있지 않게
+  rig.elbowL.rotation.x = 0.06 + Math.max(0, -sw) * armAmp * 0.45 + run * 0.35;
+  rig.elbowR.rotation.x = 0.06 + Math.max(0, sw) * armAmp * 0.45 + run * 0.35;
   // 몸: 한 걸음에 두 번 오르내림 · 조금 앞으로 기울임 · 어깨가 골반 반대로 비틀림
-  const joy = rig.def.angel ? 1 : 0; // 천사는 신나게 — 통통 튀듯 걷고 고개를 박자에 맞춰 흔든다
-  const bounce = Math.abs(Math.cos(p)) * (0.035 + joy * 0.05) * walk * sc;
-  const hover = rig.def.angel ? 0.1 + Math.sin(t * 1.4 + rig.idle * 0.05) * 0.03 : 0;
+  const bounce = Math.abs(Math.cos(p)) * 0.014 * walk * sc;
+  const hover = 0; // 천사도 공중에 뜨지 않고 발이 바닥에 닿는다(사장님 2026-11-24)
+  void t;
   rig.body.position.y = hover + bounce + Math.sin(rig.idle * 1.6) * 0.004;
   rig.body.rotation.x = -(0.04 * walk + 0.08 * run);
-  rig.body.rotation.y = sw * 0.06 * walk;
-  rig.body.rotation.z = Math.cos(p) * (0.018 + joy * 0.045) * walk;
+  rig.body.rotation.y = sw * 0.02 * walk;
+  rig.body.rotation.z = 0; // 좌우로 기우뚱하지 않는다
   // 머리: 몸의 흔들림을 덜어 앞을 바라본다 + 서 있을 때 가끔 둘러본다
   rig.head.rotation.y = -sw * 0.05 * walk + Math.sin(rig.idle * 0.37) * 0.18 * (1 - walk);
-  rig.head.rotation.z = joy * Math.sin(p) * 0.12 * walk; // 박자에 맞춰 갸웃
+  rig.head.rotation.z = 0; // 박자에 맞춰 갸웃
   rig.head.rotation.x = 0.04 * walk;
   // 옷자락: 걸음에 맞춰 흔들림
   if (rig.skirt) { rig.skirt.rotation.x = walk * 0.04; rig.skirt.rotation.z = Math.sin(p) * 0.02 * walk; }
@@ -563,6 +558,14 @@ export function animateAvatar(rig: AvatarRig, dt: number, speed: number, t: numb
   if (rig.wingL && rig.wingR) { rig.wingL.rotation.set(0, 0, 0); rig.wingR.rotation.set(0, 0, 0); }
   if (rig.halo) rig.halo.rotation.z = Math.sin(t * 0.7) * 0.05;
   if (rig.balloon) rig.balloon.position.x = 0.05 + Math.sin(t * 1.3) * 0.06;
+  // 기도: 두 손을 가슴 앞에 모은다(십자성호 «가슴» 자세를 양팔에 마주 놓는다 — 확정된 십자성호 열쇠 값은 그대로 두고 읽기만 한다)
+  rig.prayW = (rig.prayW ?? 0) + ((rig.pray ? 1 : 0) - (rig.prayW ?? 0)) * Math.min(1, dt * 5);
+  if (rig.prayW > 0.001) {
+    const w = rig.prayW;
+    rig.armR.rotation.x += (0.19 - rig.armR.rotation.x) * w; rig.armR.rotation.z += (-1.3 - rig.armR.rotation.z) * w; rig.elbowR.rotation.x += (1.1 - rig.elbowR.rotation.x) * w;
+    rig.armL.rotation.x += (0.19 - rig.armL.rotation.x) * w; rig.armL.rotation.z += (1.3 - rig.armL.rotation.z) * w; rig.elbowL.rotation.x += (1.1 - rig.elbowL.rotation.x) * w;
+    rig.head.rotation.x += (0.32 - rig.head.rotation.x) * w; rig.head.rotation.y *= 1 - w;
+  }
   applyGesture(rig);
 }
 
