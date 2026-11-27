@@ -5220,6 +5220,14 @@ export const DICTIONARY = {
   send: { ko: '보내기', en: 'Send', es: 'Enviar', fr: 'Envoyer', pt: 'Enviar', it: 'Invia' },
   contactCall: { ko: '전화', en: 'Call', es: 'Llamar', fr: 'Appeler', pt: 'Ligar', it: 'Chiama' },
   contactOpen: { ko: '열기', en: 'Open', es: 'Abrir', fr: 'Ouvrir', pt: 'Abrir', it: 'Apri' },
+  contactHomepageNote: {
+    ko: '성지가 직접 운영하는 누리집이라 열리지 않을 때가 있어요.',
+    en: 'This website is run by the shrine itself and may sometimes be unavailable.',
+    es: 'Este sitio web lo gestiona el propio santuario y a veces puede no estar disponible.',
+    fr: 'Ce site est géré par le sanctuaire lui-même et peut parfois être indisponible.',
+    pt: 'Este site é mantido pelo próprio santuário e às vezes pode não abrir.',
+    it: 'Questo sito è gestito dal santuario stesso e a volte potrebbe non essere disponibile.',
+  },
   contactNewWindow: {
     ko: '(새 창)',
     en: '(new window)',
