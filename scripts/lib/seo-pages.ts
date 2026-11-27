@@ -26,6 +26,11 @@ export function ogCardUrl(title: string, sub?: string | null): string {
   return `${SITE_ORIGIN}/api/og?${q.toString()}`;
 }
 
+/** `/images/…` 처럼 도메인 없는 주소에 우리 도메인을 붙인다. 이미 전체 주소면 그대로 */
+export function absoluteUrl(url: string): string {
+  return url.startsWith('/') ? `${SITE_ORIGIN}${url}` : url;
+}
+
 export interface SeoSite {
   id: string;
   name: string;
@@ -80,7 +85,11 @@ export function siteMeta(site: SeoSite): PageMeta {
   const description = clip(
     site.seoDescription?.trim() || site.description?.trim() || `${site.name} — 한국 천주교 성지`,
   );
-  const image = site.imageUrl || ogCardUrl(site.name, site.regionProvince || site.location);
+  // 자체 저장 사진은 DB 에 `/images/sites/….jpg` 처럼 도메인 없이 적혀 있다 — 메신저 미리보기는 전체 주소가
+  // 있어야 그림을 읽으므로 붙인다(점검 B 고장 1, 18곳, 2026-11-22)
+  const image = site.imageUrl
+    ? absoluteUrl(site.imageUrl)
+    : ogCardUrl(site.name, site.regionProvince || site.location);
   const jsonLd: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': ['TouristAttraction', 'PlaceOfWorship'],

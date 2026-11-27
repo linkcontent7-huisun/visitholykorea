@@ -24,12 +24,13 @@
 
 import { ChevronRight, Loader2, Navigation, Search, SearchX, X } from 'lucide-react';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { Link, useLocation, useNavigate, useNavigationType } from 'react-router-dom';
+import { Link, useLocation, useNavigationType } from 'react-router-dom';
 import { paths } from '@/app/routes/paths';
 import { DirectoryEntryCard } from '@/features/directory/components/DirectoryEntryCard';
 import { SearchResultsMap } from '@/features/sites/components/SearchResultsMap';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import { Button } from '@/shared/components/ui/Button';
+import { chipClass } from '@/shared/components/ui/class-names';
 import { EmptyState } from '@/shared/components/ui/EmptyState';
 import { PageContainer } from '@/shared/components/ui/PageContainer';
 import { PageHeader } from '@/shared/components/ui/PageHeader';
@@ -44,7 +45,7 @@ import { dioceseLabel, localizeDomainValue, localizeRegionName } from '@/shared/
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm } from '@/shared/lib/geo';
 import { recallQuery, recallScroll, rememberQuery, rememberScroll } from '@/shared/lib/back-memory';
-import { regionOfAddress } from '@/shared/lib/regions';
+import { regionOfAddress, REGIONS } from '@/shared/lib/regions';
 import type { HolySite } from '@/shared/types/domain';
 
 /**
@@ -121,7 +122,6 @@ function ResultRow({
 }
 
 export default function SearchPage() {
-  const navigate = useNavigate();
   const location = useLocation();
   const navigationType = useNavigationType();
   const { t, language, gpsLocation, gpsStatus, requestGpsLocation, clearGpsLocation, wideView } =
@@ -444,10 +444,23 @@ export default function SearchPage() {
                         icon={SearchX}
                         title={t('searchNoResultsTitle')}
                         description={t('searchNoResultsBody')}
+                        // 예전 단추는 첫 화면으로 갔는데 첫 화면에 지역 목록이 없었다(점검 A 고장 3, 2026-11-22).
+                        // 시·도 화면으로 바로 가는 지역 이름을 늘어놓는다
                         action={
-                          <Button variant="neutral" onClick={() => navigate(paths.home)}>
-                            {t('homeRegionTitle')}
-                          </Button>
+                          <nav aria-label={t('homeRegionTitle')} className="mt-1">
+                            <p className="mb-2 text-sm font-bold text-app-text">
+                              {t('homeRegionTitle')}
+                            </p>
+                            <ul className="flex flex-wrap justify-center gap-2">
+                              {REGIONS.map((r) => (
+                                <li key={r}>
+                                  <Link to={paths.region(r)} className={chipClass(false)}>
+                                    {localizeRegionName(r, language)}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </nav>
                         }
                       />
                     </SquircleSurface>

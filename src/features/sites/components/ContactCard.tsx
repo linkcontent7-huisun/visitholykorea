@@ -1,4 +1,5 @@
 import { Globe, Phone, Printer } from 'lucide-react';
+import { telHref as telHrefOf } from '@/shared/lib/phone';
 import type { HolySite } from '@/shared/types/domain';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { SectionHeading } from '@/shared/components/ui/SectionHeading';
@@ -31,8 +32,8 @@ export function ContactCard({ site }: { site: HolySite }) {
     );
   }
 
-  /** `tel:` 은 숫자와 +만 받는다. (02)740-9707 같은 표기를 그대로 넣으면 안 걸린다. */
-  const telHref = phone ? `tel:${phone.replace(/[^0-9+]/g, '')}` : null;
+  /** `tel:` 은 숫자와 +만 받는다. 「~7」「,5」처럼 붙은 번호까지 이어 붙이지 않게 첫 번호만(2026-11-22) */
+  const telHref = telHrefOf(phone);
 
   /** DB 에 스킴 없이 들어온 주소가 있어 보정한다 */
   const homeHref = homepageUrl

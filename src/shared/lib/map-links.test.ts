@@ -140,3 +140,26 @@ describe('formatCoordinates', () => {
     expect(formatCoordinates(37.876777750874, 127.726904499621)).toBe('37.876778, 127.726904');
   });
 });
+
+describe('네이버지도 웹 — 같은 이름의 다른 곳 피하기 (점검 S2, 2026-11-22)', () => {
+  it('주소가 있으면 이름 뒤에 시·군을 붙여 찾는다', () => {
+    const links = buildMapLinks(
+      {
+        name: '천호성지',
+        lat: 36.03,
+        lng: 127.13,
+        address: '전북특별자치도 완주군 비봉면 천호성지길 124',
+      },
+      true,
+      'other',
+    );
+    const naver = links.find((l) => l.provider === 'naver')!;
+    expect(decodeURIComponent(naver.url)).toContain('map.naver.com/p/search/천호성지 완주군');
+  });
+  it('주소가 없으면 지금처럼 이름으로', () => {
+    const naver = buildMapLinks({ name: '천호성지', lat: 1, lng: 2 }, true, 'other').find(
+      (l) => l.provider === 'naver',
+    )!;
+    expect(decodeURIComponent(naver.url)).toMatch(/search\/천호성지$/);
+  });
+});

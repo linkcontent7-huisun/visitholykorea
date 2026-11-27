@@ -77,6 +77,19 @@ export const REGION_AREA_CODES: Record<Region, string> = {
  * (2026-09-14 실측: 208곳 중 57곳) 짧은 이름 포함 검사만으로는 못 찾는다.
  */
 const REGION_ALIASES: Record<string, Region> = {
+  서울특별시: '서울',
+  부산광역시: '부산',
+  대구광역시: '대구',
+  인천광역시: '인천',
+  광주광역시: '광주',
+  대전광역시: '대전',
+  울산광역시: '울산',
+  세종특별자치시: '세종',
+  경기도: '경기',
+  강원특별자치도: '강원',
+  강원도: '강원',
+  제주특별자치도: '제주',
+  제주도: '제주',
   충청남도: '충남',
   충청북도: '충북',
   전라남도: '전남',
@@ -88,9 +101,11 @@ const REGION_ALIASES: Record<string, Region> = {
 
 /** 주소가 속한 시·도(짧은 이름). 교구명은 행정구역이 아니므로 쓰지 않는다. */
 export function regionOfAddress(address: string): Region | null {
-  const alias = Object.keys(REGION_ALIASES).find((name) => address.startsWith(name));
+  // 주소의 첫 낱말로만 정한다 — 주소 어디든 짧은 이름을 찾던 때 「경기도 광주시」가 「광주」로 잡혔다(2026-11-22 점검 A)
+  const first = address.trim().split(/\s+/)[0] ?? '';
+  const alias = Object.keys(REGION_ALIASES).find((name) => first.startsWith(name));
   if (alias) return REGION_ALIASES[alias] ?? null;
-  return REGIONS.find((name) => address.includes(name)) ?? null;
+  return REGIONS.find((name) => first.startsWith(name)) ?? null;
 }
 
 /** 성지 주소 첫 행정구역으로 시·도 코드를 찾는다. */

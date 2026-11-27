@@ -1,3 +1,4 @@
+import { districtOfAddress } from './regions';
 /**
  * 지도 앱 길찾기 링크.
  *
@@ -49,6 +50,9 @@ export interface Destination {
   name: string;
   lat: number;
   lng: number;
+  /** 주소(있으면). 네이버지도 웹은 좌표를 받는 공개된 주소 꼴이 없어 이름으로 찾는데, 같은 이름의 다른 곳이
+   *  먼저 나왔다(「천호성지」 — 점검 S2, 2026-11-22). 시·군·구를 이름 뒤에 붙여 찾는다 */
+  address?: string | null;
 }
 
 export type Platform = 'android' | 'ios' | 'other';
@@ -115,8 +119,10 @@ function googleUrl({ lat, lng }: Destination): string {
 }
 
 /** 네이버지도 웹 — 이름 검색. 좌표를 못 받는 데스크톱과, 앱이 없을 때의 대체 경로다. */
-function naverWebUrl({ name }: Destination): string {
-  return `https://map.naver.com/p/search/${encodeURIComponent(name)}`;
+function naverWebUrl({ name, address }: Destination): string {
+  const district = address ? districtOfAddress(address) : null;
+  const query = district && !name.includes(district) ? `${name} ${district}` : name;
+  return `https://map.naver.com/p/search/${encodeURIComponent(query)}`;
 }
 
 /**
