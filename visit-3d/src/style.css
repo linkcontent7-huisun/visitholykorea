@@ -229,3 +229,6 @@ body.overview .badge { opacity: 0; pointer-events: none; transition: opacity .3s
 #askBar .ask-name { font-weight: 800; font-size: 13px; color: #ffd98a; margin-right: auto; }
 #askBar button.ask-tog { min-height: 30px; padding: 3px 10px; font-size: 12px; background: transparent; color: #ffe9b8; border-color: rgba(255, 214, 128, .35); }
 #askBar button.ask-tog.on { background: #d4a017; color: #2a1c04; }
+/* 안내 말풍선·부르기 단추는 눌려야 한다 — 부모(#hud)가 pointer-events: none 이라 이 두 줄이 없으면 단추가 화면에서는 보이지만 손가락·마우스가 캔버스로 새어 아무것도 안 눌린다(사장님 2026-11-27 «닫기가 작동 안 해») */
+#askBar, #botCall { pointer-events: auto; }
+
