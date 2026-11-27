@@ -86,19 +86,12 @@ function pooled(name: string, distanceKm: number): PooledSite {
   };
 }
 
-let afternoonBusy = false;
 function toCandidate(p: PooledSite, i: number): Candidate {
-  const afternoon = afternoonBusy
-    ? [
-        { spot: spot('붐비는곳', 500), congestion: 85, level: 'busy' as const },
-        { spot: spot('한적한곳', 900), congestion: 20, level: 'easy' as const },
-      ]
-    : [{ spot: spot('동네공원', 700), congestion: null, level: null }];
+  const afternoon = [{ spot: spot('동네공원', 700) }];
   return {
     ...p,
-    tag: (['nearest', 'quiet', 'detailed'] as const)[i] ?? null,
+    tag: (['nearest', null, 'detailed'] as const)[i] ?? null,
     facilities: [],
-    crowding: null,
     lunch: spot('동네식당', 300, '39'),
     afternoon,
     loading: false,
@@ -109,7 +102,6 @@ beforeEach(() => {
   vi.clearAllMocks();
   gps.status = 'denied';
   gps.location = null;
-  afternoonBusy = false;
   poolMock.mockResolvedValue({
     pool: [pooled('가까운성지', 5), pooled('중간성지', 12), pooled('먼성지', 18)],
     moreInNextRadius: 4,
@@ -177,7 +169,8 @@ describe('HealingQuiz — 전체 흐름', () => {
     expect(cards).toHaveLength(3);
     expect(cards[0]!.textContent).toContain('가까운성지');
     expect(cards[0]!.textContent).toContain('가장 가까워요');
-    expect(cards[1]!.textContent).toContain('인근이 조용해요');
+    // 「인근이 조용해요」 태그는 붐빔 지수와 함께 뺐다(2026-11-27)
+    expect(cards[1]!.textContent).not.toContain('인근이 조용해요');
     expect(cards[2]!.textContent).toContain('소개가 자세해요');
     // 후보만 봤을 땐 저장하지 않는다
     expect(mutateMock).not.toHaveBeenCalled();
@@ -256,8 +249,7 @@ describe('HealingQuiz — 전체 흐름', () => {
     expect(screen.getByText('동네식당')).toBeInTheDocument();
   });
 
-  it('오후 관광지가 붐빌 예정이면 안내 + 「바꾸기」, 누르면 오후 줄만 바뀐다', async () => {
-    afternoonBusy = true;
+  it('일정 화면에 붐빔(혼잡도·집중률) 줄이 없다 — 붐빔 지수를 보이지 않는다(2026-11-27)', async () => {
     render(
       <MemoryRouter>
         <HealingQuiz isOpen onClose={vi.fn()} onSelectSite={vi.fn()} />
@@ -266,16 +258,10 @@ describe('HealingQuiz — 전체 흐름', () => {
     await answerAll();
     await waitFor(() => expect(document.getElementById('plan-cards')).toBeTruthy());
     fireEvent.click(document.getElementById('plan-card-가까운성지')!);
-    await waitFor(() => expect(document.getElementById('plan-swap-afternoon')).toBeTruthy());
-    expect(screen.getByText('붐비는곳')).toBeInTheDocument();
-    // 숫자는 화면에 내지 않는다(2026-09-16) — 등급 말만 보인다
-    const congestionLine = document.getElementById('plan-congestion')!.textContent ?? '';
-    expect(congestionLine).toContain('붐빌 예정');
-    expect(congestionLine).not.toMatch(/\d/);
-    fireEvent.click(document.getElementById('plan-swap-afternoon')!);
-    await waitFor(() => expect(screen.getByText('한적한곳')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('동네공원')).toBeInTheDocument());
+    expect(document.getElementById('plan-congestion')).toBeNull();
+    expect(document.getElementById('plan-nearby-crowding')).toBeNull();
     expect(document.getElementById('plan-swap-afternoon')).toBeNull();
-    expect(screen.getByText('가까운성지')).toBeInTheDocument();
   });
 
   it('반경 안 후보가 3장보다 많으면 「더 보기」가 다음 3장을 준다', async () => {

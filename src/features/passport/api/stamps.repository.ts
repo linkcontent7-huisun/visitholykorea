@@ -101,7 +101,11 @@ export async function addStamp(
     return { success: false, error: 'UNAUTHENTICATED' };
   }
 
-  const extra = extraColumnsAvailable ? { visited_on: visitedOn, crowd_level: crowdLevel } : {};
+  // crowd_level 은 값이 있을 때만 쓴다 — «그날 붐볐나요?» 를 화면에서 뺀 뒤(2026-11-27)에도
+  // 이미 있던 기록을 다시 저장할 때 예전에 고른 값을 null 로 지우지 않게 한다.
+  const extra = extraColumnsAvailable
+    ? { visited_on: visitedOn, ...(crowdLevel ? { crowd_level: crowdLevel } : {}) }
+    : {};
   const { error } = await supabase.from(TABLE).insert({
     user_id: userId,
     site_id: siteId,

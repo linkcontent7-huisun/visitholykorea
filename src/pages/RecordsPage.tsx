@@ -20,14 +20,11 @@ import { useSession } from '@/features/auth/hooks/use-session';
 import { useMyFavoriteIds } from '@/features/favorites/hooks/use-favorites';
 import {
   isVisitedOnAvailable,
-  type CrowdLevel,
   type StampedSite,
   type StampPhoto,
 } from '@/features/passport/api/stamps.repository';
-import { CrowdLevelPicker } from '@/features/passport/components/CrowdLevelPicker';
 import { MyPlacesList } from '@/features/places/components/MyPlacesList';
 import { NewPlaceSheet } from '@/features/places/components/NewPlaceSheet';
-import { CROWD_LEVEL_LABEL_KEY } from '@/features/passport/lib/crowd-level-label';
 import { generateChronicleCard } from '@/features/passport/lib/recap-card';
 import { nextPhotoPosition } from '@/features/passport/lib/photo-position';
 import {
@@ -79,7 +76,6 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
   const [editing, setEditing] = useState(false);
   const [note, setNote] = useState(stamp.note ?? '');
   const [visitedOn, setVisitedOn] = useState(defaultVisitedOn(stamp));
-  const [crowdLevel, setCrowdLevel] = useState<CrowdLevel | null>(stamp.crowdLevel);
   const [failed, setFailed] = useState<null | 'save' | 'photo' | 'delete'>(null);
   const [saving, setSaving] = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -91,8 +87,7 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
     editing &&
     (tray.pending.length > 0 ||
       note !== (stamp.note ?? '') ||
-      visitedOn !== defaultVisitedOn(stamp) ||
-      crowdLevel !== stamp.crowdLevel);
+      visitedOn !== defaultVisitedOn(stamp));
   useUnsavedChangesGuard(isDirty);
 
   const save = async () => {
@@ -102,7 +97,8 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
       const result = await update.mutateAsync({
         stampId: stamp.stampId,
         note: note.trim() || null,
-        ...(canEditDate ? { visitedOn: visitedOn || null, crowdLevel } : {}),
+        // crowdLevel 은 보내지 않는다 — «그날 붐볐나요?» 를 뺀 뒤에도 저장된 값은 DB 에 그대로(2026-11-27)
+        ...(canEditDate ? { visitedOn: visitedOn || null } : {}),
       });
       if (!result.success) return setFailed('save');
       if (tray.pending.length > 0) {
@@ -159,7 +155,6 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
             {stamp.visitedOn
               ? `${t('recordsVisitedOn')} · ${formatDate(stamp.visitedOn, locale)}`
               : `${t('recordsRecordedOn')} · ${formatDate(stamp.visitedAt, locale)}`}
-            {stamp.crowdLevel && ` · ${t(CROWD_LEVEL_LABEL_KEY[stamp.crowdLevel])}`}
           </p>
         </div>
         {!editing && (
@@ -215,7 +210,6 @@ function RecordItem({ stamp }: { stamp: StampedSite }) {
               {t('recordsVisitDateUnavailable')}
             </p>
           )}
-          {canEditDate && <CrowdLevelPicker value={crowdLevel} onChange={setCrowdLevel} />}
           <label className="block text-sm font-bold text-app-text-muted">
             {t('recordsMemo')}
             <SquircleSurface

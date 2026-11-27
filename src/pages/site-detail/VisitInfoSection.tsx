@@ -1,4 +1,3 @@
-import { QuietDaysCard } from '@/features/crowding/components/QuietDaysCard';
 import { ContactCard } from '@/features/sites/components/ContactCard';
 import { DirectionsCard } from '@/features/sites/components/DirectionsCard';
 import { splitMassInfo } from '@/features/sites/lib/mass-info';
@@ -9,7 +8,7 @@ import { SquircleSurface } from '@/shared/components/ui/SquircleSurface';
 import { useSettings } from '@/shared/i18n/use-settings';
 import type { HolySite } from '@/shared/types/domain';
 
-/** 「방문 정보」 — 미사 시간·한적한 날·연락처·찾아가는 길 (#102 에서 페이지에서 떼어 냄) */
+/** 「방문 정보」 — 미사 시간·연락처·찾아가는 길 (#102 에서 페이지에서 떼어 냄). 「한적한 날」(붐빔)은 2026-11-27 뺌 */
 export function VisitInfoSection({
   site,
   view,
@@ -65,9 +64,6 @@ export function VisitInfoSection({
           </SquircleSurface>
         </section>
       )}
-
-      {/* 한적한 날 — 집중률에 이름이 있는 성지만. 미사 시간 바로 아래가 "언제 갈까"를 정하는 자리다 */}
-      <QuietDaysCard site={site} />
 
       {/* 공식 홈페이지·연락처 — 미사 시간·단체 순례는 성지에 직접 물어야 정확하다 */}
       <ContactCard site={site} />

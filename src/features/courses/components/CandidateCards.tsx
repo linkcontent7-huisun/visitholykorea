@@ -23,7 +23,6 @@ const THUMB_RADIUS = 8;
 
 const TAG_LABEL: Record<CandidateTag, TranslationKey> = {
   nearest: 'tagNearest',
-  quiet: 'tagQuiet',
   detailed: 'tagDetailed',
 };
 
@@ -31,7 +30,6 @@ const TAG_LABEL: Record<CandidateTag, TranslationKey> = {
 // 나머지 근거 태그는 두 번째 톤(brand-olive) 하나로 통일한다 — 태그마다 다른 색을 쓰면 색이 의미 없이 늘어난다.
 const TAG_STYLE: Record<CandidateTag, string> = {
   nearest: 'bg-brand-blue/10 text-brand-blue',
-  quiet: 'bg-brand-olive-soft text-brand-olive',
   detailed: 'bg-brand-olive-soft text-brand-olive',
 };
 

@@ -1,32 +1,22 @@
-import { ChevronLeft, ExternalLink, MapPin, AlertTriangle } from 'lucide-react';
+import { ChevronLeft, ExternalLink, MapPin } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { SiteThumbnail } from '@/features/sites/components/SiteThumbnail';
 import type { TourApiSpot } from '@/shared/api/tour-api';
 import { fillPlaceholders, type TranslationKey } from '@/shared/i18n/dictionary';
 import { useSettings } from '@/shared/i18n/use-settings';
 import { haversineKm, kakaoPlaceUrl } from '@/shared/lib/geo';
-import { CrowdingLabel } from '@/features/crowding/components/CrowdingLabel';
 import { Button } from '@/shared/components/ui/Button';
 import type { TimeBudget } from '../api/course-matching';
 import type { Candidate } from '../hooks/use-candidate-plans';
-import type { CongestionLevel } from '../lib/afternoon-pick';
 import { formatFromOrigin, formatFromSite } from '../lib/plan-format';
 
 /**
  * 일정 화면 — 카드를 누르면. 성지 1곳 중심 하루 일정: 오전 성지 → 점심 → 오후 관광지.
  * 데이터는 카드 화면에서 이미 받아 둔 것(Candidate)을 그대로 쓴다 — 여기서 TourAPI 추가 호출 0.
  *
- * 혼잡도는 두 자리에서, 역할이 다르다(스펙 8절 · 2026-09-16 재설계):
- *   오전 줄 — 성지 **인근 지역**의 혼잡도 추정(상세 카드와 같은 산식·같은 문구). 성지가 조용하다고는 말하지 않는다.
- *   오후 줄 — 관광지의 관광공사 집중률 등급. 붐빌 예정이면 한 줄 더 알리고 「바꾸기」.
- * 숫자(퍼센트·점수)는 화면에 내지 않는다.
+ * 붐빔(혼잡도·집중률)은 보이지 않는다 — 공모전이 끝나 붐빔 지수를 재지도 보이지도 않기로 함(사장님 2026-11-27).
+ * 오후 관광지는 성지에서 가까운 순이다.
  */
-
-const CONGESTION_KEY: Record<CongestionLevel, TranslationKey> = {
-  easy: 'congestionEasy',
-  moderate: 'congestionModerate',
-  busy: 'congestionBusy',
-};
 
 function spotDistanceKm(candidate: Candidate, spot: TourApiSpot): number | null {
   const { lat, lng } = candidate.site.coordinates;
@@ -80,24 +70,15 @@ function SpotLink({
 interface PlanResultProps {
   candidate: Candidate;
   timeBudget: TimeBudget;
-  afternoonIndex: number;
-  onSwapAfternoon: () => void;
   onBack: () => void;
   onGo: () => void;
 }
 
-export function PlanResult({
-  candidate,
-  timeBudget,
-  afternoonIndex,
-  onSwapAfternoon,
-  onBack,
-  onGo,
-}: PlanResultProps) {
+export function PlanResult({ candidate, timeBudget, onBack, onGo }: PlanResultProps) {
   const { t } = useSettings();
-  const { site, crowding, lunch, afternoon, facilities, loading } = candidate;
-  const pick = afternoon[afternoonIndex] ?? afternoon[0] ?? null;
-  const nextPick = afternoon[afternoonIndex + 1] ?? null;
+  const { site, lunch, afternoon, facilities, loading } = candidate;
+  // 오후는 가까운 순 첫째 — 붐빔으로 고르던 「바꾸기」는 붐빔 지수와 함께 뺐다(2026-11-27)
+  const pick = afternoon[0] ?? null;
   const showLunch = timeBudget !== '반나절';
 
   const nearbyFailed = facilities == null && !loading;
@@ -134,12 +115,6 @@ export function PlanResult({
                 {formatFromOrigin(candidate.distanceKm, t)}
               </p>
             </button>
-            {/* 인근 혼잡도 라벨 — 상세 페이지와 같은 부품. 값이 없으면(조회 중·실패·데이터 없는 지역) 비운다 */}
-            {crowding?.level && (
-              <div className="mt-1.5">
-                <CrowdingLabel level={crowding.level} id="plan-nearby-crowding" />
-              </div>
-            )}
           </Row>
 
           {showLunch && (
@@ -162,35 +137,6 @@ export function PlanResult({
             {pick ? (
               <>
                 <SpotLink candidate={candidate} spot={pick.spot} t={t} />
-                {pick.congestion != null && pick.level && (
-                  <p className="mt-1 text-sm font-bold text-app-text-muted" id="plan-congestion">
-                    {t('congestionLabel')} · {t(CONGESTION_KEY[pick.level])}
-                  </p>
-                )}
-                {pick.level === 'busy' && (
-                  <div className="mt-2 flex items-start gap-1.5 rounded-lg bg-orange-50 p-3 text-sm font-bold text-orange-900">
-                    <AlertTriangle size={16} className="mt-0.5 shrink-0" aria-hidden />
-                    <div className="min-w-0 flex-1">
-                      <p>
-                        {nextPick
-                          ? fillPlaceholders(t('planCrowdedAfternoon'), {
-                              name: nextPick.spot.title,
-                            })
-                          : t('planCrowdedAfternoonNoAlt')}
-                      </p>
-                      {nextPick && (
-                        <button
-                          type="button"
-                          onClick={onSwapAfternoon}
-                          className="mt-2 inline-flex min-h-11 items-center text-left underline underline-offset-2"
-                          id="plan-swap-afternoon"
-                        >
-                          {t('planSwap')}
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                )}
               </>
             ) : (
               <p className="text-base text-app-text-muted">

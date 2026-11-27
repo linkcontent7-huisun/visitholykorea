@@ -59,16 +59,7 @@ export const ALLOWED_OPERATIONS: Record<
     services: TOUR_INFO_SERVICES,
     params: ['areaCode', 'sigunguCode', 'contentTypeId', 'numOfRows', 'pageNo', 'arrange'],
   },
-  /** 법정동 코드표 — 집중률 조회에 필요한 시·군·구 코드를 얻는다 */
-  ldongCode2: {
-    services: ['KorService2'],
-    params: ['lDongRegnCd', 'numOfRows', 'pageNo'],
-  },
-  /** 관광지 집중률 예측(오늘부터 30일, 시·군·구 필수) */
-  tatsCnctrRatedList: {
-    services: ['TatsCnctrRateService'],
-    params: ['areaCd', 'signguCd', 'numOfRows', 'pageNo'],
-  },
+  // 법정동 코드표(ldongCode2)·관광지 집중률(tatsCnctrRatedList)은 뺐다 — 붐빔 지수를 재지 않는다(사장님 2026-11-27, 공모전 종료)
   /** 오디오 이야기(Odii) */
   storyLocationBasedList: {
     services: ['Odii'],
