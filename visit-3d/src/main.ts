@@ -730,6 +730,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // ① 야외: 화면을 4초 안 누르면 캐릭터가 성모상 앞으로 가서 선다 → 기도 · 봉헌초 · 다음으로
   // ② 종: «성당 안으로 들어가 종을 울려 볼까요?» (건너뛰거나 닫으면 ③ 으로, 안내를 안 누르고 직접 종을 울려도 끝나면 ③ 으로)
   // ③ 성수대 앞으로 가서 성수 찍기(손동작) → ④ 십자가의 길 / 제대 앞 초 가운데 고르면 그곳으로 걸어가 선다 → ⑤ 자유 → ⑥ 밖으로 나오면 새 빛
+  // 사장님 2026-11-28: 「처음 사이트에 들어가면 순례자가 계단 끝에 서 있게 했다 — 혼자 걸어 내려가면 안 된다」. 입장하면 저절로 시작하던 순례 순서 안내(성모상으로 걸어감)를 끈다. 주소에 ?guide 를 붙이면 시험용으로 시작한다
+  const GUIDE_AUTO = false;
   const GUIDE_IDLE_MS = 4000; // 이 시간 동안 아무것도 안 누르면 안내가 시작한다(느린 기기에서도 실제 시간으로 잰다)
   let guideIdle = 0, guideTried = false, maryAsked = false, bellAsked = false, wasInside = false, prayUntil = 0, askKind: 'mary' | 'bell' | null = null;
   const doorIa = () => space?.interactables.find((i) => i.kind === 'door');
@@ -1542,7 +1544,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           if (on !== h.on) { h.on = on; if (on) holoSay(h); else if (bubbleKey === `holo:${h.ia.id}`) { askEl.hidden = true; bubbleKey = ''; stopSpeech(); } }
         }
         // ── 순례 순서 안내: 시작 · 4초 가만히 있으면 성모상으로 · 밖으로 나오면 새 빛 ──
-        if (space.id === 'cathedral' && introDone && !intro && !spaceLoading && quest === 'none' && !guideTried && (!points.has('pilgrimage-done') || params.has('guide'))) { guideTried = true; startGuide(); }
+        if (space.id === 'cathedral' && introDone && !intro && !spaceLoading && quest === 'none' && !guideTried && (!points.has('pilgrimage-done') || params.has('guide'))) { guideTried = true; if (GUIDE_AUTO || params.has('guide')) startGuide(); }
         if (quest === 'mary' && !maryAsked) {
           const gi = grottoIa();
           const busy = joy.length() > 0.1 || keys.size > 0 || !!moveTarget || !!pendingAct || cardOpen() || ringing || crossing || !!intro;
