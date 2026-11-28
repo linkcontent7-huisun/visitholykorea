@@ -809,6 +809,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // 입장: 계단 끝에 서 있다(저절로 걷지 않는다) → ① 첫 터치 → 성모상으로 자동 이동 → ② 말풍선 «봉헌초·잠시 기도·다음으로» → ③ 성당 문 앞까지 자동 이동·문이 열림
   // → ④ 말풍선 «종치기·성수 찍기·다음으로» → ⑤ «십자가의 길 / 제대 앞 봉헌초» 하나 선택 → ⑥ 끝나면 «남은 것도 해 볼까요?» → ⑦ 밖으로 나오면 새 빛(조건 그대로)
   // 자동으로 걸을 때: 길 따라가기(벽 통과 없음) · 광장은 빠르게, 성당 안은 70% · 카메라는 뒤에서 따라가되 이용자가 돌리면 그 시점이 우선(frame 의 guideWalk)
+  let introEndT = 0;
   let guideWalk = false, userLookT = 0, flowBell = false, guideStart = 0;
   function startGuide() {
     quest = 'mary'; maryAsked = false; guideIdle = performance.now();
@@ -972,6 +973,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   /** 클릭·탭 — 가까운 물건은 바로, 먼 물건은 걸어가서, 땅이면 그 자리로 걸어간다(포켓몬·로블록스식) */
   function clickAt(cx: number, cy: number) {
     if (!space || cardOpen()) return;
+    // 도입 영상(드론) 중이거나 막 끝난 직후의 터치는 걷기로 쓰지 않는다 — 카메라가 계단 아래에 있을 때 누른 자리로 순례자가 걸어 내려가던 것(사장님 2026-11-28)
+    if (intro || performance.now() - introEndT < 900) return;
     guideWalk = false;
     if (guideFirstTouch()) return;
     const hit = farPick(cx, cy);
@@ -1402,7 +1405,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     if (k > 0) { camera.position.lerp(camHold, k); camera.quaternion.slerp(quatHold, k); }
     grade.uniforms.uBars.value = 0.1 * (1 - THREE.MathUtils.smoothstep(u, 0.8, 1));
     NEAR_FADE.value = 1.6 + 6.5 * (1 - THREE.MathUtils.smoothstep(u, 0.82, 1)); // 내려오는 길의 잎을 걷어 낸다
-    if (u >= 1) { NEAR_FADE.value = 1.6; intro = null; cine.classList.remove('on'); document.body.classList.remove('cinema'); grade.uniforms.uBars.value = 0; }
+    if (u >= 1) { NEAR_FADE.value = 1.6; intro = null; introEndT = performance.now(); cine.classList.remove('on'); document.body.classList.remove('cinema'); grade.uniforms.uBars.value = 0; }
   }
 
   // ── 반복 ──
@@ -1481,7 +1484,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
         bodyYaw += Math.max(-cap, Math.min(cap, step));
       }
       document.body.classList.toggle('ringing', !!camFix);
-      if (camFix && space.bellRinger) bodyYaw = space.bellRinger.yaw; // 줄을 잡은 동안은 줄 쪽을 본다(자리에 옮겨 설 때 생기는 속도로 몸이 돌지 않게)
+      if (camFix && space.bellRinger && !crossing) bodyYaw = space.bellRinger.yaw;   // (십자성호 중에는 성수대를 향한 몸 방향을 그대로 둔다 — 2026-11-28 사장님: 손이 성수대 옆 허공에서 움직였다) // 줄을 잡은 동안은 줄 쪽을 본다(자리에 옮겨 설 때 생기는 속도로 몸이 돌지 않게)
       me.root.position.copy(player.pos);
       me.root.rotation.y = bodyYaw;
       me.root.visible = !fp || !!camFix; myTagObj.visible = me.root.visible; // (말풍선은 화면 위 상자라 이름표를 가리지 않는다)
