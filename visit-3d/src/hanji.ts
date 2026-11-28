@@ -285,7 +285,7 @@ export function buildHanji(def: AvatarDef): AvatarRig {
       hb.add(new THREE.BoxGeometry(0.3, 0.07, 0.012), INK, 0.2, 0.2, 0.1);
       break;
     case 'jangot':                                                                    // 장옷(외출 때 머리부터 쓰는 겉옷)
-      hb.add(new THREE.SphereGeometry(0.205, 10, 8, 0, Math.PI * 2, 0, Math.PI * 0.86), 0x2fae68, 0, 0.0, 0.01, 0.15);
+      hb.add(new THREE.SphereGeometry(0.205, 10, 8, 0, Math.PI * 2, 0, Math.PI * 0.8), 0x2fae68, 0, 0.0, 0.01, 1.15);   // 장옷: 앞이 열리도록 기울여 얼굴이 보이게(2026-11-28)
       hb.add(new THREE.BoxGeometry(0.4, 0.5, 0.05), 0x2fae68, 0, -0.26, 0.13, -0.1);   // 어깨 뒤로 드리운 자락
       hb.add(new THREE.BoxGeometry(0.1, 0.34, 0.04), 0x2fae68, -0.18, -0.2, -0.06, 0, 0, 0.12);
       hb.add(new THREE.BoxGeometry(0.1, 0.34, 0.04), 0x2fae68, 0.18, -0.2, -0.06, 0, 0, -0.12);
@@ -297,7 +297,7 @@ export function buildHanji(def: AvatarDef): AvatarRig {
       hb.add(new THREE.BoxGeometry(0.1, 0.07, 0.12), INK, 0, 0.37, 0);
       break;
     case 'bokgeon':                                                                   // 복건(소년): 검은 두건 + 뒤로 늘어진 두 자락
-      hb.add(new THREE.SphereGeometry(0.19, 10, 7, 0, Math.PI * 2, 0, Math.PI * 0.62), INK, 0, 0.02, 0);
+      hb.add(new THREE.SphereGeometry(0.19, 10, 6, 0, Math.PI * 2, 0, Math.PI * 0.5), INK, 0, 0.012, 0, 0.3);   // 복건: 이마 위까지만 덮어 얼굴(눈·입)이 보이게(2026-11-28)
       hb.add(new THREE.BoxGeometry(0.1, 0.3, 0.02), INK, -0.05, -0.12, 0.19, -0.1);
       hb.add(new THREE.BoxGeometry(0.1, 0.3, 0.02), INK, 0.05, -0.12, 0.19, -0.1);
       break;
