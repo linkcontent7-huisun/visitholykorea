@@ -417,7 +417,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     // 짓는 동안 화면이 멈추므로 먼저 «준비 중» 을 그리게 한 프레임을 넘긴다(옛 공간은 아직 그대로라 그 사이 한 번 그려져도 안전하다)
     $('loading').hidden = false;
     await new Promise<void>((done) => requestAnimationFrame(() => setTimeout(done, 0)));
-    closeCard(); stopTour(); bellGameClose?.(); riteClose?.(); endRinging(); endCross(false); quest = 'none'; setGuide(null); askHide(); askKind = null; maryAsked = false; wasInside = false; guideTried = false; prayUntil = 0; me.pray = false; guideWalk = false; flowBell = false;
+    closeCard(); stopTour(); bellGameClose?.(); riteClose?.(); endRinging(); endCross(false); quest = 'none'; setGuide(null); askHide(); askKind = null; maryAsked = false; wasInside = false; guideTried = false; prayUntil = 0; me.pray = false; guideWalk = false; flowBell = false; guideStart = 0;
     if (space) {
       scene.remove(space.root);
       sound.setOrgan(null);
@@ -730,6 +730,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // ① 야외: 화면을 4초 안 누르면 캐릭터가 성모상 앞으로 가서 선다 → 기도 · 봉헌초 · 다음으로
   // ② 종: «성당 안으로 들어가 종을 울려 볼까요?» (건너뛰거나 닫으면 ③ 으로, 안내를 안 누르고 직접 종을 울려도 끝나면 ③ 으로)
   // ③ 성수대 앞으로 가서 성수 찍기(손동작) → ④ 십자가의 길 / 제대 앞 초 가운데 고르면 그곳으로 걸어가 선다 → ⑤ 자유 → ⑥ 밖으로 나오면 새 빛
+  const GUIDE_START_MS = 3000; // 입장 뒤 이 시간 동안 아무것도 안 하면 성모상으로 안내한다(실제 시간으로 잰다)
   const GUIDE_IDLE_MS = 4000; // 이 시간 동안 아무것도 안 누르면 안내가 시작한다(느린 기기에서도 실제 시간으로 잰다)
   let guideIdle = 0, guideTried = false, maryAsked = false, wasInside = false, prayUntil = 0, askKind: 'mary' | 'bell' | null = null;
   const doorIa = () => space?.interactables.find((i) => i.kind === 'door');
@@ -805,7 +806,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // 입장: 계단 끝에 서 있다(저절로 걷지 않는다) → ① 첫 터치 → 성모상으로 자동 이동 → ② 말풍선 «봉헌초·잠시 기도·다음으로» → ③ 성당 문 앞까지 자동 이동·문이 열림
   // → ④ 말풍선 «종치기·성수 찍기·다음으로» → ⑤ «십자가의 길 / 제대 앞 봉헌초» 하나 선택 → ⑥ 끝나면 «남은 것도 해 볼까요?» → ⑦ 밖으로 나오면 새 빛(조건 그대로)
   // 자동으로 걸을 때: 길 따라가기(벽 통과 없음) · 광장은 빠르게, 성당 안은 70% · 카메라는 뒤에서 따라가되 이용자가 돌리면 그 시점이 우선(frame 의 guideWalk)
-  let guideWalk = false, userLookT = 0, flowBell = false;
+  let guideWalk = false, userLookT = 0, flowBell = false, guideStart = 0;
   function startGuide() {
     quest = 'mary'; maryAsked = false; guideIdle = performance.now();
     const g = grottoIa(); if (!g) { goDoor(); return; }
@@ -1583,7 +1584,13 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           if (on !== h.on) { h.on = on; if (on) holoSay(h); else if (bubbleKey === `holo:${h.ia.id}`) { askEl.hidden = true; bubbleKey = ''; stopSpeech(); } }
         }
         // ── 순례 순서 안내: 시작 · 4초 가만히 있으면 성모상으로 · 밖으로 나오면 새 빛 ──
-        if (space.id === 'cathedral' && introDone && !intro && !spaceLoading && quest === 'none' && !guideTried && params.has('guide')) { guideTried = true; startGuide(); }
+        if (space.id === 'cathedral' && introDone && !intro && !spaceLoading && quest === 'none' && !guideTried && !points.has('pilgrimage-done')) {
+          // 사장님 2026-11-28: 「터치해서 움직이라고 해도 터치를 안 하고 있으면 3초 기다렸다가 성모상 앞으로 움직여줘」 — 입장(도입 끝) 뒤 3초 동안 아무것도 안 하면 성모상으로 간다.
+          // 직접 걷기 시작한 사람(조이스틱·키보드)은 끌고 가지 않는다. 첫 터치는 3초 안이라도 바로 성모상으로(guideFirstTouch)
+          if (guideStart === 0) guideStart = now;
+          if (joy.length() > 0.1 || keys.size > 0) guideTried = true;
+          else if (now - guideStart >= GUIDE_START_MS && !cardOpen()) guideFirstTouch();
+        }
         if (quest === 'mary' && !maryAsked) {
           const gi = grottoIa();
           const busy = joy.length() > 0.1 || keys.size > 0 || !!moveTarget || !!pendingAct || cardOpen() || ringing || crossing || !!intro;
