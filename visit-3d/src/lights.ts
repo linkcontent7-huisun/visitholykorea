@@ -64,28 +64,21 @@ const VERT = /* glsl */ `
   }
 `;
 const FRAG = /* glsl */ `
-  uniform sampler2D uTex;
   varying vec3 vCore; varying vec3 vRim; varying float vTw; varying float vShape; varying float vAng;
-  // 사장님이 주신 금빛 보석 그림 여섯 가지(2026-11-27): 0 마름모 · 1 길쭉한 결정 · 2 타원(금테) · 3 물방울 · 4 하트 · 5 둥근 보석. 한 장의 그림판(3×2)에서 모양 번호로 골라 그린다.
+  // 하늘에서 빛나는 별 모양(사장님 2026-11-28: 「따라다니는 빛들은 그냥 빛나는 하늘의 별모양처럼」) — 둥근 빛 + 십자 반짝임 + 옅은 대각 반짝임. 모양 번호마다 가로세로 길이만 조금씩 달라 한 줄이 다 똑같아 보이지 않는다.
   void main() {
-    vec2 pc = (gl_PointCoord - 0.5) * 2.0;
-    float r = length(pc);
-    float w = sin(vAng) * 0.28;                                  // 보석은 돌리지 않고 살짝 흔들리게(하트·물방울이 거꾸로 서지 않게)
-    float cs = cos(w), sn = sin(w);
-    vec2 q = vec2(cs * pc.x - sn * pc.y, sn * pc.x + cs * pc.y) * 0.7 + 0.5;   // 보석이 점 한 칸보다 작게(1.4 배 키워 읽는다)
-    vec4 t = vec4(0.0);
-    if (q.x > 0.0 && q.x < 1.0 && q.y > 0.0 && q.y < 1.0) {
-      float idx = floor(vShape + 0.5);
-      float col = mod(idx, 3.0), row = floor(idx / 3.0);
-      t = texture2D(uTex, vec2((col + q.x) / 3.0, 1.0 - (row + (1.0 - q.y)) / 2.0));
-      t.a *= smoothstep(0.0, 0.07, q.x) * smoothstep(0.0, 0.07, 1.0 - q.x) * smoothstep(0.0, 0.07, q.y) * smoothstep(0.0, 0.07, 1.0 - q.y);   // 그림판 칸 가장자리 잔흔적 제거
-    }
-    float haze = exp(-r * r * 2.6);                              // 보석을 감싸는 몽글한 안개빛
-    vec3 gem = pow(t.rgb, vec3(0.78)) * (1.25 + 0.3 * vTw);                       // 반짝임
-    gem = mix(gem, gem * (0.55 + 0.9 * vRim), 0.22);             // 성지 빛깔을 아주 조금 섞는다
-    vec3 c = gem * t.a + vRim * haze * 0.5;
-    float a = clamp(t.a + haze * 0.38, 0.0, 1.0) * (1.0 - smoothstep(0.85, 1.0, r));
-    gl_FragColor = vec4(min(c / max(a, 0.001), vec3(1.6)), a);
+    vec2 p = (gl_PointCoord - 0.5) * 2.0;
+    float r = length(p);
+    float len = 2.2 + 0.5 * fract(vShape * 0.37 + 0.2);                 // 반짝임 줄기 길이
+    float tw = 0.7 + 0.45 * vTw;                                          // 반짝반짝
+    float core = exp(-r * r * 22.0);                                      // 가운데 작고 환한 알맹이
+    float glow = exp(-r * r * 4.5);                                       // 부드러운 둘레 빛
+    float cross = exp(-abs(p.x) * 26.0) * exp(-abs(p.y) * len) + exp(-abs(p.y) * 26.0) * exp(-abs(p.x) * len);  // 십자 반짝임
+    vec2 d = vec2(p.x + p.y, p.x - p.y) * 0.7071;
+    float diag = (exp(-abs(d.x) * 30.0) * exp(-abs(d.y) * 4.2) + exp(-abs(d.y) * 30.0) * exp(-abs(d.x) * 4.2)) * 0.45; // 옅은 대각 반짝임
+    vec3 col = vCore * (core * 1.7 + cross * 1.15 * tw + diag * tw) + vRim * glow * 0.75;
+    float a = clamp(core + cross * 0.9 * tw + diag * 0.7 * tw + glow * 0.5, 0.0, 1.0) * (1.0 - smoothstep(0.8, 1.0, r));
+    gl_FragColor = vec4(min(col / max(a, 0.001), vec3(1.6)), a);
   }
 `;
 
@@ -111,11 +104,9 @@ export function createPilgrimLights(opts: { low: boolean; pixelRatio: number; vi
   geo.setAttribute('aOrbit', aOrbit); geo.setAttribute('aLook', aLook); geo.setAttribute('aCore', aCore); geo.setAttribute('aRim', aRim);
   geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1e6); // 셰이더가 자리를 정하니 가려내기에서 빠지지 않게
 
-  const gemTex = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}guide/gem-atlas.webp`);
-  gemTex.colorSpace = THREE.SRGBColorSpace; gemTex.generateMipmaps = false; gemTex.minFilter = THREE.LinearFilter;
   const mat = new THREE.ShaderMaterial({
     vertexShader: VERT, fragmentShader: FRAG, transparent: true, depthWrite: false, blending: THREE.NormalBlending, toneMapped: false,
-    uniforms: { uTex: { value: gemTex }, uTime: { value: 0 }, uCenter: { value: new THREE.Vector3() }, uScale: { value: 1 }, uPx: { value: 1 }, uPos: { value: Array.from({ length: MAX_SMALL + MAX_BIG }, () => new THREE.Vector3()) }, uSide: { value: new THREE.Vector3(1, 0, 0) } },
+    uniforms: { uTime: { value: 0 }, uCenter: { value: new THREE.Vector3() }, uScale: { value: 1 }, uPx: { value: 1 }, uPos: { value: Array.from({ length: MAX_SMALL + MAX_BIG }, () => new THREE.Vector3()) }, uSide: { value: new THREE.Vector3(1, 0, 0) } },
   });
   const object = new THREE.Points(geo, mat);
   object.frustumCulled = false; object.renderOrder = 20; object.name = 'pilgrim-lights';

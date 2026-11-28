@@ -1112,9 +1112,9 @@ export function buildCathedral(M: Mats, site?: SiteData | null, opts: { light?: 
       // 계단에서는 평평한 화살표가 디딤판에 잘려 안 보였다 — 앞뒤 땅 높이로 비탈에 맞춰 눕힌다(2026-11-17)
       const gAt = (k: number) => (hill && placed ? placed.groundAt(x + ((goal.x - from.x) * k) / L, z + ((goal.z - from.z) * k) / L) : 0);
       const yTip = gAt(0.9), yTail = gAt(-0.9);
-      const y = Math.max(gAt(0), (yTip + yTail) / 2) + 0.34;
+      const y = Math.max(gAt(0), (yTip + yTail) / 2) + 0.07; // 땅에 붙어 보이게(사장님 2026-11-28: 공중에 떠 있다) — 0.34 → 0.07, 땅과 겹침은 아래 polygonOffset 으로
       const pitch = Math.atan2(yTip - yTail, 1.8);
-      const m = new THREE.MeshBasicMaterial({ color: 0xffb400, transparent: true, opacity: 0.8, depthWrite: false, toneMapped: false, side: THREE.DoubleSide });
+      const m = new THREE.MeshBasicMaterial({ color: 0xffb400, transparent: true, opacity: 0.8, depthWrite: false, toneMapped: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 });
       arrows.push(m);
       const a = kit.add(chevGeo, m, { parent: outdoor, pos: [x, y, z], rot: [0, yaw, 0], dynamic: true, shadow: false });
       a.renderOrder = 4; a.scale.setScalar(2.1);

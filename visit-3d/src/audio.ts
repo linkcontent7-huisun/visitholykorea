@@ -69,6 +69,8 @@ function thudBuffer(ctx: BaseAudioContext): AudioBuffer {
 
 /** 종소리가 울리는 시간의 끝(초) — 치고 난 뒤 이 안에 소리가 다 사라진다 */
 export const BELL_TAIL_S = 1.8;
+/** 입장하면 바로 나오던 배경 음악·오르간 지속음을 끈다(사장님 2026-11-28). 종소리 등 효과음은 그대로 */
+const MUSIC_OFF = true;
 /**
  * 종소리의 크기 곡선 — 치는 순간 정해진 크기에서 시작해 곧바로 줄곧 작아지고(여운), len 초에 0 이 된다.
  * 이전에는 시작 값을 1 로 박아 정해 둔 크기(volume)를 무시했다. 앞의 소리 예약은 모두 지우고 시작한다.
@@ -113,7 +115,8 @@ export class Sound {
     new THREE.AudioLoader().load(`${import.meta.env.BASE_URL}audio/bell-peal.mp3`, (buf) => { this.pealBuf = buf; }, undefined, () => { /* 못 받으면 합성 종소리로 */ });
     // 배경 음악 두 곡 — 파일을 다 받기 전에도 흘려 재생(스트리밍), 반복
     const base = import.meta.env.BASE_URL;
-    for (const src of [`${base}audio/calm-clairdelune.mp3`, `${base}audio/chant-gaudeamus.mp3`]) {
+    // 사장님 2026-11-28: «사이트에 들어가면 바로 나오는 음악은 빼줘» — 배경 음악 두 곡을 틀지 않는다(파일은 그대로 둔다. 다시 켜려면 MUSIC_OFF 를 false 로)
+    for (const src of MUSIC_OFF ? [] : [`${base}audio/calm-clairdelune.mp3`, `${base}audio/chant-gaudeamus.mp3`]) {
       const el = new Audio(src);
       el.loop = true; el.preload = 'auto'; el.crossOrigin = 'anonymous';
       const node = ctx.createMediaElementSource(el);
@@ -198,7 +201,7 @@ export class Sound {
   /** 오르간 지속음을 공간에 단다(없는 공간이면 null) */
   setOrgan(parent: THREE.Object3D | null, pos?: THREE.Vector3) {
     if (this.organ) { this.organ.stop(); this.organ.parent?.remove(this.organ); this.organ.disconnect(); this.organ = undefined; }
-    if (!parent || !pos || !this.listener || this.bgm.length) return; // v2: 실제 오르간 녹음이 있으면 합성 지속음은 쓰지 않는다
+    if (!parent || !pos || !this.listener || this.bgm.length || MUSIC_OFF) return; // v2: 실제 오르간 녹음이 있으면 합성 지속음은 쓰지 않는다
     this.organBuf ??= organBuffer(this.listener.context);
     const a = new THREE.PositionalAudio(this.listener);
     a.setBuffer(this.organBuf); a.setLoop(true); a.setRefDistance(10); a.setRolloffFactor(1.2); a.setVolume(0.18);
