@@ -417,7 +417,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     // 짓는 동안 화면이 멈추므로 먼저 «준비 중» 을 그리게 한 프레임을 넘긴다(옛 공간은 아직 그대로라 그 사이 한 번 그려져도 안전하다)
     $('loading').hidden = false;
     await new Promise<void>((done) => requestAnimationFrame(() => setTimeout(done, 0)));
-    closeCard(); stopTour(); bellGameClose?.(); riteClose?.(); endRinging(); endCross(false); quest = 'none'; setGuide(null); askHide(); askKind = null; maryAsked = false; bellAsked = false; wasInside = false; guideTried = false; prayUntil = 0; me.pray = false;
+    closeCard(); stopTour(); bellGameClose?.(); riteClose?.(); endRinging(); endCross(false); quest = 'none'; setGuide(null); askHide(); askKind = null; maryAsked = false; wasInside = false; guideTried = false; prayUntil = 0; me.pray = false; guideWalk = false; flowBell = false;
     if (space) {
       scene.remove(space.root);
       sound.setOrgan(null);
@@ -620,7 +620,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     if (finished) {
       toast('십자성호를 그었습니다 — 성부와 성자와 성령의 이름으로. 아멘');
       setTimeout(() => award('font', PTS.font, '성수를 찍고 십자성호'), 900);
-      setTimeout(() => offerNext(), 1700);
+      setTimeout(() => { if (quest === 'inside') flowMenu(); else offerNext(); }, 1700);
     }
   }
   /** 성수대 앞에 서서 시작 — 몸을 성수대 쪽으로 돌리고(서 있을 자리까지 조금 더 다가간 뒤), 손이 보이게 비스듬히 앞에서 비춘다 */
@@ -669,7 +669,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       crossBeat++;
     }
   }
-  let quest: 'none' | 'mary' | 'bell' | 'font' | 'choose' | 'candle' | 'stations' | 'done' = 'none';
+  let quest: 'none' | 'mary' | 'door' | 'inside' | 'choose' | 'candle' | 'stations' | 'after' | 'done' = 'none';
   let stationK = 0, stationShown = -1;
   const handA = new THREE.Vector3(), handB = new THREE.Vector3();
   const questEl = document.createElement('div'); questEl.id = 'quest'; questEl.hidden = true; $('hud').append(questEl);
@@ -699,7 +699,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     if (!a) return;
     // 제1처 앞으로 저절로 걸어가 선다: 중앙 통로로 들어서 → 제1처와 같은 높이까지 → 옆 측랑으로 → 벽 앞 1 m
     const mid = new THREE.Vector3(0, player.pos.y, a.z), stand = new THREE.Vector3(a.x - 1.0, player.pos.y, a.z);
-    toast('제1처 앞으로 걸어갑니다 — 움직이면 멈춥니다');
+    toast('제1처 앞으로 걸어갑니다 — 움직이면 멈춥니다'); guideWalk = true;
     walkVia([new THREE.Vector3(0, player.pos.y, player.pos.z), mid, stand], () => {});
   }
   /** 제k처 앞에 도착했다 — 카드는 열지 않는다(설명은 공중에 뜨는 글 하나뿐). 포인트를 주고 다음 처로 안내한다 */
@@ -710,7 +710,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     award(`station${k}`, PTS.station, `제${k + 1}처에 이르렀습니다`);
     if (k >= total - 1) {
       award('stations-all', PTS.allStations, '십자가의 길 열다섯 처를 모두 걸었습니다');
-      quest = 'candle'; setGuide(anchorOf((ia) => ia.kind === 'candle' && ia.title.includes('제대')), '제대 앞 봉헌초 — 초를 하나 켜고 기도를 고르세요'); toast('십자가의 길을 다 걸었습니다 🙏 마지막으로 제대 앞에서 초를 봉헌해 보세요');
+      toast('십자가의 길을 다 걸었습니다 🙏'); setTimeout(() => flowRest('altar'), 1200);
       return;
     }
     stationK = k + 1; setGuide(stationAnchor(stationK), `십자가의 길 제${stationK + 1}처 — ${STATION_NAMES[stationK]}`);
@@ -720,7 +720,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     askBar(`제${k + 1}처 — ${STATION_NAMES[k]}\n${sIa ? sIa.body : ''}`, [
       { label: `다음 — 제${nk + 1}처로 함께 가기 →`, on: () => {
         const na = stationAnchor(nk); if (!na) return;
-        toast(`제${nk + 1}처 앞으로 함께 걸어갑니다 — 움직이면 멈춥니다`);
+        toast(`제${nk + 1}처 앞으로 함께 걸어갑니다 — 움직이면 멈춥니다`); guideWalk = true;
         walkVia([new THREE.Vector3(na.x + (na.x > 0 ? -1.0 : 1.0), player.pos.y, na.z)], () => {});
       } },
     ], () => { /* 닫으면 그대로 서서 읽는다 */ });
@@ -730,10 +730,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   // ① 야외: 화면을 4초 안 누르면 캐릭터가 성모상 앞으로 가서 선다 → 기도 · 봉헌초 · 다음으로
   // ② 종: «성당 안으로 들어가 종을 울려 볼까요?» (건너뛰거나 닫으면 ③ 으로, 안내를 안 누르고 직접 종을 울려도 끝나면 ③ 으로)
   // ③ 성수대 앞으로 가서 성수 찍기(손동작) → ④ 십자가의 길 / 제대 앞 초 가운데 고르면 그곳으로 걸어가 선다 → ⑤ 자유 → ⑥ 밖으로 나오면 새 빛
-  // 사장님 2026-11-28: 「처음 사이트에 들어가면 순례자가 계단 끝에 서 있게 했다 — 혼자 걸어 내려가면 안 된다」. 입장하면 저절로 시작하던 순례 순서 안내(성모상으로 걸어감)를 끈다. 주소에 ?guide 를 붙이면 시험용으로 시작한다
-  const GUIDE_AUTO = false;
   const GUIDE_IDLE_MS = 4000; // 이 시간 동안 아무것도 안 누르면 안내가 시작한다(느린 기기에서도 실제 시간으로 잰다)
-  let guideIdle = 0, guideTried = false, maryAsked = false, bellAsked = false, wasInside = false, prayUntil = 0, askKind: 'mary' | 'bell' | null = null;
+  let guideIdle = 0, guideTried = false, maryAsked = false, wasInside = false, prayUntil = 0, askKind: 'mary' | 'bell' | null = null;
   const doorIa = () => space?.interactables.find((i) => i.kind === 'door');
   const grottoIa = () => space?.interactables.find((i) => i.kind === 'candle' && i.title.includes('성모'));
   const altarIa = () => space?.interactables.find((i) => i.kind === 'candle' && i.title.includes('제대'));
@@ -803,14 +801,24 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
 
   // (아기 천사 가이드봇은 사장님 2026-11-28 지시로 삭제했다 — 사이트가 무거워진다. 안내는 말풍선(askBar)으로만 한다)
 
+  // ══ 순례 안내 흐름 — 사장님과 9문항으로 확정(2026-11-28, 기획자료/3D-계획/순례-안내-흐름-2026-11-28.md) ══
+  // 입장: 계단 끝에 서 있다(저절로 걷지 않는다) → ① 첫 터치 → 성모상으로 자동 이동 → ② 말풍선 «봉헌초·잠시 기도·다음으로» → ③ 성당 문 앞까지 자동 이동·문이 열림
+  // → ④ 말풍선 «종치기·성수 찍기·다음으로» → ⑤ «십자가의 길 / 제대 앞 봉헌초» 하나 선택 → ⑥ 끝나면 «남은 것도 해 볼까요?» → ⑦ 밖으로 나오면 새 빛(조건 그대로)
+  // 자동으로 걸을 때: 길 따라가기(벽 통과 없음) · 광장은 빠르게, 성당 안은 70% · 카메라는 뒤에서 따라가되 이용자가 돌리면 그 시점이 우선(frame 의 guideWalk)
+  let guideWalk = false, userLookT = 0, flowBell = false;
   function startGuide() {
-    quest = 'mary'; maryAsked = false; bellAsked = false; guideIdle = performance.now();
-    const g = grottoIa(); if (!g) { nextBell(); return; }
+    quest = 'mary'; maryAsked = false; guideIdle = performance.now();
+    const g = grottoIa(); if (!g) { goDoor(); return; }
     setGuide(g.anchor, '성모상 — 성모님께 인사드리고 기도해 보세요');
   }
+  /** 첫 터치: 누른 자리가 아니라 성모상으로 길 따라 걸어간다(순례를 마친 기기·이미 시작한 순례는 평소처럼) */
+  function guideFirstTouch(): boolean {
+    if (!space || space.id !== 'cathedral' || !introDone || intro || spaceLoading || quest !== 'none' || guideTried || points.has('pilgrimage-done')) return false;
+    guideTried = true; startGuide(); goMary(); return true;
+  }
   function goMary() {
-    const g = grottoIa(); if (!g) { nextBell(); return; }
-    guideIdle = Infinity; toast('성모상 앞으로 갑니다 — 움직이면 멈춥니다');
+    const g = grottoIa(); if (!g) { goDoor(); return; }
+    guideIdle = Infinity; guideWalk = true; toast('성모상 앞으로 갑니다 — 움직이면 멈춥니다');
     standBefore(g, 1.8, maryArrive);
   }
   function maryArrive() {
@@ -818,43 +826,66 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     maryAsked = true; const g = grottoIa(); if (g) faceTo(g.anchor);
     setGuide(null);
     askBar('성모님 앞입니다. 잠시 기도하거나 봉헌초를 올려 보세요.', [
-      { label: '🕯️ 봉헌초 올리기', on: () => { const g2 = grottoIa(); if (!g2) return nextBell(); candleGroup = g2.group ?? null; candleTitle = g2.title; openCandleCard(); askKind = 'mary'; } },
-      { label: '🙏 잠시 기도하기', on: () => { prayUntil = performance.now() + 4200; setTimeout(() => nextBell(), 4400); } },
-      { label: '다음으로', on: () => nextBell() },
-    ], () => quietBell());
+      { label: '🕯️ 봉헌초 올리기', on: () => { const g2 = grottoIa(); if (!g2) return goDoor(); candleGroup = g2.group ?? null; candleTitle = g2.title; openCandleCard(); askKind = 'mary'; } },
+      { label: '🙏 잠시 기도하기', on: () => { prayUntil = performance.now() + 4200; setTimeout(() => goDoor(), 4400); } },
+      { label: '다음으로', on: () => goDoor() },
+    ], () => goDoor());
   }
-  /** «닫기» — 창은 그대로 닫히고, 종 안내는 표지만 남긴다. 가만히 8초 있으면 그때 종 안내줄이 다시 나온다(닫자마자 다음 창이 뜨지 않게) */
-  function quietBell() {
-    askKind = null; if (quest !== 'mary') return;
-    quest = 'bell'; bellAsked = false; guideIdle = performance.now();
-    const b = bellIa(); if (b) setGuide(b.anchor, '종 — 성당 안으로 들어가 종 줄을 당겨 보세요');
+  /** ③ 성당 정문 앞(문 밖 3 m)까지 길 따라 걸어간다 — 가까워지면 문이 저절로 열린다. 안으로는 이용자가 직접 들어간다 */
+  function goDoor() {
+    askHide(); askKind = null;
+    if (quest !== 'mary' && quest !== 'none') return;
+    quest = 'door';
+    const d = doorIa(); if (!d) { flowMenu(); return; }
+    setGuide(d.anchor, '성당 문 — 문이 열립니다');
+    if (player.pos.z < d.anchor.z + 3.4 && Math.abs(player.pos.x - d.anchor.x) < 4) { doorArrive(); return; }
+    guideWalk = true; toast('성당 문 앞으로 갑니다 — 움직이면 멈춥니다');
+    walkVia([new THREE.Vector3(d.anchor.x, player.pos.y, d.anchor.z + 3.0)], doorArrive);
   }
-  function nextBell() {
-    askKind = null; if (quest === 'font' || quest === 'choose' || quest === 'candle' || quest === 'stations' || quest === 'done') return;
-    quest = 'bell'; bellAsked = true; const b = bellIa();
-    if (!b) { nextFont(); return; }
-    setGuide(b.anchor, '종 — 성당 안으로 들어가 종 줄을 당겨 보세요');
-    askBar('성당 안으로 들어가 종을 울려 볼까요? (닫으면 성수 찍기로 갑니다)', [
-      { label: '🔔 종 울리러 가기', on: () => { setGuide(null); goInside(() => act({ ia: b, hit: { distance: 1 } as THREE.Intersection })); } },
-      { label: '건너뛰기', on: () => nextFont() },
-    ], () => nextFont());
+  function doorArrive() {
+    if (quest !== 'door') return;
+    quest = 'inside'; setGuide(null); flowMenu();
   }
-  /** 성수대 앞으로 걸어가 성수 찍기(손동작)를 한다 — 끝나면 기존대로 «십자가의 길 / 제대 앞 초» 선택이 뜬다 */
-  function nextFont() {
-    askHide(); askKind = null; if (points.has('font')) { offerNext(); return; }
-    quest = 'font'; const f = fontIa();
-    if (!f) { offerNext(); return; }
-    setGuide(f.anchor, '성수대 — 성수를 찍고 십자성호를 긋습니다');
+  /** ④ «종치기 · 성수 찍기 · 다음으로» — 누르면 길 따라 걸어가 그것을 하고, 끝나면 이 말풍선으로 돌아온다. 둘 다 끝났거나 «다음으로»면 ⑤로 */
+  function flowMenu() {
+    if (quest !== 'inside') return;
+    const fontDone = points.has('font');
+    if (flowBell && fontDone) { offerNext(); return; }
+    const buttons: { label: string; on: () => void }[] = [];
+    const b = bellIa(), f = fontIa();
+    if (b && !flowBell) buttons.push({ label: '🔔 종치기', on: () => { setGuide(null); guideWalk = true; goInside(() => act({ ia: b, hit: { distance: 1 } as THREE.Intersection })); } });
+    if (f && !fontDone) buttons.push({ label: '💧 성수 찍기', on: () => { setGuide(b ? null : f.anchor); flowFont(f); } });
+    buttons.push({ label: '다음으로', on: () => offerNext() });
+    askBar('성당 문이 열렸습니다. 안으로 들어가 종을 울리거나 성수를 찍어 보세요. 하고 싶은 것을 누르면 함께 걸어갑니다.', buttons, () => { /* 닫으면 그대로 둘러본다 */ });
+  }
+  /** 성수대 앞으로 걸어가 성수 찍기(손동작)를 한다 */
+  function flowFont(f: Interactable) {
+    askHide(); guideWalk = true;
     // 정문을 지나 중앙 통로 쪽으로 들어온 뒤, 성수대 옆(통로 쪽)까지 와서 성수대 앞에 선다 — 신랑의 긴 의자를 비스듬히 가로지르지 않게
     goInside(() => walkVia([new THREE.Vector3(f.anchor.x + (f.anchor.x > 0 ? -2.4 : 2.4), player.pos.y, f.anchor.z + 1.5)], () => act({ ia: f, hit: { distance: 1 } as THREE.Intersection })));
   }
   /** 제대 앞 봉헌대 앞으로 걸어가 서면 봉헌초 카드를 연다 */
   function goAltarCandle() {
     const a = altarIa(); if (!a) return;
-    quest = 'candle'; setGuide(a.anchor, '제대 앞 봉헌초 — 초를 하나 켜고 기도를 고르세요');
+    quest = 'candle'; guideWalk = true; setGuide(a.anchor, '제대 앞 봉헌초 — 초를 하나 켜고 기도를 고르세요');
     // 긴 의자를 가로지르지 않게 중앙 통로로 나가 제대 앞까지 곧게 걸은 뒤 봉헌대 앞에 선다
     const y = player.pos.y;
     goInside(() => walkVia([new THREE.Vector3(0, y, player.pos.z), new THREE.Vector3(0, y, a.anchor.z + 2.6)], () => standBefore(a, 1.5, () => { faceTo(a.anchor); candleGroup = a.group ?? null; candleTitle = a.title; openCandleCard(); })));
+  }
+  /** ⑥ 먼저 고른 것을 끝냈다 — 남은 것(other)을 할지 묻는다 */
+  function flowRest(other: 'altar' | 'stations') {
+    setGuide(null);
+    const otherDone = other === 'altar' ? points.has('candle-altar') : points.has('stations-all');
+    if (otherDone) { finishFlow(); return; }
+    quest = 'after';
+    askBar(other === 'altar' ? '십자가의 길을 마쳤습니다. 제대 앞 봉헌초도 해 볼까요?' : '봉헌초를 올렸습니다. 십자가의 길도 걸어 볼까요?', [
+      { label: '해 볼게요', on: () => { if (other === 'altar') goAltarCandle(); else startStations(); } },
+      { label: '이만 마칠게요', on: () => finishFlow() },
+    ], () => finishFlow());
+  }
+  function finishFlow() {
+    quest = 'done'; setGuide(null);
+    toast('순례를 마쳤습니다 🙏 성당 안을 둘러보고, 앉아서 기도해 보세요. 다 보시면 밖으로 나오세요');
   }
   /** 밖으로 나오는 순간: 순례를 마쳤으면 이 성지의 큰 빛 한 개를 받는다 */
   function checkExit() {
@@ -934,6 +965,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   /** 클릭·탭 — 가까운 물건은 바로, 먼 물건은 걸어가서, 땅이면 그 자리로 걸어간다(포켓몬·로블록스식) */
   function clickAt(cx: number, cy: number) {
     if (!space || cardOpen()) return;
+    guideWalk = false;
+    if (guideFirstTouch()) return;
     const hit = farPick(cx, cy);
     if (hit) {
       const d = hit.ia.anchor.distanceTo(player.pos.clone().setY(player.pos.y + 1));
@@ -996,7 +1029,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
             },
             onClose: () => {
               bellGameClose = null; endRinging(); sound.holdMusic(false);
-              if (won && !points.has('font')) { askHide(); toast('이제 성수대 앞으로 갑니다 💧'); setTimeout(() => nextFont(), 900); }
+              if (won) { flowBell = true; if (quest === 'inside') setTimeout(() => flowMenu(), 900); }
             },
           }, scored ? { scored: true, bonus: PTS.bell } : { scored: false, note: `※ 방금 포인트를 받았습니다. 지금은 소리만 납니다 — 성당 안을 둘러보고 ${Math.max(1, Math.ceil(wait / 60))}분쯤 뒤에 오세요 (남은 ${Math.floor(wait / 60)}분 ${wait % 60}초)` });
         };
@@ -1045,7 +1078,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       // v3-8: 성모 동굴의 초는 +30, 제대 앞 봉헌대의 초는 +20 (각 봉헌대 한 번)
       const grotto = candleTitle.includes('성모');
       award(grotto ? 'candle-grotto' : 'candle-altar', grotto ? PTS.candleGrotto : PTS.candleAltar, grotto ? '성모님께 초를 봉헌' : '제대 앞에 초를 봉헌');
-      if (quest === 'candle') { quest = 'done'; setGuide(null); toast('순례를 마쳤습니다 🙏 성당 안을 둘러보고, 앉아서 기도해 보세요. 다 보시면 밖으로 나오세요'); }
+      if (quest === 'candle') flowRest('stations');
     }
     c.lit = lit; c.phrase = phrase; c.by = by;
     c.text = text || (lit && by === myName ? myTexts.get(id) ?? '' : '');
@@ -1258,7 +1291,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       if (!drag) { canvas.style.cursor = hoverPick(e.clientX, e.clientY) ? 'pointer' : 'default'; return; }
       const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
       drag.moved += Math.abs(dx) + Math.abs(dy); drag.x = e.clientX; drag.y = e.clientY;
-      if (drag.moved > 5) { player.look(dx * 0.0048, dy * 0.0042); canvas.style.cursor = 'grabbing'; }
+      if (drag.moved > 5) { userLookT = performance.now(); player.look(dx * 0.0048, dy * 0.0042); canvas.style.cursor = 'grabbing'; }
     });
     canvas.addEventListener('pointerup', (e) => {
       if (drag && drag.moved <= 6 && performance.now() - drag.t < 450) clickAt(e.clientX, e.clientY);
@@ -1287,7 +1320,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       const dx = e.clientX - tp.x, dy = e.clientY - tp.y;
       tp.moved += Math.abs(dx) + Math.abs(dy);
       tp.x = e.clientX; tp.y = e.clientY;
-      player.look(dx * 0.006, dy * 0.006);
+      userLookT = performance.now(); player.look(dx * 0.006, dy * 0.006);
     });
     const end = (e: PointerEvent) => {
       if (!tp || e.pointerId !== tp.id) return;
@@ -1379,7 +1412,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
         mv.x = (keys.has('KeyD') || keys.has('ArrowRight') ? 1 : 0) - (keys.has('KeyA') || keys.has('ArrowLeft') ? 1 : 0) + joy.x;
       }
       let len = Math.hypot(mv.x, mv.z);
-      if (len > 0.2) { moveTarget = null; pendingAct = null; marker.visible = false; if (arrive) { arrive = null; ringing = false; } }
+      if (len > 0.2) { moveTarget = null; pendingAct = null; marker.visible = false; guideWalk = false; if (arrive) { arrive = null; ringing = false; } }
       // 클릭한 자리로 걸어가기 — 카메라 방향 기준 입력으로 바꿔 넣는다
       if (moveTarget && len <= 0.2) {
         const dx = moveTarget.x - player.pos.x, dz = moveTarget.z - player.pos.z, dist = Math.hypot(dx, dz);
@@ -1395,6 +1428,11 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           mv.z = (dx * fx + dz * fz) / dist; mv.x = (dx * rx + dz * rz) / dist;
           mv.run = dist > 12;
           len = 1;
+          if (guideWalk) {
+            // 안내를 따라 자동으로 걸을 때(사장님 2026-11-28): 성당 안은 천천히(70%), 광장은 그대로 빠르게. 카메라는 가는 방향 뒤에서 부드럽게 따라가되 이용자가 화면을 돌린 직후 2.5초는 그 시점이 우선
+            if (space.interior && space.interior.containsPoint(player.pos)) { mv.run = false; mv.x *= 0.7; mv.z *= 0.7; }
+            if (now - userLookT > 2500) { let dyw = Math.atan2(-dx, -dz) - player.yaw; while (dyw > Math.PI) dyw -= Math.PI * 2; while (dyw < -Math.PI) dyw += Math.PI * 2; player.yaw += dyw * (1 - Math.exp(-2.4 * dt)); }
+          }
           moveStuck = mySpeed < 0.25 ? moveStuck + dt : 0;
           if (moveStuck > 0.45) { // 막혔다 — 벽 앞에서 바로 멈춘다(방향키로 다시 움직인다). 종 줄로 가던 길이면 마지막 한 걸음은 옮겨 준다
             moveTarget = null; moveWps = []; pendingAct = null; marker.visible = false;
@@ -1402,6 +1440,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           }
         }
       }
+      if (!moveTarget && !arrive) guideWalk = false;
       // 휴대폰 달리기(2026-11-22): 조이스틱을 끝까지 민 채 1초가 지나면 달린다. 덜 밀거나 떼면 걷기로
       if (joy.length() > 0.95) joyFull += dt; else joyFull = 0;
       if (joyFull > 1) mv.run = true;
@@ -1544,7 +1583,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           if (on !== h.on) { h.on = on; if (on) holoSay(h); else if (bubbleKey === `holo:${h.ia.id}`) { askEl.hidden = true; bubbleKey = ''; stopSpeech(); } }
         }
         // ── 순례 순서 안내: 시작 · 4초 가만히 있으면 성모상으로 · 밖으로 나오면 새 빛 ──
-        if (space.id === 'cathedral' && introDone && !intro && !spaceLoading && quest === 'none' && !guideTried && (!points.has('pilgrimage-done') || params.has('guide'))) { guideTried = true; if (GUIDE_AUTO || params.has('guide')) startGuide(); }
+        if (space.id === 'cathedral' && introDone && !intro && !spaceLoading && quest === 'none' && !guideTried && params.has('guide')) { guideTried = true; startGuide(); }
         if (quest === 'mary' && !maryAsked) {
           const gi = grottoIa();
           const busy = joy.length() > 0.1 || keys.size > 0 || !!moveTarget || !!pendingAct || cardOpen() || ringing || crossing || !!intro;
@@ -1552,11 +1591,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           if (guideIdle !== Infinity && now - guideIdle >= GUIDE_IDLE_MS) goMary();
           else if (gi && Math.hypot(gi.anchor.x - player.pos.x, gi.anchor.z - player.pos.z) < 2.6 && !cardOpen()) maryArrive();
         }
-        if (askKind === 'mary' && !cardOpen()) { askKind = null; if (points.has('candle-grotto')) setTimeout(() => nextBell(), 700); else quietBell(); }
-        if (quest === 'bell' && !bellAsked && askEl.hidden) {
-          const busy2 = joy.length() > 0.1 || keys.size > 0 || !!moveTarget || !!pendingAct || cardOpen() || ringing || crossing;
-          if (busy2) guideIdle = now; else if (now - guideIdle >= 8000) nextBell();
-        }
+        if (askKind === 'mary' && !cardOpen()) { askKind = null; setTimeout(() => goDoor(), 700); }
         me.pray = !!player.sitting || performance.now() < prayUntil;
         checkExit();
         if (quest === 'stations' && stationShown !== stationK) {
@@ -1594,5 +1629,5 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   void loadSpace(first);
   requestAnimationFrame(frame);
   // 점검용 손잡이(브라우저 콘솔 · 자동 시험)
-  (window as any).__vhk = { get quest() { return quest; }, get nav() { return nav; }, barrier, lights, grantLight, get camDist() { return camDist; }, holos, points, startStations, reachStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
+  (window as any).__vhk = { flowRest, get guideWalk() { return guideWalk; }, get quest() { return quest; }, get nav() { return nav; }, barrier, lights, grantLight, get camDist() { return camDist; }, holos, points, startStations, reachStation, offerNext, get composer() { return composer; }, setMoveTarget, act, applyCandle, grade, NEAR_FADE, setHour, sound, get bodyYaw() { return bodyYaw; }, set bodyYaw(v: number) { bodyYaw = v; }, scene, me, AVATARS, buildAvatar, animateAvatar, sunDirOf: () => sunDir, player, net, get space() { return space; }, renderer, camera, loadSpace, pick: () => pickAt(new THREE.Vector2(0, 0)), farPick, clickAt, ndcOf, raycaster, get target() { return target; } };
 }
