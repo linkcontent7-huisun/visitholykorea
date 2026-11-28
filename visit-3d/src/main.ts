@@ -1448,6 +1448,13 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
       if (len > 1) { mv.x /= len; mv.z /= len; }
       if (tour && len > 0.2 && !moveTarget) stopTour();
       if (crossing) { mv.x = mv.z = 0; len = 0; driveCross(dt); }
+      // 방향을 바꿀 때 «몸을 먼저 돌리고» 간다(사장님 2026-11-28: 방향을 틀 때 너무 획획 움직인다). 걷는 방향과 몸이 많이 어긋나 있으면 어긋난 만큼 천천히 걷는다(최저 30%)
+      if (len > 0.2 && !firstPerson()) {
+        const wx0 = -Math.sin(player.yaw) * mv.z + Math.cos(player.yaw) * mv.x, wz0 = -Math.cos(player.yaw) * mv.z - Math.sin(player.yaw) * mv.x;
+        let d0 = Math.atan2(-wx0, -wz0) - bodyYaw; while (d0 > Math.PI) d0 -= Math.PI * 2; while (d0 < -Math.PI) d0 += Math.PI * 2;
+        const align = Math.abs(d0) < 0.35 ? 1 : Math.max(0.3, 1 - (Math.abs(d0) - 0.35) / 1.6);
+        mv.x *= align; mv.z *= align;
+      }
       lastPos.copy(player.pos);
       player.update(dt, mv, space.bvh, space.doors);
       if (player.pos.y < -20) player.place(space.spawn.pos, space.spawn.yaw);
@@ -1464,7 +1471,8 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
         let dy = Math.atan2(-wx, -wz) - bodyYaw;
         while (dy > Math.PI) dy -= Math.PI * 2;
         while (dy < -Math.PI) dy += Math.PI * 2;
-        bodyYaw += dy * (1 - Math.exp(-12 * dt));
+        const step = dy * (1 - Math.exp(-5.5 * dt)), cap = 6.5 * dt;   // 부드럽게(전에는 12) + 초당 6.5 라디안 넘게는 돌지 않는다
+        bodyYaw += Math.max(-cap, Math.min(cap, step));
       }
       document.body.classList.toggle('ringing', !!camFix);
       if (camFix && space.bellRinger) bodyYaw = space.bellRinger.yaw; // 줄을 잡은 동안은 줄 쪽을 본다(자리에 옮겨 설 때 생기는 속도로 몸이 돌지 않게)
