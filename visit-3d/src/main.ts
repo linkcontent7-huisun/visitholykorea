@@ -592,7 +592,7 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   raycaster.far = 4;
   let target: { ia: Interactable; hit: THREE.Intersection } | null = null;
   const badges: { o: CSS2DObject; el: HTMLButtonElement; ia: Interactable }[] = [];
-  const holos: { title: string; body: string; ia: Interactable; on: boolean; hidden?: boolean; md?: number; hx?: number; hz?: number }[] = [];
+  const holos: { title: string; body: string; ia: Interactable; on: boolean; sticky?: boolean; hidden?: boolean; md?: number; hx?: number; hz?: number }[] = [];
   const hideHolo = (h: (typeof holos)[number]) => { h.hidden = true; h.hx = player.pos.x; h.hz = player.pos.z; };
   let candleGroup: string[] | null = null, candleTitle = '봉헌초';
   // v3-6 놀이 덧판(열려 있으면 닫는 함수) · 내가 직접 쓴 기도(예전 방 서버는 글을 돌려주지 않으므로 내 화면에서는 여기서 보충한다)
@@ -781,7 +781,10 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
   /** 설명대·십자가의 길 처의 글을 말풍선으로. 다른 안내(질문)가 떠 있으면 건드리지 않는다 */
   function holoSay(h: (typeof holos)[number]) {
     if (!askEl.hidden && bubbleKey !== '' && !bubbleKey.startsWith('holo')) return;
-    askBar(`${h.title}\n${h.body}`, [], () => { hideHolo(h); }, `holo:${h.ia.id}`);
+    // 안내를 따라 자동으로 걷는 길에 뜬 설명(예: «이 공간에 대하여» — 비지트홀리코리아 소개)은 «닫기»를 누를 때까지 그대로 둔다(사장님 2026-11-28: 읽을 시간 없이 금방 닫힌다). 다른 설명이 덮어쓰지도 않는다
+    const cur = bubbleKey.startsWith('holo:') && !askEl.hidden ? holos.find((x) => `holo:${x.ia.id}` === bubbleKey) : null;
+    if (cur && cur !== h && cur.sticky && cur.on && !cur.hidden) return;
+    askBar(`${h.title}\n${h.body}`, [], () => { hideHolo(h); h.sticky = false; const f = afterHoloClose; afterHoloClose = null; f?.(); }, `holo:${h.ia.id}`);
   }
   const askHide = () => { askEl.hidden = true; bubbleKey = ''; stopSpeech(); };
   /** 성당 밖(정문 앞)에 있으면 정문을 지나 안으로 들어간 뒤 done 을 부른다 */
@@ -843,9 +846,12 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
     guideWalk = true; toast('성당 문 앞으로 갑니다 — 움직이면 멈춥니다');
     walkVia([new THREE.Vector3(d.anchor.x, player.pos.y, d.anchor.z + 3.0)], doorArrive);
   }
+  /** 걷는 길에 뜬 설명을 아직 읽고 있으면(닫기 전) 문 앞에 닿아도 다음 말풍선을 덮어씌우지 않고, «닫기» 뒤에 보여 준다 */
+  let afterHoloClose: (() => void) | null = null;
   function doorArrive() {
     if (quest !== 'door') return;
-    quest = 'inside'; setGuide(null); flowMenu();
+    quest = 'inside'; setGuide(null);
+    if (!askEl.hidden && bubbleKey.startsWith('holo:')) afterHoloClose = () => flowMenu(); else flowMenu();
   }
   /** ④ «종치기 · 성수 찍기 · 다음으로» — 누르면 길 따라 걸어가 그것을 하고, 끝나면 이 말풍선으로 돌아온다. 둘 다 끝났거나 «다음으로»면 ⑤로 */
   function flowMenu() {
@@ -1585,11 +1591,11 @@ function start(nick: string, first: SpaceId, high: boolean, myAvatar: string) {
           // 멀어지거나(3.6 m) 닫은 자리에서 2.2 m 넘게 걸어가면 다시 보일 수 있게 — 다음 처로 가면 그 처의 글이 뜬다
           if (h.hidden && (dh > 3.6 || (h.hx !== undefined && Math.hypot(player.pos.x - h.hx, player.pos.z - h.hz!) > 2.2))) h.hidden = false;
           // 다가갈 때는 그대로 두고, 가장 가까이 갔던 때보다 1.6 m 넘게 멀어지면 글은 거둔다 — 길을 가리지 않게
-          if (h.on) { h.md = Math.min(h.md ?? dh, dh); if (dh - h.md > 1.6) hideHolo(h); }
+          if (h.on && !h.sticky) { h.md = Math.min(h.md ?? dh, dh); if (dh - h.md > 1.6) hideHolo(h); }
           if (cardOpen()) hideHolo(h);
-          const on = dh < 3.2 && dy < 2.5 && !h.hidden && h === nearH;
+          const on = (h.sticky && h.on && !h.hidden) || (dh < 3.2 && dy < 2.5 && !h.hidden && h === nearH);
           if (on && !h.on) h.md = dh;
-          if (on !== h.on) { h.on = on; if (on) holoSay(h); else if (bubbleKey === `holo:${h.ia.id}`) { askEl.hidden = true; bubbleKey = ''; stopSpeech(); } }
+          if (on !== h.on) { h.on = on; if (on) { h.sticky = guideWalk; holoSay(h); } else if (bubbleKey === `holo:${h.ia.id}`) { askEl.hidden = true; bubbleKey = ''; stopSpeech(); const f = afterHoloClose; afterHoloClose = null; f?.(); } }
         }
         // ── 순례 순서 안내: 시작 · 4초 가만히 있으면 성모상으로 · 밖으로 나오면 새 빛 ──
         if (space.id === 'cathedral' && introDone && !intro && !spaceLoading && quest === 'none' && !guideTried && !points.has('pilgrimage-done')) {
