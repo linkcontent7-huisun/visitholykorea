@@ -236,7 +236,7 @@ export function buildHanji(def: AvatarDef): AvatarRig {
     wingL = mk(-1); wingR = mk(1);
   }
 
-  // ── 머리: 얼굴은 그리지 않는다 ──
+  // ── 머리 ──
   const head = new THREE.Group(); head.position.set(0, 1.33, 0); body.add(head);
   if (L.child) head.scale.setScalar(1.2);
   const hb = new Batch();
@@ -256,7 +256,7 @@ export function buildHanji(def: AvatarDef): AvatarRig {
       hb.add(new THREE.SphereGeometry(0.2, 10, 7, 0, Math.PI * 2, 0, Math.PI * 0.76), 0xfbf7ec, 0, 0.005, 0, 0.5);
       break;
     case 'nunveil':                                                                   // 수녀 너울: 흰 띠 + 검은 너울
-      hb.add(new THREE.SphereGeometry(0.205, 10, 7, 0, Math.PI * 2, 0, Math.PI * 0.8), 0x2b2a2e, 0, 0.005, 0.01, 0.5);
+      hb.add(new THREE.SphereGeometry(0.205, 10, 7, 0, Math.PI * 2, 0, Math.PI * 0.8), 0x2b2a2e, 0, 0.005, 0.01, 1.15);   // 앞이 열리도록 기울여 얼굴(눈·입)이 보이게(2026-11-28)
       hb.add(new THREE.CylinderGeometry(0.18, 0.18, 0.04, 12, 1, true), 0xfbf7ec, 0, 0.07, 0, 0.3);
       break;
     case 'sangtu':                                                                    // 상투 + 망건
@@ -322,6 +322,27 @@ export function buildHanji(def: AvatarDef): AvatarRig {
       break;
     default:
       cap();
+  }
+  // ── 얼굴(사장님 2026-11-28: 「눈과 입을 그려줘 — 자연스러운 얼굴로」): 한지 인형의 둥근 머리 앞에 눈 · 눈썹 · 입 · 볼을 작게 붙인다(부품 몇 개를 머리와 같은 덩어리로 합쳐 그리기 호출은 늘지 않는다) ──
+  {
+    const R = 0.163, EYE = 0x2a1f1a, BROW = 0x3a2c22, LIP = 0x9a4f45, BLUSH = 0xeab5a2;
+    // 머리 앞쪽 (x, y) 지점에 표면을 따라 붙이는 자리·기울기
+    const onHead = (x: number, y: number, out = 0) => {
+      const z = -Math.sqrt(Math.max(0.0001, R * R - x * x - y * y)) - out;
+      return { x, y, z, rx: Math.asin(Math.max(-1, Math.min(1, y / R))), ry: -Math.asin(Math.max(-1, Math.min(1, x / R))) };
+    };
+    for (const sx of [-1, 1]) {
+      const e = onHead(sx * 0.058, 0.004, 0.003);
+      hb.add(new THREE.SphereGeometry(0.017, 8, 6).scale(0.82, 1.3, 0.5), EYE, e.x, e.y, e.z, e.rx, e.ry, 0);          // 눈: 세로로 살짝 긴 타원
+      const hl = onHead(sx * 0.058 + 0.005, 0.014, 0.008);
+      hb.add(new THREE.SphereGeometry(0.0055, 5, 4), 0xffffff, hl.x, hl.y, hl.z);                                            // 눈빛(작은 흰 점)
+      const b = onHead(sx * 0.06, 0.047, 0.002);
+      hb.add(new THREE.BoxGeometry(0.036, 0.0065, 0.006), BROW, b.x, b.y, b.z, b.rx, b.ry, sx * -0.14);                    // 눈썹: 바깥이 살짝 내려간다
+      const c = onHead(sx * 0.098, -0.034, 0.001);
+      hb.add(new THREE.SphereGeometry(0.02, 7, 5).scale(1, 0.7, 0.28), BLUSH, c.x, c.y, c.z, c.rx, c.ry, 0);                // 볼 홍조
+    }
+    const m = onHead(0, -0.062, 0.002);
+    hb.add(new THREE.TorusGeometry(0.03, 0.0048, 4, 9, Math.PI), LIP, m.x, m.y + 0.012, m.z, m.rx, m.ry, Math.PI);          // 입: 은은한 미소(∪)
   }
   head.add(hb.mesh()!);
 
